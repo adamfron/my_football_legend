@@ -1,0 +1,674 @@
+{
+  "version": 1,
+  "policy": "state-value-v1",
+  "developmentRevision": 2,
+  "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+  "policyConfigSha256": "42b2bfba9198063f581bc82edcd2c327e119e0803369b91a7c219c83fbfa822b",
+  "files": [
+    {
+      "path": "src/core/matchSimulation/actionAgency.ts",
+      "normalizedSha256": "a952df6514404dbd5930012cbde22773ce3aa55f403dbf9035aa1cd4fb8a822e"
+    },
+    {
+      "path": "src/core/matchSimulation/actionEvents.ts",
+      "normalizedSha256": "22e6340bb4398bdfdbe8f6c7bd3761925345407115f4465b6a4bce350007db72"
+    },
+    {
+      "path": "src/core/matchSimulation/actionImpact.ts",
+      "normalizedSha256": "9ce8abe4f5034839b4179ef5218f4ea3910a4de737887a22e6de00bf44a4d3aa"
+    },
+    {
+      "path": "src/core/matchSimulation/actionLifecycle.ts",
+      "normalizedSha256": "51704a113db2c83b89aaf6571369a6644c5502c353c1f45ec53a61ef04759557"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPlay.ts",
+      "normalizedSha256": "effa54d3917992142ad95a38b1c20c0664c53a627f25985ccbfc4226cea17a74"
+    },
+    {
+      "path": "src/core/matchSimulation/agencyCalibration.ts",
+      "normalizedSha256": "902f1e7187779f7594193645aeb2f9ae4a3c40bfdc0d71070747ff5a0a73b086"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnel.ts",
+      "normalizedSha256": "d7494825f7de770e9b7199252350af3d8d3123ea79d2b82ef4eee531490c47af"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnelAudit.ts",
+      "normalizedSha256": "b632c5ad1b61a56fc1f17bd8e3fd73df63bdf36c10f1285920e96a5b34542c85"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingTransition.ts",
+      "normalizedSha256": "d817ae2c7f16fd2b77626b9b642625176ce1b9c196f606e646d761025673067b"
+    },
+    {
+      "path": "src/core/matchSimulation/attributeMicroLab.ts",
+      "normalizedSha256": "cbc983bc122429c7850bbbb50e2c62a9e7a00809f79919d4098a42be0e10c416"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundBenchmark.ts",
+      "normalizedSha256": "5a22047634f11e1c9259ac5932a73687921ce05ba976bf91d1e4c4c762654007"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundPerformance.ts",
+      "normalizedSha256": "798cc91042679d3734ff93c16805c4fef0b75f095a86cf2069650f17e51a642b"
+    },
+    {
+      "path": "src/core/matchSimulation/ballAcquisition.ts",
+      "normalizedSha256": "cc8f841665370aa2c26f3c7d2b4767eb1a31f3ac8f026d787fcd493aefb9a751"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactGeometry.ts",
+      "normalizedSha256": "55b1abe5c61072458286445188af7d99a7cb4250244bec33d080395726654f47"
+    },
+    {
+      "path": "src/core/matchSimulation/ballFlight.ts",
+      "normalizedSha256": "5d3633e379789d43fd72f4876bd729e9e9e65832e773fa1bbb087a9d30e76a25"
+    },
+    {
+      "path": "src/core/matchSimulation/ballPhysics.ts",
+      "normalizedSha256": "711579f201eda1cefef028a39f0d629f52a4c1bec973f29666f13b2d14f0eae8"
+    },
+    {
+      "path": "src/core/matchSimulation/benchmarkFixtures.ts",
+      "normalizedSha256": "fb666b509de5b88543608e59bf123a0260ab69a797951232a40d71454ab648f5"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMatchSanity.ts",
+      "normalizedSha256": "a4c648f1549db500ad136223cde0ddbadcb714e6d45545bdbcfa4dab6eae7e16"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalPresentation.ts",
+      "normalizedSha256": "dc0169f29f474c5717cb4b5f12a08620036ea4960cb5e1826f7ab069ed5b019c"
+    },
+    {
+      "path": "src/core/matchSimulation/carryExecution.ts",
+      "normalizedSha256": "7d8058c2ec0b2dfbbeef7abdf2e9674bbd83aa0bc7c246d0e72c58dad27fb2e5"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "normalizedSha256": "5fd9f37f3d035dd974cac5e8ca82de8e88a4647ba85a0d2d43ee577ccb2483fe"
+    },
+    {
+      "path": "src/core/matchSimulation/carryPursuit.ts",
+      "normalizedSha256": "aeef6d2946c85c453833c8fbd1c5ff2509390266b66b66bfb97eb9f03e54fceb"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationPlay.ts",
+      "normalizedSha256": "bcf53d2f81fa097f7b66f6f7c3f0010222094005dedd78a8bd81bda353c4f443"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationState.ts",
+      "normalizedSha256": "a09d657bf69499a46279fff7be12dda19e1fa5e15c23c89e0fc2c6f8da7785e5"
+    },
+    {
+      "path": "src/core/matchSimulation/contactEvidence.ts",
+      "normalizedSha256": "a64b81507736a8dc0dec96af0e5540402cf863940ea482a76f5e8dd0436edab0"
+    },
+    {
+      "path": "src/core/matchSimulation/contactTacticalDiagnostics.ts",
+      "normalizedSha256": "365d78486d344c8e8ce2aaee94062d628fa06912851b933d5c7500267f2959af"
+    },
+    {
+      "path": "src/core/matchSimulation/contextualInteractions.ts",
+      "normalizedSha256": "eea275620bcf1463f0b65fa3faaed6ffe90e7df46dfda9cfde65912dd3f22329"
+    },
+    {
+      "path": "src/core/matchSimulation/deadBallEnclosure.ts",
+      "normalizedSha256": "75c3e5756e669112d65d9168b6affb6df2c9cece16cd68384f96b2556a21f67c"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionOutcome.ts",
+      "normalizedSha256": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicy.ts",
+      "normalizedSha256": "c4caf5bdf987b9d7c1291407570314e3bb2f0d96c7d8452faf0fa2b7d54f293f"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicyConfig.ts",
+      "normalizedSha256": "42b2bfba9198063f581bc82edcd2c327e119e0803369b91a7c219c83fbfa822b"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionReadiness.ts",
+      "normalizedSha256": "1743d8a8f62f0ef4a73570c0dd9ccb1f45b7b81634ab127b58e10bedef04ba6b"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionStateValue.ts",
+      "normalizedSha256": "5c76d45aa01ac22fc1694026e54c070fec150a9859037a0150566168574fc730"
+    },
+    {
+      "path": "src/core/matchSimulation/defensiveChallenges.ts",
+      "normalizedSha256": "f3220bdcedc9ff5b27da1ee572777c10fae318c6cb0d62e2f464e8b250e19f43"
+    },
+    {
+      "path": "src/core/matchSimulation/dynamicIntervention.ts",
+      "normalizedSha256": "2c247e7a347d637566927df147b7f4431d27de92e16551a8966e8cc52badd640"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTimePassing.ts",
+      "normalizedSha256": "67ad6f69a32b75f7440184f7acf20b713ba01b241479933a02e72c7481d671b9"
+    },
+    {
+      "path": "src/core/matchSimulation/fitnessMicroLab.ts",
+      "normalizedSha256": "ba9e131b705c4e35c93e4747e8873a8d1314cb372b676512cdcfb26c739c0f0d"
+    },
+    {
+      "path": "src/core/matchSimulation/footballIntelligenceDiagnostics.ts",
+      "normalizedSha256": "9e8ce023d5a0cf1593c09890ba681979ba5b255ee197b54c7122e6577b8a6fba"
+    },
+    {
+      "path": "src/core/matchSimulation/goalCoordinates.ts",
+      "normalizedSha256": "b6277c370055ad317b00acdce5cf2d0d5cff3b859b2e32efd2d3e6c5e115c068"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperClaim.ts",
+      "normalizedSha256": "4c41e5c2e8e2fdba99f21bd3fe24b20998f1febb55f7fc0136dfb4af0a42b56f"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperIntervention.ts",
+      "normalizedSha256": "0dbe943e011f145c1c7c779cabea047e0c5be1ad8a2d559f5f62f19a82ef32ac"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperPositioning.ts",
+      "normalizedSha256": "8e0b66b93dc35f3cc2022d2d660dbb36fa315eceb1a80de732712c578cd80a3a"
+    },
+    {
+      "path": "src/core/matchSimulation/identityHistory.ts",
+      "normalizedSha256": "a053df52915c1994e2699bb3ec9ad915ebb89aece2c939fa2a41fd052f18272f"
+    },
+    {
+      "path": "src/core/matchSimulation/index.ts",
+      "normalizedSha256": "aa152f60d02cd9324ea4af4e68258343a0b2461cbfa2be36477daa97d4731661"
+    },
+    {
+      "path": "src/core/matchSimulation/injuryStoppage.ts",
+      "normalizedSha256": "87ee6f5dbd82616867a781ae649cade58b579b3288c3999b1f5bf0019b7eb5c6"
+    },
+    {
+      "path": "src/core/matchSimulation/locomotion.ts",
+      "normalizedSha256": "c47446e4a763058fcc25945b47667f3c470576826d718aa2a269826137f901e5"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallLiveness.ts",
+      "normalizedSha256": "6885f539edd5b20bb7e09b8493b9675d3369412ee66926ec51a5da3ebffaaff7"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallPhysics.ts",
+      "normalizedSha256": "00df4b39314c094be1a3eed43ccbf7ff0434fdef2cec3471a6e8ae177237efda"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "normalizedSha256": "5dcd2599fae21a2e26e48e2f8e5c40ea701895c8f9b7f62c2f3aa7db4569ff82"
+    },
+    {
+      "path": "src/core/matchSimulation/matchCentreStatistics.ts",
+      "normalizedSha256": "1f6c75d9d1483d112ae084b8219765afeab3d623751cb40423993c48dd12c666"
+    },
+    {
+      "path": "src/core/matchSimulation/matchEventFeed.ts",
+      "normalizedSha256": "65ddd25a2212fa32eff27527f0c6d6bd25466d173bb8ae090ded7f673edffda7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFitness.ts",
+      "normalizedSha256": "a0e827218f33496d1a71129cfb0fa0095381e4f2641077f100b57b702b9201ec"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowCalibration.ts",
+      "normalizedSha256": "5f11b0cc7e57afe02c6fec3eb0d9b5cf248df702d77eb5d1dc83bd971afdec31"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowTelemetry.ts",
+      "normalizedSha256": "21594d86a552f043e5e13245e18511a4dd78299c3ad364167be03f15e4c5ba42"
+    },
+    {
+      "path": "src/core/matchSimulation/matchGoalkeeper.ts",
+      "normalizedSha256": "a03e4270776c986dee6023fde7054421533244039333c17e970749fd834e8d7f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchInjuries.ts",
+      "normalizedSha256": "1356eab111fe24a43ffe2cb9c404641d61ba3810362c0a37fb876590db000ebd"
+    },
+    {
+      "path": "src/core/matchSimulation/matchMoment.ts",
+      "normalizedSha256": "1ca58980b14b2f238860c7f25bcdb99f3f99a145c5e99c07815e15b9831dfaa7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchParticipants.ts",
+      "normalizedSha256": "6f6f5052024e86b4095b8fb59a53284cde5164eea45c312f25c0ab9a502fe89b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchPresentation.ts",
+      "normalizedSha256": "2bd57cfedf3f7bc615c46cce94b15fdbcbcc91daa1524a8aa6847590d0c2cebf"
+    },
+    {
+      "path": "src/core/matchSimulation/matchReplay.ts",
+      "normalizedSha256": "6d575b2a72892cd8bf1a24c08a342afa67cdebe5d263b1f7cab2d1094ce199c7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchRules.ts",
+      "normalizedSha256": "2c6675fd14e2c33917f5948f10b345c82cc95dddaf5e1b42d585ad8a6e15d38a"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSimulation.ts",
+      "normalizedSha256": "b78b8ddab8fdff038e6db53b11077e2a79d0d0d4907d26ac614a364b852a6e45"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
+      "normalizedSha256": "7f667cf65b51a93bdd0fe07e60b28e7432745968317d76bda07d1925ebe34a71"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSpace.ts",
+      "normalizedSha256": "ed0c0bba51b8dd0ff47253d7f1beae3ac4db70168a6625f867dbe6f47eb780e8"
+    },
+    {
+      "path": "src/core/matchSimulation/matchState.ts",
+      "normalizedSha256": "25defa65677a3424ba044c71ad2bc46e2f34f3a7a59cd3c1b832bb72bf4af081"
+    },
+    {
+      "path": "src/core/matchSimulation/matchTimekeeping.ts",
+      "normalizedSha256": "de0b3592d72e33135bd8803532df42bb25bb38ec5c47429397d75dfd7ea2f924"
+    },
+    {
+      "path": "src/core/matchSimulation/movementAuthority.ts",
+      "normalizedSha256": "85be85b4e1749ce3b454f4f17a7b8d527af7ce1a2d36192489f55ee8bdb5e755"
+    },
+    {
+      "path": "src/core/matchSimulation/offensiveContinuationFunnel.ts",
+      "normalizedSha256": "d8ef2c738a2b8a67c3acb9f623f0a601dde20142dd23f5a4b0e967aa5f9ec911"
+    },
+    {
+      "path": "src/core/matchSimulation/offside.ts",
+      "normalizedSha256": "82f1da4443c622d66310eb77bb3edb4f5a5c1d6816db39f80e4b432716d15390"
+    },
+    {
+      "path": "src/core/matchSimulation/onBallPreparation.ts",
+      "normalizedSha256": "b508090bd482e6da079089e55d70e9562f33febafdb6f3ce43dda5f2bdf22651"
+    },
+    {
+      "path": "src/core/matchSimulation/passClaimResolver.ts",
+      "normalizedSha256": "2b6ca4e36cca88fcdb9fbd4e8a418e3a315018708c8f053d79386f1a980888a9"
+    },
+    {
+      "path": "src/core/matchSimulation/passClassification.ts",
+      "normalizedSha256": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "normalizedSha256": "88b8abcfab41a24bbde2a6f9f82f4b27ede92941aefe7b10752a5dab118fa657"
+    },
+    {
+      "path": "src/core/matchSimulation/passExecution.ts",
+      "normalizedSha256": "45f918ee8f0b0f975b179cae3b3fc25579dd28b9c5c84e9a7af8b04a28676e70"
+    },
+    {
+      "path": "src/core/matchSimulation/passLaunchPlan.ts",
+      "normalizedSha256": "975ff82b98d6a481ceccd5e609e09721f6616f57620ab05bb47d7b8396e8ec34"
+    },
+    {
+      "path": "src/core/matchSimulation/passReception.ts",
+      "normalizedSha256": "5101d4730d46babea7e734e46eed21a36648d6ab5680f0bc2623716f7a143305"
+    },
+    {
+      "path": "src/core/matchSimulation/passingConnectivityDiagnostics.ts",
+      "normalizedSha256": "1316512562e76439324226a2a876a34f711188e24c88280b901bb46696120aef"
+    },
+    {
+      "path": "src/core/matchSimulation/performanceProfiling.ts",
+      "normalizedSha256": "5e50073cd69e540f3bd3be4f28edb6b188341e9e9263e13b41a689647c927cb3"
+    },
+    {
+      "path": "src/core/matchSimulation/pitchBoundary.ts",
+      "normalizedSha256": "9b732b20295e190f6f538979f856c12bac35f994d1fce4de5b4ef8d8f2847c93"
+    },
+    {
+      "path": "src/core/matchSimulation/playerActiveMinutes.ts",
+      "normalizedSha256": "06e1ffde7b9bc8eac314b3605c64760bda28bf6f42c18d2fbc5241f8d2e822a8"
+    },
+    {
+      "path": "src/core/matchSimulation/playerAgency.ts",
+      "normalizedSha256": "69f239096bbfc9cb9c1ca14e438647032db02d7f925afff9e759a937372a0f05"
+    },
+    {
+      "path": "src/core/matchSimulation/playerArrival.ts",
+      "normalizedSha256": "a9cecf8b38a0d7c4592e95c5e3e951de4a365fc195b4919f6ce747015273f98b"
+    },
+    {
+      "path": "src/core/matchSimulation/playerDecision.ts",
+      "normalizedSha256": "a1cd6b6d8e6412d03fcdd84215d849980926ce9f4e34e90cccfa3bf158f25244"
+    },
+    {
+      "path": "src/core/matchSimulation/playerMatchStats.ts",
+      "normalizedSha256": "7af8ac035ca7409048efdc415c294ba12049ba6ade0d262f4362fe021fe38f44"
+    },
+    {
+      "path": "src/core/matchSimulation/playerOrientation.ts",
+      "normalizedSha256": "6426c3a5814bb3370018b9138cede371ea86e63ac609a5359466e5d483625bb1"
+    },
+    {
+      "path": "src/core/matchSimulation/positioningReference.ts",
+      "normalizedSha256": "0e9c67d5966c85eecff720f3ee6d59bd3265956e8e8635a2af3f118b47caad03"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionAgency.ts",
+      "normalizedSha256": "18a6ceb5587d25a89237cc0de0828746d8ad6264080e366627e8e738c6f9cfc2"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionEvents.ts",
+      "normalizedSha256": "7bd00202c102be5322f8d6ef0b39a6137d7a5d5d00d964e00353404a88789eea"
+    },
+    {
+      "path": "src/core/matchSimulation/postGoalReactions.ts",
+      "normalizedSha256": "a2fd16718d96373f7465b615b786b23505b202ca9fe61c89a62946e13891b9bf"
+    },
+    {
+      "path": "src/core/matchSimulation/pr163Fixtures.ts",
+      "normalizedSha256": "2c209c3eaa6f1430c02a6d4b88eddb0915462011ca43e3ff050ebcea1dd4bc6d"
+    },
+    {
+      "path": "src/core/matchSimulation/pr173Fixtures.ts",
+      "normalizedSha256": "c8490a9c8cd5d51ef2e28a794142bb504f61c0f439d291021a8e5e1322e37c74"
+    },
+    {
+      "path": "src/core/matchSimulation/presentationWindows.ts",
+      "normalizedSha256": "56be9e47c926c46cb86ff5cd1b7fb2d1d8d6839d546109b4c52abdebcbc33b1c"
+    },
+    {
+      "path": "src/core/matchSimulation/pressingDiagnostics.ts",
+      "normalizedSha256": "1a21f31266d2c4646d81a27cca065f5d41755367743a8ff6ba50de423c5b9028"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "normalizedSha256": "d6ffb94c98f7eb9ebe7bc60e01978d9c26ccebf784601bff2fec463e52fe2ffc"
+    },
+    {
+      "path": "src/core/matchSimulation/receiverReadiness.ts",
+      "normalizedSha256": "5ec483ff5951ea8a9c3c4e8e7d66f94609b34acbf47805275ee25ed55aa4bdd1"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuation.ts",
+      "normalizedSha256": "a7a1d7ca3ff81e23048c4e59c9e584e612462f736b5e30bc21b2dd6c490fcb38"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuationSchema.ts",
+      "normalizedSha256": "85550ed89812f7328980fa2a24a62ff71f72cf0f09e7aef932f6c324ae1cf403"
+    },
+    {
+      "path": "src/core/matchSimulation/restartGeometry.ts",
+      "normalizedSha256": "6fb9e6426a3b556981866320995ab2092211cdece99bfd4e0d754efe094ba60a"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLaws.ts",
+      "normalizedSha256": "52b39179a9677a6c47397dfc7a42fcca8804235f5d2af744b3a42c2d59937a33"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLifecycle.ts",
+      "normalizedSha256": "73c02cf30b048524f0918d96c14e8039de65760964f2306e759c75aa480c846e"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLiveness.ts",
+      "normalizedSha256": "718c5359b852d255a100e04506306c6d8ee8bb3a6e56baad8c9ee9674d364baa"
+    },
+    {
+      "path": "src/core/matchSimulation/restartOptions.ts",
+      "normalizedSha256": "05997e371e4b75e5edbb49d8bcb28bb1b6d9fe89d3891c56598a8c8007e16cfb"
+    },
+    {
+      "path": "src/core/matchSimulation/restartPhase.ts",
+      "normalizedSha256": "25824e9463b21df657c1225832ea898e32b4b0bde4193fbaa7fadd11eb9e4b9b"
+    },
+    {
+      "path": "src/core/matchSimulation/restartScenarios.ts",
+      "normalizedSha256": "5fdc8a1481bbd85cd8e741cb246508c8e7a8c78932d27b937b7d4b4c5a625c2e"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingDifficulty.ts",
+      "normalizedSha256": "429f7ecd9b6e335a0329e7d908822e92554b581fa52b9b2ec86613882ea3de0a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "normalizedSha256": "752796e13ba303b1f18f672dc0e9179d21ed0d6ce5e2795460de3ced6de0ff95"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "normalizedSha256": "782317116ab3c965012ee0c0e042e103bba93d3c9b85df40435fccef04b1f715"
+    },
+    {
+      "path": "src/core/matchSimulation/shotIntent.ts",
+      "normalizedSha256": "b6d7553ba010cbdc078528f738ee60828d509b0013b042b60b287a28305480b0"
+    },
+    {
+      "path": "src/core/matchSimulation/shotParityBenchmark.ts",
+      "normalizedSha256": "19130ddaed7c7faa4004c2c180bede7b0677b15db6e6ac0b71ef427490c8eea4"
+    },
+    {
+      "path": "src/core/matchSimulation/shotResolver.ts",
+      "normalizedSha256": "7a84eb30dcbe40d85894730bef14527fb72f3bb9bc8709dffde1db8ce9bde3c7"
+    },
+    {
+      "path": "src/core/matchSimulation/spacePassing.ts",
+      "normalizedSha256": "36f11dd1e67a16d761644f8e314568ebcbeda8b2c9974e977d70ab9598acb7db"
+    },
+    {
+      "path": "src/core/matchSimulation/stoppageLedger.ts",
+      "normalizedSha256": "526ff56e91e8f3e1fac8c7162e47e4a5defbd63d627bf60934467fa5040e8783"
+    },
+    {
+      "path": "src/core/matchSimulation/substitutions.ts",
+      "normalizedSha256": "23979c527cdc4d42aa0aa72b726255a367e4c2bbf357970237c8b42385af00a4"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalActionEvaluator.ts",
+      "normalizedSha256": "9acd93a81d4d7ee674f5018f0b4299691537209aef3447d7bf892b017ffebfa2"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPositioning.ts",
+      "normalizedSha256": "57bae9687e3ee020cbc49d8fcf92eb803ba2222d5ffe61b79f7ff28c30f98152"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPreferences.ts",
+      "normalizedSha256": "19637eaab139c240caca4db0ff1c9f4a1e50a68af0ff4715073f5ba89afbc891"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalSituations.ts",
+      "normalizedSha256": "fea7f804d00e26f3d339c9f99309ee880f141b6b93328880c7f55e10853d46d7"
+    },
+    {
+      "path": "src/core/matchSimulation/teamShapeMetrics.ts",
+      "normalizedSha256": "53042fec058f8cdb0f35434bc0dc7936709c2243a7b56f7f883de96e7be09a66"
+    },
+    {
+      "path": "src/core/matchSimulation/teamThreatMemory.ts",
+      "normalizedSha256": "7eb97b4479a6e13f92749dd8a774f3d9b27a76856360a7c0a2c856de204ec821"
+    },
+    {
+      "path": "src/core/matchSimulation/throwIn.ts",
+      "normalizedSha256": "32590736ab61799e6495677d77ba35c301eab634cddfa6359f71e403e00edd9a"
+    }
+  ],
+  "validation": [
+    {
+      "design": {
+        "id": "pr177-val-youth",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-youth",
+        "youth": true,
+        "clubs": [
+          "academy_0",
+          "academy_1"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "0682ee30ea2f6bf9969b8d24209ed9da0c7edc708686f0663c90f6e639062a33",
+      "sessionHash": "1261e77bff59ca793aa83c2d5c0f1ef803a34cce7d1f72c0d76eb42161494d44",
+      "players": 22,
+      "formations": [
+        "4-2-3-1",
+        "3-5-2"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-balanced",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-balanced",
+        "youth": false,
+        "clubs": [
+          "pro_17",
+          "pro_18"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "balanced",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "e42060401042019ec3076931c42cb8eda3933fe7ad6cee9bb4fb99ffa96cab23",
+      "sessionHash": "3a76cf377d263672cce36287e93cf26979271edb1cb5073e82c1e37940f27179",
+      "players": 22,
+      "formations": [
+        "4-4-2",
+        "4-3-3"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-strength",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-strength",
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_51"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "possession",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "bec0335beabe50f2615b7af51c9f255425b6c4600ad7fa62ae1a81c0c99d3ba7",
+      "sessionHash": "bdb4a276182d55e3dbeb6ec253851dab5766f4dece3e20bbea70d3db1c62a4a1",
+      "players": 22,
+      "formations": [
+        "4-2-3-1",
+        "3-4-2-1"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-central",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-central",
+        "youth": false,
+        "clubs": [
+          "pro_26",
+          "pro_27"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "possession"
+        ],
+        "attributes": "technical-v-physical"
+      },
+      "inputHash": "0ee4f41f104c370cada89edba89e28b52cba0e8e68c0c8efc364ff6d0c748eed",
+      "sessionHash": "d58c970d845e9fe752276b203ae339b6042f2bdf3ce3333cbb1a0bffd0a5fd38",
+      "players": 22,
+      "formations": [
+        "4-3-3",
+        "3-5-2"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-wide",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-wide",
+        "youth": false,
+        "clubs": [
+          "pro_42",
+          "pro_43"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "direct",
+          "pressing"
+        ],
+        "attributes": "fast-v-slow"
+      },
+      "inputHash": "8a02f3a9f65aaa80f0713e25114f7846ea225fbee2c617cce61d78c63f96d63d",
+      "sessionHash": "681b80e098f692dfd48c953cec6f98e548c9a183012ea91d7f920f9c275caefa",
+      "players": 22,
+      "formations": [
+        "4-4-2",
+        "4-2-3-1"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-keepers",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-keepers",
+        "youth": false,
+        "clubs": [
+          "pro_46",
+          "pro_47"
+        ],
+        "formations": [
+          "3-5-2",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "counter_attacking",
+          "possession"
+        ],
+        "attributes": "keeper-strong-v-weak"
+      },
+      "inputHash": "97aa6e07065443b6f2113dd660f7e49758f2ed155569ccd91390ba99ecfb9895",
+      "sessionHash": "4bfb52e262ed7082580c1db859067c3ebeb122e2ae40eaa141ffc147be9f418e",
+      "players": 22,
+      "formations": [
+        "3-5-2",
+        "3-4-2-1"
+      ]
+    }
+  ],
+  "protocol": {
+    "frozenBeforeAnyValidationTick": true,
+    "policies": [
+      "pristine-pr176",
+      "state-value-v1"
+    ],
+    "executionsPerFixturePerPolicy": 1,
+    "noTuningAfterOpening": true,
+    "defaultRemainsLegacyPendingAcceptance": true,
+    "note": "The value model is final after two documented development revisions. Remaining development collection and correctness/performance checks may finish after this freeze; they cannot change the frozen candidate."
+  },
+  "overridenBlueprint": [
+    "no active-match or replay migration",
+    "no turnover or counterattack rate ceiling"
+  ]
+}

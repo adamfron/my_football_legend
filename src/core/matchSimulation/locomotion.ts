@@ -1,4 +1,5 @@
 import { attacksRight } from './matchSpace';
+import { usesStateValue } from './decisionPolicyConfig';
 import { z } from 'zod';
 import { distance, signedForwardDistance } from './matchSpace';
 import { estimateCarrierContactWindow } from './ballContactGeometry';
@@ -157,6 +158,8 @@ export const projectLocomotion = (
     state.time >= state.receptionPreparation.awarenessAt
   ) {
     const urgent = state.receptionPreparation.expectedArrivalTime - state.time;
+    if (usesStateValue(state) && state.receptionPreparation.movement === 'run_onto_ball')
+      return result(metres > 7 ? 'sprint' : metres > 1.5 ? 'run' : 'jog', 'receive_pass');
     return result(metres < 2.5 ? 'jog' : urgent < 0.65 ? 'sprint' : 'run', 'receive_pass');
   }
   const movement =

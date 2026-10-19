@@ -1,0 +1,359 @@
+{
+  "version": 1,
+  "cases": 57,
+  "scenarios": [
+    "safe-defender-v-midfield",
+    "central-moderate-pressure",
+    "stationary-winger",
+    "long-switch",
+    "high-line-through",
+    "first-time",
+    "carry-v-recycle",
+    "moderate-shot",
+    "clearance",
+    "corner-counter",
+    "blocked-shot-counter",
+    "weak-v-strong",
+    "overlap-cover",
+    "failed-counter",
+    "conservative-possession",
+    "free-kick-counter",
+    "press-escape",
+    "diagonal-run",
+    "covering-defender"
+  ],
+  "flightRows": 56,
+  "planning": {
+    "calls": 56,
+    "wallMs": 19.409399999985908,
+    "includesBothNominalAndAlternativePlans": true
+  },
+  "sensitivity": [
+    {
+      "reading": 20,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_11",
+        "target": {
+          "x": 32.42932751779291,
+          "y": 24.443324996670082
+        },
+        "intent": "progressive",
+        "deliveryPlan": {
+          "target": {
+            "x": 32.42932751779291,
+            "y": 24.443324996670082
+          },
+          "velocity": {
+            "x": 3.472568878975016,
+            "y": 9.522693838324273,
+            "z": 0
+          },
+          "speed": 10.136095528243844,
+          "elevation": 0,
+          "predictedArrivalTime": 1.2499999999999996,
+          "predictedArrivalSpeed": 6.136095528243849,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 32.42932751779291,
+              "y": 24.443324996670082
+            },
+            "awareAt": 0.42095300738962826,
+            "readyAt": 1.4407778505880087,
+            "earliestUsefulContactTime": 1.5607778505880088,
+            "preferredArrivalSpeed": 5.889565161615581,
+            "maximumComfortableArrivalSpeed": 10.391565161615581,
+            "preparationMargin": -0.1907778505880091,
+            "movementTime": 0,
+            "orientationTime": 1.0198248431983803
+          },
+          "feasible": true,
+          "targetMissMetres": 0.46323289669033035
+        }
+      },
+      "evaluation": null,
+      "guard": "physical preparation/contact not ready in this original frozen state",
+      "forecast": {
+        "expectedCompletion": 0.9072785214024537,
+        "selectionQuality": 0.9072785214024537,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.9266521760667703,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.4358110499346909,
+        "receiverAdjustmentCost": 1.4741110391646264,
+        "utilityAdjustment": -26.122250404546584
+      }
+    },
+    {
+      "reading": 40,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_11",
+        "target": {
+          "x": 32.42932751779291,
+          "y": 24.443324996670082
+        },
+        "intent": "progressive",
+        "deliveryPlan": {
+          "target": {
+            "x": 32.42932751779291,
+            "y": 24.443324996670082
+          },
+          "velocity": {
+            "x": 3.472568878975016,
+            "y": 9.522693838324273,
+            "z": 0
+          },
+          "speed": 10.136095528243844,
+          "elevation": 0,
+          "predictedArrivalTime": 1.2499999999999996,
+          "predictedArrivalSpeed": 6.136095528243849,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 32.42932751779291,
+              "y": 24.443324996670082
+            },
+            "awareAt": 0.42095300738962826,
+            "readyAt": 1.4407778505880087,
+            "earliestUsefulContactTime": 1.5607778505880088,
+            "preferredArrivalSpeed": 5.889565161615581,
+            "maximumComfortableArrivalSpeed": 10.391565161615581,
+            "preparationMargin": -0.1907778505880091,
+            "movementTime": 0,
+            "orientationTime": 1.0198248431983803
+          },
+          "feasible": true,
+          "targetMissMetres": 0.46323289669033035
+        }
+      },
+      "evaluation": null,
+      "guard": "physical preparation/contact not ready in this original frozen state",
+      "forecast": {
+        "expectedCompletion": 0.9124720111191631,
+        "selectionQuality": 0.9124720111191631,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8740209529828039,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.4383057416449779,
+        "receiverAdjustmentCost": 1.390385700837443,
+        "utilityAdjustment": -27.981109077215088
+      }
+    },
+    {
+      "reading": 60,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_11",
+        "target": {
+          "x": 32.42932751779291,
+          "y": 24.443324996670082
+        },
+        "intent": "progressive",
+        "deliveryPlan": {
+          "target": {
+            "x": 32.42932751779291,
+            "y": 24.443324996670082
+          },
+          "velocity": {
+            "x": 3.472568878975016,
+            "y": 9.522693838324273,
+            "z": 0
+          },
+          "speed": 10.136095528243844,
+          "elevation": 0,
+          "predictedArrivalTime": 1.2499999999999996,
+          "predictedArrivalSpeed": 6.136095528243849,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 32.42932751779291,
+              "y": 24.443324996670082
+            },
+            "awareAt": 0.42095300738962826,
+            "readyAt": 1.4407778505880087,
+            "earliestUsefulContactTime": 1.5607778505880088,
+            "preferredArrivalSpeed": 5.889565161615581,
+            "maximumComfortableArrivalSpeed": 10.391565161615581,
+            "preparationMargin": -0.1907778505880091,
+            "movementTime": 0,
+            "orientationTime": 1.0198248431983803
+          },
+          "feasible": true,
+          "targetMissMetres": 0.46323289669033035
+        }
+      },
+      "evaluation": null,
+      "guard": "physical preparation/contact not ready in this original frozen state",
+      "forecast": {
+        "expectedCompletion": 0.9152006103655668,
+        "selectionQuality": 0.9152006103655668,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8350256332245358,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.43961642372812476,
+        "receiverAdjustmentCost": 1.3283522509453711,
+        "utilityAdjustment": -29.89178050484587
+      }
+    },
+    {
+      "reading": 80,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_11",
+        "target": {
+          "x": 32.42932751779291,
+          "y": 24.443324996670082
+        },
+        "intent": "progressive",
+        "deliveryPlan": {
+          "target": {
+            "x": 32.42932751779291,
+            "y": 24.443324996670082
+          },
+          "velocity": {
+            "x": 3.472568878975016,
+            "y": 9.522693838324273,
+            "z": 0
+          },
+          "speed": 10.136095528243844,
+          "elevation": 0,
+          "predictedArrivalTime": 1.2499999999999996,
+          "predictedArrivalSpeed": 6.136095528243849,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 32.42932751779291,
+              "y": 24.443324996670082
+            },
+            "awareAt": 0.42095300738962826,
+            "readyAt": 1.4407778505880087,
+            "earliestUsefulContactTime": 1.5607778505880088,
+            "preferredArrivalSpeed": 5.889565161615581,
+            "maximumComfortableArrivalSpeed": 10.391565161615581,
+            "preparationMargin": -0.1907778505880091,
+            "movementTime": 0,
+            "orientationTime": 1.0198248431983803
+          },
+          "feasible": true,
+          "targetMissMetres": 0.46323289669033035
+        }
+      },
+      "evaluation": null,
+      "guard": "physical preparation/contact not ready in this original frozen state",
+      "forecast": {
+        "expectedCompletion": 0.9167732538178599,
+        "selectionQuality": 0.9167732538178599,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8042694064587758,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.44037184268487173,
+        "receiverAdjustmentCost": 1.2794254857907283,
+        "utilityAdjustment": -31.82791558397409
+      }
+    },
+    {
+      "reading": 99,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_11",
+        "target": {
+          "x": 32.42932751779291,
+          "y": 24.443324996670082
+        },
+        "intent": "progressive",
+        "deliveryPlan": {
+          "target": {
+            "x": 32.42932751779291,
+            "y": 24.443324996670082
+          },
+          "velocity": {
+            "x": 3.472568878975016,
+            "y": 9.522693838324273,
+            "z": 0
+          },
+          "speed": 10.136095528243844,
+          "elevation": 0,
+          "predictedArrivalTime": 1.2499999999999996,
+          "predictedArrivalSpeed": 6.136095528243849,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 32.42932751779291,
+              "y": 24.443324996670082
+            },
+            "awareAt": 0.42095300738962826,
+            "readyAt": 1.4407778505880087,
+            "earliestUsefulContactTime": 1.5607778505880088,
+            "preferredArrivalSpeed": 5.889565161615581,
+            "maximumComfortableArrivalSpeed": 10.391565161615581,
+            "preparationMargin": -0.1907778505880091,
+            "movementTime": 0,
+            "orientationTime": 1.0198248431983803
+          },
+          "feasible": true,
+          "targetMissMetres": 0.46323289669033035
+        }
+      },
+      "evaluation": null,
+      "guard": "physical preparation/contact not ready in this original frozen state",
+      "forecast": {
+        "expectedCompletion": 0.9177004404322019,
+        "selectionQuality": 0.9177004404322019,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.7801658782337394,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.44081721658312867,
+        "receiverAdjustmentCost": 1.2410817814785486,
+        "utilityAdjustment": -33.68021231823102
+      }
+    }
+  ],
+  "source": "benchmarkPr177Controlled.mjs"
+}

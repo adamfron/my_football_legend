@@ -1,4 +1,8 @@
 import { attacksRight } from './matchSpace';
+import { usesStateValue } from './decisionPolicyConfig';
+import { rankStateValueActions, enumerateStateValueActions } from './decisionPolicy';
+import { evaluateStateValueAction } from './decisionStateValue';
+import { canReconsiderDecision } from './decisionReadiness';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { selectRestartAction } from './restartLifecycle';
 import { enumerateContextualRestartActions } from './restartOptions';
@@ -265,6 +269,8 @@ export const enumerateAvailableActions = (
   if (!actor) return [];
   if (isRestartSetup(state))
     return state.restart.takerId === actorId ? enumerateRestartActions(state) : [];
+  if (usesStateValue(state) && state.ball.ownerId === actorId)
+    return enumerateStateValueActions(state, actor);
   if (state.ball.ownerId !== actorId)
     return [
       ...enumerateCanonicalShootingOptions(state, actorId),
@@ -407,6 +413,8 @@ export const scoreActionForAI = (
 ): number => {
   const actor = state.players.find((p) => p.id === actorId);
   if (!actor) return -Infinity;
+  if (usesStateValue(state) && !isRestartSetup(state) && action.type !== 'challenge')
+    return evaluateStateValueAction(state, actor, action)?.value ?? -Infinity;
   if (action.type === 'space_pass') {
     const plan = deriveSpacePassPlan(state, actor, action.target);
     if (!plan) return -Infinity;
@@ -756,9 +764,28 @@ export const scoreActionForAI = (
         receiverPressure *
         9
       : 0);
+  const ablation = state.decisionPolicy === 'risk-ablation-v1';
+  const directRelief =
+    ablation && state.decisionAblation !== 'adaptive-risk'
+      ? receiverPressure * 17 + laneRisk * 10
+      : 0;
+  const adaptiveRelief =
+    ablation && state.decisionAblation !== 'direct-risk'
+      ? -adaptationValue +
+        deriveSolutionPenalty(
+          state,
+          actor,
+          action.intent,
+          action.target,
+          receiver.id,
+          decision.expectedCompletion,
+        )
+      : 0;
   return (
     28 +
     decision.utilityAdjustment +
+    directRelief +
+    adaptiveRelief +
     urgency * decision.expectedCompletion * 24 -
     deriveSolutionPenalty(
       state,
@@ -808,6 +835,13 @@ export const rankAvailableActionsForAI = (
   state: TacticalMatchState,
   actorId: string,
 ): RankedAiAction[] => {
+  const stateValueActor = state.players.find((p) => p.id === actorId);
+  if (usesStateValue(state) && stateValueActor && !isRestartSetup(state)) {
+    if (state.ball.ownerId === actorId) return rankStateValueActions(state, stateValueActor);
+    const options = enumerateAvailableActions(state, actorId);
+    if (options.some((a) => a.type !== 'challenge'))
+      return rankStateValueActions(state, stateValueActor, options);
+  }
   const rng = RandomGenerator.fromSeed(`${state.seed}:decision:${state.decisionIndex}:${actorId}`);
   const actor = state.players.find((player) => player.id === actorId);
   const preferences = actor ? deriveTeamTacticalPreferences(state, actor.team) : undefined;
@@ -886,6 +920,10 @@ export const chooseNpcRoutineAction = (
 ): MatchAction | undefined => {
   const actor = state.players.find((player) => player.id === actorId);
   if (!actor) return undefined;
+  if (usesStateValue(state) && state.decisionAblation !== 'readiness' && !isRestartSetup(state)) {
+    if (!canReconsiderDecision(state, actor)) return undefined;
+    return chooseNpcAction(state, actorId);
+  }
   if (
     !isRestartSetup(state) &&
     state.ball.ownerId === actorId &&
@@ -918,7 +956,7 @@ export const chooseIncomingShotAction = (
         : action.type === 'pass' && action.firstTime && canExecuteFirstTimePass(state, action)) &&
       score >
         controlValue +
-          (action.type === 'pass'
+          (usesStateValue(state) ? 0.001 : action.type === 'pass'
             ? 18 +
               (1 - evaluatePressure(state, actor).value) * 18 +
               Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0) / 5 +
@@ -1416,9 +1454,22 @@ const resolveMatchActionCanonical = (
         receiverMovement: 'continue_run' as const,
         predictionHorizon: spacePlan.predictionHorizon,
       }
-    : state.scenario === 'throw_in'
-      ? undefined
-      : projectPassReception(state, actor, receiver, action.intent, action.delivery);
+    : action.deliveryPlan
+      ? {
+          releaseTarget: action.target,
+          expectedReceptionPoint: action.target,
+          semanticIntent: action.intent,
+          launchPlan: action.deliveryPlan,
+          receiverReadiness: action.deliveryPlan.receiverReadiness,
+          receiverAwarenessDelay: action.deliveryPlan.receiverReadiness.awareAt,
+          estimatedReceiverArrival: action.deliveryPlan.receiverReadiness.earliestUsefulContactTime,
+          leadDistance: distance(receiver.position, action.target),
+          receiverMovement: 'continue_run' as const,
+          predictionHorizon: Math.min(2.5, action.deliveryPlan.predictedArrivalTime),
+        }
+      : state.scenario === 'throw_in'
+        ? undefined
+        : projectPassReception(state, actor, receiver, action.intent, action.delivery);
   if (projection && projection.semanticIntent !== action.intent)
     action = { ...action, intent: projection.semanticIntent };
   const target = projection?.releaseTarget ?? action.target;
@@ -1451,6 +1502,7 @@ const resolveMatchActionCanonical = (
     isRestartSetup(state) && restart?.phase === 'release' && state.scenario === 'goal_kick';
   const releasePosition = { x: state.ball.x, y: state.ball.y };
   const canonicalPlan =
+    action.deliveryPlan ??
     spacePlan?.launchPlan ??
     (action.delivery === 'lofted'
       ? derivePassLaunchPlan(state, actor, receiver, target, action.intent, 'lofted')

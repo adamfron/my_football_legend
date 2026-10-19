@@ -1,4 +1,7 @@
 import { attacksRight } from './matchSpace';
+import { DEFAULT_DECISION_POLICY, usesStateValue } from './decisionPolicyConfig';
+import { canReconsiderDecision, markDecisionEvaluated } from './decisionReadiness';
+import { authoritativeMovementTarget } from './movementAuthority';
 import { deriveCarryPursuit } from './carryPursuit';
 import { deriveGroundControlImpulse } from './ballContactGeometry';
 import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
@@ -329,6 +332,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
     },
     possessionTeam: 'home',
     timeSincePossessionChanged: 0,
+    decisionPolicy: DEFAULT_DECISION_POLICY,
     ballEpisode: 0,
     actionCooldown: 0.4,
     ballOwnershipStartedAt: 0,
@@ -1468,6 +1472,8 @@ const stepTacticalMatchCore = (
         derivePressingPlan(state, player.id, cooperativePress ?? null)?.target ?? movementTarget;
       endPerformanceSpan('pressure_decision', pressureSpan);
     }
+    if (usesStateValue(state) && state.decisionAblation !== 'movement')
+      movementTarget = authoritativeMovementTarget(state, player, movementTarget);
     const dx = movementTarget.x - player.position.x,
       dy = movementTarget.y - player.position.y,
       d = Math.max(0.001, Math.hypot(dx, dy));
@@ -2571,12 +2577,16 @@ const stepTacticalMatchCore = (
     if (state.status === 'abandoned') return state;
     if (
       !state.periodEndPending &&
-      state.actionCooldown <= 0 &&
+      (state.actionCooldown <= 0 ||
+        (usesStateValue(state) && state.decisionAblation !== 'readiness')) &&
       state.ball.ownerId &&
       !isRestartSetup(state)
     ) {
       const ownerId = state.ball.ownerId;
       if (!ownerId) return state;
+      const owner = state.players.find((p) => p.id === ownerId)!;
+      const hybrid = usesStateValue(state) && state.decisionAblation !== 'readiness';
+      if (hybrid && !canReconsiderDecision(state, owner)) return state;
       const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
       // The agency evaluator owns the pause. A forced action uses the same autonomous resolver,
       // including high-impact actions when no genuinely playable alternative exists.
@@ -2584,6 +2594,8 @@ const stepTacticalMatchCore = (
         awaitsPlayer || hasActiveHumanPossession(state)
           ? undefined
           : chooseNpcRoutineAction(state, ownerId);
+      if (hybrid && !awaitsPlayer && !hasActiveHumanPossession(state))
+        state = { ...state, decisionReadiness: markDecisionEvaluated(state, owner) };
       if (action) {
         const carry = state.ballCarrierIntent;
         if (

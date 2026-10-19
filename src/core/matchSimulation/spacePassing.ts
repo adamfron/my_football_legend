@@ -15,6 +15,8 @@ import { secondLastOpponentLine } from './offside';
 import { earliestDefenderArrival } from './passDecision';
 import { clampPitchPoint } from './matchSpace';
 import type { MatchAction } from './matchState';
+import { canParticipatePhysically } from './matchInjuries';
+import { STATE_VALUE_CONFIG } from './decisionPolicyConfig';
 
 export const spacePassPlanSchema = z.object({
   requestedSpace: pitchPointSchema,
@@ -185,4 +187,45 @@ export const enumerateNpcSpacePasses = (
     actions.push({ type: 'space_pass', actorId: passer.id, target });
   }
   return actions;
+};
+
+/** The existing space-pass concept, extended with independent prospective corridors. No accepted
+ * lead projection or existing sprint is required. The common planner subsequently checks arrival. */
+export const prospectiveSpaceTargets = (state: TacticalMatchState, passer: MatchPlayerState) => {
+  const dir = attacksRight(passer) ? 1 : -1;
+  const line = secondLastOpponentLine(state, passer.team);
+  const legalLine = attacksRight(passer)
+    ? Math.max(52.5, line, state.ball.x)
+    : Math.min(52.5, line, state.ball.x);
+  return state.players
+    .filter(
+      (p) =>
+        p.team === passer.team &&
+        p.id !== passer.id &&
+        !isMatchGoalkeeper(p) &&
+        canParticipatePhysically(p) &&
+        !state.discipline?.[p.id]?.sentOff &&
+        distance(p.position, passer.position) < 65 &&
+        dir * (p.position.x - passer.position.x) > 1 &&
+        dir * (p.position.x - legalLine) <= 0.01,
+    )
+    .map((receiver) => ({
+      receiver,
+      priority:
+        dir * (receiver.position.x - passer.position.x) * 0.35 +
+        receiver.profile.attributes.pace * 0.12 -
+        distance(receiver.position, passer.position) * 0.1,
+    }))
+    .sort((a, b) => b.priority - a.priority || a.receiver.id.localeCompare(b.receiver.id))
+    .slice(0, STATE_VALUE_CONFIG.maxRunners)
+    .flatMap(({ receiver }) => {
+      const length = Math.min(11, Math.max(4, distance(passer.position, receiver.position) * 0.24));
+      return [0, receiver.position.y < 34 ? 4 : -4].map((diagonal) => ({
+        receiver,
+        target: clampPitchPoint({
+          x: receiver.position.x + dir * length,
+          y: receiver.position.y + diagonal,
+        }),
+      }));
+    });
 };

@@ -1,0 +1,5923 @@
+{
+  "version": 1,
+  "reading": [
+    {
+      "value": 20,
+      "historicalLegacyScore": 4.076880073297804,
+      "target": {
+        "x": 32.42932751779291,
+        "y": 24.443324996670082
+      },
+      "receiverId": "footballer_club_vistula_nova_2026_11",
+      "originalEligibility": null,
+      "preparedCounterfactual": {
+        "value": -0.008185153899985162,
+        "before": 0.0065376508078534585,
+        "effort": 0.000016893492547073076,
+        "branches": [
+          {
+            "kind": "controlled",
+            "probability": 0.4358110499346909,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": 0.006417468861029555
+          },
+          {
+            "kind": "contested",
+            "probability": 0.3064538564540458,
+            "elapsed": 1.7499999999999996,
+            "reward": 0,
+            "value": -0.005457977398293586
+          },
+          {
+            "kind": "opponent",
+            "probability": 0.2520932041106102,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": -0.011852448461006046
+          },
+          {
+            "kind": "restart",
+            "probability": 0.005641889500653092,
+            "elapsed": 3.2499999999999996,
+            "reward": 0,
+            "value": -0.0029631121152515114
+          },
+          {
+            "kind": "goal",
+            "probability": 0,
+            "elapsed": 1.2499999999999996,
+            "reward": 1,
+            "value": 0
+          }
+        ],
+        "reasons": [
+          "pass",
+          "progressive",
+          "completion:0.907"
+        ]
+      },
+      "preparedScore": -0.008185153899985162,
+      "forecast": {
+        "expectedCompletion": 0.9072785214024537,
+        "selectionQuality": 0.9072785214024537,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.9266521760667703,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.4358110499346909,
+        "receiverAdjustmentCost": 1.4741110391646264,
+        "utilityAdjustment": -26.122250404546584
+      }
+    },
+    {
+      "value": 40,
+      "historicalLegacyScore": 3.0980530564968483,
+      "target": {
+        "x": 32.42932751779291,
+        "y": 24.443324996670082
+      },
+      "receiverId": "footballer_club_vistula_nova_2026_11",
+      "originalEligibility": null,
+      "preparedCounterfactual": {
+        "value": -0.008133835201678846,
+        "before": 0.0065376508078534585,
+        "effort": 0.000016893492547073076,
+        "branches": [
+          {
+            "kind": "controlled",
+            "probability": 0.4383057416449779,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": 0.006417468861029555
+          },
+          {
+            "kind": "contested",
+            "probability": 0.3082080751582204,
+            "elapsed": 1.7499999999999996,
+            "reward": 0,
+            "value": -0.005457977398293586
+          },
+          {
+            "kind": "opponent",
+            "probability": 0.24786924061325155,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": -0.011852448461006046
+          },
+          {
+            "kind": "restart",
+            "probability": 0.005616942583550222,
+            "elapsed": 3.2499999999999996,
+            "reward": 0,
+            "value": -0.0029631121152515114
+          },
+          {
+            "kind": "goal",
+            "probability": 0,
+            "elapsed": 1.2499999999999996,
+            "reward": 1,
+            "value": 0
+          }
+        ],
+        "reasons": [
+          "pass",
+          "progressive",
+          "completion:0.912"
+        ]
+      },
+      "preparedScore": -0.008133835201678846,
+      "forecast": {
+        "expectedCompletion": 0.9124720111191631,
+        "selectionQuality": 0.9124720111191631,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8740209529828039,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.4383057416449779,
+        "receiverAdjustmentCost": 1.390385700837443,
+        "utilityAdjustment": -27.981109077215088
+      }
+    },
+    {
+      "value": 60,
+      "historicalLegacyScore": 2.094686918810046,
+      "target": {
+        "x": 32.42932751779291,
+        "y": 24.443324996670082
+      },
+      "receiverId": "footballer_club_vistula_nova_2026_11",
+      "originalEligibility": null,
+      "preparedCounterfactual": {
+        "value": -0.008106872952947609,
+        "before": 0.0065376508078534585,
+        "effort": 0.000016893492547073076,
+        "branches": [
+          {
+            "kind": "controlled",
+            "probability": 0.43961642372812476,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": 0.006417468861029555
+          },
+          {
+            "kind": "contested",
+            "probability": 0.3091297213143373,
+            "elapsed": 1.7499999999999996,
+            "reward": 0,
+            "value": -0.005457977398293586
+          },
+          {
+            "kind": "opponent",
+            "probability": 0.24565001919481913,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": -0.011852448461006046
+          },
+          {
+            "kind": "restart",
+            "probability": 0.005603835762718752,
+            "elapsed": 3.2499999999999996,
+            "reward": 0,
+            "value": -0.0029631121152515114
+          },
+          {
+            "kind": "goal",
+            "probability": 0,
+            "elapsed": 1.2499999999999996,
+            "reward": 1,
+            "value": 0
+          }
+        ],
+        "reasons": [
+          "pass",
+          "progressive",
+          "completion:0.915"
+        ]
+      },
+      "preparedScore": -0.008106872952947609,
+      "forecast": {
+        "expectedCompletion": 0.9152006103655668,
+        "selectionQuality": 0.9152006103655668,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8350256332245358,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.43961642372812476,
+        "receiverAdjustmentCost": 1.3283522509453711,
+        "utilityAdjustment": -29.89178050484587
+      }
+    },
+    {
+      "value": 80,
+      "historicalLegacyScore": 1.0802718941535954,
+      "target": {
+        "x": 32.42932751779291,
+        "y": 24.443324996670082
+      },
+      "receiverId": "footballer_club_vistula_nova_2026_11",
+      "originalEligibility": null,
+      "preparedCounterfactual": {
+        "value": -0.008091333109937626,
+        "before": 0.0065376508078534585,
+        "effort": 0.000016893492547073076,
+        "branches": [
+          {
+            "kind": "controlled",
+            "probability": 0.44037184268487173,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": 0.006417468861029555
+          },
+          {
+            "kind": "contested",
+            "probability": 0.30966091723644235,
+            "elapsed": 1.7499999999999996,
+            "reward": 0,
+            "value": -0.005457977398293586
+          },
+          {
+            "kind": "opponent",
+            "probability": 0.24437095850553464,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": -0.011852448461006046
+          },
+          {
+            "kind": "restart",
+            "probability": 0.005596281573151283,
+            "elapsed": 3.2499999999999996,
+            "reward": 0,
+            "value": -0.0029631121152515114
+          },
+          {
+            "kind": "goal",
+            "probability": 0,
+            "elapsed": 1.2499999999999996,
+            "reward": 1,
+            "value": 0
+          }
+        ],
+        "reasons": [
+          "pass",
+          "progressive",
+          "completion:0.917"
+        ]
+      },
+      "preparedScore": -0.008091333109937626,
+      "forecast": {
+        "expectedCompletion": 0.9167732538178599,
+        "selectionQuality": 0.9167732538178599,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8042694064587758,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.44037184268487173,
+        "receiverAdjustmentCost": 1.2794254857907283,
+        "utilityAdjustment": -31.82791558397409
+      }
+    },
+    {
+      "value": 99,
+      "historicalLegacyScore": 0.11142270799000364,
+      "target": {
+        "x": 32.42932751779291,
+        "y": 24.443324996670082
+      },
+      "receiverId": "footballer_club_vistula_nova_2026_11",
+      "originalEligibility": null,
+      "preparedCounterfactual": {
+        "value": -0.00808217125293385,
+        "before": 0.0065376508078534585,
+        "effort": 0.000016893492547073076,
+        "branches": [
+          {
+            "kind": "controlled",
+            "probability": 0.44081721658312867,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": 0.006417468861029555
+          },
+          {
+            "kind": "contested",
+            "probability": 0.3099740955018976,
+            "elapsed": 1.7499999999999996,
+            "reward": 0,
+            "value": -0.005457977398293586
+          },
+          {
+            "kind": "opponent",
+            "probability": 0.24361686008080505,
+            "elapsed": 1.2499999999999996,
+            "reward": 0,
+            "value": -0.011852448461006046
+          },
+          {
+            "kind": "restart",
+            "probability": 0.005591827834168713,
+            "elapsed": 3.2499999999999996,
+            "reward": 0,
+            "value": -0.0029631121152515114
+          },
+          {
+            "kind": "goal",
+            "probability": 0,
+            "elapsed": 1.2499999999999996,
+            "reward": 1,
+            "value": 0
+          }
+        ],
+        "reasons": [
+          "pass",
+          "progressive",
+          "completion:0.918"
+        ]
+      },
+      "preparedScore": -0.00808217125293385,
+      "forecast": {
+        "expectedCompletion": 0.9177004404322019,
+        "selectionQuality": 0.9177004404322019,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 10.633352306995143,
+        "ballEta": 1.2499999999999996,
+        "receiverEta": 0.04,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 24.443324996670082,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.7801658782337394,
+        "expectedReceptionQuality": 0.49017489649210616,
+        "expectedRetainedPossession": 0.44081721658312867,
+        "receiverAdjustmentCost": 1.2410817814785486,
+        "utilityAdjustment": -33.68021231823102
+      }
+    }
+  ],
+  "receiving": [
+    {
+      "scenario": "stationary-winger",
+      "originalPosition": {
+        "x": 61,
+        "y": 12
+      },
+      "originalVelocity": {
+        "x": 0,
+        "y": 0
+      },
+      "action": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "intent": "through",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 68.63863862216299,
+            "y": 12
+          },
+          "velocity": {
+            "x": 13.792706066483959,
+            "y": -9.90381906992267,
+            "z": 0
+          },
+          "speed": 16.980116984467077,
+          "elevation": 0,
+          "predictedArrivalTime": 3.099999999999993,
+          "predictedArrivalSpeed": 7.060116984467087,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 68.63863862216299,
+              "y": 12
+            },
+            "awareAt": 0.15859649122807018,
+            "readyAt": 1.405721164234272,
+            "earliestUsefulContactTime": 1.5257211642342718,
+            "preferredArrivalSpeed": 6.85,
+            "maximumComfortableArrivalSpeed": 12,
+            "preparationMargin": 1.694278835765721,
+            "movementTime": 1.2471246730062018,
+            "orientationTime": 0.5909100759053575
+          },
+          "feasible": true,
+          "targetMissMetres": 0.4566799741187765
+        },
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        }
+      },
+      "result": {
+        "receiverRelationshipAtRelease": "rest_defence",
+        "selectionQuality": {
+          "expectedCompletion": 0.1982385398984216,
+          "selectionQuality": 0.1982385398984216,
+          "passerAbility": 80,
+          "pressure": 0,
+          "length": 37.71904262596676,
+          "ballEta": 3.099999999999993,
+          "receiverEta": 1.4835964912280695,
+          "defenderEta": 0.325,
+          "laneOccupation": 0,
+          "boundaryMargin": 12,
+          "receiverLateBy": 0,
+          "targetPredictedOutOfPlay": false,
+          "executionUncertaintyMetres": 0.9627438998048595,
+          "expectedReceptionQuality": 0.9052837971143477,
+          "expectedRetainedPossession": 0.12885505093397404,
+          "receiverAdjustmentCost": 1.8438930215895455,
+          "utilityAdjustment": -56.0955910243083
+        },
+        "intendedTarget": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "physicalTarget": {
+          "x": 68.88620663315511,
+          "y": 11.972686069083304
+        },
+        "executionQuality": 0.6340827771262896,
+        "passId": "pr177:stationary-winger:pass:0:geometry:anchor:5",
+        "passerId": "geometry:anchor:5",
+        "intendedReceiverId": "geometry:anchor:8",
+        "releasedAt": 30,
+        "receiverPositionAtRelease": {
+          "x": 61,
+          "y": 12
+        },
+        "receiverVelocityAtRelease": {
+          "x": 0,
+          "y": 0
+        },
+        "predictedReceptionPoint": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "awarenessDelay": 0.15859649122807018,
+        "receiverArrivalEstimate": 1.5257211642342718,
+        "bestDefenderArrivalEstimate": 0.21417553513916962,
+        "leadDistance": 7.638638622162986,
+        "intent": "through",
+        "executionType": "ground_through",
+        "delivery": "ground",
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "ballArrivalEstimate": 3.099999999999993,
+        "meetingErrorSeconds": -1.5742788357657211,
+        "predictionHorizon": 2.5,
+        "actualContactPoint": {
+          "x": 63.57989037650584,
+          "y": 15.757025641443413
+        },
+        "resolvedAt": 32.374999999999865,
+        "finalResult": "intercepted"
+      },
+      "checkpoints": [
+        {
+          "seconds": 0.025,
+          "receiver": {
+            "position": {
+              "x": 60.997837986234174,
+              "y": 12.004456359920608
+            },
+            "velocity": {
+              "x": -0.08648055063304128,
+              "y": 0.17825439682432886
+            },
+            "target": {
+              "x": 56.84806252334549,
+              "y": 20.558006455036583
+            }
+          },
+          "ball": {
+            "x": 38.34579308327358,
+            "y": 33.75338853065141,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.025,
+            "distanceTravelled": 0.4387369066469325,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 13.79915691421528,
+              "y": -9.841233173811398,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.864289747670902,
+              "y": -9.887684374076212,
+              "z": 0
+            },
+            "launchSpeed": 17.02894102663825,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.1,
+          "receiver": {
+            "position": {
+              "x": 60.978381890236705,
+              "y": 12.044559419292867
+            },
+            "velocity": {
+              "x": -0.3458731446676211,
+              "y": 0.7129164688370793
+            },
+            "target": {
+              "x": 56.84806252334549,
+              "y": 20.558006455036583
+            }
+          },
+          "ball": {
+            "x": 39.37340240807597,
+            "y": 33.02052180264535,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.1,
+            "distanceTravelled": 1.700907483644801,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 13.60375841384841,
+              "y": -9.701879573016956,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.864289747670902,
+              "y": -9.887684374076212,
+              "z": 0
+            },
+            "launchSpeed": 17.02894102663825,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.2,
+          "receiver": {
+            "position": {
+              "x": 60.946368445450574,
+              "y": 12.146292420431028
+            },
+            "velocity": {
+              "x": -0.09229703953991475,
+              "y": 1.0298224716032678
+            },
+            "target": {
+              "x": 68.63863862216299,
+              "y": 12
+            }
+          },
+          "ball": {
+            "x": 40.72075168276969,
+            "y": 32.05962408539662,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.19999999999999998,
+            "distanceTravelled": 3.355801586308626,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 13.343227080025919,
+              "y": -9.516074771957701,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.864289747670902,
+              "y": -9.887684374076212,
+              "z": 0
+            },
+            "launchSpeed": 17.02894102663825,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.5,
+          "receiver": {
+            "position": {
+              "x": 61.29942760771922,
+              "y": 12.392576153414506
+            },
+            "velocity": {
+              "x": 2.241000958379402,
+              "y": 0.5964670362113367
+            },
+            "target": {
+              "x": 68.46076762760889,
+              "y": 12.276099131261148
+            }
+          },
+          "ball": {
+            "x": 44.606480706557335,
+            "y": 29.28841381428599,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.5000000000000001,
+            "distanceTravelled": 8.128483894300093,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 12.561633078558438,
+              "y": -8.958660368779926,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.864289747670902,
+              "y": -9.887684374076212,
+              "z": 0
+            },
+            "launchSpeed": 17.02894102663825,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 2,
+          "receiver": {
+            "position": {
+              "x": 66.00899335113598,
+              "y": 12.335319388540013
+            },
+            "velocity": {
+              "x": 3.1746248936258326,
+              "y": -0.07668002098256466
+            },
+            "target": {
+              "x": 68.46076762760889,
+              "y": 12.276099131261148
+            }
+          },
+          "ball": {
+            "x": 60.517952818891914,
+            "y": 17.940727273032763,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 1.999999999999997,
+            "distanceTravelled": 27.671895434257507,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 8.653663071220985,
+              "y": -6.171588352891032,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.864289747670902,
+              "y": -9.887684374076212,
+              "z": 0
+            },
+            "launchSpeed": 17.02894102663825,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 5,
+          "receiver": {
+            "position": {
+              "x": 60.42065990278111,
+              "y": 20.344832116679637
+            },
+            "velocity": {
+              "x": -2.944618352105124,
+              "y": 4.026496921342186
+            },
+            "target": {
+              "x": 57.56703494479299,
+              "y": 29.7151916868621
+            }
+          },
+          "ball": {
+            "x": 58.05524234184178,
+            "y": 24.981558341736537,
+            "from": {
+              "x": 58.282372562901266,
+              "y": 22.779315617451356
+            },
+            "target": {
+              "x": 56.947815542466834,
+              "y": 35.71911057157897
+            },
+            "intendedReceiverId": "geometry:opponent:5",
+            "travelKind": "pass",
+            "sourceAction": "pass",
+            "executionType": "normal",
+            "flightTime": 0.22499999999999998,
+            "distanceTravelled": 2.2367210242995506,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": -0.9725346444069374,
+              "y": 9.429644962127316,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": -1.0464006538996116,
+              "y": 10.145845920407625,
+              "z": 0
+            },
+            "launchSpeed": 10.19966390471439,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:opponent:7"
+          }
+        },
+        {
+          "seconds": 8,
+          "receiver": {
+            "position": {
+              "x": 55.54346172252414,
+              "y": 25.68548437742464
+            },
+            "velocity": {
+              "x": -0.6414550505323291,
+              "y": -0.7880126877890348
+            },
+            "target": {
+              "x": 54.792173170560446,
+              "y": 24.762543774420912
+            }
+          },
+          "ball": {
+            "x": 55.70268173478982,
+            "y": 34.02448733879606,
+            "velocity": {
+              "x": 0.16179914586201777,
+              "y": -0.08592417756533922,
+              "z": 0
+            },
+            "looseSince": 37.0749999999996,
+            "lastTouchPlayerId": "geometry:anchor:5",
+            "height": 0.11,
+            "airborne": false,
+            "bounceCount": 0
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "stationary-winger",
+      "originalPosition": {
+        "x": 61,
+        "y": 12
+      },
+      "originalVelocity": {
+        "x": 0,
+        "y": 0
+      },
+      "action": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "intent": "through",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 68.63863862216299,
+            "y": 12
+          },
+          "velocity": {
+            "x": 15.94651234871268,
+            "y": -11.450354436371885,
+            "z": 0
+          },
+          "speed": 19.63165486672449,
+          "elevation": 0,
+          "predictedArrivalTime": 2.3499999999999956,
+          "predictedArrivalSpeed": 12.111654866724562,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 68.63863862216299,
+              "y": 12
+            },
+            "awareAt": 0.15859649122807018,
+            "readyAt": 1.405721164234272,
+            "earliestUsefulContactTime": 1.5257211642342718,
+            "preferredArrivalSpeed": 6.85,
+            "maximumComfortableArrivalSpeed": 12,
+            "preparationMargin": 0.9442788357657237,
+            "movementTime": 1.2471246730062018,
+            "orientationTime": 0.5909100759053575
+          },
+          "feasible": true,
+          "targetMissMetres": 0.4206536891640675
+        },
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        }
+      },
+      "result": {
+        "receiverRelationshipAtRelease": "rest_defence",
+        "selectionQuality": {
+          "expectedCompletion": 0.1982385398984216,
+          "selectionQuality": 0.1982385398984216,
+          "passerAbility": 80,
+          "pressure": 0,
+          "length": 37.71904262596676,
+          "ballEta": 2.3499999999999956,
+          "receiverEta": 1.4835964912280695,
+          "defenderEta": 0.325,
+          "laneOccupation": 0,
+          "boundaryMargin": 12,
+          "receiverLateBy": 0,
+          "targetPredictedOutOfPlay": false,
+          "executionUncertaintyMetres": 0.9627438998048595,
+          "expectedReceptionQuality": 0.9052837971143477,
+          "expectedRetainedPossession": 0.12885505093397404,
+          "receiverAdjustmentCost": 1.8438930215895455,
+          "utilityAdjustment": -56.0955910243083
+        },
+        "intendedTarget": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "physicalTarget": {
+          "x": 68.88620663315511,
+          "y": 11.972686069083304
+        },
+        "executionQuality": 0.6340827771262896,
+        "passId": "pr177:stationary-winger:pass:0:geometry:anchor:5",
+        "passerId": "geometry:anchor:5",
+        "intendedReceiverId": "geometry:anchor:8",
+        "releasedAt": 30,
+        "receiverPositionAtRelease": {
+          "x": 61,
+          "y": 12
+        },
+        "receiverVelocityAtRelease": {
+          "x": 0,
+          "y": 0
+        },
+        "predictedReceptionPoint": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "awarenessDelay": 0.15859649122807018,
+        "receiverArrivalEstimate": 1.5257211642342718,
+        "bestDefenderArrivalEstimate": 0.21417553513916962,
+        "leadDistance": 7.638638622162986,
+        "intent": "through",
+        "executionType": "ground_through",
+        "delivery": "ground",
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "ballArrivalEstimate": 2.3499999999999956,
+        "meetingErrorSeconds": -0.8242788357657238,
+        "predictionHorizon": 2.3499999999999956,
+        "actualContactPoint": {
+          "x": 66.17989867937452,
+          "y": 13.90276105691526
+        },
+        "resolvedAt": 32.12499999999988,
+        "finalResult": "intercepted"
+      },
+      "checkpoints": [
+        {
+          "seconds": 0.025,
+          "receiver": {
+            "position": {
+              "x": 60.99944378401416,
+              "y": 12.004921795510047
+            },
+            "velocity": {
+              "x": -0.02224863943354194,
+              "y": 0.19687182040186713
+            },
+            "target": {
+              "x": 60.31203766652464,
+              "y": 18.087581101934408
+            }
+          },
+          "ball": {
+            "x": 38.39991769488575,
+            "y": 33.714788134509185,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.025,
+            "distanceTravelled": 0.5033686232767033,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 15.964141378702244,
+              "y": -11.38524901950026,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 16.029274212157866,
+              "y": -11.431700219765073,
+              "z": 0
+            },
+            "launchSpeed": 19.688103049383045,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.1,
+          "receiver": {
+            "position": {
+              "x": 60.9944383618532,
+              "y": 12.049213338624604
+            },
+            "velocity": {
+              "x": -0.08898193673729793,
+              "y": 0.7873756020326539
+            },
+            "target": {
+              "x": 60.31203766652464,
+              "y": 18.087581101934408
+            }
+          },
+          "ball": {
+            "x": 39.589900854524664,
+            "y": 32.86612021807646,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.1,
+            "distanceTravelled": 1.9649763519804322,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 15.768742878335376,
+              "y": -11.245895418705818,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 16.029274212157866,
+              "y": -11.431700219765073,
+              "z": 0
+            },
+            "launchSpeed": 19.688103049383045,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.2,
+          "receiver": {
+            "position": {
+              "x": 61.005459271234486,
+              "y": 12.159683415484109
+            },
+            "velocity": {
+              "x": 0.3611173635749765,
+              "y": 1.1086904166721467
+            },
+            "target": {
+              "x": 68.63863862216299,
+              "y": 12
+            }
+          },
+          "ball": {
+            "x": 41.15374857566708,
+            "y": 31.750820916258846,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.19999999999999998,
+            "distanceTravelled": 3.885786656918738,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 15.508211544512886,
+              "y": -11.060090617646562,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 16.029274212157866,
+              "y": -11.431700219765073,
+              "z": 0
+            },
+            "launchSpeed": 19.688103049383045,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.5,
+          "receiver": {
+            "position": {
+              "x": 61.488521773710325,
+              "y": 12.400802265446838
+            },
+            "velocity": {
+              "x": 2.6500580143283514,
+              "y": 0.48781695224505484
+            },
+            "target": {
+              "x": 68.9669556950911,
+              "y": 11.91509774307043
+            }
+          },
+          "ball": {
+            "x": 45.688972938800816,
+            "y": 28.51640589144155,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.5000000000000001,
+            "distanceTravelled": 9.456217571733646,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 14.726617543045414,
+              "y": -10.502676214468794,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 16.029274212157866,
+              "y": -11.431700219765073,
+              "z": 0
+            },
+            "launchSpeed": 19.688103049383045,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 2,
+          "receiver": {
+            "position": {
+              "x": 66.30735866722897,
+              "y": 12.123178030189015
+            },
+            "velocity": {
+              "x": 3.1646093450694934,
+              "y": -0.2475912005622405
+            },
+            "target": {
+              "x": 68.9669556950911,
+              "y": 11.91509774307043
+            }
+          },
+          "ball": {
+            "x": 64.8479217478659,
+            "y": 14.852695581654995,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.88620663315511,
+              "y": 11.972686069083304
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 1.999999999999997,
+            "distanceTravelled": 32.98837214580833,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 10.818647535708005,
+              "y": -7.7156041985799275,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 16.029274212157866,
+              "y": -11.431700219765073,
+              "z": 0
+            },
+            "launchSpeed": 19.688103049383045,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 5,
+          "receiver": {
+            "position": {
+              "x": 64.5147376893343,
+              "y": 13.870791404485882
+            },
+            "velocity": {
+              "x": 1.6887402212125835,
+              "y": 3.6371058678255253
+            },
+            "target": {
+              "x": 69.26561531598973,
+              "y": 24.102942374882357
+            }
+          },
+          "ball": {
+            "x": 67.49888343594768,
+            "y": 19.175997677982497,
+            "from": {
+              "x": 64.50406733078052,
+              "y": 10.824253140949283
+            },
+            "target": {
+              "x": 68.398090806853,
+              "y": 21.68364755827433
+            },
+            "intendedReceiverId": "geometry:opponent:3",
+            "travelKind": "pass",
+            "sourceAction": "pass",
+            "executionType": "normal",
+            "flightTime": 0.7750000000000004,
+            "distanceTravelled": 8.891047470527045,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 3.445728449726229,
+              "y": 9.609218978904396,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 4.282829241027764,
+              "y": 11.943670148923253,
+              "z": 0
+            },
+            "launchSpeed": 12.688336491994642,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:opponent:9"
+          }
+        },
+        {
+          "seconds": 8,
+          "receiver": {
+            "position": {
+              "x": 54.93203862768336,
+              "y": 18.057741663480165
+            },
+            "velocity": {
+              "x": -6.197047269828886,
+              "y": 5.271577760145618
+            },
+            "target": {
+              "x": 52.14368562709674,
+              "y": 21.064413202683852
+            }
+          },
+          "ball": {
+            "x": 50.130969139205106,
+            "y": 20.423653990482872,
+            "velocity": {
+              "x": 1.1352224970029567,
+              "y": 1.9696205059470506,
+              "z": 0
+            },
+            "looseSince": 37.299999999999585,
+            "lastTouchPlayerId": "geometry:anchor:10",
+            "height": 0.11,
+            "airborne": false,
+            "bounceCount": 0
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "covering-defender",
+      "originalPosition": {
+        "x": 61,
+        "y": 12
+      },
+      "originalVelocity": {
+        "x": 0,
+        "y": 0
+      },
+      "action": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "intent": "through",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 68.63863862216299,
+            "y": 12
+          },
+          "velocity": {
+            "x": 13.792706066483959,
+            "y": -9.90381906992267,
+            "z": 0
+          },
+          "speed": 16.980116984467077,
+          "elevation": 0,
+          "predictedArrivalTime": 3.099999999999993,
+          "predictedArrivalSpeed": 7.060116984467087,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 68.63863862216299,
+              "y": 12
+            },
+            "awareAt": 0.15859649122807018,
+            "readyAt": 1.405721164234272,
+            "earliestUsefulContactTime": 1.5257211642342718,
+            "preferredArrivalSpeed": 6.85,
+            "maximumComfortableArrivalSpeed": 12,
+            "preparationMargin": 1.694278835765721,
+            "movementTime": 1.2471246730062018,
+            "orientationTime": 0.5909100759053575
+          },
+          "feasible": true,
+          "targetMissMetres": 0.4566799741187765
+        },
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        }
+      },
+      "result": {
+        "receiverRelationshipAtRelease": "rest_defence",
+        "selectionQuality": {
+          "expectedCompletion": 0.1982385398984216,
+          "selectionQuality": 0.1982385398984216,
+          "passerAbility": 80,
+          "pressure": 0,
+          "length": 37.71904262596676,
+          "ballEta": 3.099999999999993,
+          "receiverEta": 1.4835964912280695,
+          "defenderEta": 0.325,
+          "laneOccupation": 0,
+          "boundaryMargin": 12,
+          "receiverLateBy": 0,
+          "targetPredictedOutOfPlay": false,
+          "executionUncertaintyMetres": 0.9627438998048595,
+          "expectedReceptionQuality": 0.9052837971143477,
+          "expectedRetainedPossession": 0.12885505093397404,
+          "receiverAdjustmentCost": 1.8438930215895455,
+          "utilityAdjustment": -56.0955910243083
+        },
+        "intendedTarget": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "physicalTarget": {
+          "x": 68.19196059353385,
+          "y": 12.403979823443242
+        },
+        "executionQuality": 0.6340827771262896,
+        "passId": "pr177:covering-defender:pass:0:geometry:anchor:5",
+        "passerId": "geometry:anchor:5",
+        "intendedReceiverId": "geometry:anchor:8",
+        "releasedAt": 30,
+        "receiverPositionAtRelease": {
+          "x": 61,
+          "y": 12
+        },
+        "receiverVelocityAtRelease": {
+          "x": 0,
+          "y": 0
+        },
+        "predictedReceptionPoint": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "awarenessDelay": 0.15859649122807018,
+        "receiverArrivalEstimate": 1.5257211642342718,
+        "bestDefenderArrivalEstimate": 0.21417553513916962,
+        "leadDistance": 7.638638622162986,
+        "intent": "through",
+        "executionType": "ground_through",
+        "delivery": "ground",
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "ballArrivalEstimate": 3.099999999999993,
+        "meetingErrorSeconds": -1.5742788357657211,
+        "predictionHorizon": 2.5,
+        "actualContactPoint": {
+          "x": 62.81957378421619,
+          "y": 16.246796641213585
+        },
+        "resolvedAt": 32.32499999999987,
+        "finalResult": "intercepted"
+      },
+      "checkpoints": [
+        {
+          "seconds": 0.025,
+          "receiver": {
+            "position": {
+              "x": 60.99776104194613,
+              "y": 12.004418202586871
+            },
+            "velocity": {
+              "x": -0.08955832215491455,
+              "y": 0.17672810347484358
+            },
+            "target": {
+              "x": 56.58970843991912,
+              "y": 20.70295964049511
+            }
+          },
+          "ball": {
+            "x": 38.34170504214166,
+            "y": 33.75558165685659,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.025,
+            "distanceTravelled": 0.43428408017103715,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 13.635667814067894,
+              "y": -9.753462559052993,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.700735557265261,
+              "y": -9.800004892419523,
+              "z": 0
+            },
+            "launchSpeed": 16.844887969397693,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.1,
+          "receiver": {
+            "position": {
+              "x": 60.97761251952736,
+              "y": 12.044177881745778
+            },
+            "velocity": {
+              "x": -0.35818248482570425,
+              "y": 0.7068121612606149
+            },
+            "target": {
+              "x": 56.58970843991912,
+              "y": 20.70295964049511
+            }
+          },
+          "ball": {
+            "x": 39.35706000708705,
+            "y": 33.029307977431344,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.1,
+            "distanceTravelled": 1.6826506778758687,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 13.44046458447579,
+              "y": -9.613835558953406,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.700735557265261,
+              "y": -9.800004892419523,
+              "z": 0
+            },
+            "launchSpeed": 16.844887969397693,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.2,
+          "receiver": {
+            "position": {
+              "x": 60.9435779873533,
+              "y": 12.145015142403981
+            },
+            "velocity": {
+              "x": -0.11358995493594648,
+              "y": 1.020801802636484
+            },
+            "target": {
+              "x": 68.63863862216299,
+              "y": 12
+            }
+          },
+          "ball": {
+            "x": 40.68809291689516,
+            "y": 32.07723288820931,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.19999999999999998,
+            "distanceTravelled": 3.3191394748156418,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 13.18019361168632,
+              "y": -9.42766622548729,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.700735557265261,
+              "y": -9.800004892419523,
+              "z": 0
+            },
+            "launchSpeed": 16.844887969397693,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.5,
+          "receiver": {
+            "position": {
+              "x": 61.289558621496546,
+              "y": 12.384463163004497
+            },
+            "velocity": {
+              "x": 2.2152292728949874,
+              "y": 0.5632950168313045
+            },
+            "target": {
+              "x": 68.51647997642768,
+              "y": 12.17185421772289
+            }
+          },
+          "ball": {
+            "x": 44.52502906264579,
+            "y": 29.332709220622874,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.5000000000000001,
+            "distanceTravelled": 8.036605865634957,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 12.399380693317893,
+              "y": -8.869158225088928,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.700735557265261,
+              "y": -9.800004892419523,
+              "z": 0
+            },
+            "launchSpeed": 16.844887969397693,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 2,
+          "receiver": {
+            "position": {
+              "x": 66.05423956139973,
+              "y": 12.336623867157689
+            },
+            "velocity": {
+              "x": 3.168420757539252,
+              "y": -0.21202624012481408
+            },
+            "target": {
+              "x": 68.51647997642768,
+              "y": 12.17185421772289
+            }
+          },
+          "ball": {
+            "x": 60.19605165874101,
+            "y": 18.12337688448335,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 1.999999999999997,
+            "distanceTravelled": 27.303937819731512,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 8.495316101475735,
+              "y": -6.076618223097109,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.700735557265261,
+              "y": -9.800004892419523,
+              "z": 0
+            },
+            "launchSpeed": 16.844887969397693,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 5,
+          "receiver": {
+            "position": {
+              "x": 64.48294194646793,
+              "y": 22.14144916446423
+            },
+            "velocity": {
+              "x": -2.8616768178358143,
+              "y": 2.8085761667929887
+            },
+            "target": {
+              "x": 56.452276163004804,
+              "y": 30.02309966473753
+            }
+          },
+          "ball": {
+            "x": 63.01470223024578,
+            "y": 38.82543224364986,
+            "ownerId": "geometry:opponent:6",
+            "lastTouchPlayerId": "geometry:opponent:6",
+            "velocity": {
+              "x": -0.04669207691625607,
+              "y": 0.21575882848529174,
+              "z": 0
+            },
+            "height": 0,
+            "airborne": false
+          }
+        },
+        {
+          "seconds": 8,
+          "receiver": {
+            "position": {
+              "x": 55.10121111441966,
+              "y": 20.308732193956995
+            },
+            "velocity": {
+              "x": -3.2298067790932805,
+              "y": -5.140521873386916
+            },
+            "target": {
+              "x": 43.23063606693536,
+              "y": 1.41566680185149
+            }
+          },
+          "ball": {
+            "x": 47.34244110323338,
+            "y": 12.437278051242247,
+            "from": {
+              "x": 53.98773644874308,
+              "y": 30.24985945746953
+            },
+            "target": {
+              "x": 46.78009801008589,
+              "y": 10.929928625202397
+            },
+            "intendedReceiverId": "geometry:opponent:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "first_time",
+            "flightTime": 1.2999999999999994,
+            "distanceTravelled": 19.026063280440116,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": -4.384731676576164,
+              "y": -11.753185655811622,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": -5.838799624207987,
+              "y": -15.650785738384187,
+              "z": 0
+            },
+            "launchSpeed": 16.704450762609984,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:opponent:9"
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "covering-defender",
+      "originalPosition": {
+        "x": 61,
+        "y": 12
+      },
+      "originalVelocity": {
+        "x": 0,
+        "y": 0
+      },
+      "action": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "intent": "through",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 68.63863862216299,
+            "y": 12
+          },
+          "velocity": {
+            "x": 15.94651234871268,
+            "y": -11.450354436371885,
+            "z": 0
+          },
+          "speed": 19.63165486672449,
+          "elevation": 0,
+          "predictedArrivalTime": 2.3499999999999956,
+          "predictedArrivalSpeed": 12.111654866724562,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 68.63863862216299,
+              "y": 12
+            },
+            "awareAt": 0.15859649122807018,
+            "readyAt": 1.405721164234272,
+            "earliestUsefulContactTime": 1.5257211642342718,
+            "preferredArrivalSpeed": 6.85,
+            "maximumComfortableArrivalSpeed": 12,
+            "preparationMargin": 0.9442788357657237,
+            "movementTime": 1.2471246730062018,
+            "orientationTime": 0.5909100759053575
+          },
+          "feasible": true,
+          "targetMissMetres": 0.4206536891640675
+        },
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        }
+      },
+      "result": {
+        "receiverRelationshipAtRelease": "rest_defence",
+        "selectionQuality": {
+          "expectedCompletion": 0.1982385398984216,
+          "selectionQuality": 0.1982385398984216,
+          "passerAbility": 80,
+          "pressure": 0,
+          "length": 37.71904262596676,
+          "ballEta": 2.3499999999999956,
+          "receiverEta": 1.4835964912280695,
+          "defenderEta": 0.325,
+          "laneOccupation": 0,
+          "boundaryMargin": 12,
+          "receiverLateBy": 0,
+          "targetPredictedOutOfPlay": false,
+          "executionUncertaintyMetres": 0.9627438998048595,
+          "expectedReceptionQuality": 0.9052837971143477,
+          "expectedRetainedPossession": 0.12885505093397404,
+          "receiverAdjustmentCost": 1.8438930215895455,
+          "utilityAdjustment": -56.0955910243083
+        },
+        "intendedTarget": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "physicalTarget": {
+          "x": 68.19196059353385,
+          "y": 12.403979823443242
+        },
+        "executionQuality": 0.6340827771262896,
+        "passId": "pr177:covering-defender:pass:0:geometry:anchor:5",
+        "passerId": "geometry:anchor:5",
+        "intendedReceiverId": "geometry:anchor:8",
+        "releasedAt": 30,
+        "receiverPositionAtRelease": {
+          "x": 61,
+          "y": 12
+        },
+        "receiverVelocityAtRelease": {
+          "x": 0,
+          "y": 0
+        },
+        "predictedReceptionPoint": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "awarenessDelay": 0.15859649122807018,
+        "receiverArrivalEstimate": 1.5257211642342718,
+        "bestDefenderArrivalEstimate": 0.21417553513916962,
+        "leadDistance": 7.638638622162986,
+        "intent": "through",
+        "executionType": "ground_through",
+        "delivery": "ground",
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "ballArrivalEstimate": 2.3499999999999956,
+        "meetingErrorSeconds": -0.8242788357657238,
+        "predictionHorizon": 2.3499999999999956,
+        "actualContactPoint": {
+          "x": 67.05229632266128,
+          "y": 13.219170758527333
+        },
+        "receptionOutcome": "directional_control",
+        "actualReceiverId": "geometry:anchor:8",
+        "resolvedAt": 32.24999999999987,
+        "finalResult": "completed"
+      },
+      "checkpoints": [
+        {
+          "seconds": 0.025,
+          "receiver": {
+            "position": {
+              "x": 60.999227774988334,
+              "y": 12.004892557183823
+            },
+            "velocity": {
+              "x": -0.030889000466629568,
+              "y": 0.1957022873529013
+            },
+            "target": {
+              "x": 60.01281977684212,
+              "y": 18.254440894262324
+            }
+          },
+          "ball": {
+            "x": 38.39519115678109,
+            "y": 33.717323551446704,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.025,
+            "distanceTravelled": 0.4981787078596183,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 15.775112399644764,
+              "y": -11.283786775448483,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.840180142842131,
+              "y": -11.330329108815013,
+              "z": 0
+            },
+            "launchSpeed": 19.475309103368573,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.1,
+          "receiver": {
+            "position": {
+              "x": 60.992278474204,
+              "y": 12.048920982786887
+            },
+            "velocity": {
+              "x": -0.12353847944780227,
+              "y": 0.7826981332775773
+            },
+            "target": {
+              "x": 60.01281977684212,
+              "y": 18.254440894262324
+            }
+          },
+          "ball": {
+            "x": 39.57100446564474,
+            "y": 32.87627555579179,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.1,
+            "distanceTravelled": 1.9438268906122669,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 15.57990917005266,
+              "y": -11.144159775348895,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.840180142842131,
+              "y": -11.330329108815013,
+              "z": 0
+            },
+            "launchSpeed": 19.475309103368573,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.2,
+          "receiver": {
+            "position": {
+              "x": 60.99756373321082,
+              "y": 12.159222441438528
+            },
+            "velocity": {
+              "x": 0.30057916581341715,
+              "y": 1.1078475948287547
+            },
+            "target": {
+              "x": 68.63863862216299,
+              "y": 12
+            }
+          },
+          "ball": {
+            "x": 41.11598183401053,
+            "y": 31.771168044930217,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.19999999999999998,
+            "distanceTravelled": 3.843357800949121,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 15.31963819726319,
+              "y": -10.957990441882778,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.840180142842131,
+              "y": -11.330329108815013,
+              "z": 0
+            },
+            "launchSpeed": 19.475309103368573,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.5,
+          "receiver": {
+            "position": {
+              "x": 61.46538407712418,
+              "y": 12.412976733028177
+            },
+            "velocity": {
+              "x": 2.609536703323272,
+              "y": 0.5658682405754689
+            },
+            "target": {
+              "x": 68.52062832648431,
+              "y": 12.168886942668172
+            }
+          },
+          "ball": {
+            "x": 45.594751355434234,
+            "y": 28.567547112425135,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.5000000000000001,
+            "distanceTravelled": 9.349950531959706,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 14.538825278894778,
+              "y": -10.399482441484428,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.840180142842131,
+              "y": -11.330329108815013,
+              "z": 0
+            },
+            "launchSpeed": 19.475309103368573,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 2,
+          "receiver": {
+            "position": {
+              "x": 66.2274831432116,
+              "y": 12.280950260996281
+            },
+            "velocity": {
+              "x": 3.171873895604449,
+              "y": -0.15500576093160134
+            },
+            "target": {
+              "x": 68.52062832648431,
+              "y": 12.168886942668172
+            }
+          },
+          "ball": {
+            "x": 64.47494082989482,
+            "y": 15.062728451692328,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.19196059353385,
+              "y": 12.403979823443242
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 1.999999999999997,
+            "distanceTravelled": 32.562914187012666,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 10.634760687052669,
+              "y": -7.6069424394926335,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.840180142842131,
+              "y": -11.330329108815013,
+              "z": 0
+            },
+            "launchSpeed": 19.475309103368573,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 5,
+          "receiver": {
+            "position": {
+              "x": 76.75164732420816,
+              "y": 7.174091183502721
+            },
+            "velocity": {
+              "x": 0.33849104102216643,
+              "y": 1.693068941482423
+            },
+            "target": {
+              "x": 59.81104617734426,
+              "y": 19.006488841735553
+            }
+          },
+          "ball": {
+            "x": 77.859924512442,
+            "y": 6.660368923814342,
+            "ownerId": "geometry:opponent:1",
+            "lastTouchPlayerId": "geometry:opponent:1",
+            "velocity": {
+              "x": -1.0682789845475409,
+              "y": -0.10751131050245392,
+              "z": 0
+            },
+            "height": 0,
+            "airborne": false
+          }
+        },
+        {
+          "seconds": 8,
+          "receiver": {
+            "position": {
+              "x": 75.99593217978749,
+              "y": 10.637410172175457
+            },
+            "velocity": {
+              "x": -0.24344252937623878,
+              "y": 1.7497584852918635
+            },
+            "target": {
+              "x": 75.67211684247577,
+              "y": 14.698313392362374
+            }
+          },
+          "ball": {
+            "x": 75.67211684247577,
+            "y": 14.698313392362374,
+            "height": 0.11,
+            "lastTouchPlayerId": "geometry:opponent:1",
+            "airborne": false,
+            "bounceCount": 0,
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "diagonal-run",
+      "originalPosition": {
+        "x": 61,
+        "y": 12
+      },
+      "originalVelocity": {
+        "x": 2,
+        "y": 2
+      },
+      "action": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "intent": "through",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 68.63863862216299,
+            "y": 12
+          },
+          "velocity": {
+            "x": 13.792706066483959,
+            "y": -9.90381906992267,
+            "z": 0
+          },
+          "speed": 16.980116984467077,
+          "elevation": 0,
+          "predictedArrivalTime": 3.099999999999993,
+          "predictedArrivalSpeed": 7.060116984467087,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 68.63863862216299,
+              "y": 12
+            },
+            "awareAt": 0.15859649122807018,
+            "readyAt": 1.405721164234272,
+            "earliestUsefulContactTime": 1.5257211642342718,
+            "preferredArrivalSpeed": 6.85,
+            "maximumComfortableArrivalSpeed": 12,
+            "preparationMargin": 1.694278835765721,
+            "movementTime": 1.2471246730062018,
+            "orientationTime": 0.5909100759053575
+          },
+          "feasible": true,
+          "targetMissMetres": 0.4566799741187765
+        },
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        }
+      },
+      "result": {
+        "receiverRelationshipAtRelease": "rest_defence",
+        "selectionQuality": {
+          "expectedCompletion": 0.17992687837584093,
+          "selectionQuality": 0.17992687837584093,
+          "passerAbility": 80,
+          "pressure": 0,
+          "length": 37.71904262596676,
+          "ballEta": 3.099999999999993,
+          "receiverEta": 1.19,
+          "defenderEta": 0.325,
+          "laneOccupation": 0,
+          "boundaryMargin": 12,
+          "receiverLateBy": 0,
+          "targetPredictedOutOfPlay": false,
+          "executionUncertaintyMetres": 1.0222348544536717,
+          "expectedReceptionQuality": 0.9052837971143477,
+          "expectedRetainedPossession": 0.1169524709442966,
+          "receiverAdjustmentCost": 1.9578329345268066,
+          "utilityAdjustment": -56.995153035522264
+        },
+        "intendedTarget": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "physicalTarget": {
+          "x": 68.13157428200167,
+          "y": 11.344590966452452
+        },
+        "executionQuality": 0.6196133773458048,
+        "passId": "pr177:diagonal-run:pass:0:geometry:anchor:5",
+        "passerId": "geometry:anchor:5",
+        "intendedReceiverId": "geometry:anchor:8",
+        "releasedAt": 30,
+        "receiverPositionAtRelease": {
+          "x": 61,
+          "y": 12
+        },
+        "receiverVelocityAtRelease": {
+          "x": 2,
+          "y": 2
+        },
+        "predictedReceptionPoint": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "awarenessDelay": 0.15859649122807018,
+        "receiverArrivalEstimate": 1.5257211642342718,
+        "bestDefenderArrivalEstimate": 0.21417553513916962,
+        "leadDistance": 7.638638622162986,
+        "intent": "through",
+        "executionType": "ground_through",
+        "delivery": "ground",
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "ballArrivalEstimate": 3.099999999999993,
+        "meetingErrorSeconds": -1.5742788357657211,
+        "predictionHorizon": 2.5,
+        "actualContactPoint": {
+          "x": 64.97486294017806,
+          "y": 13.718067572106325
+        },
+        "resolvedAt": 32.64999999999985,
+        "finalResult": "intercepted"
+      },
+      "checkpoints": [
+        {
+          "seconds": 0.025,
+          "receiver": {
+            "position": {
+              "x": 61.045079843138716,
+              "y": 12.050570529338382
+            },
+            "velocity": {
+              "x": 1.8031937255486241,
+              "y": 2.022821173535263
+            },
+            "target": {
+              "x": 56.43516660307604,
+              "y": 20.138917399886424
+            }
+          },
+          "ball": {
+            "x": 38.33840393684523,
+            "y": 33.74555993868628,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.025,
+            "distanceTravelled": 0.4374436755442726,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 13.504186388938097,
+              "y": -10.15356394735091,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.568128558680533,
+              "y": -10.201640957747037,
+              "z": 0
+            },
+            "launchSpeed": 16.975499722119057,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.1,
+          "receiver": {
+            "position": {
+              "x": 61.150781465891946,
+              "y": 12.205532104072857
+            },
+            "velocity": {
+              "x": 1.212368958827028,
+              "y": 2.0871250419184406
+            },
+            "target": {
+              "x": 56.43516660307604,
+              "y": 20.138917399886424
+            }
+          },
+          "ball": {
+            "x": 39.34402442191957,
+            "y": 32.989451306304524,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.1,
+            "distanceTravelled": 1.695606154703206,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 13.312359879710785,
+              "y": -10.009332916162535,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.568128558680533,
+              "y": -10.201640957747037,
+              "z": 0
+            },
+            "launchSpeed": 16.975499722119057,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.2,
+          "receiver": {
+            "position": {
+              "x": 61.251732291787505,
+              "y": 12.414098800764286
+            },
+            "velocity": {
+              "x": 1.1947437955265627,
+              "y": 2.0122116679564073
+            },
+            "target": {
+              "x": 68.63863862216299,
+              "y": 12
+            }
+          },
+          "ball": {
+            "x": 40.66247197594217,
+            "y": 31.998133416767494,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.19999999999999998,
+            "distanceTravelled": 3.345156126915118,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 13.05659120074104,
+              "y": -9.817024874578031,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.568128558680533,
+              "y": -10.201640957747037,
+              "z": 0
+            },
+            "launchSpeed": 16.975499722119057,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.5,
+          "receiver": {
+            "position": {
+              "x": 61.90457924349333,
+              "y": 12.781081326899137
+            },
+            "velocity": {
+              "x": 2.7505239186942276,
+              "y": 0.3477403048363925
+            },
+            "target": {
+              "x": 68.32265502452648,
+              "y": 11.2009206643362
+            }
+          },
+          "ball": {
+            "x": 44.46435343062808,
+            "y": 29.139564573107112,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.5000000000000001,
+            "distanceTravelled": 8.101806043550829,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 12.289285163831792,
+              "y": -9.240100749824515,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.568128558680533,
+              "y": -10.201640957747037,
+              "z": 0
+            },
+            "launchSpeed": 16.975499722119057,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 2,
+          "receiver": {
+            "position": {
+              "x": 66.52013188937602,
+              "y": 11.68613929067137
+            },
+            "velocity": {
+              "x": 3.067656859827821,
+              "y": -0.8257781653765761
+            },
+            "target": {
+              "x": 68.32265502452648,
+              "y": 11.2009206643362
+            }
+          },
+          "ball": {
+            "x": 60.020883537966064,
+            "y": 17.442878916196047,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 1.999999999999997,
+            "distanceTravelled": 27.565055626729436,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 8.452754979285523,
+              "y": -6.35548012605691,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 13.568128558680533,
+              "y": -10.201640957747037,
+              "z": 0
+            },
+            "launchSpeed": 16.975499722119057,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 5,
+          "receiver": {
+            "position": {
+              "x": 62.164157530189485,
+              "y": 14.231589873263651
+            },
+            "velocity": {
+              "x": 1.3522194151352096,
+              "y": 3.7015399377835223
+            },
+            "target": {
+              "x": 63.899156583657,
+              "y": 18.561529637678532
+            }
+          },
+          "ball": {
+            "x": 63.401863433642795,
+            "y": 17.55208470924569,
+            "from": {
+              "x": 61.32871870845407,
+              "y": 13.343851741047164
+            },
+            "target": {
+              "x": 62.904400394862655,
+              "y": 16.54229492717234
+            },
+            "intendedReceiverId": "geometry:opponent:7",
+            "travelKind": "pass",
+            "sourceAction": "pass",
+            "executionType": "normal",
+            "flightTime": 0.9250000000000005,
+            "distanceTravelled": 4.724858844987758,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 1.5871898788618772,
+              "y": 3.221803424461603,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 2.8952852026272833,
+              "y": 5.877078668940616,
+              "z": 0
+            },
+            "launchSpeed": 6.551544099330273,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:opponent:8"
+          }
+        },
+        {
+          "seconds": 8,
+          "receiver": {
+            "position": {
+              "x": 61.75608226161075,
+              "y": 21.910234382502267
+            },
+            "velocity": {
+              "x": -3.090061178307053,
+              "y": 1.6932439103686647
+            },
+            "target": {
+              "x": 55.75710306436086,
+              "y": 25.208945510545075
+            }
+          },
+          "ball": {
+            "x": 56.22863236431233,
+            "y": 31.07916430039323,
+            "from": {
+              "x": 58.21339354751542,
+              "y": 30.396606671402235
+            },
+            "target": {
+              "x": 43.824559982821064,
+              "y": 35.34491390603581
+            },
+            "intendedReceiverId": "geometry:opponent:9",
+            "travelKind": "pass",
+            "sourceAction": "pass",
+            "executionType": "first_time",
+            "flightTime": 0.15,
+            "distanceTravelled": 2.115508075866011,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": -13.004786843973895,
+              "y": 4.47233478207728,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": -13.458695598733971,
+              "y": 4.628433604469248,
+              "z": 0
+            },
+            "launchSpeed": 14.23231832311101,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:opponent:6"
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "diagonal-run",
+      "originalPosition": {
+        "x": 61,
+        "y": 12
+      },
+      "originalVelocity": {
+        "x": 2,
+        "y": 2
+      },
+      "action": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "intent": "through",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 68.63863862216299,
+            "y": 12
+          },
+          "velocity": {
+            "x": 15.94651234871268,
+            "y": -11.450354436371885,
+            "z": 0
+          },
+          "speed": 19.63165486672449,
+          "elevation": 0,
+          "predictedArrivalTime": 2.3499999999999956,
+          "predictedArrivalSpeed": 12.111654866724562,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 68.63863862216299,
+              "y": 12
+            },
+            "awareAt": 0.15859649122807018,
+            "readyAt": 1.405721164234272,
+            "earliestUsefulContactTime": 1.5257211642342718,
+            "preferredArrivalSpeed": 6.85,
+            "maximumComfortableArrivalSpeed": 12,
+            "preparationMargin": 0.9442788357657237,
+            "movementTime": 1.2471246730062018,
+            "orientationTime": 0.5909100759053575
+          },
+          "feasible": true,
+          "targetMissMetres": 0.4206536891640675
+        },
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        }
+      },
+      "result": {
+        "receiverRelationshipAtRelease": "rest_defence",
+        "selectionQuality": {
+          "expectedCompletion": 0.17992687837584093,
+          "selectionQuality": 0.17992687837584093,
+          "passerAbility": 80,
+          "pressure": 0,
+          "length": 37.71904262596676,
+          "ballEta": 2.3499999999999956,
+          "receiverEta": 1.19,
+          "defenderEta": 0.325,
+          "laneOccupation": 0,
+          "boundaryMargin": 12,
+          "receiverLateBy": 0,
+          "targetPredictedOutOfPlay": false,
+          "executionUncertaintyMetres": 1.0222348544536717,
+          "expectedReceptionQuality": 0.9052837971143477,
+          "expectedRetainedPossession": 0.1169524709442966,
+          "receiverAdjustmentCost": 1.9578329345268066,
+          "utilityAdjustment": -56.995153035522264
+        },
+        "intendedTarget": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "physicalTarget": {
+          "x": 68.13157428200167,
+          "y": 11.344590966452452
+        },
+        "executionQuality": 0.6196133773458048,
+        "passId": "pr177:diagonal-run:pass:0:geometry:anchor:5",
+        "passerId": "geometry:anchor:5",
+        "intendedReceiverId": "geometry:anchor:8",
+        "releasedAt": 30,
+        "receiverPositionAtRelease": {
+          "x": 61,
+          "y": 12
+        },
+        "receiverVelocityAtRelease": {
+          "x": 2,
+          "y": 2
+        },
+        "predictedReceptionPoint": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "awarenessDelay": 0.15859649122807018,
+        "receiverArrivalEstimate": 1.5257211642342718,
+        "bestDefenderArrivalEstimate": 0.21417553513916962,
+        "leadDistance": 7.638638622162986,
+        "intent": "through",
+        "executionType": "ground_through",
+        "delivery": "ground",
+        "requestedSpace": {
+          "x": 68.63863862216299,
+          "y": 12
+        },
+        "ballArrivalEstimate": 2.3499999999999956,
+        "meetingErrorSeconds": -0.8242788357657238,
+        "predictionHorizon": 2.3499999999999956,
+        "actualContactPoint": {
+          "x": 66.82130344940744,
+          "y": 12.32976092071139
+        },
+        "receptionOutcome": "directional_control",
+        "actualReceiverId": "geometry:anchor:8",
+        "resolvedAt": 32.24999999999987,
+        "finalResult": "completed"
+      },
+      "checkpoints": [
+        {
+          "seconds": 0.025,
+          "receiver": {
+            "position": {
+              "x": 61.04521181595314,
+              "y": 12.051267572798292
+            },
+            "velocity": {
+              "x": 1.8084726381255223,
+              "y": 2.0507029119316655
+            },
+            "target": {
+              "x": 59.82514625022125,
+              "y": 17.59005039404427
+            }
+          },
+          "ball": {
+            "x": 38.391372368831874,
+            "y": 33.705733891719994,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.025,
+            "distanceTravelled": 0.5018614087248914,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 15.622923668403855,
+              "y": -11.746605826002257,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.686865838146291,
+              "y": -11.794682836398383,
+              "z": 0
+            },
+            "launchSpeed": 19.626316593676762,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.1,
+          "receiver": {
+            "position": {
+              "x": 61.15205944361064,
+              "y": 12.212440534204148
+            },
+            "velocity": {
+              "x": 1.232481905675229,
+              "y": 2.197153566071961
+            },
+            "target": {
+              "x": 59.82514625022125,
+              "y": 17.59005039404427
+            }
+          },
+          "ball": {
+            "x": 39.55589814986614,
+            "y": 32.830147118439385,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.1,
+            "distanceTravelled": 1.9588351532506507,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 15.431097159176545,
+              "y": -11.602374794813882,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.686865838146291,
+              "y": -11.794682836398383,
+              "z": 0
+            },
+            "launchSpeed": 19.626316593676762,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.2,
+          "receiver": {
+            "position": {
+              "x": 61.260516368247124,
+              "y": 12.444932636634569
+            },
+            "velocity": {
+              "x": 1.2812729375858112,
+              "y": 2.271452778564651
+            },
+            "target": {
+              "x": 68.63863862216299,
+              "y": 12
+            }
+          },
+          "ball": {
+            "x": 41.0862194318353,
+            "y": 31.679525041037223,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.19999999999999998,
+            "distanceTravelled": 3.8734668126183247,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 15.175328480206801,
+              "y": -11.410066753229378,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.686865838146291,
+              "y": -11.794682836398383,
+              "z": 0
+            },
+            "launchSpeed": 19.626316593676762,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 0.5,
+          "receiver": {
+            "position": {
+              "x": 61.916159484516115,
+              "y": 12.862798016880912
+            },
+            "velocity": {
+              "x": 2.7123071524383136,
+              "y": 0.47066266263819045
+            },
+            "target": {
+              "x": 68.28234005722237,
+              "y": 11.231232790277593
+            }
+          },
+          "ball": {
+            "x": 45.52372207036096,
+            "y": 28.343043633781438,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 0.5000000000000001,
+            "distanceTravelled": 9.425361790721361,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 14.408022443297563,
+              "y": -10.833142628475871,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.686865838146291,
+              "y": -11.794682836398383,
+              "z": 0
+            },
+            "launchSpeed": 19.626316593676762,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 2,
+          "receiver": {
+            "position": {
+              "x": 66.49071683622878,
+              "y": 11.715156925292277
+            },
+            "velocity": {
+              "x": 3.0671099274945846,
+              "y": -0.8284378664364311
+            },
+            "target": {
+              "x": 68.28234005722237,
+              "y": 11.231232790277593
+            }
+          },
+          "ball": {
+            "x": 64.25835809689764,
+            "y": 14.256795158893304,
+            "from": {
+              "x": 38,
+              "y": 34
+            },
+            "target": {
+              "x": 68.13157428200167,
+              "y": 11.344590966452452
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "ground_through",
+            "flightTime": 1.999999999999997,
+            "distanceTravelled": 32.864836681236596,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 10.571492258751327,
+              "y": -7.948522004708292,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 15.686865838146291,
+              "y": -11.794682836398383,
+              "z": 0
+            },
+            "launchSpeed": 19.626316593676762,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          }
+        },
+        {
+          "seconds": 5,
+          "receiver": {
+            "position": {
+              "x": 73.45700551278726,
+              "y": 7.732819606567219
+            },
+            "velocity": {
+              "x": -1.0508824515011383,
+              "y": 3.339242229598476
+            },
+            "target": {
+              "x": 60.207588049737154,
+              "y": 18.469974467601862
+            }
+          },
+          "ball": {
+            "x": 74.65256462929138,
+            "y": 6.092711510236335,
+            "ownerId": "geometry:opponent:8",
+            "lastTouchPlayerId": "geometry:opponent:8",
+            "velocity": {
+              "x": 0.48409047041465075,
+              "y": -0.12888491274312364,
+              "z": 0
+            },
+            "height": 0,
+            "airborne": false
+          }
+        },
+        {
+          "seconds": 8,
+          "receiver": {
+            "position": {
+              "x": 63.728652584913974,
+              "y": 15.551145245152355
+            },
+            "velocity": {
+              "x": -2.8993312277202676,
+              "y": 2.7468167884605066
+            },
+            "target": {
+              "x": 55.03780731291742,
+              "y": 23.784823229507015
+            }
+          },
+          "ball": {
+            "x": 60.654521956830656,
+            "y": 31.997498109675302,
+            "ownerId": "geometry:opponent:5",
+            "lastTouchPlayerId": "geometry:opponent:5",
+            "height": 0,
+            "velocity": {
+              "x": 1.4201068073505199,
+              "y": -1.733880501604989,
+              "z": 0
+            },
+            "airborne": false
+          }
+        }
+      ]
+    }
+  ],
+  "recoveries": [
+    {
+      "travelKind": "corner_delivery",
+      "method": "Actual canonical control of a prescribed incoming delivery; full preceding set-piece setup is not simulated",
+      "changed": {
+        "at": 30.025,
+        "fact": {
+          "at": 30.025,
+          "from": "away",
+          "to": "home",
+          "cause": "interception",
+          "winnerId": "geometry:anchor:5",
+          "loserId": "geometry:opponent:1"
+        },
+        "ownerId": "geometry:anchor:5",
+        "exposure": {
+          "active": true,
+          "exposure": 0.7563011140809878,
+          "opponentsAhead": 8,
+          "cover": 2,
+          "recoverySeconds": 2.1583433863663206,
+          "runway": 28.963444741432113
+        }
+      },
+      "checkpoints": [
+        {
+          "seconds": 2,
+          "ball": {
+            "x": 60.79320736723403,
+            "y": 20.426578207778505,
+            "from": {
+              "x": 37.699,
+              "y": 34
+            },
+            "target": {
+              "x": 68.97376748262936,
+              "y": 15.618524344868074
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "first_time",
+            "flightTime": 1.974999999999997,
+            "distanceTravelled": 26.801948961561173,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 8.968969603134202,
+              "y": -5.271434759769126,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 14.417569502925568,
+              "y": -8.473802498176662,
+              "z": 0
+            },
+            "launchSpeed": 16.723385995359745,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          },
+          "possession": "home",
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 68.68671724503847,
+              "y": 16.00385563297758
+            },
+            "intent": "through",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 68.68671724503847,
+                "y": 16.00385563297758
+              },
+              "velocity": {
+                "x": 14.37311750903795,
+                "y": -8.347200784473388,
+                "z": 0
+              },
+              "speed": 16.62113918673827,
+              "elevation": 0,
+              "predictedArrivalTime": 2.9749999999999934,
+              "predictedArrivalSpeed": 7.101139186738268,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 68.68671724503847,
+                  "y": 16.00385563297758
+                },
+                "awareAt": 0.15859649122807018,
+                "readyAt": 1.5737727038419433,
+                "earliestUsefulContactTime": 1.6937727038419434,
+                "preferredArrivalSpeed": 6.85,
+                "maximumComfortableArrivalSpeed": 12,
+                "preparationMargin": 1.40122729615805,
+                "movementTime": 1.4151762126138732,
+                "orientationTime": 0.5588016120339564
+              },
+              "feasible": true,
+              "targetMissMetres": 0.5474496483483825
+            },
+            "requestedSpace": {
+              "x": 68.68671724503847,
+              "y": 16.00385563297758
+            },
+            "firstTime": true
+          },
+          "players": [
+            {
+              "id": "geometry:anchor:0",
+              "position": {
+                "x": 3.013581730082362,
+                "y": 33.94794978363167
+              },
+              "velocity": {
+                "x": -0.9214852856720412,
+                "y": -0.0527781866372834
+              }
+            },
+            {
+              "id": "geometry:anchor:1",
+              "position": {
+                "x": 27.604633479980432,
+                "y": 13.767172230652278
+              },
+              "velocity": {
+                "x": 3.605995110558098,
+                "y": 0.5443247808386786
+              }
+            },
+            {
+              "id": "geometry:anchor:2",
+              "position": {
+                "x": 29.781284073271074,
+                "y": 22.050017719543266
+              },
+              "velocity": {
+                "x": 2.978151421040849,
+                "y": 2.1046513223566876
+              }
+            },
+            {
+              "id": "geometry:anchor:3",
+              "position": {
+                "x": 23.18259663306612,
+                "y": 28.03904593242775
+              },
+              "velocity": {
+                "x": 3.0025614799500033,
+                "y": 2.0610819048131646
+              }
+            },
+            {
+              "id": "geometry:anchor:4",
+              "position": {
+                "x": 25.693805140637092,
+                "y": 35.8998484765924
+              },
+              "velocity": {
+                "x": 1.9681919290270855,
+                "y": 3.0634574950005344
+              }
+            },
+            {
+              "id": "geometry:anchor:5",
+              "position": {
+                "x": 45.042565523785896,
+                "y": 29.438222305174666
+              },
+              "velocity": {
+                "x": 4.550722376031899,
+                "y": -3.343106624063239
+              }
+            },
+            {
+              "id": "geometry:anchor:6",
+              "position": {
+                "x": 26.086774813528844,
+                "y": 36.825315069395934
+              },
+              "velocity": {
+                "x": 5.018687165772349,
+                "y": -2.587992738349101
+              }
+            },
+            {
+              "id": "geometry:anchor:7",
+              "position": {
+                "x": 33.716815977338925,
+                "y": 44.67951898600702
+              },
+              "velocity": {
+                "x": 8.260397080097164,
+                "y": -1.8231972518913153
+              }
+            },
+            {
+              "id": "geometry:anchor:8",
+              "position": {
+                "x": 66.83243082237419,
+                "y": 15.175979263133653
+              },
+              "velocity": {
+                "x": 3.8373658812002986,
+                "y": 1.5737732693882123
+              }
+            },
+            {
+              "id": "geometry:anchor:9",
+              "position": {
+                "x": 23.53061903703574,
+                "y": 12.226918602858575
+              },
+              "velocity": {
+                "x": 3.560445613366312,
+                "y": 4.382516392655376
+              }
+            },
+            {
+              "id": "geometry:anchor:10",
+              "position": {
+                "x": 30.29241372954747,
+                "y": 15.350380263991664
+              },
+              "velocity": {
+                "x": 5.048354368106516,
+                "y": 2.528906515041669
+              }
+            },
+            {
+              "id": "geometry:opponent:0",
+              "position": {
+                "x": 102.56363096615735,
+                "y": 33.692816867363426
+              },
+              "velocity": {
+                "x": 0.8664385354984461,
+                "y": -0.3181189804075757
+              }
+            },
+            {
+              "id": "geometry:opponent:1",
+              "position": {
+                "x": 31.779286077726614,
+                "y": 14.964752620703441
+              },
+              "velocity": {
+                "x": 6.745261777218019,
+                "y": 5.112731721291084
+              }
+            },
+            {
+              "id": "geometry:opponent:2",
+              "position": {
+                "x": 35.72622242358671,
+                "y": 18.404467996119433
+              },
+              "velocity": {
+                "x": 7.521391271129971,
+                "y": 3.8826275847726777
+              }
+            },
+            {
+              "id": "geometry:opponent:3",
+              "position": {
+                "x": 39.66953062814584,
+                "y": 20.683034056959897
+              },
+              "velocity": {
+                "x": 8.189206530911122,
+                "y": 2.144203355437213
+              }
+            },
+            {
+              "id": "geometry:opponent:4",
+              "position": {
+                "x": 33.99255466189401,
+                "y": 22.80308910613434
+              },
+              "velocity": {
+                "x": 8.452990427310567,
+                "y": -0.4516283804680654
+              }
+            },
+            {
+              "id": "geometry:opponent:5",
+              "position": {
+                "x": 36.72172862854339,
+                "y": 30.57050600945552
+              },
+              "velocity": {
+                "x": 8.314078009412356,
+                "y": 1.5879116412530436
+              }
+            },
+            {
+              "id": "geometry:opponent:6",
+              "position": {
+                "x": 39.78046950080697,
+                "y": 30.91858274832197
+              },
+              "velocity": {
+                "x": 8.357294616746742,
+                "y": -1.343017013003447
+              }
+            },
+            {
+              "id": "geometry:opponent:7",
+              "position": {
+                "x": 33.86151901543294,
+                "y": 39.50132270457965
+              },
+              "velocity": {
+                "x": 8.424500830849126,
+                "y": 0.8248988311129324
+              }
+            },
+            {
+              "id": "geometry:opponent:8",
+              "position": {
+                "x": 35.26587862949547,
+                "y": 36.78832865987511
+              },
+              "velocity": {
+                "x": 6.917284535659576,
+                "y": -4.878041102675752
+              }
+            },
+            {
+              "id": "geometry:opponent:9",
+              "position": {
+                "x": 66.46650858511993,
+                "y": 38.95856586383063
+              },
+              "velocity": {
+                "x": 1.0769095590876532,
+                "y": -5.542464165986587
+              }
+            },
+            {
+              "id": "geometry:opponent:10",
+              "position": {
+                "x": 66.06386908859875,
+                "y": 44.12381989511717
+              },
+              "velocity": {
+                "x": 0.9687124871061314,
+                "y": -5.56191656473203
+              }
+            }
+          ],
+          "loss": {
+            "to": "home",
+            "cause": "interception",
+            "winnerId": "geometry:anchor:5",
+            "loserId": "geometry:opponent:1",
+            "id": "pr177:corner-counter:loss:acquisition:30.025000:geometry:anchor:5",
+            "at": 30.025,
+            "from": "away",
+            "position": {
+              "x": 37.699,
+              "y": 34
+            }
+          }
+        },
+        {
+          "seconds": 5,
+          "ball": {
+            "x": 69.82852131241786,
+            "y": 17.65401590766273,
+            "ownerId": "geometry:anchor:8",
+            "lastTouchPlayerId": "geometry:anchor:8",
+            "velocity": {
+              "x": -2.2736439844577747,
+              "y": 1.1632743185681584,
+              "z": 0
+            },
+            "height": 0,
+            "airborne": false
+          },
+          "possession": "home",
+          "action": {
+            "type": "hold",
+            "actorId": "geometry:anchor:8"
+          },
+          "players": [
+            {
+              "id": "geometry:anchor:0",
+              "position": {
+                "x": 1.6701515246536212,
+                "y": 33.89959660581964
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:anchor:1",
+              "position": {
+                "x": 38.59045514640136,
+                "y": 10.98673559215266
+              },
+              "velocity": {
+                "x": 3.3814910523190633,
+                "y": -1.3528824828018315
+              }
+            },
+            {
+              "id": "geometry:anchor:2",
+              "position": {
+                "x": 40.39390207775074,
+                "y": 23.909398521495252
+              },
+              "velocity": {
+                "x": 3.6441389685239756,
+                "y": 0.16091711127629083
+              }
+            },
+            {
+              "id": "geometry:anchor:3",
+              "position": {
+                "x": 33.35834432011615,
+                "y": 31.849053665116006
+              },
+              "velocity": {
+                "x": 3.5161731902135784,
+                "y": 0.9535055733039144
+              }
+            },
+            {
+              "id": "geometry:anchor:4",
+              "position": {
+                "x": 34.20358732870454,
+                "y": 42.25150161967919
+              },
+              "velocity": {
+                "x": 3.2890825633774057,
+                "y": 1.5644906155972649
+              }
+            },
+            {
+              "id": "geometry:anchor:5",
+              "position": {
+                "x": 54.87158142692619,
+                "y": 21.39683252685009
+              },
+              "velocity": {
+                "x": 2.16023122409041,
+                "y": -2.9265609483584853
+              }
+            },
+            {
+              "id": "geometry:anchor:6",
+              "position": {
+                "x": 41.429545651300266,
+                "y": 29.551516719727086
+              },
+              "velocity": {
+                "x": 5.176758844584413,
+                "y": -2.232671784141189
+              }
+            },
+            {
+              "id": "geometry:anchor:7",
+              "position": {
+                "x": 49.96838288833447,
+                "y": 42.09769416412218
+              },
+              "velocity": {
+                "x": 3.6083168888413297,
+                "y": -0.1673109561679098
+              }
+            },
+            {
+              "id": "geometry:anchor:8",
+              "position": {
+                "x": 69.34999818332099,
+                "y": 17.134818667158754
+              },
+              "velocity": {
+                "x": -0.3123343932742273,
+                "y": 0.7554960608185013
+              }
+            },
+            {
+              "id": "geometry:anchor:9",
+              "position": {
+                "x": 35.01721493910705,
+                "y": 24.646326948370266
+              },
+              "velocity": {
+                "x": 4.0105774750284695,
+                "y": 3.9618156500186785
+              }
+            },
+            {
+              "id": "geometry:anchor:10",
+              "position": {
+                "x": 42.77840687777322,
+                "y": 18.450705654246978
+              },
+              "velocity": {
+                "x": 3.6240195805487474,
+                "y": 0.32267362306484415
+              }
+            },
+            {
+              "id": "geometry:opponent:0",
+              "position": {
+                "x": 103.20089456398802,
+                "y": 33.33410266515352
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:opponent:1",
+              "position": {
+                "x": 48.07045288486835,
+                "y": 26.0596928231768
+              },
+              "velocity": {
+                "x": 4.7567257589048495,
+                "y": 2.9569346260335294
+              }
+            },
+            {
+              "id": "geometry:opponent:2",
+              "position": {
+                "x": 53.553890489515574,
+                "y": 26.244653090944983
+              },
+              "velocity": {
+                "x": 3.65351694504227,
+                "y": 1.4095877585812389
+              }
+            },
+            {
+              "id": "geometry:opponent:3",
+              "position": {
+                "x": 56.92856372826144,
+                "y": 23.44442909483552
+              },
+              "velocity": {
+                "x": 3.6023942736957792,
+                "y": 0.2860097713320897
+              }
+            },
+            {
+              "id": "geometry:opponent:4",
+              "position": {
+                "x": 52.499407345895705,
+                "y": 21.079756122909586
+              },
+              "velocity": {
+                "x": 3.588821422530657,
+                "y": -0.4098177336742026
+              }
+            },
+            {
+              "id": "geometry:opponent:5",
+              "position": {
+                "x": 53.09399731958824,
+                "y": 32.34359956139046
+              },
+              "velocity": {
+                "x": 3.6133654001793047,
+                "y": 0.0957583913142912
+              }
+            },
+            {
+              "id": "geometry:opponent:6",
+              "position": {
+                "x": 55.83299907022667,
+                "y": 27.24572067519076
+              },
+              "velocity": {
+                "x": 3.4172125219495797,
+                "y": -1.1785243356386843
+              }
+            },
+            {
+              "id": "geometry:opponent:7",
+              "position": {
+                "x": 50.33152555813776,
+                "y": 39.90823488127653
+              },
+              "velocity": {
+                "x": 3.61157759641884,
+                "y": -0.15395488022477366
+              }
+            },
+            {
+              "id": "geometry:opponent:8",
+              "position": {
+                "x": 49.56046489165205,
+                "y": 26.60626619844733
+              },
+              "velocity": {
+                "x": 3.009759808866761,
+                "y": -1.9997381664492764
+              }
+            },
+            {
+              "id": "geometry:opponent:9",
+              "position": {
+                "x": 69.2546066150892,
+                "y": 25.92569334058505
+              },
+              "velocity": {
+                "x": 1.0430878201805172,
+                "y": -3.4823078140793484
+              }
+            },
+            {
+              "id": "geometry:opponent:10",
+              "position": {
+                "x": 63.29912456194787,
+                "y": 31.984165187206916
+              },
+              "velocity": {
+                "x": -2.7808912050227264,
+                "y": -2.3415540093820653
+              }
+            }
+          ],
+          "loss": {
+            "to": "home",
+            "cause": "interception",
+            "winnerId": "geometry:anchor:5",
+            "loserId": "geometry:opponent:1",
+            "id": "pr177:corner-counter:loss:acquisition:30.025000:geometry:anchor:5",
+            "at": 30.025,
+            "from": "away",
+            "position": {
+              "x": 37.699,
+              "y": 34
+            }
+          }
+        },
+        {
+          "seconds": 8,
+          "ball": {
+            "x": 70.2489233271482,
+            "y": 16.132010612561597,
+            "ownerId": "geometry:anchor:8",
+            "lastTouchPlayerId": "geometry:anchor:8",
+            "velocity": {
+              "x": -0.1176465045634135,
+              "y": 0.5407378681378705,
+              "z": 0
+            },
+            "height": 0,
+            "airborne": false
+          },
+          "possession": "home",
+          "action": {
+            "type": "hold",
+            "actorId": "geometry:anchor:8"
+          },
+          "players": [
+            {
+              "id": "geometry:anchor:0",
+              "position": {
+                "x": 1.639827743440606,
+                "y": 33.909372606161014
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:anchor:1",
+              "position": {
+                "x": 48.93769089364776,
+                "y": 7.490657399072587
+              },
+              "velocity": {
+                "x": 3.52627636677596,
+                "y": -0.9172589331213032
+              }
+            },
+            {
+              "id": "geometry:anchor:2",
+              "position": {
+                "x": 47.51915521845756,
+                "y": 23.466559196901258
+              },
+              "velocity": {
+                "x": 1.4380377289862167,
+                "y": -0.2570197195655055
+              }
+            },
+            {
+              "id": "geometry:anchor:3",
+              "position": {
+                "x": 44.0758746381793,
+                "y": 33.90754906634396
+              },
+              "velocity": {
+                "x": 3.6285902124583913,
+                "y": 0.34164329123939297
+              }
+            },
+            {
+              "id": "geometry:anchor:4",
+              "position": {
+                "x": 43.46773379468472,
+                "y": 45.110639591360034
+              },
+              "velocity": {
+                "x": 1.7697468205622613,
+                "y": 0.09021629193796343
+              }
+            },
+            {
+              "id": "geometry:anchor:5",
+              "position": {
+                "x": 61.65666689706477,
+                "y": 12.848290741731
+              },
+              "velocity": {
+                "x": 2.244056677511992,
+                "y": -2.864851073771675
+              }
+            },
+            {
+              "id": "geometry:anchor:6",
+              "position": {
+                "x": 53.99344084565019,
+                "y": 26.723843305940903
+              },
+              "velocity": {
+                "x": 3.5332510430473008,
+                "y": -0.842341842887464
+              }
+            },
+            {
+              "id": "geometry:anchor:7",
+              "position": {
+                "x": 60.79581293029866,
+                "y": 41.591187847973586
+              },
+              "velocity": {
+                "x": 3.6085556760338022,
+                "y": -0.1980941140084269
+              }
+            },
+            {
+              "id": "geometry:anchor:8",
+              "position": {
+                "x": 70.72597911135232,
+                "y": 16.14675127314234
+              },
+              "velocity": {
+                "x": -0.13611636688722228,
+                "y": 0.5617440116863293
+              }
+            },
+            {
+              "id": "geometry:anchor:9",
+              "position": {
+                "x": 47.07485229233976,
+                "y": 36.4836218153911
+              },
+              "velocity": {
+                "x": 3.9503349091037876,
+                "y": 4.009270395991109
+              }
+            },
+            {
+              "id": "geometry:anchor:10",
+              "position": {
+                "x": 54.23126285966134,
+                "y": 21.74342129039591
+              },
+              "velocity": {
+                "x": 3.623047805996009,
+                "y": 0.2542759740130407
+              }
+            },
+            {
+              "id": "geometry:opponent:0",
+              "position": {
+                "x": 103.1988174890727,
+                "y": 33.33086610527016
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:opponent:1",
+              "position": {
+                "x": 60.16274950770631,
+                "y": 33.04756952215574
+              },
+              "velocity": {
+                "x": 3.159976807376381,
+                "y": 1.7418164495342126
+              }
+            },
+            {
+              "id": "geometry:opponent:2",
+              "position": {
+                "x": 62.98285610378388,
+                "y": 29.246943448424734
+              },
+              "velocity": {
+                "x": 2.3381463313651807,
+                "y": 0.7544648406806687
+              }
+            },
+            {
+              "id": "geometry:opponent:3",
+              "position": {
+                "x": 66.92238960273893,
+                "y": 23.674018266247447
+              },
+              "velocity": {
+                "x": 2.457473955319074,
+                "y": -0.07892545471491985
+              }
+            },
+            {
+              "id": "geometry:opponent:4",
+              "position": {
+                "x": 63.15438207396177,
+                "y": 19.19565380371234
+              },
+              "velocity": {
+                "x": 3.5370225413123535,
+                "y": -0.740351706824498
+              }
+            },
+            {
+              "id": "geometry:opponent:5",
+              "position": {
+                "x": 62.116657640771145,
+                "y": 32.00018765554142
+              },
+              "velocity": {
+                "x": 1.5432541915654951,
+                "y": -0.1218311801264349
+              }
+            },
+            {
+              "id": "geometry:opponent:6",
+              "position": {
+                "x": 61.980504240365356,
+                "y": 24.02109557168526
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:opponent:7",
+              "position": {
+                "x": 59.911238039935135,
+                "y": 38.922177263039806
+              },
+              "velocity": {
+                "x": 2.140892345182408,
+                "y": -0.3236063275019774
+              }
+            },
+            {
+              "id": "geometry:opponent:8",
+              "position": {
+                "x": 58.29778900161443,
+                "y": 20.261811861566777
+              },
+              "velocity": {
+                "x": 2.3860637793109163,
+                "y": -2.715590547534248
+              }
+            },
+            {
+              "id": "geometry:opponent:9",
+              "position": {
+                "x": 72.27346058500578,
+                "y": 16.14773122641655
+              },
+              "velocity": {
+                "x": 0.4600640370057363,
+                "y": 0.792632847656165
+              }
+            },
+            {
+              "id": "geometry:opponent:10",
+              "position": {
+                "x": 57.44853530229119,
+                "y": 26.39042264301201
+              },
+              "velocity": {
+                "x": -0.9358048328527957,
+                "y": -1.0815538807001701
+              }
+            }
+          ],
+          "loss": {
+            "to": "home",
+            "cause": "interception",
+            "winnerId": "geometry:anchor:5",
+            "loserId": "geometry:opponent:1",
+            "id": "pr177:corner-counter:loss:acquisition:30.025000:geometry:anchor:5",
+            "at": 30.025,
+            "from": "away",
+            "position": {
+              "x": 37.699,
+              "y": 34
+            }
+          }
+        }
+      ]
+    },
+    {
+      "travelKind": "free_kick_delivery",
+      "method": "Actual canonical control of a prescribed incoming delivery; full preceding set-piece setup is not simulated",
+      "changed": {
+        "at": 30.025,
+        "fact": {
+          "at": 30.025,
+          "from": "away",
+          "to": "home",
+          "cause": "interception",
+          "winnerId": "geometry:anchor:5",
+          "loserId": "geometry:opponent:1"
+        },
+        "ownerId": "geometry:anchor:5",
+        "exposure": {
+          "active": true,
+          "exposure": 0.7563011140809878,
+          "opponentsAhead": 8,
+          "cover": 2,
+          "recoverySeconds": 2.1583433863663206,
+          "runway": 28.963444741432113
+        }
+      },
+      "checkpoints": [
+        {
+          "seconds": 2,
+          "ball": {
+            "x": 60.79320736723403,
+            "y": 20.426578207778505,
+            "from": {
+              "x": 37.699,
+              "y": 34
+            },
+            "target": {
+              "x": 68.97376748262936,
+              "y": 15.618524344868074
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "first_time",
+            "flightTime": 1.974999999999997,
+            "distanceTravelled": 26.801948961561173,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 8.968969603134202,
+              "y": -5.271434759769126,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 14.417569502925568,
+              "y": -8.473802498176662,
+              "z": 0
+            },
+            "launchSpeed": 16.723385995359745,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          },
+          "possession": "home",
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 68.68671724503847,
+              "y": 16.00385563297758
+            },
+            "intent": "through",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 68.68671724503847,
+                "y": 16.00385563297758
+              },
+              "velocity": {
+                "x": 14.37311750903795,
+                "y": -8.347200784473388,
+                "z": 0
+              },
+              "speed": 16.62113918673827,
+              "elevation": 0,
+              "predictedArrivalTime": 2.9749999999999934,
+              "predictedArrivalSpeed": 7.101139186738268,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 68.68671724503847,
+                  "y": 16.00385563297758
+                },
+                "awareAt": 0.15859649122807018,
+                "readyAt": 1.5737727038419433,
+                "earliestUsefulContactTime": 1.6937727038419434,
+                "preferredArrivalSpeed": 6.85,
+                "maximumComfortableArrivalSpeed": 12,
+                "preparationMargin": 1.40122729615805,
+                "movementTime": 1.4151762126138732,
+                "orientationTime": 0.5588016120339564
+              },
+              "feasible": true,
+              "targetMissMetres": 0.5474496483483825
+            },
+            "requestedSpace": {
+              "x": 68.68671724503847,
+              "y": 16.00385563297758
+            },
+            "firstTime": true
+          },
+          "players": [
+            {
+              "id": "geometry:anchor:0",
+              "position": {
+                "x": 3.013581730082362,
+                "y": 33.94794978363167
+              },
+              "velocity": {
+                "x": -0.9214852856720412,
+                "y": -0.0527781866372834
+              }
+            },
+            {
+              "id": "geometry:anchor:1",
+              "position": {
+                "x": 27.604633479980432,
+                "y": 13.767172230652278
+              },
+              "velocity": {
+                "x": 3.605995110558098,
+                "y": 0.5443247808386786
+              }
+            },
+            {
+              "id": "geometry:anchor:2",
+              "position": {
+                "x": 29.781284073271074,
+                "y": 22.050017719543266
+              },
+              "velocity": {
+                "x": 2.978151421040849,
+                "y": 2.1046513223566876
+              }
+            },
+            {
+              "id": "geometry:anchor:3",
+              "position": {
+                "x": 23.18259663306612,
+                "y": 28.03904593242775
+              },
+              "velocity": {
+                "x": 3.0025614799500033,
+                "y": 2.0610819048131646
+              }
+            },
+            {
+              "id": "geometry:anchor:4",
+              "position": {
+                "x": 25.693805140637092,
+                "y": 35.8998484765924
+              },
+              "velocity": {
+                "x": 1.9681919290270855,
+                "y": 3.0634574950005344
+              }
+            },
+            {
+              "id": "geometry:anchor:5",
+              "position": {
+                "x": 45.042565523785896,
+                "y": 29.438222305174666
+              },
+              "velocity": {
+                "x": 4.550722376031899,
+                "y": -3.343106624063239
+              }
+            },
+            {
+              "id": "geometry:anchor:6",
+              "position": {
+                "x": 26.086774813528844,
+                "y": 36.825315069395934
+              },
+              "velocity": {
+                "x": 5.018687165772349,
+                "y": -2.587992738349101
+              }
+            },
+            {
+              "id": "geometry:anchor:7",
+              "position": {
+                "x": 33.716815977338925,
+                "y": 44.67951898600702
+              },
+              "velocity": {
+                "x": 8.260397080097164,
+                "y": -1.8231972518913153
+              }
+            },
+            {
+              "id": "geometry:anchor:8",
+              "position": {
+                "x": 66.83243082237419,
+                "y": 15.175979263133653
+              },
+              "velocity": {
+                "x": 3.8373658812002986,
+                "y": 1.5737732693882123
+              }
+            },
+            {
+              "id": "geometry:anchor:9",
+              "position": {
+                "x": 23.53061903703574,
+                "y": 12.226918602858575
+              },
+              "velocity": {
+                "x": 3.560445613366312,
+                "y": 4.382516392655376
+              }
+            },
+            {
+              "id": "geometry:anchor:10",
+              "position": {
+                "x": 30.29241372954747,
+                "y": 15.350380263991664
+              },
+              "velocity": {
+                "x": 5.048354368106516,
+                "y": 2.528906515041669
+              }
+            },
+            {
+              "id": "geometry:opponent:0",
+              "position": {
+                "x": 102.56363096615735,
+                "y": 33.692816867363426
+              },
+              "velocity": {
+                "x": 0.8664385354984461,
+                "y": -0.3181189804075757
+              }
+            },
+            {
+              "id": "geometry:opponent:1",
+              "position": {
+                "x": 31.779286077726614,
+                "y": 14.964752620703441
+              },
+              "velocity": {
+                "x": 6.745261777218019,
+                "y": 5.112731721291084
+              }
+            },
+            {
+              "id": "geometry:opponent:2",
+              "position": {
+                "x": 35.72622242358671,
+                "y": 18.404467996119433
+              },
+              "velocity": {
+                "x": 7.521391271129971,
+                "y": 3.8826275847726777
+              }
+            },
+            {
+              "id": "geometry:opponent:3",
+              "position": {
+                "x": 39.66953062814584,
+                "y": 20.683034056959897
+              },
+              "velocity": {
+                "x": 8.189206530911122,
+                "y": 2.144203355437213
+              }
+            },
+            {
+              "id": "geometry:opponent:4",
+              "position": {
+                "x": 33.99255466189401,
+                "y": 22.80308910613434
+              },
+              "velocity": {
+                "x": 8.452990427310567,
+                "y": -0.4516283804680654
+              }
+            },
+            {
+              "id": "geometry:opponent:5",
+              "position": {
+                "x": 36.72172862854339,
+                "y": 30.57050600945552
+              },
+              "velocity": {
+                "x": 8.314078009412356,
+                "y": 1.5879116412530436
+              }
+            },
+            {
+              "id": "geometry:opponent:6",
+              "position": {
+                "x": 39.78046950080697,
+                "y": 30.91858274832197
+              },
+              "velocity": {
+                "x": 8.357294616746742,
+                "y": -1.343017013003447
+              }
+            },
+            {
+              "id": "geometry:opponent:7",
+              "position": {
+                "x": 33.86151901543294,
+                "y": 39.50132270457965
+              },
+              "velocity": {
+                "x": 8.424500830849126,
+                "y": 0.8248988311129324
+              }
+            },
+            {
+              "id": "geometry:opponent:8",
+              "position": {
+                "x": 35.26587862949547,
+                "y": 36.78832865987511
+              },
+              "velocity": {
+                "x": 6.917284535659576,
+                "y": -4.878041102675752
+              }
+            },
+            {
+              "id": "geometry:opponent:9",
+              "position": {
+                "x": 66.46650858511993,
+                "y": 38.95856586383063
+              },
+              "velocity": {
+                "x": 1.0769095590876532,
+                "y": -5.542464165986587
+              }
+            },
+            {
+              "id": "geometry:opponent:10",
+              "position": {
+                "x": 66.06386908859875,
+                "y": 44.12381989511717
+              },
+              "velocity": {
+                "x": 0.9687124871061314,
+                "y": -5.56191656473203
+              }
+            }
+          ],
+          "loss": {
+            "to": "home",
+            "cause": "interception",
+            "winnerId": "geometry:anchor:5",
+            "loserId": "geometry:opponent:1",
+            "id": "pr177:corner-counter:loss:acquisition:30.025000:geometry:anchor:5",
+            "at": 30.025,
+            "from": "away",
+            "position": {
+              "x": 37.699,
+              "y": 34
+            }
+          }
+        },
+        {
+          "seconds": 5,
+          "ball": {
+            "x": 69.82852131241786,
+            "y": 17.65401590766273,
+            "ownerId": "geometry:anchor:8",
+            "lastTouchPlayerId": "geometry:anchor:8",
+            "velocity": {
+              "x": -2.2736439844577747,
+              "y": 1.1632743185681584,
+              "z": 0
+            },
+            "height": 0,
+            "airborne": false
+          },
+          "possession": "home",
+          "action": {
+            "type": "hold",
+            "actorId": "geometry:anchor:8"
+          },
+          "players": [
+            {
+              "id": "geometry:anchor:0",
+              "position": {
+                "x": 1.6701515246536212,
+                "y": 33.89959660581964
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:anchor:1",
+              "position": {
+                "x": 38.59045514640136,
+                "y": 10.98673559215266
+              },
+              "velocity": {
+                "x": 3.3814910523190633,
+                "y": -1.3528824828018315
+              }
+            },
+            {
+              "id": "geometry:anchor:2",
+              "position": {
+                "x": 40.39390207775074,
+                "y": 23.909398521495252
+              },
+              "velocity": {
+                "x": 3.6441389685239756,
+                "y": 0.16091711127629083
+              }
+            },
+            {
+              "id": "geometry:anchor:3",
+              "position": {
+                "x": 33.35834432011615,
+                "y": 31.849053665116006
+              },
+              "velocity": {
+                "x": 3.5161731902135784,
+                "y": 0.9535055733039144
+              }
+            },
+            {
+              "id": "geometry:anchor:4",
+              "position": {
+                "x": 34.20358732870454,
+                "y": 42.25150161967919
+              },
+              "velocity": {
+                "x": 3.2890825633774057,
+                "y": 1.5644906155972649
+              }
+            },
+            {
+              "id": "geometry:anchor:5",
+              "position": {
+                "x": 54.87158142692619,
+                "y": 21.39683252685009
+              },
+              "velocity": {
+                "x": 2.16023122409041,
+                "y": -2.9265609483584853
+              }
+            },
+            {
+              "id": "geometry:anchor:6",
+              "position": {
+                "x": 41.429545651300266,
+                "y": 29.551516719727086
+              },
+              "velocity": {
+                "x": 5.176758844584413,
+                "y": -2.232671784141189
+              }
+            },
+            {
+              "id": "geometry:anchor:7",
+              "position": {
+                "x": 49.96838288833447,
+                "y": 42.09769416412218
+              },
+              "velocity": {
+                "x": 3.6083168888413297,
+                "y": -0.1673109561679098
+              }
+            },
+            {
+              "id": "geometry:anchor:8",
+              "position": {
+                "x": 69.34999818332099,
+                "y": 17.134818667158754
+              },
+              "velocity": {
+                "x": -0.3123343932742273,
+                "y": 0.7554960608185013
+              }
+            },
+            {
+              "id": "geometry:anchor:9",
+              "position": {
+                "x": 35.01721493910705,
+                "y": 24.646326948370266
+              },
+              "velocity": {
+                "x": 4.0105774750284695,
+                "y": 3.9618156500186785
+              }
+            },
+            {
+              "id": "geometry:anchor:10",
+              "position": {
+                "x": 42.77840687777322,
+                "y": 18.450705654246978
+              },
+              "velocity": {
+                "x": 3.6240195805487474,
+                "y": 0.32267362306484415
+              }
+            },
+            {
+              "id": "geometry:opponent:0",
+              "position": {
+                "x": 103.20089456398802,
+                "y": 33.33410266515352
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:opponent:1",
+              "position": {
+                "x": 48.07045288486835,
+                "y": 26.0596928231768
+              },
+              "velocity": {
+                "x": 4.7567257589048495,
+                "y": 2.9569346260335294
+              }
+            },
+            {
+              "id": "geometry:opponent:2",
+              "position": {
+                "x": 53.553890489515574,
+                "y": 26.244653090944983
+              },
+              "velocity": {
+                "x": 3.65351694504227,
+                "y": 1.4095877585812389
+              }
+            },
+            {
+              "id": "geometry:opponent:3",
+              "position": {
+                "x": 56.92856372826144,
+                "y": 23.44442909483552
+              },
+              "velocity": {
+                "x": 3.6023942736957792,
+                "y": 0.2860097713320897
+              }
+            },
+            {
+              "id": "geometry:opponent:4",
+              "position": {
+                "x": 52.499407345895705,
+                "y": 21.079756122909586
+              },
+              "velocity": {
+                "x": 3.588821422530657,
+                "y": -0.4098177336742026
+              }
+            },
+            {
+              "id": "geometry:opponent:5",
+              "position": {
+                "x": 53.09399731958824,
+                "y": 32.34359956139046
+              },
+              "velocity": {
+                "x": 3.6133654001793047,
+                "y": 0.0957583913142912
+              }
+            },
+            {
+              "id": "geometry:opponent:6",
+              "position": {
+                "x": 55.83299907022667,
+                "y": 27.24572067519076
+              },
+              "velocity": {
+                "x": 3.4172125219495797,
+                "y": -1.1785243356386843
+              }
+            },
+            {
+              "id": "geometry:opponent:7",
+              "position": {
+                "x": 50.33152555813776,
+                "y": 39.90823488127653
+              },
+              "velocity": {
+                "x": 3.61157759641884,
+                "y": -0.15395488022477366
+              }
+            },
+            {
+              "id": "geometry:opponent:8",
+              "position": {
+                "x": 49.56046489165205,
+                "y": 26.60626619844733
+              },
+              "velocity": {
+                "x": 3.009759808866761,
+                "y": -1.9997381664492764
+              }
+            },
+            {
+              "id": "geometry:opponent:9",
+              "position": {
+                "x": 69.2546066150892,
+                "y": 25.92569334058505
+              },
+              "velocity": {
+                "x": 1.0430878201805172,
+                "y": -3.4823078140793484
+              }
+            },
+            {
+              "id": "geometry:opponent:10",
+              "position": {
+                "x": 63.29912456194787,
+                "y": 31.984165187206916
+              },
+              "velocity": {
+                "x": -2.7808912050227264,
+                "y": -2.3415540093820653
+              }
+            }
+          ],
+          "loss": {
+            "to": "home",
+            "cause": "interception",
+            "winnerId": "geometry:anchor:5",
+            "loserId": "geometry:opponent:1",
+            "id": "pr177:corner-counter:loss:acquisition:30.025000:geometry:anchor:5",
+            "at": 30.025,
+            "from": "away",
+            "position": {
+              "x": 37.699,
+              "y": 34
+            }
+          }
+        },
+        {
+          "seconds": 8,
+          "ball": {
+            "x": 70.2489233271482,
+            "y": 16.132010612561597,
+            "ownerId": "geometry:anchor:8",
+            "lastTouchPlayerId": "geometry:anchor:8",
+            "velocity": {
+              "x": -0.1176465045634135,
+              "y": 0.5407378681378705,
+              "z": 0
+            },
+            "height": 0,
+            "airborne": false
+          },
+          "possession": "home",
+          "action": {
+            "type": "hold",
+            "actorId": "geometry:anchor:8"
+          },
+          "players": [
+            {
+              "id": "geometry:anchor:0",
+              "position": {
+                "x": 1.639827743440606,
+                "y": 33.909372606161014
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:anchor:1",
+              "position": {
+                "x": 48.93769089364776,
+                "y": 7.490657399072587
+              },
+              "velocity": {
+                "x": 3.52627636677596,
+                "y": -0.9172589331213032
+              }
+            },
+            {
+              "id": "geometry:anchor:2",
+              "position": {
+                "x": 47.51915521845756,
+                "y": 23.466559196901258
+              },
+              "velocity": {
+                "x": 1.4380377289862167,
+                "y": -0.2570197195655055
+              }
+            },
+            {
+              "id": "geometry:anchor:3",
+              "position": {
+                "x": 44.0758746381793,
+                "y": 33.90754906634396
+              },
+              "velocity": {
+                "x": 3.6285902124583913,
+                "y": 0.34164329123939297
+              }
+            },
+            {
+              "id": "geometry:anchor:4",
+              "position": {
+                "x": 43.46773379468472,
+                "y": 45.110639591360034
+              },
+              "velocity": {
+                "x": 1.7697468205622613,
+                "y": 0.09021629193796343
+              }
+            },
+            {
+              "id": "geometry:anchor:5",
+              "position": {
+                "x": 61.65666689706477,
+                "y": 12.848290741731
+              },
+              "velocity": {
+                "x": 2.244056677511992,
+                "y": -2.864851073771675
+              }
+            },
+            {
+              "id": "geometry:anchor:6",
+              "position": {
+                "x": 53.99344084565019,
+                "y": 26.723843305940903
+              },
+              "velocity": {
+                "x": 3.5332510430473008,
+                "y": -0.842341842887464
+              }
+            },
+            {
+              "id": "geometry:anchor:7",
+              "position": {
+                "x": 60.79581293029866,
+                "y": 41.591187847973586
+              },
+              "velocity": {
+                "x": 3.6085556760338022,
+                "y": -0.1980941140084269
+              }
+            },
+            {
+              "id": "geometry:anchor:8",
+              "position": {
+                "x": 70.72597911135232,
+                "y": 16.14675127314234
+              },
+              "velocity": {
+                "x": -0.13611636688722228,
+                "y": 0.5617440116863293
+              }
+            },
+            {
+              "id": "geometry:anchor:9",
+              "position": {
+                "x": 47.07485229233976,
+                "y": 36.4836218153911
+              },
+              "velocity": {
+                "x": 3.9503349091037876,
+                "y": 4.009270395991109
+              }
+            },
+            {
+              "id": "geometry:anchor:10",
+              "position": {
+                "x": 54.23126285966134,
+                "y": 21.74342129039591
+              },
+              "velocity": {
+                "x": 3.623047805996009,
+                "y": 0.2542759740130407
+              }
+            },
+            {
+              "id": "geometry:opponent:0",
+              "position": {
+                "x": 103.1988174890727,
+                "y": 33.33086610527016
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:opponent:1",
+              "position": {
+                "x": 60.16274950770631,
+                "y": 33.04756952215574
+              },
+              "velocity": {
+                "x": 3.159976807376381,
+                "y": 1.7418164495342126
+              }
+            },
+            {
+              "id": "geometry:opponent:2",
+              "position": {
+                "x": 62.98285610378388,
+                "y": 29.246943448424734
+              },
+              "velocity": {
+                "x": 2.3381463313651807,
+                "y": 0.7544648406806687
+              }
+            },
+            {
+              "id": "geometry:opponent:3",
+              "position": {
+                "x": 66.92238960273893,
+                "y": 23.674018266247447
+              },
+              "velocity": {
+                "x": 2.457473955319074,
+                "y": -0.07892545471491985
+              }
+            },
+            {
+              "id": "geometry:opponent:4",
+              "position": {
+                "x": 63.15438207396177,
+                "y": 19.19565380371234
+              },
+              "velocity": {
+                "x": 3.5370225413123535,
+                "y": -0.740351706824498
+              }
+            },
+            {
+              "id": "geometry:opponent:5",
+              "position": {
+                "x": 62.116657640771145,
+                "y": 32.00018765554142
+              },
+              "velocity": {
+                "x": 1.5432541915654951,
+                "y": -0.1218311801264349
+              }
+            },
+            {
+              "id": "geometry:opponent:6",
+              "position": {
+                "x": 61.980504240365356,
+                "y": 24.02109557168526
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:opponent:7",
+              "position": {
+                "x": 59.911238039935135,
+                "y": 38.922177263039806
+              },
+              "velocity": {
+                "x": 2.140892345182408,
+                "y": -0.3236063275019774
+              }
+            },
+            {
+              "id": "geometry:opponent:8",
+              "position": {
+                "x": 58.29778900161443,
+                "y": 20.261811861566777
+              },
+              "velocity": {
+                "x": 2.3860637793109163,
+                "y": -2.715590547534248
+              }
+            },
+            {
+              "id": "geometry:opponent:9",
+              "position": {
+                "x": 72.27346058500578,
+                "y": 16.14773122641655
+              },
+              "velocity": {
+                "x": 0.4600640370057363,
+                "y": 0.792632847656165
+              }
+            },
+            {
+              "id": "geometry:opponent:10",
+              "position": {
+                "x": 57.44853530229119,
+                "y": 26.39042264301201
+              },
+              "velocity": {
+                "x": -0.9358048328527957,
+                "y": -1.0815538807001701
+              }
+            }
+          ],
+          "loss": {
+            "to": "home",
+            "cause": "interception",
+            "winnerId": "geometry:anchor:5",
+            "loserId": "geometry:opponent:1",
+            "id": "pr177:corner-counter:loss:acquisition:30.025000:geometry:anchor:5",
+            "at": 30.025,
+            "from": "away",
+            "position": {
+              "x": 37.699,
+              "y": 34
+            }
+          }
+        }
+      ]
+    },
+    {
+      "travelKind": "cross",
+      "method": "Actual canonical control of a prescribed incoming delivery; full preceding set-piece setup is not simulated",
+      "changed": {
+        "at": 30.025,
+        "fact": {
+          "at": 30.025,
+          "from": "away",
+          "to": "home",
+          "cause": "interception",
+          "winnerId": "geometry:anchor:5",
+          "loserId": "geometry:opponent:1"
+        },
+        "ownerId": "geometry:anchor:5",
+        "exposure": {
+          "active": true,
+          "exposure": 0.7563011140809878,
+          "opponentsAhead": 8,
+          "cover": 2,
+          "recoverySeconds": 2.1583433863663206,
+          "runway": 28.963444741432113
+        }
+      },
+      "checkpoints": [
+        {
+          "seconds": 2,
+          "ball": {
+            "x": 60.79320736723403,
+            "y": 20.426578207778505,
+            "from": {
+              "x": 37.699,
+              "y": 34
+            },
+            "target": {
+              "x": 68.97376748262936,
+              "y": 15.618524344868074
+            },
+            "intendedReceiverId": "geometry:anchor:8",
+            "travelKind": "through_ball",
+            "sourceAction": "space_pass",
+            "executionType": "first_time",
+            "flightTime": 1.974999999999997,
+            "distanceTravelled": 26.801948961561173,
+            "height": 0.11,
+            "airborne": false,
+            "velocity": {
+              "x": 8.968969603134202,
+              "y": -5.271434759769126,
+              "z": 0
+            },
+            "launchVelocity": {
+              "x": 14.417569502925568,
+              "y": -8.473802498176662,
+              "z": 0
+            },
+            "launchSpeed": 16.723385995359745,
+            "launchElevation": 0,
+            "bounceCount": 0,
+            "lastTouchPlayerId": "geometry:anchor:5"
+          },
+          "possession": "home",
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 68.68671724503847,
+              "y": 16.00385563297758
+            },
+            "intent": "through",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 68.68671724503847,
+                "y": 16.00385563297758
+              },
+              "velocity": {
+                "x": 14.37311750903795,
+                "y": -8.347200784473388,
+                "z": 0
+              },
+              "speed": 16.62113918673827,
+              "elevation": 0,
+              "predictedArrivalTime": 2.9749999999999934,
+              "predictedArrivalSpeed": 7.101139186738268,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 68.68671724503847,
+                  "y": 16.00385563297758
+                },
+                "awareAt": 0.15859649122807018,
+                "readyAt": 1.5737727038419433,
+                "earliestUsefulContactTime": 1.6937727038419434,
+                "preferredArrivalSpeed": 6.85,
+                "maximumComfortableArrivalSpeed": 12,
+                "preparationMargin": 1.40122729615805,
+                "movementTime": 1.4151762126138732,
+                "orientationTime": 0.5588016120339564
+              },
+              "feasible": true,
+              "targetMissMetres": 0.5474496483483825
+            },
+            "requestedSpace": {
+              "x": 68.68671724503847,
+              "y": 16.00385563297758
+            },
+            "firstTime": true
+          },
+          "players": [
+            {
+              "id": "geometry:anchor:0",
+              "position": {
+                "x": 3.013581730082362,
+                "y": 33.94794978363167
+              },
+              "velocity": {
+                "x": -0.9214852856720412,
+                "y": -0.0527781866372834
+              }
+            },
+            {
+              "id": "geometry:anchor:1",
+              "position": {
+                "x": 27.604633479980432,
+                "y": 13.767172230652278
+              },
+              "velocity": {
+                "x": 3.605995110558098,
+                "y": 0.5443247808386786
+              }
+            },
+            {
+              "id": "geometry:anchor:2",
+              "position": {
+                "x": 29.781284073271074,
+                "y": 22.050017719543266
+              },
+              "velocity": {
+                "x": 2.978151421040849,
+                "y": 2.1046513223566876
+              }
+            },
+            {
+              "id": "geometry:anchor:3",
+              "position": {
+                "x": 23.18259663306612,
+                "y": 28.03904593242775
+              },
+              "velocity": {
+                "x": 3.0025614799500033,
+                "y": 2.0610819048131646
+              }
+            },
+            {
+              "id": "geometry:anchor:4",
+              "position": {
+                "x": 25.693805140637092,
+                "y": 35.8998484765924
+              },
+              "velocity": {
+                "x": 1.9681919290270855,
+                "y": 3.0634574950005344
+              }
+            },
+            {
+              "id": "geometry:anchor:5",
+              "position": {
+                "x": 45.042565523785896,
+                "y": 29.438222305174666
+              },
+              "velocity": {
+                "x": 4.550722376031899,
+                "y": -3.343106624063239
+              }
+            },
+            {
+              "id": "geometry:anchor:6",
+              "position": {
+                "x": 26.086774813528844,
+                "y": 36.825315069395934
+              },
+              "velocity": {
+                "x": 5.018687165772349,
+                "y": -2.587992738349101
+              }
+            },
+            {
+              "id": "geometry:anchor:7",
+              "position": {
+                "x": 33.716815977338925,
+                "y": 44.67951898600702
+              },
+              "velocity": {
+                "x": 8.260397080097164,
+                "y": -1.8231972518913153
+              }
+            },
+            {
+              "id": "geometry:anchor:8",
+              "position": {
+                "x": 66.83243082237419,
+                "y": 15.175979263133653
+              },
+              "velocity": {
+                "x": 3.8373658812002986,
+                "y": 1.5737732693882123
+              }
+            },
+            {
+              "id": "geometry:anchor:9",
+              "position": {
+                "x": 23.53061903703574,
+                "y": 12.226918602858575
+              },
+              "velocity": {
+                "x": 3.560445613366312,
+                "y": 4.382516392655376
+              }
+            },
+            {
+              "id": "geometry:anchor:10",
+              "position": {
+                "x": 30.29241372954747,
+                "y": 15.350380263991664
+              },
+              "velocity": {
+                "x": 5.048354368106516,
+                "y": 2.528906515041669
+              }
+            },
+            {
+              "id": "geometry:opponent:0",
+              "position": {
+                "x": 102.56363096615735,
+                "y": 33.692816867363426
+              },
+              "velocity": {
+                "x": 0.8664385354984461,
+                "y": -0.3181189804075757
+              }
+            },
+            {
+              "id": "geometry:opponent:1",
+              "position": {
+                "x": 31.779286077726614,
+                "y": 14.964752620703441
+              },
+              "velocity": {
+                "x": 6.745261777218019,
+                "y": 5.112731721291084
+              }
+            },
+            {
+              "id": "geometry:opponent:2",
+              "position": {
+                "x": 35.72622242358671,
+                "y": 18.404467996119433
+              },
+              "velocity": {
+                "x": 7.521391271129971,
+                "y": 3.8826275847726777
+              }
+            },
+            {
+              "id": "geometry:opponent:3",
+              "position": {
+                "x": 39.66953062814584,
+                "y": 20.683034056959897
+              },
+              "velocity": {
+                "x": 8.189206530911122,
+                "y": 2.144203355437213
+              }
+            },
+            {
+              "id": "geometry:opponent:4",
+              "position": {
+                "x": 33.99255466189401,
+                "y": 22.80308910613434
+              },
+              "velocity": {
+                "x": 8.452990427310567,
+                "y": -0.4516283804680654
+              }
+            },
+            {
+              "id": "geometry:opponent:5",
+              "position": {
+                "x": 36.72172862854339,
+                "y": 30.57050600945552
+              },
+              "velocity": {
+                "x": 8.314078009412356,
+                "y": 1.5879116412530436
+              }
+            },
+            {
+              "id": "geometry:opponent:6",
+              "position": {
+                "x": 39.78046950080697,
+                "y": 30.91858274832197
+              },
+              "velocity": {
+                "x": 8.357294616746742,
+                "y": -1.343017013003447
+              }
+            },
+            {
+              "id": "geometry:opponent:7",
+              "position": {
+                "x": 33.86151901543294,
+                "y": 39.50132270457965
+              },
+              "velocity": {
+                "x": 8.424500830849126,
+                "y": 0.8248988311129324
+              }
+            },
+            {
+              "id": "geometry:opponent:8",
+              "position": {
+                "x": 35.26587862949547,
+                "y": 36.78832865987511
+              },
+              "velocity": {
+                "x": 6.917284535659576,
+                "y": -4.878041102675752
+              }
+            },
+            {
+              "id": "geometry:opponent:9",
+              "position": {
+                "x": 66.46650858511993,
+                "y": 38.95856586383063
+              },
+              "velocity": {
+                "x": 1.0769095590876532,
+                "y": -5.542464165986587
+              }
+            },
+            {
+              "id": "geometry:opponent:10",
+              "position": {
+                "x": 66.06386908859875,
+                "y": 44.12381989511717
+              },
+              "velocity": {
+                "x": 0.9687124871061314,
+                "y": -5.56191656473203
+              }
+            }
+          ],
+          "loss": {
+            "to": "home",
+            "cause": "interception",
+            "winnerId": "geometry:anchor:5",
+            "loserId": "geometry:opponent:1",
+            "id": "pr177:corner-counter:loss:acquisition:30.025000:geometry:anchor:5",
+            "at": 30.025,
+            "from": "away",
+            "position": {
+              "x": 37.699,
+              "y": 34
+            }
+          }
+        },
+        {
+          "seconds": 5,
+          "ball": {
+            "x": 69.82852131241786,
+            "y": 17.65401590766273,
+            "ownerId": "geometry:anchor:8",
+            "lastTouchPlayerId": "geometry:anchor:8",
+            "velocity": {
+              "x": -2.2736439844577747,
+              "y": 1.1632743185681584,
+              "z": 0
+            },
+            "height": 0,
+            "airborne": false
+          },
+          "possession": "home",
+          "action": {
+            "type": "hold",
+            "actorId": "geometry:anchor:8"
+          },
+          "players": [
+            {
+              "id": "geometry:anchor:0",
+              "position": {
+                "x": 1.6701515246536212,
+                "y": 33.89959660581964
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:anchor:1",
+              "position": {
+                "x": 38.59045514640136,
+                "y": 10.98673559215266
+              },
+              "velocity": {
+                "x": 3.3814910523190633,
+                "y": -1.3528824828018315
+              }
+            },
+            {
+              "id": "geometry:anchor:2",
+              "position": {
+                "x": 40.39390207775074,
+                "y": 23.909398521495252
+              },
+              "velocity": {
+                "x": 3.6441389685239756,
+                "y": 0.16091711127629083
+              }
+            },
+            {
+              "id": "geometry:anchor:3",
+              "position": {
+                "x": 33.35834432011615,
+                "y": 31.849053665116006
+              },
+              "velocity": {
+                "x": 3.5161731902135784,
+                "y": 0.9535055733039144
+              }
+            },
+            {
+              "id": "geometry:anchor:4",
+              "position": {
+                "x": 34.20358732870454,
+                "y": 42.25150161967919
+              },
+              "velocity": {
+                "x": 3.2890825633774057,
+                "y": 1.5644906155972649
+              }
+            },
+            {
+              "id": "geometry:anchor:5",
+              "position": {
+                "x": 54.87158142692619,
+                "y": 21.39683252685009
+              },
+              "velocity": {
+                "x": 2.16023122409041,
+                "y": -2.9265609483584853
+              }
+            },
+            {
+              "id": "geometry:anchor:6",
+              "position": {
+                "x": 41.429545651300266,
+                "y": 29.551516719727086
+              },
+              "velocity": {
+                "x": 5.176758844584413,
+                "y": -2.232671784141189
+              }
+            },
+            {
+              "id": "geometry:anchor:7",
+              "position": {
+                "x": 49.96838288833447,
+                "y": 42.09769416412218
+              },
+              "velocity": {
+                "x": 3.6083168888413297,
+                "y": -0.1673109561679098
+              }
+            },
+            {
+              "id": "geometry:anchor:8",
+              "position": {
+                "x": 69.34999818332099,
+                "y": 17.134818667158754
+              },
+              "velocity": {
+                "x": -0.3123343932742273,
+                "y": 0.7554960608185013
+              }
+            },
+            {
+              "id": "geometry:anchor:9",
+              "position": {
+                "x": 35.01721493910705,
+                "y": 24.646326948370266
+              },
+              "velocity": {
+                "x": 4.0105774750284695,
+                "y": 3.9618156500186785
+              }
+            },
+            {
+              "id": "geometry:anchor:10",
+              "position": {
+                "x": 42.77840687777322,
+                "y": 18.450705654246978
+              },
+              "velocity": {
+                "x": 3.6240195805487474,
+                "y": 0.32267362306484415
+              }
+            },
+            {
+              "id": "geometry:opponent:0",
+              "position": {
+                "x": 103.20089456398802,
+                "y": 33.33410266515352
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:opponent:1",
+              "position": {
+                "x": 48.07045288486835,
+                "y": 26.0596928231768
+              },
+              "velocity": {
+                "x": 4.7567257589048495,
+                "y": 2.9569346260335294
+              }
+            },
+            {
+              "id": "geometry:opponent:2",
+              "position": {
+                "x": 53.553890489515574,
+                "y": 26.244653090944983
+              },
+              "velocity": {
+                "x": 3.65351694504227,
+                "y": 1.4095877585812389
+              }
+            },
+            {
+              "id": "geometry:opponent:3",
+              "position": {
+                "x": 56.92856372826144,
+                "y": 23.44442909483552
+              },
+              "velocity": {
+                "x": 3.6023942736957792,
+                "y": 0.2860097713320897
+              }
+            },
+            {
+              "id": "geometry:opponent:4",
+              "position": {
+                "x": 52.499407345895705,
+                "y": 21.079756122909586
+              },
+              "velocity": {
+                "x": 3.588821422530657,
+                "y": -0.4098177336742026
+              }
+            },
+            {
+              "id": "geometry:opponent:5",
+              "position": {
+                "x": 53.09399731958824,
+                "y": 32.34359956139046
+              },
+              "velocity": {
+                "x": 3.6133654001793047,
+                "y": 0.0957583913142912
+              }
+            },
+            {
+              "id": "geometry:opponent:6",
+              "position": {
+                "x": 55.83299907022667,
+                "y": 27.24572067519076
+              },
+              "velocity": {
+                "x": 3.4172125219495797,
+                "y": -1.1785243356386843
+              }
+            },
+            {
+              "id": "geometry:opponent:7",
+              "position": {
+                "x": 50.33152555813776,
+                "y": 39.90823488127653
+              },
+              "velocity": {
+                "x": 3.61157759641884,
+                "y": -0.15395488022477366
+              }
+            },
+            {
+              "id": "geometry:opponent:8",
+              "position": {
+                "x": 49.56046489165205,
+                "y": 26.60626619844733
+              },
+              "velocity": {
+                "x": 3.009759808866761,
+                "y": -1.9997381664492764
+              }
+            },
+            {
+              "id": "geometry:opponent:9",
+              "position": {
+                "x": 69.2546066150892,
+                "y": 25.92569334058505
+              },
+              "velocity": {
+                "x": 1.0430878201805172,
+                "y": -3.4823078140793484
+              }
+            },
+            {
+              "id": "geometry:opponent:10",
+              "position": {
+                "x": 63.29912456194787,
+                "y": 31.984165187206916
+              },
+              "velocity": {
+                "x": -2.7808912050227264,
+                "y": -2.3415540093820653
+              }
+            }
+          ],
+          "loss": {
+            "to": "home",
+            "cause": "interception",
+            "winnerId": "geometry:anchor:5",
+            "loserId": "geometry:opponent:1",
+            "id": "pr177:corner-counter:loss:acquisition:30.025000:geometry:anchor:5",
+            "at": 30.025,
+            "from": "away",
+            "position": {
+              "x": 37.699,
+              "y": 34
+            }
+          }
+        },
+        {
+          "seconds": 8,
+          "ball": {
+            "x": 70.2489233271482,
+            "y": 16.132010612561597,
+            "ownerId": "geometry:anchor:8",
+            "lastTouchPlayerId": "geometry:anchor:8",
+            "velocity": {
+              "x": -0.1176465045634135,
+              "y": 0.5407378681378705,
+              "z": 0
+            },
+            "height": 0,
+            "airborne": false
+          },
+          "possession": "home",
+          "action": {
+            "type": "hold",
+            "actorId": "geometry:anchor:8"
+          },
+          "players": [
+            {
+              "id": "geometry:anchor:0",
+              "position": {
+                "x": 1.639827743440606,
+                "y": 33.909372606161014
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:anchor:1",
+              "position": {
+                "x": 48.93769089364776,
+                "y": 7.490657399072587
+              },
+              "velocity": {
+                "x": 3.52627636677596,
+                "y": -0.9172589331213032
+              }
+            },
+            {
+              "id": "geometry:anchor:2",
+              "position": {
+                "x": 47.51915521845756,
+                "y": 23.466559196901258
+              },
+              "velocity": {
+                "x": 1.4380377289862167,
+                "y": -0.2570197195655055
+              }
+            },
+            {
+              "id": "geometry:anchor:3",
+              "position": {
+                "x": 44.0758746381793,
+                "y": 33.90754906634396
+              },
+              "velocity": {
+                "x": 3.6285902124583913,
+                "y": 0.34164329123939297
+              }
+            },
+            {
+              "id": "geometry:anchor:4",
+              "position": {
+                "x": 43.46773379468472,
+                "y": 45.110639591360034
+              },
+              "velocity": {
+                "x": 1.7697468205622613,
+                "y": 0.09021629193796343
+              }
+            },
+            {
+              "id": "geometry:anchor:5",
+              "position": {
+                "x": 61.65666689706477,
+                "y": 12.848290741731
+              },
+              "velocity": {
+                "x": 2.244056677511992,
+                "y": -2.864851073771675
+              }
+            },
+            {
+              "id": "geometry:anchor:6",
+              "position": {
+                "x": 53.99344084565019,
+                "y": 26.723843305940903
+              },
+              "velocity": {
+                "x": 3.5332510430473008,
+                "y": -0.842341842887464
+              }
+            },
+            {
+              "id": "geometry:anchor:7",
+              "position": {
+                "x": 60.79581293029866,
+                "y": 41.591187847973586
+              },
+              "velocity": {
+                "x": 3.6085556760338022,
+                "y": -0.1980941140084269
+              }
+            },
+            {
+              "id": "geometry:anchor:8",
+              "position": {
+                "x": 70.72597911135232,
+                "y": 16.14675127314234
+              },
+              "velocity": {
+                "x": -0.13611636688722228,
+                "y": 0.5617440116863293
+              }
+            },
+            {
+              "id": "geometry:anchor:9",
+              "position": {
+                "x": 47.07485229233976,
+                "y": 36.4836218153911
+              },
+              "velocity": {
+                "x": 3.9503349091037876,
+                "y": 4.009270395991109
+              }
+            },
+            {
+              "id": "geometry:anchor:10",
+              "position": {
+                "x": 54.23126285966134,
+                "y": 21.74342129039591
+              },
+              "velocity": {
+                "x": 3.623047805996009,
+                "y": 0.2542759740130407
+              }
+            },
+            {
+              "id": "geometry:opponent:0",
+              "position": {
+                "x": 103.1988174890727,
+                "y": 33.33086610527016
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:opponent:1",
+              "position": {
+                "x": 60.16274950770631,
+                "y": 33.04756952215574
+              },
+              "velocity": {
+                "x": 3.159976807376381,
+                "y": 1.7418164495342126
+              }
+            },
+            {
+              "id": "geometry:opponent:2",
+              "position": {
+                "x": 62.98285610378388,
+                "y": 29.246943448424734
+              },
+              "velocity": {
+                "x": 2.3381463313651807,
+                "y": 0.7544648406806687
+              }
+            },
+            {
+              "id": "geometry:opponent:3",
+              "position": {
+                "x": 66.92238960273893,
+                "y": 23.674018266247447
+              },
+              "velocity": {
+                "x": 2.457473955319074,
+                "y": -0.07892545471491985
+              }
+            },
+            {
+              "id": "geometry:opponent:4",
+              "position": {
+                "x": 63.15438207396177,
+                "y": 19.19565380371234
+              },
+              "velocity": {
+                "x": 3.5370225413123535,
+                "y": -0.740351706824498
+              }
+            },
+            {
+              "id": "geometry:opponent:5",
+              "position": {
+                "x": 62.116657640771145,
+                "y": 32.00018765554142
+              },
+              "velocity": {
+                "x": 1.5432541915654951,
+                "y": -0.1218311801264349
+              }
+            },
+            {
+              "id": "geometry:opponent:6",
+              "position": {
+                "x": 61.980504240365356,
+                "y": 24.02109557168526
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "id": "geometry:opponent:7",
+              "position": {
+                "x": 59.911238039935135,
+                "y": 38.922177263039806
+              },
+              "velocity": {
+                "x": 2.140892345182408,
+                "y": -0.3236063275019774
+              }
+            },
+            {
+              "id": "geometry:opponent:8",
+              "position": {
+                "x": 58.29778900161443,
+                "y": 20.261811861566777
+              },
+              "velocity": {
+                "x": 2.3860637793109163,
+                "y": -2.715590547534248
+              }
+            },
+            {
+              "id": "geometry:opponent:9",
+              "position": {
+                "x": 72.27346058500578,
+                "y": 16.14773122641655
+              },
+              "velocity": {
+                "x": 0.4600640370057363,
+                "y": 0.792632847656165
+              }
+            },
+            {
+              "id": "geometry:opponent:10",
+              "position": {
+                "x": 57.44853530229119,
+                "y": 26.39042264301201
+              },
+              "velocity": {
+                "x": -0.9358048328527957,
+                "y": -1.0815538807001701
+              }
+            }
+          ],
+          "loss": {
+            "to": "home",
+            "cause": "interception",
+            "winnerId": "geometry:anchor:5",
+            "loserId": "geometry:opponent:1",
+            "id": "pr177:corner-counter:loss:acquisition:30.025000:geometry:anchor:5",
+            "at": 30.025,
+            "from": "away",
+            "position": {
+              "x": 37.699,
+              "y": 34
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

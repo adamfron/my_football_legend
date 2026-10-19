@@ -1,4 +1,6 @@
 import { attacksRight, attackDirection, type TeamOrientation } from './matchSpace';
+import { usesStateValue } from './decisionPolicyConfig';
+import { deriveTransitionRuns } from './attackingTransition';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
@@ -820,6 +822,10 @@ export const deriveStructuralPosition = (
 };
 
 export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerState[] => {
+  const transitionRuns =
+    usesStateValue(state) && state.decisionAblation !== 'movement'
+      ? deriveTransitionRuns(state)
+      : [];
   const preferences = {
     home: deriveTeamTacticalPreferences(state, 'home'),
     away: deriveTeamTacticalPreferences(state, 'away'),
@@ -977,6 +983,8 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     )
       ideal = combination.target;
     const looseAssignment = looseAssignments.find(({ playerId }) => playerId === player.id);
+    const transitionRun = transitionRuns.find((run) => run.playerId === player.id);
+    if (transitionRun && !combination) ideal = transitionRun.target;
     const coverAssignment = looseAssignments.find(({ coverId }) => coverId === player.id);
     if (coverAssignment?.coverTarget) ideal = coverAssignment.coverTarget;
     // A nominated contestant must reach the actual contact point. Blending the race with a
@@ -1016,6 +1024,18 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       x: lerp(player.target.x, noisy.x, reaction),
       y: lerp(player.target.y, noisy.y, reaction),
     };
-    return { ...player, neutralAnchor, idealTarget: ideal, target: clampPitchPoint(perceived) };
+    const replace =
+      usesStateValue(state) &&
+      state.decisionAblation !== 'movement' &&
+      (transitionRun ||
+        looseAssignment ||
+        (combination?.runnerId === player.id && combination.team === state.possessionTeam) ||
+        state.timeSincePossessionChanged < 0.11);
+    return {
+      ...player,
+      neutralAnchor,
+      idealTarget: ideal,
+      target: clampPitchPoint(replace ? ideal : perceived),
+    };
   });
 };

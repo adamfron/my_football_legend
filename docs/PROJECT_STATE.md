@@ -1,5 +1,30 @@
 # My Football Legend — Current Project State
 
+## PR177 — Match Engine Reform Implementation
+
+Wdrożono odrębną politykę `state-value-v1`: wspólną wartość konsekwencji akcji,
+wykonalne warianty podań, niezależne propozycje biegu, hybrid readiness,
+końcowy arbitraż ruchu i rozpoznawanie odsłoniętego rywala po odzyskaniu piłki.
+`legacy-pr176` oraz ablation A pozostają porównaniami; oryginalny scalony PR176
+jest opublikowany jako `match-engine-legacy-pr176` i ma osobny baseline.
+
+**B pozostaje eksperymentalny; domyślna polityka nowych meczów to legacy.**
+Materialnie inne decyzje nie oznaczają jeszcze dostatecznego realizmu. Nowe
+przebiegi ujawniły pętlę kontaktów nakładających się ciał: ten sam rzeczywisty
+stan daje 200 kontaktów przez pięć sekund bez przesunięcia piłki zarówno
+w pristine PR176, jak i B. Zapisano kompletną reprodukcję. Osobna optymalizacja
+indeksu księgowania kontaktów zachowuje wszystkie sześć pełnych checkpointów
+20-minutowej kontynuacji i usuwa koszt wielokrotnej budowy indeksu historii.
+
+Nie wprowadzono migracji aktywnych meczów ani nowej wersji save kariery.
+Obie kariery B, wynik dokładnie raz, save/reload ukończonego wyniku i Simulate
+Remainder mają osobne receipts. Pełne porównania, walidacja zamrożonego kandydata,
+status verify, koszty i ograniczenia są w
+[raporcie wdrożenia PR177](PR177_MATCH_ENGINE_REFORM_IMPLEMENTATION.md).
+Ocena **NOT READY do kalibracji summary** pozostaje w mocy. PR178 musi rozliczyć
+mechaniczny problem kontaktów i niezależnie zweryfikować jakość futbolu na nowych,
+zamkniętych projektach; nie stroić na zużytym holdoucie PR177.
+
 ## PR176 — Match Engine Mathematical Audit & Reform Blueprint
 
 Baza: scalony PR175 `52748e2`. Audyt rekonstruuje aktualny ranking, powiązania

@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "method": "Completed pre/post index-only optimization replays on the same policy and input; repeated matches are not additional independent designs.",
+  "rows": [
+    {
+      "policy": "A",
+      "id": "pr177-dev-balanced.json",
+      "oldHash": "3a908eaba3bb4528c99e1f7102558d2e5b6fc755dbcd69118970bf2c262c1397",
+      "newHash": "3a908eaba3bb4528c99e1f7102558d2e5b6fc755dbcd69118970bf2c262c1397",
+      "equal": true,
+      "before": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "ce3515797b2df77b0093a0c98b084b2885ac62c92a395b2f1699fe60b3a58c55",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "after": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      }
+    },
+    {
+      "policy": "A",
+      "id": "pr177-dev-central.json",
+      "oldHash": "ee8e223e7736f803ef08982ac79ae8284e644e9328cbeab88da3e1b07d15cf4b",
+      "newHash": "ee8e223e7736f803ef08982ac79ae8284e644e9328cbeab88da3e1b07d15cf4b",
+      "equal": true,
+      "before": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "ce3515797b2df77b0093a0c98b084b2885ac62c92a395b2f1699fe60b3a58c55",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "after": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      }
+    },
+    {
+      "policy": "A",
+      "id": "pr177-dev-keepers.json",
+      "oldHash": "c3e667064f5ec539ce1d36253f724488fab5a4a3a3e49285f970240c84ee80ab",
+      "newHash": "c3e667064f5ec539ce1d36253f724488fab5a4a3a3e49285f970240c84ee80ab",
+      "equal": true,
+      "before": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "ce3515797b2df77b0093a0c98b084b2885ac62c92a395b2f1699fe60b3a58c55",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "after": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      }
+    },
+    {
+      "policy": "A",
+      "id": "pr177-dev-strength.json",
+      "oldHash": "d2affabb30d62fb94a8639d8838a1233b004621c5fd6e307c6a8f0fd68668783",
+      "newHash": "d2affabb30d62fb94a8639d8838a1233b004621c5fd6e307c6a8f0fd68668783",
+      "equal": true,
+      "before": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "ce3515797b2df77b0093a0c98b084b2885ac62c92a395b2f1699fe60b3a58c55",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "after": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      }
+    },
+    {
+      "policy": "A",
+      "id": "pr177-dev-wide.json",
+      "oldHash": "8d7ebbc7730cf0706f06405b3d26c2a7a44724f43e3fda455e87c856647c2f28",
+      "newHash": "8d7ebbc7730cf0706f06405b3d26c2a7a44724f43e3fda455e87c856647c2f28",
+      "equal": true,
+      "before": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "ce3515797b2df77b0093a0c98b084b2885ac62c92a395b2f1699fe60b3a58c55",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "after": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      }
+    },
+    {
+      "policy": "A",
+      "id": "pr177-dev-youth.json",
+      "oldHash": "457677102cb5fc9b5276ebd5a090cd3d731ea4be11792e69bd902ffb88e76556",
+      "newHash": "457677102cb5fc9b5276ebd5a090cd3d731ea4be11792e69bd902ffb88e76556",
+      "equal": true,
+      "before": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "ce3515797b2df77b0093a0c98b084b2885ac62c92a395b2f1699fe60b3a58c55",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "after": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      }
+    },
+    {
+      "policy": "B",
+      "id": "pr177-dev-balanced.json",
+      "oldHash": "62868649cd2b620b5c3c8a2ac9d5ef9815503d347c6aa79c73f8c697e10f3f42",
+      "newHash": "62868649cd2b620b5c3c8a2ac9d5ef9815503d347c6aa79c73f8c697e10f3f42",
+      "equal": true,
+      "before": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "ce3515797b2df77b0093a0c98b084b2885ac62c92a395b2f1699fe60b3a58c55",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "after": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      }
+    },
+    {
+      "policy": "B",
+      "id": "pr177-dev-youth.json",
+      "oldHash": "267ba566e2201431abacd8f7de346c8472755f037927cf647404ba4deb61a6e8",
+      "newHash": "267ba566e2201431abacd8f7de346c8472755f037927cf647404ba4deb61a6e8",
+      "equal": true,
+      "before": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "ce3515797b2df77b0093a0c98b084b2885ac62c92a395b2f1699fe60b3a58c55",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "after": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      }
+    }
+  ]
+}
