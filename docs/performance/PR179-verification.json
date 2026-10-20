@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "command": "npm run verify",
+  "exitCode": 0,
+  "status": "PASS",
+  "completedAt": "2026-10-20T17:02:47.918Z",
+  "measuredWorkingTreeSourceHash": "adb234b67211a5823e3219b326a7990b406d1484ced2fae91d4fd170de6356b7",
+  "baseCommit": "c8cd8157f64803a3cf19f86cd4b32513176a7b89",
+  "stageTestCounts": {
+    "unit": 1920,
+    "matchIntegration": 52,
+    "careerMatchContract": 4,
+    "fullCareer": 5
+  },
+  "totalTests": 1981,
+  "lint": "PASS",
+  "typescript": "PASS",
+  "productionBuild": "PASS",
+  "additionalFinalTargetedLint": "PASS",
+  "unchanged": [
+    "existing verification command",
+    "assertions",
+    "test timeouts",
+    "dependencies",
+    "CI workflow budgets"
+  ],
+  "scope": "Working-tree validation before commit. Source hash identifies the measured normalized canonical engine; baseCommit is its parent. Earlier failed attempts and their corrections are retained separately.",
+  "log": "pr179-evidence/verify-final.log.gz",
+  "earlierAttempts": [
+    "pr179-evidence/verify-first-concurrent.log.gz",
+    "pr179-evidence/verify-selector-failure.log.gz",
+    "pr179-evidence/integration-selector-repair.log.gz"
+  ]
+}

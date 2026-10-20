@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { RoleExperimentRecorder } from '../../core/matchSimulation/roleExperiment';
 import type {
   MatchFlowTelemetry,
   PositioningSample,
@@ -75,6 +76,7 @@ export const findNonFiniteDiagnosticValue = (
 
 /** DEV-only observation owner. It deliberately has no path back into canonical simulation. */
 export class MatchLabDiagnosticsController {
+  experiment: RoleExperimentRecorder;
   readonly recorder = new MatchDebugRecorder();
   runtimeDiagnostics: MatchLabRuntimeError[] = [];
   omittedRuntimeDiagnostics = 0;
@@ -92,6 +94,7 @@ export class MatchLabDiagnosticsController {
     initial: TacticalMatchState,
     telemetry: MatchFlowTelemetry,
   ) {
+    this.experiment = new RoleExperimentRecorder(initial);
     this.latestState = initial;
     this.telemetry = telemetry;
   }
@@ -142,6 +145,7 @@ export class MatchLabDiagnosticsController {
   }
 
   setRendererLifecycle(lifecycle: RendererLifecycle) {
+    if (this.rendererLifecycle === lifecycle) return;
     this.rendererLifecycle = lifecycle;
     this.listeners.forEach((listener) => listener());
   }

@@ -1,5 +1,31 @@
 # My Football Legend — Current Project State
 
+## PR179 — Role-Driven Football Intelligence
+
+Wdrożono 29 wspólnych, walidowanych ról oraz trzy polityki na kanonicznej fizyce:
+R1 ocenia konsekwencje stanów z uwzględnieniem odpowiedzialności zawodników,
+R2 dodaje cele przyjęcia i ruch bez piłki, R3 uzależnia hierarchię od rzeczywistej
+fazy. Trener dobiera role deterministycznie z atrybutów, pozycji/duties, preferencji,
+stanu fizycznego i sąsiednich odpowiedzialności. Jawne zmiany ról działają w meczu.
+
+Match Lab udostępnia wszystkie pięć polityk, powtórkę zamrożonych składów i seedu,
+zmiany ról/taktyki oraz JSON oparty o kanoniczne zdarzenia i oficjalne statystyki.
+Diagnostyka odróżnia wybór od fizycznego wykonania i oznacza patologiczny bezruch.
+Sześć projektów SS/SW/WW służy rozwojowi; dwanaście nowych projektów pozostaje
+nieuruchomionych dla PR180. Role nie przyznają umiejętności ani wyników.
+
+**Polityki pozostają eksperymentalne; domyślne jest `legacy-pr176`.
+Canonical nadal NOT READY do kalibracji summary.** Mniejsza stagnacja nie
+oznacza automatycznie lepszego futbolu: nadmiar podań i mało okazji wymagają
+dalszej pracy. [Raport i reprodukcja](PR179_ROLE_DRIVEN_FOOTBALL_INTELLIGENCE.md).
+
+Ukończono **30/30 pełnych meczów**, 250 kontrolowanych porównań i pełne powtórki
+przeglądarkowe. R1/R3 pozostają warunkowymi kandydatami badawczymi; nowy hold
+bramkarza z R2 jest odtworzony i blokuje promocję także pozostałych reform.
+Końcowe `npm run verify`: **PASS — 1981 testów, lint, TypeScript i build**.
+[Weryfikacja](performance/PR179-verification.json),
+[porównanie](performance/PR179-policy-comparison.json).
+
 ## PR178 — Physical Contact Resolution & Independent Reform Validation
 
 Naprawiono odziedziczoną pętlę kontaktów nakładających się ciał. Kontakt ciągły
@@ -30,8 +56,9 @@ Nie wprowadzono migracji aktywnego meczu ani wersji zapisu kariery.
 [końcowa weryfikacja](performance/PR178-verification.json).
 Końcowe niezmienione `npm run verify`: **PASS — 1954 testy, lint, TypeScript i build**.
 
-Kolejność pozostaje: **PR179 generacje/siła świata → PR180 summary/PlayStyles
-po spełnieniu prerequisite canonical → PR181 career UX → PR182+ świat**.
+Aktualna kolejność: **PR179 role i polityki → PR180 walidacja i trener →
+PR181 generacje/siła świata → PR182 summary/PlayStyles po prerequisite canonical →
+PR183 career UX → PR184+ świat**. Zakres odłożonych prac pozostaje zachowany.
 
 ## PR177 — Match Engine Reform Implementation
 

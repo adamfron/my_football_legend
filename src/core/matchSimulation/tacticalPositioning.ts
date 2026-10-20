@@ -1,6 +1,7 @@
 import { attacksRight, attackDirection, type TeamOrientation } from './matchSpace';
 import { usesStateValue } from './decisionPolicyConfig';
 import { deriveTransitionRuns } from './attackingTransition';
+import { roleMovementTarget } from './roleTactics';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
@@ -972,6 +973,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       };
     }
     if (depthRun && !occupation) ideal = depthRun.target;
+    ideal = roleMovementTarget(state, player, ideal);
     const combination = state.combinationIntent;
     if (
       combination &&

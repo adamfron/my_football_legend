@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import { attacksRight, distance, distanceToSegment, type PitchPoint } from './matchSpace';
 import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
-import { STATE_VALUE_CONFIG as config } from './decisionPolicyConfig';
+import { STATE_VALUE_CONFIG as config, usesTacticalRoles } from './decisionPolicyConfig';
+import { deriveTacticalRolePhase, forecastWaiting, roleControlledValue } from './roleTactics';
 import { evaluateTransitionOpportunity } from './attackingTransition';
 import { evaluatePassDecision } from './passDecision';
 import { derivePassLaunchPlan, type PassLaunchPlan } from './passLaunchPlan';
@@ -90,10 +91,19 @@ export const evaluateControlledState = (
       ? 0
       : opportunity.exposure * clamp(opportunity.recoverySeconds / Math.max(0.5, elapsed + 1));
   const territory = clamp(depth / 105);
+  const phase =
+    state.decisionPolicy === 'phase-role-hybrid-v1'
+      ? deriveTacticalRolePhase(state, actor.team)
+      : undefined;
   const value =
     (0.004 + 0.024 * territory ** 2 + 0.14 * shotAccess) * (0.4 + space * 0.6) +
     Math.min(3, outlets) * 0.002 * territory +
-    config.transitionValue * transition * (0.25 + territory * 0.75);
+    config.transitionValue *
+      transition *
+      (0.25 + territory * 0.75) *
+      (phase === 'rapid_transition' ? 1.6 : 1) +
+    roleControlledValue(state, actor, point, elapsed) +
+    (phase === 'build_up' ? 0.008 * Math.min(3, outlets) * space : 0);
   return { territory, shotAccess, space, outlets, transition, value };
 };
 
@@ -204,6 +214,7 @@ export const evaluateStateValueAction = (
     elapsed = 0.55,
     effort = 0;
   const reasons: string[] = [action.type];
+  let futureState = state;
   const margin = preparationMarginForAction(state, actor, action);
   if (margin < -1e-8) return undefined;
   if (
@@ -324,11 +335,23 @@ export const evaluateStateValueAction = (
       (actor.profile.attributes.strength + actor.profile.attributes.firstTouch) / 200;
     controlled = clamp(0.99 - pressure * (0.23 - strength * 0.12));
     contested = (1 - controlled) * 0.3;
+    if (usesTacticalRoles(state)) {
+      const forecast = forecastWaiting(state, actor);
+      futureState = forecast.state;
+      elapsed = forecast.diagnostic.horizon;
+      controlled = clamp(1 - forecast.diagnostic.intervention);
+      contested = (1 - controlled) * 0.3;
+      reasons.push(
+        `waiting:${forecast.diagnostic.reason}`,
+        `support-metres:${forecast.diagnostic.supportMovement.toFixed(2)}`,
+        `intervention:${forecast.diagnostic.intervention.toFixed(3)}`,
+      );
+    }
   } else return undefined;
   const loss = Math.max(0, 1 - controlled - contested - restart - goal);
   const success =
-    evaluateControlledState(state, receiver, point, elapsed).value +
-    continuationValue(state, receiver, point, elapsed);
+    evaluateControlledState(futureState, receiver, point, elapsed).value +
+    continuationValue(futureState, receiver, point, elapsed);
   const opponent = turnoverStateValue(state, actor, point, elapsed);
   const branches: StateValueEvaluation['branches'] = [
     { kind: 'controlled', probability: controlled, elapsed, reward: 0, value: success },

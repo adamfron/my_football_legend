@@ -4,6 +4,9 @@ export const decisionPolicyIdSchema = z.enum([
   'legacy-pr176',
   'risk-ablation-v1',
   'state-value-v1',
+  'role-value-v1',
+  'role-intent-v1',
+  'phase-role-hybrid-v1',
 ]);
 export type DecisionPolicyId = z.infer<typeof decisionPolicyIdSchema>;
 export const decisionAblationSchema = z.enum([
@@ -55,4 +58,11 @@ export const STATE_VALUE_CONFIG = Object.freeze(
 // Promotion is a separate, evidence-based decision. This is the one new-match rollback switch.
 export const DEFAULT_DECISION_POLICY: DecisionPolicyId = 'legacy-pr176';
 export const usesStateValue = (state: { decisionPolicy?: DecisionPolicyId }) =>
-  state.decisionPolicy === 'state-value-v1';
+  state.decisionPolicy === 'state-value-v1' || usesTacticalRoles(state);
+export const usesTacticalRoles = (state: { decisionPolicy?: DecisionPolicyId }) =>
+  ['role-value-v1', 'role-intent-v1', 'phase-role-hybrid-v1'].includes(state.decisionPolicy ?? '');
+export const usesRoleIntentions = (state: { decisionPolicy?: DecisionPolicyId }) =>
+  state.decisionPolicy === 'role-intent-v1' || state.decisionPolicy === 'phase-role-hybrid-v1';
+export const PRIMARY_DECISION_POLICIES = decisionPolicyIdSchema.options.filter(
+  (id) => id !== 'risk-ablation-v1',
+);

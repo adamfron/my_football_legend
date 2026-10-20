@@ -1,0 +1,293 @@
+{
+  "version": 1,
+  "url": "http://127.0.0.1:5180/my_football_legend/?devtools=1&matchSandbox=1",
+  "sourceHash": "adb234b67211a5823e3219b326a7990b406d1484ced2fae91d4fd170de6356b7",
+  "sourceLabelScope": "Dev-server Git/source label identifies its launch snapshot. The normalized research engine sourceHash identifies the measured final engine. Frozen manual experiments should restart the dev server after source changes.",
+  "verified": [
+    "visible five-policy selector",
+    "explicit seed and teams",
+    "visible policy and unchanged fixture identity",
+    "initial role assignments",
+    "R2 full time",
+    "halftime target forward -> advanced forward",
+    "halftime high press -> compact low block/counters",
+    "R3 replay from complete original session",
+    "R3 full time",
+    "actual JSON downloads",
+    "byte-equivalent frozen fixture inputs",
+    "exported official result matches displayed score"
+  ],
+  "scope": "Two exploratory visual runs. R2 includes declared halftime interventions; R3 starts from the same initial inputs but has no matching halftime intervention, so final results are not a causal policy-only estimate.",
+  "matches": [
+    {
+      "policy": "role-intent-v1",
+      "fixtureId": "fixture-f3a7f2b0",
+      "inputHash": "6999da3f7151b6ae0da53b8fb1bfbd7132bca45d6615d1e35dc08234279c7467",
+      "sourceLabel": "c8cd8157f64803a3cf19f86cd4b32513176a7b89:973102074c622f813855dd54c0a652df38c9fd95da21f9965abb0e91d1a0dd12",
+      "status": "full_time",
+      "time": 5586.299999983174,
+      "result": {
+        "home": 1,
+        "away": 1
+      },
+      "official": {
+        "home": {
+          "goals": 1,
+          "shots": 1,
+          "shotsOnTarget": 1,
+          "blockedShots": 0,
+          "possessionPercentage": 44.62910221508813,
+          "passesAttempted": 1874,
+          "passesCompleted": 1622,
+          "passesReceived": 1622,
+          "touches": 1978,
+          "carries": 1067,
+          "possessionWon": 264,
+          "possessionLost": 265,
+          "completionPercentage": 86.55282817502668,
+          "fouls": 17,
+          "yellowCards": 1,
+          "redCards": 0,
+          "offsides": 0,
+          "corners": 0,
+          "freeKicks": 19,
+          "throwIns": 2,
+          "tacklesAttempted": 100,
+          "tacklesWon": 39,
+          "interceptions": 210,
+          "substitutions": 2,
+          "injuries": 0
+        },
+        "away": {
+          "goals": 1,
+          "shots": 1,
+          "shotsOnTarget": 1,
+          "blockedShots": 0,
+          "possessionPercentage": 55.37089778491187,
+          "passesAttempted": 2317,
+          "passesCompleted": 2057,
+          "passesReceived": 2057,
+          "touches": 2400,
+          "carries": 987,
+          "possessionWon": 267,
+          "possessionLost": 267,
+          "completionPercentage": 88.77859300820026,
+          "fouls": 20,
+          "yellowCards": 2,
+          "redCards": 0,
+          "offsides": 0,
+          "corners": 0,
+          "freeKicks": 17,
+          "throwIns": 0,
+          "tacklesAttempted": 124,
+          "tacklesWon": 50,
+          "interceptions": 195,
+          "substitutions": 2,
+          "injuries": 0
+        }
+      },
+      "roleChanges": [
+        {
+          "at": 2760,
+          "playerId": "footballer_pro_1_21",
+          "from": "target_forward",
+          "to": "advanced_forward",
+          "reason": "explicit"
+        },
+        {
+          "at": 3708.600000003451,
+          "playerId": "footballer_pro_0_15",
+          "from": "creative_ten",
+          "to": "creative_ten",
+          "reason": "substitution"
+        },
+        {
+          "at": 4394.200000000521,
+          "playerId": "footballer_pro_0_8",
+          "from": "attacking_fullback",
+          "to": "attacking_fullback",
+          "reason": "substitution"
+        },
+        {
+          "at": 4867.399999993635,
+          "playerId": "footballer_pro_1_23",
+          "from": "pressing_forward",
+          "to": "pressing_forward",
+          "reason": "substitution"
+        },
+        {
+          "at": 5403.74999998583,
+          "playerId": "footballer_pro_1_8",
+          "from": "attacking_fullback",
+          "to": "attacking_fullback",
+          "reason": "substitution"
+        }
+      ],
+      "teamChanges": [
+        {
+          "at": 2760,
+          "side": "away",
+          "from": {
+            "style": "pressing",
+            "preferences": {
+              "blockHeight": 0.72,
+              "organisedPress": 0.9700000000000001,
+              "counterpress": 0.9,
+              "compactness": 0.8088888888888889,
+              "possessionPatience": 0.43125,
+              "verticality": 0.6933333333333332
+            }
+          },
+          "to": {
+            "style": "counter_attacking",
+            "preferences": {
+              "blockHeight": 0.32,
+              "organisedPress": 0.28,
+              "counterpress": 0.25,
+              "compactness": 0.8,
+              "possessionPatience": 0.35,
+              "verticality": 0.9
+            }
+          }
+        }
+      ],
+      "traceEntries": 1024,
+      "omittedTraceEvents": 26805,
+      "observerErrors": [],
+      "receipt": "pr179-evidence/browser-r2-full.json.gz"
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "fixtureId": "fixture-f3a7f2b0",
+      "inputHash": "6999da3f7151b6ae0da53b8fb1bfbd7132bca45d6615d1e35dc08234279c7467",
+      "sourceLabel": "c8cd8157f64803a3cf19f86cd4b32513176a7b89:973102074c622f813855dd54c0a652df38c9fd95da21f9965abb0e91d1a0dd12",
+      "status": "full_time",
+      "time": 5530.424999989645,
+      "result": {
+        "home": 0,
+        "away": 0
+      },
+      "official": {
+        "home": {
+          "goals": 0,
+          "shots": 0,
+          "shotsOnTarget": 0,
+          "blockedShots": 0,
+          "possessionPercentage": 49.44176930332488,
+          "passesAttempted": 2254,
+          "passesCompleted": 1920,
+          "passesReceived": 1920,
+          "touches": 2365,
+          "carries": 1275,
+          "possessionWon": 362,
+          "possessionLost": 364,
+          "completionPercentage": 85.18189884649512,
+          "fouls": 19,
+          "yellowCards": 1,
+          "redCards": 0,
+          "offsides": 0,
+          "corners": 0,
+          "freeKicks": 17,
+          "throwIns": 1,
+          "tacklesAttempted": 139,
+          "tacklesWon": 71,
+          "interceptions": 265,
+          "substitutions": 2,
+          "injuries": 0
+        },
+        "away": {
+          "goals": 0,
+          "shots": 2,
+          "shotsOnTarget": 2,
+          "blockedShots": 0,
+          "possessionPercentage": 50.55823069667512,
+          "passesAttempted": 2326,
+          "passesCompleted": 1987,
+          "passesReceived": 1987,
+          "touches": 2449,
+          "carries": 1247,
+          "possessionWon": 366,
+          "possessionLost": 364,
+          "completionPercentage": 85.4256233877902,
+          "fouls": 17,
+          "yellowCards": 0,
+          "redCards": 0,
+          "offsides": 0,
+          "corners": 1,
+          "freeKicks": 18,
+          "throwIns": 1,
+          "tacklesAttempted": 139,
+          "tacklesWon": 68,
+          "interceptions": 277,
+          "substitutions": 4,
+          "injuries": 0
+        }
+      },
+      "roleChanges": [
+        {
+          "at": 3097.1000000068843,
+          "playerId": "footballer_pro_1_23",
+          "from": "pressing_forward",
+          "to": "pressing_forward",
+          "reason": "substitution"
+        },
+        {
+          "at": 3815.7500000094988,
+          "playerId": "footballer_pro_1_10",
+          "from": "attacking_fullback",
+          "to": "attacking_fullback",
+          "reason": "substitution"
+        },
+        {
+          "at": 3816.375000009501,
+          "playerId": "footballer_pro_1_8",
+          "from": "attacking_fullback",
+          "to": "attacking_fullback",
+          "reason": "substitution"
+        },
+        {
+          "at": 3818.1000000095073,
+          "playerId": "footballer_pro_0_15",
+          "from": "creative_ten",
+          "to": "creative_ten",
+          "reason": "substitution"
+        },
+        {
+          "at": 4283.175000007795,
+          "playerId": "footballer_pro_0_8",
+          "from": "attacking_fullback",
+          "to": "attacking_fullback",
+          "reason": "substitution"
+        },
+        {
+          "at": 4800.625000000265,
+          "playerId": "footballer_pro_1_5",
+          "from": "stopper",
+          "to": "stopper",
+          "reason": "substitution"
+        }
+      ],
+      "teamChanges": [],
+      "traceEntries": 1024,
+      "omittedTraceEvents": 30221,
+      "observerErrors": [],
+      "receipt": "pr179-evidence/browser-r3-full.json.gz"
+    }
+  ],
+  "originalWarning": "The original R3 run emitted Maximum update depth exceeded: successful renderer frames notified React of an unchanged ready lifecycle. An idempotence guard and regression test address that cycle.",
+  "followup": {
+    "policy": "phase-role-hybrid-v1",
+    "status": "full_time",
+    "time": 5530.424999989645,
+    "sourceLabel": "c8cd8157f64803a3cf19f86cd4b32513176a7b89:069341b791d76e7709998960e0832626ddbd2aced691ec0ef5aacba9180fcfd5",
+    "fullCanonicalStatisticsEquality": true,
+    "frozenInputsEquality": true,
+    "result": {
+      "home": 0,
+      "away": 0
+    },
+    "consoleWarningsAndErrors": [],
+    "receipt": "pr179-evidence/browser-r3-followup.json.gz"
+  },
+  "unresolved": []
+}
