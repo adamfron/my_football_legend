@@ -1,0 +1,178 @@
+{
+  "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+  "method": "Coverage combines36 new focused tests with unchanged existing physics/law/statistics regressions and physical canonical traces. Policy-neutral geometric units apply to both policies; exact-loop, keeper and half/last-touch integration tests explicitly run legacy and B. Twenty acceptance categories are not misrepresented as twenty new individually named test cases. Full unchanged verification is recorded separately.",
+  "newTests": {
+    "pr178ContactResolution.test.ts": 15,
+    "pr178AerialContinuous.test.ts": 5,
+    "pr178ContactLaws.test.ts": 12,
+    "pr178KeeperTraffic.test.ts": 4
+  },
+  "cases": [
+    {
+      "id": 1,
+      "case": "Stationary overlap",
+      "tests": [
+        "pr178ContactResolution.test.ts: four heights, finite radial separation and floor"
+      ]
+    },
+    {
+      "id": 2,
+      "case": "Moving player",
+      "tests": [
+        "pr178ContactResolution.test.ts: measured-body relative dissipative rebound",
+        "ballFlight.test.ts: swept moving defender"
+      ]
+    },
+    {
+      "id": 3,
+      "case": "Separating ball",
+      "tests": [
+        "pr178ContactResolution.test.ts: no reflection/damping",
+        "pr172Rebounds.test.ts"
+      ]
+    },
+    {
+      "id": 4,
+      "case": "Incoming overlap",
+      "tests": [
+        "pr178ContactResolution.test.ts: stationary support dissipates relative normal energy and exact contact-time velocity"
+      ]
+    },
+    {
+      "id": 5,
+      "case": "Two players",
+      "tests": [
+        "pr178ContactResolution.test.ts: two moving bodies, per-body rearm, original exact four-body input under both policies"
+      ]
+    },
+    {
+      "id": 6,
+      "case": "Three moving players",
+      "tests": [
+        "pr178ContactResolution.test.ts: three-body projection, finite deterministic clearance"
+      ]
+    },
+    {
+      "id": 7,
+      "case": "Turning beside ball",
+      "tests": [
+        "pr178AerialContinuous.test.ts: turning does not rearm relative continuous contact"
+      ]
+    },
+    {
+      "id": 8,
+      "case": "Foot/lower leg",
+      "tests": [
+        "pr178ContactResolution.test.ts: finite wall capsule at grass",
+        "pr172ShotContact.test.ts: real finite foot envelope"
+      ]
+    },
+    {
+      "id": 9,
+      "case": "Consecutive headers",
+      "tests": [
+        "pr178AerialContinuous.test.ts: same player rearmed by real horizontal/vertical separation, other player immediately eligible"
+      ]
+    },
+    {
+      "id": 10,
+      "case": "Block then attacker recovery",
+      "tests": [
+        "pr178KeeperTraffic.test.ts: actual parry-to-attacker physical touch",
+        "pr178ContactResolution.test.ts: different-player impact and genuine control",
+        "PR178-physical-transitions-prescribed.json: blocked shots"
+      ]
+    },
+    {
+      "id": 11,
+      "case": "Keeper parry into traffic",
+      "tests": [
+        "pr178KeeperTraffic.test.ts: actual parry_away, subsequent real attacker touch, one save/shot, both policies"
+      ]
+    },
+    {
+      "id": 12,
+      "case": "Catch versus deflection",
+      "tests": [
+        "pr178KeeperTraffic.test.ts: actual catch ownership versus free parry, both policies",
+        "goalkeeperIntervention.test.ts: unreachable/failed-save body contact"
+      ]
+    },
+    {
+      "id": 13,
+      "case": "Close-range block",
+      "tests": [
+        "ballFlight.test.ts: earliest defender before keeper/goal",
+        "goalkeeperIntervention.test.ts: close unreacted keeper body",
+        "PR178-physical-transitions-prescribed.json"
+      ]
+    },
+    {
+      "id": 14,
+      "case": "Post/crossbar",
+      "tests": [
+        "ballFlight.test.ts: frame priority and finite vertical/spin response",
+        "pr159ReboundIntegration.test.ts: original shot identity and live frame continuation"
+      ]
+    },
+    {
+      "id": 15,
+      "case": "Touchline",
+      "tests": [
+        "pr178ContactLaws.test.ts: actual crossing/last touch under both policies and both halves",
+        "pr161BoundaryLiveness.test.ts: finite boundary recovery"
+      ]
+    },
+    {
+      "id": 16,
+      "case": "Goal line",
+      "tests": [
+        "pr178ContactLaws.test.ts: actual corner/goal-kick attribution under both policies and both halves",
+        "ballFlight.test.ts: whole-ball goal plane"
+      ]
+    },
+    {
+      "id": 17,
+      "case": "Defensive clearance",
+      "tests": [
+        "pr178ContactLaws.test.ts: prescribed physical clearance continuation crossing touchline",
+        "PR178-controlled-summary.json: clearance action with real release/continuation",
+        "ballPhysics.test.ts: clearance distance"
+      ]
+    },
+    {
+      "id": 18,
+      "case": "Aerial delivery",
+      "tests": [
+        "aerialPlay.test.ts: parametric airborne deliveries and keeper claims/punches",
+        "pr178AerialContinuous.test.ts"
+      ]
+    },
+    {
+      "id": 19,
+      "case": "Corner",
+      "tests": [
+        "pr178AerialContinuous.test.ts: complete legal floated-corner sequence with no duplicate co-moving header",
+        "PR178-physical-transitions-prescribed.json: actual legal delivery/contact/recovery"
+      ]
+    },
+    {
+      "id": 20,
+      "case": "Before/after halftime",
+      "tests": [
+        "pr178ContactLaws.test.ts: canonical startSecondHalf, last-touch and awarded side across both orientations/policies",
+        "pr159RestartContinuity.test.ts: real second-half kickoff"
+      ]
+    }
+  ],
+  "invariants": [
+    "No independent re-impact before geometric rearm",
+    "Bounded finite geometric corrections and velocities",
+    "No arbitrary owner/goal/restart",
+    "Last-touch, indirect/restart/offside restrictions",
+    "Statistics invariants and exactly-once canonical shot/save credit",
+    "Exact deterministic full-state replay"
+  ],
+  "status": "PASS — complete unchanged verify and focused coverage",
+  "verification": "PR178-verification.json"
+}

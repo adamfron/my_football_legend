@@ -1,6 +1,10 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import console from 'node:console';
+import process from 'node:process';
+import { pr172SourceHash } from './pr172Evidence.ts';
+const receiptPrefix = process.argv.find((arg) => arg.startsWith('--prefix='))?.split('=')[1] ?? 'PR177';
+if (!/^PR\d+$/.test(receiptPrefix)) throw new Error('Invalid receipt prefix');
 import { createReformFixture } from './pr177Fixtures.ts';
 import { enumerateStateValueActions } from '../src/core/matchSimulation/decisionPolicy.ts';
 import { evaluateStateValueAction } from '../src/core/matchSimulation/decisionStateValue.ts';
@@ -10,7 +14,9 @@ import { resolveMatchAction, scoreActionForAI } from '../src/core/matchSimulatio
 import { stepTacticalMatchAfterDecisionProbe } from '../src/core/matchSimulation/matchSimulation.ts';
 import { evaluateTransitionOpportunity } from '../src/core/matchSimulation/attackingTransition.ts';
 
-const original = JSON.parse(gunzipSync(readFileSync('../pr176-inputs/pr175-natural.json.gz')))[0];
+const original = JSON.parse(gunzipSync(readFileSync(receiptPrefix === 'PR178'
+  ? 'docs/performance/pr178-evidence/historical-controlled-input.json.gz'
+  : '../pr176-inputs/pr175-natural.json.gz')))[0];
 const historicalSensitivity = JSON.parse(readFileSync('docs/performance/PR176-sensitivity.json', 'utf8')).rows.filter((r) => r.factor === 'passerGameReading');
 const receiverId = historicalSensitivity[0].receiverId;
 const reading = [];
@@ -69,5 +75,6 @@ for (const travelKind of ['corner_delivery', 'free_kick_delivery', 'cross']) {
   }
   recoveries.push({ travelKind, method: 'Actual canonical control of a prescribed incoming delivery; full preceding set-piece setup is not simulated', changed, checkpoints });
 }
-writeFileSync('docs/performance/PR177-regressions.json', JSON.stringify({ version: 1, reading, receiving, recoveries }, null, 2) + '\n');
+writeFileSync(`docs/performance/${receiptPrefix}-regressions.json`, JSON.stringify({ version: 1, reading, receiving, recoveries,
+  ...(receiptPrefix === 'PR178' ? { sourceHash: pr172SourceHash() } : {}) }, null, 2) + '\n');
 console.log(JSON.stringify({ reading: reading.map((r) => [r.value, r.preparedScore]), receiving: receiving.map((r) => [r.scenario, r.result?.finalResult]), recoveries: recoveries.map((r) => [r.travelKind, r.changed?.exposure?.active]) }));

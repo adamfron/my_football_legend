@@ -1,0 +1,63 @@
+{
+  "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+  "candidate": "state-value-v1",
+  "promote": false,
+  "defaultPolicy": "legacy-pr176",
+  "candidateStatus": "experimental",
+  "canonicalSummaryReadiness": "NOT READY",
+  "independentValidationDesigns": 12,
+  "completeValidationRuns": 36,
+  "sharedPhysicsRepairAccepted": true,
+  "policyWeightsChanged": false,
+  "positiveEvidence": [
+    "Original exact overlapping-body state reaches real control at1.0s B/1.6s legacy; no arbitrary escape or possession winner",
+    "B gains ten controlled metres after exposed recovery in295 cases versus95 legacy; paired mean+16.67, exploratory95% interval10.67..22.75",
+    "All47 selected B validation shot actions link to physical releases; four additional penalty releases are explicitly outside the ranking hook",
+    "Actual browser B controlled carry, completed pass, physical shot, hybrid remainder, reload and next-fixture progression pass"
+  ],
+  "blockingEvidence": [
+    {
+      "problem": "Controlled possession stagnation",
+      "evidence": "Six of twelve B fixtures contain a possession longer than20minutes; median longest episode769.84s vs161.58s legacy; worst2625.175s. Historical B last possession1177s has2456 decisions and no pass. Hold wins over available negative carries after readiness elapsed.",
+      "nextAction": "Reproduce fixture/time/decision IDs; inspect executable outlet coverage, ranking and physical opponent pressure jointly. Correct the demonstrated mechanism; no forced-pass timeout or blanket hold penalty."
+    },
+    {
+      "problem": "Fragile controlled progression and combinations",
+      "evidence": "B completion57.80% vs78.63% legacy; paired change-20.83pp, interval-23.48..-18.08. Controlled forward passing metres3186.9 vs5703.5 perfixture; player-credited losses409.3 vs215.3. B combinations206 contact failures and138 expiries, only79 completions/745 attempts.",
+      "nextAction": "Follow actual forward release/run/finite-contact/next-action chains and repair demonstrated support/preparation inconsistencies rather than compensating with shot bonuses."
+    },
+    {
+      "problem": "Chance creation is sparse and concentrated",
+      "evidence": "Seven B validation fixtures have zero credible episodes;17/20 credible episodes are in two designs.38/51 shots occur in three designs. Goals13 equal legacy; paired chance/shot/goal intervals include zero.",
+      "nextAction": "Re-freeze after corrections and validate the entire entry-to-credible-chance-to-release chain, including weak-team transitions, on a new untouched cohort before PR180 calibration."
+    }
+  ],
+  "usableContracts": [
+    "Canonical physical contact identity and real separation",
+    "Deterministic stepping and observer equality",
+    "Exactly-once career result accounting",
+    "Explicit hybrid action-statistics coverage"
+  ],
+  "notCalibrationTargets": [
+    "Autonomous pass/shot/goal/corner rates",
+    "Turnover and foul rates",
+    "Positional scoring shares",
+    "PlayStyle effects",
+    "League match distributions"
+  ],
+  "interpretation": "Retention of the existing default is not endorsement of legacy realism or a preference for conservative football. B has a real independent transition improvement, but loses other required dimensions. No hidden legacy layer was added to B. The12 final designs are now consumed; no post-holdout policy tuning was performed.",
+  "evidence": [
+    "PR178-policy-comparison.json",
+    "PR178-passing-and-reception.json",
+    "PR178-counterattacks.json",
+    "PR178-physics-baseline.json",
+    "PR178-browser.json",
+    "PR178-career.json"
+  ],
+  "verification": {
+    "passed": true,
+    "tests": 1954,
+    "receipt": "PR178-verification.json"
+  },
+  "performanceReceipt": "PR178-performance.json"
+}

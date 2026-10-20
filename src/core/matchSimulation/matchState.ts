@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { continuousBodyContactsSchema } from './ballContactResolution';
 import {
   combinationIntentSchema,
   combinationResultSchema,
@@ -554,6 +555,7 @@ export interface MatchTeamState {
   threatMemory?: TeamThreatMemory;
 }
 export interface MatchBallState extends PitchPoint {
+  continuousBodyContacts?: string[];
   spin?: BallSpin3d;
   executionType?: PassExecutionType;
   height?: number;
@@ -1093,6 +1095,7 @@ export const tacticalMatchStateSchema = z
           .optional(),
         executionType: passExecutionTypeSchema.optional(),
         looseSince: z.number().optional(),
+        continuousBodyContacts: continuousBodyContactsSchema.optional(),
         targetHeight: z.number().nonnegative().finite().optional(),
         shot: shotDiagnosticSchema.optional(),
         from: physicalPointSchema.optional(),

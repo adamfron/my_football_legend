@@ -1,0 +1,75 @@
+{
+  "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+  "method": "Complete canonical serialized final state hash and tick count, not just score or selected fields. Full-ranker/event observer vs disabled hooks on the same input. Serial profiler/event/full-ranker repetitions are additionally recorded in PR178-performance.json.",
+  "rows": [
+    {
+      "split": "historical",
+      "policy": "state-value-v1",
+      "id": "pr177-dev-strength",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "finalHash": "ab9e300d479fa2df76b786d793bd62bf10e108ea54ec6b8b5f8122339042bf44",
+      "ticks": 223201,
+      "path": "docs/performance/pr178-evidence/final/historical-state-value-v1-pr177-dev-strength.json.gz",
+      "bytes": 1475787,
+      "sha256": "55917f4d5dc5a5a885ad344ce5b1dc1e4998ba36d9f2fde9a3e1ba7f3bbe937e",
+      "equivalence": {
+        "equal": true,
+        "finalHash": "ab9e300d479fa2df76b786d793bd62bf10e108ea54ec6b8b5f8122339042bf44",
+        "ticks": 223201,
+        "cpuMs": 219328,
+        "wallMs": 231990.95420000004
+      }
+    }
+  ],
+  "serialEquivalence": [
+    {
+      "design": "pr177-dev-strength",
+      "policy": "legacy-pr176",
+      "observed": false,
+      "ticks": 226927,
+      "finalHash": "d57f8e8331d3b9b413d3804e8b0b2fa773806154765da37010089ee4fca43990",
+      "equal": true
+    },
+    {
+      "design": "pr177-dev-strength",
+      "policy": "state-value-v1",
+      "observed": false,
+      "ticks": 223201,
+      "finalHash": "ab9e300d479fa2df76b786d793bd62bf10e108ea54ec6b8b5f8122339042bf44",
+      "equal": true
+    },
+    {
+      "design": "pr178-dev-keepers",
+      "policy": "state-value-v1",
+      "observed": false,
+      "ticks": 220811,
+      "finalHash": "a7a4294c48e6174168d456eae4beb27c35564e86ead32132847edd4f1ebb59b2",
+      "equal": true
+    },
+    {
+      "design": "pr178-dev-keepers",
+      "policy": "legacy-pr176",
+      "observed": false,
+      "ticks": 220801,
+      "finalHash": "b8c117c6dd6dddd33046c02864a4f8006fa1d4afe6f01b6c13a7d7bc5030537b",
+      "equal": true
+    },
+    {
+      "design": "pr177-dev-strength",
+      "policy": "state-value-v1",
+      "observed": true,
+      "ticks": 223201,
+      "finalHash": "ab9e300d479fa2df76b786d793bd62bf10e108ea54ec6b8b5f8122339042bf44",
+      "equal": true
+    },
+    {
+      "design": "pr178-dev-keepers",
+      "policy": "legacy-pr176",
+      "observed": true,
+      "ticks": 220801,
+      "finalHash": "b8c117c6dd6dddd33046c02864a4f8006fa1d4afe6f01b6c13a7d7bc5030537b",
+      "equal": true
+    }
+  ]
+}

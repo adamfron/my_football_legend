@@ -1,0 +1,63 @@
+{
+  "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+  "policy": "state-value-v1",
+  "method": "Actual IAB browser interaction through visible career and match controls, not a Node-only surrogate. Research Vite pre-transform replaces exactly the DEFAULT_DECISION_POLICY export literal legacy-pr176 with state-value-v1 for this served browser build; every other production source remains the measured R3 candidate. Production default remains unchanged pending the promotion decision. The known literal is asserted before replacement. Local origin localhost:5179, /my_football_legend/?devtools=1. Fresh canonical kickoff after reloading R3, no active-live-match migration.",
+  "profile": {
+    "name": "Test Kontakt",
+    "seed": "pr178-browser-B-20261019",
+    "age": 16,
+    "club": "Vistula Nova",
+    "position": "striker"
+  },
+  "fixture": {
+    "date": "2026-09-05",
+    "home": "Vistula Nova",
+    "away": "Polonia Przemyśl U-17"
+  },
+  "steps": [
+    {
+      "at": "04:03",
+      "action": "Controlled carry: X40 Y34 -> Wskaż punkt -> Prowadź tutaj",
+      "evidence": "Before and after, owner displayed Test Kontakt. At04:06 still owns ball, displayed distance0.5->0.6km and pressure37->52%. This is a controlled carry, not an off-ball pursuit."
+    },
+    {
+      "at": "04:06",
+      "action": "Select Pawlak -> ground progressive pass",
+      "evidence": "Possessor changes to Bartosz Pawlak; player completed/attempted passes0/4->1/5; home passes24->25."
+    },
+    {
+      "at": "05:00",
+      "action": "Select opponent goal -> header -> execute",
+      "evidence": "Legitimate incoming-cross choice submitted; no physical shot was credited. This attempted header is not counted as the successful human shot smoke."
+    },
+    {
+      "at": "08:22",
+      "action": "Legal free kick -> target goal -> Strzał techniczny -> Wykonaj strzał",
+      "evidence": "At08:24 canonical home shots0->1; protagonist shots0->1 and touches12->13. No prescribed goal or automatic opponent removal."
+    },
+    {
+      "at": "09:33",
+      "action": "Symuluj do końca -> Tak, symuluj pozostałą część",
+      "evidence": "Returned directly to career. Final0:0, player1 match, league1 round. UI explicitly states full minutes/results but action statistics only for physically played portion."
+    },
+    {
+      "action": "Reload -> acknowledge local-save notice -> Kontynuuj",
+      "evidence": "Same1 match, first fixture0:0 and league1 round; no second credit."
+    },
+    {
+      "action": "Resume career calendar",
+      "evidence": "Next scheduled fixture Sep12 Chemik-Vistula actually recorded2:0,85minutes; calendar proceeds through six fixtures to Oct14 story. These later fixtures use ordinary career summary flow; they are not claimed as additional canonical full-match browser tests. Sep5 still appears exactly once,0:0,90minutes."
+    }
+  ],
+  "consoleWarnings": [],
+  "consoleErrors": [],
+  "screenshots": [
+    "pr178-evidence/browser-human-shot.png",
+    "pr178-evidence/browser-persisted-result.png",
+    "pr178-evidence/browser-next-fixtures.png"
+  ],
+  "result": "PASS",
+  "limits": "One youth browser profile and fixture; full professional/youth canonical and exactly-once tests are separately recorded in PR178-career.json. Browser screenshot of paused background play shows the existing simulation overlay, not a claim of continuous rendered 3D playback. Native UI rendering and genuine controls were exercised. Hybrid remainder is not evidence of full90-minute canonical football statistics.",
+  "configurationEvidence": "pr178-evidence/browser-config.json",
+  "configurationSha256": "25d7ecccd84b386e78222414902807a4abd8f220303fd580cf3f147f3fb703da"
+}

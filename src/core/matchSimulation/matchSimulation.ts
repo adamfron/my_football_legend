@@ -1,4 +1,8 @@
 import { attacksRight } from './matchSpace';
+import {
+  retainContinuousBodyContacts,
+  supportContinuousBodyContacts,
+} from './ballContactResolution';
 import { DEFAULT_DECISION_POLICY, usesStateValue } from './decisionPolicyConfig';
 import { canReconsiderDecision, markDecisionEvaluated } from './decisionReadiness';
 import { authoritativeMovementTarget } from './movementAuthority';
@@ -975,6 +979,7 @@ const finishShotContact = (
     state.ball.spin,
     {
       surfaceNormal: contact.surfaceNormal,
+      surfaceVelocity: contact.surfaceVelocity,
       point: contact.point,
       ...(shot.goalkeeperAction && shot.goalkeeperAction !== 'catch'
         ? { goalkeeperAction: shot.goalkeeperAction }
@@ -1020,6 +1025,9 @@ const finishShotContact = (
       velocity: rebound.velocity,
       ...(rebound.spin ? { spin: rebound.spin } : {}),
       bounceCount: state.ball.bounceCount ?? 0,
+      continuousBodyContacts: contact.playerId
+        ? [...new Set([...(state.ball.continuousBodyContacts ?? []), contact.playerId])]
+        : (state.ball.continuousBodyContacts ?? []),
     },
   };
 };
@@ -2259,17 +2267,15 @@ const stepTacticalMatchCore = (
         y: state.ball.y,
         z: state.ball.height ?? BALL_RADIUS,
       };
-      const integrated = integrateBallFlight(
-        {
-          position: previous,
-          velocity: { x: velocity.x, y: velocity.y, z: velocity.z ?? 0 },
-          airborne: state.ball.airborne ?? false,
-          bounceCount: state.ball.bounceCount ?? 0,
-          ...(state.ball.spin ? { spin: state.ball.spin } : {}),
-        },
-        dt,
-      );
-      const next = integrated.position;
+      const flightStart = {
+        position: previous,
+        velocity: { x: velocity.x, y: velocity.y, z: velocity.z ?? 0 },
+        airborne: state.ball.airborne ?? false,
+        bounceCount: state.ball.bounceCount ?? 0,
+        ...(state.ball.spin ? { spin: state.ball.spin } : {}),
+      };
+      const integrated = integrateBallFlight(flightStart, dt);
+      let next = integrated.position;
       const continuation =
         state.lastShot &&
         state.pendingPossessionLoss?.id === `${state.seed}:shot-rebound:${state.lastShot.shotId}`
@@ -2296,22 +2302,15 @@ const stepTacticalMatchCore = (
       const sameBounce = integrated.bounceCount === (state.ball.bounceCount ?? 0);
       const candidates: ContactCandidate[] = [];
       if (
-        Math.hypot(velocity.x, velocity.y, velocity.z ?? 0) > 0.5 &&
-        (state.ball.airborne || previous.z > 0.5 || continuation)
+        (Math.hypot(velocity.x, velocity.y, velocity.z ?? 0) > 0.5 &&
+          (state.ball.airborne || previous.z > 0.5 || continuation)) ||
+        state.ball.continuousBodyContacts?.length
       ) {
         const previousPositions = new Map(
           input.players.map((player) => [player.id, player.position]),
         );
         for (const player of state.players) {
           if (state.discipline?.[player.id]?.sentOff || !canContactAfterThrowIn(state, player.id))
-            continue;
-          // One overlap is one contact. Release this short lock on separation or a fresh bounce.
-          if (
-            lastContact?.playerId === player.id &&
-            sameBounce &&
-            state.time - lastContact.at < 0.15 &&
-            distance(previous, lastContact.point) < 1.2
-          )
             continue;
           const previousPosition = previousPositions.get(player.id) ?? player.position;
           if (player.restartWallResponse || state.restart?.roles[player.id]?.key.includes('wall')) {
@@ -2338,7 +2337,28 @@ const stepTacticalMatchCore = (
           }
         }
       }
-      let found = findFirstBallContact({ previous, next, attackingTeam, candidates });
+      const continuous = retainContinuousBodyContacts(
+        previous,
+        candidates,
+        state.ball.continuousBodyContacts,
+      );
+      const supportingBodies = candidates.filter((body) => continuous.includes(body.playerId));
+      const supported = supportContinuousBodyContacts(
+        next,
+        integrated.velocity,
+        supportingBodies,
+        dt,
+      );
+      next = supported.position;
+      integrated.position = next;
+      integrated.velocity = supported.velocity;
+      state.ball = { ...state.ball, continuousBodyContacts: continuous };
+      let found = findFirstBallContact({
+        previous,
+        next,
+        attackingTeam,
+        candidates: candidates.filter((body) => !continuous.includes(body.playerId)),
+      });
       if (
         found &&
         found.kind === lastContact?.kind &&
@@ -2385,17 +2405,41 @@ const stepTacticalMatchCore = (
         ...(integrated.spin ? { spin: integrated.spin } : {}),
       };
       if (found && found.kind !== 'out') {
-        const incoming = {
-          x: (next.x - previous.x) / dt,
-          y: (next.y - previous.y) / dt,
-          z: (next.z - previous.z) / dt,
-        };
-        const rebound = resolveBallRebound(found.kind, incoming, attackingTeam, integrated.spin, {
-          surfaceNormal: found.surfaceNormal,
-          point: found.point,
-        });
+        // CCD predicts the full segment, but the impact has only consumed its own
+        // fraction. Do not apply a full step of gravity/drag/spin decay or a future
+        // ground bounce before then integrating the remaining physical time.
+        const flightAtContact =
+          found.segmentFraction > 0
+            ? integrateBallFlight(flightStart, dt * found.segmentFraction)
+            : flightStart;
+        const incoming = supportContinuousBodyContacts(
+          found.point,
+          flightAtContact.velocity,
+          supportingBodies,
+          dt,
+        ).velocity;
+        const body = candidates.find((candidate) => candidate.playerId === found.playerId);
+        const surfaceVelocity = body?.previousCentre
+          ? {
+              x: (body.centre.x - body.previousCentre.x) / dt,
+              y: (body.centre.y - body.previousCentre.y) / dt,
+              z: (body.centre.z - body.previousCentre.z) / dt,
+            }
+          : undefined;
+        const rebound = resolveBallRebound(
+          found.kind,
+          incoming,
+          attackingTeam,
+          flightAtContact.spin,
+          {
+            surfaceNormal: found.surfaceNormal,
+            surfaceVelocity,
+            point: found.point,
+          },
+        );
         const contact: BallContact = {
           ...found,
+          ...(surfaceVelocity ? { surfaceVelocity } : {}),
           at: state.time - dt + found.segmentFraction * dt,
           preContactSpeed: Math.hypot(incoming.x, incoming.y, incoming.z),
           postContactSpeed:
@@ -2403,47 +2447,81 @@ const stepTacticalMatchCore = (
               ? Math.hypot(incoming.x, incoming.y, incoming.z)
               : Math.hypot(rebound.velocity.x, rebound.velocity.y, rebound.velocity.z),
         };
+        const atContact = {
+          ...state,
+          ball: {
+            ...state.ball,
+            x: found.point.x,
+            y: found.point.y,
+            height: found.point.z,
+            velocity: incoming,
+            bounceCount: flightAtContact.bounceCount,
+            ...(flightAtContact.spin ? { spin: flightAtContact.spin } : {}),
+          },
+        };
+        let touched: TacticalMatchState = atContact;
+        let outgoing = rebound.velocity;
+        let outgoingSpin = rebound.spin;
         if (continuation) {
           const physical = {
-            ...state,
+            ...atContact,
             ball: {
-              ...state.ball,
+              ...atContact.ball,
               shot: continuation,
-              flightTime: Math.max(0, state.time - (continuation.releasedAt ?? looseSince)),
+              flightTime: Math.max(0, contact.at - (continuation.releasedAt ?? looseSince)),
             },
           };
           const resolved = finishShotContact(physical, contact, incoming, goalkeeperProjection);
-          if (resolved.ball.looseSince !== undefined && !resolved.postGoal && !resolved.restart) {
-            const outgoing = resolved.ball.velocity ?? rebound.velocity;
-            const speed = Math.max(0.001, Math.hypot(outgoing.x, outgoing.y));
-            return {
-              ...resolved,
-              ball: {
-                ...resolved.ball,
-                x: resolved.ball.x + (outgoing.x / speed) * 0.002,
-                y: resolved.ball.y + (outgoing.y / speed) * 0.002,
-              },
-            };
-          }
-          return resolved;
-        }
-        const speed = Math.max(0.001, Math.hypot(rebound.velocity.x, rebound.velocity.y));
-        const touched = found.playerId ? applyIncomingContact(state, found.playerId) : state;
-        return {
+          if (resolved.ball.looseSince === undefined || resolved.postGoal || resolved.restart)
+            return resolved;
+          touched = resolved;
+          outgoing = { ...resolved.ball.velocity!, z: resolved.ball.velocity?.z ?? 0 };
+          outgoingSpin = resolved.ball.spin;
+        } else if (found.playerId) touched = applyIncomingContact(atContact, found.playerId);
+        const contactBodies = body ? [...supportingBodies, body] : supportingBodies;
+        const separated = supportContinuousBodyContacts(found.point, outgoing, contactBodies, dt);
+        const remaining = dt * (1 - found.segmentFraction);
+        const afterImpact = {
+          position: separated.position,
+          velocity: separated.velocity,
+          airborne: separated.position.z > BALL_RADIUS || outgoing.z !== 0,
+          bounceCount: flightAtContact.bounceCount,
+          ...(outgoingSpin ? { spin: outgoingSpin } : {}),
+        };
+        const advanced = remaining > 0 ? integrateBallFlight(afterImpact, remaining) : afterImpact;
+        // Do not tunnel through a second body during the remainder. Its impulse and
+        // identity are resolved by the next canonical step, at the same contact site.
+        const following = findFirstBallContact({
+          previous: separated.position,
+          next: advanced.position,
+          attackingTeam,
+          candidates: candidates.filter(
+            (candidate) =>
+              candidate.playerId !== found.playerId && !continuous.includes(candidate.playerId),
+          ),
+        });
+        const position = following?.point ?? advanced.position;
+        state = {
           ...touched,
-          lastBallContact: contact,
-          ballEpisode: (touched.ballEpisode ?? 0) + 1,
+          lastBallContact: continuation ? touched.lastBallContact! : contact,
+          ballEpisode: (state.ballEpisode ?? 0) + 1,
           ball: {
             ...touched.ball,
-            x: found.point.x + (rebound.velocity.x / speed) * 0.002,
-            y: found.point.y + (rebound.velocity.y / speed) * 0.002,
-            height: found.point.z,
-            velocity: rebound.velocity,
-            airborne: found.point.z > BALL_RADIUS || rebound.airborne,
+            x: position.x,
+            y: position.y,
+            height: position.z,
+            velocity: advanced.velocity,
+            looseSince,
+            continuousBodyContacts: body ? [...continuous, body.playerId] : continuous,
+            airborne: advanced.airborne,
+            bounceCount: advanced.bounceCount,
             ...(found.playerId ? { lastTouchPlayerId: found.playerId } : {}),
-            ...(rebound.spin ? { spin: rebound.spin } : {}),
+            ...(advanced.spin ? { spin: advanced.spin } : {}),
           },
         };
+        const afterContactCrossing = findPitchBoundaryCrossing(found.point, state.ball);
+        if (afterContactCrossing)
+          return applyBoundaryRestart(state, afterContactCrossing, found.point, dt);
       }
       if (state.time - looseSince > 0.35) {
         const assignments = deriveLooseBallAssignments(state);

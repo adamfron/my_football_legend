@@ -1,0 +1,8 @@
+{
+  "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+  "configurationSha256": "25d7ecccd84b386e78222414902807a4abd8f220303fd580cf3f147f3fb703da",
+  "source": "import { defineConfig, mergeConfig } from './mfl/node_modules/vite/dist/node/index.js';\nimport original from './mfl/vite.config.ts';\nexport default mergeConfig(original, defineConfig({ plugins: [{\n  name: 'pr178-research-policy-B', enforce: 'pre',\n  transform(code, id) {\n    if (!id.replaceAll('\\\\','/').endsWith('/matchSimulation/decisionPolicyConfig.ts')) return;\n    const before = \"export const DEFAULT_DECISION_POLICY: DecisionPolicyId = 'legacy-pr176';\";\n    if (!code.includes(before)) throw new Error('Research default override contract changed');\n    return code.replace(before, \"export const DEFAULT_DECISION_POLICY: DecisionPolicyId = 'state-value-v1';\");\n  },\n}], server: { host:'127.0.0.1',port:5178,strictPort:true } }));\n",
+  "command": "node node_modules/vite/bin/vite.js --config ../browser-vite.config.mjs --host 127.0.0.1 --port 5179",
+  "layout": "Recorded checkout work/mfl with research config work/browser-vite.config.mjs; adapt only relative import paths for another checkout layout. CLI port5179 overrides the saved config default5178.",
+  "productionDefaultUnchanged": true
+}

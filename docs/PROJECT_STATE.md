@@ -1,5 +1,38 @@
 # My Football Legend — Current Project State
 
+## PR178 — Physical Contact Resolution & Independent Reform Validation
+
+Naprawiono odziedziczoną pętlę kontaktów nakładających się ciał. Kontakt ciągły
+uzbraja się ponownie po rzeczywistym rozdzieleniu geometrii; korekta penetracji,
+rzeczywista prędkość ciała i podział czasu lotu zachowują fizyczną kontynuację.
+Oryginalny frozen state zamiast 200 kontaktów bez ruchu osiąga legalną kontrolę
+po 1,6 s w legacy i 1,0 s w B. Naprawiono także ponowne główkowanie tej samej
+piłki podczas ciągłego ruchu zawodnika razem z piłką. Bez kwot i timeout escape.
+
+Zamrożona walidacja kończy **36/36 pełnych przebiegów: 12 nowych projektów ×
+legacy/A/B**, na wspólnej poprawionej fizyce. B zwiększa kontrataki z dziesięcioma
+metrami kontrolowanego postępu (295 vs 95), lecz celność podań spada średnio
+o 20,83 pp, straty rosną, a sześć projektów zawiera posiadanie ponad 20 minut.
+Tworzenie wiarygodnych okazji pozostaje skupione w kilku konfiguracjach.
+
+**B pozostaje eksperymentalny; domyślny pozostaje `legacy-pr176`.
+Canonical nadal ma ocenę NOT READY do kalibracji summary.** Nie oznacza to
+zaakceptowania realizmu legacy. Następny krok to precyzyjne rozliczenie długich
+kontrolowanych holds oraz utraty ciągłości podanie/bieg/przyjęcie/kolejna akcja,
+potem nowa zamknięta walidacja. Obecne 12 projektów jest już zużyte.
+
+Rzeczywisty browser smoke B obejmuje prowadzenie, celne ręczne podanie, strzał,
+Simulate Remainder, trwały wynik dokładnie raz i kolejny fixture. Osobne pełne
+kariery youth/pro sprawdzają uczestników, zmiany, save/reload i powtórny commit.
+Nie wprowadzono migracji aktywnego meczu ani wersji zapisu kariery.
+[Raport, decyzja i 42 odpowiedzi](PR178_CONTACT_PHYSICS_AND_MATCH_REFORM_VALIDATION.md),
+[porównanie](performance/PR178-policy-comparison.json),
+[końcowa weryfikacja](performance/PR178-verification.json).
+Końcowe niezmienione `npm run verify`: **PASS — 1954 testy, lint, TypeScript i build**.
+
+Kolejność pozostaje: **PR179 generacje/siła świata → PR180 summary/PlayStyles
+po spełnieniu prerequisite canonical → PR181 career UX → PR182+ świat**.
+
 ## PR177 — Match Engine Reform Implementation
 
 Wdrożono odrębną politykę `state-value-v1`: wspólną wartość konsekwencji akcji,

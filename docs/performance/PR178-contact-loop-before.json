@@ -1,0 +1,85 @@
+{
+  "phase": "before",
+  "rows": [
+    {
+      "policy": "legacy-pr176",
+      "sourceHash": "331385925d09a7bed7cc95cd0e875964aae8c050993550dbfbfdce5048f97169",
+      "inputHash": "5dd675727630c61d2bd57ef01f1de912a70d38a93fd461231c0ffd15184c5fad",
+      "addedContactIdentities": 200,
+      "horizontalDisplacement": 9.215166776853878e-11,
+      "finalBall": {
+        "x": 16.156999724552072,
+        "y": 38.1994486331776,
+        "velocity": {
+          "x": 1.0231815394945442e-13,
+          "y": -2.0463630789890883e-13,
+          "z": -0.6304895291392657
+        },
+        "looseSince": 3965.0000000043838,
+        "lastTouchPlayerId": "footballer_pro_3_22",
+        "secondBallPriorityIds": [
+          "footballer_pro_3_19",
+          "footballer_pro_3_21",
+          "footballer_pro_3_22",
+          "footballer_pro_57_0",
+          "footballer_pro_57_4",
+          "footballer_pro_57_3"
+        ],
+        "height": 0.4198660535991197,
+        "airborne": true,
+        "spin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "bounceCount": 0
+      },
+      "finalHash": "ec511a6019adbb8fac25a97501e91aa4cde608c6e1773478a0f7cf495ff4b6ba",
+      "trace": "pr178-evidence/contact-loop-before-legacy-pr176.json.gz",
+      "contactPlayers": [
+        "footballer_pro_3_19",
+        "footballer_pro_3_22"
+      ]
+    },
+    {
+      "policy": "state-value-v1",
+      "sourceHash": "331385925d09a7bed7cc95cd0e875964aae8c050993550dbfbfdce5048f97169",
+      "inputHash": "5dd675727630c61d2bd57ef01f1de912a70d38a93fd461231c0ffd15184c5fad",
+      "addedContactIdentities": 200,
+      "horizontalDisplacement": 9.215166776853878e-11,
+      "finalBall": {
+        "x": 16.156999724552072,
+        "y": 38.1994486331776,
+        "velocity": {
+          "x": 1.0231815394945442e-13,
+          "y": -2.0463630789890883e-13,
+          "z": -0.6304895291392657
+        },
+        "looseSince": 3965.0000000043838,
+        "lastTouchPlayerId": "footballer_pro_3_22",
+        "secondBallPriorityIds": [
+          "footballer_pro_3_19",
+          "footballer_pro_3_21",
+          "footballer_pro_3_22",
+          "footballer_pro_57_0",
+          "footballer_pro_57_4",
+          "footballer_pro_57_3"
+        ],
+        "height": 0.4198660535991197,
+        "airborne": true,
+        "spin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "bounceCount": 0
+      },
+      "finalHash": "fe6789ac37eb08169456e5cfc3bf4619dc7f0aa942956991b9abd66a98f47a4e",
+      "trace": "pr178-evidence/contact-loop-before-state-value-v1.json.gz",
+      "contactPlayers": [
+        "footballer_pro_3_19",
+        "footballer_pro_3_22"
+      ]
+    }
+  ]
+}
