@@ -447,6 +447,21 @@ hashes, 692 state-value outcome envelopes, both career result schemas, all six
 serial full-state references, ten exact stress repetitions and 39 nonnegative
 reception-duration summaries. [Receipt validation](performance/PR178-receipt-validation.json).
 
+### CI follow-up: renderer parity fixture preparation
+
+[CI run 414](https://github.com/adamfron/my_football_legend/actions/runs/39366509554)
+passed all 1893 main tests but the renderer parity test exceeded its default
+5000 ms limit (5019 ms) on the shared runner. No equality assertion failed.
+The independent headless reference is now prepared in a scoped `beforeAll` hook.
+Both complete 2400-step trajectories, all 60 frame/state immutability checks,
+the complete final-state comparison and the pass-activity assertion are retained.
+The watched trajectory still advances through every rendering checkpoint.
+No timeout, production source, package script or CI worker setting changes.
+The targeted renderer suite passes all 16 tests; the parity test body takes
+1721 ms locally (3831 ms before the fixture change, including reference setup).
+These timings describe separate phases, not a simulation speed improvement.
+The full verify command and GitHub CI are being rerun for this test-only change.
+
 ## Required answers
 
 | # | Question | Evidence-based answer |
