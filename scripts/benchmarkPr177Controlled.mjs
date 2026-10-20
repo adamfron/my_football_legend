@@ -3,6 +3,10 @@ import { gzipSync, gunzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 import { performance } from 'node:perf_hooks';
 import console from 'node:console';
+import process from 'node:process';
+import { pr172SourceHash } from './pr172Evidence.ts';
+const receiptPrefix = process.argv.find((arg) => arg.startsWith('--prefix='))?.split('=')[1] ?? 'PR177';
+if (!/^PR\d+$/.test(receiptPrefix)) throw new Error('Invalid receipt prefix');
 import { createReformFixture, reformScenarioSchema } from './pr177Fixtures.ts';
 import { rankAvailableActionsForAI, enumerateAvailableActions, resolveMatchAction, deriveLeadPass } from '../src/core/matchSimulation/matchActions.ts';
 import { enumerateStateValueActions } from '../src/core/matchSimulation/decisionPolicy.ts';
@@ -81,7 +85,9 @@ for (const metres of [5, 10, 15, 25, 35, 45, 60]) for (const geometry of ['strai
     actualPassOutcome: outcome, finalBall: s.ball, reception: outcome?.actualReceiverId ?? null,
     interpretation: 'prescribed release with ordinary execution error; physical-only arrival and full-player interception/reception are separate observations' });
 }
-const historical = JSON.parse(gunzipSync(readFileSync('../pr176-inputs/pr175-natural.json.gz')))[0];
+const historical = JSON.parse(gunzipSync(readFileSync(receiptPrefix === 'PR178'
+  ? 'docs/performance/pr178-evidence/historical-controlled-input.json.gz'
+  : '../pr176-inputs/pr175-natural.json.gz')))[0];
 const sensitivity = [];
 for (const reading of [20, 40, 60, 80, 99]) {
   const state = globalThis.structuredClone(historical.state); state.decisionPolicy = 'state-value-v1';
@@ -96,8 +102,10 @@ for (const reading of [20, 40, 60, 80, 99]) {
     forecast: evaluatePassDecision(state, actor, receiver, target, 'progressive', 'ground', plans[0]) });
 }
 const receipt = { version: 1, method: 'All generated actions, independent run proposals, selection and actual paired canonical continuations. No validation outcomes read.',
-  scenarios, flight, planning: { calls: planningCalls, wallMs: planningMs, includesBothNominalAndAlternativePlans: true }, sensitivity };
-writeFileSync('docs/performance/PR177-controlled.json.gz', gzipSync(JSON.stringify(receipt)));
-writeFileSync('docs/performance/PR177-controlled-summary.json', JSON.stringify({ version: 1, cases: scenarios.length, scenarios: reformScenarioSchema.options,
-  flightRows: flight.length, planning: receipt.planning, sensitivity, source: 'benchmarkPr177Controlled.mjs' }, null, 2) + '\n');
+  scenarios, flight, planning: { calls: planningCalls, wallMs: planningMs, includesBothNominalAndAlternativePlans: true }, sensitivity,
+  ...(receiptPrefix === 'PR178' ? { sourceHash: pr172SourceHash() } : {}) };
+writeFileSync(`docs/performance/${receiptPrefix}-controlled.json.gz`, gzipSync(JSON.stringify(receipt)));
+writeFileSync(`docs/performance/${receiptPrefix}-controlled-summary.json`, JSON.stringify({ version: 1, cases: scenarios.length, scenarios: reformScenarioSchema.options,
+  flightRows: flight.length, planning: receipt.planning, sensitivity, source: 'benchmarkPr177Controlled.mjs',
+  ...(receiptPrefix === 'PR178' ? { sourceHash: pr172SourceHash() } : {}) }, null, 2) + '\n');
 console.log(JSON.stringify({ scenarios: scenarios.length, flight: flight.length }));

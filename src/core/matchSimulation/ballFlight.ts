@@ -1,5 +1,6 @@
 import { attacksRight } from './matchSpace';
 import { z } from 'zod';
+import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 import type { PhysicalPoint, PitchPoint, TeamOrientation } from './matchSpace';
 import type { BallSpin3d, BallVelocity3d } from './ballPhysics';
 
@@ -28,6 +29,9 @@ export const ballContactSchema = z.object({
   playerId: z.string().optional(),
   preContactSpeed: z.number().nonnegative(),
   postContactSpeed: z.number().nonnegative(),
+  surfaceVelocity: z
+    .object({ x: z.number().finite(), y: z.number().finite(), z: z.number().finite() })
+    .optional(),
   surfaceNormal: z
     .object({ x: z.number().finite(), y: z.number().finite(), z: z.number().finite() })
     .optional(),
@@ -149,7 +153,7 @@ const capsuleIntersection = (
 };
 
 /** Returns the earliest continuous contact along a fixed-step segment, preventing tunnelling. */
-export const findFirstBallContact = (query: FlightContactQuery): Intersection | undefined => {
+const findFirstBallContactGeometry = (query: FlightContactQuery): Intersection | undefined => {
   const { previous, next } = query;
   const intersections: Intersection[] = [];
   for (const candidate of query.candidates ?? []) {
@@ -242,6 +246,15 @@ export const findFirstBallContact = (query: FlightContactQuery): Intersection | 
   return intersections.sort((a, b) => a.segmentFraction - b.segmentFraction)[0];
 };
 
+export const findFirstBallContact = (query: FlightContactQuery): Intersection | undefined => {
+  const span = startPerformanceSpan('ball_contact_detection');
+  try {
+    return findFirstBallContactGeometry(query);
+  } finally {
+    endPerformanceSpan('ball_contact_detection', span);
+  }
+};
+
 export const deterministicRebound = (
   kind: BallContactKind,
   incoming: PitchPoint,
@@ -260,6 +273,9 @@ export const deterministicRebound = (
 };
 
 export const reboundContextSchema = z.object({
+  surfaceVelocity: z
+    .object({ x: z.number().finite(), y: z.number().finite(), z: z.number().finite() })
+    .optional(),
   surfaceNormal: z
     .object({ x: z.number().finite(), y: z.number().finite(), z: z.number().finite() })
     .optional(),
@@ -302,7 +318,7 @@ const playerDeflection = (
       : fallback;
   const dot = incoming.x * normal.x + incoming.y * normal.y + incoming.z * normal.z;
   // An overlap already moving away must not reflect back into the same body.
-  if (dot >= 0) return { x: incoming.x * 0.72, y: incoming.y * 0.72, z: incoming.z * 0.72 };
+  if (dot >= 0) return { ...incoming };
   const partial =
     kind === 'goalkeeper' &&
     (context.goalkeeperAction === 'failed_save' || context.goalkeeperAction === 'no_chance');
@@ -325,10 +341,19 @@ export const resolveBallRebound = (
   spin?: BallSpin3d,
   context?: ReboundContext,
 ): { velocity: BallVelocity3d; spin?: BallSpin3d; airborne: boolean } => {
-  const deflection =
+  const surface = context?.surfaceVelocity ?? { x: 0, y: 0, z: 0 };
+  const relative = {
+    x: incoming.x - surface.x,
+    y: incoming.y - surface.y,
+    z: incoming.z - surface.z,
+  };
+  const response =
     kind === 'defender' || kind === 'goalkeeper'
-      ? playerDeflection(kind, incoming, context)
+      ? playerDeflection(kind, relative, context)
       : undefined;
+  const deflection = response
+    ? { x: response.x + surface.x, y: response.y + surface.y, z: response.z + surface.z }
+    : undefined;
   const horizontal = deflection ?? deterministicRebound(kind, incoming, attackingTeam);
   const vertical =
     kind === 'crossbar'

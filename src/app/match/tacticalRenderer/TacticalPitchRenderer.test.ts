@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const render = vi.fn();
 const setSize = vi.fn();
@@ -100,42 +100,58 @@ describe('TacticalPitchRenderer viewport lifecycle', () => {
     renderer.redraw();
     expect(render).toHaveBeenCalledTimes(2);
   });
-  it('preserves complete canonical results when rendering motion arrows and paused redraws', () => {
-    const canvasContext = vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
-    const world = createCanonicalWorldDatabase();
-    let headless = createTacticalMatch(
-      createSingleMatchSession(world, {
-        homeClubId: world.clubs[0]!.id,
-        awayClubId: world.clubs[1]!.id,
-        seed: 'pr150-render-parity',
-        control: { mode: 'spectator' },
-      }),
-    );
-    let watched = structuredClone(headless);
-    const host = document.createElement('div');
-    document.body.append(host);
-    Object.defineProperties(host, {
-      clientWidth: { get: () => 800 },
-      clientHeight: { get: () => 500 },
-    });
-    const renderer = new TacticalPitchRenderer(host, matchStateToFrame(watched));
-    for (let tick = 0; tick < 2400; tick++) {
-      headless = stepTacticalMatch(headless, FIXED_MATCH_DT);
-      watched = stepTacticalMatch(watched, FIXED_MATCH_DT);
-      if (tick % 40 === 0) {
-        const snapshot = structuredClone(watched);
-        const observedFrame = { ...matchStateToFrame(watched), showMotionVectors: true };
-        const beforeFrame = structuredClone(observedFrame);
-        renderer.render(observedFrame);
-        renderer.redraw();
-        expect(observedFrame).toEqual(beforeFrame);
-        expect(watched).toEqual(snapshot);
+  describe('canonical presentation parity', () => {
+    const ticks = 2400;
+    let headless: ReturnType<typeof createTacticalMatch>;
+    let watchedStart: ReturnType<typeof createTacticalMatch>;
+
+    beforeAll(() => {
+      const world = createCanonicalWorldDatabase();
+      headless = createTacticalMatch(
+        createSingleMatchSession(world, {
+          homeClubId: world.clubs[0]!.id,
+          awayClubId: world.clubs[1]!.id,
+          seed: 'pr150-render-parity',
+          control: { mode: 'spectator' },
+        }),
+      );
+      watchedStart = structuredClone(headless);
+      // Prepare the independent reference before exercising the renderer. Both
+      // trajectories retain all 2400 steps and the test keeps its default timeout.
+      for (let tick = 0; tick < ticks; tick++) {
+        headless = stepTacticalMatch(headless, FIXED_MATCH_DT);
       }
-    }
-    renderer.dispose();
-    canvasContext.mockRestore();
-    expect(watched).toEqual(headless);
-    expect(headless.statistics!.players.some((player) => player.passesAttempted > 0)).toBe(true);
+    });
+
+    it('preserves complete canonical results when rendering motion arrows and paused redraws', () => {
+      const canvasContext = vi
+        .spyOn(HTMLCanvasElement.prototype, 'getContext')
+        .mockReturnValue(null);
+      let watched = structuredClone(watchedStart);
+      const host = document.createElement('div');
+      document.body.append(host);
+      Object.defineProperties(host, {
+        clientWidth: { get: () => 800 },
+        clientHeight: { get: () => 500 },
+      });
+      const renderer = new TacticalPitchRenderer(host, matchStateToFrame(watched));
+      for (let tick = 0; tick < ticks; tick++) {
+        watched = stepTacticalMatch(watched, FIXED_MATCH_DT);
+        if (tick % 40 === 0) {
+          const snapshot = structuredClone(watched);
+          const observedFrame = { ...matchStateToFrame(watched), showMotionVectors: true };
+          const beforeFrame = structuredClone(observedFrame);
+          renderer.render(observedFrame);
+          renderer.redraw();
+          expect(observedFrame).toEqual(beforeFrame);
+          expect(watched).toEqual(snapshot);
+        }
+      }
+      renderer.dispose();
+      canvasContext.mockRestore();
+      expect(watched).toEqual(headless);
+      expect(headless.statistics!.players.some((player) => player.passesAttempted > 0)).toBe(true);
+    });
   });
   it('isolates middle-button gestures, cancellation and reset from football frames', () => {
     const host = document.createElement('div');

@@ -1,0 +1,432 @@
+{
+  "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+  "method": "A single paired historical strong/weak design isolates the common repair on the exact historical input. Pristine PR176, historical PR177 legacy/A/B and fixed PR178 legacy/A/B remain separate. This is not an engine-wide causal estimate, and original B passing cannot all be attributed to physics.",
+  "historical": [
+    {
+      "group": "pristine-development",
+      "design": {
+        "id": "pr177-dev-strength",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-strength",
+        "youth": false,
+        "clubs": [
+          "pro_3",
+          "pro_57"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5673.174999987567,
+      "score": {
+        "home": 5,
+        "away": 0
+      },
+      "finalHash": "e330031920a6b9483aaa862ddf4ea93f8c2f2642e179e8849d5bec71cdc288ba",
+      "football": {
+        "passes": 1565,
+        "completed": 1077,
+        "shots": 7,
+        "goals": 5,
+        "onTarget": 6,
+        "blocks": 1,
+        "corners": 4,
+        "fouls": 17,
+        "offsides": 0,
+        "playerCreditedLosses": 294,
+        "turnoverFacts": 303,
+        "initialCMReceptions": 146,
+        "receptions": 1077,
+        "controlledForwardPasses": 338,
+        "controlledForwardMetres": 4329.107594331392,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 67,
+        "completedCombinations": 9,
+        "exposedRecoveries": 112,
+        "transitionAttempts": 55,
+        "transitionsGaining10m": 10,
+        "transitionsFailingToGain5m": 34,
+        "transitionTurnovers": 48,
+        "defenceRecovered": 91,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 72,
+        "recoveryMiddleThird": 190,
+        "recoveryAttackingThird": 14,
+        "firstForwardDelayTotalSeconds": 142.27499999991304,
+        "firstForwardDelayObservations": 55,
+        "decisionSampled5mDelayTotalSeconds": 98.92499999976772,
+        "decisionSampled5mDelayObservations": 18,
+        "liveSeconds": 5007.14999999003,
+        "stoppedSeconds": 666.0249999975372,
+        "credibleEpisodes": 4,
+        "progressionEpisodes": 183,
+        "contactIdentityCount": 3591
+      },
+      "cpuMs": 204094,
+      "wallMs": 196694.2327,
+      "maxRankedCandidates": 33,
+      "metadata": "docs/performance/pr177-evidence/pristine-development-pr177-dev-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-development-pr177-dev-strength-raw.json.gz"
+    },
+    {
+      "group": "legacy-development",
+      "design": {
+        "id": "pr177-dev-strength",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-strength",
+        "youth": false,
+        "clubs": [
+          "pro_3",
+          "pro_57"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5673.174999987567,
+      "score": {
+        "home": 5,
+        "away": 0
+      },
+      "finalHash": "d57f8e8331d3b9b413d3804e8b0b2fa773806154765da37010089ee4fca43990",
+      "football": {
+        "passes": 1565,
+        "completed": 1077,
+        "shots": 7,
+        "goals": 5,
+        "onTarget": 6,
+        "blocks": 1,
+        "corners": 4,
+        "fouls": 17,
+        "offsides": 0,
+        "playerCreditedLosses": 294,
+        "turnoverFacts": 303,
+        "initialCMReceptions": 146,
+        "receptions": 1077,
+        "controlledForwardPasses": 338,
+        "controlledForwardMetres": 4329.107594331392,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 67,
+        "completedCombinations": 9,
+        "exposedRecoveries": 112,
+        "transitionAttempts": 55,
+        "transitionsGaining10m": 10,
+        "transitionsFailingToGain5m": 34,
+        "transitionTurnovers": 48,
+        "defenceRecovered": 91,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 72,
+        "recoveryMiddleThird": 190,
+        "recoveryAttackingThird": 14,
+        "firstForwardDelayTotalSeconds": 142.27499999991304,
+        "firstForwardDelayObservations": 55,
+        "decisionSampled5mDelayTotalSeconds": 98.92499999976772,
+        "decisionSampled5mDelayObservations": 18,
+        "liveSeconds": 5007.14999999003,
+        "stoppedSeconds": 666.0249999975372,
+        "credibleEpisodes": 4,
+        "progressionEpisodes": 183,
+        "contactIdentityCount": 3591
+      },
+      "cpuMs": 158422,
+      "wallMs": 151635.95400000003,
+      "maxRankedCandidates": 33,
+      "metadata": "docs/performance/pr177-evidence/legacy-development-pr177-dev-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/legacy-development-pr177-dev-strength-raw.json.gz"
+    },
+    {
+      "group": "A-development",
+      "design": {
+        "id": "pr177-dev-strength",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-strength",
+        "youth": false,
+        "clubs": [
+          "pro_3",
+          "pro_57"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5538.5499999838685,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "finalHash": "d2affabb30d62fb94a8639d8838a1233b004621c5fd6e307c6a8f0fd68668783",
+      "football": {
+        "passes": 1731,
+        "completed": 1108,
+        "shots": 1,
+        "goals": 1,
+        "onTarget": 1,
+        "blocks": 0,
+        "corners": 1,
+        "fouls": 20,
+        "offsides": 0,
+        "playerCreditedLosses": 414,
+        "turnoverFacts": 416,
+        "initialCMReceptions": 211,
+        "receptions": 1108,
+        "controlledForwardPasses": 316,
+        "controlledForwardMetres": 3962.7928988387357,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 78,
+        "completedCombinations": 22,
+        "exposedRecoveries": 135,
+        "transitionAttempts": 74,
+        "transitionsGaining10m": 14,
+        "transitionsFailingToGain5m": 45,
+        "transitionTurnovers": 67,
+        "defenceRecovered": 96,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 96,
+        "recoveryMiddleThird": 255,
+        "recoveryAttackingThird": 38,
+        "firstForwardDelayTotalSeconds": 194.44999999958722,
+        "firstForwardDelayObservations": 74,
+        "decisionSampled5mDelayTotalSeconds": 135.94999999968556,
+        "decisionSampled5mDelayObservations": 25,
+        "liveSeconds": 4968.699999984485,
+        "stoppedSeconds": 569.8499999993842,
+        "credibleEpisodes": 5,
+        "progressionEpisodes": 218,
+        "contactIdentityCount": 3869
+      },
+      "cpuMs": 150937,
+      "wallMs": 144893.10950000002,
+      "maxRankedCandidates": 34,
+      "metadata": "docs/performance/pr177-evidence/A-development-pr177-dev-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/A-development-pr177-dev-strength-raw.json.gz"
+    },
+    {
+      "group": "B-development",
+      "design": {
+        "id": "pr177-dev-strength",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-strength",
+        "youth": false,
+        "clubs": [
+          "pro_3",
+          "pro_57"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5460,
+      "score": {
+        "home": 2,
+        "away": 0
+      },
+      "finalHash": "136cce89331225a890febbb5fa3b2d6f4b62e1d59eac1751c05175770256deea",
+      "football": {
+        "passes": 251,
+        "completed": 150,
+        "shots": 7,
+        "goals": 2,
+        "onTarget": 3,
+        "blocks": 2,
+        "corners": 0,
+        "fouls": 8,
+        "offsides": 0,
+        "playerCreditedLosses": 104,
+        "turnoverFacts": 107,
+        "initialCMReceptions": 40,
+        "receptions": 150,
+        "controlledForwardPasses": 46,
+        "controlledForwardMetres": 573.8563272327651,
+        "spatialReleases": 44,
+        "spatialCompletions": 25,
+        "combinations": 13,
+        "completedCombinations": 4,
+        "exposedRecoveries": 33,
+        "transitionAttempts": 26,
+        "transitionsGaining10m": 4,
+        "transitionsFailingToGain5m": 19,
+        "transitionTurnovers": 23,
+        "defenceRecovered": 30,
+        "transitionShotIds": 3,
+        "recoveryDefensiveThird": 19,
+        "recoveryMiddleThird": 74,
+        "recoveryAttackingThird": 5,
+        "firstForwardDelayTotalSeconds": 34.17499999999343,
+        "firstForwardDelayObservations": 26,
+        "decisionSampled5mDelayTotalSeconds": 26.299999999997624,
+        "decisionSampled5mDelayObservations": 7,
+        "liveSeconds": 5256.674999999943,
+        "stoppedSeconds": 203.32500000005655,
+        "credibleEpisodes": 3,
+        "progressionEpisodes": 42,
+        "contactIdentityCount": 104723
+      },
+      "cpuMs": 279344,
+      "wallMs": 273086.42789999995,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-development-pr177-dev-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-development-pr177-dev-strength-raw.json.gz"
+    }
+  ],
+  "fixed": [
+    {
+      "split": "historical",
+      "policy": "legacy-pr176",
+      "id": "pr177-dev-strength",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "finalHash": "d57f8e8331d3b9b413d3804e8b0b2fa773806154765da37010089ee4fca43990",
+      "ticks": 226927,
+      "path": "docs/performance/pr178-evidence/final/historical-legacy-pr176-pr177-dev-strength.json.gz",
+      "bytes": 1179429,
+      "sha256": "7d3af606ce5bcd1cb7f5acd6901004b07e035571f8fec0069871411170dde48b",
+      "equivalence": null,
+      "football": {
+        "passesAttempted": 1565,
+        "passesCompleted": 1077,
+        "shots": 7,
+        "goals": 5,
+        "shotsOnTarget": 6,
+        "blockedShots": 1,
+        "corners": 4,
+        "fouls": 17,
+        "offsides": 0,
+        "possessionLost": 294
+      },
+      "contacts": 3591
+    },
+    {
+      "split": "historical",
+      "policy": "risk-ablation-v1",
+      "id": "pr177-dev-strength",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "finalHash": "d2affabb30d62fb94a8639d8838a1233b004621c5fd6e307c6a8f0fd68668783",
+      "ticks": 221542,
+      "path": "docs/performance/pr178-evidence/final/historical-risk-ablation-v1-pr177-dev-strength.json.gz",
+      "bytes": 1284433,
+      "sha256": "3704dddac110d112ae10a38f91ead54d575822d317838bfe7626ff3277013a3e",
+      "equivalence": null,
+      "football": {
+        "passesAttempted": 1731,
+        "passesCompleted": 1108,
+        "shots": 1,
+        "goals": 1,
+        "shotsOnTarget": 1,
+        "blockedShots": 0,
+        "corners": 1,
+        "fouls": 20,
+        "offsides": 0,
+        "possessionLost": 414
+      },
+      "contacts": 3869
+    },
+    {
+      "split": "historical",
+      "policy": "state-value-v1",
+      "id": "pr177-dev-strength",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "finalHash": "ab9e300d479fa2df76b786d793bd62bf10e108ea54ec6b8b5f8122339042bf44",
+      "ticks": 223201,
+      "path": "docs/performance/pr178-evidence/final/historical-state-value-v1-pr177-dev-strength.json.gz",
+      "bytes": 1475787,
+      "sha256": "55917f4d5dc5a5a885ad344ce5b1dc1e4998ba36d9f2fde9a3e1ba7f3bbe937e",
+      "equivalence": {
+        "equal": true,
+        "finalHash": "ab9e300d479fa2df76b786d793bd62bf10e108ea54ec6b8b5f8122339042bf44",
+        "ticks": 223201,
+        "cpuMs": 219328,
+        "wallMs": 231990.95420000004
+      },
+      "football": {
+        "passesAttempted": 671,
+        "passesCompleted": 385,
+        "shots": 12,
+        "goals": 4,
+        "shotsOnTarget": 6,
+        "blockedShots": 2,
+        "corners": 2,
+        "fouls": 15,
+        "offsides": 1,
+        "possessionLost": 259
+      },
+      "contacts": 1519
+    }
+  ]
+}

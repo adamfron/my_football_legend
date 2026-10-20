@@ -21,7 +21,6 @@ export const activeAerialContactLocks = (state: TacticalMatchState) =>
     return (
       player &&
       distance(player.position, state.ball) < 1.6 &&
-      distance(state.ball, lock.point) < 2.4 &&
       (state.ball.height ?? 0) > 0.45 &&
       (state.ball.height ?? 0) < player.profile.heightCm / 100 + 0.55
     );

@@ -1,12 +1,15 @@
 # Roadmap
 
-Aktualny etap: **PR177 — Match Engine Reform Implementation**.
-[Wdrożenie, porównania i ograniczenia PR177](PR177_MATCH_ENGINE_REFORM_IMPLEMENTATION.md).
-Polityka B jest eksperymentalna, legacy pozostaje domyślne, a oryginalny PR176
-ma opublikowaną referencję przywracania. PR178 musi niezależnie rozliczyć pętlę
-kontaktów piłki z nakładającymi się ciałami oraz attack-to-shot conversion,
-przyjęcia, kontrataki, odzyskanie ustawienia i koszt CPU. Obecny canonical nadal
-nie jest zaakceptowanym celem kalibracji summary.
+Aktualny etap: **PR178 — Physical Contact Resolution & Independent Reform Validation**.
+[Naprawa, nowe pomiary i decyzja](PR178_CONTACT_PHYSICS_AND_MATCH_REFORM_VALIDATION.md).
+Pętla kontaktów nakładających się ciał oraz przedwczesne uzbrajanie główki są
+naprawione. 12 nowych zamkniętych projektów × legacy/A/B daje 36 pełnych wyników.
+B poprawia kontrolowany postęp w kontrach, lecz długie kontrolowane holds,
+straty/przyjęcia i skupienie kreacji okazji blokują promocję. **B pozostaje
+eksperymentalny, legacy domyślne, canonical NOT READY do kalibracji summary.**
+Mały plan korekty w raporcie jest prerequisite PR180; nie obejmuje generacji,
+summary, career UX ani rozbudowy świata. Referencja pristine PR176 i wszystkie
+historyczne receipts pozostają zachowane. Zamknięte projekty PR178 są już zużyte.
 
 Scalony **PR176 — Match Engine Mathematical Audit & Reform Blueprint**:
 [Audyt](PR176_MATCH_ENGINE_MATHEMATICAL_AUDIT.md),
@@ -34,15 +37,17 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   pełne mathematical/action pipeline, correlated risk, candidate gates, pass flight,
   artificial timing, movement authority i trzy reform packages. Reproducible research
   i executable PR177 specification; bez rebalance, zmiany fizyki, timing lub save.
-- **PR177 — Match Engine Reform Implementation**. Aktualny PR wdraża pakiet B
+- **PR177 — Match Engine Reform Implementation**. Scalony PR wdraża pakiet B
   w odizolowanej policy z zachowanym legacy baseline i porównaniem A. Zmiana musi
   materialnie sprawdzić inny futbol. Frozen states, paired canonical continuations,
   development i nowe zamknięte fixtures, human/save/replay/defence/CPU regressions.
   Zachować działające physical mechanisms; nie wymagać pełnego rewrite silnika.
-- **PR178 — Match Engine Reform Validation**. Niezależne pełne mecze i nowe seeds,
-  rozkłady progression, CM, shots/blocks/saves/corners, turnovers/restarts/live-time,
-  defence, determinism i koszt. Rozliczyć pozostałe przyczyny nierealizmu i jawnie
-  zdecydować, czy canonical nadaje się na target lekkiej symulacji. Bez kwot.
+- **PR178 — Physical Contact Resolution & Match Engine Reform Validation**.
+  Naprawa rzeczywistej pętli kontaktów i ciągłości główek, wspólna poprawiona
+  fizyka legacy/A/B oraz niezależna walidacja 12 nowych projektów. Kontry poprawiają
+  się, lecz controlled holds i krucha kontynuacja ataku dają NOT READY dla summary;
+  B nie jest promowany. Zachować konkretne blokery i nowe niewykorzystane wejścia
+  do walidacji ich przyszłych korekt. Bez kwot i zmiany historycznych receipts.
 - **PR179 — Generational Renewal & World Strength**. Zachowany dawny PR176:
   20–25 sezonów rozwoju NPC, suma/średnia OVR kadr i najlepszej XI, jakość pozycji,
   rozkład wieku, akademie i ich absolwenci, integracja/blokowanie młodych przez

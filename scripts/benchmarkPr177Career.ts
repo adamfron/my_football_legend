@@ -1,6 +1,7 @@
 import { writeFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { performance } from 'node:perf_hooks';
+import process from 'node:process';
 import { createPr167Career, pr167World } from './pr167Fixtures';
 import {
   createCareerMatchInput,
@@ -31,9 +32,11 @@ import { pr172Manifest, pr172Hash } from './pr172Evidence';
 import { canContinueCareerMatch, continueCareerMatch } from '../src/core/careerMatchContinuation';
 
 const manifest = pr172Manifest();
+const receiptPrefix = process.argv.find((arg) => arg.startsWith('--prefix='))?.split('=')[1] ?? 'PR177';
+if (!/^PR\d+$/.test(receiptPrefix)) throw new Error('Invalid receipt prefix');
 const rows = [];
 for (const professional of [false, true]) {
-  const career = createPr167Career(professional, `pr177-career-${professional}`, 'left_winger');
+  const career = createPr167Career(professional, `${receiptPrefix.toLowerCase()}-career-${professional}`, 'left_winger');
   const input = createCareerMatchInput(career, pr167World);
   let state = startCareerMatch(input),
     choices = 0,
@@ -154,6 +157,6 @@ for (const professional of [false, true]) {
   console.log(`completed career professional=${professional}`);
 }
 writeFileSync(
-  'docs/performance/PR177-career.json',
+  `docs/performance/${receiptPrefix}-career.json`,
   JSON.stringify({ manifest, rows }, null, 2) + '\n',
 );

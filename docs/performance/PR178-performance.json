@@ -1,0 +1,950 @@
+{
+  "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+  "node": "v24.19.0",
+  "method": "Serial warm alternating complete canonical matches on identical inputs/hardware. Sparse inclusive profiler spans every 37 ticks in every trial. The installed loader has disabled hooks in plain trials; observed trials enable the full ranker, incoming, components and event observer. Every plain final state also matches the separately measured full ranker-observed reference. No concurrent research/test jobs. Sampled memory every ten physical seconds; OS process high water is not a per-trial peak. Two heterogeneous designs do not establish a league-wide performance ceiling.",
+  "rows": [
+    {
+      "label": "full-match",
+      "policy": "legacy-pr176",
+      "observed": false,
+      "design": "pr177-dev-strength",
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "dt": 0.025,
+      "ticks": 226927,
+      "status": "full_time",
+      "time": 5673.174999987567,
+      "finalHash": "d57f8e8331d3b9b413d3804e8b0b2fa773806154765da37010089ee4fca43990",
+      "cpuMs": 137298,
+      "wallMs": 125273.25099999999,
+      "sampledPeakRss": 418910208,
+      "sampledPeakHeap": 200851072,
+      "processMaxRssKiB": 412876,
+      "checkpoints": [
+        {
+          "at": 999.9999999993644,
+          "cpuMs": 25501,
+          "wallMs": 22376.286
+        },
+        {
+          "at": 2000.000000002893,
+          "cpuMs": 48360,
+          "wallMs": 43333.2201
+        },
+        {
+          "at": 3000.000000006531,
+          "cpuMs": 70298,
+          "wallMs": 63305.134000000005
+        },
+        {
+          "at": 4000.000000010169,
+          "cpuMs": 95094,
+          "wallMs": 86319.1162
+        },
+        {
+          "at": 4999.999999997363,
+          "cpuMs": 120360,
+          "wallMs": 109403.7827
+        }
+      ],
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 37,
+        "ticks": 226927,
+        "sampledTicks": 6134,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 685.3653000006525,
+            "estimatedMs": 25355.052401898934,
+            "sampledCalls": 6115
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 1134.2364999995343,
+            "estimatedMs": 41961.01829726024,
+            "sampledCalls": 6115
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 47.04980000039541,
+            "estimatedMs": 1740.604819805955,
+            "sampledCalls": 2674
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 617.0092000003006,
+            "estimatedMs": 22826.22215984157,
+            "sampledCalls": 6115
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 650.0553000000837,
+            "estimatedMs": 24048.76085150293,
+            "sampledCalls": 5356
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 31.237700000381665,
+            "estimatedMs": 1155.637030972711,
+            "sampledCalls": 6134
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 255.4182999999175,
+            "estimatedMs": 9449.186267375493,
+            "sampledCalls": 6134
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.2459000000553715,
+            "estimatedMs": 9.097057272997276,
+            "sampledCalls": 688
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.6732000000092739,
+            "estimatedMs": 24.90499778319278,
+            "sampledCalls": 691
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 738.4300999998368,
+            "estimatedMs": 27318.181823062107,
+            "sampledCalls": 59930
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 96.84230000033494,
+            "estimatedMs": 3582.675678541899,
+            "sampledCalls": 2580
+          }
+        ]
+      },
+      "observerCounts": null,
+      "observedChoices": 0
+    },
+    {
+      "label": "full-match",
+      "policy": "state-value-v1",
+      "observed": false,
+      "design": "pr177-dev-strength",
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "dt": 0.025,
+      "ticks": 223201,
+      "status": "full_time",
+      "time": 5580,
+      "finalHash": "ab9e300d479fa2df76b786d793bd62bf10e108ea54ec6b8b5f8122339042bf44",
+      "cpuMs": 145750,
+      "wallMs": 140749.46540000002,
+      "sampledPeakRss": 429223936,
+      "sampledPeakHeap": 195720776,
+      "processMaxRssKiB": 426924,
+      "checkpoints": [
+        {
+          "at": 999.9999999993644,
+          "cpuMs": 28609,
+          "wallMs": 26642.637699999992
+        },
+        {
+          "at": 2000.000000002893,
+          "cpuMs": 51250,
+          "wallMs": 49220.6992
+        },
+        {
+          "at": 3000.000000000873,
+          "cpuMs": 75156,
+          "wallMs": 72642.4865
+        },
+        {
+          "at": 4000.000000004511,
+          "cpuMs": 104484,
+          "wallMs": 100503.1514
+        },
+        {
+          "at": 4999.999999991705,
+          "cpuMs": 131516,
+          "wallMs": 126528.52720000001
+        }
+      ],
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 37,
+        "ticks": 223201,
+        "sampledTicks": 6033,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 662.4673999998486,
+            "estimatedMs": 24509.097654129986,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 39.66260000009788,
+            "estimatedMs": 1467.3847145071852,
+            "sampledCalls": 132726
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 1479.4519000009168,
+            "estimatedMs": 54734.815768623346,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 70.1494000008388,
+            "estimatedMs": 2595.295247735326,
+            "sampledCalls": 4606
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 266.3277000008675,
+            "estimatedMs": 9853.241996998777,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 953.0293999998539,
+            "estimatedMs": 35258.92841196211,
+            "sampledCalls": 5546
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 30.962200000300072,
+            "estimatedMs": 1145.4987572131572,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 252.13310000053025,
+            "estimatedMs": 9328.088853508762,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 177.8961000002746,
+            "estimatedMs": 6581.565956598922,
+            "sampledCalls": 4722
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.12919999993755482,
+            "estimatedMs": 4.7799716867333295,
+            "sampledCalls": 305
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.31609999982174486,
+            "estimatedMs": 11.694652090206079,
+            "sampledCalls": 325
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 329.0659999982745,
+            "estimatedMs": 12174.351113146837,
+            "sampledCalls": 28326
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 527.3059999998368,
+            "estimatedMs": 19508.573927724778,
+            "sampledCalls": 323
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 349.3689999994822,
+            "estimatedMs": 12925.494806710496,
+            "sampledCalls": 323
+          }
+        ]
+      },
+      "observerCounts": null,
+      "observedChoices": 0
+    },
+    {
+      "label": "full-match",
+      "policy": "state-value-v1",
+      "observed": false,
+      "design": "pr178-dev-keepers",
+      "inputHash": "eae1738d15ffcaca2e8881653f553b2f7d4eb6dc2a4aae5c32e4e6d08b36225d",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "dt": 0.025,
+      "ticks": 220811,
+      "status": "full_time",
+      "time": 5520.274999984134,
+      "finalHash": "a7a4294c48e6174168d456eae4beb27c35564e86ead32132847edd4f1ebb59b2",
+      "cpuMs": 159562,
+      "wallMs": 152464.35379999998,
+      "sampledPeakRss": 439627776,
+      "sampledPeakHeap": 206927280,
+      "processMaxRssKiB": 434704,
+      "checkpoints": [
+        {
+          "at": 999.9999999993644,
+          "cpuMs": 28703,
+          "wallMs": 27874.98339999997
+        },
+        {
+          "at": 2000.000000002893,
+          "cpuMs": 58031,
+          "wallMs": 55525.89110000001
+        },
+        {
+          "at": 3000.000000000873,
+          "cpuMs": 85501,
+          "wallMs": 81735.88209999999
+        },
+        {
+          "at": 4000.000000004511,
+          "cpuMs": 114719,
+          "wallMs": 109858.31839999999
+        },
+        {
+          "at": 4999.999999991705,
+          "cpuMs": 144329,
+          "wallMs": 137823.67559999996
+        }
+      ],
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 37,
+        "ticks": 220811,
+        "sampledTicks": 5968,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 754.306199998362,
+            "estimatedMs": 27908.697440991677,
+            "sampledCalls": 5934
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 43.413500007009134,
+            "estimatedMs": 1606.2631283591982,
+            "sampledCalls": 130548
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 1451.2229000003426,
+            "estimatedMs": 53694.031463132655,
+            "sampledCalls": 5934
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 53.95799999759765,
+            "estimatedMs": 1996.4007938119196,
+            "sampledCalls": 2655
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 495.66990000056103,
+            "estimatedMs": 18339.371026981215,
+            "sampledCalls": 5934
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 1083.1332000007387,
+            "estimatedMs": 40075.02094929007,
+            "sampledCalls": 5526
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 30.743899999535643,
+            "estimatedMs": 1137.4985426939452,
+            "sampledCalls": 5968
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 269.81470000196714,
+            "estimatedMs": 9982.917848883106,
+            "sampledCalls": 5968
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 124.873200000613,
+            "estimatedMs": 4620.203781054853,
+            "sampledCalls": 2888
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 675.1737000017893,
+            "estimatedMs": 24980.861238454272,
+            "sampledCalls": 54346
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 443.2496000006795,
+            "estimatedMs": 16399.86384479726,
+            "sampledCalls": 408
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 636.6112999998732,
+            "estimatedMs": 23554.084746024128,
+            "sampledCalls": 408
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.16130000015255064,
+            "estimatedMs": 5.967964868244782,
+            "sampledCalls": 537
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.27930000028572977,
+            "estimatedMs": 10.333866012582487,
+            "sampledCalls": 563
+          }
+        ]
+      },
+      "observerCounts": null,
+      "observedChoices": 0
+    },
+    {
+      "label": "full-match",
+      "policy": "legacy-pr176",
+      "observed": false,
+      "design": "pr178-dev-keepers",
+      "inputHash": "eae1738d15ffcaca2e8881653f553b2f7d4eb6dc2a4aae5c32e4e6d08b36225d",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "dt": 0.025,
+      "ticks": 220801,
+      "status": "full_time",
+      "time": 5520,
+      "finalHash": "b8c117c6dd6dddd33046c02864a4f8006fa1d4afe6f01b6c13a7d7bc5030537b",
+      "cpuMs": 133313,
+      "wallMs": 128289.61170000007,
+      "sampledPeakRss": 444018688,
+      "sampledPeakHeap": 208654760,
+      "processMaxRssKiB": 437616,
+      "checkpoints": [
+        {
+          "at": 999.9999999993644,
+          "cpuMs": 23703,
+          "wallMs": 22815.446400000015
+        },
+        {
+          "at": 2000.000000002893,
+          "cpuMs": 48047,
+          "wallMs": 46230.17220000003
+        },
+        {
+          "at": 3000.000000000873,
+          "cpuMs": 71423,
+          "wallMs": 68687.5943
+        },
+        {
+          "at": 4000.000000004511,
+          "cpuMs": 95938,
+          "wallMs": 92319.05910000001
+        },
+        {
+          "at": 4999.999999991705,
+          "cpuMs": 120219,
+          "wallMs": 115652.62980000005
+        }
+      ],
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 37,
+        "ticks": 220801,
+        "sampledTicks": 5968,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 775.6457000018563,
+            "estimatedMs": 28696.941388423238,
+            "sampledCalls": 5931
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 1248.6650000005611,
+            "estimatedMs": 46197.46659938403,
+            "sampledCalls": 5931
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 35.8027000023867,
+            "estimatedMs": 1324.6099134093477,
+            "sampledCalls": 2351
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 513.9801999985357,
+            "estimatedMs": 19015.975559630813,
+            "sampledCalls": 5931
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 582.428599999228,
+            "estimatedMs": 21548.394321117554,
+            "sampledCalls": 5588
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 28.190000000351574,
+            "estimatedMs": 1042.95914713097,
+            "sampledCalls": 5968
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 247.54159999790136,
+            "estimatedMs": 9158.417027670346,
+            "sampledCalls": 5968
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 87.09510000073351,
+            "estimatedMs": 3222.2997947825,
+            "sampledCalls": 2242
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.11510000005364418,
+            "estimatedMs": 4.258410709089258,
+            "sampledCalls": 397
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.19799999974202365,
+            "estimatedMs": 7.325502336300028,
+            "sampledCalls": 398
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 687.1240999958245,
+            "estimatedMs": 25421.8646788167,
+            "sampledCalls": 59359
+          }
+        ]
+      },
+      "observerCounts": null,
+      "observedChoices": 0
+    },
+    {
+      "label": "full-match",
+      "policy": "state-value-v1",
+      "observed": true,
+      "design": "pr177-dev-strength",
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "dt": 0.025,
+      "ticks": 223201,
+      "status": "full_time",
+      "time": 5580,
+      "finalHash": "ab9e300d479fa2df76b786d793bd62bf10e108ea54ec6b8b5f8122339042bf44",
+      "cpuMs": 155157,
+      "wallMs": 149888.40519999992,
+      "sampledPeakRss": 450056192,
+      "sampledPeakHeap": 226309456,
+      "processMaxRssKiB": 443460,
+      "checkpoints": [
+        {
+          "at": 999.9999999993644,
+          "cpuMs": 30844,
+          "wallMs": 29102.035199999926
+        },
+        {
+          "at": 2000.000000002893,
+          "cpuMs": 56344,
+          "wallMs": 54495.00349999999
+        },
+        {
+          "at": 3000.000000000873,
+          "cpuMs": 80703,
+          "wallMs": 78400.06889999995
+        },
+        {
+          "at": 4000.000000004511,
+          "cpuMs": 112266,
+          "wallMs": 107613.92699999991
+        },
+        {
+          "at": 4999.999999991705,
+          "cpuMs": 140344,
+          "wallMs": 135115.96679999994
+        }
+      ],
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 37,
+        "ticks": 223201,
+        "sampledTicks": 6033,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 672.1510999979218,
+            "estimatedMs": 24867.362451622106,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 40.08410002256278,
+            "estimatedMs": 1482.978818023543,
+            "sampledCalls": 132726
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 1500.600900009391,
+            "estimatedMs": 55517.258657881,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 69.81390000425745,
+            "estimatedMs": 2582.8828600779493,
+            "sampledCalls": 4606
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 278.27910000272095,
+            "estimatedMs": 10295.404176977841,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 1015.8968000001041,
+            "estimatedMs": 37584.81380023591,
+            "sampledCalls": 5546
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 33.996799998916686,
+            "estimatedMs": 1257.7688971586613,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 266.04590000153985,
+            "estimatedMs": 9842.816331218912,
+            "sampledCalls": 6033
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 175.7708000006387,
+            "estimatedMs": 6502.936902195021,
+            "sampledCalls": 4722
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.10790000052656978,
+            "estimatedMs": 3.9919423201609323,
+            "sampledCalls": 305
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.23480000055860728,
+            "estimatedMs": 8.686821635120456,
+            "sampledCalls": 325
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 335.4977000069339,
+            "estimatedMs": 12412.302691736724,
+            "sampledCalls": 28330
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 538.0442000002367,
+            "estimatedMs": 19905.851729529728,
+            "sampledCalls": 323
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 360.38290000043344,
+            "estimatedMs": 13332.972594562696,
+            "sampledCalls": 323
+          }
+        ]
+      },
+      "observerCounts": {
+        "liveSeconds": 5152.474999999977,
+        "episode:controlled": 276,
+        "owner_rankings": 11973,
+        "episode:generated_support": 170,
+        "episode:progressive_candidate": 259,
+        "episode:progressive_selected": 208,
+        "incoming_rankings": 550,
+        "episode:physical_progression": 119,
+        "episode:final_third_control": 58,
+        "episode:shot_candidate": 113,
+        "episode:executable_shot_candidate": 113,
+        "episode:box_entry_candidate": 30,
+        "stoppedSeconds": 427.5250000000236,
+        "episode:penalty_area_control": 9,
+        "episode:credible_opportunity": 5,
+        "episode:shot_selected": 7,
+        "shot_releases": 12,
+        "episode:physical_shot_release": 9,
+        "shot_outcome:save": 2,
+        "shot_outcome:miss": 2,
+        "shot_outcome:goal": 4,
+        "shot_outcome:crossbar": 1,
+        "shot_outcome:block": 2,
+        "shot_outcome:post": 1
+      },
+      "observedChoices": 12523
+    },
+    {
+      "label": "full-match",
+      "policy": "legacy-pr176",
+      "observed": true,
+      "design": "pr178-dev-keepers",
+      "inputHash": "eae1738d15ffcaca2e8881653f553b2f7d4eb6dc2a4aae5c32e4e6d08b36225d",
+      "sourceHash": "145b111a81870ad3bfc8b3673599465006cf3c8dc861aa102682de497e3269ec",
+      "dt": 0.025,
+      "ticks": 220801,
+      "status": "full_time",
+      "time": 5520,
+      "finalHash": "b8c117c6dd6dddd33046c02864a4f8006fa1d4afe6f01b6c13a7d7bc5030537b",
+      "cpuMs": 143095,
+      "wallMs": 139089.4266,
+      "sampledPeakRss": 594567168,
+      "sampledPeakHeap": 367010888,
+      "processMaxRssKiB": 584788,
+      "checkpoints": [
+        {
+          "at": 999.9999999993644,
+          "cpuMs": 25142,
+          "wallMs": 24192.910700000008
+        },
+        {
+          "at": 2000.000000002893,
+          "cpuMs": 50860,
+          "wallMs": 49405.19709999999
+        },
+        {
+          "at": 3000.000000000873,
+          "cpuMs": 76079,
+          "wallMs": 73970.71840000001
+        },
+        {
+          "at": 4000.000000004511,
+          "cpuMs": 102579,
+          "wallMs": 99829.49690000003
+        },
+        {
+          "at": 4999.999999991705,
+          "cpuMs": 128798,
+          "wallMs": 125512.99800000002
+        }
+      ],
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 37,
+        "ticks": 220801,
+        "sampledTicks": 5968,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 784.1541999960318,
+            "estimatedMs": 29011.73450290279,
+            "sampledCalls": 5931
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 1287.8349999908824,
+            "estimatedMs": 47646.65814895892,
+            "sampledCalls": 5931
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 37.6222000005655,
+            "estimatedMs": 1391.9268402018872,
+            "sampledCalls": 2351
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 538.5791000066092,
+            "estimatedMs": 19926.073032935547,
+            "sampledCalls": 5931
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 602.3345000001136,
+            "estimatedMs": 22284.862589565197,
+            "sampledCalls": 5588
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 28.80060000065714,
+            "estimatedMs": 1065.5498124572885,
+            "sampledCalls": 5968
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 248.80309999582823,
+            "estimatedMs": 9205.089356933457,
+            "sampledCalls": 5968
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 90.45660000399221,
+            "estimatedMs": 3346.666846092742,
+            "sampledCalls": 2242
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.13419999810867012,
+            "estimatedMs": 4.965062631097934,
+            "sampledCalls": 397
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.23730000131763518,
+            "estimatedMs": 8.779503617784043,
+            "sampledCalls": 398
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 704.053099977551,
+            "estimatedMs": 26048.195128710333,
+            "sampledCalls": 59359
+          }
+        ]
+      },
+      "observerCounts": {
+        "liveSeconds": 5220.050000000247,
+        "episode:controlled": 237,
+        "owner_rankings": 2259,
+        "episode:generated_support": 210,
+        "episode:progressive_candidate": 210,
+        "episode:progressive_selected": 178,
+        "incoming_rankings": 2123,
+        "episode:physical_progression": 132,
+        "episode:shot_candidate": 171,
+        "episode:executable_shot_candidate": 171,
+        "episode:final_third_control": 40,
+        "episode:box_entry_candidate": 14,
+        "stoppedSeconds": 299.94999999975266,
+        "episode:penalty_area_control": 1,
+        "episode:credible_opportunity": 1,
+        "episode:shot_selected": 1,
+        "shot_releases": 1,
+        "episode:physical_shot_release": 1,
+        "shot_outcome:miss": 1
+      },
+      "observedChoices": 4382
+    }
+  ],
+  "ratios": [
+    {
+      "design": "pr177-dev-strength",
+      "bVsLegacyCpu": 1.0615595274512375,
+      "bVsLegacyWall": 1.1235396565225246
+    },
+    {
+      "design": "pr178-dev-keepers",
+      "bVsLegacyCpu": 1.1968975268728481,
+      "bVsLegacyWall": 1.1884388126182153
+    }
+  ],
+  "stress": [
+    {
+      "policy": "legacy-pr176",
+      "repeat": 0,
+      "finalHash": "0e03a8fbcff07f181148ee59ce12348c245e87e05586489cd21f859fea9dca3e",
+      "cpuMs": 187,
+      "wallMs": 178.92450000008103
+    },
+    {
+      "policy": "legacy-pr176",
+      "repeat": 1,
+      "finalHash": "0e03a8fbcff07f181148ee59ce12348c245e87e05586489cd21f859fea9dca3e",
+      "cpuMs": 188,
+      "wallMs": 182.61209999991115
+    },
+    {
+      "policy": "legacy-pr176",
+      "repeat": 2,
+      "finalHash": "0e03a8fbcff07f181148ee59ce12348c245e87e05586489cd21f859fea9dca3e",
+      "cpuMs": 204,
+      "wallMs": 172.1801999999443
+    },
+    {
+      "policy": "legacy-pr176",
+      "repeat": 3,
+      "finalHash": "0e03a8fbcff07f181148ee59ce12348c245e87e05586489cd21f859fea9dca3e",
+      "cpuMs": 171,
+      "wallMs": 183.83750000002328
+    },
+    {
+      "policy": "legacy-pr176",
+      "repeat": 4,
+      "finalHash": "0e03a8fbcff07f181148ee59ce12348c245e87e05586489cd21f859fea9dca3e",
+      "cpuMs": 282,
+      "wallMs": 200.46219999995083
+    },
+    {
+      "policy": "state-value-v1",
+      "repeat": 0,
+      "finalHash": "28cb88da583a07cb30ac78364ddedd1569bc132e21ef7811c9f7ad805d5ef5d1",
+      "cpuMs": 235,
+      "wallMs": 209.11470000003465
+    },
+    {
+      "policy": "state-value-v1",
+      "repeat": 1,
+      "finalHash": "28cb88da583a07cb30ac78364ddedd1569bc132e21ef7811c9f7ad805d5ef5d1",
+      "cpuMs": 281,
+      "wallMs": 227.91350000002421
+    },
+    {
+      "policy": "state-value-v1",
+      "repeat": 2,
+      "finalHash": "28cb88da583a07cb30ac78364ddedd1569bc132e21ef7811c9f7ad805d5ef5d1",
+      "cpuMs": 203,
+      "wallMs": 199.45960000006016
+    },
+    {
+      "policy": "state-value-v1",
+      "repeat": 3,
+      "finalHash": "28cb88da583a07cb30ac78364ddedd1569bc132e21ef7811c9f7ad805d5ef5d1",
+      "cpuMs": 234,
+      "wallMs": 203.80960000003688
+    },
+    {
+      "policy": "state-value-v1",
+      "repeat": 4,
+      "finalHash": "28cb88da583a07cb30ac78364ddedd1569bc132e21ef7811c9f7ad805d5ef5d1",
+      "cpuMs": 188,
+      "wallMs": 204.05420000001322
+    }
+  ],
+  "execution": {
+    "command": "node --expose-gc --experimental-transform-types --import ./scripts/registerPr172DecisionObserver.mjs scripts/benchmarkPr178Performance.mjs",
+    "hardware": {
+      "platform": "win32",
+      "arch": "x64",
+      "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+      "logicalCpus": 16,
+      "totalMemory": 33601875968
+    },
+    "normalizedHarnessSha256": "0d8d1a6176c4e87a9bd217159fcd09095f3258b40e4a565860cc51a4cd24d0d6",
+    "logSha256": "864b506d6ae00c2f35fd6d4e64501eacf2458df0e8d17013a348ad9d8d0d4da4",
+    "conditions": "No other canonical simulation or test workers. Idle Vite and light report editing/JSON extraction may remain. Full ranker/event observer hooks are disabled in plain trials, enabled in observed trials.",
+    "timerBoundary": "Stepping and live observation included; final state hashing, observer snapshot validation and serialization excluded."
+  },
+  "observerOverhead": [
+    {
+      "design": "pr177-dev-strength",
+      "policy": "state-value-v1",
+      "cpuRatio": 1.0645420240137222,
+      "wallRatio": 1.0649305471536086
+    },
+    {
+      "design": "pr178-dev-keepers",
+      "policy": "legacy-pr176",
+      "cpuRatio": 1.073376189868955,
+      "wallRatio": 1.0841830819883909
+    }
+  ]
+}
