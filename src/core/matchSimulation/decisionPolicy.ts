@@ -13,6 +13,7 @@ import { canParticipatePhysically } from './matchInjuries';
 import { enumerateCombinationPasses } from './combinationPlay';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 import { estimatePlayerArrivalTime } from './playerArrival';
+import { roleReceivingTargets } from './roleTactics';
 
 /** At most 48 meaningfully different actions. Feasibility is independent of legacy utility gates. */
 export const enumerateStateValueActions = (
@@ -98,6 +99,8 @@ export const enumerateStateValueActions = (
       if (actions.length >= config.maxCandidates) return;
     }
   };
+  for (const { receiver, target } of roleReceivingTargets(state, actor))
+    addPass(receiver, target, true);
   if (state.decisionAblation !== 'runs')
     for (const { receiver, target } of prospectiveSpaceTargets(state, actor))
       addPass(receiver, target, true);

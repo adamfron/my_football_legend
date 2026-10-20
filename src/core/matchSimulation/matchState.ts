@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { rolePlanSchema } from './tacticalRoles';
 import { continuousBodyContactsSchema } from './ballContactResolution';
 import {
   combinationIntentSchema,
@@ -751,6 +752,7 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  rolePlan?: import('./tacticalRoles').RolePlan;
   /** Runtime experiment selection, fixed for this match. No career-save migration contract. */
   decisionPolicy?: DecisionPolicyId;
   decisionAblation?: DecisionAblation;
@@ -961,6 +963,7 @@ export interface TacticalMatchState {
 export const tacticalMatchStateSchema = z
   .object({
     decisionPolicy: decisionPolicyIdSchema.optional(),
+    rolePlan: rolePlanSchema.optional(),
     decisionAblation: decisionAblationSchema.optional(),
     decisionReadiness: decisionReadinessSchema.optional(),
     injuryAssessment: injuryAssessmentSchema.optional(),

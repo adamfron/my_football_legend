@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "seed": "pr179-responsiveness",
+  "policy": "phase-role-hybrid-v1",
+  "fixtureId": "fixture-5885decf",
+  "url": "http://127.0.0.1:5181/my_football_legend/?devtools=1&matchSandbox=1",
+  "operation": "Toggle the role panel and confirm the first player's role select visibility through the browser DOM.",
+  "pausedRoundTripMs": [286, 282, 275, 276, 284, 275],
+  "nominal16xRoundTripMs": [336, 309, 499, 279, 317, 344],
+  "allTwelveExpectedVisibilityChecksPassed": true,
+  "consoleWarningsAndErrors": [],
+  "scope": "Includes browser automation bridge and DOM confirmation, not isolated input latency. Nominal 16x is a selected multiplier, not a throughput claim. Short exploratory UI probe, no population latency estimate. Unit verification was running concurrently."
+}

@@ -1,13 +1,21 @@
 # Roadmap
 
-Aktualny etap: **PR178 — Physical Contact Resolution & Independent Reform Validation**.
+Aktualny etap: **PR179 — Role-Driven Football Intelligence**.
+Wspólny katalog ról i trzy eksperymentalne polityki: R1 `role-value-v1`, R2
+`role-intent-v1`, R3 `phase-role-hybrid-v1`. Pięć polityk można porównać w Match Lab
+na zamrożonych składach i seedzie oraz wyeksportować kanoniczny JSON. Badanie
+obejmuje SS/SW/WW, ruch po zmianach ról i rzeczywiste konsekwencje czekania.
+Wyniki mają charakter rozwojowy; **legacy pozostaje domyślne, canonical NOT READY
+do kalibracji summary**. [Implementacja i ograniczenia](PR179_ROLE_DRIVEN_FOOTBALL_INTELLIGENCE.md).
+
+Scalony etap: **PR178 — Physical Contact Resolution & Independent Reform Validation**.
 [Naprawa, nowe pomiary i decyzja](PR178_CONTACT_PHYSICS_AND_MATCH_REFORM_VALIDATION.md).
 Pętla kontaktów nakładających się ciał oraz przedwczesne uzbrajanie główki są
 naprawione. 12 nowych zamkniętych projektów × legacy/A/B daje 36 pełnych wyników.
 B poprawia kontrolowany postęp w kontrach, lecz długie kontrolowane holds,
 straty/przyjęcia i skupienie kreacji okazji blokują promocję. **B pozostaje
 eksperymentalny, legacy domyślne, canonical NOT READY do kalibracji summary.**
-Mały plan korekty w raporcie jest prerequisite PR180; nie obejmuje generacji,
+Plan korekty i rolowe eksperymenty są prerequisite niezależnej walidacji PR180; nie obejmują generacji,
 summary, career UX ani rozbudowy świata. Referencja pristine PR176 i wszystkie
 historyczne receipts pozostają zachowane. Zamknięte projekty PR178 są już zużyte.
 
@@ -31,7 +39,7 @@ Poprzednie scalone etapy pozostają ważne:
 [PR175 — independent reality validation](PR175_MATCH_REALITY_VALIDATION.md).
 Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
 
-## Autorytatywna kolejność PR176–PR182+
+## Autorytatywna kolejność PR176–PR184+
 
 - **PR176 — Match Engine Mathematical Audit & Reform Blueprint**. Scalony audyt:
   pełne mathematical/action pipeline, correlated risk, candidate gates, pass flight,
@@ -48,27 +56,36 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   się, lecz controlled holds i krucha kontynuacja ataku dają NOT READY dla summary;
   B nie jest promowany. Zachować konkretne blokery i nowe niewykorzystane wejścia
   do walidacji ich przyszłych korekt. Bez kwot i zmiany historycznych receipts.
-- **PR179 — Generational Renewal & World Strength**. Zachowany dawny PR176:
+- **PR179 — Role-Driven Football Intelligence**. Trzy materialnie różne polityki
+  na jednej fizyce, wspólne role i instrukcje, dopasowanie atrybutów i komplementarność,
+  kontrolowane porównania, mała kohorta SS/SW/WW oraz Match Lab z powtórką i JSON.
+  Nie utożsamiać większej liczby strat z gorszą piłką; rozliczać cel, miejsce i konsekwencje.
+- **PR180 — Tactical Validation & Coach Adaptation**. Niezależnie ocenić
+  najmocniejsze podejścia na 12 nowych, nieodczytanych projektach SS/SW/WW.
+  Wdrożyć obserwacje trenera, uzasadnione zmiany ról, taktyki i zmiany zawodników;
+  wybrać lub połączyć polityki na podstawie futbolu, nie samej retencji.
+  Prerequisite: poprawić utrzymujące się stagnacje i nadmierny recykling bez kwot.
+- **PR181 — Generational Renewal & World Strength**. Zachowany dawny PR176:
   20–25 sezonów rozwoju NPC, suma/średnia OVR kadr i najlepszej XI, jakość pozycji,
   rozkład wieku, akademie i ich absolwenci, integracja/blokowanie młodych przez
   dobrych weteranów, aging, retirement, uzupełnienia, trajektorie talentu i pułapy,
   transfery między silnymi/słabymi klubami oraz długofalowa jakość świata.
   Powtórzyć pomiary po istotnej rozbudowie bazy.
-- **PR180 — Summary Simulation & PlayStyles**. Zachowany dawny PR177:
+- **PR182 — Summary Simulation & PlayStyles**. Zachowany dawny PR177:
   kalibrować lightweight simulation dopiero przeciw właściwie zweryfikowanemu
   canonical; gole/asysty DM/CM i innych pozycji. Rozwijać ludzkie PlayStyles na
   podstawie właściwie udokumentowanych summary matches, zachowując źródło danych,
   wieloletnie wymagania i progi. Udział/zmiany: starter/substitute, entry/exit,
   realne ID zastępowanego/zastępującego i tylko rzeczywiście modelowany powód.
   Nie wnioskować słabej gry z oceny/minut. Tożsamości/minuty/exactly-once zostają.
-- **PR181 — Career UX Consolidation**. Zachowany dawny PR178: zwarte fixture rows,
+- **PR183 — Career UX Consolidation**. Zachowany dawny PR178: zwarte fixture rows,
   zbiorcze sezonowe archive bez dublowania historii; calendar zgodny z career.currentDate,
   rzeczywistymi terminami meczów, zapisanym treningiem, urazami/niedostępnością i życiem.
   Odróżniać saved facts od presentation recurrence; nie wymyślać treningów w pustych dniach.
   Normalny strzał: **klik miejsca w bramce → kontekstowe menu techniki → wybór
   techniki wykonuje strzał**. Usunąć dodatkowe obowiązkowe potwierdzenie i redundantne
   suwaki; zachować keyboard accessibility i accurate substitution records.
-- **PR182+ — World Expansion**. Zachowany dawny PR179+: więcej lig/klubów, puchary,
+- **PR184+ — World Expansion**. Zachowany dawny PR179+: więcej lig/klubów, puchary,
   reprezentacje, transfery, ekonomia i dalsze systemy futbolu.
 
 Wyłącznie całkowite numery PR. Kolejność powyżej zastępuje dawne przypisania.

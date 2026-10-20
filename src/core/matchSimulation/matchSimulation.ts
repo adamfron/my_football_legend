@@ -4,6 +4,8 @@ import {
   supportContinuousBodyContacts,
 } from './ballContactResolution';
 import { DEFAULT_DECISION_POLICY, usesStateValue } from './decisionPolicyConfig';
+import { usesTacticalRoles } from './decisionPolicyConfig';
+import { assignTacticalRoles } from './tacticalRoles';
 import { canReconsiderDecision, markDecisionEvaluated } from './decisionReadiness';
 import { authoritativeMovementTarget } from './movementAuthority';
 import { deriveCarryPursuit } from './carryPursuit';
@@ -336,7 +338,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
     },
     possessionTeam: 'home',
     timeSincePossessionChanged: 0,
-    decisionPolicy: DEFAULT_DECISION_POLICY,
+    decisionPolicy: session.setup.decisionPolicy ?? DEFAULT_DECISION_POLICY,
     ballEpisode: 0,
     actionCooldown: 0.4,
     ballOwnershipStartedAt: 0,
@@ -348,6 +350,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
       : {}),
   };
   const initialised = initialiseTeamThreatMemory(state);
+  if (usesTacticalRoles(initialised)) initialised.rolePlan = assignTacticalRoles(initialised);
   const positioned = { ...initialised, players: deriveTacticalTargets(initialised) };
   return initialiseMatchSubstitutions(
     { ...positioned, statistics: createMatchStatistics(positioned) },

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { rolesForPlayer, tacticalRoleFor } from './tacticalRoles';
 import { playStyleIdSchema } from '../playStyles';
 import { footballerProfileSchema, formationSlotSchema } from '../../schemas/domainSchemas';
 import { getEffectivePositionOverall } from '../playerOverall';
@@ -689,6 +690,30 @@ export const advanceMatchSubstitutions = (
             (player) => player.id !== incoming.id,
           ),
         };
+        if (state.rolePlan) {
+          const prior =
+            state.rolePlan.assignments[request.outgoing.id] ?? tacticalRoleFor(state, incoming).id;
+          const role = rolesForPlayer(incoming).some((r) => r.id === prior)
+            ? prior
+            : tacticalRoleFor(state, incoming).id;
+          state = {
+            ...state,
+            rolePlan: {
+              ...state.rolePlan,
+              assignments: { ...state.rolePlan.assignments, [incoming.id]: role },
+              changes: [
+                ...state.rolePlan.changes,
+                {
+                  at: state.time,
+                  playerId: incoming.id,
+                  from: prior,
+                  to: role,
+                  reason: 'substitution' as const,
+                },
+              ].slice(-64),
+            },
+          };
+        }
         if (rulesFor(state).returnSubstitutions)
           state = {
             ...state,

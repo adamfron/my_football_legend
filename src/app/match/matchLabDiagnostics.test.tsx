@@ -13,6 +13,29 @@ const BrokenPresentation = () => {
 };
 
 describe('Match Lab crash safety', () => {
+  it('notifies only actual renderer lifecycle changes, so successful frames cannot render recursively', () => {
+    const world = createCanonicalWorldDatabase();
+    const session = createSingleMatchSession(world, {
+      homeClubId: world.clubs[0]!.id,
+      awayClubId: world.clubs[1]!.id,
+      seed: 'renderer-lifecycle-idempotence',
+      control: { mode: 'spectator' },
+    });
+    const controller = new MatchLabDiagnosticsController(
+      session,
+      createTacticalMatch(session),
+      createMatchFlowTelemetry(),
+    );
+    const listener = vi.fn();
+    controller.subscribe(listener);
+    controller.setRendererLifecycle('ready');
+    for (let frame = 0; frame < 120; frame++) controller.setRendererLifecycle('ready');
+    expect(listener).toHaveBeenCalledTimes(1);
+    controller.setRendererLifecycle('context_lost');
+    controller.setRendererLifecycle('context_lost');
+    controller.setRendererLifecycle('ready');
+    expect(listener).toHaveBeenCalledTimes(3);
+  });
   it('closes the old canonical clock before starting a scenario segment', () => {
     const world = createCanonicalWorldDatabase();
     const session = createSingleMatchSession(world, {

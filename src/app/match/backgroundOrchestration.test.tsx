@@ -114,7 +114,9 @@ describe('background Match Lab orchestration', () => {
         />,
       ),
     );
-    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    const policy = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Czułość momentów"]',
+    )!;
     act(() => {
       policy.value = 'key_player';
       policy.dispatchEvent(new Event('change', { bubbles: true }));
@@ -198,7 +200,9 @@ describe('background Match Lab orchestration', () => {
     expect(observed.presentationActive).toHaveBeenLastCalledWith(false);
     act(() => vi.advanceTimersByTime(5));
     const current = controller.latestState;
-    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    const policy = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Czułość momentów"]',
+    )!;
     act(() => {
       policy.value = 'full_match';
       policy.dispatchEvent(new Event('change', { bubbles: true }));
@@ -280,7 +284,9 @@ describe('background Match Lab orchestration', () => {
     const observer = [...container.querySelectorAll<HTMLSelectElement>('select')].find((select) =>
       [...select.options].some((option) => option.value === 'capture'),
     )!;
-    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    const policy = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Czułość momentów"]',
+    )!;
     for (const mode of ['normal', 'dev', 'capture', 'release_minimal']) {
       act(() => {
         observer.value = mode;
@@ -350,7 +356,9 @@ describe('background Match Lab orchestration', () => {
         score: { home: 1, away: 0 },
         matchEvents: [goal],
       }));
-      const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+      const policy = container.querySelector<HTMLSelectElement>(
+        'select[aria-label="Czułość momentów"]',
+      )!;
       act(() => {
         policy.value = policyId;
         policy.dispatchEvent(new Event('change', { bubbles: true }));
@@ -424,7 +432,9 @@ describe('background Match Lab orchestration', () => {
       time: state.time + delta,
       matchEvents: [goal],
     }));
-    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    const policy = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Czułość momentów"]',
+    )!;
     act(() => {
       policy.value = 'full_match';
       policy.dispatchEvent(new Event('change', { bubbles: true }));
@@ -581,7 +591,9 @@ describe('background Match Lab orchestration', () => {
       }
       return stepTacticalMatchAfterDecisionProbe(state, delta);
     });
-    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    const policy = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Czułość momentów"]',
+    )!;
     act(() => {
       policy.value = 'key_player';
       policy.dispatchEvent(new Event('change', { bubbles: true }));
@@ -648,7 +660,9 @@ describe('background Match Lab orchestration', () => {
     act(() => replay.click());
     const playback = callbacks.at(-1)!;
     act(() => playback(performance.now()));
-    expect(container.querySelector('header p')!.textContent).toContain('36:46');
+    expect(container.querySelector('[aria-label="Zegar i stan meczu"]')!.textContent).toContain(
+      '36:46',
+    );
     const queuedPlayback = callbacks.at(-1)!;
     const observe = MatchReplayHistory.prototype.observe;
     vi.spyOn(MatchReplayHistory.prototype, 'observe').mockImplementation(function (
@@ -671,12 +685,16 @@ describe('background Match Lab orchestration', () => {
       ),
     );
     expect(controller.latestState.time).toBe(0);
-    expect(container.querySelector('header p')!.textContent).toContain('00:00');
+    expect(container.querySelector('[aria-label="Zegar i stan meczu"]')!.textContent).toContain(
+      '00:00',
+    );
     expect(container.querySelector('.background-presentation > strong')!.textContent).toBe('00:00');
     const renderCalls = observed.render.mock.calls.length;
     act(() => queuedPlayback(performance.now() + 1000));
     act(() => vi.advanceTimersByTime(50));
-    expect(container.querySelector('header p')!.textContent).toContain('00:00');
+    expect(container.querySelector('[aria-label="Zegar i stan meczu"]')!.textContent).toContain(
+      '00:00',
+    );
     expect(controller.latestState.time).toBe(0);
     expect(observed.render).toHaveBeenCalledTimes(renderCalls);
     expect(
@@ -810,7 +828,9 @@ describe('background Match Lab orchestration', () => {
     expect(sidebar.textContent).toContain('Odtwórz renderer');
 
     act(() => observed.reportRenderer?.('Renderer waiting_for_layout'));
-    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    const policy = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Czułość momentów"]',
+    )!;
     act(() => {
       policy.value = 'full_match';
       policy.dispatchEvent(new Event('change', { bubbles: true }));

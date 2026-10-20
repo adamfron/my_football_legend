@@ -1,0 +1,130 @@
+{
+  "source": "StatsBomb Open Data, original frozen chronological twelve-match samples. Linear empirical quantile: index=(n-1)*p; interpolation between adjacent sorted totals.",
+  "references": [
+    {
+      "file": "PR171-reference-comparison.json",
+      "commit": "4b73468fc5b0f1950f9f66fada70ad3a4f9327cb",
+      "n": 12,
+      "matchIds": [
+        3857286,
+        3857271,
+        3857285,
+        3857282,
+        3857300,
+        3857254,
+        3857265,
+        3857279,
+        3857277,
+        3857284,
+        3857291,
+        3857268
+      ],
+      "distributions": {
+        "passesWithoutCrosses": {
+          "n": 12,
+          "mean": 1039.5833333333333,
+          "median": 1036,
+          "p10": 893.5,
+          "p90": 1195.9,
+          "min": 882,
+          "max": 1322
+        },
+        "shots": {
+          "n": 12,
+          "mean": 21.25,
+          "median": 19.5,
+          "p10": 13,
+          "p90": 30.6,
+          "min": 11,
+          "max": 38
+        },
+        "corners": {
+          "n": 12,
+          "mean": 9.5,
+          "median": 8.5,
+          "p10": 5,
+          "p90": 12.9,
+          "min": 4,
+          "max": 20
+        },
+        "fouls": null
+      },
+      "incompleteNonCrossPasses": {
+        "n": 12,
+        "mean": 169.66666666666666,
+        "median": 168,
+        "p10": 150.4,
+        "p90": 190.9,
+        "min": 145,
+        "max": 194
+      }
+    },
+    {
+      "file": "PR175-reference-methodology.json",
+      "commit": "4b73468fc5b0f1950f9f66fada70ad3a4f9327cb",
+      "n": 12,
+      "matchIds": [
+        3895052,
+        3895060,
+        3895067,
+        3895074,
+        3895086,
+        3895095,
+        3895107,
+        3895113,
+        3895121,
+        3895134,
+        3895139,
+        3895153
+      ],
+      "distributions": {
+        "passesWithoutCrosses": {
+          "n": 12,
+          "mean": 1166.1666666666667,
+          "median": 1173,
+          "p10": 1067.1,
+          "p90": 1244.7,
+          "min": 1063,
+          "max": 1288
+        },
+        "shots": {
+          "n": 12,
+          "mean": 25.5,
+          "median": 26.5,
+          "p10": 16.4,
+          "p90": 30.9,
+          "min": 16,
+          "max": 36
+        },
+        "corners": {
+          "n": 12,
+          "mean": 9.5,
+          "median": 9,
+          "p10": 6.1,
+          "p90": 14.8,
+          "min": 4,
+          "max": 15
+        },
+        "fouls": {
+          "n": 12,
+          "mean": 22,
+          "median": 22.5,
+          "p10": 14.4,
+          "p90": 26.9,
+          "min": 13,
+          "max": 34
+        }
+      },
+      "incompleteNonCrossPasses": {
+        "n": 12,
+        "mean": 161.41666666666666,
+        "median": 160,
+        "p10": 145.3,
+        "p90": 176.9,
+        "min": 139,
+        "max": 192
+      }
+    }
+  ],
+  "interpretation": "Small descriptive samples, no SS/SW/WW labels or acceptance quotas. Incomplete non-cross passes are event-provider failures, not all MFL controlled-possession losses. No sum of incomparable interceptions/tackles/recoveries, no invented live-minute denominator."
+}

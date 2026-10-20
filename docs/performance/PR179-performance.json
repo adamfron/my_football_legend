@@ -1,0 +1,5192 @@
+{
+  "version": 1,
+  "sourceHash": "adb234b67211a5823e3219b326a7990b406d1484ced2fae91d4fd170de6356b7",
+  "fixtureId": "pr179-dev-sw-2",
+  "inputHash": "a20f2d2cdee479d7b251f2ef263447f9d8d1e8bd144ccd0466662f8865e84783",
+  "runtime": "v24.19.0",
+  "semantics": "Six complete serial trajectories after research/browser/test stepping stops: five uniformly observed/profiled policies plus a plain R3 equality run. One new Node process per policy; imports/fixture construction are outside timing, first-match JIT is included. Not a confidence interval or general engine throughput claim. Inclusive sampled elapsed spans are not exclusive CPU percentages; memory is sampled, not true allocation peak.",
+  "allocation": {
+    "repeats": 200,
+    "p50Ms": 0.30150000000003274,
+    "p90Ms": 0.6466000000000349,
+    "minMs": 0.22630000000003747,
+    "maxMs": 2.9597000000001117,
+    "processCpuMsIncludingHashValidation": 156
+  },
+  "trials": [
+    {
+      "policy": "legacy-pr176",
+      "finalHash": "a9ab549d1e539e71b8a9adc0e8379af88063f19d24ffb209766d6cc6ea74dd90",
+      "performance": {
+        "wallSeconds": 228.27612329999997,
+        "cpuSeconds": 130,
+        "peakRss": 402608128,
+        "peakHeap": 185903648,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225891,
+          "sampledTicks": 6106,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 689.69450000033,
+              "estimatedMs": 25515.194939334186,
+              "sampledCalls": 6073
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 966.3125999989118,
+              "estimatedMs": 35748.66025652705,
+              "sampledCalls": 6073
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 48.71349999976701,
+              "estimatedMs": 1802.1521828443122,
+              "sampledCalls": 2724
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 515.6297000000002,
+              "estimatedMs": 19075.681061693424,
+              "sampledCalls": 6073
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 464.17160000065223,
+              "estimatedMs": 17171.992613125996,
+              "sampledCalls": 5607
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 31.61169999874278,
+              "estimatedMs": 1169.4724081912882,
+              "sampledCalls": 6106
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 241.24420000041732,
+              "estimatedMs": 8924.810609612558,
+              "sampledCalls": 6106
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 605.388699999716,
+              "estimatedMs": 22396.308357621332,
+              "sampledCalls": 54916
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 76.44370000030631,
+              "estimatedMs": 2828.0287973745812,
+              "sampledCalls": 2675
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.14040000025124755,
+              "estimatedMs": 5.194087202219876,
+              "sampledCalls": 548
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.4100999997267536,
+              "estimatedMs": 15.171617923071748,
+              "sampledCalls": 551
+            }
+          ]
+        }
+      },
+      "diagnostics": {
+        "holds": [
+          {
+            "actorId": "footballer_pro_53_3",
+            "startedAt": 228.50000000003482,
+            "endedAt": 230.1250000000352,
+            "consecutiveHolds": 1,
+            "displacement": 1.1732478007996847,
+            "availableAlternatives": 23,
+            "teammateMovement": 52.794511997249614,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 103.50752638060311,
+              "y": 43.444951875331
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 281.95000000001744,
+            "endedAt": 283.57500000001596,
+            "consecutiveHolds": 1,
+            "displacement": 0.6585081837172797,
+            "availableAlternatives": 18,
+            "teammateMovement": 44.9880492391015,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 59.164903359810516,
+              "y": 46.472083695258476
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 309.924999999992,
+            "endedAt": 313.17499999998904,
+            "consecutiveHolds": 2,
+            "displacement": 0.9299331414839441,
+            "availableAlternatives": 21,
+            "teammateMovement": 37.18544527734911,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 51.45387492957019,
+              "y": 12.023913186080701
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 511.62499999980855,
+            "endedAt": 513.2499999998071,
+            "consecutiveHolds": 1,
+            "displacement": 0.9545302783818701,
+            "availableAlternatives": 20,
+            "teammateMovement": 38.795392096606726,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 64.54232101437671,
+              "y": 54.56752308620411
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 577.8749999997483,
+            "endedAt": 579.4999999997468,
+            "consecutiveHolds": 1,
+            "displacement": 0.5392950036098871,
+            "availableAlternatives": 25,
+            "teammateMovement": 42.10939087322417,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 75.81889482298388,
+              "y": 5.125365252257438
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 694.2749999996424,
+            "endedAt": 695.899999999641,
+            "consecutiveHolds": 1,
+            "displacement": 0.7899886759496729,
+            "availableAlternatives": 21,
+            "teammateMovement": 30.98833084946134,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.733210907442206,
+              "y": 15.448512480033708
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 879.9499999994736,
+            "endedAt": 881.5749999994721,
+            "consecutiveHolds": 1,
+            "displacement": 0.2655610085230212,
+            "availableAlternatives": 20,
+            "teammateMovement": 26.954467353294547,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 69.02397080018685,
+              "y": 11.405320558082343
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 973.0749999993889,
+            "endedAt": 974.6999999993874,
+            "consecutiveHolds": 1,
+            "displacement": 0.6763293653312134,
+            "availableAlternatives": 22,
+            "teammateMovement": 49.927858554242306,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.422714787340226,
+              "y": 59.16205699834748
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 1181.5749999999157,
+            "endedAt": 1181.649999999916,
+            "consecutiveHolds": 1,
+            "displacement": 0.027403456395204723,
+            "availableAlternatives": 16,
+            "teammateMovement": 1.283054754132495,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.714032149114665,
+              "y": 39.46617464520542
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 1212.5750000000285,
+            "endedAt": 1214.2000000000344,
+            "consecutiveHolds": 1,
+            "displacement": 1.0967013638410477,
+            "availableAlternatives": 16,
+            "teammateMovement": 40.13589794493561,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 59.82392223299851,
+              "y": 21.487351421613024
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 1589.1250000013983,
+            "endedAt": 1590.375000001403,
+            "consecutiveHolds": 1,
+            "displacement": 0.5784602065069222,
+            "availableAlternatives": 20,
+            "teammateMovement": 33.73754557480512,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 59.59058558093346,
+              "y": 57.27966998714534
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 1817.0750000022276,
+            "endedAt": 1820.3250000022394,
+            "consecutiveHolds": 2,
+            "displacement": 1.3355421973108232,
+            "availableAlternatives": 21,
+            "teammateMovement": 43.494984851558954,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 51.14832748590321,
+              "y": 12.701141796214598
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 1874.7750000024375,
+            "endedAt": 1874.9750000024383,
+            "consecutiveHolds": 1,
+            "displacement": 0.22290509705574205,
+            "availableAlternatives": 20,
+            "teammateMovement": 2.6519473670999747,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.92349248752975,
+              "y": 11.999511914585987
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 2040.3000000030397,
+            "endedAt": 2041.9250000030456,
+            "consecutiveHolds": 1,
+            "displacement": 0.8571456652602468,
+            "availableAlternatives": 16,
+            "teammateMovement": 42.37979514044369,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 51.03843160603898,
+              "y": 30.75385717329126
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 2055.275000003094,
+            "endedAt": 2056.9000000031,
+            "consecutiveHolds": 1,
+            "displacement": 0.5424018793168538,
+            "availableAlternatives": 18,
+            "teammateMovement": 33.66327980585891,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 62.578014714031184,
+              "y": 21.857120268384662
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 2170.925000003515,
+            "endedAt": 2172.550000003521,
+            "consecutiveHolds": 1,
+            "displacement": 0.5245835541193975,
+            "availableAlternatives": 16,
+            "teammateMovement": 48.81086430305393,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.66499543896475,
+              "y": 39.23991457438506
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 2567.900000004959,
+            "endedAt": 2569.525000004965,
+            "consecutiveHolds": 1,
+            "displacement": 0.8782521723189348,
+            "availableAlternatives": 20,
+            "teammateMovement": 33.71812620413267,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.51477502904488,
+              "y": 54.52015901964219
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 2604.2250000050913,
+            "endedAt": 2605.850000005097,
+            "consecutiveHolds": 1,
+            "displacement": 0.8352531940620234,
+            "availableAlternatives": 23,
+            "teammateMovement": 17.34217585232422,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 51.36110556667889,
+              "y": 12.445726374689078
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 2841.350000000296,
+            "endedAt": 2842.5500000003003,
+            "consecutiveHolds": 1,
+            "displacement": 0.3870107809261094,
+            "availableAlternatives": 15,
+            "teammateMovement": 37.63626086434902,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 75.05093012960617,
+              "y": 26.76886673765816
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 2912.875000000556,
+            "endedAt": 2914.500000000562,
+            "consecutiveHolds": 1,
+            "displacement": 0.7860676614668022,
+            "availableAlternatives": 17,
+            "teammateMovement": 16.209630845285048,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 16.27900836702084,
+              "y": 35.349164085773836
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 3118.8000000013053,
+            "endedAt": 3120.5000000013115,
+            "consecutiveHolds": 2,
+            "displacement": 0.4692073767829112,
+            "availableAlternatives": 19,
+            "teammateMovement": 17.73402130027963,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 66.47908166922385,
+              "y": 5.629917246221538
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 3217.375000001664,
+            "endedAt": 3219.00000000167,
+            "consecutiveHolds": 1,
+            "displacement": 0.8242424237202571,
+            "availableAlternatives": 19,
+            "teammateMovement": 25.940110474312863,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 46.80023758875682,
+              "y": 11.324940813298015
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 3245.150000001765,
+            "endedAt": 3246.775000001771,
+            "consecutiveHolds": 1,
+            "displacement": 0.7362935704537409,
+            "availableAlternatives": 22,
+            "teammateMovement": 20.595622832988145,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.76746175037606,
+              "y": 57.13530870574001
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 3283.950000001906,
+            "endedAt": 3285.575000001912,
+            "consecutiveHolds": 1,
+            "displacement": 0.5979390333264228,
+            "availableAlternatives": 20,
+            "teammateMovement": 33.81958491707024,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 48.24027455067017,
+              "y": 10.3918222532538
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 3604.5500000030725,
+            "endedAt": 3606.1750000030784,
+            "consecutiveHolds": 1,
+            "displacement": 0.3319730161456566,
+            "availableAlternatives": 16,
+            "teammateMovement": 43.53561887087274,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 37.38861702859056,
+              "y": 22.70774354239684
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 3668.3750000033046,
+            "endedAt": 3670.0000000033106,
+            "consecutiveHolds": 1,
+            "displacement": 0.923988453705984,
+            "availableAlternatives": 18,
+            "teammateMovement": 41.86622328931801,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 18.739856897046675,
+              "y": 21.83360489608656
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 3698.8500000034155,
+            "endedAt": 3700.4750000034214,
+            "consecutiveHolds": 1,
+            "displacement": 0.8464604597358135,
+            "availableAlternatives": 20,
+            "teammateMovement": 37.743491481708915,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 41.64961799385655,
+              "y": 55.109731145031134
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 3955.425000004349,
+            "endedAt": 3957.050000004355,
+            "consecutiveHolds": 1,
+            "displacement": 0.562602520113729,
+            "availableAlternatives": 18,
+            "teammateMovement": 44.520455797482064,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.64864989891995,
+              "y": 40.809675001219695
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 3968.600000004397,
+            "endedAt": 3970.1250000044024,
+            "consecutiveHolds": 1,
+            "displacement": 0.8427588241698529,
+            "availableAlternatives": 21,
+            "teammateMovement": 40.56480369080751,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.60605143241858,
+              "y": 53.714206300997986
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 4023.925000004598,
+            "endedAt": 4025.550000004604,
+            "consecutiveHolds": 1,
+            "displacement": 0.7657977323705423,
+            "availableAlternatives": 21,
+            "teammateMovement": 26.487667749310198,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.46619815644057,
+              "y": 11.51513038191304
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_17",
+            "startedAt": 4271.850000002301,
+            "endedAt": 4273.475000002278,
+            "consecutiveHolds": 1,
+            "displacement": 2.335024756528748,
+            "availableAlternatives": 15,
+            "teammateMovement": 17.384068016629286,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 30.765719182228512,
+              "y": 30.6537643928994
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 4453.849999999653,
+            "endedAt": 4455.474999999629,
+            "consecutiveHolds": 1,
+            "displacement": 0.5135876082436988,
+            "availableAlternatives": 20,
+            "teammateMovement": 36.69689495215934,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 46.3623982759227,
+              "y": 11.073227229989406
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 4723.149999995734,
+            "endedAt": 4725.024999995707,
+            "consecutiveHolds": 2,
+            "displacement": 0.6418529534673426,
+            "availableAlternatives": 20,
+            "teammateMovement": 28.885280614659344,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.70181047753887,
+              "y": 53.791490663102536
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_18",
+            "startedAt": 5197.674999988829,
+            "endedAt": 5199.299999988805,
+            "consecutiveHolds": 1,
+            "displacement": 1.0371911267809573,
+            "availableAlternatives": 19,
+            "teammateMovement": 36.52345979612695,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 34.85257948414583,
+              "y": 19.57942737001889
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_18",
+            "startedAt": 5369.624999986327,
+            "endedAt": 5371.249999986303,
+            "consecutiveHolds": 1,
+            "displacement": 0.6087282766128254,
+            "availableAlternatives": 23,
+            "teammateMovement": 26.12941349939668,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.9542090190962,
+              "y": 13.058074684899049
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5393.124999985985,
+            "endedAt": 5393.249999985983,
+            "consecutiveHolds": 1,
+            "displacement": 0.05609371719248734,
+            "availableAlternatives": 22,
+            "teammateMovement": 1.457250914863032,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 59.43446672582054,
+              "y": 57.88366648517811
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_18",
+            "startedAt": 5462.799999984971,
+            "endedAt": 5464.474999984946,
+            "consecutiveHolds": 2,
+            "displacement": 0.7681487787071469,
+            "availableAlternatives": 21,
+            "teammateMovement": 23.460178406634462,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.123156363196166,
+              "y": 11.479841064138048
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_4",
+            "startedAt": 5516.499999984189,
+            "endedAt": 5518.124999984166,
+            "consecutiveHolds": 1,
+            "displacement": 0.8991504615235012,
+            "availableAlternatives": 22,
+            "teammateMovement": 39.61886570220012,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 17.628185685506576,
+              "y": 41.03794683754987
+            }
+          }
+        ],
+        "maxHoldSeconds": 3.2500000000118234,
+        "pathologicalHolds": 0,
+        "omittedTraceEvents": 12966,
+        "omittedHoldEpisodes": 0,
+        "rankingSamples": 4271,
+        "candidateCount": 73556,
+        "movementTargetConflicts": 16,
+        "missingSupportSamples": 0,
+        "observerErrors": []
+      },
+      "cpuVsLegacy": 1,
+      "wallVsLegacy": 1
+    },
+    {
+      "policy": "state-value-v1",
+      "finalHash": "f2caa024fb6729fb2aa60aed870a953bc9e647998cf530d7f357c3846eae45b8",
+      "performance": {
+        "wallSeconds": 187.4207198,
+        "cpuSeconds": 208.266,
+        "peakRss": 428339200,
+        "peakHeap": 198622296,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 232808,
+          "sampledTicks": 6293,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 841.242700000357,
+              "estimatedMs": 31121.56848906453,
+              "sampledCalls": 6256
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 51.41989999614134,
+              "estimatedMs": 1902.266657921766,
+              "sampledCalls": 137632
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1547.9124999989474,
+              "estimatedMs": 57264.64536783012,
+              "sampledCalls": 6256
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 78.3392000000631,
+              "estimatedMs": 2898.139595362258,
+              "sampledCalls": 3098
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 547.4885000006741,
+              "estimatedMs": 20254.203513134744,
+              "sampledCalls": 6256
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1643.9931000004924,
+              "estimatedMs": 60819.12372873266,
+              "sampledCalls": 5325
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 41.3310999996047,
+              "estimatedMs": 1529.0339629283285,
+              "sampledCalls": 6293
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 347.64519999997924,
+              "estimatedMs": 12861.049375750066,
+              "sampledCalls": 6293
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 138.87609999975052,
+              "estimatedMs": 5137.687444579997,
+              "sampledCalls": 3371
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 837.0288000000739,
+              "estimatedMs": 30965.676286416212,
+              "sampledCalls": 60708
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 662.7547999998847,
+              "estimatedMs": 24518.452165640098,
+              "sampledCalls": 433
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 817.2793000000524,
+              "estimatedMs": 30235.04835124936,
+              "sampledCalls": 433
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.2594000002568464,
+              "estimatedMs": 9.596439736182408,
+              "sampledCalls": 670
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.5655999999003143,
+              "estimatedMs": 20.924234034131953,
+              "sampledCalls": 772
+            }
+          ]
+        }
+      },
+      "diagnostics": {
+        "holds": [
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 5397.674999985482,
+            "endedAt": 5397.899999985479,
+            "consecutiveHolds": 1,
+            "displacement": 0.24935261145416424,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.0925480597661408,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.155150926597074,
+              "y": 17.47219838993034
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 5398.124999985475,
+            "endedAt": 5398.799999985466,
+            "consecutiveHolds": 3,
+            "displacement": 0.23981236272126039,
+            "availableAlternatives": 29,
+            "teammateMovement": 8.894994475813721,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 55.814048621967814,
+              "y": 17.69098284049412
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_9",
+            "startedAt": 5401.774999985422,
+            "endedAt": 5402.474999985412,
+            "consecutiveHolds": 4,
+            "displacement": 0.4091581752216182,
+            "availableAlternatives": 4,
+            "teammateMovement": 15.08060763365407,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.10370067283855,
+              "y": 6.76728879499277
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_9",
+            "startedAt": 5402.6499999854095,
+            "endedAt": 5402.999999985404,
+            "consecutiveHolds": 2,
+            "displacement": 0.20522774832274643,
+            "availableAlternatives": 4,
+            "teammateMovement": 8.807487630417583,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.03337239584274,
+              "y": 6.333311075056085
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_9",
+            "startedAt": 5404.399999985384,
+            "endedAt": 5404.5749999853815,
+            "consecutiveHolds": 1,
+            "displacement": 0.30114067219195956,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.7113545101258367,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.47649275664586,
+              "y": 10.978895864196282
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_9",
+            "startedAt": 5405.099999985374,
+            "endedAt": 5405.274999985371,
+            "consecutiveHolds": 1,
+            "displacement": 0.16537339676032053,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.8032923720194685,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 55.15697088394958,
+              "y": 11.394240834146952
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 5406.72499998535,
+            "endedAt": 5406.899999985348,
+            "consecutiveHolds": 1,
+            "displacement": 0.37283391649350905,
+            "availableAlternatives": 4,
+            "teammateMovement": 1.661701191111535,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.353609619532655,
+              "y": 16.101656995355878
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_17",
+            "startedAt": 5407.224999985343,
+            "endedAt": 5407.39999998534,
+            "consecutiveHolds": 1,
+            "displacement": 0.460440559438888,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.4416801920799784,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.720361487718634,
+              "y": 17.42050150822631
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_17",
+            "startedAt": 5408.949999985318,
+            "endedAt": 5409.124999985315,
+            "consecutiveHolds": 1,
+            "displacement": 0.4011513033337742,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.826094628336285,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 59.43034119329296,
+              "y": 20.361910431253417
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_17",
+            "startedAt": 5410.049999985302,
+            "endedAt": 5410.574999985294,
+            "consecutiveHolds": 3,
+            "displacement": 0.23584861922208766,
+            "availableAlternatives": 4,
+            "teammateMovement": 11.843770279467458,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.917055191440646,
+              "y": 20.542635494416526
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_14",
+            "startedAt": 5411.699999985278,
+            "endedAt": 5412.22499998527,
+            "consecutiveHolds": 3,
+            "displacement": 0.35483582353368653,
+            "availableAlternatives": 4,
+            "teammateMovement": 11.60095727006978,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.97424886651657,
+              "y": 25.80751847326832
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5414.549999985236,
+            "endedAt": 5415.124999985228,
+            "consecutiveHolds": 3,
+            "displacement": 0.1107255035426873,
+            "availableAlternatives": 4,
+            "teammateMovement": 16.54535354378774,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 44.979860675424575,
+              "y": 33.314743668823404
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5418.099999985185,
+            "endedAt": 5418.549999985178,
+            "consecutiveHolds": 3,
+            "displacement": 1.04428478010958,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.818829851532716,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 43.631538676389255,
+              "y": 41.8303012619678
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5423.149999985111,
+            "endedAt": 5423.649999985104,
+            "consecutiveHolds": 2,
+            "displacement": 0.7849155444275587,
+            "availableAlternatives": 4,
+            "teammateMovement": 10.799843466574377,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 44.390037895153995,
+              "y": 44.313460369378234
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5423.8999999851,
+            "endedAt": 5424.149999985097,
+            "consecutiveHolds": 1,
+            "displacement": 0.13658003762259907,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.463848840541104,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 43.734542288148965,
+              "y": 44.77879980104348
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 5429.899999985013,
+            "endedAt": 5430.349999985006,
+            "consecutiveHolds": 2,
+            "displacement": 0.16995388704289283,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.830697545618859,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 43.05661600216247,
+              "y": 36.685604800120046
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 5430.574999985003,
+            "endedAt": 5430.799999985,
+            "consecutiveHolds": 1,
+            "displacement": 0.170792313527624,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.629499536639144,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 42.999032086809564,
+              "y": 36.495180634976464
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 5432.649999984973,
+            "endedAt": 5433.099999984966,
+            "consecutiveHolds": 2,
+            "displacement": 0.8785801448041708,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.0942424369015,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 41.97224765944434,
+              "y": 40.93177633495449
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5437.274999984906,
+            "endedAt": 5437.499999984902,
+            "consecutiveHolds": 1,
+            "displacement": 0.6261182768568884,
+            "availableAlternatives": 33,
+            "teammateMovement": 2.366031911568254,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 48.398024906917115,
+              "y": 59.305262043961655
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5437.949999984896,
+            "endedAt": 5438.174999984893,
+            "consecutiveHolds": 1,
+            "displacement": 0.08539153248639024,
+            "availableAlternatives": 35,
+            "teammateMovement": 2.1705691187805027,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.514952146673,
+              "y": 60.41785549764479
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5438.624999984886,
+            "endedAt": 5439.0749999848795,
+            "consecutiveHolds": 2,
+            "displacement": 0.31329054372839577,
+            "availableAlternatives": 4,
+            "teammateMovement": 4.465908236356673,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.27869696401421,
+              "y": 60.85471457022348
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5443.049999984822,
+            "endedAt": 5443.9499999848085,
+            "consecutiveHolds": 3,
+            "displacement": 0.4529794664782381,
+            "availableAlternatives": 4,
+            "teammateMovement": 9.635488002044243,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.87969143137273,
+              "y": 53.93160720232266
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5444.474999984801,
+            "endedAt": 5445.149999984791,
+            "consecutiveHolds": 3,
+            "displacement": 0.5653852453254734,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.793166143035518,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.03526271203509,
+              "y": 54.05591755350825
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5450.499999984713,
+            "endedAt": 5451.499999984699,
+            "consecutiveHolds": 4,
+            "displacement": 0.43192294943836906,
+            "availableAlternatives": 4,
+            "teammateMovement": 12.710272218667042,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 64.23367458782249,
+              "y": 58.632429189329976
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5453.599999984668,
+            "endedAt": 5453.949999984663,
+            "consecutiveHolds": 2,
+            "displacement": 0.12453329492943165,
+            "availableAlternatives": 6,
+            "teammateMovement": 3.4196045842787544,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.43512553533497,
+              "y": 53.318045296283614
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_7",
+            "startedAt": 5454.624999984653,
+            "endedAt": 5454.799999984651,
+            "consecutiveHolds": 1,
+            "displacement": 0.3065784993021857,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.447926152907309,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.63123184479859,
+              "y": 53.16153731558585
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5460.674999984565,
+            "endedAt": 5462.624999984537,
+            "consecutiveHolds": 13,
+            "displacement": 0.7695125048234208,
+            "availableAlternatives": 4,
+            "teammateMovement": 43.70898626135016,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 37.02093357924424,
+              "y": 38.40439436768099
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5467.22499998447,
+            "endedAt": 5467.374999984468,
+            "consecutiveHolds": 1,
+            "displacement": 0,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.0950098768530285,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 27.329685550054396,
+              "y": 38.7390969902229
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5468.374999984453,
+            "endedAt": 5469.1749999844415,
+            "consecutiveHolds": 4,
+            "displacement": 1.4823264186518552,
+            "availableAlternatives": 4,
+            "teammateMovement": 14.359428002588137,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 26.796384215700456,
+              "y": 42.439113124577275
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 5469.449999984437,
+            "endedAt": 5469.899999984431,
+            "consecutiveHolds": 2,
+            "displacement": 0.30755268114611173,
+            "availableAlternatives": 4,
+            "teammateMovement": 6.611401984572328,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 27.604341071604416,
+              "y": 39.897321795175834
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5471.274999984411,
+            "endedAt": 5472.6749999843905,
+            "consecutiveHolds": 7,
+            "displacement": 1.073110532859288,
+            "availableAlternatives": 4,
+            "teammateMovement": 33.63919233952836,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 30.145493076918683,
+              "y": 37.58393662400427
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5473.999999984371,
+            "endedAt": 5474.624999984362,
+            "consecutiveHolds": 3,
+            "displacement": 0.5426320155659345,
+            "availableAlternatives": 4,
+            "teammateMovement": 11.987196677099094,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 30.39515231077137,
+              "y": 38.24508815312245
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5475.4249999843505,
+            "endedAt": 5476.324999984337,
+            "consecutiveHolds": 3,
+            "displacement": 0.32503993964750144,
+            "availableAlternatives": 4,
+            "teammateMovement": 12.067381401404296,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 31.91199048856195,
+              "y": 38.22122173257481
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 5477.199999984325,
+            "endedAt": 5477.874999984315,
+            "consecutiveHolds": 3,
+            "displacement": 0.5600646871096755,
+            "availableAlternatives": 4,
+            "teammateMovement": 14.238762735699847,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 33.130876805136054,
+              "y": 37.202170537422695
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 5479.899999984285,
+            "endedAt": 5481.024999984269,
+            "consecutiveHolds": 5,
+            "displacement": 0.884765102437031,
+            "availableAlternatives": 4,
+            "teammateMovement": 29.45725298550319,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 41.35715488088234,
+              "y": 41.393158884137286
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 5481.4749999842625,
+            "endedAt": 5481.699999984259,
+            "consecutiveHolds": 1,
+            "displacement": 0.24880105189092155,
+            "availableAlternatives": 31,
+            "teammateMovement": 5.295816275560498,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 41.07363215813454,
+              "y": 42.57392457924718
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5483.1249999842385,
+            "endedAt": 5483.349999984235,
+            "consecutiveHolds": 1,
+            "displacement": 0.2871129525280506,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.7723919501211904,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 34.95690547088212,
+              "y": 54.37518861278485
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5484.024999984225,
+            "endedAt": 5484.474999984219,
+            "consecutiveHolds": 2,
+            "displacement": 0.28179404556019927,
+            "availableAlternatives": 4,
+            "teammateMovement": 9.118614236996448,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 35.51269658011869,
+              "y": 53.668037862237306
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5484.6999999842155,
+            "endedAt": 5485.149999984209,
+            "consecutiveHolds": 2,
+            "displacement": 0.25985923466179195,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.99825930319795,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 35.72667235472092,
+              "y": 53.27240674756289
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5485.399999984205,
+            "endedAt": 5486.524999984189,
+            "consecutiveHolds": 5,
+            "displacement": 0.3626233698867971,
+            "availableAlternatives": 4,
+            "teammateMovement": 16.57790866045241,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 36.01917257592739,
+              "y": 52.919015282275
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5487.424999984176,
+            "endedAt": 5492.224999984106,
+            "consecutiveHolds": 24,
+            "displacement": 0.8730923078900591,
+            "availableAlternatives": 4,
+            "teammateMovement": 112.813229421937,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 34.70193507377134,
+              "y": 52.49168577589902
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5492.424999984103,
+            "endedAt": 5492.824999984097,
+            "consecutiveHolds": 2,
+            "displacement": 0.1624132802822557,
+            "availableAlternatives": 4,
+            "teammateMovement": 8.055163556908418,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 35.1989100135048,
+              "y": 52.2999455579917
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_17",
+            "startedAt": 5495.4249999840595,
+            "endedAt": 5495.824999984054,
+            "consecutiveHolds": 2,
+            "displacement": 0.5226700514082212,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.58745298994198,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 35.87251507441402,
+              "y": 45.359704129726765
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_17",
+            "startedAt": 5495.999999984051,
+            "endedAt": 5496.449999984045,
+            "consecutiveHolds": 1,
+            "displacement": 0.05612053597534884,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.7814112962576027,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 36.25584366595849,
+              "y": 44.81465347885575
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_15",
+            "startedAt": 5502.24999998396,
+            "endedAt": 5502.92499998395,
+            "consecutiveHolds": 3,
+            "displacement": 0.334782396693982,
+            "availableAlternatives": 4,
+            "teammateMovement": 15.307904102435408,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 31.485405733128278,
+              "y": 27.41145877537847
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_3",
+            "startedAt": 5503.8749999839365,
+            "endedAt": 5504.774999983923,
+            "consecutiveHolds": 4,
+            "displacement": 0.2042889939945374,
+            "availableAlternatives": 4,
+            "teammateMovement": 17.804945248307625,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 32.16300673722784,
+              "y": 26.29666813192375
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 5509.674999983852,
+            "endedAt": 5509.899999983849,
+            "consecutiveHolds": 1,
+            "displacement": 0.6115793997757811,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.7049368246073175,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 45.47430802173474,
+              "y": 12.064636489751335
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 5511.699999983823,
+            "endedAt": 5511.924999983819,
+            "consecutiveHolds": 1,
+            "displacement": 0.6141164066783797,
+            "availableAlternatives": 5,
+            "teammateMovement": 2.4275263886530802,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.69715012194075,
+              "y": 8.546083020932585
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 5512.824999983806,
+            "endedAt": 5513.049999983803,
+            "consecutiveHolds": 1,
+            "displacement": 0.15947399510999477,
+            "availableAlternatives": 38,
+            "teammateMovement": 2.3633319318544705,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.14244494209296,
+              "y": 7.746419372966692
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 5513.874999983791,
+            "endedAt": 5514.099999983788,
+            "consecutiveHolds": 1,
+            "displacement": 0.5718973225268327,
+            "availableAlternatives": 38,
+            "teammateMovement": 1.9795217860307486,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 51.20919458323175,
+              "y": 9.222361924516635
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 5514.574999983781,
+            "endedAt": 5514.7999999837775,
+            "consecutiveHolds": 1,
+            "displacement": 0.39555271496647076,
+            "availableAlternatives": 5,
+            "teammateMovement": 0.9605800008372517,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.6108609833013,
+              "y": 10.832514295522342
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_15",
+            "startedAt": 5517.39999998374,
+            "endedAt": 5517.624999983736,
+            "consecutiveHolds": 1,
+            "displacement": 0.09260200643811618,
+            "availableAlternatives": 10,
+            "teammateMovement": 2.883098035536958,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.62121367603726,
+              "y": 25.73669503056305
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 5520.324999983697,
+            "endedAt": 5520.774999983691,
+            "consecutiveHolds": 2,
+            "displacement": 0.20391559802947928,
+            "availableAlternatives": 15,
+            "teammateMovement": 7.044017993173982,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 47.752638285950724,
+              "y": 13.018202837207284
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5522.824999983661,
+            "endedAt": 5523.424999983652,
+            "consecutiveHolds": 4,
+            "displacement": 1.2971603629140427,
+            "availableAlternatives": 4,
+            "teammateMovement": 11.835900768305676,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 46.313472083968,
+              "y": 13.26027891186
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_4",
+            "startedAt": 5533.024999983512,
+            "endedAt": 5534.149999983496,
+            "consecutiveHolds": 5,
+            "displacement": 0.5355666973213481,
+            "availableAlternatives": 4,
+            "teammateMovement": 30.140247483113487,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 22.469078066551305,
+              "y": 39.83434424287799
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_4",
+            "startedAt": 5534.374999983493,
+            "endedAt": 5535.049999983483,
+            "consecutiveHolds": 3,
+            "displacement": 0.5058599089394007,
+            "availableAlternatives": 4,
+            "teammateMovement": 15.94394863312276,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 22.943408836552766,
+              "y": 39.74593941008576
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_4",
+            "startedAt": 5535.94999998347,
+            "endedAt": 5536.049999983468,
+            "consecutiveHolds": 1,
+            "displacement": 0.14887208573610808,
+            "availableAlternatives": 6,
+            "teammateMovement": 1.8561521305673305,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 24.956777077541496,
+              "y": 41.8741831092079
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_4",
+            "startedAt": 5538.124999983438,
+            "endedAt": 5538.349999983435,
+            "consecutiveHolds": 1,
+            "displacement": 0.3068960114467579,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.681205148220533,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 33.5175464852491,
+              "y": 43.808176252195864
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_4",
+            "startedAt": 5538.799999983428,
+            "endedAt": 5539.024999983425,
+            "consecutiveHolds": 1,
+            "displacement": 0.3156937788915223,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.078367770958157,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 34.30529098912845,
+              "y": 43.10309099334483
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_4",
+            "startedAt": 5539.4749999834185,
+            "endedAt": 5540.149999983409,
+            "consecutiveHolds": 3,
+            "displacement": 0.422831503080964,
+            "availableAlternatives": 4,
+            "teammateMovement": 12.416511253791843,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 34.42404575648043,
+              "y": 42.51049122578025
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_4",
+            "startedAt": 5540.374999983405,
+            "endedAt": 5540.824999983399,
+            "consecutiveHolds": 2,
+            "displacement": 0.323517015847217,
+            "availableAlternatives": 4,
+            "teammateMovement": 6.048497126186717,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 33.86375742724573,
+              "y": 42.477462765672236
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_4",
+            "startedAt": 5545.52499998333,
+            "endedAt": 5545.974999983324,
+            "consecutiveHolds": 2,
+            "displacement": 0.2527391440074765,
+            "availableAlternatives": 4,
+            "teammateMovement": 6.696914654117804,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 45.70631480834276,
+              "y": 50.223638375444715
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5547.724999983298,
+            "endedAt": 5548.624999983285,
+            "consecutiveHolds": 4,
+            "displacement": 0.13069475706624667,
+            "availableAlternatives": 4,
+            "teammateMovement": 11.385564975679996,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.179211145867775,
+              "y": 58.96884668603301
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5549.374999983274,
+            "endedAt": 5549.5749999832715,
+            "consecutiveHolds": 1,
+            "displacement": 0.4595431286841252,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.3771852929706165,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.78807318700336,
+              "y": 60.40707048570429
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5559.099999983133,
+            "endedAt": 5559.449999983128,
+            "consecutiveHolds": 3,
+            "displacement": 0.4822820606118841,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.874500689936954,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 38.080607898827424,
+              "y": 37.14047289963421
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 5560.274999983116,
+            "endedAt": 5561.399999983099,
+            "consecutiveHolds": 5,
+            "displacement": 0.49718112287769695,
+            "availableAlternatives": 4,
+            "teammateMovement": 23.262320087020097,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 33.67217811412702,
+              "y": 35.37497795189091
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_23",
+            "startedAt": 5562.624999983082,
+            "endedAt": 5564.12499998306,
+            "consecutiveHolds": 6,
+            "displacement": 0.3084490401510019,
+            "availableAlternatives": 26,
+            "teammateMovement": 34.7451452200744,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 31.86686473040272,
+              "y": 31.906196088079327
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5569.324999982984,
+            "endedAt": 5569.549999982981,
+            "consecutiveHolds": 1,
+            "displacement": 0.45391807422326097,
+            "availableAlternatives": 37,
+            "teammateMovement": 4.4627626424449,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 42.11664301715411,
+              "y": 47.690202964180386
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5573.02499998293,
+            "endedAt": 5573.474999982924,
+            "consecutiveHolds": 2,
+            "displacement": 1.3393092656025023,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.159036529772409,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 55.8098363029747,
+              "y": 46.550735264335245
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5573.924999982917,
+            "endedAt": 5574.599999982907,
+            "consecutiveHolds": 3,
+            "displacement": 0.9120753264597972,
+            "availableAlternatives": 4,
+            "teammateMovement": 10.157319281352676,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.09797980740744,
+              "y": 46.096360041584035
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5575.024999982901,
+            "endedAt": 5575.324999982897,
+            "consecutiveHolds": 2,
+            "displacement": 0.3525961626092849,
+            "availableAlternatives": 4,
+            "teammateMovement": 4.6940809570449495,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.376648426048824,
+              "y": 46.8294408650944
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5576.349999982882,
+            "endedAt": 5590.299999982679,
+            "consecutiveHolds": 60,
+            "displacement": 0.6734909049334693,
+            "availableAlternatives": 4,
+            "teammateMovement": 215.335934675199,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.726673421786494,
+              "y": 44.58992149318438
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5591.399999982663,
+            "endedAt": 5592.074999982653,
+            "consecutiveHolds": 3,
+            "displacement": 0.45546819440924524,
+            "availableAlternatives": 4,
+            "teammateMovement": 11.469253808035594,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.942800773880045,
+              "y": 45.951307578857374
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 5593.524999982632,
+            "endedAt": 5593.749999982629,
+            "consecutiveHolds": 1,
+            "displacement": 0.10955099822183355,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.508839919946155,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.736260874404145,
+              "y": 41.53051455376461
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5596.5749999825875,
+            "endedAt": 5596.824999982584,
+            "consecutiveHolds": 1,
+            "displacement": 0.28853694838268157,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.25691979889201,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.61766709066514,
+              "y": 54.2303889934222
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5602.824999982497,
+            "endedAt": 5603.349999982489,
+            "consecutiveHolds": 2,
+            "displacement": 2.0075228786135413,
+            "availableAlternatives": 6,
+            "teammateMovement": 8.42899813007013,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 23.73658589058502,
+              "y": 53.732233659559284
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5608.449999982415,
+            "endedAt": 5608.6749999824115,
+            "consecutiveHolds": 1,
+            "displacement": 0.041178465687224636,
+            "availableAlternatives": 37,
+            "teammateMovement": 4.753551083872228,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 42.61251095354784,
+              "y": 60.693979790527116
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5608.899999982408,
+            "endedAt": 5609.574999982398,
+            "consecutiveHolds": 3,
+            "displacement": 0.39919073660132487,
+            "availableAlternatives": 4,
+            "teammateMovement": 14.291412135955007,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 42.40791890127419,
+              "y": 60.82048207156785
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5610.474999982385,
+            "endedAt": 5611.974999982363,
+            "consecutiveHolds": 10,
+            "displacement": 0.5526959481511357,
+            "availableAlternatives": 4,
+            "teammateMovement": 34.08140438324108,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 42.25582064808364,
+              "y": 60.063967159504045
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5612.674999982353,
+            "endedAt": 5613.424999982342,
+            "consecutiveHolds": 5,
+            "displacement": 0.2501158178908221,
+            "availableAlternatives": 4,
+            "teammateMovement": 16.35867751543936,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 42.86568700857826,
+              "y": 59.01714452563339
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_4",
+            "startedAt": 5619.949999982247,
+            "endedAt": 5620.6999999822365,
+            "consecutiveHolds": 4,
+            "displacement": 0.33077326286091974,
+            "availableAlternatives": 4,
+            "teammateMovement": 12.463670194180384,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 9.788274360599447,
+              "y": 60.013257483612975
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_0",
+            "startedAt": 5638.599999981976,
+            "endedAt": 5639.349999981965,
+            "consecutiveHolds": 3,
+            "displacement": 0.33838755563645756,
+            "availableAlternatives": 4,
+            "teammateMovement": 26.682906892406873,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 2.060323065526286,
+              "y": 37.39969741281581
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 5642.124999981925,
+            "endedAt": 5643.699999981902,
+            "consecutiveHolds": 7,
+            "displacement": 0.37548039056869736,
+            "availableAlternatives": 4,
+            "teammateMovement": 43.567228939943725,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 28.157440530174483,
+              "y": 49.69399002450152
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5647.074999981853,
+            "endedAt": 5647.324999981849,
+            "consecutiveHolds": 1,
+            "displacement": 0.45352349068968517,
+            "availableAlternatives": 26,
+            "teammateMovement": 6.808923957882519,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.91957016795848,
+              "y": 56.84447097953728
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5647.824999981842,
+            "endedAt": 5648.074999981838,
+            "consecutiveHolds": 1,
+            "displacement": 0.4023736355917825,
+            "availableAlternatives": 5,
+            "teammateMovement": 6.2219649670773745,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 51.39396233251665,
+              "y": 56.207279673216576
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5653.874999981754,
+            "endedAt": 5654.12499998175,
+            "consecutiveHolds": 1,
+            "displacement": 0.6682463014581442,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.12994300344812,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 64.55038250861017,
+              "y": 67.20788461716104
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 5654.374999981746,
+            "endedAt": 5654.624999981743,
+            "consecutiveHolds": 1,
+            "displacement": 0.32659043243000657,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.1498870770333007,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 65.75574353940388,
+              "y": 67.59729671771609
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5672.899999981477,
+            "endedAt": 5673.299999981471,
+            "consecutiveHolds": 2,
+            "displacement": 0.5139841744938293,
+            "availableAlternatives": 4,
+            "teammateMovement": 9.492655001163993,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 82.55560892859398,
+              "y": 20.569541572544203
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_17",
+            "startedAt": 5674.674999981451,
+            "endedAt": 5675.024999981446,
+            "consecutiveHolds": 2,
+            "displacement": 0.3807017635025603,
+            "availableAlternatives": 4,
+            "teammateMovement": 10.894640260058159,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 70.32994622818616,
+              "y": 13.623418351802123
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5678.999999981388,
+            "endedAt": 5679.324999981383,
+            "consecutiveHolds": 2,
+            "displacement": 0.15954523396772052,
+            "availableAlternatives": 4,
+            "teammateMovement": 9.773728219103273,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 45.75636410047704,
+              "y": 33.50675539245541
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_23",
+            "startedAt": 5680.424999981367,
+            "endedAt": 5680.92499998136,
+            "consecutiveHolds": 2,
+            "displacement": 0.24007850265467118,
+            "availableAlternatives": 4,
+            "teammateMovement": 13.0988380409805,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 43.33631819398708,
+              "y": 30.175941274247137
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 5685.249999981297,
+            "endedAt": 5686.199999981283,
+            "consecutiveHolds": 4,
+            "displacement": 0.7075114919337075,
+            "availableAlternatives": 4,
+            "teammateMovement": 16.03373105612236,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 41.823419470805625,
+              "y": 21.013055899486876
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5688.999999981243,
+            "endedAt": 5689.87499998123,
+            "consecutiveHolds": 3,
+            "displacement": 1.4493608283994255,
+            "availableAlternatives": 4,
+            "teammateMovement": 21.705118097411898,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 45.875189092962536,
+              "y": 32.11901289099862
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5690.074999981227,
+            "endedAt": 5690.274999981224,
+            "consecutiveHolds": 1,
+            "displacement": 0.15736715130048848,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.015593485388391,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 46.55577563715476,
+              "y": 33.24405756177536
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 5693.1999999811815,
+            "endedAt": 5693.249999981181,
+            "consecutiveHolds": 1,
+            "displacement": 0,
+            "availableAlternatives": 4,
+            "teammateMovement": 0.49989630511405114,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.36074938383816,
+              "y": 38.748570546867676
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_12",
+            "startedAt": 5693.399999981179,
+            "endedAt": 5693.574999981176,
+            "consecutiveHolds": 1,
+            "displacement": 0.2454491354779679,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.0309209603617586,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.44810699863637,
+              "y": 38.15339671386208
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_14",
+            "startedAt": 5695.024999981155,
+            "endedAt": 5695.37499998115,
+            "consecutiveHolds": 2,
+            "displacement": 0.6016085829724911,
+            "availableAlternatives": 4,
+            "teammateMovement": 6.302217709997901,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.66149799439933,
+              "y": 31.801224412034983
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_9",
+            "startedAt": 5698.699999981101,
+            "endedAt": 5699.049999981096,
+            "consecutiveHolds": 2,
+            "displacement": 0.25406392017562823,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.165706544173647,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 61.62562258659032,
+              "y": 24.89347624974418
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_23",
+            "startedAt": 5703.199999981036,
+            "endedAt": 5703.449999981032,
+            "consecutiveHolds": 1,
+            "displacement": 0.5193572034919778,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.9101055459410667,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 63.52971088337701,
+              "y": 30.37006038176509
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_23",
+            "startedAt": 5704.199999981021,
+            "endedAt": 5705.199999981007,
+            "consecutiveHolds": 4,
+            "displacement": 0.383306962125652,
+            "availableAlternatives": 31,
+            "teammateMovement": 26.986139015103223,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 63.997071305695776,
+              "y": 31.32150005588221
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_23",
+            "startedAt": 5705.449999981003,
+            "endedAt": 5705.699999981,
+            "consecutiveHolds": 1,
+            "displacement": 0.17004765313397124,
+            "availableAlternatives": 32,
+            "teammateMovement": 6.115009912946796,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 63.44219431042967,
+              "y": 30.932728533317736
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5721.274999980773,
+            "endedAt": 5722.074999980761,
+            "consecutiveHolds": 4,
+            "displacement": 0.519540712895299,
+            "availableAlternatives": 29,
+            "teammateMovement": 29.387572022792178,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 42.65235583912303,
+              "y": 38.57715036118027
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 5722.999999980748,
+            "endedAt": 5723.2249999807445,
+            "consecutiveHolds": 1,
+            "displacement": 0.07496827697566627,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.7069028626030365,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 48.0048793571254,
+              "y": 38.44733301348294
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_23",
+            "startedAt": 5725.62499998071,
+            "endedAt": 5726.124999980702,
+            "consecutiveHolds": 2,
+            "displacement": 0.3175420606473896,
+            "availableAlternatives": 4,
+            "teammateMovement": 13.047514646222703,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.646478780322056,
+              "y": 27.229824251585125
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_14",
+            "startedAt": 5726.749999980693,
+            "endedAt": 5726.924999980691,
+            "consecutiveHolds": 1,
+            "displacement": 0.23558260512558388,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.367971908811962,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 62.34951912051303,
+              "y": 27.72565837350141
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_14",
+            "startedAt": 5728.099999980674,
+            "endedAt": 5728.4499999806685,
+            "consecutiveHolds": 2,
+            "displacement": 0.40426603405473066,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.760105504650127,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 63.3726457321626,
+              "y": 28.919882229859464
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_3",
+            "startedAt": 5736.199999980556,
+            "endedAt": 5736.4249999805525,
+            "consecutiveHolds": 1,
+            "displacement": 0.6932261386279703,
+            "availableAlternatives": 33,
+            "teammateMovement": 5.207063149539293,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 34.382487472017615,
+              "y": 27.585562611990685
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_18",
+            "startedAt": 5749.699999980359,
+            "endedAt": 5749.949999980356,
+            "consecutiveHolds": 1,
+            "displacement": 0.828834804505619,
+            "availableAlternatives": 33,
+            "teammateMovement": 3.3717720686034003,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 71.89707020414666,
+              "y": 0.4455165213854159
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_7",
+            "startedAt": 5761.274999980191,
+            "endedAt": 5761.974999980181,
+            "consecutiveHolds": 4,
+            "displacement": 2.091710182872784,
+            "availableAlternatives": 4,
+            "teammateMovement": 17.686998776992855,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 86.64822612458833,
+              "y": 63.42683633593932
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_4",
+            "startedAt": 5763.37499998016,
+            "endedAt": 5764.174999980149,
+            "consecutiveHolds": 4,
+            "displacement": 0.7027429145963447,
+            "availableAlternatives": 4,
+            "teammateMovement": 16.720489482687867,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 87.84752908689109,
+              "y": 63.13936257944507
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_4",
+            "startedAt": 5765.8999999801235,
+            "endedAt": 5766.624999980113,
+            "consecutiveHolds": 4,
+            "displacement": 0.79356579276379,
+            "availableAlternatives": 4,
+            "teammateMovement": 12.531692080004962,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 89.8723869473435,
+              "y": 58.71688821858317
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_7",
+            "startedAt": 5767.8249999800955,
+            "endedAt": 5771.349999980044,
+            "consecutiveHolds": 17,
+            "displacement": 0.6766249460749267,
+            "availableAlternatives": 4,
+            "teammateMovement": 63.49364311565608,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 87.18076740009828,
+              "y": 56.93032540345012
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_23",
+            "startedAt": 5771.699999980039,
+            "endedAt": 5773.449999980014,
+            "consecutiveHolds": 7,
+            "displacement": 0.22881101572376342,
+            "availableAlternatives": 4,
+            "teammateMovement": 38.78614657825394,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 84.1578999450035,
+              "y": 54.45873262706109
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_5",
+            "startedAt": 5780.874999979906,
+            "endedAt": 5781.074999979903,
+            "consecutiveHolds": 1,
+            "displacement": 0.23632408871820906,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.092521248653427,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 91.52290868976705,
+              "y": 5.8424186536305225
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5784.7999999798485,
+            "endedAt": 5785.249999979842,
+            "consecutiveHolds": 3,
+            "displacement": 0.8060042861262725,
+            "availableAlternatives": 4,
+            "teammateMovement": 13.922529202109834,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.45272844070978,
+              "y": 28.462647303806072
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_15",
+            "startedAt": 5787.2749999798125,
+            "endedAt": 5787.949999979803,
+            "consecutiveHolds": 3,
+            "displacement": 0.3574233071080052,
+            "availableAlternatives": 4,
+            "teammateMovement": 11.983894812569202,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.95118064942121,
+              "y": 28.67546231802385
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_15",
+            "startedAt": 5789.624999979778,
+            "endedAt": 5790.074999979772,
+            "consecutiveHolds": 2,
+            "displacement": 0.45967533660353255,
+            "availableAlternatives": 4,
+            "teammateMovement": 8.174461525718417,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.113756515588825,
+              "y": 32.90216412484705
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_3",
+            "startedAt": 5792.024999979743,
+            "endedAt": 5792.574999979735,
+            "consecutiveHolds": 2,
+            "displacement": 0,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.566226329046293,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 39.53940337412394,
+              "y": 24.804808143195803
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_3",
+            "startedAt": 5792.799999979732,
+            "endedAt": 5793.299999979725,
+            "consecutiveHolds": 2,
+            "displacement": 0.22037925189987398,
+            "availableAlternatives": 35,
+            "teammateMovement": 8.965233344691908,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 39.677128019349276,
+              "y": 24.849132301964815
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_3",
+            "startedAt": 5795.649999979691,
+            "endedAt": 5795.874999979687,
+            "consecutiveHolds": 1,
+            "displacement": 0.3303951738336135,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.3380239126958697,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 44.49691268504364,
+              "y": 20.36350682535771
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 5799.699999979632,
+            "endedAt": 5799.924999979628,
+            "consecutiveHolds": 1,
+            "displacement": 0.4900221338365687,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.68373941195693,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.04345663445045,
+              "y": 6.508574553400619
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5800.174999979625,
+            "endedAt": 5801.2249999796095,
+            "consecutiveHolds": 7,
+            "displacement": 1.1309713449624488,
+            "availableAlternatives": 4,
+            "teammateMovement": 23.28692935233434,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.081855860052805,
+              "y": 8.053528265949474
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_9",
+            "startedAt": 5804.274999979565,
+            "endedAt": 5804.62499997956,
+            "consecutiveHolds": 2,
+            "displacement": 0,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.787541411022251,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 59.260996186092235,
+              "y": 13.262513354017681
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_14",
+            "startedAt": 5807.424999979519,
+            "endedAt": 5807.774999979514,
+            "consecutiveHolds": 2,
+            "displacement": 0.0959442355154317,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.3608952624785,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.731229701107914,
+              "y": 28.576009255098853
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 5808.624999979502,
+            "endedAt": 5809.224999979493,
+            "consecutiveHolds": 4,
+            "displacement": 0.6984559291208134,
+            "availableAlternatives": 4,
+            "teammateMovement": 13.81524998663684,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 44.541657615354424,
+              "y": 26.99788881375764
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5813.074999979437,
+            "endedAt": 5813.274999979434,
+            "consecutiveHolds": 1,
+            "displacement": 0.694204535118677,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.5047943145000655,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 34.654723639533536,
+              "y": 34.656949958973485
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5815.899999979396,
+            "endedAt": 5816.724999979384,
+            "consecutiveHolds": 4,
+            "displacement": 1.6782595050400118,
+            "availableAlternatives": 30,
+            "teammateMovement": 11.719255835576602,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 24.753945925329514,
+              "y": 34.515725281957955
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5817.124999979378,
+            "endedAt": 5817.324999979375,
+            "consecutiveHolds": 1,
+            "displacement": 0.28132868897698443,
+            "availableAlternatives": 31,
+            "teammateMovement": 2.6521459205236617,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 22.819773008343272,
+              "y": 34.32379619412292
+            }
+          }
+        ],
+        "maxHoldSeconds": 55.74999999980946,
+        "pathologicalHolds": 1,
+        "omittedTraceEvents": 24126,
+        "omittedHoldEpisodes": 1878,
+        "rankingSamples": 14918,
+        "candidateCount": 198642,
+        "movementTargetConflicts": 19,
+        "missingSupportSamples": 0,
+        "observerErrors": []
+      },
+      "cpuVsLegacy": 1.6020461538461537,
+      "wallVsLegacy": 0.8210263828323916
+    },
+    {
+      "policy": "role-value-v1",
+      "finalHash": "7495b3914c00be90084e2ac0cfb7753b189236e82de77c57c64cb67182dec188",
+      "performance": {
+        "wallSeconds": 152.3613076,
+        "cpuSeconds": 172.594,
+        "peakRss": 451248128,
+        "peakHeap": 214377112,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 226116,
+          "sampledTicks": 6112,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 874.8467000003013,
+              "estimatedMs": 32365.32009444832,
+              "sampledCalls": 6070
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 50.589300001523725,
+              "estimatedMs": 1871.572342791973,
+              "sampledCalls": 133540
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1248.3439999994387,
+              "estimatedMs": 46183.00914657609,
+              "sampledCalls": 6070
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 26.829600000246273,
+              "estimatedMs": 992.5722895379068,
+              "sampledCalls": 1069
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 904.7344999997306,
+              "estimatedMs": 33471.03177387747,
+              "sampledCalls": 6070
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 608.0073999997983,
+              "estimatedMs": 22493.488425777876,
+              "sampledCalls": 5541
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 36.74859999940827,
+              "estimatedMs": 1359.5298490618784,
+              "sampledCalls": 6112
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 308.914000000128,
+              "estimatedMs": 11428.402818067563,
+              "sampledCalls": 6112
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 792.5547000018994,
+              "estimatedMs": 29320.89308665404,
+              "sampledCalls": 55293
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.16259999990052165,
+              "estimatedMs": 6.015455101031798,
+              "sampledCalls": 336
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.26189999986650037,
+              "estimatedMs": 9.689100191396204,
+              "sampledCalls": 337
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 52.13330000018209,
+              "estimatedMs": 1928.6932694439092,
+              "sampledCalls": 1074
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 207.79350000007753,
+              "estimatedMs": 7687.40756642957,
+              "sampledCalls": 238
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 786.5270000000073,
+              "estimatedMs": 29097.89580039294,
+              "sampledCalls": 238
+            }
+          ]
+        }
+      },
+      "diagnostics": {
+        "holds": [
+          {
+            "actorId": "footballer_pro_15_11",
+            "startedAt": 156.45000000001843,
+            "endedAt": 156.62500000001847,
+            "consecutiveHolds": 1,
+            "displacement": 0.2083707691219205,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.326672334338498,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.79063737274515,
+              "y": 35.81211126208539
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_14",
+            "startedAt": 373.699999999934,
+            "endedAt": 374.0499999999337,
+            "consecutiveHolds": 2,
+            "displacement": 0.37731364727218725,
+            "availableAlternatives": 4,
+            "teammateMovement": 6.074870092202499,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.86571508203271,
+              "y": 30.280861160203717
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_5",
+            "startedAt": 410.37499999990064,
+            "endedAt": 410.59999999990043,
+            "consecutiveHolds": 1,
+            "displacement": 0.22667338737888765,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.4011551515335205,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 67.24174725944049,
+              "y": 31.441169321075108
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 585.4249999997414,
+            "endedAt": 585.6499999997412,
+            "consecutiveHolds": 1,
+            "displacement": 0.3961288565224877,
+            "availableAlternatives": 5,
+            "teammateMovement": 6.409818744615143,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 46.994332864826234,
+              "y": 26.72381233010216
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_13",
+            "startedAt": 603.8749999997247,
+            "endedAt": 604.0499999997245,
+            "consecutiveHolds": 1,
+            "displacement": 0.43943960540010835,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.1742461231825567,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 43.227822323620344,
+              "y": 23.663352713225834
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 668.5999999996658,
+            "endedAt": 668.7999999996656,
+            "consecutiveHolds": 1,
+            "displacement": 0.15148076002464575,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.841341279288544,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 61.612568760658164,
+              "y": 27.643117187772404
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_5",
+            "startedAt": 887.5499999994666,
+            "endedAt": 887.7499999994665,
+            "consecutiveHolds": 1,
+            "displacement": 0.2542498886477183,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.481445351304941,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 26.82394865852581,
+              "y": 33.17540525026115
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 910.3999999994459,
+            "endedAt": 910.4499999994458,
+            "consecutiveHolds": 1,
+            "displacement": 0,
+            "availableAlternatives": 5,
+            "teammateMovement": 0.634281923454612,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 47.760889241121816,
+              "y": 28.221330203006843
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 977.9999999993844,
+            "endedAt": 978.2499999993842,
+            "consecutiveHolds": 1,
+            "displacement": 0.46425288603421394,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.632993907575729,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.42834401466312,
+              "y": 52.711059546613505
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 999.0749999993652,
+            "endedAt": 999.324999999365,
+            "consecutiveHolds": 1,
+            "displacement": 0.1927426122600346,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.70571291145413,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.35219476073618,
+              "y": 9.61522056506465
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 1063.5499999994863,
+            "endedAt": 1063.749999999487,
+            "consecutiveHolds": 1,
+            "displacement": 0.19918985986947718,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.6703192359584866,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.560853012168664,
+              "y": 37.24971053028297
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 1065.6249999994939,
+            "endedAt": 1065.8499999994947,
+            "consecutiveHolds": 1,
+            "displacement": 0.2378340359562213,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.593915227350248,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.495153634473944,
+              "y": 28.993339908971993
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_13",
+            "startedAt": 1716.7750000018627,
+            "endedAt": 1717.2250000018644,
+            "consecutiveHolds": 2,
+            "displacement": 0.12115052832617014,
+            "availableAlternatives": 4,
+            "teammateMovement": 10.009697647171231,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 55.76519045299036,
+              "y": 30.83790814298076
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 1758.2000000020134,
+            "endedAt": 1758.4250000020143,
+            "consecutiveHolds": 1,
+            "displacement": 0.17347033259709482,
+            "availableAlternatives": 9,
+            "teammateMovement": 6.097521666510183,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.32697578871872,
+              "y": 30.816503970388737
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 1844.0250000023257,
+            "endedAt": 1844.2250000023264,
+            "consecutiveHolds": 1,
+            "displacement": 0.08629424349834527,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.406175757327975,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 62.91404670210452,
+              "y": 38.98094525513782
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 1909.275000002563,
+            "endedAt": 1909.525000002564,
+            "consecutiveHolds": 1,
+            "displacement": 0.6217149444615175,
+            "availableAlternatives": 31,
+            "teammateMovement": 4.420722086476342,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 21.43603945761213,
+              "y": 0.4628976331778035
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 2312.1250000040286,
+            "endedAt": 2312.3750000040295,
+            "consecutiveHolds": 1,
+            "displacement": 0.18831115462119363,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.1563404740689474,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 65.66386009958661,
+              "y": 32.503944321011765
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 2477.37500000463,
+            "endedAt": 2477.6000000046306,
+            "consecutiveHolds": 1,
+            "displacement": 0.12959223908311393,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.454065232049237,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 59.289593344823615,
+              "y": 43.40785863292448
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 2579.175000005,
+            "endedAt": 2579.400000005001,
+            "consecutiveHolds": 1,
+            "displacement": 0.1841567169732531,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.7306885038739077,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.563677432317306,
+              "y": 28.248190026345213
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_12",
+            "startedAt": 2867.0750000060475,
+            "endedAt": 2867.250000006048,
+            "consecutiveHolds": 1,
+            "displacement": 0.1365519521084192,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.505682855416757,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.79194534119695,
+              "y": 38.166334590414614
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_13",
+            "startedAt": 3602.9000000087244,
+            "endedAt": 3603.075000008725,
+            "consecutiveHolds": 1,
+            "displacement": 0.3110304119622902,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.486913962234949,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.940720861714645,
+              "y": 40.092315706294194
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_3",
+            "startedAt": 3880.5000000097343,
+            "endedAt": 3880.725000009735,
+            "consecutiveHolds": 1,
+            "displacement": 0.17430576725084235,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.260682772218358,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 28.248041838794943,
+              "y": 34.58693359073127
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 4262.350000008098,
+            "endedAt": 4262.575000008094,
+            "consecutiveHolds": 1,
+            "displacement": 0.11131012714492919,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.274861987252243,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 42.102893981764815,
+              "y": 42.828225044822325
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 4631.425000002727,
+            "endedAt": 4631.625000002724,
+            "consecutiveHolds": 1,
+            "displacement": 0.0490639601407698,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.8430197387849527,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 44.99691240429713,
+              "y": 33.65164947129378
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 4851.79999999952,
+            "endedAt": 4852.024999999517,
+            "consecutiveHolds": 1,
+            "displacement": 0.2119982084622997,
+            "availableAlternatives": 5,
+            "teammateMovement": 6.428484690348815,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 41.28941449557494,
+              "y": 34.02938678971331
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_5",
+            "startedAt": 5135.149999995397,
+            "endedAt": 5135.349999995394,
+            "consecutiveHolds": 1,
+            "displacement": 0.23673802193922192,
+            "availableAlternatives": 4,
+            "teammateMovement": 4.108416703699464,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 91.78540322320367,
+              "y": 9.675333709988514
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_5",
+            "startedAt": 5135.549999995391,
+            "endedAt": 5135.949999995385,
+            "consecutiveHolds": 2,
+            "displacement": 0.047626762655805746,
+            "availableAlternatives": 4,
+            "teammateMovement": 9.495814426458754,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 91.84807488093428,
+              "y": 9.964569009282412
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_18",
+            "startedAt": 5440.874999990948,
+            "endedAt": 5441.149999990944,
+            "consecutiveHolds": 1,
+            "displacement": 0.14487252223590164,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.5369148878611787,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 62.502854668010556,
+              "y": 17.642286180618754
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_23",
+            "startedAt": 5552.949999989317,
+            "endedAt": 5553.199999989313,
+            "consecutiveHolds": 1,
+            "displacement": 0.21326632980145424,
+            "availableAlternatives": 4,
+            "teammateMovement": 6.698235576571604,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.6553232012025,
+              "y": 26.202660507302173
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_19",
+            "startedAt": 5560.824999989202,
+            "endedAt": 5561.024999989199,
+            "consecutiveHolds": 1,
+            "displacement": 0.023296938068662915,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.9690711015517994,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.74037545135321,
+              "y": 26.40639554267035
+            }
+          }
+        ],
+        "maxHoldSeconds": 0.4500000000016371,
+        "pathologicalHolds": 0,
+        "omittedTraceEvents": 28173,
+        "omittedHoldEpisodes": 0,
+        "rankingSamples": 8087,
+        "candidateCount": 139884,
+        "movementTargetConflicts": 36,
+        "missingSupportSamples": 0,
+        "observerErrors": []
+      },
+      "cpuVsLegacy": 1.3276461538461537,
+      "wallVsLegacy": 0.6674430308235396
+    },
+    {
+      "policy": "role-intent-v1",
+      "finalHash": "4387945e32fb54d5d982486f7a92a02e2275e513d576ffcaa431666cefef9b7b",
+      "performance": {
+        "wallSeconds": 154.45977779999998,
+        "cpuSeconds": 174.39,
+        "peakRss": 455368704,
+        "peakHeap": 221323144,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 221981,
+          "sampledTicks": 6000,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 911.1516000003783,
+              "estimatedMs": 33709.723886613996,
+              "sampledCalls": 5962
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 48.37520000243626,
+              "estimatedMs": 1789.7292119568006,
+              "sampledCalls": 131164
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1264.1535000006645,
+              "estimatedMs": 46769.67634727459,
+              "sampledCalls": 5962
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 32.839900000116586,
+              "estimatedMs": 1214.9723069876468,
+              "sampledCalls": 1283
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 724.1309999993039,
+              "estimatedMs": 26790.553918474245,
+              "sampledCalls": 5962
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 632.7893000001752,
+              "estimatedMs": 23411.20026722315,
+              "sampledCalls": 5441
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 36.171199999989085,
+              "estimatedMs": 1338.2198578662628,
+              "sampledCalls": 6000
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 308.32770000035293,
+              "estimatedMs": 11407.148528963058,
+              "sampledCalls": 6000
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 791.5029000011361,
+              "estimatedMs": 29283.100874192034,
+              "sampledCalls": 55039
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.20140000001538283,
+              "estimatedMs": 7.4511622339024495,
+              "sampledCalls": 419
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.47690000008719835,
+              "estimatedMs": 17.64378981989273,
+              "sampledCalls": 422
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 56.64250000017,
+              "estimatedMs": 2095.593132089623,
+              "sampledCalls": 1295
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 276.0794999999828,
+              "estimatedMs": 10214.067248249363,
+              "sampledCalls": 206
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 560.5186000000235,
+              "estimatedMs": 20737.413224434204,
+              "sampledCalls": 206
+            }
+          ]
+        }
+      },
+      "diagnostics": {
+        "holds": [
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 4.274999999999993,
+            "endedAt": 4.4999999999999964,
+            "consecutiveHolds": 1,
+            "displacement": 0.034437942417330496,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.5770796059645895,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 47.343546703662895,
+              "y": 34.57192485008784
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 4.950000000000003,
+            "endedAt": 5.175000000000006,
+            "consecutiveHolds": 1,
+            "displacement": 0.27600987884210376,
+            "availableAlternatives": 5,
+            "teammateMovement": 7.726901127020056,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 47.592742086419626,
+              "y": 34.93429050098799
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_14",
+            "startedAt": 248.92500000003946,
+            "endedAt": 249.62500000003962,
+            "consecutiveHolds": 4,
+            "displacement": 0.0967556249979654,
+            "availableAlternatives": 11,
+            "teammateMovement": 22.234706127871938,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 16.38781776582946,
+              "y": 48.57094216175682
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_13",
+            "startedAt": 265.7500000000322,
+            "endedAt": 265.97500000003197,
+            "consecutiveHolds": 1,
+            "displacement": 0.1550804284424559,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.076598827027325,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 56.82654058697982,
+              "y": 26.086578375028683
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 591.5999999997358,
+            "endedAt": 591.8499999997356,
+            "consecutiveHolds": 1,
+            "displacement": 0.3668364462972553,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.632448742424811,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.95139206116275,
+              "y": 10.044390894183826
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 656.7749999996765,
+            "endedAt": 656.9999999996763,
+            "consecutiveHolds": 1,
+            "displacement": 0.01702933241722324,
+            "availableAlternatives": 5,
+            "teammateMovement": 6.642502973524591,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.037156085644604,
+              "y": 25.901401986042966
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_7",
+            "startedAt": 1128.874999999724,
+            "endedAt": 1129.2499999997253,
+            "consecutiveHolds": 2,
+            "displacement": 0.3484616718784813,
+            "availableAlternatives": 4,
+            "teammateMovement": 9.361634818276357,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.553753963235536,
+              "y": 31.202917876454958
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_7",
+            "startedAt": 1129.424999999726,
+            "endedAt": 1131.2999999997328,
+            "consecutiveHolds": 9,
+            "displacement": 0.7874530902211083,
+            "availableAlternatives": 4,
+            "teammateMovement": 42.80029484824257,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.88452659236288,
+              "y": 31.580395339862864
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 1193.5249999999592,
+            "endedAt": 1193.77499999996,
+            "consecutiveHolds": 1,
+            "displacement": 0.4805966658758858,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.578029058344357,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.47083283209144,
+              "y": 7.489730695859627
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 1455.9500000009139,
+            "endedAt": 1456.4000000009155,
+            "consecutiveHolds": 2,
+            "displacement": 0.4062937610664614,
+            "availableAlternatives": 6,
+            "teammateMovement": 9.18431910798146,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 85.51240086958796,
+              "y": 10.43865987631844
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 1561.3500000012973,
+            "endedAt": 1561.5750000012981,
+            "consecutiveHolds": 1,
+            "displacement": 0.7155156619020069,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.7480873791692435,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.06284426184889,
+              "y": 1.2710980319125607
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 1561.800000001299,
+            "endedAt": 1562.0250000012998,
+            "consecutiveHolds": 1,
+            "displacement": 0.38881049361045744,
+            "availableAlternatives": 47,
+            "teammateMovement": 4.033781613067459,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 47.70669968296655,
+              "y": 0.9037831138382834
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_3",
+            "startedAt": 1647.30000000161,
+            "endedAt": 1647.5250000016108,
+            "consecutiveHolds": 1,
+            "displacement": 0.30455680592991036,
+            "availableAlternatives": 4,
+            "teammateMovement": 6.099959307085479,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 81.21706417121497,
+              "y": 31.144648244792513
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 1706.0250000018236,
+            "endedAt": 1706.2500000018244,
+            "consecutiveHolds": 1,
+            "displacement": 0.4288440811200919,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.024751102046533,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 41.452030773645134,
+              "y": 3.320081808670306
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_13",
+            "startedAt": 1843.6250000023242,
+            "endedAt": 1843.9750000023255,
+            "consecutiveHolds": 2,
+            "displacement": 0.10916970726464825,
+            "availableAlternatives": 4,
+            "teammateMovement": 9.645716872902227,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 20.61238561953224,
+              "y": 47.71849784154111
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 2106.7000000032813,
+            "endedAt": 2107.200000003283,
+            "consecutiveHolds": 2,
+            "displacement": 1.1062339580996463,
+            "availableAlternatives": 47,
+            "teammateMovement": 9.196663041290964,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 75.23431805370886,
+              "y": 5.499523908059157
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_12",
+            "startedAt": 2140.125000003403,
+            "endedAt": 2140.650000003405,
+            "consecutiveHolds": 3,
+            "displacement": 0.09092030120092588,
+            "availableAlternatives": 4,
+            "teammateMovement": 12.973595768627696,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 24.378687332027727,
+              "y": 47.59201665755118
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_7",
+            "startedAt": 2386.3250000042985,
+            "endedAt": 2386.500000004299,
+            "consecutiveHolds": 1,
+            "displacement": 0.3462491764111808,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.978307226269355,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.806692245229655,
+              "y": 10.905721332573862
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_13",
+            "startedAt": 2394.5500000043285,
+            "endedAt": 2394.7750000043293,
+            "consecutiveHolds": 1,
+            "displacement": 0.23829304140207688,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.805936269935053,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 72.38742499696676,
+              "y": 27.98409803291083
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 2576.40000000499,
+            "endedAt": 2576.8500000049917,
+            "consecutiveHolds": 2,
+            "displacement": 0.42094297347024046,
+            "availableAlternatives": 4,
+            "teammateMovement": 12.13535889887724,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 78.66912201792474,
+              "y": 29.004119551868627
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 2631.32500000519,
+            "endedAt": 2631.5750000051908,
+            "consecutiveHolds": 1,
+            "displacement": 0.06669532540688262,
+            "availableAlternatives": 16,
+            "teammateMovement": 4.55567850637122,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.742106469866116,
+              "y": 11.134010133065734
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 2667.15000000532,
+            "endedAt": 2667.425000005321,
+            "consecutiveHolds": 1,
+            "displacement": 0.27591835478096227,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.041602228061235,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 69.05574784803605,
+              "y": 28.02244008513349
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_0",
+            "startedAt": 2746.575000005609,
+            "endedAt": 2750.725000005624,
+            "consecutiveHolds": 16,
+            "displacement": 1.0301530034731488,
+            "availableAlternatives": 7,
+            "teammateMovement": 131.61105169168366,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 9.269183668267674,
+              "y": 34.43306536718563
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 3026.875000006629,
+            "endedAt": 3027.1000000066297,
+            "consecutiveHolds": 1,
+            "displacement": 0.003458444354034367,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.314324541158124,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.6279005186605,
+              "y": 55.739199531114984
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 3081.300000006827,
+            "endedAt": 3081.7500000068285,
+            "consecutiveHolds": 2,
+            "displacement": 0.7182953248507583,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.452604502015143,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.035066276749944,
+              "y": 13.737494744693258
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 3424.625000008076,
+            "endedAt": 3424.8750000080768,
+            "consecutiveHolds": 1,
+            "displacement": 0.3049627987067403,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.371791909089946,
+            "opponentInterventions": 1,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 58.81252369273362,
+              "y": 54.50059844211848
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 3585.775000008662,
+            "endedAt": 3586.000000008663,
+            "consecutiveHolds": 1,
+            "displacement": 0.10469490797350722,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.942989861859856,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 51.29861026790077,
+              "y": 39.69561917138991
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 3675.8000000089896,
+            "endedAt": 3676.0000000089904,
+            "consecutiveHolds": 1,
+            "displacement": 0.3626125076892361,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.529587690686892,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.417256213984125,
+              "y": 26.576928827387597
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 3679.8500000090044,
+            "endedAt": 3680.025000009005,
+            "consecutiveHolds": 1,
+            "displacement": 0.2724020421641448,
+            "availableAlternatives": 5,
+            "teammateMovement": 2.6292280647546358,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.61211287867723,
+              "y": 29.31957778955175
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 3680.2000000090056,
+            "endedAt": 3680.3750000090063,
+            "consecutiveHolds": 1,
+            "displacement": 0.21621725156740368,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.3780842578857126,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.88422475095847,
+              "y": 28.714520156225966
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_17",
+            "startedAt": 4297.400000007588,
+            "endedAt": 4297.7500000075825,
+            "consecutiveHolds": 2,
+            "displacement": 0.19949547319562683,
+            "availableAlternatives": 4,
+            "teammateMovement": 6.8837212445429445,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 49.956161947861595,
+              "y": 30.006891635989934
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_13",
+            "startedAt": 4371.350000006511,
+            "endedAt": 4371.800000006505,
+            "consecutiveHolds": 2,
+            "displacement": 0.47881321129067034,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.305833700466405,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.60960910384096,
+              "y": 39.218592652109436
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_7",
+            "startedAt": 4462.450000005186,
+            "endedAt": 4462.6750000051825,
+            "consecutiveHolds": 1,
+            "displacement": 0.019803916535855615,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.233784278113628,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 44.366445049923776,
+              "y": 15.908934311239111
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_23",
+            "startedAt": 4816.300000000037,
+            "endedAt": 4816.400000000035,
+            "consecutiveHolds": 1,
+            "displacement": 0.16010315699322383,
+            "availableAlternatives": 5,
+            "teammateMovement": 1.6823134372898458,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 46.22996731845274,
+              "y": 31.83694598061898
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_11",
+            "startedAt": 4816.550000000033,
+            "endedAt": 4816.72500000003,
+            "consecutiveHolds": 1,
+            "displacement": 0.36541613089592234,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.9477374118551882,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 47.34304936953024,
+              "y": 33.028625312725296
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 4869.9749999992555,
+            "endedAt": 4870.199999999252,
+            "consecutiveHolds": 1,
+            "displacement": 0.27849880947841865,
+            "availableAlternatives": 5,
+            "teammateMovement": 2.696237397034083,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 39.67772931624229,
+              "y": 30.750257521478787
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 4937.999999998266,
+            "endedAt": 4939.04999999825,
+            "consecutiveHolds": 7,
+            "displacement": 0,
+            "availableAlternatives": 4,
+            "teammateMovement": 28.279123637985165,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 90.2475645370619,
+              "y": 32.801080498493754
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_13",
+            "startedAt": 5012.299999997184,
+            "endedAt": 5012.524999997181,
+            "consecutiveHolds": 1,
+            "displacement": 0.1704774633940956,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.255916039550901,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 37.256785389337225,
+              "y": 42.16595211270579
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 5229.174999994028,
+            "endedAt": 5229.399999994025,
+            "consecutiveHolds": 1,
+            "displacement": 0.3889276366257699,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.60304505994531,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 41.56255649383565,
+              "y": 43.810974644537694
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 5235.574999993935,
+            "endedAt": 5235.799999993932,
+            "consecutiveHolds": 1,
+            "displacement": 0.22783145926094212,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.278289204131045,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 48.745975613920756,
+              "y": 46.21176145654578
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_0",
+            "startedAt": 5463.42499999062,
+            "endedAt": 5463.599999990617,
+            "consecutiveHolds": 1,
+            "displacement": 0.08670000000001415,
+            "availableAlternatives": 6,
+            "teammateMovement": 3.5853209079927453,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 92.64620162126168,
+              "y": 36.500698289404184
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_18",
+            "startedAt": 5516.824999989843,
+            "endedAt": 5517.074999989839,
+            "consecutiveHolds": 1,
+            "displacement": 0.8397934835321192,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.3066211844258517,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.483284144375126,
+              "y": 12.90801702747549
+            }
+          }
+        ],
+        "maxHoldSeconds": 4.150000000015098,
+        "pathologicalHolds": 0,
+        "omittedTraceEvents": 26845,
+        "omittedHoldEpisodes": 0,
+        "rankingSamples": 8590,
+        "candidateCount": 163274,
+        "movementTargetConflicts": 63,
+        "missingSupportSamples": 0,
+        "observerErrors": []
+      },
+      "cpuVsLegacy": 1.3414615384615383,
+      "wallVsLegacy": 0.6766357145333561
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "finalHash": "745591372859fb9f6ac45f64f44dc40f1153bf275a7592323cfdcb44bd007332",
+      "performance": {
+        "wallSeconds": 157.3558608,
+        "cpuSeconds": 176.952,
+        "peakRss": 466489344,
+        "peakHeap": 215883896,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 223674,
+          "sampledTicks": 6046,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 939.3014000001585,
+              "estimatedMs": 34749.80174390266,
+              "sampledCalls": 6016
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 47.1009000024776,
+              "estimatedMs": 1742.5151682358874,
+              "sampledCalls": 132352
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1242.7254999989539,
+              "estimatedMs": 45975.0882379699,
+              "sampledCalls": 6016
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 25.630100000126504,
+              "estimatedMs": 948.1950028826159,
+              "sampledCalls": 996
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 1072.6858999997978,
+              "estimatedMs": 39684.410518781806,
+              "sampledCalls": 6016
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 691.3295000010571,
+              "estimatedMs": 25575.98984175264,
+              "sampledCalls": 5579
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 35.08289999982776,
+              "estimatedMs": 1297.9048254319343,
+              "sampledCalls": 6046
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 305.7642000003643,
+              "estimatedMs": 11311.859356745203,
+              "sampledCalls": 6046
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 865.8407000017232,
+              "estimatedMs": 32032.096052296634,
+              "sampledCalls": 62980
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 48.886600000167164,
+              "estimatedMs": 1808.5777982860388,
+              "sampledCalls": 1003
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.15530000013109202,
+              "estimatedMs": 5.74538078553124,
+              "sampledCalls": 342
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.4084000000004835,
+              "estimatedMs": 15.108908633825363,
+              "sampledCalls": 349
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 243.40370000005532,
+              "estimatedMs": 9004.809658255437,
+              "sampledCalls": 238
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 942.0085000001618,
+              "estimatedMs": 34849.95190688657,
+              "sampledCalls": 238
+            }
+          ]
+        }
+      },
+      "diagnostics": {
+        "holds": [
+          {
+            "actorId": "footballer_pro_53_3",
+            "startedAt": 129.82500000001238,
+            "endedAt": 130.07500000001244,
+            "consecutiveHolds": 1,
+            "displacement": 0.14288225349967806,
+            "availableAlternatives": 5,
+            "teammateMovement": 6.586034839086195,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 81.37078144935195,
+              "y": 34.954526347964574
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_13",
+            "startedAt": 171.47500000002185,
+            "endedAt": 171.82500000002193,
+            "consecutiveHolds": 2,
+            "displacement": 0.4467753745572091,
+            "availableAlternatives": 4,
+            "teammateMovement": 4.56601927129528,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 61.77445675082305,
+              "y": 26.6875986277856
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_13",
+            "startedAt": 174.8000000000226,
+            "endedAt": 174.97500000002265,
+            "consecutiveHolds": 1,
+            "displacement": 0.07869630779578579,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.019065583179263,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.27535556441824,
+              "y": 28.584683004477686
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 201.80000000002875,
+            "endedAt": 202.0500000000288,
+            "consecutiveHolds": 1,
+            "displacement": 0.72954997227547,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.9434321111167527,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 53.8989529352483,
+              "y": 5.6408172294739956
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 257.52500000003965,
+            "endedAt": 257.7250000000395,
+            "consecutiveHolds": 1,
+            "displacement": 0.10254007861401265,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.0883000709870325,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 67.1805837576456,
+              "y": 22.927153070820243
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_12",
+            "startedAt": 667.7999999996665,
+            "endedAt": 667.9749999996664,
+            "consecutiveHolds": 1,
+            "displacement": 0.139264243698594,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.931002863584121,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.236623877203144,
+              "y": 28.73833327366106
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 727.5749999996121,
+            "endedAt": 727.774999999612,
+            "consecutiveHolds": 1,
+            "displacement": 0.13395807570038534,
+            "availableAlternatives": 5,
+            "teammateMovement": 7.277264645054491,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 54.07877226466957,
+              "y": 34.09040870832074
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_11",
+            "startedAt": 789.6749999995557,
+            "endedAt": 789.8499999995555,
+            "consecutiveHolds": 1,
+            "displacement": 0.18521172707106898,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.36303991519991,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.92820672792371,
+              "y": 39.209095033032895
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_5",
+            "startedAt": 871.774999999481,
+            "endedAt": 872.2249999994806,
+            "consecutiveHolds": 2,
+            "displacement": 0.8556172059407301,
+            "availableAlternatives": 4,
+            "teammateMovement": 9.874667171150138,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 80.94321778333087,
+              "y": 30.105265769975837
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_5",
+            "startedAt": 872.4499999994804,
+            "endedAt": 875.1499999994779,
+            "consecutiveHolds": 12,
+            "displacement": 0.7200396978935872,
+            "availableAlternatives": 40,
+            "teammateMovement": 80.60181013233691,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 82.22034509445999,
+              "y": 30.87821377279351
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 971.9249999993899,
+            "endedAt": 972.0999999993898,
+            "consecutiveHolds": 1,
+            "displacement": 0.023559025755938382,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.132703472297205,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.02752210363269,
+              "y": 25.04146843812005
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 974.5999999993875,
+            "endedAt": 975.1999999993869,
+            "consecutiveHolds": 3,
+            "displacement": 0.2716951005028341,
+            "availableAlternatives": 4,
+            "teammateMovement": 10.739981599053243,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.79207294525346,
+              "y": 25.39760576838083
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 1084.374999999562,
+            "endedAt": 1084.599999999563,
+            "consecutiveHolds": 1,
+            "displacement": 0.08726695161950081,
+            "availableAlternatives": 5,
+            "teammateMovement": 6.021333179226153,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.057134789902726,
+              "y": 43.31768730540392
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 1084.8249999995637,
+            "endedAt": 1084.874999999564,
+            "consecutiveHolds": 1,
+            "displacement": 0,
+            "availableAlternatives": 5,
+            "teammateMovement": 0.8609079986161626,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 52.37243620002675,
+              "y": 43.45382107528265
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_14",
+            "startedAt": 1086.7249999995706,
+            "endedAt": 1086.8999999995713,
+            "consecutiveHolds": 1,
+            "displacement": 0.08835527034970919,
+            "availableAlternatives": 4,
+            "teammateMovement": 1.5832680059474558,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 50.750028119762895,
+              "y": 43.775033532200396
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_12",
+            "startedAt": 1377.8750000006298,
+            "endedAt": 1378.3000000006314,
+            "consecutiveHolds": 2,
+            "displacement": 0.4355217268727578,
+            "availableAlternatives": 4,
+            "teammateMovement": 10.403644551619477,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 41.189333744179805,
+              "y": 30.102959915279776
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 1496.1750000010602,
+            "endedAt": 1496.3500000010608,
+            "consecutiveHolds": 1,
+            "displacement": 0.2770934061704534,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.3979616101373127,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.19502498022991,
+              "y": 33.0948280375279
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 1681.7250000017352,
+            "endedAt": 1682.0750000017365,
+            "consecutiveHolds": 2,
+            "displacement": 0.40426201579951293,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.0919985631351965,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 61.485814256884304,
+              "y": 30.944802744451273
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_0",
+            "startedAt": 1753.8750000019977,
+            "endedAt": 1754.775000002001,
+            "consecutiveHolds": 4,
+            "displacement": 0.40312091244803455,
+            "availableAlternatives": 4,
+            "teammateMovement": 23.94533982062831,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 11.675497958702683,
+              "y": 19.312104538426418
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 1974.7500000028012,
+            "endedAt": 1974.975000002802,
+            "consecutiveHolds": 1,
+            "displacement": 0.37601836949554246,
+            "availableAlternatives": 5,
+            "teammateMovement": 5.5938220301733885,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 60.08417133671176,
+              "y": 36.65251206035923
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 2024.2500000029813,
+            "endedAt": 2024.425000002982,
+            "consecutiveHolds": 1,
+            "displacement": 0.13772619657430984,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.9823417852690195,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 64.25921835205854,
+              "y": 21.65064591392379
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 2131.650000003372,
+            "endedAt": 2131.700000003372,
+            "consecutiveHolds": 1,
+            "displacement": 0,
+            "availableAlternatives": 5,
+            "teammateMovement": 0.8312775966710656,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 62.24477482286057,
+              "y": 32.013813622485806
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_3",
+            "startedAt": 2156.875000003464,
+            "endedAt": 2157.4000000034657,
+            "consecutiveHolds": 3,
+            "displacement": 0.16735740779188402,
+            "availableAlternatives": 4,
+            "teammateMovement": 13.272822193002751,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 35.46061939968673,
+              "y": 36.01021962526597
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 2297.5000000039754,
+            "endedAt": 2297.900000003977,
+            "consecutiveHolds": 2,
+            "displacement": 0.33914363916330614,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.193329842624458,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 66.49108682695343,
+              "y": 38.98676240724921
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 2298.1000000039776,
+            "endedAt": 2298.250000003978,
+            "consecutiveHolds": 1,
+            "displacement": 0.07269828115949768,
+            "availableAlternatives": 5,
+            "teammateMovement": 2.107609221658975,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 66.83913332144566,
+              "y": 39.242291716905484
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_19",
+            "startedAt": 2471.90000000461,
+            "endedAt": 2472.150000004611,
+            "consecutiveHolds": 1,
+            "displacement": 0.4885327098198959,
+            "availableAlternatives": 5,
+            "teammateMovement": 6.3809422329490575,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 51.41101213870587,
+              "y": 22.86855917450629
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 2567.4250000049574,
+            "endedAt": 2567.650000004958,
+            "consecutiveHolds": 1,
+            "displacement": 0.02263976464346088,
+            "availableAlternatives": 37,
+            "teammateMovement": 4.834201402822614,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 79.20419089993473,
+              "y": 18.659623874223893
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 2567.875000004959,
+            "endedAt": 2568.3250000049607,
+            "consecutiveHolds": 2,
+            "displacement": 0.3813957103704804,
+            "availableAlternatives": 4,
+            "teammateMovement": 9.289457188791454,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 79.0347315620239,
+              "y": 18.873849914588952
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 2568.5500000049615,
+            "endedAt": 2569.000000004963,
+            "consecutiveHolds": 2,
+            "displacement": 0.3796882923330909,
+            "availableAlternatives": 41,
+            "teammateMovement": 11.528886935347655,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 78.43995486543346,
+              "y": 19.204610921479425
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_9",
+            "startedAt": 2569.225000004964,
+            "endedAt": 2570.125000004967,
+            "consecutiveHolds": 4,
+            "displacement": 0.6242255432406832,
+            "availableAlternatives": 4,
+            "teammateMovement": 19.255394968163948,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "developing_support",
+            "origin": {
+              "x": 77.76683848735331,
+              "y": 19.276348357772775
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 2641.6000000052272,
+            "endedAt": 2643.5250000052342,
+            "consecutiveHolds": 11,
+            "displacement": 1.290515219615149,
+            "availableAlternatives": 4,
+            "teammateMovement": 38.63233631877428,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.85178358256462,
+              "y": 29.481151644922747
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 2643.700000005235,
+            "endedAt": 2643.8750000052355,
+            "consecutiveHolds": 1,
+            "displacement": 0.12237400727863332,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.8548126413766024,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.069344178936255,
+              "y": 29.19680437225262
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_21",
+            "startedAt": 2644.225000005237,
+            "endedAt": 2644.4000000052374,
+            "consecutiveHolds": 1,
+            "displacement": 0.12867589147688127,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.221288179928889,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 57.20851302566389,
+              "y": 29.65960122733657
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_13",
+            "startedAt": 2775.5250000057144,
+            "endedAt": 2775.7500000057153,
+            "consecutiveHolds": 1,
+            "displacement": 0.3742315913378151,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.3216159632217246,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 68.75865912518375,
+              "y": 28.037152670193446
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_11",
+            "startedAt": 3188.325000007216,
+            "endedAt": 3188.500000007217,
+            "consecutiveHolds": 1,
+            "displacement": 0.1897534282026282,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.111908126152753,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 55.16104460060772,
+              "y": 28.96591681589873
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 3217.400000007322,
+            "endedAt": 3217.625000007323,
+            "consecutiveHolds": 1,
+            "displacement": 0.24635860553432407,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.0323266984478305,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 43.37623946174058,
+              "y": 34.69739323351203
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_13",
+            "startedAt": 3301.7000000076287,
+            "endedAt": 3302.05000000763,
+            "consecutiveHolds": 2,
+            "displacement": 0.14260639059449007,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.174696095159538,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 48.45235153390058,
+              "y": 28.736389770173005
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_13",
+            "startedAt": 3302.400000007631,
+            "endedAt": 3302.8000000076327,
+            "consecutiveHolds": 2,
+            "displacement": 0.28940423530162335,
+            "availableAlternatives": 4,
+            "teammateMovement": 8.155006163716356,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 48.380584735388034,
+              "y": 29.28599834610729
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_13",
+            "startedAt": 3302.9750000076333,
+            "endedAt": 3303.150000007634,
+            "consecutiveHolds": 1,
+            "displacement": 0.11205797384929335,
+            "availableAlternatives": 5,
+            "teammateMovement": 3.8254876982812607,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 48.258638203224876,
+              "y": 29.46870889365843
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_14",
+            "startedAt": 3317.5750000076864,
+            "endedAt": 3317.9250000076877,
+            "consecutiveHolds": 2,
+            "displacement": 0.3902174226029361,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.569112999603617,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 32.861164171056735,
+              "y": 34.83877778693423
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_22",
+            "startedAt": 3452.6250000081777,
+            "endedAt": 3452.8250000081784,
+            "consecutiveHolds": 1,
+            "displacement": 0.152464246468879,
+            "availableAlternatives": 4,
+            "teammateMovement": 5.095570670568556,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 47.90928479471287,
+              "y": 33.10508919662165
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_21",
+            "startedAt": 3746.1000000092454,
+            "endedAt": 3746.325000009246,
+            "consecutiveHolds": 1,
+            "displacement": 0.13786085351452634,
+            "availableAlternatives": 5,
+            "teammateMovement": 2.095426723072958,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 59.813391724751085,
+              "y": 39.96878781682341
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 4117.4250000102065,
+            "endedAt": 4117.650000010203,
+            "consecutiveHolds": 1,
+            "displacement": 0.05525978514330067,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.0966188356796445,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 47.320654358104065,
+              "y": 31.768894481274977
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_13",
+            "startedAt": 4558.050000003795,
+            "endedAt": 4558.275000003791,
+            "consecutiveHolds": 1,
+            "displacement": 0.16124961564516602,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.9231905129668534,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 37.224941569759224,
+              "y": 34.26428792958541
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_11",
+            "startedAt": 4591.450000003309,
+            "endedAt": 4591.625000003306,
+            "consecutiveHolds": 1,
+            "displacement": 0.32329556772982343,
+            "availableAlternatives": 4,
+            "teammateMovement": 3.1044417362580754,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 51.700338178601456,
+              "y": 33.71812202478233
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_17",
+            "startedAt": 4666.500000002216,
+            "endedAt": 4666.750000002213,
+            "consecutiveHolds": 1,
+            "displacement": 0.17725002798431017,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.6966744762409727,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 34.36027946460546,
+              "y": 24.52733715099237
+            }
+          },
+          {
+            "actorId": "footballer_pro_15_22",
+            "startedAt": 4971.899999997772,
+            "endedAt": 4972.199999997768,
+            "consecutiveHolds": 2,
+            "displacement": 0.3018649215876197,
+            "availableAlternatives": 4,
+            "teammateMovement": 7.440615629216711,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 44.74307177949302,
+              "y": 21.02323026928786
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_11",
+            "startedAt": 5026.949999996971,
+            "endedAt": 5027.174999996968,
+            "consecutiveHolds": 1,
+            "displacement": 0.1387112783315811,
+            "availableAlternatives": 5,
+            "teammateMovement": 4.732811584941365,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 40.67137381997653,
+              "y": 28.01774152802858
+            }
+          },
+          {
+            "actorId": "footballer_pro_53_18",
+            "startedAt": 5490.124999990231,
+            "endedAt": 5490.3749999902275,
+            "consecutiveHolds": 1,
+            "displacement": 0.11477410689415973,
+            "availableAlternatives": 4,
+            "teammateMovement": 2.276601301834483,
+            "opponentInterventions": 0,
+            "pathological": false,
+            "reason": "opponent_intervention",
+            "origin": {
+              "x": 43.09537346995218,
+              "y": 23.367199186199983
+            }
+          }
+        ],
+        "maxHoldSeconds": 2.6999999999975444,
+        "pathologicalHolds": 0,
+        "omittedTraceEvents": 27731,
+        "omittedHoldEpisodes": 0,
+        "rankingSamples": 7970,
+        "candidateCount": 153206,
+        "movementTargetConflicts": 46,
+        "missingSupportSamples": 0,
+        "observerErrors": []
+      },
+      "cpuVsLegacy": 1.3611692307692307,
+      "wallVsLegacy": 0.689322468444075
+    }
+  ],
+  "plainR3": {
+    "finalHash": "745591372859fb9f6ac45f64f44dc40f1153bf275a7592323cfdcb44bd007332",
+    "ticks": 223674,
+    "status": "full_time",
+    "wallSeconds": 154.0345368,
+    "cpuSeconds": 173.719,
+    "peakRss": 439697408,
+    "peakHeap": 203224632,
+    "fullStateEquality": true
+  }
+}

@@ -1,6 +1,7 @@
 import { attacksRight } from './matchSpace';
 import { usesStateValue } from './decisionPolicyConfig';
 import { rankStateValueActions, enumerateStateValueActions } from './decisionPolicy';
+import { observeDecisionRanking } from './decisionObservation';
 import { evaluateStateValueAction } from './decisionStateValue';
 import { canReconsiderDecision } from './decisionReadiness';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
@@ -831,7 +832,7 @@ export interface RankedAiAction {
   score: number;
 }
 /** Canonical AI ranking; safe for diagnostics because its noise is seed-derived, not stateful RNG. */
-export const rankAvailableActionsForAI = (
+const rankActionsForAI = (
   state: TacticalMatchState,
   actorId: string,
 ): RankedAiAction[] => {
@@ -857,6 +858,11 @@ export const rankAvailableActionsForAI = (
       };
     })
     .sort((a, b) => b.score - a.score);
+};
+export const rankAvailableActionsForAI = (state: TacticalMatchState, actorId: string): RankedAiAction[] => {
+  const ranking = rankActionsForAI(state, actorId);
+  observeDecisionRanking(state, actorId, ranking);
+  return ranking;
 };
 /** Perception overlaps the incoming flight. Physical control still owns its readiness clock;
  * tactical patience influences deliberate holding in ranking, rather than imposing another

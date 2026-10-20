@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { decisionPolicyIdSchema } from './matchSimulation/decisionPolicyConfig';
 import { deriveNpcPlayStyles } from './npcFootballIdentity';
 import type {
   FootballerProfile,
@@ -33,6 +34,7 @@ export const singleMatchSetupSchema = z
       }),
     ]),
     seed: z.string().min(1),
+    decisionPolicy: decisionPolicyIdSchema.optional(),
   })
   .superRefine((setup, context) => {
     if (setup.homeClubId === setup.awayClubId)

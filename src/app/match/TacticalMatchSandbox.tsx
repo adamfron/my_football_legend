@@ -1,4 +1,18 @@
 import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
+import { TACTICAL_PREFERENCE_DEFAULTS } from '../../core/matchSimulation/tacticalPreferences';
+import {
+  PRIMARY_DECISION_POLICIES,
+  decisionPolicyIdSchema,
+  type DecisionPolicyId,
+} from '../../core/matchSimulation/decisionPolicyConfig';
+import { RoleExperimentRecorder, fixtureIdentity } from '../../core/matchSimulation/roleExperiment';
+import { withRankingObserver } from '../../core/matchSimulation/decisionObservation';
+import {
+  changeTacticalRole,
+  rolesForPlayer,
+  tacticalRoleFor,
+  tacticalRoleIdSchema,
+} from '../../core/matchSimulation/tacticalRoles';
 import { PresentationContextHistory } from './tacticalRenderer/contextHistory';
 import { PresentationFrameProjector } from './tacticalRenderer/frameProjection';
 import { DecisionTargets } from './DecisionTargets';
@@ -175,6 +189,7 @@ export const PitchCanvasHost = forwardRef<HTMLDivElement>(function PitchCanvasHo
   return <div className="pitch-canvas-host" ref={ref} aria-hidden="true" />;
 });
 export const TacticalMatchSandbox = () => {
+  const [policy, setPolicy] = useState<DecisionPolicyId>('legacy-pr176');
   const [world, setWorld] = useState<WorldDatabase>(),
     [homeId, setHomeId] = useState(''),
     [awayId, setAwayId] = useState('');
@@ -325,6 +340,20 @@ export const TacticalMatchSandbox = () => {
             SEED
             <input value={seed} onChange={(e) => setSeed(e.target.value)} />
           </label>
+          <label>
+            Polityka decyzji
+            <select
+              aria-label="Polityka decyzji"
+              value={policy}
+              onChange={(e) => setPolicy(decisionPolicyIdSchema.parse(e.target.value))}
+            >
+              {PRIMARY_DECISION_POLICIES.map((p) => (
+                <option key={p} value={p}>
+                  {p}
+                </option>
+              ))}
+            </select>
+          </label>
           <button onClick={() => setSeed(freshSeed())}>Losuj seed</button>
           <button
             className="primary-choice"
@@ -335,6 +364,7 @@ export const TacticalMatchSandbox = () => {
                   homeClubId: homeId,
                   awayClubId: awayId,
                   seed,
+                  decisionPolicy: policy,
                   control:
                     mode === 'spectator'
                       ? { mode: 'spectator' }
@@ -355,7 +385,15 @@ export const TacticalMatchSandbox = () => {
     );
   return (
     <RunningLabGuard
+      key={`${session.setup.seed}:${session.setup.decisionPolicy ?? 'legacy-pr176'}`}
       session={session}
+      onReplayPolicy={(next) => {
+        setPolicy(next);
+        setSession({
+          ...structuredClone(session),
+          setup: { ...session.setup, decisionPolicy: next },
+        });
+      }}
       squadOveralls={
         Object.fromEntries(
           (['home', 'away'] as const).map((side) => {
@@ -371,7 +409,7 @@ export const TacticalMatchSandbox = () => {
         ) as { home: number; away: number }
       }
       onSetup={() => setSession(undefined)}
-      onRestart={() => setSession(createSingleMatchSession(world, session.setup))}
+      onRestart={() => setSession(structuredClone(session))}
       onRandomize={() => {
         const next = freshSeed();
         setSeed(next);
@@ -453,6 +491,7 @@ export class MatchLabErrorBoundary extends Component<
 
 type RunningLabProps = {
   session: SingleMatchSession;
+  onReplayPolicy?: (policy: DecisionPolicyId) => void;
   careerMode?: boolean;
   initialState?: TacticalMatchState;
   onObserve?: (state: TacticalMatchState) => void;
@@ -507,6 +546,7 @@ export const RunningLabGuard = (props: RunningLabProps) => {
 
 export const RunningLab = ({
   session,
+  onReplayPolicy,
   onSetup,
   onRestart,
   onRandomize,
@@ -520,6 +560,7 @@ export const RunningLab = ({
   completionPending = false,
 }: {
   session: SingleMatchSession;
+  onReplayPolicy?: (policy: DecisionPolicyId) => void;
   onSetup(): void;
   onRestart(): void;
   onRandomize(): void;
@@ -738,6 +779,7 @@ export const RunningLab = ({
   useEffect(() => {
     if (!hostRef.current) return;
     const initial = initialState ?? createTacticalMatch(session);
+    diagnostics.experiment = new RoleExperimentRecorder(initial);
     resetPresentation(initial);
     backgroundPerformanceRef.current = new BackgroundPerformanceTracker();
     presentationTelemetryRef.current = createPresentationRuntimeTelemetry();
@@ -1082,9 +1124,14 @@ export const RunningLab = ({
                 const previousState = next;
                 try {
                   const canonicalStarted = startPerformanceSpan('canonical_step');
-                  next = background
-                    ? stepTacticalMatchAfterDecisionProbe(next, FIXED_MATCH_DT)
-                    : stepTacticalMatch(next, FIXED_MATCH_DT);
+                  next = withRankingObserver(
+                    !careerMode ? diagnostics.experiment.ranking : undefined,
+                    () =>
+                      background
+                        ? stepTacticalMatchAfterDecisionProbe(next, FIXED_MATCH_DT)
+                        : stepTacticalMatch(next, FIXED_MATCH_DT),
+                  );
+                  if (!careerMode) diagnostics.experiment.observe(previousState, next);
                   endPerformanceSpan('canonical_step', canonicalStarted);
                   diagnostics.latestState = next;
                   canonicalParticipationRef.current.observe(previousState, next, background);
@@ -1257,6 +1304,7 @@ export const RunningLab = ({
     return () => window.clearTimeout(timer);
   }, [
     playing,
+    careerMode,
     completionPending,
     replaying,
     session,
@@ -1591,6 +1639,7 @@ export const RunningLab = ({
     windowEvent({ at: state.time, type: 'consequence_started', actorId: opportunity.actorId });
     setPresentationPhase('post_moment');
     canonicalParticipationRef.current.observe(state, next, false);
+    if (!careerMode) diagnostics.experiment.observe(state, next);
     publishState(next);
     setDecisionBoundary(undefined);
     setSelectedTarget(undefined);
@@ -1683,6 +1732,12 @@ export const RunningLab = ({
           <span className="dev-badge">
             {careerMode ? 'KARIERA · MECZ' : 'SINGLE MATCH LAB · MECZ'}
           </span>
+          {!careerMode && (
+            <p>
+              Polityka: <strong>{state.decisionPolicy ?? 'legacy-pr176'}</strong> ·{' '}
+              {fixtureIdentity(session)}
+            </p>
+          )}
           <h1>
             <i className="team-swatch" style={{ background: kits.home.primary }} />
             {session.home.club.name}{' '}
@@ -1693,7 +1748,7 @@ export const RunningLab = ({
             <i className="team-swatch" style={{ background: kits.away.primary }} />
           </h1>
         </div>
-        <p>
+        <p aria-label="Zegar i stan meczu">
           {formatPeriodClock(
             state,
             state.status === 'full_time' || state.status === 'abandoned' ? state.time : displayTime,
@@ -1713,9 +1768,52 @@ export const RunningLab = ({
         </p>
       </header>
       <nav>
+        {!careerMode && (
+          <>
+            <label>
+              Powtórz te same składy i seed
+              <select
+                aria-label="Powtórz z polityką"
+                value={session.setup.decisionPolicy ?? 'legacy-pr176'}
+                onChange={(e) => onReplayPolicy?.(decisionPolicyIdSchema.parse(e.target.value))}
+              >
+                {PRIMARY_DECISION_POLICIES.map((p) => (
+                  <option key={p} value={p}>
+                    {p}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              onClick={() =>
+                downloadBlob(
+                  new Blob(
+                    [
+                      JSON.stringify(
+                        diagnostics.experiment.export(
+                          session,
+                          stateRef.current,
+                          import.meta.env.VITE_MFL_REVISION ?? 'unknown',
+                          `browser:${globalThis.navigator?.userAgent ?? 'unknown'}`,
+                        ),
+                        null,
+                        2,
+                      ),
+                    ],
+                    { type: 'application/json' },
+                  ),
+                  `${session.setup.seed}-${stateRef.current.decisionPolicy}-role-experiment.json`,
+                )
+              }
+            >
+              Eksportuj eksperyment ról JSON
+            </button>
+          </>
+        )}
         <label>
           Czułość momentów{' '}
           <select
+            aria-label="Czułość momentów"
             disabled={replaying}
             value={presentationPolicyId}
             onChange={(event) => {
@@ -1837,6 +1935,71 @@ export const RunningLab = ({
           </button>
         )}
       </nav>
+      {!careerMode && (
+        <details>
+          <summary>Role taktyczne i zmiany instrukcji</summary>
+          {(['home', 'away'] as const).map((side) => (
+            <label key={side}>
+              {side === 'home' ? 'Taktyka gospodarzy' : 'Taktyka gości'}
+              <select
+                value={state.teams[side].style}
+                onChange={(e) => {
+                  const style = e.target.value as TacticalMatchState['teams']['home']['style'];
+                  const previous = stateRef.current;
+                  const next = {
+                    ...previous,
+                    teams: {
+                      ...previous.teams,
+                      [side]: {
+                        ...previous.teams[side],
+                        style,
+                        tacticalPreferences: { ...TACTICAL_PREFERENCE_DEFAULTS[style] },
+                      },
+                    },
+                  };
+                  diagnostics.experiment.observe(previous, next);
+                  publishState(next);
+                }}
+              >
+                <option value="balanced">Zrównoważona</option>
+                <option value="pressing">Wysoki pressing</option>
+                <option value="counter_attacking">Niski blok i kontry</option>
+                <option value="possession">Posiadanie</option>
+                <option value="direct">Gra bezpośrednia</option>
+              </select>
+            </label>
+          ))}
+          <p>
+            Zmiana roli zachowuje atrybuty i fizykę. R1 zmienia ocenę konsekwencji; R2 i R3 również
+            ruch oraz propozycje przyjęcia.
+          </p>
+          {state.players.map((player) => (
+            <label key={player.id} style={{ display: 'inline-block', margin: 8 }}>
+              {player.profile.lastName} · {player.team === 'home' ? 'gospodarze' : 'goście'}
+              <select
+                aria-label={`Rola ${player.id}`}
+                disabled={state.status === 'full_time' || state.status === 'abandoned'}
+                value={tacticalRoleFor(state, player).id}
+                onChange={(e) =>
+                  publishState(
+                    changeTacticalRole(
+                      stateRef.current,
+                      player.id,
+                      tacticalRoleIdSchema.parse(e.target.value),
+                    ),
+                  )
+                }
+              >
+                {rolesForPlayer(player).map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ))}
+        </details>
+      )}
       {remainderPrompt && (
         <dialog
           ref={(dialog) => {
