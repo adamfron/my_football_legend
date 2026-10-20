@@ -7,11 +7,20 @@ concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  quality:
+  checks:
+    name: verify (${{ matrix.group }})
     runs-on: ubuntu-latest
-    # Main + restart + two full canonical fixtures exceed 15 minutes in series.
-    # Keep individual test timeouts; allow the complete verify pipeline to finish.
+    # Keep every verify stage and its time limits. Full canonical career fixtures
+    # run separately so the serial pipeline cannot exhaust one job's budget.
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: main
+            command: npm run lint && npm run test:unit && npm run test:match-integration && npm run build
+          - group: career
+            command: npm run generate:world-db && npm run test:match-contract && npm run test:full-career
     env:
       # Simulation parity tests keep their original time limits on a shared CPU.
       VITEST_MAX_WORKERS: '1'
@@ -22,5 +31,18 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run verify
-      - run: test -f dist/data/world/pl-2026-v2.json
+      - run: ${{ matrix.command }}
+      - if: matrix.group == 'main'
+        run: test -f dist/data/world/pl-2026-v2.json
+  quality:
+    # Preserve the existing required check and fail it if either group fails,
+    # times out or is cancelled, including failures before tests can start.
+    needs: checks
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Require every verification group
+        env:
+          VERIFY_RESULT: ${{ needs.checks.result }}
+        run: test "$VERIFY_RESULT" = success

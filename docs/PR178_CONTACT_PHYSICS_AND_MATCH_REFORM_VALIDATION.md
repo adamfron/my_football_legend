@@ -456,11 +456,26 @@ The independent headless reference is now prepared in a scoped `beforeAll` hook.
 Both complete 2400-step trajectories, all 60 frame/state immutability checks,
 the complete final-state comparison and the pass-activity assertion are retained.
 The watched trajectory still advances through every rendering checkpoint.
-No timeout, production source, package script or CI worker setting changes.
+No test timeout, production source or CI worker setting changes.
 The targeted renderer suite passes all 16 tests; the parity test body takes
 1721 ms locally (3831 ms before the fixture change, including reference setup).
 These timings describe separate phases, not a simulation speed improvement.
-The full verify command and GitHub CI are being rerun for this test-only change.
+The subsequent [CI run 415](https://github.com/adamfron/my_football_legend/actions/runs/39374699110)
+passed all 1954 tests, TypeScript, build and the generated-world-file check;
+the renderer parity body took 2326 ms. However, the job ended as `cancelled`
+at 30 minutes 4 seconds against a 30-minute job limit, with every recorded step
+successful. GitHub's failure annotation explicitly reports that the job exceeded
+its maximum execution time of 30m0s. The serial pipeline has insufficient margin.
+
+CI now executes the same verification stages in two parallel groups: lint,
+unit tests, match integration and build; canonical match contract and full career.
+The existing unit command is extracted verbatim as `test:unit`, and `test:main`
+still executes unit, integration and contract in their original sequence.
+`npm run verify` retains every original stage. A required `quality` gate succeeds
+only when both CI groups succeed; failure, cancellation or timeout cannot pass it.
+Each group retains the 30-minute job limit and existing worker settings.
+No test, assertion or dependency is removed, and no timeout is increased.
+Subsequent complete verification is tracked by this PR's CI checks.
 
 ## Required answers
 
