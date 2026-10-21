@@ -1,0 +1,320 @@
+{
+  "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+  "rows": [
+    {
+      "name": "pr180-dev-ss-1-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "07b0e5971ef0decb5a113a2bd63c1968bea6d77feda6ed18185522e9af8c1001",
+      "policy": "legacy-pr176",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 3.824999999944339,
+      "ticks": 153,
+      "finalHash": "9afcdd69cf04dc3887857f0a0fb2265338a84e3a2d0210544caa08ddf072aaf8"
+    },
+    {
+      "name": "pr180-dev-ss-1-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "07b0e5971ef0decb5a113a2bd63c1968bea6d77feda6ed18185522e9af8c1001",
+      "policy": "state-value-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 3.824999999944339,
+      "ticks": 153,
+      "finalHash": "74b112e1122f1b6fabec84348767cfc73fdf6744f3588d77e48a2578eae45541"
+    },
+    {
+      "name": "pr180-dev-ss-1-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "07b0e5971ef0decb5a113a2bd63c1968bea6d77feda6ed18185522e9af8c1001",
+      "policy": "role-value-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 3.824999999944339,
+      "ticks": 153,
+      "finalHash": "2bd6bdeba749d2ec2c9707de2e699d52bc7d1234626bbb204f126c79bf15acc4"
+    },
+    {
+      "name": "pr180-dev-ss-1-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "07b0e5971ef0decb5a113a2bd63c1968bea6d77feda6ed18185522e9af8c1001",
+      "policy": "role-intent-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 3.824999999944339,
+      "ticks": 153,
+      "finalHash": "280309dc95ec7328cf7c62b96259e9254fa0fe68fe5beb6967f221081f47926f"
+    },
+    {
+      "name": "pr180-dev-ss-1-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "07b0e5971ef0decb5a113a2bd63c1968bea6d77feda6ed18185522e9af8c1001",
+      "policy": "phase-role-hybrid-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 3.824999999944339,
+      "ticks": 153,
+      "finalHash": "71b6d2cbc8a98f35cc55c3126b55c1a571c06bc23519879e77eea6f80b6a8836"
+    },
+    {
+      "name": "pr180-dev-sw-1-phase-role-hybrid-v1-restart-state.json.gz",
+      "inputSha256": "9bf4cdfa34610e3c23561cbe262bb666b67542b9856ebeca9a39d86daaad2490",
+      "policy": "legacy-pr176",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "wall_developing"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 4.125000000015007,
+      "ticks": 165,
+      "finalHash": "c6efcb1ca4165f3a5ae318babdd2ee86a20b5e3446903f9c1f198bf8c318d016"
+    },
+    {
+      "name": "pr180-dev-sw-1-phase-role-hybrid-v1-restart-state.json.gz",
+      "inputSha256": "9bf4cdfa34610e3c23561cbe262bb666b67542b9856ebeca9a39d86daaad2490",
+      "policy": "state-value-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "wall_developing"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 4.550000000016553,
+      "ticks": 182,
+      "finalHash": "444adf913c89cb315c5d7ee4302b7c0e2320b4bad0ea9baf751d78a18eae81e7"
+    },
+    {
+      "name": "pr180-dev-sw-1-phase-role-hybrid-v1-restart-state.json.gz",
+      "inputSha256": "9bf4cdfa34610e3c23561cbe262bb666b67542b9856ebeca9a39d86daaad2490",
+      "policy": "role-value-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "wall_developing"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 4.150000000015098,
+      "ticks": 166,
+      "finalHash": "6c7aadc5b3832162b2f7e93f3ee35d74f4a8abac00cbd50a7fd17b02d3a99681"
+    },
+    {
+      "name": "pr180-dev-sw-1-phase-role-hybrid-v1-restart-state.json.gz",
+      "inputSha256": "9bf4cdfa34610e3c23561cbe262bb666b67542b9856ebeca9a39d86daaad2490",
+      "policy": "role-intent-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "wall_developing"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 4.150000000015098,
+      "ticks": 166,
+      "finalHash": "275216ccc4027df8d8c9373c28203ce699a7b1a0ffc4b97f247e5c606a443017"
+    },
+    {
+      "name": "pr180-dev-sw-1-phase-role-hybrid-v1-restart-state.json.gz",
+      "inputSha256": "9bf4cdfa34610e3c23561cbe262bb666b67542b9856ebeca9a39d86daaad2490",
+      "policy": "phase-role-hybrid-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "wall_developing"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 4.150000000015098,
+      "ticks": 166,
+      "finalHash": "1942968a783849688efd42c965ae38d9fbec46da7cb02527d9058a0d00d47892"
+    },
+    {
+      "name": "pr180-dev-sw-2-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "ee427bc4a279ad9518183d5def4041fdeea2d40b9856bcff9410e01f9baa9b49",
+      "policy": "legacy-pr176",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 2.425000000008822,
+      "ticks": 97,
+      "finalHash": "1d488187004e44db42158dfa6a938432fd4988832ec8789cd6aaad57447e3244"
+    },
+    {
+      "name": "pr180-dev-sw-2-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "ee427bc4a279ad9518183d5def4041fdeea2d40b9856bcff9410e01f9baa9b49",
+      "policy": "state-value-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 2.425000000008822,
+      "ticks": 97,
+      "finalHash": "885ae6e430409fa5d418d02705944347f7a8eacb39ddd5282a1f042ebd6f71a5"
+    },
+    {
+      "name": "pr180-dev-sw-2-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "ee427bc4a279ad9518183d5def4041fdeea2d40b9856bcff9410e01f9baa9b49",
+      "policy": "role-value-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 2.425000000008822,
+      "ticks": 97,
+      "finalHash": "c2b17646247bd0b501ff37e09ace9cd91fe7204b52b48c48337988a350ca3d60"
+    },
+    {
+      "name": "pr180-dev-sw-2-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "ee427bc4a279ad9518183d5def4041fdeea2d40b9856bcff9410e01f9baa9b49",
+      "policy": "role-intent-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 2.425000000008822,
+      "ticks": 97,
+      "finalHash": "ebda6ca8dd489051ed1fa05f743c31acd42cb938620d269b7e020bd13f6afb13"
+    },
+    {
+      "name": "pr180-dev-sw-2-role-intent-v1-restart-state.json.gz",
+      "inputSha256": "ee427bc4a279ad9518183d5def4041fdeea2d40b9856bcff9410e01f9baa9b49",
+      "policy": "phase-role-hybrid-v1",
+      "initialReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "physicallyReady": true,
+      "elapsedSeconds": 2.425000000008822,
+      "ticks": 97,
+      "finalHash": "56b4e0e4a53f03169a56697493e0738a60c901c9be7a2a065cc20aa502fbee17"
+    }
+  ]
+}

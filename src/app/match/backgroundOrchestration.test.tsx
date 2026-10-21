@@ -131,6 +131,59 @@ describe('background Match Lab orchestration', () => {
     vi.restoreAllMocks();
   });
 
+  it('does not feed successful renderer callbacks back into an active visible rendering effect', () => {
+    const errors = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    observed.render.mockImplementation(() => observed.reportRenderer?.());
+    const select = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Czułość momentów"]',
+    )!;
+    act(() => {
+      select.value = 'full_match';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    act(() => vi.advanceTimersByTime(100));
+    expect(observed.step.mock.calls.length).toBeGreaterThan(0);
+    expect(
+      errors.mock.calls.some((args) =>
+        args.some((arg) => String(arg).includes('Maximum update depth')),
+      ),
+    ).toBe(false);
+    observed.render.mockImplementation(() => undefined);
+  });
+
+  it('yields expensive visible ticks and catches up every remaining fixed tick after the load clears', () => {
+    const select = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Czułość momentów"]',
+    )!;
+    act(() => {
+      select.value = 'full_match';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    let cpuClock = 0;
+    const epoch = Date.now();
+    vi.spyOn(performance, 'now').mockImplementation(() => Date.now() - epoch + cpuClock);
+    observed.step.mockImplementation((state, delta) => {
+      cpuClock += 20;
+      return { ...state, time: state.time + delta };
+    });
+    const fast = [...container.querySelectorAll<HTMLButtonElement>('nav button')].find(
+      (b) => b.textContent === '16×',
+    )!;
+    act(() => fast.click());
+    const atStart = controller.latestState.time;
+    const before = observed.step.mock.calls.length;
+    act(() => vi.advanceTimersByTime(16));
+    const underLoad = observed.step.mock.calls.length - before;
+    expect(underLoad).toBeGreaterThan(0);
+    expect(underLoad).toBeLessThanOrEqual(2);
+    expect(controller.latestState.time - atStart).toBeCloseTo(underLoad * 0.025);
+    observed.step.mockImplementation((state, delta) => ({ ...state, time: state.time + delta }));
+    act(() => vi.advanceTimersByTime(1));
+    const after = observed.step.mock.calls.length - before;
+    expect(after).toBeGreaterThan(underLoad + 10);
+    expect(controller.latestState.time - atStart).toBeCloseTo(after * 0.025);
+  });
+
   it('freezes the authoritative clock for remainder confirmation, resumes on cancel and hands off once', () => {
     const handoff = vi.fn(() => true);
     act(() =>

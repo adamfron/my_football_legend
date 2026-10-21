@@ -1,0 +1,48 @@
+{
+  "command": "npm run verify",
+  "exitCode": 0,
+  "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+  "runtime": "v24.19.0",
+  "tests": 2003,
+  "suites": [
+    {
+      "files": 225,
+      "tests": 1940
+    },
+    {
+      "files": 3,
+      "tests": 54
+    },
+    {
+      "files": 1,
+      "tests": 4
+    },
+    {
+      "files": 1,
+      "tests": 5
+    }
+  ],
+  "logSha256": "126c8754c46fdf1033cce88033901b948d6a9d5c2832885c40d80e8cdeedbb27",
+  "scope": "Full original lint/unit/integration/career-contract/full-career/TypeScript/Vite chain. Started after all 30 cohort and five closest-fixture runs finished, with browser games paused. No test timeout or performance/career budget changed.",
+  "earlierConcurrentAttempt": {
+    "unitTestsPassed": 1940,
+    "integrationTimeouts": [
+      {
+        "test": "whole CPU half with penalty",
+        "timeoutMs": 90000
+      },
+      {
+        "test": "controlled-player substitution spectator transition",
+        "timeoutMs": 30000
+      }
+    ],
+    "logSha256": "714a80aad252f429d7cd108d3f31ed385e7c2e9b5329c9102111da8857e65ce7",
+    "interpretation": "This earlier run competed with five cohort workers. Final serial verify supersedes it; preserved as workload evidence."
+  },
+  "baseline": {
+    "commit": "5646bb0e757289e1fa6ffde79ff9f94766139f48",
+    "pr179Head": "f12c52b",
+    "sourceTreeDiffExit": 0
+  },
+  "assertions": "All telemetry fields, complete golden hashes, canonical schemas and identity assertions retained. Geometric/timing reception fixtures now exercise finite contact and actual later crossings; historical header input frozen before the contact."
+}

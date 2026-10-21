@@ -288,7 +288,7 @@ describe('PR152 causal turnover scenarios from canonical physics', () => {
       const defender = run.state.players.find((player) => player.id === opponent.id)!;
       defender.position = { ...run.state.ball };
       defender.velocity = { x: 0, y: 0 };
-      actor.position = { x: 25, y: 34 };
+      run.state.players.find((p) => p.id === receiver.id)!.position = { x: 25, y: 34 };
       runUntil(run, (state) => state.possessionTeam === 'away');
       checkLoss(run, cause, receiver.id);
       expect(

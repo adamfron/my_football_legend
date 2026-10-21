@@ -1,4 +1,5 @@
 import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
+import { FirstTouchDiagnostics } from './FirstTouchDiagnostics';
 import { TACTICAL_PREFERENCE_DEFAULTS } from '../../core/matchSimulation/tacticalPreferences';
 import {
   PRIMARY_DECISION_POLICIES,
@@ -627,6 +628,7 @@ export const RunningLab = ({
     scoreRef = useRef(0),
     stateRef = useRef(state),
     rendererFaultRef = useRef(false),
+    rendererReportedErrorRef = useRef<string | undefined>(undefined),
     debugRecorderRef = useRef(diagnostics.recorder),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
@@ -824,7 +826,13 @@ export const RunningLab = ({
       hostRef.current,
       animationProjectorRef.current.frame(initial),
       (error) => {
-        setRendererError(error);
+        // A successful render reports undefined on every frame. Even a same-value
+        // setter from this passive rendering effect can join already pending updates
+        // and create a feedback loop during accelerated capture.
+        if (rendererReportedErrorRef.current !== error) {
+          rendererReportedErrorRef.current = error;
+          setRendererError(error);
+        }
         const lifecycle =
           rendererRef.current?.lifecycle ??
           (error?.includes('waiting_for_layout')
@@ -920,17 +928,19 @@ export const RunningLab = ({
           ? backgroundBatchTicksRef.current
           : Math.min(160, availableFixedTicks(runtimeClockRef.current));
         if (ticks > 0) {
-          if (!background)
-            runtimeClockRef.current = consumeFixedTicks(runtimeClockRef.current, ticks);
           {
             const value = stateRef.current;
-            const batchStartedAt = background ? performance.now() : 0;
+            const batchStartedAt = performance.now();
             let executedTicks = 0;
             let next = value;
             let boundaryDetected = false;
             const presentationSamples: TacticalMatchState[] = [];
             withPerformanceProfiler(profilerRef.current, () => {
               for (let tick = 0; tick < ticks; tick += 1) {
+                // Visible capture can make 160 ticks a long task at 16×. Yield between
+                // canonical steps and retain every unexecuted tick for the next frame.
+                if (!background && executedTicks > 0 && performance.now() - batchStartedAt >= 12)
+                  break;
                 if (
                   next.status === 'half_time' ||
                   next.status === 'full_time' ||
@@ -1257,6 +1267,8 @@ export const RunningLab = ({
                 }
               }
             });
+            if (!background)
+              runtimeClockRef.current = consumeFixedTicks(runtimeClockRef.current, executedTicks);
             if (background) {
               presentationTelemetryRef.current.backgroundBatches += 1;
               presentationTelemetryRef.current.backgroundTicks += executedTicks;
@@ -2355,6 +2367,11 @@ export const RunningLab = ({
                     const summary = {
                       metadata: {
                         schema: 'mfl-session-benchmark-v5',
+                        policy: current.decisionPolicy ?? 'legacy-pr176',
+                        sourceRevision: import.meta.env.VITE_MFL_REVISION ?? 'unknown',
+                        fixtureId: fixtureIdentity(session),
+                        engine: 'canonical',
+                        fixedDt: FIXED_MATCH_DT,
                         seed: current.seed,
                         observerMode,
                         observationScope:
@@ -3089,6 +3106,15 @@ export const RunningLab = ({
             {state.possessionTeam === 'home' ? session.home.club.name : session.away.club.name} przy
             piłce
           </h2>
+          {!careerMode && (
+            <FirstTouchDiagnostics
+              state={state}
+              telemetry={telemetryRef.current}
+              errors={
+                diagnostics.runtimeDiagnostics.filter((e) => e.kind === 'observer_error').length
+              }
+            />
+          )}
           {!careerMode && (
             <details
               className="player-diagnostics"

@@ -1,0 +1,5465 @@
+{
+  "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+  "scope": "six new matched development designs; experimental unit is the fixture design, not the policy run. All failed/censored rows retained.",
+  "intervalDefinition": "Pass release intervals across both teams; median is the upper middle order statistic for even sample counts. UI bounded action intervals use the average of the middle pair.",
+  "complete": 30,
+  "total": 30,
+  "rows": [
+    {
+      "policy": "legacy-pr176",
+      "id": "pr180-dev-ss-1",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5640.424999982168,
+      "inputHash": "6b43d46fe49f6849933d6be514a6d16db985fed0b95f77a4a88ff555bdba78bc",
+      "sessionHash": "ab95a60a6d433be53341211489438da3c3006f7db1cbef69305a99caddc203a4",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "5360429c85f0d92318a50513a08e99da0716642b8f5be556472bbc7f3ace6759",
+      "official": {
+        "attempts": 2268,
+        "completed": 2067
+      },
+      "firstTime": 19,
+      "firstTimeCompleted": 15,
+      "firstTimeShare": 0.00837742504409171,
+      "completion": 0.9113756613756614,
+      "intervalMean": 2.4870313189158253,
+      "intervalMedian": 2.1500000000078217,
+      "receptions": {
+        "directional_control": 933,
+        "clean_control": 1099,
+        "failed_control": 13,
+        "heavy_touch": 32
+      },
+      "passOutcomes": {
+        "completed": 2067,
+        "intercepted": 141,
+        "technical_error": 45,
+        "out_of_play": 3,
+        "unresolved": 6,
+        "unclaimed": 6
+      },
+      "flow": {
+        "shots": 2,
+        "crosses": 3,
+        "boxEntries": 5,
+        "finalThirdEntries": 61,
+        "turnovers": {
+          "tackle": 55,
+          "interception": 100,
+          "bad_pass": 1,
+          "pass_out": 3,
+          "heavy_touch": 4,
+          "failed_control": 59,
+          "loose_ball_claim": 16,
+          "shot": 2,
+          "foul_stoppage": 1,
+          "other": 6
+        },
+        "restarts": 32
+      },
+      "clock": {
+        "elapsed": 5640.424999982168,
+        "inPlay": 5234.624999982205,
+        "stoppage": 405.799999999963,
+        "restartPreparation": 374.6499999998758,
+        "restartReady": 31.15000000008726
+      },
+      "ledger": {
+        "completedSeconds": 405.799999999963,
+        "completedCount": 32,
+        "qualifyingCompletedSeconds": {
+          "first_half": 86.2000000001716,
+          "second_half": 69.79999999940355
+        },
+        "intervalCount": 32
+      },
+      "hold": 1.6250000000059117,
+      "observer": {
+        "errors": [],
+        "attempts": 19,
+        "completed": 15,
+        "uniqueResults": 2262,
+        "uniqueAttempts": 2268
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 260.531,
+        "wallSeconds": 235.38271559999998,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225617,
+          "sampledTicks": 6098,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1281.0472000003294,
+              "estimatedMs": 47396.855710474636,
+              "sampledCalls": 6065
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1660.767099999353,
+              "estimatedMs": 61445.93158421679,
+              "sampledCalls": 6065
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 100.86419999940972,
+              "estimatedMs": 3731.826535137229,
+              "sampledCalls": 2440
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 1055.4950999994312,
+              "estimatedMs": 39051.76090137285,
+              "sampledCalls": 6065
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 911.8410999999883,
+              "estimatedMs": 33736.774919432166,
+              "sampledCalls": 5588
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 74.21600000101216,
+              "estimatedMs": 2745.8824651079635,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 601.8007000001808,
+              "estimatedMs": 22265.737706123447,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1034.0202999980725,
+              "estimatedMs": 38257.224995845376,
+              "sampledCalls": 60155
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 36.38980000075662,
+              "estimatedMs": 1346.3688925501324,
+              "sampledCalls": 4564
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 120.11799999967798,
+              "estimatedMs": 4444.188718584347,
+              "sampledCalls": 2315
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.3112999999780186,
+              "estimatedMs": 11.517640553466812,
+              "sampledCalls": 337
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.673000000123011,
+              "estimatedMs": 24.90000672806713,
+              "sampledCalls": 339
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "id": "pr180-dev-ss-1",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5640,
+      "inputHash": "6b43d46fe49f6849933d6be514a6d16db985fed0b95f77a4a88ff555bdba78bc",
+      "sessionHash": "ab95a60a6d433be53341211489438da3c3006f7db1cbef69305a99caddc203a4",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "26355b2e53e0c7b65d21e3bb3c95062db1e7f1fbcbb76e9ad626d35cee9566e0",
+      "official": {
+        "attempts": 2184,
+        "completed": 1646
+      },
+      "firstTime": 483,
+      "firstTimeCompleted": 408,
+      "firstTimeShare": 0.22115384615384615,
+      "completion": 0.7536630036630036,
+      "intervalMean": 2.582959230408799,
+      "intervalMedian": 1.7750000000064574,
+      "receptions": {
+        "clean_control": 464,
+        "directional_control": 686,
+        "failed_control": 17,
+        "heavy_touch": 36
+      },
+      "passOutcomes": {
+        "completed": 1660,
+        "intercepted": 433,
+        "technical_error": 53,
+        "out_of_play": 4,
+        "unresolved": 15,
+        "unclaimed": 17,
+        "inaccurate": 2
+      },
+      "flow": {
+        "shots": 6,
+        "crosses": 22,
+        "boxEntries": 11,
+        "finalThirdEntries": 75,
+        "turnovers": {
+          "tackle": 159,
+          "interception": 336,
+          "bad_pass": 5,
+          "pass_out": 4,
+          "heavy_touch": 0,
+          "failed_control": 138,
+          "loose_ball_claim": 31,
+          "shot": 4,
+          "foul_stoppage": 5,
+          "other": 6
+        },
+        "restarts": 78
+      },
+      "clock": {
+        "elapsed": 5640,
+        "inPlay": 4847.174999999688,
+        "stoppage": 792.8250000003117,
+        "restartPreparation": 756.2000000002696,
+        "restartReady": 36.625000000042036
+      },
+      "ledger": {
+        "completedSeconds": 792.8250000003117,
+        "completedCount": 78,
+        "qualifyingCompletedSeconds": {
+          "first_half": 19.82500000002881,
+          "second_half": 121.34999999949605
+        },
+        "intervalCount": 78
+      },
+      "hold": 2.2500000000081855,
+      "observer": {
+        "errors": [],
+        "attempts": 483,
+        "completed": 408,
+        "uniqueResults": 2169,
+        "uniqueAttempts": 2184
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 343.078,
+        "wallSeconds": 315.4711385,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225601,
+          "sampledTicks": 6098,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1217.720599999882,
+              "estimatedMs": 45050.66990498088,
+              "sampledCalls": 6059
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 61.23499999894693,
+              "estimatedMs": 2265.4439545363116,
+              "sampledCalls": 133298
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1922.1379999987766,
+              "estimatedMs": 71111.22580152903,
+              "sampledCalls": 6059
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 116.48399999932417,
+              "estimatedMs": 4309.430449958599,
+              "sampledCalls": 2825
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 1088.8501000005785,
+              "estimatedMs": 40282.98973601682,
+              "sampledCalls": 6059
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2629.9761999999973,
+              "estimatedMs": 97298.33727389299,
+              "sampledCalls": 5172
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 79.32810000068002,
+              "estimatedMs": 2934.8144782311274,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 619.3157000004212,
+              "estimatedMs": 22912.14188845442,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 158.78180000043358,
+              "estimatedMs": 5874.2756415050535,
+              "sampledCalls": 2827
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 997.0391000016052,
+              "estimatedMs": 36886.35913405414,
+              "sampledCalls": 56363
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1048.1165000000142,
+              "estimatedMs": 38776.01353173224,
+              "sampledCalls": 416
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1802.1536999999348,
+              "estimatedMs": 66672.29860178506,
+              "sampledCalls": 416
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.5205000005494185,
+              "estimatedMs": 19.25636612396677,
+              "sampledCalls": 535
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.0900000001456647,
+              "estimatedMs": 40.32553132713383,
+              "sampledCalls": 545
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 55.60640000109106,
+              "estimatedMs": 2057.2088302141924,
+              "sampledCalls": 7856
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-intent-v1",
+      "id": "pr180-dev-ss-1",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5640.049999982173,
+      "inputHash": "6b43d46fe49f6849933d6be514a6d16db985fed0b95f77a4a88ff555bdba78bc",
+      "sessionHash": "ab95a60a6d433be53341211489438da3c3006f7db1cbef69305a99caddc203a4",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "048ff381fa83425f8ff71896b74dab8dea8362aae4b7467ea851c198d8236249",
+      "official": {
+        "attempts": 2297,
+        "completed": 1605
+      },
+      "firstTime": 360,
+      "firstTimeCompleted": 284,
+      "firstTimeShare": 0.1567261645624728,
+      "completion": 0.6987374836743578,
+      "intervalMean": 2.456347996507916,
+      "intervalMedian": 1.825000000000415,
+      "receptions": {
+        "clean_control": 475,
+        "directional_control": 746,
+        "heavy_touch": 59,
+        "failed_control": 19
+      },
+      "passOutcomes": {
+        "completed": 1621,
+        "intercepted": 550,
+        "unresolved": 15,
+        "technical_error": 78,
+        "inaccurate": 4,
+        "unclaimed": 27,
+        "out_of_play": 2
+      },
+      "flow": {
+        "shots": 18,
+        "crosses": 20,
+        "boxEntries": 24,
+        "finalThirdEntries": 118,
+        "turnovers": {
+          "tackle": 196,
+          "interception": 435,
+          "bad_pass": 13,
+          "pass_out": 2,
+          "heavy_touch": 1,
+          "failed_control": 104,
+          "loose_ball_claim": 25,
+          "shot": 14,
+          "foul_stoppage": 17,
+          "other": 2
+        },
+        "restarts": 94
+      },
+      "clock": {
+        "elapsed": 5640.049999982173,
+        "inPlay": 4669.324999983433,
+        "stoppage": 970.7249999987405,
+        "restartPreparation": 925.4749999986915,
+        "restartReady": 45.25000000004903
+      },
+      "ledger": {
+        "completedSeconds": 970.7249999987405,
+        "completedCount": 94,
+        "qualifyingCompletedSeconds": {
+          "first_half": 97.82500000007329,
+          "second_half": 112.99999999888314
+        },
+        "intervalCount": 94
+      },
+      "hold": 4.024999999996339,
+      "observer": {
+        "errors": [],
+        "attempts": 360,
+        "completed": 284,
+        "uniqueResults": 2282,
+        "uniqueAttempts": 2297
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 310.001,
+        "wallSeconds": 282.5963251,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225602,
+          "sampledTicks": 6098,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1168.3874999999762,
+              "estimatedMs": 43225.739057886945,
+              "sampledCalls": 6066
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 64.45609999418411,
+              "estimatedMs": 2384.622018840263,
+              "sampledCalls": 133452
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1925.1952000003103,
+              "estimatedMs": 71224.64537724991,
+              "sampledCalls": 6066
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 113.05260000020235,
+              "estimatedMs": 4182.5012570097815,
+              "sampledCalls": 2603
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 786.2042999999826,
+              "estimatedMs": 29086.46482266252,
+              "sampledCalls": 6066
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1945.7165999999208,
+              "estimatedMs": 71983.85641082028,
+              "sampledCalls": 4985
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 79.21759999919777,
+              "estimatedMs": 2930.7394219447383,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 623.6910999991906,
+              "estimatedMs": 23074.116028536795,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 148.86460000055376,
+              "estimatedMs": 5507.404311138886,
+              "sampledCalls": 2656
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 906.7290999970592,
+              "estimatedMs": 33545.40807109487,
+              "sampledCalls": 51901
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 884.7964000000829,
+              "estimatedMs": 32733.984492098836,
+              "sampledCalls": 375
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1017.0372999999995,
+              "estimatedMs": 37626.37732938666,
+              "sampledCalls": 375
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.5512000002991044,
+              "estimatedMs": 20.39223064406011,
+              "sampledCalls": 528
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.4516999997495077,
+              "estimatedMs": 53.70718651090331,
+              "sampledCalls": 543
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 44.68490000035354,
+              "estimatedMs": 1653.165432909111,
+              "sampledCalls": 6029
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-value-v1",
+      "id": "pr180-dev-ss-1",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5640,
+      "inputHash": "6b43d46fe49f6849933d6be514a6d16db985fed0b95f77a4a88ff555bdba78bc",
+      "sessionHash": "ab95a60a6d433be53341211489438da3c3006f7db1cbef69305a99caddc203a4",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "64f5c13fbe38355c74361e7036f31f5fc65ed58d161cb4219e67ea09518a40ec",
+      "official": {
+        "attempts": 2504,
+        "completed": 1761
+      },
+      "firstTime": 436,
+      "firstTimeCompleted": 348,
+      "firstTimeShare": 0.17412140575079874,
+      "completion": 0.7032747603833865,
+      "intervalMean": 2.2528665601208178,
+      "intervalMedian": 1.7499999999745341,
+      "receptions": {
+        "clean_control": 440,
+        "directional_control": 881,
+        "failed_control": 21,
+        "heavy_touch": 54
+      },
+      "passOutcomes": {
+        "completed": 1771,
+        "intercepted": 613,
+        "technical_error": 75,
+        "unclaimed": 29,
+        "out_of_play": 3,
+        "unresolved": 13
+      },
+      "flow": {
+        "shots": 7,
+        "crosses": 22,
+        "boxEntries": 14,
+        "finalThirdEntries": 136,
+        "turnovers": {
+          "tackle": 184,
+          "interception": 499,
+          "bad_pass": 16,
+          "pass_out": 3,
+          "heavy_touch": 0,
+          "failed_control": 140,
+          "loose_ball_claim": 29,
+          "shot": 5,
+          "foul_stoppage": 15,
+          "other": 2
+        },
+        "restarts": 89
+      },
+      "clock": {
+        "elapsed": 5640,
+        "inPlay": 4853.800000001746,
+        "stoppage": 786.1999999982538,
+        "restartPreparation": 750.024999998227,
+        "restartReady": 36.17500000002673
+      },
+      "ledger": {
+        "completedSeconds": 786.1999999982538,
+        "completedCount": 89,
+        "qualifyingCompletedSeconds": {
+          "first_half": 29.749999999972943,
+          "second_half": 147.24999999941474
+        },
+        "intervalCount": 89
+      },
+      "hold": 1.7500000000063665,
+      "observer": {
+        "errors": [],
+        "attempts": 436,
+        "completed": 348,
+        "uniqueResults": 2491,
+        "uniqueAttempts": 2504
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 318.641,
+        "wallSeconds": 290.2464277,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225601,
+          "sampledTicks": 6098,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1076.2608999992208,
+              "estimatedMs": 39817.24094797052,
+              "sampledCalls": 6059
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 61.367800003173215,
+              "estimatedMs": 2270.3570102518665,
+              "sampledCalls": 133298
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1926.3100000006002,
+              "estimatedMs": 71265.57269762798,
+              "sampledCalls": 6059
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 113.35649999928773,
+              "estimatedMs": 4193.725771784079,
+              "sampledCalls": 2717
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 881.8748999991722,
+              "estimatedMs": 32625.755873190104,
+              "sampledCalls": 6059
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2389.8682000008425,
+              "estimatedMs": 88415.32564584947,
+              "sampledCalls": 5181
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 77.71289999859437,
+              "estimatedMs": 2875.058699997194,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 634.389900000966,
+              "estimatedMs": 23469.825488704155,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 152.63570000012533,
+              "estimatedMs": 5646.895138689451,
+              "sampledCalls": 2789
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.7736000000631975,
+              "estimatedMs": 28.62002847068833,
+              "sampledCalls": 588
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.2007000005119153,
+              "estimatedMs": 44.42097750335989,
+              "sampledCalls": 595
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 922.7864000007853,
+              "estimatedMs": 34139.31364817599,
+              "sampledCalls": 53226
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 832.8476999996269,
+              "estimatedMs": 30811.95047025514,
+              "sampledCalls": 435
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1596.578799999726,
+              "estimatedMs": 59066.870098185995,
+              "sampledCalls": 435
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 45.368100000389404,
+              "estimatedMs": 1678.4337041961053,
+              "sampledCalls": 6275
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "state-value-v1",
+      "id": "pr180-dev-ss-1",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5599.349999982984,
+      "inputHash": "6b43d46fe49f6849933d6be514a6d16db985fed0b95f77a4a88ff555bdba78bc",
+      "sessionHash": "ab95a60a6d433be53341211489438da3c3006f7db1cbef69305a99caddc203a4",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "126d8ea4cfc1a3fbbe3dc667b31382a9297e516fad7569e0a777600beef44c2d",
+      "official": {
+        "attempts": 2410,
+        "completed": 1668
+      },
+      "firstTime": 408,
+      "firstTimeCompleted": 322,
+      "firstTimeShare": 0.16929460580912864,
+      "completion": 0.6921161825726141,
+      "intervalMean": 2.323775425480698,
+      "intervalMedian": 1.8999999999723514,
+      "receptions": {
+        "heavy_touch": 65,
+        "clean_control": 479,
+        "directional_control": 764,
+        "failed_control": 36
+      },
+      "passOutcomes": {
+        "technical_error": 101,
+        "completed": 1675,
+        "intercepted": 590,
+        "out_of_play": 6,
+        "unresolved": 9,
+        "unclaimed": 25,
+        "inaccurate": 4
+      },
+      "flow": {
+        "shots": 7,
+        "crosses": 26,
+        "boxEntries": 14,
+        "finalThirdEntries": 145,
+        "turnovers": {
+          "tackle": 140,
+          "interception": 452,
+          "bad_pass": 13,
+          "pass_out": 6,
+          "heavy_touch": 1,
+          "failed_control": 94,
+          "loose_ball_claim": 27,
+          "shot": 7,
+          "foul_stoppage": 11,
+          "other": 6
+        },
+        "restarts": 72
+      },
+      "clock": {
+        "elapsed": 5599.349999982984,
+        "inPlay": 4947.324999984897,
+        "stoppage": 652.024999998087,
+        "restartPreparation": 617.2499999980516,
+        "restartReady": 34.775000000035305
+      },
+      "ledger": {
+        "completedSeconds": 652.024999998087,
+        "completedCount": 72,
+        "qualifyingCompletedSeconds": {
+          "first_half": 53.99999999995089,
+          "second_half": 91.9999999990082
+        },
+        "intervalCount": 72
+      },
+      "hold": 32.0500000001166,
+      "observer": {
+        "errors": [],
+        "attempts": 408,
+        "completed": 322,
+        "uniqueResults": 2401,
+        "uniqueAttempts": 2410
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 297.829,
+        "wallSeconds": 271.6157797,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 223974,
+          "sampledTicks": 6054,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1133.4373999988672,
+              "estimatedMs": 41932.69049014639,
+              "sampledCalls": 6021
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 59.06419999812215,
+              "estimatedMs": 2185.141250475621,
+              "sampledCalls": 132462
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1876.0548999996427,
+              "estimatedMs": 69406.59401594316,
+              "sampledCalls": 6021
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 121.78760000009765,
+              "estimatedMs": 4505.658394849996,
+              "sampledCalls": 2666
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 879.2026999992909,
+              "estimatedMs": 32527.014458150177,
+              "sampledCalls": 6021
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1940.6992999997435,
+              "estimatedMs": 71798.18054478733,
+              "sampledCalls": 5265
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 75.97019999990857,
+              "estimatedMs": 2810.5962297290257,
+              "sampledCalls": 6054
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 596.0859999996903,
+              "estimatedMs": 22052.81892367536,
+              "sampledCalls": 6054
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 149.63689999979988,
+              "estimatedMs": 5535.97209127109,
+              "sampledCalls": 2852
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 884.9711999970459,
+              "estimatedMs": 32740.4260898808,
+              "sampledCalls": 50958
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 817.6049999999391,
+              "estimatedMs": 30248.143751236596,
+              "sampledCalls": 419
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 54.12939999880882,
+              "estimatedMs": 2002.5732136328388,
+              "sampledCalls": 7834
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1081.9191000000997,
+              "estimatedMs": 40026.71762527623,
+              "sampledCalls": 419
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.4090000001333465,
+              "estimatedMs": 15.131378597599296,
+              "sampledCalls": 498
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.9660000000449145,
+              "estimatedMs": 35.73817046746939,
+              "sampledCalls": 502
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "legacy-pr176",
+      "id": "pr180-dev-ss-2",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5580.299999983261,
+      "inputHash": "88157f6656adc785aa7e1352103b805af7f88f7cbbf79ab8e5c0a93f1bab27de",
+      "sessionHash": "6f488ec9db66951e5c46e5d734710875138839da24b9be6ba8aeec56a629e07e",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "14a5a7a931d921be1d70570176fc640824d06d712f189b63d851a7ed71767a77",
+      "official": {
+        "attempts": 2089,
+        "completed": 1842
+      },
+      "firstTime": 129,
+      "firstTimeCompleted": 114,
+      "firstTimeShare": 0.0617520344662518,
+      "completion": 0.8817616084250838,
+      "intervalMean": 2.6715636973099968,
+      "intervalMedian": 2.3000000000083674,
+      "receptions": {
+        "directional_control": 814,
+        "clean_control": 867,
+        "failed_control": 16,
+        "heavy_touch": 85
+      },
+      "passOutcomes": {
+        "completed": 1843,
+        "technical_error": 101,
+        "intercepted": 126,
+        "out_of_play": 9,
+        "unclaimed": 9,
+        "unresolved": 1
+      },
+      "flow": {
+        "shots": 1,
+        "crosses": 4,
+        "boxEntries": 4,
+        "finalThirdEntries": 93,
+        "turnovers": {
+          "tackle": 59,
+          "interception": 94,
+          "bad_pass": 1,
+          "pass_out": 9,
+          "heavy_touch": 5,
+          "failed_control": 76,
+          "loose_ball_claim": 23,
+          "shot": 1,
+          "foul_stoppage": 6,
+          "other": 3
+        },
+        "restarts": 35
+      },
+      "clock": {
+        "elapsed": 5580.299999983261,
+        "inPlay": 5224.674999983074,
+        "stoppage": 355.62500000018673,
+        "restartPreparation": 328.0000000001056,
+        "restartReady": 27.625000000081116
+      },
+      "ledger": {
+        "completedSeconds": 355.62500000018673,
+        "completedCount": 35,
+        "qualifyingCompletedSeconds": {
+          "first_half": 23.875000000086857,
+          "second_half": 62.5999999995056
+        },
+        "intervalCount": 35
+      },
+      "hold": 1.6250000000059117,
+      "observer": {
+        "errors": [],
+        "attempts": 129,
+        "completed": 114,
+        "uniqueResults": 2088,
+        "uniqueAttempts": 2089
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 225.001,
+        "wallSeconds": 212.57480660000002,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 223212,
+          "sampledTicks": 6033,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1188.1073999984364,
+              "estimatedMs": 43958.20138711271,
+              "sampledCalls": 5998
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1624.871700000862,
+              "estimatedMs": 60117.82892434815,
+              "sampledCalls": 5998
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 77.6923999999999,
+              "estimatedMs": 2874.5028988562867,
+              "sampledCalls": 2323
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 1008.6694999994361,
+              "estimatedMs": 37319.26677173448,
+              "sampledCalls": 5998
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 903.8189999993774,
+              "estimatedMs": 33439.954687197256,
+              "sampledCalls": 5587
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 54.49390000020503,
+              "estimatedMs": 2016.1930062731253,
+              "sampledCalls": 6033
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 496.1775000018242,
+              "estimatedMs": 18357.827304890965,
+              "sampledCalls": 6033
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1052.7013000080187,
+              "estimatedMs": 38948.37768562736,
+              "sampledCalls": 64562
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.25010000017937273,
+              "estimatedMs": 9.25332690867531,
+              "sampledCalls": 442
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.7950999999011401,
+              "estimatedMs": 29.41751387003701,
+              "sampledCalls": 443
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 112.86249999966822,
+              "estimatedMs": 4175.744132260225,
+              "sampledCalls": 2170
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 36.89150000066729,
+              "estimatedMs": 1364.9304654647683,
+              "sampledCalls": 4742
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "id": "pr180-dev-ss-2",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5701.7750000061005,
+      "inputHash": "88157f6656adc785aa7e1352103b805af7f88f7cbbf79ab8e5c0a93f1bab27de",
+      "sessionHash": "6f488ec9db66951e5c46e5d734710875138839da24b9be6ba8aeec56a629e07e",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "7c6850ae942ced9d3083eba1f650f9442cf69f7b13f9087652504c91a3113805",
+      "official": {
+        "attempts": 2217,
+        "completed": 1583
+      },
+      "firstTime": 520,
+      "firstTimeCompleted": 400,
+      "firstTimeShare": 0.23455119530897608,
+      "completion": 0.7140279657194407,
+      "intervalMean": 2.5650496389834854,
+      "intervalMedian": 1.8249999999734428,
+      "receptions": {
+        "heavy_touch": 49,
+        "clean_control": 384,
+        "directional_control": 666,
+        "failed_control": 23
+      },
+      "passOutcomes": {
+        "technical_error": 72,
+        "completed": 1602,
+        "intercepted": 486,
+        "unclaimed": 45,
+        "unresolved": 8,
+        "inaccurate": 1,
+        "out_of_play": 3
+      },
+      "flow": {
+        "shots": 13,
+        "crosses": 44,
+        "boxEntries": 25,
+        "finalThirdEntries": 129,
+        "turnovers": {
+          "tackle": 135,
+          "interception": 392,
+          "bad_pass": 10,
+          "pass_out": 3,
+          "heavy_touch": 1,
+          "failed_control": 137,
+          "loose_ball_claim": 19,
+          "shot": 11,
+          "foul_stoppage": 10,
+          "other": 7
+        },
+        "restarts": 74
+      },
+      "clock": {
+        "elapsed": 5701.7750000061005,
+        "inPlay": 4894.15000000763,
+        "stoppage": 807.62499999847,
+        "restartPreparation": 764.7249999984781,
+        "restartReady": 42.89999999999199
+      },
+      "ledger": {
+        "completedSeconds": 807.62499999847,
+        "completedCount": 74,
+        "qualifyingCompletedSeconds": {
+          "first_half": 134.32500000041773,
+          "second_half": 103.8249999990635
+        },
+        "intervalCount": 74
+      },
+      "hold": 2.7249999999975216,
+      "observer": {
+        "errors": [],
+        "attempts": 520,
+        "completed": 400,
+        "uniqueResults": 2209,
+        "uniqueAttempts": 2217
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 324.657,
+        "wallSeconds": 311.10340749999995,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 228072,
+          "sampledTicks": 6165,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1194.711799998302,
+              "estimatedMs": 44197.94154893961,
+              "sampledCalls": 6124
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 59.84109998267377,
+              "estimatedMs": 2213.800382035421,
+              "sampledCalls": 134728
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1968.7273000007262,
+              "estimatedMs": 72832.37190036749,
+              "sampledCalls": 6124
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 107.31789999926696,
+              "estimatedMs": 3970.1878489266524,
+              "sampledCalls": 2667
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 908.2937000023667,
+              "estimatedMs": 33602.004987338165,
+              "sampledCalls": 6124
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2555.056300000346,
+              "estimatedMs": 94523.40639962349,
+              "sampledCalls": 5239
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 65.77509999548784,
+              "estimatedMs": 2433.3266190058234,
+              "sampledCalls": 6165
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 581.3414999997476,
+              "estimatedMs": 21506.523696341028,
+              "sampledCalls": 6165
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 981.5154999980005,
+              "estimatedMs": 36310.81964566812,
+              "sampledCalls": 56752
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 964.1813999990118,
+              "estimatedMs": 35669.55073164227,
+              "sampledCalls": 384
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1686.4815999997081,
+              "estimatedMs": 62390.79180456341,
+              "sampledCalls": 384
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 141.6624000017764,
+              "estimatedMs": 5240.750509846739,
+              "sampledCalls": 2781
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.41249999892897904,
+              "estimatedMs": 15.260291931180877,
+              "sampledCalls": 660
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.8883000002824701,
+              "estimatedMs": 69.8569923218854,
+              "sampledCalls": 714
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 47.69219999748748,
+              "estimatedMs": 1764.3561131917215,
+              "sampledCalls": 6373
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-intent-v1",
+      "id": "pr180-dev-ss-2",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5648.375000005755,
+      "inputHash": "88157f6656adc785aa7e1352103b805af7f88f7cbbf79ab8e5c0a93f1bab27de",
+      "sessionHash": "6f488ec9db66951e5c46e5d734710875138839da24b9be6ba8aeec56a629e07e",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "2a85c2d08fc0e6c3de058d1cd49defc053f679b5795375815724e58750ec1ccc",
+      "official": {
+        "attempts": 2289,
+        "completed": 1516
+      },
+      "firstTime": 350,
+      "firstTimeCompleted": 259,
+      "firstTimeShare": 0.1529051987767584,
+      "completion": 0.6622979467016165,
+      "intervalMean": 2.4678430944003296,
+      "intervalMedian": 1.8750000000068212,
+      "receptions": {
+        "directional_control": 715,
+        "clean_control": 438,
+        "heavy_touch": 57,
+        "failed_control": 56
+      },
+      "passOutcomes": {
+        "completed": 1533,
+        "intercepted": 589,
+        "unresolved": 12,
+        "technical_error": 113,
+        "unclaimed": 33,
+        "out_of_play": 8,
+        "inaccurate": 1
+      },
+      "flow": {
+        "shots": 14,
+        "crosses": 36,
+        "boxEntries": 20,
+        "finalThirdEntries": 154,
+        "turnovers": {
+          "tackle": 157,
+          "interception": 476,
+          "bad_pass": 5,
+          "pass_out": 8,
+          "heavy_touch": 1,
+          "failed_control": 113,
+          "loose_ball_claim": 21,
+          "shot": 12,
+          "foul_stoppage": 13,
+          "other": 6
+        },
+        "restarts": 96
+      },
+      "clock": {
+        "elapsed": 5648.375000005755,
+        "inPlay": 4726.750000006589,
+        "stoppage": 921.6249999991664,
+        "restartPreparation": 866.4499999991147,
+        "restartReady": 55.17500000005176
+      },
+      "ledger": {
+        "completedSeconds": 921.6249999991664,
+        "completedCount": 96,
+        "qualifyingCompletedSeconds": {
+          "first_half": 103.00000000013598,
+          "second_half": 83.77499999930887
+        },
+        "intervalCount": 96
+      },
+      "hold": 4.549999999933789,
+      "observer": {
+        "errors": [],
+        "attempts": 350,
+        "completed": 259,
+        "uniqueResults": 2277,
+        "uniqueAttempts": 2289
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 280.218,
+        "wallSeconds": 267.3984248,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225936,
+          "sampledTicks": 6107,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1160.7693000002764,
+              "estimatedMs": 42944.09244553176,
+              "sampledCalls": 6063
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 57.21479999599978,
+              "estimatedMs": 2116.7321191904707,
+              "sampledCalls": 133386
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1880.372200001555,
+              "estimatedMs": 69566.68959874756,
+              "sampledCalls": 6063
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 99.33270000037737,
+              "estimatedMs": 3674.9357961822925,
+              "sampledCalls": 2483
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 704.3649999994668,
+              "estimatedMs": 26058.852241670138,
+              "sampledCalls": 6063
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1784.0339999988792,
+              "estimatedMs": 66002.53902468426,
+              "sampledCalls": 5056
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 63.017699999327306,
+              "estimatedMs": 2331.4175646058643,
+              "sampledCalls": 6107
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 561.3420999984955,
+              "estimatedMs": 20767.543590185047,
+              "sampledCalls": 6107
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 128.82040000060806,
+              "estimatedMs": 4765.869640500636,
+              "sampledCalls": 2507
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 886.1210999952164,
+              "estimatedMs": 32783.1434171474,
+              "sampledCalls": 52633
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 800.8890000010142,
+              "estimatedMs": 29629.876715937306,
+              "sampledCalls": 341
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 970.2640999997966,
+              "estimatedMs": 35896.117520477164,
+              "sampledCalls": 341
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.45830000116256997,
+              "estimatedMs": 16.955374007313967,
+              "sampledCalls": 538
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.8264000001945533,
+              "estimatedMs": 30.573687644335447,
+              "sampledCalls": 579
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 43.3713999990141,
+              "estimatedMs": 1604.5784558993366,
+              "sampledCalls": 5996
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-value-v1",
+      "id": "pr180-dev-ss-2",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5640,
+      "inputHash": "88157f6656adc785aa7e1352103b805af7f88f7cbbf79ab8e5c0a93f1bab27de",
+      "sessionHash": "6f488ec9db66951e5c46e5d734710875138839da24b9be6ba8aeec56a629e07e",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "10b99a7e3532373a69330cf347408979e045d3480f00737cd35eec93315cd603",
+      "official": {
+        "attempts": 2398,
+        "completed": 1689
+      },
+      "firstTime": 385,
+      "firstTimeCompleted": 312,
+      "firstTimeShare": 0.16055045871559634,
+      "completion": 0.7043369474562136,
+      "intervalMean": 2.352065081344355,
+      "intervalMedian": 1.7250000000062755,
+      "receptions": {
+        "heavy_touch": 45,
+        "clean_control": 449,
+        "directional_control": 841,
+        "failed_control": 53
+      },
+      "passOutcomes": {
+        "technical_error": 98,
+        "completed": 1699,
+        "intercepted": 560,
+        "unresolved": 16,
+        "out_of_play": 5,
+        "unclaimed": 20
+      },
+      "flow": {
+        "shots": 6,
+        "crosses": 23,
+        "boxEntries": 12,
+        "finalThirdEntries": 134,
+        "turnovers": {
+          "tackle": 153,
+          "interception": 425,
+          "bad_pass": 2,
+          "pass_out": 5,
+          "heavy_touch": 0,
+          "failed_control": 149,
+          "loose_ball_claim": 20,
+          "shot": 3,
+          "foul_stoppage": 14,
+          "other": 2
+        },
+        "restarts": 96
+      },
+      "clock": {
+        "elapsed": 5640,
+        "inPlay": 4675.400000001957,
+        "stoppage": 964.5999999980435,
+        "restartPreparation": 909.6999999980754,
+        "restartReady": 54.89999999996809
+      },
+      "ledger": {
+        "completedSeconds": 964.5999999980435,
+        "completedCount": 97,
+        "qualifyingCompletedSeconds": {
+          "first_half": 41.525000000041985,
+          "second_half": 129.14999999886732
+        },
+        "intervalCount": 97
+      },
+      "hold": 1.8500000000067303,
+      "observer": {
+        "errors": [],
+        "attempts": 385,
+        "completed": 312,
+        "uniqueResults": 2382,
+        "uniqueAttempts": 2398
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 286.265,
+        "wallSeconds": 273.2123666,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225601,
+          "sampledTicks": 6098,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1058.2386999979499,
+              "estimatedMs": 39150.49343362373,
+              "sampledCalls": 6038
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 58.88900001347065,
+              "estimatedMs": 2178.6515729811404,
+              "sampledCalls": 132515
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1885.0719000026002,
+              "estimatedMs": 69739.93206173937,
+              "sampledCalls": 6038
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 100.00779999920633,
+              "estimatedMs": 3699.878597510815,
+              "sampledCalls": 2579
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 937.0068000051542,
+              "estimatedMs": 34665.41014889518,
+              "sampledCalls": 6038
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2228.5364999997546,
+              "estimatedMs": 82446.71415815754,
+              "sampledCalls": 4986
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 65.6244999980554,
+              "estimatedMs": 2427.8374588490155,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 568.9264999942388,
+              "estimatedMs": 21047.948069071874,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 889.2951000092435,
+              "estimatedMs": 32900.27285293298,
+              "sampledCalls": 53169
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 135.3525999999256,
+              "estimatedMs": 5007.491294290458,
+              "sampledCalls": 2610
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.4893999992636964,
+              "estimatedMs": 18.105793577220265,
+              "sampledCalls": 577
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.1354000002611428,
+              "estimatedMs": 42.005145204807164,
+              "sampledCalls": 589
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 762.4190999998245,
+              "estimatedMs": 28206.381006733427,
+              "sampledCalls": 426
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1614.1466999991098,
+              "estimatedMs": 59716.81037495887,
+              "sampledCalls": 426
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 52.81799999991199,
+              "estimatedMs": 1954.0494617874951,
+              "sampledCalls": 7536
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "state-value-v1",
+      "id": "pr180-dev-ss-2",
+      "tier": "SS",
+      "status": "full_time",
+      "time": 5669.100000005982,
+      "inputHash": "88157f6656adc785aa7e1352103b805af7f88f7cbbf79ab8e5c0a93f1bab27de",
+      "sessionHash": "6f488ec9db66951e5c46e5d734710875138839da24b9be6ba8aeec56a629e07e",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "98a41e99206844e9630f9953b7f0083b0aaf99f9ebd088bbc66fdf05d8701b14",
+      "official": {
+        "attempts": 1858,
+        "completed": 1247
+      },
+      "firstTime": 310,
+      "firstTimeCompleted": 232,
+      "firstTimeShare": 0.1668460710441335,
+      "completion": 0.6711517761033369,
+      "intervalMean": 2.421270866992294,
+      "intervalMedian": 1.899999999998272,
+      "receptions": {
+        "clean_control": 395,
+        "directional_control": 537,
+        "failed_control": 44,
+        "heavy_touch": 58
+      },
+      "passOutcomes": {
+        "completed": 1259,
+        "technical_error": 102,
+        "intercepted": 457,
+        "out_of_play": 7,
+        "unclaimed": 28,
+        "unresolved": 5
+      },
+      "flow": {
+        "shots": 9,
+        "crosses": 21,
+        "boxEntries": 12,
+        "finalThirdEntries": 96,
+        "turnovers": {
+          "tackle": 133,
+          "interception": 351,
+          "bad_pass": 8,
+          "pass_out": 6,
+          "heavy_touch": 0,
+          "failed_control": 80,
+          "loose_ball_claim": 16,
+          "shot": 6,
+          "foul_stoppage": 6,
+          "other": 4
+        },
+        "restarts": 60
+      },
+      "clock": {
+        "elapsed": 5669.100000005982,
+        "inPlay": 5051.225000004487,
+        "stoppage": 617.8750000014951,
+        "restartPreparation": 577.3000000013955,
+        "restartReady": 40.57500000009961
+      },
+      "ledger": {
+        "completedSeconds": 617.8750000014951,
+        "completedCount": 60,
+        "qualifyingCompletedSeconds": {
+          "first_half": 91.10000000033142,
+          "second_half": 60.30000000021937
+        },
+        "intervalCount": 60
+      },
+      "hold": 1168.4250000013526,
+      "observer": {
+        "errors": [],
+        "attempts": 310,
+        "completed": 232,
+        "uniqueResults": 1853,
+        "uniqueAttempts": 1858
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 268.015,
+        "wallSeconds": 254.74137960000004,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 226765,
+          "sampledTicks": 6129,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1077.2020000006305,
+              "estimatedMs": 39855.06796053891,
+              "sampledCalls": 6108
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 56.051899995072745,
+              "estimatedMs": 2073.8471369526305,
+              "sampledCalls": 134376
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1942.1071999977576,
+              "estimatedMs": 71855.43142559822,
+              "sampledCalls": 6108
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 133.2826999996323,
+              "estimatedMs": 4931.2859300728705,
+              "sampledCalls": 3305
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 618.0927999993437,
+              "estimatedMs": 22868.62682196952,
+              "sampledCalls": 6108
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1831.9663000018918,
+              "estimatedMs": 67780.36188936679,
+              "sampledCalls": 5419
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 66.33869999897433,
+              "estimatedMs": 2454.445310045263,
+              "sampledCalls": 6129
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 553.3886000005878,
+              "estimatedMs": 20474.655878468475,
+              "sampledCalls": 6129
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 176.93999999860534,
+              "estimatedMs": 6546.549045469692,
+              "sampledCalls": 3495
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 717.7662000050768,
+              "estimatedMs": 26556.412521480055,
+              "sampledCalls": 43052
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 858.6657000002451,
+              "estimatedMs": 31769.510109407016,
+              "sampledCalls": 381
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 35.920699997397605,
+              "estimatedMs": 1329.0190136906294,
+              "sampledCalls": 5081
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 826.2092999999877,
+              "estimatedMs": 30568.66567376362,
+              "sampledCalls": 381
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.44090000016149133,
+              "estimatedMs": 16.31272451241974,
+              "sampledCalls": 433
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.8625000001629815,
+              "estimatedMs": 31.91137421063118,
+              "sampledCalls": 439
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "legacy-pr176",
+      "id": "pr180-dev-sw-1",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5524.849999989726,
+      "inputHash": "1b35ca07d4f782cbbebb26754dafefa8e5f9fd57a7718e719f325cff941afde4",
+      "sessionHash": "74b6ad808ac5ab2705b1c7b57dbb826031137cc74f5255d898cac84e15defc67",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "ce5ca595954c7559dba4b6dcc0e9f831ae1f7f3720e8e4fc11d5a46e0f9c0096",
+      "official": {
+        "attempts": 1748,
+        "completed": 1237
+      },
+      "firstTime": 38,
+      "firstTimeCompleted": 30,
+      "firstTimeShare": 0.021739130434782608,
+      "completion": 0.7076659038901602,
+      "intervalMean": 3.1596021751515684,
+      "intervalMedian": 2.525000000009186,
+      "receptions": {
+        "directional_control": 607,
+        "failed_control": 110,
+        "heavy_touch": 225,
+        "clean_control": 555
+      },
+      "passOutcomes": {
+        "completed": 1239,
+        "intercepted": 149,
+        "technical_error": 335,
+        "unclaimed": 22,
+        "out_of_play": 2,
+        "inaccurate": 1
+      },
+      "flow": {
+        "shots": 3,
+        "crosses": 8,
+        "boxEntries": 7,
+        "finalThirdEntries": 73,
+        "turnovers": {
+          "tackle": 58,
+          "interception": 108,
+          "bad_pass": 2,
+          "pass_out": 2,
+          "heavy_touch": 1,
+          "failed_control": 50,
+          "loose_ball_claim": 12,
+          "shot": 3,
+          "foul_stoppage": 1,
+          "other": 5
+        },
+        "restarts": 24
+      },
+      "clock": {
+        "elapsed": 5524.849999989726,
+        "inPlay": 5220.549999989973,
+        "stoppage": 304.29999999975223,
+        "restartPreparation": 273.37499999967395,
+        "restartReady": 30.925000000078228
+      },
+      "ledger": {
+        "completedSeconds": 304.29999999975223,
+        "completedCount": 24,
+        "qualifyingCompletedSeconds": {
+          "first_half": 0,
+          "second_half": 76.94999999991796
+        },
+        "intervalCount": 24
+      },
+      "hold": 4.874999999929059,
+      "observer": {
+        "errors": [],
+        "attempts": 38,
+        "completed": 30,
+        "uniqueResults": 1748,
+        "uniqueAttempts": 1748
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 219.516,
+        "wallSeconds": 212.53428169999998,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 220994,
+          "sampledTicks": 5973,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1106.6371999960975,
+              "estimatedMs": 40944.27948701449,
+              "sampledCalls": 5964
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1696.1352000030456,
+              "estimatedMs": 62755.01463075056,
+              "sampledCalls": 5964
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 97.15869999775896,
+              "estimatedMs": 3594.7580357114925,
+              "sampledCalls": 2711
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 881.1673999963095,
+              "estimatedMs": 32602.161124189595,
+              "sampledCalls": 5964
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 798.8795000002137,
+              "estimatedMs": 29557.60526084836,
+              "sampledCalls": 5602
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 57.266000002855435,
+              "estimatedMs": 2118.7748877667896,
+              "sampledCalls": 5973
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 466.1187999958638,
+              "estimatedMs": 17245.849336394764,
+              "sampledCalls": 5973
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 924.0303000143613,
+              "estimatedMs": 34188.03819209338,
+              "sampledCalls": 53259
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 121.185900004406,
+              "estimatedMs": 4483.736277511083,
+              "sampledCalls": 2561
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 25.085500002780464,
+              "estimatedMs": 928.1341013920083,
+              "sampledCalls": 3268
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.42169999895850196,
+              "estimatedMs": 15.602405754199763,
+              "sampledCalls": 665
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.398200000054203,
+              "estimatedMs": 51.73176139494032,
+              "sampledCalls": 667
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "id": "pr180-dev-sw-1",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5460,
+      "inputHash": "1b35ca07d4f782cbbebb26754dafefa8e5f9fd57a7718e719f325cff941afde4",
+      "sessionHash": "74b6ad808ac5ab2705b1c7b57dbb826031137cc74f5255d898cac84e15defc67",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "c24c6d0c308b58eae214c2535a20b4f6ce90294644bb6a6844b6f7cb0b89e4dc",
+      "official": {
+        "attempts": 836,
+        "completed": 500
+      },
+      "firstTime": 181,
+      "firstTimeCompleted": 132,
+      "firstTimeShare": 0.21650717703349281,
+      "completion": 0.5980861244019139,
+      "intervalMean": 6.535568862257807,
+      "intervalMedian": 2.2000000000005002,
+      "receptions": {
+        "clean_control": 123,
+        "directional_control": 189,
+        "failed_control": 52,
+        "heavy_touch": 90
+      },
+      "passOutcomes": {
+        "completed": 510,
+        "intercepted": 169,
+        "technical_error": 142,
+        "unclaimed": 12,
+        "inaccurate": 1,
+        "unresolved": 2
+      },
+      "flow": {
+        "shots": 10,
+        "crosses": 33,
+        "boxEntries": 22,
+        "finalThirdEntries": 53,
+        "turnovers": {
+          "tackle": 81,
+          "interception": 129,
+          "bad_pass": 5,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 82,
+          "loose_ball_claim": 10,
+          "shot": 8,
+          "foul_stoppage": 2,
+          "other": 8
+        },
+        "restarts": 42
+      },
+      "clock": {
+        "elapsed": 5460,
+        "inPlay": 4965.475000002631,
+        "stoppage": 494.52499999736943,
+        "restartPreparation": 417.2499999975539,
+        "restartReady": 77.27499999981555
+      },
+      "ledger": {
+        "completedSeconds": 494.52499999736943,
+        "completedCount": 42,
+        "qualifyingCompletedSeconds": {
+          "first_half": 0,
+          "second_half": 49.72499999986121
+        },
+        "intervalCount": 42
+      },
+      "hold": 2096.9750000002746,
+      "observer": {
+        "errors": [],
+        "attempts": 181,
+        "completed": 132,
+        "uniqueResults": 834,
+        "uniqueAttempts": 836
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 272.75,
+        "wallSeconds": 266.33024990000007,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 218401,
+          "sampledTicks": 5903,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1093.825600002543,
+              "estimatedMs": 40469.6942006023,
+              "sampledCalls": 5896
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 50.37860000517685,
+              "estimatedMs": 1863.9228561291934,
+              "sampledCalls": 129712
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1749.1413999977522,
+              "estimatedMs": 64715.26866015739,
+              "sampledCalls": 5896
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 123.61740000150166,
+              "estimatedMs": 4573.634385520577,
+              "sampledCalls": 4134
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 576.3843000002671,
+              "estimatedMs": 21325.242673955334,
+              "sampledCalls": 5896
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2722.9495000088355,
+              "estimatedMs": 100744.51867718612,
+              "sampledCalls": 5342
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 59.55739999120124,
+              "estimatedMs": 2203.5229062304493,
+              "sampledCalls": 5903
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 463.87810000102036,
+              "estimatedMs": 17162.703865546813,
+              "sampledCalls": 5903
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 833.1806000039214,
+              "estimatedMs": 30826.270747324485,
+              "sampledCalls": 46920
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 91.01549999811687,
+              "estimatedMs": 3367.419314770239,
+              "sampledCalls": 1883
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1169.4912999995286,
+              "estimatedMs": 43269.19691871879,
+              "sampledCalls": 361
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 30.062800003797747,
+              "estimatedMs": 1112.2726721377996,
+              "sampledCalls": 4056
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1479.6249999997672,
+              "estimatedMs": 54743.61843553263,
+              "sampledCalls": 361
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.39139999996405095,
+              "estimatedMs": 14.48113694598487,
+              "sampledCalls": 450
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.7248000007821247,
+              "estimatedMs": 26.81637217869165,
+              "sampledCalls": 457
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-intent-v1",
+      "id": "pr180-dev-sw-1",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5820,
+      "inputHash": "1b35ca07d4f782cbbebb26754dafefa8e5f9fd57a7718e719f325cff941afde4",
+      "sessionHash": "74b6ad808ac5ab2705b1c7b57dbb826031137cc74f5255d898cac84e15defc67",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "e2e0ae52c8a155d58d3a7752e3704e6d1af65ca52a0a2382f084d775ad90fabd",
+      "official": {
+        "attempts": 1160,
+        "completed": 573
+      },
+      "firstTime": 147,
+      "firstTimeCompleted": 99,
+      "firstTimeShare": 0.1267241379310345,
+      "completion": 0.4939655172413793,
+      "intervalMean": 5.017256255374434,
+      "intervalMedian": 2.349999999965803,
+      "receptions": {
+        "directional_control": 233,
+        "clean_control": 181,
+        "heavy_touch": 137,
+        "failed_control": 51
+      },
+      "passOutcomes": {
+        "completed": 601,
+        "technical_error": 188,
+        "intercepted": 352,
+        "unclaimed": 13,
+        "out_of_play": 3,
+        "inaccurate": 3
+      },
+      "flow": {
+        "shots": 37,
+        "crosses": 53,
+        "boxEntries": 63,
+        "finalThirdEntries": 122,
+        "turnovers": {
+          "tackle": 182,
+          "interception": 238,
+          "bad_pass": 3,
+          "pass_out": 3,
+          "heavy_touch": 0,
+          "failed_control": 94,
+          "loose_ball_claim": 20,
+          "shot": 30,
+          "foul_stoppage": 3,
+          "other": 15
+        },
+        "restarts": 81
+      },
+      "clock": {
+        "elapsed": 5820,
+        "inPlay": 4768.87500000143,
+        "stoppage": 1051.1249999985698,
+        "restartPreparation": 954.6999999987694,
+        "restartReady": 96.4249999998006
+      },
+      "ledger": {
+        "completedSeconds": 1051.1249999985698,
+        "completedCount": 81,
+        "qualifyingCompletedSeconds": {
+          "first_half": 276.12500000066217,
+          "second_half": 118.77499999955626
+        },
+        "intervalCount": 81
+      },
+      "hold": 55.30000000020118,
+      "observer": {
+        "errors": [],
+        "attempts": 147,
+        "completed": 99,
+        "uniqueResults": 1160,
+        "uniqueAttempts": 1160
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 299.171,
+        "wallSeconds": 289.67802599999993,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 232801,
+          "sampledTicks": 6292,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1096.0588000054704,
+              "estimatedMs": 40553.65300382605,
+              "sampledCalls": 6266
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 57.76299997244496,
+              "estimatedMs": 2137.2034578170947,
+              "sampledCalls": 137852
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1940.4747999979882,
+              "estimatedMs": 71796.64238943605,
+              "sampledCalls": 6266
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 123.88809999998193,
+              "estimatedMs": 4583.80063065731,
+              "sampledCalls": 3404
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 650.3310999986716,
+              "estimatedMs": 24061.940624728344,
+              "sampledCalls": 6266
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2700.0999999988126,
+              "estimatedMs": 99902.41260326185,
+              "sampledCalls": 5128
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 63.663599996012636,
+              "estimatedMs": 2355.522845307015,
+              "sampledCalls": 6292
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 526.3305000046967,
+              "estimatedMs": 19473.977547932835,
+              "sampledCalls": 6292
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 134.49329999962356,
+              "estimatedMs": 4976.187974127839,
+              "sampledCalls": 2875
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1226.6511000071187,
+              "estimatedMs": 45385.50583800973,
+              "sampledCalls": 66127
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1203.7736999980407,
+              "estimatedMs": 44539.05294552509,
+              "sampledCalls": 394
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 39.80079999519512,
+              "estimatedMs": 1472.6106229627176,
+              "sampledCalls": 5661
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1343.8299999994924,
+              "estimatedMs": 49721.0692673048,
+              "sampledCalls": 394
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.58099999895785,
+              "estimatedMs": 21.49672294300484,
+              "sampledCalls": 686
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.2873000013642013,
+              "estimatedMs": 47.62948627107238,
+              "sampledCalls": 709
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-value-v1",
+      "id": "pr180-dev-sw-1",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5580,
+      "inputHash": "1b35ca07d4f782cbbebb26754dafefa8e5f9fd57a7718e719f325cff941afde4",
+      "sessionHash": "74b6ad808ac5ab2705b1c7b57dbb826031137cc74f5255d898cac84e15defc67",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "c3aa20d5acc99c8f63b88e3bf41d1069c9e1a83887f3cf77559c2af5a58a65f0",
+      "official": {
+        "attempts": 1498,
+        "completed": 866
+      },
+      "firstTime": 232,
+      "firstTimeCompleted": 172,
+      "firstTimeShare": 0.1548731642189586,
+      "completion": 0.5781041388518025,
+      "intervalMean": 3.667952571799975,
+      "intervalMedian": 2.1249999999980673,
+      "receptions": {
+        "heavy_touch": 148,
+        "directional_control": 407,
+        "clean_control": 219,
+        "failed_control": 66
+      },
+      "passOutcomes": {
+        "technical_error": 214,
+        "intercepted": 397,
+        "completed": 876,
+        "unclaimed": 10,
+        "inaccurate": 1
+      },
+      "flow": {
+        "shots": 17,
+        "crosses": 47,
+        "boxEntries": 25,
+        "finalThirdEntries": 102,
+        "turnovers": {
+          "tackle": 213,
+          "interception": 287,
+          "bad_pass": 3,
+          "pass_out": 0,
+          "heavy_touch": 1,
+          "failed_control": 105,
+          "loose_ball_claim": 18,
+          "shot": 12,
+          "foul_stoppage": 3,
+          "other": 5
+        },
+        "restarts": 59
+      },
+      "clock": {
+        "elapsed": 5580,
+        "inPlay": 4904.375000001868,
+        "stoppage": 675.6249999981324,
+        "restartPreparation": 564.4499999984047,
+        "restartReady": 111.17499999972767
+      },
+      "ledger": {
+        "completedSeconds": 675.6249999981324,
+        "completedCount": 59,
+        "qualifyingCompletedSeconds": {
+          "first_half": 30.400000000110595,
+          "second_half": 118.1249999988213
+        },
+        "intervalCount": 59
+      },
+      "hold": 210.34999999510728,
+      "observer": {
+        "errors": [],
+        "attempts": 232,
+        "completed": 172,
+        "uniqueResults": 1498,
+        "uniqueAttempts": 1498
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 297.923,
+        "wallSeconds": 287.50724269999995,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 223201,
+          "sampledTicks": 6033,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 996.742199994158,
+              "estimatedMs": 36876.15709943578,
+              "sampledCalls": 6006
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 54.00410001853015,
+              "estimatedMs": 1997.9726716784269,
+              "sampledCalls": 132132
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1966.6908000051044,
+              "estimatedMs": 72761.03982296359,
+              "sampledCalls": 6006
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 125.76060000318103,
+              "estimatedMs": 4652.72529111719,
+              "sampledCalls": 3428
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 719.1366999968886,
+              "estimatedMs": 26605.67388960808,
+              "sampledCalls": 6006
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2867.401399995899,
+              "estimatedMs": 106084.34607665915,
+              "sampledCalls": 5259
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 63.602000003447756,
+              "estimatedMs": 2353.0631531194335,
+              "sampledCalls": 6033
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 519.2530999991577,
+              "estimatedMs": 19210.64332387071,
+              "sampledCalls": 6033
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.5448000001488253,
+              "estimatedMs": 20.15579393887253,
+              "sampledCalls": 648
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.8712999975541607,
+              "estimatedMs": 32.235211462636535,
+              "sampledCalls": 691
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1039.3695000344887,
+              "estimatedMs": 38453.22588715365,
+              "sampledCalls": 59733
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 167.11309999751393,
+              "estimatedMs": 6182.630703223124,
+              "sampledCalls": 3186
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 922.3234999997076,
+              "estimatedMs": 34122.911905094435,
+              "sampledCalls": 414
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1896.4654999994673,
+              "estimatedMs": 70162.93652666685,
+              "sampledCalls": 414
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 46.248200003174134,
+              "estimatedMs": 1711.0300826965806,
+              "sampledCalls": 6003
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "state-value-v1",
+      "id": "pr180-dev-sw-1",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5760,
+      "inputHash": "1b35ca07d4f782cbbebb26754dafefa8e5f9fd57a7718e719f325cff941afde4",
+      "sessionHash": "74b6ad808ac5ab2705b1c7b57dbb826031137cc74f5255d898cac84e15defc67",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "8003ad6e6396582b68d962ad97ccdf261378d6e7f28805a4b0cacf62f7933407",
+      "official": {
+        "attempts": 1219,
+        "completed": 578
+      },
+      "firstTime": 161,
+      "firstTimeCompleted": 112,
+      "firstTimeShare": 0.1320754716981132,
+      "completion": 0.4741591468416735,
+      "intervalMean": 4.727688834138119,
+      "intervalMedian": 2.2999999999665306,
+      "receptions": {
+        "heavy_touch": 160,
+        "clean_control": 194,
+        "failed_control": 64,
+        "directional_control": 215
+      },
+      "passOutcomes": {
+        "technical_error": 224,
+        "completed": 595,
+        "intercepted": 383,
+        "unclaimed": 11,
+        "unresolved": 2,
+        "inaccurate": 3,
+        "out_of_play": 1
+      },
+      "flow": {
+        "shots": 33,
+        "crosses": 52,
+        "boxEntries": 45,
+        "finalThirdEntries": 107,
+        "turnovers": {
+          "tackle": 157,
+          "interception": 243,
+          "bad_pass": 5,
+          "pass_out": 1,
+          "heavy_touch": 0,
+          "failed_control": 62,
+          "loose_ball_claim": 28,
+          "shot": 23,
+          "foul_stoppage": 0,
+          "other": 4
+        },
+        "restarts": 68
+      },
+      "clock": {
+        "elapsed": 5760,
+        "inPlay": 4922.625000003054,
+        "stoppage": 837.3749999969457,
+        "restartPreparation": 741.5749999970824,
+        "restartReady": 95.79999999986327
+      },
+      "ledger": {
+        "completedSeconds": 837.3749999969457,
+        "completedCount": 68,
+        "qualifyingCompletedSeconds": {
+          "first_half": 154.12500000027285,
+          "second_half": 147.32499999876336
+        },
+        "intervalCount": 68
+      },
+      "hold": 158.94999999448373,
+      "observer": {
+        "errors": [],
+        "attempts": 161,
+        "completed": 112,
+        "uniqueResults": 1217,
+        "uniqueAttempts": 1219
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 288.703,
+        "wallSeconds": 279.6463616999999,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 230401,
+          "sampledTicks": 6228,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 991.911299991305,
+              "estimatedMs": 36695.14377477467,
+              "sampledCalls": 6200
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 55.78520001517609,
+              "estimatedMs": 2063.738899919169,
+              "sampledCalls": 136400
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2005.9123000100954,
+              "estimatedMs": 74207.48231127585,
+              "sampledCalls": 6200
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 138.55009999498725,
+              "estimatedMs": 5125.575078507555,
+              "sampledCalls": 3666
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 535.8539999995846,
+              "estimatedMs": 19823.58661751835,
+              "sampledCalls": 6200
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2766.1070000022883,
+              "estimatedMs": 102330.41408277572,
+              "sampledCalls": 5293
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 62.86490000085905,
+              "estimatedMs": 2325.6480130215036,
+              "sampledCalls": 6228
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 519.4535999953514,
+              "estimatedMs": 19216.863984028412,
+              "sampledCalls": 6228
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 997.635000016191,
+              "estimatedMs": 36906.88850975119,
+              "sampledCalls": 59889
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 171.0967999997083,
+              "estimatedMs": 6329.620073335387,
+              "sampledCalls": 3605
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1171.4861999995774,
+              "estimatedMs": 43338.40590335623,
+              "sampledCalls": 468
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1282.1833999989321,
+              "estimatedMs": 47433.58020924116,
+              "sampledCalls": 468
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.47589999984484166,
+              "estimatedMs": 17.605625540181656,
+              "sampledCalls": 630
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.249499999335967,
+              "estimatedMs": 46.224478058286145,
+              "sampledCalls": 649
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 39.373400006094016,
+              "estimatedMs": 1456.5945303153608,
+              "sampledCalls": 5637
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "legacy-pr176",
+      "id": "pr180-dev-sw-2",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5580.999999983251,
+      "inputHash": "9480e472ed4a8ebe9f91cfa8b56698df7043b85aab8f4e3222e506d8537cf7f7",
+      "sessionHash": "9e21425c0d0661dbdaeed8762ec46a67a2ad64f8fedc749cdece2ce55f9abcc1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "142406d8ba07d8a09a475852fab2b3843fe2b9b22765f157f522919b5c095671",
+      "official": {
+        "attempts": 1930,
+        "completed": 1618
+      },
+      "firstTime": 2,
+      "firstTimeCompleted": 2,
+      "firstTimeShare": 0.0010362694300518134,
+      "completion": 0.8383419689119171,
+      "intervalMean": 2.8920165888974907,
+      "intervalMedian": 2.500000000009095,
+      "receptions": {
+        "clean_control": 1004,
+        "directional_control": 605,
+        "failed_control": 38,
+        "heavy_touch": 148
+      },
+      "passOutcomes": {
+        "completed": 1618,
+        "technical_error": 186,
+        "intercepted": 122,
+        "unclaimed": 2,
+        "out_of_play": 2
+      },
+      "flow": {
+        "shots": 0,
+        "crosses": 7,
+        "boxEntries": 10,
+        "finalThirdEntries": 40,
+        "turnovers": {
+          "tackle": 61,
+          "interception": 89,
+          "bad_pass": 0,
+          "pass_out": 2,
+          "heavy_touch": 4,
+          "failed_control": 48,
+          "loose_ball_claim": 12,
+          "shot": 0,
+          "foul_stoppage": 1,
+          "other": 4
+        },
+        "restarts": 20
+      },
+      "clock": {
+        "elapsed": 5580.999999983251,
+        "inPlay": 5341.8499999836395,
+        "stoppage": 239.14999999961137,
+        "restartPreparation": 207.1249999995482,
+        "restartReady": 32.02500000006316
+      },
+      "ledger": {
+        "completedSeconds": 239.14999999961137,
+        "completedCount": 20,
+        "qualifyingCompletedSeconds": {
+          "first_half": 11.275000000002564,
+          "second_half": 62.34999999969796
+        },
+        "intervalCount": 20
+      },
+      "hold": 3.2500000000118234,
+      "observer": {
+        "errors": [],
+        "attempts": 2,
+        "completed": 2,
+        "uniqueResults": 1930,
+        "uniqueAttempts": 1930
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 215.249,
+        "wallSeconds": 210.15310789999995,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 223240,
+          "sampledTicks": 6034,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1171.4359000012046,
+              "estimatedMs": 43339.63379454241,
+              "sampledCalls": 6002
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1627.766600002884,
+              "estimatedMs": 60222.50841641429,
+              "sampledCalls": 6002
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 81.35460000042804,
+              "estimatedMs": 3009.8775114510368,
+              "sampledCalls": 2609
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 1042.9437999972142,
+              "estimatedMs": 38585.80939863741,
+              "sampledCalls": 6002
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1024.5068000002066,
+              "estimatedMs": 37903.695398085205,
+              "sampledCalls": 5716
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 50.7129999990575,
+              "estimatedMs": 1876.2297182283057,
+              "sampledCalls": 6034
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 452.3286000068765,
+              "estimatedMs": 16734.80886071182,
+              "sampledCalls": 6034
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 110.4668000030797,
+              "estimatedMs": 4086.9420670678674,
+              "sampledCalls": 2482
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1074.5415999793913,
+              "estimatedMs": 39754.833738713845,
+              "sampledCalls": 66294
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.2859999992651865,
+              "estimatedMs": 10.581146807418003,
+              "sampledCalls": 417
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.5543000007746741,
+              "estimatedMs": 20.507446498663946,
+              "sampledCalls": 417
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 39.41570000187494,
+              "estimatedMs": 1458.2633192606168,
+              "sampledCalls": 5023
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "id": "pr180-dev-sw-2",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5700.799999981071,
+      "inputHash": "9480e472ed4a8ebe9f91cfa8b56698df7043b85aab8f4e3222e506d8537cf7f7",
+      "sessionHash": "9e21425c0d0661dbdaeed8762ec46a67a2ad64f8fedc749cdece2ce55f9abcc1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "d80736e090e401e9bc7c081b2948c8ac4761571915537dbe8c5c46d97187f020",
+      "official": {
+        "attempts": 1574,
+        "completed": 843
+      },
+      "firstTime": 244,
+      "firstTimeCompleted": 159,
+      "firstTimeShare": 0.15501905972045743,
+      "completion": 0.5355781448538754,
+      "intervalMean": 3.6225365543427244,
+      "intervalMedian": 2.3249999999978854,
+      "receptions": {
+        "heavy_touch": 212,
+        "clean_control": 278,
+        "directional_control": 316,
+        "failed_control": 37
+      },
+      "passOutcomes": {
+        "technical_error": 249,
+        "completed": 858,
+        "intercepted": 426,
+        "unclaimed": 31,
+        "out_of_play": 3,
+        "unresolved": 4,
+        "inaccurate": 3
+      },
+      "flow": {
+        "shots": 19,
+        "crosses": 64,
+        "boxEntries": 28,
+        "finalThirdEntries": 92,
+        "turnovers": {
+          "tackle": 160,
+          "interception": 330,
+          "bad_pass": 8,
+          "pass_out": 3,
+          "heavy_touch": 1,
+          "failed_control": 91,
+          "loose_ball_claim": 36,
+          "shot": 17,
+          "foul_stoppage": 4,
+          "other": 17
+        },
+        "restarts": 83
+      },
+      "clock": {
+        "elapsed": 5700.799999981071,
+        "inPlay": 4719.074999981647,
+        "stoppage": 981.7249999994243,
+        "restartPreparation": 926.5499999994597,
+        "restartReady": 55.17499999996456
+      },
+      "ledger": {
+        "completedSeconds": 981.7249999994243,
+        "completedCount": 83,
+        "qualifyingCompletedSeconds": {
+          "first_half": 122.62500000020194,
+          "second_half": 106.07499999946958
+        },
+        "intervalCount": 83
+      },
+      "hold": 4.874999999999723,
+      "observer": {
+        "errors": [],
+        "attempts": 244,
+        "completed": 159,
+        "uniqueResults": 1570,
+        "uniqueAttempts": 1574
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 286.343,
+        "wallSeconds": 277.4375280999999,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 228032,
+          "sampledTicks": 6164,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1039.2011000086786,
+              "estimatedMs": 38444.37138825098,
+              "sampledCalls": 6129
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 55.964000035775825,
+              "estimatedMs": 2070.3411512261573,
+              "sampledCalls": 130797
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1814.9335999985924,
+              "estimatedMs": 67141.94332817635,
+              "sampledCalls": 6129
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 103.49790000542998,
+              "estimatedMs": 3828.817834853701,
+              "sampledCalls": 2904
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 651.1298999950523,
+              "estimatedMs": 24088.003464580102,
+              "sampledCalls": 6129
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2630.704800002277,
+              "estimatedMs": 97320.71332805308,
+              "sampledCalls": 5065
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 50.804600002244115,
+              "estimatedMs": 1879.4734827566078,
+              "sampledCalls": 6164
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 525.9300999958068,
+              "estimatedMs": 19456.342076937675,
+              "sampledCalls": 6164
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.44460000086110085,
+              "estimatedMs": 16.44760340628789,
+              "sampledCalls": 662
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.0535999956773594,
+              "estimatedMs": 38.9770464332089,
+              "sampledCalls": 753
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 134.15609999606386,
+              "estimatedMs": 4962.992179478007,
+              "sampledCalls": 2988
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 939.1457999735139,
+              "estimatedMs": 34742.909646262226,
+              "sampledCalls": 55099
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1003.5534999994561,
+              "estimatedMs": 37125.618382848144,
+              "sampledCalls": 384
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1561.663999999524,
+              "estimatedMs": 57772.44731471309,
+              "sampledCalls": 384
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 35.67840000556316,
+              "estimatedMs": 1319.8924253842602,
+              "sampledCalls": 4933
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-intent-v1",
+      "id": "pr180-dev-sw-2",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5672.87500000012,
+      "inputHash": "9480e472ed4a8ebe9f91cfa8b56698df7043b85aab8f4e3222e506d8537cf7f7",
+      "sessionHash": "9e21425c0d0661dbdaeed8762ec46a67a2ad64f8fedc749cdece2ce55f9abcc1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "235782b3f5fd2603841466233dc47370a3c7cfab1fe4adf675b2f15d57bfc33a",
+      "official": {
+        "attempts": 1709,
+        "completed": 886
+      },
+      "firstTime": 170,
+      "firstTimeCompleted": 102,
+      "firstTimeShare": 0.0994733762434172,
+      "completion": 0.5184318314803978,
+      "intervalMean": 3.3201405152117838,
+      "intervalMedian": 2.37500000000864,
+      "receptions": {
+        "heavy_touch": 227,
+        "directional_control": 378,
+        "clean_control": 330,
+        "failed_control": 59
+      },
+      "passOutcomes": {
+        "technical_error": 286,
+        "intercepted": 491,
+        "completed": 895,
+        "out_of_play": 3,
+        "unclaimed": 31,
+        "inaccurate": 3
+      },
+      "flow": {
+        "shots": 13,
+        "crosses": 78,
+        "boxEntries": 35,
+        "finalThirdEntries": 144,
+        "turnovers": {
+          "tackle": 210,
+          "interception": 352,
+          "bad_pass": 9,
+          "pass_out": 3,
+          "heavy_touch": 0,
+          "failed_control": 110,
+          "loose_ball_claim": 33,
+          "shot": 11,
+          "foul_stoppage": 3,
+          "other": 12
+        },
+        "restarts": 71
+      },
+      "clock": {
+        "elapsed": 5672.87500000012,
+        "inPlay": 4947.300000000769,
+        "stoppage": 725.5749999993509,
+        "restartPreparation": 668.1249999993432,
+        "restartReady": 57.45000000000769
+      },
+      "ledger": {
+        "completedSeconds": 725.5749999993509,
+        "completedCount": 71,
+        "qualifyingCompletedSeconds": {
+          "first_half": 125.42500000035756,
+          "second_half": 101.52499999942393
+        },
+        "intervalCount": 71
+      },
+      "hold": 5.6750000000206455,
+      "observer": {
+        "errors": [],
+        "attempts": 170,
+        "completed": 102,
+        "uniqueResults": 1709,
+        "uniqueAttempts": 1709
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 270.5,
+        "wallSeconds": 263.75028169999996,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 226916,
+          "sampledTicks": 6133,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1079.5275000031106,
+              "estimatedMs": 39941.63740269132,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 56.77709998644423,
+              "estimatedMs": 2100.706411303437,
+              "sampledCalls": 134156
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1890.125700003584,
+              "estimatedMs": 69933.1099530431,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 102.32059999380726,
+              "estimatedMs": 3785.7787817046747,
+              "sampledCalls": 3001
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 696.5960999990348,
+              "estimatedMs": 25773.487791844283,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2158.136200003093,
+              "estimatedMs": 79849.27995432935,
+              "sampledCalls": 5292
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 57.10559999686666,
+              "estimatedMs": 2112.8606438755905,
+              "sampledCalls": 6133
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 495.4051999907242,
+              "estimatedMs": 18329.588514771756,
+              "sampledCalls": 6133
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 145.1941000012448,
+              "estimatedMs": 5372.063328857405,
+              "sampledCalls": 3183
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 963.3754000072367,
+              "estimatedMs": 35644.10439720237,
+              "sampledCalls": 57538
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.472300001536496,
+              "estimatedMs": 17.47471500874866,
+              "sampledCalls": 706
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.9826999969081953,
+              "estimatedMs": 36.35909872793414,
+              "sampledCalls": 722
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 990.5927999983542,
+              "estimatedMs": 36651.126007569954,
+              "sampledCalls": 400
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 42.46650000428781,
+              "estimatedMs": 1571.2258788477047,
+              "sampledCalls": 6286
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1110.7190000019036,
+              "estimatedMs": 41095.697473411376,
+              "sampledCalls": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-value-v1",
+      "id": "pr180-dev-sw-2",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5580.725000005661,
+      "inputHash": "9480e472ed4a8ebe9f91cfa8b56698df7043b85aab8f4e3222e506d8537cf7f7",
+      "sessionHash": "9e21425c0d0661dbdaeed8762ec46a67a2ad64f8fedc749cdece2ce55f9abcc1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "fd6f656a01318aa68eaf86d149b898c241b33b931889c4fd3152ef54750b13f4",
+      "official": {
+        "attempts": 1863,
+        "completed": 1016
+      },
+      "firstTime": 178,
+      "firstTimeCompleted": 117,
+      "firstTimeShare": 0.09554482018250134,
+      "completion": 0.5453569511540526,
+      "intervalMean": 2.9955558539145812,
+      "intervalMedian": 2.249999999967258,
+      "receptions": {
+        "heavy_touch": 269,
+        "clean_control": 386,
+        "directional_control": 449,
+        "failed_control": 46
+      },
+      "passOutcomes": {
+        "technical_error": 315,
+        "completed": 1019,
+        "intercepted": 500,
+        "unresolved": 4,
+        "unclaimed": 18,
+        "inaccurate": 3,
+        "out_of_play": 4
+      },
+      "flow": {
+        "shots": 2,
+        "crosses": 58,
+        "boxEntries": 11,
+        "finalThirdEntries": 128,
+        "turnovers": {
+          "tackle": 239,
+          "interception": 362,
+          "bad_pass": 10,
+          "pass_out": 4,
+          "heavy_touch": 0,
+          "failed_control": 98,
+          "loose_ball_claim": 35,
+          "shot": 1,
+          "foul_stoppage": 1,
+          "other": 9
+        },
+        "restarts": 57
+      },
+      "clock": {
+        "elapsed": 5580.725000005661,
+        "inPlay": 5017.350000006582,
+        "stoppage": 563.3749999990787,
+        "restartPreparation": 485.2749999991887,
+        "restartReady": 78.09999999988992
+      },
+      "ledger": {
+        "completedSeconds": 563.3749999990787,
+        "completedCount": 57,
+        "qualifyingCompletedSeconds": {
+          "first_half": 7.724999999992974,
+          "second_half": 70.47499999974434
+        },
+        "intervalCount": 57
+      },
+      "hold": 6.899999999899592,
+      "observer": {
+        "errors": [],
+        "attempts": 178,
+        "completed": 117,
+        "uniqueResults": 1859,
+        "uniqueAttempts": 1863
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 275.266,
+        "wallSeconds": 268.58983620000004,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 223230,
+          "sampledTicks": 6034,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 995.1233000042848,
+              "estimatedMs": 36814.944358627195,
+              "sampledCalls": 6001
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 53.93089998560026,
+              "estimatedMs": 1995.1930400705248,
+              "sampledCalls": 132022
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1891.5293999941787,
+              "estimatedMs": 69977.81040117676,
+              "sampledCalls": 6001
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 110.17029999953229,
+              "estimatedMs": 4075.7898688922096,
+              "sampledCalls": 3057
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 744.3680999956559,
+              "estimatedMs": 27538.165555523745,
+              "sampledCalls": 6001
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2439.5600000043632,
+              "estimatedMs": 90252.3995361243,
+              "sampledCalls": 5369
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 57.41860000346787,
+              "estimatedMs": 2124.221756508806,
+              "sampledCalls": 6034
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 511.0645999981789,
+              "estimatedMs": 18907.01867046627,
+              "sampledCalls": 6034
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 900.7574999810895,
+              "estimatedMs": 33323.84765011247,
+              "sampledCalls": 53862
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 150.07670000137296,
+              "estimatedMs": 5552.141488449865,
+              "sampledCalls": 3180
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.5203000016044825,
+              "estimatedMs": 19.248685674207596,
+              "sampledCalls": 707
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.6883999968413264,
+              "estimatedMs": 25.467605451589208,
+              "sampledCalls": 712
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 857.4677999994019,
+              "estimatedMs": 31722.32963106836,
+              "sampledCalls": 422
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 43.38920000230428,
+              "estimatedMs": 1605.199058089888,
+              "sampledCalls": 5906
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1580.2100000004284,
+              "estimatedMs": 58460.43723899497,
+              "sampledCalls": 422
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "state-value-v1",
+      "id": "pr180-dev-sw-2",
+      "tier": "SW",
+      "status": "full_time",
+      "time": 5640,
+      "inputHash": "9480e472ed4a8ebe9f91cfa8b56698df7043b85aab8f4e3222e506d8537cf7f7",
+      "sessionHash": "9e21425c0d0661dbdaeed8762ec46a67a2ad64f8fedc749cdece2ce55f9abcc1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "5b869ae5b96cdb2404bf0e97cebeef7d117dccc3675c25eb0c00a79670f5f43b",
+      "official": {
+        "attempts": 897,
+        "completed": 474
+      },
+      "firstTime": 87,
+      "firstTimeCompleted": 54,
+      "firstTimeShare": 0.09698996655518395,
+      "completion": 0.5284280936454849,
+      "intervalMean": 6.293136160694409,
+      "intervalMedian": 2.450000000008913,
+      "receptions": {
+        "heavy_touch": 123,
+        "clean_control": 226,
+        "directional_control": 156,
+        "failed_control": 31
+      },
+      "passOutcomes": {
+        "technical_error": 154,
+        "completed": 476,
+        "intercepted": 253,
+        "unclaimed": 11,
+        "inaccurate": 1,
+        "out_of_play": 2
+      },
+      "flow": {
+        "shots": 6,
+        "crosses": 35,
+        "boxEntries": 12,
+        "finalThirdEntries": 54,
+        "turnovers": {
+          "tackle": 92,
+          "interception": 164,
+          "bad_pass": 3,
+          "pass_out": 2,
+          "heavy_touch": 1,
+          "failed_control": 38,
+          "loose_ball_claim": 22,
+          "shot": 6,
+          "foul_stoppage": 1,
+          "other": 6
+        },
+        "restarts": 38
+      },
+      "clock": {
+        "elapsed": 5640,
+        "inPlay": 5156.9000000016495,
+        "stoppage": 483.0999999983511,
+        "restartPreparation": 441.07499999838046,
+        "restartReady": 42.02499999997061
+      },
+      "ledger": {
+        "completedSeconds": 483.0999999983511,
+        "completedCount": 38,
+        "qualifyingCompletedSeconds": {
+          "first_half": 60.350000000005295,
+          "second_half": 88.89999999939573
+        },
+        "intervalCount": 38
+      },
+      "hold": 2504.650000000013,
+      "observer": {
+        "errors": [],
+        "attempts": 87,
+        "completed": 54,
+        "uniqueResults": 897,
+        "uniqueAttempts": 897
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 257.266,
+        "wallSeconds": 253.94460739999997,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225601,
+          "sampledTicks": 6098,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1015.4535000030883,
+              "estimatedMs": 37567.61644050455,
+              "sampledCalls": 6066
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 51.845500021474436,
+              "estimatedMs": 1918.070949548156,
+              "sampledCalls": 133452
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2230.0072999971453,
+              "estimatedMs": 82501.12772821516,
+              "sampledCalls": 6066
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 183.90350000187755,
+              "estimatedMs": 6803.675550003867,
+              "sampledCalls": 4291
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 545.0149999988498,
+              "estimatedMs": 20163.320599334293,
+              "sampledCalls": 6066
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1853.6344999959692,
+              "estimatedMs": 68576.87714555439,
+              "sampledCalls": 5543
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 57.69609999610111,
+              "estimatedMs": 2134.5191628764196,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 494.54500000039116,
+              "estimatedMs": 18296.137511493645,
+              "sampledCalls": 6098
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 585.8125000121072,
+              "estimatedMs": 21672.66084211732,
+              "sampledCalls": 38114
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 27.885100004146807,
+              "estimatedMs": 1031.6343794745037,
+              "sampledCalls": 4056
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 863.1618000002345,
+              "estimatedMs": 31933.447891415697,
+              "sampledCalls": 393
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 670.6961000004085,
+              "estimatedMs": 24813.00604398035,
+              "sampledCalls": 393
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 311.1218000013614,
+              "estimatedMs": 11510.23109250691,
+              "sampledCalls": 7145
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.2608000006293878,
+              "estimatedMs": 9.648530820267386,
+              "sampledCalls": 403
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.3896000017412007,
+              "estimatedMs": 14.413602819418928,
+              "sampledCalls": 426
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "legacy-pr176",
+      "id": "pr180-dev-ww-1",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5520.349999984133,
+      "inputHash": "cfb45f721345ac47d078fda0a7d9fec3e837ab1f6ce77cc574a652afd44144f4",
+      "sessionHash": "c375b9ee6459abf98219fabe36162de2e53800a44e2ef4702125783d8a86b97d",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "65865dd2d1646251c3e3f6ea609fb7f830de941742da2ec1a625421b99295e08",
+      "official": {
+        "attempts": 1251,
+        "completed": 422
+      },
+      "firstTime": 3,
+      "firstTimeCompleted": 3,
+      "firstTimeShare": 0.002398081534772182,
+      "completion": 0.33733013589128696,
+      "intervalMean": 4.414199999987327,
+      "intervalMedian": 3.450000000012551,
+      "receptions": {
+        "heavy_touch": 485,
+        "directional_control": 67,
+        "clean_control": 300,
+        "failed_control": 127
+      },
+      "passOutcomes": {
+        "technical_error": 612,
+        "completed": 422,
+        "intercepted": 192,
+        "unclaimed": 18,
+        "out_of_play": 5,
+        "inaccurate": 1,
+        "unresolved": 1
+      },
+      "flow": {
+        "shots": 2,
+        "crosses": 24,
+        "boxEntries": 21,
+        "finalThirdEntries": 58,
+        "turnovers": {
+          "tackle": 71,
+          "interception": 129,
+          "bad_pass": 2,
+          "pass_out": 5,
+          "heavy_touch": 2,
+          "failed_control": 29,
+          "loose_ball_claim": 22,
+          "shot": 2,
+          "foul_stoppage": 0,
+          "other": 8
+        },
+        "restarts": 24
+      },
+      "clock": {
+        "elapsed": 5520.349999984133,
+        "inPlay": 5192.674999984123,
+        "stoppage": 327.67500000000973,
+        "restartPreparation": 298.7249999999208,
+        "restartReady": 28.95000000008892
+      },
+      "ledger": {
+        "completedSeconds": 327.67500000000973,
+        "completedCount": 24,
+        "qualifyingCompletedSeconds": {
+          "first_half": 30.174999999972556,
+          "second_half": 32.17499999953179
+        },
+        "intervalCount": 24
+      },
+      "hold": 4.875000000017735,
+      "observer": {
+        "errors": [],
+        "attempts": 3,
+        "completed": 3,
+        "uniqueResults": 1250,
+        "uniqueAttempts": 1251
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 208.344,
+        "wallSeconds": 202.84646010000003,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 220814,
+          "sampledTicks": 5968,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1047.8471999961184,
+              "estimatedMs": 38769.995244628495,
+              "sampledCalls": 5956
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1690.6551000025356,
+              "estimatedMs": 62553.67212666888,
+              "sampledCalls": 5956
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 106.14859999692999,
+              "estimatedMs": 3927.462627299279,
+              "sampledCalls": 3059
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 755.0769000046421,
+              "estimatedMs": 27937.592258315184,
+              "sampledCalls": 5956
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 904.0198000023374,
+              "estimatedMs": 33448.42964438943,
+              "sampledCalls": 5580
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 55.60909999709111,
+              "estimatedMs": 2057.518064134999,
+              "sampledCalls": 5968
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 441.68080000195187,
+              "estimatedMs": 16342.04158371833,
+              "sampledCalls": 5968
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.6125999977812171,
+              "estimatedMs": 22.66599462299961,
+              "sampledCalls": 808
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.1387999958824366,
+              "estimatedMs": 42.13521821226279,
+              "sampledCalls": 808
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 133.86930000409484,
+              "estimatedMs": 4953.119237785556,
+              "sampledCalls": 3095
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 916.4965000238735,
+              "estimatedMs": 33910.06336398653,
+              "sampledCalls": 52205
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 20.42200000153389,
+              "estimatedMs": 755.6071562229731,
+              "sampledCalls": 2705
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "id": "pr180-dev-ww-1",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5700,
+      "inputHash": "cfb45f721345ac47d078fda0a7d9fec3e837ab1f6ce77cc574a652afd44144f4",
+      "sessionHash": "c375b9ee6459abf98219fabe36162de2e53800a44e2ef4702125783d8a86b97d",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "4606097be3a74b8052ef6e8502d1686cfddd5e4b73194af41529a1cb3843b67e",
+      "official": {
+        "attempts": 896,
+        "completed": 311
+      },
+      "firstTime": 72,
+      "firstTimeCompleted": 30,
+      "firstTimeShare": 0.08035714285714286,
+      "completion": 0.3470982142857143,
+      "intervalMean": 6.129692737412476,
+      "intervalMedian": 3.3250000000120963,
+      "receptions": {
+        "heavy_touch": 298,
+        "clean_control": 203,
+        "failed_control": 72,
+        "directional_control": 36
+      },
+      "passOutcomes": {
+        "technical_error": 370,
+        "completed": 323,
+        "unclaimed": 14,
+        "intercepted": 186,
+        "inaccurate": 3
+      },
+      "flow": {
+        "shots": 9,
+        "crosses": 81,
+        "boxEntries": 23,
+        "finalThirdEntries": 68,
+        "turnovers": {
+          "tackle": 118,
+          "interception": 147,
+          "bad_pass": 5,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 102,
+          "loose_ball_claim": 22,
+          "shot": 9,
+          "foul_stoppage": 2,
+          "other": 14
+        },
+        "restarts": 44
+      },
+      "clock": {
+        "elapsed": 5700,
+        "inPlay": 5018.225000001956,
+        "stoppage": 681.7749999980444,
+        "restartPreparation": 630.5999999980266,
+        "restartReady": 51.175000000017775
+      },
+      "ledger": {
+        "completedSeconds": 681.7749999980444,
+        "completedCount": 45,
+        "qualifyingCompletedSeconds": {
+          "first_half": 76.12500000009408,
+          "second_half": 123.92499999872462
+        },
+        "intervalCount": 45
+      },
+      "hold": 194.8000000158645,
+      "observer": {
+        "errors": [],
+        "attempts": 72,
+        "completed": 30,
+        "uniqueResults": 896,
+        "uniqueAttempts": 896
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 317.718,
+        "wallSeconds": 311.8586971999998,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 228001,
+          "sampledTicks": 6163,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1154.4888999883551,
+              "estimatedMs": 42710.46952559549,
+              "sampledCalls": 6120
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 58.61760000651702,
+              "estimatedMs": 2168.565863878937,
+              "sampledCalls": 134640
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2042.8810000091325,
+              "estimatedMs": 75576.6527475389,
+              "sampledCalls": 6120
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 124.43809999502264,
+              "estimatedMs": 4603.603965108739,
+              "sampledCalls": 3650
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 598.2083999970928,
+              "estimatedMs": 22130.79886544494,
+              "sampledCalls": 6120
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 3161.306599993026,
+              "estimatedMs": 116952.95572042998,
+              "sampledCalls": 5402
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 57.4367999995593,
+              "estimatedMs": 2124.882011471608,
+              "sampledCalls": 6163
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 526.4358999982942,
+              "estimatedMs": 19475.565736737153,
+              "sampledCalls": 6163
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1055.2588000188116,
+              "estimatedMs": 39039.43885495523,
+              "sampledCalls": 58415
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1144.3319000015035,
+              "estimatedMs": 42334.70996791219,
+              "sampledCalls": 390
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 37.23040001257323,
+              "estimatedMs": 1377.3435718427243,
+              "sampledCalls": 4913
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1871.4631000000518,
+              "estimatedMs": 69235.02486826412,
+              "sampledCalls": 390
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 166.54530000174418,
+              "estimatedMs": 6161.365397646873,
+              "sampledCalls": 3589
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.4395000012591481,
+              "estimatedMs": 16.25936066641036,
+              "sampledCalls": 672
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.8246000013314188,
+              "estimatedMs": 30.506186095012954,
+              "sampledCalls": 689
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-intent-v1",
+      "id": "pr180-dev-ww-1",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5460,
+      "inputHash": "cfb45f721345ac47d078fda0a7d9fec3e837ab1f6ce77cc574a652afd44144f4",
+      "sessionHash": "c375b9ee6459abf98219fabe36162de2e53800a44e2ef4702125783d8a86b97d",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "9b7297a0015dd83738dc89aec4bc4245f10dcab2343a7cc4d603d48817838cc2",
+      "official": {
+        "attempts": 590,
+        "completed": 210
+      },
+      "firstTime": 40,
+      "firstTimeCompleted": 14,
+      "firstTimeShare": 0.06779661016949153,
+      "completion": 0.3559322033898305,
+      "intervalMean": 9.2497877758663,
+      "intervalMedian": 3.3250000000120963,
+      "receptions": {
+        "heavy_touch": 157,
+        "clean_control": 147,
+        "failed_control": 37,
+        "directional_control": 23
+      },
+      "passOutcomes": {
+        "technical_error": 194,
+        "completed": 216,
+        "intercepted": 167,
+        "unclaimed": 9,
+        "out_of_play": 4
+      },
+      "flow": {
+        "shots": 5,
+        "crosses": 76,
+        "boxEntries": 15,
+        "finalThirdEntries": 66,
+        "turnovers": {
+          "tackle": 80,
+          "interception": 141,
+          "bad_pass": 2,
+          "pass_out": 4,
+          "heavy_touch": 1,
+          "failed_control": 64,
+          "loose_ball_claim": 17,
+          "shot": 2,
+          "foul_stoppage": 1,
+          "other": 16
+        },
+        "restarts": 35
+      },
+      "clock": {
+        "elapsed": 5460,
+        "inPlay": 5000.425000001609,
+        "stoppage": 459.5749999983909,
+        "restartPreparation": 410.5749999983677,
+        "restartReady": 49.00000000002328
+      },
+      "ledger": {
+        "completedSeconds": 459.5749999983909,
+        "completedCount": 35,
+        "qualifyingCompletedSeconds": {
+          "first_half": 0,
+          "second_half": 55.724999999189095
+        },
+        "intervalCount": 35
+      },
+      "hold": 1817.9500000005282,
+      "observer": {
+        "errors": [],
+        "attempts": 40,
+        "completed": 14,
+        "uniqueResults": 590,
+        "uniqueAttempts": 590
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 266.141,
+        "wallSeconds": 262.05052120000005,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 218401,
+          "sampledTicks": 5903,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1093.2715999917127,
+              "estimatedMs": 40449.197138707445,
+              "sampledCalls": 5882
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 49.61300001712516,
+              "estimatedMs": 1835.5969535389042,
+              "sampledCalls": 129404
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1785.5625999982003,
+              "estimatedMs": 66062.79136069912,
+              "sampledCalls": 5882
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 128.83919999748468,
+              "estimatedMs": 4766.832139361452,
+              "sampledCalls": 4289
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 377.5840999910142,
+              "estimatedMs": 13969.972051861341,
+              "sampledCalls": 5882
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2735.2823999978136,
+              "estimatedMs": 101200.81508418135,
+              "sampledCalls": 5394
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 56.27160000568256,
+              "estimatedMs": 2081.9538730884424,
+              "sampledCalls": 5903
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 448.69530000002123,
+              "estimatedMs": 16600.96598599096,
+              "sampledCalls": 5903
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1121.0343999967445,
+              "estimatedMs": 41476.37370721481,
+              "sampledCalls": 57645
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1215.6889000018127,
+              "estimatedMs": 44978.429857580195,
+              "sampledCalls": 346
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 27.56219999282621,
+              "estimatedMs": 1019.7547078829809,
+              "sampledCalls": 3829
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1280.324800000526,
+              "estimatedMs": 47369.848660835996,
+              "sampledCalls": 346
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 108.16900000604801,
+              "estimatedMs": 4002.069756110603,
+              "sampledCalls": 2448
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.3187999967485666,
+              "estimatedMs": 11.795059815328425,
+              "sampledCalls": 427
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.5136999967508018,
+              "estimatedMs": 19.00602964431168,
+              "sampledCalls": 427
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-value-v1",
+      "id": "pr180-dev-ww-1",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5555.099999999489,
+      "inputHash": "cfb45f721345ac47d078fda0a7d9fec3e837ab1f6ce77cc574a652afd44144f4",
+      "sessionHash": "c375b9ee6459abf98219fabe36162de2e53800a44e2ef4702125783d8a86b97d",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "27cbb81463ab4d4435f2c8d167e6e2197830bf99e0fb06bee73653a952fd4e7e",
+      "official": {
+        "attempts": 980,
+        "completed": 256
+      },
+      "firstTime": 55,
+      "firstTimeCompleted": 17,
+      "firstTimeShare": 0.05612244897959184,
+      "completion": 0.2612244897959184,
+      "intervalMean": 5.649974463722116,
+      "intervalMedian": 3.474999999949432,
+      "receptions": {
+        "failed_control": 73,
+        "clean_control": 178,
+        "heavy_touch": 320,
+        "directional_control": 23
+      },
+      "passOutcomes": {
+        "technical_error": 393,
+        "intercepted": 297,
+        "completed": 270,
+        "unclaimed": 16,
+        "inaccurate": 3,
+        "out_of_play": 1
+      },
+      "flow": {
+        "shots": 12,
+        "crosses": 58,
+        "boxEntries": 17,
+        "finalThirdEntries": 93,
+        "turnovers": {
+          "tackle": 141,
+          "interception": 227,
+          "bad_pass": 6,
+          "pass_out": 1,
+          "heavy_touch": 0,
+          "failed_control": 91,
+          "loose_ball_claim": 35,
+          "shot": 10,
+          "foul_stoppage": 0,
+          "other": 12
+        },
+        "restarts": 44
+      },
+      "clock": {
+        "elapsed": 5555.099999999489,
+        "inPlay": 4982.650000000258,
+        "stoppage": 572.4499999992311,
+        "restartPreparation": 513.699999999219,
+        "restartReady": 58.75000000001202
+      },
+      "ledger": {
+        "completedSeconds": 572.4499999992311,
+        "completedCount": 44,
+        "qualifyingCompletedSeconds": {
+          "first_half": 0,
+          "second_half": 102.64999999898555
+        },
+        "intervalCount": 44
+      },
+      "hold": 7.424999999993247,
+      "observer": {
+        "errors": [],
+        "attempts": 55,
+        "completed": 17,
+        "uniqueResults": 980,
+        "uniqueAttempts": 980
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 285.25,
+        "wallSeconds": 280.30199880000015,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 222205,
+          "sampledTicks": 6006,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 988.7170000106562,
+              "estimatedMs": 36579.73043412718,
+              "sampledCalls": 5974
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 54.05689996597357,
+              "estimatedMs": 1999.95229053266,
+              "sampledCalls": 131428
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1985.523599998327,
+              "estimatedMs": 73458.75316976827,
+              "sampledCalls": 5974
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 125.60350000206381,
+              "estimatedMs": 4646.973979014084,
+              "sampledCalls": 3562
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 601.9389999897685,
+              "estimatedMs": 22270.03920957817,
+              "sampledCalls": 5974
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2693.0547000020742,
+              "estimatedMs": 99635.40120112569,
+              "sampledCalls": 5363
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 57.75020000548102,
+              "estimatedMs": 2136.59393809822,
+              "sampledCalls": 6006
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 503.8126999991946,
+              "estimatedMs": 18639.643856696806,
+              "sampledCalls": 6006
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1028.273700032616,
+              "estimatedMs": 38043.216369588314,
+              "sampledCalls": 56218
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 860.817200001562,
+              "estimatedMs": 31847.799854536643,
+              "sampledCalls": 379
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1663.974999997532,
+              "estimatedMs": 61562.3651139613,
+              "sampledCalls": 379
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.5928000011481345,
+              "estimatedMs": 21.9319221203998,
+              "sampledCalls": 783
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.7870000007096678,
+              "estimatedMs": 29.116772420528093,
+              "sampledCalls": 791
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 172.06319999252446,
+              "estimatedMs": 6365.8513743488,
+              "sampledCalls": 3740
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 35.033500000834465,
+              "estimatedMs": 1296.1403376099604,
+              "sampledCalls": 4698
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "state-value-v1",
+      "id": "pr180-dev-ww-1",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5400,
+      "inputHash": "cfb45f721345ac47d078fda0a7d9fec3e837ab1f6ce77cc574a652afd44144f4",
+      "sessionHash": "c375b9ee6459abf98219fabe36162de2e53800a44e2ef4702125783d8a86b97d",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "f6453d06d637a76ed7922fc0c4f42e00b3fa7f2720d2144f3e5f9ca83c8e98b5",
+      "official": {
+        "attempts": 173,
+        "completed": 56
+      },
+      "firstTime": 13,
+      "firstTimeCompleted": 6,
+      "firstTimeShare": 0.07514450867052024,
+      "completion": 0.3236994219653179,
+      "intervalMean": 16.251453488374125,
+      "intervalMedian": 3.7499999999965894,
+      "receptions": {
+        "clean_control": 38,
+        "heavy_touch": 48,
+        "failed_control": 8,
+        "directional_control": 5
+      },
+      "passOutcomes": {
+        "completed": 57,
+        "technical_error": 56,
+        "intercepted": 58,
+        "unclaimed": 2
+      },
+      "flow": {
+        "shots": 0,
+        "crosses": 19,
+        "boxEntries": 4,
+        "finalThirdEntries": 19,
+        "turnovers": {
+          "tackle": 35,
+          "interception": 43,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 14,
+          "loose_ball_claim": 9,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 2
+        },
+        "restarts": 5
+      },
+      "clock": {
+        "elapsed": 5400,
+        "inPlay": 5323.3249999998825,
+        "stoppage": 76.67500000011742,
+        "restartPreparation": 52.10000000003103,
+        "restartReady": 24.57500000008639
+      },
+      "ledger": {
+        "completedSeconds": 76.67500000011742,
+        "completedCount": 5,
+        "qualifyingCompletedSeconds": {
+          "first_half": 0,
+          "second_half": 0
+        },
+        "intervalCount": 5
+      },
+      "hold": 2580.5749999995655,
+      "observer": {
+        "errors": [],
+        "attempts": 13,
+        "completed": 6,
+        "uniqueResults": 173,
+        "uniqueAttempts": 173
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 233.735,
+        "wallSeconds": 232.07222190000002,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 216001,
+          "sampledTicks": 5838,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 886.2418000022881,
+              "estimatedMs": 32790.187571478964,
+              "sampledCalls": 5838
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 44.34939996036701,
+              "estimatedMs": 1640.8898151488922,
+              "sampledCalls": 128436
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1726.0354000055231,
+              "estimatedMs": 63861.831523911096,
+              "sampledCalls": 5838
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 133.81080000544898,
+              "estimatedMs": 4950.88499691281,
+              "sampledCalls": 5400
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 243.57410000171512,
+              "estimatedMs": 9012.033089152186,
+              "sampledCalls": 5838
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2398.430999998469,
+              "estimatedMs": 88739.89284526708,
+              "sampledCalls": 5751
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 54.885400019120425,
+              "estimatedMs": 2030.712793684486,
+              "sampledCalls": 5838
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 406.29800000297837,
+              "estimatedMs": 15032.678023063261,
+              "sampledCalls": 5838
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 511.57620000233874,
+              "estimatedMs": 18927.88125671551,
+              "sampledCalls": 30386
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1498.125,
+              "estimatedMs": 55429.34191932168,
+              "sampledCalls": 404
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 9.449800002854317,
+              "estimatedMs": 349.63450675171896,
+              "sampledCalls": 1268
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 587.2264999982435,
+              "estimatedMs": 21726.87756528273,
+              "sampledCalls": 404
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 134.4607000045944,
+              "estimatedMs": 4974.930740269338,
+              "sampledCalls": 3602
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.11580000049434602,
+              "estimatedMs": 4.284500840489763,
+              "sampledCalls": 178
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.15999999945051968,
+              "estimatedMs": 5.91986294643914,
+              "sampledCalls": 178
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "legacy-pr176",
+      "id": "pr180-dev-ww-2",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5520,
+      "inputHash": "3e051b006e3e28869e41bf681a90f70e40439ad58dfd1174be5ab2e2f89121cf",
+      "sessionHash": "88918a8215a17c03656a5e053294407dec367b8d37fb5c46a59d526c89e70aa6",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "39746e752ee12419f7ce0b70c37811abfce7a1b000375c508705f5015ee3531a",
+      "official": {
+        "attempts": 1232,
+        "completed": 473
+      },
+      "firstTime": 0,
+      "firstTimeCompleted": 0,
+      "firstTimeShare": 0,
+      "completion": 0.38392857142857145,
+      "intervalMean": 4.477640129962826,
+      "intervalMedian": 3.6000000000130967,
+      "receptions": {
+        "clean_control": 456,
+        "failed_control": 84,
+        "heavy_touch": 491,
+        "directional_control": 16
+      },
+      "passOutcomes": {
+        "completed": 473,
+        "technical_error": 575,
+        "intercepted": 163,
+        "inaccurate": 5,
+        "unclaimed": 12,
+        "out_of_play": 4
+      },
+      "flow": {
+        "shots": 2,
+        "crosses": 6,
+        "boxEntries": 6,
+        "finalThirdEntries": 27,
+        "turnovers": {
+          "tackle": 50,
+          "interception": 102,
+          "bad_pass": 5,
+          "pass_out": 4,
+          "heavy_touch": 3,
+          "failed_control": 29,
+          "loose_ball_claim": 10,
+          "shot": 2,
+          "foul_stoppage": 0,
+          "other": 1
+        },
+        "restarts": 13
+      },
+      "clock": {
+        "elapsed": 5520,
+        "inPlay": 5330.725000000621,
+        "stoppage": 189.27499999937868,
+        "restartPreparation": 160.29999999938195,
+        "restartReady": 28.974999999996726
+      },
+      "ledger": {
+        "completedSeconds": 189.27499999937868,
+        "completedCount": 13,
+        "qualifyingCompletedSeconds": {
+          "first_half": 29.94999999997276,
+          "second_half": 22.624999999670763
+        },
+        "intervalCount": 13
+      },
+      "hold": 4.875000000017735,
+      "observer": {
+        "errors": [],
+        "attempts": 0,
+        "completed": 0,
+        "uniqueResults": 1232,
+        "uniqueAttempts": 1232
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 204.86,
+        "wallSeconds": 202.1424095999999,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 220801,
+          "sampledTicks": 5968,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1036.9027999979444,
+              "estimatedMs": 38362.79744342261,
+              "sampledCalls": 5953
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1733.757599997567,
+              "estimatedMs": 64144.67356519149,
+              "sampledCalls": 5953
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 108.07360000582412,
+              "estimatedMs": 3998.451567507703,
+              "sampledCalls": 3343
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 734.2716999989934,
+              "estimatedMs": 27166.20737792858,
+              "sampledCalls": 5953
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 918.1666000026744,
+              "estimatedMs": 33969.85647573568,
+              "sampledCalls": 5731
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 52.213699996937066,
+              "estimatedMs": 1931.7756657211296,
+              "sampledCalls": 5968
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 430.08760000183247,
+              "estimatedMs": 15912.160215818469,
+              "sampledCalls": 5968
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 150.04539999947883,
+              "estimatedMs": 5551.3026751482785,
+              "sampledCalls": 3359
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 824.2799000088125,
+              "estimatedMs": 30496.284551247627,
+              "sampledCalls": 50832
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.5269000008702278,
+              "estimatedMs": 19.493975719193564,
+              "sampledCalls": 655
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.6434999988414347,
+              "estimatedMs": 23.807882581130638,
+              "sampledCalls": 656
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 23.178099998971447,
+              "estimatedMs": 857.5314440135547,
+              "sampledCalls": 3000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "id": "pr180-dev-ww-2",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5585.85000000558,
+      "inputHash": "3e051b006e3e28869e41bf681a90f70e40439ad58dfd1174be5ab2e2f89121cf",
+      "sessionHash": "88918a8215a17c03656a5e053294407dec367b8d37fb5c46a59d526c89e70aa6",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "4bce1bdb82487668da5638f34b7d3e5d31ac82aa921610499ea5a044f3f41b59",
+      "official": {
+        "attempts": 1045,
+        "completed": 353
+      },
+      "firstTime": 117,
+      "firstTimeCompleted": 41,
+      "firstTimeShare": 0.11196172248803828,
+      "completion": 0.33779904306220093,
+      "intervalMean": 5.345162835238425,
+      "intervalMedian": 3.2999999999519787,
+      "receptions": {
+        "clean_control": 214,
+        "heavy_touch": 345,
+        "directional_control": 20,
+        "failed_control": 62
+      },
+      "passOutcomes": {
+        "completed": 360,
+        "technical_error": 407,
+        "intercepted": 252,
+        "out_of_play": 3,
+        "unclaimed": 21,
+        "inaccurate": 2
+      },
+      "flow": {
+        "shots": 6,
+        "crosses": 74,
+        "boxEntries": 14,
+        "finalThirdEntries": 65,
+        "turnovers": {
+          "tackle": 138,
+          "interception": 209,
+          "bad_pass": 9,
+          "pass_out": 3,
+          "heavy_touch": 0,
+          "failed_control": 99,
+          "loose_ball_claim": 33,
+          "shot": 6,
+          "foul_stoppage": 1,
+          "other": 7
+        },
+        "restarts": 37
+      },
+      "clock": {
+        "elapsed": 5585.85000000558,
+        "inPlay": 5153.050000006559,
+        "stoppage": 432.7999999990212,
+        "restartPreparation": 385.84999999892784,
+        "restartReady": 46.95000000009341
+      },
+      "ledger": {
+        "completedSeconds": 432.7999999990212,
+        "completedCount": 37,
+        "qualifyingCompletedSeconds": {
+          "first_half": 32.800000000119326,
+          "second_half": 112.34999999914635
+        },
+        "intervalCount": 37
+      },
+      "hold": 9.47499999986212,
+      "observer": {
+        "errors": [],
+        "attempts": 117,
+        "completed": 41,
+        "uniqueResults": 1045,
+        "uniqueAttempts": 1045
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 319.359,
+        "wallSeconds": 315.54903410000003,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 223435,
+          "sampledTicks": 6039,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1208.7537000079174,
+              "estimatedMs": 44722.285636904955,
+              "sampledCalls": 5998
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 58.70749999699183,
+              "estimatedMs": 2172.099728734537,
+              "sampledCalls": 130646
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2144.724799997406,
+              "estimatedMs": 79351.97643441305,
+              "sampledCalls": 5998
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 120.50169999455102,
+              "estimatedMs": 4458.4032684687045,
+              "sampledCalls": 3653
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 683.5482000051998,
+              "estimatedMs": 25290.377888418912,
+              "sampledCalls": 5998
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 3520.017899988452,
+              "estimatedMs": 130235.99925218079,
+              "sampledCalls": 5540
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 51.79629998886958,
+              "estimatedMs": 1916.3944838571078,
+              "sampledCalls": 6039
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 489.4471999902744,
+              "estimatedMs": 18108.898017855103,
+              "sampledCalls": 6039
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1215.4381999981124,
+              "estimatedMs": 44969.60328143372,
+              "sampledCalls": 63756
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 198.71299999626353,
+              "estimatedMs": 7352.117760252549,
+              "sampledCalls": 3824
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1264.5472000001464,
+              "estimatedMs": 46786.57122570503,
+              "sampledCalls": 425
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 2160.5122999947052,
+              "estimatedMs": 79936.09302025451,
+              "sampledCalls": 425
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.4160000018309802,
+              "estimatedMs": 15.391448983127182,
+              "sampledCalls": 710
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.5914999973028898,
+              "estimatedMs": 21.884716326771184,
+              "sampledCalls": 712
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 45.23920000717044,
+              "estimatedMs": 1673.7904708730132,
+              "sampledCalls": 6210
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-intent-v1",
+      "id": "pr180-dev-ww-2",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5520.52500000566,
+      "inputHash": "3e051b006e3e28869e41bf681a90f70e40439ad58dfd1174be5ab2e2f89121cf",
+      "sessionHash": "88918a8215a17c03656a5e053294407dec367b8d37fb5c46a59d526c89e70aa6",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "8487437fbfb6614e3923e2f61ea04bdeb97f1cb4854762b92746f4bd9d0f2865",
+      "official": {
+        "attempts": 1033,
+        "completed": 310
+      },
+      "firstTime": 66,
+      "firstTimeCompleted": 30,
+      "firstTimeShare": 0.06389157792836399,
+      "completion": 0.30009680542110356,
+      "intervalMean": 5.3470930232459475,
+      "intervalMedian": 3.2999999999519787,
+      "receptions": {
+        "clean_control": 230,
+        "heavy_touch": 344,
+        "failed_control": 50,
+        "directional_control": 16
+      },
+      "passOutcomes": {
+        "completed": 319,
+        "technical_error": 394,
+        "intercepted": 298,
+        "inaccurate": 7,
+        "unclaimed": 15
+      },
+      "flow": {
+        "shots": 4,
+        "crosses": 99,
+        "boxEntries": 24,
+        "finalThirdEntries": 78,
+        "turnovers": {
+          "tackle": 142,
+          "interception": 231,
+          "bad_pass": 9,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 83,
+          "loose_ball_claim": 28,
+          "shot": 3,
+          "foul_stoppage": 1,
+          "other": 18
+        },
+        "restarts": 43
+      },
+      "clock": {
+        "elapsed": 5520.52500000566,
+        "inPlay": 4927.950000008078,
+        "stoppage": 592.5749999975819,
+        "restartPreparation": 542.7749999976346,
+        "restartReady": 49.799999999947275
+      },
+      "ledger": {
+        "completedSeconds": 592.5749999975819,
+        "completedCount": 43,
+        "qualifyingCompletedSeconds": {
+          "first_half": 34.57500000013062,
+          "second_half": 53.07499999902893
+        },
+        "intervalCount": 43
+      },
+      "hold": 5.699999999917054,
+      "observer": {
+        "errors": [],
+        "attempts": 66,
+        "completed": 30,
+        "uniqueResults": 1033,
+        "uniqueAttempts": 1033
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 291.907,
+        "wallSeconds": 288.0782167,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 220822,
+          "sampledTicks": 5969,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1149.9782000023406,
+              "estimatedMs": 42543.22098859388,
+              "sampledCalls": 5943
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 60.04539995454252,
+              "estimatedMs": 2221.3679525484986,
+              "sampledCalls": 130746
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2086.228599999333,
+              "estimatedMs": 77179.62337226549,
+              "sampledCalls": 5943
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 123.27420000708662,
+              "estimatedMs": 4560.505175735447,
+              "sampledCalls": 3415
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 634.5931000134442,
+              "estimatedMs": 23476.648941391988,
+              "sampledCalls": 5943
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2584.3290000068955,
+              "estimatedMs": 95606.75128824305,
+              "sampledCalls": 5296
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 55.850299997255206,
+              "estimatedMs": 2066.171041379442,
+              "sampledCalls": 5969
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 495.6104000033811,
+              "estimatedMs": 18335.01084763723,
+              "sampledCalls": 5969
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 178.47109999856912,
+              "estimatedMs": 6602.503810334065,
+              "sampledCalls": 3661
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1093.3054000146221,
+              "estimatedMs": 40446.62171922079,
+              "sampledCalls": 59411
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1107.051500000758,
+              "estimatedMs": 40955.156028341,
+              "sampledCalls": 373
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 43.23270000051707,
+              "estimatedMs": 1599.3853710025433,
+              "sampledCalls": 5952
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1311.3251999996137,
+              "estimatedMs": 48512.22203288905,
+              "sampledCalls": 373
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.49619999597780406,
+              "estimatedMs": 18.356822836624335,
+              "sampledCalls": 728
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.6966000031679869,
+              "estimatedMs": 25.770582325274116,
+              "sampledCalls": 763
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "role-value-v1",
+      "id": "pr180-dev-ww-2",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5460,
+      "inputHash": "3e051b006e3e28869e41bf681a90f70e40439ad58dfd1174be5ab2e2f89121cf",
+      "sessionHash": "88918a8215a17c03656a5e053294407dec367b8d37fb5c46a59d526c89e70aa6",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "dfbf337c29f045f334f28e25bcf2853fd69ed47aa189a30b25d54a85ef29bcd7",
+      "official": {
+        "attempts": 1100,
+        "completed": 293
+      },
+      "firstTime": 47,
+      "firstTimeCompleted": 18,
+      "firstTimeShare": 0.042727272727272725,
+      "completion": 0.26636363636363636,
+      "intervalMean": 4.964194722461594,
+      "intervalMedian": 3.2499999999527063,
+      "receptions": {
+        "clean_control": 229,
+        "heavy_touch": 382,
+        "failed_control": 84,
+        "directional_control": 14
+      },
+      "passOutcomes": {
+        "completed": 300,
+        "technical_error": 466,
+        "intercepted": 313,
+        "inaccurate": 8,
+        "unclaimed": 12,
+        "out_of_play": 1
+      },
+      "flow": {
+        "shots": 5,
+        "crosses": 53,
+        "boxEntries": 16,
+        "finalThirdEntries": 91,
+        "turnovers": {
+          "tackle": 163,
+          "interception": 221,
+          "bad_pass": 11,
+          "pass_out": 1,
+          "heavy_touch": 1,
+          "failed_control": 94,
+          "loose_ball_claim": 28,
+          "shot": 3,
+          "foul_stoppage": 1,
+          "other": 11
+        },
+        "restarts": 48
+      },
+      "clock": {
+        "elapsed": 5460,
+        "inPlay": 4964.150000000698,
+        "stoppage": 495.8499999993021,
+        "restartPreparation": 429.87499999920766,
+        "restartReady": 65.97500000009441
+      },
+      "ledger": {
+        "completedSeconds": 495.8499999993021,
+        "completedCount": 48,
+        "qualifyingCompletedSeconds": {
+          "first_half": 0,
+          "second_half": 46.249999999326974
+        },
+        "intervalCount": 48
+      },
+      "hold": 8.149999999881402,
+      "observer": {
+        "errors": [],
+        "attempts": 47,
+        "completed": 18,
+        "uniqueResults": 1100,
+        "uniqueAttempts": 1100
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 288.578,
+        "wallSeconds": 283.8330015,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 218401,
+          "sampledTicks": 5903,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1042.031999993138,
+              "estimatedMs": 38553.4187414029,
+              "sampledCalls": 5878
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 59.88909996626899,
+              "estimatedMs": 2215.7952433903292,
+              "sampledCalls": 129316
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2077.5317999802064,
+              "estimatedMs": 76865.15714847994,
+              "sampledCalls": 5878
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 121.19949999102391,
+              "estimatedMs": 4484.176181185772,
+              "sampledCalls": 3444
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 602.1158999928739,
+              "estimatedMs": 22277.26828296521,
+              "sampledCalls": 5878
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2709.5689999901224,
+              "estimatedMs": 100249.46284378158,
+              "sampledCalls": 5331
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 53.924300003563985,
+              "estimatedMs": 1995.1077494627102,
+              "sampledCalls": 5903
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 483.82410000031814,
+              "estimatedMs": 17900.672075922324,
+              "sampledCalls": 5903
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 988.6836000119802,
+              "estimatedMs": 36579.61831716356,
+              "sampledCalls": 53696
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 188.54800000507385,
+              "estimatedMs": 6975.95658971847,
+              "sampledCalls": 3627
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 932.6599999992177,
+              "estimatedMs": 34506.84002368781,
+              "sampledCalls": 383
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1608.7725000006612,
+              "estimatedMs": 59521.85715274342,
+              "sampledCalls": 383
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.5380000039003789,
+              "estimatedMs": 19.90508874332486,
+              "sampledCalls": 808
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.7058999964501709,
+              "estimatedMs": 26.117104036034856,
+              "sampledCalls": 815
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 32.4652999935206,
+              "estimatedMs": 1201.161101793138,
+              "sampledCalls": 4337
+            }
+          ]
+        }
+      }
+    },
+    {
+      "policy": "state-value-v1",
+      "id": "pr180-dev-ww-2",
+      "tier": "WW",
+      "status": "full_time",
+      "time": 5520,
+      "inputHash": "3e051b006e3e28869e41bf681a90f70e40439ad58dfd1174be5ab2e2f89121cf",
+      "sessionHash": "88918a8215a17c03656a5e053294407dec367b8d37fb5c46a59d526c89e70aa6",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "harnessHash": "19cb167d59443e94f6786b60bce2ac996b254c181c1e6c0de4271f8fddf2a40d",
+      "finalHash": "3001d9c2e6ee711b9d3f25ab3eec022ee0949a090cc204ed8ffec3bdc0d62505",
+      "official": {
+        "attempts": 617,
+        "completed": 200
+      },
+      "firstTime": 39,
+      "firstTimeCompleted": 14,
+      "firstTimeShare": 0.06320907617504051,
+      "completion": 0.3241491085899514,
+      "intervalMean": 7.740868506485497,
+      "intervalMedian": 3.2750000000119144,
+      "receptions": {
+        "clean_control": 153,
+        "heavy_touch": 166,
+        "failed_control": 32,
+        "directional_control": 6
+      },
+      "passOutcomes": {
+        "completed": 205,
+        "intercepted": 203,
+        "technical_error": 198,
+        "inaccurate": 3,
+        "unclaimed": 6,
+        "out_of_play": 2
+      },
+      "flow": {
+        "shots": 1,
+        "crosses": 24,
+        "boxEntries": 6,
+        "finalThirdEntries": 35,
+        "turnovers": {
+          "tackle": 70,
+          "interception": 139,
+          "bad_pass": 4,
+          "pass_out": 2,
+          "heavy_touch": 0,
+          "failed_control": 32,
+          "loose_ball_claim": 19,
+          "shot": 1,
+          "foul_stoppage": 0,
+          "other": 8
+        },
+        "restarts": 21
+      },
+      "clock": {
+        "elapsed": 5520,
+        "inPlay": 5199.025000000269,
+        "stoppage": 320.9749999997307,
+        "restartPreparation": 289.37499999967736,
+        "restartReady": 31.600000000053285
+      },
+      "ledger": {
+        "completedSeconds": 320.9749999997307,
+        "completedCount": 21,
+        "qualifyingCompletedSeconds": {
+          "first_half": 1.9999999999708962,
+          "second_half": 32.29999999986785
+        },
+        "intervalCount": 21
+      },
+      "hold": 1861.0250000005437,
+      "observer": {
+        "errors": [],
+        "attempts": 39,
+        "completed": 14,
+        "uniqueResults": 617,
+        "uniqueAttempts": 617
+      },
+      "roleObserverErrors": [],
+      "performance": {
+        "cpuSeconds": 247.735,
+        "wallSeconds": 244.65107609999995,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 220801,
+          "sampledTicks": 5968,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 955.7929000013974,
+              "estimatedMs": 35361.93500556444,
+              "sampledCalls": 5951
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 49.78429999155924,
+              "estimatedMs": 1841.893971587847,
+              "sampledCalls": 130922
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1952.6526999955531,
+              "estimatedMs": 72243.2420931163,
+              "sampledCalls": 5951
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 141.369400001131,
+              "estimatedMs": 5230.312481509673,
+              "sampledCalls": 4596
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 418.4655000017956,
+              "estimatedMs": 15482.17172685933,
+              "sampledCalls": 5951
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1999.034300002968,
+              "estimatedMs": 73959.24471765338,
+              "sampledCalls": 5594
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 52.33060000836849,
+              "estimatedMs": 1936.1006723270395,
+              "sampledCalls": 5968
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 445.9166000066325,
+              "estimatedMs": 16497.79343131107,
+              "sampledCalls": 5968
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 578.8368999827653,
+              "estimatedMs": 21415.510447904588,
+              "sampledCalls": 33115
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 215.1357999930624,
+              "estimatedMs": 7959.483876385418,
+              "sampledCalls": 4862
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.23109999974258244,
+              "estimatedMs": 8.55011914262097,
+              "sampledCalls": 362
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.33530000085011125,
+              "estimatedMs": 12.40525728681391,
+              "sampledCalls": 363
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 23.032799996435642,
+              "estimatedMs": 852.1557091174576,
+              "sampledCalls": 3180
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1027.7651999972295,
+              "estimatedMs": 38024.7292098841,
+              "sampledCalls": 358
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 696.5329999988899,
+              "estimatedMs": 25769.970330555443,
+              "sampledCalls": 358
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "policies": [
+    {
+      "policy": "legacy-pr176",
+      "complete": 6,
+      "total": 6,
+      "attempts": 1753,
+      "completion": 0.6767339749871134,
+      "firstTimeShare": 0.015883823484991687,
+      "shots": 1.6666666666666667,
+      "boxEntries": 8.833333333333334,
+      "crosses": 8.666666666666666,
+      "liveMinutes": 87.62527777756566,
+      "cpuSeconds": 222.2501666666667,
+      "observerErrors": 0
+    },
+    {
+      "policy": "state-value-v1",
+      "complete": 6,
+      "total": 6,
+      "attempts": 1195.6666666666667,
+      "completion": 0.5022839549530631,
+      "firstTimeShare": 0.11725994999202001,
+      "shots": 9.333333333333334,
+      "boxEntries": 15.5,
+      "crosses": 29.5,
+      "liveMinutes": 85.00118055553956,
+      "cpuSeconds": 265.5471666666667,
+      "observerErrors": 0
+    },
+    {
+      "policy": "role-value-v1",
+      "complete": 6,
+      "total": 6,
+      "attempts": 1723.8333333333333,
+      "completion": 0.5097768206675016,
+      "firstTimeShare": 0.11398992842911992,
+      "shots": 8.166666666666666,
+      "boxEntries": 15.833333333333334,
+      "crosses": 43.5,
+      "liveMinutes": 81.66034722225864,
+      "cpuSeconds": 291.98716666666667,
+      "observerErrors": 0
+    },
+    {
+      "policy": "role-intent-v1",
+      "complete": 6,
+      "total": 6,
+      "attempts": 1513,
+      "completion": 0.5049102979847809,
+      "firstTimeShare": 0.11125284426858974,
+      "shots": 15.166666666666666,
+      "boxEntries": 30.166666666666668,
+      "crosses": 60.333333333333336,
+      "liveMinutes": 80.66840277778307,
+      "cpuSeconds": 286.32300000000004,
+      "observerErrors": 0
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "complete": 6,
+      "total": 6,
+      "attempts": 1458.6666666666667,
+      "completion": 0.5477087493310248,
+      "firstTimeShare": 0.1699250239269923,
+      "shots": 10.5,
+      "boxEntries": 20.5,
+      "crosses": 53,
+      "liveMinutes": 82.21430555555587,
+      "cpuSeconds": 310.6508333333333,
+      "observerErrors": 0
+    }
+  ]
+}

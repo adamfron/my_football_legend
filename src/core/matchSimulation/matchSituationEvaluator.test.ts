@@ -133,6 +133,9 @@ describe('ground pass contact', () => {
     const landing = { x: 61, y: 31 };
     receiver.position = { x: 62, y: 31 };
     defender.position = { x: 70, y: 31 };
+    // A nearby body is insufficient when neither foot can reach the ball.
+    expect(resolveGroundPassClaim(state, landing).playerId).toBeUndefined();
+    receiver.position = { x: 61.5, y: 31 };
     expect(resolveGroundPassClaim(state, landing)).toMatchObject({
       landingPosition: landing,
       playerId: receiver.id,

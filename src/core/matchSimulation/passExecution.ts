@@ -7,6 +7,7 @@ import { angleForVector, normalizeAngle } from './playerOrientation';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import type { PassDelivery, PassLaunchIntent } from './passLaunchPlan';
 import { difficultActionPhysicalCost } from './matchFitness';
+import { assessFirstTouch, firstTouchAssessmentSchema } from './firstTouch';
 
 export const passExecutionTypeSchema = z.enum([
   'normal',
@@ -32,6 +33,7 @@ export const passExecutionSchema = z.object({
   incomingHeight: z.number().nonnegative().optional(),
   intendedTarget: pitchPointSchema,
   physicalTarget: physicalPointSchema,
+  contact: firstTouchAssessmentSchema.optional(),
 });
 export type PassExecution = z.infer<typeof passExecutionSchema>;
 
@@ -78,11 +80,10 @@ export const derivePassDifficulty = (
   const pressure = Math.max(0, 1 - nearest / 14);
   const lateral = dx * Math.cos(passer.facingAngle) - dy * Math.sin(passer.facingAngle);
   const weaker = passer.profile.dominantFoot === 'right' ? lateral < -1 : lateral > 1;
-  const incoming = options.firstTime
-    ? 0.3 +
-      Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0) / 55 +
-      (state.ball.height ?? 0) * 0.4
-    : 0;
+  const touch = options.firstTime
+    ? assessFirstTouch(state, passer, state.ball, target, 'pass')
+    : undefined;
+  const incoming = touch?.difficulty ?? 0;
   const physicalDemand =
     (options.firstTime ? incoming : 0) +
     (facingError / Math.PI) * Math.min(1, Math.hypot(passer.velocity.x, passer.velocity.y) / 6);
@@ -98,7 +99,9 @@ export const derivePassDifficulty = (
     difficultActionPhysicalCost(passer, physicalDemand) * 0.75;
   const rangeDemand = 0.18 + metres * 0.03 + Math.pow(metres / 18, 2) * 0.55;
   const uncertaintyMetres =
-    0.12 + rangeDemand * (0.09 + Math.pow(1 - ability, 2) / (0.08 + ability)) * difficulty;
+    0.12 +
+    rangeDemand * (0.09 + Math.pow(1 - ability, 2) / (0.08 + ability)) * difficulty +
+    (touch?.uncertaintyMetres ?? 0);
   return passDifficultyProfileSchema.parse({
     ability,
     difficulty,
@@ -157,7 +160,12 @@ export const interpretPassExecution = (
   const incomingSpeed = Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0);
   const incomingHeight = state.ball.height ?? 0;
   const profile = derivePassDifficulty(state, passer, target, intent, delivery, options);
-  const quality = profile.ability / (1 + (profile.difficulty - 1) * 0.25 + metres / 400);
+  const touch = options.firstTime
+    ? assessFirstTouch(state, passer, state.ball, target, 'pass')
+    : undefined;
+  const quality =
+    (profile.ability / (1 + (profile.difficulty - 1) * 0.25 + metres / 400)) *
+    (touch?.quality ?? 1);
   const rng = RandomGenerator.fromSeed(
     `${state.seed}:pass-execution:${state.decisionIndex}:${passer.id}`,
   );
@@ -173,6 +181,7 @@ export const interpretPassExecution = (
     facingError,
     pressure,
     ...(options.firstTime ? { incomingSpeed, incomingHeight } : {}),
+    ...(touch ? { contact: touch } : {}),
     intendedTarget: { ...target },
     physicalTarget: {
       x: target.x + (direction.x / length) * depthError - (direction.y / length) * lateralError,

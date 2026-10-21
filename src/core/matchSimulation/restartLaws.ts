@@ -248,7 +248,9 @@ export const legalizeRestartPlayerTarget = (
         // An encroaching marker can be trapped on the ball side of its own settled wall.
         // Choose a clear legal destination around an end. Bodies still turn/walk there,
         // and release still requires the referee's actual physical-distance checks.
-        if (wall.length >= 3 && blocked(target)) {
+        // A two-player wall is still a physical obstacle, even though the attacking
+        // team's separate one-metre law only applies to walls of three or more.
+        if (wall.length > 0 && blocked(target)) {
           const angle = Math.atan2(target.y - spot.y, target.x - spot.x);
           const around = [
             -Math.PI,
@@ -294,16 +296,18 @@ export const legalizeRestartPlayerTarget = (
         (defender) =>
           defender.team !== restart.restartTeam && restart.roles[defender.id]?.key === 'wall',
       );
-      if (wall.length >= 3) {
+      if (wall.length > 0) {
         for (let iteration = 0; iteration < 4; iteration++)
           for (const defender of wall)
             target = outsideCircle(
               target,
               defender.position,
-              1.1,
+              // The 1.15m body envelope also applies to a two-player wall. Include
+              // the ordinary 0.08m stopping envelope so the target is attainable.
+              1.25,
               attacksRight(restart.restartTeam, state) ? -1 : 1,
             );
-        if (wall.some((defender) => distance(target, defender.position) < 1.05)) {
+        if (wall.some((defender) => distance(target, defender.position) < 1.15)) {
           // A cluster of overlapping exclusion circles has a simple safe ball-side fallback.
           const nearest = [...wall].sort(
             (a, b) => distance(target, a.position) - distance(target, b.position),

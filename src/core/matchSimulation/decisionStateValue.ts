@@ -15,6 +15,7 @@ import { canParticipatePhysically } from './matchInjuries';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { secondLastOpponentLine, isDirectOffsideExemptRestart } from './offside';
 import { canReleaseControlledAction } from './decisionReadiness';
+import { assessFirstTouch } from './firstTouch';
 
 const clamp = (n: number) => Math.max(0, Math.min(1, n));
 export const stateValueFeaturesSchema = z.object({
@@ -215,6 +216,28 @@ export const evaluateStateValueAction = (
     effort = 0;
   const reasons: string[] = [action.type];
   let futureState = state;
+  // Incoming control ends at the next controllable touch, not after a stationary 2.5s hold.
+  // This is an evaluation branch only; the live acquisition still requires canonical contact.
+  const incomingControl =
+    !state.ball.ownerId && (action.type === 'hold' || action.type === 'carry');
+  if (incomingControl) {
+    const target = action.type === 'carry' ? action.target : state.ball;
+    const touch = assessFirstTouch(
+      state,
+      actor,
+      state.ball,
+      target,
+      action.type === 'carry' ? 'directional' : 'cushion',
+    );
+    if (!touch.feasible) return undefined;
+    elapsed = touch.recoverySeconds + (1 - touch.quality) * (0.18 + touch.relativeSpeed / 24);
+    controlled = touch.quality;
+    contested = (1 - controlled) * 0.65;
+    reasons.push(
+      `incoming-control:${touch.quality.toFixed(3)}`,
+      `contact-seconds:${touch.contactSeconds.toFixed(3)}`,
+    );
+  }
   const margin = preparationMarginForAction(state, actor, action);
   if (margin < -1e-8) return undefined;
   if (
@@ -223,7 +246,20 @@ export const evaluateStateValueAction = (
     !canReleaseControlledAction(state, actor)
   )
     return undefined;
-  if (action.type === 'pass') {
+  if (incomingControl) {
+    if (action.type === 'carry') {
+      const length = Math.max(0.01, distance(actor.position, action.target));
+      const travel = Math.min(
+        length,
+        Math.hypot(actor.velocity.x, actor.velocity.y) * elapsed +
+          (deriveMovementCapability(actor).acceleration * elapsed ** 2) / 2,
+      );
+      point = {
+        x: actor.position.x + ((action.target.x - actor.position.x) * travel) / length,
+        y: actor.position.y + ((action.target.y - actor.position.y) * travel) / length,
+      };
+    }
+  } else if (action.type === 'pass') {
     const found = state.players.find((p) => p.id === action.receiverId);
     if (!found || !canParticipatePhysically(found)) return undefined;
     receiver = found;
@@ -251,6 +287,15 @@ export const evaluateStateValueAction = (
       Boolean(action.firstTime),
     );
     controlled = evidence.expectedRetainedPossession ?? evidence.expectedCompletion;
+    if (action.firstTime) {
+      const touch = assessFirstTouch(state, actor, state.ball, action.target, 'pass');
+      if (!touch.feasible) return undefined;
+      controlled *= touch.quality;
+      reasons.push(
+        `first-touch:${touch.quality.toFixed(3)}`,
+        `relative-mps:${touch.relativeSpeed.toFixed(2)}`,
+      );
+    }
     contested = Math.max(0, evidence.expectedCompletion - controlled) * 0.65;
     restart = evidence.targetPredictedOutOfPlay
       ? (1 - controlled - contested) * 0.8

@@ -439,7 +439,14 @@ describe('PR152 canonical defensive accounting', () => {
       ...state,
       time: 11,
       possessionTeam: actor.team,
-      ball: { ...actor.position, ownerId: actor.id },
+      currentActorId: passer.id,
+      ball: {
+        ...actor.position,
+        velocity: { x: 7, y: 0, z: 0 },
+        height: 0.11,
+        travelKind: 'pass',
+        lastTouchPlayerId: passer.id,
+      },
       lastResolvedPass: {
         passId: 'incoming-first-time',
         passerId: passer.id,

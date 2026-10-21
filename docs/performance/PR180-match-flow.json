@@ -1,0 +1,486 @@
+{
+  "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+  "definition": "Fixed-step referee/play partition; initial setup or half-start boundary differences from the stoppage ledger remain explicit. Added-time credit is distinct from dead-ball duration.",
+  "rows": [
+    {
+      "id": "pr180-dev-ss-1",
+      "policy": "legacy-pr176",
+      "clock": {
+        "elapsed": 5640.424999982168,
+        "inPlay": 5234.624999982205,
+        "stoppage": 405.799999999963,
+        "restartPreparation": 374.6499999998758,
+        "restartReady": 31.15000000008726
+      },
+      "ledgerCompleted": 405.799999999963,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -1.1368683772161603e-13,
+      "intervalCount": 32,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-1-legacy-pr176.json.gz"
+    },
+    {
+      "id": "pr180-dev-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "clock": {
+        "elapsed": 5640,
+        "inPlay": 4847.174999999688,
+        "stoppage": 792.8250000003117,
+        "restartPreparation": 756.2000000002696,
+        "restartReady": 36.625000000042036
+      },
+      "ledgerCompleted": 792.8250000003117,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 1.1368683772161603e-13,
+      "intervalCount": 78,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-1-phase-role-hybrid-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ss-1",
+      "policy": "role-intent-v1",
+      "clock": {
+        "elapsed": 5640.049999982173,
+        "inPlay": 4669.324999983433,
+        "stoppage": 970.7249999987405,
+        "restartPreparation": 925.4749999986915,
+        "restartReady": 45.25000000004903
+      },
+      "ledgerCompleted": 970.7249999987405,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -6.821210263296962e-13,
+      "intervalCount": 94,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-1-role-intent-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ss-1",
+      "policy": "role-value-v1",
+      "clock": {
+        "elapsed": 5640,
+        "inPlay": 4853.800000001746,
+        "stoppage": 786.1999999982538,
+        "restartPreparation": 750.024999998227,
+        "restartReady": 36.17500000002673
+      },
+      "ledgerCompleted": 786.1999999982538,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -2.2737367544323206e-13,
+      "intervalCount": 89,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-1-role-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ss-1",
+      "policy": "state-value-v1",
+      "clock": {
+        "elapsed": 5599.349999982984,
+        "inPlay": 4947.324999984897,
+        "stoppage": 652.024999998087,
+        "restartPreparation": 617.2499999980516,
+        "restartReady": 34.775000000035305
+      },
+      "ledgerCompleted": 652.024999998087,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 0,
+      "intervalCount": 72,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-1-state-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ss-2",
+      "policy": "legacy-pr176",
+      "clock": {
+        "elapsed": 5580.299999983261,
+        "inPlay": 5224.674999983074,
+        "stoppage": 355.62500000018673,
+        "restartPreparation": 328.0000000001056,
+        "restartReady": 27.625000000081116
+      },
+      "ledgerCompleted": 355.62500000018673,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 6.252776074688882e-13,
+      "intervalCount": 35,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-2-legacy-pr176.json.gz"
+    },
+    {
+      "id": "pr180-dev-ss-2",
+      "policy": "phase-role-hybrid-v1",
+      "clock": {
+        "elapsed": 5701.7750000061005,
+        "inPlay": 4894.15000000763,
+        "stoppage": 807.62499999847,
+        "restartPreparation": 764.7249999984781,
+        "restartReady": 42.89999999999199
+      },
+      "ledgerCompleted": 807.62499999847,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 2.2737367544323206e-13,
+      "intervalCount": 74,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-2-phase-role-hybrid-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ss-2",
+      "policy": "role-intent-v1",
+      "clock": {
+        "elapsed": 5648.375000005755,
+        "inPlay": 4726.750000006589,
+        "stoppage": 921.6249999991664,
+        "restartPreparation": 866.4499999991147,
+        "restartReady": 55.17500000005176
+      },
+      "ledgerCompleted": 921.6249999991664,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -4.547473508864641e-13,
+      "intervalCount": 96,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-2-role-intent-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ss-2",
+      "policy": "role-value-v1",
+      "clock": {
+        "elapsed": 5640,
+        "inPlay": 4675.400000001957,
+        "stoppage": 964.5999999980435,
+        "restartPreparation": 909.6999999980754,
+        "restartReady": 54.89999999996809
+      },
+      "ledgerCompleted": 964.5999999980435,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -3.410605131648481e-13,
+      "intervalCount": 97,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-2-role-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ss-2",
+      "policy": "state-value-v1",
+      "clock": {
+        "elapsed": 5669.100000005982,
+        "inPlay": 5051.225000004487,
+        "stoppage": 617.8750000014951,
+        "restartPreparation": 577.3000000013955,
+        "restartReady": 40.57500000009961
+      },
+      "ledgerCompleted": 617.8750000014951,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 1.1368683772161603e-13,
+      "intervalCount": 60,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ss-2-state-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-1",
+      "policy": "legacy-pr176",
+      "clock": {
+        "elapsed": 5524.849999989726,
+        "inPlay": 5220.549999989973,
+        "stoppage": 304.29999999975223,
+        "restartPreparation": 273.37499999967395,
+        "restartReady": 30.925000000078228
+      },
+      "ledgerCompleted": 304.29999999975223,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 5.684341886080801e-13,
+      "intervalCount": 24,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-1-legacy-pr176.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "clock": {
+        "elapsed": 5460,
+        "inPlay": 4965.475000002631,
+        "stoppage": 494.52499999736943,
+        "restartPreparation": 417.2499999975539,
+        "restartReady": 77.27499999981555
+      },
+      "ledgerCompleted": 494.52499999736943,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -5.684341886080802e-14,
+      "intervalCount": 42,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-1-phase-role-hybrid-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-1",
+      "policy": "role-intent-v1",
+      "clock": {
+        "elapsed": 5820,
+        "inPlay": 4768.87500000143,
+        "stoppage": 1051.1249999985698,
+        "restartPreparation": 954.6999999987694,
+        "restartReady": 96.4249999998006
+      },
+      "ledgerCompleted": 1051.1249999985698,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 4.547473508864641e-13,
+      "intervalCount": 81,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-1-role-intent-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-1",
+      "policy": "role-value-v1",
+      "clock": {
+        "elapsed": 5580,
+        "inPlay": 4904.375000001868,
+        "stoppage": 675.6249999981324,
+        "restartPreparation": 564.4499999984047,
+        "restartReady": 111.17499999972767
+      },
+      "ledgerCompleted": 675.6249999981324,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -4.547473508864641e-13,
+      "intervalCount": 59,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-1-role-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-1",
+      "policy": "state-value-v1",
+      "clock": {
+        "elapsed": 5760,
+        "inPlay": 4922.625000003054,
+        "stoppage": 837.3749999969457,
+        "restartPreparation": 741.5749999970824,
+        "restartReady": 95.79999999986327
+      },
+      "ledgerCompleted": 837.3749999969457,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 2.2737367544323206e-13,
+      "intervalCount": 68,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-1-state-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-2",
+      "policy": "legacy-pr176",
+      "clock": {
+        "elapsed": 5580.999999983251,
+        "inPlay": 5341.8499999836395,
+        "stoppage": 239.14999999961137,
+        "restartPreparation": 207.1249999995482,
+        "restartReady": 32.02500000006316
+      },
+      "ledgerCompleted": 239.14999999961137,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -8.526512829121202e-14,
+      "intervalCount": 20,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-2-legacy-pr176.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-2",
+      "policy": "phase-role-hybrid-v1",
+      "clock": {
+        "elapsed": 5700.799999981071,
+        "inPlay": 4719.074999981647,
+        "stoppage": 981.7249999994243,
+        "restartPreparation": 926.5499999994597,
+        "restartReady": 55.17499999996456
+      },
+      "ledgerCompleted": 981.7249999994243,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -5.684341886080801e-13,
+      "intervalCount": 83,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-2-phase-role-hybrid-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-2",
+      "policy": "role-intent-v1",
+      "clock": {
+        "elapsed": 5672.87500000012,
+        "inPlay": 4947.300000000769,
+        "stoppage": 725.5749999993509,
+        "restartPreparation": 668.1249999993432,
+        "restartReady": 57.45000000000769
+      },
+      "ledgerCompleted": 725.5749999993509,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 4.547473508864641e-13,
+      "intervalCount": 71,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-2-role-intent-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-2",
+      "policy": "role-value-v1",
+      "clock": {
+        "elapsed": 5580.725000005661,
+        "inPlay": 5017.350000006582,
+        "stoppage": 563.3749999990787,
+        "restartPreparation": 485.2749999991887,
+        "restartReady": 78.09999999988992
+      },
+      "ledgerCompleted": 563.3749999990787,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 0,
+      "intervalCount": 57,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-2-role-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-sw-2",
+      "policy": "state-value-v1",
+      "clock": {
+        "elapsed": 5640,
+        "inPlay": 5156.9000000016495,
+        "stoppage": 483.0999999983511,
+        "restartPreparation": 441.07499999838046,
+        "restartReady": 42.02499999997061
+      },
+      "ledgerCompleted": 483.0999999983511,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -5.684341886080801e-13,
+      "intervalCount": 38,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-sw-2-state-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-1",
+      "policy": "legacy-pr176",
+      "clock": {
+        "elapsed": 5520.349999984133,
+        "inPlay": 5192.674999984123,
+        "stoppage": 327.67500000000973,
+        "restartPreparation": 298.7249999999208,
+        "restartReady": 28.95000000008892
+      },
+      "ledgerCompleted": 327.67500000000973,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 4.547473508864641e-13,
+      "intervalCount": 24,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-1-legacy-pr176.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "clock": {
+        "elapsed": 5700,
+        "inPlay": 5018.225000001956,
+        "stoppage": 681.7749999980444,
+        "restartPreparation": 630.5999999980266,
+        "restartReady": 51.175000000017775
+      },
+      "ledgerCompleted": 681.7749999980444,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -2.2737367544323206e-13,
+      "intervalCount": 45,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-1-phase-role-hybrid-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-1",
+      "policy": "role-intent-v1",
+      "clock": {
+        "elapsed": 5460,
+        "inPlay": 5000.425000001609,
+        "stoppage": 459.5749999983909,
+        "restartPreparation": 410.5749999983677,
+        "restartReady": 49.00000000002328
+      },
+      "ledgerCompleted": 459.5749999983909,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 0,
+      "intervalCount": 35,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-1-role-intent-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-1",
+      "policy": "role-value-v1",
+      "clock": {
+        "elapsed": 5555.099999999489,
+        "inPlay": 4982.650000000258,
+        "stoppage": 572.4499999992311,
+        "restartPreparation": 513.699999999219,
+        "restartReady": 58.75000000001202
+      },
+      "ledgerCompleted": 572.4499999992311,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 2.2737367544323206e-13,
+      "intervalCount": 44,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-1-role-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-1",
+      "policy": "state-value-v1",
+      "clock": {
+        "elapsed": 5400,
+        "inPlay": 5323.3249999998825,
+        "stoppage": 76.67500000011742,
+        "restartPreparation": 52.10000000003103,
+        "restartReady": 24.57500000008639
+      },
+      "ledgerCompleted": 76.67500000011742,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 8.526512829121202e-14,
+      "intervalCount": 5,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-1-state-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-2",
+      "policy": "legacy-pr176",
+      "clock": {
+        "elapsed": 5520,
+        "inPlay": 5330.725000000621,
+        "stoppage": 189.27499999937868,
+        "restartPreparation": 160.29999999938195,
+        "restartReady": 28.974999999996726
+      },
+      "ledgerCompleted": 189.27499999937868,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 6.821210263296962e-13,
+      "intervalCount": 13,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-2-legacy-pr176.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-2",
+      "policy": "phase-role-hybrid-v1",
+      "clock": {
+        "elapsed": 5585.85000000558,
+        "inPlay": 5153.050000006559,
+        "stoppage": 432.7999999990212,
+        "restartPreparation": 385.84999999892784,
+        "restartReady": 46.95000000009341
+      },
+      "ledgerCompleted": 432.7999999990212,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 3.410605131648481e-13,
+      "intervalCount": 37,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-2-phase-role-hybrid-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-2",
+      "policy": "role-intent-v1",
+      "clock": {
+        "elapsed": 5520.52500000566,
+        "inPlay": 4927.950000008078,
+        "stoppage": 592.5749999975819,
+        "restartPreparation": 542.7749999976346,
+        "restartReady": 49.799999999947275
+      },
+      "ledgerCompleted": 592.5749999975819,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 4.547473508864641e-13,
+      "intervalCount": 43,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-2-role-intent-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-2",
+      "policy": "role-value-v1",
+      "clock": {
+        "elapsed": 5460,
+        "inPlay": 4964.150000000698,
+        "stoppage": 495.8499999993021,
+        "restartPreparation": 429.87499999920766,
+        "restartReady": 65.97500000009441
+      },
+      "ledgerCompleted": 495.8499999993021,
+      "unledgeredSeconds": 0,
+      "partitionResidual": -2.2737367544323206e-13,
+      "intervalCount": 48,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-2-role-value-v1.json.gz"
+    },
+    {
+      "id": "pr180-dev-ww-2",
+      "policy": "state-value-v1",
+      "clock": {
+        "elapsed": 5520,
+        "inPlay": 5199.025000000269,
+        "stoppage": 320.9749999997307,
+        "restartPreparation": 289.37499999967736,
+        "restartReady": 31.600000000053285
+      },
+      "ledgerCompleted": 320.9749999997307,
+      "unledgeredSeconds": 0,
+      "partitionResidual": 4.547473508864641e-13,
+      "intervalCount": 21,
+      "fullIntervalEvidence": "pr180-evidence/pr180-dev-ww-2-state-value-v1.json.gz"
+    }
+  ]
+}

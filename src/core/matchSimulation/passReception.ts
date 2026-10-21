@@ -14,6 +14,7 @@ import { estimatePlayerArrivalTime } from './playerArrival';
 import { projectLocomotion } from './locomotion';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { receptionContinuationSchema, runOnReceptionSchema } from './receptionContinuationSchema';
+import { assessFirstTouch, firstTouchAssessmentSchema } from './firstTouch';
 
 /** An aware receiver meets the actual flight, including execution error. The release-time
  * desired point remains diagnostic evidence; this only supplies a normal locomotion target.
@@ -134,6 +135,8 @@ export const receptionOutcomeSchema = z.object({
   quality: receptionQualityEvidenceSchema.optional(),
   retainedVelocity: z.object({ x: z.number().finite(), y: z.number().finite() }).optional(),
   momentumRetention: z.number().min(0).max(1).optional(),
+  contact: firstTouchAssessmentSchema.optional(),
+  technique: z.enum(['settle', 'cushion', 'directional']).optional(),
 });
 export type ReceptionOutcome = z.infer<typeof receptionOutcomeSchema>;
 
@@ -293,6 +296,20 @@ export const resolveReceptionOutcome = (
 ): ReceptionOutcome => {
   const a = receiver.profile.attributes;
   const speed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
+  const chosenTarget =
+    state.pendingReceptionIntent?.actorId === receiver.id &&
+    state.pendingReceptionIntent.action.type === 'carry'
+      ? state.pendingReceptionIntent.action.target
+      : state.receptionPreparation?.actorId === receiver.id
+        ? state.receptionPreparation.continuation?.target
+        : undefined;
+  const contact = assessFirstTouch(
+    state,
+    receiver,
+    contactPoint,
+    chosenTarget ?? contactPoint,
+    chosenTarget ? 'directional' : 'cushion',
+  );
   const ballSpeed = Math.hypot(
     state.ball.velocity?.x ?? 0,
     state.ball.velocity?.y ?? 0,
@@ -346,11 +363,13 @@ export const resolveReceptionOutcome = (
   const technicalQuality =
     (a.firstTouch * 2 + a.technique + a.agility + a.composure + a.concentration) / 600 -
     pressure * 0.2 -
-    Math.max(0, ballSpeed - comfortableSpeed) / 35 -
+    Math.max(0, contact.relativeSpeed - comfortableSpeed) / 35 -
     Math.max(0, speed - 6.5) / 30 -
     readinessPenalty -
     Math.max(0, incomingHeight - 0.18) * 0.12 -
-    weakFootDifficulty * 0.1;
+    weakFootDifficulty * 0.1 -
+    contact.spinSpeed / 80 -
+    Math.max(0, 0.65 - contact.quality) * 0.22;
   // Preparation is a material advantage, not merely a tiny bonus. This keeps ordinary support
   // football stable while fast, blind or pressured arrivals still expose technical weakness.
   const quality = Math.max(
@@ -435,6 +454,9 @@ export const resolveReceptionOutcome = (
   return receptionOutcomeSchema.parse({
     receiverId: receiver.id,
     kind,
+    contact,
+    technique:
+      kind === 'directional_control' ? 'directional' : ballSpeed > 7 ? 'cushion' : 'settle',
     contactPoint,
     quality: {
       score: quality,

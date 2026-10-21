@@ -1,4 +1,5 @@
 import { attacksRight } from './matchSpace';
+import { canExecuteFirstTimePass } from './firstTimePassing';
 import {
   retainContinuousBodyContacts,
   supportContinuousBodyContacts,
@@ -401,10 +402,26 @@ const tryIncomingFinish = (
     : !hasPendingPlayerDecision(state, actorId)
       ? chooseIncomingShotAction(state, actorId)
       : undefined;
+  if (!pending && (action?.type === 'hold' || action?.type === 'carry')) {
+    return changePossession(
+      {
+        ...state,
+        pendingReceptionIntent: {
+          actorId,
+          action,
+          actionSource: 'autonomous_npc',
+          createdAt: state.time,
+          expiresAt: state.time + 1,
+          ballEpisode: incomingBallIntentKey(state),
+        },
+      },
+      actorId,
+    );
+  }
   if (
     !action ||
     (action.type === 'pass'
-      ? (state.ball.height ?? 0) > 0.65
+      ? !canExecuteFirstTimePass(state, action, true)
       : (action.type !== 'shot' && action.type !== 'header') ||
         !canExecuteCanonicalShot(state, action))
   )
@@ -600,12 +617,18 @@ const changePossession = (
       const { receptionPreparation: _resolvedReception, ...heavyTouchState } = next;
       void _resolvedReception;
       delete heavyTouchState.pendingReceptionIntent;
-      const crossing = findPitchBoundaryCrossing(reception.contactPoint, receptionPoint);
-      if (crossing) return applyBoundaryRestart(heavyTouchState, crossing, reception.contactPoint);
       return makeLoose(
         {
           ...heavyTouchState,
-          ball: { ...next.ball, secondBallPriorityIds: [ownerId] },
+          // resultingPoint is an intended escape waypoint, not a new position at this
+          // instant. The finite loose-ball impulse and actual boundary crossing own it.
+          ball: {
+            ...next.ball,
+            x: reception.contactPoint.x,
+            y: reception.contactPoint.y,
+            height: state.ball.height ?? 0.11,
+            secondBallPriorityIds: [ownerId],
+          },
         },
         { x: dx * 1.35, y: dy * 1.35 },
       );

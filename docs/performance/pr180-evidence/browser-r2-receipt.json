@@ -1,0 +1,49 @@
+{
+  "label": "r2",
+  "policy": "role-intent-v1",
+  "fixtureId": "fixture-4e0b926d",
+  "duration": 271.07500000002733,
+  "metadata": {
+    "schema": "mfl-session-benchmark-v5",
+    "policy": "role-intent-v1",
+    "sourceRevision": "5646bb0e757289e1fa6ffde79ff9f94766139f48:02b7508c470837953b9fc3043ee6fff4d73e9cb26e390158196d75d9bd200763",
+    "fixtureId": "fixture-4e0b926d",
+    "engine": "canonical",
+    "fixedDt": 0.025,
+    "seed": "lab-mvh694xi",
+    "observerMode": "capture",
+    "observationScope": "dev_since_mode_enabled",
+    "collectionScope": {
+      "canonicalStatistics": "whole_canonical_match",
+      "presentationRuntime": "whole_presentation_session",
+      "detailedObservers": "whole_session",
+      "detailedCanonicalSeconds": 271.07500000002733,
+      "unavailableReason": null,
+      "observerCoverage": [
+        {
+          "mode": "capture",
+          "startedAt": 0,
+          "endedAt": 271.07500000002733
+        }
+      ]
+    },
+    "positioningSampleCapacity": 6000,
+    "observerCoverage": [
+      {
+        "mode": "capture",
+        "startedAt": 0,
+        "endedAt": 271.07500000002733
+      }
+    ]
+  },
+  "roleSourceRevision": "5646bb0e757289e1fa6ffde79ff9f94766139f48:02b7508c470837953b9fc3043ee6fff4d73e9cb26e390158196d75d9bd200763",
+  "sessionSha256": "450bdc5da84fa1629e5ecd9b4ffae05b9a902ffb9334484dc9453d3b70fd4b27",
+  "rolesSha256": "02aaeeb723fe21bf069915741ade1866fc3266bd2c593338872b84fc99901156",
+  "firstTime": {
+    "attempts": 25,
+    "completed": 22
+  },
+  "errors": [],
+  "rendererLifecycle": "ready",
+  "observerErrors": []
+}

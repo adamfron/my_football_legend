@@ -1,9 +1,10 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
 import { activeAerialContactLocks, findAerialContactCandidates } from './aerialPlay';
 import { createReformFixture } from '../../../scripts/pr177Fixtures';
-import { awardNaturalRestart } from './restartScenarios';
-import { enumerateRestartActions, resolveMatchAction } from './matchActions';
+import type { TacticalMatchState } from './matchState';
 import { stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
 
 const continuousFixture = () => {
@@ -46,22 +47,13 @@ describe('PR178 relative aerial contact continuity', () => {
     expect(findAerialContactCandidates(state).map((entry) => entry.player.id)).toContain(actor.id);
   });
   it('does not independently head the same continuous corner-counter ball twice', () => {
-    const f = createReformFixture('corner-counter');
-    let state = f.state;
-    state.seed = 'pr178-physical-transition:corner:0';
-    state.decisionPolicy = 'state-value-v1';
-    delete state.lastPossessionChange;
-    state.possessionTeam = f.opponents[0]!.team;
-    state = awardNaturalRestart(state, 'corner', {
-      restartTeam: f.opponents[0]!.team,
-      cause: 'boundary',
-      incidentId: state.seed + ':corner',
-      incidentPoint: { x: 0, y: 0 },
-    });
-    const delivery = enumerateRestartActions(state).find(
-      (action) => action.type === 'cross' && action.intent === 'floated',
-    )!;
-    state = resolveMatchAction(state, delivery, 'dev_ai_selected');
+    // Freeze the actual historical pre-header geometry. PR180 intentionally changes
+    // earlier ground contacts, so recreating a whole corner no longer reaches this duel.
+    let state: TacticalMatchState = JSON.parse(
+      gunzipSync(
+        readFileSync('docs/performance/pr180-evidence/pr178-corner-pre-header.json.gz'),
+      ).toString(),
+    ).state;
     let first = false,
       separated = false;
     while (state.time < 52) {

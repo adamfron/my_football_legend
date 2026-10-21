@@ -1,4 +1,5 @@
 import { attacksRight } from './matchSpace';
+import { assessFirstTouch } from './firstTouch';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { BALL_RADIUS, deriveWallContactCandidate, findFirstBallContact } from './ballFlight';
@@ -142,6 +143,7 @@ export const incomingShotContactSchema = z.object({
   height: z.number().nonnegative(),
   arrivalTime: z.number().nonnegative(),
   incomingSpeed: z.number().nonnegative(),
+  velocity: z.object({ x: z.number().finite(), y: z.number().finite(), z: z.number().finite() }),
   verticalSpeed: z.number(),
   bounceCount: z.number().int().nonnegative(),
   facingDifficulty: z.number().min(0).max(1),
@@ -254,6 +256,7 @@ export const incomingBallContact = (
       height,
       arrivalTime: sample.at,
       incomingSpeed,
+      velocity: sample.ball.velocity,
       verticalSpeed: sample.ball.velocity.z,
       bounceCount: sample.ball.bounceCount,
       ...body,
@@ -446,6 +449,9 @@ export const deriveShotExecutionProfile = (
           : 0;
   const difficulty =
     (firstTime ? (incoming?.executionDifficulty ?? 0.35) + contactDifficulty : 0) +
+    (firstTime && (state.ball.height ?? 0) <= 0.65
+      ? assessFirstTouch(state, actor, state.ball, action.target, 'shot').difficulty * 0.35
+      : 0) +
     strikeDemand * (1 + (1 - (a.setPieces + a.technique) / 200));
   return shotExecutionProfileSchema.parse({
     intent,

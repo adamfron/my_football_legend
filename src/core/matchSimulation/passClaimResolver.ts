@@ -3,6 +3,17 @@ import { distance, physicalPointSchema, type PitchPoint } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
 import { canContactAfterThrowIn } from './throwIn';
 import { shouldLetPassRun } from './receptionContinuation';
+import { playerContactGeometry } from './ballContactGeometry';
+import type { MatchPlayerState } from './matchState';
+
+/** The broad-phase proximity radius nominates bodies; only a reachable foot controls a low ball. */
+const reachesGroundContact = (player: MatchPlayerState, point: PitchPoint) => {
+  const geometry = playerContactGeometry(player);
+  return (
+    Math.min(distance(point, geometry.leftFoot), distance(point, geometry.rightFoot)) <=
+    geometry.footReach + 1e-8
+  );
+};
 
 export const GROUND_PASS_CONTROL_RADIUS = 2.2;
 export const groundPassClaimSchema = z.object({
@@ -56,6 +67,7 @@ export const resolveContinuousGroundPassClaim = (
     .filter(
       ({ player, point, metres, segmentFraction }) =>
         metres <= controlRadius &&
+        reachesGroundContact(player, point) &&
         segmentFraction > 0.001 &&
         !shouldLetPassRun(state, player, point),
     )
@@ -86,7 +98,9 @@ export const resolveGroundPassClaim = (
     .map((player) => ({ player, metres: distance(player.position, landingPosition) }))
     .filter(
       ({ player, metres }) =>
-        metres <= controlRadius && !shouldLetPassRun(state, player, landingPosition),
+        metres <= controlRadius &&
+        reachesGroundContact(player, landingPosition) &&
+        !shouldLetPassRun(state, player, landingPosition),
     )
     .sort((a, b) => a.metres - b.metres || a.player.id.localeCompare(b.player.id))[0];
   return groundPassClaimSchema.parse({

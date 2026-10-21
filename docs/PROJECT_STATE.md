@@ -1,5 +1,29 @@
 # My Football Legend — Current Project State
 
+## PR180 — Football Tempo, First-Touch Decisions & Ball Interaction
+
+Wspólny model pierwszego kontaktu ocenia względną prędkość piłki, geometrię stóp,
+orientację przyjścia i kontynuacji, zmianę pędu, spin, przygotowanie, technikę,
+presję i rezerwy fizyczne. Odegranie wymaga rzeczywistego kontaktu; niedokładne
+połączenie zachowuje część przychodzącego pędu. Kontrola i kierunkowe przyjęcie
+konkurują z podaniem w krótkim horyzoncie pierwszego kontaktu, zamiast być
+utożsamiane z 2,5 s nieruchomego oczekiwania. Próby i ukończenia first-time
+rozliczają kanoniczne ID, także gdy widoczna akcja zdążyła się zmienić.
+
+Pięć pełnych ręcznych eksportów jest dostępnych i zweryfikowanych przez SHA-256.
+W najbliższym odtwarzalnym wariancie seedu R1 odtwarza ponad 80% first-time przed
+poprawką. Brak kompletnego pierwotnego setupu w eksporcie wyklucza deklarację
+identycznych wejść. Nowe sześć projektów SS/SW/WW służy rozwojowi; dwanaście
+`pr182-sealed-*` oraz dwanaście historycznych `pr180-reserved-*` pozostają nieuruchomione.
+
+**Brak promocji polityki; legacy pozostaje domyślne. Canonical nadal NOT READY
+do kalibracji summary.** Szczegółowe wyniki, weryfikacja i ograniczenia:
+[raport PR180](PR180_FOOTBALL_TEMPO_AND_BALL_INTERACTION.md).
+
+Aktualna kolejność: **PR180 wspólne wykonanie → PR181 głębia/skrzydła/powietrze →
+PR182 trener i niezależna walidacja → PR183 generacje/siła świata → PR184 summary
+i PlayStyles → PR185 career UX → PR186+ świat**. Starsze numery poniżej są historyczne.
+
 ## PR179 — Role-Driven Football Intelligence
 
 Wdrożono 29 wspólnych, walidowanych ról oraz trzy polityki na kanonicznej fizyce:

@@ -101,7 +101,7 @@ const incoming = (speed = 7) => {
   );
   released.ball = {
     ...released.ball,
-    x: 39.2,
+    x: 39.6,
     y: 30,
     height: 0.11,
     airborne: false,
@@ -537,9 +537,14 @@ describe('PR150 moving reception and incoming choices', () => {
       expectedContactPoint: actor.position,
       movement: 'wait',
     };
-    const received = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
+    let received = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
     expect(['heavy_touch', 'failed_control']).toContain(received.lastReceptionOutcome?.kind);
     expect(received.lastReceptionOutcome!.resultingPoint!.y).toBeLessThan(0);
+    // The waypoint lies out, but only the subsequent finite flight can award the restart.
+    expect(received.scenario).toBe('open_play');
+    expect(received.ball.y).toBeGreaterThan(0);
+    for (let tick = 0; tick < 40 && received.scenario === 'open_play'; tick++)
+      received = stepTacticalMatchAfterDecisionProbe(received, FIXED_MATCH_DT);
     expect(received.scenario).toBe('throw_in');
     expect(received.restart?.restartTeam).toBe('away');
     expect(received.lastBoundaryRestart).toBe('throw_in');
