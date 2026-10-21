@@ -356,12 +356,20 @@ describe('PR149 context-based reception quality', () => {
         movingReceiver.profile.attributes.agility = 100;
         movingReceiver.velocity = { x: 3, y: 0 };
         movingReceiver.facingAngle = Math.PI / 2;
+        before.ball.x = 39.4;
       }
       const next = stepTacticalMatchAfterDecisionProbe(before, FIXED_MATCH_DT);
       let state = next;
       const gainedAt = next.onBallPreparation!.gainedAt;
       const readyAt = next.onBallPreparation!.readyAt;
       const originalOrigin = { ...next.onBallPreparation!.micro!.origin };
+      // Isolate preparation rebasing on a real loose-ball chase. The heavy touch no
+      // longer teleports the ball several metres beyond the receiving player's body.
+      state.players.find((p) => p.id === receiver.id)!.position = {
+        x: state.ball.x - 1.2,
+        y: state.ball.y,
+      };
+      if (recovery === 'recovery_elapsed') state.time = readyAt + FIXED_MATCH_DT;
       for (let tick = 0; tick < 100 && !state.ball.ownerId; tick++)
         state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
       expect(state.ball.ownerId).toBe(receiver.id);
@@ -406,7 +414,8 @@ describe('PR149 context-based reception quality', () => {
       );
       expect(next.ball.ownerId).toBeUndefined();
       expect(next.ball.looseSince).toBe(next.time);
-      expect(distance(next.ball, next.lastReceptionOutcome!.contactPoint)).toBeGreaterThan(1.2);
+      expect(distance(next.ball, next.lastReceptionOutcome!.contactPoint)).toBeLessThan(1e-8);
+      expect(distance(next.lastReceptionOutcome!.resultingPoint!, next.ball)).toBeGreaterThan(1.2);
       expect(Math.hypot(next.ball.velocity!.x, next.ball.velocity!.y)).toBeGreaterThan(1.5);
       expect(next.onBallPreparation?.micro?.phase).toBe('recovering');
       expect(next.onBallPreparation!.readyAt).toBeGreaterThan(next.time + 0.6);

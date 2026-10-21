@@ -832,10 +832,7 @@ export interface RankedAiAction {
   score: number;
 }
 /** Canonical AI ranking; safe for diagnostics because its noise is seed-derived, not stateful RNG. */
-const rankActionsForAI = (
-  state: TacticalMatchState,
-  actorId: string,
-): RankedAiAction[] => {
+const rankActionsForAI = (state: TacticalMatchState, actorId: string): RankedAiAction[] => {
   const stateValueActor = state.players.find((p) => p.id === actorId);
   if (usesStateValue(state) && stateValueActor && !isRestartSetup(state)) {
     if (state.ball.ownerId === actorId) return rankStateValueActions(state, stateValueActor);
@@ -859,7 +856,10 @@ const rankActionsForAI = (
     })
     .sort((a, b) => b.score - a.score);
 };
-export const rankAvailableActionsForAI = (state: TacticalMatchState, actorId: string): RankedAiAction[] => {
+export const rankAvailableActionsForAI = (
+  state: TacticalMatchState,
+  actorId: string,
+): RankedAiAction[] => {
   const ranking = rankActionsForAI(state, actorId);
   observeDecisionRanking(state, actorId, ranking);
   return ranking;
@@ -948,13 +948,32 @@ export const chooseIncomingShotAction = (
   const control: MatchAction = { type: 'hold', actorId };
   // The receiver has not yet possessed the ball. The previous carrier's completed scanning
   // clock must not devalue a fresh control and force every routine reception into a layoff.
+  const actor = state.players.find((p) => p.id === actorId);
+  if (!actor) return undefined;
+  if (usesStateValue(state)) {
+    // Control, directional touch and immediate release use the same value units/horizon.
+    // Do not compare a quick redirect against the role policy's long stationary hold.
+    const options = [
+      control,
+      ...enumerateCarryChoices(state, actor),
+      ...enumerateAvailableActions(state, actorId).filter((a) => a.type !== 'challenge'),
+    ];
+    const ranked = rankStateValueActions(state, actor, options);
+    observeDecisionRanking(state, actorId, ranked);
+    const selected = ranked[0]?.action;
+    if (selected?.type === 'hold' || selected?.type === 'carry') return selected;
+    return selected &&
+      (isShotAction(selected)
+        ? canExecuteCanonicalShot(state, selected)
+        : selected.type === 'pass' && canExecuteFirstTimePass(state, selected, true))
+      ? selected
+      : undefined;
+  }
   const controlValue = scoreActionForAI(
     { ...state, ballOwnershipStartedAt: state.time },
     actorId,
     control,
   );
-  const actor = state.players.find((p) => p.id === actorId);
-  if (!actor) return undefined;
   return rankAvailableActionsForAI(state, actorId).find(
     ({ action, score }) =>
       (isShotAction(action)
@@ -962,20 +981,22 @@ export const chooseIncomingShotAction = (
         : action.type === 'pass' && action.firstTime && canExecuteFirstTimePass(state, action)) &&
       score >
         controlValue +
-          (usesStateValue(state) ? 0.001 : action.type === 'pass'
-            ? 18 +
-              (1 - evaluatePressure(state, actor).value) * 18 +
-              Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0) / 5 +
-              Math.abs(
-                normalizeAngle(
-                  angleForVector({
-                    x: action.target.x - actor.position.x,
-                    y: action.target.y - actor.position.y,
-                  }) - actor.facingAngle,
-                ),
-              ) *
-                6
-            : 0),
+          (usesStateValue(state)
+            ? 0.001
+            : action.type === 'pass'
+              ? 18 +
+                (1 - evaluatePressure(state, actor).value) * 18 +
+                Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0) / 5 +
+                Math.abs(
+                  normalizeAngle(
+                    angleForVector({
+                      x: action.target.x - actor.position.x,
+                      y: action.target.y - actor.position.y,
+                    }) - actor.facingAngle,
+                  ),
+                ) *
+                  6
+              : 0),
   )?.action;
 };
 
@@ -1063,6 +1084,9 @@ const resolveMatchActionCanonical = (
   if (!hasActiveMatchActionParticipants(state, action)) return state;
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor) return state;
+  // A settled possession is no longer an incoming first touch. Its next pass must carry
+  // ordinary preparation/execution identity, including explicitly constructed DEV requests.
+  if (action.type === 'pass' && action.firstTime && state.ball.ownerId === actor.id) return state;
   if (requiresHumanRestart(state, actor.id) && source !== 'human_selected') return state;
 
   if (state.restart?.origin === 'live_event' && isRestartSetup(state) && !state.restart.executing) {
@@ -1163,7 +1187,7 @@ const resolveMatchActionCanonical = (
     ) &&
     !(isShotAction(action)
       ? canExecuteCanonicalShot(state, action)
-      : action.type === 'pass' && action.firstTime && canExecuteFirstTimePass(state, action))
+      : action.type === 'pass' && action.firstTime && canExecuteFirstTimePass(state, action, true))
   )
     return state;
   if (
@@ -1556,6 +1580,15 @@ const resolveMatchActionCanonical = (
       sampledSpeed,
       canonicalPlan.elevation,
     );
+  const incomingVelocity = state.ball.velocity ?? { x: 0, y: 0, z: 0 };
+  if (execution.contact) {
+    // A poor connection retains incoming momentum instead of creating a perfect new ray.
+    // The same local quality controls target uncertainty and realised impulse efficiency.
+    const retained = (1 - execution.contact.quality) * 0.4;
+    launchVelocity.x = launchVelocity.x * (1 - retained) + incomingVelocity.x * retained;
+    launchVelocity.y = launchVelocity.y * (1 - retained) + incomingVelocity.y * retained;
+    launchVelocity.z = launchVelocity.z * (1 - retained) + (incomingVelocity.z ?? 0) * retained;
+  }
   const defenders = state.players.filter((p) => p.team !== actor.team);
   const bestDefenderArrival = Math.min(
     ...defenders.map(
@@ -1582,7 +1615,7 @@ const resolveMatchActionCanonical = (
       flightTime: 0,
       distanceTravelled: 0,
       ...(isThrowIn ? { releaseHeight: 1.9 } : {}),
-      height: isThrowIn ? 1.9 : 0,
+      height: isThrowIn ? 1.9 : action.firstTime ? (state.ball.height ?? 0.11) : 0,
       airborne:
         isThrowIn ||
         isLongDistribution ||
@@ -1590,11 +1623,40 @@ const resolveMatchActionCanonical = (
         canonicalPlan.elevation > 0,
       velocity: launchVelocity,
       launchVelocity,
-      launchSpeed,
-      launchElevation,
+      launchSpeed: execution.contact
+        ? Math.hypot(launchVelocity.x, launchVelocity.y, launchVelocity.z)
+        : launchSpeed,
+      launchElevation: execution.contact
+        ? Math.atan2(launchVelocity.z, Math.hypot(launchVelocity.x, launchVelocity.y))
+        : launchElevation,
       bounceCount: 0,
       lastTouchPlayerId: actor.id,
+      ...(execution.contact && state.ball.spin
+        ? {
+            spin: {
+              x: state.ball.spin.x * (1 - execution.contact.quality),
+              y: state.ball.spin.y * (1 - execution.contact.quality),
+              z: state.ball.spin.z * (1 - execution.contact.quality),
+            },
+          }
+        : {}),
     },
+    ...(execution.contact
+      ? {
+          lastGroundContact: {
+            actorId: actor.id,
+            at: state.time,
+            region: execution.contact.region,
+            point: { x: state.ball.x, y: state.ball.y },
+            incomingVelocity: { x: incomingVelocity.x, y: incomingVelocity.y },
+            outgoingVelocity: { x: launchVelocity.x, y: launchVelocity.y },
+            quality: execution.contact.quality,
+            retained: false,
+            executed: true,
+            physicalCount: 1,
+          },
+        }
+      : {}),
     currentAction: action,
     latestAction: action,
     currentActionSource: source,

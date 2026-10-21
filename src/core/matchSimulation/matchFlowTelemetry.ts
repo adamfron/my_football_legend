@@ -741,12 +741,25 @@ export const observeMatchFlow = (
       indexes.passAttempts.add(releasedPassId);
       result.passesAttempted++;
       result.observerState.spellPassAttempts++;
-      if (
-        newAction &&
-        action.type === 'pass' &&
-        action.actorId === releasedPass.passerId &&
-        next.lastPassDiagnostic?.passId === releasedPass.passId
-      ) {
+      // Canonical identity survives an immediate subsequent action and sparse observation.
+      // The visible latestAction may already belong to the receiver's next release.
+      {
+        const action = {
+          actorId: releasedPass.passerId,
+          intent: releasedPass.intent ?? 'support',
+          target: releasedPass.intendedTarget ?? releasedPass.predictedReceptionPoint,
+        };
+        if (releasedPass.executionType === 'first_time') {
+          result.firstTimePassAttempts++;
+          const prior = result.firstTimePassByIntent[action.intent] ?? {
+            attempts: 0,
+            completed: 0,
+          };
+          result.firstTimePassByIntent = {
+            ...result.firstTimePassByIntent,
+            [action.intent]: { ...prior, attempts: prior.attempts + 1 },
+          };
+        }
         if (action.intent === 'through') result.throughBalls++;
         const passer = next.players.find((player) => player.id === action.actorId);
         if (passer) {
@@ -790,17 +803,6 @@ export const observeMatchFlow = (
               releasedPass.receiverArrivalEstimate - releasedPass.bestDefenderArrivalEstimate,
             outcome: 'unclaimed',
           });
-          if (releasedPass.executionType === 'first_time') {
-            result.firstTimePassAttempts++;
-            const prior = result.firstTimePassByIntent[action.intent] ?? {
-              attempts: 0,
-              completed: 0,
-            };
-            result.firstTimePassByIntent = {
-              ...result.firstTimePassByIntent,
-              [action.intent]: { ...prior, attempts: prior.attempts + 1 },
-            };
-          }
         }
         const receiver = next.players.find(
           (player) => player.id === releasedPass.intendedReceiverId,

@@ -246,7 +246,7 @@ describe('canonical action event transitions', () => {
     state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
     expect(state.lastReceptionOutcome?.kind).toBe('heavy_touch');
     expect(state.actionEvents?.map((event) => event.kind)).toContain('heavy_touch');
-    for (let i = 0; i < 28 && state.possessionTeam === 'home'; i++) {
+    for (let i = 0; i < 120 && state.possessionTeam === 'home'; i++) {
       expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
       state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
     }

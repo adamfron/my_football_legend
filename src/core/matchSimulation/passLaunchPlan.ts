@@ -42,6 +42,8 @@ export const derivePassLaunchPlan = (
   const releasePosition =
     state.ball.ownerId === passer.id ? { x: state.ball.x, y: state.ball.y } : passer.position;
   const metres = distance(releasePosition, target);
+  const releaseHeight =
+    state.ball.ownerId === passer.id ? Math.max(0.11, state.ball.height ?? 0.11) : 0.11;
   const initialEta = Math.max(0.55, metres / (intent === 'support' ? 7.2 : 10.5));
   let readiness = projectReceiverReadiness(state, receiver, target, initialEta, intent);
   const desiredArrivalTime = Math.min(
@@ -59,14 +61,14 @@ export const derivePassLaunchPlan = (
       target,
       intent === 'direct' ? 'long_pass' : 'pass',
       {
-        releaseHeight: 0.11,
+        releaseHeight,
         ability: (passer.profile.attributes.passing + passer.profile.attributes.technique) / 2,
         maximumSpeed: 30,
       },
     );
     const samples = projectFutureBallTrajectory(
       {
-        position: { ...releasePosition, z: 0.11 },
+        position: { ...releasePosition, z: releaseHeight },
         velocity: aerial.velocity,
         airborne: true,
         bounceCount: 0,
@@ -106,7 +108,7 @@ export const derivePassLaunchPlan = (
     const velocity = deriveLaunchVelocity(releasePosition, target, candidateSpeed, elevation);
     const samples = projectFutureBallTrajectory(
       {
-        position: { ...releasePosition, z: 0.11 },
+        position: { ...releasePosition, z: releaseHeight },
         velocity,
         airborne: elevation > 0,
         bounceCount: 0,
@@ -163,6 +165,8 @@ export const deriveFeasiblePassPlans = (
 ): PassLaunchPlan[] => {
   const origin = state.ball.ownerId === passer.id ? state.ball : passer.position;
   const metres = distance(origin, target);
+  const releaseHeight =
+    state.ball.ownerId === passer.id ? Math.max(0.11, state.ball.height ?? 0.11) : 0.11;
   const readiness = projectReceiverReadiness(
     state,
     receiver,
@@ -179,7 +183,12 @@ export const deriveFeasiblePassPlans = (
     );
     const velocity = deriveLaunchVelocity(origin, target, speed, 0);
     const samples = projectFutureBallTrajectory(
-      { position: { ...origin, z: 0.11 }, velocity, airborne: false, bounceCount: 0 },
+      {
+        position: { ...origin, z: releaseHeight },
+        velocity,
+        airborne: releaseHeight > 0.11,
+        bounceCount: 0,
+      },
       Math.min(8, metres / Math.max(2, arrivalSpeed) + 0.8),
       0.025,
     );
