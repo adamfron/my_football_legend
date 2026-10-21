@@ -1,0 +1,961 @@
+{
+  "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+  "trajectories": [
+    {
+      "name": "slow-ground",
+      "launch": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "distance": 3.9059999999999953,
+      "arrivalTime": 0.8000000000000004,
+      "arrivalSpeed": 2.4399999999999977,
+      "arrivalHeight": 0.11,
+      "spin": null,
+      "bounceCount": 0,
+      "arrivalBounces": 0,
+      "final": {
+        "x": 23.905999999999995,
+        "y": 20,
+        "z": 0.11
+      },
+      "targetMiss": 0.02400000000000091,
+      "receiver": {
+        "feasible": true,
+        "region": "right_foot",
+        "relativeSpeed": 2.4399999999999977,
+        "incomingHeight": 0.11,
+        "spinSpeed": 0,
+        "incomingAngle": 0,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.098360655737705,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 0.08811111111111103,
+        "quality": 0.9249501333333334,
+        "uncertaintyMetres": 0
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "firm-ground",
+      "launch": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "distance": 35.15599999999997,
+      "arrivalTime": 1.5999999999999983,
+      "arrivalSpeed": 9.879999999999995,
+      "arrivalHeight": 0.11,
+      "spin": null,
+      "bounceCount": 0,
+      "arrivalBounces": 0,
+      "final": {
+        "x": 55.15599999999997,
+        "y": 20,
+        "z": 0.11
+      },
+      "targetMiss": 0.09600000000000364,
+      "receiver": {
+        "feasible": true,
+        "region": "right_foot",
+        "relativeSpeed": 9.879999999999995,
+        "incomingHeight": 0.11,
+        "spinSpeed": 0,
+        "incomingAngle": 0,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.024291497975708513,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 0.35677777777777764,
+        "quality": 0.8546669333333334,
+        "uncertaintyMetres": 0.020770888888888856
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "long-ground",
+      "launch": {
+        "x": 27,
+        "y": 0,
+        "z": 0
+      },
+      "distance": 113.60000000000133,
+      "arrivalTime": 2.6249999999999947,
+      "arrivalSpeed": 18.60000000000018,
+      "arrivalHeight": 0.11,
+      "spin": null,
+      "bounceCount": 0,
+      "arrivalBounces": 0,
+      "final": {
+        "x": 133.60000000000133,
+        "y": 20,
+        "z": 0.11
+      },
+      "targetMiss": 0.1499999999997499,
+      "receiver": {
+        "feasible": true,
+        "region": "right_foot",
+        "relativeSpeed": 18.60000000000018,
+        "incomingHeight": 0.11,
+        "spinSpeed": 0,
+        "incomingAngle": 0,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.012903225806451488,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 0.6716666666666731,
+        "quality": 0.7722919999999984,
+        "uncertaintyMetres": 0.11586733333333529
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "driven-diagonal",
+      "launch": {
+        "x": 21.31311305148764,
+        "y": 13.06718072326648,
+        "z": 0
+      },
+      "distance": 97.65600000000084,
+      "arrivalTime": 2.0749999999999966,
+      "arrivalSpeed": 18.360000000000092,
+      "arrivalHeight": 0.11,
+      "spin": null,
+      "bounceCount": 0,
+      "arrivalBounces": 0,
+      "final": {
+        "x": 103.25413472624376,
+        "y": 71.04354402845297,
+        "z": 0.11
+      },
+      "targetMiss": 0.013999999999917837,
+      "receiver": {
+        "feasible": true,
+        "region": "right_foot",
+        "relativeSpeed": 18.360000000000092,
+        "incomingHeight": 0.11,
+        "spinSpeed": 0,
+        "incomingAngle": 0.5500000000000007,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0.5500000000000007,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.013071895424836536,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 0.6630000000000034,
+        "quality": 0.7745591999999992,
+        "uncertaintyMetres": 0.11325000000000104
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "lofted-diagonal",
+      "launch": {
+        "x": 19.191330889327066,
+        "y": 11.766305018184058,
+        "z": 10.874138352780756
+      },
+      "distance": 69.60781184244387,
+      "arrivalTime": 2.3499999999999956,
+      "arrivalSpeed": 14.069224485001286,
+      "arrivalHeight": 0.8973221258548384,
+      "spin": null,
+      "bounceCount": 3,
+      "arrivalBounces": 1,
+      "final": {
+        "x": 79.34236652258747,
+        "y": 56.383114283853686,
+        "z": 0.11
+      },
+      "targetMiss": 0.14815379183782826,
+      "receiver": {
+        "feasible": false,
+        "region": "right_foot",
+        "relativeSpeed": 14.069224485001286,
+        "incomingHeight": 0.8973221258548384,
+        "spinSpeed": 0,
+        "incomingAngle": 0.5500000000000007,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0.5500000000000007,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.01705850953304894,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 1.1572518912819483,
+        "quality": 0.6452629052406424,
+        "uncertaintyMetres": 0.2625140711671484
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "soft-lob",
+      "launch": {
+        "x": 9.178106247413861,
+        "y": 0,
+        "z": 7.730612246852292
+      },
+      "distance": 22.68191817679316,
+      "arrivalTime": 1.3749999999999991,
+      "arrivalSpeed": 10.299477704527694,
+      "arrivalHeight": 1.0971911113810504,
+      "spin": null,
+      "bounceCount": 3,
+      "arrivalBounces": 0,
+      "final": {
+        "x": 42.68191817679316,
+        "y": 20,
+        "z": 0.11
+      },
+      "targetMiss": 0.10491900925449471,
+      "receiver": {
+        "feasible": false,
+        "region": "right_foot",
+        "relativeSpeed": 10.299477704527694,
+        "incomingHeight": 1.0971911113810504,
+        "spinSpeed": 0,
+        "incomingAngle": 0,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.023302152486285296,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 1.400779291092957,
+        "quality": 0.5815561374500825,
+        "uncertaintyMetres": 0.3360593459100731
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "driven-cross",
+      "launch": {
+        "x": 23.730505870465013,
+        "y": 0,
+        "z": 3.586515179366381
+      },
+      "distance": 51.868578524747534,
+      "arrivalTime": 1.2999999999999994,
+      "arrivalSpeed": 13.091615955725459,
+      "arrivalHeight": 0.11,
+      "spin": null,
+      "bounceCount": 2,
+      "arrivalBounces": 2,
+      "final": {
+        "x": 71.86857852474753,
+        "y": 20,
+        "z": 0.11
+      },
+      "targetMiss": 0.08882722284045741,
+      "receiver": {
+        "feasible": true,
+        "region": "right_foot",
+        "relativeSpeed": 13.091615955725459,
+        "incomingHeight": 0.11,
+        "spinSpeed": 0,
+        "incomingAngle": 0,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.018332343448788604,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 0.47275279840119716,
+        "quality": 0.8243278679382469,
+        "uncertaintyMetres": 0.055795345117161554
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "lofted-cross",
+      "launch": {
+        "x": 19.513888301144252,
+        "y": 0,
+        "z": 10.159141861912623
+      },
+      "distance": 58.52717779454484,
+      "arrivalTime": 1.699999999999998,
+      "arrivalSpeed": 17.56150590793944,
+      "arrivalHeight": 2.2203693980810173,
+      "spin": null,
+      "bounceCount": 3,
+      "arrivalBounces": 0,
+      "final": {
+        "x": 78.52717779454484,
+        "y": 20,
+        "z": 0.11
+      },
+      "targetMiss": 0.0776708728207467,
+      "receiver": {
+        "feasible": false,
+        "region": "right_foot",
+        "relativeSpeed": 17.56150590793944,
+        "incomingHeight": 2.2203693980810173,
+        "spinSpeed": 0,
+        "incomingAngle": 0,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.013666253979477783,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 2.51246077503862,
+        "quality": 0.29074026124989716,
+        "uncertaintyMetres": 0.6717871540616633
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "deflected",
+      "deflection": {
+        "hit": {
+          "kind": "defender",
+          "playerId": "physical-block",
+          "point": {
+            "x": 20.587568187453975,
+            "y": 20,
+            "z": 0.11
+          },
+          "segmentFraction": 0.5875681874539751,
+          "surfaceNormal": {
+            "x": -0.8086898285216176,
+            "y": -0.5882352941176485,
+            "z": 0
+          }
+        },
+        "incoming": {
+          "x": 24,
+          "y": 0,
+          "z": 0
+        },
+        "response": {
+          "velocity": {
+            "x": -0.7227941212222042,
+            "y": -12.751435807399908,
+            "z": 0
+          },
+          "airborne": false
+        }
+      },
+      "launch": {
+        "x": -0.7227941212222042,
+        "y": -12.751435807399908,
+        "z": 0
+      },
+      "distance": 17.391040979967965,
+      "arrivalTime": 0.025,
+      "arrivalSpeed": 10.452897801891682,
+      "arrivalHeight": 0.11,
+      "spin": null,
+      "bounceCount": 1,
+      "arrivalBounces": 1,
+      "final": {
+        "x": 19.01579736148922,
+        "y": 2.636830602298623,
+        "z": 0.11
+      },
+      "targetMiss": 20.02056368114862,
+      "receiver": {
+        "feasible": true,
+        "region": "right_foot",
+        "relativeSpeed": 10.452897801891682,
+        "incomingHeight": 0.11,
+        "spinSpeed": 0,
+        "incomingAngle": 1.6274190873979997,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 1.6274190873980006,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.022960140293016806,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 0.39548933844018547,
+        "quality": 0.8445399890640476,
+        "uncertaintyMetres": 0.032461780208936024
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "spinning",
+      "launch": {
+        "x": 22.105463856069242,
+        "y": 0,
+        "z": 9.346040215407612
+      },
+      "distance": 62.282569701937824,
+      "arrivalTime": 1.7499999999999978,
+      "arrivalSpeed": 19.541541151434043,
+      "arrivalHeight": 0.5155465488366073,
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 72.95258213731695
+      },
+      "bounceCount": 3,
+      "arrivalBounces": 0,
+      "final": {
+        "x": 81.44640048031701,
+        "y": 30.17144811171152,
+        "z": 0.11
+      },
+      "targetMiss": 3.549159454180461,
+      "receiver": {
+        "feasible": true,
+        "region": "right_foot",
+        "relativeSpeed": 19.541541151434043,
+        "incomingHeight": 0.5155465488366073,
+        "spinSpeed": 8.024784035104865,
+        "incomingAngle": 0.19979994393832712,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0.19979994393832712,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.012281528777088687,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 2.1298739047847954,
+        "quality": 0.39082498650829756,
+        "uncertaintyMetres": 0.5562459192450083
+      },
+      "forecastEqualsLive": true
+    },
+    {
+      "name": "bouncing-grass",
+      "launch": {
+        "x": 16.90870883125282,
+        "y": 0,
+        "z": 6.172160534198124
+      },
+      "distance": 40.512844175611,
+      "arrivalTime": 2.224999999999996,
+      "arrivalSpeed": 8.184334781752739,
+      "arrivalHeight": 0.11,
+      "spin": null,
+      "bounceCount": 2,
+      "arrivalBounces": 2,
+      "final": {
+        "x": 60.512844175611,
+        "y": 20,
+        "z": 0.11
+      },
+      "targetMiss": 0.046790482141517487,
+      "receiver": {
+        "feasible": true,
+        "region": "right_foot",
+        "relativeSpeed": 8.184334781752739,
+        "incomingHeight": 0.11,
+        "spinSpeed": 0,
+        "incomingAngle": 0,
+        "outgoingAngle": 3.141592653589793,
+        "redirection": 0,
+        "preparationSeconds": 0.5,
+        "contactSeconds": 0.029324313630851025,
+        "recoverySeconds": 0.175,
+        "weakFootDifficulty": 0,
+        "pressure": 0,
+        "difficulty": 0.2955454226744045,
+        "quality": 0.8706853174283758,
+        "uncertaintyMetres": 0.0022787176476701597
+      },
+      "forecastEqualsLive": true
+    }
+  ],
+  "plans": [
+    {
+      "metres": 5,
+      "delivery": "ground",
+      "plan": {
+        "target": {
+          "x": 55,
+          "y": 34
+        },
+        "velocity": {
+          "x": 6.046179607463823,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 6.046179607463823,
+        "elevation": 0,
+        "predictedArrivalTime": 1.0250000000000004,
+        "predictedArrivalSpeed": 2.76617960746382,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 55,
+            "y": 34
+          },
+          "awareAt": 0.19017543859649122,
+          "readyAt": 1.0223854130573637,
+          "earliestUsefulContactTime": 1.1423854130573639,
+          "preferredArrivalSpeed": 6.9559999999999995,
+          "maximumComfortableArrivalSpeed": 11.787999999999998,
+          "preparationMargin": 0.0026145869426366097,
+          "movementTime": 0,
+          "orientationTime": 0.8322099744608724
+        }
+      }
+    },
+    {
+      "metres": 5,
+      "delivery": "lofted",
+      "plan": {
+        "target": {
+          "x": 55,
+          "y": 34
+        },
+        "velocity": {
+          "x": 5.6548682629208455,
+          "y": 0,
+          "z": 5.2827538273139325
+        },
+        "speed": 7.738541404618148,
+        "elevation": 0.7513897690163109,
+        "predictedArrivalTime": 0.9000000000000005,
+        "predictedArrivalSpeed": 6.539044432619882,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 55,
+            "y": 34
+          },
+          "awareAt": 0.19017543859649122,
+          "readyAt": 1.0223854130573637,
+          "earliestUsefulContactTime": 1.1423854130573639,
+          "preferredArrivalSpeed": 6.9559999999999995,
+          "maximumComfortableArrivalSpeed": 11.787999999999998,
+          "preparationMargin": -0.12238541305736328,
+          "movementTime": 0,
+          "orientationTime": 0.8322099744608724
+        },
+        "feasible": true,
+        "targetMissMetres": 5.321697926774505e-7
+      }
+    },
+    {
+      "metres": 15,
+      "delivery": "ground",
+      "plan": {
+        "target": {
+          "x": 65,
+          "y": 34
+        },
+        "velocity": {
+          "x": 14.226905500607904,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 14.226905500607904,
+        "elevation": 0,
+        "predictedArrivalTime": 1.1749999999999998,
+        "predictedArrivalSpeed": 10.4669055006079,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 65,
+            "y": 34
+          },
+          "awareAt": 0.19017543859649122,
+          "readyAt": 1.0223854130573637,
+          "earliestUsefulContactTime": 1.1423854130573639,
+          "preferredArrivalSpeed": 6.9559999999999995,
+          "maximumComfortableArrivalSpeed": 11.787999999999998,
+          "preparationMargin": 0.15261458694263608,
+          "movementTime": 0,
+          "orientationTime": 0.8322099744608724
+        }
+      }
+    },
+    {
+      "metres": 15,
+      "delivery": "lofted",
+      "plan": {
+        "target": {
+          "x": 65,
+          "y": 34
+        },
+        "velocity": {
+          "x": 11.892147611296936,
+          "y": 0,
+          "z": 7.208331179961143
+        },
+        "speed": 13.906229295135162,
+        "elevation": 0.5449235059586698,
+        "predictedArrivalTime": 1.3249999999999993,
+        "predictedArrivalSpeed": 12.303698891851461,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 65,
+            "y": 34
+          },
+          "awareAt": 0.19017543859649122,
+          "readyAt": 1.0223854130573637,
+          "earliestUsefulContactTime": 1.1423854130573639,
+          "preferredArrivalSpeed": 6.9559999999999995,
+          "maximumComfortableArrivalSpeed": 11.787999999999998,
+          "preparationMargin": 0.30261458694263554,
+          "movementTime": 0,
+          "orientationTime": 0.8322099744608724
+        },
+        "feasible": true,
+        "targetMissMetres": 0.00008255408972956957
+      }
+    },
+    {
+      "metres": 35,
+      "delivery": "ground",
+      "plan": {
+        "target": {
+          "x": 85,
+          "y": 34
+        },
+        "velocity": {
+          "x": 26.45793103448276,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 26.45793103448276,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 21.897931034482855,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 85,
+            "y": 34
+          },
+          "awareAt": 0.19017543859649122,
+          "readyAt": 1.0223854130573637,
+          "earliestUsefulContactTime": 1.1423854130573639,
+          "preferredArrivalSpeed": 6.9559999999999995,
+          "maximumComfortableArrivalSpeed": 11.787999999999998,
+          "preparationMargin": 0.4026145869426352,
+          "movementTime": 0,
+          "orientationTime": 0.8322099744608724
+        }
+      }
+    },
+    {
+      "metres": 35,
+      "delivery": "lofted",
+      "plan": {
+        "target": {
+          "x": 85,
+          "y": 34
+        },
+        "velocity": {
+          "x": 21.180408176886843,
+          "y": 0,
+          "z": 10.003256429783255
+        },
+        "speed": 23.42380903566999,
+        "elevation": 0.4412334104586002,
+        "predictedArrivalTime": 1.8499999999999974,
+        "predictedArrivalSpeed": 18.957501428529056,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 85,
+            "y": 34
+          },
+          "awareAt": 0.19017543859649122,
+          "readyAt": 1.0223854130573637,
+          "earliestUsefulContactTime": 1.1423854130573639,
+          "preferredArrivalSpeed": 6.9559999999999995,
+          "maximumComfortableArrivalSpeed": 11.787999999999998,
+          "preparationMargin": 0.8276145869426337,
+          "movementTime": 0,
+          "orientationTime": 0.8322099744608724
+        },
+        "feasible": true,
+        "targetMissMetres": 0.008024293835546814
+      }
+    },
+    {
+      "metres": 55,
+      "delivery": "ground",
+      "plan": {
+        "target": {
+          "x": 105,
+          "y": 34
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 2.0499999999999967,
+        "predictedArrivalSpeed": 23.44000000000014,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 105,
+            "y": 34
+          },
+          "awareAt": 0.19017543859649122,
+          "readyAt": 1.0223854130573637,
+          "earliestUsefulContactTime": 1.1423854130573639,
+          "preferredArrivalSpeed": 6.9559999999999995,
+          "maximumComfortableArrivalSpeed": 11.787999999999998,
+          "preparationMargin": 1.027614586942633,
+          "movementTime": 0,
+          "orientationTime": 0.8322099744608724
+        }
+      }
+    },
+    {
+      "metres": 55,
+      "delivery": "lofted",
+      "plan": {
+        "target": {
+          "x": 105,
+          "y": 34
+        },
+        "velocity": {
+          "x": 28.201494929706083,
+          "y": 0,
+          "z": 10.231113513677878
+        },
+        "speed": 29.999999999999996,
+        "elevation": 0.34801993465383424,
+        "predictedArrivalTime": 1.8749999999999973,
+        "predictedArrivalSpeed": 22.88484241089403,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 105,
+            "y": 34
+          },
+          "awareAt": 0.19017543859649122,
+          "readyAt": 1.0223854130573637,
+          "earliestUsefulContactTime": 1.1423854130573639,
+          "preferredArrivalSpeed": 6.9559999999999995,
+          "maximumComfortableArrivalSpeed": 11.787999999999998,
+          "preparationMargin": 0.8526145869426336,
+          "movementTime": 0,
+          "orientationTime": 0.8322099744608724
+        },
+        "feasible": false,
+        "targetMissMetres": 9.323254549641192
+      }
+    }
+  ],
+  "aerial": {
+    "velocity": {
+      "x": 23.4646015555945,
+      "y": 15.643067703729665,
+      "z": 10.232639280934427
+    },
+    "speed": 30.000000000000004,
+    "elevation": 0.34807403753862654,
+    "predictedFlightTime": 1.8749999999999973,
+    "predictedApex": 4.7537317290588375,
+    "releaseHeight": 0.11,
+    "arrivalHeight": 0.8
+  },
+  "shots": [
+    {
+      "facing": 0,
+      "intent": "placed",
+      "horizontal": -0.65,
+      "velocity": {
+        "x": 26.098491359679013,
+        "y": -6.653548399300016,
+        "z": 5.652007091752961
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "wide"
+    },
+    {
+      "facing": 0,
+      "intent": "placed",
+      "horizontal": 0.65,
+      "velocity": {
+        "x": 26.94171950200428,
+        "y": -0.4590858804579045,
+        "z": 5.592774995293482
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "on_target"
+    },
+    {
+      "facing": 0,
+      "intent": "driven",
+      "horizontal": -0.65,
+      "velocity": {
+        "x": 31.74056115375749,
+        "y": -9.269136834423037,
+        "z": 5.495916056661515
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "wide"
+    },
+    {
+      "facing": 0,
+      "intent": "driven",
+      "horizontal": 0.65,
+      "velocity": {
+        "x": 33.02374128999523,
+        "y": -1.7875134818427998,
+        "z": 5.460999915422202
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "on_target"
+    },
+    {
+      "facing": 0,
+      "intent": "chip",
+      "horizontal": -0.65,
+      "velocity": {
+        "x": 12.261959343666549,
+        "y": -3.448194787029085,
+        "z": 8.916
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "wide"
+    },
+    {
+      "facing": 0,
+      "intent": "chip",
+      "horizontal": 0.65,
+      "velocity": {
+        "x": 12.261959343666549,
+        "y": -0.5310746591708134,
+        "z": 8.916
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "on_target"
+    },
+    {
+      "facing": 1.5707963267948966,
+      "intent": "placed",
+      "horizontal": -0.65,
+      "velocity": {
+        "x": 26.160140779660736,
+        "y": -6.42973324257735,
+        "z": 5.625984939183615
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "wide"
+    },
+    {
+      "facing": 1.5707963267948966,
+      "intent": "placed",
+      "horizontal": 0.65,
+      "velocity": {
+        "x": 26.949479695037933,
+        "y": -0.2124585732686661,
+        "z": 5.570147865153678
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "on_target"
+    },
+    {
+      "facing": 1.5707963267948966,
+      "intent": "driven",
+      "horizontal": -0.65,
+      "velocity": {
+        "x": 31.84450965363707,
+        "y": -8.928390558715225,
+        "z": 5.458595081429576
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "wide"
+    },
+    {
+      "facing": 1.5707963267948966,
+      "intent": "driven",
+      "horizontal": 0.65,
+      "velocity": {
+        "x": 33.048206786622565,
+        "y": -1.403708224870538,
+        "z": 5.425020250709849
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "on_target"
+    },
+    {
+      "facing": 1.5707963267948966,
+      "intent": "chip",
+      "horizontal": -0.65,
+      "velocity": {
+        "x": 12.23789152507126,
+        "y": -3.307724999214673,
+        "z": 8.916
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "wide"
+    },
+    {
+      "facing": 1.5707963267948966,
+      "intent": "chip",
+      "horizontal": 0.65,
+      "velocity": {
+        "x": 12.23789152507126,
+        "y": -0.39633060540022547,
+        "z": 8.916000000000002
+      },
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "classification": "on_target"
+    }
+  ],
+  "spinLimitation": "Ordinary open-play strikes intentionally use the historical zero-spin regime. Existing free-kick controlled_curl/power_bend/dipping tests demonstrate Magnus propagation; no ordinary-shot spin distribution is inferred from five sparse manual fragments."
+}

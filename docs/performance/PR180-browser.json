@@ -1,0 +1,241 @@
+{
+  "coreSourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+  "scope": "Actual local browser UI, canonical 25 ms engine, 16x requested playback and capture enabled from time zero. Partial smoke fragments, not full-match policy estimates.",
+  "consoleObservation": {
+    "method": "Browser dev.logs warn/error was read after each fragment; all four queries returned an empty list.",
+    "warningsAndErrors": 0
+  },
+  "humanUiActions": [
+    {
+      "at": 0.125,
+      "choice": "Podaj do nogi",
+      "receiverId": "footballer_pro_9_13"
+    },
+    {
+      "at": 25.75,
+      "choice": "Wyjdź do przechwytu"
+    },
+    {
+      "at": 129.075,
+      "choice": "Podaj do nogi",
+      "receiverId": "footballer_pro_9_13",
+      "passesReceivedBeforeChoice": 3
+    }
+  ],
+  "humanScope": "Two selected on-ball passes and one defensive movement; ordinary receptions/delegated passes also occurred. No incoming_ball menu was manually selected. No injected ownership, state or DEV restart scenario.",
+  "rows": [
+    {
+      "label": "r1",
+      "policy": "role-value-v1",
+      "fixtureId": "fixture-4e0b926d",
+      "sourceRevision": "5646bb0e757289e1fa6ffde79ff9f94766139f48:02b7508c470837953b9fc3043ee6fff4d73e9cb26e390158196d75d9bd200763",
+      "duration": 240.05000000003744,
+      "coverage": {
+        "canonicalStatistics": "whole_canonical_match",
+        "presentationRuntime": "whole_presentation_session",
+        "detailedObservers": "whole_session",
+        "detailedCanonicalSeconds": 240.05000000003744,
+        "unavailableReason": null,
+        "observerCoverage": [
+          {
+            "mode": "capture",
+            "startedAt": 0,
+            "endedAt": 240.05000000003744
+          }
+        ]
+      },
+      "attempts": 113,
+      "firstTimeAttempts": 21,
+      "firstTimeCompleted": 16,
+      "renderer": "ready",
+      "runtimeErrors": [],
+      "observerErrors": []
+    },
+    {
+      "label": "r2",
+      "policy": "role-intent-v1",
+      "fixtureId": "fixture-4e0b926d",
+      "sourceRevision": "5646bb0e757289e1fa6ffde79ff9f94766139f48:02b7508c470837953b9fc3043ee6fff4d73e9cb26e390158196d75d9bd200763",
+      "duration": 271.07500000002733,
+      "coverage": {
+        "canonicalStatistics": "whole_canonical_match",
+        "presentationRuntime": "whole_presentation_session",
+        "detailedObservers": "whole_session",
+        "detailedCanonicalSeconds": 271.07500000002733,
+        "unavailableReason": null,
+        "observerCoverage": [
+          {
+            "mode": "capture",
+            "startedAt": 0,
+            "endedAt": 271.07500000002733
+          }
+        ]
+      },
+      "attempts": 109,
+      "firstTimeAttempts": 25,
+      "firstTimeCompleted": 22,
+      "renderer": "ready",
+      "runtimeErrors": [],
+      "observerErrors": []
+    },
+    {
+      "label": "r3",
+      "policy": "phase-role-hybrid-v1",
+      "fixtureId": "fixture-4e0b926d",
+      "sourceRevision": "5646bb0e757289e1fa6ffde79ff9f94766139f48:02b7508c470837953b9fc3043ee6fff4d73e9cb26e390158196d75d9bd200763",
+      "duration": 368.02499999993915,
+      "coverage": {
+        "canonicalStatistics": "whole_canonical_match",
+        "presentationRuntime": "whole_presentation_session",
+        "detailedObservers": "whole_session",
+        "detailedCanonicalSeconds": 368.02499999993915,
+        "unavailableReason": null,
+        "observerCoverage": [
+          {
+            "mode": "capture",
+            "startedAt": 0,
+            "endedAt": 368.02499999993915
+          }
+        ]
+      },
+      "attempts": 123,
+      "firstTimeAttempts": 21,
+      "firstTimeCompleted": 18,
+      "renderer": "ready",
+      "runtimeErrors": [],
+      "observerErrors": []
+    },
+    {
+      "label": "human",
+      "policy": "legacy-pr176",
+      "fixtureId": "fixture-bb633d8d",
+      "sourceRevision": "5646bb0e757289e1fa6ffde79ff9f94766139f48:02b7508c470837953b9fc3043ee6fff4d73e9cb26e390158196d75d9bd200763",
+      "duration": 150.175000000017,
+      "coverage": {
+        "canonicalStatistics": "whole_canonical_match",
+        "presentationRuntime": "whole_presentation_session",
+        "detailedObservers": "whole_session",
+        "detailedCanonicalSeconds": 150.175000000017,
+        "unavailableReason": null,
+        "observerCoverage": [
+          {
+            "mode": "capture",
+            "startedAt": 0,
+            "endedAt": 150.175000000017
+          }
+        ]
+      },
+      "attempts": 66,
+      "firstTimeAttempts": 0,
+      "firstTimeCompleted": 0,
+      "renderer": "ready",
+      "runtimeErrors": [],
+      "observerErrors": [],
+      "controlledPlayer": "footballer_pro_9_7",
+      "playerStats": {
+        "playerId": "footballer_pro_9_7",
+        "minutesPlayed": 2.50291666666695,
+        "touches": 4,
+        "passesAttempted": 4,
+        "passesCompleted": 3,
+        "passesReceived": 3,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 0,
+        "tacklesAttempted": 0,
+        "tacklesWon": 0,
+        "interceptions": 0,
+        "possessionWon": 0,
+        "possessionLost": 1,
+        "possessionLossCauses": {
+          "tackle": 0,
+          "interception": 1,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 0,
+        "blocks": 0,
+        "duelsWon": 0,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 235.76469958434285,
+        "sprintDistance": 0,
+        "sprintBursts": 0,
+        "maxSpeed": 6.017735112553212,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      "decisions": {
+        "touches": 4,
+        "passesReceived": 3,
+        "passesAttempted": 4,
+        "shots": 0,
+        "carries": 0,
+        "decisionOpportunities": {
+          "on_ball": 3,
+          "defensive_response": 2
+        },
+        "humanSelectedActions": 3,
+        "devAiSelections": 0,
+        "autonomousRoutineActions": 2,
+        "preventedByEscalation": 3,
+        "autonomousDiagnostics": {
+          "loose_ball_autonomous": 0,
+          "off_ball_movement_autonomous": 0,
+          "routine_reception_autonomous": 0
+        },
+        "majorActionSources": {
+          "shots": {
+            "human": 0,
+            "autonomous": 0
+          },
+          "crosses": {
+            "human": 0,
+            "autonomous": 0
+          },
+          "highImpactActions": {
+            "human": 0,
+            "autonomous": 0
+          }
+        }
+      },
+      "agency": {
+        "candidates": 8,
+        "meaningfulHumanDecisions": 3,
+        "routineDelegated": 5,
+        "singleOptionDelegated": 0,
+        "byKind": {
+          "on_ball": 2,
+          "incoming_ball": 0,
+          "defensive_response": 1,
+          "restart": 0,
+          "other": 0
+        },
+        "byReason": {
+          "routine_possession_recycling": 4,
+          "meaningful_action_diversity,progressive_option,autopilot_escalation": 2,
+          "significant_step_out": 1,
+          "teammate_in_lane": 1
+        },
+        "canonicalSeconds": 150.175000000017,
+        "activePlayerSeconds": 150.175000000017,
+        "activeTimeSource": "canonical_minutes_played",
+        "rateBasis": "active_player_minutes",
+        "decisionsPer45Minutes": 53.937073414343814,
+        "decisionsPer90Minutes": 107.87414682868763
+      }
+    }
+  ]
+}

@@ -1,11 +1,16 @@
-import { writeFileSync } from 'node:fs';
-import { gzipSync } from 'node:zlib';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { gunzipSync, gzipSync } from 'node:zlib';
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
 const root = process.argv[2];
 const load = (p) => import(pathToFileURL(resolve(root, p)).href);
+const { pr172SourceHash } = await load('scripts/pr172Evidence.ts');
+const baseline = JSON.parse(
+  gunzipSync(readFileSync('docs/performance/pr180-evidence/manual-before-legacy-pr176.json.gz')),
+);
+if (pr172SourceHash(root) !== baseline.sourceHash) throw Error('Untouched PR179 source required');
 const { createReformFixture } = await load('scripts/pr177Fixtures.ts');
 const { awardNaturalRestart } = await load('src/core/matchSimulation/restartScenarios.ts');
 const { enumerateRestartActions, resolveMatchAction } = await load(

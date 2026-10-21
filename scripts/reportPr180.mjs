@@ -26,7 +26,8 @@ for (const r of rows) {
   if (
     r.observer.attempts !== r.passes.firstTime ||
     r.observer.completed !== r.passes.firstTimeCompleted ||
-    r.observer.errors.length
+    r.observer.errors.length ||
+    r.report.diagnostics.observerErrors.length
   )
     throw Error('first-time observer mismatch');
   if (Math.abs(r.clock.elapsed - r.clock.inPlay - r.clock.stoppage) > 1e-6)
@@ -54,15 +55,24 @@ const compact = (r) => ({
   passOutcomes: r.passes.outcomes,
   flow: r.flow,
   clock: r.clock,
-  ledger: r.report.summary.stoppages,
+  ledger: r.report.summary.stoppages
+    ? {
+        ...r.report.summary.stoppages,
+        intervals: undefined,
+        intervalCount: r.report.summary.stoppages.intervals.length,
+      }
+    : undefined,
   hold: r.report.diagnostics.maxHoldSeconds,
   observer: r.observer,
+  roleObserverErrors: r.report.diagnostics.observerErrors,
   performance: r.performance,
 });
 const summary = {
   sourceHash,
   scope:
     'six new matched development designs; experimental unit is the fixture design, not the policy run. All failed/censored rows retained.',
+  intervalDefinition:
+    'Pass release intervals across both teams; median is the upper middle order statistic for even sample counts. UI bounded action intervals use the average of the middle pair.',
   complete: rows.filter((r) => r.status === 'full_time').length,
   total: rows.length,
   rows: rows.map(compact),
@@ -111,15 +121,8 @@ const clocks = rows.map((r) => {
     ledgerCompleted: ledger?.completedSeconds ?? 0,
     unledgeredSeconds: r.clock.stoppage - (ledger?.completedSeconds ?? 0),
     partitionResidual: r.clock.elapsed - r.clock.inPlay - r.clock.stoppage,
-    intervals: ledger?.intervals.map((i) => ({
-      reason: i.reasons,
-      startedAt: i.startedAt,
-      endedAt: i.endedAt,
-      ballReadyAt: i.ballReadyAt,
-      legalReadyAt: i.legalReadyAt,
-      executedAt: i.executedAt,
-      qualifyingSeconds: i.qualifyingSeconds,
-    })),
+    intervalCount: ledger?.intervals.length ?? 0,
+    fullIntervalEvidence: `pr180-evidence/${r.design.id}-${r.policy}.json.gz`,
   };
 });
 writeFileSync(
@@ -152,7 +155,10 @@ if (existsSync('../pr180-final-v2')) {
 }
 const manual = [];
 for (const p of policies) {
-  const before = read(`../pr180-baseline/manual-closest-${p}.json.gz`),
+  const beforePath = existsSync(`../pr180-baseline/manual-closest-${p}.json.gz`)
+      ? `../pr180-baseline/manual-closest-${p}.json.gz`
+      : `${evidenceDir}/manual-before-${p}.json.gz`,
+    before = read(beforePath),
     after = read(`../pr180-manual-v4/manual-closest-${p}.json.gz`);
   if (after.sourceHash !== sourceHash) throw Error('manual final source mismatch');
   if (before.inputHash !== after.inputHash || before.sessionHash !== after.sessionHash)
@@ -164,10 +170,7 @@ for (const p of policies) {
     before: compact(before),
     after: compact(after),
   });
-  writeFileSync(
-    `${evidenceDir}/manual-before-${p}.json.gz`,
-    readFileSync(`../pr180-baseline/manual-closest-${p}.json.gz`),
-  );
+  writeFileSync(`${evidenceDir}/manual-before-${p}.json.gz`, readFileSync(beforePath));
   writeFileSync(
     `${evidenceDir}/manual-after-${p}.json.gz`,
     readFileSync(`../pr180-manual-v4/manual-closest-${p}.json.gz`),
