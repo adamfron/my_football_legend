@@ -1,5 +1,59 @@
 # PR182 — Tactical Intelligence & Independent Policy Validation
 
+## Review follow-up and evidence versions
+
+The primary sixty-match results below describe the original frozen candidate and
+its default-selection commit. They are preserved historical receipts. Review commit
+`3d5d43c` fixes a second dismissal being ignored while `reorganise` was still the
+current plan. A new dismissal now bypasses the same-plan check, while ordinary
+plan persistence remains unchanged. Five new regressions cover consecutive central
+dismissals in every selectable policy and preserve the remaining players' positions.
+
+The failed GitHub run `39814777634` passed 1988 unit tests and the career job;
+the main job failed at the full-half penalty test's execution lookup. That test
+injected a foul at 415 seconds even during another stoppage. The ledger deliberately
+retains the first incident ID when interruptions overlap. This made that lookup
+depend on the physical trajectory at the injection time. The test now waits for
+live open play. The original legacy half keeps its 90000 ms budget; a separate
+default-B half has a 180000 ms budget and the same full-half, execution and liveness
+assertions. Local B also exceeded the old wall limit (93.9 s), while the complete
+16-test corrected penalty suite passed. No match clock, physics cadence or laws
+were changed to repair the test.
+
+This behavioural correction is a new candidate, not a rebranding of consumed
+primary validation. `PR182-review-freeze.json` was committed and pushed in
+`3d5d43c` before decoding the older reserved archive. Its source hash is
+`fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1`.
+Three previously unused designs (`pr180-reserved-ss-1`, `-sw-1`, `-ww-1`) receive
+paired full B/legacy confirmation under the recorded correctness and hold gates.
+This is three paired units, not six independent samples or a new policy search.
+The shared archive is now opened; the remaining nine reserved designs are not run.
+The separate [review confirmation](performance/PR182-review-confirmation.json)
+records **6/6 full-time completions**, matching paired input hashes, valid final
+schemas/statistics and no observer errors or strict pathological holds. Every run
+uses fixed 0.025 s ticks. The new dismissal path is exercised by the five controlled
+regressions; these six natural matches have no dismissals.
+
+| New paired unit | Shots legacy / B | Score legacy / B | Maximum hold B |
+| --- | --- | --- | --- |
+| SS | 1 / 18 | 1–0 / 4–2 | 3.025 s |
+| SW | 7 / 44 | 6–0 / 10–0 | 20.200 s |
+| WW | 3 / 5 | 1–1 / 0–1 | 6.775 s |
+
+These are descriptive results from n=3. The frozen follow-up harness omitted its
+planned descriptive box-entry counter; it was not a gate, and no proxy or renewed
+ranking claim replaces it. The primary box-entry results retain their original
+source scope. Excessive SS circulation (2355 B pass attempts) and the SW result
+reinforce the existing **NOT READY** summary-calibration decision. The provisional
+B default is retained. Raw complete final states and detailed reports are under
+`performance/pr182-evidence/review/`.
+
+Review verification uses the unchanged `npm run verify` command. The current
+[PR checks](https://github.com/adamfron/my_football_legend/pull/182/checks) and the
+PR's review follow-up report its current result; the original 2051-test receipt
+belongs to the original candidate. Expected review coverage is 2057 tests: 1993
+unit, 55 match integration, four career contracts and five full-career tests.
+
 ## Plan and evidence boundary
 
 Base: merged PR181 `b9c7bfb8dd341f258d684f19fba1ebd4c849a888`.
@@ -22,7 +76,8 @@ career result application remain canonical. No new hybrid is planned without evi
    input hashes, selection criteria and resource budgets **before opening validation**.
 7. Evaluate all twelve `pr182-sealed-*` designs, all five policies on identical initial
    states. Twelve paired designs are the experimental units, with four per SS/SW/WW.
-   `pr180-reserved-*` remain unopened and are not part of the primary claim.
+   At the primary freeze, `pr180-reserved-*` remained unopened and was not part of
+   the primary claim. The later review uses three as described above.
 8. Analyse paired differences and uncertainty, document every blocker, decide default
    policy and summary-calibration readiness. Any later behavioural correction requires
    fresh unused inputs; consumed validation cannot be renamed independent evidence.
@@ -167,7 +222,7 @@ its 2.5-second horizon. This supports investigating R3's phase blend and recurre
 support benefit; it does not establish that every available pass would succeed.
 `inspectPr182ValidationHold.mjs` and its compressed state/diagnosis are explicitly
 post-validation diagnostics. They do not alter the frozen primary runner or add an
-independent design. No repair or score tuning follows this result in PR182.
+independent design. No hold repair or score tuning follows this result in PR182.
 
 ## Football references and interpretation
 
@@ -284,11 +339,11 @@ statistics invariants and live/dead clock reconciliation. CPU limits remain 600 
 per child, wall limit 900 s and canonical stepping 0.025 s. Primary runs use ten
 processes and their wall times are not serial performance claims.
 
-Only the literal `DEFAULT_DECISION_POLICY` may change after this comparison.
-The normalized candidate fingerprint must remain identical. No engine, coach,
-observer, scoring or threshold tuning follows the results. The consumed twelve
-designs cannot be relabelled independent evidence for a repair. The older
-`pr180-reserved-*` archive remains unopened.
+For the primary selection, only the literal `DEFAULT_DECISION_POLICY` could change
+after this comparison. Its normalized candidate fingerprint remained identical.
+The consumed twelve designs cannot be relabelled independent evidence for a repair.
+The review correction and its newly reserved confirmation are separately versioned
+above; they do not rewrite the primary freeze or results.
 
 ## Primary results and policy decision
 
@@ -332,10 +387,11 @@ design and makes no change to primary metrics or selection thresholds. The plan
 and both raw receipts are in `PR182-additional-cost-plan.json` and
 `PR182-performance-B.json`. Single-workload uncertainty still applies.
 
-The selected existing policy is **`state-value-v1`**. The only post-validation
-production edit is the literal `DEFAULT_DECISION_POLICY`; normalized candidate hash
-remains `e547661e9b254aca7742401385326aee559dc90c70f2afef742359fef9f63b3a`.
-The final production hash is
+The selected existing policy is **`state-value-v1`**. In the original selection,
+the only post-validation production edit was the literal `DEFAULT_DECISION_POLICY`;
+normalized candidate hash remained
+`e547661e9b254aca7742401385326aee559dc90c70f2afef742359fef9f63b3a`.
+The original selected production hash was
 `8bac5f62e84c788c239876e7a6dd9d0b7f8bc5a30581da5f3eb82f2ef65dbf1f`.
 All five choices remain available. This is the existing B architecture receiving
 shared PR182 coaching and physical repairs; no new hybrid or save migration is added.
@@ -523,6 +579,7 @@ readable report and scripts explain definitions while complete receipts stay ins
 | Censored physical shot attempts and whistle context | `PR182-shot-coverage.json`, selected full replay snapshots |
 | Original assertions/timeouts after explicit historical policies | `PR182-test-fixture-audit.json` |
 | Full original verification and failed attempts | `PR182-verification.json`, compressed logs |
+| Review repair, separate freeze and unused-input confirmation | `PR182-review-freeze.json`, `PR182-review-confirmation.json`, `pr182-evidence/review/` |
 | Separate development epochs | `pr182-evidence/initial-full/`, `development-prefix/`, `development-full-observer.json.gz` |
 
 Reproduction uses Node 24.19.0 and the unchanged lockfile. Run verification on the
@@ -537,11 +594,12 @@ node --experimental-transform-types --import ./scripts/registerTypescriptLoader.
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/runPr182Validation.mjs
 node scripts/reportPr182.mjs --validation --runs=../pr182-validation
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr182Integrity.mjs --policy=role-value-v1
-# Selected B replay/coverage from the final PR checkout with the same run directory:
+# Original selected B replay/coverage from d357eb8 with the same run directory:
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/inspectPr182ShotCoverage.mjs
 ```
 
 Replaying consumed inputs is a reproducibility check, not fresh independent
 validation. If the default is promoted, primary replay uses the frozen source
-commit; the selected-policy observer replay permits precisely the normalized
-selection literal. All other production behaviour must match the frozen candidate.
+commit; the original selected-policy observer replay permits precisely the normalized
+selection literal and belongs to checkout `d357eb8`. The review candidate uses
+`scripts/validatePr182Review.mjs` and its own committed freeze instead.

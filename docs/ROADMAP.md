@@ -5,7 +5,9 @@ Obserwacja rywala, uzupełniające się role, plan w trakcie meczu i w przerwie,
 reorganizacja po czerwonej kartce oraz zmiany pod rzeczywistą rolę. 60/60 pełnych
 porównań na 12 zamrożonych projektach; prowizorycznie domyślne B `state-value-v1`.
 R1/R2/R3 pozostają eksperymentalne z konkretnymi blockerami. Canonical **NOT READY**
-do statystycznej kalibracji summary. [Raport PR182](PR182_TACTICAL_INTELLIGENCE_AND_POLICY_VALIDATION.md).
+do statystycznej kalibracji summary. Review poprawia kolejne wykluczenia, dodaje
+regresję pełnej połowy B i osobne potwierdzenie na trzech nieużytych projektach.
+[Raport PR182](PR182_TACTICAL_INTELLIGENCE_AND_POLICY_VALIDATION.md).
 
 Kolejno **PR183 — Generational Renewal & World Strength**: zachowane 20–25 sezonów,
 starzenie, emerytury, młodzież, wymiana składów, transfery i długofalowa równowaga.

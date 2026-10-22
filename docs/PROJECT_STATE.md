@@ -13,18 +13,24 @@ Zamrożony kandydat i harness poprzedzają otwarcie 12 nowych projektów SS/SW/W
 60/60 pełnych meczów: B poprawia strzały w 12/12, wejścia w pole karne w 9/12,
 maksymalny hold 10,95 s. Dodatkowy seryjny pełny pomiar B: +17,2% CPU względem
 PR181. R1 i R2 nie osiągają zamrożonego minimum progresji w 8/12; R2 przekracza
-również koszt, a R3 ma wielominutowe pętle bramkarza. Po walidacji zmienia się
-wyłącznie stała wyboru domyślnej polityki; silnik i metryki pozostają zamrożone.
+również koszt, a R3 ma wielominutowe pętle bramkarza. Wyniki pierwotnej walidacji
+dotyczą pierwotnie zamrożonego kandydata. Review naprawia pomijanie kolejnej czerwonej
+kartki podczas aktywnej reorganizacji; poprawiony kandydat ma osobny freeze i dodatkowe
+potwierdzenie B/legacy na trzech wcześniej nieużytych projektach SS/SW/WW.
 
 **Canonical nadal NOT READY do kalibracji summary.** Nadmierna cyrkulacja i czas
 gry, słabe wykonanie techniczne niższych drużyn, skuteczność/oczekiwania strzałów,
 niepełne szczegóły czterech prób oraz dośrodkowania i rzadkie pojedynki powietrzne
-pozostają konkretnymi ograniczeniami. Starsza rezerwa `pr180-reserved-*` jest
-nieotwarta. Match Lab zamraża role i taktykę, odtwarza wejścia i eksportuje zwięzłe
+pozostają konkretnymi ograniczeniami. Z rezerwy `pr180-reserved-*` review wykorzystuje
+po jednym projekcie SS/SW/WW; pozostałe dziewięć nie jest uruchamiane. Match Lab zamraża role i taktykę, odtwarza wejścia i eksportuje zwięzłe
 porównanie. [Wyniki, metodologia i weryfikacja PR182](PR182_TACTICAL_INTELLIGENCE_AND_POLICY_VALIDATION.md).
 
-Pełne oryginalne `npm run verify`: **PASS, 2051 testów**, lint, TypeScript i build.
-Przeszedł końcowy test Edge dla rzeczywistego B, pięciu identycznych wejść, eksportów
+Pierwotny kandydat: pełne `npm run verify` **PASS, 2051 testów**, lint, TypeScript i build.
+Review dodaje pięć regresji kolejnych wykluczeń oraz osobny pełny przebieg B z karnym
+(łącznie 2057 testów); bieżący wynik sprawdzeń jest w [CI PR182](https://github.com/adamfron/my_football_legend/pull/182/checks).
+Osobne potwierdzenie poprawionego kandydata: **6/6 pełnych meczów**, bez patologicznych
+holdów; maksymalny hold B 20,2 s. Wynik SW 10:0 i nadmierna cyrkulacja pozostają
+ograniczeniami kalibracji. Przeszedł pierwotny test Edge dla rzeczywistego B, pięciu identycznych wejść, eksportów
 i ludzkiego podania. Pełny stan B z obserwatorami i bez nich jest identyczny;
 kontrakty kariery potwierdzają powtarzalność oraz jednokrotne zapisanie wyniku.
 
