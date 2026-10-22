@@ -6,7 +6,10 @@ import console from 'node:console';
 import process from 'node:process';
 import { createCanonicalWorldDatabase } from './createCanonicalWorldDatabase.ts';
 import { createSingleMatchSession } from '../src/core/singleMatch.ts';
-import { PRIMARY_DECISION_POLICIES } from '../src/core/matchSimulation/decisionPolicyConfig.ts';
+import {
+  PRIMARY_DECISION_POLICIES,
+  DEFAULT_DECISION_POLICY,
+} from '../src/core/matchSimulation/decisionPolicyConfig.ts';
 import { pr182SourceHash, pr182CandidateHash, digest } from './pr182Evidence.mjs';
 const { chromium } = await import(
   pathToFileURL(
@@ -49,6 +52,10 @@ const download = async (button, name) => {
 };
 try {
   await page.goto(base);
+  assert.equal(
+    await page.getByLabel('Polityka decyzji', { exact: true }).inputValue(),
+    DEFAULT_DECISION_POLICY,
+  );
   await page.getByLabel(/^GOSPODARZE/).selectOption('pro_9');
   await page.getByLabel(/^GOŚCIE/).selectOption('pro_1');
   await page.getByLabel('SEED', { exact: true }).fill('pr182-owner-comparison');
@@ -132,7 +139,7 @@ try {
   });
   const owner = native.home.players.find((p) => p.slot.position !== 'goalkeeper');
   await page.getByLabel('SEED', { exact: true }).fill(seed);
-  await page.getByLabel('Polityka decyzji', { exact: true }).selectOption('role-intent-v1');
+  await page.getByLabel('Polityka decyzji', { exact: true }).selectOption(DEFAULT_DECISION_POLICY);
   await page.getByLabel('Steruj piłkarzem', { exact: true }).check();
   await page.getByLabel(/^PIŁKARZ/).selectOption(owner.footballerId);
   await page.getByLabel('Wymuś w XI', { exact: true }).uncheck();

@@ -92,6 +92,20 @@ player movement and actual passes/shots. Those windows provide temporal lineage,
 not an unbiased causal estimate: the opponent, score and ball trajectory also change.
 Controlled paired continuations provide the stronger local mechanism contrast.
 
+The eight prescribed scenarios × five policies produce forty dependent local
+experiments. A selects `exploit_space`, B `switch_route`, C `reorganise`, D
+`protect_lead`, E `chase_goal`, the exposed flank `protect_flank`, and the compact
+block `open_low_block` in all five policies. F records `balanced` with no change in
+all five. The archived ten-second unchanged/coached continuations retain actual
+positions, targets, passes and rankings. For example, the R3 pace winger moves
+about 5.0 m versus 2.1 m unchanged. That demonstrates a physical consequence of
+the instruction, not a claim that the intervention wins more matches.
+
+The observation model is deliberately coarse: whole-line space and three channels,
+not an identity-specific learned model of every opposing fullback. Confidence is
+evidence coverage, not calibrated football certainty. This limits individual
+matchup claims and remains an explicit extension boundary.
+
 ## Role-sensitive bench decisions
 
 The existing legal substitution planner still owns named benches, limits, opportunities,
@@ -136,6 +150,24 @@ two historical regressions passing is not an all-holds claim.
 
 Full-match maximum duration and strict pathological-episode counts remain separate:
 the strict detector can miss a very long hold that drifts farther than one metre.
+
+Independent validation exposes a serious remaining **R3 SW2 goalkeeper sink**:
+`footballer_pro_57_0` holds from 294.775 s to halftime, **2405.225 seconds**, with
+0.742 m displacement, 5995 consecutive holds, 42 ranked alternatives and no opponent
+intervention. Later 796 s and 1025 s episodes drift over one metre and therefore
+escape the strict pathological flag; their duration still appears in the raw history.
+This is a hard promotion blocker, even though the match clock reaches full time.
+
+The post-validation diagnostic replays the unchanged consumed input to 330 s and
+continues thirty physical seconds. Release is legal in **600/1200 ticks**, yet all
+76 selected actions are hold. At a legal release snapshot, hold scores about
+−0.00685 while available passes score about −0.0174 to −0.0176. The waiting forecast
+continues to call 3.12 m of support movement useful, with no intervention within
+its 2.5-second horizon. This supports investigating R3's phase blend and recurrent
+support benefit; it does not establish that every available pass would succeed.
+`inspectPr182ValidationHold.mjs` and its compressed state/diagnosis are explicitly
+post-validation diagnostics. They do not alter the frozen primary runner or add an
+independent design. No repair or score tuning follows this result in PR182.
 
 ## Football references and interpretation
 
@@ -220,3 +252,78 @@ Intentions, releases and actual contacts are explicitly distinguished in definit
 all five frozen starts agree, real download buttons work, restart returns to time zero,
 and an actual human-selected pass enters the canonical trace with no AI ranking.
 These are short UI fragments, not five watched halves or independent full matches.
+
+## Preregistered independent comparison
+
+The final behavioural candidate is commit `b66228c26d7897da44545dc37e4f0ade606a9e2d`.
+`PR182-freeze.json` was written at **2026-10-22 15:15:51 UTC**, committed as
+`bbf3ca5` and pushed before opening the reserved archive. The all-production source
+fingerprint is `b4249e1a8a7311f827d5be1c995184e7342f7a835f44b3cb237530b6572e5ad8`;
+the complete declared harness fingerprint is
+`f08f8ac24868c927c708af8c38a522a47b2509b7c5b4748290628eb6fb7a7a9d`.
+The freeze records the original input identities, criteria, configuration, metrics
+and resource budgets. Source includes the Match Lab UI as well as core football.
+
+Preparation verifies every original complete state/session digest before attaching
+the archived canonical manager and empty observation memory/common roles. The
+transformed complete inputs are archived and hashed in `PR182-validation-inputs.json`.
+Twelve native designs contain four SS, four SW and four WW; each is run under all
+five policies, with the same native attributes and named benches. No tier flattens
+players to a constant rating. Formation, style and youth flags remain visible.
+
+The 60 matches provide **twelve paired experimental units**. All rows and strata
+are reported, including the weak side of SW. The fixed-seed 4000-resample paired
+bootstrap is exploratory; four designs per stratum give limited precision and
+multiple endpoints are not corrected. Temporal post-change windows do not prove
+causality. Development cases, repeated observer runs and UI fragments add no new
+independent fixture.
+
+The runner checks source/harness fingerprints, exact transformed input hashes,
+full-time completion, unique official/first-time pass identities, lineage completion,
+statistics invariants and live/dead clock reconciliation. CPU limits remain 600 s
+per child, wall limit 900 s and canonical stepping 0.025 s. Primary runs use ten
+processes and their wall times are not serial performance claims.
+
+Only the literal `DEFAULT_DECISION_POLICY` may change after this comparison.
+The normalized candidate fingerprint must remain identical. No engine, coach,
+observer, scoring or threshold tuning follows the results. The consumed twelve
+designs cannot be relabelled independent evidence for a repair. The older
+`pr180-reserved-*` archive remains unopened.
+
+## Evidence index and reproduction
+
+All paths below are relative to `docs/performance/`. Historical PR171–181 evidence
+archives are preserved. Generated JSON is excluded from normal Git diffs; the
+readable report and scripts explain definitions while complete receipts stay inspectable.
+
+| Evidence | Artifact |
+| --- | --- |
+| Pre-opening source, criteria and budgets | `PR182-freeze.json` |
+| Native original/transformed input identities | `PR182-validation-inputs.json`, `pr182-evidence/validation.json.gz` |
+| All primary rows, strata and paired intervals | `PR182-validation-comparison.json` |
+| Football context, shot/keeper, delivery and substitution detail | `PR182-validation-description.json`, complete primary receipts |
+| Explicit selection and calibration decision | `PR182-decision.json` |
+| Complete-state observer equality and repeats | `PR182-integrity.json` |
+| Serial CPU, wall and sampled memory | `PR182-performance.json`, `pr182-evidence/serial-performance-trials.json.gz` |
+| A–F and flank/block physical continuations | `pr182-evidence/coaching-continuations.json.gz` |
+| Historical and new WW holding regressions | `PR182-hold-before.json`, `PR182-hold-regressions.json`, `PR182-new-hold.json` |
+| Consumed primary R3 holding diagnosis | `pr182-evidence/validation-r3-sw2-hold-*.json.gz` |
+| Real UI downloads, input equality, screenshots, human action | `PR182-browser.json`, `pr182-evidence/browser-*` |
+| Exact old/new telemetry snapshot reproduction | `PR182-telemetry-reference.json`, raw compressed receipt |
+| Full original verification and failed attempts | `PR182-verification.json`, compressed logs |
+| Separate development epochs | `pr182-evidence/initial-full/`, `development-prefix/`, `development-full-observer.json.gz` |
+
+Reproduction on the committed candidate uses Node 24.19.0 and the unchanged lockfile:
+
+```sh
+npm run verify
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/preparePr182Inputs.mjs --validation
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/runPr182Validation.mjs
+node scripts/reportPr182.mjs --validation --runs=../pr182-validation
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr182Integrity.mjs --policy=role-value-v1
+```
+
+Replaying consumed inputs is a reproducibility check, not fresh independent
+validation. If the default is promoted, primary replay uses the frozen source
+commit; the selected-policy observer replay permits precisely the normalized
+selection literal. All other production behaviour must match the frozen candidate.

@@ -1,0 +1,97 @@
+{
+  "status": "Provisional configuration selected; final complete B observer replay and full original verify pending.",
+  "default": "state-value-v1",
+  "readiness": "NOT READY",
+  "selection": "Existing B with shared PR182 coaching/physical repairs; no new hybrid. All five selectors retained. New matches use this one selection literal; no cross-policy live-save migration.",
+  "sourceHash": "8bac5f62e84c788c239876e7a6dd9d0b7f8bc5a30581da5f3eb82f2ef65dbf1f",
+  "frozenSource": "b4249e1a8a7311f827d5be1c995184e7342f7a835f44b3cb237530b6572e5ad8",
+  "normalizedCandidateHash": "e547661e9b254aca7742401385326aee559dc90c70f2afef742359fef9f63b3a",
+  "frozenHarness": "f08f8ac24868c927c708af8c38a522a47b2509b7c5b4748290628eb6fb7a7a9d",
+  "allowedSelectionOnlyChange": true,
+  "policies": [
+    {
+      "policy": "phase-role-hybrid-v1",
+      "shotPositive": 10,
+      "boxPositive": 8,
+      "shotMeanDifference": 10.083333333333334,
+      "shotBootstrap95": [
+        4.5,
+        16.75
+      ],
+      "boxMeanDifference": -2.0833333333333335,
+      "boxBootstrap95": [
+        -14.083333333333334,
+        7.75
+      ]
+    },
+    {
+      "policy": "role-intent-v1",
+      "shotPositive": 12,
+      "boxPositive": 7,
+      "shotMeanDifference": 14.666666666666666,
+      "shotBootstrap95": [
+        10.25,
+        19.25
+      ],
+      "boxMeanDifference": 3.25,
+      "boxBootstrap95": [
+        -3.1687499999999993,
+        9.25
+      ]
+    },
+    {
+      "policy": "role-value-v1",
+      "shotPositive": 12,
+      "boxPositive": 7,
+      "shotMeanDifference": 11.166666666666666,
+      "shotBootstrap95": [
+        8.08125,
+        14.333333333333334
+      ],
+      "boxMeanDifference": 2.9166666666666665,
+      "boxBootstrap95": [
+        -3,
+        8.418750000000006
+      ]
+    },
+    {
+      "policy": "state-value-v1",
+      "shotPositive": 12,
+      "boxPositive": 9,
+      "shotMeanDifference": 17.583333333333332,
+      "shotBootstrap95": [
+        12.833333333333334,
+        22.502083333333342
+      ],
+      "boxMeanDifference": 7.833333333333333,
+      "boxBootstrap95": [
+        2.75,
+        13.166666666666666
+      ]
+    }
+  ],
+  "blockers": {
+    "role-value-v1": "Box progression improves in7/12, below frozen8/12 minimum; paired box interval crosses zero, despite all12 shot improvements and no primary long hold. Keep experimental, do not relax criterion.",
+    "role-intent-v1": "Box7/12 and serial full workload+50.7% CPU exceeds35% gate.",
+    "phase-role-hybrid-v1": "Multiple unopposed multi-minute keeper holds, maximum2660.05s; R3 SW2 replay has legal release windows and still selects hold.",
+    "legacy-pr176": "Only3.83 canonical shots per match; many are penalties. Retention is not neutral evidence of good attacking football."
+  },
+  "B": {
+    "shotPositive": 12,
+    "boxPositive": 9,
+    "maxHoldSeconds": 10.95,
+    "strictPathologicalHolds": 0,
+    "cpuRatio": 1.1718751159012857,
+    "completeCostReceipt": "PR182-performance-B.json",
+    "fullTime": 12
+  },
+  "limits": [
+    "High circulation and excessive live time",
+    "Scoring and shot expectation proxies remain uncalibrated",
+    "Native weak-side technical execution and world-strength effects",
+    "Rare contested aerial contacts and limited crossing/receiver execution",
+    "Detailed shot metadata omits four canonical attempts across the entire60-run cohort (three B, one R1); canonical attempts remain authoritative and require coverage diagnosis",
+    "Twelve senior native paired designs, no independent youth subgroup"
+  ],
+  "nextStage": "PR183 generational renewal/world strength remains planned. Before PR184 summary calibration: focused tempo/restart realism, weak technical execution, shot/keeper expectation and detailed-shot coverage repairs with unused inputs; R3 waiting-loop repair stays experimental."
+}
