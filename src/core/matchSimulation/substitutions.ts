@@ -1,5 +1,12 @@
 import { z } from 'zod';
-import { rolesForPlayer, tacticalRoleFor } from './tacticalRoles';
+import {
+  rolesForPlayer,
+  roleSuitability,
+  tacticalRoleFor,
+  ROLE_BY_ID,
+  tacticalRoleIdSchema,
+  type TacticalRoleId,
+} from './tacticalRoles';
 import { playStyleIdSchema } from '../playStyles';
 import { footballerProfileSchema, formationSlotSchema } from '../../schemas/domainSchemas';
 import { getEffectivePositionOverall } from '../playerOverall';
@@ -85,6 +92,8 @@ export const substitutionRequestSchema = z.object({
   requestedAt: z.number().nonnegative(),
   signalledAt: z.number().nonnegative(),
   reason: substitutionReasonSchema,
+  roleId: tacticalRoleIdSchema.optional(),
+  reasoning: z.record(z.string(), z.number().finite()).optional(),
   exitTarget: physicalPointSchema,
   entryPosition: physicalPointSchema,
   entryVelocity: physicalPointSchema,
@@ -107,6 +116,8 @@ export const substitutionFactSchema = z.object({
   enteredAt: z.number().nonnegative(),
   opportunityId: z.string(),
   reason: substitutionReasonSchema,
+  roleId: tacticalRoleIdSchema.optional(),
+  reasoning: z.record(z.string(), z.number().finite()).optional(),
   delayed: z.boolean(),
 });
 export type SubstitutionFact = z.infer<typeof substitutionFactSchema>;
@@ -304,6 +315,8 @@ export type SubstitutionSelection = {
   outgoingId: string;
   incomingId: string;
   reason?: z.infer<typeof substitutionReasonSchema>;
+  roleId?: TacticalRoleId;
+  reasoning?: Record<string, number>;
 };
 /** Requests are atomic: a duplicate, dismissed player or exhausted limit rejects the entire batch. */
 export const requestSubstitutions = (
@@ -356,7 +369,8 @@ export const requestSubstitutions = (
         current.completed.some(
           (fact) => fact.outgoingId === incoming.id || fact.incomingId === incoming.id,
         )) ||
-      !isEligibleForNormalPosition(incoming.profile, outgoing.slot.position)
+      !isEligibleForNormalPosition(incoming.profile, outgoing.slot.position) ||
+      (change.roleId !== undefined && !rolesForPlayer(outgoing).some((r) => r.id === change.roleId))
     )
       return state;
     const injuryExitException = ['unable', 'absence'].includes(outgoing.injury?.status ?? '');
@@ -369,6 +383,8 @@ export const requestSubstitutions = (
       requestedAt: state.time,
       signalledAt: state.time,
       reason: change.reason ?? (injuryExitException ? 'injury' : 'tactical'),
+      ...(change.roleId ? { roleId: change.roleId } : {}),
+      ...(change.reasoning ? { reasoning: change.reasoning } : {}),
       exitTarget: nearestExit(outgoing),
       entryPosition: { x: 52.5, y: -0.35 },
       entryVelocity: { x: 0, y: 0 },
@@ -675,6 +691,8 @@ export const advanceMatchSubstitutions = (
           enteredAt: state.time,
           opportunityId: request.opportunityId,
           reason: request.reason,
+          ...(request.roleId ? { roleId: request.roleId } : {}),
+          ...(request.reasoning ? { reasoning: request.reasoning } : {}),
           delayed: request.delayed,
         };
         const incoming: MatchPlayerState = {
@@ -693,8 +711,9 @@ export const advanceMatchSubstitutions = (
         if (state.rolePlan) {
           const prior =
             state.rolePlan.assignments[request.outgoing.id] ?? tacticalRoleFor(state, incoming).id;
-          const role = rolesForPlayer(incoming).some((r) => r.id === prior)
-            ? prior
+          const requested = request.roleId ?? prior;
+          const role = rolesForPlayer(incoming).some((r) => r.id === requested)
+            ? requested
             : tacticalRoleFor(state, incoming).id;
           state = {
             ...state,
@@ -782,6 +801,39 @@ export const stepSubstitutionInterval = (
   );
 
 /** Compare a replacement to keeping the player, including role, physical cost, quality and score. */
+export const evaluateRoleReplacement = (
+  state: TacticalMatchState,
+  outgoing: MatchPlayerState,
+  incoming: MatchBenchPlayer,
+) => {
+  const plan = state.teams[outgoing.team].coaching?.plan;
+  let role = tacticalRoleFor(state, outgoing);
+  const requested =
+    outgoing.slot.position.includes('winger') && plan === 'exploit_space'
+      ? 'traditional_winger'
+      : outgoing.slot.position === 'striker' &&
+          ['open_low_block', 'switch_route'].includes(plan ?? '')
+        ? 'target_forward'
+        : outgoing.slot.position.includes('back') &&
+            outgoing.slot.position !== 'center_back' &&
+            plan === 'protect_lead'
+          ? 'defensive_fullback'
+          : role.id;
+  if (rolesForPlayer(outgoing).some((r) => r.id === requested)) role = ROLE_BY_ID[requested];
+  const replacement = {
+    ...outgoing,
+    id: incoming.id,
+    profile: incoming.profile,
+    fitness: incoming.fitness ?? createMatchFitness(incoming.condition),
+  };
+  const roleBenefit = (roleSuitability(replacement, role) - roleSuitability(outgoing, role)) * 32;
+  const cardRisk =
+    (state.discipline?.[outgoing.id]?.yellowCards ?? 0) > 0 && role.instructions.includes('press')
+      ? (outgoing.profile.attributes.aggression / 100) * 3
+      : 0;
+  return { roleId: role.id, roleBenefit, cardRisk };
+};
+
 export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatchState => {
   const urgentInjury = [...input.players, ...(input.departedPlayers ?? [])].some(
     (player) =>
@@ -833,7 +885,8 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
         )
           continue;
         const fit = getEffectivePositionOverall(incoming.profile, outgoing.slot.position),
-          reserve = incoming.condition / 100;
+          reserve = incoming.fitness?.longTermCapacity ?? incoming.condition / 100;
+        const role = evaluateRoleReplacement(state, outgoing, incoming);
         const fatigueBenefit =
           (reserve - capacity) * (20 + pressDemand * 12) + (reserve - burst) * pressDemand * 4;
         const abilityBenefit =
@@ -860,7 +913,8 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
         const opportunityCost =
           5 +
           (1 - lateWeight) * 5 +
-          (state.substitutionState!.opportunities[side] >= 2 ? 3 * (1 - lateWeight) : 0);
+          (state.substitutionState!.opportunities[side] >= 2 ? 3 * (1 - lateWeight) : 0) +
+          ((50 - (state.teams[side].coach?.rotationPreference ?? 50)) / 50) * 1.5;
         const incomingInjuryCost =
           incoming.injury?.status === 'playable'
             ? 12
@@ -873,7 +927,9 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
           (unable ? 100 : injury === 'playable' ? 13 : injury === 'discomfort' ? 3 : 0) +
           fatigueBenefit +
           abilityBenefit +
-          scoreBenefit -
+          scoreBenefit +
+          role.roleBenefit +
+          role.cardRisk -
           opportunityCost -
           incomingInjuryCost;
         if (benefit > 0)
@@ -881,6 +937,16 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
             change: {
               outgoingId: outgoing.id,
               incomingId: incoming.id,
+              roleId: role.roleId,
+              reasoning: {
+                roleBenefit: role.roleBenefit,
+                cardRisk: role.cardRisk,
+                fatigueBenefit,
+                abilityBenefit,
+                scoreBenefit,
+                opportunityCost,
+                benefit,
+              },
               reason:
                 unable || injury === 'playable'
                   ? 'injury'

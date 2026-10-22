@@ -709,7 +709,9 @@ export const observeTeamThreats = (
           : 0;
       const weight = 1 - Math.exp(-(next.time - initial.evaluatedAt) / 12);
       memory.territorialPressure += (territory - memory.territorialPressure) * weight;
-      memory = evaluateTeamThreatResponse(next, side, memory);
+      memory = evaluateTeamThreatResponse(next, side, memory, {
+        adaptability: 0.5 + (next.teams[side].coach?.adaptability ?? 50) / 100,
+      });
     }
     if (teams === next.teams) teams = { ...next.teams };
     teams[side] = { ...next.teams[side], threatMemory: memory };

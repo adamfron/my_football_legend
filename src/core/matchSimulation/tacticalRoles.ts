@@ -3,6 +3,7 @@ import type { PlayerAttributes } from '../../types/domain';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { canParticipatePhysically } from './matchInjuries';
 import { TACTICAL_PREFERENCE_DEFAULTS } from './tacticalPreferences';
+import { getEffectivePositionOverall } from '../playerOverall';
 
 export const roleFamilySchema = z.enum([
   'goalkeeper',
@@ -347,7 +348,7 @@ export const rolePlanSchema = z.object({
         playerId: z.string(),
         from: tacticalRoleIdSchema,
         to: tacticalRoleIdSchema,
-        reason: z.enum(['explicit', 'substitution']),
+        reason: z.enum(['explicit', 'substitution', 'coach']),
       }),
     )
     .max(64),
@@ -379,9 +380,13 @@ export const roleSuitability = (player: MatchPlayerState, definition: TacticalRo
   const skill =
     definition.attributes.reduce((s, k) => s + attributes[k as keyof PlayerAttributes], 0) /
     (100 * definition.attributes.length);
-  const condition = player.fitness?.longTermCapacity ?? 1;
+  const condition = Math.min(
+    player.fitness?.longTermCapacity ?? 1,
+    player.fitness?.burstReadiness ?? 1,
+  );
+  const familiarity = getEffectivePositionOverall(player.profile, player.slot.position) / 100;
   return (
-    skill * (0.8 + 0.2 * condition) -
+    skill * (0.7 + 0.2 * condition + 0.1 * familiarity) -
     (definition.instructions.some((i) => ['depth', 'press', 'overlap'].includes(i))
       ? (1 - condition) * 0.15
       : 0)
@@ -401,10 +406,41 @@ export const assignTacticalRoles = (state: TacticalMatchState): RolePlan => {
     const prefs =
       state.teams[side].tacticalPreferences ??
       TACTICAL_PREFERENCE_DEFAULTS[state.teams[side].style];
-    const opposition = state.teams[side === 'home' ? 'away' : 'home'];
-    const line =
-      opposition.tacticalPreferences?.blockHeight ??
-      TACTICAL_PREFERENCE_DEFAULTS[opposition.style].blockHeight;
+    // Prematch role allocation has no access to the opponent's private instructions.
+    // Observed line space enters later through bounded coach observation.
+    const style = state.teams[side].style;
+    const identity: Partial<Record<typeof style, TacticalRoleId[]>> = {
+      possession: [
+        'distributing_keeper',
+        'ball_playing_defender',
+        'inverted_fullback',
+        'playmaker',
+        'false_nine',
+        'inside_forward',
+      ],
+      direct: [
+        'traditional_keeper',
+        'target_forward',
+        'traditional_winger',
+        'deep_playmaker',
+        'box_to_box',
+      ],
+      counter_attacking: [
+        'covering_defender',
+        'defensive_fullback',
+        'traditional_winger',
+        'advanced_forward',
+        'deep_playmaker',
+      ],
+      pressing: [
+        'sweeper_keeper',
+        'stopper',
+        'ball_winner',
+        'pressing_midfielder',
+        'pressing_forward',
+        'defensive_winger',
+      ],
+    };
     for (let sweep = 0; sweep < 2; sweep++)
       for (const player of players) {
         const others = players
@@ -423,7 +459,7 @@ export const assignTacticalRoles = (state: TacticalMatchState): RolePlan => {
           return (
             roleSuitability(player, r) +
             compatible * 0.035 +
-            (has('depth') ? ((line - 0.5) * player.profile.attributes.pace) / 350 : 0) +
+            (identity[style]?.includes(r.id) ? 0.13 : 0) +
             (has('press') ? (prefs.organisedPress - 0.5) * 0.14 : 0) +
             (has('combine') ? (prefs.possessionPatience - 0.5) * 0.12 : 0) +
             (has('counter') ? (prefs.verticality - 0.5) * 0.12 : 0) -
@@ -451,6 +487,7 @@ export const changeTacticalRole = (
   state: TacticalMatchState,
   playerId: string,
   roleId: TacticalRoleId,
+  reason: 'explicit' | 'coach' = 'explicit',
 ): TacticalMatchState => {
   const player = state.players.find((p) => p.id === playerId);
   if (
@@ -471,10 +508,7 @@ export const changeTacticalRole = (
     rolePlan: {
       ...plan,
       assignments: { ...plan.assignments, [playerId]: roleId },
-      changes: [
-        ...plan.changes,
-        { at: state.time, playerId, from, to: roleId, reason: 'explicit' },
-      ],
+      changes: [...plan.changes, { at: state.time, playerId, from, to: roleId, reason }],
     },
   };
 };

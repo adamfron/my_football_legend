@@ -6,7 +6,12 @@ import {
   decisionPolicyIdSchema,
   type DecisionPolicyId,
 } from '../../core/matchSimulation/decisionPolicyConfig';
-import { RoleExperimentRecorder, fixtureIdentity } from '../../core/matchSimulation/roleExperiment';
+import {
+  RoleExperimentRecorder,
+  fixtureIdentity,
+  captureMatchTactics,
+} from '../../core/matchSimulation/roleExperiment';
+import { compactMatchComparison } from '../../core/matchSimulation/matchComparison';
 import { withRankingObserver } from '../../core/matchSimulation/decisionObservation';
 import {
   changeTacticalRole,
@@ -388,6 +393,7 @@ export const TacticalMatchSandbox = () => {
     <RunningLabGuard
       key={`${session.setup.seed}:${session.setup.decisionPolicy ?? 'legacy-pr176'}`}
       session={session}
+      onFreezeTactics={(frozenTactics) => setSession({ ...session, frozenTactics })}
       onReplayPolicy={(next) => {
         setPolicy(next);
         setSession({
@@ -492,6 +498,7 @@ export class MatchLabErrorBoundary extends Component<
 
 type RunningLabProps = {
   session: SingleMatchSession;
+  onFreezeTactics?: (snapshot: NonNullable<SingleMatchSession['frozenTactics']>) => void;
   onReplayPolicy?: (policy: DecisionPolicyId) => void;
   careerMode?: boolean;
   initialState?: TacticalMatchState;
@@ -548,6 +555,7 @@ export const RunningLabGuard = (props: RunningLabProps) => {
 export const RunningLab = ({
   session,
   onReplayPolicy,
+  onFreezeTactics,
   onSetup,
   onRestart,
   onRandomize,
@@ -561,6 +569,7 @@ export const RunningLab = ({
   completionPending = false,
 }: {
   session: SingleMatchSession;
+  onFreezeTactics?: (snapshot: NonNullable<SingleMatchSession['frozenTactics']>) => void;
   onReplayPolicy?: (policy: DecisionPolicyId) => void;
   onSetup(): void;
   onRestart(): void;
@@ -1796,6 +1805,42 @@ export const RunningLab = ({
                 ))}
               </select>
             </label>
+            <button
+              disabled={state.time !== 0 || !onFreezeTactics}
+              onClick={() => onFreezeTactics?.(captureMatchTactics(stateRef.current))}
+            >
+              {session.frozenTactics
+                ? 'Role i taktyka zamrożone do powtórek'
+                : 'Zamroź role i taktykę do powtórek'}
+            </button>
+            <button
+              onClick={() =>
+                downloadBlob(
+                  new Blob(
+                    [
+                      JSON.stringify(
+                        compactMatchComparison(
+                          diagnostics.experiment.export(
+                            session,
+                            stateRef.current,
+                            import.meta.env.VITE_MFL_REVISION ?? 'unknown',
+                            `browser:${navigator.userAgent}`,
+                          ),
+                          telemetryRef.current,
+                          diagnostics.runtimeDiagnostics.map((e) => e.message),
+                        ),
+                        null,
+                        2,
+                      ),
+                    ],
+                    { type: 'application/json' },
+                  ),
+                  `${session.setup.seed}-${stateRef.current.decisionPolicy}-comparison.json`,
+                )
+              }
+            >
+              Eksportuj porównanie polityk JSON
+            </button>
             <button
               onClick={() =>
                 downloadBlob(

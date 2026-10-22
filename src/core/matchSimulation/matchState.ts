@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import type { CoachProfile } from '../../types/domain';
+import { coachProfileSchema } from '../../schemas/domainSchemas';
+import { coachIntelligenceSchema, type CoachIntelligence } from './coachIntelligence';
 import { rolePlanSchema } from './tacticalRoles';
 import { continuousBodyContactsSchema } from './ballContactResolution';
 import {
@@ -551,6 +554,8 @@ export const locomotionTelemetrySchema = z.object({
 });
 export type LocomotionTelemetry = z.infer<typeof locomotionTelemetrySchema>;
 export interface MatchTeamState {
+  coach?: CoachProfile;
+  coaching?: CoachIntelligence;
   endsSwitched?: boolean | undefined;
   side: TeamSide;
   clubId: string;
@@ -1040,6 +1045,8 @@ export const tacticalMatchStateSchema = z
           formation: z.string(),
           style: tacticalStyleSchema,
           tacticalPreferences: tacticalPreferencesSchema.optional(),
+          coach: coachProfileSchema.optional(),
+          coaching: coachIntelligenceSchema.optional(),
           phase: matchPhaseSchema,
           phaseElapsed: z.number().nonnegative(),
           threatMemory: teamThreatMemorySchema.optional(),

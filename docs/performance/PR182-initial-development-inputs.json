@@ -1,0 +1,988 @@
+{
+  "schema": "mfl-pr182-inputs-v1",
+  "cohort": "development",
+  "source": "docs/performance/pr181-evidence/development.json.gz",
+  "archiveHash": "9f1ee3d2a0a5724692d7b496fe8612b86b9f2223112219b814594f25b8190b37",
+  "transformation": "Attach each canonical coach from the archived session manager ID; initialise empty bounded observation and common collective roles. Attributes, bodies, formations, bench, RNG/seed and referee state are preserved. Policy is the sole per-run override.",
+  "units": 6,
+  "rows": [
+    {
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "cd3ad592b297cc69a0b6c269a6b7009eff1a2e01efe2a2870fda8b8b8a55a8f9",
+      "sessionHash": "3ff5ac02829919601f4c62ff8749955f0288f72862f1f3d96a05c6871d10d8f0",
+      "attributes": [
+        {
+          "id": "footballer_pro_7_0",
+          "team": "home",
+          "pace": 80,
+          "heading": 79
+        },
+        {
+          "id": "footballer_pro_7_7",
+          "team": "home",
+          "pace": 77,
+          "heading": 65
+        },
+        {
+          "id": "footballer_pro_7_4",
+          "team": "home",
+          "pace": 80,
+          "heading": 84
+        },
+        {
+          "id": "footballer_pro_7_3",
+          "team": "home",
+          "pace": 87,
+          "heading": 78
+        },
+        {
+          "id": "footballer_pro_7_9",
+          "team": "home",
+          "pace": 77,
+          "heading": 79
+        },
+        {
+          "id": "footballer_pro_7_11",
+          "team": "home",
+          "pace": 81,
+          "heading": 79
+        },
+        {
+          "id": "footballer_pro_7_13",
+          "team": "home",
+          "pace": 83,
+          "heading": 71
+        },
+        {
+          "id": "footballer_pro_7_17",
+          "team": "home",
+          "pace": 93,
+          "heading": 63
+        },
+        {
+          "id": "footballer_pro_7_19",
+          "team": "home",
+          "pace": 86,
+          "heading": 84
+        },
+        {
+          "id": "footballer_pro_7_21",
+          "team": "home",
+          "pace": 86,
+          "heading": 70
+        },
+        {
+          "id": "footballer_pro_7_22",
+          "team": "home",
+          "pace": 62,
+          "heading": 91
+        },
+        {
+          "id": "footballer_pro_6_0",
+          "team": "away",
+          "pace": 66,
+          "heading": 74
+        },
+        {
+          "id": "footballer_pro_6_7",
+          "team": "away",
+          "pace": 82,
+          "heading": 74
+        },
+        {
+          "id": "footballer_pro_6_3",
+          "team": "away",
+          "pace": 85,
+          "heading": 77
+        },
+        {
+          "id": "footballer_pro_6_4",
+          "team": "away",
+          "pace": 58,
+          "heading": 87
+        },
+        {
+          "id": "footballer_pro_6_9",
+          "team": "away",
+          "pace": 91,
+          "heading": 74
+        },
+        {
+          "id": "footballer_pro_6_12",
+          "team": "away",
+          "pace": 68,
+          "heading": 81
+        },
+        {
+          "id": "footballer_pro_6_11",
+          "team": "away",
+          "pace": 68,
+          "heading": 83
+        },
+        {
+          "id": "footballer_pro_6_13",
+          "team": "away",
+          "pace": 79,
+          "heading": 77
+        },
+        {
+          "id": "footballer_pro_6_17",
+          "team": "away",
+          "pace": 76,
+          "heading": 61
+        },
+        {
+          "id": "footballer_pro_6_19",
+          "team": "away",
+          "pace": 82,
+          "heading": 57
+        },
+        {
+          "id": "footballer_pro_6_21",
+          "team": "away",
+          "pace": 79,
+          "heading": 68
+        }
+      ],
+      "originalInputHash": "b8182404edf751978ddc8af6bbd7c2f66be445480449028129a5cc02bf5e6ef3"
+    },
+    {
+      "design": {
+        "id": "pr181-dev-ss-2",
+        "split": "development",
+        "seed": "pr181-dev-ss-2:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          75.55909090909091,
+          71.42142857142856
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_6",
+          "pro_1"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "balanced",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "aa1198c3d4a57bc0f0e2b1a94d8772a0b46170f8d166135aee1437c8d31aa597",
+      "sessionHash": "db82e3a7c135fd4e798f9b1c5acbc8be761f4d64df0b01d3f6b5a27d12ab6142",
+      "attributes": [
+        {
+          "id": "footballer_pro_6_0",
+          "team": "home",
+          "pace": 66,
+          "heading": 74
+        },
+        {
+          "id": "footballer_pro_6_7",
+          "team": "home",
+          "pace": 82,
+          "heading": 74
+        },
+        {
+          "id": "footballer_pro_6_3",
+          "team": "home",
+          "pace": 85,
+          "heading": 77
+        },
+        {
+          "id": "footballer_pro_6_4",
+          "team": "home",
+          "pace": 58,
+          "heading": 87
+        },
+        {
+          "id": "footballer_pro_6_9",
+          "team": "home",
+          "pace": 91,
+          "heading": 74
+        },
+        {
+          "id": "footballer_pro_6_12",
+          "team": "home",
+          "pace": 68,
+          "heading": 81
+        },
+        {
+          "id": "footballer_pro_6_11",
+          "team": "home",
+          "pace": 68,
+          "heading": 83
+        },
+        {
+          "id": "footballer_pro_6_13",
+          "team": "home",
+          "pace": 79,
+          "heading": 77
+        },
+        {
+          "id": "footballer_pro_6_17",
+          "team": "home",
+          "pace": 76,
+          "heading": 61
+        },
+        {
+          "id": "footballer_pro_6_19",
+          "team": "home",
+          "pace": 82,
+          "heading": 57
+        },
+        {
+          "id": "footballer_pro_6_21",
+          "team": "home",
+          "pace": 79,
+          "heading": 68
+        },
+        {
+          "id": "footballer_pro_1_0",
+          "team": "away",
+          "pace": 62,
+          "heading": 66
+        },
+        {
+          "id": "footballer_pro_1_3",
+          "team": "away",
+          "pace": 62,
+          "heading": 83
+        },
+        {
+          "id": "footballer_pro_1_4",
+          "team": "away",
+          "pace": 60,
+          "heading": 75
+        },
+        {
+          "id": "footballer_pro_1_5",
+          "team": "away",
+          "pace": 75,
+          "heading": 58
+        },
+        {
+          "id": "footballer_pro_1_7",
+          "team": "away",
+          "pace": 83,
+          "heading": 54
+        },
+        {
+          "id": "footballer_pro_1_9",
+          "team": "away",
+          "pace": 81,
+          "heading": 62
+        },
+        {
+          "id": "footballer_pro_1_13",
+          "team": "away",
+          "pace": 72,
+          "heading": 73
+        },
+        {
+          "id": "footballer_pro_1_14",
+          "team": "away",
+          "pace": 59,
+          "heading": 72
+        },
+        {
+          "id": "footballer_pro_1_12",
+          "team": "away",
+          "pace": 66,
+          "heading": 63
+        },
+        {
+          "id": "footballer_pro_1_11",
+          "team": "away",
+          "pace": 71,
+          "heading": 71
+        },
+        {
+          "id": "footballer_pro_1_21",
+          "team": "away",
+          "pace": 72,
+          "heading": 80
+        }
+      ],
+      "originalInputHash": "03727bd630dc0f678f9732527e4b5ed4245e99890e468e1a21ea5cd81f2ea2f3"
+    },
+    {
+      "design": {
+        "id": "pr181-dev-sw-1",
+        "split": "development",
+        "seed": "pr181-dev-sw-1:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          71.42142857142856,
+          50.108441558441555
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_1",
+          "pro_42"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "counter_attacking",
+          "possession"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "67d504e3a5ef25d186672e8792b2e944d4ef0e2b38f3df43b36e7599278c3aff",
+      "sessionHash": "25b50b8abffa6e7e0033a721bf3e805eb82ebe17b8172c92e1752631fe38122c",
+      "attributes": [
+        {
+          "id": "footballer_pro_1_0",
+          "team": "home",
+          "pace": 62,
+          "heading": 66
+        },
+        {
+          "id": "footballer_pro_1_3",
+          "team": "home",
+          "pace": 62,
+          "heading": 83
+        },
+        {
+          "id": "footballer_pro_1_4",
+          "team": "home",
+          "pace": 60,
+          "heading": 75
+        },
+        {
+          "id": "footballer_pro_1_5",
+          "team": "home",
+          "pace": 75,
+          "heading": 58
+        },
+        {
+          "id": "footballer_pro_1_7",
+          "team": "home",
+          "pace": 83,
+          "heading": 54
+        },
+        {
+          "id": "footballer_pro_1_9",
+          "team": "home",
+          "pace": 81,
+          "heading": 62
+        },
+        {
+          "id": "footballer_pro_1_13",
+          "team": "home",
+          "pace": 72,
+          "heading": 73
+        },
+        {
+          "id": "footballer_pro_1_14",
+          "team": "home",
+          "pace": 59,
+          "heading": 72
+        },
+        {
+          "id": "footballer_pro_1_12",
+          "team": "home",
+          "pace": 66,
+          "heading": 63
+        },
+        {
+          "id": "footballer_pro_1_11",
+          "team": "home",
+          "pace": 71,
+          "heading": 71
+        },
+        {
+          "id": "footballer_pro_1_21",
+          "team": "home",
+          "pace": 72,
+          "heading": 80
+        },
+        {
+          "id": "footballer_pro_42_0",
+          "team": "away",
+          "pace": 44,
+          "heading": 61
+        },
+        {
+          "id": "footballer_pro_42_7",
+          "team": "away",
+          "pace": 51,
+          "heading": 28
+        },
+        {
+          "id": "footballer_pro_42_4",
+          "team": "away",
+          "pace": 43,
+          "heading": 44
+        },
+        {
+          "id": "footballer_pro_42_3",
+          "team": "away",
+          "pace": 45,
+          "heading": 44
+        },
+        {
+          "id": "footballer_pro_42_9",
+          "team": "away",
+          "pace": 68,
+          "heading": 47
+        },
+        {
+          "id": "footballer_pro_42_12",
+          "team": "away",
+          "pace": 38,
+          "heading": 44
+        },
+        {
+          "id": "footballer_pro_42_13",
+          "team": "away",
+          "pace": 52,
+          "heading": 35
+        },
+        {
+          "id": "footballer_pro_42_17",
+          "team": "away",
+          "pace": 57,
+          "heading": 36
+        },
+        {
+          "id": "footballer_pro_42_11",
+          "team": "away",
+          "pace": 46,
+          "heading": 24
+        },
+        {
+          "id": "footballer_pro_42_19",
+          "team": "away",
+          "pace": 59,
+          "heading": 34
+        },
+        {
+          "id": "footballer_pro_42_21",
+          "team": "away",
+          "pace": 54,
+          "heading": 35
+        }
+      ],
+      "originalInputHash": "bea16343159d30f8ce6ec900f5fbf665b332993e14ef8412b007052f6069e702"
+    },
+    {
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "3ca3c1c1e1eb2642361146f69e1040422637f0729afbc2c96aadb1cf9c53853a",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "attributes": [
+        {
+          "id": "footballer_pro_9_0",
+          "team": "home",
+          "pace": 72,
+          "heading": 82
+        },
+        {
+          "id": "footballer_pro_9_7",
+          "team": "home",
+          "pace": 93,
+          "heading": 74
+        },
+        {
+          "id": "footballer_pro_9_3",
+          "team": "home",
+          "pace": 67,
+          "heading": 88
+        },
+        {
+          "id": "footballer_pro_9_5",
+          "team": "home",
+          "pace": 83,
+          "heading": 82
+        },
+        {
+          "id": "footballer_pro_9_9",
+          "team": "home",
+          "pace": 90,
+          "heading": 64
+        },
+        {
+          "id": "footballer_pro_9_14",
+          "team": "home",
+          "pace": 76,
+          "heading": 71
+        },
+        {
+          "id": "footballer_pro_9_13",
+          "team": "home",
+          "pace": 65,
+          "heading": 70
+        },
+        {
+          "id": "footballer_pro_9_17",
+          "team": "home",
+          "pace": 86,
+          "heading": 73
+        },
+        {
+          "id": "footballer_pro_9_11",
+          "team": "home",
+          "pace": 65,
+          "heading": 74
+        },
+        {
+          "id": "footballer_pro_9_19",
+          "team": "home",
+          "pace": 79,
+          "heading": 63
+        },
+        {
+          "id": "footballer_pro_9_22",
+          "team": "home",
+          "pace": 61,
+          "heading": 81
+        },
+        {
+          "id": "footballer_pro_60_0",
+          "team": "away",
+          "pace": 24,
+          "heading": 40
+        },
+        {
+          "id": "footballer_pro_60_3",
+          "team": "away",
+          "pace": 46,
+          "heading": 52
+        },
+        {
+          "id": "footballer_pro_60_11",
+          "team": "away",
+          "pace": 52,
+          "heading": 34
+        },
+        {
+          "id": "footballer_pro_60_5",
+          "team": "away",
+          "pace": 32,
+          "heading": 58
+        },
+        {
+          "id": "footballer_pro_60_7",
+          "team": "away",
+          "pace": 68,
+          "heading": 53
+        },
+        {
+          "id": "footballer_pro_60_9",
+          "team": "away",
+          "pace": 54,
+          "heading": 40
+        },
+        {
+          "id": "footballer_pro_60_14",
+          "team": "away",
+          "pace": 40,
+          "heading": 48
+        },
+        {
+          "id": "footballer_pro_60_13",
+          "team": "away",
+          "pace": 41,
+          "heading": 49
+        },
+        {
+          "id": "footballer_pro_60_12",
+          "team": "away",
+          "pace": 39,
+          "heading": 43
+        },
+        {
+          "id": "footballer_pro_60_21",
+          "team": "away",
+          "pace": 51,
+          "heading": 51
+        },
+        {
+          "id": "footballer_pro_60_22",
+          "team": "away",
+          "pace": 51,
+          "heading": 29
+        }
+      ],
+      "originalInputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac"
+    },
+    {
+      "design": {
+        "id": "pr181-dev-ww-1",
+        "split": "development",
+        "seed": "pr181-dev-ww-1:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          47.56298701298701,
+          44.240909090909085
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_60",
+          "pro_50"
+        ],
+        "formations": [
+          "3-5-2",
+          "4-4-2"
+        ],
+        "styles": [
+          "possession",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "55cb2908e666e2dbf0fa136669f217a9a299ddfb4daf5e2e385d90c457f19905",
+      "sessionHash": "574f5f6905d3dba38ffd003281030d001e5d605b667ce932e73d377271ceced4",
+      "attributes": [
+        {
+          "id": "footballer_pro_60_0",
+          "team": "home",
+          "pace": 24,
+          "heading": 40
+        },
+        {
+          "id": "footballer_pro_60_3",
+          "team": "home",
+          "pace": 46,
+          "heading": 52
+        },
+        {
+          "id": "footballer_pro_60_11",
+          "team": "home",
+          "pace": 52,
+          "heading": 34
+        },
+        {
+          "id": "footballer_pro_60_5",
+          "team": "home",
+          "pace": 32,
+          "heading": 58
+        },
+        {
+          "id": "footballer_pro_60_7",
+          "team": "home",
+          "pace": 68,
+          "heading": 53
+        },
+        {
+          "id": "footballer_pro_60_9",
+          "team": "home",
+          "pace": 54,
+          "heading": 40
+        },
+        {
+          "id": "footballer_pro_60_14",
+          "team": "home",
+          "pace": 40,
+          "heading": 48
+        },
+        {
+          "id": "footballer_pro_60_13",
+          "team": "home",
+          "pace": 41,
+          "heading": 49
+        },
+        {
+          "id": "footballer_pro_60_12",
+          "team": "home",
+          "pace": 39,
+          "heading": 43
+        },
+        {
+          "id": "footballer_pro_60_21",
+          "team": "home",
+          "pace": 51,
+          "heading": 51
+        },
+        {
+          "id": "footballer_pro_60_22",
+          "team": "home",
+          "pace": 51,
+          "heading": 29
+        },
+        {
+          "id": "footballer_pro_50_0",
+          "team": "away",
+          "pace": 27,
+          "heading": 45
+        },
+        {
+          "id": "footballer_pro_50_7",
+          "team": "away",
+          "pace": 52,
+          "heading": 50
+        },
+        {
+          "id": "footballer_pro_50_4",
+          "team": "away",
+          "pace": 43,
+          "heading": 52
+        },
+        {
+          "id": "footballer_pro_50_3",
+          "team": "away",
+          "pace": 41,
+          "heading": 47
+        },
+        {
+          "id": "footballer_pro_50_10",
+          "team": "away",
+          "pace": 43,
+          "heading": 46
+        },
+        {
+          "id": "footballer_pro_50_11",
+          "team": "away",
+          "pace": 47,
+          "heading": 37
+        },
+        {
+          "id": "footballer_pro_50_14",
+          "team": "away",
+          "pace": 45,
+          "heading": 41
+        },
+        {
+          "id": "footballer_pro_50_12",
+          "team": "away",
+          "pace": 51,
+          "heading": 37
+        },
+        {
+          "id": "footballer_pro_50_9",
+          "team": "away",
+          "pace": 44,
+          "heading": 35
+        },
+        {
+          "id": "footballer_pro_50_21",
+          "team": "away",
+          "pace": 50,
+          "heading": 50
+        },
+        {
+          "id": "footballer_pro_50_22",
+          "team": "away",
+          "pace": 54,
+          "heading": 38
+        }
+      ],
+      "originalInputHash": "bd4321789d37e723d55ad3db4c77a04290842ee57972055cb73ac59fb9bdf531"
+    },
+    {
+      "design": {
+        "id": "pr181-dev-ww-2",
+        "split": "development",
+        "seed": "pr181-dev-ww-2:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          44.240909090909085,
+          41.189610389610394
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_50",
+          "pro_58"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "be18fbf66d5afe17aa1da744f86a94e506f91db52f92595f4e0ffdd43715c026",
+      "sessionHash": "a898caf7ff4a568fca00c2304529608f3dda270d53dfb39e677c76ee62b8bf41",
+      "attributes": [
+        {
+          "id": "footballer_pro_50_0",
+          "team": "home",
+          "pace": 27,
+          "heading": 45
+        },
+        {
+          "id": "footballer_pro_50_7",
+          "team": "home",
+          "pace": 52,
+          "heading": 50
+        },
+        {
+          "id": "footballer_pro_50_4",
+          "team": "home",
+          "pace": 43,
+          "heading": 52
+        },
+        {
+          "id": "footballer_pro_50_3",
+          "team": "home",
+          "pace": 41,
+          "heading": 47
+        },
+        {
+          "id": "footballer_pro_50_10",
+          "team": "home",
+          "pace": 43,
+          "heading": 46
+        },
+        {
+          "id": "footballer_pro_50_11",
+          "team": "home",
+          "pace": 47,
+          "heading": 37
+        },
+        {
+          "id": "footballer_pro_50_14",
+          "team": "home",
+          "pace": 45,
+          "heading": 41
+        },
+        {
+          "id": "footballer_pro_50_12",
+          "team": "home",
+          "pace": 51,
+          "heading": 37
+        },
+        {
+          "id": "footballer_pro_50_9",
+          "team": "home",
+          "pace": 44,
+          "heading": 35
+        },
+        {
+          "id": "footballer_pro_50_21",
+          "team": "home",
+          "pace": 50,
+          "heading": 50
+        },
+        {
+          "id": "footballer_pro_50_22",
+          "team": "home",
+          "pace": 54,
+          "heading": 38
+        },
+        {
+          "id": "footballer_pro_58_0",
+          "team": "away",
+          "pace": 20,
+          "heading": 37
+        },
+        {
+          "id": "footballer_pro_58_7",
+          "team": "away",
+          "pace": 57,
+          "heading": 44
+        },
+        {
+          "id": "footballer_pro_58_3",
+          "team": "away",
+          "pace": 33,
+          "heading": 45
+        },
+        {
+          "id": "footballer_pro_58_5",
+          "team": "away",
+          "pace": 19,
+          "heading": 62
+        },
+        {
+          "id": "footballer_pro_58_9",
+          "team": "away",
+          "pace": 56,
+          "heading": 32
+        },
+        {
+          "id": "footballer_pro_58_11",
+          "team": "away",
+          "pace": 37,
+          "heading": 33
+        },
+        {
+          "id": "footballer_pro_58_14",
+          "team": "away",
+          "pace": 32,
+          "heading": 35
+        },
+        {
+          "id": "footballer_pro_58_12",
+          "team": "away",
+          "pace": 40,
+          "heading": 19
+        },
+        {
+          "id": "footballer_pro_58_17",
+          "team": "away",
+          "pace": 56,
+          "heading": 31
+        },
+        {
+          "id": "footballer_pro_58_19",
+          "team": "away",
+          "pace": 53,
+          "heading": 22
+        },
+        {
+          "id": "footballer_pro_58_21",
+          "team": "away",
+          "pace": 25,
+          "heading": 36
+        }
+      ],
+      "originalInputHash": "162072de7e1c221d6cf242274d3d3f9ff13ca2fe939aa6005ffbf804f1db82b5"
+    }
+  ]
+}
