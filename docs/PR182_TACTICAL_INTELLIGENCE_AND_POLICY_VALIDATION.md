@@ -409,6 +409,15 @@ Context/keeper averages describe the detailed subset. A complete B state-equalit
 replay also captures the first missing attempt's physical lifecycle for diagnosis;
 this coverage limit must not be silently converted into a zero-error completeness claim.
 
+`PR182-shot-coverage.json` reconciles these four IDs with foul stoppages and the
+subsequent restart shots. The complete B replay shows the first shot physically
+released at 1798.625 s, then interrupted by a slide-foul penalty whistle at
+1798.825 s; the ball continues as a dead ball and cannot score. The other three
+rows immediately precede close free kicks for fouls on the same shooter. Canonical
+release attempts stay counted, while the detailed result needs an explicit
+**whistle-interrupted/censored** category. This explains the coverage gap without
+inventing a shot outcome; provider comparisons must resolve that definition first.
+
 B's observed adaptation windows contain 112 actual changes: 56 flank protection,
 31 pace exploitation, 12 chase-goal, 11 protect-lead and two reorganisations.
 No changed halftime window appears in the primary cohort; A–F demonstrate supported
@@ -443,6 +452,54 @@ fractional PR numbering is proposed. **PR183 generational renewal/world strength
 PR184 summary and PlayStyles (calibration gated) → PR185 career UX → PR186+ world**
 remains the planned sequence.
 
+## Verification and test-policy scope
+
+The full original `npm run verify` command is retained: lint, every unit suite,
+match integration, exactly-once career result contracts, full-career tests,
+TypeScript and production build. No suite or assertion is skipped and no timeout
+is increased. A concurrent attempt hit two integration deadlines under ten active
+benchmark processes; it is recorded as failed, not counted as a pass.
+
+Changing the new-match default initially exposed 43 historical fixture assumptions
+in 24 test files: legacy utility scales, legacy candidate lists and trajectories
+after an NPC had already selected a different next action. Those historical
+sessions now explicitly declare `legacy-pr176`; PR163/173 use their existing
+factory-injection argument. Two historical benchmark fixtures also declare their
+legacy baseline. The primary frozen harness is unchanged. An AST audit preserves
+**3203 original expect/matcher calls and every explicit test timeout** across the
+24 formerly failing test files. These are calls, not 3203 independent tests.
+
+Six additional tests assert the new B default and human authority under each of
+the five policies. The selected action starts with identical canonical ball/body
+physics for human and NPC sources. The human's target and decision remain intact;
+physical parity is checked until the NPC legitimately selects a different action.
+That distinction prevents conflating a later AI choice with a physical input buff.
+Original historical assertions remain unchanged, and B is separately covered by
+all twelve full primary matches, complete observer replay and actual browser input.
+
+The primary selected B replay reaches 5700 s in **228001 ticks** with final state
+hash `9575887fd8e3d58806ccdef4e4922475cd974905da24efd098572f632059bcfa`,
+identical with all primary observers/profiler present and absent. The passive
+coverage snapshots do not modify the replayed state. Every policy also repeats the
+same 120-second full state with/without observers. R1 has an additional complete
+229287-tick equality check. Repeated runs provide correctness evidence, not new
+independent football designs.
+
+**Final full `npm run verify`: PASS, 2051 tests** (1988 unit, 54 match integration,
+four career contracts and five full-career tests), lint, TypeScript and production
+build. The unchanged career contracts play a real U-17 match with twelve human
+choices, save/reload/calendar advance, and the same complete senior fixture twice
+with identical results and duplicate/conflict rejection. No timeout is increased.
+The final fresh Edge production-build smoke also passes: actual B default, five
+identical frozen input identities, restart at zero, both JSON downloads and a real
+human-selected B pass with no AI ranking. Screenshots were visually inspected.
+Its brief fragments are still not five qualitative watched halves.
+
+Selected B's serial full workload is 124.16 → 142.40 wall seconds and sampled
+RSS 434.85 → 454.51 MiB. These supplement the CPU result, not a universal browser
+speed or allocation-peak claim. Final production behaviour and primary harness
+fingerprints remain unchanged apart from the preregistered default literal.
+
 ## Evidence index and reproduction
 
 All paths below are relative to `docs/performance/`. Historical PR171–181 evidence
@@ -456,24 +513,32 @@ readable report and scripts explain definitions while complete receipts stay ins
 | All primary rows, strata and paired intervals | `PR182-validation-comparison.json` |
 | Football context, shot/keeper, delivery and substitution detail | `PR182-validation-description.json`, complete primary receipts |
 | Explicit selection and calibration decision | `PR182-decision.json` |
-| Complete-state observer equality and repeats | `PR182-integrity.json` |
-| Serial CPU, wall and sampled memory | `PR182-performance.json`, `pr182-evidence/serial-performance-trials.json.gz` |
+| Complete-state observer equality and repeats | `PR182-integrity.json`, `PR182-selected-integrity.json` |
+| Serial CPU, wall and sampled memory | `PR182-performance.json`, `PR182-performance-B.json`, raw receipts |
 | A–F and flank/block physical continuations | `pr182-evidence/coaching-continuations.json.gz` |
 | Historical and new WW holding regressions | `PR182-hold-before.json`, `PR182-hold-regressions.json`, `PR182-new-hold.json` |
 | Consumed primary R3 holding diagnosis | `pr182-evidence/validation-r3-sw2-hold-*.json.gz` |
 | Real UI downloads, input equality, screenshots, human action | `PR182-browser.json`, `pr182-evidence/browser-*` |
 | Exact old/new telemetry snapshot reproduction | `PR182-telemetry-reference.json`, raw compressed receipt |
+| Censored physical shot attempts and whistle context | `PR182-shot-coverage.json`, selected full replay snapshots |
+| Original assertions/timeouts after explicit historical policies | `PR182-test-fixture-audit.json` |
 | Full original verification and failed attempts | `PR182-verification.json`, compressed logs |
 | Separate development epochs | `pr182-evidence/initial-full/`, `development-prefix/`, `development-full-observer.json.gz` |
 
-Reproduction on the committed candidate uses Node 24.19.0 and the unchanged lockfile:
+Reproduction uses Node 24.19.0 and the unchanged lockfile. Run verification on the
+final PR checkout; run the primary commands in a clean checkout of freeze commit
+`bbf3ca5` (which contains the manifest and the same behavioural source as `b66228c`).
+The source guard deliberately rejects running primary validation on a changed default.
 
 ```sh
 npm run verify
+# Primary reproduction from the freeze checkout:
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/preparePr182Inputs.mjs --validation
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/runPr182Validation.mjs
 node scripts/reportPr182.mjs --validation --runs=../pr182-validation
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr182Integrity.mjs --policy=role-value-v1
+# Selected B replay/coverage from the final PR checkout with the same run directory:
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/inspectPr182ShotCoverage.mjs
 ```
 
 Replaying consumed inputs is a reproducibility check, not fresh independent

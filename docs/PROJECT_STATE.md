@@ -23,6 +23,11 @@ pozostają konkretnymi ograniczeniami. Starsza rezerwa `pr180-reserved-*` jest
 nieotwarta. Match Lab zamraża role i taktykę, odtwarza wejścia i eksportuje zwięzłe
 porównanie. [Wyniki, metodologia i weryfikacja PR182](PR182_TACTICAL_INTELLIGENCE_AND_POLICY_VALIDATION.md).
 
+Pełne oryginalne `npm run verify`: **PASS, 2051 testów**, lint, TypeScript i build.
+Przeszedł końcowy test Edge dla rzeczywistego B, pięciu identycznych wejść, eksportów
+i ludzkiego podania. Pełny stan B z obserwatorami i bez nich jest identyczny;
+kontrakty kariery potwierdzają powtarzalność oraz jednokrotne zapisanie wyniku.
+
 Następny etap: **PR183 generacje/siła świata → PR184 summary i PlayStyles
 (kalibracja zablokowana do naprawy wskazanych ograniczeń) → PR185 career UX →
 PR186+ świat**. Pełny zakres długiej kariery i wymiany pokoleń pozostaje w planie.

@@ -1,5 +1,5 @@
 {
-  "status": "Provisional configuration selected; final complete B observer replay and full original verify pending.",
+  "status": "Accepted provisional B gameplay default; original full verify and real-browser smoke PASS. Calibration readiness remains NOT READY.",
   "default": "state-value-v1",
   "readiness": "NOT READY",
   "selection": "Existing B with shared PR182 coaching/physical repairs; no new hybrid. All five selectors retained. New matches use this one selection literal; no cross-policy live-save migration.",
@@ -83,15 +83,22 @@
     "strictPathologicalHolds": 0,
     "cpuRatio": 1.1718751159012857,
     "completeCostReceipt": "PR182-performance-B.json",
-    "fullTime": 12
+    "fullTime": 12,
+    "completeStateReplay": {
+      "equal": true,
+      "ticks": 228001,
+      "finalHash": "9575887fd8e3d58806ccdef4e4922475cd974905da24efd098572f632059bcfa"
+    }
   },
   "limits": [
     "High circulation and excessive live time",
     "Scoring and shot expectation proxies remain uncalibrated",
     "Native weak-side technical execution and world-strength effects",
     "Rare contested aerial contacts and limited crossing/receiver execution",
-    "Detailed shot metadata omits four canonical attempts across the entire60-run cohort (three B, one R1); canonical attempts remain authoritative and require coverage diagnosis",
+    "Four canonical physical releases (three B, one R1) are interrupted by foul whistles; detailed diagnostics need an explicit censored category. Canonical release accounting remains visible in PR182-shot-coverage.json.",
     "Twelve senior native paired designs, no independent youth subgroup"
   ],
-  "nextStage": "PR183 generational renewal/world strength remains planned. Before PR184 summary calibration: focused tempo/restart realism, weak technical execution, shot/keeper expectation and detailed-shot coverage repairs with unused inputs; R3 waiting-loop repair stays experimental."
+  "nextStage": "PR183 generational renewal/world strength remains planned. Before PR184 summary calibration: focused tempo/restart realism, weak technical execution, shot/keeper expectation and detailed-shot coverage repairs with unused inputs; R3 waiting-loop repair stays experimental.",
+  "verification": "PR182-verification.json",
+  "browser": "PR182-browser.json"
 }
