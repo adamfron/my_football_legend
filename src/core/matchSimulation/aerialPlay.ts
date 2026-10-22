@@ -6,6 +6,9 @@ import { pitchPointSchema } from './matchSpace';
 import { distance, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { canContactAfterThrowIn } from './throwIn';
+import { angleForVector, normalizeAngle } from './playerOrientation';
+import { deriveFitnessPhysicalModifiers } from './matchFitness';
+import { canParticipatePhysically } from './matchInjuries';
 
 export type AerialOutcome = NonNullable<TacticalMatchState['lastAerialResult']>;
 export const aerialContactLockSchema = z.object({
@@ -108,6 +111,77 @@ export const aerialAbility = (player: MatchPlayerState, ball: PitchPoint) => {
   );
 };
 
+export const aerialPressureSchema = z.object({
+  playerId: z.string(),
+  contactQuality: z.number().min(0).max(1),
+  facingError: z.number().nonnegative(),
+  relativeSpeed: z.number().nonnegative(),
+  pressure: z.number().min(0).max(1),
+  challengerIds: z.array(z.string()).max(22),
+});
+
+/** An opponent can disturb a header by competing shoulder-to-shoulder without also
+ * touching the ball. Such a body never becomes an eligible ball winner from a duel score. */
+export const evaluateAerialPressure = (state: TacticalMatchState, player: MatchPlayerState) => {
+  const ball = state.ball;
+  const height = ball.height ?? 0;
+  const contact = evaluateAerialContact(player, ball);
+  const facingError = Math.abs(
+    normalizeAngle(
+      angleForVector({ x: ball.x - player.position.x, y: ball.y - player.position.y }) -
+        player.facingAngle,
+    ),
+  );
+  const challengers = state.players.filter((p) => {
+    if (
+      p.team === player.team ||
+      isMatchGoalkeeper(p) ||
+      !canParticipatePhysically(p) ||
+      state.discipline?.[p.id]?.sentOff ||
+      !canContactAfterThrowIn(state, p.id)
+    )
+      return false;
+    const bodyDistance = distance(p.position, player.position);
+    const reach = p.profile.heightCm / 100 + 0.18 + p.profile.attributes.jumping * 0.004;
+    const approaching =
+      ((p.velocity.x - player.velocity.x) * (player.position.x - p.position.x) +
+        (p.velocity.y - player.velocity.y) * (player.position.y - p.position.y)) /
+      Math.max(0.01, bodyDistance);
+    const prepared =
+      p.spatialMovement?.kind === 'aerial_challenge' && p.spatialMovement.until >= state.time;
+    return (
+      bodyDistance <= 1.65 &&
+      distance(p.position, ball) <= 2.2 &&
+      height >= 0.65 &&
+      height <= reach &&
+      (prepared || approaching > 0.25 || evaluateAerialContact(p, ball) !== undefined)
+    );
+  });
+  const pressure = Math.min(
+    1,
+    challengers.reduce(
+      (sum, p) =>
+        sum +
+        Math.max(0, (1.65 - distance(p.position, player.position)) / 0.65) *
+          (0.5 + p.profile.attributes.strength / 200),
+      0,
+    ),
+  );
+  const relativeSpeed = Math.hypot(
+    (ball.velocity?.x ?? 0) - player.velocity.x,
+    (ball.velocity?.y ?? 0) - player.velocity.y,
+    ball.velocity?.z ?? 0,
+  );
+  return {
+    playerId: player.id,
+    contactQuality: contact?.contactQuality ?? 0,
+    facingError,
+    relativeSpeed,
+    pressure,
+    challengerIds: challengers.map((p) => p.id),
+  };
+};
+
 /** A small local contest, ranked by arrival and aerial suitability; never every nearby player. */
 export const selectAerialContestants = (state: TacticalMatchState, point = state.ball) => {
   const eligible = findAerialContactCandidates({ ...state, ball: { ...state.ball, ...point } }).map(
@@ -181,7 +255,24 @@ export const goalkeeperIntervention = (
 export const resolveAerialDuel = (
   state: TacticalMatchState,
   contestants = selectAerialContestants(state),
-) => {
+): {
+  winner?: MatchPlayerState;
+  outcome: AerialOutcome;
+  contestants: MatchPlayerState[];
+  contactEvidence: z.infer<typeof aerialPressureSchema>[];
+  challengerIds: string[];
+} => {
+  contestants = contestants.filter(
+    (p) =>
+      evaluateAerialContact(p, state.ball) &&
+      canParticipatePhysically(p) &&
+      !state.discipline?.[p.id]?.sentOff,
+  );
+  const contactEvidence = contestants.map((p) => evaluateAerialPressure(state, p));
+  const contest = {
+    contactEvidence,
+    challengerIds: [...new Set(contactEvidence.flatMap((e) => e.challengerIds))],
+  };
   const keeperChoice = goalkeeperIntervention(state);
   const rng = RandomGenerator.fromSeed(
     `${state.seed}:aerial:${state.decisionIndex}:${contestants.map((p) => p.id).join(':')}`,
@@ -189,15 +280,40 @@ export const resolveAerialDuel = (
   if (keeperChoice.keeper && keeperChoice.decision !== 'stay') {
     const succeeds = rng.float() * 100 < keeperChoice.score;
     if (succeeds && keeperChoice.decision === 'claim')
-      return { winner: keeperChoice.keeper, outcome: 'keeper_claim' as const, contestants };
+      return {
+        winner: keeperChoice.keeper,
+        outcome: 'keeper_claim' as const,
+        contestants,
+        ...contest,
+      };
     if (succeeds)
-      return { winner: keeperChoice.keeper, outcome: 'keeper_punch' as const, contestants };
+      return {
+        winner: keeperChoice.keeper,
+        outcome: 'keeper_punch' as const,
+        contestants,
+        ...contest,
+      };
     if (keeperChoice.decision === 'attempt_interception')
-      return { outcome: 'keeper_miss' as const, contestants };
+      return { outcome: 'keeper_miss' as const, contestants, ...contest };
   }
-  if (!contestants.length) return { outcome: 'loose_ball' as const, contestants };
+  if (!contestants.length) return { outcome: 'loose_ball' as const, contestants, ...contest };
   const scored = contestants
-    .map((player) => ({ player, score: aerialAbility(player, state.ball) + rng.float() * 38 - 19 }))
+    .map((player, i) => {
+      const contact = contactEvidence[i]!;
+      const readiness = 1 - contact.facingError / Math.PI;
+      const physical = deriveFitnessPhysicalModifiers(player);
+      return {
+        player,
+        score:
+          aerialAbility(player, state.ball) +
+          contact.contactQuality * 8 +
+          readiness * 4 -
+          contact.pressure * (8 + physical.bodyControlImpairment * 6) -
+          Math.max(0, contact.relativeSpeed - 8) * 0.35 +
+          rng.float() * 38 -
+          19,
+      };
+    })
     .sort((a, b) => b.score - a.score);
   const winner = scored[0]!;
   if (
@@ -205,7 +321,7 @@ export const resolveAerialDuel = (
     winner.score < 37 ||
     (scored[1] && winner.score - scored[1].score < 4 && rng.bool(0.45))
   )
-    return { outcome: 'loose_ball' as const, contestants };
+    return { outcome: 'loose_ball' as const, contestants, ...contest };
   const attacking = winner.player.team === state.possessionTeam;
   const goalX = attacking
     ? attacksRight(winner.player)
@@ -227,7 +343,7 @@ export const resolveAerialDuel = (
         ? 'flick_on'
         : 'controlled_header'
     : 'clearance_header';
-  return { winner: winner.player, outcome, contestants };
+  return { winner: winner.player, outcome, contestants, ...contest };
 };
 
 export const secondBallPriority = (state: TacticalMatchState, contestants: MatchPlayerState[]) => {

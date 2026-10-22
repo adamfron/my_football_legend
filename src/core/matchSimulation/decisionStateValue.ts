@@ -16,6 +16,7 @@ import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { secondLastOpponentLine, isDirectOffsideExemptRestart } from './offside';
 import { canReleaseControlledAction } from './decisionReadiness';
 import { assessFirstTouch } from './firstTouch';
+import { projectCrossOpportunity } from './crossOpportunity';
 
 const clamp = (n: number) => Math.max(0, Math.min(1, n));
 export const stateValueFeaturesSchema = z.object({
@@ -309,7 +310,9 @@ export const evaluateStateValueAction = (
     // Every carry, including a controlled dribble, earns only the reachable controlled envelope.
     const limit = Math.min(
       opportunity.freeDistance,
-      deriveMovementCapability(actor).runSpeed * config.valueHorizonSeconds,
+      (action.movementMode === 'sprint'
+        ? deriveMovementCapability(actor).maximumSprintSpeed
+        : deriveMovementCapability(actor).runSpeed) * config.valueHorizonSeconds,
     );
     const fraction = Math.min(1, limit / Math.max(0.01, distance(actor.position, action.target)));
     point = {
@@ -373,7 +376,20 @@ export const evaluateStateValueAction = (
     );
     contested = (1 - controlled) * 0.35;
     restart = (1 - controlled - contested) * 0.2;
-    elapsed = distance(actor.position, point) / 18;
+    if (action.type === 'cross') {
+      const crossing = projectCrossOpportunity(state, actor, action);
+      if (!crossing) return undefined;
+      elapsed = crossing.ballArrival;
+      const race = clamp((crossing.defenderArrival - crossing.receiverArrival + 0.5) / 1.5);
+      const contactSkill =
+        action.intent === 'floated'
+          ? found.profile.attributes.heading / 100
+          : found.profile.attributes.firstTouch / 100;
+      controlled = clamp(controlled * (0.55 + race * 0.45) * (0.65 + contactSkill * 0.35));
+      contested = (1 - controlled) * (0.25 + (1 - race) * 0.4);
+      restart = (1 - controlled - contested) * 0.2;
+      reasons.push(`cross-arrival:${crossing.receiverArrival.toFixed(2)}/${elapsed.toFixed(2)}`);
+    } else elapsed = distance(actor.position, point) / 18;
   } else if (action.type === 'hold') {
     const pressure = state.currentPressure;
     const strength =

@@ -133,6 +133,18 @@ describe('PR152 canonical identity and temporary human agency', () => {
 
   it('permits a routine controlled cross when the exact agency probe has no pending choice', () => {
     const { state, actorId } = attackingFixture(85, 8);
+    // The agency contract needs an actually reachable box receiver. PR181 no longer
+    // invents a crossing opportunity from teammates standing forty metres behind play.
+    const receiver = state.players.find(
+      (p) => p.team === 'home' && p.id !== actorId && p.slot.position.includes('midfielder'),
+    )!;
+    receiver.position = { x: 91, y: 30 };
+    receiver.duty = 'attack';
+    state.players
+      .filter((p) => p.team === 'away' && p.slot.position !== 'goalkeeper')
+      .forEach((p) => {
+        p.position = { x: 97, y: 60 };
+      });
     const opportunity = projectPlayerDecisionOpportunity(state)!;
     const cross = enumerateAvailableActions(state, actorId).find(
       (action) => action.type === 'cross',

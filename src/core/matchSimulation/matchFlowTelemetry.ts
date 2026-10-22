@@ -699,6 +699,7 @@ export const observeMatchFlow = (
     result.crossAttempts++;
     if (action.intent === 'floated') result.floatedCrosses++;
     if (action.intent === 'driven') result.drivenCrosses++;
+    if (action.intent === 'cutback') result.cutbacks++;
     if (action.intendedTargetId) result.occupiedCrossTargets++;
     const actor = next.players.find((player) => player.id === action.actorId);
     if (
@@ -707,8 +708,6 @@ export const observeMatchFlow = (
       Math.abs(actor.position.y - 34) > 18
     ) {
       result.crossesFromAdvancedWideArea++;
-      if ((attacksRight(actor) ? 1 : -1) * (action.target.x - actor.position.x) < 5)
-        result.cutbacks++;
     }
   }
   const activeFlankEpisodes: string[] = [];

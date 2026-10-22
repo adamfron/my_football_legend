@@ -19,6 +19,8 @@ import { projectReceiverReadiness } from './receiverReadiness';
 import { resolveReceptionOutcome, receptionOutcomeSchema } from './passReception';
 import { tacticalMatchStateSchema } from './matchState';
 import { teamThreatMemorySchema } from './teamThreatMemory';
+import { assignTacticalRoles, changeTacticalRole } from './tacticalRoles';
+import { captureOffsideSnapshot, isOffsideOffence } from './offside';
 
 const fixture = (formation: '4-4-2' | '4-3-3' = '4-4-2') => {
   const state = createFormationBenchmarkMatch({
@@ -122,17 +124,30 @@ describe('PR162 causal football corrections', () => {
     expect(npcPossessionDecisionDelay(state, carrier)).toBeCloseTo(1.7);
   });
   it('keeps one average forward on the line without consuming the build-up support job', () => {
-    const { state } = fixture();
+    let { state } = fixture();
     const forwards = state.players.filter(
       (p) => p.team === 'home' && p.slot.position === 'striker',
     );
     forwards[0]!.position = { x: 68, y: 26 };
     forwards[1]!.position = { x: 70, y: 42 };
+    state.rolePlan = assignTacticalRoles(state);
+    for (const forward of forwards)
+      state = changeTacticalRole(state, forward.id, 'advanced_forward');
     const runs = deriveDepthRunAssignments(state, 'home');
     expect(runs).toHaveLength(1);
     expect(runs[0]!.playerId).toBe(forwards[1]!.id);
     expect(runs[0]!.target.x).toBeGreaterThan(75);
-    expect(runs[0]!.target.x).toBeLessThan(79);
+    // PR181 lets a ready runner accelerate through a future contact point. The law
+    // concerns his actual position at release, rather than clamping every destination.
+    expect(runs[0]!.target.x).toBeGreaterThan(79);
+    const snapshot = captureOffsideSnapshot(state, {
+      type: 'pass',
+      actorId: state.ball.ownerId!,
+      receiverId: runs[0]!.playerId,
+      target: runs[0]!.target,
+      intent: 'through',
+    });
+    expect(isOffsideOffence(snapshot, runs[0]!.playerId)).toBe(false);
     expect(deriveBuildUpSupport(state, 'home').some((p) => p.playerId === runs[0]!.playerId)).toBe(
       false,
     );
@@ -141,7 +156,7 @@ describe('PR162 causal football corrections', () => {
     ).toBe(runs[0]!.target.x);
   });
   it('compensates a lone striker dropping with an already advanced winger, with no depth job without control', () => {
-    const { state } = fixture('4-3-3');
+    let { state } = fixture('4-3-3');
     state.players.find((p) => p.team === 'home' && p.slot.position === 'striker')!.position = {
       x: 58,
       y: 34,
@@ -150,6 +165,13 @@ describe('PR162 causal football corrections', () => {
       (p) => p.team === 'home' && p.slot.position === 'left_winger',
     )!;
     winger.position = { x: 70, y: 12 };
+    state.rolePlan = assignTacticalRoles(state);
+    state = changeTacticalRole(state, winger.id, 'traditional_winger');
+    state = changeTacticalRole(
+      state,
+      state.players.find((p) => p.team === 'home' && p.slot.position === 'striker')!.id,
+      'false_nine',
+    );
     expect(deriveDepthRunAssignments(state, 'home')[0]).toMatchObject({
       playerId: winger.id,
       role: 'compensate_drop',

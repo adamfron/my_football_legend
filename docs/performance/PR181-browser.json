@@ -1,0 +1,133 @@
+{
+  "schema": "mfl-pr181-browser-v1",
+  "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+  "sourceRevision": "352503946ef6f9ff346b952ad8808fbe8f0dead3:3b0f3d7e43ac05bcb60b612b9a9306f4651fa0680e9415a56609e0aefe4eff7f",
+  "buildSourceDigest": "3b0f3d7e43ac05bcb60b612b9a9306f4651fa0680e9415a56609e0aefe4eff7f",
+  "digestMatches": true,
+  "fixtureId": "fixture-3d47e0aa",
+  "seed": "pr181-human-wing-final",
+  "policy": "phase-role-hybrid-v1",
+  "control": {
+    "mode": "player",
+    "clubId": "pro_1",
+    "footballerId": "footballer_pro_1_19",
+    "forceIntoXI": false
+  },
+  "status": "first_half",
+  "canonicalSeconds": 266.2750000000317,
+  "actions": [
+    {
+      "at": 143.47500000001548,
+      "action": {
+        "type": "carry",
+        "actorId": "footballer_pro_1_19",
+        "target": {
+          "x": 32,
+          "y": 12
+        },
+        "movementMode": "carry"
+      }
+    },
+    {
+      "at": 145.17500000001587,
+      "action": {
+        "type": "carry",
+        "actorId": "footballer_pro_1_19",
+        "target": {
+          "x": 30,
+          "y": 12
+        },
+        "movementMode": "sprint"
+      }
+    },
+    {
+      "at": 145.50000000001594,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_pro_1_19",
+        "receiverId": "footballer_pro_1_3",
+        "target": {
+          "x": 64.83459543184092,
+          "y": 34.040978362904575
+        },
+        "intent": "through",
+        "delivery": "lofted",
+        "requestedSpace": {
+          "x": 64.83459543184092,
+          "y": 34.040978362904575
+        }
+      }
+    }
+  ],
+  "decisionTelemetry": {
+    "humanSelectedActions": 3,
+    "devAiSelections": 0
+  },
+  "controlled": {
+    "playerId": "footballer_pro_1_19",
+    "team": "away",
+    "position": "right_winger",
+    "minutes": 4.437916666667195,
+    "activeTime": {
+      "seconds": 266.2750000000317,
+      "source": "canonical_minutes_played"
+    },
+    "possessionEpisodes": 3,
+    "passesReceived": 2,
+    "passesAttempted": 2,
+    "passesCompleted": 0,
+    "carries": 2,
+    "shots": 0,
+    "defense": {
+      "attempts": 0,
+      "tacklesWon": 0,
+      "interceptions": 0,
+      "possessionWon": 0,
+      "looseBallRecoveries": 1,
+      "blocks": 0,
+      "duelsWon": 0
+    },
+    "distanceMetres": 620.0150431245288,
+    "sprintDistanceMetres": 8.219752091747209,
+    "humanDecisionPrompts": 3,
+    "presentationCoverage": {
+      "defensiveInvolvementCoverage": "complete",
+      "hidden": {
+        "possessionEpisodes": 0,
+        "passesReceived": 0,
+        "passesAttempted": 0,
+        "carries": 0,
+        "shots": 0,
+        "defensiveInvolvements": 0,
+        "distanceMetres": 0,
+        "sprintDistanceMetres": 0
+      },
+      "visiblePossessionEpisodes": 3,
+      "visiblePlayerInvolvingSequences": 1,
+      "visibleDefensiveInvolvements": 1
+    },
+    "comparableRolePlayers": []
+  },
+  "observerErrors": [],
+  "runtimeDiagnostics": [],
+  "canonicalWarnings": [],
+  "consoleWarningsOrErrors": [],
+  "rendererReady": true,
+  "paused": true,
+  "artifacts": {
+    "roles": {
+      "path": "pr181-evidence/browser-human-roles.json.gz",
+      "sha256": "1397547216af11cbbdf91a33100bc99c20338b2f6afe79329a2bfbb934c428c5"
+    },
+    "session": {
+      "path": "pr181-evidence/browser-human-session.json.gz",
+      "sha256": "2495e64ce21e14e13f2d404922f599db367133e92f33d4e01ae54159b4b7c154"
+    },
+    "screenshot": {
+      "path": "pr181-evidence/browser-human.png",
+      "sha256": "7e4a6076e0bed35283aa57fc000dd824b1d5cde10eb680bb2e879a5cdf127f76"
+    }
+  },
+  "scope": "Actual browser UI: native selected away right winger, no forced XI, capture from restart, explicit incoming carry, sprint, and lofted through-labelled pass. Partial 266.275-second smoke, not a full manual match or all eight UI contexts. The chosen teammate made the lofted target backward relative to attack; this is not evidence of a pass behind the line. Total controlled sprint distance is not attributed solely to the manually selected sprint. Separate sixteen prescribed human-mechanics screens and original agency/career regressions cover additional mechanics.",
+  "recordedAt": "2026-10-22T01:35:34.472Z"
+}

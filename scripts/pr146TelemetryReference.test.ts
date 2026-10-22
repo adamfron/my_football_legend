@@ -14,7 +14,10 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR180 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR181 complete telemetry reference (PR146 observer contract)', () => {
+  // PR181 adds shared spatial movement and accurate delivery classification. Both
+  // pristine PR180 outputs and final complete 2400-tick payloads repeat twice in fresh
+  // processes: PR181-telemetry-reference.json. Every field/schema/ledger stays checked.
   // PR180 changes shared contact, physical reception and first-time accounting. Both
   // pristine PR179 hashes and both new complete 2400-tick payloads repeat twice in
   // fresh processes: PR180-telemetry-reference.json. Every field/schema/ledger stays checked.
@@ -92,8 +95,8 @@ describe('PR180 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', 'e350fe20355f9a5cbb2250cbac3e316fd5e566412e72522c4dbc6db16b8c53d5'],
-    ['pr146-flow-reference:b', '5de4fd19108ea64e9c9cc4d23f5c758aa1926fb52b41f5b1ca33eee016e56d39'],
+    ['pr146-flow-reference:a', 'ebfcf0b49864060e7f149252618373ee39fe30d84605d40c2fbd479345759937'],
+    ['pr146-flow-reference:b', 'd8d15d8c173ec5bfc500accc20ff980f1d27efd84a472de79d1750f333e396ef'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

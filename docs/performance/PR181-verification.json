@@ -1,0 +1,38 @@
+{
+  "command": "npm run verify",
+  "exitCode": 0,
+  "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+  "runtime": "v24.19.0",
+  "tests": 2020,
+  "suites": [
+    {
+      "files": 226,
+      "tests": 1957
+    },
+    {
+      "files": 3,
+      "tests": 54
+    },
+    {
+      "files": 1,
+      "tests": 4
+    },
+    {
+      "files": 1,
+      "tests": 5
+    }
+  ],
+  "logSha256": "9ccf572ddfd211c7cf8493ccde718599b9beb356bb47c58b0d3ece0205b2f6d8",
+  "scope": "Full original lint/unit/integration/career-contract/full-career/TypeScript/Vite chain, with all simulation workers stopped and browser paused. Original test timeouts and budgets retained.",
+  "earlierAttempt": {
+    "logSha256": "c7c6789a65118aea5c42adefe2151a10c87ef0aae668ce5f1430b7894e3fff34",
+    "failure": "90-second whole penalty-half wall-time timeout while additional context diagnostics ran concurrently; no football assertion failed",
+    "serialRepeat": "PASS, 85.54 seconds, original 90-second limit; subsequent complete verify passed",
+    "interpretation": "Preserved workload evidence; superseded by the complete serial verify."
+  },
+  "buildWarnings": [
+    "Existing ineffective dynamic import of careerStorage",
+    "Existing chunks above 500kB warning"
+  ],
+  "recordedAt": "2026-10-22T01:24:41.822Z"
+}

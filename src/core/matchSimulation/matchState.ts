@@ -46,7 +46,7 @@ import {
   type AddedTimePolicy,
 } from './stoppageLedger';
 import { ballAcquisitionSchema, type BallAcquisition } from './ballAcquisition';
-import { aerialContactLockSchema } from './aerialPlay';
+import { aerialContactLockSchema, aerialPressureSchema } from './aerialPlay';
 import {
   possessionLossSchema,
   pendingPossessionLossSchema,
@@ -477,7 +477,15 @@ export const restartLivenessDiagnosticSchema = z.object({
 });
 export type RestartLivenessDiagnostic = z.infer<typeof restartLivenessDiagnosticSchema>;
 
+export const spatialMovementSchema = z.object({
+  kind: z.enum(['depth_run', 'track_depth', 'aerial_challenge', 'second_ball']),
+  target: pitchPointSchema,
+  until: z.number().nonnegative(),
+});
+
 export interface MatchPlayerState {
+  spatialMovement?: z.infer<typeof spatialMovementSchema> | undefined;
+  challengeRecovery?: { startedAt: number; until: number; load: number };
   endsSwitched?: boolean | undefined;
   playStyles?: z.infer<typeof playStyleIdSchema>[] | undefined;
   goalkeeperRole?: boolean;
@@ -708,6 +716,8 @@ export const aerialContactSchema = z.object({
     }),
   ),
   contestantIds: z.array(z.string()),
+  challengerIds: z.array(z.string()).max(22).optional(),
+  contactEvidence: z.array(aerialPressureSchema).max(22).optional(),
   winnerId: z.string().optional(),
 });
 
@@ -1060,6 +1070,14 @@ export const tacticalMatchStateSchema = z
           anchor: pitchPointSchema,
           neutralAnchor: pitchPointSchema,
           idealTarget: physicalPointSchema,
+          spatialMovement: spatialMovementSchema.optional(),
+          challengeRecovery: z
+            .object({
+              startedAt: z.number().nonnegative(),
+              until: z.number().nonnegative(),
+              load: z.number().min(0).max(1),
+            })
+            .optional(),
         })
         .passthrough(),
     ),

@@ -1,5 +1,30 @@
 # My Football Legend — Current Project State
 
+## PR181 — Attacking Depth, Wing Duels & Aerial Football
+
+Wspólny ruch zachowuje zadanie biegu za linię przez kolejne warstwy ustawienia.
+Timing korzysta z widocznego przygotowania podającego i rzeczywistej prędkości;
+spalonego nadal rozstrzyga moment zagrania. Obrońca śledzi wiarygodne zagrożenie,
+może utrzymać linię lub przekazać krycie. Ograniczenie celu na własnej połowie
+respektuje przepis o spalonym i nie spycha ataku za linię obrony rywala.
+
+Skrzydłowe wyścigi uwzględniają zwrot, przyspieszenie, pęd i zmęczenie. Izolowany
+obrońca może opóźniać atak, a zaangażowane wejście ma fizyczny czas odzyskania
+równowagi. Dośrodkowania oceniają osiągalne strefy i rzeczywiste przybycie partnera.
+Obie drużyny przewidują lot i walczą o osiągalny kontakt lub drugą piłkę; presja
+barkiem jest odróżniona od prawa do dotknięcia piłki.
+
+**Brak promocji polityki; `legacy-pr176` pozostaje domyślne. Canonical nadal
+NOT READY do kalibracji summary.** Sześć nowych projektów rozwojowych SS/SW/WW
+jest wspólnych dla pięciu polityk. Zarezerwowane wejścia PR182 pozostają nietknięte.
+Pomierzono **30/30 pełnych meczów**; pełne `npm run verify` zakończyło się PASS
+(2020 testów, lint, TypeScript i build). Raport rozdziela cele podań i intencje
+dryblingu od rzeczywistych kontaktów i ciągłych epizodów prowadzenia piłki.
+Wyniki, źródła, weryfikacja i ograniczenia: [raport PR181](PR181_ATTACKING_DEPTH_WING_DUELS_AERIAL_FOOTBALL.md).
+
+Następny etap: **PR182 trener i niezależna walidacja → PR183 generacje/siła świata →
+PR184 summary i PlayStyles → PR185 career UX → PR186+ świat**.
+
 ## PR180 — Football Tempo, First-Touch Decisions & Ball Interaction
 
 Wspólny model pierwszego kontaktu ocenia względną prędkość piłki, geometrię stóp,

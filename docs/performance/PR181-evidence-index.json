@@ -1,0 +1,597 @@
+{
+  "schema": "mfl-pr181-evidence-index-v1",
+  "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+  "scope": "Committed final evidence and reproducible harnesses. Initial-candidate and historical failure receipts retain their original source/provenance; final measured source is identified separately. Index intentionally excludes itself and prose reports.",
+  "files": [
+    {
+      "path": "docs/performance/PR181-browser.json",
+      "bytes": 4202,
+      "sha256": "ada2c510a361e960234c5db3e5d228f58461a698c6c00fc0dd2748c379be8d0a"
+    },
+    {
+      "path": "docs/performance/PR181-causal-examples.json",
+      "bytes": 69084,
+      "sha256": "90d65b9547c431908be137f8ec7bce3a42f4f708911b84bad96f02e4432879d7"
+    },
+    {
+      "path": "docs/performance/PR181-controlled.json",
+      "bytes": 298572,
+      "sha256": "abd86886e87244d5dbffade46fb143bec2cef8c67669d9d3faaf31c19ccf11eb"
+    },
+    {
+      "path": "docs/performance/PR181-depth-lineage.json",
+      "bytes": 57908,
+      "sha256": "90835c90f81c0777a1f4d25ab1747d5a5ee64a5a325b4513a3f3a8ede044c2de"
+    },
+    {
+      "path": "docs/performance/PR181-initial-development.json",
+      "bytes": 42272,
+      "sha256": "1c8596112958f2efbb894d9b5fbc2e9e6a0ad7912ab479344a86b4932fe998ae"
+    },
+    {
+      "path": "docs/performance/PR181-inputs.json",
+      "bytes": 22051,
+      "sha256": "61534a02695bb847e3e4f430f21c523d54b5a478b1de3bb79a8259612400908c"
+    },
+    {
+      "path": "docs/performance/PR181-integrity.json",
+      "bytes": 1581220,
+      "sha256": "48fe281d7596e56759aa27e62361383738f6174ac7fc366e9eda4ba460234146"
+    },
+    {
+      "path": "docs/performance/PR181-performance.json",
+      "bytes": 56591,
+      "sha256": "16e8ab669ed2278308fe0a51a6a316a1ce6ec8c3778104ecfd353860794f3c53"
+    },
+    {
+      "path": "docs/performance/PR181-policy-comparison.json",
+      "bytes": 360126,
+      "sha256": "186e0231cd3b1c646cee5ced654b5b8ecfd83b22c129b7a7a49d25ba806ec4e6"
+    },
+    {
+      "path": "docs/performance/PR181-reservation-proof.json",
+      "bytes": 2138,
+      "sha256": "71468e5198d6fb6a0a899da91da5aa178c031d5726490a5d2b96d1b0679079f1"
+    },
+    {
+      "path": "docs/performance/PR181-telemetry-reference.json",
+      "bytes": 609037,
+      "sha256": "f78682a1dc19b45ae89786221504376c9cfa2a0023614eeace97177d5a857e83"
+    },
+    {
+      "path": "docs/performance/PR181-verification.json",
+      "bytes": 1310,
+      "sha256": "d09cea8fc2fb069fd95cb679d61803639add939a8355d4427f3d6c5062d6cd91"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/baseline-counterfactuals.json.gz",
+      "bytes": 498066,
+      "sha256": "a80eba85a7d7dfa8102b4f42b2e04d338007e0745a65e91d932097ac1015b1ac"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/browser-human-roles.json.gz",
+      "bytes": 146406,
+      "sha256": "1397547216af11cbbdf91a33100bc99c20338b2f6afe79329a2bfbb934c428c5"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/browser-human-session.json.gz",
+      "bytes": 305112,
+      "sha256": "2495e64ce21e14e13f2d404922f599db367133e92f33d4e01ae54159b4b7c154"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/browser-human.png",
+      "bytes": 68226,
+      "sha256": "7e4a6076e0bed35283aa57fc000dd824b1d5cde10eb680bb2e879a5cdf127f76"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/causal-examples.json.gz",
+      "bytes": 125161,
+      "sha256": "964dde9d5d1eb55968a271e5c223a6544138ec65414c2ba9f80d60e40ec831e6"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-1-legacy-pr176.json.gz",
+      "bytes": 200459,
+      "sha256": "ca294d89f88411030cbcb35490dbcbd9cc7bd929326edec45ecbc48a0d3a5336"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-1-phase-role-hybrid-v1.json.gz",
+      "bytes": 307481,
+      "sha256": "c882ed68b9d16ec6b8dc7cae83d074688458950294e7475df306029faf7e40e0"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-1-role-intent-v1.json.gz",
+      "bytes": 305949,
+      "sha256": "99d252469074c548d6774be38750268dbb2b15f9fd1ab4fb92558b993beec347"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-1-role-value-v1.json.gz",
+      "bytes": 329371,
+      "sha256": "957afa463dbf70b67122311aadf05d2c6ce0e9602dc2b97178b2970de8383737"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-1-state-value-v1.json.gz",
+      "bytes": 285206,
+      "sha256": "37f0a48f2cd10d3a37b0ceac25b8141312ec9fbc54df4e238b6485498a3d56dc"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-2-legacy-pr176.json.gz",
+      "bytes": 204908,
+      "sha256": "7a72373d546de0e18c005182699596bb23398269af88e12536bfa1dba7407f68"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-2-phase-role-hybrid-v1.json.gz",
+      "bytes": 296229,
+      "sha256": "23fedf539b1155cdff68125f0975a061ed9e6c725951bd8492148d50b556ea27"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-2-role-intent-v1.json.gz",
+      "bytes": 318059,
+      "sha256": "907c652664c3db1a54a964fa57b2b07353245a425397193bab1b33ac78fa6303"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-2-role-value-v1.json.gz",
+      "bytes": 315410,
+      "sha256": "0a9e562098feca466aa7f5d019543f546f094cb133f6da36d2d083e4a791d334"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ss-2-state-value-v1.json.gz",
+      "bytes": 275069,
+      "sha256": "c28e3d178b31b0369bd919ac3be1c87bcde94b9490c7b36b56f37631d658fd60"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-1-legacy-pr176.json.gz",
+      "bytes": 197728,
+      "sha256": "c52b10a9b404a0b6bd2e93c6ef89065356d15e453b70c76d525fd3998b8c636b"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-1-phase-role-hybrid-v1.json.gz",
+      "bytes": 288529,
+      "sha256": "57a440a472cc2ccc552b6c142732fb52a7aebc033d36a9b38c1df7b0d6c45e67"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-1-role-intent-v1.json.gz",
+      "bytes": 242533,
+      "sha256": "b4fbeb1560f39f540a32321fb65ad80be2f3da96b61bd2a12d548ee60e4ae66e"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-1-role-value-v1.json.gz",
+      "bytes": 291279,
+      "sha256": "9ad7eabb775c7162a362c256add18141aa8411ec67784c8e91bcfd0c8641dedb"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-1-state-value-v1.json.gz",
+      "bytes": 148180,
+      "sha256": "ac43cab599343414ca4c7ed393a3488aa27e95eec602eee8b28dddff6f2b3a1f"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-2-legacy-pr176.json.gz",
+      "bytes": 204598,
+      "sha256": "6ca7383452297025e88d6e29f4f48f4e2405ef242d4d56328d7bea661af1e162"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-2-phase-role-hybrid-v1.json.gz",
+      "bytes": 306715,
+      "sha256": "7027e194eb7727de06c696d7f6e434b6c12cb1010eee507e6c577e7052f1321a"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-2-role-intent-v1.json.gz",
+      "bytes": 302267,
+      "sha256": "1209e11929b3df9f2d4480766fbd65fc3ad389362f173dfefd216a4a1498172a"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-2-role-value-v1.json.gz",
+      "bytes": 301530,
+      "sha256": "84bef58af1d7bfa52b9564d1b69f4f75952f646f5e9dd124f62aeb45489e0b0d"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-sw-2-state-value-v1.json.gz",
+      "bytes": 274691,
+      "sha256": "c79a322e2d7b0076d9be675521f3dd1bae5cfe53ac6aa103f3c10986df8a4060"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-1-legacy-pr176.json.gz",
+      "bytes": 192669,
+      "sha256": "3ac7aa830d4e939b0364c79bd0cf957921138ec24f018feaa7bca51bb825b0de"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-1-phase-role-hybrid-v1.json.gz",
+      "bytes": 246311,
+      "sha256": "83fdacfeb4517f57e69e858f8099d38a3ebfa449ed50a4ff5dab55de4d89ef2b"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-1-role-intent-v1.json.gz",
+      "bytes": 253552,
+      "sha256": "ef08a1a51fb267cc9ffb7fb487e25809164f99d58c51586117b9b91c9fc05613"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-1-role-value-v1.json.gz",
+      "bytes": 265762,
+      "sha256": "fb321be86fb17ab65306bbf3c6883a0984b5e7cd81fc8fc6384a134d51981c7f"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-1-state-value-v1.json.gz",
+      "bytes": 182497,
+      "sha256": "624124e964f97caed5800267689ea6cbb00cec2966911b97b4a7a8b0cfc996e0"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-2-legacy-pr176.json.gz",
+      "bytes": 190364,
+      "sha256": "8b8f86bb3086ea2c8d24f3087fdf6086884226746a8c04bc8ff11c5c2895dcb1"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-2-phase-role-hybrid-v1.json.gz",
+      "bytes": 236361,
+      "sha256": "ec87b460028cc154943e0168b211b619ff3180a3e08272ff27064f48d9b1b7e8"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-2-role-intent-v1.json.gz",
+      "bytes": 238379,
+      "sha256": "8063768d004b998c8b1d4d644db52251c10ff5afdc9e66ab5b8bd63c67d42473"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-2-role-value-v1.json.gz",
+      "bytes": 243474,
+      "sha256": "4fa886df25a1b6387090c4e74ab4ee84be96b4644bacbb8cff5f4b0477d1f328"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/cohort/pr181-dev-ww-2-state-value-v1.json.gz",
+      "bytes": 173455,
+      "sha256": "59aa8b7bdd15e32be6912f3813ad9d05b592917021e3191747a63985ca88a791"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/context-inputs.json.gz",
+      "bytes": 73609,
+      "sha256": "0123e8badf3989484426ee094142de9dc01b77802747e2de54ed9ee3a5736b72"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/contexts.json.gz",
+      "bytes": 1103893,
+      "sha256": "0765e15c214cc987278d43328bc38db6aa1ae530f0bf640be3e0ce8b18516ea9"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/controlled-inputs.json.gz",
+      "bytes": 97293,
+      "sha256": "5e72788cf159c3569e736dec381ac5f985f6caf3c8cedffe9f0bb7d1d3e16c11"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/controlled.json.gz",
+      "bytes": 5589987,
+      "sha256": "2a463b38e3f23a9acc52faf3be15212b12b08c757df3c9de5724645fcf7c4616"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/development.json.gz",
+      "bytes": 84439,
+      "sha256": "9f1ee3d2a0a5724692d7b496fe8612b86b9f2223112219b814594f25b8190b37"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/human-mechanics-inputs.json.gz",
+      "bytes": 75942,
+      "sha256": "510cbd024483e24ab238a0a2c6ab9e59161c0f562e8e845d6c6be6038917cc58"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/human-mechanics.json.gz",
+      "bytes": 254491,
+      "sha256": "a7a88224884ac78df5c23c24da6f24eb7d2983ac2b465fe5ee496f59a727708c"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/initial-candidate-source.zip",
+      "bytes": 124887,
+      "sha256": "ac413f347e33ee20f6e305d934104984ff83b6ac78558ca6d255920ef40912bd"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage-original-harness.mjs.gz",
+      "bytes": 3603,
+      "sha256": "48ae71d80d8d86a66802bbcd83ffb58b2ec20942842f5d953a4f095a53bbdb42"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-1-legacy-pr176.json.gz",
+      "bytes": 166088,
+      "sha256": "fb17a4e9381df5a97559a1fe0c67004b7a40e5e04b20c423d41eada1da597540"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-1-phase-role-hybrid-v1.json.gz",
+      "bytes": 181367,
+      "sha256": "52592a6756915de6120d553cedd5c790bfea7b11315a9fc884ba57f8da2e2443"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-1-role-intent-v1.json.gz",
+      "bytes": 196064,
+      "sha256": "1e1d98e71b9ddcc0d1486e5427c1b037a09454d32967192f441bd1af3c8cbfca"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-1-role-value-v1.json.gz",
+      "bytes": 195306,
+      "sha256": "092993d147a3fc8254f07e0d6b26a79d03180489928f23ea5f5f31f16a7a4fd9"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-1-state-value-v1.json.gz",
+      "bytes": 199653,
+      "sha256": "e65d29ae945e1461d35fb0eaf78ace6acf300acbfcfd8788319c2689f24cf792"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-2-legacy-pr176.json.gz",
+      "bytes": 174644,
+      "sha256": "d26075003b70a0b875542b999d7c13ae21ba762688f7d577d191dd3fdf3cba52"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-2-phase-role-hybrid-v1.json.gz",
+      "bytes": 186662,
+      "sha256": "3a1d5a07ed874c2b88cffc3357ca70d86099c8c8fdacb20649fc221c50e8fc3e"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-2-role-intent-v1.json.gz",
+      "bytes": 209135,
+      "sha256": "7001bde3714463ecf80a46b3053644724dd0833240ab002dabb71eacce7dd6e0"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-2-role-value-v1.json.gz",
+      "bytes": 195055,
+      "sha256": "c2223dbf11e252bbfc8c743b55e626dca72117122c9d56a8f1f522d5688263a5"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ss-2-state-value-v1.json.gz",
+      "bytes": 184840,
+      "sha256": "8cc45ff3ca737262532472cf444ea5c846ee9a92985485c6c1f44e5b89b9de74"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-1-legacy-pr176.json.gz",
+      "bytes": 150828,
+      "sha256": "a7985168a1a4a1f41eae8c29dff147ea075fd92267d58f6d93c65570bd1466ed"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-1-phase-role-hybrid-v1.json.gz",
+      "bytes": 137846,
+      "sha256": "d4ac7353df8b7916698fd913c286c19a3052cc57846f8f956ec0a42168fb4ccb"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-1-role-intent-v1.json.gz",
+      "bytes": 101487,
+      "sha256": "756f680e5712235265eac1e5d5be9d3989873ed5fbf41f7cfa93e0d2aa8edef6"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-1-role-value-v1.json.gz",
+      "bytes": 139264,
+      "sha256": "def49e8cfb2b2204ae643774eb1673f503248a4bed752d48d4fc8d99b5195b0a"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-1-state-value-v1.json.gz",
+      "bytes": 26007,
+      "sha256": "c48d3f10d85cb590ae2e5e0431b018aabb32aa49bab9628aa2bd1771848e5b65"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-2-legacy-pr176.json.gz",
+      "bytes": 143877,
+      "sha256": "5212564242e4a5ef6a008ff451e32a04cd91b025a3c0f2223ed88a8fed923a88"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-2-phase-role-hybrid-v1.json.gz",
+      "bytes": 146806,
+      "sha256": "0b455c3292a090ee63f04fedcd8c63a8955959bc422b2d889037aa31d37eed11"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-2-role-intent-v1.json.gz",
+      "bytes": 139750,
+      "sha256": "595dddf2751a49144e4940d42de72c4893726506d6b0afc5638f00d30923ddfa"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-2-role-value-v1.json.gz",
+      "bytes": 140101,
+      "sha256": "16502f9752b3dc83f8dfa9d6db7a19f38cdffa33e6d8ddbeb7b435d891ad7405"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-sw-2-state-value-v1.json.gz",
+      "bytes": 138691,
+      "sha256": "70187c5e498895a5ff3b657bc67af55a6d195c6ca1f68956b7f040ef039509b1"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-1-legacy-pr176.json.gz",
+      "bytes": 112340,
+      "sha256": "5aba527cddfd51a4c9dd4ae9d5d9d7895408761f50347d9c2ad581c8bbca73aa"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-1-phase-role-hybrid-v1.json.gz",
+      "bytes": 74927,
+      "sha256": "b440a3f1a79568cec5346d4fb0bd84e98c6ef0f419604f0ea8c6dd840a4b8b1f"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-1-role-intent-v1.json.gz",
+      "bytes": 85540,
+      "sha256": "6df6cf3c66123d868db8b7958d340d3e0465a295f7c99b5b6aa130b5fc995aea"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-1-role-value-v1.json.gz",
+      "bytes": 86104,
+      "sha256": "4bf87eaf164ec319e6ef40c41d7271bb908df188beb73e8de0cab5bb681ed681"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-1-state-value-v1.json.gz",
+      "bytes": 52704,
+      "sha256": "9ec1f819fcd00a73024469871566c8e0684c9abfbfc440add63e8302878cdb4e"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-2-legacy-pr176.json.gz",
+      "bytes": 93556,
+      "sha256": "26526a9fd4a0278269e6527a44eefc8c6cc28dab508993cd10c7ce4e05894f46"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-2-phase-role-hybrid-v1.json.gz",
+      "bytes": 59692,
+      "sha256": "4d329aaf0140079c3c52c15f5f7b414a7a690ca4123c6a991c5e990b87a0ca2a"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-2-role-intent-v1.json.gz",
+      "bytes": 65505,
+      "sha256": "2a98c11e111d3afeec4fee99dae2b3be3b2d6b56aecfd2ea70c4ce89edacf057"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-2-role-value-v1.json.gz",
+      "bytes": 73078,
+      "sha256": "e1ffa0c66602ab0e0d384278f0c5a425a1e363db35f1420dc6ce4c6fba379cbf"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/lineage/pr181-dev-ww-2-state-value-v1.json.gz",
+      "bytes": 42407,
+      "sha256": "226c29a963a0dfd65ca779a80471d6a7490ac08fa61b7ca1fcd72242f60b9d16"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/penalty-half-serial.log.gz",
+      "bytes": 217,
+      "sha256": "3888f48bd2420f41e231e30dc5894bdbc3deda2173c6c2eb4ace5c9a28b93308"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/full-after-phase-role-hybrid-v1.json.gz",
+      "bytes": 128788,
+      "sha256": "488c88821a9911f4eb0d894db957d472f85906f25f0b6f988792bc4b055334f8"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/full-before-phase-role-hybrid-v1.json.gz",
+      "bytes": 125878,
+      "sha256": "d31d8ccd4690045ed86b476a8d26a3b39f0753b8ccc7dd44f0d4ac660e16d21d"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-after-legacy-pr176.json.gz",
+      "bytes": 4710,
+      "sha256": "54a2d63da7c3f71776bbfd83b3d0733558982f7ae209adedd7423ed758fa3863"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-after-phase-role-hybrid-v1.json.gz",
+      "bytes": 5805,
+      "sha256": "41e6f2ce69ae82fb445be097fc8127d3b7404ca8e57a072ad7b29944b81b96bd"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-after-role-intent-v1.json.gz",
+      "bytes": 5466,
+      "sha256": "f20bf1feaeb001d44dbd96d2ba23e7280a6bed79199f6ed0a3d8ac93c489c3d1"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-after-role-value-v1.json.gz",
+      "bytes": 5112,
+      "sha256": "5bf1d3381a36e3468f9bca3e9e81c440a1b385c57ad6594a478049f7c6fb01ef"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-after-state-value-v1.json.gz",
+      "bytes": 5731,
+      "sha256": "ad3ad52abcaf01c060be9ed71bbdd3c79f6cced73ebec9b81d55ae8a2a4b743a"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-before-legacy-pr176.json.gz",
+      "bytes": 4611,
+      "sha256": "e2b6a6504a493b83b913d4e47492883b222c85c2a199a51799391b111ce4fb43"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-before-phase-role-hybrid-v1.json.gz",
+      "bytes": 6267,
+      "sha256": "d90e85ae12b99512cd5842614aba5f4f173b8e7bb07aa31968ac87fb78952547"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-before-role-intent-v1.json.gz",
+      "bytes": 6319,
+      "sha256": "aaf21e498b033ac763d0f46dd54ddecdcb35677336d2ba79e59f07377f1d9933"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-before-role-value-v1.json.gz",
+      "bytes": 7237,
+      "sha256": "acdf541a8aecdce2775c163fa261e1faf9408a69ff25775c165a3685f979cd68"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/performance/window-before-state-value-v1.json.gz",
+      "bytes": 5544,
+      "sha256": "09df44007c9178ea59db770a219fce56c1f397253b56410770b7785124d8150e"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/verify-concurrent-timeout.log.gz",
+      "bytes": 1226,
+      "sha256": "458e019da9d8e7222f8507c31522feed4264c75e201a582fe7b3bdb8b4906e73"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/verify-final.log.gz",
+      "bytes": 2310,
+      "sha256": "0b681017d727fbe86b0aa7de53cebec1a54964deda0342204a65e516e2322d6c"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/verify-initial-regressions.log.gz",
+      "bytes": 2429,
+      "sha256": "c9850d3d41a9faa25232085e1ae1225d450ee1e57a3e40c80b01445732d8b81a"
+    },
+    {
+      "path": "scripts/benchmarkPr181.mjs",
+      "bytes": 10863,
+      "sha256": "b565e380e0862d893b6d657c9b1c75c7c03c027fb918a9e3e00d38672b306f46"
+    },
+    {
+      "path": "scripts/benchmarkPr181Baseline.mjs",
+      "bytes": 3527,
+      "sha256": "0cc72ae16aa90df6404d79b2e21709e8c9e13f203af5bbfece2599e745a83c02"
+    },
+    {
+      "path": "scripts/benchmarkPr181Contexts.mjs",
+      "bytes": 9762,
+      "sha256": "dcb93512970bbe82d4c98383da11bb2015cbd737422514c852a9102bdae221ad"
+    },
+    {
+      "path": "scripts/benchmarkPr181Controlled.mjs",
+      "bytes": 9055,
+      "sha256": "c787af3c1ea94f99673a739da6f893eb2b068e064aa0116a47a1e382d6fe298a"
+    },
+    {
+      "path": "scripts/benchmarkPr181Depth.mjs",
+      "bytes": 13268,
+      "sha256": "0a24345f70d5169e45c1433f309be7a69bc079672029a6441d3bbc961801855a"
+    },
+    {
+      "path": "scripts/benchmarkPr181Human.mjs",
+      "bytes": 6102,
+      "sha256": "5fcab9c0d4f36b8d44020361757c94767272894eec3c2e9b9a8f3223d02a9b92"
+    },
+    {
+      "path": "scripts/benchmarkPr181Integrity.mjs",
+      "bytes": 3624,
+      "sha256": "2108820ff324f409dd373df92ac7a0187722131de367f7ac9682195ab1754e77"
+    },
+    {
+      "path": "scripts/benchmarkPr181Performance.mjs",
+      "bytes": 3665,
+      "sha256": "a071fed66ba5022449dcd1dc52d5b729da6b9ae0761681cacc2ae5faec711262"
+    },
+    {
+      "path": "scripts/benchmarkPr181Telemetry.mjs",
+      "bytes": 5566,
+      "sha256": "c23a9dcc57d6446712cf459d220ea4d157894d612c979c5d6b4235769bdc6a6e"
+    },
+    {
+      "path": "scripts/pr181Observation.ts",
+      "bytes": 14068,
+      "sha256": "1c1b6773838bb55eb65cecf9e42035a3b8be1bf640e3b3d523277bde92951aab"
+    },
+    {
+      "path": "scripts/pr181SpatialFixtures.ts",
+      "bytes": 7886,
+      "sha256": "0bccdac293b60c31664bc9afaf43b2c8a35ad813e2b8213ffa5aefe0a2a1dc52"
+    },
+    {
+      "path": "scripts/preparePr181Fixtures.mjs",
+      "bytes": 3680,
+      "sha256": "4c98cfbbad0c0543a67a9469030db9dc6d0ee573c5f587ccabb94eb4edb861d5"
+    },
+    {
+      "path": "scripts/reportPr181.mjs",
+      "bytes": 9226,
+      "sha256": "17b7fe17377ec27adf295f259fb3fb1dccb21201700ba0fc7324f760504a7742"
+    },
+    {
+      "path": "scripts/reportPr181Causal.mjs",
+      "bytes": 6728,
+      "sha256": "18eba40bfde5541c0a5a9d463cd2731baf96249476e40a285ae3881af4f8e123"
+    },
+    {
+      "path": "scripts/reportPr181Final.mjs",
+      "bytes": 12067,
+      "sha256": "bdb99684b4dfad54cd1b910b66e74bb10ac62dac73273477d5e5a6fbb7f5cd87"
+    },
+    {
+      "path": "scripts/reportPr181Lineage.mjs",
+      "bytes": 10048,
+      "sha256": "8d2b9d4f71fed0d27c0fbb6746b44d75cea6e7d7df1743ca8530475adceec095"
+    }
+  ]
+}

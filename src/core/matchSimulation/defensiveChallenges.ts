@@ -18,6 +18,7 @@ import { angleForVector, normalizeAngle } from './playerOrientation';
 import { deriveBallContactAccess } from './ballContactGeometry';
 import { integrateGroundRolling } from './ballPhysics';
 import { derivePressingOpportunity } from './tacticalPreferences';
+import { deriveMovementCapability } from './locomotion';
 
 export const defensiveTechniqueSchema = z.enum(['standing', 'committed', 'slide', 'tactical']);
 export type DefensiveTechnique = z.infer<typeof defensiveTechniqueSchema>;
@@ -232,6 +233,7 @@ export const pressingPlanSchema = z.object({
     'selected_press',
     'recover_duel',
   ]),
+  behaviour: z.enum(['press', 'delay', 'show_outside', 'cover', 'commit', 'recover']),
 });
 export type PressingPlan = z.infer<typeof pressingPlanSchema>;
 
@@ -300,6 +302,18 @@ const projectPressingPlan = (
     ),
   );
   const locked = isDefensiveEpisodeLocked(state, c.actor.id, c.opponent.id);
+  const actorCapability = deriveMovementCapability(c.actor);
+  const opponentCapability = deriveMovementCapability(c.opponent);
+  const paceExposure =
+    Math.max(0, opponentCapability.maximumSprintSpeed - actorCapability.maximumSprintSpeed) +
+    Math.max(
+      0,
+      c.opponent.velocity.x * (attacksRight(c.opponent) ? 1 : -1) -
+        Math.max(0, c.actor.velocity.x * (attacksRight(c.opponent) ? 1 : -1)),
+    ) *
+      0.25;
+  const isolatedWing =
+    Math.abs(c.opponent.position.y - 34) > 15 && c.covering === 0 && paceExposure > 0.65;
   const partner = cooperativePress?.secondaryId === c.actor.id;
   const screening =
     protectedReceiver ||
@@ -311,19 +325,21 @@ const projectPressingPlan = (
       !nearGoal);
   const intention: PressingPlan['intention'] = locked
     ? 'contain'
-    : screening && !selected
-      ? 'screen'
-      : nearGoal && commitment >= 0.76
-        ? 'emergency'
-        : selected ||
-            partner ||
-            unstableControl ||
-            (invited && !easyBuildUp) ||
-            (c.dogso && progress >= 88) ||
-            (movingIntent && c.covering > 0 && !easyBuildUp) ||
-            (commitment >= 0.56 && !easyBuildUp)
-          ? 'engage'
-          : 'contain';
+    : isolatedWing && !selected && !unstableControl && !nearGoal
+      ? 'contain'
+      : screening && !selected
+        ? 'screen'
+        : nearGoal && commitment >= 0.76
+          ? 'emergency'
+          : selected ||
+              partner ||
+              unstableControl ||
+              (invited && !easyBuildUp) ||
+              (c.dogso && progress >= 88) ||
+              (movingIntent && c.covering > 0 && !easyBuildUp) ||
+              (commitment >= 0.56 && !easyBuildUp)
+            ? 'engage'
+            : 'contain';
   const reason: PressingPlan['reason'] = locked
     ? 'recover_duel'
     : protectedReceiver
@@ -354,7 +370,7 @@ const projectPressingPlan = (
     cooperativePress?.primaryId === c.actor.id
       ? 1.12
       : intention === 'contain'
-        ? 1.75 + (1 - commitment) * 0.8
+        ? 1.75 + (1 - commitment) * 0.8 + (isolatedWing ? Math.min(1.5, paceExposure * 0.45) : 0)
         : intention === 'screen'
           ? 2.1
           : 1.12;
@@ -401,6 +417,19 @@ const projectPressingPlan = (
     booked,
     covering: c.covering,
     reason,
+    behaviour: locked
+      ? 'recover'
+      : protectedReceiver
+        ? 'cover'
+        : intention === 'contain'
+          ? Math.abs(predicted.y - 34) > 15
+            ? 'show_outside'
+            : 'delay'
+          : intention === 'screen'
+            ? 'delay'
+            : c.ballDistance <= 2
+              ? 'commit'
+              : 'press',
   };
 };
 
@@ -1159,6 +1188,25 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
     },
   };
   delete next.defensiveChallenge;
+  if (intent.technique === 'committed' || intent.technique === 'slide') {
+    // Returning the support foot after a lunge/slide takes finite time. Preserve the
+    // current velocity; subsequent acceleration and turning rebuild balance physically.
+    const load = intent.technique === 'slide' ? 0.85 : 0.45;
+    const recoverySeconds =
+      ((intent.technique === 'slide' ? 0.55 : 0.2) +
+        (Math.hypot(c.actor.velocity.x, c.actor.velocity.y) /
+          deriveMovementCapability(c.actor).acceleration) *
+          load) *
+      deriveFitnessPhysicalModifiers(c.actor).contactRecovery;
+    next.players = next.players.map((p) =>
+      p.id === c.actor.id
+        ? {
+            ...p,
+            challengeRecovery: { startedAt: state.time, until: state.time + recoverySeconds, load },
+          }
+        : p,
+    );
+  }
   next = countDefensiveEvent(
     next,
     c.actor.id,

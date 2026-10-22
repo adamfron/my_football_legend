@@ -2,6 +2,9 @@ import { attacksRight, attackDirection, type TeamOrientation } from './matchSpac
 import { usesStateValue } from './decisionPolicyConfig';
 import { deriveTransitionRuns } from './attackingTransition';
 import { roleMovementTarget } from './roleTactics';
+import { tacticalRoleFor } from './tacticalRoles';
+import { timedDepthTarget, deriveDepthDefence } from './depthThreat';
+import { deriveAerialAssignments } from './aerialPositioning';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
@@ -230,7 +233,7 @@ export const deriveDepthRunAssignments = (
   if (!carrier || carrier.team !== side) return [];
   const dir = direction(side, state);
   const progress = attacksRight(side, state) ? carrier.position.x : 105 - carrier.position.x;
-  if (progress < 35) return [];
+  if (progress < 25 || state.restart) return [];
   const line = calculateOffsideLine(state, side);
   if (dir * (line - carrier.position.x) < 7) return [];
   const available = state.players.filter(
@@ -242,7 +245,7 @@ export const deriveDepthRunAssignments = (
       !state.discipline?.[p.id]?.sentOff,
   );
   const forwards = available
-    .filter((p) => p.slot.position === 'striker')
+    .filter((p) => p.slot.position === 'striker' && tacticalRoleFor(state, p).id !== 'false_nine')
     .sort((a, b) => dir * (b.position.x - a.position.x) || a.id.localeCompare(b.id));
   let runner = forwards[0];
   let role: DepthRunAssignment['role'] = 'stretch_line';
@@ -250,8 +253,8 @@ export const deriveDepthRunAssignments = (
     (p) =>
       p.team === side &&
       p.slot.position === 'striker' &&
-      dir * (line - p.position.x) > 15 &&
-      dir * (p.position.x - carrier.position.x) < 4,
+      (tacticalRoleFor(state, p).id === 'false_nine' ||
+        (dir * (line - p.position.x) > 15 && dir * (p.position.x - carrier.position.x) < 4)),
   );
   if ((!runner || dir * (line - runner.position.x) > 15) && dropped) {
     const compensation = available
@@ -259,7 +262,8 @@ export const deriveDepthRunAssignments = (
         (p) =>
           p.slot.position !== 'striker' &&
           !isWideDefender(p) &&
-          dir * (p.position.x - carrier.position.x) > 3,
+          dir * (p.position.x - carrier.position.x) > 3 &&
+          tacticalRoleFor(state, p).instructions.includes('depth'),
       )
       .sort((a, b) => dir * (b.position.x - a.position.x) || a.id.localeCompare(b.id))[0];
     if (compensation) {
@@ -268,18 +272,34 @@ export const deriveDepthRunAssignments = (
     }
   }
   if (!runner) return [];
-  const margin = 1 + (1 - runner.profile.attributes.gameReading / 100) * 2;
-  const x = attacksRight(side, state)
-    ? Math.min(line - margin, carrier.position.x + 26)
-    : Math.max(line + margin, carrier.position.x - 26);
+  // Target forwards connect until a genuine delivery area is available. Their partner
+  // supplies depth; a false nine is never accidentally selected as the stretching player.
+  if (tacticalRoleFor(state, runner).id === 'target_forward' && progress < 65) {
+    const connectingId = runner.id;
+    const partner = available
+      .filter(
+        (p) => p.id !== connectingId && tacticalRoleFor(state, p).instructions.includes('depth'),
+      )
+      .sort((a, b) => dir * (b.position.x - a.position.x) || a.id.localeCompare(b.id))[0];
+    if (partner) {
+      runner = partner;
+      role = 'compensate_drop';
+    }
+  }
+  const opponents = state.players.filter((p) => p.team !== side && !isMatchGoalkeeper(p));
+  const channels = [runner.position.y, 24, 44]
+    .map((y) => ({
+      y,
+      score:
+        Math.min(12, ...opponents.map((p) => distance(p.position, { x: line, y }))) -
+        Math.abs(y - runner.position.y) * 0.3,
+    }))
+    .sort((a, b) => b.score - a.score);
   return [
     {
       playerId: runner.id,
       role,
-      target: clampPitchPoint({
-        x,
-        y: 34 + (runner.neutralAnchor.y - 34) * 0.7,
-      }),
+      target: timedDepthTarget(state, carrier, runner, channels[0]!.y),
     },
   ];
 };
@@ -324,6 +344,8 @@ export const deriveFinalThirdOccupations = (
         !isMatchGoalkeeper(player) &&
         !isWideDefender(player) &&
         !flankRunnerIds.has(player.id) &&
+        (player.slot.position !== 'striker' ||
+          tacticalRoleFor(state, player).id !== 'false_nine') &&
         player.duty !== 'defend',
     )
     .sort((a, b) => {
@@ -764,7 +786,11 @@ export const constrainTargetOnside = (
   margin = 0.7,
 ): PitchPoint => ({
   ...point,
-  x: attacksRight(side) ? Math.min(point.x, line - margin) : Math.max(point.x, line + margin),
+  // A high opponent line cannot make a player offside in his own half. The raw
+  // second-last-defender line is still retained separately for shape diagnostics.
+  x: attacksRight(side)
+    ? Math.min(point.x, Math.max(52.5, line) - margin)
+    : Math.max(point.x, Math.min(52.5, line) + margin),
 });
 
 const seekSpace = (
@@ -839,7 +865,9 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     home: deriveTeamBlockTransform(state, 'home', preferences.home),
     away: deriveTeamBlockTransform(state, 'away', preferences.away),
   };
-  const looseAssignments = deriveLooseBallAssignments(state);
+  const aerialAssignments = deriveAerialAssignments(state);
+  const depthDefence = deriveDepthDefence(state);
+  const looseAssignments = state.ball.airborne ? [] : deriveLooseBallAssignments(state);
   const assignments = {
     home: derivePressingAssignment(state, 'home'),
     away: derivePressingAssignment(state, 'away'),
@@ -972,8 +1000,25 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
           : ideal.y,
       };
     }
-    if (depthRun && !occupation) ideal = depthRun.target;
     ideal = roleMovementTarget(state, player, ideal);
+    if (
+      carrier &&
+      carrier.team === player.team &&
+      carrier.id !== player.id &&
+      player.slot.position === 'striker' &&
+      tacticalRoleFor(state, player).id === 'false_nine'
+    )
+      ideal = clampPitchPoint({
+        x: carrier.position.x + dir * 6,
+        y: 34 + (player.neutralAnchor.y - 34) * 0.3,
+      });
+    // A relational run owns depth; a box assignment owns its receiving channel once
+    // the ball is advanced enough to deliver. Build-up and role blends cannot erase it.
+    if (depthRun && (!occupation || dir * (state.ball.x - 52.5) < 26)) ideal = depthRun.target;
+    const tracking = depthDefence.find(
+      (a) => a.defenderId === player.id && a.intention === 'track',
+    );
+    if (tracking) ideal = tracking.target;
     const combination = state.combinationIntent;
     if (
       combination &&
@@ -992,8 +1037,16 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     // A nominated contestant must reach the actual contact point. Blending the race with a
     // distant formation anchor can leave a stationary loose ball just beyond control radius.
     if (looseAssignment) ideal = looseAssignment.target;
+    const aerialAssignment = aerialAssignments.find((a) => a.playerId === player.id);
+    if (aerialAssignment) ideal = aerialAssignment.target;
+    const timedRun = Boolean(depthRun && (!occupation || dir * (state.ball.x - 52.5) < 26));
     ideal = clampPitchPoint(
-      isKeeper ? ideal : constrainTargetOnside(ideal, offside[player.team], player),
+      isKeeper ||
+        state.ball.ownerId === undefined ||
+        state.possessionTeam !== player.team ||
+        timedRun
+        ? ideal
+        : constrainTargetOnside(ideal, offside[player.team], player),
     );
     const restartWeight = restartInfluence(state),
       restartTarget = state.restart?.targets[player.id];
@@ -1012,7 +1065,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       e1 = errorAt(period + 1),
       smooth = blend * blend * (3 - 2 * blend);
     const errorSize =
-      (looseAssignment ? 0 : 1 - restartWeight) *
+      (looseAssignment || aerialAssignment ? 0 : 1 - restartWeight) *
       (1 - player.profile.attributes.positioning / 100) *
       (2.5 + parameters.freedom * 2);
     const noisy = clampPitchPoint({
@@ -1027,17 +1080,34 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       y: lerp(player.target.y, noisy.y, reaction),
     };
     const replace =
-      usesStateValue(state) &&
-      state.decisionAblation !== 'movement' &&
-      (transitionRun ||
-        looseAssignment ||
-        (combination?.runnerId === player.id && combination.team === state.possessionTeam) ||
-        state.timeSincePossessionChanged < 0.11);
+      timedRun ||
+      tracking ||
+      aerialAssignment ||
+      (usesStateValue(state) &&
+        state.decisionAblation !== 'movement' &&
+        (transitionRun ||
+          looseAssignment ||
+          (combination?.runnerId === player.id && combination.team === state.possessionTeam) ||
+          state.timeSincePossessionChanged < 0.11));
     return {
       ...player,
       neutralAnchor,
       idealTarget: ideal,
       target: clampPitchPoint(replace ? ideal : perceived),
+      spatialMovement:
+        !isKeeper && !state.restart && (aerialAssignment || tracking || timedRun)
+          ? {
+              kind: aerialAssignment
+                ? aerialAssignment.intention === 'challenge'
+                  ? 'aerial_challenge'
+                  : 'second_ball'
+                : tracking
+                  ? 'track_depth'
+                  : 'depth_run',
+              target: ideal,
+              until: state.time + 0.25,
+            }
+          : undefined,
     };
   });
 };
