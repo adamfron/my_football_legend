@@ -1,0 +1,443 @@
+{
+  "schema": "mfl-pr182-candidate-freeze-v1",
+  "frozenAtUtc": "2026-10-22T15:15:51.459Z",
+  "baseCommit": "b9c7bfb8dd341f258d684f19fba1ebd4c849a888",
+  "sourceCommit": "b66228c26d7897da44545dc37e4f0ade606a9e2d",
+  "sourceHash": "b4249e1a8a7311f827d5be1c995184e7342f7a835f44b3cb237530b6572e5ad8",
+  "candidateHash": "e547661e9b254aca7742401385326aee559dc90c70f2afef742359fef9f63b3a",
+  "harnessHash": "f08f8ac24868c927c708af8c38a522a47b2509b7c5b4748290628eb6fb7a7a9d",
+  "workingTree": "",
+  "hashScope": "All production src .ts/.tsx (excluding tests), package.json and lockfile, normalized LF. Harness includes runner, preparation, spatial/lineage observers, reporting and performance/coaching/hold scripts.",
+  "allowedPostValidationSourceChange": "Only the literal DEFAULT_DECISION_POLICY selection may change after evaluation. candidateHash normalizes that single literal and must remain identical. No policy/coach/physics/observer tuning is permitted. Any behavioural repair needs unused inputs.",
+  "policies": [
+    "legacy-pr176",
+    "state-value-v1",
+    "role-value-v1",
+    "role-intent-v1",
+    "phase-role-hybrid-v1"
+  ],
+  "policyConfiguration": {
+    "valueHorizonSeconds": 2.5,
+    "discountSeconds": 12,
+    "turnoverWeight": 1,
+    "maxCandidates": 48,
+    "maxRunners": 3,
+    "maxDeliveries": 3,
+    "minPerceptionSeconds": 0.12,
+    "maxPerceptionSeconds": 0.3,
+    "fullRankingInterval": 0.1,
+    "transitionSeconds": 8,
+    "transitionValue": 0.055,
+    "effortWeight": 0.00005,
+    "continuationWeight": 0.25,
+    "competenceNoise": 0.008
+  },
+  "defaultBeforeEvaluation": "legacy-pr176",
+  "archives": [
+    {
+      "path": "docs/performance/pr180-evidence/pr182-sealed.json.gz",
+      "sha256": "553d5083472e86fb199eedfb3178cbdb51cab3548970ac7f87a1b5970a2082f8",
+      "decodedBeforeFreeze": false
+    },
+    {
+      "path": "docs/performance/pr179-evidence/initial-states.json.gz",
+      "sha256": "4ea98d6faf9b1bcef5a544280660ce223929039c2358ebab4591f55dd400fdb1",
+      "decodedBeforeFreeze": false
+    }
+  ],
+  "fixtureInputs": [
+    {
+      "design": {
+        "id": "pr182-sealed-ss-1",
+        "split": "validation",
+        "seed": "pr182-sealed-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          76.91493506493507,
+          74.37402597402597
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_10",
+          "pro_11"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "balanced",
+          "possession"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "cccbb62b643157b90650d1e756a66544b9709029db299eedde71995d89c8b18a",
+      "sessionHash": "cd79326c3e454a6200b385ac7d956686674e9b3c161b83bbb1e2e7a7c4d35bf2"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ss-2",
+        "split": "validation",
+        "seed": "pr182-sealed-ss-2:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          76.29285714285714,
+          72.12532467532468
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_8",
+          "pro_12"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "efaace47995d4d25623e7675f012f1f0bd04c159bba99a77585d7e3a8c596133",
+      "sessionHash": "41ace171337c109530cee84081d474013f0338ab4a003a6f60337b7d7af43dd8"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ss-3",
+        "split": "validation",
+        "seed": "pr182-sealed-ss-3:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          74.25844155844156,
+          70.67467532467532
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_2",
+          "pro_4"
+        ],
+        "formations": [
+          "3-5-2",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "direct",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "1214a213452ca95c37d6b9acc8df169bdfa4338538070bf5adb9307ea7f972ba",
+      "sessionHash": "d60859eb144a47dc0cad8794793484842f479718a258a515ec16f29c9d934dec"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ss-4",
+        "split": "validation",
+        "seed": "pr182-sealed-ss-4:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          71.42142857142856,
+          78.39545454545454
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_1",
+          "pro_9"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "42bcfb8f4c69fffed25efc4933081cb2004ba918d8ff99c0a5cd63229692f259",
+      "sessionHash": "4f8fa6a09e46b930b0757ce6ddf8f1f5f5c4a2f899324a514b5d0bc04d2ccbb1"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-sw-1",
+        "split": "validation",
+        "seed": "pr182-sealed-sw-1:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          69.18116883116882,
+          49.704545454545446
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_26",
+          "pro_56"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "counter_attacking",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "89bc11fde30f61555f99a05c6341c1d30953757a63843de840c55c864573562e",
+      "sessionHash": "4a37094e5e8dfeee826765f18f49321b4f73aaf871d5bee491891a9c21e8c1c6"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-sw-2",
+        "split": "validation",
+        "seed": "pr182-sealed-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.12987012987011,
+          47.24155844155844
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_57"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "balanced",
+          "possession"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "bfb454c88a8f772f3d23e69a375683da5c0de52e9f51cc534e8b88f7b2e1795e",
+      "sessionHash": "6732a0186f4eba06a20d2b29b52fdcf76801d1240db7e50be8029f5cc3962be3"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-sw-3",
+        "split": "validation",
+        "seed": "pr182-sealed-sw-3:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          76.63181818181818,
+          44.58896103896104
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_15",
+          "pro_48"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "8d08abdfefa0dadf21a39fa0b70d3424bf54aeaa3c7c10d2cfc1b7034bc3583e",
+      "sessionHash": "7f139c9ff5dba761fa1847e470d3b8446cb657bde157a9c2e5fe35f5507429e0"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-sw-4",
+        "split": "validation",
+        "seed": "pr182-sealed-sw-4:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          74.37402597402597,
+          43.12532467532467
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_11",
+          "pro_51"
+        ],
+        "formations": [
+          "3-5-2",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "direct",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "f87479e694e4ffa09627c3beaea8b79cbfd13942aeb94d1a1b729b3859cdd13b",
+      "sessionHash": "bc0d2571bcf8b723787e127801a2b4464a20815fadca35b34ab359cb922cf3b2"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ww-1",
+        "split": "validation",
+        "seed": "pr182-sealed-ww-1:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          44.240909090909085,
+          41.189610389610394
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_50",
+          "pro_58"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "156774440d3052ff705d301ce12c2480ee22121f165d53d20e02802a345f7609",
+      "sessionHash": "391caa4301f6fa765ad7ab25a66bb0b7da6b175a20f612d503a4e270590b8cc7"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ww-2",
+        "split": "validation",
+        "seed": "pr182-sealed-ww-2:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          42.94935064935065,
+          49.73051948051948
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_54",
+          "pro_61"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "counter_attacking",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "37dd5436a05b1ef214887be395bf692fce215fc24f060f07bf0f96669fc0ee16",
+      "sessionHash": "0240cef68ad76ba35ece0853c9f2011d44d0ee4c56ed324cb51439d943fa9cc9"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ww-3",
+        "split": "validation",
+        "seed": "pr182-sealed-ww-3:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          50.108441558441555,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_42",
+          "pro_60"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "balanced",
+          "possession"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "5855656f437a8bb8c7255a54f52f78ffa025806dd329bf3a4a8f5ad5867f0c2a",
+      "sessionHash": "8b8376d92fe6d826d179ddc5faba6b3c1bbd97143654153f4fe73c60a4d938fd"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ww-4",
+        "split": "validation",
+        "seed": "pr182-sealed-ww-4:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          49.704545454545446,
+          46.72662337662337
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_56",
+          "pro_49"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "9dfb1e9036695f19d90373534182f1c22a6e9eb6b89cec6106e45d2169c8ad01",
+      "sessionHash": "2eb9838f70409932201e48fb0d852790506d3cc57ad07ce42dc951e3e0578a52"
+    }
+  ],
+  "cohort": {
+    "primary": "All twelve pr182-sealed designs, four SS, four SW, four WW; all five policies per exact transformed starting state.",
+    "additional": "Do not decode or run pr180-reserved designs from the older archive. They are not confirmation in this PR.",
+    "unit": "Fixture design; 12 paired units, not 60 independent matches or individual actions/frames.",
+    "transform": "Attach canonical manager profile from each archived session; initialise empty coach observation and common collective roles. Preserve archived native attributes, physical bodies, formations, named benches, seed and laws. Hash complete transformed state and session before policy override."
+  },
+  "budgets": {
+    "physicsDt": 0.025,
+    "primaryMatches": 60,
+    "parallelProcesses": 10,
+    "expectedCpuSecondsPerMatch": [
+      180,
+      400
+    ],
+    "cpuCeilingPerMatchSeconds": 600,
+    "wallCeilingPerChildSeconds": 900,
+    "maximumSimulatedSeconds": 7200,
+    "expectedTotalCpuHours": [
+      3,
+      7
+    ],
+    "sampledRssMiBPerProcess": [
+      300,
+      800
+    ],
+    "correctness": "Run the original full npm run verify without skipping suites or weakening assertions/timeouts; allow 30 minutes for the full command.",
+    "performance": "Twenty serial 120s windows (two per policy/source), three complete matched role-policy before/after workloads, and separate observer on/off window; no other simulation/test workers during serial trials."
+  },
+  "metrics": {
+    "official": "Canonical physical shots, goals, pass attempts/completions, possession, corners, cards, offside, tackles/interceptions and substitution facts. Crosses are not silently added to pass attempts.",
+    "flow": "Unique first-time IDs, actual receptions/errors, possession durations, maximum/strict pathological holds, forward/final-third/box progression, natural restart and live/dead clock reconciliation.",
+    "spatial": "Public line gaps/shape exposure, depth targets and actual >0.5m beyond-release-line completions, wing intentions and actual marker passage, overlaps, box occupation, cross execution/receiver geometry, aerial opportunities versus actual body-contested contact and second balls.",
+    "tactics": "Role suitability/compatibility, changed/no-change decisions, halftime, score/dismissal and flank responses, role-sensitive legal changes, physical post-change movement and 30-second windows; controlled paired A-F continuations support local mechanism claims.",
+    "consequences": "Pass/shot/keeper lineage, turnover location and subsequent ten-second opponent shots, actual controlled counterattack progress; useful failed attacking risk is not an automatic regression.",
+    "uncertainty": "Paired fixture differences against legacy, all rows and strength strata, separate SW strong/weak sides; fixed-seed 4000-resample design bootstrap 95% intervals, exploratory and unadjusted for multiple endpoints."
+  },
+  "selection": {
+    "hardGates": [
+      "Selected policy completes every primary fixture; no unexplained contact/ownership, law, clock, canonical event or career-result failure.",
+      "Determinism, complete-state observer equality, human authority and exactly-once career checks pass.",
+      "No reproducible unopposed physically executable stationary no-op sink lasting >120s with available meaningful alternatives. Strict >=30s holds and drift beyond the strict detector are still inspected and reported.",
+      "Selected role policy complete serial CPU workload is no more than 35% above the same policy on PR181. A slower candidate remains experimental; no physics/tick reduction hides cost. Single workload uncertainty is disclosed."
+    ],
+    "football": [
+      "A role candidate must improve actual shots and box progression over legacy in at least eight of twelve paired designs on each endpoint, without hiding failed weak-team fixtures.",
+      "Inspect depth reception, wing play, role/movement coherence, defending/cover, conversion and natural restarts together. More completion, wins, goals or event volume alone cannot win.",
+      "Compare nondominated eligible role candidates directly. Prefer fewer substantial no-op holds and coherent progression/variation; consider cost within the gate. Report disagreements/uncertainty rather than manufacture a scalar score.",
+      "Strong preference for provisional player-facing promotion when correctness/cost gates and credible overall improvement support it. Legacy attacking inactivity is a weakness, not a reason for inertia."
+    ],
+    "knownDevelopmentLimits": [
+      "High SS circulation, weak-team technical errors, rare contested aerial contacts, excessive live time and uncalibrated goal-proxy expectations.",
+      "New WW frozen hold survives the 30-second R3 continuation under the strict <1m detector; other policies move out or change ownership. This remains a disclosed candidate warning, not an erased regression."
+    ],
+    "readiness": "READY / CONDITIONALLY READY / NOT READY refers to trust for later statistical summary calibration; provisional playability and a default promotion do not prove calibration.",
+    "hybrid": "No new hybrid is proposed; compare the five existing policy architectures on shared coaching/physics."
+  },
+  "runtime": "v24.19.0"
+}
