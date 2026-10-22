@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { describe, it, expect } from 'vitest';
-import { createOffensiveScenario } from './pr163Fixtures';
+import { createOffensiveScenario as createPolicyScenario } from './pr163Fixtures';
+import { createLegacyMatchFixture } from '../../../scripts/legacyMatchFixture';
 import { enumerateCarryChoices, projectCarryOpportunity } from './carryOpportunity';
 import { classifyPass } from './passClassification';
 import { matchActionSchema, tacticalMatchStateSchema } from './matchState';
@@ -15,6 +16,12 @@ import { enumerateNpcSpacePasses } from './spacePassing';
 import { derivePassDifficulty } from './passExecution';
 import { resolveReceptionOutcome } from './passReception';
 import { projectPlayerDecisionOpportunity } from './playerDecision';
+
+const createOffensiveScenario: typeof createPolicyScenario = (
+  scenario,
+  seed,
+  create = createLegacyMatchFixture,
+) => createPolicyScenario(scenario, seed, create);
 
 describe('PR163 offensive momentum and contestable reception', () => {
   it('keeps a physically evasive controlled dribble valuable when a free sprint corridor is blocked', () => {

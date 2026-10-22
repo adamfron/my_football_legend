@@ -43,6 +43,8 @@ const world = createCanonicalWorldDatabase();
 const fixture = (seed = 'pr155-contract') => {
   const state = createTacticalMatch(
     createSingleMatchSession(world, {
+      // Freeze the historical legacy regression's policy independently of the new-match default.
+      decisionPolicy: 'legacy-pr176',
       homeClubId: 'pro_9',
       awayClubId: 'pro_1',
       seed,

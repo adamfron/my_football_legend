@@ -290,6 +290,159 @@ observer, scoring or threshold tuning follows the results. The consumed twelve
 designs cannot be relabelled independent evidence for a repair. The older
 `pr180-reserved-*` archive remains unopened.
 
+## Primary results and policy decision
+
+**60/60 matches reach full time**, with the frozen source/harness, exact common
+inputs, no recorded observer errors and reconciled canonical pass identities and
+live/dead clocks. The twelve paired designs, rather than sixty matches or individual
+actions, remain the inferential units. Primary execution took 2172.3 wall seconds
+with ten processes; this is not a serial speed measurement.
+
+The table reports unweighted per-design means; maximum hold is the largest observed
+episode across the policy's twelve matches. These are canonical physical shots.
+
+| Policy | Pass attempts | Shots | Goals | Box entries | Largest hold s | Decision |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Legacy | 1622.6 | 3.83 | 2.83 | 24.92 | 6.50 | Replace as default |
+| B state-value | 1515.9 | 21.42 | 5.58 | 32.75 | 10.95 | Provisional default |
+| R1 role-value | 1629.6 | 15.00 | 4.08 | 27.83 | 10.43 | Experimental |
+| R2 role-intent | 1505.8 | 18.50 | 5.50 | 28.17 | 8.63 | Experimental |
+| R3 phase-role | 1368.0 | 13.92 | 4.67 | 22.83 | 2660.05 | Blocked by stagnation |
+
+B improves shots in **12/12** designs and box entries in **9/12**. Its paired mean
+shot difference is +17.58, exploratory bootstrap 95% interval **[12.83, 22.50]**;
+box difference +7.83, interval **[2.75, 13.17]**. There are no strict pathological
+holds in its primary runs. These support provisional attacking initiative, not a
+claim of globally realistic football or a calibrated scoring distribution.
+
+R1 improves shots in 12/12 but box entries in **7/12**, below the preregistered 8/12
+requirement. Its box difference interval **[−3.00, 8.42]** crosses zero. R2 also has
+7/12 positive box differences and fails the serial cost gate. R3 has only ten
+positive shot differences and repeated multi-minute goalkeeper sinks. The criteria
+are retained even though R1's short holds and serial cost are otherwise acceptable.
+Legacy's low attacking activity and penalty-heavy shot sample provide no reason
+to preserve it merely because it was the previous default.
+
+Because B remains the eligible existing alternative, a single additional complete
+serial PR181/B pair was planned before reading the candidate cost receipt, using
+the same frozen performance harness and the same 35% cutoff. No other simulation
+or test workers ran during that pair. CPU is **134.813 → 157.984 s (+17.2%)**;
+the complete initial-state hash agrees. This extension adds no independent football
+design and makes no change to primary metrics or selection thresholds. The plan
+and both raw receipts are in `PR182-additional-cost-plan.json` and
+`PR182-performance-B.json`. Single-workload uncertainty still applies.
+
+The selected existing policy is **`state-value-v1`**. The only post-validation
+production edit is the literal `DEFAULT_DECISION_POLICY`; normalized candidate hash
+remains `e547661e9b254aca7742401385326aee559dc90c70f2afef742359fef9f63b3a`.
+The final production hash is
+`8bac5f62e84c788c239876e7a6dd9d0b7f8bc5a30581da5f3eb82f2ef65dbf1f`.
+All five choices remain available. This is the existing B architecture receiving
+shared PR182 coaching and physical repairs; no new hybrid or save migration is added.
+
+### Strength strata and weak-side football
+
+Each cell is **shots / box entries per match**, four native designs per stratum.
+All other stratum metrics and paired rows remain in the machine-readable comparison.
+
+| Tier | Legacy | B | R1 | R2 | R3 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| SS | 4.00 / 19.50 | 23.75 / 32.00 | 16.25 / 24.50 | 21.25 / 28.25 | 14.25 / 21.50 |
+| SW | 6.00 / 39.75 | 30.75 / 46.50 | 21.75 / 38.25 | 28.00 / 40.75 | 20.50 / 31.50 |
+| WW | 1.50 / 15.50 | 9.75 / 19.75 | 7.00 / 20.75 | 6.25 / 15.50 | 7.00 / 15.50 |
+
+B's SW scores are **8–1, 7–1, 13–1 and 5–0**. Strong-side shots are 16/37/32/25,
+weak-side shots 2/3/6/2. Weak-side pass completion is 44.1%, 23.9%, 19.5% and 17.0%.
+This is a material execution/strength limitation, not evidence that weak football
+is now realistic. SS mean completion is 65.2%, WW 28.1%; WW averages 1.5 goals
+from 9.75 shots. The cohort contains no independent youth subgroup, so it cannot
+validate youth-match quality. PR183's native world-strength work remains necessary.
+
+### Passing, progression, wings and aerial execution
+
+B's mean first-time share is **11.48%**, versus legacy 2.00%; mean final-third
+entries rise from 68.4 to 144.8. SS still averages **2309 pass attempts**, far above
+the descriptive senior reference. Its overall mean completion of 46.4% and WW
+28.1% are also not plausible calibration targets. No universal accuracy modifier
+or forced pause has been used to manufacture these rates.
+
+Depth is not a uniform success: B has **196 intended behind-line releases and 37
+actual completions beyond the release line**, versus legacy 205/64. R1 also has
+37 such completions; R2 has 29 and R3 13. There are no snapshot fallbacks in B.
+B records 3414 central-midfield receptions and about 43.95 km of summed positive
+controlled forward reception distance across twelve matches. These quantities
+measure different parts of the attacking funnel; high circulation or a nominal
+run target does not establish useful penetration.
+
+B records 22,299 wide take-on intentions and **1003 actual passages beyond a marker
+with control**. Intentions can restart frequently and cannot be treated as provider
+dribble attempts. There are 397 cross releases: 162 from open play and 235 from
+set-piece contexts. **119/162 open-play targets and 214/235 set-piece targets are
+outside the penalty area.** Edge cutbacks can be useful, but this distribution and
+the recorded recipient geometry do not justify claiming a solved crossing model.
+The raw release/receiver positions distinguish a useful delivery from an unsuitable
+target. No event-count quota changes the decision.
+
+There are 178 aerial-contact opportunities, 13 body-contested opportunities and
+**12 actual contested contacts** in B. Physical contested resolution works in those
+cases, while aerial play remains scarce. Opportunities are not reported as completed
+duels. Controlled ten-metre counterattack progress occurs in 492 episodes; 96
+recorded turnovers are followed by an opponent shot within ten seconds. These are
+dependent, observer-defined episodes and temporal consequences, not independent
+evidence that all accepted attacking risk is good or bad.
+
+### Shooting, defending, coaching and substitutions
+
+B's canonical **67 goals / 257 shots = 26.1%** conversion remains high. Of 254
+detailed shot records, 250 are open play, two headers and two penalties; outcomes
+include 67 goals, 85 misses, 49 blocks, 49 saves and four post/crossbar events.
+Mean detailed distance is 19.46 m, base xG proxy 0.144 and effective expectation
+proxy 0.063. Those proxies are not calibrated probabilities. The large discrepancy,
+weak keepers, reachable flight geometry and actual interventions require focused
+work before statistical calibration. `no_recorded_contact` does not prove that the
+keeper could or should have saved the shot.
+
+Detailed metadata omits **three B canonical attempts and one R1 attempt** across
+the full cohort; their IDs and missing result coverage are explicitly listed in
+`PR182-validation-description.json`. Primary selection uses canonical attempts.
+Context/keeper averages describe the detailed subset. A complete B state-equality
+replay also captures the first missing attempt's physical lifecycle for diagnosis;
+this coverage limit must not be silently converted into a zero-error completeness claim.
+
+B's observed adaptation windows contain 112 actual changes: 56 flank protection,
+31 pace exploitation, 12 chase-goal, 11 protect-lead and two reorganisations.
+No changed halftime window appears in the primary cohort; A–F demonstrate supported
+halftime changes and the no-change option locally. Changed players move a mean
+15.4 m over the recorded thirty-second windows. This is temporal lineage, not a
+causal estimate of improved defending. Primary `coachChanges` counts use the
+retained 48-decision histories per team; the supplemental windows report the fuller
+changed-decision record. Their bounded-history definitions remain explicit.
+
+The same B matches complete **76 legal substitutions**, 40 tactical and 36 fatigue,
+with actual role IDs and numeric benefit/opportunity costs retained. Position and
+role demands, fresh reserves and score context affect the choice; physical exit,
+entry, opportunities, identity and minutes stay in the canonical lifecycle. High
+SW scoring, weak execution and the absence of a universal defensive improvement
+remain limitations despite measurable flank-protection responses.
+
+### Readiness and the next stage
+
+**Canonical remains NOT READY as a trustworthy summary-calibration reference.**
+The provisional B default improves actual attacking initiative across all strength
+strata and avoids the observed no-op sink, within the measured cost limit. Law,
+human-input, identity and deterministic state contracts are suitable correctness
+checks; they do not validate shot/goal, possession, passing or aerial distributions.
+
+The focused repair scope before PR184 calibration is: ordinary control/release and
+restart timing behind excess circulation/live time; native weak-team execution;
+shot/keeper expectation and interrupted-shot metadata; and open-play delivery with
+recipient arrival. R3 needs a bounded waiting/support regression repair before
+reconsideration. Any behavioural repair must use unused inputs for confirmation;
+this consumed cohort cannot provide it. No indefinite audit programme or new
+fractional PR numbering is proposed. **PR183 generational renewal/world strength →
+PR184 summary and PlayStyles (calibration gated) → PR185 career UX → PR186+ world**
+remains the planned sequence.
+
 ## Evidence index and reproduction
 
 All paths below are relative to `docs/performance/`. Historical PR171–181 evidence

@@ -25,6 +25,8 @@ import { TACTICAL_PREFERENCE_DEFAULTS } from './tacticalPreferences';
 const world = createCanonicalWorldDatabase();
 const fixture = () => {
   const spectator = createSingleMatchSession(world, {
+    // Freeze the historical legacy regression's policy independently of the new-match default.
+    decisionPolicy: 'legacy-pr176',
     homeClubId: world.clubs[0]!.id,
     awayClubId: world.clubs[1]!.id,
     seed: 'pr148:balanced-balanced:agency-fixture',
@@ -35,6 +37,8 @@ const fixture = () => {
   )!;
   const state = createTacticalMatch(
     createSingleMatchSession(world, {
+      // Freeze the historical legacy regression's policy independently of the new-match default.
+      decisionPolicy: 'legacy-pr176',
       ...spectator.setup,
       control: {
         mode: 'player',

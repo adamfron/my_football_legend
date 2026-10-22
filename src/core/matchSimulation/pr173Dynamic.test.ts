@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
-import { createDynamicFixture } from './pr173Fixtures';
+import { createDynamicFixture as createPolicyDynamicFixture } from './pr173Fixtures';
+import { createLegacyMatchFixture } from '../../../scripts/legacyMatchFixture';
 import {
   projectDynamicIntervention,
   earliestDynamicIntervention,
@@ -18,6 +19,11 @@ import { advanceMatchFitness } from './matchFitness';
 import { OffensiveContinuationTracker } from './offensiveContinuationFunnel';
 import { applyPlayerDecision, projectPlayerDecisionOpportunity } from './playerDecision';
 import { createPr173ResearchFixture } from '../../../scripts/pr173ResearchFixtures';
+
+const createDynamicFixture: typeof createPolicyDynamicFixture = (
+  input,
+  create = createLegacyMatchFixture,
+) => createPolicyDynamicFixture(input, create);
 
 describe('PR173 bounded relative-motion intervention', () => {
   it('distinguishes equal-position opposite momentum without changing state or RNG', () => {

@@ -1,0 +1,152 @@
+{
+  "method": "AST compare every original expect/matcher call and explicit test timeout before and after declaring historical fixture policies. Same assertions, values and timeout literals. No suite is skipped. New six-case selected-default/five-policy human contract is additional.",
+  "baselineCommit": "4fa9860",
+  "files": [
+    {
+      "file": "scripts/benchmarkReactiveTactics.test.ts",
+      "originalExpectCalls": 26,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/ballAcquisition.test.ts",
+      "originalExpectCalls": 58,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/ballContactGeometry.test.ts",
+      "originalExpectCalls": 100,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/cooperativePressPhysics.test.ts",
+      "originalExpectCalls": 56,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/matchSimulation.test.ts",
+      "originalExpectCalls": 208,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/playerDecision.test.ts",
+      "originalExpectCalls": 186,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr145Agency.test.ts",
+      "originalExpectCalls": 54,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr145Passing.test.ts",
+      "originalExpectCalls": 194,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr147Agency.test.ts",
+      "originalExpectCalls": 112,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr147Rules.test.ts",
+      "originalExpectCalls": 390,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr148Agency.test.ts",
+      "originalExpectCalls": 115,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr148Cadence.test.ts",
+      "originalExpectCalls": 114,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr149Possession.test.ts",
+      "originalExpectCalls": 190,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr150Intent.test.ts",
+      "originalExpectCalls": 160,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr150SpacePassing.test.ts",
+      "originalExpectCalls": 238,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr152Participation.test.ts",
+      "originalExpectCalls": 98,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr154Intelligence.test.ts",
+      "originalExpectCalls": 116,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr155Stability.test.ts",
+      "originalExpectCalls": 106,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr161BoundaryLiveness.test.ts",
+      "originalExpectCalls": 106,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr163Momentum.test.ts",
+      "originalExpectCalls": 112,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/pr173Dynamic.test.ts",
+      "originalExpectCalls": 98,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/tacticalPreferences.test.ts",
+      "originalExpectCalls": 66,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/core/matchSimulation/teamThreatMemory.test.ts",
+      "originalExpectCalls": 84,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    },
+    {
+      "file": "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+      "originalExpectCalls": 216,
+      "expectCallsUnchanged": true,
+      "timeoutsUnchanged": true
+    }
+  ],
+  "totalOriginalExpectCalls": 3203,
+  "productionUnchangedExceptDefault": true
+}

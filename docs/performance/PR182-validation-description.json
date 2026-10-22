@@ -5,6 +5,9 @@
     "legacy-pr176": {
       "n": 12,
       "shots": 46,
+      "detailedShots": 46,
+      "missingDetailedShotIds": [],
+      "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
       "goals": 34,
       "goalConversion": 0.7391304347826086,
       "shotOutcomes": {
@@ -340,6 +343,9 @@
     "phase-role-hybrid-v1": {
       "n": 12,
       "shots": 167,
+      "detailedShots": 167,
+      "missingDetailedShotIds": [],
+      "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
       "goals": 56,
       "goalConversion": 0.33532934131736525,
       "shotOutcomes": {
@@ -868,6 +874,9 @@
     "role-intent-v1": {
       "n": 12,
       "shots": 222,
+      "detailedShots": 222,
+      "missingDetailedShotIds": [],
+      "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
       "goals": 66,
       "goalConversion": 0.2972972972972973,
       "shotOutcomes": {
@@ -1198,9 +1207,18 @@
     },
     "role-value-v1": {
       "n": 12,
-      "shots": 179,
+      "shots": 180,
+      "detailedShots": 179,
+      "missingDetailedShotIds": [
+        {
+          "fixture": "pr182-sealed-ss-4",
+          "id": "pr182-sealed-ss-4:20261021-v1:shot:5498:footballer_pro_9_21",
+          "canonicalResultRecorded": false
+        }
+      ],
+      "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
       "goals": 49,
-      "goalConversion": 0.2737430167597765,
+      "goalConversion": 0.2722222222222222,
       "shotOutcomes": {
         "block": 37,
         "goal": 49,
@@ -1526,9 +1544,28 @@
     },
     "state-value-v1": {
       "n": 12,
-      "shots": 254,
+      "shots": 257,
+      "detailedShots": 254,
+      "missingDetailedShotIds": [
+        {
+          "fixture": "pr182-sealed-ss-1",
+          "id": "pr182-sealed-ss-1:20261021-v1:shot:3609:footballer_pro_11_21",
+          "canonicalResultRecorded": false
+        },
+        {
+          "fixture": "pr182-sealed-sw-2",
+          "id": "pr182-sealed-sw-2:20261021-v1:shot:2061:footballer_pro_57_22",
+          "canonicalResultRecorded": false
+        },
+        {
+          "fixture": "pr182-sealed-ww-3",
+          "id": "pr182-sealed-ww-3:20261021-v1:shot:5039:footballer_pro_60_22",
+          "canonicalResultRecorded": false
+        }
+      ],
+      "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
       "goals": 67,
-      "goalConversion": 0.2637795275590551,
+      "goalConversion": 0.2607003891050584,
       "shotOutcomes": {
         "block": 49,
         "crossbar": 1,
@@ -1859,6 +1896,9 @@
       "legacy-pr176": {
         "n": 4,
         "shots": 16,
+        "detailedShots": 16,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 10,
         "goalConversion": 0.625,
         "shotOutcomes": {
@@ -2179,6 +2219,9 @@
       "phase-role-hybrid-v1": {
         "n": 4,
         "shots": 57,
+        "detailedShots": 57,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 18,
         "goalConversion": 0.3157894736842105,
         "shotOutcomes": {
@@ -2498,6 +2541,9 @@
       "role-intent-v1": {
         "n": 4,
         "shots": 85,
+        "detailedShots": 85,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 21,
         "goalConversion": 0.24705882352941178,
         "shotOutcomes": {
@@ -2812,9 +2858,18 @@
       },
       "role-value-v1": {
         "n": 4,
-        "shots": 64,
+        "shots": 65,
+        "detailedShots": 64,
+        "missingDetailedShotIds": [
+          {
+            "fixture": "pr182-sealed-ss-4",
+            "id": "pr182-sealed-ss-4:20261021-v1:shot:5498:footballer_pro_9_21",
+            "canonicalResultRecorded": false
+          }
+        ],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 14,
-        "goalConversion": 0.21875,
+        "goalConversion": 0.2153846153846154,
         "shotOutcomes": {
           "block": 14,
           "goal": 14,
@@ -3132,9 +3187,18 @@
       },
       "state-value-v1": {
         "n": 4,
-        "shots": 94,
+        "shots": 95,
+        "detailedShots": 94,
+        "missingDetailedShotIds": [
+          {
+            "fixture": "pr182-sealed-ss-1",
+            "id": "pr182-sealed-ss-1:20261021-v1:shot:3609:footballer_pro_11_21",
+            "canonicalResultRecorded": false
+          }
+        ],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 25,
-        "goalConversion": 0.26595744680851063,
+        "goalConversion": 0.2631578947368421,
         "shotOutcomes": {
           "block": 15,
           "crossbar": 1,
@@ -3454,6 +3518,9 @@
       "legacy-pr176": {
         "n": 4,
         "shots": 24,
+        "detailedShots": 24,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 20,
         "goalConversion": 0.8333333333333334,
         "shotOutcomes": {
@@ -3764,6 +3831,9 @@
       "phase-role-hybrid-v1": {
         "n": 4,
         "shots": 82,
+        "detailedShots": 82,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 28,
         "goalConversion": 0.34146341463414637,
         "shotOutcomes": {
@@ -4201,6 +4271,9 @@
       "role-intent-v1": {
         "n": 4,
         "shots": 112,
+        "detailedShots": 112,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 42,
         "goalConversion": 0.375,
         "shotOutcomes": {
@@ -4514,6 +4587,9 @@
       "role-value-v1": {
         "n": 4,
         "shots": 87,
+        "detailedShots": 87,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 27,
         "goalConversion": 0.3103448275862069,
         "shotOutcomes": {
@@ -4826,9 +4902,18 @@
       },
       "state-value-v1": {
         "n": 4,
-        "shots": 122,
+        "shots": 123,
+        "detailedShots": 122,
+        "missingDetailedShotIds": [
+          {
+            "fixture": "pr182-sealed-sw-2",
+            "id": "pr182-sealed-sw-2:20261021-v1:shot:2061:footballer_pro_57_22",
+            "canonicalResultRecorded": false
+          }
+        ],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 36,
-        "goalConversion": 0.29508196721311475,
+        "goalConversion": 0.2926829268292683,
         "shotOutcomes": {
           "block": 27,
           "goal": 36,
@@ -5142,6 +5227,9 @@
       "legacy-pr176": {
         "n": 4,
         "shots": 6,
+        "detailedShots": 6,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 4,
         "goalConversion": 0.6666666666666666,
         "shotOutcomes": {
@@ -5447,6 +5535,9 @@
       "phase-role-hybrid-v1": {
         "n": 4,
         "shots": 28,
+        "detailedShots": 28,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 10,
         "goalConversion": 0.35714285714285715,
         "shotOutcomes": {
@@ -5814,6 +5905,9 @@
       "role-intent-v1": {
         "n": 4,
         "shots": 25,
+        "detailedShots": 25,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 3,
         "goalConversion": 0.12,
         "shotOutcomes": {
@@ -6118,6 +6212,9 @@
       "role-value-v1": {
         "n": 4,
         "shots": 28,
+        "detailedShots": 28,
+        "missingDetailedShotIds": [],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 8,
         "goalConversion": 0.2857142857142857,
         "shotOutcomes": {
@@ -6414,9 +6511,18 @@
       },
       "state-value-v1": {
         "n": 4,
-        "shots": 38,
+        "shots": 39,
+        "detailedShots": 38,
+        "missingDetailedShotIds": [
+          {
+            "fixture": "pr182-sealed-ww-3",
+            "id": "pr182-sealed-ww-3:20261021-v1:shot:5039:footballer_pro_60_22",
+            "canonicalResultRecorded": false
+          }
+        ],
+        "detailDefinitions": "Shot contexts, keeper actions and execution means describe the detailed subset; canonical attempts are authoritative and include the explicitly listed attempts without detailed results.",
         "goals": 6,
-        "goalConversion": 0.15789473684210525,
+        "goalConversion": 0.15384615384615385,
         "shotOutcomes": {
           "block": 7,
           "goal": 6,

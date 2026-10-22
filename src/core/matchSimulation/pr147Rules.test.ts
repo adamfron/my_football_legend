@@ -35,6 +35,8 @@ const world = createCanonicalWorldDatabase();
 const fixture = (seed = 'pr147-rules') => {
   const state = createTacticalMatch(
     createSingleMatchSession(world, {
+      // Freeze the historical legacy regression's policy independently of the new-match default.
+      decisionPolicy: 'legacy-pr176',
       homeClubId: world.clubs[0]!.id,
       awayClubId: world.clubs[1]!.id,
       seed,
@@ -446,6 +448,8 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     const state = applyRestartScenario(
       createTacticalMatch(
         createSingleMatchSession(world, {
+          // Freeze the historical legacy regression's policy independently of the new-match default.
+          decisionPolicy: 'legacy-pr176',
           homeClubId: world.clubs[0]!.id,
           awayClubId: world.clubs[1]!.id,
           seed: 'pr138-restart-liveness',
