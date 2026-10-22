@@ -222,6 +222,44 @@ describe('PR182 bounded coach intelligence', () => {
       continued = stepTacticalMatchAfterDecisionProbe(continued, 0.025);
     expect(continued.players.filter((p) => p.team === 'home')).toHaveLength(10);
   });
+  it.each(PRIMARY_DECISION_POLICIES)(
+    'reorganises again after a second dismissal while the previous structural plan is active: %s',
+    (policy) => {
+      let { state } = fixture();
+      state.decisionPolicy = policy;
+      const defenders = state.players.filter(
+        (p) => p.team === 'home' && p.slot.position === 'center_back',
+      );
+      for (const defender of defenders) {
+        state = {
+          ...state,
+          time: state.time + 0.025,
+          discipline: {
+            ...state.discipline,
+            [defender.id]: { yellowCards: 0, sentOff: true, sentOffAt: state.time, team: 'home' },
+          },
+          players: state.players.filter((p) => p.id !== defender.id),
+          departedPlayers: [...(state.departedPlayers ?? []), defender],
+        };
+        const before = state;
+        state = assessCoachTactics(state, false, true);
+        const replacement = state.players.find(
+          (p) => p.team === 'home' && p.slotIndex === defender.slotIndex,
+        );
+        expect(replacement).toBeDefined();
+        expect(replacement!.position).toEqual(
+          before.players.find((p) => p.id === replacement!.id)!.position,
+        );
+        expect(state.teams.home.coaching!.decisions.at(-1)).toMatchObject({
+          trigger: 'dismissal',
+          changed: true,
+          chosen: 'reorganise',
+        });
+      }
+      expect(state.players.filter((p) => p.team === 'home')).toHaveLength(9);
+      expect(state.teams.home.coaching!.dismissals).toBe(2);
+    },
+  );
   it.each([
     [1, 'protect_lead'],
     [-1, 'chase_goal'],

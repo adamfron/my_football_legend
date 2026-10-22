@@ -273,7 +273,8 @@ export const assessCoachTactics = (
     const canChange =
       dismissal || halftime || state.time - memory.changedAt >= 150 + (100 - coach.adaptability);
     const wantsChange =
-      chosen !== 'balanced' && (chosen !== memory.plan || selectedChannel !== memory.channel);
+      dismissal ||
+      (chosen !== 'balanced' && (chosen !== memory.plan || selectedChannel !== memory.channel));
     const before = { ...(state.teams[side].tacticalPreferences ?? memory.basePreferences) };
     const roles: CoachDecision['roles'] = [];
     let after = before;
