@@ -1,0 +1,223 @@
+{
+  "schema": "mfl-pr182-serial-performance-v1",
+  "baseline": "PR181 source, code identical to merged b9c7bfb8dd341f258d684f19fba1ebd4c849a888",
+  "measuredProductionHash": "30a9af2922367a42e8c334a142aa8e70f434d61c1a5eb9d111c6db88081d9d58",
+  "measuredMatchCoreHash": "0e941296097cc2270e99313a19534d43542d06df6e8f58c00af55934a8fd740a",
+  "currentProductionHash": "b4249e1a8a7311f827d5be1c995184e7342f7a835f44b3cb237530b6572e5ad8",
+  "currentMatchCoreHash": "0e941296097cc2270e99313a19534d43542d06df6e8f58c00af55934a8fd740a",
+  "postMeasurementChange": "Only Match Lab UI start-pause, freeze/restart remount and explanatory text changed after serial measurement; canonical match-core hash is identical.",
+  "method": "28 fresh serial trials plus one complete-observer window, with other simulation/test workers stopped. Twenty paired 120s windows have two within-source repeats; three complete role-policy workload pairs have one repetition. Identical initial states and fixed 0.025s stepping; whole football histories may diverge. RSS is sampled, not an allocation peak. One complete workload per policy cannot establish universal CPU rates or confidence intervals.",
+  "full": [
+    {
+      "policy": "role-value-v1",
+      "inputHash": "a2821b2f92e1c26e3f086e625d1e9766ea0c35e906132b29971055dcd356c346",
+      "before": {
+        "cpuSeconds": 161.983,
+        "wallSeconds": 145.87477440000004,
+        "maxSampledRssMiB": 430.25
+      },
+      "after": {
+        "cpuSeconds": 197.812,
+        "wallSeconds": 181.9382804,
+        "maxSampledRssMiB": 470.63671875
+      },
+      "cpuRatio": 1.2211898779501553,
+      "wallRatio": 1.2472223600573393,
+      "withinThirtyFivePercentCpu": true
+    },
+    {
+      "policy": "role-intent-v1",
+      "inputHash": "1123db93429b9f4579067f72008603e346529d7d3eb8513b57f3f89e8acb3ccc",
+      "before": {
+        "cpuSeconds": 183.75,
+        "wallSeconds": 169.8486395,
+        "maxSampledRssMiB": 528.58203125
+      },
+      "after": {
+        "cpuSeconds": 276.844,
+        "wallSeconds": 190.96110620000002,
+        "maxSampledRssMiB": 606.31640625
+      },
+      "cpuRatio": 1.5066340136054421,
+      "wallRatio": 1.124301653296434,
+      "withinThirtyFivePercentCpu": false
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "31448f8d800139138142c7b4d9ffcf574a1ada2b9597dee31ba3f486abccbdb3",
+      "before": {
+        "cpuSeconds": 172.781,
+        "wallSeconds": 157.59670190000003,
+        "maxSampledRssMiB": 553.3359375
+      },
+      "after": {
+        "cpuSeconds": 180.688,
+        "wallSeconds": 164.00153419999998,
+        "maxSampledRssMiB": 433.5859375
+      },
+      "cpuRatio": 1.0457631336778928,
+      "wallRatio": 1.0406406493459743,
+      "withinThirtyFivePercentCpu": true
+    }
+  ],
+  "windows": [
+    {
+      "policy": "legacy-pr176",
+      "cpuMeanRatio": 0.9375483870967742,
+      "before": [
+        {
+          "cpuSeconds": 3.937,
+          "wallSeconds": 2.7465083000000003,
+          "finalHash": "7b3ce970ac07b75c766f6231116050a3e97530df51eec388d3ac4bb923d0d819"
+        },
+        {
+          "cpuSeconds": 3.813,
+          "wallSeconds": 2.5487249000000003,
+          "finalHash": "7b3ce970ac07b75c766f6231116050a3e97530df51eec388d3ac4bb923d0d819"
+        }
+      ],
+      "after": [
+        {
+          "cpuSeconds": 3.641,
+          "wallSeconds": 2.3018845000000003,
+          "finalHash": "e3f598f989c6b8b7e9f8a416dd0a24a0b8df88e2c0b12379fc15d1e97f0c6b83"
+        },
+        {
+          "cpuSeconds": 3.625,
+          "wallSeconds": 2.3655128999999997,
+          "finalHash": "e3f598f989c6b8b7e9f8a416dd0a24a0b8df88e2c0b12379fc15d1e97f0c6b83"
+        }
+      ]
+    },
+    {
+      "policy": "state-value-v1",
+      "cpuMeanRatio": 0.9333404436860069,
+      "before": [
+        {
+          "cpuSeconds": 4.766,
+          "wallSeconds": 3.2917192000000006,
+          "finalHash": "ebc5e92ee7cd3535dea2707321a8e014c2f5d4926b38507ea1edd4b193987314"
+        },
+        {
+          "cpuSeconds": 4.61,
+          "wallSeconds": 3.2878843,
+          "finalHash": "ebc5e92ee7cd3535dea2707321a8e014c2f5d4926b38507ea1edd4b193987314"
+        }
+      ],
+      "after": [
+        {
+          "cpuSeconds": 4.391,
+          "wallSeconds": 2.9899294,
+          "finalHash": "c53031882706884d9ff62e3be524075a793be0377f297d5c1c5312d787a0f800"
+        },
+        {
+          "cpuSeconds": 4.36,
+          "wallSeconds": 2.9734882,
+          "finalHash": "c53031882706884d9ff62e3be524075a793be0377f297d5c1c5312d787a0f800"
+        }
+      ]
+    },
+    {
+      "policy": "role-value-v1",
+      "cpuMeanRatio": 1.186171455267461,
+      "before": [
+        {
+          "cpuSeconds": 4.265,
+          "wallSeconds": 3.0401507999999997,
+          "finalHash": "ada276019abc4cc907e218a25b3367e7b19a78826a30ddbaf02abed8a2aba50b"
+        },
+        {
+          "cpuSeconds": 4.297,
+          "wallSeconds": 3.0236574000000003,
+          "finalHash": "ada276019abc4cc907e218a25b3367e7b19a78826a30ddbaf02abed8a2aba50b"
+        }
+      ],
+      "after": [
+        {
+          "cpuSeconds": 4.953,
+          "wallSeconds": 3.7827901,
+          "finalHash": "adc8c65308a7200abf70c2be3a589ca3904fe5e09406935a978d1adf998ffd16"
+        },
+        {
+          "cpuSeconds": 5.203,
+          "wallSeconds": 3.7883321000000008,
+          "finalHash": "adc8c65308a7200abf70c2be3a589ca3904fe5e09406935a978d1adf998ffd16"
+        }
+      ]
+    },
+    {
+      "policy": "role-intent-v1",
+      "cpuMeanRatio": 1.278293601003764,
+      "before": [
+        {
+          "cpuSeconds": 4.219,
+          "wallSeconds": 2.5470883,
+          "finalHash": "bf4cba268bf85e5761184d3ebc08082a4353ec10a07f32ed633e71e4d8528f79"
+        },
+        {
+          "cpuSeconds": 3.751,
+          "wallSeconds": 2.5378751000000004,
+          "finalHash": "bf4cba268bf85e5761184d3ebc08082a4353ec10a07f32ed633e71e4d8528f79"
+        }
+      ],
+      "after": [
+        {
+          "cpuSeconds": 5.203,
+          "wallSeconds": 3.6249230000000003,
+          "finalHash": "43e5e7afdb2faf09ae2caa10401ead606d660a5360baf1ae0f9d5605539fedc9"
+        },
+        {
+          "cpuSeconds": 4.985,
+          "wallSeconds": 3.5767535,
+          "finalHash": "43e5e7afdb2faf09ae2caa10401ead606d660a5360baf1ae0f9d5605539fedc9"
+        }
+      ]
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "cpuMeanRatio": 0.9916932907348242,
+      "before": [
+        {
+          "cpuSeconds": 4.624,
+          "wallSeconds": 3.1980221,
+          "finalHash": "27ba7fbdf10973c5a4c24fe4263ab180a9f85b070fbbc7faf43bad31dacd75c7"
+        },
+        {
+          "cpuSeconds": 4.766,
+          "wallSeconds": 3.2289661,
+          "finalHash": "27ba7fbdf10973c5a4c24fe4263ab180a9f85b070fbbc7faf43bad31dacd75c7"
+        }
+      ],
+      "after": [
+        {
+          "cpuSeconds": 4.64,
+          "wallSeconds": 3.1854961,
+          "finalHash": "17a31801f267b8fcf5ed82fc0470eb3a44b7603d0d308a7d7a09260b86965caa"
+        },
+        {
+          "cpuSeconds": 4.672,
+          "wallSeconds": 3.2647809,
+          "finalHash": "17a31801f267b8fcf5ed82fc0470eb3a44b7603d0d308a7d7a09260b86965caa"
+        }
+      ]
+    }
+  ],
+  "observer": {
+    "off": {
+      "cpuSeconds": 4.843,
+      "wallSeconds": 3.6295045
+    },
+    "roleAndFlow": {
+      "cpuSeconds": 5.593,
+      "wallSeconds": 3.8905567999999997,
+      "cpuRatio": 1.154862688416271
+    },
+    "completePrimaryObservers": {
+      "cpuSeconds": 5.671,
+      "wallSeconds": 4.067508,
+      "cpuRatio": 1.1709684080115632
+    },
+    "sameCompleteStateAndTicks": true
+  },
+  "raw": "pr182-evidence/serial-performance-trials.json.gz"
+}

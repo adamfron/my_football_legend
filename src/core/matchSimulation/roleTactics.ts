@@ -71,8 +71,12 @@ export const roleMovementTarget = (
   player: MatchPlayerState,
   fallback: PitchPoint,
 ): PitchPoint => {
+  // A manager's explicit live instruction is shared tactical authority. R2/R3
+  // additionally generate autonomous role movement before any manager adjustment;
+  // the other policies retain their own initial movement/candidate architectures.
+  const directed = state.rolePlan?.changes.some((change) => change.playerId === player.id);
   if (
-    !usesRoleIntentions(state) ||
+    (!usesRoleIntentions(state) && !directed) ||
     !available(state, player) ||
     isMatchGoalkeeper(player) ||
     (state.playerAgencyEnabled !== false && state.controlledFootballerId === player.id)
@@ -139,7 +143,10 @@ export const roleMovementTarget = (
     target = { x: owner.position.x - dir * 8, y: has('underlap') ? centralY : homeY };
   if (
     has('box') &&
-    !has('come_short') &&
+    (!has('come_short') ||
+      (role.id === 'target_forward' &&
+        phase === 'final_third' &&
+        Math.abs(owner.position.y - 34) > 12)) &&
     (phase === 'final_third' || phase === 'rapid_transition') &&
     cover >= 2
   )

@@ -915,6 +915,13 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
           (1 - lateWeight) * 5 +
           (state.substitutionState!.opportunities[side] >= 2 ? 3 * (1 - lateWeight) : 0) +
           ((50 - (state.teams[side].coach?.rotationPreference ?? 50)) / 50) * 1.5;
+        const familiarityCost =
+          (1 - (state.teams[side].coach?.positionalFlexibility ?? 50) / 100) *
+          Math.max(
+            0,
+            getEffectivePositionOverall(incoming.profile, incoming.profile.primaryPosition) - fit,
+          ) *
+          0.1;
         const incomingInjuryCost =
           incoming.injury?.status === 'playable'
             ? 12
@@ -931,6 +938,7 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
           role.roleBenefit +
           role.cardRisk -
           opportunityCost -
+          familiarityCost -
           incomingInjuryCost;
         if (benefit > 0)
           candidates.push({
@@ -945,12 +953,13 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
                 abilityBenefit,
                 scoreBenefit,
                 opportunityCost,
+                familiarityCost,
                 benefit,
               },
               reason:
                 unable || injury === 'playable'
                   ? 'injury'
-                  : fatigueBenefit > abilityBenefit
+                  : fatigueBenefit > Math.max(abilityBenefit, role.roleBenefit + scoreBenefit)
                     ? 'fatigue'
                     : 'tactical',
             },

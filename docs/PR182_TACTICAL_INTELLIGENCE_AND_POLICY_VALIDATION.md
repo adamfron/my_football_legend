@@ -125,6 +125,15 @@ No fixed possession timeout, forced pass, pass limit or accuracy modifier is add
 input identities, all five rankings and 2/5/10/30-second physical checkpoints.
 The two tested stationary failures disappear across all five policies. This is a
 regression result for two known states, not proof that every future hold is rational.
+The first development candidate exposed another WW hold. Its exact captured state
+is retained as `pr182-evidence/r2-new-ww-hold-state.json.gz`. Readiness previously
+sampled just after a foot touch, missing legal release windows at the next cadence;
+the next eligible ranking now notices the physical release transition. Restart
+possession also receives the same ordinary preparation. These fixes preserve contact
+gates and the decision cadence ceiling. **The new state still remains within the
+strict one-metre detector for the R3 30-second continuation.** This warning is retained;
+two historical regressions passing is not an all-holds claim.
+
 Full-match maximum duration and strict pathological-episode counts remain separate:
 the strict detector can miss a very long hold that drifts farther than one metre.
 
@@ -152,3 +161,62 @@ opportunity, feasible contact, execution and ensuing opponent threat. Completion
 and event volume alone cannot establish better football. Goal conversion, very
 high circulation, scarce contested aerial contact and live-time excess remain
 explicit investigation dimensions rather than reasons to impose event quotas.
+
+## Development provenance and serial cost
+
+The first implementation commit `1cf6c1f` has production fingerprint
+`f1d255e5f04f48d40a357e7e3776828e63cd154f4da59e2a0ec79be78a0b7534`.
+Its fifteen complete development matches and compact aggregate are archived under
+`pr182-evidence/initial-full/` and `initial-development-comparison.json.gz`.
+They revealed the new WW holding case and a dismissal review which failed to see
+the already removed player. Discipline facts now supply the dismissal count.
+The central replacement subsequently moves through ordinary locomotion.
+The later fifteen 900-second screening prefixes are separately labelled in
+`pr182-evidence/development-prefix/` and `PR182-development-comparison.json`.
+Neither epoch is independent confirmation of the final candidate.
+
+All policies receive explicit coach-issued role movements. R2/R3 additionally use
+their existing autonomous role movement. Box delivery permits a target forward to
+arrive beyond his normal support position. Cross lineage distinguishes actual
+open-play deliveries, set pieces and edge cutbacks before judging receiver geometry.
+An outside-area contact by itself does not prove a broken open-play crossing model.
+
+`PR182-performance.json` records 28 fresh serial trials and an additional complete
+observer window, with no other simulation/test workers during those trials.
+The full-match pairs use identical starting states and unchanged 0.025-second physics.
+
+| Policy | PR181 CPU s | Candidate CPU s | Change | Candidate sampled RSS MiB |
+| --- | ---: | ---: | ---: | ---: |
+| R1 role-value | 161.983 | 197.812 | +22.1% | 470.6 |
+| R2 role-intent | 183.750 | 276.844 | +50.7% | 606.3 |
+| R3 phase-role | 172.781 | 180.688 | +4.6% | 433.6 |
+
+There is one complete paired workload per policy, so these are measured costs,
+not universal rates or narrow confidence intervals. Twenty 120-second windows
+include two repeats per policy/source. Role/flow observers and all primary
+observers have separate on/off measurements; the complete observer window adds
+about 17% CPU and preserves the entire final state. A full R3 observed development
+match also exactly matches its unobserved serial state and tick count. Later UI-only
+pause/freeze/restart corrections leave the measured match-core fingerprint unchanged.
+The frozen cost gate excludes R2 from default promotion on this measurement.
+
+The original full verification initially found two expected telemetry snapshot
+changes. Both old and new complete snapshots were reproduced twice per seed before
+updating the explicit legacy reference. No ledger assertion, tick count, suite or
+timeout was removed. `PR182-telemetry-reference.json` preserves those receipts.
+
+## Match Lab review workflow
+
+Start a native-club match in pause, edit roles before kickoff, then use **Zamroź role
+i taktykę do powtórek**. Select each of the five existing policies through **Powtórz
+z polityką**. This rebuilds the same squads, attributes, seed, formations, roles and
+preferences; only the policy changes. **Restart — ten sam seed** also starts a fresh
+run. The compact comparison export includes input identity, revision, canonical
+shots/passes, first-time share, progression, delivery and contact counts, no-op holds,
+role changes, substitutions and observer errors. The detailed export retains lineage.
+Intentions, releases and actual contacts are explicitly distinguished in definitions.
+
+`PR182-browser.json` and screenshots document a real Edge production-build smoke:
+all five frozen starts agree, real download buttons work, restart returns to time zero,
+and an actual human-selected pass enters the canonical trace with no AI ranking.
+These are short UI fragments, not five watched halves or independent full matches.

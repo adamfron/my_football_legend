@@ -14,7 +14,11 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR181 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR182 complete telemetry reference (PR146 observer contract)', () => {
+  // Shared coaching/roles/contact preparation intentionally change football. PR182
+  // reproduces pristine PR181 and both new complete payloads twice in fresh processes.
+  // Keep every field, all 2400 ticks, schemas, ledgers and the complete sorted hash.
+  // This reference names legacy explicitly; default promotion has separate coverage.
   // PR181 adds shared spatial movement and accurate delivery classification. Both
   // pristine PR180 outputs and final complete 2400-tick payloads repeat twice in fresh
   // processes: PR181-telemetry-reference.json. Every field/schema/ledger stays checked.
@@ -95,8 +99,8 @@ describe('PR181 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', 'ebfcf0b49864060e7f149252618373ee39fe30d84605d40c2fbd479345759937'],
-    ['pr146-flow-reference:b', 'd8d15d8c173ec5bfc500accc20ff980f1d27efd84a472de79d1750f333e396ef'],
+    ['pr146-flow-reference:a', '4d138da04a36421ff7d313e794ef923789e53891a1dc9d15ad209326c4a344e3'],
+    ['pr146-flow-reference:b', 'f7230a5abe55dd703b422419a4964fe7c2b32045d4df74c43723dc967eccbe5f'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(
@@ -104,6 +108,7 @@ describe('PR181 complete telemetry reference (PR146 observer contract)', () => {
         homeClubId: world.clubs[0]!.id,
         awayClubId: world.clubs[1]!.id,
         seed,
+        decisionPolicy: 'legacy-pr176',
         control: { mode: 'spectator' },
       }),
     );

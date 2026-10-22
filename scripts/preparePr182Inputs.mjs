@@ -19,7 +19,9 @@ const source = validation
   : 'docs/performance/pr181-evidence/development.json.gz';
 const bytes = readFileSync(source);
 const fixtures = JSON.parse(gunzipSync(bytes)).map((f) => {
-  let state = structuredClone(f.state);
+  if (digest(f.state) !== f.inputHash || digest(f.session) !== f.sessionHash)
+    throw Error('Original archived input/session digest mismatch');
+  let state = globalThis.structuredClone(f.state);
   for (const side of ['home', 'away']) {
     state.teams[side].coach = deriveCanonicalCoachProfile(
       f.session[side].club.managerId ?? 'manager',

@@ -49,6 +49,7 @@ export const coachIntelligenceSchema = z.object({
   channel: z.number().int().min(0).max(2).optional(),
   basePreferences: tacticalPreferencesSchema,
   roster: z.string(),
+  dismissals: z.number().int().min(0).max(22),
   halftimeReviewed: z.boolean(),
   decisions: z.array(coachDecisionSchema).max(48),
 });
@@ -58,6 +59,8 @@ const clamp = (n: number) => Math.max(0, Math.min(1, n));
 const available = (s: TacticalMatchState, p: MatchPlayerState) =>
   canParticipatePhysically(p) && !s.discipline?.[p.id]?.sentOff;
 const other = (side: TeamSide) => (side === 'home' ? 'away' : 'home');
+const dismissalCount = (state: TacticalMatchState, side: TeamSide) =>
+  Object.values(state.discipline ?? {}).filter((d) => d.team === side && d.sentOff).length;
 const rosterKey = (state: TacticalMatchState, side: TeamSide) =>
   state.players
     .filter((p) => p.team === side && available(state, p))
@@ -85,6 +88,7 @@ export const initialiseCoachIntelligence = (state: TacticalMatchState): Tactical
           ...(teams[side].tacticalPreferences ?? TACTICAL_PREFERENCE_DEFAULTS[teams[side].style]),
         },
         roster: rosterKey(state, side),
+        dismissals: dismissalCount(state, side),
         halftimeReviewed: false,
         decisions: [],
       },
@@ -204,9 +208,8 @@ export const assessCoachTactics = (
     )
       continue;
     const roster = rosterKey(state, side);
-    const dismissal =
-      roster !== memory.roster &&
-      state.players.some((p) => p.team === side && state.discipline?.[p.id]?.sentOff);
+    const dismissals = dismissalCount(state, side);
+    const dismissal = dismissals > (memory.dismissals ?? 0);
     if (halftime && memory.halftimeReviewed) continue;
     if (
       !halftime &&
@@ -282,7 +285,7 @@ export const assessCoachTactics = (
         !rolesForPlayer(player).some((r) => r.id === id)
       )
         return;
-      const from = tacticalRoleFor(state, player).id;
+      const from = state.rolePlan?.assignments[player.id] ?? tacticalRoleFor(state, player).id;
       if (from === id) return;
       state = changeTacticalRole(state, player.id, id, 'coach');
       roles.push({ playerId: player.id, from, to: id });
@@ -298,12 +301,12 @@ export const assessCoachTactics = (
       if (chosen === 'reorganise') {
         state = reorganise(state, side);
         state = { ...state, rolePlan: state.rolePlan ?? assignTacticalRoles(state) };
-        setRole(
-          state.players.find(
-            (p) => p.team === side && available(state, p) && p.slot.position === 'center_back',
-          ),
-          'covering_defender',
-        );
+        for (const player of state.players.filter((p) => p.team === side && available(state, p)))
+          if (own.find((p) => p.id === player.id)?.slotIndex !== player.slotIndex)
+            setRole(
+              player,
+              player.slot.position === 'center_back' ? 'covering_defender' : 'deep_playmaker',
+            );
         after.organisedPress = clamp(base.organisedPress - 0.16);
         after.blockHeight = clamp(base.blockHeight - 0.1);
       }
@@ -404,6 +407,7 @@ export const assessCoachTactics = (
             ...memory,
             assessedAt: state.time,
             roster,
+            dismissals,
             halftimeReviewed: memory.halftimeReviewed || halftime,
             ...(changed ? { plan: chosen, channel: selectedChannel, changedAt: state.time } : {}),
             decisions: [...memory.decisions, decision].slice(-48),

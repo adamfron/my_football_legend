@@ -14,11 +14,12 @@ const rows = [];
 for (const path of [
   'docs/performance/pr179-evidence/pr178-worst-hold-input.json.gz',
   'docs/performance/pr179-evidence/r2-new-hold-state.json.gz',
+  'docs/performance/pr182-evidence/r2-new-ww-hold-state.json.gz',
 ]) {
   const input = JSON.parse(gunzipSync(readFileSync(path)));
   const original = input.state ?? input;
   for (const policy of PRIMARY_DECISION_POLICIES) {
-    let state = { ...structuredClone(original), decisionPolicy: policy };
+    let state = { ...globalThis.structuredClone(original), decisionPolicy: policy };
     const owner = state.players.find((p) => p.id === state.ball.ownerId);
     const initial = hash(state),
       rank = owner ? rankAvailableActionsForAI(state, owner.id) : [];
@@ -76,7 +77,7 @@ writeFileSync(
     {
       sourceHash: pr172SourceHash(),
       scope:
-        'Two unchanged historical physical states, five policies, 30-second canonical continuations; dependent development regression, no independent frequency claim.',
+        'Two unchanged historical physical states and the new PR182 development WW hold, five policies, 30-second canonical continuations; dependent development regression, no independent frequency claim.',
       rows,
     },
     null,

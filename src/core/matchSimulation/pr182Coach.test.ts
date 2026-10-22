@@ -17,6 +17,13 @@ import { evaluateRoleReplacement } from './substitutions';
 import { createMatchFitness } from './matchFitness';
 import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
 import { PRIMARY_DECISION_POLICIES } from './decisionPolicyConfig';
+import {
+  canReconsiderDecision,
+  canReleaseControlledAction,
+  markDecisionEvaluated,
+} from './decisionReadiness';
+import { createSpatialFixture } from '../../../scripts/pr181SpatialFixtures';
+import { roleMovementTarget } from './roleTactics';
 
 const fixture = () => {
   const f = createReformFixture('stationary-winger');
@@ -37,6 +44,53 @@ const evidence = (
 
 describe('PR182 bounded coach intelligence', () => {
   it.each(PRIMARY_DECISION_POLICIES)(
+    'obeys a manager role instruction through real movement authority in %s',
+    (policy) => {
+      const { state, runner } = fixture();
+      state.decisionPolicy = policy;
+      const short = changeTacticalRole(state, runner.id, 'wide_playmaker', 'coach');
+      const depth = changeTacticalRole(short, runner.id, 'traditional_winger', 'coach');
+      expect(roleMovementTarget(depth, runner, runner.position)).not.toEqual(
+        roleMovementTarget(short, runner, runner.position),
+      );
+    },
+  );
+  it('recognises known motor recovery without granting contact or exceeding the ranking budget', () => {
+    const { state, actor } = fixture();
+    state.ball = { ...state.ball, ...actor.position, ownerId: actor.id, height: 0 };
+    state.lastGroundContact = {
+      actorId: actor.id,
+      at: state.time,
+      region: 'left_foot',
+      point: actor.position,
+      incomingVelocity: { x: 0, y: 0 },
+      outgoingVelocity: { x: 0, y: 0 },
+      retained: true,
+      executed: true,
+      physicalCount: 1,
+    };
+    state.decisionReadiness = markDecisionEvaluated(state, actor);
+    state.time += 0.05;
+    expect(canReleaseControlledAction(state, actor)).toBe(false);
+    expect(canReconsiderDecision(state, actor)).toBe(false);
+    state.time += 0.075;
+    expect(canReleaseControlledAction(state, actor)).toBe(true);
+    expect(canReconsiderDecision(state, actor)).toBe(true);
+  });
+  it('keeps a target forward in finishing space for an advanced wide carrier, while a false nine can connect', () => {
+    const { state, striker, actor } = createSpatialFixture('cross-target');
+    actor.position.x = 76;
+    state.ball.x = 76.4;
+    striker.position.x = 85;
+    state.decisionPolicy = 'role-intent-v1';
+    const target = roleMovementTarget(state, striker, striker.position);
+    const falseNine = changeTacticalRole(state, striker.id, 'false_nine');
+    const short = roleMovementTarget(falseNine, striker, striker.position);
+    expect(target.x).toBeGreaterThan(87);
+    expect(target.x).toBeGreaterThan(short.x + 4);
+    expect(target.y).toBeGreaterThan(20);
+  });
+  it.each(PRIMARY_DECISION_POLICIES)(
     'recovers actual foot contact in the unchanged historical keeper hold: %s',
     (policy) => {
       const raw = JSON.parse(
@@ -44,8 +98,8 @@ describe('PR182 bounded coach intelligence', () => {
           readFileSync('docs/performance/pr179-evidence/r2-new-hold-state.json.gz'),
         ).toString(),
       );
-    tacticalMatchStateSchema.parse(raw);
-    let state: TacticalMatchState = raw;
+      tacticalMatchStateSchema.parse(raw);
+      let state: TacticalMatchState = raw;
       state.decisionPolicy = policy;
       const owner = state.ball.ownerId;
       for (let tick = 0; tick < 320; tick++)
@@ -162,6 +216,11 @@ describe('PR182 bounded coach intelligence', () => {
     );
     expect(next.teams.home.coaching!.decisions.at(-1)!.trigger).toBe('dismissal');
     expect(next.teams.home.coaching!.plan).toBe('reorganise');
+    expect(next.rolePlan!.assignments[replacement.id]).toBe('covering_defender');
+    let continued = next;
+    for (let tick = 0; tick < 120; tick++)
+      continued = stepTacticalMatchAfterDecisionProbe(continued, 0.025);
+    expect(continued.players.filter((p) => p.team === 'home')).toHaveLength(10);
   });
   it.each([
     [1, 'protect_lead'],

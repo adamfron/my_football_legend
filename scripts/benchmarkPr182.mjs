@@ -44,6 +44,8 @@ const sourceHash = pr172SourceHash(root);
 const productionHash = pr182SourceHash(root);
 const frozenHarnessHash = pr182HarnessHash(root);
 if (cohort === 'validation') {
+  if (args.has('seconds') || args.has('manual'))
+    throw Error('Primary validation requires complete frozen fixtures');
   const freeze = JSON.parse(readFileSync(resolve(root, 'docs/performance/PR182-freeze.json')));
   if (freeze.sourceHash !== productionHash || freeze.harnessHash !== frozenHarnessHash)
     throw Error('Validation requires the unchanged preregistered source and observer freeze');
@@ -84,12 +86,27 @@ if (args.has('manual')) {
       state,
       session,
       inputHash: sha(state),
+      sessionHash: sha(session),
     },
   ];
 }
 if (args.has('ids'))
   fixtures = fixtures.filter((f) => args.get('ids').split(',').includes(f.design.id));
 for (const f of fixtures) {
+  if (digest(f.state) !== f.inputHash || digest(f.session) !== f.sessionHash)
+    throw Error('Input bytes/hash mismatch');
+  if (cohort === 'validation') {
+    const manifest = JSON.parse(
+      readFileSync(resolve(root, 'docs/performance/PR182-validation-inputs.json')),
+    );
+    const declared = manifest.rows.find((r) => r.design.id === f.design.id);
+    if (
+      !declared ||
+      declared.inputHash !== f.inputHash ||
+      declared.sessionHash !== digest(f.session)
+    )
+      throw Error('Fixture not in the declared primary validation cohort');
+  }
   let state = configureMatchPolicy(globalThis.structuredClone(f.state), policy),
     ticks = 0,
     errors = [],
@@ -204,6 +221,13 @@ for (const f of fixtures) {
           wall: (performance.now() - started) / 1000,
         }),
       );
+    if (cohort === 'validation' && ticks % 8000 === 0) {
+      const used = process.cpuUsage(cpu);
+      if ((used.user + used.system) / 1e6 > 600) {
+        errors.push({ at: state.time, error: 'Predeclared 600 CPU-second match budget exceeded' });
+        break;
+      }
+    }
   }
   assertMatchStatisticsInvariants(state.statistics, state);
   if (!args.has('seconds') && state.status !== 'full_time') {
@@ -222,6 +246,12 @@ for (const f of fixtures) {
   const usage = process.cpuUsage(cpu),
     list = [...passes.values()],
     first = list.filter((p) => p.executionType === 'first_time');
+  if (Math.abs(clock.inPlay + clock.stoppage - clock.elapsed) > 1e-6)
+    throw Error('Live/dead canonical clock does not reconcile');
+  const officialAttempts = state.statistics.players.reduce((n, p) => n + p.passesAttempted, 0);
+  if (list.length !== officialAttempts || flow.firstTimePassAttempts !== first.length)
+    throw Error('Canonical pass/first-time attempt identity mismatch');
+  if (errors.length) process.exitCode = 1;
   intervals.sort((a, b) => a - b);
   const receipt = {
     schema: 'mfl-pr182-benchmark-v1',

@@ -1505,7 +1505,8 @@ const stepTacticalMatchCore = (
       player = { ...player, target: { ...state.keeperIntervention.target } };
     if (state.keeperIntervention?.keeperId === player.id) movementTarget = player.target;
     if (
-      state.scenario === 'open_play' &&
+      !isRestartSetup(state) &&
+      !state.postGoal &&
       state.ball.ownerId === player.id &&
       state.ballCarrierIntent?.actorId !== player.id &&
       state.playerMovementIntent?.actorId !== player.id
@@ -2846,6 +2847,11 @@ export const startSecondHalf = (state: TacticalMatchState): TacticalMatchState =
     status: 'second_half' as const,
     actionCooldown: 0.4,
   });
+  for (const side of ['home', 'away'] as const) {
+    const coaching = ready.teams[side].coaching;
+    if (coaching?.channel !== undefined)
+      ready.teams[side].coaching = { ...coaching, channel: 2 - coaching.channel };
+  }
   delete ready.teams.home.threatMemory;
   delete ready.teams.away.threatMemory;
   delete ready.offsideSnapshot;
