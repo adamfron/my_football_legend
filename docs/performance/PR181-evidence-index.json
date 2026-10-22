@@ -14,6 +14,11 @@
       "sha256": "90d65b9547c431908be137f8ec7bce3a42f4f708911b84bad96f02e4432879d7"
     },
     {
+      "path": "docs/performance/PR181-ci-regression.json",
+      "bytes": 1703,
+      "sha256": "5d47ddd430f3518f983dbfefc435d49d64b6cc4b77eed30ba0b10dccbe9ad843"
+    },
+    {
       "path": "docs/performance/PR181-controlled.json",
       "bytes": 298572,
       "sha256": "abd86886e87244d5dbffade46fb143bec2cef8c67669d9d3faaf31c19ccf11eb"
@@ -499,6 +504,21 @@
       "sha256": "09df44007c9178ea59db770a219fce56c1f397253b56410770b7785124d8150e"
     },
     {
+      "path": "docs/performance/pr181-evidence/pr181-ci-jsdom-baseline.log.gz",
+      "bytes": 672,
+      "sha256": "7174e9d105d69b86fb9975a6f0939a0f61c265c71240805bb17ae68c36bc9ca3"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/pr181-ci-node-regression.log.gz",
+      "bytes": 664,
+      "sha256": "2076ead4ab1577e2c7f2dba9c8ca965040adaed626995eddfe785aba59e84ac5"
+    },
+    {
+      "path": "docs/performance/pr181-evidence/pr181-ci-regression-final.log.gz",
+      "bytes": 668,
+      "sha256": "aadf1e13589dda1e3dab6f56106b3cc2bb7174b6c07f0db3fd396831b91cf196"
+    },
+    {
       "path": "docs/performance/pr181-evidence/verify-concurrent-timeout.log.gz",
       "bytes": 1226,
       "sha256": "458e019da9d8e7222f8507c31522feed4264c75e201a582fe7b3bdb8b4906e73"
@@ -585,8 +605,8 @@
     },
     {
       "path": "scripts/reportPr181Final.mjs",
-      "bytes": 12067,
-      "sha256": "bdb99684b4dfad54cd1b910b66e74bb10ac62dac73273477d5e5a6fbb7f5cd87"
+      "bytes": 12120,
+      "sha256": "690d6d059eb8f56313647312d236a387f14d797fb35492e74168a84d30385f4f"
     },
     {
       "path": "scripts/reportPr181Lineage.mjs",

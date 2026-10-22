@@ -311,8 +311,9 @@ and exactly-once accounting.
 **Full original `npm run verify` PASS: 2,020 tests** (1,957 unit, 54 integration,
 4 career contract, 5 full career), lint, TypeScript and Vite build. The
 [verification receipt](performance/PR181-verification.json) preserves the full log,
-an earlier concurrent wall-time timeout and its serial repeat; original test limits
-and performance budgets are unchanged. Existing build chunk/dynamic-import warnings
+an earlier concurrent wall-time timeout and its serial repeat; that initial run used
+the original test limits and performance budgets. The later CI repair is documented
+below. Existing build chunk/dynamic-import warnings
 are recorded. Final production source is `7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc`.
 
 [Complete-state integrity](performance/PR181-integrity.json) reproduces each policy's
@@ -350,6 +351,25 @@ checkout newline normalization, without decoding reserved inputs.
 the committed receipts and compressed artifacts by SHA-256.
 
 <!-- PR181_VERIFICATION_END -->
+
+### CI follow-up: accounting projection soak
+
+The first GitHub run passed 1,956 unit tests and the complete career group, but
+`pr149Statistics.test.ts` exceeded Vitest's default 5-second timeout during its
+two 60-second trajectories. No equality/accounting assertion failed. The aggregate
+`quality` failure followed that one failed group.
+
+This pure engine/projection suite now uses Node, and the single long parity test
+has an explicit 15-second timeout for shared-runner variance. Its seed, two sets
+of 2,400 fixed 0.025-second steps, projection every 20 steps, complete-state equality
+and all accounting assertions remain intact. No production source, simulation
+clock, physics step, benchmark budget or cohort result changes.
+
+[CI repair receipt](performance/PR181-ci-regression.json) retains the original
+failure link and local runs. Moving to Node removes the unused DOM startup, but
+does not materially reduce the simulation's roughly four-second local runtime;
+the dedicated timeout provides the needed headroom. The complete eight-test suite
+passes, and full verification is rerun separately from the targeted check.
 
 The all-field telemetry references retain every schema, identity ledger and assertion.
 Original PR180 and final 2400-tick outputs are each reproduced twice in fresh processes:

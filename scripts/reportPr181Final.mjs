@@ -210,8 +210,9 @@ const section = `<!-- PR181_VERIFICATION_START -->
 **Full original \`npm run verify\` PASS: 2,020 tests** (1,957 unit, 54 integration,
 4 career contract, 5 full career), lint, TypeScript and Vite build. The
 [verification receipt](performance/PR181-verification.json) preserves the full log,
-an earlier concurrent wall-time timeout and its serial repeat; original test limits
-and performance budgets are unchanged. Existing build chunk/dynamic-import warnings
+an earlier concurrent wall-time timeout and its serial repeat; that initial run used
+the original test limits and performance budgets. The later CI repair is documented
+below. Existing build chunk/dynamic-import warnings
 are recorded. Final production source is \`${sourceHash}\`.
 
 [Complete-state integrity](performance/PR181-integrity.json) reproduces each policy's

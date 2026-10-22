@@ -1,0 +1,40 @@
+{
+  "schema": "mfl-pr181-ci-regression-v1",
+  "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+  "failedHead": "6ded44510353226d2c1f8904b1decc7ea977b599",
+  "failedJob": "https://github.com/adamfron/my_football_legend/actions/runs/39713468895/job/119609990669",
+  "failure": "Only pr149Statistics headless/projected correctness soak exceeded default 5000ms; 1956 other unit tests and the career group passed.",
+  "repair": {
+    "environment": "node",
+    "singleParityTestTimeoutMs": 15000,
+    "previousDefaultTimeoutMs": 5000,
+    "trajectories": 2,
+    "fixedStepsPerTrajectory": 2400,
+    "fixedDt": 0.025,
+    "projectionEverySteps": 20,
+    "assertionsPreserved": true,
+    "productionSourceUnchanged": true
+  },
+  "local": {
+    "originalJsdomSingleTestMs": 3960,
+    "nodeSuiteBeforeExplicitTimeoutMs": 4084,
+    "finalNodeSingleTestMs": 4031,
+    "finalSuiteTests": 8,
+    "exitCode": 0,
+    "interpretation": "Node removes unused DOM setup; actual simulation runtime remains near four seconds. Explicit per-test correctness timeout provides shared-runner headroom, without changing physical simulation or separate performance budgets."
+  },
+  "logs": [
+    {
+      "artifact": "pr181-evidence/pr181-ci-jsdom-baseline.log.gz",
+      "logSha256": "0a011731c9e46ccef6f32f9393885c1a27dd7ed1f443c9ffe995c51707d2c556"
+    },
+    {
+      "artifact": "pr181-evidence/pr181-ci-node-regression.log.gz",
+      "logSha256": "f2f9114e78f210508d2eb977260bffe654cc750049f88515f4181b2f7eb26ec5"
+    },
+    {
+      "artifact": "pr181-evidence/pr181-ci-regression-final.log.gz",
+      "logSha256": "5f9846d7bc4c5d4c2d643a7ea8a6da294a5e847d872bb0120e162e479e7b60af"
+    }
+  ]
+}
