@@ -1,0 +1,64 @@
+{
+  "schema": "mfl-pr182-review-verification-v1",
+  "checkedAt": "2026-10-22T18:47:38.083Z",
+  "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+  "productionUnchangedAfterFullVerify": true,
+  "fullOriginalCommand": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "tests": 2057,
+    "unit": 1993,
+    "matchIntegration": 55,
+    "career": 4,
+    "fullCareer": 5,
+    "scope": "Corrected production candidate, before test-only native execution refactor and added IPC parity test."
+  },
+  "finalTestHarness": {
+    "lint": "PASS",
+    "matchIntegration": {
+      "tests": 56,
+      "files": 3,
+      "exitCode": 0
+    },
+    "typeScriptAndBuild": "PASS",
+    "unchangedOriginalLimits": {
+      "legacyHalfMilliseconds": 90000,
+      "substitutionUI": 30000
+    },
+    "newBHalfBudgetMilliseconds": 180000,
+    "provenance": "The identical half loop and both liveness guards execute in native Node, within the parent wall budget. Binary V8 transport preserves the initial state. Seven original assertions remain in Vitest; one new strict complete-state parity test covers the process boundary. The UI keeps all assertions and waits for the actual substitution/status before checking further play."
+  },
+  "currentSuite": {
+    "unit": 1993,
+    "matchIntegration": 56,
+    "career": 4,
+    "fullCareer": 5,
+    "total": 2058
+  },
+  "githubChecks": "https://github.com/adamfron/my_football_legend/pull/182/checks",
+  "warnings": [
+    "Existing chunk-size and ineffective dynamic import warnings; production build succeeds."
+  ],
+  "logs": [
+    {
+      "name": "pr182-review-verify.log",
+      "path": "docs/performance/pr182-evidence/review/pr182-review-verify.log.gz",
+      "sha256": "82311e8d50a1af71c87e194c4ecd0f3d4a462ac0cf3ed3e2a29c3ef039c0b3bc"
+    },
+    {
+      "name": "pr182-review-final-lint.log",
+      "path": "docs/performance/pr182-evidence/review/pr182-review-final-lint.log.gz",
+      "sha256": "39e781f2eb1b5c98f68c8ee435a6f0b564b9da640d92873269a45f1107e557b5"
+    },
+    {
+      "name": "pr182-review-final-integration.log",
+      "path": "docs/performance/pr182-evidence/review/pr182-review-final-integration.log.gz",
+      "sha256": "85c43a81a7b79dc8bef8a96ac2081edd325abce4f56553ba790fb19c24963a15"
+    },
+    {
+      "name": "pr182-review-final-build.log",
+      "path": "docs/performance/pr182-evidence/review/pr182-review-final-build.log.gz",
+      "sha256": "45c352e4c432c8685d0411d7c4702ca775cf33ae5ab0ec2bb9d26b4de1671dbb"
+    }
+  ]
+}

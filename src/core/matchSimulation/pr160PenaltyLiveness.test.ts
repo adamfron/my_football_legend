@@ -24,6 +24,43 @@ import { projectPlayerDecisionOpportunity } from './playerDecision';
 import type { TacticalMatchState } from './matchState';
 import { tacticalMatchStateSchema } from './matchState';
 import { DEFAULT_DECISION_POLICY, type DecisionPolicyId } from './decisionPolicyConfig';
+import { spawn } from 'node:child_process';
+import { deserialize, serialize } from 'node:v8';
+import {
+  penaltyHalfReceiptSchema,
+  runPenaltyHalfContract,
+} from '../../../scripts/penaltyHalfContract';
+
+const nativePenaltyHalf = (initial: TacticalMatchState, budget: number) =>
+  new Promise<ReturnType<typeof penaltyHalfReceiptSchema.parse>>((resolve, reject) => {
+    const child = spawn(
+      process.execPath,
+      [
+        '--experimental-transform-types',
+        '--import',
+        './scripts/registerTypescriptLoader.mjs',
+        'scripts/runPenaltyHalfContract.mjs',
+      ],
+      { windowsHide: true, timeout: budget - 500 },
+    );
+    const chunks: Buffer[] = [];
+    let stderr = '';
+    child.stdout.on('data', (chunk: Buffer) => chunks.push(chunk));
+    child.stderr.on('data', (chunk: Buffer) => {
+      stderr += chunk.toString();
+    });
+    child.on('error', reject);
+    child.on('close', (code) => {
+      if (code !== 0) return reject(new Error(`Native penalty half failed (${code}): ${stderr}`));
+      try {
+        resolve(penaltyHalfReceiptSchema.parse(deserialize(Buffer.concat(chunks))));
+      } catch (error) {
+        reject(error);
+      }
+    });
+    child.stdin.on('error', reject);
+    child.stdin.end(serialize(initial));
+  });
 const world = createCanonicalWorldDatabase();
 const fixture = (
   seed = 'lab-mv1fg3zw',
@@ -410,53 +447,34 @@ describe('PR160 penalty liveness regression', () => {
     });
     expect(state.restart?.selectedAction).toBeUndefined();
   });
+  it('preserves the complete canonical state across native and Vitest execution', async () => {
+    const initial = fixture('pr182-native-penalty-parity');
+    initial.timekeeping = {
+      period: 'first_half',
+      periodStartedAt: 0,
+      nominalEndAt: 1,
+      qualifyingLostSeconds: 0,
+      additionalLostAfterAnnouncement: 0,
+      requiredEndAt: 1,
+    };
+    const expected = penaltyHalfReceiptSchema.parse(
+      runPenaltyHalfContract(structuredClone(initial)),
+    );
+    const actual = await nativePenaltyHalf(initial, 10000);
+    expect(actual).toStrictEqual(expected);
+    expect(actual.state.status).toBe('half_time');
+  }, 10000);
   describe.each([
     { policy: 'legacy-pr176' as const, budget: 90000 },
     { policy: DEFAULT_DECISION_POLICY, budget: 180000 },
   ])('whole-half penalty contract: $policy', ({ policy, budget }) => {
     it(
       'completes a whole CPU half with a penalty and meaningful canonical progress',
-      () => {
-        let state = { ...fixture('pr160-full-half-penalty', 0, policy), actionCooldown: 0 };
-        let awarded = false;
-        let penaltyExecution: number | undefined;
-        let lastProgressAt = 0;
-        let lastDecision = state.decisionIndex;
-        for (let i = 0; i < 140000 && state.status === 'first_half'; i++) {
-          // A foul cannot replace an unrelated dead-ball award. Its stoppage ledger
-          // retains the original incident ID, so injecting during setup made the
-          // execution lookup depend on the exact trajectory at 415 seconds.
-          if (
-            !awarded &&
-            state.time >= 415 &&
-            !state.restart &&
-            !state.postGoal &&
-            state.scenario === 'open_play'
-          ) {
-            state = awardNaturalRestart(state, 'penalty', {
-              restartTeam: 'away',
-              incidentId: 'pr160-full-half-penalty',
-              incidentPoint: { x: 11, y: 34 },
-              cause: 'foul',
-            });
-            awarded = true;
-          }
-          state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
-          penaltyExecution ??= executionAt(state, 'pr160-full-half-penalty');
-          if (state.decisionIndex !== lastDecision) {
-            lastProgressAt = state.time;
-            lastDecision = state.decisionIndex;
-          }
-          if (state.time - lastProgressAt > 180)
-            throw new Error(
-              `No canonical football/restart action for ${state.time - lastProgressAt}s; ${JSON.stringify(state.restart?.readiness)}`,
-            );
-          const locks =
-            state.restartLivenessDiagnostics?.filter(
-              (d) => d.classification === 'soft_lock' && d.unchangedSeconds >= 120,
-            ) ?? [];
-          if (locks.length) throw new Error(`Restart soft lock: ${JSON.stringify(locks.at(-1))}`);
-        }
+      async () => {
+        const { state, awarded, penaltyExecution } = await nativePenaltyHalf(
+          { ...fixture('pr160-full-half-penalty', 0, policy), actionCooldown: 0 },
+          budget,
+        );
         expect(awarded).toBe(true);
         expect(penaltyExecution).toBeDefined();
         expect(state.status).toBe('half_time');

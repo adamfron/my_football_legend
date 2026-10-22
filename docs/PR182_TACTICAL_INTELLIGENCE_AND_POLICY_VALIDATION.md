@@ -51,8 +51,31 @@ B default is retained. Raw complete final states and detailed reports are under
 Review verification uses the unchanged `npm run verify` command. The current
 [PR checks](https://github.com/adamfron/my_football_legend/pull/182/checks) and the
 PR's review follow-up report its current result; the original 2051-test receipt
-belongs to the original candidate. Expected review coverage is 2057 tests: 1993
-unit, 55 match integration, four career contracts and five full-career tests.
+belongs to the original candidate. Review coverage is 2058 tests: 1993 unit,
+56 match integration, four career contracts and five full-career tests.
+
+GitHub run `39830303103` then passed the career job and all 1993 unit tests, but
+exceeded two original wall budgets: the legacy half took 102.7 s against 90 s,
+and the substitution UI test took 35.1 s against 30 s. Those limits are retained.
+The UI test now advances in small `act` batches until the actual substitution and
+spectator status are both visible, then checks further canonical football. It no
+longer runs hundreds of unrelated simulated seconds in one coalesced fake-clock
+burst. The same assertions pass locally in 5.8 s.
+
+The full-half loop and both liveness guards move intact to
+`scripts/penaltyHalfContract.ts`, executed through the existing native TypeScript
+loader in a child Node process. The 90/180 s parent budgets include process startup;
+the child is killed before its parent's deadline. V8 binary serialization preserves
+the exact initial state, including undefined fields. All seven original full-half
+assertions remain in Vitest, and an additional strict whole-state parity test
+checks the native/framework boundary. Native legacy/B halves completed locally in
+62.6/76.7 s. No production source, policy or physics was changed for these test fixes.
+
+The full original local `npm run verify` passed 2057 tests for this production
+candidate before the test execution refactor. Final lint, the complete 56-test
+integration group and production build are repeated after that refactor, with
+separate logs in `PR182-review-verification.json`. Current GitHub checks cover all
+2058 tests at the final commit.
 
 ## Plan and evidence boundary
 

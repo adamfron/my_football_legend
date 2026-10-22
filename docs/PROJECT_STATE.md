@@ -27,7 +27,7 @@ porównanie. [Wyniki, metodologia i weryfikacja PR182](PR182_TACTICAL_INTELLIGEN
 
 Pierwotny kandydat: pełne `npm run verify` **PASS, 2051 testów**, lint, TypeScript i build.
 Review dodaje pięć regresji kolejnych wykluczeń oraz osobny pełny przebieg B z karnym
-(łącznie 2057 testów); bieżący wynik sprawdzeń jest w [CI PR182](https://github.com/adamfron/my_football_legend/pull/182/checks).
+(razem z kontrolą zgodności Node/Vitest: 2058 testów); bieżący wynik sprawdzeń jest w [CI PR182](https://github.com/adamfron/my_football_legend/pull/182/checks).
 Osobne potwierdzenie poprawionego kandydata: **6/6 pełnych meczów**, bez patologicznych
 holdów; maksymalny hold B 20,2 s. Wynik SW 10:0 i nadmierna cyrkulacja pozostają
 ograniczeniami kalibracji. Przeszedł pierwotny test Edge dla rzeczywistego B, pięciu identycznych wejść, eksportów

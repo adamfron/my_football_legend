@@ -651,7 +651,21 @@ describe('background Match Lab orchestration', () => {
       policy.value = 'key_player';
       policy.dispatchEvent(new Event('change', { bubbles: true }));
     });
-    act(() => vi.advanceTimersByTime(300));
+    // Advance through the real exit/entry, then test continued football below.
+    // A fixed 300ms fake-clock burst simulated hundreds of unrelated seconds
+    // after completion because the background clock intentionally has no wall cost.
+    for (let elapsed = 0; elapsed < 300; elapsed += 20) {
+      act(() => vi.advanceTimersByTime(20));
+      if (
+        controller.latestState.substitutionState!.completed.some(
+          (fact) => fact.outgoingId === controlledId && fact.incomingId === incomingId,
+        ) &&
+        container
+          .querySelector('.match-centre [role="status"]')
+          ?.textContent?.includes('Obserwujesz dalszy przebieg spotkania')
+      )
+        break;
+    }
     const final = controller.latestState;
     expect(
       final.substitutionState!.completed.some(
