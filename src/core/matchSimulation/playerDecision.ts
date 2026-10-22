@@ -1061,7 +1061,6 @@ export const projectPlayerAgency = (
   let redecisionReason = humanPossessionRedecisionReason(state);
   const preparation = state.onBallPreparation;
   if (
-    !redecisionReason &&
     humanPossession &&
     !mandatoryShot &&
     state.humanPossessionEpisode?.intent === 'control' &&
@@ -1069,6 +1068,8 @@ export const projectPlayerAgency = (
     state.time >= preparation.readyAt &&
     (!preparation.continuation || state.time >= preparation.continuation.until) &&
     onBallRelevance().relevant &&
+    // Completing the selected control owns this acknowledgement, including when an
+    // advancing keeper changes the same finishing choice. Threats still shape its options.
     // A chosen incoming control already expressed the human's first-touch intention.
     // An unchanged open sprint route cannot immediately ask that same choice again;
     // semantic pressure/route changes above still reopen the decision normally.

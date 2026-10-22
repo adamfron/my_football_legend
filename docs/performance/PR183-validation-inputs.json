@@ -1,0 +1,93 @@
+{
+  "schema": "mfl-pr183-inputs-v1",
+  "sourceHashAtMaterialisation": "154e665d214b57b87626051d79016d14a66a56ea2525b9069f6a3384dde7baa7",
+  "cohort": "validation",
+  "simulatedTicks": 0,
+  "unit": "native SS/SW/WW design, paired across five policies",
+  "rows": [
+    {
+      "design": {
+        "id": "pr183-validation-ss-1",
+        "split": "validation",
+        "seed": "20261022-pr183-fresh:pr183-validation-ss-1:v1",
+        "youth": false,
+        "clubs": [
+          "pro_5",
+          "pro_13"
+        ],
+        "formations": [
+          "3-5-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "counter_attacking"
+        ],
+        "attributes": "native",
+        "tier": "SS",
+        "strength": [
+          72.82077922077922,
+          71.04415584415584
+        ]
+      },
+      "inputHash": "bbcb0da92cb9cdaae7fe48393a657ee74bd882cd1ec1890c482cfb678e9b3323",
+      "sessionHash": "59bee61fbb50f21c1947affc74ceb45f61469ac4aae2e098502af817f73f4b5c"
+    },
+    {
+      "design": {
+        "id": "pr183-validation-sw-1",
+        "split": "validation",
+        "seed": "20261022-pr183-fresh:pr183-validation-sw-1:v1",
+        "youth": false,
+        "clubs": [
+          "pro_13",
+          "pro_58"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "direct",
+          "pressing"
+        ],
+        "attributes": "native",
+        "tier": "SW",
+        "strength": [
+          71.04415584415584,
+          41.189610389610394
+        ]
+      },
+      "inputHash": "39f5e923c99d461093e7409a070c9a53dafafb817dd06eae1cb765341567a23a",
+      "sessionHash": "8f3f84403dca4a74e4a47059efa776ae5935623884785a092aadf57c98877bfa"
+    },
+    {
+      "design": {
+        "id": "pr183-validation-ww-1",
+        "split": "validation",
+        "seed": "20261022-pr183-fresh:pr183-validation-ww-1:v1",
+        "youth": false,
+        "clubs": [
+          "pro_58",
+          "pro_61"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "balanced",
+          "possession"
+        ],
+        "attributes": "native",
+        "tier": "WW",
+        "strength": [
+          41.189610389610394,
+          49.73051948051948
+        ]
+      },
+      "inputHash": "50fd2e5a7901b90ad60485db9dc7d9a6a14c1dfd8f3243e56343a7fe1b45f57e",
+      "sessionHash": "228fe6243839e9d31987a73a17a9a8fe8dd4d16c41e3ebecb95a468ff32e397a"
+    }
+  ]
+}

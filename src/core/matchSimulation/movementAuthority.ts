@@ -73,7 +73,10 @@ export const authoritativeMovementTarget = (
   const challenge = state.defensiveChallenge;
   if (challenge?.actorId === player.id) add('commitment', challenge.target);
   const carry = state.ballCarrierIntent;
-  if (carry?.actorId === player.id && state.ball.ownerId === player.id)
+  if (
+    carry?.actorId === player.id &&
+    (state.ball.ownerId === player.id || (!state.ball.ownerId && carry.pursuingBall))
+  )
     add(
       carry.humanSelected ? 'human' : 'commitment',
       carry.localTarget ?? carry.target,

@@ -1,0 +1,49 @@
+{
+  "schema": "mfl-pr183-freeze-v1",
+  "frozenAtUtc": "2026-10-22T22:21:04.671Z",
+  "base": "16c2e71efcec98862b6d6c996f0737f02131235e",
+  "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+  "harnessHash": "7daee0fb672bbc5219eb78555a748968bdf52217b46ebaeac62f345d58164f4a",
+  "defaultPolicy": "state-value-v1",
+  "policies": [
+    "legacy-pr176",
+    "state-value-v1",
+    "role-value-v1",
+    "role-intent-v1",
+    "phase-role-hybrid-v1"
+  ],
+  "validation": [
+    {
+      "id": "pr183-validation-ss-1",
+      "inputHash": "bbcb0da92cb9cdaae7fe48393a657ee74bd882cd1ec1890c482cfb678e9b3323",
+      "sessionHash": "59bee61fbb50f21c1947affc74ceb45f61469ac4aae2e098502af817f73f4b5c"
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "inputHash": "39f5e923c99d461093e7409a070c9a53dafafb817dd06eae1cb765341567a23a",
+      "sessionHash": "8f3f84403dca4a74e4a47059efa776ae5935623884785a092aadf57c98877bfa"
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "inputHash": "50fd2e5a7901b90ad60485db9dc7d9a6a14c1dfd8f3243e56343a7fe1b45f57e",
+      "sessionHash": "228fe6243839e9d31987a73a17a9a8fe8dd4d16c41e3ebecb95a468ff32e397a"
+    }
+  ],
+  "acceptance": {
+    "canonicalDt": 0.025,
+    "fullTimeRuns": 15,
+    "maximumSimulatedSeconds": 7200,
+    "maximumCpuSecondsPerIndependentMatch": 600,
+    "finalStateSchema": "tacticalMatchStateSchema",
+    "statistics": "assertMatchStatisticsInvariants",
+    "observerErrors": 0,
+    "clocks": "inPlay + stoppage = elapsed at fixed-tick precision",
+    "mechanicalRegression": "Both frozen native extreme retreats regain feasible passes and release before another 12m retreat. This is a scenario diagnostic, never a production restriction.",
+    "physicalRegression": "No possession from pursuit; finite real contacts and acceleration; touch/secure-control distinction; emergency substitutions stay legal.",
+    "independence": "Three newly materialised SS/SW/WW designs, zero simulated validation ticks before this freeze. No consumed PR182 input is used as new evidence.",
+    "quality": "Report territorial purpose, shot distance/angle/pressure/attributes/physical outcomes, censored attempts, contact/foul events and all five policies. No event quotas or policy promotion.",
+    "readiness": "Do not call summary calibration ready if circulation, goalkeeper/shooting behaviour or other serious realism limits remain. Full unchanged npm run verify must pass before merge readiness."
+  },
+  "definitions": "pr183Observation.ts and unchanged PR181/182 flow/role observers, identified by harnessHash. Paired design is the experimental unit; 15 matches are three designs, not 15 independent samples.",
+  "validationArchiveHash": "c2d6c7b10e90bdd7b733496eb7c67dd5ecdb6155fe001252a85ac77af8c87657"
+}

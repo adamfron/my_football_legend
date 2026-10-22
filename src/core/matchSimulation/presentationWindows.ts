@@ -159,17 +159,20 @@ export const observeConsequenceWindow = (
       outcomeReason: outcome ?? (ballOut ? 'ball_out' : (reception ?? turnover ?? evidence)),
     };
   }
-  if (state.time - window.selectedAt >= PRESENTATION_WINDOW_RULES.safetyLimit)
-    return { window: next, endReason: 'bounded_safety_fallback', merged: false };
   const goal = next.outcomeReason === 'shot_resolved' && state.lastShot?.outcome === 'goal';
   const tail = goal
     ? PRESENTATION_WINDOW_RULES.goalTail
     : window.dangerous
       ? PRESENTATION_WINDOW_RULES.dangerousTail
       : PRESENTATION_WINDOW_RULES.normalTail;
+  // A newly awarded restart ends the continuous play. Its potential danger belongs
+  // to the next sequence, not to an indefinitely extended previous pass consequence.
   const connected =
-    dangerous || state.time - next.lastDangerAt < PRESENTATION_WINDOW_RULES.mergeQuietSeconds;
+    !ballOut &&
+    (dangerous || state.time - next.lastDangerAt < PRESENTATION_WINDOW_RULES.mergeQuietSeconds);
   if (next.outcomeAt !== undefined && state.time - next.outcomeAt >= tail && !connected)
     return { window: next, endReason: `${next.outcomeReason}:tail_complete`, merged: false };
+  if (state.time - window.selectedAt >= PRESENTATION_WINDOW_RULES.safetyLimit)
+    return { window: next, endReason: 'bounded_safety_fallback', merged: false };
   return { window: next, merged: next.outcomeAt !== undefined && connected };
 };

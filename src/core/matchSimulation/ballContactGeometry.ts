@@ -435,6 +435,7 @@ export const advanceControlledBall = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
   dt: number,
+  reserveDecisionContact = false,
 ): { state: TacticalMatchState; looseVelocity?: { x: number; y: number } } => {
   if (
     state.ball.ownerId !== actor.id ||
@@ -500,7 +501,9 @@ export const advanceControlledBall = (
         (1 - (actor.profile.attributes.agility / 100) * 0.65),
   );
   balance = clamp01(balance - bodyContest.balanceDemand * dt * 3.2);
-  if (state.time + 1e-8 >= active.nextContact.earliestAt && reachable) {
+  // An executable football choice gets the current foot window before another routine
+  // dribble impulse spends it. The ball still rolls normally; no contact is fabricated.
+  if (!reserveDecisionContact && state.time + 1e-8 >= active.nextContact.earliestAt && reachable) {
     const skill = controlSkill(actor);
     const interval =
       (0.15 + (1 - skill) * 0.14 + window.difficulty * 0.2 + (1 - balance) * 0.16) *

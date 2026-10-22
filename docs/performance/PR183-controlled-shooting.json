@@ -1,0 +1,1110 @@
+{
+  "schema": "mfl-pr183-shooting-v1",
+  "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+  "attempts": 192,
+  "scope": "192 paired-noise prescribed shots; finite canonical releases and first physical outcome, not a league conversion estimate",
+  "byDistance": [
+    {
+      "value": 12,
+      "attempts": 64,
+      "outcomes": {
+        "goal": 40,
+        "save": 4,
+        "crossbar": 4,
+        "post": 4,
+        "miss": 12
+      },
+      "meanHorizontalSigma": 1.9068647564224888
+    },
+    {
+      "value": 22,
+      "attempts": 64,
+      "outcomes": {
+        "goal": 27,
+        "crossbar": 4,
+        "miss": 18,
+        "post": 4,
+        "save": 11
+      },
+      "meanHorizontalSigma": 2.6905136184929708
+    },
+    {
+      "value": 30,
+      "attempts": 64,
+      "outcomes": {
+        "goal": 18,
+        "miss": 26,
+        "post": 6,
+        "save": 14
+      },
+      "meanHorizontalSigma": 3.5269027356907836
+    }
+  ],
+  "byAngle": [
+    {
+      "value": 0,
+      "attempts": 96,
+      "outcomes": {
+        "goal": 41,
+        "save": 21,
+        "crossbar": 6,
+        "post": 6,
+        "miss": 22
+      },
+      "meanHorizontalSigma": 2.3629955035535124
+    },
+    {
+      "value": 14,
+      "attempts": 96,
+      "outcomes": {
+        "goal": 44,
+        "miss": 34,
+        "post": 8,
+        "crossbar": 2,
+        "save": 8
+      },
+      "meanHorizontalSigma": 3.0531919035173196
+    }
+  ],
+  "bySkill": [
+    {
+      "value": 40,
+      "attempts": 96,
+      "outcomes": {
+        "goal": 27,
+        "save": 3,
+        "crossbar": 4,
+        "post": 12,
+        "miss": 50
+      },
+      "meanHorizontalSigma": 4.248091792056779
+    },
+    {
+      "value": 85,
+      "attempts": 96,
+      "outcomes": {
+        "goal": 58,
+        "save": 26,
+        "crossbar": 4,
+        "miss": 6,
+        "post": 2
+      },
+      "meanHorizontalSigma": 1.168095615014048
+    }
+  ],
+  "byKeeper": [
+    {
+      "value": 40,
+      "attempts": 96,
+      "outcomes": {
+        "goal": 45,
+        "save": 12,
+        "crossbar": 4,
+        "post": 7,
+        "miss": 28
+      },
+      "meanHorizontalSigma": 2.7080937035354147
+    },
+    {
+      "value": 85,
+      "attempts": 96,
+      "outcomes": {
+        "goal": 40,
+        "save": 17,
+        "crossbar": 4,
+        "post": 7,
+        "miss": 28
+      },
+      "meanHorizontalSigma": 2.7080937035354147
+    }
+  ],
+  "byPressure": [
+    {
+      "value": false,
+      "attempts": 96,
+      "outcomes": {
+        "goal": 51,
+        "save": 25,
+        "crossbar": 4,
+        "miss": 10,
+        "post": 6
+      },
+      "meanHorizontalSigma": 1.4980504954167226
+    },
+    {
+      "value": true,
+      "attempts": 96,
+      "outcomes": {
+        "post": 8,
+        "miss": 46,
+        "goal": 34,
+        "save": 4,
+        "crossbar": 4
+      },
+      "meanHorizontalSigma": 3.918136911654108
+    }
+  ],
+  "humanNpcParity": {
+    "config": {
+      "seedFamily": "pr183-human-npc-parity",
+      "repeats": 2
+    },
+    "collectionScope": "paired_launch_and_first_physical_resolution",
+    "fixtures": [
+      {
+        "name": "close-still-open",
+        "location": {
+          "x": 94,
+          "y": 34
+        },
+        "facingAngle": 1.5707963267948966,
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "defenderDistance": 18
+      },
+      {
+        "name": "close-running-pressure",
+        "location": {
+          "x": 94,
+          "y": 34
+        },
+        "facingAngle": 1.5707963267948966,
+        "velocity": {
+          "x": 5,
+          "y": 0
+        },
+        "defenderDistance": 2.5
+      },
+      {
+        "name": "angle-still-open",
+        "location": {
+          "x": 90,
+          "y": 46
+        },
+        "facingAngle": 1.5707963267948966,
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "defenderDistance": 18
+      },
+      {
+        "name": "angle-sideways-pressure",
+        "location": {
+          "x": 90,
+          "y": 46
+        },
+        "facingAngle": 0,
+        "velocity": {
+          "x": 0,
+          "y": 4
+        },
+        "defenderDistance": 2.5
+      },
+      {
+        "name": "range-running-open",
+        "location": {
+          "x": 83,
+          "y": 34
+        },
+        "facingAngle": 1.5707963267948966,
+        "velocity": {
+          "x": 6,
+          "y": 0
+        },
+        "defenderDistance": 18
+      },
+      {
+        "name": "range-turned-pressure",
+        "location": {
+          "x": 83,
+          "y": 34
+        },
+        "facingAngle": -0.7853981633974483,
+        "velocity": {
+          "x": -2,
+          "y": 3
+        },
+        "defenderDistance": 2.5
+      }
+    ],
+    "sharedInputs": {
+      "shooterAttributes": {
+        "technique": 72,
+        "firstTouch": 72,
+        "passing": 72,
+        "dribbling": 72,
+        "finishing": 72,
+        "tackling": 72,
+        "positioning": 72,
+        "heading": 72,
+        "setPieces": 72,
+        "gameReading": 72,
+        "composure": 72,
+        "concentration": 72,
+        "leadership": 72,
+        "determination": 72,
+        "aggression": 72,
+        "pace": 72,
+        "stamina": 72,
+        "strength": 72,
+        "agility": 72,
+        "jumping": 72,
+        "ambition": 72,
+        "professionalism": 72,
+        "reflexes": 72,
+        "handling": 72,
+        "oneOnOnes": 72,
+        "goalkeeperSweeping": 72,
+        "goalkeeperKicking": 72,
+        "goalkeeperThrowing": 72
+      },
+      "keeperAttributes": {
+        "technique": 72,
+        "firstTouch": 72,
+        "passing": 72,
+        "dribbling": 72,
+        "finishing": 72,
+        "tackling": 72,
+        "positioning": 75,
+        "heading": 72,
+        "setPieces": 72,
+        "gameReading": 72,
+        "composure": 72,
+        "concentration": 75,
+        "leadership": 72,
+        "determination": 72,
+        "aggression": 72,
+        "pace": 72,
+        "stamina": 72,
+        "strength": 72,
+        "agility": 75,
+        "jumping": 72,
+        "ambition": 72,
+        "professionalism": 72,
+        "reflexes": 75,
+        "handling": 75,
+        "oneOnOnes": 72,
+        "goalkeeperSweeping": 72,
+        "goalkeeperKicking": 72,
+        "goalkeeperThrowing": 72
+      },
+      "dominantFoot": "right",
+      "weakFootProficiency": 100,
+      "keeperPosition": {
+        "x": 101,
+        "y": 34.8
+      },
+      "horizontalTargets": [
+        -0.62,
+        0.62
+      ]
+    },
+    "fixtureCount": 6,
+    "seedCount": 2,
+    "pairs": 72,
+    "canonicalLaunchDifferences": 0,
+    "targetMenuDifferences": 0,
+    "keeperInputDifferences": 0,
+    "physicalResultDifferences": 0,
+    "maximumPairedErrorDelta": 0,
+    "human": {
+      "shots": 72,
+      "meanHorizontalError": 0.5071013914981345,
+      "meanVerticalError": -0.16730011447222937,
+      "horizontalErrorStdDev": 0.6868821097126737,
+      "verticalErrorStdDev": 0.657177490104877,
+      "meanActualTarget": {
+        "horizontal": 0.5071013914981348,
+        "vertical": 0.23936655219443725
+      },
+      "meanPressure": 0.3159732034697078,
+      "projectedOnTargetPercent": 58.333333333333336,
+      "onTargetPercent": 61.111111111111114,
+      "postPercent": 1.3888888888888888,
+      "crossbarPercent": 9.722222222222221,
+      "savePercent": 27.77777777777778,
+      "goalPercent": 33.333333333333336,
+      "unresolved": 0
+    },
+    "npc": {
+      "shots": 72,
+      "meanHorizontalError": 0.5071013914981345,
+      "meanVerticalError": -0.16730011447222937,
+      "horizontalErrorStdDev": 0.6868821097126737,
+      "verticalErrorStdDev": 0.657177490104877,
+      "meanActualTarget": {
+        "horizontal": 0.5071013914981348,
+        "vertical": 0.23936655219443725
+      },
+      "meanPressure": 0.3159732034697078,
+      "projectedOnTargetPercent": 58.333333333333336,
+      "onTargetPercent": 61.111111111111114,
+      "postPercent": 1.3888888888888888,
+      "crossbarPercent": 9.722222222222221,
+      "savePercent": 27.77777777777778,
+      "goalPercent": 33.333333333333336,
+      "unresolved": 0
+    },
+    "groups": [
+      {
+        "fixture": "close-still-open",
+        "intent": "driven",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.3137960868697435,
+          "meanVerticalError": -0.10408563124006143,
+          "horizontalErrorStdDev": 0.3555463355814078,
+          "verticalErrorStdDev": 0.3576207088005603,
+          "meanActualTarget": {
+            "horizontal": 0.3137960868697435,
+            "vertical": 0.1959143687599385
+          },
+          "meanPressure": 0.30798207796110594,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.3137960868697435,
+          "meanVerticalError": -0.10408563124006143,
+          "horizontalErrorStdDev": 0.3555463355814078,
+          "verticalErrorStdDev": 0.3576207088005603,
+          "meanActualTarget": {
+            "horizontal": 0.3137960868697435,
+            "vertical": 0.1959143687599385
+          },
+          "meanPressure": 0.30798207796110594,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "close-still-open",
+        "intent": "placed",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.24655406825479836,
+          "meanVerticalError": -0.0817815674029054,
+          "horizontalErrorStdDev": 0.27935783509967754,
+          "verticalErrorStdDev": 0.28098769977186877,
+          "meanActualTarget": {
+            "horizontal": 0.2465540682547984,
+            "vertical": 0.2182184325970946
+          },
+          "meanPressure": 0.30798207796110594,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.24655406825479836,
+          "meanVerticalError": -0.0817815674029054,
+          "horizontalErrorStdDev": 0.27935783509967754,
+          "verticalErrorStdDev": 0.28098769977186877,
+          "meanActualTarget": {
+            "horizontal": 0.2465540682547984,
+            "vertical": 0.2182184325970946
+          },
+          "meanPressure": 0.30798207796110594,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "close-still-open",
+        "intent": "chip",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.2941838314403845,
+          "meanVerticalError": -0.09758027928755758,
+          "horizontalErrorStdDev": 0.3333246896075699,
+          "verticalErrorStdDev": 0.3352694145005253,
+          "meanActualTarget": {
+            "horizontal": 0.2941838314403845,
+            "vertical": 0.5224197207124424
+          },
+          "meanPressure": 0.30798207796110594,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 0,
+          "goalPercent": 75,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.2941838314403845,
+          "meanVerticalError": -0.09758027928755758,
+          "horizontalErrorStdDev": 0.3333246896075699,
+          "verticalErrorStdDev": 0.3352694145005253,
+          "meanActualTarget": {
+            "horizontal": 0.2941838314403845,
+            "vertical": 0.5224197207124424
+          },
+          "meanPressure": 0.30798207796110594,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 0,
+          "goalPercent": 75,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "close-running-pressure",
+        "intent": "driven",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.4875200253809207,
+          "meanVerticalError": -0.17032033293419024,
+          "horizontalErrorStdDev": 0.5523840665951101,
+          "verticalErrorStdDev": 0.5851919949122517,
+          "meanActualTarget": {
+            "horizontal": 0.48752002538092076,
+            "vertical": 0.1296796670658098
+          },
+          "meanPressure": 0.5692857142857142,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.4875200253809207,
+          "meanVerticalError": -0.17032033293419024,
+          "horizontalErrorStdDev": 0.5523840665951101,
+          "verticalErrorStdDev": 0.5851919949122517,
+          "meanActualTarget": {
+            "horizontal": 0.48752002538092076,
+            "vertical": 0.1296796670658098
+          },
+          "meanPressure": 0.5692857142857142,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "close-running-pressure",
+        "intent": "placed",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.38305144851358053,
+          "meanVerticalError": -0.13382311873400662,
+          "horizontalErrorStdDev": 0.4340160523247293,
+          "verticalErrorStdDev": 0.4597937102881977,
+          "meanActualTarget": {
+            "horizontal": 0.38305144851358053,
+            "vertical": 0.1661768812659934
+          },
+          "meanPressure": 0.5692857142857142,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.38305144851358053,
+          "meanVerticalError": -0.13382311873400662,
+          "horizontalErrorStdDev": 0.4340160523247293,
+          "verticalErrorStdDev": 0.4597937102881977,
+          "meanActualTarget": {
+            "horizontal": 0.38305144851358053,
+            "vertical": 0.1661768812659934
+          },
+          "meanPressure": 0.5692857142857142,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "close-running-pressure",
+        "intent": "chip",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.45705002379461307,
+          "meanVerticalError": -0.15967531212580338,
+          "horizontalErrorStdDev": 0.5178600624329155,
+          "verticalErrorStdDev": 0.5486174952302361,
+          "meanActualTarget": {
+            "horizontal": 0.4570500237946131,
+            "vertical": 0.46032468787419667
+          },
+          "meanPressure": 0.5692857142857142,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 0,
+          "goalPercent": 75,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.45705002379461307,
+          "meanVerticalError": -0.15967531212580338,
+          "horizontalErrorStdDev": 0.5178600624329155,
+          "verticalErrorStdDev": 0.5486174952302361,
+          "meanActualTarget": {
+            "horizontal": 0.4570500237946131,
+            "vertical": 0.46032468787419667
+          },
+          "meanPressure": 0.5692857142857142,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 0,
+          "goalPercent": 75,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "angle-still-open",
+        "intent": "driven",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.3729009105067472,
+          "meanVerticalError": -0.10761418722324687,
+          "horizontalErrorStdDev": 0.4225149956082142,
+          "verticalErrorStdDev": 0.36974423321709426,
+          "meanActualTarget": {
+            "horizontal": 0.3729009105067472,
+            "vertical": 0.19238581277675315
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 25,
+          "goalPercent": 50,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.3729009105067472,
+          "meanVerticalError": -0.10761418722324687,
+          "horizontalErrorStdDev": 0.4225149956082142,
+          "verticalErrorStdDev": 0.36974423321709426,
+          "meanActualTarget": {
+            "horizontal": 0.3729009105067472,
+            "vertical": 0.19238581277675315
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 25,
+          "goalPercent": 50,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "angle-still-open",
+        "intent": "placed",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.2929935725410156,
+          "meanVerticalError": -0.08455400424683684,
+          "horizontalErrorStdDev": 0.33197606797788254,
+          "verticalErrorStdDev": 0.29051332609914554,
+          "meanActualTarget": {
+            "horizontal": 0.2929935725410156,
+            "vertical": 0.21544599575316314
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 25,
+          "goalPercent": 50,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.2929935725410156,
+          "meanVerticalError": -0.08455400424683684,
+          "horizontalErrorStdDev": 0.33197606797788254,
+          "verticalErrorStdDev": 0.29051332609914554,
+          "meanActualTarget": {
+            "horizontal": 0.2929935725410156,
+            "vertical": 0.21544599575316314
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 25,
+          "goalPercent": 50,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "angle-still-open",
+        "intent": "chip",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.34959460360007544,
+          "meanVerticalError": -0.10088830052179394,
+          "horizontalErrorStdDev": 0.39610780838270077,
+          "verticalErrorStdDev": 0.3466352186410259,
+          "meanActualTarget": {
+            "horizontal": 0.34959460360007544,
+            "vertical": 0.5191116994782061
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 0,
+          "goalPercent": 75,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.34959460360007544,
+          "meanVerticalError": -0.10088830052179394,
+          "horizontalErrorStdDev": 0.39610780838270077,
+          "verticalErrorStdDev": 0.3466352186410259,
+          "meanActualTarget": {
+            "horizontal": 0.34959460360007544,
+            "vertical": 0.5191116994782061
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 0,
+          "goalPercent": 75,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "angle-sideways-pressure",
+        "intent": "driven",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.9047736239830093,
+          "meanVerticalError": -0.30499282775826475,
+          "horizontalErrorStdDev": 1.0251528301288295,
+          "verticalErrorStdDev": 1.047904018475293,
+          "meanActualTarget": {
+            "horizontal": 0.9047736239830093,
+            "vertical": -0.004992827758264706
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 25,
+          "onTargetPercent": 25,
+          "postPercent": 0,
+          "crossbarPercent": 25,
+          "savePercent": 25,
+          "goalPercent": 0,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.9047736239830093,
+          "meanVerticalError": -0.30499282775826475,
+          "horizontalErrorStdDev": 1.0251528301288295,
+          "verticalErrorStdDev": 1.047904018475293,
+          "meanActualTarget": {
+            "horizontal": 0.9047736239830093,
+            "vertical": -0.004992827758264706
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 25,
+          "onTargetPercent": 25,
+          "postPercent": 0,
+          "crossbarPercent": 25,
+          "savePercent": 25,
+          "goalPercent": 0,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "angle-sideways-pressure",
+        "intent": "placed",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.7108935617009358,
+          "meanVerticalError": -0.2396372218100652,
+          "horizontalErrorStdDev": 0.8054772236726515,
+          "verticalErrorStdDev": 0.8233531573734444,
+          "meanActualTarget": {
+            "horizontal": 0.7108935617009358,
+            "vertical": 0.06036277818993485
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 25,
+          "goalPercent": 50,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.7108935617009358,
+          "meanVerticalError": -0.2396372218100652,
+          "horizontalErrorStdDev": 0.8054772236726515,
+          "verticalErrorStdDev": 0.8233531573734444,
+          "meanActualTarget": {
+            "horizontal": 0.7108935617009358,
+            "vertical": 0.06036277818993485
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 25,
+          "goalPercent": 50,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "angle-sideways-pressure",
+        "intent": "chip",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.8482252724840712,
+          "meanVerticalError": -0.28593077602337313,
+          "horizontalErrorStdDev": 0.9610807782457776,
+          "verticalErrorStdDev": 0.982410017320587,
+          "meanActualTarget": {
+            "horizontal": 0.8482252724840712,
+            "vertical": 0.33406922397662697
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 0,
+          "onTargetPercent": 0,
+          "postPercent": 0,
+          "crossbarPercent": 50,
+          "savePercent": 0,
+          "goalPercent": 0,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.8482252724840712,
+          "meanVerticalError": -0.28593077602337313,
+          "horizontalErrorStdDev": 0.9610807782457776,
+          "verticalErrorStdDev": 0.982410017320587,
+          "meanActualTarget": {
+            "horizontal": 0.8482252724840712,
+            "vertical": 0.33406922397662697
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 0,
+          "onTargetPercent": 0,
+          "postPercent": 0,
+          "crossbarPercent": 50,
+          "savePercent": 0,
+          "goalPercent": 0,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "range-running-open",
+        "intent": "driven",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.3220401951285956,
+          "meanVerticalError": -0.09360616091653874,
+          "horizontalErrorStdDev": 0.3648873140200205,
+          "verticalErrorStdDev": 0.3216150127183697,
+          "meanActualTarget": {
+            "horizontal": 0.3220401951285956,
+            "vertical": 0.2063938390834612
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.3220401951285956,
+          "meanVerticalError": -0.09360616091653874,
+          "horizontalErrorStdDev": 0.3648873140200205,
+          "verticalErrorStdDev": 0.3216150127183697,
+          "meanActualTarget": {
+            "horizontal": 0.3220401951285956,
+            "vertical": 0.2063938390834612
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "range-running-open",
+        "intent": "placed",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.2530315818867537,
+          "meanVerticalError": -0.07354769786299471,
+          "horizontalErrorStdDev": 0.2866971753014447,
+          "verticalErrorStdDev": 0.2526975099930047,
+          "meanActualTarget": {
+            "horizontal": 0.2530315818867537,
+            "vertical": 0.2264523021370053
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.2530315818867537,
+          "meanVerticalError": -0.07354769786299471,
+          "horizontalErrorStdDev": 0.2866971753014447,
+          "verticalErrorStdDev": 0.2526975099930047,
+          "meanActualTarget": {
+            "horizontal": 0.2530315818867537,
+            "vertical": 0.2264523021370053
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 75,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 25,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "range-running-open",
+        "intent": "chip",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.30191268293305834,
+          "meanVerticalError": -0.08775577585925508,
+          "horizontalErrorStdDev": 0.3420818568937692,
+          "verticalErrorStdDev": 0.30151407442347156,
+          "meanActualTarget": {
+            "horizontal": 0.30191268293305834,
+            "vertical": 0.5322442241407449
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 100,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 50,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.30191268293305834,
+          "meanVerticalError": -0.08775577585925508,
+          "horizontalErrorStdDev": 0.3420818568937692,
+          "verticalErrorStdDev": 0.30151407442347156,
+          "meanActualTarget": {
+            "horizontal": 0.30191268293305834,
+            "vertical": 0.5322442241407449
+          },
+          "meanPressure": 0,
+          "projectedOnTargetPercent": 75,
+          "onTargetPercent": 100,
+          "postPercent": 0,
+          "crossbarPercent": 0,
+          "savePercent": 50,
+          "goalPercent": 50,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "range-turned-pressure",
+        "intent": "driven",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.9508262245579991,
+          "meanVerticalError": -0.32520719034086,
+          "horizontalErrorStdDev": 1.0773326821523783,
+          "verticalErrorStdDev": 1.1173571657407997,
+          "meanActualTarget": {
+            "horizontal": 0.950826224557999,
+            "vertical": -0.025207190340859942
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 0,
+          "onTargetPercent": 0,
+          "postPercent": 0,
+          "crossbarPercent": 50,
+          "savePercent": 0,
+          "goalPercent": 0,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.9508262245579991,
+          "meanVerticalError": -0.32520719034086,
+          "horizontalErrorStdDev": 1.0773326821523783,
+          "verticalErrorStdDev": 1.1173571657407997,
+          "meanActualTarget": {
+            "horizontal": 0.950826224557999,
+            "vertical": -0.025207190340859942
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 0,
+          "onTargetPercent": 0,
+          "postPercent": 0,
+          "crossbarPercent": 50,
+          "savePercent": 0,
+          "goalPercent": 0,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "range-turned-pressure",
+        "intent": "placed",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.7470777478669992,
+          "meanVerticalError": -0.2555199352678185,
+          "horizontalErrorStdDev": 0.8464756788340114,
+          "verticalErrorStdDev": 0.877923487367771,
+          "meanActualTarget": {
+            "horizontal": 0.7470777478669992,
+            "vertical": 0.04448006473218147
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 50,
+          "onTargetPercent": 50,
+          "postPercent": 25,
+          "crossbarPercent": 0,
+          "savePercent": 25,
+          "goalPercent": 25,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.7470777478669992,
+          "meanVerticalError": -0.2555199352678185,
+          "horizontalErrorStdDev": 0.8464756788340114,
+          "verticalErrorStdDev": 0.877923487367771,
+          "meanActualTarget": {
+            "horizontal": 0.7470777478669992,
+            "vertical": 0.04448006473218147
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 50,
+          "onTargetPercent": 50,
+          "postPercent": 25,
+          "crossbarPercent": 0,
+          "savePercent": 25,
+          "goalPercent": 25,
+          "unresolved": 0
+        }
+      },
+      {
+        "fixture": "range-turned-pressure",
+        "intent": "chip",
+        "human": {
+          "shots": 4,
+          "meanHorizontalError": 0.891399585523124,
+          "meanVerticalError": -0.3048817409445562,
+          "horizontalErrorStdDev": 1.0099993895178543,
+          "verticalErrorStdDev": 1.0475223428819995,
+          "meanActualTarget": {
+            "horizontal": 0.891399585523124,
+            "vertical": 0.3151182590554438
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 0,
+          "onTargetPercent": 25,
+          "postPercent": 0,
+          "crossbarPercent": 50,
+          "savePercent": 25,
+          "goalPercent": 0,
+          "unresolved": 0
+        },
+        "npc": {
+          "shots": 4,
+          "meanHorizontalError": 0.891399585523124,
+          "meanVerticalError": -0.3048817409445562,
+          "horizontalErrorStdDev": 1.0099993895178543,
+          "verticalErrorStdDev": 1.0475223428819995,
+          "meanActualTarget": {
+            "horizontal": 0.891399585523124,
+            "vertical": 0.3151182590554438
+          },
+          "meanPressure": 0.5092857142857142,
+          "projectedOnTargetPercent": 0,
+          "onTargetPercent": 25,
+          "postPercent": 0,
+          "crossbarPercent": 50,
+          "savePercent": 25,
+          "goalPercent": 0,
+          "unresolved": 0
+        }
+      }
+    ]
+  }
+}

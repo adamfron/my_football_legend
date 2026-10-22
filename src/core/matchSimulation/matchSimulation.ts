@@ -11,7 +11,11 @@ import {
   initialiseCoachIntelligence,
   observeCoachOpposition,
 } from './coachIntelligence';
-import { canReconsiderDecision, markDecisionEvaluated } from './decisionReadiness';
+import {
+  canReconsiderDecision,
+  canReleaseControlledAction,
+  markDecisionEvaluated,
+} from './decisionReadiness';
 import { authoritativeMovementTarget } from './movementAuthority';
 import { deriveCarryPursuit } from './carryPursuit';
 import { deriveGroundControlImpulse } from './ballContactGeometry';
@@ -2638,7 +2642,14 @@ const stepTacticalMatchCore = (
       const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
       const beforeContact = { x: state.ball.x, y: state.ball.y };
       const contactSpan = startPerformanceSpan('ball_contact_control');
-      const controlled = advanceControlledBall(state, owner, dt);
+      const reserveDecisionContact =
+        usesStateValue(state) &&
+        state.decisionAblation !== 'readiness' &&
+        !state.periodEndPending &&
+        !hasActiveHumanPossession(state) &&
+        canReleaseControlledAction(state, owner) &&
+        canReconsiderDecision(state, owner);
+      const controlled = advanceControlledBall(state, owner, dt, reserveDecisionContact);
       endPerformanceSpan('ball_contact_control', contactSpan);
       state = controlled.state;
       const crossing = findPitchBoundaryCrossing(beforeContact, state.ball);

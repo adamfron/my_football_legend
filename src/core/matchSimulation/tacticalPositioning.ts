@@ -21,7 +21,7 @@ import {
 } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState, TacticalStyle } from './matchState';
 import { restartInfluence } from './restartGeometry';
-import { deriveGoalkeeperBasePosition } from './goalkeeperPositioning';
+import { deriveGoalkeeperBasePosition, deriveGoalkeeperApproach } from './goalkeeperPositioning';
 import {
   deriveCooperativePress,
   derivePressingPlan,
@@ -836,7 +836,12 @@ export const deriveStructuralPosition = (
   block = deriveTeamBlockTransform(state, player.team),
 ): PitchPoint => {
   if (isMatchGoalkeeper(player))
-    return applyRoleRelationships(state, player, deriveGoalkeeperBasePosition(state.ball, player));
+    return applyRoleRelationships(
+      state,
+      player,
+      deriveGoalkeeperApproach(state, player)?.target ??
+        deriveGoalkeeperBasePosition(state.ball, player),
+    );
   const dir = direction(player);
   const structural = {
     x:
