@@ -1,0 +1,179 @@
+{
+  "schema": "mfl-pr182-review-confirmation-v1",
+  "checkedAt": "2026-10-22T18:18:13.641Z",
+  "freezeCommit": "3d5d43cddb8d96aa2ef7a247026373e17964c3a8",
+  "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+  "harnessHash": "dc619eb15ca023553dc3efc7cf46e17f06ab6c87da5e862ba48efdbb7b83cff4",
+  "status": "PASS",
+  "units": 3,
+  "matches": 6,
+  "rows": [
+    {
+      "id": "pr180-reserved-ss-1",
+      "policy": "legacy-pr176",
+      "inputHash": "06205ecf7b9fce8c76a6cc82d717c43620199a80a1e83c85aaae031e7a4fd153",
+      "originalInputHash": "ef2429abb12590849fdc600bd6386be48e72ace49a87062e51209154a5891bbc",
+      "rawHash": "3c870cb8a3fa1550c8334db51b01db2ae240c761f647cb9263d05dcbc7e4168a",
+      "path": "docs/performance/pr182-evidence/review/pr180-reserved-ss-1-legacy-pr176.json.gz",
+      "status": "full_time",
+      "time": 5640.0249999821735,
+      "ticks": 225601,
+      "finalHash": "322e4b48f456ac08fff3fb55bafaf335baccec2105e8dbe4608fc42eb05da24c",
+      "shots": 1,
+      "passes": 2166,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "maximumHoldSeconds": 1.6250000000059117,
+      "pathologicalHolds": 0,
+      "redCards": 0,
+      "substitutions": 7,
+      "observerErrors": []
+    },
+    {
+      "id": "pr180-reserved-ss-1",
+      "policy": "state-value-v1",
+      "inputHash": "06205ecf7b9fce8c76a6cc82d717c43620199a80a1e83c85aaae031e7a4fd153",
+      "originalInputHash": "ef2429abb12590849fdc600bd6386be48e72ace49a87062e51209154a5891bbc",
+      "rawHash": "803019d03386f9f9a901098db44e45a87b24ec9dab5b3ffa1ed429a100141111",
+      "path": "docs/performance/pr182-evidence/review/pr180-reserved-ss-1-state-value-v1.json.gz",
+      "status": "full_time",
+      "time": 5700.749999987166,
+      "ticks": 228030,
+      "finalHash": "250d5579b3adf829b57484e562718f446dc17f58e04a79016dd75f0121c0c6e6",
+      "shots": 18,
+      "passes": 2355,
+      "score": {
+        "home": 4,
+        "away": 2
+      },
+      "maximumHoldSeconds": 3.025000000011005,
+      "pathologicalHolds": 0,
+      "redCards": 0,
+      "substitutions": 7,
+      "observerErrors": []
+    },
+    {
+      "id": "pr180-reserved-sw-1",
+      "policy": "legacy-pr176",
+      "inputHash": "f22c72688346a14f1fa384cd4126c9a706ba57f2cee3b1e72365c744e55bc5a3",
+      "originalInputHash": "07fa4a0765bd273b46e1bb76b527f1b0af1998d1a36e7e2087ccaa34a05e97f1",
+      "rawHash": "2c33240385d62609def49ec68bad0bac0b55fef2422d12d531ae5ce85ae0ed69",
+      "path": "docs/performance/pr182-evidence/review/pr180-reserved-sw-1-legacy-pr176.json.gz",
+      "status": "full_time",
+      "time": 5743.299999999631,
+      "ticks": 229733,
+      "finalHash": "a19478c3df1e92f2347812098abe01e1b36f4e596df35bba590087e0013074bd",
+      "shots": 7,
+      "passes": 1692,
+      "score": {
+        "home": 6,
+        "away": 0
+      },
+      "maximumHoldSeconds": 3.2500000000118234,
+      "pathologicalHolds": 0,
+      "redCards": 0,
+      "substitutions": 7,
+      "observerErrors": []
+    },
+    {
+      "id": "pr180-reserved-sw-1",
+      "policy": "state-value-v1",
+      "inputHash": "f22c72688346a14f1fa384cd4126c9a706ba57f2cee3b1e72365c744e55bc5a3",
+      "originalInputHash": "07fa4a0765bd273b46e1bb76b527f1b0af1998d1a36e7e2087ccaa34a05e97f1",
+      "rawHash": "44f08c74d2ce34428da8dd5f135d14075ee7f2dca75b0d74495988a1a614a8f0",
+      "path": "docs/performance/pr182-evidence/review/pr180-reserved-sw-1-state-value-v1.json.gz",
+      "status": "full_time",
+      "time": 5832.6250000000455,
+      "ticks": 233306,
+      "finalHash": "c87573eae020cab602ef4182059b76df31da698f2f14ab8f9b5920dc45bd88d2",
+      "shots": 44,
+      "passes": 1202,
+      "score": {
+        "home": 10,
+        "away": 0
+      },
+      "maximumHoldSeconds": 20.200000000073487,
+      "pathologicalHolds": 0,
+      "redCards": 0,
+      "substitutions": 7,
+      "observerErrors": []
+    },
+    {
+      "id": "pr180-reserved-ww-1",
+      "policy": "legacy-pr176",
+      "inputHash": "43c4008d37b465e74f77c289a6881ae096d28023dc74d09b4cc18fa2a1da7169",
+      "originalInputHash": "74dbf4240ebd57babae9eda8ad296951bbdd71f3234f607a2904884c34f32db9",
+      "rawHash": "807155c684edd212935a9144f25e77baaac48499d0b3d2a80e8365a7d8cc6c40",
+      "path": "docs/performance/pr182-evidence/review/pr180-reserved-ww-1-legacy-pr176.json.gz",
+      "status": "full_time",
+      "time": 5640.725000005879,
+      "ticks": 225630,
+      "finalHash": "78b69f409ba6cb861979fdec433b251fadac4eddf7b84a45d14a164a0333f428",
+      "shots": 3,
+      "passes": 1141,
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "maximumHoldSeconds": 4.874999999995566,
+      "pathologicalHolds": 0,
+      "redCards": 0,
+      "substitutions": 6,
+      "observerErrors": []
+    },
+    {
+      "id": "pr180-reserved-ww-1",
+      "policy": "state-value-v1",
+      "inputHash": "43c4008d37b465e74f77c289a6881ae096d28023dc74d09b4cc18fa2a1da7169",
+      "originalInputHash": "74dbf4240ebd57babae9eda8ad296951bbdd71f3234f607a2904884c34f32db9",
+      "rawHash": "3c956df1112eab31e92688cbcd1a48618a6b7de539e9e9e9f091c4f998e43f2c",
+      "path": "docs/performance/pr182-evidence/review/pr180-reserved-ww-1-state-value-v1.json.gz",
+      "status": "full_time",
+      "time": 5520,
+      "ticks": 220801,
+      "finalHash": "de577dad52adac33fa76a354f85f52ba0fecd718242158ee8641d2d29d5e3b33",
+      "shots": 5,
+      "passes": 710,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "maximumHoldSeconds": 6.774999999993838,
+      "pathologicalHolds": 0,
+      "redCards": 0,
+      "substitutions": 6,
+      "observerErrors": []
+    }
+  ],
+  "decision": "Keep the provisional B default. This is limited post-correction correctness/hold confirmation, not a replacement twelve-design policy selection or summary-calibration clearance.",
+  "limits": [
+    "Only three paired designs; no significance claim.",
+    "The frozen follow-up harness omitted the planned descriptive box-entry counter. It was not a gate, and no proxy is substituted. Original primary box-entry evidence remains scoped to the original candidate.",
+    "Concurrent match wall times are not serial performance measurements.",
+    "The original calibration and experimental R3 hold limitations remain."
+  ],
+  "reservations": {
+    "archive": "docs/performance/pr179-evidence/initial-states.json.gz",
+    "archiveHash": "4ea98d6faf9b1bcef5a544280660ce223929039c2358ebab4591f55dd400fdb1",
+    "usedIds": [
+      "pr180-reserved-ss-1",
+      "pr180-reserved-sw-1",
+      "pr180-reserved-ww-1"
+    ],
+    "remainingReservedDesignsUnsimulated": 9,
+    "archiveDecoded": true
+  },
+  "checks": {
+    "targetedPenalty": {
+      "tests": 16,
+      "result": "PASS",
+      "legacyHalfSeconds": 81.081,
+      "bHalfSeconds": 93.9
+    },
+    "newDismissalRegressions": 5,
+    "originalLocalVerification": "PR182-verification.json belongs to the original candidate; review runs the unchanged npm run verify command separately.",
+    "authoritativeCI": "https://github.com/adamfron/my_football_legend/pull/182/checks"
+  }
+}

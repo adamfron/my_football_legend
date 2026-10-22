@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import { decisionPolicyIdSchema } from './matchSimulation/decisionPolicyConfig';
+import { tacticalRoleIdSchema } from './matchSimulation/tacticalRoles';
+import { tacticalPreferencesSchema } from './matchSimulation/tacticalPreferences';
 import { deriveNpcPlayStyles } from './npcFootballIdentity';
 import type {
   FootballerProfile,
@@ -51,6 +53,11 @@ export const singleMatchSetupSchema = z
   });
 
 export type SingleMatchSetup = z.infer<typeof singleMatchSetupSchema>;
+export const frozenMatchTacticsSchema = z.object({
+  roles: z.record(z.string(), tacticalRoleIdSchema),
+  preferences: z.object({ home: tacticalPreferencesSchema, away: tacticalPreferencesSchema }),
+});
+export type FrozenMatchTactics = z.infer<typeof frozenMatchTacticsSchema>;
 export interface SingleMatchPlayer {
   playStyles?: PlayStyleId[] | undefined;
   footballerId: string;
@@ -77,6 +84,7 @@ export interface SingleMatchTeam {
   }[];
 }
 export interface SingleMatchSession {
+  frozenTactics?: FrozenMatchTactics;
   setup: SingleMatchSetup;
   home: SingleMatchTeam;
   away: SingleMatchTeam;

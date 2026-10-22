@@ -3,10 +3,16 @@ import { FirstTouchDiagnostics } from './FirstTouchDiagnostics';
 import { TACTICAL_PREFERENCE_DEFAULTS } from '../../core/matchSimulation/tacticalPreferences';
 import {
   PRIMARY_DECISION_POLICIES,
+  DEFAULT_DECISION_POLICY,
   decisionPolicyIdSchema,
   type DecisionPolicyId,
 } from '../../core/matchSimulation/decisionPolicyConfig';
-import { RoleExperimentRecorder, fixtureIdentity } from '../../core/matchSimulation/roleExperiment';
+import {
+  RoleExperimentRecorder,
+  fixtureIdentity,
+  captureMatchTactics,
+} from '../../core/matchSimulation/roleExperiment';
+import { compactMatchComparison } from '../../core/matchSimulation/matchComparison';
 import { withRankingObserver } from '../../core/matchSimulation/decisionObservation';
 import {
   changeTacticalRole,
@@ -190,7 +196,7 @@ export const PitchCanvasHost = forwardRef<HTMLDivElement>(function PitchCanvasHo
   return <div className="pitch-canvas-host" ref={ref} aria-hidden="true" />;
 });
 export const TacticalMatchSandbox = () => {
-  const [policy, setPolicy] = useState<DecisionPolicyId>('legacy-pr176');
+  const [policy, setPolicy] = useState<DecisionPolicyId>(DEFAULT_DECISION_POLICY);
   const [world, setWorld] = useState<WorldDatabase>(),
     [homeId, setHomeId] = useState(''),
     [awayId, setAwayId] = useState('');
@@ -200,6 +206,7 @@ export const TacticalMatchSandbox = () => {
     [seed, setSeed] = useState(freshSeed),
     [force, setForce] = useState(true),
     [session, setSession] = useState<SingleMatchSession>();
+  const [labRunVersion, setLabRunVersion] = useState(0);
   const [worldError, setWorldError] = useState<string>();
   useEffect(() => {
     let active = true;
@@ -386,9 +393,15 @@ export const TacticalMatchSandbox = () => {
     );
   return (
     <RunningLabGuard
-      key={`${session.setup.seed}:${session.setup.decisionPolicy ?? 'legacy-pr176'}`}
+      key={`${fixtureIdentity(session)}:${session.setup.decisionPolicy ?? DEFAULT_DECISION_POLICY}:${labRunVersion}`}
       session={session}
+      startPaused
+      onFreezeTactics={(frozenTactics) => {
+        setSession({ ...session, frozenTactics });
+        setLabRunVersion((version) => version + 1);
+      }}
       onReplayPolicy={(next) => {
+        setLabRunVersion((version) => version + 1);
         setPolicy(next);
         setSession({
           ...structuredClone(session),
@@ -410,7 +423,10 @@ export const TacticalMatchSandbox = () => {
         ) as { home: number; away: number }
       }
       onSetup={() => setSession(undefined)}
-      onRestart={() => setSession(structuredClone(session))}
+      onRestart={() => {
+        setSession(structuredClone(session));
+        setLabRunVersion((version) => version + 1);
+      }}
       onRandomize={() => {
         const next = freshSeed();
         setSeed(next);
@@ -492,6 +508,8 @@ export class MatchLabErrorBoundary extends Component<
 
 type RunningLabProps = {
   session: SingleMatchSession;
+  startPaused?: boolean;
+  onFreezeTactics?: (snapshot: NonNullable<SingleMatchSession['frozenTactics']>) => void;
   onReplayPolicy?: (policy: DecisionPolicyId) => void;
   careerMode?: boolean;
   initialState?: TacticalMatchState;
@@ -547,7 +565,9 @@ export const RunningLabGuard = (props: RunningLabProps) => {
 
 export const RunningLab = ({
   session,
+  startPaused = false,
   onReplayPolicy,
+  onFreezeTactics,
   onSetup,
   onRestart,
   onRandomize,
@@ -561,6 +581,8 @@ export const RunningLab = ({
   completionPending = false,
 }: {
   session: SingleMatchSession;
+  startPaused?: boolean;
+  onFreezeTactics?: (snapshot: NonNullable<SingleMatchSession['frozenTactics']>) => void;
   onReplayPolicy?: (policy: DecisionPolicyId) => void;
   onSetup(): void;
   onRestart(): void;
@@ -577,7 +599,7 @@ export const RunningLab = ({
   const kits = useMemo(() => projectMatchKits(session.home.club, session.away.club), [session]);
   const [attributeLab, setAttributeLab] = useState<AttributeMicroLabResult>();
   const [state, setState] = useState<TacticalMatchState>(() => diagnostics.latestState),
-    [playing, setPlaying] = useState(true),
+    [playing, setPlaying] = useState(!startPaused),
     [speed, setSpeed] = useState(1),
     [presentationPolicyId, setPresentationPolicyId] = useState<MatchPresentationPolicy['id']>(
       careerMode ? 'key_player' : 'full_match',
@@ -1797,6 +1819,42 @@ export const RunningLab = ({
               </select>
             </label>
             <button
+              disabled={state.time !== 0 || !onFreezeTactics}
+              onClick={() => onFreezeTactics?.(captureMatchTactics(stateRef.current))}
+            >
+              {session.frozenTactics
+                ? 'Role i taktyka zamrożone do powtórek'
+                : 'Zamroź role i taktykę do powtórek'}
+            </button>
+            <button
+              onClick={() =>
+                downloadBlob(
+                  new Blob(
+                    [
+                      JSON.stringify(
+                        compactMatchComparison(
+                          diagnostics.experiment.export(
+                            session,
+                            stateRef.current,
+                            import.meta.env.VITE_MFL_REVISION ?? 'unknown',
+                            `browser:${navigator.userAgent}`,
+                          ),
+                          telemetryRef.current,
+                          diagnostics.runtimeDiagnostics.map((e) => e.message),
+                        ),
+                        null,
+                        2,
+                      ),
+                    ],
+                    { type: 'application/json' },
+                  ),
+                  `${session.setup.seed}-${stateRef.current.decisionPolicy}-comparison.json`,
+                )
+              }
+            >
+              Eksportuj porównanie polityk JSON
+            </button>
+            <button
               onClick={() =>
                 downloadBlob(
                   new Blob(
@@ -1982,8 +2040,8 @@ export const RunningLab = ({
             </label>
           ))}
           <p>
-            Zmiana roli zachowuje atrybuty i fizykę. R1 zmienia ocenę konsekwencji; R2 i R3 również
-            ruch oraz propozycje przyjęcia.
+            Każda polityka respektuje wydane polecenia ról. R2 i R3 dodatkowo używają ról do
+            autonomicznego ruchu i propozycji przyjęcia. Atrybuty zawodników pozostają te same.
           </p>
           {state.players.map((player) => (
             <label key={player.id} style={{ display: 'inline-block', margin: 8 }}>

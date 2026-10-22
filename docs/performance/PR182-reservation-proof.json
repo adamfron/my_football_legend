@@ -1,0 +1,19 @@
+{
+  "checkedAtUtc": "2026-10-22T16:21:55.147Z",
+  "files": [
+    {
+      "path": "docs/performance/pr180-evidence/pr182-sealed.json.gz",
+      "sha256": "553d5083472e86fb199eedfb3178cbdb51cab3548970ac7f87a1b5970a2082f8",
+      "unchangedFromPR181": true,
+      "decodedInPR182": true,
+      "status": "Consumed only after committed freeze; primary12designs"
+    },
+    {
+      "path": "docs/performance/pr179-evidence/initial-states.json.gz",
+      "sha256": "4ea98d6faf9b1bcef5a544280660ce223929039c2358ebab4591f55dd400fdb1",
+      "unchangedFromPR181": true,
+      "decodedInPR182": false,
+      "status": "Not decoded or run; older reserved cohort remains unused"
+    }
+  ]
+}

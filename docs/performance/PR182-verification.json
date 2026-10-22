@@ -1,0 +1,107 @@
+{
+  "schema": "mfl-pr182-verification-v1",
+  "status": "PASS",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "checkedAtUtc": "2026-10-22T16:29:16.068Z",
+  "codeCommit": "aeb6f13336015c9fda1e0189f571e9d3564f542b",
+  "runtime": "v24.19.0",
+  "sourceHash": "8bac5f62e84c788c239876e7a6dd9d0b7f8bc5a30581da5f3eb82f2ef65dbf1f",
+  "normalizedCandidateHash": "e547661e9b254aca7742401385326aee559dc90c70f2afef742359fef9f63b3a",
+  "harnessHash": "f08f8ac24868c927c708af8c38a522a47b2509b7c5b4748290628eb6fb7a7a9d",
+  "frozenBehaviourUnchanged": true,
+  "onlyProductionSelectionChange": "DEFAULT_DECISION_POLICY legacy-pr176 -> state-value-v1",
+  "checks": {
+    "lint": "PASS",
+    "unit": {
+      "files": 229,
+      "tests": 1988
+    },
+    "matchIntegration": {
+      "files": 3,
+      "tests": 54
+    },
+    "careerContracts": {
+      "files": 1,
+      "tests": 4,
+      "realFullMatches": 3,
+      "humanU17Choices": 12,
+      "exactRepeatAndExactlyOnce": true
+    },
+    "fullCareer": {
+      "files": 1,
+      "tests": 5
+    },
+    "testsTotal": 2051,
+    "typescript": "PASS",
+    "productionBuild": "PASS"
+  },
+  "warnings": [
+    "Existing chunk-size warning and ineffective dynamic import warning; build succeeds."
+  ],
+  "assertionAudit": "PR182-test-fixture-audit.json",
+  "primary": {
+    "matches": 60,
+    "fullTime": 60,
+    "pairedUnits": 12,
+    "observerErrors": 0,
+    "physicsDt": 0.025
+  },
+  "observerEquality": {
+    "allFiveRepeated120s": true,
+    "selectedBComplete": true,
+    "selectedBTicks": 228001,
+    "additionalR1Complete": true
+  },
+  "attempts": [
+    {
+      "name": "pr182-verify-candidate",
+      "status": "FAIL",
+      "reason": "Two changed complete telemetry reference hashes; old/new values reproduced twice before explicit legacy reference update.",
+      "log": "docs/performance/pr182-evidence/pr182-verify-candidate.log.gz",
+      "logHash": "313a08fcd48a5a3f5c7cfa850d3d450a8524b95bbacb25a0ee7c9f1d69a238b6"
+    },
+    {
+      "name": "pr182-verify-frozen-candidate",
+      "status": "FAIL",
+      "reason": "Runner lint imports corrected before freeze.",
+      "log": "docs/performance/pr182-evidence/pr182-verify-frozen-candidate.log.gz",
+      "logHash": "9784c0ee3611e673f93da63045ac41416177785c13af0d6dcf3d64ede9d1ea5f"
+    },
+    {
+      "name": "pr182-verify-pre-freeze",
+      "status": "FAIL",
+      "reason": "1982unit PASS; two original integration timeouts under ten concurrent primary processes; no timeout changed.",
+      "log": "docs/performance/pr182-evidence/pr182-verify-pre-freeze.log.gz",
+      "logHash": "f4bf5b31d7bcaebbc47e70ca22896a9621eccfd702956b7c79d0e62bbb1d88a7"
+    },
+    {
+      "name": "pr182-verify-final",
+      "status": "FAIL",
+      "reason": "Default B exposed43 historical implicit-policy assumptions; preserved assertions, declared historical fixtures legacy and added five-policy authority plus default tests.",
+      "log": "docs/performance/pr182-evidence/pr182-verify-final.log.gz",
+      "logHash": "c4bca0c2a7da2439ba95a8fc2171f29049135018b135426e596f25fc82d8ccc4"
+    },
+    {
+      "name": "pr182-verify-release",
+      "status": "PASS",
+      "reason": "Full original command, final code; no simulation benchmarks running during integration/career stages.",
+      "log": "docs/performance/pr182-evidence/pr182-verify-release.log.gz",
+      "logHash": "5288d0b428e77cecf63216e571697226e474728f9a7f18412611a59f60b78e17"
+    }
+  ],
+  "browser": {
+    "status": "PASS",
+    "browser": "155.0.4283.45",
+    "policies": 5,
+    "commonFrozenInputHashes": [
+      "187e73ce7faca01b03bc52eb50a8ad951860260b96ddc80a34b1513bf7813091"
+    ],
+    "humanSelectedPass": true,
+    "actualDefault": "state-value-v1",
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "resourceErrors": []
+  }
+}

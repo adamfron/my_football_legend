@@ -131,6 +131,8 @@ const world = createCanonicalWorldDatabase(),
   away = world.clubs[1]!;
 const session = (seed = 'simulation-89', player = false) =>
   createSingleMatchSession(world, {
+    // Freeze the historical legacy regression's policy independently of the new-match default.
+    decisionPolicy: 'legacy-pr176',
     homeClubId: home.id,
     awayClubId: away.id,
     seed,

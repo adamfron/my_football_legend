@@ -1,0 +1,115 @@
+{
+  "frozenAt": "2026-10-22T18:09:14.455Z",
+  "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+  "candidateHash": "9b9d7aa3e15244059d62570c3400e087a401126bf248219cf36761840f364604",
+  "harnessHash": "dc619eb15ca023553dc3efc7cf46e17f06ab6c87da5e862ba48efdbb7b83cff4",
+  "archive": "docs/performance/pr179-evidence/initial-states.json.gz",
+  "archiveHash": "4ea98d6faf9b1bcef5a544280660ce223929039c2358ebab4591f55dd400fdb1",
+  "ids": [
+    "pr180-reserved-ss-1",
+    "pr180-reserved-sw-1",
+    "pr180-reserved-ww-1"
+  ],
+  "originalInputs": [
+    {
+      "design": {
+        "id": "pr180-reserved-ss-1",
+        "split": "validation",
+        "seed": "pr180-unopened-20261020-v1:pr180-reserved-ss-1",
+        "youth": false,
+        "clubs": [
+          "pro_6",
+          "pro_12"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "balanced",
+          "possession"
+        ],
+        "attributes": "native",
+        "tier": "SS",
+        "strength": [
+          75.55909090909091,
+          72.12532467532468
+        ]
+      },
+      "inputHash": "ef2429abb12590849fdc600bd6386be48e72ace49a87062e51209154a5891bbc",
+      "sessionHash": "7fd321e63553c4ceb8dcc3a596ab745d6ac1ed7eca714281ea56e595ed872bf9"
+    },
+    {
+      "design": {
+        "id": "pr180-reserved-sw-1",
+        "split": "validation",
+        "seed": "pr180-unopened-20261020-v1:pr180-reserved-sw-1",
+        "youth": false,
+        "clubs": [
+          "pro_6",
+          "pro_50"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "counter_attacking",
+          "direct"
+        ],
+        "attributes": "native",
+        "tier": "SW",
+        "strength": [
+          75.55909090909091,
+          44.240909090909085
+        ]
+      },
+      "inputHash": "07fa4a0765bd273b46e1bb76b527f1b0af1998d1a36e7e2087ccaa34a05e97f1",
+      "sessionHash": "f52e279febfe62a4fc50dbab63ac3fec789ba1485f96eb47cd18c24eda5b8a33"
+    },
+    {
+      "design": {
+        "id": "pr180-reserved-ww-1",
+        "split": "validation",
+        "seed": "pr180-unopened-20261020-v1:pr180-reserved-ww-1",
+        "youth": false,
+        "clubs": [
+          "pro_57",
+          "pro_50"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native",
+        "tier": "WW",
+        "strength": [
+          47.24155844155844,
+          44.240909090909085
+        ]
+      },
+      "inputHash": "74dbf4240ebd57babae9eda8ad296951bbdd71f3234f607a2904884c34f32db9",
+      "sessionHash": "2de2a15871b91fdcd1eff9e19a39d8121e583dafd2ef538497167b1de9e654da"
+    }
+  ],
+  "policies": [
+    "legacy-pr176",
+    "state-value-v1"
+  ],
+  "units": 3,
+  "matches": 6,
+  "purpose": "Post-review confirmation of the corrected release on three previously unused paired designs. No new policy search or replacement of the original twelve-design selection.",
+  "transformation": "Preserve archived session and physical state. Attach the own canonical coach, empty coaching memory and common collective roles, exactly as the primary preparation did. Policy is the sole per-run override.",
+  "gates": [
+    "Every run completes full_time before 7200 simulated seconds / 300000 fixed ticks.",
+    "Canonical statistics and final state schemas pass; primary observer reports no errors.",
+    "B has no strict stationary hold over 120 seconds. Record all shorter pathological episodes as well."
+  ],
+  "analysis": "Report all three paired shots/box entries, score, substitutions, red cards and holds descriptively. No significance claim or renewed ranking from n=3; do not tune after reading.",
+  "budget": "At most three concurrent full-match workers, 15 wall minutes per match; original verify runs separately.",
+  "reservation": "Archive has not been decoded for this review at freeze. Only these three reserved inputs will be simulated; remaining nine are unused, although decoding the shared archive exposes their initial states."
+}

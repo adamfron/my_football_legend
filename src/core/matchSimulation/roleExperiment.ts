@@ -1,16 +1,14 @@
 import { z } from 'zod';
 import type { SingleMatchSession } from '../singleMatch';
+import { frozenMatchTacticsSchema } from '../singleMatch';
+import { TACTICAL_PREFERENCE_DEFAULTS } from './tacticalPreferences';
 import type { TacticalMatchState } from './matchState';
 import { matchActionSchema } from './matchState';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import type { RankedAiAction } from './matchActions';
 import { assignTacticalRoles, tacticalRoleFor, rolePlanSchema } from './tacticalRoles';
 import { deriveTacticalRolePhase, forecastWaiting } from './roleTactics';
-import {
-  decisionPolicyIdSchema,
-  usesTacticalRoles,
-  type DecisionPolicyId,
-} from './decisionPolicyConfig';
+import { decisionPolicyIdSchema, type DecisionPolicyId } from './decisionPolicyConfig';
 import { attacksRight, distance, pitchPointSchema } from './matchSpace';
 import { matchCentreStatisticsSchema, projectMatchCentreStatistics } from './matchCentreStatistics';
 
@@ -23,15 +21,32 @@ export const configureMatchPolicy = (
   return {
     ...state,
     decisionPolicy: policy,
-    ...(usesTacticalRoles({ decisionPolicy: policy })
-      ? { rolePlan: assignTacticalRoles(state) }
-      : {}),
+    rolePlan: state.rolePlan ?? assignTacticalRoles(state),
   };
 };
 export const frozenMatchInputs = (session: SingleMatchSession) => {
   const { decisionPolicy: policy, ...setup } = session.setup;
   void policy;
-  return { setup, home: session.home, away: session.away, presentation: session.presentation };
+  return {
+    setup,
+    home: session.home,
+    away: session.away,
+    presentation: session.presentation,
+    frozenTactics: session.frozenTactics,
+  };
+};
+export const captureMatchTactics = (state: TacticalMatchState) => {
+  if (state.time !== 0) throw new Error('Freeze tactical inputs before kickoff');
+  return frozenMatchTacticsSchema.parse({
+    roles: state.rolePlan?.assignments ?? assignTacticalRoles(state).assignments,
+    preferences: Object.fromEntries(
+      (['home', 'away'] as const).map((side) => [
+        side,
+        state.teams[side].tacticalPreferences ??
+          TACTICAL_PREFERENCE_DEFAULTS[state.teams[side].style],
+      ]),
+    ),
+  });
 };
 export const fixtureIdentity = (session: SingleMatchSession) => {
   let hash = 2166136261;
@@ -99,6 +114,9 @@ export const roleExperimentExportSchema = z.object({
     teamAdjustments: z.array(z.unknown()),
     stoppages: z.unknown(),
     transitions: z.unknown(),
+    comparisonCounters: z.record(z.string(), z.number().nonnegative()),
+    coachDecisions: z.unknown(),
+    substitutions: z.unknown(),
   }),
   trace: z.array(traceEntrySchema).max(4096),
   diagnostics: z.object({
@@ -147,6 +165,7 @@ export class RoleExperimentRecorder {
   private conflicts = 0;
   private missingSupport = 0;
   private errors: string[] = [];
+  private comparisonCounters: Record<string, number> = {};
   private lastSampleAt = -1;
   private involvement = new Map<
     string,
@@ -316,7 +335,35 @@ export class RoleExperimentRecorder {
     for (const event of next.actionEvents ?? [])
       if (event.sequence >= (previous.actionEventSequence ?? 0))
         this.add(event.at, event.kind, event.id, event);
+    const count = (key: string) => {
+      this.comparisonCounters[key] = (this.comparisonCounters[key] ?? 0) + 1;
+    };
+    const carry = next.ballCarrierIntent;
+    if (carry && carry.startedAt !== previous.ballCarrierIntent?.startedAt) {
+      const actor = next.players.find((p) => p.id === carry.actorId);
+      if (actor && Math.abs(actor.position.y - 34) > 15) count('wideCarryIntentions');
+    }
+    const aerial = next.lastAerialContact;
+    if (aerial?.id && aerial.id !== previous.lastAerialContact?.id && aerial.winnerId) {
+      const participants = [...next.players, ...(next.departedPlayers ?? [])];
+      const teams = new Set(
+        [...aerial.contestantIds, ...(aerial.challengerIds ?? [])]
+          .map((id) => participants.find((p) => p.id === id)?.team)
+          .filter(Boolean),
+      );
+      if (teams.size === 2 && aerial.contestantIds.includes(aerial.winnerId))
+        count('contestedAerialContacts');
+    }
     const pass = next.lastPassDiagnostic;
+    if (
+      pass &&
+      pass.passId !== previous.lastPassDiagnostic?.passId &&
+      distance(
+        next.ball.from ?? previous.ball,
+        pass.intendedTarget ?? pass.predictedReceptionPoint,
+      ) >= 30
+    )
+      count('longPassReleases');
     if (pass && pass.passId !== previous.lastPassDiagnostic?.passId)
       this.passTypes[pass.intent ?? 'restart'] =
         (this.passTypes[pass.intent ?? 'restart'] ?? 0) + 1;
@@ -490,6 +537,12 @@ export class RoleExperimentRecorder {
         teamAdjustments: this.teamAdjustments,
         stoppages: state.stoppageLedger,
         transitions: this.transitions,
+        comparisonCounters: this.comparisonCounters,
+        coachDecisions: {
+          home: state.teams.home.coaching?.decisions ?? [],
+          away: state.teams.away.coaching?.decisions ?? [],
+        },
+        substitutions: state.substitutionState?.completed ?? [],
       },
       trace: this.trace,
       diagnostics: {

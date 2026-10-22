@@ -1,0 +1,358 @@
+{
+  "schema": "mfl-pr182-inputs-v1",
+  "cohort": "validation",
+  "source": "docs/performance/pr180-evidence/pr182-sealed.json.gz",
+  "archiveHash": "553d5083472e86fb199eedfb3178cbdb51cab3548970ac7f87a1b5970a2082f8",
+  "transformation": "Attach each canonical coach from the archived session manager ID; initialise empty bounded observation and common collective roles. Attributes, bodies, formations, bench, RNG/seed and referee state are preserved. Policy is the sole per-run override.",
+  "units": 12,
+  "rows": [
+    {
+      "design": {
+        "id": "pr182-sealed-ss-1",
+        "split": "validation",
+        "seed": "pr182-sealed-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          76.91493506493507,
+          74.37402597402597
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_10",
+          "pro_11"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "balanced",
+          "possession"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "cd0a008b270dc312303444152f720163d1f420337a5a77fa5f421a18fb00ccdb",
+      "sessionHash": "cd79326c3e454a6200b385ac7d956686674e9b3c161b83bbb1e2e7a7c4d35bf2",
+      "originalInputHash": "cccbb62b643157b90650d1e756a66544b9709029db299eedde71995d89c8b18a"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ss-2",
+        "split": "validation",
+        "seed": "pr182-sealed-ss-2:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          76.29285714285714,
+          72.12532467532468
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_8",
+          "pro_12"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "9a768242d9db690c70357624c2df6fb769756aa5e4168c64485978a5c280c2be",
+      "sessionHash": "41ace171337c109530cee84081d474013f0338ab4a003a6f60337b7d7af43dd8",
+      "originalInputHash": "efaace47995d4d25623e7675f012f1f0bd04c159bba99a77585d7e3a8c596133"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ss-3",
+        "split": "validation",
+        "seed": "pr182-sealed-ss-3:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          74.25844155844156,
+          70.67467532467532
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_2",
+          "pro_4"
+        ],
+        "formations": [
+          "3-5-2",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "direct",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "58eea9d2fb5491638d14ff4a2e029bedda9a288f1a5aecfd29d9de1d9184188a",
+      "sessionHash": "d60859eb144a47dc0cad8794793484842f479718a258a515ec16f29c9d934dec",
+      "originalInputHash": "1214a213452ca95c37d6b9acc8df169bdfa4338538070bf5adb9307ea7f972ba"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ss-4",
+        "split": "validation",
+        "seed": "pr182-sealed-ss-4:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          71.42142857142856,
+          78.39545454545454
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_1",
+          "pro_9"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "e2267f4dc9188d89e7a7685d7af66bb4c589d5bfa79fb3d7622f7802e90a2585",
+      "sessionHash": "4f8fa6a09e46b930b0757ce6ddf8f1f5f5c4a2f899324a514b5d0bc04d2ccbb1",
+      "originalInputHash": "42bcfb8f4c69fffed25efc4933081cb2004ba918d8ff99c0a5cd63229692f259"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-sw-1",
+        "split": "validation",
+        "seed": "pr182-sealed-sw-1:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          69.18116883116882,
+          49.704545454545446
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_26",
+          "pro_56"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "counter_attacking",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "30e6dafb5282b943fabea5dd132b1d4edbace0f2616928799d89fdc5f1a89e54",
+      "sessionHash": "4a37094e5e8dfeee826765f18f49321b4f73aaf871d5bee491891a9c21e8c1c6",
+      "originalInputHash": "89bc11fde30f61555f99a05c6341c1d30953757a63843de840c55c864573562e"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-sw-2",
+        "split": "validation",
+        "seed": "pr182-sealed-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.12987012987011,
+          47.24155844155844
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_57"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "balanced",
+          "possession"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "b6aaca7b01f56ba150d704e283e676e434cdc40a4bc32585e76831499399b85d",
+      "sessionHash": "6732a0186f4eba06a20d2b29b52fdcf76801d1240db7e50be8029f5cc3962be3",
+      "originalInputHash": "bfb454c88a8f772f3d23e69a375683da5c0de52e9f51cc534e8b88f7b2e1795e"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-sw-3",
+        "split": "validation",
+        "seed": "pr182-sealed-sw-3:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          76.63181818181818,
+          44.58896103896104
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_15",
+          "pro_48"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "1aafa1f71f3bbe24e4af9332f8112a80250edd5056ff2aff7d24875db99ab688",
+      "sessionHash": "7f139c9ff5dba761fa1847e470d3b8446cb657bde157a9c2e5fe35f5507429e0",
+      "originalInputHash": "8d08abdfefa0dadf21a39fa0b70d3424bf54aeaa3c7c10d2cfc1b7034bc3583e"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-sw-4",
+        "split": "validation",
+        "seed": "pr182-sealed-sw-4:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          74.37402597402597,
+          43.12532467532467
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_11",
+          "pro_51"
+        ],
+        "formations": [
+          "3-5-2",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "direct",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "043bdb21299b55447198e4eff90303f19de0cf821d2dc727d4a5ec8252dd55ac",
+      "sessionHash": "bc0d2571bcf8b723787e127801a2b4464a20815fadca35b34ab359cb922cf3b2",
+      "originalInputHash": "f87479e694e4ffa09627c3beaea8b79cbfd13942aeb94d1a1b729b3859cdd13b"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ww-1",
+        "split": "validation",
+        "seed": "pr182-sealed-ww-1:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          44.240909090909085,
+          41.189610389610394
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_50",
+          "pro_58"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "c87440700e3d98f29084617508c7e3748535c85910ed3cd6d65e5489ed0b0c67",
+      "sessionHash": "391caa4301f6fa765ad7ab25a66bb0b7da6b175a20f612d503a4e270590b8cc7",
+      "originalInputHash": "156774440d3052ff705d301ce12c2480ee22121f165d53d20e02802a345f7609"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ww-2",
+        "split": "validation",
+        "seed": "pr182-sealed-ww-2:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          42.94935064935065,
+          49.73051948051948
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_54",
+          "pro_61"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "counter_attacking",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "052bea03750838b3c6c27fe57ddb2b8007de331970ea41d44da4764a87c7cb18",
+      "sessionHash": "0240cef68ad76ba35ece0853c9f2011d44d0ee4c56ed324cb51439d943fa9cc9",
+      "originalInputHash": "37dd5436a05b1ef214887be395bf692fce215fc24f060f07bf0f96669fc0ee16"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ww-3",
+        "split": "validation",
+        "seed": "pr182-sealed-ww-3:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          50.108441558441555,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_42",
+          "pro_60"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "balanced",
+          "possession"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "57ef84c8f1ef99601778507435440f29b7e417f7fa2954aa37de7941a5e31fe7",
+      "sessionHash": "8b8376d92fe6d826d179ddc5faba6b3c1bbd97143654153f4fe73c60a4d938fd",
+      "originalInputHash": "5855656f437a8bb8c7255a54f52f78ffa025806dd329bf3a4a8f5ad5867f0c2a"
+    },
+    {
+      "design": {
+        "id": "pr182-sealed-ww-4",
+        "split": "validation",
+        "seed": "pr182-sealed-ww-4:20261021-v1",
+        "tier": "WW",
+        "strength": [
+          49.704545454545446,
+          46.72662337662337
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_56",
+          "pro_49"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "7bba636bd38a2aa246b0a2079c447405e1ea9f45bb2f521f34aed4846c4a78de",
+      "sessionHash": "2eb9838f70409932201e48fb0d852790506d3cc57ad07ce42dc951e3e0578a52",
+      "originalInputHash": "9dfb1e9036695f19d90373534182f1c22a6e9eb6b89cec6106e45d2169c8ad01"
+    }
+  ]
+}

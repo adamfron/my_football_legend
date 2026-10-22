@@ -10,6 +10,7 @@ export const decisionReadinessSchema = z.object({
   evaluatedAt: z.number().finite(),
   perceivedAt: z.number().finite(),
   signature: z.string(),
+  releaseReady: z.boolean().optional(),
 });
 export type DecisionReadiness = z.infer<typeof decisionReadinessSchema>;
 export const perceptionLatency = (actor: MatchPlayerState) => {
@@ -40,6 +41,10 @@ export const canReconsiderDecision = (state: TacticalMatchState, actor: MatchPla
   if (!previous || previous.actorId !== actor.id || previous.episode !== episode) return true;
   if (state.time - previous.evaluatedAt < STATE_VALUE_CONFIG.fullRankingInterval - 1e-8)
     return false;
+  // Motor recovery is already anticipated by the owner. A newly executable
+  // contact need not wait for another scan of unchanged geometry. Otherwise the
+  // quiet 0.55s cadence can repeatedly sample the brief post-touch blackout.
+  if (previous.releaseReady === false && canReleaseControlledAction(state, actor)) return true;
   const changed = decisionSignature(state, actor) !== previous.signature;
   // Quiet intentions are also checked at a bounded cadence; a carry can be cancelled by a new lane.
   return state.time - previous.evaluatedAt >= (changed ? perceptionLatency(actor) : 0.55) - 1e-8;
@@ -50,6 +55,7 @@ export const markDecisionEvaluated = (state: TacticalMatchState, actor: MatchPla
   evaluatedAt: state.time,
   perceivedAt: state.time,
   signature: decisionSignature(state, actor),
+  releaseReady: canReleaseControlledAction(state, actor),
 });
 
 export const canReleaseControlledAction = (state: TacticalMatchState, actor: MatchPlayerState) => {

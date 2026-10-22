@@ -48,6 +48,8 @@ const world = createCanonicalWorldDatabase();
 const fixture = () => {
   let state = createTacticalMatch(
     createSingleMatchSession(world, {
+      // Freeze the historical legacy regression's policy independently of the new-match default.
+      decisionPolicy: 'legacy-pr176',
       homeClubId: 'pro_9',
       awayClubId: 'pro_1',
       seed: 'pr161-presentation',
@@ -662,6 +664,8 @@ describe('PR161 recorded replay boundaries and identities', () => {
   it('records departing and staged substitute identities outside the pitch, followed by legal entry', () => {
     let state = createTacticalMatch(
       createSingleMatchSession(world, {
+        // Freeze the historical legacy regression's policy independently of the new-match default.
+        decisionPolicy: 'legacy-pr176',
         homeClubId: 'pro_9',
         awayClubId: 'pro_1',
         seed: 'pr161-replay-sub',

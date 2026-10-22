@@ -56,7 +56,7 @@ export const STATE_VALUE_CONFIG = Object.freeze(
   }),
 );
 // Promotion is a separate, evidence-based decision. This is the one new-match rollback switch.
-export const DEFAULT_DECISION_POLICY: DecisionPolicyId = 'legacy-pr176';
+export const DEFAULT_DECISION_POLICY: DecisionPolicyId = 'state-value-v1';
 export const usesStateValue = (state: { decisionPolicy?: DecisionPolicyId }) =>
   state.decisionPolicy === 'state-value-v1' || usesTacticalRoles(state);
 export const usesTacticalRoles = (state: { decisionPolicy?: DecisionPolicyId }) =>

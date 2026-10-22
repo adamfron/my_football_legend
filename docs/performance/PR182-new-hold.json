@@ -1,0 +1,86 @@
+{
+  "sourceHash": "f1d255e5f04f48d40a357e7e3776828e63cd154f4da59e2a0ec79be78a0b7534",
+  "inputHash": "55cb2908e666e2dbf0fa136669f217a9a299ddfb4daf5e2e385d90c457f19905",
+  "captureHash": "30da87915206a4c1ed42bae6a9e96889642e36b426bc60bfc98af67842cf34cd",
+  "at": 2325.5000000040773,
+  "hold": {
+    "id": "footballer_pro_50_21",
+    "at": 2295.500000003968,
+    "origin": {
+      "x": 85.54885787452388,
+      "y": 34.4540590847019
+    },
+    "count": 66
+  },
+  "releasePossible": false,
+  "waiting": {
+    "horizon": 2.5,
+    "intervention": 0,
+    "supportMovement": 2.864093941406701,
+    "nearestArrival": 5.42500000000001,
+    "reason": "developing_support"
+  },
+  "ranking": [
+    {
+      "action": {
+        "type": "hold",
+        "actorId": "footballer_pro_50_21"
+      },
+      "canonicalScore": -0.0011200764430104706,
+      "deterministicNoise": 0.0009679365650564431,
+      "score": -0.00015213987795402743
+    },
+    {
+      "action": {
+        "type": "carry",
+        "actorId": "footballer_pro_50_21",
+        "target": {
+          "x": 79.44158604648638,
+          "y": 33.82359048980482
+        }
+      },
+      "canonicalScore": -0.0041234661062561845,
+      "deterministicNoise": 0.0011702490846812724,
+      "score": -0.002953217021574912
+    },
+    {
+      "action": {
+        "type": "carry",
+        "actorId": "footballer_pro_50_21",
+        "target": {
+          "x": 75.44158604648638,
+          "y": 33.885333818373134
+        }
+      },
+      "canonicalScore": -0.0038502439012109563,
+      "deterministicNoise": -0.0008114973123371601,
+      "score": -0.004661741213548116
+    },
+    {
+      "action": {
+        "type": "carry",
+        "actorId": "footballer_pro_50_21",
+        "target": {
+          "x": 80.44158604648638,
+          "y": 28.823590489804822
+        }
+      },
+      "canonicalScore": -0.004514033261892552,
+      "deterministicNoise": -0.0005320435930788517,
+      "score": -0.005046076854971404
+    },
+    {
+      "action": {
+        "type": "carry",
+        "actorId": "footballer_pro_50_21",
+        "target": {
+          "x": 88.44158604648638,
+          "y": 33.86769286735362
+        }
+      },
+      "canonicalScore": -0.006712484233966981,
+      "deterministicNoise": -0.0008509807030856609,
+      "score": -0.007563464937052642
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { attacksRight, distance, distanceToSegment, type PitchPoint } from './matchSpace';
 import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
-import { STATE_VALUE_CONFIG as config, usesTacticalRoles } from './decisionPolicyConfig';
+import { STATE_VALUE_CONFIG as config } from './decisionPolicyConfig';
 import { deriveTacticalRolePhase, forecastWaiting, roleControlledValue } from './roleTactics';
 import { evaluateTransitionOpportunity } from './attackingTransition';
 import { evaluatePassDecision } from './passDecision';
@@ -391,23 +391,16 @@ export const evaluateStateValueAction = (
       reasons.push(`cross-arrival:${crossing.receiverArrival.toFixed(2)}/${elapsed.toFixed(2)}`);
     } else elapsed = distance(actor.position, point) / 18;
   } else if (action.type === 'hold') {
-    const pressure = state.currentPressure;
-    const strength =
-      (actor.profile.attributes.strength + actor.profile.attributes.firstTouch) / 200;
-    controlled = clamp(0.99 - pressure * (0.23 - strength * 0.12));
+    const forecast = forecastWaiting(state, actor);
+    futureState = forecast.state;
+    elapsed = forecast.diagnostic.horizon;
+    controlled = clamp(1 - forecast.diagnostic.intervention);
     contested = (1 - controlled) * 0.3;
-    if (usesTacticalRoles(state)) {
-      const forecast = forecastWaiting(state, actor);
-      futureState = forecast.state;
-      elapsed = forecast.diagnostic.horizon;
-      controlled = clamp(1 - forecast.diagnostic.intervention);
-      contested = (1 - controlled) * 0.3;
-      reasons.push(
-        `waiting:${forecast.diagnostic.reason}`,
-        `support-metres:${forecast.diagnostic.supportMovement.toFixed(2)}`,
-        `intervention:${forecast.diagnostic.intervention.toFixed(3)}`,
-      );
-    }
+    reasons.push(
+      `waiting:${forecast.diagnostic.reason}`,
+      `support-metres:${forecast.diagnostic.supportMovement.toFixed(2)}`,
+      `intervention:${forecast.diagnostic.intervention.toFixed(3)}`,
+    );
   } else return undefined;
   const loss = Math.max(0, 1 - controlled - contested - restart - goal);
   const success =

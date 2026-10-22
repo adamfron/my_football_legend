@@ -1,0 +1,90 @@
+{
+  "method": "Post-validation coverage reconciliation against frozen physical attempt IDs and existing stoppage ledger. The first B missing attempt has an exact passive complete-replay snapshot: flight is interrupted by a slide-foul penalty whistle at1798.825s; canonical release remains counted. Other rows show nearest subsequent recorded shot and the immediately preceding legal restart. These are censored diagnostic results, not silently missing attempts or added independent fixtures.",
+  "rows": [
+    {
+      "fixture": "pr182-sealed-ss-1",
+      "policy": "state-value-v1",
+      "missingId": "pr182-sealed-ss-1:20261021-v1:shot:3609:footballer_pro_11_21",
+      "nextShot": {
+        "id": "pr182-sealed-ss-1:20261021-v1:shot:3610:footballer_pro_11_22",
+        "at": 1816.7500000022264,
+        "context": "penalty"
+      },
+      "stops": [
+        {
+          "incident": "pr182-sealed-ss-1:20261021-v1:challenge:1798.625000:footballer_pro_10_4:footballer_pro_11_21:slide:foul",
+          "award": "pr182-sealed-ss-1:20261021-v1:restart:1798.8250000021612:away:penalty",
+          "at": 1798.8250000021612,
+          "executed": 1816.7500000022264,
+          "reasons": [
+            "penalty"
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "pr182-sealed-ss-4",
+      "policy": "role-value-v1",
+      "missingId": "pr182-sealed-ss-4:20261021-v1:shot:5498:footballer_pro_9_21",
+      "nextShot": {
+        "id": "pr182-sealed-ss-4:20261021-v1:shot:5500:footballer_pro_9_13",
+        "at": 2653.4750000052704,
+        "context": "open_play"
+      },
+      "stops": [
+        {
+          "incident": "pr182-sealed-ss-4:20261021-v1:challenge:2631.625000:footballer_pro_1_3:footballer_pro_9_21:committed:foul",
+          "award": "pr182-sealed-ss-4:20261021-v1:restart:2631.7500000051914:away:free_kick_close",
+          "at": 2631.7500000051914,
+          "executed": 2653.37500000527,
+          "reasons": [
+            "foul",
+            "substitution"
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "pr182-sealed-sw-2",
+      "policy": "state-value-v1",
+      "missingId": "pr182-sealed-sw-2:20261021-v1:shot:2061:footballer_pro_57_22",
+      "nextShot": {
+        "id": "pr182-sealed-sw-2:20261021-v1:shot:2063:footballer_pro_57_22",
+        "at": 1109.7249999996543,
+        "context": "open_play"
+      },
+      "stops": [
+        {
+          "incident": "pr182-sealed-sw-2:20261021-v1:challenge:1085.700000:footballer_pro_7_13:footballer_pro_57_22:slide:foul",
+          "award": "pr182-sealed-sw-2:20261021-v1:restart:1085.9249999995677:away:free_kick_close",
+          "at": 1085.9249999995677,
+          "executed": 1109.5749999996538,
+          "reasons": [
+            "foul"
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "pr182-sealed-ww-3",
+      "policy": "state-value-v1",
+      "missingId": "pr182-sealed-ww-3:20261021-v1:shot:5039:footballer_pro_60_22",
+      "nextShot": {
+        "id": "pr182-sealed-ww-3:20261021-v1:shot:5041:footballer_pro_60_22",
+        "at": 2640.975000005225,
+        "context": "open_play"
+      },
+      "stops": [
+        {
+          "incident": "pr182-sealed-ww-3:20261021-v1:challenge:2621.600000:footballer_pro_42_4:footballer_pro_60_22:committed:foul",
+          "award": "pr182-sealed-ww-3:20261021-v1:restart:2621.725000005155:away:free_kick_close",
+          "at": 2621.725000005155,
+          "executed": 2640.8750000052246,
+          "reasons": [
+            "foul"
+          ]
+        }
+      ]
+    }
+  ]
+}

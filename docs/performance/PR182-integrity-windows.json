@@ -1,0 +1,143 @@
+{
+  "sourceHash": "b4249e1a8a7311f827d5be1c995184e7342f7a835f44b3cb237530b6572e5ad8",
+  "candidateHash": "e547661e9b254aca7742401385326aee559dc90c70f2afef742359fef9f63b3a",
+  "harnessHash": "88afe9fcf14f2da7f3555886704b3ac21f7b5465345fe54f3274768c750ac990",
+  "method": "All five policies repeat the same complete 120s canonical state with all primary observers/profiler and without them. One selected-policy complete primary fixture replay additionally requires identical state, ticks and full-time status. Repeated simulations add no independent fixture.",
+  "windows": [
+    {
+      "a": {
+        "policy": "legacy-pr176",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "ca68200cc260cf76932d845b6044833f558ea7b8c9641b6b7f355e06507b051a"
+      },
+      "repeat": {
+        "policy": "legacy-pr176",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "ca68200cc260cf76932d845b6044833f558ea7b8c9641b6b7f355e06507b051a"
+      },
+      "off": {
+        "policy": "legacy-pr176",
+        "observed": false,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "ca68200cc260cf76932d845b6044833f558ea7b8c9641b6b7f355e06507b051a"
+      },
+      "equal": true
+    },
+    {
+      "a": {
+        "policy": "state-value-v1",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "e055187209437ac080f3e5b0a91de5d60af8d6f83431c23d8b14fdb8716f628a"
+      },
+      "repeat": {
+        "policy": "state-value-v1",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "e055187209437ac080f3e5b0a91de5d60af8d6f83431c23d8b14fdb8716f628a"
+      },
+      "off": {
+        "policy": "state-value-v1",
+        "observed": false,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "e055187209437ac080f3e5b0a91de5d60af8d6f83431c23d8b14fdb8716f628a"
+      },
+      "equal": true
+    },
+    {
+      "a": {
+        "policy": "role-value-v1",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "9c8e808d6610bd2ea8aab4acc61bdf849ada8c47509c5ff817e366ac00b8249f"
+      },
+      "repeat": {
+        "policy": "role-value-v1",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "9c8e808d6610bd2ea8aab4acc61bdf849ada8c47509c5ff817e366ac00b8249f"
+      },
+      "off": {
+        "policy": "role-value-v1",
+        "observed": false,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "9c8e808d6610bd2ea8aab4acc61bdf849ada8c47509c5ff817e366ac00b8249f"
+      },
+      "equal": true
+    },
+    {
+      "a": {
+        "policy": "role-intent-v1",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "3d9c57ba526f47714acc53bbaae95fc92919fa92e5af61dcc7f307d9d131386e"
+      },
+      "repeat": {
+        "policy": "role-intent-v1",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "3d9c57ba526f47714acc53bbaae95fc92919fa92e5af61dcc7f307d9d131386e"
+      },
+      "off": {
+        "policy": "role-intent-v1",
+        "observed": false,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "3d9c57ba526f47714acc53bbaae95fc92919fa92e5af61dcc7f307d9d131386e"
+      },
+      "equal": true
+    },
+    {
+      "a": {
+        "policy": "phase-role-hybrid-v1",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "57a3da8116cc8837040e53d4f710abca2ee304cfeeec8b61fd701c9d8e1cd629"
+      },
+      "repeat": {
+        "policy": "phase-role-hybrid-v1",
+        "observed": true,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "57a3da8116cc8837040e53d4f710abca2ee304cfeeec8b61fd701c9d8e1cd629"
+      },
+      "off": {
+        "policy": "phase-role-hybrid-v1",
+        "observed": false,
+        "ticks": 4800,
+        "status": "first_half",
+        "time": 120.00000000001016,
+        "finalHash": "57a3da8116cc8837040e53d4f710abca2ee304cfeeec8b61fd701c9d8e1cd629"
+      },
+      "equal": true
+    }
+  ]
+}

@@ -5,8 +5,12 @@ import {
   supportContinuousBodyContacts,
 } from './ballContactResolution';
 import { DEFAULT_DECISION_POLICY, usesStateValue } from './decisionPolicyConfig';
-import { usesTacticalRoles } from './decisionPolicyConfig';
-import { assignTacticalRoles } from './tacticalRoles';
+import { assignTacticalRoles, rolesForPlayer } from './tacticalRoles';
+import {
+  assessCoachTactics,
+  initialiseCoachIntelligence,
+  observeCoachOpposition,
+} from './coachIntelligence';
 import { canReconsiderDecision, markDecisionEvaluated } from './decisionReadiness';
 import { authoritativeMovementTarget } from './movementAuthority';
 import { deriveCarryPursuit } from './carryPursuit';
@@ -125,7 +129,11 @@ import {
   angleForVector,
 } from './playerOrientation';
 import { integrateBallFlight } from './ballPhysics';
-import { advanceControlledBall, reconcileControlledBallContact } from './ballContactGeometry';
+import {
+  advanceControlledBall,
+  reconcileControlledBallContact,
+  playerContactGeometry,
+} from './ballContactGeometry';
 import {
   GOALKEEPER_PHYSICS,
   projectGoalkeeperIntervention,
@@ -313,6 +321,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
         side: 'home',
         clubId: session.home.club.id,
         formation: session.home.formation,
+        coach: deriveCanonicalCoachProfile(session.home.club.managerId ?? 'manager'),
         style: deriveCanonicalCoachProfile(session.home.club.managerId ?? 'manager').tacticalStyle,
         tacticalPreferences: deriveCoachTacticalPreferences(
           deriveCanonicalCoachProfile(session.home.club.managerId ?? 'manager'),
@@ -324,6 +333,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
         side: 'away',
         clubId: session.away.club.id,
         formation: session.away.formation,
+        coach: deriveCanonicalCoachProfile(session.away.club.managerId ?? 'manager'),
         style: deriveCanonicalCoachProfile(session.away.club.managerId ?? 'manager').tacticalStyle,
         tacticalPreferences: deriveCoachTacticalPreferences(
           deriveCanonicalCoachProfile(session.away.club.managerId ?? 'manager'),
@@ -350,8 +360,21 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
       ? { controlledFootballerId: session.setup.control.footballerId }
       : {}),
   };
-  const initialised = initialiseTeamThreatMemory(state);
-  if (usesTacticalRoles(initialised)) initialised.rolePlan = assignTacticalRoles(initialised);
+  if (session.frozenTactics)
+    for (const side of ['home', 'away'] as const)
+      state.teams[side].tacticalPreferences = { ...session.frozenTactics.preferences[side] };
+  const initialised = initialiseCoachIntelligence(initialiseTeamThreatMemory(state));
+  initialised.rolePlan = assignTacticalRoles(initialised);
+  if (session.frozenTactics) {
+    const assignments = { ...initialised.rolePlan.assignments };
+    for (const [id, role] of Object.entries(session.frozenTactics.roles)) {
+      const player = initialised.players.find((p) => p.id === id);
+      if (!player || !rolesForPlayer(player).some((r) => r.id === role))
+        throw new Error('Frozen role is incompatible with the starting lineup');
+      assignments[id] = role;
+    }
+    initialised.rolePlan = { initial: { ...assignments }, assignments, changes: [] };
+  }
   const positioned = { ...initialised, players: deriveTacticalTargets(initialised) };
   return initialiseMatchSubstitutions(
     { ...positioned, statistics: createMatchStatistics(positioned) },
@@ -1482,7 +1505,8 @@ const stepTacticalMatchCore = (
       player = { ...player, target: { ...state.keeperIntervention.target } };
     if (state.keeperIntervention?.keeperId === player.id) movementTarget = player.target;
     if (
-      state.scenario === 'open_play' &&
+      !isRestartSetup(state) &&
+      !state.postGoal &&
       state.ball.ownerId === player.id &&
       state.ballCarrierIntent?.actorId !== player.id &&
       state.playerMovementIntent?.actorId !== player.id
@@ -1493,6 +1517,23 @@ const stepTacticalMatchCore = (
         state.onBallPreparation?.actorId === player.id
           ? (state.onBallPreparation.micro?.localTarget ?? player.position)
           : player.position;
+      // Scanning around an old reception origin can strand a stationary ball just
+      // outside both feet while it remains inside the control envelope. Recover
+      // contact by ordinary local body movement before any kick can be eligible.
+      const feet = playerContactGeometry(player);
+      if (
+        Math.min(distance(feet.leftFoot, state.ball), distance(feet.rightFoot, state.ball)) >
+          feet.footReach &&
+        distance(player.position, state.ball) <= 2.05 &&
+        (state.ball.height ?? 0) <= 0.65
+      ) {
+        const metres = distance(player.position, state.ball);
+        const step = Math.max(0, metres - 0.45) / Math.max(0.01, metres);
+        movementTarget = clampPitchPoint({
+          x: player.position.x + (state.ball.x - player.position.x) * step,
+          y: player.position.y + (state.ball.y - player.position.y) * step,
+        });
+      }
     } else if (
       !isRestartSetup(state) &&
       !state.postGoal &&
@@ -2785,6 +2826,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
 export const startSecondHalf = (state: TacticalMatchState): TacticalMatchState => {
   state = enforceMinimumPlayers(state);
   if (state.status !== 'half_time') return state;
+  state = assessCoachTactics(state, true);
   state = completeHalftimeSubstitutions({
     ...state,
     players: state.players.map(recoverHalftimeFitness),
@@ -2805,6 +2847,11 @@ export const startSecondHalf = (state: TacticalMatchState): TacticalMatchState =
     status: 'second_half' as const,
     actionCooldown: 0.4,
   });
+  for (const side of ['home', 'away'] as const) {
+    const coaching = ready.teams[side].coaching;
+    if (coaching?.channel !== undefined)
+      ready.teams[side].coaching = { ...coaching, channel: 2 - coaching.channel };
+  }
   delete ready.teams.home.threatMemory;
   delete ready.teams.away.threatMemory;
   delete ready.offsideSnapshot;
@@ -2839,6 +2886,7 @@ const stepCanonicalMatch = (
     input = clock;
   }
   if (!input.periodEndPending) input = planCoachSubstitutions(input);
+  if (!input.periodEndPending) input = assessCoachTactics(input);
   input = preparePeriodEnd(input, dt);
   const prepared = input;
   let next = stepTacticalMatchCore(prepared, rawDelta, decisionAlreadyProjected);
@@ -2885,7 +2933,12 @@ const stepCanonicalMatch = (
   next = observeLooseBallLiveness(next);
   next = emitCanonicalActionEvents(original, next);
   next = emitMatchEvents(original, next);
-  next = reconcileCombination(observeTeamThreats(original, next));
+  next = observeCoachOpposition(reconcileCombination(observeTeamThreats(original, next)));
+  if (
+    next.discipline !== original.discipline &&
+    !['half_time', 'full_time', 'abandoned'].includes(next.status ?? '')
+  )
+    next = assessCoachTactics(next, false, true);
   return {
     ...next,
     statistics: observePlayerMatchStats(
