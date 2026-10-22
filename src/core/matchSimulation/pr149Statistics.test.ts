@@ -1,3 +1,5 @@
+// @vitest-environment node
+// Canonical accounting and frame projection are pure data operations; no DOM is used.
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
@@ -356,6 +358,8 @@ describe('PR149 canonical accounting', () => {
     );
   });
 
+  // Two complete 60-second trajectories (4,800 fixed steps) check correctness,
+  // not a five-second CPU budget on shared runners. Keep the full simulated window.
   it('headless and repeatedly projected execution preserve identical statistics, facts and the score', () => {
     let headless = fixture('pr149-stats-render-independent');
     let watched = structuredClone(headless);
@@ -386,5 +390,5 @@ describe('PR149 canonical accounting', () => {
         headless.matchEvents?.filter((event) => event.kind === 'goal' && event.team === team)
           .length ?? 0,
       ).toBe(headless.score[team]);
-  });
+  }, 15_000);
 });

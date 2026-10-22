@@ -1,0 +1,1342 @@
+{
+  "decision": "Initial development candidate, not final evaluation. Body pressure at an aerial contact needs explicit evidence before final freeze.",
+  "rows": [
+    {
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "policy": "legacy-pr176",
+      "sourceHash": "d40ab863c923eadf0de7ea2ad55c7bbae32ba9079a30dce658f07272531ddf82",
+      "status": "full_time",
+      "time": 5645.475000005806,
+      "finalHash": "901b964e99b95a17afcb2be3165bab365e0ec95c7d51107f520e51099a7d1b56",
+      "flow": {
+        "floatedCrosses": 4,
+        "drivenCrosses": 4,
+        "cutbacks": 7,
+        "shots": 4,
+        "crosses": 15,
+        "boxEntries": 16,
+        "finalThirdEntries": 115,
+        "turnovers": {
+          "tackle": 67,
+          "interception": 133,
+          "bad_pass": 2,
+          "pass_out": 9,
+          "heavy_touch": 6,
+          "failed_control": 67,
+          "loose_ball_claim": 28,
+          "shot": 4,
+          "foul_stoppage": 1,
+          "other": 3
+        },
+        "restarts": 37
+      },
+      "performance": {
+        "maxSampledRssBytes": 479502336,
+        "serial": false,
+        "cpuSeconds": 293.859,
+        "wallSeconds": 270.9902192,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225820,
+          "sampledTicks": 6104,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1486.0634000006428,
+              "estimatedMs": 54977.52899543663,
+              "sampledCalls": 6081
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1918.1498000006095,
+              "estimatedMs": 70962.74374772898,
+              "sampledCalls": 6081
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 99.18579999985195,
+              "estimatedMs": 3669.419619260578,
+              "sampledCalls": 2295
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 1134.1856999998574,
+              "estimatedMs": 41959.66821329748,
+              "sampledCalls": 6081
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 942.6319999998723,
+              "estimatedMs": 34873.059999995276,
+              "sampledCalls": 5562
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 72.13499999952728,
+              "estimatedMs": 2668.664105487099,
+              "sampledCalls": 6104
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 584.1487999990991,
+              "estimatedMs": 21610.826018315296,
+              "sampledCalls": 6104
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1134.8336999986477,
+              "estimatedMs": 41983.641240775665,
+              "sampledCalls": 54081
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 127.16059999974914,
+              "estimatedMs": 4704.358894486132,
+              "sampledCalls": 2083
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.2773999999008083,
+              "estimatedMs": 10.262527519266143,
+              "sampledCalls": 374
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.7171999996530758,
+              "estimatedMs": 26.533110078908518,
+              "sampledCalls": 392
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 35.164500000497355,
+              "estimatedMs": 1300.9251949725285,
+              "sampledCalls": 3723
+            }
+          ]
+        }
+      },
+      "spatial": {
+        "samples": 5185,
+        "sampled": {
+          "credible_depth_threats": 108,
+          "aerial_assignments": 775,
+          "forward_line_gap_metres": 108921.8564905195,
+          "forward_observations": 7318,
+          "depth_behind_line_metres": 64163.26057459038,
+          "attacking_shape_observations": 2131,
+          "box_occupants": 198,
+          "overlap": 798,
+          "wing_1v1_exposure": 840,
+          "wing_defence_delay": 131,
+          "wing_defence_recover": 123,
+          "wing_defence_press": 282,
+          "wing_defence_commit": 77,
+          "depth_defence_track": 89,
+          "provide_width": 634,
+          "wing_defence_show_outside": 223,
+          "crossing_positions": 127,
+          "cross_candidates": 507,
+          "depth_defence_handoff": 17,
+          "underlap": 19,
+          "wing_defence_cover": 4
+        },
+        "events": {
+          "through_pass": 442,
+          "pass_result": 2079,
+          "reception": 1841,
+          "challenge": 94,
+          "recovery": 299,
+          "possession_loss": 303,
+          "pass": 1672,
+          "heavy_touch": 32,
+          "aerial_contact_opportunity": 122,
+          "dribble": 289,
+          "foul": 18,
+          "advantage": 18,
+          "cross": 15,
+          "shot": 4,
+          "restart": 36,
+          "tackle": 129,
+          "interception": 86,
+          "clearance": 17,
+          "card": 6,
+          "slide_tackle": 14,
+          "save": 1
+        },
+        "crossTypes": {
+          "cutback": 7,
+          "driven": 4,
+          "floated": 4
+        },
+        "aerialOutcomes": {
+          "controlled_header": 53,
+          "clearance_header": 23,
+          "flick_on": 46
+        },
+        "secondBallTeams": {
+          "home": 19,
+          "away": 27
+        },
+        "sprintDistance": 4996.543423304856,
+        "definitions": {
+          "sampled": "one-second in-play exposure, not independent events; mean forward gap uses forward_observations",
+          "events": "canonical action sequence plus unique aerial contact IDs; opportunities include unsuccessful contacts",
+          "secondBalls": "first actual owner acquisition within 8s of aerial contact, before restart/shot; temporal lineage, not causal attribution",
+          "trace": "first 96 examples; shape: first 32 team samples"
+        }
+      }
+    },
+    {
+      "design": {
+        "id": "pr181-dev-ss-2",
+        "split": "development",
+        "seed": "pr181-dev-ss-2:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          75.55909090909091,
+          71.42142857142856
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_6",
+          "pro_1"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "balanced",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "policy": "legacy-pr176",
+      "sourceHash": "d40ab863c923eadf0de7ea2ad55c7bbae32ba9079a30dce658f07272531ddf82",
+      "status": "full_time",
+      "time": 5652.875000005708,
+      "finalHash": "0c42ac49788d033c15c96a7ab3769eec38087097e0da524d9d52c14d5c67034a",
+      "flow": {
+        "floatedCrosses": 4,
+        "drivenCrosses": 1,
+        "cutbacks": 5,
+        "shots": 5,
+        "crosses": 10,
+        "boxEntries": 23,
+        "finalThirdEntries": 81,
+        "turnovers": {
+          "tackle": 62,
+          "interception": 138,
+          "bad_pass": 3,
+          "pass_out": 2,
+          "heavy_touch": 10,
+          "failed_control": 61,
+          "loose_ball_claim": 26,
+          "shot": 4,
+          "foul_stoppage": 4,
+          "other": 1
+        },
+        "restarts": 33
+      },
+      "performance": {
+        "maxSampledRssBytes": 495951872,
+        "serial": false,
+        "cpuSeconds": 258.297,
+        "wallSeconds": 245.97374219999998,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 226116,
+          "sampledTicks": 6112,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1305.9839000006323,
+              "estimatedMs": 48315.42138948674,
+              "sampledCalls": 6082
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 1883.1141999992542,
+              "estimatedMs": 69666.59856790435,
+              "sampledCalls": 6082
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 94.04909999930533,
+              "estimatedMs": 3479.385846767494,
+              "sampledCalls": 2419
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 1102.058699998248,
+              "estimatedMs": 40771.1232017022,
+              "sampledCalls": 6082
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 884.7231999986689,
+              "estimatedMs": 32730.70534864185,
+              "sampledCalls": 5506
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 62.79540000105044,
+              "estimatedMs": 2323.1421247770813,
+              "sampledCalls": 6112
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 582.6108999984572,
+              "estimatedMs": 21553.934270950776,
+              "sampledCalls": 6112
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1095.5898000008892,
+              "estimatedMs": 40531.803536813,
+              "sampledCalls": 60438
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 35.57900000101654,
+              "estimatedMs": 1316.26000723656,
+              "sampledCalls": 4107
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 120.03610000107437,
+              "estimatedMs": 4440.78579644027,
+              "sampledCalls": 2294
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.2874999995692633,
+              "estimatedMs": 10.636182902912884,
+              "sampledCalls": 473
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.9842000005301088,
+              "estimatedMs": 36.410891249978086,
+              "sampledCalls": 476
+            }
+          ]
+        }
+      },
+      "spatial": {
+        "samples": 5144,
+        "sampled": {
+          "credible_depth_threats": 180,
+          "aerial_assignments": 460,
+          "forward_line_gap_metres": 32882.617326647225,
+          "forward_observations": 4342,
+          "depth_behind_line_metres": 72789.00608736713,
+          "attacking_shape_observations": 2246,
+          "box_occupants": 253,
+          "overlap": 299,
+          "wing_1v1_exposure": 536,
+          "wing_defence_show_outside": 162,
+          "wing_defence_press": 155,
+          "provide_width": 494,
+          "crossing_positions": 78,
+          "cross_candidates": 299,
+          "wing_defence_recover": 73,
+          "depth_defence_handoff": 16,
+          "wing_defence_delay": 79,
+          "depth_defence_track": 153,
+          "wing_defence_commit": 58,
+          "wing_defence_cover": 9,
+          "underlap": 1
+        },
+        "events": {
+          "pass": 1800,
+          "pass_result": 2039,
+          "reception": 1795,
+          "recovery": 331,
+          "through_pass": 259,
+          "dribble": 265,
+          "slide_tackle": 18,
+          "cross": 10,
+          "aerial_contact_opportunity": 82,
+          "clearance": 11,
+          "interception": 84,
+          "possession_loss": 299,
+          "tackle": 124,
+          "challenge": 89,
+          "restart": 32,
+          "foul": 14,
+          "advantage": 12,
+          "heavy_touch": 55,
+          "shot": 5,
+          "card": 6,
+          "save": 1
+        },
+        "crossTypes": {
+          "floated": 4,
+          "cutback": 5,
+          "driven": 1
+        },
+        "aerialOutcomes": {
+          "controlled_header": 40,
+          "clearance_header": 16,
+          "flick_on": 26
+        },
+        "secondBallTeams": {
+          "away": 16,
+          "home": 8
+        },
+        "sprintDistance": 5495.195302192244,
+        "definitions": {
+          "sampled": "one-second in-play exposure, not independent events; mean forward gap uses forward_observations",
+          "events": "canonical action sequence plus unique aerial contact IDs; opportunities include unsuccessful contacts",
+          "secondBalls": "first actual owner acquisition within 8s of aerial contact, before restart/shot; temporal lineage, not causal attribution",
+          "trace": "first 96 examples; shape: first 32 team samples"
+        }
+      }
+    },
+    {
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "d40ab863c923eadf0de7ea2ad55c7bbae32ba9079a30dce658f07272531ddf82",
+      "status": "full_time",
+      "time": 5647.774999982061,
+      "finalHash": "26e3722338c36b78600327f3d4f52704f7984175d9eaa2039d535683cdd60d2d",
+      "flow": {
+        "floatedCrosses": 8,
+        "drivenCrosses": 0,
+        "cutbacks": 14,
+        "shots": 17,
+        "crosses": 22,
+        "boxEntries": 26,
+        "finalThirdEntries": 132,
+        "turnovers": {
+          "tackle": 119,
+          "interception": 313,
+          "bad_pass": 16,
+          "pass_out": 7,
+          "heavy_touch": 0,
+          "failed_control": 122,
+          "loose_ball_claim": 18,
+          "shot": 11,
+          "foul_stoppage": 8,
+          "other": 7
+        },
+        "restarts": 99
+      },
+      "performance": {
+        "maxSampledRssBytes": 560844800,
+        "serial": false,
+        "cpuSeconds": 387.813,
+        "wallSeconds": 361.8963943,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225911,
+          "sampledTicks": 6106,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1471.231799999894,
+              "estimatedMs": 54432.926166029494,
+              "sampledCalls": 6081
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 75.28660000987657,
+              "estimatedMs": 2785.4685710499875,
+              "sampledCalls": 133782
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2242.4575000002123,
+              "estimatedMs": 82966.88769776416,
+              "sampledCalls": 6081
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 107.32509999969011,
+              "estimatedMs": 3970.835353100228,
+              "sampledCalls": 2353
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 1203.1886000011182,
+              "estimatedMs": 44515.810647699414,
+              "sampledCalls": 6081
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 3069.0295999983705,
+              "estimatedMs": 113548.56632250769,
+              "sampledCalls": 4901
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 81.74290000030169,
+              "estimatedMs": 3024.3400396279326,
+              "sampledCalls": 6106
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 647.8522000010337,
+              "estimatedMs": 23969.364289949808,
+              "sampledCalls": 6106
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.5642000006973831,
+              "estimatedMs": 20.87438361571348,
+              "sampledCalls": 539
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.090500000015254,
+              "estimatedMs": 40.34653545749199,
+              "sampledCalls": 555
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1320.6044000029233,
+              "estimatedMs": 48859.98372241409,
+              "sampledCalls": 63608
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 152.59919999949489,
+              "estimatedMs": 5645.895491497853,
+              "sampledCalls": 2352
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1193.2384999995156,
+              "estimatedMs": 44147.67487281208,
+              "sampledCalls": 381
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 2135.021199999978,
+              "estimatedMs": 78991.93814497134,
+              "sampledCalls": 381
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 64.58749999955944,
+              "estimatedMs": 2389.621145168764,
+              "sampledCalls": 7887
+            }
+          ]
+        }
+      },
+      "spatial": {
+        "samples": 4538,
+        "sampled": {
+          "credible_depth_threats": 86,
+          "aerial_assignments": 231,
+          "forward_line_gap_metres": 134241.9103308767,
+          "forward_observations": 7625,
+          "depth_behind_line_metres": 64077.774001469756,
+          "attacking_shape_observations": 2171,
+          "box_occupants": 224,
+          "overlap": 564,
+          "provide_width": 1069,
+          "wing_1v1_exposure": 256,
+          "wing_defence_show_outside": 19,
+          "wing_defence_commit": 28,
+          "depth_defence_track": 64,
+          "depth_defence_hold_line": 2,
+          "wing_defence_recover": 44,
+          "wing_defence_press": 125,
+          "crossing_positions": 58,
+          "cross_candidates": 236,
+          "wing_defence_delay": 37,
+          "wing_defence_cover": 3,
+          "depth_defence_handoff": 14,
+          "underlap": 8
+        },
+        "events": {
+          "pass": 1743,
+          "pass_result": 2049,
+          "heavy_touch": 76,
+          "recovery": 581,
+          "dribble": 926,
+          "tackle": 243,
+          "possession_loss": 613,
+          "challenge": 235,
+          "reception": 1525,
+          "through_pass": 319,
+          "foul": 73,
+          "advantage": 26,
+          "restart": 98,
+          "cross": 22,
+          "shot": 17,
+          "block": 12,
+          "save": 4,
+          "interception": 191,
+          "slide_tackle": 5,
+          "aerial_contact_opportunity": 15,
+          "clearance": 4,
+          "card": 5
+        },
+        "crossTypes": {
+          "cutback": 14,
+          "floated": 8
+        },
+        "aerialOutcomes": {
+          "flick_on": 7,
+          "controlled_header": 4,
+          "clearance_header": 4
+        },
+        "secondBallTeams": {
+          "away": 4,
+          "home": 3
+        },
+        "sprintDistance": 7796.124932788296,
+        "definitions": {
+          "sampled": "one-second in-play exposure, not independent events; mean forward gap uses forward_observations",
+          "events": "canonical action sequence plus unique aerial contact IDs; opportunities include unsuccessful contacts",
+          "secondBalls": "first actual owner acquisition within 8s of aerial contact, before restart/shot; temporal lineage, not causal attribution",
+          "trace": "first 96 examples; shape: first 32 team samples"
+        }
+      }
+    },
+    {
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "policy": "role-intent-v1",
+      "sourceHash": "d40ab863c923eadf0de7ea2ad55c7bbae32ba9079a30dce658f07272531ddf82",
+      "status": "full_time",
+      "time": 5821.274999979099,
+      "finalHash": "62974fc3b6c9bc36f4ef58ba4aa178ca6f034f0166428eae7ac2a624623d39e7",
+      "flow": {
+        "floatedCrosses": 7,
+        "drivenCrosses": 1,
+        "cutbacks": 9,
+        "shots": 36,
+        "crosses": 17,
+        "boxEntries": 47,
+        "finalThirdEntries": 211,
+        "turnovers": {
+          "tackle": 131,
+          "interception": 437,
+          "bad_pass": 23,
+          "pass_out": 12,
+          "heavy_touch": 0,
+          "failed_control": 112,
+          "loose_ball_claim": 23,
+          "shot": 31,
+          "foul_stoppage": 10,
+          "other": 10
+        },
+        "restarts": 98
+      },
+      "performance": {
+        "maxSampledRssBytes": 539471872,
+        "serial": false,
+        "cpuSeconds": 362.656,
+        "wallSeconds": 335.8268687,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 232851,
+          "sampledTicks": 6294,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1560.4310999989364,
+              "estimatedMs": 57729.256762925375,
+              "sampledCalls": 6265
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 78.68399999282951,
+              "estimatedMs": 2910.9704611265242,
+              "sampledCalls": 137830
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2292.8672999993005,
+              "estimatedMs": 84826.25415826774,
+              "sampledCalls": 6265
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 107.66579999986106,
+              "estimatedMs": 3983.1727352665475,
+              "sampledCalls": 2327
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 767.7295000018296,
+              "estimatedMs": 28402.69809420496,
+              "sampledCalls": 6265
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2386.5839000000537,
+              "estimatedMs": 88293.3663328428,
+              "sampledCalls": 5111
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 80.16479999978583,
+              "estimatedMs": 2965.7537090483206,
+              "sampledCalls": 6294
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 674.3007999989302,
+              "estimatedMs": 24946.23698451714,
+              "sampledCalls": 6294
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1245.5505000012568,
+              "estimatedMs": 46080.025337749066,
+              "sampledCalls": 61843
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 151.38650000040343,
+              "estimatedMs": 5600.651082236088,
+              "sampledCalls": 2350
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1063.3811999997524,
+              "estimatedMs": 39340.542707521825,
+              "sampledCalls": 361
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1234.125399999662,
+              "estimatedMs": 45657.34564908187,
+              "sampledCalls": 361
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.6292000000112239,
+              "estimatedMs": 23.277700858375198,
+              "sampledCalls": 538
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.2051000001210923,
+              "estimatedMs": 44.583530366729654,
+              "sampledCalls": 596
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 43.87150000112706,
+              "estimatedMs": 1623.0573000893608,
+              "sampledCalls": 5431
+            }
+          ]
+        }
+      },
+      "spatial": {
+        "samples": 4712,
+        "sampled": {
+          "credible_depth_threats": 34,
+          "aerial_assignments": 160,
+          "forward_line_gap_metres": 139362.9853817683,
+          "forward_observations": 7422,
+          "depth_behind_line_metres": 63194.07927303922,
+          "attacking_shape_observations": 2126,
+          "box_occupants": 363,
+          "overlap": 625,
+          "provide_width": 1309,
+          "wing_1v1_exposure": 552,
+          "wing_defence_recover": 85,
+          "crossing_positions": 109,
+          "cross_candidates": 420,
+          "wing_defence_press": 243,
+          "wing_defence_delay": 94,
+          "depth_defence_track": 28,
+          "wing_defence_commit": 67,
+          "wing_defence_show_outside": 49,
+          "depth_defence_handoff": 5,
+          "wing_defence_cover": 14,
+          "underlap": 8
+        },
+        "events": {
+          "pass": 1716,
+          "pass_result": 2159,
+          "reception": 1436,
+          "through_pass": 448,
+          "dribble": 998,
+          "recovery": 659,
+          "possession_loss": 773,
+          "interception": 267,
+          "challenge": 218,
+          "tackle": 262,
+          "restart": 97,
+          "foul": 52,
+          "slide_tackle": 9,
+          "cross": 17,
+          "shot": 38,
+          "block": 4,
+          "card": 6,
+          "heavy_touch": 109,
+          "aerial_contact_opportunity": 26,
+          "save": 10,
+          "clearance": 3,
+          "advantage": 20,
+          "offside": 1
+        },
+        "crossTypes": {
+          "cutback": 9,
+          "floated": 7,
+          "driven": 1
+        },
+        "aerialOutcomes": {
+          "flick_on": 13,
+          "controlled_header": 9,
+          "clearance_header": 4
+        },
+        "secondBallTeams": {
+          "away": 6,
+          "home": 4
+        },
+        "sprintDistance": 7031.6040917076625,
+        "definitions": {
+          "sampled": "one-second in-play exposure, not independent events; mean forward gap uses forward_observations",
+          "events": "canonical action sequence plus unique aerial contact IDs; opportunities include unsuccessful contacts",
+          "secondBalls": "first actual owner acquisition within 8s of aerial contact, before restart/shot; temporal lineage, not causal attribution",
+          "trace": "first 96 examples; shape: first 32 team samples"
+        }
+      }
+    },
+    {
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "policy": "role-value-v1",
+      "sourceHash": "d40ab863c923eadf0de7ea2ad55c7bbae32ba9079a30dce658f07272531ddf82",
+      "status": "full_time",
+      "time": 5847.325000005701,
+      "finalHash": "6a26d411d78506b4b1bfd5c8a11fc4bca8d14c88c36814e0e03d5320233ef75c",
+      "flow": {
+        "floatedCrosses": 6,
+        "drivenCrosses": 0,
+        "cutbacks": 17,
+        "shots": 27,
+        "crosses": 23,
+        "boxEntries": 35,
+        "finalThirdEntries": 193,
+        "turnovers": {
+          "tackle": 169,
+          "interception": 419,
+          "bad_pass": 12,
+          "pass_out": 4,
+          "heavy_touch": 1,
+          "failed_control": 153,
+          "loose_ball_claim": 16,
+          "shot": 21,
+          "foul_stoppage": 15,
+          "other": 6
+        },
+        "restarts": 98
+      },
+      "performance": {
+        "maxSampledRssBytes": 543252480,
+        "serial": false,
+        "cpuSeconds": 375.016,
+        "wallSeconds": 346.8613784,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 233894,
+          "sampledTicks": 6322,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1336.994899999483,
+              "estimatedMs": 49464.58164196126,
+              "sampledCalls": 6274
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 76.76260000048,
+              "estimatedMs": 2839.9733572464834,
+              "sampledCalls": 137349
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2322.324399999941,
+              "estimatedMs": 85918.65599708733,
+              "sampledCalls": 6274
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 114.48290000000384,
+              "estimatedMs": 4235.505126953637,
+              "sampledCalls": 2511
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 891.1847000032874,
+              "estimatedMs": 32971.014587562306,
+              "sampledCalls": 6274
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2961.3797000018885,
+              "estimatedMs": 109561.68041003506,
+              "sampledCalls": 4997
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 83.53869999804033,
+              "estimatedMs": 3090.667620585518,
+              "sampledCalls": 6322
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 663.3648999989052,
+              "estimatedMs": 24542.4027080582,
+              "sampledCalls": 6322
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 164.15209999970375,
+              "estimatedMs": 6073.108395654967,
+              "sampledCalls": 2557
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.6104000004215777,
+              "estimatedMs": 22.58286898111428,
+              "sampledCalls": 639
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.350099999574013,
+              "estimatedMs": 49.949428867504615,
+              "sampledCalls": 710
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1268.6352000046363,
+              "estimatedMs": 46935.48900187985,
+              "sampledCalls": 62681
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 1007.1019999999558,
+              "estimatedMs": 37259.587976588045,
+              "sampledCalls": 421
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1905.5719000000654,
+              "estimatedMs": 70500.1319168958,
+              "sampledCalls": 421
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 42.98259999963284,
+              "estimatedMs": 1590.2202221313069,
+              "sampledCalls": 4802
+            }
+          ]
+        }
+      },
+      "spatial": {
+        "samples": 4623,
+        "sampled": {
+          "credible_depth_threats": 36,
+          "aerial_assignments": 214,
+          "forward_line_gap_metres": 161594.8638112897,
+          "forward_observations": 7803,
+          "depth_behind_line_metres": 65630.18660357235,
+          "attacking_shape_observations": 2274,
+          "box_occupants": 220,
+          "depth_defence_track": 28,
+          "provide_width": 1464,
+          "overlap": 577,
+          "wing_1v1_exposure": 203,
+          "wing_defence_press": 93,
+          "wing_defence_commit": 20,
+          "wing_defence_recover": 34,
+          "crossing_positions": 54,
+          "cross_candidates": 171,
+          "wing_defence_show_outside": 27,
+          "wing_defence_cover": 6,
+          "wing_defence_delay": 23,
+          "depth_defence_handoff": 7,
+          "underlap": 5
+        },
+        "events": {
+          "pass": 1916,
+          "pass_result": 2186,
+          "heavy_touch": 82,
+          "recovery": 706,
+          "dribble": 1043,
+          "reception": 1521,
+          "challenge": 237,
+          "possession_loss": 801,
+          "interception": 259,
+          "tackle": 334,
+          "through_pass": 282,
+          "slide_tackle": 8,
+          "restart": 97,
+          "foul": 74,
+          "cross": 23,
+          "shot": 31,
+          "block": 26,
+          "aerial_contact_opportunity": 22,
+          "advantage": 26,
+          "save": 8,
+          "card": 6,
+          "clearance": 10
+        },
+        "crossTypes": {
+          "cutback": 17,
+          "floated": 6
+        },
+        "aerialOutcomes": {
+          "flick_on": 2,
+          "controlled_header": 8,
+          "clearance_header": 12
+        },
+        "secondBallTeams": {
+          "away": 9,
+          "home": 1
+        },
+        "sprintDistance": 7946.925717568731,
+        "definitions": {
+          "sampled": "one-second in-play exposure, not independent events; mean forward gap uses forward_observations",
+          "events": "canonical action sequence plus unique aerial contact IDs; opportunities include unsuccessful contacts",
+          "secondBalls": "first actual owner acquisition within 8s of aerial contact, before restart/shot; temporal lineage, not causal attribution",
+          "trace": "first 96 examples; shape: first 32 team samples"
+        }
+      }
+    },
+    {
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "policy": "state-value-v1",
+      "sourceHash": "d40ab863c923eadf0de7ea2ad55c7bbae32ba9079a30dce658f07272531ddf82",
+      "status": "full_time",
+      "time": 5642.32499998214,
+      "finalHash": "1fc657a300f258ac935b554372759c0d5f085a4d3d6568cc09440bf27eec3ee8",
+      "flow": {
+        "floatedCrosses": 10,
+        "drivenCrosses": 1,
+        "cutbacks": 9,
+        "shots": 17,
+        "crosses": 20,
+        "boxEntries": 31,
+        "finalThirdEntries": 173,
+        "turnovers": {
+          "tackle": 111,
+          "interception": 385,
+          "bad_pass": 7,
+          "pass_out": 15,
+          "heavy_touch": 1,
+          "failed_control": 92,
+          "loose_ball_claim": 18,
+          "shot": 16,
+          "foul_stoppage": 7,
+          "other": 7
+        },
+        "restarts": 77
+      },
+      "performance": {
+        "maxSampledRssBytes": 540327936,
+        "serial": false,
+        "cpuSeconds": 345.656,
+        "wallSeconds": 320.600125,
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 225693,
+          "sampledTicks": 6100,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "tactical_planning",
+              "sampledMs": 1425.6061000000184,
+              "estimatedMs": 52745.78975857444,
+              "sampledCalls": 6072
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 70.33490000168558,
+              "estimatedMs": 2602.3105878820365,
+              "sampledCalls": 133584
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 2212.5003999999753,
+              "estimatedMs": 81859.97586511384,
+              "sampledCalls": 6072
+            },
+            {
+              "category": "ball_contact_control",
+              "sampledMs": 122.77400000007196,
+              "estimatedMs": 4542.497111805941,
+              "sampledCalls": 2538
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 918.8296000016396,
+              "estimatedMs": 33995.64080543771,
+              "sampledCalls": 6072
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 2114.2305999978626,
+              "estimatedMs": 78224.10603365861,
+              "sampledCalls": 5219
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 70.45879999909016,
+              "estimatedMs": 2606.8947456056812,
+              "sampledCalls": 6100
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 656.1226000006741,
+              "estimatedMs": 24275.783272451168,
+              "sampledCalls": 6100
+            },
+            {
+              "category": "pressure_decision",
+              "sampledMs": 166.84140000051775,
+              "estimatedMs": 6172.940342674893,
+              "sampledCalls": 2678
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.7198000004977985,
+              "estimatedMs": 26.63177401841797,
+              "sampledCalls": 528
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 1.7339999998871463,
+              "estimatedMs": 64.15601015975896,
+              "sampledCalls": 544
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 1158.4282999976413,
+              "estimatedMs": 42860.517755961904,
+              "sampledCalls": 58795
+            },
+            {
+              "category": "decision_candidates",
+              "sampledMs": 929.7675999999988,
+              "estimatedMs": 34400.334253573725,
+              "sampledCalls": 384
+            },
+            {
+              "category": "decision_value",
+              "sampledMs": 1099.427700000197,
+              "estimatedMs": 40677.563261663025,
+              "sampledCalls": 384
+            },
+            {
+              "category": "first_touch",
+              "sampledMs": 50.001600000509825,
+              "estimatedMs": 1850.0018211336169,
+              "sampledCalls": 6478
+            }
+          ]
+        }
+      },
+      "spatial": {
+        "samples": 4836,
+        "sampled": {
+          "credible_depth_threats": 20,
+          "aerial_assignments": 315,
+          "forward_line_gap_metres": 156921.5821439826,
+          "forward_observations": 8198,
+          "depth_behind_line_metres": 68863.35012269623,
+          "attacking_shape_observations": 2375,
+          "box_occupants": 251,
+          "overlap": 684,
+          "provide_width": 1474,
+          "crossing_positions": 76,
+          "cross_candidates": 286,
+          "wing_1v1_exposure": 679,
+          "wing_defence_press": 270,
+          "wing_defence_delay": 136,
+          "depth_defence_track": 18,
+          "wing_defence_recover": 96,
+          "wing_defence_commit": 74,
+          "underlap": 25,
+          "wing_defence_show_outside": 95,
+          "wing_defence_cover": 8,
+          "depth_defence_handoff": 2
+        },
+        "events": {
+          "pass": 1906,
+          "pass_result": 2234,
+          "reception": 1537,
+          "heavy_touch": 117,
+          "recovery": 605,
+          "through_pass": 335,
+          "dribble": 756,
+          "possession_loss": 649,
+          "challenge": 178,
+          "foul": 39,
+          "advantage": 12,
+          "interception": 265,
+          "tackle": 221,
+          "restart": 76,
+          "card": 4,
+          "cross": 20,
+          "aerial_contact_opportunity": 47,
+          "clearance": 20,
+          "slide_tackle": 4,
+          "shot": 17,
+          "save": 7,
+          "block": 2,
+          "offside": 2
+        },
+        "crossTypes": {
+          "cutback": 9,
+          "floated": 10,
+          "driven": 1
+        },
+        "aerialOutcomes": {
+          "controlled_header": 19,
+          "clearance_header": 20,
+          "flick_on": 8
+        },
+        "secondBallTeams": {
+          "home": 11,
+          "away": 8
+        },
+        "sprintDistance": 6336.762592267158,
+        "definitions": {
+          "sampled": "one-second in-play exposure, not independent events; mean forward gap uses forward_observations",
+          "events": "canonical action sequence plus unique aerial contact IDs; opportunities include unsuccessful contacts",
+          "secondBalls": "first actual owner acquisition within 8s of aerial contact, before restart/shot; temporal lineage, not causal attribution",
+          "trace": "first 96 examples; shape: first 32 team samples"
+        }
+      }
+    }
+  ]
+}

@@ -1440,6 +1440,7 @@ const stepTacticalMatchCore = (
     }
     if (
       state.receptionPreparation?.actorId === player.id &&
+      player.spatialMovement?.kind !== 'aerial_challenge' &&
       state.time >= state.receptionPreparation.awarenessAt
     ) {
       const preparation = state.receptionPreparation;
@@ -1499,7 +1500,10 @@ const stepTacticalMatchCore = (
       state.ball.ownerId &&
       distance(player.position, state.ball) <= 18 &&
       state.defensiveChallenge?.actorId !== player.id &&
-      state.playerMovementIntent?.actorId !== player.id
+      state.playerMovementIntent?.actorId !== player.id &&
+      !(
+        player.spatialMovement?.kind === 'track_depth' && player.spatialMovement.until >= state.time
+      )
     ) {
       const pressureSpan = startPerformanceSpan('pressure_decision');
       movementTarget =
@@ -1522,12 +1526,22 @@ const stepTacticalMatchCore = (
         deriveOrientationTarget(state, player))
       : deriveOrientationTarget(state, player);
     const fitnessEffects = deriveFitnessPhysicalModifiers(player);
+    const recovery = player.challengeRecovery;
+    const balance =
+      recovery && state.time < recovery.until
+        ? 1 -
+          recovery.load *
+            Math.max(
+              0,
+              (recovery.until - state.time) / Math.max(0.025, recovery.until - recovery.startedAt),
+            )
+        : 1;
     const facingAngle = integrateFacing(
       player.facingAngle,
       desiredFacingAngle,
       player.profile.attributes.agility,
       Math.hypot(player.velocity.x, player.velocity.y),
-      dt * fitnessEffects.turning,
+      dt * fitnessEffects.turning * balance,
     );
     const movementMode = classifyRelativeMovement(facingAngle, { x: dx, y: dy }, d);
     const receivingMomentum =
@@ -1537,7 +1551,7 @@ const stepTacticalMatchCore = (
     const maxSpeed =
       locomotion.targetSpeed * (receivingMomentum ? 1 : movementModeSpeedFactor(movementMode));
     const capability = deriveMovementCapability(player);
-    const accelerationRate = capability.acceleration;
+    const accelerationRate = capability.acceleration * balance;
     const structural =
       !preparing &&
       ['structural_adjustment', 'maintain_shape', 'support_run'].includes(locomotion.reason);
@@ -2048,6 +2062,8 @@ const stepTacticalMatchCore = (
               ballHeight: state.ball.height ?? 0,
               candidates: physical.map(({ contact }) => contact),
               contestantIds: duel.contestants.map((p) => p.id),
+              challengerIds: duel.challengerIds,
+              contactEvidence: duel.contactEvidence,
               ...(winner ? { winnerId: winner.id } : {}),
             },
           };
@@ -2169,6 +2185,8 @@ const stepTacticalMatchCore = (
               ballHeight: state.ball.height ?? 0,
               candidates: physical.map(({ contact }) => contact),
               contestantIds: duel.contestants.map((p) => p.id),
+              challengerIds: duel.challengerIds,
+              contactEvidence: duel.contactEvidence,
               ...(duel.winner ? { winnerId: duel.winner.id } : {}),
             },
             ...(state.keeperIntervention

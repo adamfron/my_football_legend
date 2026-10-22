@@ -168,6 +168,14 @@ export const projectLocomotion = (
   if (movement?.type === 'hold_shape') return result(metres < 3 ? 'walk' : 'jog', 'contain');
   if (movement?.type === 'attack_space')
     return result(metres > 7 ? 'sprint' : 'run', 'press_commit');
+  const spatial = player.spatialMovement;
+  if (spatial && spatial.until >= state.time && distance(target, spatial.target) < 1.5) {
+    if (spatial.kind === 'aerial_challenge' || spatial.kind === 'second_ball')
+      return result(metres > 3 ? 'sprint' : 'run', 'loose_ball_race');
+    if (spatial.kind === 'track_depth')
+      return result(metres > 4 ? 'sprint' : 'run', 'recovery_run');
+    return result(metres > 4 ? 'sprint' : 'run', 'depth_run');
+  }
   const combination = state.combinationIntent;
   if (
     combination?.runnerId === player.id &&

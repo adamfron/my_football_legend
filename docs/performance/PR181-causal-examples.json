@@ -1,0 +1,2707 @@
+{
+  "schema": "mfl-pr181-causal-v1",
+  "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+  "method": "Prescribed geometry and explicitly labelled action probes, all five policies. Natural rankings remain separate. Release/result pairs use canonical parent IDs. First/last body samples and full selected event chains are retained. These are dependent development probes, not league frequencies.",
+  "detailedArtifact": "pr181-evidence/causal-examples.json.gz",
+  "controlledArtifact": "pr181-evidence/controlled.json.gz",
+  "examples": [
+    {
+      "scenario": "depth",
+      "policy": "legacy-pr176",
+      "variant": "prescribed-depth-release",
+      "inputHash": "1e730e1dae9fb7720f04a8907e58c37f3dada1a3f28f6d3c6915f8deba5764e4",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:4",
+        "target": {
+          "x": 34,
+          "y": 18
+        },
+        "intent": "support"
+      },
+      "prescribedAction": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 75.361,
+          "y": 24
+        },
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        },
+        "intent": "through",
+        "delivery": "ground"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 75.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:2",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 5.361666417663004
+        }
+      ],
+      "release": {
+        "id": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 0,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 43.35,
+          "y": 34
+        },
+        "at": 30,
+        "kind": "through_pass",
+        "targetId": "geometry:anchor:10",
+        "outcome": "released",
+        "cause": "through",
+        "executionType": "ground_through",
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        }
+      },
+      "result": {
+        "id": "pr181:spatial:depth:action:pass-result:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 1,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 64.60467969421201,
+          "y": 28.318945860815
+        },
+        "at": 31.274999999999928,
+        "kind": "pass_result",
+        "targetId": "geometry:anchor:10",
+        "outcome": "completed",
+        "cause": "directional_control",
+        "parentId": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.0876272786442,
+            "y": 27.995595588664845
+          },
+          "velocity": {
+            "x": 3.505091145767949,
+            "y": -0.1761764534062138
+          },
+          "target": {
+            "x": 73.98052324598298,
+            "y": 24.544134081958294
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 76.12426809870165,
+            "y": 37.33897576045157
+          },
+          "velocity": {
+            "x": 0.709014327001114,
+            "y": 1.3341327984747409
+          },
+          "target": {
+            "x": 76.57237741954317,
+            "y": 38.02543307142626
+          }
+        }
+      },
+      "peakSpeed": 3.6468541035288875,
+      "peakBallSeparation": 0,
+      "aerialEvents": [],
+      "losses": 2
+    },
+    {
+      "scenario": "depth",
+      "policy": "state-value-v1",
+      "variant": "prescribed-depth-release",
+      "inputHash": "1e730e1dae9fb7720f04a8907e58c37f3dada1a3f28f6d3c6915f8deba5764e4",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 58,
+          "y": 10
+        },
+        "intent": "progressive",
+        "delivery": "lofted"
+      },
+      "prescribedAction": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 75.361,
+          "y": 24
+        },
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        },
+        "intent": "through",
+        "delivery": "ground"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 75.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:2",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 5.361666417663004
+        }
+      ],
+      "release": {
+        "id": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 0,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 43.35,
+          "y": 34
+        },
+        "at": 30,
+        "kind": "through_pass",
+        "targetId": "geometry:anchor:10",
+        "outcome": "released",
+        "cause": "through",
+        "executionType": "ground_through",
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        }
+      },
+      "result": {
+        "id": "pr181:spatial:depth:action:pass-result:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 1,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 64.97120164287439,
+          "y": 28.220980092169818
+        },
+        "at": 31.299999999999926,
+        "kind": "pass_result",
+        "targetId": "geometry:anchor:10",
+        "outcome": "completed",
+        "cause": "directional_control",
+        "parentId": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.08882854580301,
+            "y": 27.995798809084103
+          },
+          "velocity": {
+            "x": 3.5531418321204455,
+            "y": -0.16804763663586186
+          },
+          "target": {
+            "x": 69.21875559667997,
+            "y": 27.085673217738297
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 50.892816174268866,
+            "y": 33.734473940533604
+          },
+          "velocity": {
+            "x": -2.677496706429565,
+            "y": -0.05437731884200048
+          },
+          "target": {
+            "x": 41.6499122097037,
+            "y": 33.54469928681624
+          }
+        }
+      },
+      "peakSpeed": 3.646934089728814,
+      "peakBallSeparation": 0,
+      "aerialEvents": [],
+      "losses": 2
+    },
+    {
+      "scenario": "depth",
+      "policy": "role-value-v1",
+      "variant": "prescribed-depth-release",
+      "inputHash": "1e730e1dae9fb7720f04a8907e58c37f3dada1a3f28f6d3c6915f8deba5764e4",
+      "autonomousRankedFirst": {
+        "type": "carry",
+        "actorId": "geometry:anchor:5",
+        "target": {
+          "x": 53,
+          "y": 34
+        }
+      },
+      "prescribedAction": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 75.361,
+          "y": 24
+        },
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        },
+        "intent": "through",
+        "delivery": "ground"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 75.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:2",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 5.361666417663004
+        }
+      ],
+      "release": {
+        "id": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 0,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 43.35,
+          "y": 34
+        },
+        "at": 30,
+        "kind": "through_pass",
+        "targetId": "geometry:anchor:10",
+        "outcome": "released",
+        "cause": "through",
+        "executionType": "ground_through",
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        }
+      },
+      "result": {
+        "id": "pr181:spatial:depth:action:pass-result:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 2,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 64.97120164287439,
+          "y": 28.220980092169818
+        },
+        "at": 31.299999999999926,
+        "kind": "pass_result",
+        "targetId": "geometry:anchor:10",
+        "outcome": "completed",
+        "cause": "completed",
+        "parentId": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.08882854580301,
+            "y": 27.995798809084103
+          },
+          "velocity": {
+            "x": 3.5531418321204455,
+            "y": -0.16804763663586186
+          },
+          "target": {
+            "x": 69.21875559667997,
+            "y": 27.085673217738297
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 65.57763631500744,
+            "y": 38.09769899273754
+          },
+          "velocity": {
+            "x": 2.3642799020245775,
+            "y": -1.2529370000112294
+          },
+          "target": {
+            "x": 66.0471576959631,
+            "y": 37.823755903660725
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 66.0471576959631,
+              "y": 37.823755903660725
+            },
+            "until": 41.749999999999346
+          }
+        }
+      },
+      "peakSpeed": 4.729376159258593,
+      "peakBallSeparation": 0.8552357797093861,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "depth",
+      "policy": "role-intent-v1",
+      "variant": "prescribed-depth-release",
+      "inputHash": "1e730e1dae9fb7720f04a8907e58c37f3dada1a3f28f6d3c6915f8deba5764e4",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 58,
+          "y": 10
+        },
+        "intent": "progressive",
+        "delivery": "lofted"
+      },
+      "prescribedAction": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 75.361,
+          "y": 24
+        },
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        },
+        "intent": "through",
+        "delivery": "ground"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 75.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:2",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 5.361666417663004
+        }
+      ],
+      "release": {
+        "id": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 0,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 43.35,
+          "y": 34
+        },
+        "at": 30,
+        "kind": "through_pass",
+        "targetId": "geometry:anchor:10",
+        "outcome": "released",
+        "cause": "through",
+        "executionType": "ground_through",
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        }
+      },
+      "result": {
+        "id": "pr181:spatial:depth:action:pass-result:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 1,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 64.97120164287439,
+          "y": 28.220980092169818
+        },
+        "at": 31.299999999999926,
+        "kind": "pass_result",
+        "targetId": "geometry:anchor:10",
+        "outcome": "completed",
+        "cause": "directional_control",
+        "parentId": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.08882854580301,
+            "y": 27.995798809084103
+          },
+          "velocity": {
+            "x": 3.5531418321204455,
+            "y": -0.16804763663586186
+          },
+          "target": {
+            "x": 69.21875559667997,
+            "y": 27.085673217738297
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 51.376803880693465,
+            "y": 37.53427223991405
+          },
+          "velocity": {
+            "x": -1.4429066170745841,
+            "y": 3.3149040602552304
+          },
+          "target": {
+            "x": 50.40795826656628,
+            "y": 39.76007827755098
+          }
+        }
+      },
+      "peakSpeed": 3.6478537631652044,
+      "peakBallSeparation": 0,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "depth",
+      "policy": "phase-role-hybrid-v1",
+      "variant": "prescribed-depth-release",
+      "inputHash": "1e730e1dae9fb7720f04a8907e58c37f3dada1a3f28f6d3c6915f8deba5764e4",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:1",
+        "target": {
+          "x": 34,
+          "y": 28
+        },
+        "intent": "support",
+        "delivery": "ground"
+      },
+      "prescribedAction": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 75.361,
+          "y": 24
+        },
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        },
+        "intent": "through",
+        "delivery": "ground"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 75.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:2",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 5.361666417663004
+        }
+      ],
+      "release": {
+        "id": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 0,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 43.35,
+          "y": 34
+        },
+        "at": 30,
+        "kind": "through_pass",
+        "targetId": "geometry:anchor:10",
+        "outcome": "released",
+        "cause": "through",
+        "executionType": "ground_through",
+        "requestedSpace": {
+          "x": 75.361,
+          "y": 24
+        }
+      },
+      "result": {
+        "id": "pr181:spatial:depth:action:pass-result:pr181:spatial:depth:pass:0:geometry:anchor:5",
+        "sequence": 2,
+        "actorId": "geometry:anchor:5",
+        "team": "home",
+        "position": {
+          "x": 64.97120164287439,
+          "y": 28.220980092169818
+        },
+        "at": 31.299999999999926,
+        "kind": "pass_result",
+        "targetId": "geometry:anchor:10",
+        "outcome": "completed",
+        "cause": "completed",
+        "parentId": "pr181:spatial:depth:action:pass:pr181:spatial:depth:pass:0:geometry:anchor:5"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.08882854580301,
+            "y": 27.995798809084103
+          },
+          "velocity": {
+            "x": 3.5531418321204455,
+            "y": -0.16804763663586186
+          },
+          "target": {
+            "x": 69.21875559667997,
+            "y": 27.085673217738297
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 64.86093891505453,
+            "y": 27.076285802421015
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "target": {
+            "x": 64.86093891505453,
+            "y": 27.076285802421015
+          }
+        }
+      },
+      "peakSpeed": 3.647041765720269,
+      "peakBallSeparation": 0,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "covered",
+      "policy": "legacy-pr176",
+      "variant": "autonomous",
+      "inputHash": "13ede347c0cf37a9939dd3fb5715592217ccfb7a5bed6f00c3974f301f31ccef",
+      "autonomousRankedFirst": {
+        "type": "space_pass",
+        "actorId": "geometry:anchor:8",
+        "target": {
+          "x": 69,
+          "y": 28
+        }
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.09162405716917,
+            "y": 27.998448487342
+          },
+          "velocity": {
+            "x": 3.6649622867668086,
+            "y": -0.06206050632002302
+          },
+          "target": {
+            "x": 79.361,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 79.361,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 87.6264288297585,
+            "y": 22.51212110072874
+          },
+          "velocity": {
+            "x": 2.342321400693095,
+            "y": 2.763122892749692
+          },
+          "target": {
+            "x": 93.32902006274118,
+            "y": 29.239191253947258
+          }
+        }
+      },
+      "peakSpeed": 9.278655123443793,
+      "peakBallSeparation": 3.240389599215919,
+      "aerialEvents": [
+        {
+          "at": 31.39999999999992,
+          "kind": "aerial",
+          "outcome": "controlled_header",
+          "winnerId": "geometry:anchor:10",
+          "contestants": [
+            "geometry:anchor:10"
+          ],
+          "challengers": []
+        }
+      ],
+      "losses": 0
+    },
+    {
+      "scenario": "covered",
+      "policy": "state-value-v1",
+      "variant": "autonomous",
+      "inputHash": "13ede347c0cf37a9939dd3fb5715592217ccfb7a5bed6f00c3974f301f31ccef",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 65.48357000614466,
+          "y": 28
+        },
+        "requestedSpace": {
+          "x": 65.48357000614466,
+          "y": 28
+        },
+        "intent": "through",
+        "delivery": "ground"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.09162405716917,
+            "y": 27.998448487342
+          },
+          "velocity": {
+            "x": 3.6649622867668086,
+            "y": -0.06206050632002302
+          },
+          "target": {
+            "x": 79.361,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 79.361,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 80.83430590125054,
+            "y": 30.518673035676358
+          },
+          "velocity": {
+            "x": 0.10149138194549323,
+            "y": -0.43019007356150496
+          },
+          "target": {
+            "x": 71.40978532733236,
+            "y": 32.89952411600564
+          }
+        }
+      },
+      "peakSpeed": 9.308831059033958,
+      "peakBallSeparation": 0,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "covered",
+      "policy": "role-value-v1",
+      "variant": "autonomous",
+      "inputHash": "13ede347c0cf37a9939dd3fb5715592217ccfb7a5bed6f00c3974f301f31ccef",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:5",
+        "target": {
+          "x": 43,
+          "y": 34
+        },
+        "intent": "support",
+        "delivery": "lofted"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.09162405716917,
+            "y": 27.998448487342
+          },
+          "velocity": {
+            "x": 3.6649622867668086,
+            "y": -0.06206050632002302
+          },
+          "target": {
+            "x": 79.361,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 79.361,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 62.0552757102386,
+            "y": 36.843839501757316
+          },
+          "velocity": {
+            "x": 0.7051610888376558,
+            "y": 4.226653161901481
+          },
+          "target": {
+            "x": 61.14657720654117,
+            "y": 41.63436947573293
+          }
+        }
+      },
+      "peakSpeed": 6.322483241029014,
+      "peakBallSeparation": 1.8166935750014161,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "covered",
+      "policy": "role-intent-v1",
+      "variant": "autonomous",
+      "inputHash": "13ede347c0cf37a9939dd3fb5715592217ccfb7a5bed6f00c3974f301f31ccef",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 65.48357000614466,
+          "y": 28
+        },
+        "requestedSpace": {
+          "x": 65.48357000614466,
+          "y": 28
+        },
+        "intent": "through",
+        "delivery": "ground"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.09162405716917,
+            "y": 27.998448487342
+          },
+          "velocity": {
+            "x": 3.6649622867668086,
+            "y": -0.06206050632002302
+          },
+          "target": {
+            "x": 79.361,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 79.361,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 65.56498849379601,
+            "y": 34.96170853685122
+          },
+          "velocity": {
+            "x": -0.06150619647655731,
+            "y": 3.4583810704830853
+          },
+          "target": {
+            "x": 63.07135191635668,
+            "y": 39.33999363075978
+          }
+        }
+      },
+      "peakSpeed": 9.000386255555373,
+      "peakBallSeparation": 0.6145414202280425,
+      "aerialEvents": [
+        {
+          "at": 39.27499999999947,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:anchor:6",
+          "contestants": [
+            "geometry:anchor:6"
+          ],
+          "challengers": []
+        },
+        {
+          "at": 40.124999999999424,
+          "kind": "second_ball_recovery",
+          "team": "away"
+        }
+      ],
+      "losses": 1
+    },
+    {
+      "scenario": "covered",
+      "policy": "phase-role-hybrid-v1",
+      "variant": "autonomous",
+      "inputHash": "13ede347c0cf37a9939dd3fb5715592217ccfb7a5bed6f00c3974f301f31ccef",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:1",
+        "target": {
+          "x": 34,
+          "y": 28
+        },
+        "intent": "support",
+        "delivery": "lofted"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.09162405716917,
+            "y": 27.998448487342
+          },
+          "velocity": {
+            "x": 3.6649622867668086,
+            "y": -0.06206050632002302
+          },
+          "target": {
+            "x": 79.361,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 79.361,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 60.60568561446706,
+            "y": 30.080245884232667
+          },
+          "velocity": {
+            "x": -7.484336227009294,
+            "y": 0.7737537146435614
+          },
+          "target": {
+            "x": 53.709655634895725,
+            "y": 31.094445575588065
+          }
+        }
+      },
+      "peakSpeed": 9.20116048402209,
+      "peakBallSeparation": 2.0851095549103738,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "isolated",
+      "policy": "legacy-pr176",
+      "variant": "prescribed-sprint",
+      "inputHash": "8f9f27576a4e48981509e4e3dc81bc569bbb6a8dc16f5dca11f9501428d867b6",
+      "autonomousRankedFirst": {
+        "type": "space_pass",
+        "actorId": "geometry:anchor:8",
+        "target": {
+          "x": 69,
+          "y": 28
+        }
+      },
+      "prescribedAction": {
+        "type": "carry",
+        "actorId": "geometry:anchor:8",
+        "target": {
+          "x": 85.05199999999999,
+          "y": 6.000000000000001
+        },
+        "movementMode": "sprint"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.08491896193141,
+            "y": 27.996428826306243
+          },
+          "velocity": {
+            "x": 3.3967584772562986,
+            "y": -0.14284694775028584
+          },
+          "target": {
+            "x": 60.544,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 60.544,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 95.839909933479,
+            "y": 28.738529868036192
+          },
+          "velocity": {
+            "x": 1.4497980166856905,
+            "y": 1.4857758159308787
+          },
+          "target": {
+            "x": 96.07812073869405,
+            "y": 28.982652048787322
+          }
+        }
+      },
+      "peakSpeed": 9.225493819915267,
+      "peakBallSeparation": 3.1782281316718772,
+      "aerialEvents": [],
+      "losses": 0
+    },
+    {
+      "scenario": "isolated",
+      "policy": "state-value-v1",
+      "variant": "prescribed-sprint",
+      "inputHash": "8f9f27576a4e48981509e4e3dc81bc569bbb6a8dc16f5dca11f9501428d867b6",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 65.48357000614466,
+          "y": 28
+        },
+        "requestedSpace": {
+          "x": 65.48357000614466,
+          "y": 28
+        },
+        "intent": "through",
+        "delivery": "ground"
+      },
+      "prescribedAction": {
+        "type": "carry",
+        "actorId": "geometry:anchor:8",
+        "target": {
+          "x": 85.05199999999999,
+          "y": 6.000000000000001
+        },
+        "movementMode": "sprint"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.08491896193141,
+            "y": 27.996428826306243
+          },
+          "velocity": {
+            "x": 3.3967584772562986,
+            "y": -0.14284694775028584
+          },
+          "target": {
+            "x": 60.544,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 60.544,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 81.43498877538572,
+            "y": 19.416938008822676
+          },
+          "velocity": {
+            "x": 4.912793764808612,
+            "y": -2.363603949172415
+          },
+          "target": {
+            "x": 97.48248781204724,
+            "y": 11.696293928646584
+          }
+        }
+      },
+      "peakSpeed": 8.91878993326265,
+      "peakBallSeparation": 3.168392913058299,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "isolated",
+      "policy": "role-value-v1",
+      "variant": "prescribed-sprint",
+      "inputHash": "8f9f27576a4e48981509e4e3dc81bc569bbb6a8dc16f5dca11f9501428d867b6",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:5",
+        "target": {
+          "x": 43,
+          "y": 34
+        },
+        "intent": "support",
+        "delivery": "lofted"
+      },
+      "prescribedAction": {
+        "type": "carry",
+        "actorId": "geometry:anchor:8",
+        "target": {
+          "x": 85.05199999999999,
+          "y": 6.000000000000001
+        },
+        "movementMode": "sprint"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.08491896193141,
+            "y": 27.996428826306243
+          },
+          "velocity": {
+            "x": 3.3967584772562986,
+            "y": -0.14284694775028584
+          },
+          "target": {
+            "x": 60.544,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 60.544,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 72.39169187832508,
+            "y": 20.528132969863517
+          },
+          "velocity": {
+            "x": 3.614229090615595,
+            "y": 0.2786625696970191
+          },
+          "target": {
+            "x": 86.12062579347399,
+            "y": 21.586654692775387
+          }
+        }
+      },
+      "peakSpeed": 9.095003993074323,
+      "peakBallSeparation": 3.227946685096577,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "isolated",
+      "policy": "role-intent-v1",
+      "variant": "prescribed-sprint",
+      "inputHash": "8f9f27576a4e48981509e4e3dc81bc569bbb6a8dc16f5dca11f9501428d867b6",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 65.48357000614466,
+          "y": 28
+        },
+        "requestedSpace": {
+          "x": 65.48357000614466,
+          "y": 28
+        },
+        "intent": "through",
+        "delivery": "ground"
+      },
+      "prescribedAction": {
+        "type": "carry",
+        "actorId": "geometry:anchor:8",
+        "target": {
+          "x": 85.05199999999999,
+          "y": 6.000000000000001
+        },
+        "movementMode": "sprint"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.08491896193141,
+            "y": 27.996428826306243
+          },
+          "velocity": {
+            "x": 3.3967584772562986,
+            "y": -0.14284694775028584
+          },
+          "target": {
+            "x": 60.544,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 60.544,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.19939057259397,
+            "y": 26.80371790025935
+          },
+          "velocity": {
+            "x": 1.7245681022612303,
+            "y": 0.4620279691137341
+          },
+          "target": {
+            "x": 56.018174210126645,
+            "y": 28.611672522377464
+          }
+        }
+      },
+      "peakSpeed": 8.91878993326265,
+      "peakBallSeparation": 3.168392913058299,
+      "aerialEvents": [],
+      "losses": 4
+    },
+    {
+      "scenario": "isolated",
+      "policy": "phase-role-hybrid-v1",
+      "variant": "prescribed-sprint",
+      "inputHash": "8f9f27576a4e48981509e4e3dc81bc569bbb6a8dc16f5dca11f9501428d867b6",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:1",
+        "target": {
+          "x": 34,
+          "y": 28
+        },
+        "intent": "support",
+        "delivery": "lofted"
+      },
+      "prescribedAction": {
+        "type": "carry",
+        "actorId": "geometry:anchor:8",
+        "target": {
+          "x": 85.05199999999999,
+          "y": 6.000000000000001
+        },
+        "movementMode": "sprint"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 79.361,
+            "y": 24
+          }
+        }
+      ],
+      "defence": [
+        {
+          "defenderId": "geometry:opponent:5",
+          "runnerId": "geometry:anchor:10",
+          "intention": "track",
+          "target": {
+            "x": 69.4,
+            "y": 28.48
+          },
+          "recoveryDisadvantage": 3.959274979160139
+        }
+      ],
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 61.08491896193141,
+            "y": 27.996428826306243
+          },
+          "velocity": {
+            "x": 3.3967584772562986,
+            "y": -0.14284694775028584
+          },
+          "target": {
+            "x": 60.544,
+            "y": 24
+          },
+          "spatial": {
+            "kind": "depth_run",
+            "target": {
+              "x": 60.544,
+              "y": 24
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 56.10506676092251,
+            "y": 26.75085589859733
+          },
+          "velocity": {
+            "x": -1.1826297013908516,
+            "y": 0.18048220519062852
+          },
+          "target": {
+            "x": 54.284895166660625,
+            "y": 27.02863395775765
+          }
+        }
+      },
+      "peakSpeed": 8.91878993326265,
+      "peakBallSeparation": 3.0933398104636005,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "cross-target",
+      "policy": "legacy-pr176",
+      "variant": "prescribed-cross",
+      "inputHash": "4c1825072b1991937660b61c7d6da517dc57cc21546954502a6ef089ba980d02",
+      "autonomousRankedFirst": {
+        "type": "carry",
+        "actorId": "geometry:anchor:8",
+        "target": {
+          "x": 104.6,
+          "y": 13.719999999999999
+        },
+        "movementMode": "sprint"
+      },
+      "prescribedAction": {
+        "type": "cross",
+        "actorId": "geometry:anchor:8",
+        "intendedTargetId": "geometry:anchor:10",
+        "target": {
+          "x": 94.9,
+          "y": 29.5
+        },
+        "intent": "floated"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 104.6,
+            "y": 30
+          }
+        }
+      ],
+      "defence": [],
+      "release": {
+        "id": "pr181:spatial:cross-target:action:delivery:geometry:anchor:8:30.000000",
+        "sequence": 0,
+        "actorId": "geometry:anchor:8",
+        "team": "home",
+        "position": {
+          "x": 88.4,
+          "y": 8
+        },
+        "at": 30,
+        "kind": "cross",
+        "outcome": "released",
+        "cause": "floated",
+        "targetId": "geometry:anchor:10"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 91.05314149988335,
+            "y": 30.021910336985137
+          },
+          "velocity": {
+            "x": 2.1256599953341038,
+            "y": 0.8764134794054712
+          },
+          "target": {
+            "x": 94.49245240975873,
+            "y": 28.151957970740533
+          },
+          "spatial": {
+            "kind": "aerial_challenge",
+            "target": {
+              "x": 94.49245240975873,
+              "y": 28.151957970740533
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 64.73126840770612,
+            "y": 30.816811377333625
+          },
+          "velocity": {
+            "x": -3.3405837294202456,
+            "y": 1.3716073299907805
+          },
+          "target": {
+            "x": 54.457224881424565,
+            "y": 35.03522185607306
+          }
+        }
+      },
+      "peakSpeed": 9.29657807594814,
+      "peakBallSeparation": 0,
+      "aerialEvents": [
+        {
+          "at": 31.07499999999994,
+          "kind": "aerial",
+          "outcome": "keeper_punch",
+          "winnerId": "geometry:opponent:0",
+          "contestants": [
+            "geometry:anchor:10"
+          ],
+          "challengers": []
+        },
+        {
+          "at": 33.37499999999981,
+          "kind": "second_ball_recovery",
+          "team": "home"
+        }
+      ],
+      "losses": 1
+    },
+    {
+      "scenario": "cross-target",
+      "policy": "state-value-v1",
+      "variant": "prescribed-cross",
+      "inputHash": "4c1825072b1991937660b61c7d6da517dc57cc21546954502a6ef089ba980d02",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 92.2,
+          "y": 30.6
+        },
+        "intent": "support",
+        "delivery": "lofted"
+      },
+      "prescribedAction": {
+        "type": "cross",
+        "actorId": "geometry:anchor:8",
+        "intendedTargetId": "geometry:anchor:10",
+        "target": {
+          "x": 94.9,
+          "y": 29.5
+        },
+        "intent": "floated"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 104.6,
+            "y": 30
+          }
+        }
+      ],
+      "defence": [],
+      "release": {
+        "id": "pr181:spatial:cross-target:action:delivery:geometry:anchor:8:30.000000",
+        "sequence": 0,
+        "actorId": "geometry:anchor:8",
+        "team": "home",
+        "position": {
+          "x": 88.4,
+          "y": 8
+        },
+        "at": 30,
+        "kind": "cross",
+        "outcome": "released",
+        "cause": "floated",
+        "targetId": "geometry:anchor:10"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 91.05314149988335,
+            "y": 30.021910336985137
+          },
+          "velocity": {
+            "x": 2.1256599953341038,
+            "y": 0.8764134794054712
+          },
+          "target": {
+            "x": 94.49245240975873,
+            "y": 28.151957970740533
+          },
+          "spatial": {
+            "kind": "aerial_challenge",
+            "target": {
+              "x": 94.49245240975873,
+              "y": 28.151957970740533
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 57.11505235327255,
+            "y": 32.92922055154333
+          },
+          "velocity": {
+            "x": -5.473170875572748,
+            "y": 1.279907683498891
+          },
+          "target": {
+            "x": 45.25855412502816,
+            "y": 35.70187712059921
+          }
+        }
+      },
+      "peakSpeed": 6.08590132179039,
+      "peakBallSeparation": 0.9203930548744091,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "cross-target",
+      "policy": "role-value-v1",
+      "variant": "prescribed-cross",
+      "inputHash": "4c1825072b1991937660b61c7d6da517dc57cc21546954502a6ef089ba980d02",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 92.2,
+          "y": 30.6
+        },
+        "intent": "support",
+        "delivery": "lofted"
+      },
+      "prescribedAction": {
+        "type": "cross",
+        "actorId": "geometry:anchor:8",
+        "intendedTargetId": "geometry:anchor:10",
+        "target": {
+          "x": 94.9,
+          "y": 29.5
+        },
+        "intent": "floated"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 104.6,
+            "y": 30
+          }
+        }
+      ],
+      "defence": [],
+      "release": {
+        "id": "pr181:spatial:cross-target:action:delivery:geometry:anchor:8:30.000000",
+        "sequence": 0,
+        "actorId": "geometry:anchor:8",
+        "team": "home",
+        "position": {
+          "x": 88.4,
+          "y": 8
+        },
+        "at": 30,
+        "kind": "cross",
+        "outcome": "released",
+        "cause": "floated",
+        "targetId": "geometry:anchor:10"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 91.05314149988335,
+            "y": 30.021910336985137
+          },
+          "velocity": {
+            "x": 2.1256599953341038,
+            "y": 0.8764134794054712
+          },
+          "target": {
+            "x": 94.49245240975873,
+            "y": 28.151957970740533
+          },
+          "spatial": {
+            "kind": "aerial_challenge",
+            "target": {
+              "x": 94.49245240975873,
+              "y": 28.151957970740533
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 68.0056192725671,
+            "y": 25.986752040734444
+          },
+          "velocity": {
+            "x": -3.476513378562913,
+            "y": 1.0059390216473219
+          },
+          "target": {
+            "x": 56.34192702062594,
+            "y": 29.36167452630912
+          }
+        }
+      },
+      "peakSpeed": 7.339470621417535,
+      "peakBallSeparation": 2.0818970018715213,
+      "aerialEvents": [
+        {
+          "at": 41.02499999999937,
+          "kind": "aerial",
+          "outcome": "flick_on",
+          "winnerId": "geometry:opponent:3",
+          "contestants": [
+            "geometry:opponent:3"
+          ],
+          "challengers": []
+        }
+      ],
+      "losses": 1
+    },
+    {
+      "scenario": "cross-target",
+      "policy": "role-intent-v1",
+      "variant": "prescribed-cross",
+      "inputHash": "4c1825072b1991937660b61c7d6da517dc57cc21546954502a6ef089ba980d02",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 92.2,
+          "y": 30.6
+        },
+        "intent": "support",
+        "delivery": "lofted"
+      },
+      "prescribedAction": {
+        "type": "cross",
+        "actorId": "geometry:anchor:8",
+        "intendedTargetId": "geometry:anchor:10",
+        "target": {
+          "x": 94.9,
+          "y": 29.5
+        },
+        "intent": "floated"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 104.6,
+            "y": 30
+          }
+        }
+      ],
+      "defence": [],
+      "release": {
+        "id": "pr181:spatial:cross-target:action:delivery:geometry:anchor:8:30.000000",
+        "sequence": 0,
+        "actorId": "geometry:anchor:8",
+        "team": "home",
+        "position": {
+          "x": 88.4,
+          "y": 8
+        },
+        "at": 30,
+        "kind": "cross",
+        "outcome": "released",
+        "cause": "floated",
+        "targetId": "geometry:anchor:10"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 91.05314149988335,
+            "y": 30.021910336985137
+          },
+          "velocity": {
+            "x": 2.1256599953341038,
+            "y": 0.8764134794054712
+          },
+          "target": {
+            "x": 94.49245240975873,
+            "y": 28.151957970740533
+          },
+          "spatial": {
+            "kind": "aerial_challenge",
+            "target": {
+              "x": 94.49245240975873,
+              "y": 28.151957970740533
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 52.03946246509955,
+            "y": 35.28020775279422
+          },
+          "velocity": {
+            "x": -1.87862234950245,
+            "y": 0.14600005057786802
+          },
+          "target": {
+            "x": 44.29256355499061,
+            "y": 35.88227002092253
+          }
+        }
+      },
+      "peakSpeed": 8.873633792257726,
+      "peakBallSeparation": 3.2249733382493333,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "cross-target",
+      "policy": "phase-role-hybrid-v1",
+      "variant": "prescribed-cross",
+      "inputHash": "4c1825072b1991937660b61c7d6da517dc57cc21546954502a6ef089ba980d02",
+      "autonomousRankedFirst": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:10",
+        "target": {
+          "x": 92.2,
+          "y": 30.6
+        },
+        "intent": "support",
+        "delivery": "lofted"
+      },
+      "prescribedAction": {
+        "type": "cross",
+        "actorId": "geometry:anchor:8",
+        "intendedTargetId": "geometry:anchor:10",
+        "target": {
+          "x": 94.9,
+          "y": 29.5
+        },
+        "intent": "floated"
+      },
+      "depth": [
+        {
+          "playerId": "geometry:anchor:10",
+          "role": "stretch_line",
+          "target": {
+            "x": 104.6,
+            "y": 30
+          }
+        }
+      ],
+      "defence": [],
+      "release": {
+        "id": "pr181:spatial:cross-target:action:delivery:geometry:anchor:8:30.000000",
+        "sequence": 0,
+        "actorId": "geometry:anchor:8",
+        "team": "home",
+        "position": {
+          "x": 88.4,
+          "y": 8
+        },
+        "at": 30,
+        "kind": "cross",
+        "outcome": "released",
+        "cause": "floated",
+        "targetId": "geometry:anchor:10"
+      },
+      "runnerFirst": {
+        "at": 30.025,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 91.05314149988335,
+            "y": 30.021910336985137
+          },
+          "velocity": {
+            "x": 2.1256599953341038,
+            "y": 0.8764134794054712
+          },
+          "target": {
+            "x": 94.49245240975873,
+            "y": 28.151957970740533
+          },
+          "spatial": {
+            "kind": "aerial_challenge",
+            "target": {
+              "x": 94.49245240975873,
+              "y": 28.151957970740533
+            },
+            "until": 30.275
+          }
+        }
+      },
+      "runnerLast": {
+        "at": 41.524999999999345,
+        "runner": {
+          "id": "geometry:anchor:10",
+          "position": {
+            "x": 52.03946246509955,
+            "y": 35.28020775279422
+          },
+          "velocity": {
+            "x": -1.87862234950245,
+            "y": 0.14600005057786802
+          },
+          "target": {
+            "x": 44.29256355499061,
+            "y": 35.88227002092253
+          }
+        }
+      },
+      "peakSpeed": 8.873633792257726,
+      "peakBallSeparation": 3.2249733382493333,
+      "aerialEvents": [],
+      "losses": 1
+    },
+    {
+      "scenario": "aerial",
+      "policy": "legacy-pr176",
+      "variant": "autonomous",
+      "inputHash": "8c249385c8ae9f7658ed0dfea996d1f57c761f07e42dd04e56fd24202460b4d1",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 5.636548590738196,
+      "peakBallSeparation": 0,
+      "aerialEvents": [
+        {
+          "at": 30.574999999999967,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": []
+        },
+        {
+          "at": 33.249999999999815,
+          "kind": "second_ball_recovery",
+          "team": "home"
+        }
+      ],
+      "losses": 1
+    },
+    {
+      "scenario": "aerial",
+      "policy": "state-value-v1",
+      "variant": "autonomous",
+      "inputHash": "8c249385c8ae9f7658ed0dfea996d1f57c761f07e42dd04e56fd24202460b4d1",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 4.772033169126339,
+      "peakBallSeparation": 0,
+      "aerialEvents": [
+        {
+          "at": 30.574999999999967,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": []
+        },
+        {
+          "at": 32.899999999999835,
+          "kind": "second_ball_recovery",
+          "team": "home"
+        }
+      ],
+      "losses": 1
+    },
+    {
+      "scenario": "aerial",
+      "policy": "role-value-v1",
+      "variant": "autonomous",
+      "inputHash": "8c249385c8ae9f7658ed0dfea996d1f57c761f07e42dd04e56fd24202460b4d1",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 3.6468187462401627,
+      "peakBallSeparation": 0,
+      "aerialEvents": [
+        {
+          "at": 30.574999999999967,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": []
+        },
+        {
+          "at": 32.899999999999835,
+          "kind": "second_ball_recovery",
+          "team": "home"
+        }
+      ],
+      "losses": 1
+    },
+    {
+      "scenario": "aerial",
+      "policy": "role-intent-v1",
+      "variant": "autonomous",
+      "inputHash": "8c249385c8ae9f7658ed0dfea996d1f57c761f07e42dd04e56fd24202460b4d1",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 6.907273919482089,
+      "peakBallSeparation": 0.5172843034379959,
+      "aerialEvents": [
+        {
+          "at": 30.574999999999967,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": []
+        },
+        {
+          "at": 32.899999999999835,
+          "kind": "second_ball_recovery",
+          "team": "home"
+        }
+      ],
+      "losses": 2
+    },
+    {
+      "scenario": "aerial",
+      "policy": "phase-role-hybrid-v1",
+      "variant": "autonomous",
+      "inputHash": "8c249385c8ae9f7658ed0dfea996d1f57c761f07e42dd04e56fd24202460b4d1",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 5.336111444862453,
+      "peakBallSeparation": 0.380424941564841,
+      "aerialEvents": [
+        {
+          "at": 30.574999999999967,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": []
+        },
+        {
+          "at": 32.899999999999835,
+          "kind": "second_ball_recovery",
+          "team": "home"
+        }
+      ],
+      "losses": 2
+    },
+    {
+      "scenario": "aerial-shoulder",
+      "policy": "legacy-pr176",
+      "variant": "autonomous",
+      "inputHash": "4865571e43e2d7a6d29d19164b8969b2b7ca104da7d5f87e618e663f64d49671",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 5.645831594845922,
+      "peakBallSeparation": 0,
+      "aerialEvents": [
+        {
+          "at": 30.025,
+          "kind": "aerial",
+          "outcome": "controlled_header",
+          "winnerId": "geometry:anchor:10",
+          "contestants": [
+            "geometry:anchor:10"
+          ],
+          "challengers": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 30.049999999999997,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": [
+            "geometry:anchor:10"
+          ]
+        },
+        {
+          "at": 31.174999999999933,
+          "kind": "second_ball_recovery",
+          "team": "away"
+        }
+      ],
+      "losses": 1
+    },
+    {
+      "scenario": "aerial-shoulder",
+      "policy": "state-value-v1",
+      "variant": "autonomous",
+      "inputHash": "4865571e43e2d7a6d29d19164b8969b2b7ca104da7d5f87e618e663f64d49671",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 5.428108564982031,
+      "peakBallSeparation": 0,
+      "aerialEvents": [
+        {
+          "at": 30.025,
+          "kind": "aerial",
+          "outcome": "controlled_header",
+          "winnerId": "geometry:anchor:10",
+          "contestants": [
+            "geometry:anchor:10"
+          ],
+          "challengers": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 30.049999999999997,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": [
+            "geometry:anchor:10"
+          ]
+        },
+        {
+          "at": 31.174999999999933,
+          "kind": "second_ball_recovery",
+          "team": "away"
+        }
+      ],
+      "losses": 3
+    },
+    {
+      "scenario": "aerial-shoulder",
+      "policy": "role-value-v1",
+      "variant": "autonomous",
+      "inputHash": "4865571e43e2d7a6d29d19164b8969b2b7ca104da7d5f87e618e663f64d49671",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 5.6180356498059325,
+      "peakBallSeparation": 0,
+      "aerialEvents": [
+        {
+          "at": 30.025,
+          "kind": "aerial",
+          "outcome": "controlled_header",
+          "winnerId": "geometry:anchor:10",
+          "contestants": [
+            "geometry:anchor:10"
+          ],
+          "challengers": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 30.049999999999997,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": [
+            "geometry:anchor:10"
+          ]
+        },
+        {
+          "at": 32.549999999999855,
+          "kind": "second_ball_recovery",
+          "team": "away"
+        }
+      ],
+      "losses": 1
+    },
+    {
+      "scenario": "aerial-shoulder",
+      "policy": "role-intent-v1",
+      "variant": "autonomous",
+      "inputHash": "4865571e43e2d7a6d29d19164b8969b2b7ca104da7d5f87e618e663f64d49671",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 5.318339944060202,
+      "peakBallSeparation": 0.4611061816026239,
+      "aerialEvents": [
+        {
+          "at": 30.025,
+          "kind": "aerial",
+          "outcome": "controlled_header",
+          "winnerId": "geometry:anchor:10",
+          "contestants": [
+            "geometry:anchor:10"
+          ],
+          "challengers": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 30.049999999999997,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": [
+            "geometry:anchor:10"
+          ]
+        },
+        {
+          "at": 31.174999999999933,
+          "kind": "second_ball_recovery",
+          "team": "away"
+        }
+      ],
+      "losses": 2
+    },
+    {
+      "scenario": "aerial-shoulder",
+      "policy": "phase-role-hybrid-v1",
+      "variant": "autonomous",
+      "inputHash": "4865571e43e2d7a6d29d19164b8969b2b7ca104da7d5f87e618e663f64d49671",
+      "depth": [],
+      "defence": [],
+      "peakSpeed": 5.613030903820527,
+      "peakBallSeparation": 0.8855105986068348,
+      "aerialEvents": [
+        {
+          "at": 30.025,
+          "kind": "aerial",
+          "outcome": "controlled_header",
+          "winnerId": "geometry:anchor:10",
+          "contestants": [
+            "geometry:anchor:10"
+          ],
+          "challengers": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 30.049999999999997,
+          "kind": "aerial",
+          "outcome": "clearance_header",
+          "winnerId": "geometry:opponent:1",
+          "contestants": [
+            "geometry:opponent:1"
+          ],
+          "challengers": [
+            "geometry:anchor:10"
+          ]
+        },
+        {
+          "at": 32.549999999999855,
+          "kind": "second_ball_recovery",
+          "team": "away"
+        }
+      ],
+      "losses": 1
+    }
+  ],
+  "occupation": [
+    {
+      "scenario": "cross-target",
+      "policy": "legacy-pr176",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "cross-target",
+      "policy": "state-value-v1",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "cross-target",
+      "policy": "role-value-v1",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "cross-target",
+      "policy": "role-intent-v1",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "cross-target",
+      "policy": "phase-role-hybrid-v1",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "cross-false-nine",
+      "policy": "legacy-pr176",
+      "candidates": 2,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "cross-false-nine",
+      "policy": "state-value-v1",
+      "candidates": 2,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "cross-false-nine",
+      "policy": "role-value-v1",
+      "candidates": 2,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "cross-false-nine",
+      "policy": "role-intent-v1",
+      "candidates": 2,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "cross-false-nine",
+      "policy": "phase-role-hybrid-v1",
+      "candidates": 2,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "empty-box",
+      "policy": "legacy-pr176",
+      "candidates": 0,
+      "intents": []
+    },
+    {
+      "scenario": "empty-box",
+      "policy": "state-value-v1",
+      "candidates": 0,
+      "intents": []
+    },
+    {
+      "scenario": "empty-box",
+      "policy": "role-value-v1",
+      "candidates": 0,
+      "intents": []
+    },
+    {
+      "scenario": "empty-box",
+      "policy": "role-intent-v1",
+      "candidates": 0,
+      "intents": []
+    },
+    {
+      "scenario": "empty-box",
+      "policy": "phase-role-hybrid-v1",
+      "candidates": 0,
+      "intents": []
+    },
+    {
+      "scenario": "marked-box",
+      "policy": "legacy-pr176",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "marked-box",
+      "policy": "state-value-v1",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "marked-box",
+      "policy": "role-value-v1",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "marked-box",
+      "policy": "role-intent-v1",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "marked-box",
+      "policy": "phase-role-hybrid-v1",
+      "candidates": 4,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "late-midfielder",
+      "policy": "legacy-pr176",
+      "candidates": 7,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "late-midfielder",
+      "policy": "state-value-v1",
+      "candidates": 7,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "late-midfielder",
+      "policy": "role-value-v1",
+      "candidates": 7,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "late-midfielder",
+      "policy": "role-intent-v1",
+      "candidates": 7,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    },
+    {
+      "scenario": "late-midfielder",
+      "policy": "phase-role-hybrid-v1",
+      "candidates": 7,
+      "intents": [
+        "floated",
+        "driven"
+      ]
+    }
+  ]
+}

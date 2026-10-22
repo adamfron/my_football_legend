@@ -1,3 +1,4 @@
+import { enumerateCrossChoices } from './crossOpportunity';
 import { attacksRight } from './matchSpace';
 import { usesStateValue } from './decisionPolicyConfig';
 import { rankStateValueActions, enumerateStateValueActions } from './decisionPolicy';
@@ -25,13 +26,7 @@ import {
 import { evaluatePassDecision } from './passDecision';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { RandomGenerator } from '../random/RandomGenerator';
-import {
-  clampPitchPoint,
-  distance,
-  distanceToSegment,
-  fieldValue,
-  signedForwardDistance,
-} from './matchSpace';
+import { clampPitchPoint, distance, distanceToSegment, fieldValue } from './matchSpace';
 import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { resolveCanonicalShot } from './shotResolver';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
@@ -54,7 +49,7 @@ import { derivePassLaunchPlan } from './passLaunchPlan';
 import { deriveSpacePassPlan, enumerateNpcSpacePasses, type SpacePassPlan } from './spacePassing';
 import { interpretPassExecution } from './passExecution';
 import { projectReceiverReadiness } from './receiverReadiness';
-import { deriveFinalThirdOccupations, deriveFlankRelationship } from './tacticalPositioning';
+import { deriveFlankRelationship } from './tacticalPositioning';
 import {
   deriveEconomicalMovementCost,
   deriveTeamTacticalPreferences,
@@ -291,38 +286,7 @@ export const enumerateAvailableActions = (
       target: committedCarry.target,
       ...(committedCarry.movementMode ? { movementMode: committedCarry.movementMode } : {}),
     });
-  const advanced = fieldValue(actor.position, actor) > 54;
-  const channelWidth = Math.abs(actor.position.y - 34);
-  const deliveryAngle = Math.abs(actor.position.x - (attacksRight(actor) ? 105 : 0));
-  if (advanced && channelWidth >= 12 && deliveryAngle <= 44) {
-    const occupations = deriveFinalThirdOccupations(state, actor.team).filter(
-      ({ occupation }) => occupation !== 'rest_defence' && occupation !== 'wide_support',
-    );
-    for (const assignment of occupations) {
-      const receiver = state.players.find((player) => player.id === assignment.playerId);
-      if (!receiver) continue;
-      const receiverProjection = projectPassReception(state, actor, receiver, 'lead');
-      const target = {
-        x: assignment.target.x * 0.7 + receiverProjection.releaseTarget.x * 0.3,
-        y: assignment.target.y * 0.7 + receiverProjection.releaseTarget.y * 0.3,
-      };
-      const byline =
-        deliveryAngle < 13 && signedForwardDistance(target, actor.position, actor) < -1;
-      const intent =
-        byline && ['penalty_spot', 'edge_support'].includes(assignment.occupation)
-          ? 'cutback'
-          : assignment.occupation === 'far_post' || deliveryAngle > 25
-            ? 'floated'
-            : 'driven';
-      actions.push({
-        type: 'cross',
-        actorId,
-        target,
-        intendedTargetId: receiver.id,
-        intent,
-      });
-    }
-  }
+  actions.push(...enumerateCrossChoices(state, actor));
   actions.push(...enumerateCanonicalShootingOptions(state, actorId));
   state.players
     .filter(

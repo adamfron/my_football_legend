@@ -1,6 +1,13 @@
 # Roadmap
 
-Aktualny etap: **PR180 — Football Tempo, First-Touch Decisions & Ball Interaction**.
+Aktualny etap: **PR181 — Attacking Depth, Wing Duels & Aerial Football**.
+Wspólne biegi za linię, reakcja krycia, wyścigi skrzydłowe, opóźnianie i fizyczna
+odbudowa po wejściu, osiągalne dośrodkowania oraz obustronna walka o górną i drugą
+piłkę. Zachowane pierwsze kontakty PR180, pięć oddzielnych polityk i nietknięte
+wejścia PR182. [Raport PR181](PR181_ATTACKING_DEPTH_WING_DUELS_AERIAL_FOOTBALL.md).
+PR182 obejmuje niezależne porównanie i wybór polityki; PR181 nikogo nie promuje.
+
+Scalony etap: **PR180 — Football Tempo, First-Touch Decisions & Ball Interaction**.
 Wspólna fizyczna wykonalność pierwszego kontaktu, porównywalny horyzont decyzji
 przyjęcie/odegranie, ciągłość impulsu oraz rozliczenie first-time po ID podania.
 Pięć polityk pozostaje oddzielnymi eksperymentami. Bez kwot podań, wymuszonych

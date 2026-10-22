@@ -6,7 +6,7 @@ import { prospectiveSpaceTargets } from './spacePassing';
 import { deriveFeasiblePassPlans, derivePassLaunchPlan } from './passLaunchPlan';
 import { enumerateCarryChoices } from './carryOpportunity';
 import { enumerateCanonicalShootingOptions } from './shootingOptions';
-import { deriveFinalThirdOccupations } from './tacticalPositioning';
+import { enumerateCrossChoices } from './crossOpportunity';
 import { evaluateStateValueAction } from './decisionStateValue';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { canParticipatePhysically } from './matchInjuries';
@@ -24,6 +24,7 @@ export const enumerateStateValueActions = (
     { type: 'hold', actorId: actor.id },
     ...enumerateCarryChoices(state, actor),
     ...enumerateCanonicalShootingOptions(state, actor.id),
+    ...enumerateCrossChoices(state, actor),
   ];
   const existing = state.ballCarrierIntent;
   if (existing?.actorId === actor.id && state.time < existing.expiresAt)
@@ -123,20 +124,6 @@ export const enumerateStateValueActions = (
     if (receiver)
       addPass(receiver, action.target, Boolean(action.requestedSpace), action.firstTime);
   }
-  if (
-    (dir > 0 ? actor.position.x : 105 - actor.position.x) > 56 &&
-    Math.abs(actor.position.y - 34) > 12
-  )
-    for (const assignment of deriveFinalThirdOccupations(state, actor.team)
-      .filter((a) => !['rest_defence', 'wide_support'].includes(a.occupation))
-      .slice(0, 3))
-      actions.push({
-        type: 'cross',
-        actorId: actor.id,
-        intendedTargetId: assignment.playerId,
-        target: assignment.target,
-        intent: Math.abs(actor.position.x - (dir > 0 ? 105 : 0)) < 14 ? 'cutback' : 'floated',
-      });
   return actions.slice(0, config.maxCandidates);
 };
 

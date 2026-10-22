@@ -1,0 +1,43 @@
+{
+  "schema": "mfl-pr181-reservation-proof-v1",
+  "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+  "method": "SHA-256 of stored archive bytes against the pristine PR180 checkout; text manifests normalize checkout CRLF to LF and retain both raw hashes. No reserved archive decoded, decompressed or stepped.",
+  "files": [
+    {
+      "path": "docs/performance/pr179-evidence/initial-states.json.gz",
+      "sha256": "4ea98d6faf9b1bcef5a544280660ce223929039c2358ebab4591f55dd400fdb1",
+      "baselineSha256": "4ea98d6faf9b1bcef5a544280660ce223929039c2358ebab4591f55dd400fdb1",
+      "byteEqual": true,
+      "comparedSha256": "4ea98d6faf9b1bcef5a544280660ce223929039c2358ebab4591f55dd400fdb1",
+      "comparison": "stored bytes",
+      "unchanged": true
+    },
+    {
+      "path": "docs/performance/pr180-evidence/pr182-sealed.json.gz",
+      "sha256": "553d5083472e86fb199eedfb3178cbdb51cab3548970ac7f87a1b5970a2082f8",
+      "baselineSha256": "553d5083472e86fb199eedfb3178cbdb51cab3548970ac7f87a1b5970a2082f8",
+      "byteEqual": true,
+      "comparedSha256": "553d5083472e86fb199eedfb3178cbdb51cab3548970ac7f87a1b5970a2082f8",
+      "comparison": "stored bytes",
+      "unchanged": true
+    },
+    {
+      "path": "docs/performance/PR179-fixture-manifest.json",
+      "sha256": "81b48c28141026c7e80b7307be2b6b4e8ca41439f01e30431d0299caa383b1af",
+      "baselineSha256": "81b48c28141026c7e80b7307be2b6b4e8ca41439f01e30431d0299caa383b1af",
+      "byteEqual": true,
+      "comparedSha256": "2a9d9d06e6c379e280c3a80c4eb73b56c65bdf60cd709b8c4fdf6e170a3d9065",
+      "comparison": "text with checkout CRLF normalized to LF",
+      "unchanged": true
+    },
+    {
+      "path": "docs/performance/PR180-inputs.json",
+      "sha256": "48d2d184c641f42c36de043606fe4f237ba3aef310ff14f0227eb35960f2ad50",
+      "baselineSha256": "41f65b1506a03d572f7e1d01593cc45e47a13d358fa1a300d4e1a257dee9be78",
+      "byteEqual": false,
+      "comparedSha256": "41f65b1506a03d572f7e1d01593cc45e47a13d358fa1a300d4e1a257dee9be78",
+      "comparison": "text with checkout CRLF normalized to LF",
+      "unchanged": true
+    }
+  ]
+}

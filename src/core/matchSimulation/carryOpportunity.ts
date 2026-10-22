@@ -14,9 +14,34 @@ import type {
   TacticalMatchState,
 } from './matchState';
 import { estimatePlayerArrivalTime } from './playerArrival';
-import { earliestDefenderArrival } from './passDecision';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { deriveMovementCapability } from './locomotion';
+import { deriveFitnessPhysicalModifiers } from './matchFitness';
+import { canParticipatePhysically } from './matchInjuries';
+
+/** Momentum is already integrated by the common arrival solver. A body initially
+ * facing away also needs to turn; live locomotion applies the same angular envelope. */
+export const carryRaceArrival = (
+  state: TacticalMatchState,
+  player: MatchPlayerState,
+  target: PitchPoint,
+) => {
+  const arrival = estimatePlayerArrivalTime(state, player, target, 'intercept');
+  const angle = Math.abs(
+    normalizeAngle(
+      angleForVector({ x: target.x - player.position.x, y: target.y - player.position.y }) -
+        player.facingAngle,
+    ),
+  );
+  const angularRate =
+    (2.2 + player.profile.attributes.agility * 0.038) *
+    Math.max(0.38, 1 - Math.hypot(player.velocity.x, player.velocity.y) / 13) *
+    deriveFitnessPhysicalModifiers(player).turning;
+  // The player can shuffle/backpedal while turning, so only the lost forward progress
+  // contributes a delay. This forecast never changes physical speed or grants contact.
+  const turningDelay = (Math.max(0, angle - Math.PI / 3) / angularRate) * 0.48;
+  return arrival.estimatedTime + turningDelay;
+};
 
 export const carryOpportunitySchema = z.object({
   target: pitchPointSchema,
@@ -42,7 +67,10 @@ export const projectCarryOpportunity = (
     x: (target.x - actor.position.x) / Math.max(0.01, metres),
     y: (target.y - actor.position.y) / Math.max(0.01, metres),
   };
-  const defenders = state.players.filter((p) => p.team !== actor.team);
+  const defenders = state.players.filter(
+    (p) =>
+      p.team !== actor.team && canParticipatePhysically(p) && !state.discipline?.[p.id]?.sentOff,
+  );
   const forecast: TacticalMatchState = {
     ...state,
     ball:
@@ -83,7 +111,16 @@ export const projectCarryOpportunity = (
       y: actor.position.y + direction.y * step,
     });
     const arrival = estimatePlayerArrivalTime(forecast, actor, point).estimatedTime;
-    const defensiveArrival = earliestDefenderArrival(state, defenders, point);
+    const defensiveArrival = Math.min(
+      99,
+      ...defenders
+        .filter(
+          (p) =>
+            distance(p.position, point) / deriveMovementCapability(p).maximumSprintSpeed <
+            arrival + 1,
+        )
+        .map((p) => carryRaceArrival(state, p, point)),
+    );
     // The ball pushed ahead is exposed before the body arrives. Sprint needs more margin.
     if (defensiveArrival < arrival + (mode === 'sprint' ? 0.22 : 0.1)) break;
     freeDistance = step;
@@ -155,9 +192,19 @@ export const enumerateCarryChoices = (
   const readiness = actor.fitness?.burstReadiness ?? 1;
   if (readiness < 0.35) return actions;
   const range = Math.min(30, 15 + deriveMovementCapability(actor).maximumSprintSpeed * 1.5);
-  for (const lateral of [0, (34 - actor.position.y) * 0.22, actor.position.y < 34 ? -4 : 4]) {
+  const corridors = [0, (34 - actor.position.y) * 0.22, actor.position.y < 34 ? -4 : 4].map(
+    (lateral) => ({ forward: range, lateral }),
+  );
+  const nearest = Math.min(
+    99,
+    ...state.players
+      .filter((p) => p.team !== actor.team)
+      .map((p) => distance(p.position, actor.position)),
+  );
+  if (nearest < 7) corridors.push({ forward: 14, lateral: -6 }, { forward: 14, lateral: 6 });
+  for (const { forward, lateral } of corridors) {
     const target = clampPitchPoint({
-      x: actor.position.x + dir * range,
+      x: actor.position.x + dir * forward,
       y: actor.position.y + lateral,
     });
     const opportunity = projectCarryOpportunity(state, actor, target, 'sprint');

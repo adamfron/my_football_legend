@@ -256,7 +256,9 @@ export const emitCanonicalActionEvents = (
               : 'pass',
         outcome: 'released',
         cause:
-          next.latestAction?.type === 'header' ? next.latestAction.intent : next.ball.sourceAction!,
+          next.latestAction?.type === 'header' || next.latestAction?.type === 'cross'
+            ? next.latestAction.intent
+            : next.ball.sourceAction!,
         targetId: next.ball.intendedReceiverId,
       });
   }

@@ -1,0 +1,1587 @@
+{
+  "schema": "mfl-pr181-serial-performance-comparison-v1",
+  "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+  "baselineSourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+  "method": "Twelve serial fresh-process trials, fixed 0.025s canonical step, no observers or profiler; all other simulation/test workers stopped. One complete matched R3 SS1 before/after pair plus five matched 120s SW2 policy windows. Before uses pristine PR180 and the same final frozen native inputs. No replication or statistical confidence interval; full workload and football history differ, so ratios do not isolate marginal function cost. RSS sampled every 8000 ticks is not an allocation peak.",
+  "full": {
+    "policy": "phase-role-hybrid-v1",
+    "fixture": "pr181-dev-ss-1",
+    "inputHash": "b8182404edf751978ddc8af6bbd7c2f66be445480449028129a5cc02bf5e6ef3",
+    "before": {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "full-before",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "b8182404edf751978ddc8af6bbd7c2f66be445480449028129a5cc02bf5e6ef3",
+      "sessionHash": "3ff5ac02829919601f4c62ff8749955f0288f72862f1f3d96a05c6871d10d8f0",
+      "status": "full_time",
+      "ticks": 228344,
+      "time": 5708.599999987052,
+      "finalHash": "aa5d3df76ba84906c7851b7401ed435a33db0151210ee979c1b368b68227cc16",
+      "cpuSeconds": 168.359,
+      "wallSeconds": 152.2285244,
+      "maxSampledRssBytes": 454615040,
+      "score": {
+        "home": 0,
+        "away": 5
+      },
+      "deadBallSeconds": 1115.9249999966446,
+      "completedStoppages": 98,
+      "timekeeping": {
+        "period": "second_half",
+        "periodStartedAt": 2827.7000000059043,
+        "nominalEndAt": 5527.700000005904,
+        "qualifyingLostSeconds": 168.1499999986786,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 5707.700000005904,
+        "minimumAnnouncedAddedSeconds": 180,
+        "announcedAt": 5527.700000005904,
+        "lostAtAnnouncement": 168.1499999986786,
+        "endedAt": 5708.599999987052
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "complete match",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 2078,
+      "shots": 15,
+      "artifact": "pr181-evidence/performance/full-before-phase-role-hybrid-v1.json.gz",
+      "artifactSha256": "d31d8ccd4690045ed86b476a8d26a3b39f0753b8ccc7dd44f0d4ac660e16d21d"
+    },
+    "after": {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "full-after",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "b8182404edf751978ddc8af6bbd7c2f66be445480449028129a5cc02bf5e6ef3",
+      "sessionHash": "3ff5ac02829919601f4c62ff8749955f0288f72862f1f3d96a05c6871d10d8f0",
+      "status": "full_time",
+      "ticks": 233852,
+      "time": 5846.274999999236,
+      "finalHash": "f7c987ab3f88b93be4c49c4ac082c693e5d861fe0a3fe21c9bbe7d6ae6ef2e28",
+      "cpuSeconds": 178.25,
+      "wallSeconds": 161.840451,
+      "maxSampledRssBytes": 442908672,
+      "score": {
+        "home": 2,
+        "away": 8
+      },
+      "deadBallSeconds": 1246.6249999958457,
+      "completedStoppages": 104,
+      "timekeeping": {
+        "period": "second_half",
+        "periodStartedAt": 2846.975000000098,
+        "nominalEndAt": 5546.975000000099,
+        "qualifyingLostSeconds": 268.8499999973865,
+        "additionalLostAfterAnnouncement": 59.29999999913707,
+        "requiredEndAt": 5846.274999999236,
+        "minimumAnnouncedAddedSeconds": 240,
+        "announcedAt": 5546.975000000099,
+        "lostAtAnnouncement": 209.5499999982494,
+        "endedAt": 5846.274999999236
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "complete match",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 2043,
+      "shots": 40,
+      "artifact": "pr181-evidence/performance/full-after-phase-role-hybrid-v1.json.gz",
+      "artifactSha256": "488c88821a9911f4eb0d894db957d472f85906f25f0b6f988792bc4b055334f8"
+    },
+    "ratios": {
+      "cpu": 1.0587494580034331,
+      "wall": 1.0631414292287524,
+      "sampledRss": 0.9742499324263447
+    }
+  },
+  "windows": [
+    {
+      "policy": "legacy-pr176",
+      "fixture": "pr181-dev-sw-2",
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "before": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-before",
+        "policy": "legacy-pr176",
+        "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "de8e4ffe1535a29aa3f187f457bbe84b48d92d19e6a923f607c7bbaf6e02ac6e",
+        "cpuSeconds": 3.469,
+        "wallSeconds": 2.4455833,
+        "maxSampledRssBytes": 172142592,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "deadBallSeconds": 20.175000000002235,
+        "completedStoppages": 2,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 0,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 39,
+        "shots": 0,
+        "artifact": "pr181-evidence/performance/window-before-legacy-pr176.json.gz",
+        "artifactSha256": "e2b6a6504a493b83b913d4e47492883b222c85c2a199a51799391b111ce4fb43"
+      },
+      "after": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-after",
+        "policy": "legacy-pr176",
+        "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "397274d13017d9c4c4bcb5570b2078a7b8b15fe6217563052ed66b8093c4a6df",
+        "cpuSeconds": 3.921,
+        "wallSeconds": 2.5779897000000003,
+        "maxSampledRssBytes": 174927872,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "deadBallSeconds": 27.075000000006156,
+        "completedStoppages": 2,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 0,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 22,
+        "shots": 0,
+        "artifact": "pr181-evidence/performance/window-after-legacy-pr176.json.gz",
+        "artifactSha256": "54a2d63da7c3f71776bbfd83b3d0733558982f7ae209adedd7423ed758fa3863"
+      },
+      "ratios": {
+        "cpu": 1.1302969155376188,
+        "wall": 1.054141030485447,
+        "sampledRss": 1.0161800747138745
+      }
+    },
+    {
+      "policy": "state-value-v1",
+      "fixture": "pr181-dev-sw-2",
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "before": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-before",
+        "policy": "state-value-v1",
+        "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "4731f7b01907dcf936c40a6a97f28c425c4c8adbc0d1f256d227fcb65391cb4f",
+        "cpuSeconds": 4.452,
+        "wallSeconds": 2.9557331999999996,
+        "maxSampledRssBytes": 171810816,
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "deadBallSeconds": 29.850000000006787,
+        "completedStoppages": 1,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 29.850000000006787,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 32,
+        "shots": 3,
+        "artifact": "pr181-evidence/performance/window-before-state-value-v1.json.gz",
+        "artifactSha256": "09df44007c9178ea59db770a219fce56c1f397253b56410770b7785124d8150e"
+      },
+      "after": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-after",
+        "policy": "state-value-v1",
+        "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "cbbbce22872ea321fa190024a1c9c5dd1f496626bfbff4a917e9aef89f3afab3",
+        "cpuSeconds": 5.391,
+        "wallSeconds": 3.9090722999999996,
+        "maxSampledRssBytes": 171192320,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "deadBallSeconds": 0,
+        "completedStoppages": 0,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 0,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 33,
+        "shots": 1,
+        "artifact": "pr181-evidence/performance/window-after-state-value-v1.json.gz",
+        "artifactSha256": "ad3ad52abcaf01c060be9ed71bbdd3c79f6cced73ebec9b81d55ae8a2a4b743a"
+      },
+      "ratios": {
+        "cpu": 1.2109164420485174,
+        "wall": 1.322538955816445,
+        "sampledRss": 0.9964001335049826
+      }
+    },
+    {
+      "policy": "role-value-v1",
+      "fixture": "pr181-dev-sw-2",
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "before": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-before",
+        "policy": "role-value-v1",
+        "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "475533b0ddbb3af9ea910cbe3d999739c0a53950677563f3efeae4eec462d13c",
+        "cpuSeconds": 4.922,
+        "wallSeconds": 3.5884588,
+        "maxSampledRssBytes": 171761664,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "deadBallSeconds": 4.874999999999723,
+        "completedStoppages": 1,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 0,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 50,
+        "shots": 1,
+        "artifact": "pr181-evidence/performance/window-before-role-value-v1.json.gz",
+        "artifactSha256": "acdf541a8aecdce2775c163fa261e1faf9408a69ff25775c165a3685f979cd68"
+      },
+      "after": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-after",
+        "policy": "role-value-v1",
+        "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "51b8d4d9d686fb836bec45f8d4285b2e8984380e2e33cd29e1d40d5baa5a8cf9",
+        "cpuSeconds": 4.953,
+        "wallSeconds": 3.2390424999999996,
+        "maxSampledRssBytes": 178814976,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "deadBallSeconds": 49.05000000000421,
+        "completedStoppages": 4,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 0,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 17,
+        "shots": 2,
+        "artifact": "pr181-evidence/performance/window-after-role-value-v1.json.gz",
+        "artifactSha256": "5bf1d3381a36e3468f9bca3e9e81c440a1b385c57ad6594a478049f7c6fb01ef"
+      },
+      "ratios": {
+        "cpu": 1.0062982527427875,
+        "wall": 0.902627752058906,
+        "sampledRss": 1.041064529975676
+      }
+    },
+    {
+      "policy": "role-intent-v1",
+      "fixture": "pr181-dev-sw-2",
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "before": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-before",
+        "policy": "role-intent-v1",
+        "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "4e5d2d1e242873f021c05d3394c706fed0e12c90bd213e1ffe2bbb156423e5cf",
+        "cpuSeconds": 4.672,
+        "wallSeconds": 3.3286087000000006,
+        "maxSampledRssBytes": 172396544,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "deadBallSeconds": 25.875000000005883,
+        "completedStoppages": 2,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 0,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 34,
+        "shots": 1,
+        "artifact": "pr181-evidence/performance/window-before-role-intent-v1.json.gz",
+        "artifactSha256": "aaf21e498b033ac763d0f46dd54ddecdcb35677336d2ba79e59f07377f1d9933"
+      },
+      "after": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-after",
+        "policy": "role-intent-v1",
+        "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "a9c8d1c6a155d38d8917cee202645744de1c0477674e117837bbe35a114feee3",
+        "cpuSeconds": 4.781,
+        "wallSeconds": 3.1882549,
+        "maxSampledRssBytes": 174874624,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "deadBallSeconds": 44.22500000000447,
+        "completedStoppages": 4,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 0,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 26,
+        "shots": 1,
+        "artifact": "pr181-evidence/performance/window-after-role-intent-v1.json.gz",
+        "artifactSha256": "f20bf1feaeb001d44dbd96d2ba23e7280a6bed79199f6ed0a3d8ac93c489c3d1"
+      },
+      "ratios": {
+        "cpu": 1.0233304794520548,
+        "wall": 0.9578340944671566,
+        "sampledRss": 1.0143743020741762
+      }
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "fixture": "pr181-dev-sw-2",
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "before": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-before",
+        "policy": "phase-role-hybrid-v1",
+        "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "93781ddacd88b1bcae1006f393570aaffa48a30e965f9a53f0b2339a49cc9fc7",
+        "cpuSeconds": 6.218,
+        "wallSeconds": 4.714128400000001,
+        "maxSampledRssBytes": 172027904,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "deadBallSeconds": 8.574999999999733,
+        "completedStoppages": 1,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 0,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 21,
+        "shots": 0,
+        "artifact": "pr181-evidence/performance/window-before-phase-role-hybrid-v1.json.gz",
+        "artifactSha256": "d90e85ae12b99512cd5842614aba5f4f173b8e7bb07aa31968ac87fb78952547"
+      },
+      "after": {
+        "schema": "mfl-pr181-performance-v1",
+        "label": "window-after",
+        "policy": "phase-role-hybrid-v1",
+        "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+        "design": {
+          "id": "pr181-dev-sw-2",
+          "split": "development",
+          "seed": "pr181-dev-sw-2:20261021-v1",
+          "tier": "SW",
+          "strength": [
+            78.39545454545454,
+            47.56298701298701
+          ],
+          "youth": false,
+          "clubs": [
+            "pro_9",
+            "pro_60"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "direct"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+        "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+        "status": "first_half",
+        "ticks": 4800,
+        "time": 120.00000000001016,
+        "finalHash": "6bab26da27027d97949a7bae477058e6608b81464e4409ba13d0b91d6b628bf3",
+        "cpuSeconds": 4.782,
+        "wallSeconds": 3.3932725,
+        "maxSampledRssBytes": 180228096,
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "deadBallSeconds": 38.32500000000824,
+        "completedStoppages": 3,
+        "timekeeping": {
+          "period": "first_half",
+          "periodStartedAt": 0,
+          "nominalEndAt": 2700,
+          "qualifyingLostSeconds": 29.825000000006305,
+          "additionalLostAfterAnnouncement": 0,
+          "requiredEndAt": 2700
+        },
+        "runtime": "v24.19.0",
+        "observers": false,
+        "scope": "bounded matched window",
+        "serial": true,
+        "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+        "passes": 35,
+        "shots": 3,
+        "artifact": "pr181-evidence/performance/window-after-phase-role-hybrid-v1.json.gz",
+        "artifactSha256": "41e6f2ce69ae82fb445be097fc8127d3b7404ca8e57a072ad7b29944b81b96bd"
+      },
+      "ratios": {
+        "cpu": 0.7690575747828884,
+        "wall": 0.7198090955689709,
+        "sampledRss": 1.0476678016143242
+      }
+    }
+  ],
+  "trials": [
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "full-before",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "b8182404edf751978ddc8af6bbd7c2f66be445480449028129a5cc02bf5e6ef3",
+      "sessionHash": "3ff5ac02829919601f4c62ff8749955f0288f72862f1f3d96a05c6871d10d8f0",
+      "status": "full_time",
+      "ticks": 228344,
+      "time": 5708.599999987052,
+      "finalHash": "aa5d3df76ba84906c7851b7401ed435a33db0151210ee979c1b368b68227cc16",
+      "cpuSeconds": 168.359,
+      "wallSeconds": 152.2285244,
+      "maxSampledRssBytes": 454615040,
+      "score": {
+        "home": 0,
+        "away": 5
+      },
+      "deadBallSeconds": 1115.9249999966446,
+      "completedStoppages": 98,
+      "timekeeping": {
+        "period": "second_half",
+        "periodStartedAt": 2827.7000000059043,
+        "nominalEndAt": 5527.700000005904,
+        "qualifyingLostSeconds": 168.1499999986786,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 5707.700000005904,
+        "minimumAnnouncedAddedSeconds": 180,
+        "announcedAt": 5527.700000005904,
+        "lostAtAnnouncement": 168.1499999986786,
+        "endedAt": 5708.599999987052
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "complete match",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 2078,
+      "shots": 15,
+      "artifact": "pr181-evidence/performance/full-before-phase-role-hybrid-v1.json.gz",
+      "artifactSha256": "d31d8ccd4690045ed86b476a8d26a3b39f0753b8ccc7dd44f0d4ac660e16d21d"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "full-after",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+      "design": {
+        "id": "pr181-dev-ss-1",
+        "split": "development",
+        "seed": "pr181-dev-ss-1:20261021-v1",
+        "tier": "SS",
+        "strength": [
+          78.12987012987011,
+          75.55909090909091
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_6"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "b8182404edf751978ddc8af6bbd7c2f66be445480449028129a5cc02bf5e6ef3",
+      "sessionHash": "3ff5ac02829919601f4c62ff8749955f0288f72862f1f3d96a05c6871d10d8f0",
+      "status": "full_time",
+      "ticks": 233852,
+      "time": 5846.274999999236,
+      "finalHash": "f7c987ab3f88b93be4c49c4ac082c693e5d861fe0a3fe21c9bbe7d6ae6ef2e28",
+      "cpuSeconds": 178.25,
+      "wallSeconds": 161.840451,
+      "maxSampledRssBytes": 442908672,
+      "score": {
+        "home": 2,
+        "away": 8
+      },
+      "deadBallSeconds": 1246.6249999958457,
+      "completedStoppages": 104,
+      "timekeeping": {
+        "period": "second_half",
+        "periodStartedAt": 2846.975000000098,
+        "nominalEndAt": 5546.975000000099,
+        "qualifyingLostSeconds": 268.8499999973865,
+        "additionalLostAfterAnnouncement": 59.29999999913707,
+        "requiredEndAt": 5846.274999999236,
+        "minimumAnnouncedAddedSeconds": 240,
+        "announcedAt": 5546.975000000099,
+        "lostAtAnnouncement": 209.5499999982494,
+        "endedAt": 5846.274999999236
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "complete match",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 2043,
+      "shots": 40,
+      "artifact": "pr181-evidence/performance/full-after-phase-role-hybrid-v1.json.gz",
+      "artifactSha256": "488c88821a9911f4eb0d894db957d472f85906f25f0b6f988792bc4b055334f8"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-before",
+      "policy": "legacy-pr176",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "de8e4ffe1535a29aa3f187f457bbe84b48d92d19e6a923f607c7bbaf6e02ac6e",
+      "cpuSeconds": 3.469,
+      "wallSeconds": 2.4455833,
+      "maxSampledRssBytes": 172142592,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "deadBallSeconds": 20.175000000002235,
+      "completedStoppages": 2,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 0,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 39,
+      "shots": 0,
+      "artifact": "pr181-evidence/performance/window-before-legacy-pr176.json.gz",
+      "artifactSha256": "e2b6a6504a493b83b913d4e47492883b222c85c2a199a51799391b111ce4fb43"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-after",
+      "policy": "legacy-pr176",
+      "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "397274d13017d9c4c4bcb5570b2078a7b8b15fe6217563052ed66b8093c4a6df",
+      "cpuSeconds": 3.921,
+      "wallSeconds": 2.5779897000000003,
+      "maxSampledRssBytes": 174927872,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "deadBallSeconds": 27.075000000006156,
+      "completedStoppages": 2,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 0,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 22,
+      "shots": 0,
+      "artifact": "pr181-evidence/performance/window-after-legacy-pr176.json.gz",
+      "artifactSha256": "54a2d63da7c3f71776bbfd83b3d0733558982f7ae209adedd7423ed758fa3863"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-before",
+      "policy": "state-value-v1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "4731f7b01907dcf936c40a6a97f28c425c4c8adbc0d1f256d227fcb65391cb4f",
+      "cpuSeconds": 4.452,
+      "wallSeconds": 2.9557331999999996,
+      "maxSampledRssBytes": 171810816,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "deadBallSeconds": 29.850000000006787,
+      "completedStoppages": 1,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 29.850000000006787,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 32,
+      "shots": 3,
+      "artifact": "pr181-evidence/performance/window-before-state-value-v1.json.gz",
+      "artifactSha256": "09df44007c9178ea59db770a219fce56c1f397253b56410770b7785124d8150e"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-after",
+      "policy": "state-value-v1",
+      "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "cbbbce22872ea321fa190024a1c9c5dd1f496626bfbff4a917e9aef89f3afab3",
+      "cpuSeconds": 5.391,
+      "wallSeconds": 3.9090722999999996,
+      "maxSampledRssBytes": 171192320,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "deadBallSeconds": 0,
+      "completedStoppages": 0,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 0,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 33,
+      "shots": 1,
+      "artifact": "pr181-evidence/performance/window-after-state-value-v1.json.gz",
+      "artifactSha256": "ad3ad52abcaf01c060be9ed71bbdd3c79f6cced73ebec9b81d55ae8a2a4b743a"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-before",
+      "policy": "role-value-v1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "475533b0ddbb3af9ea910cbe3d999739c0a53950677563f3efeae4eec462d13c",
+      "cpuSeconds": 4.922,
+      "wallSeconds": 3.5884588,
+      "maxSampledRssBytes": 171761664,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "deadBallSeconds": 4.874999999999723,
+      "completedStoppages": 1,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 0,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 50,
+      "shots": 1,
+      "artifact": "pr181-evidence/performance/window-before-role-value-v1.json.gz",
+      "artifactSha256": "acdf541a8aecdce2775c163fa261e1faf9408a69ff25775c165a3685f979cd68"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-after",
+      "policy": "role-value-v1",
+      "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "51b8d4d9d686fb836bec45f8d4285b2e8984380e2e33cd29e1d40d5baa5a8cf9",
+      "cpuSeconds": 4.953,
+      "wallSeconds": 3.2390424999999996,
+      "maxSampledRssBytes": 178814976,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "deadBallSeconds": 49.05000000000421,
+      "completedStoppages": 4,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 0,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 17,
+      "shots": 2,
+      "artifact": "pr181-evidence/performance/window-after-role-value-v1.json.gz",
+      "artifactSha256": "5bf1d3381a36e3468f9bca3e9e81c440a1b385c57ad6594a478049f7c6fb01ef"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-before",
+      "policy": "role-intent-v1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "4e5d2d1e242873f021c05d3394c706fed0e12c90bd213e1ffe2bbb156423e5cf",
+      "cpuSeconds": 4.672,
+      "wallSeconds": 3.3286087000000006,
+      "maxSampledRssBytes": 172396544,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "deadBallSeconds": 25.875000000005883,
+      "completedStoppages": 2,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 0,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 34,
+      "shots": 1,
+      "artifact": "pr181-evidence/performance/window-before-role-intent-v1.json.gz",
+      "artifactSha256": "aaf21e498b033ac763d0f46dd54ddecdcb35677336d2ba79e59f07377f1d9933"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-after",
+      "policy": "role-intent-v1",
+      "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "a9c8d1c6a155d38d8917cee202645744de1c0477674e117837bbe35a114feee3",
+      "cpuSeconds": 4.781,
+      "wallSeconds": 3.1882549,
+      "maxSampledRssBytes": 174874624,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "deadBallSeconds": 44.22500000000447,
+      "completedStoppages": 4,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 0,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 26,
+      "shots": 1,
+      "artifact": "pr181-evidence/performance/window-after-role-intent-v1.json.gz",
+      "artifactSha256": "f20bf1feaeb001d44dbd96d2ba23e7280a6bed79199f6ed0a3d8ac93c489c3d1"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-before",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "d79b09617e3cd6915f23d6ce52259bf9fa19b7d933e4761616a88c2fc94e469c",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "93781ddacd88b1bcae1006f393570aaffa48a30e965f9a53f0b2339a49cc9fc7",
+      "cpuSeconds": 6.218,
+      "wallSeconds": 4.714128400000001,
+      "maxSampledRssBytes": 172027904,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "deadBallSeconds": 8.574999999999733,
+      "completedStoppages": 1,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 0,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 21,
+      "shots": 0,
+      "artifact": "pr181-evidence/performance/window-before-phase-role-hybrid-v1.json.gz",
+      "artifactSha256": "d90e85ae12b99512cd5842614aba5f4f173b8e7bb07aa31968ac87fb78952547"
+    },
+    {
+      "schema": "mfl-pr181-performance-v1",
+      "label": "window-after",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "7af33920dd12d99a4991310f6829472baca0f46b0a0f64cb072f15c518cef6fc",
+      "design": {
+        "id": "pr181-dev-sw-2",
+        "split": "development",
+        "seed": "pr181-dev-sw-2:20261021-v1",
+        "tier": "SW",
+        "strength": [
+          78.39545454545454,
+          47.56298701298701
+        ],
+        "youth": false,
+        "clubs": [
+          "pro_9",
+          "pro_60"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "direct"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "72e8fdbda92760c730939ed44b9d4361abdab48d5ace1f51625d5e9cdfe588ac",
+      "sessionHash": "48ccf8d5f5a146f17ff847908d44f48ed07b892f020d21af8ba1984edeacfbbc",
+      "status": "first_half",
+      "ticks": 4800,
+      "time": 120.00000000001016,
+      "finalHash": "6bab26da27027d97949a7bae477058e6608b81464e4409ba13d0b91d6b628bf3",
+      "cpuSeconds": 4.782,
+      "wallSeconds": 3.3932725,
+      "maxSampledRssBytes": 180228096,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "deadBallSeconds": 38.32500000000824,
+      "completedStoppages": 3,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 29.825000000006305,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700
+      },
+      "runtime": "v24.19.0",
+      "observers": false,
+      "scope": "bounded matched window",
+      "serial": true,
+      "method": "Fresh process, fixed 0.025s canonical stepping, no observers/profiler. Run with other benchmark/test workers stopped. Different football histories mean before/after CPU is whole workload, not isolated marginal function cost.",
+      "passes": 35,
+      "shots": 3,
+      "artifact": "pr181-evidence/performance/window-after-phase-role-hybrid-v1.json.gz",
+      "artifactSha256": "41e6f2ce69ae82fb445be097fc8127d3b7404ca8e57a072ad7b29944b81b96bd"
+    }
+  ],
+  "naturalStoppages": {
+    "scope": "One paired complete R3 SS1 design; descriptive only. Completed referee/restart ledger intervals, not an inserted delay or a separately measured live-minute denominator.",
+    "before": {
+      "seconds": 1115.9249999966446,
+      "intervals": 98,
+      "elapsed": 5708.599999987052
+    },
+    "after": {
+      "seconds": 1246.6249999958457,
+      "intervals": 104,
+      "elapsed": 5846.274999999236
+    }
+  }
+}
