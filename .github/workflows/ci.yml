@@ -36,6 +36,8 @@ jobs:
       - run: npm ci
       - run: ${{ matrix.command }}
       - if: matrix.group == 'main'
+        run: npm run benchmark:pr186:replay && git diff --exit-code -- docs/performance
+      - if: matrix.group == 'main'
         run: test -f dist/data/world/pl-2026-v2.json
   quality:
     # Preserve the existing required check and fail it if either group fails,

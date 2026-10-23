@@ -1,7 +1,7 @@
 /* global structuredClone */
 import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs';
-import { gzipSync } from 'node:zlib';
+import { gzipSync, gunzipSync } from 'node:zlib';
 import process from 'node:process';
 import console from 'node:console';
 import { performance } from 'node:perf_hooks';
@@ -42,6 +42,10 @@ const sha = (v) =>
     .digest('hex');
 const out = 'docs/performance',
   traceDir = `${out}/pr186-traces`;
+const replaying = process.argv.includes('--replay');
+const persist = (...args) => {
+  if (!replaying) writeFileSync(...args);
+};
 mkdirSync(traceDir, { recursive: true });
 const files = readdirSync('src', { recursive: true })
   .map((p) => p.replaceAll('\\', '/'))
@@ -54,17 +58,24 @@ const sourceFiles = files.map((path) => ({
 const sourceSha256 = sha(sourceFiles),
   harnessSha256 = sha(readFileSync('scripts/benchmarkPr186.mjs', 'utf8').replaceAll('\r\n', '\n'));
 const baseCommit = 'e5b1a5cbbeb32f22be0278ad4a6800c3beea5496';
+// Hash canonical Git text bytes, independently of core.autocrlf. Binary receipts
+// retain exact bytes; this never rewrites a historical report or archive.
+const historicalSha = (path) =>
+  sha(
+    path.endsWith('.json')
+      ? readFileSync(path, 'utf8').replaceAll('\r\n', '\n')
+      : readFileSync(path),
+  );
 const historical = readdirSync(out, { recursive: true })
   .map((p) => p.replaceAll('\\', '/'))
   .filter((p) => /^(PR18[45]-.*\.json|pr18[45]-.*\.(json|gz))$/.test(p))
   .sort()
-  .map((p) => ({ path: `${out}/${p}`, sha256: sha(readFileSync(`${out}/${p}`)) }));
+  .map((p) => ({ path: `${out}/${p}`, sha256: historicalSha(`${out}/${p}`) }));
 const baselinePath = `${out}/PR186-baseline.json`;
-if (process.argv.includes('--replay')) {
+if (replaying) {
   const saved = JSON.parse(readFileSync(baselinePath));
   for (const f of saved.historical)
-    if (sha(readFileSync(f.path)) !== f.sha256)
-      throw Error(`Historical evidence changed: ${f.path}`);
+    if (historicalSha(f.path) !== f.sha256) throw Error(`Historical evidence changed: ${f.path}`);
   const index = JSON.parse(readFileSync(`${out}/PR186-evidence-index.json`));
   if (index.sourceSha256 !== sourceSha256 || index.harnessSha256 !== harnessSha256)
     throw Error('Research source changed; regenerate explicitly');
@@ -72,7 +83,7 @@ if (process.argv.includes('--replay')) {
     if (sha(readFileSync(item.archive)) !== item.archiveSha256)
       throw Error(`Archive changed: ${item.archive}`);
 }
-writeFileSync(
+persist(
   baselinePath,
   JSON.stringify(
     {
@@ -80,13 +91,15 @@ writeFileSync(
       baseCommit,
       defaultPolicy: 'state-value-v1',
       cohort: 'development_only',
+      historicalTextPolicy:
+        'JSON: canonical LF Git text bytes; binary archives: exact bytes. Working-copy CRLF conversion is ignored.',
       historical,
     },
     null,
     2,
   ) + '\n',
 );
-writeFileSync(
+persist(
   `${out}/PR186-source-manifest.json`,
   JSON.stringify(
     { schemaVersion: 1, baseCommit, sourceSha256, harnessSha256, sourceFiles },
@@ -99,14 +112,23 @@ const groups = [],
   cpu = process.cpuUsage();
 const emit = (name, rows, summary) => {
   const archive = `${traceDir}/${name}.json.gz`,
-    bytes = gzipSync(JSON.stringify(rows), { level: 9 });
-  const item = { name, archive, archiveSha256: sha(bytes), trials: rows.length, summary };
-  if (process.argv.includes('--replay')) {
+    payload = JSON.stringify(rows),
+    bytes = gzipSync(payload, { level: 9 });
+  const item = {
+    name,
+    archive,
+    archiveSha256: sha(bytes),
+    payloadSha256: sha(payload),
+    trials: rows.length,
+    summary,
+  };
+  if (replaying) {
     const old = JSON.parse(readFileSync(`${out}/PR186-${name}.json`));
-    if (old.archiveSha256 !== item.archiveSha256) throw Error(`Non-deterministic group: ${name}`);
+    const expected = old.payloadSha256 ?? sha(gunzipSync(readFileSync(old.archive)));
+    if (expected !== item.payloadSha256) throw Error(`Non-deterministic group: ${name}`);
   }
-  writeFileSync(archive, bytes);
-  writeFileSync(
+  persist(archive, bytes);
+  persist(
     `${out}/PR186-${name}.json`,
     JSON.stringify(
       { schemaVersion: 1, sourceSha256, harnessSha256, baseCommit, ...item },
@@ -664,7 +686,7 @@ emit(
   { identical: true },
 );
 const coverage = inventoryFootballAttributes({});
-writeFileSync(
+persist(
   `${out}/PR186-contact-plan.json`,
   JSON.stringify(
     {
@@ -678,11 +700,8 @@ writeFileSync(
     2,
   ) + '\n',
 );
-writeFileSync(
-  `${out}/PR186-attribute-source-inventory.json`,
-  JSON.stringify(coverage, null, 2) + '\n',
-);
-writeFileSync(
+persist(`${out}/PR186-attribute-source-inventory.json`, JSON.stringify(coverage, null, 2) + '\n');
+persist(
   `${out}/PR186-policy-specifications.json`,
   JSON.stringify(
     { schemaVersion: 1, policies: PR187_POLICY_SPECIFICATIONS, productionActivation: false },
@@ -702,8 +721,8 @@ const index = {
   interpretation:
     'Development and engineering evidence only. Prototype equations do not validate their source attributes. Untouched SS/SW/WW validation is reserved for PR187.',
 };
-writeFileSync(`${out}/PR186-evidence-index.json`, JSON.stringify(index, null, 2) + '\n');
-writeFileSync(
+persist(`${out}/PR186-evidence-index.json`, JSON.stringify(index, null, 2) + '\n');
+persist(
   `${out}/PR186-performance.json`,
   JSON.stringify(
     {

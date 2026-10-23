@@ -2,13 +2,14 @@
   "schemaVersion": 1,
   "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
   "sourceSha256": "1e60d6afe6d331a4f9cdebee939f668caced6968620eae5d07c9d61877dac865",
-  "harnessSha256": "fbf803d88248161c346485058ba105543b8fb5986d1ad6baf236fe1b61ee61c1",
+  "harnessSha256": "ba5a15f461c0bf2a8522be562fb87d7e9f598ba39c0df9c7a392930f146a699c",
   "stepSeconds": 0.025,
   "groups": [
     {
       "name": "tactical-patterns",
       "archive": "docs/performance/pr186-traces/tactical-patterns.json.gz",
       "archiveSha256": "7d6534fa28b33478e00f62af365d315e7af2fd864fd16212957db8e467c691f1",
+      "payloadSha256": "d0d0d61699b5ffc2b35d21d265133482bdc8b63de968b758ad8a30159db431fe",
       "trials": 308,
       "summary": [
         {
@@ -321,6 +322,7 @@
       "name": "decision-timing",
       "archive": "docs/performance/pr186-traces/decision-timing.json.gz",
       "archiveSha256": "c9c979cb2255f92961c6904e517099e794b32d9acd6b41dbbafa6345c1f5305f",
+      "payloadSha256": "fe675fb8009cbce1ca453c66b488432b8afe91fe81acebf6edc7a10c1a49b47b",
       "trials": 96,
       "summary": [
         {
@@ -545,6 +547,7 @@
       "name": "learning",
       "archive": "docs/performance/pr186-traces/learning.json.gz",
       "archiveSha256": "cb7956ca594e3b850388219cffe7365b24847596aa3ca39a7c951249786a60f3",
+      "payloadSha256": "093d3a29c5ef9ba60b816e4921446aa4deb0df8f6caaa082dba80fe581f2cf71",
       "trials": 9,
       "summary": [
         {
@@ -688,6 +691,7 @@
       "name": "communication",
       "archive": "docs/performance/pr186-traces/communication.json.gz",
       "archiveSha256": "862087fa4ec922b9a77063dad7fdaa2da0f00b491aa19e024c676faba7f4f968",
+      "payloadSha256": "2645a1a8fa9dab634d5927ec369203d44bad36e83c1b4238ed8acdc429843790",
       "trials": 40,
       "summary": [
         {
@@ -781,6 +785,7 @@
       "name": "human-factors",
       "archive": "docs/performance/pr186-traces/human-factors.json.gz",
       "archiveSha256": "8fe72439abaa88323f195c25721f09c9625a39952b58828834b69bcb72514f50",
+      "payloadSha256": "5b15679c6ec2ca1c50991bb9e369187bf2d30b42abced8f1fc874f2937a62e98",
       "trials": 36,
       "summary": {
         "selected": {
@@ -795,6 +800,7 @@
       "name": "attribute-contacts",
       "archive": "docs/performance/pr186-traces/attribute-contacts.json.gz",
       "archiveSha256": "f4b05b07dffaf3375243eaec43fa666c8494834cfbcffde826d800a103ac0fd7",
+      "payloadSha256": "3a3249659efb1219e2efad1464ba761faeb18fcc06f0c868de3addababda760c",
       "trials": 800,
       "summary": [
         {
@@ -1603,6 +1609,7 @@
       "name": "attribute-keepers",
       "archive": "docs/performance/pr186-traces/attribute-keepers.json.gz",
       "archiveSha256": "8302ff7c34c6589ddf1f7f12df90c86f3e2538ef55c5a125dbf36dcf6277c83f",
+      "payloadSha256": "2cd33da06c7c32069ba3920022d52e408e0c35a3be46d93b162ae3022c27f405",
       "trials": 440,
       "summary": [
         {
@@ -1841,6 +1848,7 @@
       "name": "attribute-overlaps",
       "archive": "docs/performance/pr186-traces/attribute-overlaps.json.gz",
       "archiveSha256": "cb71fee21251ed55996bde3795d4c50359e730583ca44d73f3637533ed14951a",
+      "payloadSha256": "2fe50b5520925325b0916f695b5669cca5058764b8e1ef817114c09b5b499214",
       "trials": 160,
       "summary": [
         {
@@ -2629,6 +2637,7 @@
       "name": "attribute-duels",
       "archive": "docs/performance/pr186-traces/attribute-duels.json.gz",
       "archiveSha256": "5223f6e8c342ec404e9dea034542eac72b722c70f33aebec37f714bb425fea79",
+      "payloadSha256": "2d69094c2b51ad6baf33112d6c681a830297153d92c10f26f1389d36d915c726",
       "trials": 160,
       "summary": [
         {
@@ -2807,6 +2816,7 @@
       "name": "decision-audit",
       "archive": "docs/performance/pr186-traces/decision-audit.json.gz",
       "archiveSha256": "58848376ca3a438a2fc6f36c5772ec64ebb31de319fac442070d8c75dc219861",
+      "payloadSha256": "4242a7715ec6822227845d9d159717d9fb6d365418a984b81b9d7dbbab9801dd",
       "trials": 36,
       "summary": {
         "snapshots": 36,
@@ -2820,6 +2830,7 @@
       "name": "observer-neutrality",
       "archive": "docs/performance/pr186-traces/observer-neutrality.json.gz",
       "archiveSha256": "aa7c8bc18f4d17f917ad7bac8a7b91ca416a34e780c77410ebac2fc42c8adf00",
+      "payloadSha256": "d6cd79dbb3fad1d527a1ead88ddc68d65cdda87eb2d86367b80962978c66656e",
       "trials": 1,
       "summary": {
         "identical": true

@@ -32,13 +32,20 @@ polityka produkcyjna. Nie dokonano promocji ani przemianowania historycznych pol
 ## 2. Baza i zachowane dowody
 
 Baza: merge PR185 `e5b1a5cbbeb32f22be0278ad4a6800c3beea5496`.
-Historyczne pomiary PR184/185 zachowują bajty i SHA-256 w
+Historyczne pomiary PR184/185 zachowują treść zapisanych plików Git. SHA-256 w
 [`PR186-baseline.json`](performance/PR186-baseline.json). Harness sprawdza ich
-niezmienność przy `--replay`. Nie przenumerowano starych prób na wyniki PR186.
+niezmienność przy `--replay`: JSON jest hashowany jako kanoniczny tekst LF,
+zgodnie z bajtami blobów Git, a binarne archiwa bez żadnej konwersji. Reguły
+`.gitattributes` zapobiegają różnicom konwersji working copy Windows/Linux;
+żaden historyczny blob nie został zmieniony. Nie przenumerowano starych prób na wyniki PR186.
 
 [`PR186-source-manifest.json`](performance/PR186-source-manifest.json) zawiera
 posortowane ścieżki i hashe źródeł z normalizacją CRLF→LF. Indeks i archiwa mają
-wersję schematu, seedy, konfigurację i własny hash. Koszt CPU/RSS jest osobnym
+wersję schematu, seedy, konfigurację, hash archiwum i osobny hash rozpakowanego
+payloadu. Replay sprawdza integralność zapisanych archiwów, a nowe wyniki porównuje
+po payloadzie: bajt systemu operacyjnego w nagłówku GZip nie jest wynikiem fizyki.
+Replay nie nadpisuje dowodów. Ten sam krok uruchamia job CI main na Linuksie.
+Koszt CPU/RSS jest osobnym
 wynikiem niedeterministycznym; nie wchodzi do hashy fizycznych prób.
 
 Pełne mecze zachowują dokładne wejścia i stan otwarcia badanych okien w archiwach.
