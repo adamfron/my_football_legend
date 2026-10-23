@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "pr186-ss",
+  "policy": "state-value-v1",
+  "observed": false,
+  "full": false,
+  "sourceSha256": "c3e2844abf4b7a6bb4f42512c5d38a5b80de15e2447a53e4fa5b3d4d8e995bc2",
+  "inputSha256": "01447ee65f04955737adaa21fda105e4e9a0fbccced6cb5e678fb22aae933031",
+  "finalStateSha256": "8dc1c356ccb025d514f7b908cf59dde6b80ef4fba09827790daf12ae49cff79c",
+  "ticks": 4800,
+  "status": "first_half",
+  "canonicalSeconds": 120.00000000001016,
+  "score": {
+    "home": 0,
+    "away": 0
+  },
+  "counts": {
+    "rankings": 0,
+    "atCandidateCap": 0,
+    "shotPresent": 0,
+    "shotSelected": 0,
+    "holdSelected": 0,
+    "shotPresentButOtherSelected": 0,
+    "reciprocalPasses": 0,
+    "backwardPasses": 0,
+    "longProgressivePasses": 0,
+    "highOpportunitySamples": 0,
+    "highOpportunityContactUnavailable": 0,
+    "controlSamples": 0
+  },
+  "wallMilliseconds": 4621.6206,
+  "cpuMicroseconds": {
+    "user": 5984000,
+    "system": 250000
+  },
+  "rssBytes": 311414784,
+  "archive": "docs/performance/pr186-traces/pr186-ss-state-value-v1-120-bare-0.json.gz",
+  "archiveSha256": "0aa714de429b47c005c19aa9988c1f71a0819be96eee60c565fa5e2dd42d4bb6",
+  "opportunityWindows": 0,
+  "unconvertedOpportunityWindows": 0,
+  "passes": null
+}

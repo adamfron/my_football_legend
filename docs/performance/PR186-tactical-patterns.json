@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "ba9517bf8975f5bf029fa9ea9bf31561fc7e886fc8e1fcad81d80eff1f80aa8c",
+  "harnessSha256": "fbf803d88248161c346485058ba105543b8fb5986d1ad6baf236fe1b61ee61c1",
+  "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
+  "name": "tactical-patterns",
+  "archive": "docs/performance/pr186-traces/tactical-patterns.json.gz",
+  "archiveSha256": "a4ee7f74d845e79ca8936fc2db076963b9ba872015bd20077ea4a6e7faf17429",
+  "trials": 308,
+  "summary": [
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.1,
+      "mode": "prepared",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.7995000000000001,
+        "min": 0.7995000000000001,
+        "median": 0.7995000000000001,
+        "max": 0.7995000000000001
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 6.516010218428818,
+        "min": 6.516010218428818,
+        "median": 6.516010218428818,
+        "max": 6.516010218428818
+      },
+      "arrivals": 0,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.1,
+      "mode": "deliberate",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.6720000000000006,
+        "min": 0.6720000000000006,
+        "median": 0.6720000000000006,
+        "max": 0.6720000000000006
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 7.199592095933091,
+        "min": 7.199592095933091,
+        "median": 7.199592095933091,
+        "max": 7.199592095933091
+      },
+      "arrivals": 0,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.9,
+      "mode": "prepared",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.2594999999999992,
+        "min": 0.2594999999999992,
+        "median": 0.2594999999999992,
+        "max": 0.2594999999999992
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 9.140132262602624,
+        "min": 9.140132262602624,
+        "median": 9.140132262602624,
+        "max": 9.140132262602624
+      },
+      "arrivals": 0,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.9,
+      "mode": "deliberate",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.6720000000000006,
+        "min": 0.6720000000000006,
+        "median": 0.6720000000000006,
+        "max": 0.6720000000000006
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 7.199592095933091,
+        "min": 7.199592095933091,
+        "median": 7.199592095933091,
+        "max": 7.199592095933091
+      },
+      "arrivals": 0,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.1,
+      "mode": "prepared",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.7995000000000001,
+        "min": 0.7995000000000001,
+        "median": 0.7995000000000001,
+        "max": 0.7995000000000001
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 6.516010218428801,
+        "min": 6.516010218428801,
+        "median": 6.516010218428801,
+        "max": 6.516010218428801
+      },
+      "arrivals": 0,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.1,
+      "mode": "deliberate",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.6720000000000006,
+        "min": 0.6720000000000006,
+        "median": 0.6720000000000006,
+        "max": 0.6720000000000006
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 7.199592095933078,
+        "min": 7.199592095933078,
+        "median": 7.199592095933078,
+        "max": 7.199592095933078
+      },
+      "arrivals": 0,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.9,
+      "mode": "prepared",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.2594999999999992,
+        "min": 0.2594999999999992,
+        "median": 0.2594999999999992,
+        "max": 0.2594999999999992
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 9.386768027541562,
+        "min": 9.386768027541562,
+        "median": 9.386768027541562,
+        "max": 9.386768027541562
+      },
+      "arrivals": 0,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.9,
+      "mode": "deliberate",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.6720000000000006,
+        "min": 0.6720000000000006,
+        "median": 0.6720000000000006,
+        "max": 0.6720000000000006
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 7.199592095933078,
+        "min": 7.199592095933078,
+        "median": 7.199592095933078,
+        "max": 7.199592095933078
+      },
+      "arrivals": 0,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.1,
+      "mode": "prepared",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.7995000000000001,
+        "min": 0.7995000000000001,
+        "median": 0.7995000000000001,
+        "max": 0.7995000000000001
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 5.718004086866411,
+        "min": 5.665016444810986,
+        "median": 5.7247061649270705,
+        "max": 5.773895880599433
+      },
+      "arrivals": 4,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.1,
+      "mode": "deliberate",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.6720000000000006,
+        "min": 0.6720000000000006,
+        "median": 0.6720000000000006,
+        "max": 0.6720000000000006
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 5.950711728604318,
+        "min": 5.884450235944811,
+        "median": 5.958996952469605,
+        "max": 6.020785572528914
+      },
+      "arrivals": 4,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.9,
+      "mode": "prepared",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.2594999999999992,
+        "min": 0.2594999999999992,
+        "median": 0.2594999999999992,
+        "max": 0.2594999999999992
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 6.116492533474997,
+        "min": 6.026329737855619,
+        "median": 6.127259754435839,
+        "max": 6.212838461555166
+      },
+      "arrivals": 4,
+      "passOutcomes": {
+        "completed": 4
+      }
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.9,
+      "mode": "deliberate",
+      "recognitionSeconds": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 0.6720000000000006,
+        "min": 0.6720000000000006,
+        "median": 0.6720000000000006,
+        "max": 0.6720000000000006
+      },
+      "movementMetres": {
+        "samples": 4,
+        "censored": 0,
+        "mean": 5.950711728604318,
+        "min": 5.884450235944811,
+        "median": 5.958996952469605,
+        "max": 6.020785572528914
+      },
+      "arrivals": 4,
+      "passOutcomes": {
+        "completed": 4
+      }
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "Informative paired contrasts, not a Cartesian product. Seeds are shared across bands. Deterministic repeated seeds are reproducibility checks, not independent physical designs.",
+  "attributeBands": [
+    20,
+    40,
+    60,
+    80,
+    100
+  ],
+  "commonControls": [
+    "same identity and all unvaried attributes",
+    "same body, foot, fitness, initial geometry and intended action",
+    "same seed, opposition and canonical engine",
+    "no future physical RNG draws in perception or policy"
+  ],
+  "experiments": [
+    {
+      "id": "tactical-patterns",
+      "hypothesis": "Familiarity changes recognition and coordination before it changes physical opportunity",
+      "expectedAttribute": "system/role/partner knowledge; gameReading and concentration",
+      "conditions": "counter support, playmaker preparation, pressed teammate; natural versus unfamiliar role; strict/tinkering/trusting demands",
+      "confounds": [
+        "geometry jitter",
+        "role eligibility",
+        "cover",
+        "turning and pace"
+      ],
+      "metric": "recognition timestamps, integrated movement, actual canonical pass outcome",
+      "negativeControl": "novel trigger or absent cover",
+      "falsifier": "familiarity grants a physical execution bonus or motion before recognition",
+      "evidence": "PR186-tactical-patterns.json"
+    },
+    {
+      "id": "decision-timing",
+      "hypothesis": "Correct recognition can precede physical readiness or arrive after control is lost",
+      "expectedAttribute": "familiarity and existing perception latency; response-mode intervention",
+      "conditions": "motor/prepared/deliberate, 0.1/0.9 familiarity, 0.1/1.2 seconds preparation, quiet/closing opponent",
+      "confounds": [
+        "orientation",
+        "canonical footwork",
+        "defensive challenge timing"
+      ],
+      "metric": "observation, recognition, intention, preparation margin, real shot release, cancellation, physical outcome",
+      "negativeControl": "quiet opponent with the same body preparation",
+      "falsifier": "shot releases before preparation/contact or without ball control",
+      "evidence": "PR186-decision-timing.json"
+    },
+    {
+      "id": "learning",
+      "hypothesis": "Adaptability affects acquisition from relevant exposure, independently of coach demands",
+      "expectedAttribute": "hidden adaptability and professionalism for training only",
+      "conditions": "three coach policies and three adaptability bands, explicit compatible revisions",
+      "confounds": [
+        "assumed learning rate",
+        "chosen revision schedule"
+      ],
+      "metric": "typed knowledge progression; explicitly not canonical football performance",
+      "negativeControl": "idle or irrelevant exposure",
+      "falsifier": "time alone grants knowledge, or one revision erases unrelated knowledge",
+      "evidence": "PR186-learning.json"
+    },
+    {
+      "id": "communication",
+      "hypothesis": "Bounded advice can alter a recipient's reaction without sharing hidden profiles",
+      "expectedAttribute": "leadership affects trust; gameReading affects confidence, with insight content injected experimentally",
+      "conditions": "none/relevant/inaccurate/expired/low-authority advice to a low-reading player",
+      "confounds": [
+        "manually supplied insight",
+        "assumed trust/comprehension model",
+        "simple pass geometry"
+      ],
+      "metric": "acceptance, recognition, actual movement and canonical pass result",
+      "negativeControl": "expired or unavailable sender",
+      "falsifier": "unseen sender is accepted, expired evidence works, or teammate skill is multiplied",
+      "evidence": "PR186-communication.json"
+    },
+    {
+      "id": "human-factors",
+      "hypothesis": "Pressure, fatigue, context and explicit personal incentives permit bounded near-tie discretion",
+      "expectedAttribute": "composure in interpretation; no ambition-to-shot mapping",
+      "conditions": "neutral/protecting/chasing, fresh/exhausted, team-first/personal incentive, three coach policies",
+      "confounds": [
+        "injected candidate values and risk interpretations",
+        "unvalidated discretion tolerance"
+      ],
+      "metric": "selection, instruction compliance and regret; execution/outcome remain null",
+      "negativeControl": "unobserved/infeasible or clearly inferior personal option",
+      "falsifier": "personal incentives override the fixed regret bound or invent outcomes",
+      "evidence": "PR186-human-factors.json"
+    },
+    {
+      "id": "heading",
+      "hypothesis": "Heading affects intentional placement separately from aerial reach",
+      "expectedAttribute": "heading",
+      "conditions": "moving ball at two speeds, oblique approach, pressure, unreachable height",
+      "confounds": [
+        "heading also affects contact execution profile",
+        "target-plane measurement excludes downstream defenders"
+      ],
+      "metric": "real reach/contact time, launched velocity, integrated target-plane error and on-target result",
+      "negativeControl": "vary aggression with identical header; ball beyond reach",
+      "falsifier": "heading changes geometric reach or no placement difference appears across relevant contexts",
+      "evidence": "PR186-attribute-contacts.json"
+    },
+    {
+      "id": "composure",
+      "hypothesis": "Composure answers relevant pressure demand rather than improving every quiet shot",
+      "expectedAttribute": "composure",
+      "conditions": "identical placed strike with side marker versus no marker",
+      "confounds": [
+        "marker supplies both pressure and geometry; held identical within each band comparison"
+      ],
+      "metric": "integrated target-plane error and on-target result",
+      "negativeControl": "unpressured shot across all bands",
+      "falsifier": "quiet-shot result changes or pressured paired errors show no response",
+      "evidence": "PR186-attribute-contacts.json"
+    },
+    {
+      "id": "one-on-ones",
+      "hypothesis": "Keeper approach/reaction differences can matter in a real closing encounter",
+      "expectedAttribute": "oneOnOnes",
+      "conditions": "four intended release times (0/0.15/0.6/1.2 seconds), placed/chip, mirrored lateral targets",
+      "confounds": [
+        "late carry may lose contact",
+        "coarse outcome bins",
+        "existing keeper role target"
+      ],
+      "metric": "real keeper motion, scheduled versus actual release, physical save/goal or failure",
+      "negativeControl": "missed release is censored as attribute outcome evidence, not counted as a successful intended shot",
+      "falsifier": "outcomes remain flat in informative windows; retain inconclusive result",
+      "evidence": "PR186-attribute-keepers.json"
+    },
+    {
+      "id": "sweeping",
+      "hypothesis": "Leaving goal should be distinguishable from unreachable or defender-first choices",
+      "expectedAttribute": "goalkeeperSweeping",
+      "conditions": "three actual through-ball target depths and attacker-keeper races",
+      "confounds": [
+        "canonical claim forecast uses current exact ball geometry",
+        "decision boundary may not be crossed by the chosen bands"
+      ],
+      "metric": "meaningful-choice diagnostic plus actual keeper movement, ownership and downstream result",
+      "negativeControl": "unreachable distant target",
+      "falsifier": "meaningful races yield no band separation; no inactive-attribute claim",
+      "evidence": "PR186-attribute-keepers.json",
+      "staged": "inaccurate/stale player-local keeper reads require a perception adapter; not fabricated in this PR"
+    },
+    {
+      "id": "overlaps-and-duels",
+      "hypothesis": "Contact quality, turning/recovery and progression against an opponent are distinct capabilities",
+      "expectedAttribute": "technique/dribbling and firstTouch/agility",
+      "conditions": "spin reception, body-only turn, two-contact feint against committing/delaying opponent",
+      "confounds": [
+        "multiple attributes already contribute to shared foot contact",
+        "same-seed body-only turns are deterministic"
+      ],
+      "metric": "physical first contact, later recovery, turn time, actual contacts and escape",
+      "negativeControl": "dribbling in a body-only turn; same defender/seed for technique and dribbling contrasts",
+      "falsifier": "only a directly calculated quality score changes, with no physical consequence",
+      "evidence": [
+        "PR186-attribute-overlaps.json",
+        "PR186-attribute-duels.json"
+      ]
+    },
+    {
+      "id": "set-pieces",
+      "hypothesis": "Set-piece ability affects actual specialised free-kick launch and placement",
+      "expectedAttribute": "setPieces",
+      "conditions": "controlled curl with/without pressure",
+      "confounds": [
+        "technique and finishing remain fixed",
+        "spin changes with the existing specialisation"
+      ],
+      "metric": "canonical free-kick release and integrated plane error",
+      "negativeControl": "ordinary foot shot/heading do not use a free-kick profile",
+      "falsifier": "only declared ability changes while physical launch and flight remain identical",
+      "evidence": "PR186-attribute-contacts.json"
+    },
+    {
+      "id": "remaining-attributes",
+      "hypothesis": "Existing responsibilities must be inventoried before assigning new causal roles",
+      "expectedAttribute": "positioning/gameReading/concentration/leadership/determination/aggression/ambition/professionalism",
+      "conditions": "source inventory, bounded recognition/communication/motivation/learning prototypes, existing career and challenge mechanisms",
+      "confounds": [
+        "career effects differ from canonical match effects",
+        "prototype equations cannot validate themselves"
+      ],
+      "metric": "concrete source reads and conditional prototype traces; no universal attribute validation",
+      "negativeControl": "no production schema or coefficient changes",
+      "falsifier": "a new experimental read is presented as pre-existing live match evidence",
+      "evidence": "PR186-attribute-source-inventory.json"
+    }
+  ]
+}
