@@ -20,6 +20,7 @@ import {
 import { authoritativeMovementTarget } from './movementAuthority';
 import { deriveCarryPursuit } from './carryPursuit';
 import { deriveGroundControlImpulse } from './ballContactGeometry';
+import { executeFootContact } from './footContact';
 import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup, isLiveRestartSetup, isRestartDecisionBoundary } from './restartPhase';
@@ -500,6 +501,23 @@ const changePossession = (
   cause: 'tackle' | 'interception' | 'claim' = 'claim',
 ) => {
   if (!canContactAfterThrowIn(state, ownerId)) return state;
+  const receivingActor = state.players.find((p) => p.id === ownerId);
+  if (
+    receivingActor &&
+    receivingActor.team === state.possessionTeam &&
+    !isMatchGoalkeeper(receivingActor) &&
+    state.ball.travelKind
+  ) {
+    const feet = playerContactGeometry(receivingActor);
+    // Body proximity above the foot envelope is an anticipated reception, not a touch.
+    // Continue the physical delivery until the selected surface can actually meet it.
+    if (
+      (state.ball.height ?? 0) > 0.65 ||
+      Math.min(distance(feet.leftFoot, state.ball), distance(feet.rightFoot, state.ball)) >
+        feet.footReach
+    )
+      return state;
+  }
   if (isOffsideOffence(state.offsideSnapshot, ownerId))
     return awardOffsideRestart(state, ownerId, { x: state.ball.x, y: state.ball.y });
   state = applyIncomingContact(state, ownerId);
@@ -524,7 +542,13 @@ const changePossession = (
   // Pressure at release belongs to the passer. Reception and preparation use the receiver's
   // current canonical opponents, including a marker that arrived during the flight.
   state = { ...state, currentPressure: evaluatePressure(state, owner).value };
-  const controlledBall = { x: state.ball.x, y: state.ball.y, ownerId, lastTouchPlayerId: ownerId };
+  const controlledBall = {
+    x: state.ball.x,
+    y: state.ball.y,
+    ownerId,
+    lastTouchPlayerId: ownerId,
+    ...(state.ball.heldByKeeperId === ownerId ? { heldByKeeperId: ownerId } : {}),
+  };
   const reception =
     state.receptionPreparation?.actorId === ownerId ||
     (state.ball.travelKind === 'pass' && owner.team === state.possessionTeam)
@@ -581,9 +605,10 @@ const changePossession = (
         : {}),
       ...(state.ball.ownerId !== ownerId ? { ballOwnershipStartedAt: state.time } : {}),
     };
-    if (reception?.kind === 'directional_control' && reception.resultingPoint) {
-      const dx = reception.resultingPoint.x - reception.contactPoint.x;
-      const dy = reception.resultingPoint.y - reception.contactPoint.y;
+    if (reception && reception.kind !== 'heavy_touch' && reception.kind !== 'failed_control') {
+      const targetPoint = reception.resultingPoint ?? preparedOwner.position;
+      const dx = targetPoint.x - reception.contactPoint.x;
+      const dy = targetPoint.y - reception.contactPoint.y;
       const length = Math.max(0.01, Math.hypot(dx, dy));
       const quality = reception.quality?.score ?? 0.64;
       const impulse = deriveGroundControlImpulse(
@@ -594,16 +619,53 @@ const changePossession = (
         0.15 + (1 - quality) * 0.34,
         1 - quality,
       );
+      const surfaceContact = executeFootContact(state, preparedOwner, {
+        intended: state.receptionPreparation?.contactSurface ?? 'cushion',
+        desiredVelocity:
+          reception.kind === 'directional_control'
+            ? { ...impulse.velocity, z: 0 }
+            : { ...preparedOwner.velocity, z: 0 },
+        balance: preparedOwner.plantBalance?.balance ?? 1,
+        preparationSeconds: Math.max(
+          0.012,
+          state.time - (state.receptionPreparation?.awarenessAt ?? state.time - 0.2),
+        ),
+        contactSeconds: Math.max(
+          0.012,
+          Math.min(
+            0.12,
+            0.24 /
+              Math.max(1.4, Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0)),
+          ),
+        ),
+        pressure: state.currentPressure,
+      });
       // A finite first-contact impulse starts at the contact, not its future waypoint.
       next.ball = {
         ...controlledBall,
-        ...(state.ball.spin ? { spin: { ...state.ball.spin } } : {}),
-        height: 0.11,
-        velocity: {
-          ...impulse.velocity,
-          z: 0,
-        },
+        spin: surfaceContact.outgoingSpin,
+        height: state.ball.height ?? 0.11,
+        velocity: surfaceContact.outgoingVelocity,
       };
+      next.lastGroundContact = {
+        actorId: ownerId,
+        at: state.time,
+        region: `${surfaceContact.foot}_foot`,
+        point: { ...reception.contactPoint },
+        incomingVelocity: surfaceContact.incomingVelocity,
+        outgoingVelocity: surfaceContact.outgoingVelocity,
+        quality: surfaceContact.quality,
+        retained: surfaceContact.retained,
+        executed: surfaceContact.available,
+        physicalCount: 1,
+        surfaceContact,
+      };
+      if (!surfaceContact.retained) {
+        if (next.lastPassDiagnostic)
+          next.lastPassDiagnostic = { ...next.lastPassDiagnostic, finalResult: 'technical_error' };
+        if (next.lastPassDiagnostic) next.lastResolvedPass = next.lastPassDiagnostic;
+        return makeLoose(next, surfaceContact.outgoingVelocity);
+      }
     }
     if (
       next.onBallPreparation?.plannedCarry &&
@@ -1162,7 +1224,7 @@ const finishShotContact = (
             outcome: 'save',
             classification: 'on_target',
           },
-          ball: { ...keeper.position, height: 0 },
+          ball: { ...keeper.position, height: 0, heldByKeeperId: keeper.id },
         },
         keeper.id,
         'claim',
@@ -1740,16 +1802,23 @@ const stepTacticalMatchCore = (
     const structural =
       !preparing &&
       ['structural_adjustment', 'maintain_shape', 'support_run'].includes(locomotion.reason);
-    const { facingAngle, movementMode, capability, previousSpeed, velocity } =
-      integrateCanonicalMovement(player, {
-        target: movementTarget,
-        targetSpeed: locomotion.targetSpeed,
-        desiredFacingAngle,
-        dt,
-        balance,
-        structural,
-        receivingMomentum,
-      });
+    const {
+      facingAngle,
+      movementMode,
+      capability,
+      previousSpeed,
+      velocity,
+      plantBalance,
+      verticalJump,
+    } = integrateCanonicalMovement(player, {
+      target: movementTarget,
+      targetSpeed: locomotion.targetSpeed,
+      desiredFacingAngle,
+      dt,
+      balance,
+      structural,
+      receivingMomentum,
+    });
     const stopped = isLiveRestartSetup(state) || Boolean(state.postGoal);
     const movementBounds = (point: { x: number; y: number }) =>
       stopped
@@ -1850,6 +1919,8 @@ const stepTacticalMatchCore = (
     void [_oldSprint, _oldRecovery, _oldBurst];
     return {
       ...movingPlayer,
+      plantBalance,
+      ...(verticalJump ? { verticalJump } : {}),
       fitness: advanceMatchFitness(player, {
         dt,
         distance: travelled,

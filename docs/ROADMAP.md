@@ -1,10 +1,11 @@
 # Roadmap
 
-Aktualny etap: **PR184 — Football Performance Lab Core**. Deterministyczne próby
-ruchu, prowadzenia, podań, przyjęcia i strzałów mierzą fizyczne wykonanie silnika
-kanonicznego, z obiektami treningowymi, macierzą 28 atrybutów i parami seedów.
-[Raport i ograniczenia](PR184_FOOTBALL_PERFORMANCE_LAB.md). Wyniki laboratorium
-nie promują polityki ani nie odblokowują kalibracji summary.
+Aktualny etap: **PR185 — Extended Physical Testing & Ball-Control Mechanics**.
+Wspólne kontakty powierzchni stopy, spin, równowaga, dwukontaktowy zwód i wyrzut
+bramkarza mają fizyczne wykonanie. 2 580 zapisanych prób, naprawiona asymetria
+slalomu, rzeczywista obręcz, wysiłek, skok/główka i GK dostarczają wejść kalibracji.
+Live scheduling skoku pozostaje etapowany. [Raport i ograniczenia PR185](PR185_EXTENDED_PHYSICAL_TESTING.md).
+Wyniki nie promują polityki ani nie odblokowują kalibracji summary; B pozostaje domyślne.
 
 Aktualna kolejność: **PR184 laboratorium → PR185 rozszerzone próby fizyczne →
 PR186 kalibracja atrybutów/wykonania → PR187 walidacja przeniesienia do meczów →
@@ -126,17 +127,25 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   Obiekty treningowe i wyrzutnia, tryby prescribed/autonomous/manual, jawne porażki,
   macierz 28 atrybutów, kontrolowana czułość, prognozy kontra pomiary, źródła naukowe
   i headless JSON/replay. Bez strojenia całego meczu lub zmiany schematu atrybutów.
-- **PR185 — Extended Physical Testing**. Powtarzane sprinty, zmęczenie/odnowa,
-  skoki z miejsca i rozbiegu, rzeczywisty zasięg główki, reakcja/przechwyt bramkarza,
-  ruchome górne dostawy, osłona piłki, manekiny odbioru, pojedynki defensywne,
-  kontakt/równowaga oraz zależności ciała i biegłości stóp.
+- **PR185 — Extended Physical Testing & Ball-Control Mechanics**. Wykonane:
+  sześć fizycznych powierzchni, ograniczone impulsy/spin, równowaga i cztery
+  dwukontaktowe ruchy; naprawa geometrii slalomu, obręcz i 2 580 zapisanych prób.
+  Powtarzany wysiłek/odnowa, pionowy skok i główka, osłona/odbiór, reakcje i legalna
+  dystrybucja GK. Skok w pełnym AI etapowany; brak deklaracji empirycznej kalibracji.
 - **PR186 — Attribute & Execution Calibration**. Kalibracja na zmierzonych
   zależnościach, zgodność prognoz decyzji z wykonaniem, kontrola skal/interakcji,
   ocena zmian lub podziału przeciążonych atrybutów. Nie rozstrzygać redundancji
   na podstawie pojedynczego ćwiczenia albo niewłaściwego kontekstu.
+  Skalibrować kontakty/weak-foot/presję, przyjęcie kontra odzysk i celowy ciężki
+  touch, tempo trasy kontra zdolności, impuls/timing skoku i celową główkę przed
+  live schedulerem; aktywować sweeping/1v1 i trudny catch/parry/recovery. Wyjaśnić
+  cyrkulację/konwersję i mniej strzałów bez strojenia pod jeden development seed.
 - **PR187 — Match Transfer Validation**. Nowe pełne mecze i wszystkie polityki
   na poprawionych zdolnościach fizycznych; sprawdzić przeniesienie wniosków z prób
   izolowanych. Kalibracja summary pozostaje zablokowana do wiarygodnej walidacji.
+  Zamrozić nowe niezależne SS/SW/WW z różnymi rolami, ciałem, fatigue i GK przed
+  otwarciem wyników. Pięć polityk jest sparowaniem, nie pięcioma niezależnymi
+  projektami. Wymagane pełne mecze, nowe potwierdzenie, human browser smoke i CPU.
 - **PR188 — Generational Renewal & World Strength**. Zachowany dawny PR176:
   20–25 sezonów rozwoju NPC, suma/średnia OVR kadr i najlepszej XI, jakość pozycji,
   rozkład wieku, akademie i ich absolwenci, integracja/blokowanie młodych przez

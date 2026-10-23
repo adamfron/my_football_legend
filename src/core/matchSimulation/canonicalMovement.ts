@@ -3,6 +3,7 @@ import type { MatchPlayerState } from './matchState';
 import { physicalPointSchema } from './matchSpace';
 import { deriveMovementCapability } from './locomotion';
 import { deriveFitnessPhysicalModifiers } from './matchFitness';
+import { derivePlantBalance, advanceVerticalJump } from './bodyMechanics';
 import {
   classifyRelativeMovement,
   integrateFacing,
@@ -40,7 +41,12 @@ export const integrateCanonicalMovement = (player: MatchPlayerState, input: Move
   const movementMode = classifyRelativeMovement(facingAngle, { x: dx, y: dy }, d);
   const maxSpeed = targetSpeed * (receivingMomentum ? 1 : movementModeSpeedFactor(movementMode));
   const capability = deriveMovementCapability(player);
-  const accelerationRate = capability.acceleration * balance;
+  const plantBalance = derivePlantBalance(
+    player,
+    { x: (dx / d) * maxSpeed, y: (dy / d) * maxSpeed },
+    dt,
+  );
+  const accelerationRate = capability.acceleration * balance * plantBalance.balance;
   const remaining = Math.max(0, d - (structural ? 0.65 : 0.08));
   const arrivalSpeed = Math.sqrt(2 * accelerationRate * remaining);
   const desiredSpeed = Math.min(maxSpeed, arrivalSpeed, remaining / dt);
@@ -63,6 +69,8 @@ export const integrateCanonicalMovement = (player: MatchPlayerState, input: Move
     movementMode,
     capability,
     previousSpeed,
+    plantBalance,
+    ...(player.verticalJump ? { verticalJump: advanceVerticalJump(player.verticalJump, dt) } : {}),
     velocity,
     position: { x: player.position.x + velocity.x * dt, y: player.position.y + velocity.y * dt },
   };

@@ -15,6 +15,7 @@ import { projectLocomotion } from './locomotion';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { receptionContinuationSchema, runOnReceptionSchema } from './receptionContinuationSchema';
 import { assessFirstTouch, firstTouchAssessmentSchema } from './firstTouch';
+import { footSurfaceSchema } from './footContact';
 
 /** An aware receiver meets the actual flight, including execution error. The release-time
  * desired point remains diagnostic evidence; this only supplies a normal locomotion target.
@@ -104,6 +105,7 @@ export const passReceptionProjectionSchema = z.object({
 export type PassReceptionProjection = z.infer<typeof passReceptionProjectionSchema>;
 
 export const receptionPreparationSchema = z.object({
+  contactSurface: footSurfaceSchema.optional(),
   actorId: z.string(),
   sourceActorId: z.string(),
   releasedAt: z.number().nonnegative(),

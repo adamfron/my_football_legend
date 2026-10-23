@@ -1,4 +1,11 @@
 import { z } from 'zod';
+import { footSurfaceSchema, multiContactMoveSchema } from './footContact';
+import {
+  plantBalanceSchema,
+  verticalJumpSchema,
+  type PlantBalance,
+  type VerticalJump,
+} from './bodyMechanics';
 import type { CoachProfile } from '../../types/domain';
 import { coachProfileSchema } from '../../schemas/domainSchemas';
 import { coachIntelligenceSchema, type CoachIntelligence } from './coachIntelligence';
@@ -162,11 +169,15 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     type: z.literal('carry'),
     actorId: z.string(),
     target: pitchPointSchema,
+    contactSurface: footSurfaceSchema.optional(),
+    skillMove: multiContactMoveSchema.optional(),
+    foot: z.enum(['left', 'right']).optional(),
     movementMode: ballMovementModeSchema.optional(),
   }),
   z.object({ type: z.literal('space_pass'), actorId: z.string(), target: pitchPointSchema }),
   z.object({
     type: z.literal('pass'),
+    distribution: z.enum(['kick', 'throw']).optional(),
     /** Optional explicit execution foot; absent retains canonical inferred choice. */
     foot: z.enum(['left', 'right']).optional(),
     receiverPositionAtSelection: pitchPointSchema.optional(),
@@ -252,6 +263,9 @@ export const pendingReceptionIntentSchema = z.object({
 });
 export type PendingReceptionIntent = z.infer<typeof pendingReceptionIntentSchema>;
 export const ballCarrierIntentSchema = z.object({
+  contactSurface: footSurfaceSchema.optional(),
+  skillMove: multiContactMoveSchema.optional(),
+  contactFoot: z.enum(['left', 'right']).optional(),
   pursuingBall: z.boolean().optional(),
   actorId: z.string(),
   type: z.literal('carry'),
@@ -489,6 +503,8 @@ export const spatialMovementSchema = z.object({
 });
 
 export interface MatchPlayerState {
+  plantBalance?: PlantBalance;
+  verticalJump?: VerticalJump;
   spatialMovement?: z.infer<typeof spatialMovementSchema> | undefined;
   challengeRecovery?: { startedAt: number; until: number; load: number };
   endsSwitched?: boolean | undefined;
@@ -571,6 +587,8 @@ export interface MatchTeamState {
   threatMemory?: TeamThreatMemory;
 }
 export interface MatchBallState extends PitchPoint {
+  /** A caught ball can be thrown before its first subsequent physical foot contact. */
+  heldByKeeperId?: string;
   continuousBodyContacts?: string[];
   spin?: BallSpin3d;
   executionType?: PassExecutionType;
@@ -1062,6 +1080,8 @@ export const tacticalMatchStateSchema = z
           goalkeeperRole: z.boolean().optional(),
           playStyles: z.array(playStyleIdSchema).max(6).optional(),
           fitness: matchFitnessSchema.optional(),
+          plantBalance: plantBalanceSchema.optional(),
+          verticalJump: verticalJumpSchema.optional(),
           injury: matchInjurySchema.optional(),
           restartWallResponse: restartWallResponseSchema.optional(),
           activeSince: z.number().nonnegative().optional(),
@@ -1094,6 +1114,7 @@ export const tacticalMatchStateSchema = z
       .extend({
         spin: ballSpinSchema.optional(),
         ownerId: z.string().optional(),
+        heldByKeeperId: z.string().optional(),
         height: z.number().nonnegative().finite().optional(),
         releaseHeight: z.number().nonnegative().finite().optional(),
         airborne: z.boolean().optional(),

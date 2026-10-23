@@ -6,6 +6,7 @@ import { observeDecisionRanking } from './decisionObservation';
 import { evaluateStateValueAction } from './decisionStateValue';
 import { canReconsiderDecision } from './decisionReadiness';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
+import { canThrowGoalkeeperBall, deriveGoalkeeperThrow } from './goalkeeperDistribution';
 import { selectRestartAction } from './restartLifecycle';
 import { enumerateContextualRestartActions } from './restartOptions';
 import { endStoppage } from './stoppageLedger';
@@ -1107,6 +1108,12 @@ const resolveMatchActionCanonical = (
     return beginDefensiveChallenge(state, action, source);
   }
   if (!canContactAfterThrowIn(state, action.actorId)) return state;
+  if (
+    action.type === 'pass' &&
+    action.distribution === 'throw' &&
+    !canThrowGoalkeeperBall(state, actor)
+  )
+    return state;
   const requestedThrow =
     isRestartSetup(state) && state.scenario === 'throw_in' && action.type === 'pass'
       ? action
@@ -1219,6 +1226,9 @@ const resolveMatchActionCanonical = (
     return {
       ...baseState,
       ballCarrierIntent: {
+        ...(action.contactSurface ? { contactSurface: action.contactSurface } : {}),
+        ...(action.skillMove ? { skillMove: action.skillMove } : {}),
+        ...(action.foot ? { contactFoot: action.foot } : {}),
         actorId: actor.id,
         type: 'carry' as const,
         target: action.target,
@@ -1492,6 +1502,7 @@ const resolveMatchActionCanonical = (
     action.delivery ?? 'ground',
     {
       firstTime: Boolean(action.firstTime),
+      goalkeeperDistribution: action.distribution === 'kick' && isMatchGoalkeeper(actor),
       ...(action.foot ? { foot: action.foot } : {}),
       spatial: Boolean(action.requestedSpace) || action.intent === 'through',
       receiverSpeed: Math.hypot(receiver.velocity.x, receiver.velocity.y),
@@ -1501,8 +1512,14 @@ const resolveMatchActionCanonical = (
   const isThrowIn =
     isRestartSetup(state) && restart?.phase === 'release' && state.scenario === 'throw_in';
   const isLongDistribution =
-    isRestartSetup(state) && restart?.phase === 'release' && state.scenario === 'goal_kick';
-  const releasePosition = { x: state.ball.x, y: state.ball.y };
+    (isRestartSetup(state) && restart?.phase === 'release' && state.scenario === 'goal_kick') ||
+    (action.distribution === 'kick' && isMatchGoalkeeper(actor));
+  const keeperThrow =
+    action.distribution === 'throw' ? deriveGoalkeeperThrow(state, actor, target) : undefined;
+  const releasePosition = keeperThrow
+    ? { x: keeperThrow.release.x, y: keeperThrow.release.y }
+    : { x: state.ball.x, y: state.ball.y };
+  if (keeperThrow) execution.physicalTarget = keeperThrow.physicalTarget;
   const canonicalPlan =
     action.deliveryPlan ??
     spacePlan?.launchPlan ??
@@ -1521,6 +1538,7 @@ const resolveMatchActionCanonical = (
       })
     : undefined;
   const duration =
+    keeperThrow?.predictedFlightTime ??
     throwPlan?.predictedFlightTime ??
     distributionPlan?.predictedFlightTime ??
     canonicalPlan.predictedArrivalTime;
@@ -1540,10 +1558,15 @@ const resolveMatchActionCanonical = (
         ),
       ),
   );
-  const launchSpeed = throwPlan?.speed ?? distributionPlan?.speed ?? sampledSpeed;
+  const launchSpeed =
+    keeperThrow?.speed ?? throwPlan?.speed ?? distributionPlan?.speed ?? sampledSpeed;
   const launchElevation =
-    throwPlan?.elevation ?? distributionPlan?.elevation ?? canonicalPlan.elevation;
+    keeperThrow?.elevation ??
+    throwPlan?.elevation ??
+    distributionPlan?.elevation ??
+    canonicalPlan.elevation;
   const launchVelocity =
+    keeperThrow?.velocity ??
     throwPlan?.velocity ??
     distributionPlan?.velocity ??
     deriveLaunchVelocity(
@@ -1570,8 +1593,8 @@ const resolveMatchActionCanonical = (
   return {
     ...baseState,
     ball: {
-      x: state.ball.x,
-      y: state.ball.y,
+      x: releasePosition.x,
+      y: releasePosition.y,
       from: releasePosition,
       target: throwPlan ? { ...target } : { ...execution.physicalTarget },
       intendedReceiverId: receiver.id,
@@ -1587,8 +1610,11 @@ const resolveMatchActionCanonical = (
       flightTime: 0,
       distanceTravelled: 0,
       ...(isThrowIn ? { releaseHeight: 1.9 } : {}),
-      height: isThrowIn ? 1.9 : action.firstTime ? (state.ball.height ?? 0.11) : 0,
+      height:
+        keeperThrow?.release.z ??
+        (isThrowIn ? 1.9 : action.firstTime ? (state.ball.height ?? 0.11) : 0),
       airborne:
+        Boolean(keeperThrow) ||
         isThrowIn ||
         isLongDistribution ||
         action.delivery === 'lofted' ||
@@ -1603,6 +1629,7 @@ const resolveMatchActionCanonical = (
         : launchElevation,
       bounceCount: 0,
       lastTouchPlayerId: actor.id,
+      ...(keeperThrow ? { spin: keeperThrow.spin, releaseHeight: keeperThrow.release.z } : {}),
       ...(execution.contact && state.ball.spin
         ? {
             spin: {

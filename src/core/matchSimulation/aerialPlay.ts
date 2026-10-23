@@ -49,12 +49,20 @@ export const evaluateAerialContact = (
     y: player.position.y + player.velocity.y * lookaheadSeconds,
   };
   const horizontalDistance = distance(predicted, ball);
-  const reachableHeight =
-    player.profile.heightCm / 100 + 0.18 + player.profile.attributes.jumping * 0.004;
+  const reachableHeight = player.verticalJump
+    ? player.profile.heightCm / 100 + player.verticalJump.height + 0.11
+    : player.profile.heightCm / 100 + 0.18 + player.profile.attributes.jumping * 0.004;
   const ballHeight = ball.height ?? 0;
   const contactRadius =
     0.72 + Math.min(0.28, Math.hypot(player.velocity.x, player.velocity.y) * 0.025);
-  if (horizontalDistance > contactRadius || ballHeight < 0.65 || ballHeight > reachableHeight)
+  const minimumHeight = player.verticalJump
+    ? Math.max(0.65, player.profile.heightCm / 100 + player.verticalJump.height - 0.35)
+    : 0.65;
+  if (
+    horizontalDistance > contactRadius ||
+    ballHeight < minimumHeight ||
+    ballHeight > reachableHeight
+  )
     return undefined;
   return {
     playerId: player.id,

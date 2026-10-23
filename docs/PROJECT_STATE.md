@@ -1,5 +1,30 @@
 # My Football Legend — Current Project State
 
+## PR185 — Extended Physical Testing & Ball-Control Mechanics
+
+Wspólne prowadzenie i przyjęcie używa fizycznych inside/outside/instep/sole/cushion
+oraz protection, z ograniczonym impulsem, tarciem i spinem. Ruch ma skończoną
+odpowiedź podparcia/równowagi; zwykłe akcje pozwalają wykonać dwukontaktowy zwód
+oraz legalny wyrzut bramkarza po catch. Nie ma automatycznego sukcesu lub resetu spinu.
+
+Zachowano 106 historycznych plików PR184. 2 580 zapisanych prób obejmuje m.in.
+24/24 ukończone lustrzane slalomy, zwody z sukcesem i porażką, fizyczną obręcz,
+powtarzany wysiłek, trajektorie skoków/główki oraz reakcje i dystrybucję GK.
+Przyczyna dawnej asymetrii leżała w trasie, pędzie i wymuszonej geometrii stopy.
+Adapter celu kończy po 10/10 prób podań, rebound-turn-pass i strzałów.
+
+Skoki mają wspólną fizykę pionową i eligibility przy aktywnym stanie, ale automatyczne
+wybicie AI pozostaje etapowane; standardowy aerial zachowuje legacy reach.
+Pełne B/R3 kończą mecz, B ma identyczną powtórkę z obserwatorem i bez niego.
+Mniej strzałów i większa cyrkulacja w jednym sparowanym SW są jawnym ryzykiem,
+nie dowodem poprawy futbolu. Pełne verify i dokładny log opisuje receipt PR185.
+
+**B pozostaje domyślne; canonical nadal NOT READY do kalibracji summary.**
+Schemat 28 atrybutów i rozwój kariery pozostają zachowane. [Raport PR185](PR185_EXTENDED_PHYSICAL_TESTING.md)
+zawiera etapy, 33 odpowiedzi, ograniczenia i plan: **PR186 kalibracja → PR187 nowe
+niezależne mecze → PR188 generacje/siła świata → PR189 summary/PlayStyles →
+PR190 career UX → PR191+ świat**. Sekcje poniżej zachowują historyczny kontekst.
+
 ## PR184 — Football Performance Lab Core
 
 Wspólny runtime wykonuje fizyczne próby w kroku 0,025 s: sprinty, nawroty, slalom,

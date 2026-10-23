@@ -5,6 +5,7 @@ import { angleForVector, normalizeAngle } from './playerOrientation';
 import { playerContactGeometry } from './ballContactGeometry';
 import { deriveFitnessPhysicalModifiers } from './matchFitness';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
+import { footSurfaceSchema } from './footContact';
 
 export const firstTouchModeSchema = z.enum(['cushion', 'directional', 'pass', 'shot']);
 export type FirstTouchMode = z.infer<typeof firstTouchModeSchema>;
@@ -14,6 +15,7 @@ export const firstTouchAssessmentSchema = z.object({
   relativeSpeed: z.number().nonnegative(),
   incomingHeight: z.number().nonnegative(),
   spinSpeed: z.number().nonnegative(),
+  surface: footSurfaceSchema,
   incomingAngle: z.number().min(0).max(Math.PI),
   outgoingAngle: z.number().min(0).max(Math.PI),
   redirection: z.number().min(0).max(Math.PI),
@@ -95,8 +97,30 @@ export const assessFirstTouch = (
   const fitness = deriveFitnessPhysicalModifiers(actor);
   const skill =
     (a.firstTouch * 2 + a.technique * 2 + a.agility + a.composure + a.concentration) / 700;
-  const spinSpeed =
-    Math.hypot(state.ball.spin?.x ?? 0, state.ball.spin?.y ?? 0, state.ball.spin?.z ?? 0) * 0.11;
+  const surface =
+    state.receptionPreparation?.actorId === actor.id
+      ? (state.receptionPreparation.contactSurface ?? 'cushion')
+      : 'cushion';
+  const n =
+    surface === 'sole'
+      ? { x: 0, y: 0, z: -1 }
+      : {
+          x: -relative.x / Math.max(0.01, relativeSpeed),
+          y: -relative.y / Math.max(0.01, relativeSpeed),
+          z: -(v.z ?? 0) / Math.max(0.01, relativeSpeed),
+        };
+  const w = state.ball.spin ?? { x: 0, y: 0, z: 0 };
+  const tangent = {
+    x: (w.y * n.z - w.z * n.y) * 0.11,
+    y: (w.z * n.x - w.x * n.z) * 0.11,
+    z: (w.x * n.y - w.y * n.x) * 0.11,
+  };
+  const spinSpeed = Math.hypot(tangent.x, tangent.y, tangent.z);
+  const spinSlip = Math.hypot(
+    relative.x + tangent.x,
+    relative.y + tangent.y,
+    (v.z ?? 0) + tangent.z,
+  );
   const height = state.ball.height ?? 0.11;
   const redirect = mode === 'pass' || mode === 'shot';
   const momentumDemand =
@@ -113,7 +137,8 @@ export const assessFirstTouch = (
     bodyDemand +
     Math.max(0, height - 0.15) * 0.7 +
     Math.abs(v.z ?? 0) / 16 +
-    spinSpeed / 12 +
+    (spinSpeed / 18 + Math.max(-0.08, (spinSlip - relativeSpeed) / 24)) *
+      (surface === 'sole' ? 0.65 : 1) +
     weak * 0.45 +
     pressure * 0.5 +
     movement * 0.35 +
@@ -138,6 +163,7 @@ export const assessFirstTouch = (
     relativeSpeed,
     incomingHeight: height,
     spinSpeed,
+    surface,
     incomingAngle,
     outgoingAngle,
     redirection,
