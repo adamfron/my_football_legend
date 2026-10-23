@@ -58,6 +58,8 @@ export interface FlightContactQuery {
   next: FlightPoint;
   attackingTeam: TeamOrientation;
   candidates?: ContactCandidate[];
+  /** Optional apparatus opening; ordinary matches retain law-sized defaults. */
+  goal?: { width: number; height: number; postRadius: number };
 }
 
 interface Intersection {
@@ -207,25 +209,28 @@ const findFirstBallContactGeometry = (query: FlightContactQuery): Intersection |
     }
   }
 
+  const goalWidth = query.goal?.width ?? GOAL_WIDTH;
+  const goalHeight = query.goal?.height ?? GOAL_HEIGHT;
+  const postRadius = query.goal?.postRadius ?? GOAL_POST_RADIUS;
   const goalX = attacksRight(query.attackingTeam) ? 105 : 0;
   const dx = next.x - previous.x;
   const planeT = dx === 0 ? undefined : (goalX - previous.x) / dx;
   if (planeT !== undefined && planeT >= 0 && planeT <= 1) {
     const point = interpolate(previous, next, planeT);
-    const halfWidth = GOAL_WIDTH / 2;
+    const halfWidth = goalWidth / 2;
     const leftY = GOAL_CENTRE_Y - halfWidth;
     const rightY = GOAL_CENTRE_Y + halfWidth;
-    const postReach = BALL_RADIUS + GOAL_POST_RADIUS;
-    const leftDistance = Math.hypot(point.y - leftY, Math.max(0, point.z - GOAL_HEIGHT));
-    const rightDistance = Math.hypot(point.y - rightY, Math.max(0, point.z - GOAL_HEIGHT));
-    if (point.z >= 0 && point.z <= GOAL_HEIGHT + postReach && leftDistance <= postReach)
+    const postReach = BALL_RADIUS + postRadius;
+    const leftDistance = Math.hypot(point.y - leftY, Math.max(0, point.z - goalHeight));
+    const rightDistance = Math.hypot(point.y - rightY, Math.max(0, point.z - goalHeight));
+    if (point.z >= 0 && point.z <= goalHeight + postReach && leftDistance <= postReach)
       intersections.push({ kind: 'left_post', point, segmentFraction: planeT });
-    if (point.z >= 0 && point.z <= GOAL_HEIGHT + postReach && rightDistance <= postReach)
+    if (point.z >= 0 && point.z <= goalHeight + postReach && rightDistance <= postReach)
       intersections.push({ kind: 'right_post', point, segmentFraction: planeT });
     if (
       point.y >= leftY - BALL_RADIUS &&
       point.y <= rightY + BALL_RADIUS &&
-      Math.abs(point.z - GOAL_HEIGHT) <= postReach
+      Math.abs(point.z - goalHeight) <= postReach
     )
       intersections.push({ kind: 'crossbar', point, segmentFraction: planeT });
   }
@@ -237,10 +242,10 @@ const findFirstBallContactGeometry = (query: FlightContactQuery): Intersection |
   if (scoringT !== undefined && scoringT >= 0 && scoringT <= 1) {
     const point = interpolate(previous, next, scoringT);
     const legal =
-      point.y > GOAL_CENTRE_Y - GOAL_WIDTH / 2 + BALL_RADIUS &&
-      point.y < GOAL_CENTRE_Y + GOAL_WIDTH / 2 - BALL_RADIUS &&
+      point.y > GOAL_CENTRE_Y - goalWidth / 2 + BALL_RADIUS &&
+      point.y < GOAL_CENTRE_Y + goalWidth / 2 - BALL_RADIUS &&
       point.z >= BALL_RADIUS &&
-      point.z < GOAL_HEIGHT - BALL_RADIUS;
+      point.z < goalHeight - BALL_RADIUS;
     intersections.push({ kind: legal ? 'goal_plane' : 'out', point, segmentFraction: scoringT });
   }
   return intersections.sort((a, b) => a.segmentFraction - b.segmentFraction)[0];
@@ -273,6 +278,8 @@ export const deterministicRebound = (
 };
 
 export const reboundContextSchema = z.object({
+  restitution: z.number().min(0).max(1).optional(),
+  tangentRetention: z.number().min(0).max(1).optional(),
   surfaceVelocity: z
     .object({ x: z.number().finite(), y: z.number().finite(), z: z.number().finite() })
     .optional(),
@@ -323,8 +330,10 @@ const playerDeflection = (
     kind === 'goalkeeper' &&
     (context.goalkeeperAction === 'failed_save' || context.goalkeeperAction === 'no_chance');
   const away = kind === 'goalkeeper' && context.goalkeeperAction === 'parry_away';
-  const tangent = partial ? 0.86 : away ? 0.74 : kind === 'defender' ? 0.72 : 0.6;
-  const restitution = partial ? 0.12 : away ? 0.52 : kind === 'defender' ? 0.38 : 0.3;
+  const tangent =
+    context.tangentRetention ?? (partial ? 0.86 : away ? 0.74 : kind === 'defender' ? 0.72 : 0.6);
+  const restitution =
+    context.restitution ?? (partial ? 0.12 : away ? 0.52 : kind === 'defender' ? 0.38 : 0.3);
   const impulse = (tangent + restitution) * dot;
   return {
     x: incoming.x * tangent - impulse * normal.x,

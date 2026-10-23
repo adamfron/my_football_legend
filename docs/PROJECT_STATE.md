@@ -1,5 +1,30 @@
 # My Football Legend — Current Project State
 
+## PR184 — Football Performance Lab Core
+
+Wspólny runtime wykonuje fizyczne próby w kroku 0,025 s: sprinty, nawroty, slalom,
+podania do celu, odbicie od ściany z przyjęciem i kolejnym podaniem oraz strzały.
+Aparatura ma typowane obiekty, bramki z interpolacją czasu, obręcz z kolizją rantu,
+małą bramkę i deterministyczną wyrzutnię. Wyniki pochodzą z rzeczywistych pozycji
+oraz kontaktów; nieukończone próby zachowują brak czasu ukończenia.
+
+Macierz 28 atrybutów obejmuje bezpośrednie i dynamiczne odczyty oraz deklaratywne
+użycie. Pary seedów, pięć pasm i małe interakcje oddzielają pomiar fizyczny od
+prognoz, decyzji i kariery. Wszystkie stany są kopiowane; laboratorium nie rozwija
+atrybutów ani nie zapisuje kariery. Tryb manual przyjmuje zwykłe MatchAction;
+rozbudowany ekran treningowy i adapter wizualnej powtórki pozostają poza zakresem.
+
+[Raport PR184](PR184_FOOTBALL_PERFORMANCE_LAB.md) i `performance/PR184-*.json`
+zawierają wyniki, porażki, źródła, koszt oraz bieżący wynik pełnego verify.
+**B pozostaje domyślne; canonical nadal NOT READY do kalibracji summary.**
+Nie zmieniono współczynników rozgrywki ani schematu 28 atrybutów.
+
+Aktualna kolejność: **PR185 rozszerzone testy fizyczne → PR186 kalibracja →
+PR187 przeniesienie do meczów → PR188 generacje/siła świata → PR189 summary i
+PlayStyles → PR190 career UX → PR191+ świat**. Pełny dawny zakres tych prac
+pozostaje w [roadmapie](ROADMAP.md). Historyczne sekcje poniżej zachowują kontekst
+swojego PR, także ówczesną numerację planu.
+
 ## PR183 — Match Realism Stabilization
 
 Zapisany zastój luźnej piłki nad zawodnikami otrzymuje rzeczywisty osiągalny kontakt

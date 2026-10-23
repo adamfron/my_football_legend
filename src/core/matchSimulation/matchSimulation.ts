@@ -1,4 +1,5 @@
 import { attacksRight } from './matchSpace';
+import { integrateCanonicalMovement } from './canonicalMovement';
 import { canExecuteFirstTimePass } from './firstTimePassing';
 import {
   retainContinuousBodyContacts,
@@ -22,12 +23,7 @@ import { deriveGroundControlImpulse } from './ballContactGeometry';
 import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup, isLiveRestartSetup, isRestartDecisionBoundary } from './restartPhase';
-import {
-  advanceMatchFitness,
-  createMatchFitness,
-  deriveFitnessPhysicalModifiers,
-  recoverHalftimeFitness,
-} from './matchFitness';
+import { advanceMatchFitness, createMatchFitness, recoverHalftimeFitness } from './matchFitness';
 import { advanceMatchInjuries, canParticipatePhysically } from './matchInjuries';
 import {
   initialiseMatchSubstitutions,
@@ -122,16 +118,9 @@ import {
   hasPendingPlayerDecision,
   projectPlayerDecisionOpportunity,
 } from './playerDecision';
-import { deriveMovementCapability, projectLocomotion, projectSprintEpisode } from './locomotion';
+import { projectLocomotion, projectSprintEpisode } from './locomotion';
 import { derivePressingPlan } from './defensiveChallenges';
-import {
-  classifyRelativeMovement,
-  deriveOrientationTarget,
-  integrateFacing,
-  movementModeSpeedFactor,
-  normalizeAngle,
-  angleForVector,
-} from './playerOrientation';
+import { deriveOrientationTarget, normalizeAngle, angleForVector } from './playerOrientation';
 import { integrateBallFlight } from './ballPhysics';
 import {
   advanceControlledBall,
@@ -486,6 +475,23 @@ const tryIncomingFinish = (
     pending?.actionSource ?? (pending ? 'human_selected' : 'autonomous_npc'),
   );
   return resolved !== ready ? resolved : undefined;
+};
+
+/** Shared reception/acquisition completion. The caller must supply a real foot contact.
+ * Laboratory apparatus cannot award possession from a predicted interception point. */
+export const applyCanonicalBallControl = (
+  state: TacticalMatchState,
+  ownerId: string,
+): TacticalMatchState => {
+  const actor = state.players.find((p) => p.id === ownerId);
+  if (!actor || (state.ball.height ?? 0) > 0.65) return state;
+  const feet = playerContactGeometry(actor);
+  if (
+    Math.min(distance(feet.leftFoot, state.ball), distance(feet.rightFoot, state.ball)) >
+    feet.footReach
+  )
+    return state;
+  return changePossession(state, ownerId);
 };
 
 const changePossession = (
@@ -1706,9 +1712,6 @@ const stepTacticalMatchCore = (
     }
     if (usesStateValue(state) && state.decisionAblation !== 'movement')
       movementTarget = authoritativeMovementTarget(state, player, movementTarget);
-    const dx = movementTarget.x - player.position.x,
-      dy = movementTarget.y - player.position.y,
-      d = Math.max(0.001, Math.hypot(dx, dy));
     const locomotion = projectLocomotion(state, player, movementTarget, cooperativePress ?? null);
     const preparing =
       state.onBallPreparation?.actorId === player.id &&
@@ -1719,7 +1722,6 @@ const stepTacticalMatchCore = (
       ? (state.onBallPreparation?.micro?.orientationTarget ??
         deriveOrientationTarget(state, player))
       : deriveOrientationTarget(state, player);
-    const fitnessEffects = deriveFitnessPhysicalModifiers(player);
     const recovery = player.challengeRecovery;
     const balance =
       recovery && state.time < recovery.until
@@ -1730,47 +1732,24 @@ const stepTacticalMatchCore = (
               (recovery.until - state.time) / Math.max(0.025, recovery.until - recovery.startedAt),
             )
         : 1;
-    const facingAngle = integrateFacing(
-      player.facingAngle,
-      desiredFacingAngle,
-      player.profile.attributes.agility,
-      Math.hypot(player.velocity.x, player.velocity.y),
-      dt * fitnessEffects.turning * balance,
-    );
-    const movementMode = classifyRelativeMovement(facingAngle, { x: dx, y: dy }, d);
-    const receivingMomentum =
+    const receivingMomentum = Boolean(
       state.onBallPreparation?.actorId === player.id &&
-      state.onBallPreparation.continuation &&
-      state.time < state.onBallPreparation.continuation.until;
-    const maxSpeed =
-      locomotion.targetSpeed * (receivingMomentum ? 1 : movementModeSpeedFactor(movementMode));
-    const capability = deriveMovementCapability(player);
-    const accelerationRate = capability.acceleration * balance;
+        state.onBallPreparation.continuation &&
+        state.time < state.onBallPreparation.continuation.until,
+    );
     const structural =
       !preparing &&
       ['structural_adjustment', 'maintain_shape', 'support_run'].includes(locomotion.reason);
-    const remaining = Math.max(0, d - (structural ? 0.65 : 0.08));
-    // Brake toward a resting target rather than overshooting and repeatedly accelerating back.
-    const arrivalSpeed = Math.sqrt(2 * accelerationRate * remaining);
-    const desiredSpeed = Math.min(maxSpeed, arrivalSpeed, remaining / dt);
-    const desiredVelocity = {
-      x: (dx / d) * desiredSpeed,
-      y: (dy / d) * desiredSpeed,
-    };
-    const previousSpeed = Math.hypot(player.velocity.x, player.velocity.y);
-    const braking = desiredSpeed < previousSpeed;
-    const acceleration = accelerationRate * dt * (braking ? fitnessEffects.braking : 1);
-    const velocityDelta = {
-      x: desiredVelocity.x - player.velocity.x,
-      y: desiredVelocity.y - player.velocity.y,
-    };
-    const velocityDeltaLength = Math.hypot(velocityDelta.x, velocityDelta.y);
-    const velocityScale =
-      velocityDeltaLength > acceleration ? acceleration / velocityDeltaLength : 1;
-    const velocity = {
-      x: player.velocity.x + velocityDelta.x * velocityScale,
-      y: player.velocity.y + velocityDelta.y * velocityScale,
-    };
+    const { facingAngle, movementMode, capability, previousSpeed, velocity } =
+      integrateCanonicalMovement(player, {
+        target: movementTarget,
+        targetSpeed: locomotion.targetSpeed,
+        desiredFacingAngle,
+        dt,
+        balance,
+        structural,
+        receivingMomentum,
+      });
     const stopped = isLiveRestartSetup(state) || Boolean(state.postGoal);
     const movementBounds = (point: { x: number; y: number }) =>
       stopped
