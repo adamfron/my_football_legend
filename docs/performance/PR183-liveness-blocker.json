@@ -1,0 +1,54 @@
+{
+  "schema": "mfl-pr183-liveness-blocker-v1",
+  "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+  "status": "blocking",
+  "test": "src/core/matchSimulation/pr160PenaltyLiveness.test.ts: whole-half state-value-v1 contract",
+  "seed": "pr160-full-half-penalty",
+  "command": "npm run test:match-integration",
+  "failure": "No canonical football/restart action for 180.00000000003968s",
+  "time": 239.62500000003735,
+  "lastActionAt": 59.625,
+  "ball": {
+    "x": 38.23189182368841,
+    "y": 32.76816340890816,
+    "velocity": {
+      "x": -0.6962291145612127,
+      "y": -0.3380398409284592,
+      "z": -0.011692658661646916
+    },
+    "looseSince": 59.74999999999768,
+    "lastTouchPlayerId": "footballer_pro_1_22",
+    "secondBallPriorityIds": [
+      "footballer_pro_0_3",
+      "footballer_pro_0_9",
+      "footballer_pro_0_11",
+      "footballer_pro_0_13",
+      "footballer_pro_0_12",
+      "footballer_pro_0_21"
+    ],
+    "height": 1.6965954218632464,
+    "airborne": true,
+    "spin": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "bounceCount": 0,
+    "continuousBodyContacts": [
+      "footballer_pro_0_3",
+      "footballer_pro_0_9",
+      "footballer_pro_1_22"
+    ]
+  },
+  "mechanism": "Observed ball remains loose near 1.7m above overlapping moving bodies. Persistent sphere support and ground-only acquisition cannot establish a playable continuation. This is a trigger and code-path diagnosis, not an isolated causal ablation of the PR183 changes.",
+  "proposedNextWork": "Reuse finite physically reachable aerial actions in loose-ball lifecycle and re-test continuous body support; do not lower the liveness assertion or grant remote ownership.",
+  "evidenceFile": "pr183-evidence/liveness-blocker.json.gz",
+  "uncompressedSha256": "7a3dd3442e313d8d02b34dee44fd0e2b7755f54677b4f75d17a8574ce6f5e1d5",
+  "baselineControl": {
+    "commit": "16c2e71efcec98862b6d6c996f0737f02131235e",
+    "sameFixture": true,
+    "status": "half_time",
+    "time": 2880,
+    "decisionIndex": 5895
+  }
+}
