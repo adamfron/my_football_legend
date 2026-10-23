@@ -620,6 +620,11 @@ describe('background Match Lab orchestration', () => {
     const controlledId = controller.latestState.controlledFootballerId!;
     let incomingId = '';
     let requested = false;
+    // A frozen performance clock makes each background slice simulate its maximum
+    // tick count before React can show the completed change. Model measured work
+    // so the real canonical steps yield normally under fake timers.
+    let measuredWorkTime = performance.now();
+    vi.spyOn(performance, 'now').mockImplementation(() => measuredWorkTime);
     observed.step.mockImplementation((state, delta) => {
       if (!requested) {
         // Deterministic legal stoppage/edge geometry; exit and entry use the real canonical step.
@@ -642,7 +647,9 @@ describe('background Match Lab orchestration', () => {
         expect(state.substitutionState!.pending).toHaveLength(1);
         requested = true;
       }
-      return stepTacticalMatchAfterDecisionProbe(state, delta);
+      const next = stepTacticalMatchAfterDecisionProbe(state, delta);
+      measuredWorkTime += 0.25;
+      return next;
     });
     const policy = container.querySelector<HTMLSelectElement>(
       'select[aria-label="Czułość momentów"]',
