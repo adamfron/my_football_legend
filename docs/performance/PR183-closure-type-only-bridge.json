@@ -1,0 +1,18 @@
+{
+  "schema": "mfl-pr183-type-only-bridge-v1",
+  "frozenCommit": "a5c11fa2b64607a3ae83a7bc95de2f29ed4b0ff9",
+  "simulatedSourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+  "compilableSourceHash": "57863da9df8f0a8c8c4bb6f638a85ea0d6272c271f409734a7501e8977b39321",
+  "productionFiles": 324,
+  "changed": [
+    {
+      "path": "src/core/matchSimulation/restartGeometry.ts",
+      "beforeHash": "6fb9e6426a3b556981866320995ab2092211cdece99bfd4e0d754efe094ba60a",
+      "afterHash": "8bb9aff9871f6292833eb8465f59b59235fbe009413017fc7ba0768acd2d768f",
+      "nativeProgramHash": "14828ee687508a66b2d107a4464024e225dd2876d809fa2aae8e193602efe96c"
+    }
+  ],
+  "emittedProductionProgramHash": "1c27fe5197d9e99c16309a9f97fed0604afbdc8fe9f1049f3d2cd6834637ed1c",
+  "emittedProgramsEqual": true,
+  "scope": "Only optional MatchAction | undefined parameter declarations change. Native Node transformed module and TypeScript emitted code for every production TS/TSX file are byte-identical; dependencies unchanged. Frozen simulation receipts retain their actual original source hashes. This is not a behavioral refreeze or relabelled independent run."
+}

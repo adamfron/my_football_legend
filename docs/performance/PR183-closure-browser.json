@@ -1,0 +1,41 @@
+{
+  "schema": "mfl-pr183-closure-browser-v1",
+  "simulatedSourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+  "typeOnlyBridge": "PR183-closure-type-only-bridge.json",
+  "runtime": "Actual localhost Vite Match Lab in the in-app browser, controlled through public UI",
+  "launcher": {
+    "defaultPolicy": "state-value-v1",
+    "allFivePoliciesObserved": true
+  },
+  "human": {
+    "seed": "pr183-closure-browser-human-20261023",
+    "fixture": "fixture-2a343252",
+    "policy": "state-value-v1",
+    "player": "Adam Krawczyk",
+    "forceIntoXI": true,
+    "observationMode": "normal",
+    "canonicalSeconds": 343.425,
+    "score": [3, 0],
+    "manualActions": [
+      { "context": "natural restart around 00:52", "selection": "Podaj do nogi · wsparcie Baran", "attemptsBefore": 2, "attemptsAfter": 3 },
+      { "context": "natural restart around 02:29", "selection": "Podaj do nogi · wsparcie Lis", "attemptsBefore": 4, "attemptsAfter": 5 }
+    ],
+    "finalVisiblePasses": { "completed": 6, "attempted": 14 },
+    "runtimeStatus": "OK",
+    "consoleWarningsAndErrors": [],
+    "dom": "pr183-evidence/closure-browser-human-dom.txt",
+    "screenshot": "pr183-evidence/closure-browser-human.jpg"
+  },
+  "spectator": {
+    "seed": "pr183-closure-browser-r3-20261023",
+    "fixture": "fixture-a8aec9e1",
+    "policy": "phase-role-hybrid-v1",
+    "observationMode": "capture",
+    "canonicalSeconds": 1055.550,
+    "score": [2, 1],
+    "runtimeStatus": "OK",
+    "consoleWarningsAndErrors": [],
+    "dom": "pr183-evidence/closure-browser-r3-dom.txt"
+  },
+  "scope": "Fresh source runs, genuine short gameplay smoke, not a claimed full 90-minute human match. An earlier export-button click did not yield a file receipt; no successful browser export is claimed. Source identity is established by the tested workspace and Vite server, not inferred from an inaccessible downloaded state."
+}

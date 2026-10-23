@@ -11,7 +11,11 @@ import {
   initialiseCoachIntelligence,
   observeCoachOpposition,
 } from './coachIntelligence';
-import { canReconsiderDecision, markDecisionEvaluated } from './decisionReadiness';
+import {
+  canReconsiderDecision,
+  canReleaseControlledAction,
+  markDecisionEvaluated,
+} from './decisionReadiness';
 import { authoritativeMovementTarget } from './movementAuthority';
 import { deriveCarryPursuit } from './carryPursuit';
 import { deriveGroundControlImpulse } from './ballContactGeometry';
@@ -862,6 +866,155 @@ const prepareIncomingHeaderDelivery = (state: TacticalMatchState, actorId: strin
       },
     };
   return ready;
+};
+
+/** Rank once at a real foot window, before the routine dribble impulse consumes it. */
+const resolveRoutineOwnerDecision = (state: TacticalMatchState): TacticalMatchState => {
+  const ownerId = state.ball.ownerId;
+  if (!ownerId) return state;
+  const owner = state.players.find((p) => p.id === ownerId)!;
+  const hybrid = usesStateValue(state) && state.decisionAblation !== 'readiness';
+  if (hybrid && !canReconsiderDecision(state, owner)) return state;
+  const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
+  // The agency evaluator owns the pause. A forced action uses the same autonomous resolver,
+  // including high-impact actions when no genuinely playable alternative exists.
+  const action =
+    awaitsPlayer || hasActiveHumanPossession(state)
+      ? undefined
+      : chooseNpcRoutineAction(state, ownerId);
+  if (hybrid && !awaitsPlayer && !hasActiveHumanPossession(state))
+    state = { ...state, decisionReadiness: markDecisionEvaluated(state, owner) };
+  if (action) {
+    const carry = state.ballCarrierIntent;
+    if (
+      action.type === 'carry' &&
+      carry?.actorId === action.actorId &&
+      state.time < carry.expiresAt &&
+      distance(carry.target, action.target) < 0.1 &&
+      (carry.movementMode ?? 'carry') === (action.movementMode ?? 'carry')
+    )
+      // Re-evaluation keeps this existing intention. Explicit executions still count.
+      state = { ...state, actionCooldown: 0.25 };
+    else state = resolveMatchAction(state, action, 'autonomous_npc');
+  }
+  return state;
+};
+
+/** The reachable aerial contact lifecycle also applies after a deflection loses its delivery target. */
+const resolveReachableAerialAction = (
+  state: TacticalMatchState,
+  dt: number,
+): TacticalMatchState | undefined => {
+  if (!state.ball.airborne || state.ball.shot) return undefined;
+
+  const physical = findAerialContactCandidates(state, dt);
+  if (physical.length) {
+    const duel = resolveAerialDuel(
+      state,
+      physical.map(({ player }) => player),
+    );
+    const winner = duel.winner;
+    const contactPoint = { x: state.ball.x, y: state.ball.y };
+    const base = {
+      ...state,
+      ...(winner
+        ? {
+            aerialContactLocks: [
+              ...activeAerialContactLocks(state),
+              ...physical.map(({ player }) => ({
+                playerId: player.id,
+                point: { x: state.ball.x, y: state.ball.y },
+                at: state.time,
+              })),
+            ].slice(-22),
+          }
+        : {}),
+      aerialContestantIds: duel.contestants.map((p) => p.id),
+      lastAerialResult: duel.outcome,
+      lastAerialContact: {
+        id: `${state.seed}:aerial:${state.ballEpisode ?? 0}:${state.time.toFixed(6)}`,
+        point: contactPoint,
+        ballHeight: state.ball.height ?? 0,
+        candidates: physical.map(({ contact }) => contact),
+        contestantIds: duel.contestants.map((p) => p.id),
+        challengerIds: duel.challengerIds,
+        contactEvidence: duel.contactEvidence,
+        ...(winner ? { winnerId: winner.id } : {}),
+      },
+    };
+    const offsideContestant = findOffsideContestant(
+      base,
+      duel.contestants.map((player) => player.id),
+    );
+    if (offsideContestant)
+      return awardOffsideRestart(base, offsideContestant, contactPoint, 'challenged_opponent');
+    if (duel.outcome === 'keeper_claim' && winner)
+      return changePossession({ ...base, ball: { ...contactPoint } }, winner.id, 'claim');
+    // A missed contest does not itself touch or flatten the ball.
+    if (!winner) return base;
+    if (duel.outcome === 'keeper_punch')
+      return makeLoose(
+        {
+          ...(winner
+            ? recordPassDeflection(applyIncomingContact(base, winner.id), winner.id, contactPoint)
+            : base),
+          ball: { ...contactPoint, ...(winner ? { lastTouchPlayerId: winner.id } : {}) },
+        },
+        { x: attacksRight(state.possessionTeam, state) ? -7 : 7, y: 2 },
+      );
+    const finish = tryIncomingFinish(base, winner.id);
+    if (finish) return finish;
+    const selectedReception =
+      state.pendingReceptionIntent?.actorId === winner.id &&
+      (state.pendingReceptionIntent.action.type === 'hold' ||
+        state.pendingReceptionIntent.action.type === 'carry');
+    if (
+      selectedReception ||
+      (state.ball.height ?? 0) < 1.45 ||
+      duel.outcome === 'attacking_header'
+    ) {
+      // A selected receive waits for reachable foot control. A duel recommendation never
+      // overrides human intent or manufactures a shooting action outside shared AI ranking.
+      // Waiting for lower control is not a touch. Do not install contact locks
+      // or a fabricated aerial contact: they would block the subsequent real receive.
+      if ((state.ball.height ?? 0) > 1.45) return state;
+      return changePossession(base, winner.id, 'claim');
+    }
+    const target =
+      duel.outcome === 'clearance_header'
+        ? clampPitchPoint({
+            x: contactPoint.x + (attacksRight(winner) ? 20 : -20),
+            y: contactPoint.y + (contactPoint.y < 34 ? 8 : -8),
+          })
+        : clampPitchPoint({
+            x: contactPoint.x + (attacksRight(winner) ? 9 : -9),
+            y: contactPoint.y,
+          });
+    return resolveMatchAction(
+      {
+        ...prepareIncomingHeaderDelivery(base, winner.id),
+        ball: {
+          ...state.ball,
+          ...contactPoint,
+          ownerId: winner.id,
+          lastTouchPlayerId: winner.id,
+        },
+      },
+      {
+        type: 'header',
+        actorId: winner.id,
+        target,
+        intent:
+          duel.outcome === 'clearance_header'
+            ? 'header_clearance'
+            : duel.outcome === 'flick_on'
+              ? 'flick'
+              : 'header_pass',
+      },
+    );
+  }
+
+  return undefined;
 };
 
 /** An unclaimed delivery ends at physical rest, without an invented touch or energy loss. */
@@ -2072,123 +2225,8 @@ const stepTacticalMatchCore = (
           return finishShotContact(state, contact, incoming, keeperProjection);
         }
       }
-      if (state.ball.airborne && !state.ball.shot) {
-        const physical = findAerialContactCandidates(state, dt);
-        if (physical.length) {
-          const duel = resolveAerialDuel(
-            state,
-            physical.map(({ player }) => player),
-          );
-          const winner = duel.winner;
-          const contactPoint = { x: state.ball.x, y: state.ball.y };
-          const base = {
-            ...state,
-            ...(winner
-              ? {
-                  aerialContactLocks: [
-                    ...activeAerialContactLocks(state),
-                    ...physical.map(({ player }) => ({
-                      playerId: player.id,
-                      point: { x: state.ball.x, y: state.ball.y },
-                      at: state.time,
-                    })),
-                  ].slice(-22),
-                }
-              : {}),
-            aerialContestantIds: duel.contestants.map((p) => p.id),
-            lastAerialResult: duel.outcome,
-            lastAerialContact: {
-              id: `${state.seed}:aerial:${state.ballEpisode ?? 0}:${state.time.toFixed(6)}`,
-              point: contactPoint,
-              ballHeight: state.ball.height ?? 0,
-              candidates: physical.map(({ contact }) => contact),
-              contestantIds: duel.contestants.map((p) => p.id),
-              challengerIds: duel.challengerIds,
-              contactEvidence: duel.contactEvidence,
-              ...(winner ? { winnerId: winner.id } : {}),
-            },
-          };
-          const offsideContestant = findOffsideContestant(
-            base,
-            duel.contestants.map((player) => player.id),
-          );
-          if (offsideContestant)
-            return awardOffsideRestart(
-              base,
-              offsideContestant,
-              contactPoint,
-              'challenged_opponent',
-            );
-          if (duel.outcome === 'keeper_claim' && winner)
-            return changePossession({ ...base, ball: { ...contactPoint } }, winner.id, 'claim');
-          // A missed contest does not itself touch or flatten the ball.
-          if (!winner) return base;
-          if (duel.outcome === 'keeper_punch')
-            return makeLoose(
-              {
-                ...(winner
-                  ? recordPassDeflection(
-                      applyIncomingContact(base, winner.id),
-                      winner.id,
-                      contactPoint,
-                    )
-                  : base),
-                ball: { ...contactPoint, ...(winner ? { lastTouchPlayerId: winner.id } : {}) },
-              },
-              { x: attacksRight(state.possessionTeam, state) ? -7 : 7, y: 2 },
-            );
-          const finish = tryIncomingFinish(base, winner.id);
-          if (finish) return finish;
-          const selectedReception =
-            state.pendingReceptionIntent?.actorId === winner.id &&
-            (state.pendingReceptionIntent.action.type === 'hold' ||
-              state.pendingReceptionIntent.action.type === 'carry');
-          if (
-            selectedReception ||
-            (state.ball.height ?? 0) < 1.45 ||
-            duel.outcome === 'attacking_header'
-          ) {
-            // A selected receive waits for reachable foot control. A duel recommendation never
-            // overrides human intent or manufactures a shooting action outside shared AI ranking.
-            // Waiting for lower control is not a touch. Do not install contact locks
-            // or a fabricated aerial contact: they would block the subsequent real receive.
-            if ((state.ball.height ?? 0) > 1.45) return state;
-            return changePossession(base, winner.id, 'claim');
-          }
-          const target =
-            duel.outcome === 'clearance_header'
-              ? clampPitchPoint({
-                  x: contactPoint.x + (attacksRight(winner) ? 20 : -20),
-                  y: contactPoint.y + (contactPoint.y < 34 ? 8 : -8),
-                })
-              : clampPitchPoint({
-                  x: contactPoint.x + (attacksRight(winner) ? 9 : -9),
-                  y: contactPoint.y,
-                });
-          return resolveMatchAction(
-            {
-              ...prepareIncomingHeaderDelivery(base, winner.id),
-              ball: {
-                ...state.ball,
-                ...contactPoint,
-                ownerId: winner.id,
-                lastTouchPlayerId: winner.id,
-              },
-            },
-            {
-              type: 'header',
-              actorId: winner.id,
-              target,
-              intent:
-                duel.outcome === 'clearance_header'
-                  ? 'header_clearance'
-                  : duel.outcome === 'flick_on'
-                    ? 'flick'
-                    : 'header_pass',
-            },
-          );
-        }
-      }
+      const aerialAction = resolveReachableAerialAction(state, dt);
+      if (aerialAction) return aerialAction;
       // Ground interceptions are resolved once, by the continuous physical segment above. The old
       // proximity lottery sampled the same defender every 100 ms and caused repeated, non-physical
       // turnover opportunities during a single pass episode.
@@ -2608,6 +2646,9 @@ const stepTacticalMatchCore = (
         if (afterContactCrossing)
           return applyBoundaryRestart(state, afterContactCrossing, found.point, dt);
       }
+      // A shot rebound remains physically playable, including by a new aerial action.
+      const aerialAction = resolveReachableAerialAction(state, dt);
+      if (aerialAction) return aerialAction;
       if (state.time - looseSince > 0.35) {
         const assignments = deriveLooseBallAssignments(state);
         const assignedIds = new Set(assignments.map((assignment) => assignment.playerId));
@@ -2638,7 +2679,17 @@ const stepTacticalMatchCore = (
       const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
       const beforeContact = { x: state.ball.x, y: state.ball.y };
       const contactSpan = startPerformanceSpan('ball_contact_control');
-      const controlled = advanceControlledBall(state, owner, dt);
+      if (
+        usesStateValue(state) &&
+        state.decisionAblation !== 'readiness' &&
+        !state.periodEndPending &&
+        !state.defensiveChallenge &&
+        canReleaseControlledAction(state, owner) &&
+        canReconsiderDecision(state, owner)
+      )
+        state = resolveRoutineOwnerDecision(state);
+      const controlled =
+        state.ball.ownerId === owner.id ? advanceControlledBall(state, owner, dt) : { state };
       endPerformanceSpan('ball_contact_control', contactSpan);
       state = controlled.state;
       const crossing = findPitchBoundaryCrossing(beforeContact, state.ball);
@@ -2745,33 +2796,7 @@ const stepTacticalMatchCore = (
       state.ball.ownerId &&
       !isRestartSetup(state)
     ) {
-      const ownerId = state.ball.ownerId;
-      if (!ownerId) return state;
-      const owner = state.players.find((p) => p.id === ownerId)!;
-      const hybrid = usesStateValue(state) && state.decisionAblation !== 'readiness';
-      if (hybrid && !canReconsiderDecision(state, owner)) return state;
-      const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
-      // The agency evaluator owns the pause. A forced action uses the same autonomous resolver,
-      // including high-impact actions when no genuinely playable alternative exists.
-      const action =
-        awaitsPlayer || hasActiveHumanPossession(state)
-          ? undefined
-          : chooseNpcRoutineAction(state, ownerId);
-      if (hybrid && !awaitsPlayer && !hasActiveHumanPossession(state))
-        state = { ...state, decisionReadiness: markDecisionEvaluated(state, owner) };
-      if (action) {
-        const carry = state.ballCarrierIntent;
-        if (
-          action.type === 'carry' &&
-          carry?.actorId === action.actorId &&
-          state.time < carry.expiresAt &&
-          distance(carry.target, action.target) < 0.1 &&
-          (carry.movementMode ?? 'carry') === (action.movementMode ?? 'carry')
-        )
-          // Re-evaluation keeps this existing intention. Explicit executions still count.
-          state = { ...state, actionCooldown: 0.25 };
-        else state = resolveMatchAction(state, action, 'autonomous_npc');
-      }
+      state = resolveRoutineOwnerDecision(state);
     }
     return state;
   } finally {

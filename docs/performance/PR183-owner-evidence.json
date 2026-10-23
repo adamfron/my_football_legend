@@ -1,0 +1,2667 @@
+{
+  "schema": "mfl-pr183-owner-evidence-v1",
+  "provenance": "Five user-observed same-seed approximately 47–49 minute canonical match exports after merged PR182; descriptive exploratory only, NOT independent validation",
+  "method": {
+    "sample": "sampledPositioning at approximately 1 Hz",
+    "continuous_owner_episode": "consecutive sampledPositioning rows with identical nonempty ball.ownerId",
+    "team_attack_direction": "home attacks positive X and away attacks negative X during these first halves; therefore moving toward home goal is negative X for home and positive X for away",
+    "retreat_metric": "positive own-goal longitudinal X displacement; lateral distance not part of threshold",
+    "qualifying_episode": "retreat > 6 m AND observed first-to-last time >= 3 s; sampling may split or miss true carries",
+    "limitations": [
+      "ownerId remains assigned while the player has the ball; the samples are not a full physical touch or velocity replay",
+      "forwardPassingOptions is a geometric observer estimate, not confirmed feasible candidate or selected action",
+      "team-mate inactivity was observed visually by user; individual team-mate velocities and action ranks are not supplied by sampledPositioning",
+      "episodes after alternative decisions are different match trajectories, so cross-policy counts are not isolated causal effects"
+    ]
+  },
+  "compactFileHashes": {
+    "analysis": "3645d712d6ff24e65127ecdf70524a77759c668b6db479f921eb748769c077a6",
+    "retreats": "c4dfc7edb20ec2cfcfd6bf32cfb31b79c3003248711e340a4351a739f5c8ec4c"
+  },
+  "sources": [
+    {
+      "policy": "legacy-pr176",
+      "file": "lab-mvh694xi-benchmark-sesji (5)-legacy-pr176.json",
+      "bytes": 23085753,
+      "sha256": "d30860e90aeae5956dce1aa77bd5e5d15fd3cfbacffa0d41412f96ccc58e3b06",
+      "metadata": {
+        "schema": "mfl-session-benchmark-v5",
+        "policy": "legacy-pr176",
+        "sourceRevision": "16c2e71efcec98862b6d6c996f0737f02131235e:4083ac89a815d8e5b19d4ad02cd2c59032280bbc7c49d3826c86e946d890bf45",
+        "fixtureId": "fixture-b54120cf",
+        "engine": "canonical",
+        "fixedDt": 0.025,
+        "seed": "lab-mvh694xi",
+        "observerMode": "capture",
+        "observationScope": "dev_since_mode_enabled",
+        "collectionScope": {
+          "canonicalStatistics": "whole_canonical_match",
+          "presentationRuntime": "whole_presentation_session",
+          "detailedObservers": "whole_session",
+          "detailedCanonicalSeconds": 2880,
+          "unavailableReason": null,
+          "observerCoverage": [
+            {
+              "mode": "normal",
+              "startedAt": 0,
+              "endedAt": 0
+            },
+            {
+              "mode": "capture",
+              "startedAt": 0,
+              "endedAt": 2880
+            }
+          ]
+        },
+        "positioningSampleCapacity": 6000,
+        "observerCoverage": [
+          {
+            "mode": "normal",
+            "startedAt": 0,
+            "endedAt": 0
+          },
+          {
+            "mode": "capture",
+            "startedAt": 0,
+            "endedAt": 2880
+          }
+        ]
+      },
+      "duration": 2880,
+      "observations": {
+        "passesAttempted": 974,
+        "passesCompleted": 831,
+        "shots": 1,
+        "shotsOnTarget": 1,
+        "fouls": 16,
+        "redCards": 0,
+        "yellowCards": 5,
+        "offsides": 0,
+        "sprintDistanceMetres": 2639.8361984433836,
+        "goals": 1,
+        "shotsBlocked": 0,
+        "saves": 0,
+        "shotsMissed": 0,
+        "crossAttempts": 6,
+        "boxEntries": 12,
+        "finalThirdEntries": 66,
+        "cornerAwards": 0,
+        "firstTimePassAttempts": 44,
+        "firstTimeShare": 0.0452,
+        "meanPassLengthMetres": 19.14,
+        "restartAwards": 27,
+        "possessionChanges": 167
+      },
+      "originalRetreats": [],
+      "firstSubstitutions": [
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_18",
+          "atMinutes": 5.11
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_23",
+          "atMinutes": 5.14
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_8",
+          "atMinutes": 16.64
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_20",
+          "atMinutes": 16.68
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_12",
+          "atMinutes": 22.53
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_10",
+          "atMinutes": 22.55
+        }
+      ]
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "file": "lab-mvh694xi-benchmark-sesji (5)-phase-role-hybrid-v1.json",
+      "bytes": 25405820,
+      "sha256": "6fcb3527345cd3d9af56cbb501d799021ae792cde7454a5d85a4451a8f7b1c4b",
+      "metadata": {
+        "schema": "mfl-session-benchmark-v5",
+        "policy": "phase-role-hybrid-v1",
+        "sourceRevision": "16c2e71efcec98862b6d6c996f0737f02131235e:4083ac89a815d8e5b19d4ad02cd2c59032280bbc7c49d3826c86e946d890bf45",
+        "fixtureId": "fixture-b54120cf",
+        "engine": "canonical",
+        "fixedDt": 0.025,
+        "seed": "lab-mvh694xi",
+        "observerMode": "capture",
+        "observationScope": "dev_since_mode_enabled",
+        "collectionScope": {
+          "canonicalStatistics": "whole_canonical_match",
+          "presentationRuntime": "whole_presentation_session",
+          "detailedObservers": "whole_session",
+          "detailedCanonicalSeconds": 2820,
+          "unavailableReason": null,
+          "observerCoverage": [
+            {
+              "mode": "normal",
+              "startedAt": 0,
+              "endedAt": 0
+            },
+            {
+              "mode": "capture",
+              "startedAt": 0,
+              "endedAt": 2820
+            }
+          ]
+        },
+        "positioningSampleCapacity": 6000,
+        "observerCoverage": [
+          {
+            "mode": "normal",
+            "startedAt": 0,
+            "endedAt": 0
+          },
+          {
+            "mode": "capture",
+            "startedAt": 0,
+            "endedAt": 2820
+          }
+        ]
+      },
+      "duration": 2820,
+      "observations": {
+        "passesAttempted": 1086,
+        "passesCompleted": 783,
+        "shots": 8,
+        "shotsOnTarget": 2,
+        "fouls": 32,
+        "redCards": 0,
+        "yellowCards": 2,
+        "offsides": 0,
+        "sprintDistanceMetres": 3266.3968497633605,
+        "goals": 2,
+        "shotsBlocked": 3,
+        "saves": 0,
+        "shotsMissed": 3,
+        "crossAttempts": 14,
+        "boxEntries": 14,
+        "finalThirdEntries": 64,
+        "cornerAwards": 3,
+        "firstTimePassAttempts": 245,
+        "firstTimeShare": 0.2256,
+        "meanPassLengthMetres": 13.5,
+        "restartAwards": 46,
+        "possessionChanges": 315
+      },
+      "originalRetreats": [
+        {
+          "start": 2506.025,
+          "end": 2530.025,
+          "durationSeconds": 24,
+          "playerId": "footballer_pro_9_13",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 45.81,
+          "startXY": [
+            48.32,
+            28.12
+          ],
+          "endXY": [
+            2.51,
+            33.9
+          ],
+          "forwardPassingOptionsRange": [
+            1,
+            4
+          ],
+          "supportPlayersRange": [
+            4,
+            5
+          ],
+          "samples": [
+            {
+              "time": 2506.025,
+              "x": 48.32,
+              "y": 28.12,
+              "forwardPassingOptions": 1,
+              "nearSupport": 5
+            },
+            {
+              "time": 2507.025,
+              "x": 46.51,
+              "y": 28.98,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 2508.025,
+              "x": 44.69,
+              "y": 29.69,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 2509.025,
+              "x": 42.81,
+              "y": 30.33,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 2510.025,
+              "x": 40.89,
+              "y": 30.88,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 2511.025,
+              "x": 39.03,
+              "y": 31.34,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 2512.025,
+              "x": 37.06,
+              "y": 31.78,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 2513.025,
+              "x": 35.1,
+              "y": 32.11,
+              "forwardPassingOptions": 2,
+              "nearSupport": 5
+            },
+            {
+              "time": 2514.025,
+              "x": 33.19,
+              "y": 32.41,
+              "forwardPassingOptions": 2,
+              "nearSupport": 5
+            },
+            {
+              "time": 2515.025,
+              "x": 31.22,
+              "y": 32.66,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 2516.025,
+              "x": 29.21,
+              "y": 32.87,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 2517.025,
+              "x": 27.23,
+              "y": 33.05,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 2518.025,
+              "x": 25.25,
+              "y": 33.19,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 2519.025,
+              "x": 23.28,
+              "y": 33.32,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 2520.025,
+              "x": 21.32,
+              "y": 33.42,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 2521.025,
+              "x": 19.36,
+              "y": 33.51,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 2522.025,
+              "x": 17.36,
+              "y": 33.59,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 2523.025,
+              "x": 15.34,
+              "y": 33.66,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 2524.025,
+              "x": 13.6,
+              "y": 33.71,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 2525.025,
+              "x": 11.59,
+              "y": 33.77,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 2526.025,
+              "x": 9.61,
+              "y": 33.8,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 2527.025,
+              "x": 7.84,
+              "y": 33.83,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 2528.025,
+              "x": 5.84,
+              "y": 33.86,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 2529.025,
+              "x": 4.16,
+              "y": 33.88,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 2530.025,
+              "x": 2.51,
+              "y": 33.9,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            }
+          ]
+        },
+        {
+          "start": 2770.025,
+          "end": 2789.025,
+          "durationSeconds": 19,
+          "playerId": "footballer_pro_9_14",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 37.75,
+          "startXY": [
+            39.95,
+            35.32
+          ],
+          "endXY": [
+            2.2,
+            34.07
+          ],
+          "forwardPassingOptionsRange": [
+            2,
+            5
+          ],
+          "supportPlayersRange": [
+            3,
+            5
+          ],
+          "samples": [
+            {
+              "time": 2770.025,
+              "x": 39.95,
+              "y": 35.32,
+              "forwardPassingOptions": 5,
+              "nearSupport": 5
+            },
+            {
+              "time": 2771.025,
+              "x": 37.52,
+              "y": 35.63,
+              "forwardPassingOptions": 5,
+              "nearSupport": 4
+            },
+            {
+              "time": 2772.025,
+              "x": 35.49,
+              "y": 35.4,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 2773.025,
+              "x": 33.43,
+              "y": 35.17,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 2774.025,
+              "x": 31.4,
+              "y": 34.98,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 2775.025,
+              "x": 29.37,
+              "y": 34.83,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 2776.025,
+              "x": 27.35,
+              "y": 34.7,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 2777.025,
+              "x": 25.34,
+              "y": 34.58,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 2778.025,
+              "x": 23.29,
+              "y": 34.48,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 2779.025,
+              "x": 21.21,
+              "y": 34.41,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 2780.025,
+              "x": 19.14,
+              "y": 34.34,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 2781.025,
+              "x": 17.07,
+              "y": 34.29,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 2782.025,
+              "x": 15.01,
+              "y": 34.24,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 2783.025,
+              "x": 12.95,
+              "y": 34.2,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 2784.025,
+              "x": 10.9,
+              "y": 34.16,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 2785.025,
+              "x": 8.87,
+              "y": 34.14,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 2786.025,
+              "x": 6.81,
+              "y": 34.11,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 2787.025,
+              "x": 4.76,
+              "y": 34.09,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 2788.025,
+              "x": 2.69,
+              "y": 34.08,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 2789.025,
+              "x": 2.2,
+              "y": 34.07,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            }
+          ]
+        },
+        {
+          "start": 509.025,
+          "end": 523.025,
+          "durationSeconds": 14,
+          "playerId": "footballer_pro_1_12",
+          "role": "central_midfielder",
+          "side": "away",
+          "retreatMetres": 28.78,
+          "startXY": [
+            56.39,
+            36.72
+          ],
+          "endXY": [
+            85.17,
+            34.29
+          ],
+          "forwardPassingOptionsRange": [
+            0,
+            6
+          ],
+          "supportPlayersRange": [
+            3,
+            4
+          ],
+          "samples": [
+            {
+              "time": 509.025,
+              "x": 56.39,
+              "y": 36.72,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 510.025,
+              "x": 58.57,
+              "y": 36.33,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 511.025,
+              "x": 60.71,
+              "y": 35.94,
+              "forwardPassingOptions": 6,
+              "nearSupport": 3
+            },
+            {
+              "time": 512.025,
+              "x": 62.91,
+              "y": 35.61,
+              "forwardPassingOptions": 6,
+              "nearSupport": 3
+            },
+            {
+              "time": 513.025,
+              "x": 65.15,
+              "y": 35.33,
+              "forwardPassingOptions": 6,
+              "nearSupport": 3
+            },
+            {
+              "time": 514.025,
+              "x": 66.26,
+              "y": 35.21,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 515.025,
+              "x": 67.83,
+              "y": 35.45,
+              "forwardPassingOptions": 2,
+              "nearSupport": 3
+            },
+            {
+              "time": 516.025,
+              "x": 70.04,
+              "y": 35.17,
+              "forwardPassingOptions": 1,
+              "nearSupport": 3
+            },
+            {
+              "time": 517.025,
+              "x": 72.27,
+              "y": 34.96,
+              "forwardPassingOptions": 0,
+              "nearSupport": 3
+            },
+            {
+              "time": 518.025,
+              "x": 74.49,
+              "y": 34.79,
+              "forwardPassingOptions": 0,
+              "nearSupport": 3
+            },
+            {
+              "time": 519.025,
+              "x": 76.72,
+              "y": 34.65,
+              "forwardPassingOptions": 0,
+              "nearSupport": 3
+            },
+            {
+              "time": 520.025,
+              "x": 78.95,
+              "y": 34.54,
+              "forwardPassingOptions": 0,
+              "nearSupport": 3
+            },
+            {
+              "time": 521.025,
+              "x": 81.18,
+              "y": 34.43,
+              "forwardPassingOptions": 0,
+              "nearSupport": 3
+            },
+            {
+              "time": 522.025,
+              "x": 82.98,
+              "y": 34.37,
+              "forwardPassingOptions": 0,
+              "nearSupport": 3
+            },
+            {
+              "time": 523.025,
+              "x": 85.17,
+              "y": 34.29,
+              "forwardPassingOptions": 0,
+              "nearSupport": 3
+            }
+          ]
+        },
+        {
+          "start": 1586.025,
+          "end": 1600.025,
+          "durationSeconds": 14,
+          "playerId": "footballer_pro_9_13",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 27,
+          "startXY": [
+            50.6,
+            27.72
+          ],
+          "endXY": [
+            23.6,
+            33.41
+          ],
+          "forwardPassingOptionsRange": [
+            1,
+            4
+          ],
+          "supportPlayersRange": [
+            4,
+            5
+          ],
+          "samples": [
+            {
+              "time": 1586.025,
+              "x": 50.6,
+              "y": 27.72,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 1587.025,
+              "x": 48.81,
+              "y": 28.6,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 1588.025,
+              "x": 47,
+              "y": 29.37,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 1589.025,
+              "x": 45.12,
+              "y": 30.06,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 1590.025,
+              "x": 43.2,
+              "y": 30.66,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 1591.025,
+              "x": 41.32,
+              "y": 31.14,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 1592.025,
+              "x": 39.34,
+              "y": 31.6,
+              "forwardPassingOptions": 2,
+              "nearSupport": 5
+            },
+            {
+              "time": 1593.025,
+              "x": 37.41,
+              "y": 31.97,
+              "forwardPassingOptions": 2,
+              "nearSupport": 5
+            },
+            {
+              "time": 1594.025,
+              "x": 35.45,
+              "y": 32.33,
+              "forwardPassingOptions": 2,
+              "nearSupport": 5
+            },
+            {
+              "time": 1595.025,
+              "x": 33.45,
+              "y": 32.57,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 1596.025,
+              "x": 31.46,
+              "y": 32.79,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 1597.025,
+              "x": 29.49,
+              "y": 32.98,
+              "forwardPassingOptions": 1,
+              "nearSupport": 4
+            },
+            {
+              "time": 1598.025,
+              "x": 27.52,
+              "y": 33.14,
+              "forwardPassingOptions": 1,
+              "nearSupport": 4
+            },
+            {
+              "time": 1599.025,
+              "x": 25.56,
+              "y": 33.3,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 1600.025,
+              "x": 23.6,
+              "y": 33.41,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            }
+          ]
+        },
+        {
+          "start": 250.025,
+          "end": 263.025,
+          "durationSeconds": 13,
+          "playerId": "footballer_pro_9_11",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 24.95,
+          "startXY": [
+            37.21,
+            40.97
+          ],
+          "endXY": [
+            12.26,
+            34.45
+          ],
+          "forwardPassingOptionsRange": [
+            2,
+            5
+          ],
+          "supportPlayersRange": [
+            3,
+            5
+          ],
+          "samples": [
+            {
+              "time": 250.025,
+              "x": 37.21,
+              "y": 40.97,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 251.025,
+              "x": 35.33,
+              "y": 39.86,
+              "forwardPassingOptions": 5,
+              "nearSupport": 4
+            },
+            {
+              "time": 252.025,
+              "x": 33.21,
+              "y": 38.85,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 253.025,
+              "x": 31.26,
+              "y": 37.97,
+              "forwardPassingOptions": 2,
+              "nearSupport": 3
+            },
+            {
+              "time": 254.025,
+              "x": 29.09,
+              "y": 37.34,
+              "forwardPassingOptions": 2,
+              "nearSupport": 3
+            },
+            {
+              "time": 255.025,
+              "x": 26.91,
+              "y": 36.77,
+              "forwardPassingOptions": 2,
+              "nearSupport": 3
+            },
+            {
+              "time": 256.025,
+              "x": 24.68,
+              "y": 36.29,
+              "forwardPassingOptions": 2,
+              "nearSupport": 3
+            },
+            {
+              "time": 257.025,
+              "x": 22.51,
+              "y": 35.89,
+              "forwardPassingOptions": 2,
+              "nearSupport": 3
+            },
+            {
+              "time": 258.025,
+              "x": 20.28,
+              "y": 35.56,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 259.025,
+              "x": 18.12,
+              "y": 35.25,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 260.025,
+              "x": 15.85,
+              "y": 35.04,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 261.025,
+              "x": 13.6,
+              "y": 34.85,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 262.025,
+              "x": 12.3,
+              "y": 34.72,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 263.025,
+              "x": 12.26,
+              "y": 34.45,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            }
+          ]
+        },
+        {
+          "start": 1236.025,
+          "end": 1247.025,
+          "durationSeconds": 11,
+          "playerId": "footballer_pro_9_14",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 23.21,
+          "startXY": [
+            36.85,
+            37.15
+          ],
+          "endXY": [
+            13.64,
+            34.38
+          ],
+          "forwardPassingOptionsRange": [
+            3,
+            5
+          ],
+          "supportPlayersRange": [
+            3,
+            4
+          ],
+          "samples": [
+            {
+              "time": 1236.025,
+              "x": 36.85,
+              "y": 37.15,
+              "forwardPassingOptions": 5,
+              "nearSupport": 3
+            },
+            {
+              "time": 1237.025,
+              "x": 34.64,
+              "y": 36.71,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 1238.025,
+              "x": 32.51,
+              "y": 36.17,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 1239.025,
+              "x": 30.36,
+              "y": 35.74,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 1240.025,
+              "x": 28.43,
+              "y": 35.48,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 1241.025,
+              "x": 26.24,
+              "y": 35.2,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 1242.025,
+              "x": 24.03,
+              "y": 35,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 1243.025,
+              "x": 21.83,
+              "y": 34.83,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 1244.025,
+              "x": 19.63,
+              "y": 34.68,
+              "forwardPassingOptions": 5,
+              "nearSupport": 3
+            },
+            {
+              "time": 1245.025,
+              "x": 17.66,
+              "y": 34.55,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 1246.025,
+              "x": 15.56,
+              "y": 34.46,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 1247.025,
+              "x": 13.64,
+              "y": 34.38,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            }
+          ]
+        },
+        {
+          "start": 657.025,
+          "end": 666.025,
+          "durationSeconds": 9,
+          "playerId": "footballer_pro_1_12",
+          "role": "central_midfielder",
+          "side": "away",
+          "retreatMetres": 19.7,
+          "startXY": [
+            74.21,
+            36.59
+          ],
+          "endXY": [
+            93.91,
+            34.47
+          ],
+          "forwardPassingOptionsRange": [
+            0,
+            4
+          ],
+          "supportPlayersRange": [
+            3,
+            4
+          ],
+          "samples": [
+            {
+              "time": 657.025,
+              "x": 74.21,
+              "y": 36.59,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 658.025,
+              "x": 76.39,
+              "y": 36.11,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 659.025,
+              "x": 78.56,
+              "y": 35.76,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 660.025,
+              "x": 80.73,
+              "y": 35.46,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 661.025,
+              "x": 82.91,
+              "y": 35.22,
+              "forwardPassingOptions": 2,
+              "nearSupport": 3
+            },
+            {
+              "time": 662.025,
+              "x": 85.08,
+              "y": 35.01,
+              "forwardPassingOptions": 0,
+              "nearSupport": 3
+            },
+            {
+              "time": 663.025,
+              "x": 87.29,
+              "y": 34.84,
+              "forwardPassingOptions": 0,
+              "nearSupport": 3
+            },
+            {
+              "time": 664.025,
+              "x": 89.5,
+              "y": 34.7,
+              "forwardPassingOptions": 1,
+              "nearSupport": 4
+            },
+            {
+              "time": 665.025,
+              "x": 91.71,
+              "y": 34.58,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 666.025,
+              "x": 93.91,
+              "y": 34.47,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            }
+          ]
+        },
+        {
+          "start": 1972.025,
+          "end": 1980.025,
+          "durationSeconds": 8,
+          "playerId": "footballer_pro_1_12",
+          "role": "central_midfielder",
+          "side": "away",
+          "retreatMetres": 16.56,
+          "startXY": [
+            73.85,
+            32.53
+          ],
+          "endXY": [
+            90.41,
+            33.68
+          ],
+          "forwardPassingOptionsRange": [
+            2,
+            4
+          ],
+          "supportPlayersRange": [
+            3,
+            8
+          ],
+          "samples": [
+            {
+              "time": 1972.025,
+              "x": 73.85,
+              "y": 32.53,
+              "forwardPassingOptions": 2,
+              "nearSupport": 8
+            },
+            {
+              "time": 1973.025,
+              "x": 76.38,
+              "y": 32.88,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 1974.025,
+              "x": 78.4,
+              "y": 33.05,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 1975.025,
+              "x": 80.41,
+              "y": 33.2,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 1976.025,
+              "x": 82.42,
+              "y": 33.33,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 1977.025,
+              "x": 84.42,
+              "y": 33.44,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 1978.025,
+              "x": 86.42,
+              "y": 33.53,
+              "forwardPassingOptions": 2,
+              "nearSupport": 3
+            },
+            {
+              "time": 1979.025,
+              "x": 88.44,
+              "y": 33.62,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 1980.025,
+              "x": 90.41,
+              "y": 33.68,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            }
+          ]
+        },
+        {
+          "start": 737.025,
+          "end": 743.025,
+          "durationSeconds": 6,
+          "playerId": "footballer_pro_1_14",
+          "role": "central_midfielder",
+          "side": "away",
+          "retreatMetres": 12.95,
+          "startXY": [
+            63.25,
+            29.38
+          ],
+          "endXY": [
+            76.2,
+            32.57
+          ],
+          "forwardPassingOptionsRange": [
+            3,
+            5
+          ],
+          "supportPlayersRange": [
+            3,
+            4
+          ],
+          "samples": [
+            {
+              "time": 737.025,
+              "x": 63.25,
+              "y": 29.38,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 738.025,
+              "x": 65.43,
+              "y": 30.17,
+              "forwardPassingOptions": 5,
+              "nearSupport": 3
+            },
+            {
+              "time": 739.025,
+              "x": 67.58,
+              "y": 30.82,
+              "forwardPassingOptions": 5,
+              "nearSupport": 3
+            },
+            {
+              "time": 740.025,
+              "x": 69.76,
+              "y": 31.36,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 741.025,
+              "x": 71.94,
+              "y": 31.82,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 742.025,
+              "x": 73.72,
+              "y": 32.19,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 743.025,
+              "x": 76.2,
+              "y": 32.57,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            }
+          ]
+        },
+        {
+          "start": 1175.025,
+          "end": 1180.025,
+          "durationSeconds": 5,
+          "playerId": "footballer_pro_9_14",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 10.74,
+          "startXY": [
+            47.98,
+            36
+          ],
+          "endXY": [
+            37.25,
+            34.81
+          ],
+          "forwardPassingOptionsRange": [
+            2,
+            5
+          ],
+          "supportPlayersRange": [
+            4,
+            5
+          ],
+          "samples": [
+            {
+              "time": 1175.025,
+              "x": 47.98,
+              "y": 36,
+              "forwardPassingOptions": 5,
+              "nearSupport": 4
+            },
+            {
+              "time": 1176.025,
+              "x": 44.92,
+              "y": 35.59,
+              "forwardPassingOptions": 5,
+              "nearSupport": 4
+            },
+            {
+              "time": 1177.025,
+              "x": 43.22,
+              "y": 35.35,
+              "forwardPassingOptions": 5,
+              "nearSupport": 4
+            },
+            {
+              "time": 1178.025,
+              "x": 41.03,
+              "y": 35.12,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 1179.025,
+              "x": 38.84,
+              "y": 34.92,
+              "forwardPassingOptions": 2,
+              "nearSupport": 5
+            },
+            {
+              "time": 1180.025,
+              "x": 37.25,
+              "y": 34.81,
+              "forwardPassingOptions": 2,
+              "nearSupport": 5
+            }
+          ]
+        },
+        {
+          "start": 238.025,
+          "end": 243.025,
+          "durationSeconds": 5,
+          "playerId": "footballer_pro_9_13",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 10.3,
+          "startXY": [
+            44.01,
+            29.23
+          ],
+          "endXY": [
+            33.71,
+            32.07
+          ],
+          "forwardPassingOptionsRange": [
+            2,
+            3
+          ],
+          "supportPlayersRange": [
+            4,
+            4
+          ],
+          "samples": [
+            {
+              "time": 238.025,
+              "x": 44.01,
+              "y": 29.23,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 239.025,
+              "x": 41.93,
+              "y": 29.99,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 240.025,
+              "x": 39.92,
+              "y": 30.63,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 241.025,
+              "x": 37.91,
+              "y": 31.18,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 242.025,
+              "x": 35.8,
+              "y": 31.65,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 243.025,
+              "x": 33.71,
+              "y": 32.07,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            }
+          ]
+        },
+        {
+          "start": 574.025,
+          "end": 579.025,
+          "durationSeconds": 5,
+          "playerId": "footballer_pro_9_13",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 10.17,
+          "startXY": [
+            48.2,
+            29.58
+          ],
+          "endXY": [
+            38.04,
+            32.14
+          ],
+          "forwardPassingOptionsRange": [
+            3,
+            4
+          ],
+          "supportPlayersRange": [
+            4,
+            4
+          ],
+          "samples": [
+            {
+              "time": 574.025,
+              "x": 48.2,
+              "y": 29.58,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 575.025,
+              "x": 46.2,
+              "y": 30.28,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 576.025,
+              "x": 44.22,
+              "y": 30.85,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 577.025,
+              "x": 42.08,
+              "y": 31.37,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 578.025,
+              "x": 40.06,
+              "y": 31.81,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 579.025,
+              "x": 38.04,
+              "y": 32.14,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            }
+          ]
+        },
+        {
+          "start": 420.025,
+          "end": 425.025,
+          "durationSeconds": 5,
+          "playerId": "footballer_pro_9_13",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 8.77,
+          "startXY": [
+            46.63,
+            27.65
+          ],
+          "endXY": [
+            37.86,
+            30.56
+          ],
+          "forwardPassingOptionsRange": [
+            3,
+            3
+          ],
+          "supportPlayersRange": [
+            3,
+            4
+          ],
+          "samples": [
+            {
+              "time": 420.025,
+              "x": 46.63,
+              "y": 27.65,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 421.025,
+              "x": 44.81,
+              "y": 27.76,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 422.025,
+              "x": 42.98,
+              "y": 28.67,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 423.025,
+              "x": 41.06,
+              "y": 29.46,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 424.025,
+              "x": 39.07,
+              "y": 30.17,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 425.025,
+              "x": 37.86,
+              "y": 30.56,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            }
+          ]
+        },
+        {
+          "start": 1061.025,
+          "end": 1067.025,
+          "durationSeconds": 6,
+          "playerId": "footballer_pro_1_14",
+          "role": "central_midfielder",
+          "side": "away",
+          "retreatMetres": 7.79,
+          "startXY": [
+            68.96,
+            25.52
+          ],
+          "endXY": [
+            76.75,
+            30.02
+          ],
+          "forwardPassingOptionsRange": [
+            2,
+            4
+          ],
+          "supportPlayersRange": [
+            2,
+            5
+          ],
+          "samples": [
+            {
+              "time": 1061.025,
+              "x": 68.96,
+              "y": 25.52,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 1062.025,
+              "x": 67.66,
+              "y": 24.9,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 1063.025,
+              "x": 69.1,
+              "y": 25.95,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 1064.025,
+              "x": 70.94,
+              "y": 27.19,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 1065.025,
+              "x": 72.77,
+              "y": 28.29,
+              "forwardPassingOptions": 2,
+              "nearSupport": 2
+            },
+            {
+              "time": 1066.025,
+              "x": 74.83,
+              "y": 29.27,
+              "forwardPassingOptions": 2,
+              "nearSupport": 2
+            },
+            {
+              "time": 1067.025,
+              "x": 76.75,
+              "y": 30.02,
+              "forwardPassingOptions": 3,
+              "nearSupport": 2
+            }
+          ]
+        },
+        {
+          "start": 1781.025,
+          "end": 1786.025,
+          "durationSeconds": 5,
+          "playerId": "footballer_pro_9_13",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 6.61,
+          "startXY": [
+            46.96,
+            29.96
+          ],
+          "endXY": [
+            40.35,
+            31.71
+          ],
+          "forwardPassingOptionsRange": [
+            3,
+            3
+          ],
+          "supportPlayersRange": [
+            4,
+            5
+          ],
+          "samples": [
+            {
+              "time": 1781.025,
+              "x": 46.96,
+              "y": 29.96,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 1782.025,
+              "x": 44.98,
+              "y": 30.59,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 1783.025,
+              "x": 43.1,
+              "y": 31.09,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 1784.025,
+              "x": 41.15,
+              "y": 31.53,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 1785.025,
+              "x": 40.35,
+              "y": 31.71,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 1786.025,
+              "x": 40.35,
+              "y": 31.71,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            }
+          ]
+        }
+      ],
+      "firstSubstitutions": [
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_23",
+          "atMinutes": 2.36
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_18",
+          "atMinutes": 7.72
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_10",
+          "atMinutes": 9.02
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_20",
+          "atMinutes": 15.36
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_8",
+          "atMinutes": 33.75
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_16",
+          "atMinutes": 33.78
+        }
+      ]
+    },
+    {
+      "policy": "role-intent-v1",
+      "file": "lab-mvh694xi-benchmark-sesji (5)-role-intent-v1.json",
+      "bytes": 26803053,
+      "sha256": "60976ffc8767ad0d1323ae2e269715f0f56701a3760c185a51e1652087387048",
+      "metadata": {
+        "schema": "mfl-session-benchmark-v5",
+        "policy": "role-intent-v1",
+        "sourceRevision": "16c2e71efcec98862b6d6c996f0737f02131235e:4083ac89a815d8e5b19d4ad02cd2c59032280bbc7c49d3826c86e946d890bf45",
+        "fixtureId": "fixture-b54120cf",
+        "engine": "canonical",
+        "fixedDt": 0.025,
+        "seed": "lab-mvh694xi",
+        "observerMode": "capture",
+        "observationScope": "dev_since_mode_enabled",
+        "collectionScope": {
+          "canonicalStatistics": "whole_canonical_match",
+          "presentationRuntime": "whole_presentation_session",
+          "detailedObservers": "whole_session",
+          "detailedCanonicalSeconds": 2966.625000000097,
+          "unavailableReason": null,
+          "observerCoverage": [
+            {
+              "mode": "normal",
+              "startedAt": 0,
+              "endedAt": 0
+            },
+            {
+              "mode": "capture",
+              "startedAt": 0,
+              "endedAt": 2966.625000000097
+            }
+          ]
+        },
+        "positioningSampleCapacity": 6000,
+        "observerCoverage": [
+          {
+            "mode": "normal",
+            "startedAt": 0,
+            "endedAt": 0
+          },
+          {
+            "mode": "capture",
+            "startedAt": 0,
+            "endedAt": 2966.625000000097
+          }
+        ]
+      },
+      "duration": 2966.625000000097,
+      "observations": {
+        "passesAttempted": 1196,
+        "passesCompleted": 778,
+        "shots": 7,
+        "shotsOnTarget": 5,
+        "fouls": 32,
+        "redCards": 0,
+        "yellowCards": 3,
+        "offsides": 0,
+        "sprintDistanceMetres": 3560.2857797060246,
+        "goals": 4,
+        "shotsBlocked": 2,
+        "saves": 0,
+        "shotsMissed": 1,
+        "crossAttempts": 11,
+        "boxEntries": 10,
+        "finalThirdEntries": 101,
+        "cornerAwards": 0,
+        "firstTimePassAttempts": 207,
+        "firstTimeShare": 0.1731,
+        "meanPassLengthMetres": 14.76,
+        "restartAwards": 49,
+        "possessionChanges": 433
+      },
+      "originalRetreats": [
+        {
+          "start": 1260.025,
+          "end": 1267.025,
+          "durationSeconds": 7,
+          "playerId": "footballer_pro_9_22",
+          "role": "striker",
+          "side": "home",
+          "retreatMetres": 13.06,
+          "startXY": [
+            47.39,
+            36.7
+          ],
+          "endXY": [
+            34.33,
+            34.78
+          ],
+          "forwardPassingOptionsRange": [
+            0,
+            2
+          ],
+          "supportPlayersRange": [
+            6,
+            6
+          ],
+          "samples": [
+            {
+              "time": 1260.025,
+              "x": 47.39,
+              "y": 36.7,
+              "forwardPassingOptions": 0,
+              "nearSupport": 6
+            },
+            {
+              "time": 1261.025,
+              "x": 45.48,
+              "y": 36.15,
+              "forwardPassingOptions": 0,
+              "nearSupport": 6
+            },
+            {
+              "time": 1262.025,
+              "x": 43.59,
+              "y": 35.83,
+              "forwardPassingOptions": 2,
+              "nearSupport": 6
+            },
+            {
+              "time": 1263.025,
+              "x": 41.69,
+              "y": 35.52,
+              "forwardPassingOptions": 2,
+              "nearSupport": 6
+            },
+            {
+              "time": 1264.025,
+              "x": 39.71,
+              "y": 35.29,
+              "forwardPassingOptions": 2,
+              "nearSupport": 6
+            },
+            {
+              "time": 1265.025,
+              "x": 37.76,
+              "y": 35.09,
+              "forwardPassingOptions": 2,
+              "nearSupport": 6
+            },
+            {
+              "time": 1266.025,
+              "x": 35.81,
+              "y": 34.92,
+              "forwardPassingOptions": 2,
+              "nearSupport": 6
+            },
+            {
+              "time": 1267.025,
+              "x": 34.33,
+              "y": 34.78,
+              "forwardPassingOptions": 1,
+              "nearSupport": 6
+            }
+          ]
+        }
+      ],
+      "firstSubstitutions": [
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_23",
+          "atMinutes": 4.25
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_18",
+          "atMinutes": 5.99
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_20",
+          "atMinutes": 12.56
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_10",
+          "atMinutes": 13.49
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_8",
+          "atMinutes": 33.8
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_16",
+          "atMinutes": 33.81
+        }
+      ]
+    },
+    {
+      "policy": "role-value-v1",
+      "file": "lab-mvh694xi-benchmark-sesji (5)-role-value-v1.json",
+      "bytes": 26686812,
+      "sha256": "5937855593a4fe8fd1d27088bb0995e1d99508702387a8c76a5200c4def45882",
+      "metadata": {
+        "schema": "mfl-session-benchmark-v5",
+        "policy": "role-value-v1",
+        "sourceRevision": "16c2e71efcec98862b6d6c996f0737f02131235e:4083ac89a815d8e5b19d4ad02cd2c59032280bbc7c49d3826c86e946d890bf45",
+        "fixtureId": "fixture-b54120cf",
+        "engine": "canonical",
+        "fixedDt": 0.025,
+        "seed": "lab-mvh694xi",
+        "observerMode": "capture",
+        "observationScope": "dev_since_mode_enabled",
+        "collectionScope": {
+          "canonicalStatistics": "whole_canonical_match",
+          "presentationRuntime": "whole_presentation_session",
+          "detailedObservers": "whole_session",
+          "detailedCanonicalSeconds": 2881.6500000061005,
+          "unavailableReason": null,
+          "observerCoverage": [
+            {
+              "mode": "normal",
+              "startedAt": 0,
+              "endedAt": 0
+            },
+            {
+              "mode": "capture",
+              "startedAt": 0,
+              "endedAt": 2881.6500000061005
+            }
+          ]
+        },
+        "positioningSampleCapacity": 6000,
+        "observerCoverage": [
+          {
+            "mode": "normal",
+            "startedAt": 0,
+            "endedAt": 0
+          },
+          {
+            "mode": "capture",
+            "startedAt": 0,
+            "endedAt": 2881.6500000061005
+          }
+        ]
+      },
+      "duration": 2881.6500000061005,
+      "observations": {
+        "passesAttempted": 1237,
+        "passesCompleted": 816,
+        "shots": 8,
+        "shotsOnTarget": 6,
+        "fouls": 33,
+        "redCards": 0,
+        "yellowCards": 0,
+        "offsides": 1,
+        "sprintDistanceMetres": 3134.1735131647574,
+        "goals": 3,
+        "shotsBlocked": 0,
+        "saves": 3,
+        "shotsMissed": 2,
+        "crossAttempts": 6,
+        "boxEntries": 9,
+        "finalThirdEntries": 89,
+        "cornerAwards": 0,
+        "firstTimePassAttempts": 178,
+        "firstTimeShare": 0.1439,
+        "meanPassLengthMetres": 13.5,
+        "restartAwards": 43,
+        "possessionChanges": 432
+      },
+      "originalRetreats": [
+        {
+          "start": 2079.025,
+          "end": 2086.025,
+          "durationSeconds": 7,
+          "playerId": "footballer_pro_1_12",
+          "role": "central_midfielder",
+          "side": "away",
+          "retreatMetres": 12,
+          "startXY": [
+            61.81,
+            34.76
+          ],
+          "endXY": [
+            73.8,
+            34.24
+          ],
+          "forwardPassingOptionsRange": [
+            2,
+            5
+          ],
+          "supportPlayersRange": [
+            3,
+            4
+          ],
+          "samples": [
+            {
+              "time": 2079.025,
+              "x": 61.81,
+              "y": 34.76,
+              "forwardPassingOptions": 2,
+              "nearSupport": 4
+            },
+            {
+              "time": 2080.025,
+              "x": 63.88,
+              "y": 34.56,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 2081.025,
+              "x": 65.89,
+              "y": 34.5,
+              "forwardPassingOptions": 5,
+              "nearSupport": 3
+            },
+            {
+              "time": 2082.025,
+              "x": 67.89,
+              "y": 34.42,
+              "forwardPassingOptions": 5,
+              "nearSupport": 3
+            },
+            {
+              "time": 2083.025,
+              "x": 69.9,
+              "y": 34.35,
+              "forwardPassingOptions": 5,
+              "nearSupport": 3
+            },
+            {
+              "time": 2084.025,
+              "x": 71.67,
+              "y": 34.3,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 2085.025,
+              "x": 73.62,
+              "y": 34.25,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 2086.025,
+              "x": 73.8,
+              "y": 34.24,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            }
+          ]
+        },
+        {
+          "start": 919.025,
+          "end": 924.025,
+          "durationSeconds": 5,
+          "playerId": "footballer_pro_9_14",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 10.71,
+          "startXY": [
+            45.63,
+            31.69
+          ],
+          "endXY": [
+            34.92,
+            32.89
+          ],
+          "forwardPassingOptionsRange": [
+            3,
+            4
+          ],
+          "supportPlayersRange": [
+            4,
+            5
+          ],
+          "samples": [
+            {
+              "time": 919.025,
+              "x": 45.63,
+              "y": 31.69,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 920.025,
+              "x": 42.69,
+              "y": 31.67,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 921.025,
+              "x": 40.65,
+              "y": 32.17,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 922.025,
+              "x": 38.42,
+              "y": 32.47,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 923.025,
+              "x": 36.12,
+              "y": 32.75,
+              "forwardPassingOptions": 3,
+              "nearSupport": 4
+            },
+            {
+              "time": 924.025,
+              "x": 34.92,
+              "y": 32.89,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            }
+          ]
+        },
+        {
+          "start": 1200.025,
+          "end": 1205.025,
+          "durationSeconds": 5,
+          "playerId": "footballer_pro_9_19",
+          "role": "right_winger",
+          "side": "home",
+          "retreatMetres": 10.35,
+          "startXY": [
+            45.86,
+            34.17
+          ],
+          "endXY": [
+            35.51,
+            34.09
+          ],
+          "forwardPassingOptionsRange": [
+            4,
+            6
+          ],
+          "supportPlayersRange": [
+            4,
+            6
+          ],
+          "samples": [
+            {
+              "time": 1200.025,
+              "x": 45.86,
+              "y": 34.17,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 1201.025,
+              "x": 43.64,
+              "y": 34.24,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 1202.025,
+              "x": 41.53,
+              "y": 34.18,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 1203.025,
+              "x": 39.39,
+              "y": 34.14,
+              "forwardPassingOptions": 6,
+              "nearSupport": 5
+            },
+            {
+              "time": 1204.025,
+              "x": 37.64,
+              "y": 34.07,
+              "forwardPassingOptions": 6,
+              "nearSupport": 6
+            },
+            {
+              "time": 1205.025,
+              "x": 35.51,
+              "y": 34.09,
+              "forwardPassingOptions": 5,
+              "nearSupport": 6
+            }
+          ]
+        },
+        {
+          "start": 886.025,
+          "end": 890.025,
+          "durationSeconds": 4,
+          "playerId": "footballer_pro_9_13",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 8.63,
+          "startXY": [
+            53.72,
+            29.44
+          ],
+          "endXY": [
+            45.08,
+            31.6
+          ],
+          "forwardPassingOptionsRange": [
+            3,
+            5
+          ],
+          "supportPlayersRange": [
+            3,
+            6
+          ],
+          "samples": [
+            {
+              "time": 886.025,
+              "x": 53.72,
+              "y": 29.44,
+              "forwardPassingOptions": 3,
+              "nearSupport": 3
+            },
+            {
+              "time": 887.025,
+              "x": 50.96,
+              "y": 29.91,
+              "forwardPassingOptions": 3,
+              "nearSupport": 6
+            },
+            {
+              "time": 888.025,
+              "x": 49.12,
+              "y": 30.59,
+              "forwardPassingOptions": 4,
+              "nearSupport": 5
+            },
+            {
+              "time": 889.025,
+              "x": 47.05,
+              "y": 31.15,
+              "forwardPassingOptions": 5,
+              "nearSupport": 4
+            },
+            {
+              "time": 890.025,
+              "x": 45.08,
+              "y": 31.6,
+              "forwardPassingOptions": 5,
+              "nearSupport": 4
+            }
+          ]
+        },
+        {
+          "start": 2692.025,
+          "end": 2696.025,
+          "durationSeconds": 4,
+          "playerId": "footballer_pro_9_13",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 7.78,
+          "startXY": [
+            62.4,
+            32.13
+          ],
+          "endXY": [
+            54.62,
+            33.18
+          ],
+          "forwardPassingOptionsRange": [
+            2,
+            3
+          ],
+          "supportPlayersRange": [
+            5,
+            6
+          ],
+          "samples": [
+            {
+              "time": 2692.025,
+              "x": 62.4,
+              "y": 32.13,
+              "forwardPassingOptions": 2,
+              "nearSupport": 6
+            },
+            {
+              "time": 2693.025,
+              "x": 60.68,
+              "y": 32.6,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 2694.025,
+              "x": 58.73,
+              "y": 32.8,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 2695.025,
+              "x": 56.67,
+              "y": 32.99,
+              "forwardPassingOptions": 2,
+              "nearSupport": 5
+            },
+            {
+              "time": 2696.025,
+              "x": 54.62,
+              "y": 33.18,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            }
+          ]
+        },
+        {
+          "start": 2.025,
+          "end": 6.025,
+          "durationSeconds": 4,
+          "playerId": "footballer_pro_9_13",
+          "role": "central_midfielder",
+          "side": "home",
+          "retreatMetres": 7.06,
+          "startXY": [
+            41.46,
+            24.86
+          ],
+          "endXY": [
+            34.4,
+            29.26
+          ],
+          "forwardPassingOptionsRange": [
+            3,
+            5
+          ],
+          "supportPlayersRange": [
+            3,
+            5
+          ],
+          "samples": [
+            {
+              "time": 2.025,
+              "x": 41.46,
+              "y": 24.86,
+              "forwardPassingOptions": 4,
+              "nearSupport": 3
+            },
+            {
+              "time": 3.025,
+              "x": 39.67,
+              "y": 26.15,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 4.025,
+              "x": 37.71,
+              "y": 27.38,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 5.025,
+              "x": 35.67,
+              "y": 28.53,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 6.025,
+              "x": 34.4,
+              "y": 29.26,
+              "forwardPassingOptions": 5,
+              "nearSupport": 4
+            }
+          ]
+        }
+      ],
+      "firstSubstitutions": [
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_23",
+          "atMinutes": 3.55
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_18",
+          "atMinutes": 3.56
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_16",
+          "atMinutes": 12.64
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_12",
+          "atMinutes": 26.57
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_10",
+          "atMinutes": 31.42
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_8",
+          "atMinutes": 41.37
+        }
+      ]
+    },
+    {
+      "policy": "state-value-v1",
+      "file": "lab-mvh694xi-benchmark-sesji (5)-state-value-v1.json",
+      "bytes": 26519017,
+      "sha256": "065463a774d45beca7f2b61d2d6d0486ed1fe4d539742727c029e3714439756e",
+      "metadata": {
+        "schema": "mfl-session-benchmark-v5",
+        "policy": "state-value-v1",
+        "sourceRevision": "16c2e71efcec98862b6d6c996f0737f02131235e:4083ac89a815d8e5b19d4ad02cd2c59032280bbc7c49d3826c86e946d890bf45",
+        "fixtureId": "fixture-b54120cf",
+        "engine": "canonical",
+        "fixedDt": 0.025,
+        "seed": "lab-mvh694xi",
+        "observerMode": "capture",
+        "observationScope": "dev_since_mode_enabled",
+        "collectionScope": {
+          "canonicalStatistics": "whole_canonical_match",
+          "presentationRuntime": "whole_presentation_session",
+          "detailedObservers": "whole_session",
+          "detailedCanonicalSeconds": 2882.2500000061027,
+          "unavailableReason": null,
+          "observerCoverage": [
+            {
+              "mode": "normal",
+              "startedAt": 0,
+              "endedAt": 0
+            },
+            {
+              "mode": "capture",
+              "startedAt": 0,
+              "endedAt": 2882.2500000061027
+            }
+          ]
+        },
+        "positioningSampleCapacity": 6000,
+        "observerCoverage": [
+          {
+            "mode": "normal",
+            "startedAt": 0,
+            "endedAt": 0
+          },
+          {
+            "mode": "capture",
+            "startedAt": 0,
+            "endedAt": 2882.2500000061027
+          }
+        ]
+      },
+      "duration": 2882.2500000061027,
+      "observations": {
+        "passesAttempted": 1195,
+        "passesCompleted": 738,
+        "shots": 10,
+        "shotsOnTarget": 7,
+        "fouls": 38,
+        "redCards": 1,
+        "yellowCards": 5,
+        "offsides": 0,
+        "sprintDistanceMetres": 3279.99784327622,
+        "goals": 2,
+        "shotsBlocked": 1,
+        "saves": 5,
+        "shotsMissed": 2,
+        "crossAttempts": 8,
+        "boxEntries": 11,
+        "finalThirdEntries": 96,
+        "cornerAwards": 0,
+        "firstTimePassAttempts": 191,
+        "firstTimeShare": 0.1598,
+        "meanPassLengthMetres": 13.25,
+        "restartAwards": 44,
+        "possessionChanges": 453
+      },
+      "originalRetreats": [
+        {
+          "start": 1251.025,
+          "end": 1255.025,
+          "durationSeconds": 4,
+          "playerId": "footballer_pro_1_21",
+          "role": "striker",
+          "side": "away",
+          "retreatMetres": 8.33,
+          "startXY": [
+            53.36,
+            37.08
+          ],
+          "endXY": [
+            61.69,
+            35.53
+          ],
+          "forwardPassingOptionsRange": [
+            0,
+            4
+          ],
+          "supportPlayersRange": [
+            4,
+            6
+          ],
+          "samples": [
+            {
+              "time": 1251.025,
+              "x": 53.36,
+              "y": 37.08,
+              "forwardPassingOptions": 0,
+              "nearSupport": 6
+            },
+            {
+              "time": 1252.025,
+              "x": 55.82,
+              "y": 36.54,
+              "forwardPassingOptions": 1,
+              "nearSupport": 5
+            },
+            {
+              "time": 1253.025,
+              "x": 57.79,
+              "y": 36.15,
+              "forwardPassingOptions": 3,
+              "nearSupport": 5
+            },
+            {
+              "time": 1254.025,
+              "x": 59.77,
+              "y": 35.82,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            },
+            {
+              "time": 1255.025,
+              "x": 61.69,
+              "y": 35.53,
+              "forwardPassingOptions": 4,
+              "nearSupport": 4
+            }
+          ]
+        }
+      ],
+      "firstSubstitutions": [
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_10",
+          "atMinutes": 5.81
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_18",
+          "atMinutes": 5.81
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_23",
+          "atMinutes": 5.85
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_16",
+          "atMinutes": 12.84
+        },
+        {
+          "team": "home",
+          "incomingPlayerId": "footballer_pro_9_12",
+          "atMinutes": 33.94
+        },
+        {
+          "team": "away",
+          "incomingPlayerId": "footballer_pro_1_8",
+          "atMinutes": 36.07
+        }
+      ]
+    }
+  ]
+}

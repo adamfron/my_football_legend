@@ -1,0 +1,135 @@
+{
+  "schema": "mfl-pr183-integrity-v1",
+  "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+  "rows": [
+    {
+      "policy": "legacy-pr176",
+      "variants": [
+        {
+          "observed": true,
+          "ticks": 4800,
+          "hash": "1fbca963714f32994ebfc01a9fe59204e960210eb89f8b92912c7d2d2b269715",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "1fbca963714f32994ebfc01a9fe59204e960210eb89f8b92912c7d2d2b269715",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "1fbca963714f32994ebfc01a9fe59204e960210eb89f8b92912c7d2d2b269715",
+          "time": 120.00000000001016
+        }
+      ]
+    },
+    {
+      "policy": "state-value-v1",
+      "variants": [
+        {
+          "observed": true,
+          "ticks": 4800,
+          "hash": "59039ea3bcd3b7a1091d0a25663085a3e9930f0c3b58e8879dcd2f00f47dab75",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "59039ea3bcd3b7a1091d0a25663085a3e9930f0c3b58e8879dcd2f00f47dab75",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "59039ea3bcd3b7a1091d0a25663085a3e9930f0c3b58e8879dcd2f00f47dab75",
+          "time": 120.00000000001016
+        }
+      ]
+    },
+    {
+      "policy": "role-value-v1",
+      "variants": [
+        {
+          "observed": true,
+          "ticks": 4800,
+          "hash": "469bfb2d605caeb2b82e75ddf309e791d329a3728d99ab1d1a234dff51585c09",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "469bfb2d605caeb2b82e75ddf309e791d329a3728d99ab1d1a234dff51585c09",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "469bfb2d605caeb2b82e75ddf309e791d329a3728d99ab1d1a234dff51585c09",
+          "time": 120.00000000001016
+        }
+      ]
+    },
+    {
+      "policy": "role-intent-v1",
+      "variants": [
+        {
+          "observed": true,
+          "ticks": 4800,
+          "hash": "2e6c713d80a5dc8d744523e1ee7c63f06075654a951c379bfc61d6ce36e001d5",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "2e6c713d80a5dc8d744523e1ee7c63f06075654a951c379bfc61d6ce36e001d5",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "2e6c713d80a5dc8d744523e1ee7c63f06075654a951c379bfc61d6ce36e001d5",
+          "time": 120.00000000001016
+        }
+      ]
+    },
+    {
+      "policy": "phase-role-hybrid-v1",
+      "variants": [
+        {
+          "observed": true,
+          "ticks": 4800,
+          "hash": "1ae5959dbb3ff1bdecfb201ab1dc5920d897a6d7160528386fc5c2191d7df8d4",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "1ae5959dbb3ff1bdecfb201ab1dc5920d897a6d7160528386fc5c2191d7df8d4",
+          "time": 120.00000000001016
+        },
+        {
+          "observed": false,
+          "ticks": 4800,
+          "hash": "1ae5959dbb3ff1bdecfb201ab1dc5920d897a6d7160528386fc5c2191d7df8d4",
+          "time": 120.00000000001016
+        }
+      ]
+    }
+  ],
+  "fullMatch": {
+    "fixture": "pr183-development-ss-1",
+    "policy": "state-value-v1",
+    "referenceHash": "4759142910a7dc8bd18c674b390996356352fcbccae4f71ef0fcfe1ae32d820e",
+    "finalHash": "4759142910a7dc8bd18c674b390996356352fcbccae4f71ef0fcfe1ae32d820e",
+    "ticks": 228597,
+    "status": "full_time",
+    "time": 5714.924999981084,
+    "observerEqual": true,
+    "cpuSeconds": 340.079,
+    "wallSeconds": 329.1673251,
+    "maxRssBytes": 554807296,
+    "context": "Unobserved repeat of a complete development match. Other cohort processes may run concurrently; this is a correctness check, not an isolated performance comparison."
+  }
+}

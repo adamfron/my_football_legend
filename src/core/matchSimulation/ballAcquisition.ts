@@ -4,6 +4,7 @@ import { distance, physicalPointSchema } from './matchSpace';
 import type { TacticalMatchState, MatchPlayerState } from './matchState';
 import { playerContactGeometry } from './ballContactGeometry';
 import { canContactAfterThrowIn } from './throwIn';
+import { canParticipatePhysically } from './matchInjuries';
 
 export const ballAcquisitionSchema = z.object({
   id: z.string(),
@@ -26,6 +27,7 @@ const groundContactDistance = (state: TacticalMatchState, player: MatchPlayerSta
   );
 };
 const canGroundContact = (state: TacticalMatchState, player: MatchPlayerState) =>
+  canParticipatePhysically(player) &&
   !state.discipline?.[player.id]?.sentOff &&
   canContactAfterThrowIn(state, player.id) &&
   (state.ball.height ?? 0) < 0.5 &&
@@ -102,7 +104,15 @@ export const advanceBallAcquisition = (
   // a possession that had never involved an actual foot contact.
   if (!canGroundContact(state, candidate)) return { state };
   const rng = RandomGenerator.fromSeed(active.id);
-  const rival = state.players.find((p) => p.id === active.opponentId);
+  // A rival arriving during preparation is part of the live contest. The initial
+  // broad-phase nomination cannot certify that the ball is still uncontested.
+  const rival = state.players
+    .filter((p) => p.team !== candidate.team && canGroundContact(state, p))
+    .sort(
+      (a, b) =>
+        groundContactDistance(state, a) - groundContactDistance(state, b) ||
+        a.id.localeCompare(b.id),
+    )[0];
   const contested = Boolean(
     rival &&
       canGroundContact(state, rival) &&

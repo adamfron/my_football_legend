@@ -1,0 +1,49 @@
+{
+  "schema": "mfl-pr183-browser-v1",
+  "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+  "runtimeTag": "16c2e71efcec98862b6d6c996f0737f02131235e:7e8846775c8008124c60a2e269ed5ab66f1710a4deb1d34e12a718a9394f48a7",
+  "runtimeTagExplanation": "Server started from PR182 git HEAD after production edits; file digest identifies the actual unchanged candidate production files.",
+  "launcher": {
+    "default": "state-value-v1",
+    "policies": 5
+  },
+  "spectator": {
+    "seed": "pr183-browser-r3-20261023",
+    "policy": "phase-role-hybrid-v1",
+    "fixtureId": "fixture-56eb0f4b",
+    "canonicalSeconds": 328.825,
+    "shots": 2,
+    "goals": 1,
+    "passes": 141,
+    "fouls": 2,
+    "export": "pr183-evidence/browser-r3.json.gz",
+    "exportGzipSha256": "43e43f732937bc38dc9345e4f7555de4b6686172cd41f12806cbc1aedfe128f9",
+    "runtimeWarnings": []
+  },
+  "human": {
+    "seed": "pr183-browser-human-20261023",
+    "policy": "state-value-v1",
+    "fixtureId": "fixture-edf3df9e",
+    "player": "Adam Krawczyk",
+    "canonicalSeconds": 140.775,
+    "score": {
+      "home": 1,
+      "away": 0
+    },
+    "actions": [
+      "Wycofaj przed pole karne",
+      "Wyjdź do przechwytu",
+      "Podaj do nogi · wsparcie Lis"
+    ],
+    "visibleHumanPasses": {
+      "completed": 1,
+      "attempts": 2
+    },
+    "consoleWarnErrorLogs": [],
+    "fullMatch": false,
+    "exportFileObtained": false,
+    "dom": "pr183-evidence/browser-human-dom.txt",
+    "screenshot": "pr183-evidence/browser-human.jpg",
+    "screenshotSha256": "cbad481c1fe0e1862f8bf4ceae7d02351e4fad36f6e33a8df070f019ac42e0c1"
+  }
+}

@@ -207,7 +207,7 @@ const deriveHomeRestartGeometry = (
   state: TacticalMatchState,
   scenario: RestartScenario,
   restartPoint?: PitchPoint,
-  options: { takerId?: string; selectedAction?: MatchAction } = {},
+  options: { takerId?: string; selectedAction?: MatchAction | undefined } = {},
 ) => {
   const ball = restartPoint ?? variantBall(scenario),
     home = outfield(state, 'home'),
@@ -777,7 +777,7 @@ export const deriveRestartGeometry = (
   scenario: RestartScenario,
   restartTeam: TeamSide = 'home',
   restartPoint?: PitchPoint,
-  options: { takerId?: string; selectedAction?: MatchAction } = {},
+  options: { takerId?: string; selectedAction?: MatchAction | undefined } = {},
 ): ReturnType<typeof deriveHomeRestartGeometry> => {
   if (state.endsSwitched) {
     // The established restart planner uses a right-attacking home basis. Rotate only its

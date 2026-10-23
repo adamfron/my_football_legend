@@ -1,0 +1,94 @@
+{
+  "schema": "mfl-pr183-closure-inputs-v1",
+  "cohort": "validation",
+  "independent": true,
+  "simulatedTicks": 0,
+  "sourceHashAtMaterialisation": "5ee3d84600909faa60b93f1089b6994a89a05bc8be8937439e2a63c1574b8f8e",
+  "purpose": "New untouched paired SS/SW/WW confirmation after closure freeze",
+  "rows": [
+    {
+      "design": {
+        "id": "pr183-closure-validation-ss-1",
+        "split": "validation",
+        "seed": "20261023-pr183-closure:pr183-closure-validation-ss-1:v2",
+        "youth": false,
+        "clubs": [
+          "pro_13",
+          "pro_7"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "balanced",
+          "counter_attacking"
+        ],
+        "attributes": "native",
+        "tier": "SS",
+        "strength": [
+          71.04415584415584,
+          78.12987012987011
+        ]
+      },
+      "inputHash": "68d8caa362427a1b208a66bbd9df05ffb4b4afee0cd02d0717604944a4f79b28",
+      "sessionHash": "6b647f3874be5d5308734a251a456f19297d07fecb9089406f4dd1cdcef30a5a"
+    },
+    {
+      "design": {
+        "id": "pr183-closure-validation-sw-1",
+        "split": "validation",
+        "seed": "20261023-pr183-closure:pr183-closure-validation-sw-1:v2",
+        "youth": false,
+        "clubs": [
+          "pro_0",
+          "pro_53"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "possession",
+          "balanced"
+        ],
+        "attributes": "native",
+        "tier": "SW",
+        "strength": [
+          68.79935064935064,
+          49.13831168831169
+        ]
+      },
+      "inputHash": "2cb50eada1413b500a8adc100633eda3a0526067fdbc61b2d78eb2aae011e612",
+      "sessionHash": "89a665cfc9a00d074594c024a55c5dc99197c52149c168712a602f6156e3f1ef"
+    },
+    {
+      "design": {
+        "id": "pr183-closure-validation-ww-1",
+        "split": "validation",
+        "seed": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2",
+        "youth": false,
+        "clubs": [
+          "pro_61",
+          "pro_63"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "counter_attacking",
+          "possession"
+        ],
+        "attributes": "native",
+        "tier": "WW",
+        "strength": [
+          49.73051948051948,
+          46.73506493506493
+        ]
+      },
+      "inputHash": "305ab0120cfe744c1806ff8ce46b8c74289f008da0df8c3448c9e6a58698a293",
+      "sessionHash": "2fafab024fc9d01d658a3f3bfbf8c59b0bd589ffde125ebf6314020ae273d391"
+    }
+  ]
+}

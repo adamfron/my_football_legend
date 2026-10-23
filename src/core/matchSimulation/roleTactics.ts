@@ -233,10 +233,12 @@ export const roleControlledValue = (
       Math.min(1, boxPartners / 2) *
       a.passing) /
     100;
+  // Central connections contribute attacking access at their actual field depth.
   const centralAccess =
     (clamp(1 - Math.abs(point.y - 34) / 25) *
       Math.min(1, outlets / 3) *
-      (a.passing + a.firstTouch)) /
+      (a.passing + a.firstTouch) *
+      clamp(depth / 105)) /
     200;
   const shootingAccess =
     (Math.exp(-distance(point, goal) / 15) *

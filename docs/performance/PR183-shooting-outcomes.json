@@ -1,0 +1,862 @@
+{
+  "schema": "mfl-pr183-shots-v1",
+  "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+  "scope": "Canonical recorded attempts use the retained summary shot ledger and agree with flow counts. Physical records are joined by shotId; unmatched releases are retained separately with their actual observer status. Censored means no observed resolution, not proof of a whistle. Expectations are uncalibrated proxies.",
+  "rows": [
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "attempts": 1,
+      "goals": 1,
+      "outcomes": {
+        "goal": 1
+      },
+      "recorded": 1,
+      "matchedPhysicalDetails": 1,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 10.988023237539716,
+      "meanPressure": 0.36002844368631415
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "attempts": 11,
+      "goals": 3,
+      "outcomes": {
+        "miss": 1,
+        "post": 1,
+        "block": 3,
+        "save": 3,
+        "goal": 3
+      },
+      "recorded": 11,
+      "matchedPhysicalDetails": 11,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 20.514122040488935,
+      "meanPressure": 0.5725429927140004
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "attempts": 27,
+      "goals": 5,
+      "outcomes": {
+        "miss": 11,
+        "post": 1,
+        "block": 6,
+        "save": 4,
+        "goal": 5
+      },
+      "recorded": 27,
+      "matchedPhysicalDetails": 27,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 20.75902764186863,
+      "meanPressure": 0.680804348966367
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "attempts": 14,
+      "goals": 2,
+      "outcomes": {
+        "miss": 4,
+        "save": 6,
+        "block": 2,
+        "goal": 2
+      },
+      "recorded": 14,
+      "matchedPhysicalDetails": 14,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 19.85934863157944,
+      "meanPressure": 0.706363738073047
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "attempts": 26,
+      "goals": 6,
+      "outcomes": {
+        "miss": 10,
+        "goal": 6,
+        "save": 6,
+        "block": 4
+      },
+      "recorded": 26,
+      "matchedPhysicalDetails": 26,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 21.68797353517482,
+      "meanPressure": 0.7176104664242808
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "attempts": 3,
+      "goals": 2,
+      "outcomes": {
+        "miss": 1,
+        "goal": 2
+      },
+      "recorded": 3,
+      "matchedPhysicalDetails": 3,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 9.203055880420003,
+      "meanPressure": 0.7010733607389698
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "attempts": 26,
+      "goals": 6,
+      "outcomes": {
+        "miss": 11,
+        "goal": 6,
+        "save": 6,
+        "block": 3
+      },
+      "recorded": 26,
+      "matchedPhysicalDetails": 26,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 19.034723829401493,
+      "meanPressure": 0.6473002067053103
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "attempts": 18,
+      "goals": 5,
+      "outcomes": {
+        "goal": 5,
+        "block": 4,
+        "save": 4,
+        "miss": 5
+      },
+      "recorded": 18,
+      "matchedPhysicalDetails": 18,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 21.48067443011004,
+      "meanPressure": 0.716266409857331
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "attempts": 17,
+      "goals": 5,
+      "outcomes": {
+        "goal": 5,
+        "censored": 2,
+        "save": 6,
+        "miss": 3,
+        "block": 3
+      },
+      "recorded": 19,
+      "matchedPhysicalDetails": 17,
+      "missing": 0,
+      "uncountedPhysicalReleases": [
+        {
+          "shotId": "20261022-pr183-fresh:pr183-development-ss-2:v1:shot:1384:footballer_pro_2_21",
+          "releasedAt": 773.87499999957,
+          "status": "censored",
+          "interruption": "penalty",
+          "at": 773.92499999957
+        },
+        {
+          "shotId": "20261022-pr183-fresh:pr183-development-ss-2:v1:shot:2696:footballer_pro_8_21",
+          "releasedAt": 1414.4000000007627,
+          "status": "censored",
+          "interruption": "free_kick_close",
+          "at": 1414.5750000007633
+        }
+      ],
+      "meanDistance": 18.80919151065961,
+      "meanPressure": 0.6638101002763156
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "attempts": 25,
+      "goals": 7,
+      "outcomes": {
+        "goal": 7,
+        "save": 9,
+        "block": 4,
+        "miss": 5
+      },
+      "recorded": 25,
+      "matchedPhysicalDetails": 25,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 21.35642439200017,
+      "meanPressure": 0.6946692783338329
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "attempts": 15,
+      "goals": 10,
+      "outcomes": {
+        "miss": 2,
+        "goal": 10,
+        "block": 3
+      },
+      "recorded": 15,
+      "matchedPhysicalDetails": 15,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 9.041415804072557,
+      "meanPressure": 0.7177823826373299
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "attempts": 22,
+      "goals": 6,
+      "outcomes": {
+        "miss": 9,
+        "block": 4,
+        "goal": 6,
+        "save": 2,
+        "crossbar": 1,
+        "censored": 1
+      },
+      "recorded": 23,
+      "matchedPhysicalDetails": 22,
+      "missing": 0,
+      "uncountedPhysicalReleases": [
+        {
+          "shotId": "20261022-pr183-fresh:pr183-development-sw-1:v1:shot:7317:footballer_pro_62_21",
+          "releasedAt": 3479.2250000026165,
+          "status": "censored",
+          "interruption": "penalty",
+          "at": 3479.2500000026166
+        }
+      ],
+      "meanDistance": 17.815572620068536,
+      "meanPressure": 0.6626721695193362
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "attempts": 39,
+      "goals": 15,
+      "outcomes": {
+        "goal": 15,
+        "post": 1,
+        "save": 10,
+        "block": 7,
+        "miss": 6
+      },
+      "recorded": 39,
+      "matchedPhysicalDetails": 39,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 18.39707736788245,
+      "meanPressure": 0.6558556875834088
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "attempts": 29,
+      "goals": 5,
+      "outcomes": {
+        "goal": 5,
+        "save": 9,
+        "block": 7,
+        "miss": 8
+      },
+      "recorded": 29,
+      "matchedPhysicalDetails": 29,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 17.362214026711513,
+      "meanPressure": 0.6624805944091835
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "attempts": 55,
+      "goals": 17,
+      "outcomes": {
+        "block": 11,
+        "goal": 17,
+        "miss": 17,
+        "save": 10
+      },
+      "recorded": 55,
+      "matchedPhysicalDetails": 55,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 19.158096323610387,
+      "meanPressure": 0.6657193593766751
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "attempts": 2,
+      "goals": 2,
+      "outcomes": {
+        "goal": 2
+      },
+      "recorded": 2,
+      "matchedPhysicalDetails": 2,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 8.416140919433039,
+      "meanPressure": 0.7032551780669815
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "attempts": 20,
+      "goals": 8,
+      "outcomes": {
+        "save": 3,
+        "goal": 8,
+        "miss": 6,
+        "block": 2,
+        "post": 1
+      },
+      "recorded": 20,
+      "matchedPhysicalDetails": 20,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 15.98836892393291,
+      "meanPressure": 0.5834291678013992
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "attempts": 18,
+      "goals": 5,
+      "outcomes": {
+        "goal": 5,
+        "block": 7,
+        "miss": 4,
+        "save": 2
+      },
+      "recorded": 18,
+      "matchedPhysicalDetails": 18,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 17.030046660834916,
+      "meanPressure": 0.6338566602001691
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "attempts": 21,
+      "goals": 6,
+      "outcomes": {
+        "miss": 5,
+        "goal": 6,
+        "save": 7,
+        "block": 2,
+        "post": 1
+      },
+      "recorded": 21,
+      "matchedPhysicalDetails": 21,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 16.17872782422367,
+      "meanPressure": 0.6611889041798839
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "attempts": 31,
+      "goals": 6,
+      "outcomes": {
+        "goal": 6,
+        "miss": 15,
+        "save": 3,
+        "block": 6,
+        "crossbar": 1
+      },
+      "recorded": 31,
+      "matchedPhysicalDetails": 31,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 17.356413624564677,
+      "meanPressure": 0.6112611579944236
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "attempts": 1,
+      "goals": 1,
+      "outcomes": {
+        "goal": 1
+      },
+      "recorded": 1,
+      "matchedPhysicalDetails": 1,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 11.805927593867533,
+      "meanPressure": 0.40031552245835766
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "attempts": 11,
+      "goals": 2,
+      "outcomes": {
+        "goal": 2,
+        "miss": 5,
+        "block": 3,
+        "crossbar": 1
+      },
+      "recorded": 11,
+      "matchedPhysicalDetails": 11,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 20.53838394979433,
+      "meanPressure": 0.5783269947084005
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "attempts": 9,
+      "goals": 0,
+      "outcomes": {
+        "block": 3,
+        "miss": 6
+      },
+      "recorded": 9,
+      "matchedPhysicalDetails": 9,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 19.077549601770464,
+      "meanPressure": 0.6536361289322805
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "attempts": 9,
+      "goals": 5,
+      "outcomes": {
+        "block": 1,
+        "goal": 5,
+        "miss": 1,
+        "save": 2
+      },
+      "recorded": 9,
+      "matchedPhysicalDetails": 9,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 16.295046874603862,
+      "meanPressure": 0.7528523063748254
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "attempts": 10,
+      "goals": 2,
+      "outcomes": {
+        "goal": 2,
+        "miss": 5,
+        "block": 1,
+        "save": 2
+      },
+      "recorded": 10,
+      "matchedPhysicalDetails": 10,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 18.59850582559479,
+      "meanPressure": 0.6087413982306034
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "attempts": 0,
+      "goals": 0,
+      "outcomes": {},
+      "recorded": 0,
+      "matchedPhysicalDetails": 0,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 0,
+      "meanPressure": 0
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "attempts": 4,
+      "goals": 2,
+      "outcomes": {
+        "save": 1,
+        "miss": 1,
+        "goal": 2
+      },
+      "recorded": 4,
+      "matchedPhysicalDetails": 4,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 18.284565112528817,
+      "meanPressure": 0.6664493166248417
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "attempts": 5,
+      "goals": 2,
+      "outcomes": {
+        "goal": 2,
+        "miss": 3
+      },
+      "recorded": 5,
+      "matchedPhysicalDetails": 5,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 22.033020996997696,
+      "meanPressure": 0.661589446605812
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "attempts": 6,
+      "goals": 1,
+      "outcomes": {
+        "miss": 5,
+        "goal": 1
+      },
+      "recorded": 6,
+      "matchedPhysicalDetails": 6,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 15.783354579797985,
+      "meanPressure": 0.6720342654164045
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "attempts": 9,
+      "goals": 1,
+      "outcomes": {
+        "block": 2,
+        "miss": 5,
+        "save": 1,
+        "goal": 1
+      },
+      "recorded": 9,
+      "matchedPhysicalDetails": 9,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 17.85936872858555,
+      "meanPressure": 0.5673161885562722
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "legacy-pr176",
+      "cohort": "validation",
+      "attempts": 7,
+      "goals": 6,
+      "outcomes": {
+        "goal": 6,
+        "block": 1
+      },
+      "recorded": 7,
+      "matchedPhysicalDetails": 7,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 9.885385134113928,
+      "meanPressure": 0.6302230400869837
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "validation",
+      "attempts": 15,
+      "goals": 5,
+      "outcomes": {
+        "miss": 6,
+        "goal": 5,
+        "save": 3,
+        "block": 1
+      },
+      "recorded": 15,
+      "matchedPhysicalDetails": 15,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 19.600550596818866,
+      "meanPressure": 0.6818916497218904
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "role-intent-v1",
+      "cohort": "validation",
+      "attempts": 25,
+      "goals": 4,
+      "outcomes": {
+        "miss": 8,
+        "block": 6,
+        "save": 7,
+        "goal": 4
+      },
+      "recorded": 25,
+      "matchedPhysicalDetails": 25,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 19.80520671119574,
+      "meanPressure": 0.6801373452472198
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "role-value-v1",
+      "cohort": "validation",
+      "attempts": 14,
+      "goals": 5,
+      "outcomes": {
+        "post": 1,
+        "goal": 5,
+        "miss": 5,
+        "block": 2,
+        "save": 1
+      },
+      "recorded": 14,
+      "matchedPhysicalDetails": 14,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 18.628332696932507,
+      "meanPressure": 0.6874260430769603
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "state-value-v1",
+      "cohort": "validation",
+      "attempts": 21,
+      "goals": 6,
+      "outcomes": {
+        "goal": 6,
+        "save": 7,
+        "block": 3,
+        "miss": 5
+      },
+      "recorded": 21,
+      "matchedPhysicalDetails": 21,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 19.317890889611522,
+      "meanPressure": 0.673369547781809
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "legacy-pr176",
+      "cohort": "validation",
+      "attempts": 2,
+      "goals": 2,
+      "outcomes": {
+        "goal": 2
+      },
+      "recorded": 2,
+      "matchedPhysicalDetails": 2,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 9.361740696087187,
+      "meanPressure": 0.5076779173352644
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "validation",
+      "attempts": 17,
+      "goals": 6,
+      "outcomes": {
+        "block": 3,
+        "save": 4,
+        "goal": 6,
+        "miss": 4
+      },
+      "recorded": 17,
+      "matchedPhysicalDetails": 17,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 18.693903479856964,
+      "meanPressure": 0.6395763829375143
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "role-intent-v1",
+      "cohort": "validation",
+      "attempts": 26,
+      "goals": 7,
+      "outcomes": {
+        "goal": 7,
+        "block": 4,
+        "miss": 8,
+        "save": 7
+      },
+      "recorded": 26,
+      "matchedPhysicalDetails": 26,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 18.608036479447115,
+      "meanPressure": 0.616477910051765
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "role-value-v1",
+      "cohort": "validation",
+      "attempts": 15,
+      "goals": 6,
+      "outcomes": {
+        "miss": 5,
+        "goal": 6,
+        "block": 2,
+        "save": 2
+      },
+      "recorded": 15,
+      "matchedPhysicalDetails": 15,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 19.532644184227937,
+      "meanPressure": 0.7134948838874628
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "state-value-v1",
+      "cohort": "validation",
+      "attempts": 38,
+      "goals": 17,
+      "outcomes": {
+        "block": 7,
+        "goal": 17,
+        "miss": 6,
+        "save": 7,
+        "post": 1
+      },
+      "recorded": 38,
+      "matchedPhysicalDetails": 38,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 18.184139236719876,
+      "meanPressure": 0.7049619066917885
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "legacy-pr176",
+      "cohort": "validation",
+      "attempts": 1,
+      "goals": 0,
+      "outcomes": {
+        "save": 1
+      },
+      "recorded": 1,
+      "matchedPhysicalDetails": 1,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 7.328157590534965,
+      "meanPressure": 0.7091748004865629
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "validation",
+      "attempts": 8,
+      "goals": 2,
+      "outcomes": {
+        "goal": 2,
+        "block": 2,
+        "miss": 4
+      },
+      "recorded": 8,
+      "matchedPhysicalDetails": 8,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 13.831372939537982,
+      "meanPressure": 0.684057951239988
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "role-intent-v1",
+      "cohort": "validation",
+      "attempts": 8,
+      "goals": 1,
+      "outcomes": {
+        "miss": 3,
+        "save": 2,
+        "block": 2,
+        "goal": 1
+      },
+      "recorded": 8,
+      "matchedPhysicalDetails": 8,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 16.733170008249832,
+      "meanPressure": 0.7298438009490451
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "role-value-v1",
+      "cohort": "validation",
+      "attempts": 6,
+      "goals": 2,
+      "outcomes": {
+        "miss": 3,
+        "goal": 2,
+        "block": 1
+      },
+      "recorded": 6,
+      "matchedPhysicalDetails": 6,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 18.08453109130675,
+      "meanPressure": 0.6240074570110515
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "state-value-v1",
+      "cohort": "validation",
+      "attempts": 10,
+      "goals": 3,
+      "outcomes": {
+        "save": 2,
+        "goal": 3,
+        "miss": 4,
+        "block": 1
+      },
+      "recorded": 10,
+      "matchedPhysicalDetails": 10,
+      "missing": 0,
+      "uncountedPhysicalReleases": [],
+      "meanDistance": 20.556575960248125,
+      "meanPressure": 0.6040520114899449
+    }
+  ]
+}

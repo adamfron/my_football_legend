@@ -1,0 +1,112 @@
+{
+  "schema": "mfl-pr183-verification-v1",
+  "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+  "frozenCommit": "74213611bc9ad1594f212359f63437a8ef07fe19",
+  "acceptance": "REJECTED",
+  "mergeReady": false,
+  "summaryReady": false,
+  "unchangedVerify": {
+    "command": "npm run verify",
+    "exit": 1,
+    "lint": "pass",
+    "unit": {
+      "files": 232,
+      "passed": 2017,
+      "failed": 0
+    },
+    "integration": {
+      "files": 3,
+      "passed": 55,
+      "failed": 1
+    },
+    "failure": "state-value-v1 whole-half penalty contract: no canonical action for 180s at t=239.625",
+    "fullLog": {
+      "sha256": "b61648cacdc259bcf8b898366c3699413099534a50a5b46f103ae9dae996cade",
+      "bytes": 3807
+    },
+    "downstreamInCommand": "not reached after failing integration",
+    "verificationCommandUnmodified": true,
+    "assertionsAndTimeoutsNotWeakened": true,
+    "telemetryExpectedHashesUpdatedWithPairedReceipts": true
+  },
+  "separateChecks": {
+    "finalLint": {
+      "exit": 0,
+      "log": {
+        "sha256": "39e781f2eb1b5c98f68c8ee435a6f0b564b9da640d92873269a45f1107e557b5",
+        "bytes": 49
+      }
+    },
+    "build": {
+      "exit": 0,
+      "includes": [
+        "tsc -b",
+        "vite build"
+      ],
+      "log": {
+        "sha256": "fcdc1b16a3d65730bbca61ef156ac1c7acabde87498d7bdd8108c358c28f4896",
+        "bytes": 2662
+      },
+      "warnings": [
+        "pre-existing dynamic/static import overlap and chunk size warning"
+      ]
+    },
+    "careerContract": {
+      "exit": 0,
+      "files": 1,
+      "passed": 4,
+      "failed": 0,
+      "log": {
+        "sha256": "c1e94c78fef6e3cc29ab2979b60b73e25c63b06593f99573660870b61bfdc573",
+        "bytes": 1826
+      },
+      "scope": "Full U17 with 12 human choices; full professional fixture twice; commit/save/hydrate and duplicate/conflict rejection"
+    },
+    "fullCareer": {
+      "exit": 0,
+      "files": 1,
+      "passed": 5,
+      "failed": 0,
+      "log": {
+        "sha256": "94eb0172efce822697c050b599edecca1e7f71b24e885ad4d56b2bdc0f30ca32",
+        "bytes": 337
+      }
+    },
+    "format": {
+      "scope": "New reporting scripts and edited Markdown only; frozen source/harness not reformatted",
+      "status": "pass"
+    },
+    "receiptArchives": {
+      "status": "pass",
+      "checked": 5,
+      "method": "gunzip bytes SHA256 equals compact receipt detail digest"
+    }
+  },
+  "research": {
+    "development": {
+      "designs": 6,
+      "policies": 5,
+      "fullTime": 30
+    },
+    "confirmation": {
+      "designs": 3,
+      "policies": 5,
+      "fullTime": 15,
+      "acceptance": "reject global stabilization despite completion"
+    },
+    "fullObservedUnobservedStateEqual": true,
+    "physicsDt": 0.025
+  },
+  "blockers": [
+    "whole-half liveness regression",
+    "R3 confirmation retreat up to 44.57m",
+    "high circulation/live time/foul frequency and elevated conversion",
+    "three uncounted censored shot releases lack interruption attribution"
+  ],
+  "allExecutedTestStages": {
+    "passed": 2081,
+    "failed": 1,
+    "total": 2082,
+    "notACompleteVerifyPass": true
+  }
+}

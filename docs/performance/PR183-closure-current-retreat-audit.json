@@ -1,0 +1,3774 @@
+{
+  "schema": "mfl-pr183-closure-current-retreat-audit-v1",
+  "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+  "scope": "Every observed R3 continuous-owner PEAK >=15m, including forward recoveries. Replay begins at the first >12m snapshot on the identical source. Finite backward recycling is not automatically a defect; rankings, foot access, pressure and actual ending retained for review.",
+  "rows": [
+    {
+      "fixture": "pr183-development-ww-1",
+      "cohort": "development",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "81701d3e627a3d08e7ae2eb87bfb6d3ebddbbdec7206cda4e7ee03f8a05de72a",
+      "snapshotHash": "34fb760cf5479bbae889bf6e32aeebc844bc677e7d13872c32baf35377dbf591",
+      "snapshot": "pr183-evidence/closure-audit-pr183-development-ww-1-phase-role-hybrid-v1-retreat-0.json.gz",
+      "episode": {
+        "id": "footballer_pro_55_17",
+        "team": "home",
+        "at": 629.4249999997014,
+        "endAt": 657.424999999676,
+        "peakAt": 647.7499999996847,
+        "origin": {
+          "x": 40.84110951997686,
+          "y": 15.478521033767622
+        },
+        "end": {
+          "x": 46.46581797963926,
+          "y": 29.119553535290745
+        },
+        "peak": {
+          "x": 21.522633159216106,
+          "y": 30.193696804057947
+        },
+        "peakMetres": 19.318476360760755,
+        "netMetres": -5.624708459662401,
+        "recoveredForwardMetres": 24.943184820423156,
+        "duration": 27.999999999974534,
+        "meanPressure": 0.47381757441298444,
+        "pressureAtPeak": 0.4250992466755166,
+        "endedWithPass": true
+      },
+      "replayedPeak": 19.318476360760755,
+      "terminalAt": 657.4499999996759,
+      "terminalAction": {
+        "type": "pass",
+        "actorId": "footballer_pro_55_17",
+        "receiverId": "footballer_pro_55_21",
+        "target": {
+          "x": 48.200135608466624,
+          "y": 33.52369882240173
+        },
+        "intent": "support",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 48.200135608466624,
+            "y": 33.52369882240173
+          },
+          "velocity": {
+            "x": 3.5641965691970023,
+            "y": 6.511209375032703,
+            "z": 0
+          },
+          "speed": 7.42289328425173,
+          "elevation": 0,
+          "predictedArrivalTime": 0.7250000000000003,
+          "predictedArrivalSpeed": 5.102893284251729,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 48.200135608466624,
+              "y": 33.52369882240173
+            },
+            "awareAt": 0.514583770283476,
+            "readyAt": 1.14751120648007,
+            "earliestUsefulContactTime": 1.2675112064800702,
+            "preferredArrivalSpeed": 4.772118404589146,
+            "maximumComfortableArrivalSpeed": 9.130118404589146,
+            "preparationMargin": -0.4225112064800698,
+            "movementTime": 0.17927384036123048,
+            "orientationTime": 0.6329274361965941
+          },
+          "feasible": true,
+          "targetMissMetres": 0.510375906725464
+        }
+      },
+      "terminalBall": {
+        "x": 45.77484645703101,
+        "y": 29.093088682526517,
+        "from": {
+          "x": 45.77484645703101,
+          "y": 29.093088682526517
+        },
+        "target": {
+          "x": 48.92341106211507,
+          "y": 32.32917887781315
+        },
+        "intendedReceiverId": "footballer_pro_55_21",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "weak_foot",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": 4.894030429434855,
+          "y": 5.0300774716692604,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": 4.894030429434855,
+          "y": 5.0300774716692604,
+          "z": 0
+        },
+        "launchSpeed": 7.018063352181207,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_55_17"
+      },
+      "lastPossessionLoss": {
+        "to": "home",
+        "cause": "interception",
+        "winnerId": "footballer_pro_55_17",
+        "loserId": "footballer_pro_59_22",
+        "passId": "20261022-pr183-fresh:pr183-development-ww-1:v1:pass:1153:footballer_pro_59_22",
+        "id": "20261022-pr183-fresh:pr183-development-ww-1:v1:loss:acquisition:629.425000:footballer_pro_55_17",
+        "at": 629.4249999997014,
+        "from": "away",
+        "position": {
+          "x": 41.28831596752179,
+          "y": 14.624575238782596
+        }
+      },
+      "lastChallenge": {
+        "id": "20261022-pr183-fresh:pr183-development-ww-1:v1:challenge:613.000000:footballer_pro_59_12:footballer_pro_55_21:standing",
+        "at": 612.9999999997164,
+        "actorId": "footballer_pro_59_12",
+        "team": "away",
+        "opponentId": "footballer_pro_55_21",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 50.167153247916644,
+          "y": 43.14521450455276
+        },
+        "outcome": "clean_win",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.6062391511307005,
+        "opponentDistance": 0.7272534418631473,
+        "facingError": 1.302612171723009,
+        "relativeSpeed": 2.0636137981603544,
+        "lateness": 0.11463433212277141,
+        "force": 0.3095420697240531,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.26994142287401246
+      },
+      "lastPossessionChange": {
+        "at": 629.4249999997014,
+        "from": "away",
+        "to": "home",
+        "cause": "claim",
+        "winnerId": "footballer_pro_55_17",
+        "loserId": "footballer_pro_59_22"
+      },
+      "finalHash": "6026b5fda90ae3b5c418e37baf34d36538a873b4944a9fa7feae18ce7aaef8e0",
+      "rankings": 67,
+      "releaseReadyRankings": 44,
+      "rankingsWithForwardPass": 44,
+      "firstRanking": {
+        "at": 640.849999999691,
+        "position": {
+          "x": 28.72489790515871,
+          "y": 27.153645525860764
+        },
+        "pressure": 0.4320111532304034,
+        "releaseReady": false,
+        "role": "inside_forward",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 0,
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_55_17",
+              "target": {
+                "x": 26.13822206965699,
+                "y": 28.68206488711307
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.004416680463837213,
+            "deterministicNoise": 0.0010710774260759353,
+            "score": -0.0033456030377612776
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_55_17",
+              "target": {
+                "x": 25.72489790515871,
+                "y": 28.865234144395572
+              }
+            },
+            "canonicalScore": -0.004436426555303738,
+            "deterministicNoise": -0.0009416268485784532,
+            "score": -0.005378053403882191
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_55_17",
+              "target": {
+                "x": 33.72489790515871,
+                "y": 22.153645525860764
+              }
+            },
+            "canonicalScore": -0.009091032355124855,
+            "deterministicNoise": 0.0012435781925916672,
+            "score": -0.007847454162533189
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 657.4499999996759,
+        "position": {
+          "x": 46.42690683379091,
+          "y": 29.11806320216981
+        },
+        "pressure": 0.7150986704909555,
+        "releaseReady": true,
+        "role": "inside_forward",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 9,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_55_17",
+            "receiverId": "footballer_pro_55_12",
+            "target": {
+              "x": 56.071036782147374,
+              "y": 41.07066887256917
+            },
+            "intent": "progressive",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 56.071036782147374,
+                "y": 41.07066887256917
+              },
+              "velocity": {
+                "x": 7.690499861321578,
+                "y": 8.946374909736344,
+                "z": 0
+              },
+              "speed": 11.797517202468796,
+              "elevation": 0,
+              "predictedArrivalTime": 1.674999999999998,
+              "predictedArrivalSpeed": 6.437517202468791,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 56.071036782147374,
+                  "y": 41.07066887256917
+                },
+                "awareAt": 0.44791710361680936,
+                "readyAt": 0.7408642740284007,
+                "earliestUsefulContactTime": 0.8608642740284007,
+                "preferredArrivalSpeed": 6.1721184045891455,
+                "maximumComfortableArrivalSpeed": 10.530118404589144,
+                "preparationMargin": 0.9341357259715973,
+                "movementTime": 0.21731530659099382,
+                "orientationTime": 0.29294717041159135
+              },
+              "feasible": true,
+              "targetMissMetres": 0.5229034580959095
+            }
+          },
+          "canonicalScore": -0.007494877900443012,
+          "deterministicNoise": -0.0014772296406328678,
+          "score": -0.00897210754107588
+        },
+        "top": [
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_55_17",
+              "receiverId": "footballer_pro_55_21",
+              "target": {
+                "x": 48.200135608466624,
+                "y": 33.52369882240173
+              },
+              "intent": "support",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 48.200135608466624,
+                  "y": 33.52369882240173
+                },
+                "velocity": {
+                  "x": 3.5641965691970023,
+                  "y": 6.511209375032703,
+                  "z": 0
+                },
+                "speed": 7.42289328425173,
+                "elevation": 0,
+                "predictedArrivalTime": 0.7250000000000003,
+                "predictedArrivalSpeed": 5.102893284251729,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 48.200135608466624,
+                    "y": 33.52369882240173
+                  },
+                  "awareAt": 0.514583770283476,
+                  "readyAt": 1.14751120648007,
+                  "earliestUsefulContactTime": 1.2675112064800702,
+                  "preferredArrivalSpeed": 4.772118404589146,
+                  "maximumComfortableArrivalSpeed": 9.130118404589146,
+                  "preparationMargin": -0.4225112064800698,
+                  "movementTime": 0.17927384036123048,
+                  "orientationTime": 0.6329274361965941
+                },
+                "feasible": true,
+                "targetMissMetres": 0.510375906725464
+              }
+            },
+            "canonicalScore": -0.006997346376911801,
+            "deterministicNoise": 0.0002620482523739338,
+            "score": -0.006735298124537867
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_55_17",
+              "target": {
+                "x": 43.42690683379091,
+                "y": 30.33854740162736
+              }
+            },
+            "canonicalScore": -0.008420844934416,
+            "deterministicNoise": 0.0005621656461805106,
+            "score": -0.00785867928823549
+          },
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_55_17",
+              "receiverId": "footballer_pro_55_21",
+              "target": {
+                "x": 48.200135608466624,
+                "y": 33.52369882240173
+              },
+              "intent": "support",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 48.200135608466624,
+                  "y": 33.52369882240173
+                },
+                "velocity": {
+                  "x": 5.16449077262067,
+                  "y": 9.43468747671614,
+                  "z": 0
+                },
+                "speed": 10.755709773129267,
+                "elevation": 0,
+                "predictedArrivalTime": 0.4500000000000001,
+                "predictedArrivalSpeed": 9.315709773129269,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 48.200135608466624,
+                    "y": 33.52369882240173
+                  },
+                  "awareAt": 0.514583770283476,
+                  "readyAt": 1.14751120648007,
+                  "earliestUsefulContactTime": 1.2675112064800702,
+                  "preferredArrivalSpeed": 4.772118404589146,
+                  "maximumComfortableArrivalSpeed": 9.130118404589146,
+                  "preparationMargin": -0.6975112064800699,
+                  "movementTime": 0.17927384036123048,
+                  "orientationTime": 0.6329274361965941
+                },
+                "feasible": true,
+                "targetMissMetres": 0.534904139899801
+              }
+            },
+            "canonicalScore": -0.009112279748201637,
+            "deterministicNoise": 0.0012130776568502189,
+            "score": -0.007899202091351419
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-development-ww-1",
+      "cohort": "development",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "81701d3e627a3d08e7ae2eb87bfb6d3ebddbbdec7206cda4e7ee03f8a05de72a",
+      "snapshotHash": "d9b1a2f5282ff9a92975a40ac78a007c3c980b6748155b8a7e5c1423dbf6ce6f",
+      "snapshot": "pr183-evidence/closure-audit-pr183-development-ww-1-phase-role-hybrid-v1-retreat-1.json.gz",
+      "episode": {
+        "id": "footballer_pro_59_3",
+        "team": "away",
+        "at": 914.9999999994417,
+        "endAt": 925.3249999994323,
+        "peakAt": 923.5249999994339,
+        "origin": {
+          "x": 54.59666728172973,
+          "y": 25.006533680265914
+        },
+        "end": {
+          "x": 70.41499992456407,
+          "y": 31.42352872174694
+        },
+        "peak": {
+          "x": 71.45653997320493,
+          "y": 31.639752949282737
+        },
+        "peakMetres": 16.859872691475196,
+        "netMetres": 15.818332642834342,
+        "recoveredForwardMetres": 1.0415400486408544,
+        "duration": 10.32499999999061,
+        "meanPressure": 0.506590747345735,
+        "pressureAtPeak": 0.3583604734503108,
+        "endedWithPass": true
+      },
+      "replayedPeak": 16.859872691475196,
+      "terminalAt": 925.3499999994323,
+      "terminalAction": {
+        "type": "pass",
+        "actorId": "footballer_pro_59_3",
+        "receiverId": "footballer_pro_59_9",
+        "target": {
+          "x": 72.71440759530097,
+          "y": 9.082088276870282
+        },
+        "intent": "support",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 72.71440759530097,
+            "y": 9.082088276870282
+          },
+          "velocity": {
+            "x": 0.9635626658834122,
+            "y": -12.792722647616873,
+            "z": 0
+          },
+          "speed": 12.828959651894381,
+          "elevation": 0,
+          "predictedArrivalTime": 2.499999999999995,
+          "predictedArrivalSpeed": 4.828959651894368,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 72.71440759530097,
+              "y": 9.082088276870282
+            },
+            "awareAt": 0.4673173772998651,
+            "readyAt": 1.111872430493746,
+            "earliestUsefulContactTime": 1.231872430493746,
+            "preferredArrivalSpeed": 4.533980790542511,
+            "maximumComfortableArrivalSpeed": 8.81998079054251,
+            "preparationMargin": 1.3881275695062492,
+            "movementTime": 0.20660542732158385,
+            "orientationTime": 0.6445550531938808
+          },
+          "feasible": true,
+          "targetMissMetres": 0.431542111033665
+        }
+      },
+      "terminalBall": {
+        "x": 71.02417251753785,
+        "y": 31.522464315384212,
+        "from": {
+          "x": 71.02417251753785,
+          "y": 31.522464315384212
+        },
+        "target": {
+          "x": 73.65112866921655,
+          "y": 8.960908570141555
+        },
+        "intendedReceiverId": "footballer_pro_59_9",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "weak_foot",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": 1.4906249669842382,
+          "y": -12.802200092443249,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": 1.4906249669842382,
+          "y": -12.802200092443249,
+          "z": 0
+        },
+        "launchSpeed": 12.888688451473666,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_59_3"
+      },
+      "lastPossessionLoss": {
+        "to": "away",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_59_7",
+        "loserId": "footballer_pro_55_7",
+        "id": "20261022-pr183-fresh:pr183-development-ww-1:v1:loss:acquisition:868.300000:footballer_pro_59_7",
+        "at": 868.2999999994842,
+        "from": "home",
+        "position": {
+          "x": 88.9142894437552,
+          "y": 4.388215126156074
+        }
+      },
+      "lastChallenge": {
+        "id": "20261022-pr183-fresh:pr183-development-ww-1:v1:challenge:895.375000:footballer_pro_55_5:footballer_pro_59_17:standing",
+        "at": 895.3749999994595,
+        "actorId": "footballer_pro_55_5",
+        "team": "home",
+        "opponentId": "footballer_pro_59_17",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 15.62740525823216,
+          "y": 56.2932109060311
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.5229670046767619,
+        "opponentDistance": 0.7317923483887344,
+        "facingError": 0.4205643141206057,
+        "relativeSpeed": 4.195240090395117,
+        "lateness": 0,
+        "force": 0.6292860135592676,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.17981476440786537
+      },
+      "lastPossessionChange": {
+        "at": 868.2999999994842,
+        "from": "home",
+        "to": "away",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_59_7",
+        "loserId": "footballer_pro_55_7",
+        "challengeId": "20261022-pr183-fresh:pr183-development-ww-1:v1:challenge:868.300000:footballer_pro_59_7:footballer_pro_55_7:standing"
+      },
+      "finalHash": "54a395640eb869c3da54435dd210e55a1529e13053c0fed3fc87f69288bff448",
+      "rankings": 20,
+      "releaseReadyRankings": 12,
+      "rankingsWithForwardPass": 12,
+      "firstRanking": {
+        "at": 920.8999999994363,
+        "position": {
+          "x": 66.9797624082216,
+          "y": 30.753796679851984
+        },
+        "pressure": 0.4737560390561778,
+        "releaseReady": false,
+        "role": "ball_playing_defender",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 0,
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_59_3",
+              "target": {
+                "x": 69.32992178638013,
+                "y": 31.425954217210986
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.0036567054150826997,
+            "deterministicNoise": 0.0016086840134114026,
+            "score": -0.002048021401671297
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_59_3",
+              "target": {
+                "x": 69.9797624082216,
+                "y": 31.565347509888987
+              }
+            },
+            "canonicalScore": -0.0034264043631374616,
+            "deterministicNoise": -0.0006525115528330206,
+            "score": -0.004078915915970482
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_59_3",
+              "target": {
+                "x": 60.9797624082216,
+                "y": 30.753796679851984
+              }
+            },
+            "canonicalScore": -0.008032172238299919,
+            "deterministicNoise": -0.00006838943768292666,
+            "score": -0.008100561675982845
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 925.3499999994323,
+        "position": {
+          "x": 70.46692471608797,
+          "y": 31.428663105264615
+        },
+        "pressure": 0.4966506587854262,
+        "releaseReady": true,
+        "role": "ball_playing_defender",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 20,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_59_3",
+            "receiverId": "footballer_pro_59_19",
+            "target": {
+              "x": 52.119458720473396,
+              "y": 9.385386200416404
+            },
+            "intent": "progressive",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 52.119458720473396,
+                "y": 9.385386200416404
+              },
+              "velocity": {
+                "x": -9.65310051787697,
+                "y": -11.30360620688481,
+                "z": 0
+              },
+              "speed": 14.864516907338812,
+              "elevation": 0,
+              "predictedArrivalTime": 2.7249999999999943,
+              "predictedArrivalSpeed": 6.144516907338804,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 52.119458720473396,
+                  "y": 9.385386200416404
+                },
+                "awareAt": 0.4708261492296897,
+                "readyAt": 1.3003310996096635,
+                "earliestUsefulContactTime": 1.4203310996096636,
+                "preferredArrivalSpeed": 5.8859807905425106,
+                "maximumComfortableArrivalSpeed": 10.315980790542511,
+                "preparationMargin": 1.4246689003903308,
+                "movementTime": 0,
+                "orientationTime": 0.8295049503799738
+              },
+              "feasible": true,
+              "targetMissMetres": 0.48598721217768065
+            }
+          },
+          "canonicalScore": -0.006662922108279273,
+          "deterministicNoise": 0.0005708379842713474,
+          "score": -0.006092084124007925
+        },
+        "top": [
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_59_3",
+              "receiverId": "footballer_pro_59_9",
+              "target": {
+                "x": 72.71440759530097,
+                "y": 9.082088276870282
+              },
+              "intent": "support",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 72.71440759530097,
+                  "y": 9.082088276870282
+                },
+                "velocity": {
+                  "x": 0.9635626658834122,
+                  "y": -12.792722647616873,
+                  "z": 0
+                },
+                "speed": 12.828959651894381,
+                "elevation": 0,
+                "predictedArrivalTime": 2.499999999999995,
+                "predictedArrivalSpeed": 4.828959651894368,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 72.71440759530097,
+                    "y": 9.082088276870282
+                  },
+                  "awareAt": 0.4673173772998651,
+                  "readyAt": 1.111872430493746,
+                  "earliestUsefulContactTime": 1.231872430493746,
+                  "preferredArrivalSpeed": 4.533980790542511,
+                  "maximumComfortableArrivalSpeed": 8.81998079054251,
+                  "preparationMargin": 1.3881275695062492,
+                  "movementTime": 0.20660542732158385,
+                  "orientationTime": 0.6445550531938808
+                },
+                "feasible": true,
+                "targetMissMetres": 0.431542111033665
+              }
+            },
+            "canonicalScore": -0.003154478257531865,
+            "deterministicNoise": 0.001429004100523889,
+            "score": -0.001725474157007976
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_59_3",
+              "target": {
+                "x": 73.36857872104036,
+                "y": 31.71558201355078
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.0043467632699286255,
+            "deterministicNoise": 0.0013027922469750046,
+            "score": -0.003043971022953621
+          },
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_59_3",
+              "receiverId": "footballer_pro_59_15",
+              "target": {
+                "x": 71.83569269318065,
+                "y": 41.59821675585105
+              },
+              "intent": "support",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 71.83569269318065,
+                  "y": 41.59821675585105
+                },
+                "velocity": {
+                  "x": 0.7384317992685963,
+                  "y": 9.168294550046788,
+                  "z": 0
+                },
+                "speed": 9.19798382682796,
+                "elevation": 0,
+                "predictedArrivalTime": 1.3749999999999991,
+                "predictedArrivalSpeed": 4.797983826827949,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 71.83569269318065,
+                    "y": 41.59821675585105
+                  },
+                  "awareAt": 0.45679106151039145,
+                  "readyAt": 0.6747462099286599,
+                  "earliestUsefulContactTime": 0.7947462099286599,
+                  "preferredArrivalSpeed": 4.461980790542511,
+                  "maximumComfortableArrivalSpeed": 8.96398079054251,
+                  "preparationMargin": 0.7002537900713393,
+                  "movementTime": 0.09988675105709198,
+                  "orientationTime": 0.2179551484182684
+                },
+                "feasible": true,
+                "targetMissMetres": 0.486152535520665
+              }
+            },
+            "canonicalScore": -0.005554715339515557,
+            "deterministicNoise": 0.0014953447162359952,
+            "score": -0.004059370623279562
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-development-ww-2",
+      "cohort": "development",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "97764c34225f1c64d263cce084fc96ecfe56da0d1366bb2f5126333452fd1faa",
+      "snapshotHash": "562bd5f04d948a88ae0547da143da2d8a3db24e472e67d742905e0d8fb114f9d",
+      "snapshot": "pr183-evidence/closure-audit-pr183-development-ww-2-phase-role-hybrid-v1-retreat-0.json.gz",
+      "episode": {
+        "id": "footballer_pro_53_4",
+        "team": "away",
+        "at": 1222.1750000000634,
+        "endAt": 1235.9750000001136,
+        "peakAt": 1235.9750000001136,
+        "origin": {
+          "x": 53.22804267124346,
+          "y": 48.37838129325284
+        },
+        "end": {
+          "x": 70.85892727093787,
+          "y": 36.52382976979608
+        },
+        "peak": {
+          "x": 70.85892727093787,
+          "y": 36.52382976979608
+        },
+        "peakMetres": 17.63088459969441,
+        "netMetres": 17.63088459969441,
+        "recoveredForwardMetres": 0,
+        "duration": 13.800000000050204,
+        "meanPressure": 0.6099057528847152,
+        "pressureAtPeak": 0.32675245986374024,
+        "endedWithPass": true
+      },
+      "replayedPeak": 17.63088459969441,
+      "terminalAt": 1236.0000000001137,
+      "terminalAction": {
+        "type": "pass",
+        "actorId": "footballer_pro_53_4",
+        "receiverId": "footballer_pro_53_13",
+        "target": {
+          "x": 62.594791350669695,
+          "y": 27.53862386147022
+        },
+        "intent": "progressive",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 62.594791350669695,
+            "y": 27.53862386147022
+          },
+          "velocity": {
+            "x": -7.221748366552571,
+            "y": -7.634990558737489,
+            "z": 0
+          },
+          "speed": 10.50936393421673,
+          "elevation": 0,
+          "predictedArrivalTime": 1.424999999999999,
+          "predictedArrivalSpeed": 5.949363934216722,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 62.594791350669695,
+              "y": 27.53862386147022
+            },
+            "awareAt": 0.3872804706222453,
+            "readyAt": 0.6781099735865259,
+            "earliestUsefulContactTime": 0.7981099735865259,
+            "preferredArrivalSpeed": 5.672102951836488,
+            "maximumComfortableArrivalSpeed": 10.132102951836488,
+            "preparationMargin": 0.746890026413473,
+            "movementTime": 0.13712524452212274,
+            "orientationTime": 0.2908295029642806
+          },
+          "feasible": true,
+          "targetMissMetres": 0.5034655196135285
+        }
+      },
+      "terminalBall": {
+        "x": 70.99912633279291,
+        "y": 36.423870893638586,
+        "from": {
+          "x": 70.99912633279291,
+          "y": 36.423870893638586
+        },
+        "target": {
+          "x": 62.916823804886704,
+          "y": 26.415418943674023
+        },
+        "intendedReceiverId": "footballer_pro_53_13",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "weak_foot",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": -6.771705938207851,
+          "y": -8.385518021360246,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": -6.771705938207851,
+          "y": -8.385518021360246,
+          "z": 0
+        },
+        "launchSpeed": 10.77835394668949,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_53_4"
+      },
+      "lastPossessionLoss": {
+        "to": "away",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_53_4",
+        "loserId": "footballer_pro_59_12",
+        "id": "20261022-pr183-fresh:pr183-development-ww-2:v1:loss:acquisition:1222.175000:footballer_pro_53_4",
+        "at": 1222.1750000000634,
+        "from": "home",
+        "position": {
+          "x": 52.79680613759617,
+          "y": 47.96688586730985
+        }
+      },
+      "lastChallenge": {
+        "id": "20261022-pr183-fresh:pr183-development-ww-2:v1:challenge:1222.875000:footballer_pro_59_21:footballer_pro_53_4:standing",
+        "at": 1222.875000000066,
+        "actorId": "footballer_pro_59_21",
+        "team": "home",
+        "opponentId": "footballer_pro_53_4",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 52.82339275824152,
+          "y": 47.35927019627735
+        },
+        "outcome": "missed",
+        "ballFirst": false,
+        "opponentContact": false,
+        "ballDistance": 0.5887975955267222,
+        "opponentDistance": 1.0270770426541855,
+        "facingError": 0.08564871294899845,
+        "relativeSpeed": 2.235951802646789,
+        "lateness": 0,
+        "force": 0.33539277039701837,
+        "fromBehind": true,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.295650975589524
+      },
+      "lastPossessionChange": {
+        "at": 1222.1750000000634,
+        "from": "home",
+        "to": "away",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_53_4",
+        "loserId": "footballer_pro_59_12",
+        "challengeId": "20261022-pr183-fresh:pr183-development-ww-2:v1:challenge:1222.175000:footballer_pro_53_4:footballer_pro_59_12:standing"
+      },
+      "finalHash": "f399e3334eda62cc235dced9a329c09e21bf960bcbf3e84446d46b25cc9a9a80",
+      "rankings": 24,
+      "releaseReadyRankings": 15,
+      "rankingsWithForwardPass": 15,
+      "firstRanking": {
+        "at": 1231.4750000000972,
+        "position": {
+          "x": 65.66252643400495,
+          "y": 39.38576487096513
+        },
+        "pressure": 0.5898077806506514,
+        "releaseReady": false,
+        "role": "stopper",
+        "phase": "build_up",
+        "coachPlan": "balanced",
+        "forwardPasses": 0,
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_53_4",
+              "target": {
+                "x": 67.81030298323321,
+                "y": 38.34812122620468
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.003474770924630808,
+            "deterministicNoise": 0.0018793034954462202,
+            "score": -0.0015954674291845878
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_53_4",
+              "target": {
+                "x": 59.662526434004945,
+                "y": 39.38576487096513
+              }
+            },
+            "canonicalScore": -0.0071030671406620265,
+            "deterministicNoise": 0.0017356658984906972,
+            "score": -0.005367401242171329
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_53_4",
+              "target": {
+                "x": 60.662526434004945,
+                "y": 44.38576487096513
+              }
+            },
+            "canonicalScore": -0.0071030671406620265,
+            "deterministicNoise": 0.001181587586347014,
+            "score": -0.005921479554315013
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 1236.0000000001137,
+        "position": {
+          "x": 70.89345559314567,
+          "y": 36.511001372521115
+        },
+        "pressure": 0.32675245986374024,
+        "releaseReady": true,
+        "role": "stopper",
+        "phase": "build_up",
+        "coachPlan": "balanced",
+        "forwardPasses": 25,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_53_4",
+            "receiverId": "footballer_pro_53_13",
+            "target": {
+              "x": 62.594791350669695,
+              "y": 27.53862386147022
+            },
+            "intent": "progressive",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 62.594791350669695,
+                "y": 27.53862386147022
+              },
+              "velocity": {
+                "x": -7.221748366552571,
+                "y": -7.634990558737489,
+                "z": 0
+              },
+              "speed": 10.50936393421673,
+              "elevation": 0,
+              "predictedArrivalTime": 1.424999999999999,
+              "predictedArrivalSpeed": 5.949363934216722,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 62.594791350669695,
+                  "y": 27.53862386147022
+                },
+                "awareAt": 0.3872804706222453,
+                "readyAt": 0.6781099735865259,
+                "earliestUsefulContactTime": 0.7981099735865259,
+                "preferredArrivalSpeed": 5.672102951836488,
+                "maximumComfortableArrivalSpeed": 10.132102951836488,
+                "preparationMargin": 0.746890026413473,
+                "movementTime": 0.13712524452212274,
+                "orientationTime": 0.2908295029642806
+              },
+              "feasible": true,
+              "targetMissMetres": 0.5034655196135285
+            }
+          },
+          "canonicalScore": -0.009277726552609456,
+          "deterministicNoise": 0.0012434754290338607,
+          "score": -0.008034251123575595
+        },
+        "top": [
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_53_4",
+              "receiverId": "footballer_pro_53_13",
+              "target": {
+                "x": 62.594791350669695,
+                "y": 27.53862386147022
+              },
+              "intent": "progressive",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 62.594791350669695,
+                  "y": 27.53862386147022
+                },
+                "velocity": {
+                  "x": -7.221748366552571,
+                  "y": -7.634990558737489,
+                  "z": 0
+                },
+                "speed": 10.50936393421673,
+                "elevation": 0,
+                "predictedArrivalTime": 1.424999999999999,
+                "predictedArrivalSpeed": 5.949363934216722,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 62.594791350669695,
+                    "y": 27.53862386147022
+                  },
+                  "awareAt": 0.3872804706222453,
+                  "readyAt": 0.6781099735865259,
+                  "earliestUsefulContactTime": 0.7981099735865259,
+                  "preferredArrivalSpeed": 5.672102951836488,
+                  "maximumComfortableArrivalSpeed": 10.132102951836488,
+                  "preparationMargin": 0.746890026413473,
+                  "movementTime": 0.13712524452212274,
+                  "orientationTime": 0.2908295029642806
+                },
+                "feasible": true,
+                "targetMissMetres": 0.5034655196135285
+              }
+            },
+            "canonicalScore": -0.009277726552609456,
+            "deterministicNoise": 0.0012434754290338607,
+            "score": -0.008034251123575595
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_53_4",
+              "target": {
+                "x": 64.46784705573266,
+                "y": 36.63870778837501
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.010844551895206486,
+            "deterministicNoise": 0.0020923598718456927,
+            "score": -0.008752192023360793
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_53_4",
+              "target": {
+                "x": 65.89345559314567,
+                "y": 41.511001372521115
+              }
+            },
+            "canonicalScore": -0.006863369977560794,
+            "deterministicNoise": -0.001967582747032866,
+            "score": -0.008830952724593659
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-validation-sw-1",
+      "cohort": "regression",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "39f5e923c99d461093e7409a070c9a53dafafb817dd06eae1cb765341567a23a",
+      "snapshotHash": "504e916fa7daa1cccb5ba624c574b1dd061e1b031a8cfd2e6c10eb0c83f21b69",
+      "snapshot": "pr183-evidence/closure-audit-pr183-validation-sw-1-phase-role-hybrid-v1-retreat-0.json.gz",
+      "episode": {
+        "id": "footballer_pro_58_0",
+        "team": "away",
+        "at": 1416.7500000007713,
+        "endAt": 1437.6500000008473,
+        "peakAt": 1424.375000000799,
+        "origin": {
+          "x": 57.71874587692445,
+          "y": 47.146412327142656
+        },
+        "end": {
+          "x": 44.17158083607471,
+          "y": 65.10260359775963
+        },
+        "peak": {
+          "x": 74.58234916389092,
+          "y": 37.00532011864169
+        },
+        "peakMetres": 16.863603286966473,
+        "netMetres": -13.547165040849741,
+        "recoveredForwardMetres": 30.410768327816214,
+        "duration": 20.900000000076034,
+        "meanPressure": 0.5752492158679879,
+        "pressureAtPeak": 0.28681012385958193,
+        "endedWithPass": false
+      },
+      "replayedPeak": 16.863603286966473,
+      "terminalAt": 1437.6750000008474,
+      "terminalAction": {
+        "type": "challenge",
+        "actorId": "footballer_pro_13_19",
+        "opponentId": "footballer_pro_58_0",
+        "technique": "standing"
+      },
+      "terminalBall": {
+        "x": 43.86882561900127,
+        "y": 64.88737129092722,
+        "ownerId": "footballer_pro_13_19",
+        "lastTouchPlayerId": "footballer_pro_13_19"
+      },
+      "lastPossessionLoss": {
+        "to": "home",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_13_19",
+        "loserId": "footballer_pro_58_0",
+        "id": "20261022-pr183-fresh:pr183-validation-sw-1:v1:loss:acquisition:1437.675000:footballer_pro_13_19",
+        "at": 1437.6750000008474,
+        "from": "away",
+        "position": {
+          "x": 43.86882561900127,
+          "y": 64.88737129092722
+        }
+      },
+      "lastChallenge": {
+        "id": "20261022-pr183-fresh:pr183-validation-sw-1:v1:challenge:1437.675000:footballer_pro_13_19:footballer_pro_58_0:standing",
+        "at": 1437.6750000008474,
+        "actorId": "footballer_pro_13_19",
+        "team": "home",
+        "opponentId": "footballer_pro_58_0",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 44.15860278517656,
+          "y": 65.10742185702753
+        },
+        "outcome": "clean_win",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.5512959413736824,
+        "opponentDistance": 0.6979006976614535,
+        "facingError": 0.031071962004819653,
+        "relativeSpeed": 2.7188114044319107,
+        "lateness": 0,
+        "force": 0.4078217106647866,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.28201987551597085
+      },
+      "lastPossessionChange": {
+        "at": 1437.6750000008474,
+        "from": "away",
+        "to": "home",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_13_19",
+        "loserId": "footballer_pro_58_0",
+        "challengeId": "20261022-pr183-fresh:pr183-validation-sw-1:v1:challenge:1437.675000:footballer_pro_13_19:footballer_pro_58_0:standing"
+      },
+      "finalHash": "10239d79c2174ee8f9f4bbbddd629b3cd01cc06ecfafea1c8878dbabff1e0929",
+      "rankings": 75,
+      "releaseReadyRankings": 57,
+      "rankingsWithForwardPass": 55,
+      "firstRanking": {
+        "at": 1422.6000000007925,
+        "position": {
+          "x": 69.81923305002589,
+          "y": 38.67541843178826
+        },
+        "pressure": 0.5044852782100475,
+        "releaseReady": true,
+        "role": "traditional_keeper",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 23,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_58_0",
+            "receiverId": "footballer_pro_58_3",
+            "target": {
+              "x": 64.56411848437462,
+              "y": 44.590065511232055
+            },
+            "intent": "support",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 64.56411848437462,
+                "y": 44.590065511232055
+              },
+              "velocity": {
+                "x": -6.000699463257588,
+                "y": 6.2926373708955685,
+                "z": 0
+              },
+              "speed": 8.695152622578364,
+              "elevation": 0,
+              "predictedArrivalTime": 1.1999999999999997,
+              "predictedArrivalSpeed": 4.855152622578361,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 64.56411848437462,
+                  "y": 44.590065511232055
+                },
+                "awareAt": 0.3840470053150302,
+                "readyAt": 1.1624837133399257,
+                "earliestUsefulContactTime": 1.2824837133399258,
+                "preferredArrivalSpeed": 4.545382333852056,
+                "maximumComfortableArrivalSpeed": 8.825382333852057,
+                "preparationMargin": 0.037516286660074005,
+                "movementTime": 0.307323223261856,
+                "orientationTime": 0.7784367080248956
+              },
+              "feasible": true,
+              "targetMissMetres": 0.45500100431793705
+            }
+          },
+          "canonicalScore": -0.00789123523320088,
+          "deterministicNoise": -0.0013685092769190668,
+          "score": -0.009259744510119947
+        },
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_0",
+              "target": {
+                "x": 72.02375550627269,
+                "y": 37.75551622573922
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.0033367595749161775,
+            "deterministicNoise": 0.0018151926834229378,
+            "score": -0.0015215668914932397
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_0",
+              "target": {
+                "x": 72.81923305002589,
+                "y": 37.50656382384119
+              }
+            },
+            "canonicalScore": -0.0031025933621567983,
+            "deterministicNoise": -0.0013984548559226094,
+            "score": -0.0045010482180794075
+          },
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_58_0",
+              "receiverId": "footballer_pro_58_3",
+              "target": {
+                "x": 64.56411848437462,
+                "y": 44.590065511232055
+              },
+              "intent": "support",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 64.56411848437462,
+                  "y": 44.590065511232055
+                },
+                "velocity": {
+                  "x": -6.000699463257588,
+                  "y": 6.2926373708955685,
+                  "z": 0
+                },
+                "speed": 8.695152622578364,
+                "elevation": 0,
+                "predictedArrivalTime": 1.1999999999999997,
+                "predictedArrivalSpeed": 4.855152622578361,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 64.56411848437462,
+                    "y": 44.590065511232055
+                  },
+                  "awareAt": 0.3840470053150302,
+                  "readyAt": 1.1624837133399257,
+                  "earliestUsefulContactTime": 1.2824837133399258,
+                  "preferredArrivalSpeed": 4.545382333852056,
+                  "maximumComfortableArrivalSpeed": 8.825382333852057,
+                  "preparationMargin": 0.037516286660074005,
+                  "movementTime": 0.307323223261856,
+                  "orientationTime": 0.7784367080248956
+                },
+                "feasible": true,
+                "targetMissMetres": 0.45500100431793705
+              }
+            },
+            "canonicalScore": -0.00789123523320088,
+            "deterministicNoise": -0.0013685092769190668,
+            "score": -0.009259744510119947
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 1437.6250000008472,
+        "position": {
+          "x": 44.182615477090366,
+          "y": 65.0998314216405
+        },
+        "pressure": 0.7623866646022631,
+        "releaseReady": false,
+        "role": "traditional_keeper",
+        "phase": "settled_attack",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 0,
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_0",
+              "target": {
+                "x": 34.182615477090366,
+                "y": 54.214890424066326
+              }
+            },
+            "canonicalScore": 0.002927669427944227,
+            "deterministicNoise": 0.001280350186275318,
+            "score": 0.004208019614219545
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_0",
+              "target": {
+                "x": 34.36105383641119,
+                "y": 54.187670033338414
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": 0.0028675777423932663,
+            "deterministicNoise": 0.0010750988287385552,
+            "score": 0.0039426765711318215
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_0",
+              "target": {
+                "x": 38.182615477090366,
+                "y": 65.0998314216405
+              }
+            },
+            "canonicalScore": -0.00464121601107398,
+            "deterministicNoise": 0.00006468713564798235,
+            "score": -0.004576528875425998
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-validation-ww-1",
+      "cohort": "regression",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "50fd2e5a7901b90ad60485db9dc7d9a6a14c1dfd8f3243e56343a7fe1b45f57e",
+      "snapshotHash": "1394182911f07e087c65e864e3c4d7e5eea05730c3d42f1db2be603da8cdf8f5",
+      "snapshot": "pr183-evidence/closure-audit-pr183-validation-ww-1-phase-role-hybrid-v1-retreat-0.json.gz",
+      "episode": {
+        "id": "footballer_pro_58_17",
+        "team": "home",
+        "at": 1063.0749999994846,
+        "endAt": 1111.6999999996615,
+        "peakAt": 1079.8249999995455,
+        "origin": {
+          "x": 49.53674722833691,
+          "y": 9.573293857157541
+        },
+        "end": {
+          "x": 72.27731494717648,
+          "y": 11.502587970037618
+        },
+        "peak": {
+          "x": 33.64966016469977,
+          "y": 25.25399270347015
+        },
+        "peakMetres": 15.88708706363714,
+        "netMetres": -22.74056771883957,
+        "recoveredForwardMetres": 38.62765478247671,
+        "duration": 48.6250000001769,
+        "meanPressure": 0.6281503567938715,
+        "pressureAtPeak": 0.5417451028815241,
+        "endedWithPass": false
+      },
+      "replayedPeak": 15.88708706363714,
+      "terminalAt": 1111.7249999996616,
+      "terminalAction": {
+        "type": "cross",
+        "actorId": "footballer_pro_58_17",
+        "intendedTargetId": "footballer_pro_58_19",
+        "target": {
+          "x": 76.71451579934595,
+          "y": 45
+        },
+        "intent": "driven"
+      },
+      "terminalBall": {
+        "x": 71.56742084531852,
+        "y": 11.620441368929615,
+        "from": {
+          "x": 71.56742084531852,
+          "y": 11.620441368929615
+        },
+        "target": {
+          "x": 76.71451579934595,
+          "y": 45
+        },
+        "intendedReceiverId": "footballer_pro_58_19",
+        "travelKind": "cross",
+        "sourceAction": "cross",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": true,
+        "velocity": {
+          "x": 6.545475500282961,
+          "y": 42.448232484806375,
+          "z": 5.2483410193620825
+        },
+        "launchVelocity": {
+          "x": 6.545475500282961,
+          "y": 42.448232484806375,
+          "z": 5.2483410193620825
+        },
+        "launchSpeed": 43.26939766237212,
+        "launchElevation": 0.12159393260668128,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_58_17"
+      },
+      "lastPossessionLoss": {
+        "to": "home",
+        "cause": "failed_control",
+        "winnerId": "footballer_pro_58_9",
+        "loserId": "footballer_pro_61_17",
+        "id": "20261022-pr183-fresh:pr183-validation-ww-1:v1:loss:acquisition:1054.300000:footballer_pro_58_9",
+        "at": 1054.2999999994527,
+        "from": "away",
+        "position": {
+          "x": 37.331971630625574,
+          "y": 48.545094456983115
+        }
+      },
+      "lastChallenge": {
+        "id": "20261022-pr183-fresh:pr183-validation-ww-1:v1:challenge:1047.850000:footballer_pro_58_12:footballer_pro_61_12:standing",
+        "at": 1047.8499999994292,
+        "actorId": "footballer_pro_58_12",
+        "team": "home",
+        "opponentId": "footballer_pro_61_12",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 57.25065852830757,
+          "y": 32.170634712593895
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.25459497629735983,
+        "opponentDistance": 1.1476357564334814,
+        "facingError": 0.4501302255824715,
+        "relativeSpeed": 1.4579136561577501,
+        "lateness": 0,
+        "force": 0.21868704842366252,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.30801319300553587
+      },
+      "lastPossessionChange": {
+        "at": 1054.2999999994527,
+        "from": "away",
+        "to": "home",
+        "cause": "claim",
+        "winnerId": "footballer_pro_58_9",
+        "loserId": "footballer_pro_61_17"
+      },
+      "finalHash": "96186bca0be0f5a5bbb40ab58331277ceda93b4389fdc350570bf09208240fd8",
+      "rankings": 151,
+      "releaseReadyRankings": 113,
+      "rankingsWithForwardPass": 113,
+      "firstRanking": {
+        "at": 1076.8749999995348,
+        "position": {
+          "x": 37.466819577195615,
+          "y": 21.56076760346998
+        },
+        "pressure": 0.5550860034406723,
+        "releaseReady": true,
+        "role": "defensive_winger",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 18,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_58_17",
+            "receiverId": "footballer_pro_58_21",
+            "target": {
+              "x": 43.73857067884768,
+              "y": 33.487946061960635
+            },
+            "intent": "support",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 43.73857067884768,
+                "y": 33.487946061960635
+              },
+              "velocity": {
+                "x": 5.262802646826603,
+                "y": 8.871421459196167,
+                "z": 0
+              },
+              "speed": 10.31499929258996,
+              "elevation": 0,
+              "predictedArrivalTime": 1.674999999999998,
+              "predictedArrivalSpeed": 4.954999292589959,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 43.73857067884768,
+                  "y": 33.487946061960635
+                },
+                "awareAt": 0.5725752326935825,
+                "readyAt": 0.9365646956811069,
+                "earliestUsefulContactTime": 1.0565646956811068,
+                "preferredArrivalSpeed": 4.656103204128806,
+                "maximumComfortableArrivalSpeed": 8.786103204128807,
+                "preparationMargin": 0.7384353043188912,
+                "movementTime": 0.23067718265970247,
+                "orientationTime": 0.36398946298752444
+              },
+              "feasible": true,
+              "targetMissMetres": 0.44886264719818975
+            }
+          },
+          "canonicalScore": -0.011642082149895212,
+          "deterministicNoise": -0.001839292188771069,
+          "score": -0.013481374338666282
+        },
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_17",
+              "target": {
+                "x": 34.466819577195615,
+                "y": 24.670575702602484
+              }
+            },
+            "canonicalScore": -0.0022651186135832207,
+            "deterministicNoise": 0.0015974776674434544,
+            "score": -0.0006676409461397663
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_17",
+              "target": {
+                "x": 34.92554768724741,
+                "y": 24.29976135764769
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.002933531634558326,
+            "deterministicNoise": -0.0011851468892022968,
+            "score": -0.004118678523760623
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_17",
+              "target": {
+                "x": 43.466819577195615,
+                "y": 21.56076760346998
+              }
+            },
+            "canonicalScore": -0.008075415668592104,
+            "deterministicNoise": 0.0019615347366407515,
+            "score": -0.006113880931951353
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 1111.7249999996616,
+        "position": {
+          "x": 72.28633531033326,
+          "y": 11.489418448524198
+        },
+        "pressure": 0.7398595010513095,
+        "releaseReady": true,
+        "role": "defensive_winger",
+        "phase": "final_third",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 14,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_58_17",
+            "receiverId": "footballer_pro_58_12",
+            "target": {
+              "x": 76.6011398725443,
+              "y": 39.65242366707199
+            },
+            "intent": "support",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 76.6011398725443,
+                "y": 39.65242366707199
+              },
+              "velocity": {
+                "x": 2.870524558277564,
+                "y": 15.985495648208053,
+                "z": 0
+              },
+              "speed": 16.241181679870255,
+              "elevation": 0,
+              "predictedArrivalTime": 2.199999999999996,
+              "predictedArrivalSpeed": 9.201181679870242,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 76.6011398725443,
+                  "y": 39.65242366707199
+                },
+                "awareAt": 0.48246735065247287,
+                "readyAt": 0.7685680247139431,
+                "earliestUsefulContactTime": 0.8885680247139431,
+                "preferredArrivalSpeed": 4.86783140126157,
+                "maximumComfortableArrivalSpeed": 9.027831401261572,
+                "preparationMargin": 1.4314319752860531,
+                "movementTime": 0.1302696895435455,
+                "orientationTime": 0.2861006740614703
+              },
+              "feasible": true,
+              "targetMissMetres": 0.4937507025586754
+            }
+          },
+          "canonicalScore": -0.016294829287909367,
+          "deterministicNoise": 0.0017587845200300219,
+          "score": -0.014536044767879345
+        },
+        "top": [
+          {
+            "action": {
+              "type": "cross",
+              "actorId": "footballer_pro_58_17",
+              "intendedTargetId": "footballer_pro_58_19",
+              "target": {
+                "x": 76.71451579934595,
+                "y": 45
+              },
+              "intent": "driven"
+            },
+            "canonicalScore": -0.004350539008894597,
+            "deterministicNoise": -0.00016753781601786612,
+            "score": -0.004518076824912463
+          },
+          {
+            "action": {
+              "type": "cross",
+              "actorId": "footballer_pro_58_17",
+              "intendedTargetId": "footballer_pro_58_19",
+              "target": {
+                "x": 76.71451579934595,
+                "y": 45
+              },
+              "intent": "floated"
+            },
+            "canonicalScore": -0.005339380695738273,
+            "deterministicNoise": -0.0005668016732856631,
+            "score": -0.005906182369023936
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_17",
+              "target": {
+                "x": 78.28633531033326,
+                "y": 11.489418448524198
+              }
+            },
+            "canonicalScore": -0.009835925911598768,
+            "deterministicNoise": 0.0013930888102576138,
+            "score": -0.008442837101341154
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-validation-ww-1",
+      "cohort": "regression",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "50fd2e5a7901b90ad60485db9dc7d9a6a14c1dfd8f3243e56343a7fe1b45f57e",
+      "snapshotHash": "ceb46a30b43ca9a3a893656755431dffb2059e30ae51d56061a816e53fd6aa8a",
+      "snapshot": "pr183-evidence/closure-audit-pr183-validation-ww-1-phase-role-hybrid-v1-retreat-1.json.gz",
+      "episode": {
+        "id": "footballer_pro_58_5",
+        "team": "home",
+        "at": 2017.3500000029562,
+        "endAt": 2052.4000000030837,
+        "peakAt": 2050.4500000030766,
+        "origin": {
+          "x": 54.54232144732367,
+          "y": 19.442190934543635
+        },
+        "end": {
+          "x": 42.96287078624713,
+          "y": 12.58544534463466
+        },
+        "peak": {
+          "x": 38.8486245122192,
+          "y": 16.553256902538973
+        },
+        "peakMetres": 15.69369693510447,
+        "netMetres": 11.579450661076542,
+        "recoveredForwardMetres": 4.114246274027927,
+        "duration": 35.05000000012751,
+        "meanPressure": 0.6047515588910672,
+        "pressureAtPeak": 0.553713753490847,
+        "endedWithPass": false
+      },
+      "replayedPeak": 15.69369693510447,
+      "terminalAt": 2052.425000003084,
+      "terminalAction": {
+        "type": "carry",
+        "actorId": "footballer_pro_58_5",
+        "target": {
+          "x": 47.36351927195197,
+          "y": 8.039104062812012
+        }
+      },
+      "terminalBall": {
+        "x": 44.99401135619025,
+        "y": 11.690200713357216,
+        "velocity": {
+          "x": 6.292679236259997,
+          "y": -2.8314922543819274
+        },
+        "looseSince": 2052.425000003084,
+        "lastTouchPlayerId": "footballer_pro_58_5"
+      },
+      "lastPossessionLoss": {
+        "to": "home",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_58_5",
+        "loserId": "footballer_pro_61_12",
+        "id": "20261022-pr183-fresh:pr183-validation-ww-1:v1:loss:acquisition:1987.075000:footballer_pro_58_5",
+        "at": 1987.075000002846,
+        "from": "away",
+        "position": {
+          "x": 29.754474167212273,
+          "y": 31.214322441271698
+        }
+      },
+      "lastChallenge": {
+        "id": "20261022-pr183-fresh:pr183-validation-ww-1:v1:challenge:1987.075000:footballer_pro_58_5:footballer_pro_61_12:standing",
+        "at": 1987.075000002846,
+        "actorId": "footballer_pro_58_5",
+        "team": "home",
+        "opponentId": "footballer_pro_61_12",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 30.24581381930638,
+          "y": 31.355506695612316
+        },
+        "outcome": "clean_win",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.5988996062913533,
+        "opponentDistance": 0.9733019098562147,
+        "facingError": 0.46276027707875755,
+        "relativeSpeed": 4.021831778773032,
+        "lateness": 0,
+        "force": 0.6032747668159548,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.17488268612032698
+      },
+      "lastPossessionChange": {
+        "at": 1987.075000002846,
+        "from": "away",
+        "to": "home",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_58_5",
+        "loserId": "footballer_pro_61_12",
+        "challengeId": "20261022-pr183-fresh:pr183-validation-ww-1:v1:challenge:1987.075000:footballer_pro_58_5:footballer_pro_61_12:standing"
+      },
+      "finalHash": "8dd212c3c590561a4f7d7746cc741a8cf786be6898974f87922b3cabd4d5614b",
+      "rankings": 17,
+      "releaseReadyRankings": 12,
+      "rankingsWithForwardPass": 12,
+      "firstRanking": {
+        "at": 2048.300000003069,
+        "position": {
+          "x": 42.32957399038036,
+          "y": 18.32069573022105
+        },
+        "pressure": 0.6122309971493718,
+        "releaseReady": false,
+        "role": "stopper",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 0,
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 47.32957399038036,
+                "y": 13.32069573022105
+              }
+            },
+            "canonicalScore": -0.005558567420139339,
+            "deterministicNoise": 0.0008465009277500213,
+            "score": -0.004712066492389318
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 39.32957399038036,
+                "y": 22.24052179766579
+              }
+            },
+            "canonicalScore": -0.005558567420139339,
+            "deterministicNoise": 0.00021598344685509803,
+            "score": -0.00534258397328424
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 48.32957399038036,
+                "y": 18.32069573022105
+              }
+            },
+            "canonicalScore": -0.005558567420139339,
+            "deterministicNoise": -0.001207218500580639,
+            "score": -0.0067657859207199775
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 2052.200000003083,
+        "position": {
+          "x": 42.36351927195197,
+          "y": 13.039104062812012
+        },
+        "pressure": 0.513381499210778,
+        "releaseReady": false,
+        "role": "stopper",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 0,
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 47.36351927195197,
+                "y": 8.039104062812012
+              }
+            },
+            "canonicalScore": -0.0031089784278784944,
+            "deterministicNoise": -0.0016531863668933513,
+            "score": -0.004762164794771846
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 48.36351927195197,
+                "y": 13.039104062812012
+              }
+            },
+            "canonicalScore": -0.006879825301440431,
+            "deterministicNoise": 0.000395750821325928,
+            "score": -0.006484074480114503
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 55.7053074626221,
+                "y": 7.567562275255883
+              },
+              "movementMode": "sprint"
+            },
+            "canonicalScore": -0.004623969959332579,
+            "deterministicNoise": -0.0018747143790870907,
+            "score": -0.00649868433841967
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-validation-ww-1",
+      "cohort": "regression",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "50fd2e5a7901b90ad60485db9dc7d9a6a14c1dfd8f3243e56343a7fe1b45f57e",
+      "snapshotHash": "82bbfacf0e00aec259b17e96c01b70cfc51b12239f3236c00a0797a3f1084133",
+      "snapshot": "pr183-evidence/closure-audit-pr183-validation-ww-1-phase-role-hybrid-v1-retreat-2.json.gz",
+      "episode": {
+        "id": "footballer_pro_58_5",
+        "team": "home",
+        "at": 2054.4750000030913,
+        "endAt": 2097.600000003248,
+        "peakAt": 2071.125000003152,
+        "origin": {
+          "x": 51.15998141346821,
+          "y": 8.847369166665885
+        },
+        "end": {
+          "x": 75.38288754690126,
+          "y": 21.68709799550023
+        },
+        "peak": {
+          "x": 32.91669654337663,
+          "y": 25.343100156172927
+        },
+        "peakMetres": 18.24328487009158,
+        "netMetres": -24.22290613343305,
+        "recoveredForwardMetres": 42.46619100352463,
+        "duration": 43.12500000015689,
+        "meanPressure": 0.6476848394264798,
+        "pressureAtPeak": 0.5316639981258643,
+        "endedWithPass": true
+      },
+      "replayedPeak": 18.24328487009158,
+      "terminalAt": 2097.6250000032483,
+      "terminalAction": {
+        "type": "pass",
+        "actorId": "footballer_pro_58_5",
+        "receiverId": "footballer_pro_58_14",
+        "target": {
+          "x": 67.74310089024324,
+          "y": 23.74025710894109
+        },
+        "intent": "support",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 67.74310089024324,
+            "y": 23.74025710894109
+          },
+          "velocity": {
+            "x": -8.459202382096294,
+            "y": 2.36594061938611,
+            "z": 0
+          },
+          "speed": 8.78383628921468,
+          "elevation": 0,
+          "predictedArrivalTime": 1.125,
+          "predictedArrivalSpeed": 5.183836289214673,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 67.74310089024324,
+              "y": 23.74025710894109
+            },
+            "awareAt": 0.5207307772588935,
+            "readyAt": 0.6850341194085914,
+            "earliestUsefulContactTime": 0.8050341194085914,
+            "preferredArrivalSpeed": 4.843588474343321,
+            "maximumComfortableArrivalSpeed": 9.17158847434332,
+            "preparationMargin": 0.4399658805914086,
+            "movementTime": 0.1643033421496979,
+            "orientationTime": 0.04142347655900316
+          },
+          "feasible": true,
+          "targetMissMetres": 0.5330952132168116
+        }
+      },
+      "terminalBall": {
+        "x": 75.82293675083454,
+        "y": 21.480420897786605,
+        "from": {
+          "x": 75.82293675083454,
+          "y": 21.480420897786605
+        },
+        "target": {
+          "x": 67.72019070322733,
+          "y": 22.07261793016059
+        },
+        "intendedReceiverId": "footballer_pro_58_14",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "turning_pass",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": -8.620714450105126,
+          "y": 0.6300532540820983,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": -8.620714450105126,
+          "y": 0.6300532540820983,
+          "z": 0
+        },
+        "launchSpeed": 8.643707811652982,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_58_5"
+      },
+      "lastPossessionLoss": {
+        "to": "home",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_58_5",
+        "loserId": "footballer_pro_61_12",
+        "id": "20261022-pr183-fresh:pr183-validation-ww-1:v1:loss:acquisition:1987.075000:footballer_pro_58_5",
+        "at": 1987.075000002846,
+        "from": "away",
+        "position": {
+          "x": 29.754474167212273,
+          "y": 31.214322441271698
+        }
+      },
+      "lastChallenge": {
+        "id": "20261022-pr183-fresh:pr183-validation-ww-1:v1:challenge:1987.075000:footballer_pro_58_5:footballer_pro_61_12:standing",
+        "at": 1987.075000002846,
+        "actorId": "footballer_pro_58_5",
+        "team": "home",
+        "opponentId": "footballer_pro_61_12",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 30.24581381930638,
+          "y": 31.355506695612316
+        },
+        "outcome": "clean_win",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.5988996062913533,
+        "opponentDistance": 0.9733019098562147,
+        "facingError": 0.46276027707875755,
+        "relativeSpeed": 4.021831778773032,
+        "lateness": 0,
+        "force": 0.6032747668159548,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.17488268612032698
+      },
+      "lastPossessionChange": {
+        "at": 1987.075000002846,
+        "from": "away",
+        "to": "home",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_58_5",
+        "loserId": "footballer_pro_61_12",
+        "challengeId": "20261022-pr183-fresh:pr183-validation-ww-1:v1:challenge:1987.075000:footballer_pro_58_5:footballer_pro_61_12:standing"
+      },
+      "finalHash": "7f60ae29a6315f4a7b67b07ea895d34aa95dc425f0c2593e1ca33d1b32f18759",
+      "rankings": 147,
+      "releaseReadyRankings": 101,
+      "rankingsWithForwardPass": 101,
+      "firstRanking": {
+        "at": 2066.175000003134,
+        "position": {
+          "x": 38.88808576147577,
+          "y": 18.59982328663917
+        },
+        "pressure": 0.5521821945914058,
+        "releaseReady": true,
+        "role": "stopper",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 22,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_58_5",
+            "receiverId": "footballer_pro_58_17",
+            "target": {
+              "x": 62.034298138081574,
+              "y": 10.1249719978055
+            },
+            "intent": "progressive",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 62.034298138081574,
+                "y": 10.1249719978055
+              },
+              "velocity": {
+                "x": 13.140949830936385,
+                "y": -5.0509405653735,
+                "z": 0
+              },
+              "speed": 14.078230110852804,
+              "elevation": 0,
+              "predictedArrivalTime": 2.4249999999999954,
+              "predictedArrivalSpeed": 6.31823011085281,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 62.034298138081574,
+                  "y": 10.1249719978055
+                },
+                "awareAt": 0.5476653721228986,
+                "readyAt": 0.6257031592421254,
+                "earliestUsefulContactTime": 0.7457031592421254,
+                "preferredArrivalSpeed": 6.048618633509686,
+                "maximumComfortableArrivalSpeed": 10.190618633509686,
+                "preparationMargin": 1.79929684075787,
+                "movementTime": 0.07645234049615833,
+                "orientationTime": 0.07803778711922676
+              },
+              "feasible": true,
+              "targetMissMetres": 0.5209756812572409
+            }
+          },
+          "canonicalScore": -0.014756345239965133,
+          "deterministicNoise": 0.0005203276926465332,
+          "score": -0.0142360175473186
+        },
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 36.647386956120535,
+                "y": 21.669664242385398
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.001251238723330973,
+            "deterministicNoise": 0.0019896669279783966,
+            "score": 0.0007384282046474235
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 35.88808576147577,
+                "y": 22.449867464979377
+              }
+            },
+            "canonicalScore": -0.00019146844432041843,
+            "deterministicNoise": -0.0016815531789697708,
+            "score": -0.0018730216232901893
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 44.88808576147577,
+                "y": 18.59982328663917
+              }
+            },
+            "canonicalScore": -0.008036297618994829,
+            "deterministicNoise": 0.0013918376556411388,
+            "score": -0.00664445996335369
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 2097.6250000032483,
+        "position": {
+          "x": 75.39272012444889,
+          "y": 21.68924757119056
+        },
+        "pressure": 0.7663237286194345,
+        "releaseReady": true,
+        "role": "stopper",
+        "phase": "final_third",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 3,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_58_5",
+            "receiverId": "footballer_pro_58_12",
+            "target": {
+              "x": 81.83066149195133,
+              "y": 37.46082490242987
+            },
+            "intent": "through",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 81.83066149195133,
+                "y": 37.46082490242987
+              },
+              "velocity": {
+                "x": 4.6533893722986885,
+                "y": 12.377904342272323,
+                "z": 0
+              },
+              "speed": 13.223711602899787,
+              "elevation": 0,
+              "predictedArrivalTime": 1.5499999999999985,
+              "predictedArrivalSpeed": 8.263711602899782,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 81.83066149195133,
+                  "y": 37.46082490242987
+                },
+                "awareAt": 0.4856430579606479,
+                "readyAt": 1.4380240103416002,
+                "earliestUsefulContactTime": 1.5580240103416,
+                "preferredArrivalSpeed": 8.09958847434332,
+                "maximumComfortableArrivalSpeed": 12.259588474343321,
+                "preparationMargin": 0.11197598965839828,
+                "movementTime": 0.9523809523809523,
+                "orientationTime": 0.28109253389259437
+              },
+              "feasible": true,
+              "targetMissMetres": 0.4196243753414267
+            },
+            "requestedSpace": {
+              "x": 81.83066149195133,
+              "y": 37.46082490242987
+            }
+          },
+          "canonicalScore": -0.02046977522530034,
+          "deterministicNoise": -0.001952247175090015,
+          "score": -0.022422022400390356
+        },
+        "top": [
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_58_5",
+              "receiverId": "footballer_pro_58_14",
+              "target": {
+                "x": 67.74310089024324,
+                "y": 23.74025710894109
+              },
+              "intent": "support",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 67.74310089024324,
+                  "y": 23.74025710894109
+                },
+                "velocity": {
+                  "x": -8.459202382096294,
+                  "y": 2.36594061938611,
+                  "z": 0
+                },
+                "speed": 8.78383628921468,
+                "elevation": 0,
+                "predictedArrivalTime": 1.125,
+                "predictedArrivalSpeed": 5.183836289214673,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 67.74310089024324,
+                    "y": 23.74025710894109
+                  },
+                  "awareAt": 0.5207307772588935,
+                  "readyAt": 0.6850341194085914,
+                  "earliestUsefulContactTime": 0.8050341194085914,
+                  "preferredArrivalSpeed": 4.843588474343321,
+                  "maximumComfortableArrivalSpeed": 9.17158847434332,
+                  "preparationMargin": 0.4399658805914086,
+                  "movementTime": 0.1643033421496979,
+                  "orientationTime": 0.04142347655900316
+                },
+                "feasible": true,
+                "targetMissMetres": 0.5330952132168116
+              }
+            },
+            "canonicalScore": -0.007471433383189131,
+            "deterministicNoise": 0.000590200827382505,
+            "score": -0.006881232555806626
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 80.39272012444889,
+                "y": 16.68924757119056
+              }
+            },
+            "canonicalScore": -0.008615501486420561,
+            "deterministicNoise": 0.0008783783216960729,
+            "score": -0.007737123164724489
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_5",
+              "target": {
+                "x": 72.39272012444889,
+                "y": 24.76693567839292
+              }
+            },
+            "canonicalScore": -0.008615501486420561,
+            "deterministicNoise": 0.0008720547424815596,
+            "score": -0.007743446743939002
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-validation-ww-1",
+      "cohort": "regression",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "50fd2e5a7901b90ad60485db9dc7d9a6a14c1dfd8f3243e56343a7fe1b45f57e",
+      "snapshotHash": "91c42215690adc7e5c4dd42fd0eb53a012c8deff5789b0393213440f88e01c3f",
+      "snapshot": "pr183-evidence/closure-audit-pr183-validation-ww-1-phase-role-hybrid-v1-retreat-3.json.gz",
+      "episode": {
+        "id": "footballer_pro_58_22",
+        "team": "home",
+        "at": 4887.949999993336,
+        "endAt": 4913.12499999297,
+        "peakAt": 4905.0249999930875,
+        "origin": {
+          "x": 56.216434812044426,
+          "y": 38.44891392528058
+        },
+        "end": {
+          "x": 57.882183341650816,
+          "y": 48.90306891234791
+        },
+        "peak": {
+          "x": 73.19511187777289,
+          "y": 36.21809992880049
+        },
+        "peakMetres": 16.978677065728462,
+        "netMetres": 1.6657485296063896,
+        "recoveredForwardMetres": 15.312928536122072,
+        "duration": 25.174999999633656,
+        "meanPressure": 0.6129677083316396,
+        "pressureAtPeak": 0.4213884590877063,
+        "endedWithPass": true
+      },
+      "replayedPeak": 16.978677065728462,
+      "terminalAt": 4913.149999992969,
+      "terminalAction": {
+        "type": "pass",
+        "actorId": "footballer_pro_58_22",
+        "receiverId": "footballer_pro_58_3",
+        "target": {
+          "x": 67.47336420736731,
+          "y": 41.61265119706536
+        },
+        "intent": "support",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 67.47336420736731,
+            "y": 41.61265119706536
+          },
+          "velocity": {
+            "x": 8.133111402963277,
+            "y": -6.292524067069979,
+            "z": 0
+          },
+          "speed": 10.283159058755542,
+          "elevation": 0,
+          "predictedArrivalTime": 1.5999999999999983,
+          "predictedArrivalSpeed": 5.1631590587555385,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 67.47336420736731,
+              "y": 41.61265119706536
+            },
+            "awareAt": 0.4138835722122304,
+            "readyAt": 0.8529914333061697,
+            "earliestUsefulContactTime": 0.9729914333061697,
+            "preferredArrivalSpeed": 4.843748002824058,
+            "maximumComfortableArrivalSpeed": 9.123748002824058,
+            "preparationMargin": 0.7470085666938286,
+            "movementTime": 0.4391078610939393,
+            "orientationTime": 0.20608360113586044
+          },
+          "feasible": true,
+          "targetMissMetres": 0.4994244923667743
+        }
+      },
+      "terminalBall": {
+        "x": 57.30497380821077,
+        "y": 49.479854551336786,
+        "from": {
+          "x": 57.30497380821077,
+          "y": 49.479854551336786
+        },
+        "target": {
+          "x": 69.14427781966482,
+          "y": 41.983470776198985
+        },
+        "intendedReceiverId": "footballer_pro_58_3",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "normal",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": 9.070385485729128,
+          "y": -5.743166196567188,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": 9.070385485729128,
+          "y": -5.743166196567188,
+          "z": 0
+        },
+        "launchSpeed": 10.735727773240043,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_58_22"
+      },
+      "lastPossessionLoss": {
+        "to": "home",
+        "cause": "interception",
+        "winnerId": "footballer_pro_58_22",
+        "loserId": "footballer_pro_61_21",
+        "passId": "20261022-pr183-fresh:pr183-validation-ww-1:v1:pass:8679:footballer_pro_61_21",
+        "id": "20261022-pr183-fresh:pr183-validation-ww-1:v1:loss:acquisition:4887.950000:footballer_pro_58_22",
+        "at": 4887.949999993336,
+        "from": "away",
+        "position": {
+          "x": 55.931005181148244,
+          "y": 39.00352011098174
+        }
+      },
+      "lastChallenge": {
+        "id": "20261022-pr183-fresh:pr183-validation-ww-1:v1:challenge:4898.450000:footballer_pro_61_12:footballer_pro_58_22:standing",
+        "at": 4898.449999993183,
+        "actorId": "footballer_pro_61_12",
+        "team": "away",
+        "opponentId": "footballer_pro_58_22",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 64.73730958992334,
+          "y": 40.509639665857165
+        },
+        "outcome": "missed",
+        "ballFirst": false,
+        "opponentContact": false,
+        "ballDistance": 0.6155689086958227,
+        "opponentDistance": 1.1376450432450356,
+        "facingError": 0.8542367244753013,
+        "relativeSpeed": 2.146763355021518,
+        "lateness": 0,
+        "force": 0.32201450325322767,
+        "fromBehind": true,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.15077356883830362
+      },
+      "lastPossessionChange": {
+        "at": 4887.949999993336,
+        "from": "away",
+        "to": "home",
+        "cause": "claim",
+        "winnerId": "footballer_pro_58_22",
+        "loserId": "footballer_pro_61_21"
+      },
+      "finalHash": "f619b8a9c452e70028dbbc98d39194b6b14930e7a666af2557dde6b84a23683c",
+      "rankings": 45,
+      "releaseReadyRankings": 36,
+      "rankingsWithForwardPass": 36,
+      "firstRanking": {
+        "at": 4902.299999993127,
+        "position": {
+          "x": 68.71612318267574,
+          "y": 37.402836304049984
+        },
+        "pressure": 0.47853238820039273,
+        "releaseReady": true,
+        "role": "false_nine",
+        "phase": "build_up",
+        "coachPlan": "protect_lead",
+        "forwardPasses": 18,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_58_22",
+            "receiverId": "footballer_pro_58_13",
+            "target": {
+              "x": 56.077335759032664,
+              "y": 26.242390358000755
+            },
+            "intent": "progressive",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 56.077335759032664,
+                "y": 26.242390358000755
+              },
+              "velocity": {
+                "x": -9.289408726694624,
+                "y": -7.685449543702342,
+                "z": 0
+              },
+              "speed": 12.05650236098284,
+              "elevation": 0,
+              "predictedArrivalTime": 1.8249999999999975,
+              "predictedArrivalSpeed": 6.216502360982836,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 56.077335759032664,
+                  "y": 26.242390358000755
+                },
+                "awareAt": 0.45110809711036287,
+                "readyAt": 0.7972673856172605,
+                "earliestUsefulContactTime": 0.9172673856172605,
+                "preferredArrivalSpeed": 5.940238865840471,
+                "maximumComfortableArrivalSpeed": 10.142238865840472,
+                "preparationMargin": 1.027732614382737,
+                "movementTime": 0.1562893527048436,
+                "orientationTime": 0.34615928850689764
+              },
+              "feasible": true,
+              "targetMissMetres": 0.5247599720099143
+            }
+          },
+          "canonicalScore": -0.009715554120729107,
+          "deterministicNoise": 0.00021033435245044528,
+          "score": -0.009505219768278662
+        },
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_22",
+              "target": {
+                "x": 71.71612318267574,
+                "y": 36.55212722803749
+              }
+            },
+            "canonicalScore": -0.0020024725209595133,
+            "deterministicNoise": 0.000053801478445529935,
+            "score": -0.0019486710425139833
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_22",
+              "target": {
+                "x": 70.4134819737365,
+                "y": 36.8629054455986
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.002821618658633748,
+            "deterministicNoise": -0.0014807193126063795,
+            "score": -0.004302337971240127
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_22",
+              "target": {
+                "x": 62.716123182675744,
+                "y": 37.402836304049984
+              }
+            },
+            "canonicalScore": -0.006558391780424203,
+            "deterministicNoise": -0.0006607671957463026,
+            "score": -0.007219158976170505
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 4913.149999992969,
+        "position": {
+          "x": 57.821724462516805,
+          "y": 48.96352779148192
+        },
+        "pressure": 0.7531233356867155,
+        "releaseReady": true,
+        "role": "false_nine",
+        "phase": "build_up",
+        "coachPlan": "protect_lead",
+        "forwardPasses": 16,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_58_22",
+            "receiverId": "footballer_pro_58_20",
+            "target": {
+              "x": 48.38827196668392,
+              "y": 11.796735601468894
+            },
+            "intent": "progressive",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 48.38827196668392,
+                "y": 11.796735601468894
+              },
+              "velocity": {
+                "x": -4.347083286844667,
+                "y": -18.3713282662707,
+                "z": 0
+              },
+              "speed": 18.878634361887546,
+              "elevation": 0,
+              "predictedArrivalTime": 2.5999999999999948,
+              "predictedArrivalSpeed": 10.55863436188761,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 48.38827196668392,
+                  "y": 11.796735601468894
+                },
+                "awareAt": 0.6209011160718795,
+                "readyAt": 1.099582187215988,
+                "earliestUsefulContactTime": 1.219582187215988,
+                "preferredArrivalSpeed": 6.295748002824058,
+                "maximumComfortableArrivalSpeed": 10.419748002824058,
+                "preparationMargin": 1.5004178127840067,
+                "movementTime": 0.03990736551623741,
+                "orientationTime": 0.47868107114410857
+              },
+              "feasible": true,
+              "targetMissMetres": 0.4552517415117759
+            }
+          },
+          "canonicalScore": -0.008220345684283413,
+          "deterministicNoise": 0.00154066640464589,
+          "score": -0.006679679279637523
+        },
+        "top": [
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_58_22",
+              "receiverId": "footballer_pro_58_3",
+              "target": {
+                "x": 67.47336420736731,
+                "y": 41.61265119706536
+              },
+              "intent": "support",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 67.47336420736731,
+                  "y": 41.61265119706536
+                },
+                "velocity": {
+                  "x": 8.133111402963277,
+                  "y": -6.292524067069979,
+                  "z": 0
+                },
+                "speed": 10.283159058755542,
+                "elevation": 0,
+                "predictedArrivalTime": 1.5999999999999983,
+                "predictedArrivalSpeed": 5.1631590587555385,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 67.47336420736731,
+                    "y": 41.61265119706536
+                  },
+                  "awareAt": 0.4138835722122304,
+                  "readyAt": 0.8529914333061697,
+                  "earliestUsefulContactTime": 0.9729914333061697,
+                  "preferredArrivalSpeed": 4.843748002824058,
+                  "maximumComfortableArrivalSpeed": 9.123748002824058,
+                  "preparationMargin": 0.7470085666938286,
+                  "movementTime": 0.4391078610939393,
+                  "orientationTime": 0.20608360113586044
+                },
+                "feasible": true,
+                "targetMissMetres": 0.4994244923667743
+              }
+            },
+            "canonicalScore": -0.0003289936471722468,
+            "deterministicNoise": 0.0013859343035146593,
+            "score": 0.0010569406563424124
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_22",
+              "target": {
+                "x": 54.87284035628135,
+                "y": 51.91241189771738
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.00126474395511046,
+            "deterministicNoise": 0.002176576998922974,
+            "score": 0.0009118330438125139
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_58_22",
+              "target": {
+                "x": 52.821724462516805,
+                "y": 53.96352779148192
+              }
+            },
+            "canonicalScore": -0.0017119674947493723,
+            "deterministicNoise": 0.002229734197212383,
+            "score": 0.0005177667024630105
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-closure-validation-ww-1",
+      "cohort": "validation",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "305ab0120cfe744c1806ff8ce46b8c74289f008da0df8c3448c9e6a58698a293",
+      "snapshotHash": "a6f35e5fc90240ff8c10b9b06493bc9ee728a13e72a410eb2abc8238836c075f",
+      "snapshot": "pr183-evidence/closure-audit-pr183-closure-validation-ww-1-phase-role-hybrid-v1-retreat-1.json.gz",
+      "episode": {
+        "id": "footballer_pro_63_4",
+        "team": "away",
+        "at": 1446.6750000008801,
+        "endAt": 1461.8250000009352,
+        "peakAt": 1461.8250000009352,
+        "origin": {
+          "x": 57.634179480314444,
+          "y": 26.19972380101159
+        },
+        "end": {
+          "x": 81.61663580584862,
+          "y": 33.08171785015883
+        },
+        "peak": {
+          "x": 81.61663580584862,
+          "y": 33.08171785015883
+        },
+        "peakMetres": 23.982456325534173,
+        "netMetres": 23.982456325534173,
+        "recoveredForwardMetres": 0,
+        "duration": 15.150000000055115,
+        "meanPressure": 0.49445168270139095,
+        "pressureAtPeak": 0.32438478131603565,
+        "endedWithPass": true
+      },
+      "replayedPeak": 23.982456325534173,
+      "terminalAt": 1461.8500000009353,
+      "terminalAction": {
+        "type": "pass",
+        "actorId": "footballer_pro_63_4",
+        "receiverId": "footballer_pro_63_9",
+        "target": {
+          "x": 76.78352888650872,
+          "y": 10.49308169612283
+        },
+        "intent": "support",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 76.78352888650872,
+            "y": 10.49308169612283
+          },
+          "velocity": {
+            "x": -2.4025263696127124,
+            "y": -12.677753457959058,
+            "z": 0
+          },
+          "speed": 12.90339357291241,
+          "elevation": 0,
+          "predictedArrivalTime": 2.549999999999995,
+          "predictedArrivalSpeed": 4.743393572912423,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 76.78352888650872,
+              "y": 10.49308169612283
+            },
+            "awareAt": 0.49927705095090674,
+            "readyAt": 1.104712137987668,
+            "earliestUsefulContactTime": 1.2247121379876682,
+            "preferredArrivalSpeed": 4.373261737579242,
+            "maximumComfortableArrivalSpeed": 8.521261737579243,
+            "preparationMargin": 1.4452878620123268,
+            "movementTime": 0,
+            "orientationTime": 0.6054350870367614
+          },
+          "feasible": true,
+          "targetMissMetres": 0.5272444315893922
+        }
+      },
+      "terminalBall": {
+        "x": 81.07098469764239,
+        "y": 33.11731110019326,
+        "from": {
+          "x": 81.07098469764239,
+          "y": 33.11731110019326
+        },
+        "target": {
+          "x": 74.52116111366287,
+          "y": 13.149258640662604
+        },
+        "intendedReceiverId": "footballer_pro_63_9",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "normal",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": -3.841959930733144,
+          "y": -11.712751719288766,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": -3.841959930733144,
+          "y": -11.712751719288766,
+          "z": 0
+        },
+        "launchSpeed": 12.326767984636565,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_63_4"
+      },
+      "lastPossessionLoss": {
+        "to": "away",
+        "cause": "interception",
+        "winnerId": "footballer_pro_63_21",
+        "loserId": "footballer_pro_61_12",
+        "passId": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2:pass:2282:footballer_pro_61_12",
+        "id": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2:loss:acquisition:1434.825000:footballer_pro_63_21",
+        "at": 1434.825000000837,
+        "from": "home",
+        "position": {
+          "x": 46.06796627536181,
+          "y": 33.863668136563994
+        }
+      },
+      "lastChallenge": {
+        "id": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2:challenge:1444.550000:footballer_pro_61_17:footballer_pro_63_19:standing",
+        "at": 1444.5500000008724,
+        "actorId": "footballer_pro_61_17",
+        "team": "home",
+        "opponentId": "footballer_pro_63_19",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 50.88615901032177,
+          "y": 13.583983580127025
+        },
+        "outcome": "missed",
+        "ballFirst": false,
+        "opponentContact": false,
+        "ballDistance": 0.621077814041746,
+        "opponentDistance": 1.0994307346050358,
+        "facingError": 0.04862169488811752,
+        "relativeSpeed": 1.7745307470100504,
+        "lateness": 0,
+        "force": 0.26617961205150753,
+        "fromBehind": true,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.07631484191688287
+      },
+      "lastPossessionChange": {
+        "at": 1434.825000000837,
+        "from": "home",
+        "to": "away",
+        "cause": "claim",
+        "winnerId": "footballer_pro_63_21",
+        "loserId": "footballer_pro_61_12"
+      },
+      "finalHash": "588c6022d16ff219a8bdceec7f4d00713c128acfd67583aa16d2c3cb54277fed",
+      "rankings": 34,
+      "releaseReadyRankings": 15,
+      "rankingsWithForwardPass": 15,
+      "firstRanking": {
+        "at": 1454.2000000009075,
+        "position": {
+          "x": 69.90035225088224,
+          "y": 31.45507049761529
+        },
+        "pressure": 0.4528969305467612,
+        "releaseReady": false,
+        "role": "ball_playing_defender",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 0,
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_4",
+              "target": {
+                "x": 70.6399387388805,
+                "y": 31.648322590524078
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.007269811462737372,
+            "deterministicNoise": 0.0017552623709291217,
+            "score": -0.005514549091808251
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_4",
+              "target": {
+                "x": 63.900352250882236,
+                "y": 31.45507049761529
+              }
+            },
+            "canonicalScore": -0.008243166899066836,
+            "deterministicNoise": 0.0009244437330216169,
+            "score": -0.007318723166045219
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_4",
+              "target": {
+                "x": 64.90035225088224,
+                "y": 26.45507049761529
+              }
+            },
+            "canonicalScore": -0.008243166899066836,
+            "deterministicNoise": -0.0009772583921998739,
+            "score": -0.00922042529126671
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 1461.8500000009353,
+        "position": {
+          "x": 81.62247047017505,
+          "y": 33.086286714164025
+        },
+        "pressure": 0.32438478131603565,
+        "releaseReady": true,
+        "role": "ball_playing_defender",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 19,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_63_4",
+            "receiverId": "footballer_pro_63_9",
+            "target": {
+              "x": 76.78352888650872,
+              "y": 10.49308169612283
+            },
+            "intent": "support",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 76.78352888650872,
+                "y": 10.49308169612283
+              },
+              "velocity": {
+                "x": -2.4025263696127124,
+                "y": -12.677753457959058,
+                "z": 0
+              },
+              "speed": 12.90339357291241,
+              "elevation": 0,
+              "predictedArrivalTime": 2.549999999999995,
+              "predictedArrivalSpeed": 4.743393572912423,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 76.78352888650872,
+                  "y": 10.49308169612283
+                },
+                "awareAt": 0.49927705095090674,
+                "readyAt": 1.104712137987668,
+                "earliestUsefulContactTime": 1.2247121379876682,
+                "preferredArrivalSpeed": 4.373261737579242,
+                "maximumComfortableArrivalSpeed": 8.521261737579243,
+                "preparationMargin": 1.4452878620123268,
+                "movementTime": 0,
+                "orientationTime": 0.6054350870367614
+              },
+              "feasible": true,
+              "targetMissMetres": 0.5272444315893922
+            }
+          },
+          "canonicalScore": -0.004149798192121599,
+          "deterministicNoise": -0.0012511640564352273,
+          "score": -0.005400962248556826
+        },
+        "top": [
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_63_4",
+              "receiverId": "footballer_pro_63_9",
+              "target": {
+                "x": 76.78352888650872,
+                "y": 10.49308169612283
+              },
+              "intent": "support",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 76.78352888650872,
+                  "y": 10.49308169612283
+                },
+                "velocity": {
+                  "x": -2.4025263696127124,
+                  "y": -12.677753457959058,
+                  "z": 0
+                },
+                "speed": 12.90339357291241,
+                "elevation": 0,
+                "predictedArrivalTime": 2.549999999999995,
+                "predictedArrivalSpeed": 4.743393572912423,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 76.78352888650872,
+                    "y": 10.49308169612283
+                  },
+                  "awareAt": 0.49927705095090674,
+                  "readyAt": 1.104712137987668,
+                  "earliestUsefulContactTime": 1.2247121379876682,
+                  "preferredArrivalSpeed": 4.373261737579242,
+                  "maximumComfortableArrivalSpeed": 8.521261737579243,
+                  "preparationMargin": 1.4452878620123268,
+                  "movementTime": 0,
+                  "orientationTime": 0.6054350870367614
+                },
+                "feasible": true,
+                "targetMissMetres": 0.5272444315893922
+              }
+            },
+            "canonicalScore": -0.004149798192121599,
+            "deterministicNoise": -0.0012511640564352273,
+            "score": -0.005400962248556826
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_4",
+              "target": {
+                "x": 71.2683141763239,
+                "y": 33.36810466683782
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.0078924368392874,
+            "deterministicNoise": 0.0010862743213772771,
+            "score": -0.006806162517910122
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_4",
+              "target": {
+                "x": 76.62247047017505,
+                "y": 28.086286714164025
+              }
+            },
+            "canonicalScore": -0.010237334136027416,
+            "deterministicNoise": 0.0016471533063799142,
+            "score": -0.008590180829647501
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-closure-validation-ww-1",
+      "cohort": "validation",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "305ab0120cfe744c1806ff8ce46b8c74289f008da0df8c3448c9e6a58698a293",
+      "snapshotHash": "7026e9231a5c287156801ae0aa2798468ade1b37ddf997a00a4eb2b40e5a4eae",
+      "snapshot": "pr183-evidence/closure-audit-pr183-closure-validation-ww-1-phase-role-hybrid-v1-retreat-2.json.gz",
+      "episode": {
+        "id": "footballer_pro_63_21",
+        "team": "away",
+        "at": 2985.375000006478,
+        "endAt": 2993.5750000065077,
+        "peakAt": 2993.5750000065077,
+        "origin": {
+          "x": 40.90655222985068,
+          "y": 30.536588354986822
+        },
+        "end": {
+          "x": 24.939053682494464,
+          "y": 33.18614655209223
+        },
+        "peak": {
+          "x": 24.939053682494464,
+          "y": 33.18614655209223
+        },
+        "peakMetres": 15.967498547356218,
+        "netMetres": 15.967498547356218,
+        "recoveredForwardMetres": 0,
+        "duration": 8.200000000029831,
+        "meanPressure": 0.501533919991136,
+        "pressureAtPeak": 0.40029581305714057,
+        "endedWithPass": true
+      },
+      "replayedPeak": 15.967498547356218,
+      "terminalAt": 2993.600000006508,
+      "terminalAction": {
+        "type": "pass",
+        "actorId": "footballer_pro_63_21",
+        "receiverId": "footballer_pro_63_7",
+        "target": {
+          "x": 25.84543392333707,
+          "y": 21.598584470034616
+        },
+        "intent": "support",
+        "delivery": "ground",
+        "deliveryPlan": {
+          "target": {
+            "x": 25.84543392333707,
+            "y": 21.598584470034616
+          },
+          "velocity": {
+            "x": 1.2937967756911972,
+            "y": -9.642301559713248,
+            "z": 0
+          },
+          "speed": 9.728714687215236,
+          "elevation": 0,
+          "predictedArrivalTime": 1.5499999999999985,
+          "predictedArrivalSpeed": 4.7687146872152395,
+          "receiverReadiness": {
+            "contactPoint": {
+              "x": 25.84543392333707,
+              "y": 21.598584470034616
+            },
+            "awareAt": 0.40312321686510244,
+            "readyAt": 0.8677102993067178,
+            "earliestUsefulContactTime": 0.9877102993067178,
+            "preferredArrivalSpeed": 4.4143549756685685,
+            "maximumComfortableArrivalSpeed": 8.71235497566857,
+            "preparationMargin": 0.6822897006932807,
+            "movementTime": 0.23214155783749443,
+            "orientationTime": 0.46458708244161545
+          },
+          "feasible": true,
+          "targetMissMetres": 0.5084546745081895
+        }
+      },
+      "terminalBall": {
+        "x": 24.283634525696286,
+        "y": 33.238233795784126,
+        "from": {
+          "x": 24.283634525696286,
+          "y": 33.238233795784126
+        },
+        "target": {
+          "x": 25.735713129437105,
+          "y": 21.78656011069729
+        },
+        "intendedReceiverId": "footballer_pro_63_7",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "weak_foot",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": 1.213310571271217,
+          "y": -9.568653311927926,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": 1.213310571271217,
+          "y": -9.568653311927926,
+          "z": 0
+        },
+        "launchSpeed": 9.64527079693607,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_63_21"
+      },
+      "lastPossessionLoss": {
+        "to": "away",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_63_11",
+        "loserId": "footballer_pro_61_21",
+        "id": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2:loss:acquisition:2977.250000:footballer_pro_63_11",
+        "at": 2977.2500000064483,
+        "from": "home",
+        "position": {
+          "x": 32.93798201683376,
+          "y": 42.39602956769629
+        }
+      },
+      "lastChallenge": {
+        "id": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2:challenge:2983.000000:footballer_pro_61_21:footballer_pro_63_11:standing",
+        "at": 2983.0000000064692,
+        "actorId": "footballer_pro_61_21",
+        "team": "home",
+        "opponentId": "footballer_pro_63_11",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 33.547703029134624,
+          "y": 42.209199512849175
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.6264862263372505,
+        "opponentDistance": 1.1729531991832345,
+        "facingError": 0.375221084944954,
+        "relativeSpeed": 3.2973176900249936,
+        "lateness": 0,
+        "force": 0.494597653503749,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.1113495617528315
+      },
+      "lastPossessionChange": {
+        "at": 2977.2500000064483,
+        "from": "home",
+        "to": "away",
+        "cause": "tackle",
+        "winnerId": "footballer_pro_63_11",
+        "loserId": "footballer_pro_61_21",
+        "challengeId": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2:challenge:2977.250000:footballer_pro_63_11:footballer_pro_61_21:standing"
+      },
+      "finalHash": "b7880c336c2d0f17a73afe20035e00f4bc93d4f0a32fe4c1573f263daa520d22",
+      "rankings": 9,
+      "releaseReadyRankings": 4,
+      "rankingsWithForwardPass": 4,
+      "firstRanking": {
+        "at": 2991.8500000065014,
+        "position": {
+          "x": 28.608918716646897,
+          "y": 32.861520235188586
+        },
+        "pressure": 0.3904979770681945,
+        "releaseReady": true,
+        "role": "false_nine",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 12,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_63_21",
+            "receiverId": "footballer_pro_63_19",
+            "target": {
+              "x": 52.796672243614026,
+              "y": 56.482443227860756
+            },
+            "intent": "progressive",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 52.796672243614026,
+                "y": 56.482443227860756
+              },
+              "velocity": {
+                "x": 12.895840633688412,
+                "y": 12.366304985183154,
+                "z": 0
+              },
+              "speed": 17.86695846069092,
+              "elevation": 0,
+              "predictedArrivalTime": 2.3999999999999955,
+              "predictedArrivalSpeed": 10.186958460690953,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 52.796672243614026,
+                  "y": 56.482443227860756
+                },
+                "awareAt": 0.5528246695288851,
+                "readyAt": 1.231446089449372,
+                "earliestUsefulContactTime": 1.351446089449372,
+                "preferredArrivalSpeed": 5.822597572481833,
+                "maximumComfortableArrivalSpeed": 10.060597572481832,
+                "preparationMargin": 1.1685539105506235,
+                "movementTime": 0,
+                "orientationTime": 0.6786214199204869
+              },
+              "feasible": true,
+              "targetMissMetres": 0.3997654944397673
+            }
+          },
+          "canonicalScore": -0.014362577847178894,
+          "deterministicNoise": 0.0010180907204467803,
+          "score": -0.013344487126732115
+        },
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_21",
+              "target": {
+                "x": 26.211488520331002,
+                "y": 33.100997531301864
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.004496672394830661,
+            "deterministicNoise": 0.0006651074363943189,
+            "score": -0.0038315649584363424
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_21",
+              "target": {
+                "x": 25.608918716646897,
+                "y": 33.14614017639144
+              }
+            },
+            "canonicalScore": -0.004588827000297962,
+            "deterministicNoise": 0.0005249700599815696,
+            "score": -0.004063856940316393
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_21",
+              "target": {
+                "x": 38.6089187166469,
+                "y": 33.25998815287258
+              }
+            },
+            "canonicalScore": -0.00599861249379854,
+            "deterministicNoise": 0.000933524488583207,
+            "score": -0.005065088005215333
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 2993.600000006508,
+        "position": {
+          "x": 24.88447699018999,
+          "y": 33.19015987996944
+        },
+        "pressure": 0.40029581305714057,
+        "releaseReady": true,
+        "role": "false_nine",
+        "phase": "build_up",
+        "coachPlan": "protect_flank",
+        "forwardPasses": 22,
+        "bestForwardPass": {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_63_21",
+            "receiverId": "footballer_pro_63_9",
+            "target": {
+              "x": 29.496487304951696,
+              "y": 57.595463541662575
+            },
+            "intent": "support",
+            "delivery": "ground",
+            "deliveryPlan": {
+              "target": {
+                "x": 29.496487304951696,
+                "y": 57.595463541662575
+              },
+              "velocity": {
+                "x": 2.8026535898302414,
+                "y": 13.095493058477846,
+                "z": 0
+              },
+              "speed": 13.392042621991232,
+              "elevation": 0,
+              "predictedArrivalTime": 2.6749999999999945,
+              "predictedArrivalSpeed": 4.832042621991244,
+              "receiverReadiness": {
+                "contactPoint": {
+                  "x": 29.496487304951696,
+                  "y": 57.595463541662575
+                },
+                "awareAt": 0.5083863747598393,
+                "readyAt": 1.3117785998825857,
+                "earliestUsefulContactTime": 1.4317785998825858,
+                "preferredArrivalSpeed": 4.464354975668568,
+                "maximumComfortableArrivalSpeed": 8.612354975668568,
+                "preparationMargin": 1.3632214001174088,
+                "movementTime": 0.015730378538018,
+                "orientationTime": 0.8033922251227464
+              },
+              "feasible": true,
+              "targetMissMetres": 0.5340891487442236
+            }
+          },
+          "canonicalScore": -0.010040540342522173,
+          "deterministicNoise": 0.00033631670619361094,
+          "score": -0.009704223636328562
+        },
+        "top": [
+          {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_63_21",
+              "receiverId": "footballer_pro_63_7",
+              "target": {
+                "x": 25.84543392333707,
+                "y": 21.598584470034616
+              },
+              "intent": "support",
+              "delivery": "ground",
+              "deliveryPlan": {
+                "target": {
+                  "x": 25.84543392333707,
+                  "y": 21.598584470034616
+                },
+                "velocity": {
+                  "x": 1.2937967756911972,
+                  "y": -9.642301559713248,
+                  "z": 0
+                },
+                "speed": 9.728714687215236,
+                "elevation": 0,
+                "predictedArrivalTime": 1.5499999999999985,
+                "predictedArrivalSpeed": 4.7687146872152395,
+                "receiverReadiness": {
+                  "contactPoint": {
+                    "x": 25.84543392333707,
+                    "y": 21.598584470034616
+                  },
+                  "awareAt": 0.40312321686510244,
+                  "readyAt": 0.8677102993067178,
+                  "earliestUsefulContactTime": 0.9877102993067178,
+                  "preferredArrivalSpeed": 4.4143549756685685,
+                  "maximumComfortableArrivalSpeed": 8.71235497566857,
+                  "preparationMargin": 0.6822897006932807,
+                  "movementTime": 0.23214155783749443,
+                  "orientationTime": 0.46458708244161545
+                },
+                "feasible": true,
+                "targetMissMetres": 0.5084546745081895
+              }
+            },
+            "canonicalScore": -0.006158530109428238,
+            "deterministicNoise": -0.00062577116782777,
+            "score": -0.006784301277256008
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_21",
+              "target": {
+                "x": 22.871572886913537,
+                "y": 33.33817991949038
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.006066702822057182,
+            "deterministicNoise": -0.0007383715453092007,
+            "score": -0.0068050743673663825
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_63_21",
+              "target": {
+                "x": 21.88447699018999,
+                "y": 33.392619909977086
+              }
+            },
+            "canonicalScore": -0.006449899490669403,
+            "deterministicNoise": -0.0007150433656666426,
+            "score": -0.007164942856336046
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "pr183-closure-validation-ww-1",
+      "cohort": "validation",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "305ab0120cfe744c1806ff8ce46b8c74289f008da0df8c3448c9e6a58698a293",
+      "snapshotHash": "3f782222f8c5e97629596444ba6ed6a10ba87251c19e5515cfe8982efcd0c6ab",
+      "snapshot": "pr183-evidence/closure-audit-pr183-closure-validation-ww-1-phase-role-hybrid-v1-retreat-3.json.gz",
+      "episode": {
+        "id": "footballer_pro_61_4",
+        "team": "home",
+        "at": 3645.5000000088794,
+        "endAt": 3665.0000000089503,
+        "peakAt": 3664.075000008947,
+        "origin": {
+          "x": 66.88543292666716,
+          "y": 33.1944804664711
+        },
+        "end": {
+          "x": 85.1172984796251,
+          "y": 33.56314144699194
+        },
+        "peak": {
+          "x": 87.32996632524423,
+          "y": 33.51526464458179
+        },
+        "peakMetres": 20.444533398577065,
+        "netMetres": 18.23186555295794,
+        "recoveredForwardMetres": 2.212667845619123,
+        "duration": 19.50000000007094,
+        "meanPressure": 0.48448278930219035,
+        "pressureAtPeak": 0.15200385132597705,
+        "endedWithPass": false
+      },
+      "replayedPeak": 20.444533398577065,
+      "terminalAt": 3665.0250000089504,
+      "terminalAction": {
+        "type": "carry",
+        "actorId": "footballer_pro_61_4",
+        "target": {
+          "x": 79.97715114813785,
+          "y": 33.56314144699194
+        }
+      },
+      "terminalBall": {
+        "x": 82.9729016505899,
+        "y": 33.57460425417892,
+        "velocity": {
+          "x": -6.426989012710029,
+          "y": 0.04009244068174381
+        },
+        "looseSince": 3665.0250000089504,
+        "lastTouchPlayerId": "footballer_pro_61_4"
+      },
+      "lastPossessionLoss": {
+        "to": "home",
+        "cause": "interception",
+        "winnerId": "footballer_pro_61_21",
+        "loserId": "footballer_pro_63_17",
+        "passId": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2:pass:5862:footballer_pro_63_17",
+        "id": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2:loss:acquisition:3630.125000:footballer_pro_61_21",
+        "at": 3630.1250000088235,
+        "from": "away",
+        "position": {
+          "x": 54.95336475575375,
+          "y": 17.63009111331497
+        }
+      },
+      "lastChallenge": {
+        "id": "20261023-pr183-closure:pr183-closure-validation-ww-1:v2:challenge:3623.150000:footballer_pro_61_15:footballer_pro_63_17:standing",
+        "at": 3623.150000008798,
+        "actorId": "footballer_pro_61_15",
+        "team": "home",
+        "opponentId": "footballer_pro_63_17",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 55.864396489266674,
+          "y": 16.171062741752863
+        },
+        "outcome": "loose_ball",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.578089844827294,
+        "opponentDistance": 0.8370661467329772,
+        "facingError": 0.00948082624960378,
+        "relativeSpeed": 2.718674900688789,
+        "lateness": 0,
+        "force": 0.40780123510331834,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0
+      },
+      "lastPossessionChange": {
+        "at": 3630.1250000088235,
+        "from": "away",
+        "to": "home",
+        "cause": "interception",
+        "winnerId": "footballer_pro_61_21",
+        "loserId": "footballer_pro_63_17"
+      },
+      "finalHash": "1e77a17314affb2b2818c279658947e8229d951c2d2faa8b7249a12bb40d939d",
+      "rankings": 23,
+      "releaseReadyRankings": 11,
+      "rankingsWithForwardPass": 11,
+      "firstRanking": {
+        "at": 3659.5250000089304,
+        "position": {
+          "x": 79.34642545147334,
+          "y": 32.89921916436768
+        },
+        "pressure": 0.49950033285828127,
+        "releaseReady": false,
+        "role": "stopper",
+        "phase": "build_up",
+        "coachPlan": "protect_lead",
+        "forwardPasses": 0,
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_61_4",
+              "target": {
+                "x": 73.34642545147334,
+                "y": 32.89921916436768
+              }
+            },
+            "canonicalScore": -0.009082717431812392,
+            "deterministicNoise": 0.002335755716562271,
+            "score": -0.0067469617152501205
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_61_4",
+              "target": {
+                "x": 74.34642545147334,
+                "y": 27.89921916436768
+              }
+            },
+            "canonicalScore": -0.009082717431812392,
+            "deterministicNoise": 0.002056905519962311,
+            "score": -0.007025811911850081
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_61_4",
+              "target": {
+                "x": 81.88939799440445,
+                "y": 33.14172649342757
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.007270064340423167,
+            "deterministicNoise": -0.000013669480085372926,
+            "score": -0.007283733820508539
+          }
+        ]
+      },
+      "lastRanking": {
+        "at": 3665.0000000089503,
+        "position": {
+          "x": 85.1172984796251,
+          "y": 33.56314144699194
+        },
+        "pressure": 0.18406445461450813,
+        "releaseReady": false,
+        "role": "stopper",
+        "phase": "build_up",
+        "coachPlan": "protect_lead",
+        "forwardPasses": 0,
+        "top": [
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_61_4",
+              "target": {
+                "x": 79.97715114813785,
+                "y": 33.56314144699194
+              },
+              "movementMode": "carry"
+            },
+            "canonicalScore": -0.008228562775826473,
+            "deterministicNoise": 0.0014465329110622408,
+            "score": -0.006782029864764232
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_61_4",
+              "target": {
+                "x": 80.1172984796251,
+                "y": 28.563141446991942
+              }
+            },
+            "canonicalScore": -0.009144459742312424,
+            "deterministicNoise": 0.0019101457083225252,
+            "score": -0.007234314033989899
+          },
+          {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_pro_61_4",
+              "target": {
+                "x": 72.1749017352768,
+                "y": 31.563141446991942
+              },
+              "movementMode": "sprint"
+            },
+            "canonicalScore": -0.01036688989189978,
+            "deterministicNoise": 0.0025553591752052306,
+            "score": -0.00781153071669455
+          }
+        ]
+      }
+    }
+  ]
+}

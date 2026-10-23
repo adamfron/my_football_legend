@@ -1,0 +1,170 @@
+{
+  "schema": "mfl-pr183-closure-liveness-v1",
+  "definition": "Same complete saved failure; 800 unchanged .025s steps per version. First action uses real reachable contact, never a time-triggered rescue.",
+  "rows": [
+    {
+      "label": "before",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "1c96a9ac07d55a42cd57dbadc7ec946f8f84881e743d7b718bf997ab08ad4146",
+      "elapsed": 20.000000000000398,
+      "decisions": 0,
+      "finalHash": "112f77b1b2ff983672a0c1007e95877a9e3563d4cfcd768439c7e35ffc287ed2",
+      "status": "first_half",
+      "finalScenario": "open_play"
+    },
+    {
+      "label": "after",
+      "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+      "inputHash": "1c96a9ac07d55a42cd57dbadc7ec946f8f84881e743d7b718bf997ab08ad4146",
+      "elapsed": 20.000000000000398,
+      "decisions": 10,
+      "firstAction": {
+        "at": 239.65000000003735,
+        "elapsed": 0.025000000000005684,
+        "action": {
+          "type": "header",
+          "actorId": "footballer_pro_1_12",
+          "target": {
+            "x": 18.21589407762793,
+            "y": 40.75999818090883
+          },
+          "intent": "header_clearance"
+        },
+        "contact": {
+          "id": "pr160-full-half-penalty:aerial:18:239.650000",
+          "point": {
+            "x": 38.21589407762793,
+            "y": 32.75999818090883
+          },
+          "ballHeight": 1.6965591368748627,
+          "candidates": [
+            {
+              "playerId": "footballer_pro_0_3",
+              "horizontalDistance": 0.2112814606228088,
+              "ballHeight": 1.6965591368748627,
+              "reachableHeight": 2.316,
+              "contactQuality": 0.5290338285062047
+            },
+            {
+              "playerId": "footballer_pro_0_9",
+              "horizontalDistance": 0.216371243191109,
+              "ballHeight": 1.6965591368748627,
+              "reachableHeight": 2.2620000000000005,
+              "contactQuality": 0.5351407089939214
+            },
+            {
+              "playerId": "footballer_pro_1_12",
+              "horizontalDistance": 0.41090836575764667,
+              "ballHeight": 1.6965591368748627,
+              "reachableHeight": 2.21,
+              "contactQuality": 0.36394721962985344
+            },
+            {
+              "playerId": "footballer_pro_1_22",
+              "horizontalDistance": 0.21263702195683068,
+              "ballHeight": 1.6965591368748627,
+              "reachableHeight": 2.322,
+              "contactQuality": 0.5209167229463123
+            }
+          ],
+          "contestantIds": [
+            "footballer_pro_0_3",
+            "footballer_pro_0_9",
+            "footballer_pro_1_12",
+            "footballer_pro_1_22"
+          ],
+          "challengerIds": [
+            "footballer_pro_1_12",
+            "footballer_pro_1_22",
+            "footballer_pro_0_3",
+            "footballer_pro_0_9"
+          ],
+          "contactEvidence": [
+            {
+              "playerId": "footballer_pro_0_3",
+              "contactQuality": 0.5290338285062047,
+              "facingError": 0.2787077962207736,
+              "relativeSpeed": 1.4306871726369492,
+              "pressure": 1,
+              "challengerIds": [
+                "footballer_pro_1_12",
+                "footballer_pro_1_22"
+              ]
+            },
+            {
+              "playerId": "footballer_pro_0_9",
+              "contactQuality": 0.5351407089939214,
+              "facingError": 0.33181761522049413,
+              "relativeSpeed": 1.4402414796394987,
+              "pressure": 1,
+              "challengerIds": [
+                "footballer_pro_1_12",
+                "footballer_pro_1_22"
+              ]
+            },
+            {
+              "playerId": "footballer_pro_1_12",
+              "contactQuality": 0.36394721962985344,
+              "facingError": 0.0021828891164190622,
+              "relativeSpeed": 1.6793970922960688,
+              "pressure": 1,
+              "challengerIds": [
+                "footballer_pro_0_3",
+                "footballer_pro_0_9"
+              ]
+            },
+            {
+              "playerId": "footballer_pro_1_22",
+              "contactQuality": 0.5209167229463123,
+              "facingError": 0.006403215813520546,
+              "relativeSpeed": 1.6026662793345667,
+              "pressure": 1,
+              "challengerIds": [
+                "footballer_pro_0_3",
+                "footballer_pro_0_9"
+              ]
+            }
+          ],
+          "winnerId": "footballer_pro_1_12"
+        },
+        "ball": {
+          "x": 38.21589407762793,
+          "y": 32.75999818090883,
+          "from": {
+            "x": 38.21589407762793,
+            "y": 32.75999818090883
+          },
+          "target": {
+            "x": 18.21589407762793,
+            "y": 40.75999818090883
+          },
+          "travelKind": "header",
+          "sourceAction": "header",
+          "flightTime": 0,
+          "distanceTravelled": 0,
+          "height": 1.6965591368748627,
+          "releaseHeight": 1.6965591368748627,
+          "airborne": true,
+          "velocity": {
+            "x": -22.17211619506538,
+            "y": 8.868846478026152,
+            "z": 2.3960019995238757
+          },
+          "launchVelocity": {
+            "x": -22.17211619506538,
+            "y": 8.868846478026152,
+            "z": 2.3960019995238757
+          },
+          "launchSpeed": 24,
+          "launchElevation": 0.1,
+          "bounceCount": 0,
+          "lastTouchPlayerId": "footballer_pro_1_12"
+        }
+      },
+      "finalHash": "acfb74de46ec8e09c1aaaabc7864a51740520fb7eae5a4c3094dca054879e70e",
+      "status": "first_half",
+      "finalScenario": "goal_kick"
+    }
+  ],
+  "fullContract": "Existing unchanged pr160PenaltyLiveness.test.ts additionally runs the original seed through an actual CPU half and a penalty."
+}

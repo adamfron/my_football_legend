@@ -1,0 +1,29 @@
+{
+  "schema": "mfl-pr183-closure-verification-v1",
+  "codeCommit": "7279c76e30d2e66d8d7c9854d340e453d27545b7",
+  "compilableSourceHash": "57863da9df8f0a8c8c4bb6f638a85ea0d6272c271f409734a7501e8977b39321",
+  "simulatedSourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+  "typeOnlyBridge": "PR183-closure-type-only-bridge.json",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "logSha256": "46a3ec3df084b67037270655898b299444fb22cb823d1f581f2e672ebbaffa59",
+  "context": "Complete unchanged verify in the final workspace after all complete-match cohort processes ended. UI fake-time harness models measured work; original assertions and 30s timeout retained. Earlier concurrent attempts and their resource-limit failures are retained in work logs, not substituted for the final pass.",
+  "tests": {
+    "unit": 2027,
+    "matchIntegration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "total": 2092
+  },
+  "lint": "pass",
+  "build": "TypeScript and Vite pass",
+  "mechanicalCases": 7,
+  "developmentFullMatches": 30,
+  "newConfirmationFullMatches": 15,
+  "supplementalR3FullMatches": 3,
+  "allLargeR3PeaksAudited": 11,
+  "maxR3PeakMetres": 23.982456325534173,
+  "freezeCommit": "c9299bd8a819ed8f1dc8d6a853381fed8236bb6d",
+  "acceptance": "Closure mechanical, completion, deterministic and verification gates passed; keep summary calibration NOT READY. Finite conservative retreats remain explicitly measured, not asserted universally rational.",
+  "ci": "Final exact-head GitHub checks are verified externally after the evidence commit; PR checks are authoritative. No claim about a future CI result is embedded in this receipt."
+}

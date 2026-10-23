@@ -1,0 +1,379 @@
+{
+  "schema": "mfl-pr183-carry-v1",
+  "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+  "scope": "nine prescribed physical continuations, eight seconds each; human-sprint is a mechanics probe, browser human gameplay is separate",
+  "rows": [
+    {
+      "name": "fast-open",
+      "initialHash": "17bef707b9efcc5411610ee2043b17f23a70d9383d2ec3a9d17a40807a1ecae9",
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.7750000000000004
+      },
+      "forecast": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "freeDistance": 15,
+        "carrierEta": 1.5999999999999983,
+        "defenderEta": 2.824999999999994,
+        "recoveryMargin": 1.2249999999999956,
+        "crossingAccess": 0,
+        "support": 0,
+        "turnCost": 0
+      },
+      "recoveredAfter": 1.0249999999990678,
+      "contactAfter": 1.049999999999045,
+      "finalOwner": null,
+      "playerProgress": 22.740366463995443,
+      "lastLoss": {
+        "to": "away",
+        "cause": "failed_control",
+        "winnerId": "geometry:opponent:1",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:604.175000:geometry:opponent:1",
+        "at": 604.1749999999962,
+        "from": "home",
+        "position": {
+          "x": 92.17546066927828,
+          "y": 34
+        }
+      },
+      "trajectorySamples": 32
+    },
+    {
+      "name": "fast-v-slow",
+      "initialHash": "b16d47bcbee3a76958cbdf284cbfc0307ca332d24d21ace9d0a27fe8ec306b11",
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.7750000000000004
+      },
+      "forecast": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "freeDistance": 0,
+        "carrierEta": 0,
+        "defenderEta": 99,
+        "recoveryMargin": 99,
+        "crossingAccess": 0,
+        "support": 0,
+        "turnCost": 0
+      },
+      "recoveredAfter": null,
+      "contactAfter": null,
+      "finalOwner": null,
+      "playerProgress": -5.3101799518610235,
+      "lastLoss": {
+        "to": "away",
+        "cause": "loose_ball_claim",
+        "winnerId": "geometry:opponent:1",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:600.625000:geometry:opponent:1",
+        "at": 600.6249999999994,
+        "from": "home",
+        "position": {
+          "x": 66.35000000000001,
+          "y": 34
+        }
+      },
+      "trajectorySamples": 32
+    },
+    {
+      "name": "technical-pressure",
+      "initialHash": "0fa272e540a216179c27a23d7437964cfd68e028013b053c5b1518ac4a0a5e3f",
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.8250000000000004
+      },
+      "forecast": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "freeDistance": 15,
+        "carrierEta": 1.699999999999998,
+        "defenderEta": 2.0909050398565188,
+        "recoveryMargin": 0.3909050398565208,
+        "crossingAccess": 0,
+        "support": 0,
+        "turnCost": 0
+      },
+      "recoveredAfter": 1.049999999999045,
+      "contactAfter": 1.0749999999990223,
+      "finalOwner": null,
+      "playerProgress": 22.295275586341887,
+      "lastLoss": {
+        "to": "away",
+        "cause": "shot",
+        "restartId": "pr168-pushed-touch:restart:607.649999999993:away:kick_off",
+        "id": "pr168-pushed-touch:loss:restart:pr168-pushed-touch:restart:607.649999999993:away:kick_off",
+        "at": 607.649999999993,
+        "from": "home",
+        "position": {
+          "x": 106.72980395704155,
+          "y": 31.231626653571006
+        }
+      },
+      "trajectorySamples": 32
+    },
+    {
+      "name": "strong-burst",
+      "initialHash": "4d8f31a0ca31ee39ba8f2e1313e9c7d9b35ffbbd7da91a4e9987dbced3e6b77d",
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.8000000000000004
+      },
+      "forecast": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "freeDistance": 15,
+        "carrierEta": 1.6499999999999981,
+        "defenderEta": 2.621271467561982,
+        "recoveryMargin": 0.971271467561984,
+        "crossingAccess": 0,
+        "support": 0,
+        "turnCost": 0
+      },
+      "recoveredAfter": 1.0999999999989996,
+      "contactAfter": 1.1249999999989768,
+      "finalOwner": null,
+      "playerProgress": 31.49330880252583,
+      "lastLoss": {
+        "to": "away",
+        "cause": "shot",
+        "loserId": "geometry:anchor:8",
+        "restartId": "pr168-pushed-touch:restart:607.0749999999936:away:goal_kick",
+        "id": "pr168-pushed-touch:loss:restart:pr168-pushed-touch:restart:607.0749999999936:away:goal_kick",
+        "at": 607.0749999999936,
+        "from": "home",
+        "position": {
+          "x": 105.11,
+          "y": 31.59925885379067
+        }
+      },
+      "trajectorySamples": 32
+    },
+    {
+      "name": "poor-dribbler",
+      "initialHash": "ba0f3c75467714ce67d20df4376dd2b42b378870cc154dd3e857a17ac8c3d914",
+      "initialPursuit": {
+        "target": {
+          "x": 68,
+          "y": 34
+        },
+        "arrival": 1.0250000000000004
+      },
+      "forecast": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "freeDistance": 15,
+        "carrierEta": 1.7249999999999979,
+        "defenderEta": 2.824999999999994,
+        "recoveryMargin": 1.099999999999996,
+        "crossingAccess": 0,
+        "support": 0,
+        "turnCost": 0
+      },
+      "recoveredAfter": 1.324999999998795,
+      "contactAfter": 1.3499999999987722,
+      "finalOwner": null,
+      "playerProgress": 17.296369619076756,
+      "lastLoss": {
+        "to": "away",
+        "cause": "failed_control",
+        "winnerId": "geometry:opponent:2",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:604.050000:geometry:opponent:2",
+        "at": 604.0499999999963,
+        "from": "home",
+        "position": {
+          "x": 86.20917550945917,
+          "y": 34
+        }
+      },
+      "trajectorySamples": 32
+    },
+    {
+      "name": "too-far",
+      "initialHash": "2f6ca19dc379a800cec81fe2d87c85f7e6bf7f4e43d798184634cff4c6e82c1f",
+      "forecast": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "freeDistance": 15,
+        "carrierEta": 1.7249999999999979,
+        "defenderEta": 2.824999999999994,
+        "recoveryMargin": 1.099999999999996,
+        "crossingAccess": 0,
+        "support": 0,
+        "turnCost": 0
+      },
+      "recoveredAfter": null,
+      "contactAfter": null,
+      "finalOwner": null,
+      "playerProgress": 14.671580546701861,
+      "lastLoss": {
+        "to": "away",
+        "cause": "loose_ball_claim",
+        "winnerId": "geometry:opponent:4",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:601.625000:geometry:opponent:4",
+        "at": 601.6249999999985,
+        "from": "home",
+        "position": {
+          "x": 87.15,
+          "y": 34
+        }
+      },
+      "trajectorySamples": 32
+    },
+    {
+      "name": "defender-recovery",
+      "initialHash": "cd75b0bc9cfdf0500e10711758258c0fc14aa4743a894412029ccf182bd517f0",
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.8250000000000004
+      },
+      "forecast": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "freeDistance": 15,
+        "carrierEta": 1.7249999999999979,
+        "defenderEta": 2.1598324111201737,
+        "recoveryMargin": 0.4348324111201758,
+        "crossingAccess": 0,
+        "support": 0,
+        "turnCost": 0
+      },
+      "recoveredAfter": 1.149999999998954,
+      "contactAfter": 1.1749999999989313,
+      "finalOwner": null,
+      "playerProgress": 12.541660661376497,
+      "lastLoss": {
+        "to": "away",
+        "cause": "failed_control",
+        "winnerId": "geometry:opponent:4",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:603.275000:geometry:opponent:4",
+        "at": 603.274999999997,
+        "from": "home",
+        "position": {
+          "x": 82.22610030772964,
+          "y": 34
+        }
+      },
+      "trajectorySamples": 32
+    },
+    {
+      "name": "human-sprint",
+      "initialHash": "c97f4646de11713f0975a2b08309a09c24686fbf56e1759c09b8b9ed74927793",
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.8250000000000004
+      },
+      "forecast": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "freeDistance": 15,
+        "carrierEta": 1.7249999999999979,
+        "defenderEta": 2.824999999999994,
+        "recoveryMargin": 1.099999999999996,
+        "crossingAccess": 0,
+        "support": 0,
+        "turnCost": 0
+      },
+      "recoveredAfter": 1.149999999998954,
+      "contactAfter": 1.1749999999989313,
+      "finalOwner": null,
+      "playerProgress": 24.930565288113172,
+      "lastLoss": {
+        "to": "away",
+        "cause": "failed_control",
+        "winnerId": "geometry:opponent:1",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:604.500000:geometry:opponent:1",
+        "at": 604.4999999999959,
+        "from": "home",
+        "position": {
+          "x": 93.9580127894993,
+          "y": 34
+        }
+      },
+      "trajectorySamples": 32
+    },
+    {
+      "name": "collision",
+      "initialHash": "3d2f8a6313056a5ad904daba000ee94615b454908742a7f60dc6a54c41df90f0",
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.8250000000000004
+      },
+      "forecast": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "freeDistance": 15,
+        "carrierEta": 1.7249999999999979,
+        "defenderEta": 2.824999999999994,
+        "recoveryMargin": 1.099999999999996,
+        "crossingAccess": 0,
+        "support": 0,
+        "turnCost": 0
+      },
+      "recoveredAfter": 1.149999999998954,
+      "contactAfter": 1.1749999999989313,
+      "finalOwner": null,
+      "playerProgress": 17.270204610003077,
+      "lastLoss": {
+        "to": "away",
+        "cause": "shot",
+        "loserId": "geometry:anchor:8",
+        "restartId": "pr168-pushed-touch:restart:606.4749999999941:away:goal_kick",
+        "id": "pr168-pushed-touch:loss:restart:pr168-pushed-touch:restart:606.4749999999941:away:goal_kick",
+        "at": 606.4749999999941,
+        "from": "home",
+        "position": {
+          "x": 105.11,
+          "y": 39.72747525533168
+        }
+      },
+      "trajectorySamples": 32
+    }
+  ],
+  "detailArchive": "pr183-evidence/PR183-closure-carry-recovery-details.json.gz",
+  "uncompressedDetailSha256": "a4c69c67026d71419e30fc9f8884bf0ad744f802476024957c1e28aba1d19664"
+}

@@ -1,0 +1,1127 @@
+{
+  "schema": "mfl-pr183-keeper-v1",
+  "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+  "scope": "ten prescribed one-second canonical continuations, advisory geometry never grants possession",
+  "rows": [
+    {
+      "name": "central",
+      "base": {
+        "x": 106.73320707996342,
+        "y": 36.8780340800205
+      },
+      "approach": {
+        "target": {
+          "x": 97.76,
+          "y": 34
+        },
+        "keeperEta": 1.0000000000000004,
+        "coveringEta": 99,
+        "attackerEta": 1.7499999999999978,
+        "reason": "uncovered_ground_attack"
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:0",
+        "coverId": "geometry:opponent:1",
+        "target": {
+          "x": 83.5,
+          "y": 34,
+          "ownerId": "geometry:anchor:10",
+          "lastTouchPlayerId": "geometry:anchor:10"
+        },
+        "keeperEta": 2.7949999999999946,
+        "defenderEta": 6.425000000000024,
+        "attackerEta": 0,
+        "ballEta": 0,
+        "meaningfulChoice": true,
+        "reason": "keeper_first"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 101.9825830711242,
+        "y": 34.057677826659486
+      },
+      "velocity": {
+        "x": -0.46440114206404814,
+        "y": 0.2079116355861288
+      },
+      "shot": {
+        "shotId": "pr183-shots:shot:1:geometry:anchor:10",
+        "shooterId": "geometry:anchor:10",
+        "releasedAt": 600.025,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.24,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.02417196304927985,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.719832166652509,
+          "horizontalSigma": 0.19852563210706275,
+          "verticalSigma": 0.2449531936384701,
+          "distanceDifficulty": 1.2763079948464087,
+          "angleDifficulty": 0,
+          "pressureDifficulty": 0,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.02417196304927985,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.3848130533505227,
+          "horizontalSigmaMetres": 0.7266038135118497,
+          "verticalSigmaMetres": 0.597685792477867,
+          "ballMovementDifficulty": 0.08620000000000048,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.2487663796199947,
+          "blockerDifficulty": 0
+        },
+        "launchSpeed": 27.506678822506217,
+        "launchVerticalComponent": 4.160045431472961,
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "context": "open_play",
+        "distance": 21.879475,
+        "angle": 1,
+        "pressure": 0,
+        "blockingDefenders": 0,
+        "baseXg": 0.21676188677086133,
+        "effectiveScoringExpectation": 0.21448998410440903,
+        "shooterExecutionQuality": 0.719832166652509,
+        "intendedTarget": {
+          "horizontal": 0.62,
+          "vertical": 0.34
+        },
+        "actualTarget": {
+          "horizontal": 0.8402689776528554,
+          "vertical": -0.0029898876047553813
+        },
+        "error": {
+          "horizontal": 0.22026897765285536,
+          "vertical": -0.3429898876047554
+        },
+        "speed": 27.506678822506217,
+        "classification": "on_target",
+        "goalPoint": {
+          "x": 105,
+          "y": 37.07538445820945
+        },
+        "heightMetres": 0.16472379018143454,
+        "launchVelocity": {
+          "x": 26.91328653523616,
+          "y": 3.8712284516505306,
+          "z": 4.160045431472961
+        },
+        "launchElevation": 0.1518202038038619,
+        "outcome": "goal"
+      }
+    },
+    {
+      "name": "diagonal",
+      "base": {
+        "x": 108.14959242636411,
+        "y": 32.6962333523253
+      },
+      "approach": {
+        "target": {
+          "x": 98.80450043887652,
+          "y": 37.74611601370257
+        },
+        "keeperEta": 1.125,
+        "coveringEta": 99,
+        "attackerEta": 2.224999999999996,
+        "reason": "uncovered_ground_attack"
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:0",
+        "coverId": "geometry:opponent:1",
+        "target": {
+          "x": 83.5,
+          "y": 47,
+          "ownerId": "geometry:anchor:10",
+          "lastTouchPlayerId": "geometry:anchor:10"
+        },
+        "keeperEta": 3.269999999999993,
+        "defenderEta": 7.325000000000037,
+        "attackerEta": 0,
+        "ballEta": 0,
+        "meaningfulChoice": true,
+        "reason": "keeper_first"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 102.2439320606652,
+        "y": 35.23460394232478
+      },
+      "velocity": {
+        "x": -0.10003197774551609,
+        "y": 0.8388219616227843
+      },
+      "shot": {
+        "shotId": "pr183-shots:shot:1:geometry:anchor:10",
+        "shooterId": "geometry:anchor:10",
+        "releasedAt": 600.025,
+        "intent": "driven",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "settled",
+          "nominalSpeed": 34.24,
+          "errorMultiplier": 1.12,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0.2,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.1497220066927643,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.7178470103315028,
+          "horizontalSigma": 0.37067497643735414,
+          "verticalSigma": 0.4549843742109785,
+          "distanceDifficulty": 1.5417815442641134,
+          "angleDifficulty": 0.8238741632258677,
+          "pressureDifficulty": 0,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.1497220066927643,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.8256857024676485,
+          "horizontalSigmaMetres": 1.3566704137607162,
+          "verticalSigmaMetres": 1.1101618730747875,
+          "ballMovementDifficulty": 0.08620000000000048,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.26063606198494926,
+          "blockerDifficulty": 0
+        },
+        "launchSpeed": 33.506678822506224,
+        "launchVerticalComponent": 3.8826300929482747,
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "context": "open_play",
+        "distance": 25.450175368268585,
+        "angle": 0.1761258367741323,
+        "pressure": 0,
+        "blockingDefenders": 0,
+        "baseXg": 0.0537755232015778,
+        "effectiveScoringExpectation": 0.04275047410656896,
+        "shooterExecutionQuality": 0.7178470103315028,
+        "intendedTarget": {
+          "horizontal": -0.24,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": 0.17127282776926378,
+          "vertical": -0.3970810564032382
+        },
+        "error": {
+          "horizontal": 0.41127282776926377,
+          "vertical": -0.6370810564032382
+        },
+        "speed": 33.506678822506224,
+        "classification": "on_target",
+        "goalPoint": {
+          "x": 105,
+          "y": 34.62685854963551
+        },
+        "heightMetres": 0.18899732764799618,
+        "launchVelocity": {
+          "x": 28.80515994532955,
+          "y": -16.66989711425663,
+          "z": 3.8826300929482747
+        },
+        "launchElevation": 0.1161372012578726,
+        "outcome": "goal"
+      }
+    },
+    {
+      "name": "pushed-ball",
+      "base": {
+        "x": 101.77120535714286,
+        "y": 34
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:0",
+        "coverId": "geometry:opponent:1",
+        "target": {
+          "x": 96,
+          "y": 34,
+          "lastTouchPlayerId": "geometry:anchor:10",
+          "velocity": {
+            "x": 3,
+            "y": 0
+          },
+          "looseSince": 600
+        },
+        "keeperEta": 1.4199999999999995,
+        "defenderEta": 7.700000000000042,
+        "attackerEta": 1.5249999999999986,
+        "ballEta": 0,
+        "meaningfulChoice": true,
+        "reason": "keeper_first"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 98.65586043517082,
+        "y": 34
+      },
+      "velocity": {
+        "x": -4.298038707652836,
+        "y": 0
+      }
+    },
+    {
+      "name": "last-defender-beaten",
+      "base": {
+        "x": 106.73320707996342,
+        "y": 36.8780340800205
+      },
+      "approach": {
+        "target": {
+          "x": 97.76,
+          "y": 34
+        },
+        "keeperEta": 1.0000000000000004,
+        "coveringEta": 99,
+        "attackerEta": 1.7499999999999978,
+        "reason": "uncovered_ground_attack"
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:0",
+        "coverId": "geometry:opponent:1",
+        "target": {
+          "x": 83.5,
+          "y": 34,
+          "ownerId": "geometry:anchor:10",
+          "lastTouchPlayerId": "geometry:anchor:10"
+        },
+        "keeperEta": 2.7949999999999946,
+        "defenderEta": 6.425000000000024,
+        "attackerEta": 0,
+        "ballEta": 0,
+        "meaningfulChoice": true,
+        "reason": "keeper_first"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 101.9825830711242,
+        "y": 34.057677826659486
+      },
+      "velocity": {
+        "x": -0.46440114206404814,
+        "y": 0.2079116355861288
+      },
+      "shot": {
+        "shotId": "pr183-shots:shot:1:geometry:anchor:10",
+        "shooterId": "geometry:anchor:10",
+        "releasedAt": 600.025,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.24,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.02417196304927985,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.719832166652509,
+          "horizontalSigma": 0.19852563210706275,
+          "verticalSigma": 0.2449531936384701,
+          "distanceDifficulty": 1.2763079948464087,
+          "angleDifficulty": 0,
+          "pressureDifficulty": 0,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.02417196304927985,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.3848130533505227,
+          "horizontalSigmaMetres": 0.7266038135118497,
+          "verticalSigmaMetres": 0.597685792477867,
+          "ballMovementDifficulty": 0.08620000000000048,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.2487663796199947,
+          "blockerDifficulty": 0
+        },
+        "launchSpeed": 27.506678822506217,
+        "launchVerticalComponent": 4.160045431472961,
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "context": "open_play",
+        "distance": 21.879475,
+        "angle": 1,
+        "pressure": 0,
+        "blockingDefenders": 0,
+        "baseXg": 0.21676188677086133,
+        "effectiveScoringExpectation": 0.21448998410440903,
+        "shooterExecutionQuality": 0.719832166652509,
+        "intendedTarget": {
+          "horizontal": 0.62,
+          "vertical": 0.34
+        },
+        "actualTarget": {
+          "horizontal": 0.8402689776528554,
+          "vertical": -0.0029898876047553813
+        },
+        "error": {
+          "horizontal": 0.22026897765285536,
+          "vertical": -0.3429898876047554
+        },
+        "speed": 27.506678822506217,
+        "classification": "on_target",
+        "goalPoint": {
+          "x": 105,
+          "y": 37.07538445820945
+        },
+        "heightMetres": 0.16472379018143454,
+        "launchVelocity": {
+          "x": 26.91328653523616,
+          "y": 3.8712284516505306,
+          "z": 4.160045431472961
+        },
+        "launchElevation": 0.1518202038038619,
+        "outcome": "goal"
+      }
+    },
+    {
+      "name": "close-preparation",
+      "base": {
+        "x": 106.67245347333369,
+        "y": 36.90911825168987
+      },
+      "approach": {
+        "target": {
+          "x": 97.76,
+          "y": 34
+        },
+        "keeperEta": 1.0000000000000004,
+        "coveringEta": 99,
+        "attackerEta": 0.5250000000000001,
+        "reason": "uncovered_ground_attack"
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:0",
+        "coverId": "geometry:opponent:1",
+        "target": {
+          "x": 94.5,
+          "y": 34,
+          "ownerId": "geometry:anchor:10",
+          "lastTouchPlayerId": "geometry:anchor:10"
+        },
+        "keeperEta": 1.4949999999999992,
+        "defenderEta": 7.55000000000004,
+        "attackerEta": 0,
+        "ballEta": 0,
+        "meaningfulChoice": true,
+        "reason": "keeper_first"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 101.53044777894979,
+        "y": 34.01292521152646
+      },
+      "velocity": {
+        "x": -0.9307781147504102,
+        "y": -0.005925049706831942
+      },
+      "shot": {
+        "shotId": "pr183-shots:shot:1:geometry:anchor:10",
+        "shooterId": "geometry:anchor:10",
+        "releasedAt": 600.025,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.24,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.02417196304927985,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6606760214623493,
+          "horizontalSigma": 0.1801125791448214,
+          "verticalSigma": 0.2511328392834716,
+          "distanceDifficulty": 0.5329289242218201,
+          "angleDifficulty": 0,
+          "pressureDifficulty": 0.27636428571428495,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.02417196304927985,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.3811475308845147,
+          "horizontalSigmaMetres": 0.6592120396700464,
+          "verticalSigmaMetres": 0.6127641278516707,
+          "ballMovementDifficulty": 0.08620000000000048,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.20366336038055377,
+          "blockerDifficulty": 0
+        },
+        "launchSpeed": 27.506678822506217,
+        "launchVerticalComponent": 2.2756456725064043,
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "context": "open_play",
+        "distance": 10.879475,
+        "angle": 1,
+        "pressure": 0.27636428571428495,
+        "blockingDefenders": 0,
+        "baseXg": 0.7366835682862696,
+        "effectiveScoringExpectation": 0.740171955929224,
+        "shooterExecutionQuality": 0.6606760214623493,
+        "intendedTarget": {
+          "horizontal": 0.62,
+          "vertical": 0.34
+        },
+        "actualTarget": {
+          "horizontal": 0.8198392512320699,
+          "vertical": -0.011642789547910093
+        },
+        "error": {
+          "horizontal": 0.19983925123206994,
+          "vertical": -0.3516427895479101
+        },
+        "speed": 27.506678822506217,
+        "classification": "on_target",
+        "goalPoint": {
+          "x": 105,
+          "y": 37.000611659509374
+        },
+        "heightMetres": 0.14799659243196583,
+        "launchVelocity": {
+          "x": 26.334243275255506,
+          "y": 7.6122564156349215,
+          "z": 2.2756456725064043
+        },
+        "launchElevation": 0.08282532419242021,
+        "outcome": "goal"
+      }
+    },
+    {
+      "name": "six-yard-cross",
+      "base": {
+        "x": 101.82142857142857,
+        "y": 34
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:0",
+        "coverId": "geometry:opponent:1",
+        "target": {
+          "x": 96,
+          "y": 34,
+          "lastTouchPlayerId": "geometry:anchor:10",
+          "height": 2,
+          "airborne": true,
+          "travelKind": "cross",
+          "target": {
+            "x": 98,
+            "y": 34
+          },
+          "velocity": {
+            "x": 3,
+            "y": 0,
+            "z": -1
+          }
+        },
+        "keeperEta": 1.4199999999999995,
+        "defenderEta": 7.700000000000042,
+        "attackerEta": 1.5249999999999986,
+        "ballEta": 0,
+        "meaningfulChoice": true,
+        "reason": "keeper_first"
+      },
+      "aerial": {
+        "keeper": {
+          "id": "geometry:opponent:0",
+          "team": "away",
+          "profile": {
+            "id": "geometry:opponent:0",
+            "firstName": "opponent",
+            "lastName": "0",
+            "age": 25,
+            "dateOfBirth": "2001-01-01",
+            "nationality": "PL",
+            "heightCm": 180,
+            "weightKg": 75,
+            "attributes": {
+              "technique": 72,
+              "firstTouch": 72,
+              "passing": 72,
+              "dribbling": 72,
+              "finishing": 72,
+              "tackling": 72,
+              "positioning": 72,
+              "heading": 72,
+              "setPieces": 72,
+              "gameReading": 72,
+              "composure": 72,
+              "concentration": 72,
+              "leadership": 72,
+              "determination": 72,
+              "aggression": 72,
+              "pace": 72,
+              "stamina": 72,
+              "strength": 72,
+              "agility": 72,
+              "jumping": 72,
+              "ambition": 72,
+              "professionalism": 72,
+              "reflexes": 72,
+              "handling": 72,
+              "oneOnOnes": 72,
+              "goalkeeperSweeping": 72,
+              "goalkeeperKicking": 72,
+              "goalkeeperThrowing": 72
+            },
+            "hiddenProfile": {
+              "consistency": 50,
+              "importantMatches": 50,
+              "injuryProneness": 50,
+              "adaptability": 50,
+              "loyalty": 50,
+              "pressureResistance": 50,
+              "controversy": 50,
+              "fairPlay": 50
+            },
+            "dominantFoot": "right",
+            "weakFootProficiency": 100,
+            "traits": [],
+            "primaryPosition": "goalkeeper",
+            "secondaryPositions": [
+              "center_back",
+              "left_back",
+              "right_back",
+              "central_midfielder",
+              "left_winger",
+              "right_winger",
+              "striker"
+            ],
+            "positionFamiliarity": {
+              "goalkeeper": 1,
+              "center_back": 1,
+              "left_back": 1,
+              "right_back": 1,
+              "central_midfielder": 1,
+              "left_winger": 1,
+              "right_winger": 1,
+              "striker": 1
+            }
+          },
+          "fitness": {
+            "longTermCapacity": 1,
+            "burstReadiness": 1,
+            "exertionSpent": 0,
+            "capacitySpent": 0,
+            "burstSpent": 0,
+            "capacityRecovered": 0,
+            "burstRecovered": 0,
+            "movementRiskExposure": 0,
+            "assessedRiskExposure": 0,
+            "workload": {
+              "seconds": 0,
+              "distanceWalk": 0,
+              "distanceJog": 0,
+              "distanceRun": 0,
+              "distanceSprint": 0,
+              "sprintSeconds": 0,
+              "sprintBursts": 0,
+              "accelerationImpulse": 0,
+              "brakingImpulse": 0,
+              "turningLoad": 0,
+              "intensivePressSeconds": 0,
+              "bodyContactLoad": 0
+            }
+          },
+          "slotIndex": 0,
+          "slot": {
+            "position": "goalkeeper",
+            "x": 50,
+            "y": 91
+          },
+          "duty": "support",
+          "position": {
+            "x": 102,
+            "y": 34
+          },
+          "target": {
+            "x": 102,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": -1.5707963267948966,
+          "anchor": {
+            "x": 99.5,
+            "y": 34
+          },
+          "neutralAnchor": {
+            "x": 99.5,
+            "y": 34
+          },
+          "idealTarget": {
+            "x": 104.02755845994119,
+            "y": 33.76685315535475
+          },
+          "meanPosition": {
+            "x": 99.5,
+            "y": 34
+          },
+          "samples": 1
+        },
+        "score": 62,
+        "decision": "attempt_interception"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 99.60924059620122,
+        "y": 34
+      },
+      "velocity": {
+        "x": -1.7881575688977591,
+        "y": 0
+      }
+    },
+    {
+      "name": "deep-aerial",
+      "base": {
+        "x": 101.82142857142857,
+        "y": 34
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:0",
+        "coverId": "geometry:opponent:1",
+        "target": {
+          "x": 96,
+          "y": 34,
+          "lastTouchPlayerId": "geometry:anchor:10",
+          "height": 2,
+          "airborne": true,
+          "travelKind": "cross",
+          "target": {
+            "x": 98,
+            "y": 34
+          },
+          "velocity": {
+            "x": 3,
+            "y": 0,
+            "z": -1
+          }
+        },
+        "keeperEta": 1.4199999999999995,
+        "defenderEta": 7.700000000000042,
+        "attackerEta": 1.5249999999999986,
+        "ballEta": 0,
+        "meaningfulChoice": true,
+        "reason": "keeper_first"
+      },
+      "aerial": {
+        "keeper": {
+          "id": "geometry:opponent:0",
+          "team": "away",
+          "profile": {
+            "id": "geometry:opponent:0",
+            "firstName": "opponent",
+            "lastName": "0",
+            "age": 25,
+            "dateOfBirth": "2001-01-01",
+            "nationality": "PL",
+            "heightCm": 180,
+            "weightKg": 75,
+            "attributes": {
+              "technique": 72,
+              "firstTouch": 72,
+              "passing": 72,
+              "dribbling": 72,
+              "finishing": 72,
+              "tackling": 72,
+              "positioning": 72,
+              "heading": 72,
+              "setPieces": 72,
+              "gameReading": 72,
+              "composure": 72,
+              "concentration": 72,
+              "leadership": 72,
+              "determination": 72,
+              "aggression": 72,
+              "pace": 72,
+              "stamina": 72,
+              "strength": 72,
+              "agility": 72,
+              "jumping": 72,
+              "ambition": 72,
+              "professionalism": 72,
+              "reflexes": 72,
+              "handling": 72,
+              "oneOnOnes": 72,
+              "goalkeeperSweeping": 72,
+              "goalkeeperKicking": 72,
+              "goalkeeperThrowing": 72
+            },
+            "hiddenProfile": {
+              "consistency": 50,
+              "importantMatches": 50,
+              "injuryProneness": 50,
+              "adaptability": 50,
+              "loyalty": 50,
+              "pressureResistance": 50,
+              "controversy": 50,
+              "fairPlay": 50
+            },
+            "dominantFoot": "right",
+            "weakFootProficiency": 100,
+            "traits": [],
+            "primaryPosition": "goalkeeper",
+            "secondaryPositions": [
+              "center_back",
+              "left_back",
+              "right_back",
+              "central_midfielder",
+              "left_winger",
+              "right_winger",
+              "striker"
+            ],
+            "positionFamiliarity": {
+              "goalkeeper": 1,
+              "center_back": 1,
+              "left_back": 1,
+              "right_back": 1,
+              "central_midfielder": 1,
+              "left_winger": 1,
+              "right_winger": 1,
+              "striker": 1
+            }
+          },
+          "fitness": {
+            "longTermCapacity": 1,
+            "burstReadiness": 1,
+            "exertionSpent": 0,
+            "capacitySpent": 0,
+            "burstSpent": 0,
+            "capacityRecovered": 0,
+            "burstRecovered": 0,
+            "movementRiskExposure": 0,
+            "assessedRiskExposure": 0,
+            "workload": {
+              "seconds": 0,
+              "distanceWalk": 0,
+              "distanceJog": 0,
+              "distanceRun": 0,
+              "distanceSprint": 0,
+              "sprintSeconds": 0,
+              "sprintBursts": 0,
+              "accelerationImpulse": 0,
+              "brakingImpulse": 0,
+              "turningLoad": 0,
+              "intensivePressSeconds": 0,
+              "bodyContactLoad": 0
+            }
+          },
+          "slotIndex": 0,
+          "slot": {
+            "position": "goalkeeper",
+            "x": 50,
+            "y": 91
+          },
+          "duty": "support",
+          "position": {
+            "x": 102,
+            "y": 34
+          },
+          "target": {
+            "x": 102,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": -1.5707963267948966,
+          "anchor": {
+            "x": 99.5,
+            "y": 34
+          },
+          "neutralAnchor": {
+            "x": 99.5,
+            "y": 34
+          },
+          "idealTarget": {
+            "x": 104.02755845994119,
+            "y": 33.76685315535475
+          },
+          "meanPosition": {
+            "x": 99.5,
+            "y": 34
+          },
+          "samples": 1
+        },
+        "score": 62,
+        "decision": "attempt_interception"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 99.60924059620122,
+        "y": 34
+      },
+      "velocity": {
+        "x": -1.7881575688977591,
+        "y": 0
+      }
+    },
+    {
+      "name": "second-ball",
+      "base": {
+        "x": 101.77120535714286,
+        "y": 34
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:0",
+        "coverId": "geometry:opponent:1",
+        "target": {
+          "x": 96,
+          "y": 34,
+          "lastTouchPlayerId": "geometry:anchor:10",
+          "velocity": {
+            "x": 3,
+            "y": 0
+          },
+          "looseSince": 600
+        },
+        "keeperEta": 1.4199999999999995,
+        "defenderEta": 7.700000000000042,
+        "attackerEta": 1.5249999999999986,
+        "ballEta": 0,
+        "meaningfulChoice": true,
+        "reason": "keeper_first"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 98.65586043517082,
+        "y": 34
+      },
+      "velocity": {
+        "x": -4.298038707652836,
+        "y": 0
+      }
+    },
+    {
+      "name": "covered",
+      "base": {
+        "x": 102.0984083797849,
+        "y": 33.801279111621476
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:1",
+        "coverId": "geometry:opponent:0",
+        "target": {
+          "x": 83.5,
+          "y": 34,
+          "ownerId": "geometry:anchor:10",
+          "lastTouchPlayerId": "geometry:anchor:10"
+        },
+        "keeperEta": 2.7949999999999946,
+        "defenderEta": 0,
+        "attackerEta": 0,
+        "ballEta": 0,
+        "meaningfulChoice": false,
+        "reason": "defender_first"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 102,
+        "y": 34
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "shot": {
+        "shotId": "pr183-shots:shot:3:geometry:anchor:10",
+        "shooterId": "geometry:anchor:10",
+        "releasedAt": 600.6749999999994,
+        "intent": "chip",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "executionProfile": {
+          "intent": "chip",
+          "contact": "settled",
+          "nominalSpeed": 20.24,
+          "errorMultiplier": 1.05,
+          "pressureSensitivity": 0.38,
+          "preparationSeconds": 0.24,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.02297777826952776,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 8.964
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.5671359309050965,
+          "horizontalSigma": 0.6802656544813849,
+          "verticalSigma": 1.0161152100513524,
+          "distanceDifficulty": 1.1477894595249953,
+          "angleDifficulty": 0.07563825216406528,
+          "pressureDifficulty": 0.6068864337927474,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.02297777826952776,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.805899926872247,
+          "horizontalSigmaMetres": 2.4897722954018686,
+          "verticalSigmaMetres": 2.4793211125253,
+          "ballMovementDifficulty": 0.049937003938322955,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.24230001716672778,
+          "blockerDifficulty": 0
+        },
+        "launchSpeed": 14.197939797746741,
+        "launchVerticalComponent": 8.964,
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "context": "open_play",
+        "distance": 20.098437277560485,
+        "angle": 0.9243617478359347,
+        "pressure": 0.6068864337927474,
+        "blockingDefenders": 1,
+        "baseXg": 0.14235101375939885,
+        "effectiveScoringExpectation": 0.05126393290714413,
+        "shooterExecutionQuality": 0.5671359309050965,
+        "intendedTarget": {
+          "horizontal": 0,
+          "vertical": 0.62
+        },
+        "actualTarget": {
+          "horizontal": 0.09852111862932993,
+          "vertical": -0.603036497369135
+        },
+        "error": {
+          "horizontal": 0.09852111862932993,
+          "vertical": -1.223036497369135
+        },
+        "speed": 14.197939797746741,
+        "classification": "on_target",
+        "goalPoint": {
+          "x": 105,
+          "y": 34.36058729418335
+        },
+        "heightMetres": 0.7243999006343026,
+        "launchVelocity": {
+          "x": 10.965745072947046,
+          "y": 0.990269405555064,
+          "z": 8.964
+        },
+        "launchElevation": 0.6833046687973865
+      }
+    },
+    {
+      "name": "human-attacker",
+      "base": {
+        "x": 102.19002366500494,
+        "y": 34
+      },
+      "approach": {
+        "target": {
+          "x": 97.76,
+          "y": 34
+        },
+        "keeperEta": 1.0000000000000004,
+        "coveringEta": 99,
+        "attackerEta": 1.7499999999999978,
+        "reason": "uncovered_ground_attack"
+      },
+      "arbitration": {
+        "primaryId": "geometry:opponent:0",
+        "coverId": "geometry:opponent:1",
+        "target": {
+          "x": 83.5,
+          "y": 34,
+          "ownerId": "geometry:anchor:10",
+          "lastTouchPlayerId": "geometry:anchor:10"
+        },
+        "keeperEta": 2.7949999999999946,
+        "defenderEta": 6.425000000000024,
+        "attackerEta": 0,
+        "ballEta": 0,
+        "meaningfulChoice": true,
+        "reason": "keeper_first"
+      },
+      "initial": {
+        "x": 102,
+        "y": 34
+      },
+      "end": {
+        "x": 100.50981035575595,
+        "y": 33.96873838753488
+      },
+      "velocity": {
+        "x": -3.6741970977101346,
+        "y": -0.1329365826629214
+      }
+    }
+  ]
+}

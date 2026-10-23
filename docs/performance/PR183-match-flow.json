@@ -1,0 +1,592 @@
+{
+  "schema": "mfl-pr183-flow-v1",
+  "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+  "scope": "All fixed steps retained; clock reconciliation and legal restart completion checked. Excessive live time is reported, not corrected by artificial downtime.",
+  "rows": [
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5520,
+        "inPlay": 5275.500000000526,
+        "stoppage": 244.49999999947448,
+        "restartPreparation": 220.57499999941223,
+        "restartReady": 23.925000000062226
+      },
+      "restarts": 21
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5669.999999999563,
+        "inPlay": 4908.825000007552,
+        "stoppage": 761.1749999920111,
+        "restartPreparation": 718.8749999920202,
+        "restartReady": 42.29999999999083
+      },
+      "restarts": 70
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5761.924999986276,
+        "inPlay": 4484.249999988944,
+        "stoppage": 1277.6749999973313,
+        "restartPreparation": 1210.474999997339,
+        "restartReady": 67.19999999999231
+      },
+      "restarts": 124
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5580.524999983258,
+        "inPlay": 4709.5999999849155,
+        "stoppage": 870.9249999983425,
+        "restartPreparation": 804.1249999982383,
+        "restartReady": 66.80000000010423
+      },
+      "restarts": 88
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5771.725000000042,
+        "inPlay": 4750.675000002646,
+        "stoppage": 1021.0499999973968,
+        "restartPreparation": 964.3249999974773,
+        "restartReady": 56.72499999991947
+      },
+      "restarts": 102
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5581.374999983245,
+        "inPlay": 5025.499999983757,
+        "stoppage": 555.8749999994882,
+        "restartPreparation": 524.5499999994468,
+        "restartReady": 31.325000000041477
+      },
+      "restarts": 50
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5768.874999986175,
+        "inPlay": 4724.724999988917,
+        "stoppage": 1044.149999997257,
+        "restartPreparation": 980.3749999973518,
+        "restartReady": 63.774999999905276
+      },
+      "restarts": 96
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5701.399999981062,
+        "inPlay": 4682.6499999818625,
+        "stoppage": 1018.7499999992002,
+        "restartPreparation": 972.8499999991398,
+        "restartReady": 45.90000000006049
+      },
+      "restarts": 95
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5727.925000006197,
+        "inPlay": 4414.225000007534,
+        "stoppage": 1313.6999999986624,
+        "restartPreparation": 1259.5749999986122,
+        "restartReady": 54.12500000005008
+      },
+      "restarts": 111
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5729.025000005455,
+        "inPlay": 4586.249999989371,
+        "stoppage": 1142.775000016084,
+        "restartPreparation": 1087.9250000160093,
+        "restartReady": 54.85000000007482
+      },
+      "restarts": 103
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5734.999999986668,
+        "inPlay": 5005.0749999872705,
+        "stoppage": 729.924999999397,
+        "restartPreparation": 697.1249999993208,
+        "restartReady": 32.80000000007615
+      },
+      "restarts": 45
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5695.3999999997895,
+        "inPlay": 5033.175000002414,
+        "stoppage": 662.224999997376,
+        "restartPreparation": 609.7749999973524,
+        "restartReady": 52.45000000002352
+      },
+      "restarts": 54
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5969.750000005898,
+        "inPlay": 4655.400000010352,
+        "stoppage": 1314.3499999955457,
+        "restartPreparation": 1246.299999995783,
+        "restartReady": 68.04999999976255
+      },
+      "restarts": 89
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5790.30000000011,
+        "inPlay": 5040.150000003612,
+        "stoppage": 750.1499999964976,
+        "restartPreparation": 678.9249999965639,
+        "restartReady": 71.22499999993374
+      },
+      "restarts": 66
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 6071.7500000000755,
+        "inPlay": 4566.275000004659,
+        "stoppage": 1505.4749999954165,
+        "restartPreparation": 1427.824999995664,
+        "restartReady": 77.64999999975254
+      },
+      "restarts": 113
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5598.049999999737,
+        "inPlay": 5018.274999999941,
+        "stoppage": 579.7749999997963,
+        "restartPreparation": 542.5749999996938,
+        "restartReady": 37.20000000010248
+      },
+      "restarts": 37
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5820,
+        "inPlay": 4662.4250000027705,
+        "stoppage": 1157.5749999972295,
+        "restartPreparation": 1085.5749999974087,
+        "restartReady": 71.99999999982111
+      },
+      "restarts": 76
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5701.449999981061,
+        "inPlay": 4704.849999982011,
+        "stoppage": 996.5999999990507,
+        "restartPreparation": 949.9249999989923,
+        "restartReady": 46.67500000005836
+      },
+      "restarts": 71
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5719.299999999719,
+        "inPlay": 4599.0750000011885,
+        "stoppage": 1120.2249999985304,
+        "restartPreparation": 1033.0749999984962,
+        "restartReady": 87.15000000003425
+      },
+      "restarts": 85
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5701.424999981062,
+        "inPlay": 4472.174999983129,
+        "stoppage": 1229.2499999979327,
+        "restartPreparation": 1163.0999999978483,
+        "restartReady": 66.15000000008453
+      },
+      "restarts": 94
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5580,
+        "inPlay": 5270.850000001257,
+        "stoppage": 309.14999999874294,
+        "restartPreparation": 283.1999999986804,
+        "restartReady": 25.950000000062516
+      },
+      "restarts": 20
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5605.299999999632,
+        "inPlay": 4876.850000002887,
+        "stoppage": 728.4499999967454,
+        "restartPreparation": 687.9499999967722,
+        "restartReady": 40.4999999999732
+      },
+      "restarts": 48
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5580,
+        "inPlay": 4824.125000000104,
+        "stoppage": 755.8749999998968,
+        "restartPreparation": 697.124999999824,
+        "restartReady": 58.75000000007279
+      },
+      "restarts": 57
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5648.375000000031,
+        "inPlay": 4890.07500000469,
+        "stoppage": 758.2999999953408,
+        "restartPreparation": 699.0999999952079,
+        "restartReady": 59.200000000133
+      },
+      "restarts": 56
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5640.024999982392,
+        "inPlay": 4661.449999985942,
+        "stoppage": 978.5749999964505,
+        "restartPreparation": 908.5999999965479,
+        "restartReady": 69.97499999990254
+      },
+      "restarts": 72
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5520,
+        "inPlay": 5300.025000000697,
+        "stoppage": 219.9749999993029,
+        "restartPreparation": 194.2249999992547,
+        "restartReady": 25.750000000048203
+      },
+      "restarts": 14
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5580,
+        "inPlay": 4881.225000000044,
+        "stoppage": 698.7749999999564,
+        "restartPreparation": 649.3499999998369,
+        "restartReady": 49.425000000119496
+      },
+      "restarts": 50
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5642.874999988008,
+        "inPlay": 4815.87499998985,
+        "stoppage": 826.999999998158,
+        "restartPreparation": 769.4499999981385,
+        "restartReady": 57.55000000001954
+      },
+      "restarts": 62
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5580,
+        "inPlay": 4812.275000001298,
+        "stoppage": 767.7249999987022,
+        "restartPreparation": 711.9749999988545,
+        "restartReady": 55.74999999984766
+      },
+      "restarts": 61
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "clock": {
+        "elapsed": 5580,
+        "inPlay": 4709.599999985301,
+        "stoppage": 870.4000000146983,
+        "restartPreparation": 792.2250000147994,
+        "restartReady": 78.17499999989889
+      },
+      "restarts": 68
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "legacy-pr176",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5730.974999999549,
+        "inPlay": 5181.875000000661,
+        "stoppage": 549.0999999988879,
+        "restartPreparation": 521.224999998827,
+        "restartReady": 27.875000000060936
+      },
+      "restarts": 33
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5701.974999981272,
+        "inPlay": 5050.474999983928,
+        "stoppage": 651.499999997344,
+        "restartPreparation": 600.8499999973612,
+        "restartReady": 50.64999999998278
+      },
+      "restarts": 61
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "role-intent-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5641.299999982373,
+        "inPlay": 4540.124999984401,
+        "stoppage": 1101.1749999979722,
+        "restartPreparation": 1013.224999998022,
+        "restartReady": 87.94999999995031
+      },
+      "restarts": 100
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "role-value-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5652.1999999998225,
+        "inPlay": 4748.175000001036,
+        "stoppage": 904.0249999987861,
+        "restartPreparation": 852.1749999988111,
+        "restartReady": 51.849999999974976
+      },
+      "restarts": 85
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "state-value-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5708.124999981183,
+        "inPlay": 4801.049999983086,
+        "stoppage": 907.0749999980962,
+        "restartPreparation": 858.1749999980511,
+        "restartReady": 48.900000000045196
+      },
+      "restarts": 93
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "legacy-pr176",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5646.674999987953,
+        "inPlay": 5000.449999988291,
+        "stoppage": 646.2249999996619,
+        "restartPreparation": 611.9499999995816,
+        "restartReady": 34.275000000080325
+      },
+      "restarts": 45
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5760.699999980199,
+        "inPlay": 4438.074999983192,
+        "stoppage": 1322.624999997007,
+        "restartPreparation": 1245.8999999971493,
+        "restartReady": 76.72499999985791
+      },
+      "restarts": 96
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "role-intent-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5760.2499999799875,
+        "inPlay": 4858.27499998085,
+        "stoppage": 901.9749999991374,
+        "restartPreparation": 846.4999999990275,
+        "restartReady": 55.475000000109816
+      },
+      "restarts": 65
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "role-value-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5773.850000006363,
+        "inPlay": 4926.750000006279,
+        "stoppage": 847.100000000084,
+        "restartPreparation": 783.6249999999284,
+        "restartReady": 63.47500000015572
+      },
+      "restarts": 66
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "state-value-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 6087.3250000070675,
+        "inPlay": 4700.550000010497,
+        "stoppage": 1386.7749999965706,
+        "restartPreparation": 1313.974999996773,
+        "restartReady": 72.7999999997977
+      },
+      "restarts": 85
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "legacy-pr176",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5460,
+        "inPlay": 5294.199999999467,
+        "stoppage": 165.80000000053292,
+        "restartPreparation": 139.15000000043779,
+        "restartReady": 26.650000000095133
+      },
+      "restarts": 13
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5580,
+        "inPlay": 5237.025000000788,
+        "stoppage": 342.97499999921166,
+        "restartPreparation": 309.0999999992075,
+        "restartReady": 33.87500000000412
+      },
+      "restarts": 27
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "role-intent-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5580,
+        "inPlay": 4965.325000006451,
+        "stoppage": 614.6749999935486,
+        "restartPreparation": 563.724999993482,
+        "restartReady": 50.950000000066524
+      },
+      "restarts": 48
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "role-value-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5645.0500000001275,
+        "inPlay": 4824.225000002459,
+        "stoppage": 820.8249999976687,
+        "restartPreparation": 777.8499999976725,
+        "restartReady": 42.97499999999616
+      },
+      "restarts": 58
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "state-value-v1",
+      "cohort": "validation",
+      "clock": {
+        "elapsed": 5640,
+        "inPlay": 4797.175000001656,
+        "stoppage": 842.8249999983443,
+        "restartPreparation": 790.8999999983514,
+        "restartReady": 51.92499999999293
+      },
+      "restarts": 64
+    }
+  ]
+}

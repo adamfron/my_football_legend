@@ -1,0 +1,59 @@
+{
+  "schema": "mfl-pr183-ci-heap-v1",
+  "sourceHash": "57863da9df8f0a8c8c4bb6f638a85ea0d6272c271f409734a7501e8977b39321",
+  "runtime": "v24.19.0",
+  "rows": [
+    {
+      "label": "default",
+      "nodeOptions": [],
+      "wholeProcessWallSeconds": 83.21038739999999,
+      "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "resultHash": "0591889665c18fe9f71e3a27e35b3f2c058aea9ddffc99aee22fcb1d0f9fec18",
+      "stateHash": "d3d2a6e1f7098c627c1ef94e39acc3d3684ba5966c4688643214ad4bcbedd7ac",
+      "status": "half_time",
+      "time": 2760.6250000056602,
+      "decisions": 1110,
+      "penaltyExecution": 436.5749999998768,
+      "awarded": true,
+      "cpuSeconds": 93.577,
+      "maxRssBytes": 493056000
+    },
+    {
+      "label": "64MiB",
+      "nodeOptions": [
+        "--max-semi-space-size=64"
+      ],
+      "wholeProcessWallSeconds": 80.08282599999998,
+      "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "resultHash": "0591889665c18fe9f71e3a27e35b3f2c058aea9ddffc99aee22fcb1d0f9fec18",
+      "stateHash": "d3d2a6e1f7098c627c1ef94e39acc3d3684ba5966c4688643214ad4bcbedd7ac",
+      "status": "half_time",
+      "time": 2760.6250000056602,
+      "decisions": 1110,
+      "penaltyExecution": 436.5749999998768,
+      "awarded": true,
+      "cpuSeconds": 90.499,
+      "maxRssBytes": 428343296
+    },
+    {
+      "label": "fixed64MiB",
+      "nodeOptions": [
+        "--min-semi-space-size=64",
+        "--max-semi-space-size=64"
+      ],
+      "wholeProcessWallSeconds": 82.10903470000001,
+      "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "resultHash": "0591889665c18fe9f71e3a27e35b3f2c058aea9ddffc99aee22fcb1d0f9fec18",
+      "stateHash": "d3d2a6e1f7098c627c1ef94e39acc3d3684ba5966c4688643214ad4bcbedd7ac",
+      "status": "half_time",
+      "time": 2760.6250000056602,
+      "decisions": 1110,
+      "penaltyExecution": 436.5749999998768,
+      "awarded": true,
+      "cpuSeconds": 92.484,
+      "maxRssBytes": 502042624
+    }
+  ],
+  "completeCanonicalResultsEqual": true,
+  "scope": "Identical complete legacy penalty-half contract under default V8 young-generation heap and a 64MiB semi-space. All canonical steps, physics, assertions and test timeouts remain unchanged; extra CI memory headroom reduces GC overhead. The probe has a diagnostic 180s limit, not a replacement for the original 90s test."
+}

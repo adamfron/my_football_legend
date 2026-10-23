@@ -1,0 +1,1209 @@
+{
+  "schema": "mfl-pr183-retreat-continuations-v1",
+  "limitation": "Native frozen same-seed PR182 episodes matched to the four observed player/defect anchors; NOT the inaccessible exact original states. Original browser export matches only 37/2820 sampled positions in the complete closest replay despite equal fixture identity. Policy overrides are controlled counterfactuals on the same body/role state, not original-policy histories.",
+  "rows": [
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "before",
+      "policy": "legacy-pr176",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 0.3499999999996817,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 66.58856243096542,
+        "y": 38.204122529448284
+      },
+      "maxRetreatMetres": 0.22823590139638839,
+      "released": true,
+      "releaseAction": "challenge",
+      "rankings": 0,
+      "rankingsWithPass": 0,
+      "rankingsWithForwardPass": 0,
+      "meanTeammateSpeed": 1.9756418014700365,
+      "targetChanges": 3,
+      "lastPassAt": 476.32499999984066,
+      "finalHash": "0bb75f33743cc7bc3cce14d18da27ecd596459795c4aab50c4048a9fb6f6745d",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "before",
+      "policy": "state-value-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 0.3499999999996817,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 66.5686339187126,
+        "y": 38.315853681809784
+      },
+      "maxRetreatMetres": 0.20830738914357028,
+      "released": true,
+      "releaseAction": "challenge",
+      "rankings": 1,
+      "rankingsWithPass": 0,
+      "rankingsWithForwardPass": 0,
+      "meanTeammateSpeed": 1.9756964184890815,
+      "targetChanges": 3,
+      "lastPassAt": 476.32499999984066,
+      "finalHash": "8de0729c5e4a18eeb451f4afd34dd4a6b072aba1ed8aaeb3ea95158c5d0c773e",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "before",
+      "policy": "role-value-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 1.7499999999984084,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 65.62028614515896,
+        "y": 39.829494514090825
+      },
+      "maxRetreatMetres": 0.3362029913345168,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 11,
+      "rankingsWithPass": 2,
+      "rankingsWithForwardPass": 2,
+      "meanTeammateSpeed": 2.2609502838348794,
+      "targetChanges": 11,
+      "lastPassAt": 478.84999999983836,
+      "finalHash": "f9203232885065ec9f7e9fab834be0b055dd2ad1314104976911739c6d1dc9ad",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "before",
+      "policy": "role-intent-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 0.3499999999996817,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 66.60419654682035,
+        "y": 38.311878377061525
+      },
+      "maxRetreatMetres": 0.24387001725131086,
+      "released": true,
+      "releaseAction": "carry",
+      "rankings": 2,
+      "rankingsWithPass": 0,
+      "rankingsWithForwardPass": 0,
+      "meanTeammateSpeed": 2.0291094776095115,
+      "targetChanges": 9,
+      "lastPassAt": 476.32499999984066,
+      "finalHash": "b3a7816e1f5ee745f583867e7f36012829c595081f70d69f9d0a1c0c6c9b9058",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "before",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 9.249999999991587,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 83.04741118405494,
+        "y": 35.366326823759216
+      },
+      "maxRetreatMetres": 17.346466951243414,
+      "released": true,
+      "releaseAction": "carry",
+      "rankings": 49,
+      "rankingsWithPass": 0,
+      "rankingsWithForwardPass": 0,
+      "meanTeammateSpeed": 2.0665399095756873,
+      "targetChanges": 40,
+      "lastPassAt": 476.32499999984066,
+      "finalHash": "ab9a99a58832bc68cbc3f93b71c316e568a4d56f37a8be08785498676081b48d",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "before",
+      "policy": "legacy-pr176",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 1.624999999998522,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 46.728145943020564,
+        "y": 26.7544617567542
+      },
+      "maxRetreatMetres": 0,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 1,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.7040597969632447,
+      "targetChanges": 32,
+      "lastPassAt": 866.1749999994861,
+      "finalHash": "36a56beeb1f8cf8d63fb2e70ca9bbee2e006d1a80a5857083e176c353a49472b",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "before",
+      "policy": "state-value-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 0.7499999999993179,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 47.4584050173252,
+        "y": 26.279815635678904
+      },
+      "maxRetreatMetres": 0,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 5,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.419467847720464,
+      "targetChanges": 24,
+      "lastPassAt": 865.2999999994869,
+      "finalHash": "cbcbc8a1936727ca66d72dacf401a5c7ce7b1242f489461eb32144b9f1a7ffa2",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "before",
+      "policy": "role-value-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 0.7499999999993179,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 47.4584050173252,
+        "y": 26.279815635678904
+      },
+      "maxRetreatMetres": 0,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 5,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.419467847720464,
+      "targetChanges": 24,
+      "lastPassAt": 865.2999999994869,
+      "finalHash": "42730facadbc4798d04ee96895a20086d36d335812b48d053ae0dbfad5deaa65",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "before",
+      "policy": "role-intent-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 0.7499999999993179,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 47.4584050173252,
+        "y": 26.279815635678904
+      },
+      "maxRetreatMetres": 0,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 5,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 1.702578866905423,
+      "targetChanges": 25,
+      "lastPassAt": 865.2999999994869,
+      "finalHash": "11a59febfcedbb86e45e97a5afdfd746ea6e5f80eaaa6da7d9f6886e506a0956",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "before",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 8.074999999992656,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 32.40965827654382,
+        "y": 31.87020540730897
+      },
+      "maxRetreatMetres": 14.269333309237332,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 43,
+      "rankingsWithPass": 2,
+      "rankingsWithForwardPass": 2,
+      "meanTeammateSpeed": 1.8203719032004757,
+      "targetChanges": 46,
+      "lastPassAt": 872.6249999994802,
+      "finalHash": "f1790ac8e8fb2457b572991d15e16d81b328f839a49cfcdee8357676d19560d0",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "before",
+      "policy": "legacy-pr176",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 1.3250000000048203,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 41.80605444917046,
+        "y": 26.29376730167978
+      },
+      "maxRetreatMetres": 1.7194261998858522,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 1,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.686229383742301,
+      "targetChanges": 25,
+      "lastPassAt": 1870.525000002422,
+      "finalHash": "9dff4d423f47cd989083d4a15ddf346d384e2457275565678db49ff54189d978",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "before",
+      "policy": "state-value-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 2.2750000000082764,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 40.20664124117264,
+        "y": 27.284023344010528
+      },
+      "maxRetreatMetres": 3.3188394078836723,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 13,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.810890730132067,
+      "targetChanges": 27,
+      "lastPassAt": 1871.4750000024255,
+      "finalHash": "e7f5b4d00364319431dce91de0e3313d10ca00f00ca824f89cc68bcb2f7a9615",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "before",
+      "policy": "role-value-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 2.2750000000082764,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 40.20664124117264,
+        "y": 27.284023344010528
+      },
+      "maxRetreatMetres": 3.3188394078836723,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 13,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.810890730132067,
+      "targetChanges": 27,
+      "lastPassAt": 1871.4750000024255,
+      "finalHash": "4c296504cfa28dfa5afc2e0e9e75c445ec6d853664cf595c10dd0809371a8054",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "before",
+      "policy": "role-intent-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 2.2750000000082764,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 40.20664124117264,
+        "y": 27.284023344010528
+      },
+      "maxRetreatMetres": 3.3188394078836723,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 13,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.445732496183561,
+      "targetChanges": 11,
+      "lastPassAt": 1871.4750000024255,
+      "finalHash": "c1c682d70b09231ab4e735c47f52df8986e1eeab978d4e052dd3eba508640e43",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "before",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 16.700000000060754,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 16.157292016717555,
+        "y": 33.28707691798393
+      },
+      "maxRetreatMetres": 28.674847038075555,
+      "released": true,
+      "releaseAction": "carry",
+      "rankings": 77,
+      "rankingsWithPass": 0,
+      "rankingsWithForwardPass": 0,
+      "meanTeammateSpeed": 1.4125141251931437,
+      "targetChanges": 55,
+      "lastPassAt": 1869.125000002417,
+      "finalHash": "1cf7d1d04c2972a11d3e500dc826b22848c2bd07dc57594901e2db7f10749bb4",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "before",
+      "policy": "legacy-pr176",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 1.3250000000048203,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 44.31529060548283,
+        "y": 33.87203793581719
+      },
+      "maxRetreatMetres": 2.659524818705634,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 1,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.6634952872781406,
+      "targetChanges": 35,
+      "lastPassAt": 2693.3250000054154,
+      "finalHash": "67318e65201b71338b51d7fa74961c60a28ac99ef00c9231af549d0494003489",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "before",
+      "policy": "state-value-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 0.4500000000016371,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 46.51398035549273,
+        "y": 33.422662124433195
+      },
+      "maxRetreatMetres": 0.462883166773004,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 3,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.28117817490131,
+      "targetChanges": 24,
+      "lastPassAt": 2692.450000005412,
+      "finalHash": "fa6f08d00a0ffd007a8dd8a2ac2a15e0872c53344da66364cda928974d6e9c90",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "before",
+      "policy": "role-value-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 4.500000000016371,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 38.27748457022447,
+        "y": 33.72374706646652
+      },
+      "maxRetreatMetres": 8.69733085396399,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 25,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.187869659817977,
+      "targetChanges": 78,
+      "lastPassAt": 2696.500000005427,
+      "finalHash": "7173dbaa3e895153f9d98abc734378152d89374c2a4ed63a5936343ebdac571a",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "before",
+      "policy": "role-intent-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 0.4500000000016371,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 46.513840384910644,
+        "y": 33.42309685715973
+      },
+      "maxRetreatMetres": 0.46297440867603257,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 3,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.0445621396174922,
+      "targetChanges": 27,
+      "lastPassAt": 2692.450000005412,
+      "finalHash": "8f09d9b4cb14ae162caee7ad16bfb25b7ded0e895a88b4d65393104dbaba811a",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "before",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "fede3b2873e6ed5d0cf39f8a6487fc81364eda18544b2063cfc56cc39d7b24f1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 16.800000000061118,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 7.941747886097832,
+        "y": 33.955799020799596
+      },
+      "maxRetreatMetres": 39.033067538090634,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 79,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 1.6334923140954354,
+      "targetChanges": 94,
+      "lastPassAt": 2708.8000000054717,
+      "finalHash": "103a26f4e0d3682d814e29138575e936d296219f386f8042700e05a8aeae824c",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "after",
+      "policy": "legacy-pr176",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 0.3499999999996817,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 66.58856243096542,
+        "y": 38.204122529448284
+      },
+      "maxRetreatMetres": 0.22823590139638839,
+      "released": true,
+      "releaseAction": "challenge",
+      "rankings": 0,
+      "rankingsWithPass": 0,
+      "rankingsWithForwardPass": 0,
+      "meanTeammateSpeed": 1.9756418014700365,
+      "targetChanges": 3,
+      "lastPassAt": 476.32499999984066,
+      "finalHash": "0bb75f33743cc7bc3cce14d18da27ecd596459795c4aab50c4048a9fb6f6745d",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "after",
+      "policy": "state-value-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 0.3499999999996817,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 66.5686339187126,
+        "y": 38.315853681809784
+      },
+      "maxRetreatMetres": 0.20830738914357028,
+      "released": true,
+      "releaseAction": "challenge",
+      "rankings": 1,
+      "rankingsWithPass": 0,
+      "rankingsWithForwardPass": 0,
+      "meanTeammateSpeed": 1.9756964184890815,
+      "targetChanges": 3,
+      "lastPassAt": 476.32499999984066,
+      "finalHash": "8de0729c5e4a18eeb451f4afd34dd4a6b072aba1ed8aaeb3ea95158c5d0c773e",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "after",
+      "policy": "role-value-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 1.5749999999985675,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 65.62393091315583,
+        "y": 39.78264851851266
+      },
+      "maxRetreatMetres": 0.3362029913345168,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 10,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.2565751097543516,
+      "targetChanges": 8,
+      "lastPassAt": 478.6749999998385,
+      "finalHash": "80eefab555bedeedeede24adc2a1bafaf5d473ea7a600f0aa235a1fbd6550fba",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "after",
+      "policy": "role-intent-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 0.3499999999996817,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 66.60419654682035,
+        "y": 38.311878377061525
+      },
+      "maxRetreatMetres": 0.24387001725131086,
+      "released": true,
+      "releaseAction": "carry",
+      "rankings": 2,
+      "rankingsWithPass": 0,
+      "rankingsWithForwardPass": 0,
+      "meanTeammateSpeed": 2.0291094776095115,
+      "targetChanges": 9,
+      "lastPassAt": 476.32499999984066,
+      "finalHash": "b3a7816e1f5ee745f583867e7f36012829c595081f70d69f9d0a1c0c6c9b9058",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "away12",
+      "originalAnchor": "08:29–08:43",
+      "version": "after",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "221be90163e2a221d4b73f92c895761af9dd54d7fbab4b1680dc14e8ec50861c",
+      "actorId": "footballer_pro_1_12",
+      "nativeTime": 477.09999999983995,
+      "duration": 2.549999999997681,
+      "origin": {
+        "x": 66.36032652956904,
+        "y": 38.36158692310323
+      },
+      "endpoint": {
+        "x": 70.33218661797359,
+        "y": 37.70190826424013
+      },
+      "maxRetreatMetres": 3.9718600884045543,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 16,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.717301934927877,
+      "targetChanges": 21,
+      "lastPassAt": 479.64999999983763,
+      "finalHash": "30412f5bec4a3aac30e9f5f030d71562a79f8095927446bdc81c6e1cec8b9afd",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "after",
+      "policy": "legacy-pr176",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 1.624999999998522,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 46.728145943020564,
+        "y": 26.7544617567542
+      },
+      "maxRetreatMetres": 0,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 1,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.7040597969632447,
+      "targetChanges": 32,
+      "lastPassAt": 866.1749999994861,
+      "finalHash": "36a56beeb1f8cf8d63fb2e70ca9bbee2e006d1a80a5857083e176c353a49472b",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "after",
+      "policy": "state-value-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 0.6249999999994316,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 47.206732040685495,
+        "y": 26.27266242499998
+      },
+      "maxRetreatMetres": 0,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 4,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.3593044608653364,
+      "targetChanges": 23,
+      "lastPassAt": 865.174999999487,
+      "finalHash": "a10535260870138ce62316fabd17a049732cd2e66eadca5eb7ecbc5a6caf0765",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "after",
+      "policy": "role-value-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 0.6249999999994316,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 47.206732040685495,
+        "y": 26.27266242499998
+      },
+      "maxRetreatMetres": 0,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 4,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.3593044608653364,
+      "targetChanges": 23,
+      "lastPassAt": 865.174999999487,
+      "finalHash": "6b39d8bde24540758dac7308594c7e558808b301ff6443ca52e862b8a06ae798",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "after",
+      "policy": "role-intent-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 0.6249999999994316,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 47.206732040685495,
+        "y": 26.27266242499998
+      },
+      "maxRetreatMetres": 0,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 4,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 1.7081374142613763,
+      "targetChanges": 25,
+      "lastPassAt": 865.174999999487,
+      "finalHash": "b03edabebb4dcc42dc5b051c9dea3a38b37a80f825ae2c44c3129c023c2817bf",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13-earlier",
+      "originalAnchor": "26:26–26:40",
+      "version": "after",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "8c2b31a1412095361f1c40ec364fd8aa65bfe2c114470c73a3f30d6ba831f610",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 864.5499999994876,
+      "duration": 4.9999999999954525,
+      "origin": {
+        "x": 46.678991585781155,
+        "y": 26.303923142513863
+      },
+      "endpoint": {
+        "x": 37.877600337883585,
+        "y": 30.37845190591347
+      },
+      "maxRetreatMetres": 8.80139124789757,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 28,
+      "rankingsWithPass": 2,
+      "rankingsWithForwardPass": 2,
+      "meanTeammateSpeed": 2.0379792848013976,
+      "targetChanges": 31,
+      "lastPassAt": 869.549999999483,
+      "finalHash": "5ce98b68997518ffa527fc10629e9debbaf3644576dfcaa54ba2bb2677ec7ec2",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "after",
+      "policy": "legacy-pr176",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 1.3250000000048203,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 41.80605444917046,
+        "y": 26.29376730167978
+      },
+      "maxRetreatMetres": 1.7194261998858522,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 1,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.686229383742301,
+      "targetChanges": 25,
+      "lastPassAt": 1870.525000002422,
+      "finalHash": "9dff4d423f47cd989083d4a15ddf346d384e2457275565678db49ff54189d978",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "after",
+      "policy": "state-value-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 1.2000000000043656,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 41.935479516306025,
+        "y": 26.05702172235033
+      },
+      "maxRetreatMetres": 1.590001132750288,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 7,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.646255209930382,
+      "targetChanges": 27,
+      "lastPassAt": 1870.4000000024216,
+      "finalHash": "dc2a02798eba7d0b27f6f618d4cd4f45569e04a4de02232a948e91bc7c3f6d68",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "after",
+      "policy": "role-value-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 2.2250000000080945,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 40.27464871964865,
+        "y": 27.235756850109354
+      },
+      "maxRetreatMetres": 3.25083192940766,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 13,
+      "rankingsWithPass": 4,
+      "rankingsWithForwardPass": 4,
+      "meanTeammateSpeed": 2.8093802276088375,
+      "targetChanges": 27,
+      "lastPassAt": 1871.4250000024253,
+      "finalHash": "1f9877e695c05d2239e9269a1a43726c2bb6945f2d045e851ce0ac3df6cbd913",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "after",
+      "policy": "role-intent-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 1.2000000000043656,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 41.935479516306025,
+        "y": 26.05702172235033
+      },
+      "maxRetreatMetres": 1.590001132750288,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 7,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.440882997115561,
+      "targetChanges": 11,
+      "lastPassAt": 1870.4000000024216,
+      "finalHash": "b53275004ea0dd1353c4c6f9bde1a332217bf38dbfc26c92e27f6809606835c4",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm13",
+      "originalAnchor": "41:46–42:10",
+      "version": "after",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6cf6723794e579b2b48f54c18b4c6ba4238d1ae5b7f806324a1376415ceb1553",
+      "actorId": "footballer_pro_9_13",
+      "nativeTime": 1869.2000000024173,
+      "duration": 4.100000000014916,
+      "origin": {
+        "x": 43.52548064905631,
+        "y": 25.153549349829106
+      },
+      "endpoint": {
+        "x": 36.86249062175103,
+        "y": 28.810570709747747
+      },
+      "maxRetreatMetres": 6.662990027305284,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 23,
+      "rankingsWithPass": 2,
+      "rankingsWithForwardPass": 2,
+      "meanTeammateSpeed": 1.8417301631767522,
+      "targetChanges": 24,
+      "lastPassAt": 1873.3000000024322,
+      "finalHash": "cb3e4890c00a09438ea0c9855d6dde31865bd161966391e53c8888adfe00b442",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "after",
+      "policy": "legacy-pr176",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 1.3250000000048203,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 44.3154075321168,
+        "y": 33.87177301223469
+      },
+      "maxRetreatMetres": 2.6594078920716626,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 1,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.6634949111489044,
+      "targetChanges": 35,
+      "lastPassAt": 2693.3250000054154,
+      "finalHash": "91573f89168210eadbeeca55f8d235614baf5051d13ffbab6f00c873b13e17ce",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "after",
+      "policy": "state-value-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 0.4500000000016371,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 46.51398035549273,
+        "y": 33.422662124433195
+      },
+      "maxRetreatMetres": 0.462883166773004,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 3,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.28117817490131,
+      "targetChanges": 24,
+      "lastPassAt": 2692.450000005412,
+      "finalHash": "fa6f08d00a0ffd007a8dd8a2ac2a15e0872c53344da66364cda928974d6e9c90",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "after",
+      "policy": "role-value-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 1.0500000000038199,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 44.87899128556886,
+        "y": 33.83277949341584
+      },
+      "maxRetreatMetres": 2.095824138619605,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 6,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.478602889275701,
+      "targetChanges": 38,
+      "lastPassAt": 2693.0500000054144,
+      "finalHash": "fcabc0f2784ea2f121ba791e138d927a671d3bd6eca2daa1dabe3f37a31d9a8f",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "after",
+      "policy": "role-intent-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 0.4500000000016371,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 46.513840384910644,
+        "y": 33.42309685715973
+      },
+      "maxRetreatMetres": 0.46297440867603257,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 3,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.0445621396174922,
+      "targetChanges": 27,
+      "lastPassAt": 2692.450000005412,
+      "finalHash": "8f09d9b4cb14ae162caee7ad16bfb25b7ded0e895a88b4d65393104dbaba811a",
+      "teammateDisplacementCount": 10
+    },
+    {
+      "name": "cm14",
+      "originalAnchor": "46:10–46:29",
+      "version": "after",
+      "policy": "phase-role-hybrid-v1",
+      "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+      "inputHash": "6b189247f037acf1ee16fe1ca55387b86ac2941324aa7789b8a5170ad6797a5b",
+      "actorId": "footballer_pro_9_14",
+      "nativeTime": 2692.0000000054106,
+      "duration": 1.975000000007185,
+      "origin": {
+        "x": 46.97481542418846,
+        "y": 33.88140452655571
+      },
+      "endpoint": {
+        "x": 42.55800117541856,
+        "y": 33.73521819961808
+      },
+      "maxRetreatMetres": 4.416814248769903,
+      "released": true,
+      "releaseAction": "pass",
+      "rankings": 11,
+      "rankingsWithPass": 1,
+      "rankingsWithForwardPass": 1,
+      "meanTeammateSpeed": 2.662877420933028,
+      "targetChanges": 39,
+      "lastPassAt": 2693.9750000054178,
+      "finalHash": "802a0abffebec5da6f04d3afc81a815ad3f00e21d18707808c11b34d61a53dab",
+      "teammateDisplacementCount": 10
+    }
+  ],
+  "detailArchive": "pr183-evidence/PR183-r3-retreat-reproductions-details.json.gz",
+  "uncompressedDetailSha256": "1bd16d3729851919531fec33c6a6cf70de185edb58772e179fb73084c629c2b6",
+  "uncompressedDetailBytes": 248705
+}

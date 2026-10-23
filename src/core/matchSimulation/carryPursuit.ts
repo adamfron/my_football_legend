@@ -12,14 +12,14 @@ export const carryPursuitSchema = z.object({
   arrival: z.number().nonnegative(),
 });
 
-/** A forecast approach, never possession. Only an existing human carry and its own last
- * touch can continue; a released pass/shot, another touch or deliberate movement ends it. */
+/** A forecast approach, never possession. A deliberate carry and its own last touch can
+ * continue for either controller; a release, another touch or new movement ends it. */
 export const deriveCarryPursuit = (state: TacticalMatchState, actor: MatchPlayerState) => {
   const intent = state.ballCarrierIntent;
   if (
-    !intent?.humanSelected ||
+    !intent ||
     intent.actorId !== actor.id ||
-    actor.id !== state.controlledFootballerId ||
+    (intent.humanSelected && actor.id !== state.controlledFootballerId) ||
     state.scenario !== 'open_play' ||
     state.ball.travelKind ||
     state.ball.shot ||

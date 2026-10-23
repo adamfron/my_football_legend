@@ -1,5 +1,33 @@
 # My Football Legend — Current Project State
 
+## PR183 — Match Realism Stabilization
+
+Zapisany zastój luźnej piłki nad zawodnikami otrzymuje rzeczywisty osiągalny kontakt
+głową. R3 wykorzystuje okno podania przed impulsem prowadzenia, a wartość wsparcia
+uwzględnia faktyczną głębokość na boisku. Wybrane dośrodkowanie zachowuje bieg odbiorcy
+po zmianie zawodnika. Siedem zamrożonych cofnięć kończy się podaniem przed 20 s i 12 m;
+nie dodano zakazu cofania, limitu dystansu ani wymuszonego podania.
+
+**Pełne `npm run verify`: 2092/2092 testów, lint i build zielone.** 30/30 meczów
+development, 15/15 nowego potwierdzenia oraz 3/3 dodatkowych regresji R3 kończy się
+poprawnie. Trzy nowe projekty SS/SW/WW są niezależnymi jednostkami; ich piętnastu
+wariantów polityk nie liczymy jako piętnastu niezależnych projektów. Każde z 11
+cofnięć R3 >=15 m ma odtworzony ranking i fizyczny koniec; maksimum nowego
+potwierdzenia to 23,98 m. Pozostają zbyt zachowawcze prowadzenia, cyrkulacja,
+skuteczność strzałów i częstotliwość fauli — to ograniczenia kalibracji.
+
+**B `state-value-v1` pozostaje domyślne; pięć polityk zachowane. Canonical nadal
+NOT READY do kalibracji summary.** Pełny stan B z obserwatorami i bez nich jest
+identyczny po 228597 krokach. Przeglądarkowy R3 i dwie ręczne decyzje B przeszły
+bez błędów konsoli. Samo typowanie restartu ma jawny dowód identycznego JavaScriptu;
+zamrożone pomiary zachowują swoje oryginalne hashe.
+
+Scalenie wymaga zielonych obowiązkowych kontroli ostatniego commita PR183.
+[Aktualny raport](PR183_MATCH_REALISM_STABILIZATION.md) oddziela zamknięte regresje
+od pozostałych ograniczeń i [odrzuconego draftu](PR183_REJECTED_DRAFT.md).
+Następnie **PR184 generacje/siła świata → PR185 summary i PlayStyles (kalibracja
+nadal zablokowana) → PR186 career UX → PR187+ świat**.
+
 ## PR182 — Tactical Intelligence & Independent Policy Validation
 
 Trener dobiera uzupełniające się role, zbiera ograniczone i zanikające obserwacje

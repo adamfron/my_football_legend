@@ -1,0 +1,2842 @@
+{
+  "schema": "mfl-pr183-passing-v1",
+  "sourceHash": "be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1",
+  "scope": "Five-minute releases, direction, distance and reciprocal exchanges; role/route screens are separate. Midfield invitation counters do not claim completed receptions.",
+  "rows": [
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 2240,
+        "forward": 879,
+        "backward": 903,
+        "lateral": 458,
+        "metres": 38603.879210936524,
+        "reciprocal": 109,
+        "midfieldReceptions": 402
+      },
+      "spatial": {
+        "samples": 5275,
+        "sampled": {
+          "challenge_recovery_players": 34,
+          "credible_depth_threats": 213,
+          "aerial_assignments": 756,
+          "forward_line_gap_metres": 21552.499389143268,
+          "forward_observations": 3172,
+          "depth_behind_line_metres": 68784.33997663468,
+          "attacking_shape_observations": 2175,
+          "box_occupants": 92,
+          "team_shape_observations": 10550,
+          "block_width_metres": 332223.2773667112,
+          "block_length_metres": 305497.14519990364,
+          "defence_midfield_gap_metres": 111150.75338153292,
+          "midfield_attack_gap_metres": 127440.4446007777,
+          "defensive_line_from_own_goal_metres": 413299.17375546973,
+          "wing_1v1_exposure": 551,
+          "wing_defence_delay": 53,
+          "wing_defence_commit": 90,
+          "wing_defence_press": 264,
+          "depth_defence_handoff": 37,
+          "depth_defence_track": 176,
+          "wing_defence_recover": 50,
+          "wing_defence_show_outside": 93,
+          "crossing_positions": 45,
+          "cross_candidates": 184,
+          "wing_defence_cover": 1
+        },
+        "crossTypes": {
+          "cutback": 4,
+          "driven": 3,
+          "floated": 6
+        },
+        "aerialOutcomes": {
+          "controlled_header": 43,
+          "flick_on": 39,
+          "clearance_header": 18
+        },
+        "secondBallTeams": {
+          "home": 28,
+          "away": 16
+        },
+        "sprintDistance": 4726.872429919659
+      }
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 2717,
+        "forward": 1002,
+        "backward": 771,
+        "lateral": 944,
+        "metres": 32078.333651251596,
+        "reciprocal": 351,
+        "midfieldReceptions": 1905
+      },
+      "spatial": {
+        "samples": 4875,
+        "sampled": {
+          "challenge_recovery_players": 72,
+          "credible_depth_threats": 48,
+          "aerial_assignments": 164,
+          "forward_line_gap_metres": 39127.666833485026,
+          "forward_observations": 3220,
+          "depth_behind_line_metres": 67069.49874069479,
+          "attacking_shape_observations": 2239,
+          "box_occupants": 147,
+          "team_shape_observations": 9750,
+          "block_width_metres": 305797.701958401,
+          "block_length_metres": 297050.9326725855,
+          "defence_midfield_gap_metres": 91192.19469383174,
+          "midfield_attack_gap_metres": 127026.52035546085,
+          "defensive_line_from_own_goal_metres": 364924.8706258939,
+          "depth_defence_track": 37,
+          "depth_defence_handoff": 11,
+          "wing_1v1_exposure": 146,
+          "wing_defence_press": 58,
+          "wing_defence_commit": 39,
+          "crossing_positions": 10,
+          "cross_candidates": 36,
+          "wing_defence_delay": 25,
+          "wing_defence_recover": 21,
+          "wing_defence_show_outside": 2,
+          "wing_defence_cover": 1
+        },
+        "crossTypes": {
+          "cutback": 7,
+          "floated": 12,
+          "driven": 1
+        },
+        "aerialOutcomes": {
+          "controlled_header": 8,
+          "clearance_header": 9,
+          "flick_on": 4
+        },
+        "secondBallTeams": {
+          "away": 9,
+          "home": 3
+        },
+        "sprintDistance": 5447.05009181927
+      }
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 2277,
+        "forward": 1209,
+        "backward": 580,
+        "lateral": 488,
+        "metres": 32982.82107225642,
+        "reciprocal": 226,
+        "midfieldReceptions": 738
+      },
+      "spatial": {
+        "samples": 4389,
+        "sampled": {
+          "challenge_recovery_players": 73,
+          "credible_depth_threats": 47,
+          "aerial_assignments": 213,
+          "forward_line_gap_metres": 39870.97866157456,
+          "forward_observations": 2864,
+          "depth_behind_line_metres": 59786.070194290594,
+          "attacking_shape_observations": 1982,
+          "box_occupants": 254,
+          "team_shape_observations": 8778,
+          "block_width_metres": 265584.98800676584,
+          "block_length_metres": 251867.57664388037,
+          "defence_midfield_gap_metres": 77560.24355742542,
+          "midfield_attack_gap_metres": 102536.31171765696,
+          "defensive_line_from_own_goal_metres": 332862.37047932757,
+          "wing_1v1_exposure": 364,
+          "wing_defence_press": 200,
+          "wing_defence_delay": 34,
+          "wing_defence_commit": 58,
+          "depth_defence_track": 38,
+          "wing_defence_recover": 45,
+          "crossing_positions": 40,
+          "cross_candidates": 122,
+          "depth_defence_handoff": 9,
+          "wing_defence_show_outside": 24,
+          "wing_defence_cover": 3
+        },
+        "crossTypes": {
+          "floated": 19,
+          "cutback": 11,
+          "driven": 1
+        },
+        "aerialOutcomes": {
+          "flick_on": 9,
+          "clearance_header": 18,
+          "controlled_header": 9
+        },
+        "secondBallTeams": {
+          "away": 13,
+          "home": 4
+        },
+        "sprintDistance": 5650.727062042452
+      }
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 2814,
+        "forward": 1307,
+        "backward": 795,
+        "lateral": 712,
+        "metres": 30320.490363681172,
+        "reciprocal": 381,
+        "midfieldReceptions": 2094
+      },
+      "spatial": {
+        "samples": 4711,
+        "sampled": {
+          "challenge_recovery_players": 71,
+          "credible_depth_threats": 67,
+          "aerial_assignments": 148,
+          "forward_line_gap_metres": 41206.07527955649,
+          "forward_observations": 3423,
+          "depth_behind_line_metres": 70482.87239082121,
+          "attacking_shape_observations": 2285,
+          "box_occupants": 108,
+          "team_shape_observations": 9422,
+          "block_width_metres": 253894.7865489221,
+          "block_length_metres": 271460.9122792943,
+          "defence_midfield_gap_metres": 99337.56287562994,
+          "midfield_attack_gap_metres": 109933.04324270345,
+          "defensive_line_from_own_goal_metres": 348461.615879248,
+          "crossing_positions": 20,
+          "cross_candidates": 81,
+          "wing_1v1_exposure": 91,
+          "wing_defence_press": 34,
+          "depth_defence_track": 56,
+          "depth_defence_handoff": 11,
+          "wing_defence_delay": 9,
+          "wing_defence_recover": 19,
+          "wing_defence_cover": 5,
+          "wing_defence_commit": 17,
+          "wing_defence_show_outside": 7
+        },
+        "crossTypes": {
+          "driven": 2,
+          "cutback": 8,
+          "floated": 15
+        },
+        "aerialOutcomes": {
+          "controlled_header": 3,
+          "clearance_header": 11,
+          "flick_on": 4
+        },
+        "secondBallTeams": {
+          "away": 7,
+          "home": 5
+        },
+        "sprintDistance": 5484.753427049252
+      }
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 2479,
+        "forward": 1404,
+        "backward": 468,
+        "lateral": 607,
+        "metres": 30960.02687372977,
+        "reciprocal": 258,
+        "midfieldReceptions": 916
+      },
+      "spatial": {
+        "samples": 4679,
+        "sampled": {
+          "challenge_recovery_players": 74,
+          "credible_depth_threats": 33,
+          "aerial_assignments": 120,
+          "forward_line_gap_metres": 46299.2029726159,
+          "forward_observations": 3163,
+          "depth_behind_line_metres": 66168.94353962674,
+          "attacking_shape_observations": 2152,
+          "box_occupants": 106,
+          "team_shape_observations": 9358,
+          "block_width_metres": 259695.49348058176,
+          "block_length_metres": 258271.82141725608,
+          "defence_midfield_gap_metres": 100740.16109187418,
+          "midfield_attack_gap_metres": 96985.89569091417,
+          "defensive_line_from_own_goal_metres": 345666.32571623224,
+          "wing_1v1_exposure": 283,
+          "wing_defence_press": 132,
+          "wing_defence_delay": 45,
+          "wing_defence_show_outside": 19,
+          "depth_defence_track": 27,
+          "wing_defence_recover": 54,
+          "wing_defence_commit": 28,
+          "depth_defence_handoff": 6,
+          "crossing_positions": 32,
+          "cross_candidates": 94,
+          "wing_defence_cover": 5
+        },
+        "crossTypes": {
+          "cutback": 11,
+          "floated": 16,
+          "driven": 3
+        },
+        "aerialOutcomes": {
+          "flick_on": 4,
+          "controlled_header": 5,
+          "clearance_header": 8
+        },
+        "secondBallTeams": {
+          "away": 1,
+          "home": 7
+        },
+        "sprintDistance": 6277.406739483627
+      }
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1961,
+        "forward": 871,
+        "backward": 802,
+        "lateral": 288,
+        "metres": 38654.65274827986,
+        "reciprocal": 166,
+        "midfieldReceptions": 280
+      },
+      "spatial": {
+        "samples": 5013,
+        "sampled": {
+          "challenge_recovery_players": 56,
+          "credible_depth_threats": 155,
+          "aerial_assignments": 532,
+          "forward_line_gap_metres": 112165.32578131615,
+          "forward_observations": 7516,
+          "depth_behind_line_metres": 64786.651883353916,
+          "attacking_shape_observations": 2124,
+          "box_occupants": 332,
+          "team_shape_observations": 10026,
+          "block_width_metres": 362703.926777527,
+          "block_length_metres": 293076.1960160763,
+          "defence_midfield_gap_metres": 126450.40082962651,
+          "midfield_attack_gap_metres": 106243.62176476863,
+          "defensive_line_from_own_goal_metres": 365767.7978604957,
+          "underlap": 37,
+          "wing_1v1_exposure": 889,
+          "wing_defence_press": 238,
+          "provide_width": 554,
+          "overlap": 930,
+          "depth_defence_track": 133,
+          "wing_defence_show_outside": 230,
+          "wing_defence_delay": 152,
+          "wing_defence_commit": 106,
+          "crossing_positions": 172,
+          "cross_candidates": 591,
+          "wing_defence_recover": 153,
+          "depth_defence_handoff": 18,
+          "wing_defence_cover": 10
+        },
+        "crossTypes": {
+          "cutback": 9,
+          "driven": 3,
+          "floated": 2
+        },
+        "aerialOutcomes": {
+          "controlled_header": 52,
+          "flick_on": 35,
+          "clearance_header": 16,
+          "keeper_punch": 1
+        },
+        "secondBallTeams": {
+          "away": 17,
+          "home": 15
+        },
+        "sprintDistance": 4658.434602076611
+      }
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 2430,
+        "forward": 1100,
+        "backward": 669,
+        "lateral": 661,
+        "metres": 31344.791405974593,
+        "reciprocal": 313,
+        "midfieldReceptions": 1001
+      },
+      "spatial": {
+        "samples": 4668,
+        "sampled": {
+          "challenge_recovery_players": 71,
+          "credible_depth_threats": 80,
+          "aerial_assignments": 204,
+          "forward_line_gap_metres": 139675.89534829152,
+          "forward_observations": 7718,
+          "depth_behind_line_metres": 66695.58190864173,
+          "attacking_shape_observations": 2193,
+          "box_occupants": 249,
+          "team_shape_observations": 9336,
+          "block_width_metres": 303131.40423040267,
+          "block_length_metres": 270127.0049085115,
+          "defence_midfield_gap_metres": 113500.58875915236,
+          "midfield_attack_gap_metres": 95362.09450818894,
+          "defensive_line_from_own_goal_metres": 335992.4699445727,
+          "depth_defence_track": 65,
+          "depth_defence_handoff": 5,
+          "provide_width": 970,
+          "overlap": 460,
+          "wing_1v1_exposure": 307,
+          "wing_defence_press": 140,
+          "wing_defence_delay": 42,
+          "crossing_positions": 63,
+          "cross_candidates": 204,
+          "wing_defence_commit": 36,
+          "wing_defence_recover": 42,
+          "wing_defence_show_outside": 32,
+          "wing_defence_cover": 15,
+          "underlap": 7
+        },
+        "crossTypes": {
+          "cutback": 16,
+          "driven": 4,
+          "floated": 8
+        },
+        "aerialOutcomes": {
+          "controlled_header": 12,
+          "flick_on": 15,
+          "clearance_header": 7
+        },
+        "secondBallTeams": {
+          "away": 6,
+          "home": 5
+        },
+        "sprintDistance": 5309.478276270422
+      }
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 2438,
+        "forward": 1356,
+        "backward": 512,
+        "lateral": 570,
+        "metres": 33799.97603063749,
+        "reciprocal": 270,
+        "midfieldReceptions": 552
+      },
+      "spatial": {
+        "samples": 4642,
+        "sampled": {
+          "challenge_recovery_players": 88,
+          "credible_depth_threats": 37,
+          "aerial_assignments": 214,
+          "forward_line_gap_metres": 136257.97612455624,
+          "forward_observations": 7435,
+          "depth_behind_line_metres": 65562.69844332249,
+          "attacking_shape_observations": 2125,
+          "box_occupants": 205,
+          "team_shape_observations": 9284,
+          "block_width_metres": 310713.12896954676,
+          "block_length_metres": 249100.61896524817,
+          "defence_midfield_gap_metres": 110742.50416358592,
+          "midfield_attack_gap_metres": 81019.78113578989,
+          "defensive_line_from_own_goal_metres": 338038.72458591446,
+          "provide_width": 1359,
+          "wing_1v1_exposure": 541,
+          "wing_defence_press": 247,
+          "wing_defence_commit": 58,
+          "overlap": 579,
+          "wing_defence_recover": 84,
+          "wing_defence_show_outside": 52,
+          "depth_defence_track": 33,
+          "wing_defence_delay": 90,
+          "underlap": 21,
+          "crossing_positions": 52,
+          "cross_candidates": 142,
+          "depth_defence_handoff": 3,
+          "wing_defence_cover": 10
+        },
+        "crossTypes": {
+          "cutback": 8,
+          "floated": 2
+        },
+        "aerialOutcomes": {
+          "flick_on": 13,
+          "controlled_header": 12,
+          "clearance_header": 12
+        },
+        "secondBallTeams": {
+          "home": 7,
+          "away": 5
+        },
+        "sprintDistance": 5137.984352800388
+      }
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 2314,
+        "forward": 1126,
+        "backward": 664,
+        "lateral": 524,
+        "metres": 30684.28390995551,
+        "reciprocal": 245,
+        "midfieldReceptions": 960
+      },
+      "spatial": {
+        "samples": 4383,
+        "sampled": {
+          "challenge_recovery_players": 68,
+          "credible_depth_threats": 65,
+          "aerial_assignments": 197,
+          "forward_line_gap_metres": 130683.01567332003,
+          "forward_observations": 7501,
+          "depth_behind_line_metres": 66373.27194446822,
+          "attacking_shape_observations": 2177,
+          "box_occupants": 349,
+          "team_shape_observations": 8766,
+          "block_width_metres": 288990.8478160636,
+          "block_length_metres": 251139.09149563967,
+          "defence_midfield_gap_metres": 110038.07614047163,
+          "midfield_attack_gap_metres": 83907.36592330031,
+          "defensive_line_from_own_goal_metres": 315319.8172518528,
+          "overlap": 662,
+          "provide_width": 1251,
+          "depth_defence_track": 56,
+          "wing_1v1_exposure": 372,
+          "wing_defence_press": 202,
+          "crossing_positions": 116,
+          "cross_candidates": 450,
+          "wing_defence_commit": 40,
+          "wing_defence_recover": 38,
+          "wing_defence_delay": 43,
+          "wing_defence_show_outside": 42,
+          "wing_defence_cover": 7,
+          "depth_defence_handoff": 4,
+          "underlap": 12
+        },
+        "crossTypes": {
+          "floated": 11,
+          "cutback": 14,
+          "driven": 2
+        },
+        "aerialOutcomes": {
+          "controlled_header": 16,
+          "clearance_header": 14,
+          "flick_on": 14
+        },
+        "secondBallTeams": {
+          "away": 8,
+          "home": 8
+        },
+        "sprintDistance": 5007.3891984203165
+      }
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 2347,
+        "forward": 1301,
+        "backward": 502,
+        "lateral": 544,
+        "metres": 31144.21605039154,
+        "reciprocal": 255,
+        "midfieldReceptions": 533
+      },
+      "spatial": {
+        "samples": 4538,
+        "sampled": {
+          "challenge_recovery_players": 95,
+          "credible_depth_threats": 29,
+          "aerial_assignments": 402,
+          "forward_line_gap_metres": 134910.3917657039,
+          "forward_observations": 7191,
+          "depth_behind_line_metres": 62416.172359438955,
+          "attacking_shape_observations": 2059,
+          "box_occupants": 280,
+          "team_shape_observations": 9076,
+          "block_width_metres": 297060.8833915142,
+          "block_length_metres": 251545.5164982233,
+          "defence_midfield_gap_metres": 119656.49124418208,
+          "midfield_attack_gap_metres": 80683.1649241007,
+          "defensive_line_from_own_goal_metres": 318666.2176241199,
+          "provide_width": 1436,
+          "wing_1v1_exposure": 427,
+          "wing_defence_press": 197,
+          "wing_defence_commit": 71,
+          "overlap": 478,
+          "depth_defence_track": 26,
+          "wing_defence_delay": 56,
+          "crossing_positions": 48,
+          "cross_candidates": 142,
+          "wing_defence_show_outside": 31,
+          "underlap": 11,
+          "wing_defence_recover": 64,
+          "wing_defence_cover": 8,
+          "depth_defence_handoff": 3
+        },
+        "crossTypes": {
+          "floated": 9,
+          "cutback": 14,
+          "driven": 1
+        },
+        "aerialOutcomes": {
+          "clearance_header": 10,
+          "flick_on": 13,
+          "controlled_header": 7
+        },
+        "secondBallTeams": {
+          "away": 6,
+          "home": 6
+        },
+        "sprintDistance": 4997.539795691985
+      }
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 1619,
+        "forward": 528,
+        "backward": 715,
+        "lateral": 376,
+        "metres": 28500.811021506706,
+        "reciprocal": 128,
+        "midfieldReceptions": 255
+      },
+      "spatial": {
+        "samples": 4969,
+        "sampled": {
+          "challenge_recovery_players": 17,
+          "credible_depth_threats": 209,
+          "aerial_assignments": 357,
+          "forward_line_gap_metres": 49573.49525949178,
+          "forward_observations": 5859,
+          "depth_behind_line_metres": 74833.13172190942,
+          "attacking_shape_observations": 2380,
+          "box_occupants": 653,
+          "team_shape_observations": 9938,
+          "block_width_metres": 329688.2565763769,
+          "block_length_metres": 286356.88725813414,
+          "defence_midfield_gap_metres": 114263.69098615905,
+          "midfield_attack_gap_metres": 104582.61129356839,
+          "defensive_line_from_own_goal_metres": 383760.52139193803,
+          "depth_defence_track": 175,
+          "wing_1v1_exposure": 870,
+          "wing_defence_show_outside": 289,
+          "wing_defence_commit": 119,
+          "overlap": 332,
+          "provide_width": 191,
+          "depth_defence_handoff": 19,
+          "wing_defence_recover": 98,
+          "crossing_positions": 185,
+          "cross_candidates": 795,
+          "wing_defence_press": 205,
+          "depth_defence_hold_line": 1,
+          "wing_defence_delay": 152,
+          "wing_defence_cover": 7,
+          "underlap": 1
+        },
+        "crossTypes": {
+          "cutback": 13,
+          "floated": 12,
+          "driven": 3
+        },
+        "aerialOutcomes": {
+          "controlled_header": 26,
+          "flick_on": 25,
+          "loose_ball": 2,
+          "clearance_header": 7,
+          "keeper_miss": 4
+        },
+        "secondBallTeams": {
+          "home": 18,
+          "away": 11
+        },
+        "sprintDistance": 4867.960006613623
+      }
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 18,
+      "totals": {
+        "attempts": 1360,
+        "forward": 519,
+        "backward": 489,
+        "lateral": 352,
+        "metres": 18048.60156089974,
+        "reciprocal": 118,
+        "midfieldReceptions": 556
+      },
+      "spatial": {
+        "samples": 4965,
+        "sampled": {
+          "challenge_recovery_players": 38,
+          "credible_depth_threats": 133,
+          "aerial_assignments": 96,
+          "forward_line_gap_metres": 82345.50283223733,
+          "forward_observations": 9129,
+          "depth_behind_line_metres": 116960.53930666763,
+          "attacking_shape_observations": 3341,
+          "box_occupants": 297,
+          "team_shape_observations": 9930,
+          "block_width_metres": 317384.89469018026,
+          "block_length_metres": 313450.4014608856,
+          "defence_midfield_gap_metres": 97928.1281286204,
+          "midfield_attack_gap_metres": 146512.83569288015,
+          "defensive_line_from_own_goal_metres": 357179.17478125024,
+          "overlap": 378,
+          "wing_1v1_exposure": 414,
+          "wing_defence_press": 197,
+          "wing_defence_recover": 46,
+          "crossing_positions": 59,
+          "cross_candidates": 203,
+          "wing_defence_show_outside": 30,
+          "depth_defence_handoff": 17,
+          "depth_defence_track": 105,
+          "provide_width": 390,
+          "wing_defence_commit": 76,
+          "wing_defence_delay": 62,
+          "depth_defence_hold_line": 3,
+          "underlap": 2,
+          "wing_defence_cover": 3
+        },
+        "crossTypes": {
+          "cutback": 3,
+          "floated": 8
+        },
+        "aerialOutcomes": {
+          "controlled_header": 1,
+          "flick_on": 3
+        },
+        "secondBallTeams": {
+          "home": 1,
+          "away": 2
+        },
+        "sprintDistance": 4928.844806544548
+      }
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 1362,
+        "forward": 750,
+        "backward": 360,
+        "lateral": 252,
+        "metres": 20072.798620764006,
+        "reciprocal": 165,
+        "midfieldReceptions": 251
+      },
+      "spatial": {
+        "samples": 4572,
+        "sampled": {
+          "challenge_recovery_players": 73,
+          "credible_depth_threats": 113,
+          "aerial_assignments": 111,
+          "forward_line_gap_metres": 89049.75789029618,
+          "forward_observations": 6897,
+          "depth_behind_line_metres": 87831.54199516668,
+          "attacking_shape_observations": 2656,
+          "box_occupants": 472,
+          "team_shape_observations": 9144,
+          "block_width_metres": 301834.9240539883,
+          "block_length_metres": 255917.51432677236,
+          "defence_midfield_gap_metres": 90181.10743944098,
+          "midfield_attack_gap_metres": 103140.4070393659,
+          "defensive_line_from_own_goal_metres": 347131.88477603474,
+          "provide_width": 626,
+          "wing_1v1_exposure": 1024,
+          "wing_defence_delay": 124,
+          "depth_defence_track": 101,
+          "overlap": 533,
+          "wing_defence_press": 412,
+          "depth_defence_handoff": 10,
+          "wing_defence_recover": 156,
+          "wing_defence_commit": 181,
+          "wing_defence_show_outside": 138,
+          "crossing_positions": 134,
+          "cross_candidates": 461,
+          "underlap": 5,
+          "wing_defence_cover": 13
+        },
+        "crossTypes": {
+          "cutback": 8,
+          "driven": 3,
+          "floated": 12
+        },
+        "aerialOutcomes": {
+          "clearance_header": 2,
+          "flick_on": 5,
+          "controlled_header": 2
+        },
+        "secondBallTeams": {
+          "home": 2,
+          "away": 2
+        },
+        "sprintDistance": 8179.81683232693
+      }
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 1882,
+        "forward": 946,
+        "backward": 525,
+        "lateral": 411,
+        "metres": 24621.379993898612,
+        "reciprocal": 187,
+        "midfieldReceptions": 700
+      },
+      "spatial": {
+        "samples": 4995,
+        "sampled": {
+          "challenge_recovery_players": 103,
+          "credible_depth_threats": 117,
+          "aerial_assignments": 98,
+          "forward_line_gap_metres": 95446.0437360113,
+          "forward_observations": 6824,
+          "depth_behind_line_metres": 86864.85866531677,
+          "attacking_shape_observations": 2707,
+          "box_occupants": 390,
+          "team_shape_observations": 9990,
+          "block_width_metres": 311631.3566350645,
+          "block_length_metres": 285162.00427527586,
+          "defence_midfield_gap_metres": 114645.52239321459,
+          "midfield_attack_gap_metres": 104590.40375634172,
+          "defensive_line_from_own_goal_metres": 371730.6341156964,
+          "depth_defence_track": 98,
+          "wing_1v1_exposure": 601,
+          "wing_defence_delay": 114,
+          "provide_width": 800,
+          "wing_defence_recover": 100,
+          "overlap": 325,
+          "wing_defence_commit": 114,
+          "wing_defence_press": 231,
+          "depth_defence_handoff": 14,
+          "crossing_positions": 80,
+          "cross_candidates": 292,
+          "wing_defence_cover": 6,
+          "wing_defence_show_outside": 36,
+          "underlap": 7
+        },
+        "crossTypes": {
+          "floated": 11,
+          "cutback": 8,
+          "driven": 1
+        },
+        "aerialOutcomes": {
+          "clearance_header": 4,
+          "loose_ball": 1,
+          "controlled_header": 1
+        },
+        "secondBallTeams": {
+          "home": 2,
+          "away": 2
+        },
+        "sprintDistance": 7106.738074122188
+      }
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 21,
+      "totals": {
+        "attempts": 1229,
+        "forward": 719,
+        "backward": 282,
+        "lateral": 228,
+        "metres": 17766.523888749784,
+        "reciprocal": 117,
+        "midfieldReceptions": 259
+      },
+      "spatial": {
+        "samples": 4414,
+        "sampled": {
+          "challenge_recovery_players": 60,
+          "credible_depth_threats": 108,
+          "aerial_assignments": 103,
+          "forward_line_gap_metres": 95108.65172680012,
+          "forward_observations": 6886,
+          "depth_behind_line_metres": 85157.93952173619,
+          "attacking_shape_observations": 2647,
+          "box_occupants": 747,
+          "team_shape_observations": 8828,
+          "block_width_metres": 295010.2009195471,
+          "block_length_metres": 258871.66821500935,
+          "defence_midfield_gap_metres": 100075.7074399845,
+          "midfield_attack_gap_metres": 93905.96813070204,
+          "defensive_line_from_own_goal_metres": 329126.4094997525,
+          "depth_defence_handoff": 15,
+          "wing_1v1_exposure": 1008,
+          "wing_defence_recover": 153,
+          "wing_defence_delay": 112,
+          "wing_defence_press": 425,
+          "crossing_positions": 208,
+          "cross_candidates": 744,
+          "wing_defence_show_outside": 137,
+          "overlap": 392,
+          "wing_defence_commit": 172,
+          "depth_defence_track": 87,
+          "provide_width": 590,
+          "wing_defence_cover": 9,
+          "underlap": 4
+        },
+        "crossTypes": {
+          "cutback": 16,
+          "driven": 4,
+          "floated": 6
+        },
+        "aerialOutcomes": {
+          "controlled_header": 6,
+          "clearance_header": 1,
+          "attacking_header": 1,
+          "flick_on": 1
+        },
+        "secondBallTeams": {
+          "away": 1,
+          "home": 1
+        },
+        "sprintDistance": 10015.945803368033
+      }
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1460,
+        "forward": 527,
+        "backward": 601,
+        "lateral": 332,
+        "metres": 25363.130572280807,
+        "reciprocal": 108,
+        "midfieldReceptions": 185
+      },
+      "spatial": {
+        "samples": 4994,
+        "sampled": {
+          "challenge_recovery_players": 7,
+          "credible_depth_threats": 162,
+          "aerial_assignments": 207,
+          "forward_line_gap_metres": 59439.4970217066,
+          "forward_observations": 6018,
+          "depth_behind_line_metres": 86455.48916465006,
+          "attacking_shape_observations": 2526,
+          "box_occupants": 407,
+          "team_shape_observations": 9988,
+          "block_width_metres": 321100.54618766194,
+          "block_length_metres": 286778.8458970375,
+          "defence_midfield_gap_metres": 94193.97903458563,
+          "midfield_attack_gap_metres": 124874.81026339211,
+          "defensive_line_from_own_goal_metres": 389330.5308587269,
+          "provide_width": 513,
+          "depth_defence_track": 137,
+          "overlap": 370,
+          "depth_defence_handoff": 22,
+          "wing_1v1_exposure": 843,
+          "wing_defence_show_outside": 252,
+          "wing_defence_commit": 109,
+          "wing_defence_recover": 65,
+          "crossing_positions": 177,
+          "cross_candidates": 818,
+          "wing_defence_delay": 189,
+          "wing_defence_press": 219,
+          "wing_defence_cover": 9,
+          "underlap": 4,
+          "depth_defence_hold_line": 1
+        },
+        "crossTypes": {
+          "cutback": 19,
+          "driven": 9,
+          "floated": 11
+        },
+        "aerialOutcomes": {
+          "clearance_header": 9,
+          "controlled_header": 17,
+          "flick_on": 15,
+          "loose_ball": 2
+        },
+        "secondBallTeams": {
+          "home": 11,
+          "away": 8
+        },
+        "sprintDistance": 5036.320116067213
+      }
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 1497,
+        "forward": 562,
+        "backward": 465,
+        "lateral": 470,
+        "metres": 20545.078338454336,
+        "reciprocal": 210,
+        "midfieldReceptions": 735
+      },
+      "spatial": {
+        "samples": 4577,
+        "sampled": {
+          "challenge_recovery_players": 42,
+          "credible_depth_threats": 103,
+          "aerial_assignments": 48,
+          "forward_line_gap_metres": 84288.35318821007,
+          "forward_observations": 6460,
+          "depth_behind_line_metres": 85270.50311488821,
+          "attacking_shape_observations": 2656,
+          "box_occupants": 449,
+          "team_shape_observations": 9154,
+          "block_width_metres": 288279.2036315971,
+          "block_length_metres": 267599.6296168862,
+          "defence_midfield_gap_metres": 81563.38216132704,
+          "midfield_attack_gap_metres": 109872.26489388397,
+          "defensive_line_from_own_goal_metres": 351313.88318988896,
+          "overlap": 415,
+          "provide_width": 606,
+          "wing_1v1_exposure": 635,
+          "wing_defence_recover": 85,
+          "depth_defence_track": 82,
+          "wing_defence_press": 305,
+          "crossing_positions": 111,
+          "cross_candidates": 456,
+          "depth_defence_handoff": 12,
+          "wing_defence_delay": 74,
+          "wing_defence_show_outside": 59,
+          "wing_defence_cover": 8,
+          "wing_defence_commit": 104,
+          "underlap": 4
+        },
+        "crossTypes": {
+          "cutback": 9,
+          "floated": 14,
+          "driven": 5
+        },
+        "aerialOutcomes": {
+          "clearance_header": 5,
+          "flick_on": 4,
+          "controlled_header": 4,
+          "loose_ball": 1
+        },
+        "secondBallTeams": {
+          "home": 4,
+          "away": 3
+        },
+        "sprintDistance": 6882.242993518098
+      }
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1321,
+        "forward": 693,
+        "backward": 340,
+        "lateral": 288,
+        "metres": 19512.423282330205,
+        "reciprocal": 108,
+        "midfieldReceptions": 346
+      },
+      "spatial": {
+        "samples": 4623,
+        "sampled": {
+          "challenge_recovery_players": 57,
+          "credible_depth_threats": 141,
+          "aerial_assignments": 108,
+          "forward_line_gap_metres": 79663.99040318652,
+          "forward_observations": 6262,
+          "depth_behind_line_metres": 92167.28530552739,
+          "attacking_shape_observations": 2839,
+          "box_occupants": 637,
+          "team_shape_observations": 9246,
+          "block_width_metres": 307162.5480226961,
+          "block_length_metres": 253506.94870676604,
+          "defence_midfield_gap_metres": 83978.52987338293,
+          "midfield_attack_gap_metres": 100811.5743418631,
+          "defensive_line_from_own_goal_metres": 359765.89889262617,
+          "provide_width": 597,
+          "overlap": 453,
+          "depth_defence_track": 126,
+          "wing_1v1_exposure": 1247,
+          "wing_defence_press": 476,
+          "wing_defence_show_outside": 131,
+          "crossing_positions": 203,
+          "cross_candidates": 816,
+          "wing_defence_commit": 195,
+          "wing_defence_delay": 206,
+          "wing_defence_recover": 216,
+          "wing_defence_cover": 23,
+          "depth_defence_handoff": 13,
+          "underlap": 8
+        },
+        "crossTypes": {
+          "driven": 16,
+          "cutback": 10,
+          "floated": 19
+        },
+        "aerialOutcomes": {
+          "flick_on": 3,
+          "controlled_header": 8,
+          "clearance_header": 7,
+          "loose_ball": 2
+        },
+        "secondBallTeams": {
+          "home": 3,
+          "away": 3
+        },
+        "sprintDistance": 7737.0537739351075
+      }
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 1483,
+        "forward": 676,
+        "backward": 438,
+        "lateral": 369,
+        "metres": 20095.830560404116,
+        "reciprocal": 167,
+        "midfieldReceptions": 724
+      },
+      "spatial": {
+        "samples": 4506,
+        "sampled": {
+          "challenge_recovery_players": 60,
+          "credible_depth_threats": 100,
+          "aerial_assignments": 57,
+          "forward_line_gap_metres": 91466.24773985692,
+          "forward_observations": 6429,
+          "depth_behind_line_metres": 85418.74681194931,
+          "attacking_shape_observations": 2664,
+          "box_occupants": 478,
+          "team_shape_observations": 9012,
+          "block_width_metres": 282836.64473546104,
+          "block_length_metres": 253996.35806609457,
+          "defence_midfield_gap_metres": 84882.84099690373,
+          "midfield_attack_gap_metres": 100390.55182164417,
+          "defensive_line_from_own_goal_metres": 345236.47605796636,
+          "overlap": 383,
+          "provide_width": 788,
+          "wing_1v1_exposure": 695,
+          "wing_defence_press": 323,
+          "crossing_positions": 142,
+          "cross_candidates": 580,
+          "wing_defence_show_outside": 71,
+          "depth_defence_track": 90,
+          "wing_defence_recover": 87,
+          "depth_defence_handoff": 8,
+          "wing_defence_commit": 116,
+          "wing_defence_delay": 87,
+          "wing_defence_cover": 11,
+          "underlap": 2,
+          "depth_defence_hold_line": 1
+        },
+        "crossTypes": {
+          "floated": 15,
+          "cutback": 18,
+          "driven": 7
+        },
+        "aerialOutcomes": {
+          "flick_on": 4,
+          "loose_ball": 1,
+          "clearance_header": 2,
+          "controlled_header": 2,
+          "attacking_header": 1
+        },
+        "secondBallTeams": {
+          "away": 3
+        },
+        "sprintDistance": 6974.833950512633
+      }
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1213,
+        "forward": 679,
+        "backward": 288,
+        "lateral": 246,
+        "metres": 17736.108786126562,
+        "reciprocal": 123,
+        "midfieldReceptions": 327
+      },
+      "spatial": {
+        "samples": 4356,
+        "sampled": {
+          "challenge_recovery_players": 44,
+          "credible_depth_threats": 109,
+          "aerial_assignments": 81,
+          "forward_line_gap_metres": 77754.50701095632,
+          "forward_observations": 5643,
+          "depth_behind_line_metres": 86454.45685530199,
+          "attacking_shape_observations": 2685,
+          "box_occupants": 600,
+          "team_shape_observations": 8712,
+          "block_width_metres": 282412.030032317,
+          "block_length_metres": 245634.6036058787,
+          "defence_midfield_gap_metres": 83810.69230592616,
+          "midfield_attack_gap_metres": 96387.19872285218,
+          "defensive_line_from_own_goal_metres": 332642.1763118773,
+          "provide_width": 600,
+          "overlap": 338,
+          "wing_1v1_exposure": 1140,
+          "wing_defence_show_outside": 124,
+          "wing_defence_delay": 167,
+          "wing_defence_recover": 209,
+          "crossing_positions": 152,
+          "cross_candidates": 567,
+          "wing_defence_press": 444,
+          "underlap": 5,
+          "wing_defence_commit": 188,
+          "depth_defence_track": 95,
+          "depth_defence_handoff": 11,
+          "wing_defence_cover": 8,
+          "depth_defence_hold_line": 1
+        },
+        "crossTypes": {
+          "driven": 8,
+          "floated": 19,
+          "cutback": 13
+        },
+        "aerialOutcomes": {
+          "controlled_header": 4,
+          "flick_on": 4,
+          "clearance_header": 1
+        },
+        "secondBallTeams": {
+          "home": 3,
+          "away": 2
+        },
+        "sprintDistance": 8352.88281604315
+      }
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1181,
+        "forward": 334,
+        "backward": 498,
+        "lateral": 349,
+        "metres": 19828.162071924275,
+        "reciprocal": 84,
+        "midfieldReceptions": 186
+      },
+      "spatial": {
+        "samples": 5263,
+        "sampled": {
+          "challenge_recovery_players": 0,
+          "credible_depth_threats": 191,
+          "aerial_assignments": 35,
+          "forward_line_gap_metres": 120829.13238177939,
+          "forward_observations": 8904,
+          "depth_behind_line_metres": 92592.096166816,
+          "attacking_shape_observations": 2968,
+          "box_occupants": 222,
+          "team_shape_observations": 10526,
+          "block_width_metres": 384229.9151504045,
+          "block_length_metres": 320870.22499416565,
+          "defence_midfield_gap_metres": 157074.36811303394,
+          "midfield_attack_gap_metres": 59438.77808628742,
+          "defensive_line_from_own_goal_metres": 383029.98325963103,
+          "provide_width": 817,
+          "depth_defence_track": 161,
+          "wing_1v1_exposure": 1300,
+          "wing_defence_show_outside": 361,
+          "overlap": 788,
+          "wing_defence_press": 320,
+          "crossing_positions": 104,
+          "cross_candidates": 365,
+          "wing_defence_recover": 141,
+          "wing_defence_cover": 12,
+          "wing_defence_delay": 278,
+          "wing_defence_commit": 188,
+          "underlap": 14,
+          "depth_defence_handoff": 21
+        },
+        "crossTypes": {
+          "floated": 11,
+          "cutback": 8,
+          "driven": 7
+        },
+        "aerialOutcomes": {
+          "clearance_header": 4,
+          "flick_on": 4,
+          "controlled_header": 6
+        },
+        "secondBallTeams": {
+          "home": 3,
+          "away": 2
+        },
+        "sprintDistance": 4849.577728899389
+      }
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1044,
+        "forward": 411,
+        "backward": 385,
+        "lateral": 248,
+        "metres": 15677.647568276167,
+        "reciprocal": 61,
+        "midfieldReceptions": 404
+      },
+      "spatial": {
+        "samples": 4845,
+        "sampled": {
+          "challenge_recovery_players": 0,
+          "credible_depth_threats": 161,
+          "aerial_assignments": 58,
+          "forward_line_gap_metres": 165530.83547266538,
+          "forward_observations": 9528,
+          "depth_behind_line_metres": 94547.23256173938,
+          "attacking_shape_observations": 3176,
+          "box_occupants": 980,
+          "team_shape_observations": 9690,
+          "block_width_metres": 335138.76250527444,
+          "block_length_metres": 313621.7633799286,
+          "defence_midfield_gap_metres": 133805.8204199984,
+          "midfield_attack_gap_metres": 60956.82910311366,
+          "defensive_line_from_own_goal_metres": 342249.6476489179,
+          "provide_width": 1265,
+          "wing_1v1_exposure": 755,
+          "wing_defence_delay": 156,
+          "wing_defence_press": 282,
+          "wing_defence_commit": 124,
+          "wing_defence_recover": 82,
+          "overlap": 695,
+          "depth_defence_track": 143,
+          "crossing_positions": 235,
+          "cross_candidates": 1165,
+          "depth_defence_handoff": 8,
+          "wing_defence_show_outside": 86,
+          "underlap": 35,
+          "wing_defence_cover": 25,
+          "depth_defence_hold_line": 5
+        },
+        "crossTypes": {
+          "floated": 16,
+          "driven": 16,
+          "cutback": 17
+        },
+        "aerialOutcomes": {
+          "clearance_header": 4,
+          "flick_on": 4,
+          "controlled_header": 2,
+          "keeper_miss": 1
+        },
+        "secondBallTeams": {
+          "home": 4,
+          "away": 4
+        },
+        "sprintDistance": 6442.323544104044
+      }
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 868,
+        "forward": 512,
+        "backward": 223,
+        "lateral": 133,
+        "metres": 13669.361072957712,
+        "reciprocal": 51,
+        "midfieldReceptions": 229
+      },
+      "spatial": {
+        "samples": 4730,
+        "sampled": {
+          "challenge_recovery_players": 0,
+          "credible_depth_threats": 80,
+          "aerial_assignments": 41,
+          "forward_line_gap_metres": 159446.42790009873,
+          "forward_observations": 9603,
+          "depth_behind_line_metres": 93141.72299662784,
+          "attacking_shape_observations": 3201,
+          "box_occupants": 488,
+          "team_shape_observations": 9460,
+          "block_width_metres": 350246.061358253,
+          "block_length_metres": 270340.05251876934,
+          "defence_midfield_gap_metres": 131346.77692504134,
+          "midfield_attack_gap_metres": 49879.26984733541,
+          "defensive_line_from_own_goal_metres": 339969.9811152253,
+          "provide_width": 1440,
+          "overlap": 1372,
+          "depth_defence_track": 67,
+          "wing_1v1_exposure": 1800,
+          "wing_defence_press": 591,
+          "wing_defence_commit": 448,
+          "depth_defence_handoff": 6,
+          "crossing_positions": 224,
+          "cross_candidates": 815,
+          "wing_defence_delay": 377,
+          "wing_defence_recover": 245,
+          "wing_defence_show_outside": 129,
+          "underlap": 55,
+          "wing_defence_cover": 10
+        },
+        "crossTypes": {
+          "cutback": 11,
+          "driven": 25,
+          "floated": 11
+        },
+        "aerialOutcomes": {
+          "controlled_header": 6,
+          "flick_on": 4,
+          "clearance_header": 7,
+          "loose_ball": 2
+        },
+        "secondBallTeams": {
+          "home": 6,
+          "away": 1
+        },
+        "sprintDistance": 6556.794014398453
+      }
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1057,
+        "forward": 563,
+        "backward": 321,
+        "lateral": 173,
+        "metres": 15229.635841069456,
+        "reciprocal": 58,
+        "midfieldReceptions": 357
+      },
+      "spatial": {
+        "samples": 4833,
+        "sampled": {
+          "challenge_recovery_players": 1,
+          "credible_depth_threats": 111,
+          "aerial_assignments": 14,
+          "forward_line_gap_metres": 150060.35745740152,
+          "forward_observations": 9387,
+          "depth_behind_line_metres": 92514.19751796468,
+          "attacking_shape_observations": 3129,
+          "box_occupants": 519,
+          "team_shape_observations": 9666,
+          "block_width_metres": 347699.71448573197,
+          "block_length_metres": 280226.5528075139,
+          "defence_midfield_gap_metres": 142473.86091458463,
+          "midfield_attack_gap_metres": 46336.65914652341,
+          "defensive_line_from_own_goal_metres": 347901.91191390366,
+          "wing_1v1_exposure": 1111,
+          "wing_defence_delay": 195,
+          "overlap": 819,
+          "provide_width": 1839,
+          "wing_defence_commit": 158,
+          "wing_defence_press": 459,
+          "wing_defence_show_outside": 117,
+          "depth_defence_track": 104,
+          "underlap": 27,
+          "wing_defence_recover": 162,
+          "crossing_positions": 235,
+          "cross_candidates": 908,
+          "wing_defence_cover": 20,
+          "depth_defence_handoff": 5
+        },
+        "crossTypes": {
+          "floated": 18,
+          "cutback": 11,
+          "driven": 18
+        },
+        "aerialOutcomes": {
+          "flick_on": 3,
+          "controlled_header": 4,
+          "clearance_header": 1
+        },
+        "secondBallTeams": {
+          "away": 4,
+          "home": 3
+        },
+        "sprintDistance": 6262.3178101184
+      }
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 898,
+        "forward": 547,
+        "backward": 201,
+        "lateral": 150,
+        "metres": 13781.701109303009,
+        "reciprocal": 57,
+        "midfieldReceptions": 263
+      },
+      "spatial": {
+        "samples": 4552,
+        "sampled": {
+          "challenge_recovery_players": 3,
+          "credible_depth_threats": 100,
+          "aerial_assignments": 14,
+          "forward_line_gap_metres": 147673.2627577419,
+          "forward_observations": 8967,
+          "depth_behind_line_metres": 85924.75347323355,
+          "attacking_shape_observations": 2989,
+          "box_occupants": 731,
+          "team_shape_observations": 9104,
+          "block_width_metres": 334372.8876400131,
+          "block_length_metres": 264606.85819733824,
+          "defence_midfield_gap_metres": 132415.50547806948,
+          "midfield_attack_gap_metres": 48095.0527839008,
+          "defensive_line_from_own_goal_metres": 328261.99122411705,
+          "depth_defence_track": 85,
+          "wing_1v1_exposure": 1597,
+          "wing_defence_press": 588,
+          "wing_defence_delay": 276,
+          "wing_defence_show_outside": 143,
+          "provide_width": 1434,
+          "wing_defence_commit": 364,
+          "overlap": 1155,
+          "wing_defence_recover": 197,
+          "crossing_positions": 250,
+          "cross_candidates": 987,
+          "underlap": 36,
+          "wing_defence_cover": 29,
+          "depth_defence_handoff": 9,
+          "depth_defence_hold_line": 1
+        },
+        "crossTypes": {
+          "floated": 13,
+          "cutback": 20,
+          "driven": 11
+        },
+        "aerialOutcomes": {
+          "flick_on": 3,
+          "controlled_header": 2,
+          "clearance_header": 3
+        },
+        "secondBallTeams": {
+          "away": 4
+        },
+        "sprintDistance": 6488.73778796377
+      }
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "legacy-pr176",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1509,
+        "forward": 509,
+        "backward": 643,
+        "lateral": 357,
+        "metres": 25538.471054695838,
+        "reciprocal": 104,
+        "midfieldReceptions": 143
+      },
+      "spatial": {
+        "samples": 5289,
+        "sampled": {
+          "challenge_recovery_players": 2,
+          "credible_depth_threats": 267,
+          "aerial_assignments": 10,
+          "forward_line_gap_metres": 25690.54326299237,
+          "forward_observations": 3939,
+          "depth_behind_line_metres": 88565.77536061191,
+          "attacking_shape_observations": 2809,
+          "box_occupants": 107,
+          "team_shape_observations": 10578,
+          "block_width_metres": 337663.7338778492,
+          "block_length_metres": 317272.4339573888,
+          "defence_midfield_gap_metres": 85906.33544490453,
+          "midfield_attack_gap_metres": 106938.75205194564,
+          "defensive_line_from_own_goal_metres": 420557.02589553536,
+          "depth_defence_handoff": 24,
+          "wing_1v1_exposure": 986,
+          "wing_defence_show_outside": 341,
+          "depth_defence_track": 238,
+          "wing_defence_commit": 132,
+          "wing_defence_press": 344,
+          "wing_defence_recover": 87,
+          "depth_defence_hold_line": 4,
+          "crossing_positions": 67,
+          "cross_candidates": 285,
+          "wing_defence_delay": 78,
+          "wing_defence_cover": 4
+        },
+        "crossTypes": {
+          "floated": 7,
+          "cutback": 7,
+          "driven": 4
+        },
+        "aerialOutcomes": {
+          "flick_on": 5,
+          "clearance_header": 2,
+          "attacking_header": 1,
+          "controlled_header": 2
+        },
+        "secondBallTeams": {
+          "home": 3,
+          "away": 2
+        },
+        "sprintDistance": 5006.290466501988
+      }
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 17,
+      "totals": {
+        "attempts": 1187,
+        "forward": 428,
+        "backward": 402,
+        "lateral": 357,
+        "metres": 17264.15532947977,
+        "reciprocal": 115,
+        "midfieldReceptions": 735
+      },
+      "spatial": {
+        "samples": 4795,
+        "sampled": {
+          "challenge_recovery_players": 2,
+          "credible_depth_threats": 90,
+          "aerial_assignments": 3,
+          "forward_line_gap_metres": 38662.98789417997,
+          "forward_observations": 4056,
+          "depth_behind_line_metres": 87061.77061083802,
+          "attacking_shape_observations": 2966,
+          "box_occupants": 271,
+          "team_shape_observations": 9590,
+          "block_width_metres": 306138.5167266538,
+          "block_length_metres": 310681.29261404765,
+          "defence_midfield_gap_metres": 66466.86568107991,
+          "midfield_attack_gap_metres": 108172.25599794743,
+          "defensive_line_from_own_goal_metres": 359011.1823005542,
+          "wing_1v1_exposure": 503,
+          "wing_defence_commit": 40,
+          "wing_defence_press": 289,
+          "depth_defence_track": 83,
+          "wing_defence_show_outside": 55,
+          "wing_defence_delay": 51,
+          "crossing_positions": 107,
+          "cross_candidates": 475,
+          "wing_defence_cover": 15,
+          "depth_defence_handoff": 7,
+          "wing_defence_recover": 53
+        },
+        "crossTypes": {
+          "driven": 3,
+          "cutback": 11,
+          "floated": 10
+        },
+        "aerialOutcomes": {
+          "controlled_header": 2
+        },
+        "secondBallTeams": {
+          "home": 2
+        },
+        "sprintDistance": 6183.664284383267
+      }
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "role-intent-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1092,
+        "forward": 533,
+        "backward": 338,
+        "lateral": 221,
+        "metres": 17216.22824548676,
+        "reciprocal": 75,
+        "midfieldReceptions": 380
+      },
+      "spatial": {
+        "samples": 4721,
+        "sampled": {
+          "challenge_recovery_players": 4,
+          "credible_depth_threats": 115,
+          "aerial_assignments": 51,
+          "forward_line_gap_metres": 56215.30879210439,
+          "forward_observations": 4308,
+          "depth_behind_line_metres": 82123.78782397763,
+          "attacking_shape_observations": 2863,
+          "box_occupants": 445,
+          "team_shape_observations": 9442,
+          "block_width_metres": 313448.0717952875,
+          "block_length_metres": 292426.9781669944,
+          "defence_midfield_gap_metres": 77491.44350678228,
+          "midfield_attack_gap_metres": 91400.47208392312,
+          "defensive_line_from_own_goal_metres": 354338.39570955833,
+          "wing_1v1_exposure": 1260,
+          "wing_defence_press": 567,
+          "wing_defence_recover": 150,
+          "wing_defence_commit": 152,
+          "depth_defence_track": 100,
+          "wing_defence_show_outside": 186,
+          "wing_defence_delay": 201,
+          "crossing_positions": 262,
+          "cross_candidates": 1073,
+          "depth_defence_handoff": 14,
+          "wing_defence_cover": 4,
+          "depth_defence_hold_line": 1
+        },
+        "crossTypes": {
+          "cutback": 7,
+          "driven": 18,
+          "floated": 22
+        },
+        "aerialOutcomes": {
+          "controlled_header": 5,
+          "flick_on": 5,
+          "clearance_header": 3,
+          "keeper_punch": 1
+        },
+        "secondBallTeams": {
+          "away": 4,
+          "home": 4
+        },
+        "sprintDistance": 8117.652200322914
+      }
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "role-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1227,
+        "forward": 593,
+        "backward": 394,
+        "lateral": 240,
+        "metres": 17176.59704276347,
+        "reciprocal": 78,
+        "midfieldReceptions": 649
+      },
+      "spatial": {
+        "samples": 4719,
+        "sampled": {
+          "challenge_recovery_players": 1,
+          "credible_depth_threats": 131,
+          "aerial_assignments": 23,
+          "forward_line_gap_metres": 48468.4610978518,
+          "forward_observations": 4252,
+          "depth_behind_line_metres": 82614.63985340683,
+          "attacking_shape_observations": 2867,
+          "box_occupants": 656,
+          "team_shape_observations": 9438,
+          "block_width_metres": 300192.3757606434,
+          "block_length_metres": 282251.1878520125,
+          "defence_midfield_gap_metres": 82903.41289898795,
+          "midfield_attack_gap_metres": 90064.73214717914,
+          "defensive_line_from_own_goal_metres": 359623.0567350404,
+          "wing_1v1_exposure": 807,
+          "wing_defence_press": 444,
+          "wing_defence_commit": 93,
+          "depth_defence_handoff": 16,
+          "depth_defence_track": 115,
+          "wing_defence_show_outside": 97,
+          "crossing_positions": 231,
+          "cross_candidates": 1109,
+          "wing_defence_delay": 97,
+          "wing_defence_recover": 65,
+          "wing_defence_cover": 11
+        },
+        "crossTypes": {
+          "floated": 13,
+          "cutback": 14,
+          "driven": 8
+        },
+        "aerialOutcomes": {
+          "flick_on": 9,
+          "attacking_header": 1,
+          "clearance_header": 1,
+          "loose_ball": 1
+        },
+        "secondBallTeams": {
+          "home": 6,
+          "away": 2
+        },
+        "sprintDistance": 8186.121071278967
+      }
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "state-value-v1",
+      "cohort": "development",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1153,
+        "forward": 644,
+        "backward": 322,
+        "lateral": 187,
+        "metres": 17349.300935703057,
+        "reciprocal": 68,
+        "midfieldReceptions": 391
+      },
+      "spatial": {
+        "samples": 4607,
+        "sampled": {
+          "challenge_recovery_players": 2,
+          "credible_depth_threats": 147,
+          "aerial_assignments": 41,
+          "forward_line_gap_metres": 51175.86868313121,
+          "forward_observations": 4100,
+          "depth_behind_line_metres": 79568.75306723177,
+          "attacking_shape_observations": 2731,
+          "box_occupants": 391,
+          "team_shape_observations": 9214,
+          "block_width_metres": 291666.17829366645,
+          "block_length_metres": 271846.2611519721,
+          "defence_midfield_gap_metres": 77346.69636191752,
+          "midfield_attack_gap_metres": 85568.64820488518,
+          "defensive_line_from_own_goal_metres": 349294.25245719636,
+          "depth_defence_track": 132,
+          "wing_1v1_exposure": 978,
+          "wing_defence_press": 530,
+          "wing_defence_commit": 115,
+          "wing_defence_recover": 104,
+          "wing_defence_show_outside": 100,
+          "depth_defence_handoff": 13,
+          "wing_defence_delay": 118,
+          "crossing_positions": 221,
+          "cross_candidates": 850,
+          "wing_defence_cover": 11,
+          "depth_defence_hold_line": 2
+        },
+        "crossTypes": {
+          "cutback": 19,
+          "driven": 15,
+          "floated": 15
+        },
+        "aerialOutcomes": {
+          "clearance_header": 5,
+          "flick_on": 7,
+          "controlled_header": 3,
+          "attacking_header": 1
+        },
+        "secondBallTeams": {
+          "away": 2,
+          "home": 6
+        },
+        "sprintDistance": 8164.373782970148
+      }
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "legacy-pr176",
+      "cohort": "validation",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 2134,
+        "forward": 725,
+        "backward": 755,
+        "lateral": 654,
+        "metres": 36666.44763958949,
+        "reciprocal": 132,
+        "midfieldReceptions": 217
+      },
+      "spatial": {
+        "samples": 5191,
+        "sampled": {
+          "challenge_recovery_players": 32,
+          "credible_depth_threats": 189,
+          "aerial_assignments": 402,
+          "forward_line_gap_metres": 44959.39832389268,
+          "forward_observations": 5317,
+          "depth_behind_line_metres": 72588.78937314678,
+          "attacking_shape_observations": 2251,
+          "box_occupants": 148,
+          "team_shape_observations": 10382,
+          "block_width_metres": 347992.8596690452,
+          "block_length_metres": 306919.0324352433,
+          "defence_midfield_gap_metres": 131831.06083134052,
+          "midfield_attack_gap_metres": 109099.737143689,
+          "defensive_line_from_own_goal_metres": 394544.84311959986,
+          "wing_1v1_exposure": 622,
+          "wing_defence_show_outside": 269,
+          "wing_defence_press": 160,
+          "depth_defence_track": 174,
+          "provide_width": 323,
+          "wing_defence_commit": 67,
+          "wing_defence_recover": 52,
+          "depth_defence_handoff": 12,
+          "overlap": 173,
+          "wing_defence_delay": 69,
+          "crossing_positions": 42,
+          "cross_candidates": 152,
+          "wing_defence_cover": 5,
+          "depth_defence_hold_line": 1,
+          "underlap": 16
+        },
+        "crossTypes": {
+          "cutback": 1,
+          "floated": 4,
+          "driven": 1
+        },
+        "aerialOutcomes": {
+          "flick_on": 34,
+          "controlled_header": 22,
+          "clearance_header": 6
+        },
+        "secondBallTeams": {
+          "away": 7,
+          "home": 9
+        },
+        "sprintDistance": 3452.995889171676
+      }
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 2530,
+        "forward": 1082,
+        "backward": 774,
+        "lateral": 674,
+        "metres": 32846.647854143484,
+        "reciprocal": 286,
+        "midfieldReceptions": 1064
+      },
+      "spatial": {
+        "samples": 5025,
+        "sampled": {
+          "challenge_recovery_players": 52,
+          "credible_depth_threats": 66,
+          "aerial_assignments": 83,
+          "forward_line_gap_metres": 77327.67719712098,
+          "forward_observations": 5613,
+          "depth_behind_line_metres": 69172.2807069767,
+          "attacking_shape_observations": 2250,
+          "box_occupants": 162,
+          "team_shape_observations": 10050,
+          "block_width_metres": 316803.88125911314,
+          "block_length_metres": 289554.0918290704,
+          "defence_midfield_gap_metres": 111330.87005707613,
+          "midfield_attack_gap_metres": 106036.06702362376,
+          "defensive_line_from_own_goal_metres": 373126.3845161665,
+          "provide_width": 602,
+          "overlap": 319,
+          "wing_1v1_exposure": 317,
+          "wing_defence_delay": 42,
+          "wing_defence_press": 139,
+          "depth_defence_track": 55,
+          "depth_defence_handoff": 6,
+          "wing_defence_show_outside": 56,
+          "wing_defence_commit": 31,
+          "wing_defence_recover": 35,
+          "crossing_positions": 54,
+          "cross_candidates": 194,
+          "wing_defence_cover": 14
+        },
+        "crossTypes": {
+          "cutback": 7,
+          "floated": 5,
+          "driven": 2
+        },
+        "aerialOutcomes": {
+          "controlled_header": 4,
+          "clearance_header": 6,
+          "flick_on": 4
+        },
+        "secondBallTeams": {
+          "home": 5,
+          "away": 3
+        },
+        "sprintDistance": 6175.850413124729
+      }
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "role-intent-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 2165,
+        "forward": 1187,
+        "backward": 551,
+        "lateral": 427,
+        "metres": 30639.016427396244,
+        "reciprocal": 237,
+        "midfieldReceptions": 507
+      },
+      "spatial": {
+        "samples": 4490,
+        "sampled": {
+          "challenge_recovery_players": 66,
+          "credible_depth_threats": 33,
+          "aerial_assignments": 125,
+          "forward_line_gap_metres": 75671.48951836185,
+          "forward_observations": 4986,
+          "depth_behind_line_metres": 63854.44303276777,
+          "attacking_shape_observations": 2066,
+          "box_occupants": 230,
+          "team_shape_observations": 8980,
+          "block_width_metres": 284795.1628037151,
+          "block_length_metres": 242547.2588561444,
+          "defence_midfield_gap_metres": 94834.4048885072,
+          "midfield_attack_gap_metres": 85734.86422137318,
+          "defensive_line_from_own_goal_metres": 335080.8168839572,
+          "provide_width": 660,
+          "wing_1v1_exposure": 422,
+          "wing_defence_show_outside": 52,
+          "wing_defence_commit": 48,
+          "wing_defence_recover": 49,
+          "wing_defence_press": 192,
+          "overlap": 188,
+          "crossing_positions": 59,
+          "cross_candidates": 167,
+          "wing_defence_delay": 75,
+          "underlap": 4,
+          "depth_defence_track": 26,
+          "wing_defence_cover": 6,
+          "depth_defence_handoff": 4
+        },
+        "crossTypes": {
+          "cutback": 20,
+          "driven": 3,
+          "floated": 7
+        },
+        "aerialOutcomes": {
+          "flick_on": 6,
+          "clearance_header": 6,
+          "controlled_header": 8
+        },
+        "secondBallTeams": {
+          "home": 6,
+          "away": 1
+        },
+        "sprintDistance": 4957.674783482487
+      }
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "role-value-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 2433,
+        "forward": 1165,
+        "backward": 691,
+        "lateral": 577,
+        "metres": 30645.19739936019,
+        "reciprocal": 274,
+        "midfieldReceptions": 1152
+      },
+      "spatial": {
+        "samples": 4736,
+        "sampled": {
+          "challenge_recovery_players": 80,
+          "credible_depth_threats": 68,
+          "aerial_assignments": 99,
+          "forward_line_gap_metres": 83093.83503609947,
+          "forward_observations": 5847,
+          "depth_behind_line_metres": 72371.43493499425,
+          "attacking_shape_observations": 2334,
+          "box_occupants": 164,
+          "team_shape_observations": 9472,
+          "block_width_metres": 302045.9731903202,
+          "block_length_metres": 267801.3966773974,
+          "defence_midfield_gap_metres": 111855.22251619799,
+          "midfield_attack_gap_metres": 95830.43526845712,
+          "defensive_line_from_own_goal_metres": 345827.96781893383,
+          "provide_width": 737,
+          "depth_defence_track": 53,
+          "wing_1v1_exposure": 289,
+          "wing_defence_press": 146,
+          "overlap": 307,
+          "wing_defence_commit": 32,
+          "crossing_positions": 48,
+          "cross_candidates": 154,
+          "wing_defence_delay": 48,
+          "wing_defence_show_outside": 31,
+          "wing_defence_recover": 30,
+          "depth_defence_handoff": 12,
+          "underlap": 1,
+          "wing_defence_cover": 2
+        },
+        "crossTypes": {
+          "cutback": 4
+        },
+        "aerialOutcomes": {
+          "controlled_header": 3,
+          "clearance_header": 7,
+          "flick_on": 4
+        },
+        "secondBallTeams": {
+          "away": 2,
+          "home": 6
+        },
+        "sprintDistance": 5573.51786391064
+      }
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "state-value-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 2411,
+        "forward": 1433,
+        "backward": 461,
+        "lateral": 517,
+        "metres": 32386.91122181484,
+        "reciprocal": 236,
+        "midfieldReceptions": 516
+      },
+      "spatial": {
+        "samples": 4776,
+        "sampled": {
+          "challenge_recovery_players": 88,
+          "credible_depth_threats": 47,
+          "aerial_assignments": 76,
+          "forward_line_gap_metres": 89007.41092935941,
+          "forward_observations": 5537,
+          "depth_behind_line_metres": 67664.49962025724,
+          "attacking_shape_observations": 2206,
+          "box_occupants": 194,
+          "team_shape_observations": 9552,
+          "block_width_metres": 304890.8113975267,
+          "block_length_metres": 261083.24207223888,
+          "defence_midfield_gap_metres": 114050.73590433251,
+          "midfield_attack_gap_metres": 84507.08880338125,
+          "defensive_line_from_own_goal_metres": 348209.80669242225,
+          "wing_1v1_exposure": 506,
+          "wing_defence_press": 245,
+          "provide_width": 794,
+          "overlap": 244,
+          "crossing_positions": 45,
+          "cross_candidates": 118,
+          "wing_defence_delay": 89,
+          "wing_defence_commit": 66,
+          "wing_defence_recover": 68,
+          "wing_defence_show_outside": 33,
+          "depth_defence_handoff": 4,
+          "depth_defence_track": 42,
+          "depth_defence_hold_line": 1,
+          "wing_defence_cover": 5
+        },
+        "crossTypes": {
+          "driven": 1,
+          "cutback": 4,
+          "floated": 5
+        },
+        "aerialOutcomes": {
+          "flick_on": 5,
+          "clearance_header": 6,
+          "controlled_header": 4
+        },
+        "secondBallTeams": {
+          "away": 5,
+          "home": 3
+        },
+        "sprintDistance": 5372.712092638213
+      }
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "legacy-pr176",
+      "cohort": "validation",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1661,
+        "forward": 569,
+        "backward": 700,
+        "lateral": 392,
+        "metres": 28881.826243530595,
+        "reciprocal": 121,
+        "midfieldReceptions": 272
+      },
+      "spatial": {
+        "samples": 4974,
+        "sampled": {
+          "challenge_recovery_players": 11,
+          "credible_depth_threats": 205,
+          "aerial_assignments": 186,
+          "forward_line_gap_metres": 80869.94201546187,
+          "forward_observations": 6553,
+          "depth_behind_line_metres": 71696.62655089993,
+          "attacking_shape_observations": 2389,
+          "box_occupants": 313,
+          "team_shape_observations": 9948,
+          "block_width_metres": 339373.89171831403,
+          "block_length_metres": 311306.06745481864,
+          "defence_midfield_gap_metres": 111770.02839508608,
+          "midfield_attack_gap_metres": 130092.47251305018,
+          "defensive_line_from_own_goal_metres": 370642.90156537184,
+          "provide_width": 482,
+          "crossing_positions": 174,
+          "cross_candidates": 727,
+          "wing_1v1_exposure": 750,
+          "wing_defence_press": 165,
+          "wing_defence_show_outside": 251,
+          "wing_defence_delay": 168,
+          "wing_defence_commit": 86,
+          "depth_defence_handoff": 28,
+          "depth_defence_track": 166,
+          "wing_defence_recover": 69,
+          "overlap": 429,
+          "underlap": 18,
+          "wing_defence_cover": 11
+        },
+        "crossTypes": {
+          "cutback": 12,
+          "floated": 12,
+          "driven": 3
+        },
+        "aerialOutcomes": {
+          "clearance_header": 5,
+          "controlled_header": 11,
+          "flick_on": 14,
+          "loose_ball": 3
+        },
+        "secondBallTeams": {
+          "home": 9,
+          "away": 2
+        },
+        "sprintDistance": 4886.715986805161
+      }
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 1158,
+        "forward": 478,
+        "backward": 372,
+        "lateral": 308,
+        "metres": 17346.352990610445,
+        "reciprocal": 153,
+        "midfieldReceptions": 575
+      },
+      "spatial": {
+        "samples": 4326,
+        "sampled": {
+          "challenge_recovery_players": 36,
+          "credible_depth_threats": 142,
+          "aerial_assignments": 70,
+          "forward_line_gap_metres": 79733.52414837776,
+          "forward_observations": 5674,
+          "depth_behind_line_metres": 76180.76270591565,
+          "attacking_shape_observations": 2620,
+          "box_occupants": 691,
+          "team_shape_observations": 8652,
+          "block_width_metres": 293278.6293224935,
+          "block_length_metres": 278943.79606502433,
+          "defence_midfield_gap_metres": 95511.78327357372,
+          "midfield_attack_gap_metres": 111281.76914657572,
+          "defensive_line_from_own_goal_metres": 317143.41970232164,
+          "overlap": 370,
+          "wing_1v1_exposure": 695,
+          "wing_defence_press": 321,
+          "provide_width": 446,
+          "depth_defence_handoff": 17,
+          "crossing_positions": 181,
+          "cross_candidates": 758,
+          "wing_defence_show_outside": 67,
+          "wing_defence_delay": 80,
+          "depth_defence_track": 124,
+          "wing_defence_recover": 82,
+          "wing_defence_commit": 134,
+          "wing_defence_cover": 11,
+          "underlap": 10
+        },
+        "crossTypes": {
+          "floated": 23,
+          "cutback": 19,
+          "driven": 13
+        },
+        "aerialOutcomes": {
+          "clearance_header": 6,
+          "controlled_header": 9,
+          "loose_ball": 3,
+          "flick_on": 5
+        },
+        "secondBallTeams": {
+          "away": 6,
+          "home": 5
+        },
+        "sprintDistance": 7454.148860638001
+      }
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "role-intent-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 1093,
+        "forward": 645,
+        "backward": 261,
+        "lateral": 187,
+        "metres": 16940.363662875792,
+        "reciprocal": 108,
+        "midfieldReceptions": 304
+      },
+      "spatial": {
+        "samples": 4779,
+        "sampled": {
+          "challenge_recovery_players": 40,
+          "credible_depth_threats": 134,
+          "aerial_assignments": 108,
+          "forward_line_gap_metres": 88663.70396230675,
+          "forward_observations": 6093,
+          "depth_behind_line_metres": 92145.74908403432,
+          "attacking_shape_observations": 3069,
+          "box_occupants": 393,
+          "team_shape_observations": 9558,
+          "block_width_metres": 334177.8217523795,
+          "block_length_metres": 294005.2957502503,
+          "defence_midfield_gap_metres": 110710.20851851797,
+          "midfield_attack_gap_metres": 113533.19757102671,
+          "defensive_line_from_own_goal_metres": 346595.35511349345,
+          "provide_width": 592,
+          "depth_defence_track": 121,
+          "wing_1v1_exposure": 1073,
+          "wing_defence_commit": 215,
+          "wing_defence_press": 383,
+          "overlap": 349,
+          "wing_defence_recover": 145,
+          "wing_defence_show_outside": 162,
+          "crossing_positions": 175,
+          "cross_candidates": 657,
+          "wing_defence_delay": 163,
+          "depth_defence_hold_line": 3,
+          "underlap": 8,
+          "wing_defence_cover": 5,
+          "depth_defence_handoff": 9
+        },
+        "crossTypes": {
+          "driven": 15,
+          "cutback": 12,
+          "floated": 16
+        },
+        "aerialOutcomes": {
+          "flick_on": 5,
+          "loose_ball": 3,
+          "controlled_header": 5,
+          "clearance_header": 10
+        },
+        "secondBallTeams": {
+          "away": 5,
+          "home": 4
+        },
+        "sprintDistance": 8341.880838939389
+      }
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "role-value-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 20,
+      "totals": {
+        "attempts": 1362,
+        "forward": 664,
+        "backward": 444,
+        "lateral": 254,
+        "metres": 19861.954359602823,
+        "reciprocal": 143,
+        "midfieldReceptions": 696
+      },
+      "spatial": {
+        "samples": 4835,
+        "sampled": {
+          "challenge_recovery_players": 49,
+          "credible_depth_threats": 142,
+          "aerial_assignments": 70,
+          "forward_line_gap_metres": 91616.85113527768,
+          "forward_observations": 6305,
+          "depth_behind_line_metres": 87890.00951167694,
+          "attacking_shape_observations": 2932,
+          "box_occupants": 201,
+          "team_shape_observations": 9670,
+          "block_width_metres": 320414.32115304604,
+          "block_length_metres": 295954.76062372624,
+          "defence_midfield_gap_metres": 116807.66103913516,
+          "midfield_attack_gap_metres": 112687.08268372701,
+          "defensive_line_from_own_goal_metres": 350195.12944616174,
+          "provide_width": 606,
+          "overlap": 335,
+          "wing_1v1_exposure": 672,
+          "wing_defence_press": 329,
+          "crossing_positions": 85,
+          "cross_candidates": 271,
+          "wing_defence_delay": 81,
+          "wing_defence_show_outside": 94,
+          "depth_defence_track": 124,
+          "wing_defence_recover": 65,
+          "wing_defence_commit": 98,
+          "depth_defence_hold_line": 2,
+          "wing_defence_cover": 5,
+          "depth_defence_handoff": 14,
+          "underlap": 3
+        },
+        "crossTypes": {
+          "floated": 17,
+          "driven": 2,
+          "cutback": 6
+        },
+        "aerialOutcomes": {
+          "controlled_header": 6,
+          "flick_on": 5,
+          "clearance_header": 3,
+          "loose_ball": 1
+        },
+        "secondBallTeams": {
+          "away": 4,
+          "home": 2
+        },
+        "sprintDistance": 8134.719178985635
+      }
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "state-value-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 21,
+      "totals": {
+        "attempts": 945,
+        "forward": 522,
+        "backward": 218,
+        "lateral": 205,
+        "metres": 14070.718911810542,
+        "reciprocal": 80,
+        "midfieldReceptions": 240
+      },
+      "spatial": {
+        "samples": 4588,
+        "sampled": {
+          "challenge_recovery_players": 31,
+          "credible_depth_threats": 138,
+          "aerial_assignments": 77,
+          "forward_line_gap_metres": 88213.81112945049,
+          "forward_observations": 6119,
+          "depth_behind_line_metres": 92587.00606797755,
+          "attacking_shape_observations": 3143,
+          "box_occupants": 611,
+          "team_shape_observations": 9176,
+          "block_width_metres": 315717.9274353214,
+          "block_length_metres": 291975.4388927757,
+          "defence_midfield_gap_metres": 107458.44134182438,
+          "midfield_attack_gap_metres": 114547.93235503513,
+          "defensive_line_from_own_goal_metres": 329906.26472312753,
+          "provide_width": 675,
+          "overlap": 253,
+          "wing_1v1_exposure": 1067,
+          "wing_defence_press": 391,
+          "crossing_positions": 156,
+          "cross_candidates": 605,
+          "wing_defence_show_outside": 145,
+          "depth_defence_track": 123,
+          "wing_defence_delay": 146,
+          "wing_defence_commit": 230,
+          "depth_defence_handoff": 15,
+          "wing_defence_recover": 141,
+          "underlap": 10,
+          "wing_defence_cover": 14
+        },
+        "crossTypes": {
+          "cutback": 14,
+          "floated": 12,
+          "driven": 10
+        },
+        "aerialOutcomes": {
+          "controlled_header": 3,
+          "clearance_header": 2,
+          "flick_on": 3
+        },
+        "secondBallTeams": {
+          "home": 2,
+          "away": 3
+        },
+        "sprintDistance": 8854.242509359474
+      }
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "legacy-pr176",
+      "cohort": "validation",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 1271,
+        "forward": 304,
+        "backward": 546,
+        "lateral": 421,
+        "metres": 21139.836128731386,
+        "reciprocal": 93,
+        "midfieldReceptions": 160
+      },
+      "spatial": {
+        "samples": 5283,
+        "sampled": {
+          "challenge_recovery_players": 2,
+          "credible_depth_threats": 194,
+          "aerial_assignments": 20,
+          "forward_line_gap_metres": 122515.9682373741,
+          "forward_observations": 8868,
+          "depth_behind_line_metres": 90274.95896062219,
+          "attacking_shape_observations": 2956,
+          "box_occupants": 190,
+          "team_shape_observations": 10566,
+          "block_width_metres": 387310.13068550715,
+          "block_length_metres": 337793.15382908337,
+          "defence_midfield_gap_metres": 163331.5259066524,
+          "midfield_attack_gap_metres": 78795.3659034114,
+          "defensive_line_from_own_goal_metres": 373802.1785818272,
+          "provide_width": 621,
+          "wing_1v1_exposure": 889,
+          "wing_defence_press": 226,
+          "overlap": 742,
+          "depth_defence_handoff": 5,
+          "wing_defence_commit": 141,
+          "depth_defence_track": 180,
+          "wing_defence_show_outside": 274,
+          "wing_defence_delay": 139,
+          "wing_defence_recover": 94,
+          "underlap": 5,
+          "crossing_positions": 83,
+          "cross_candidates": 293,
+          "wing_defence_cover": 15,
+          "depth_defence_hold_line": 3
+        },
+        "crossTypes": {
+          "cutback": 5,
+          "floated": 10,
+          "driven": 7
+        },
+        "aerialOutcomes": {
+          "loose_ball": 2,
+          "flick_on": 5,
+          "controlled_header": 1
+        },
+        "secondBallTeams": {
+          "away": 2
+        },
+        "sprintDistance": 3661.123790590895
+      }
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 16,
+      "totals": {
+        "attempts": 748,
+        "forward": 296,
+        "backward": 314,
+        "lateral": 138,
+        "metres": 11404.316575366925,
+        "reciprocal": 29,
+        "midfieldReceptions": 227
+      },
+      "spatial": {
+        "samples": 5205,
+        "sampled": {
+          "challenge_recovery_players": 3,
+          "credible_depth_threats": 114,
+          "aerial_assignments": 32,
+          "forward_line_gap_metres": 219136.6402709699,
+          "forward_observations": 11934,
+          "depth_behind_line_metres": 119244.13581885661,
+          "attacking_shape_observations": 3978,
+          "box_occupants": 398,
+          "team_shape_observations": 10410,
+          "block_width_metres": 324911.22670757875,
+          "block_length_metres": 373476.3408636435,
+          "defence_midfield_gap_metres": 143063.6111100815,
+          "midfield_attack_gap_metres": 92349.9630036369,
+          "defensive_line_from_own_goal_metres": 337540.7014374628,
+          "provide_width": 1233,
+          "wing_1v1_exposure": 467,
+          "wing_defence_commit": 111,
+          "depth_defence_track": 104,
+          "wing_defence_press": 185,
+          "depth_defence_handoff": 6,
+          "wing_defence_show_outside": 30,
+          "overlap": 342,
+          "wing_defence_recover": 62,
+          "crossing_positions": 93,
+          "cross_candidates": 381,
+          "wing_defence_delay": 73,
+          "wing_defence_cover": 6,
+          "underlap": 8
+        },
+        "crossTypes": {
+          "floated": 6,
+          "cutback": 7,
+          "driven": 11
+        },
+        "aerialOutcomes": {
+          "controlled_header": 2,
+          "clearance_header": 1,
+          "flick_on": 2
+        },
+        "secondBallTeams": {
+          "away": 1,
+          "home": 3
+        },
+        "sprintDistance": 5146.4949815541595
+      }
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "role-intent-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 702,
+        "forward": 384,
+        "backward": 210,
+        "lateral": 108,
+        "metres": 10913.829767069974,
+        "reciprocal": 48,
+        "midfieldReceptions": 174
+      },
+      "spatial": {
+        "samples": 4891,
+        "sampled": {
+          "challenge_recovery_players": 5,
+          "credible_depth_threats": 119,
+          "aerial_assignments": 41,
+          "forward_line_gap_metres": 173273.61076362166,
+          "forward_observations": 10836,
+          "depth_behind_line_metres": 107058.59850460319,
+          "attacking_shape_observations": 3612,
+          "box_occupants": 435,
+          "team_shape_observations": 9782,
+          "block_width_metres": 360445.48163620016,
+          "block_length_metres": 290141.06218070997,
+          "defence_midfield_gap_metres": 123038.63638597181,
+          "midfield_attack_gap_metres": 61954.474156078395,
+          "defensive_line_from_own_goal_metres": 359186.23402964295,
+          "provide_width": 1627,
+          "crossing_positions": 203,
+          "cross_candidates": 781,
+          "wing_1v1_exposure": 1750,
+          "wing_defence_delay": 350,
+          "wing_defence_commit": 448,
+          "wing_defence_recover": 198,
+          "wing_defence_press": 567,
+          "depth_defence_track": 102,
+          "overlap": 1382,
+          "depth_defence_handoff": 7,
+          "wing_defence_show_outside": 174,
+          "underlap": 49,
+          "wing_defence_cover": 13,
+          "depth_defence_hold_line": 2
+        },
+        "crossTypes": {
+          "floated": 13,
+          "driven": 14,
+          "cutback": 7
+        },
+        "aerialOutcomes": {
+          "loose_ball": 6,
+          "controlled_header": 6,
+          "flick_on": 3,
+          "clearance_header": 7
+        },
+        "secondBallTeams": {
+          "away": 3,
+          "home": 3
+        },
+        "sprintDistance": 6183.983476485044
+      }
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "role-value-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 909,
+        "forward": 476,
+        "backward": 281,
+        "lateral": 152,
+        "metres": 13667.440767134467,
+        "reciprocal": 62,
+        "midfieldReceptions": 266
+      },
+      "spatial": {
+        "samples": 4742,
+        "sampled": {
+          "challenge_recovery_players": 3,
+          "credible_depth_threats": 128,
+          "aerial_assignments": 15,
+          "forward_line_gap_metres": 163153.27991396777,
+          "forward_observations": 9732,
+          "depth_behind_line_metres": 91990.2161481239,
+          "attacking_shape_observations": 3244,
+          "box_occupants": 672,
+          "team_shape_observations": 9484,
+          "block_width_metres": 346990.79871729366,
+          "block_length_metres": 289665.0057912374,
+          "defence_midfield_gap_metres": 141336.35077642213,
+          "midfield_attack_gap_metres": 61530.815888056866,
+          "defensive_line_from_own_goal_metres": 332480.4222514686,
+          "provide_width": 1386,
+          "wing_1v1_exposure": 1404,
+          "wing_defence_press": 564,
+          "overlap": 1260,
+          "wing_defence_commit": 268,
+          "wing_defence_delay": 290,
+          "crossing_positions": 270,
+          "cross_candidates": 1194,
+          "wing_defence_cover": 15,
+          "wing_defence_show_outside": 107,
+          "depth_defence_track": 107,
+          "wing_defence_recover": 160,
+          "underlap": 27,
+          "depth_defence_hold_line": 5,
+          "depth_defence_handoff": 7
+        },
+        "crossTypes": {
+          "cutback": 12,
+          "floated": 21,
+          "driven": 10
+        },
+        "aerialOutcomes": {
+          "flick_on": 2,
+          "loose_ball": 2,
+          "clearance_header": 2,
+          "controlled_header": 1
+        },
+        "secondBallTeams": {
+          "home": 3
+        },
+        "sprintDistance": 5993.779707300892
+      }
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "state-value-v1",
+      "cohort": "validation",
+      "fiveMinuteWindows": 19,
+      "totals": {
+        "attempts": 677,
+        "forward": 419,
+        "backward": 163,
+        "lateral": 95,
+        "metres": 10052.049621902235,
+        "reciprocal": 32,
+        "midfieldReceptions": 199
+      },
+      "spatial": {
+        "samples": 4662,
+        "sampled": {
+          "challenge_recovery_players": 4,
+          "credible_depth_threats": 62,
+          "aerial_assignments": 31,
+          "forward_line_gap_metres": 198101.59552924667,
+          "forward_observations": 10134,
+          "depth_behind_line_metres": 96343.49418377056,
+          "attacking_shape_observations": 3378,
+          "box_occupants": 470,
+          "team_shape_observations": 9324,
+          "block_width_metres": 349733.8018751628,
+          "block_length_metres": 273761.5507287269,
+          "defence_midfield_gap_metres": 138542.86893220464,
+          "midfield_attack_gap_metres": 69680.19152226322,
+          "defensive_line_from_own_goal_metres": 316765.8522762256,
+          "provide_width": 1209,
+          "overlap": 1480,
+          "wing_1v1_exposure": 1572,
+          "wing_defence_press": 573,
+          "wing_defence_show_outside": 151,
+          "wing_defence_commit": 317,
+          "depth_defence_track": 55,
+          "wing_defence_recover": 205,
+          "underlap": 48,
+          "wing_defence_delay": 317,
+          "crossing_positions": 232,
+          "cross_candidates": 839,
+          "depth_defence_hold_line": 1,
+          "wing_defence_cover": 9,
+          "depth_defence_handoff": 4
+        },
+        "crossTypes": {
+          "cutback": 12,
+          "floated": 19,
+          "driven": 13
+        },
+        "aerialOutcomes": {
+          "clearance_header": 2,
+          "keeper_miss": 1,
+          "flick_on": 4,
+          "controlled_header": 2,
+          "loose_ball": 4
+        },
+        "secondBallTeams": {
+          "home": 2,
+          "away": 1
+        },
+        "sprintDistance": 4757.455639265098
+      }
+    }
+  ],
+  "detailArchive": "pr183-evidence/PR183-passing-and-width-details.json.gz",
+  "uncompressedDetailSha256": "e6cef20c6a11508ac0c18cb9a698c82d63cb170218b353050cf4c7f05d41d5f3",
+  "uncompressedDetailBytes": 515744
+}

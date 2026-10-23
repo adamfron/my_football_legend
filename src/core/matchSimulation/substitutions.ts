@@ -772,7 +772,10 @@ export const advanceMatchSubstitutions = (
       state.scenario,
       state.restart.restartTeam,
       state.restart.spot ?? state.ball,
-      { takerId: state.restart.takerId },
+      {
+        takerId: state.restart.takerId,
+        selectedAction: state.restart.selectedAction,
+      },
     );
     state = {
       ...state,
@@ -826,12 +829,55 @@ export const evaluateRoleReplacement = (
     profile: incoming.profile,
     fitness: incoming.fitness ?? createMatchFitness(incoming.condition),
   };
-  const roleBenefit = (roleSuitability(replacement, role) - roleSuitability(outgoing, role)) * 32;
+  // A short burst deficit is recoverable and already priced by the fatigue term.
+  // Counting it again as permanent role unsuitability spent the bench after one sprint.
+  const sustainableRoleFit = (player: MatchPlayerState) =>
+    roleSuitability(
+      player.fitness
+        ? {
+            ...player,
+            fitness: { ...player.fitness, burstReadiness: player.fitness.longTermCapacity },
+          }
+        : player,
+      role,
+    );
+  const roleBenefit = (sustainableRoleFit(replacement) - sustainableRoleFit(outgoing)) * 32;
+  const exposure = state.defensiveTelemetry?.byPlayer[outgoing.id];
   const cardRisk =
-    (state.discipline?.[outgoing.id]?.yellowCards ?? 0) > 0 && role.instructions.includes('press')
-      ? (outgoing.profile.attributes.aggression / 100) * 3
+    (state.discipline?.[outgoing.id]?.yellowCards ?? 0) > 0
+      ? (outgoing.profile.attributes.aggression / 100) *
+        ((role.instructions.includes('press') ? 3 : 1) +
+          Math.min(10, (exposure?.fouls ?? 0) * 2 + (exposure?.highRiskIntents ?? 0)))
       : 0;
   return { roleId: role.id, roleBenefit, cardRisk };
+};
+
+/** Option value of an unused player and (outside halftime) a scarce legal window.
+ * This is a price, not a minute gate: emergencies can dominate it at any time. */
+export const substitutionOpportunityCost = (
+  state: TacticalMatchState,
+  side: TeamSide,
+  additionalChanges = 0,
+) => {
+  const rules = rulesFor(state);
+  const remaining = Math.max(
+    1,
+    rules.maximumSubstitutions - (state.substitutionState?.used[side] ?? 0) - additionalChanges,
+  );
+  const windows =
+    rules.maximumOpportunities === null
+      ? 0
+      : 4 /
+        Math.max(
+          1,
+          rules.maximumOpportunities - (state.substitutionState?.opportunities[side] ?? 0),
+        );
+  const remainingDuration = Math.max(0, Math.min(1, (5400 - state.time) / 5400));
+  return (
+    5 +
+    remainingDuration * (3 + 10 / remaining + (state.status === 'half_time' ? 0 : windows)) +
+    ((50 - (state.teams[side].coach?.rotationPreference ?? 50)) / 50) * 1.5
+  );
 };
 
 export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatchState => {
@@ -887,8 +933,11 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
         const fit = getEffectivePositionOverall(incoming.profile, outgoing.slot.position),
           reserve = incoming.fitness?.longTermCapacity ?? incoming.condition / 100;
         const role = evaluateRoleReplacement(state, outgoing, incoming);
-        const fatigueBenefit =
-          (reserve - capacity) * (20 + pressDemand * 12) + (reserve - burst) * pressDemand * 4;
+        const capacityBenefit = (reserve - capacity) * (20 + pressDemand * 12);
+        // Readiness can recover during the stoppage and quieter work. Its strategic
+        // relevance grows with depleted sustainable reserves, rather than one sprint.
+        const burstBenefit = (reserve - burst) * pressDemand * 4 * (1 - capacity);
+        const fatigueBenefit = capacityBenefit + burstBenefit;
         const abilityBenefit =
           (fit - currentQuality) * 0.65 +
           (getTacticalDutyFit(incoming.profile, outgoing.duty) -
@@ -910,11 +959,13 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
                   (incoming.profile.attributes.tackling - outgoing.profile.attributes.tackling) *
                     0.04)
               : 0;
-        const opportunityCost =
-          5 +
-          (1 - lateWeight) * 5 +
-          (state.substitutionState!.opportunities[side] >= 2 ? 3 * (1 - lateWeight) : 0) +
-          ((50 - (state.teams[side].coach?.rotationPreference ?? 50)) / 50) * 1.5;
+        const opportunityCost = substitutionOpportunityCost(state, side);
+        const observedSeconds = Math.max(0, state.time - (outgoing.activeSince ?? 0));
+        const roleConfidence = Math.max(
+          0.3,
+          1 - Math.exp(-observedSeconds / 900),
+          Math.min(1, (state.teams[side].coaching?.samples ?? 0) / 24),
+        );
         const familiarityCost =
           (1 - (state.teams[side].coach?.positionalFlexibility ?? 50) / 100) *
           Math.max(
@@ -935,7 +986,7 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
           fatigueBenefit +
           abilityBenefit +
           scoreBenefit +
-          role.roleBenefit +
+          role.roleBenefit * roleConfidence +
           role.cardRisk -
           opportunityCost -
           familiarityCost -
@@ -948,8 +999,11 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
               roleId: role.roleId,
               reasoning: {
                 roleBenefit: role.roleBenefit,
+                roleConfidence,
                 cardRisk: role.cardRisk,
                 fatigueBenefit,
+                capacityBenefit,
+                burstBenefit,
                 abilityBenefit,
                 scoreBenefit,
                 opportunityCost,
@@ -982,6 +1036,14 @@ export const planCoachSubstitutions = (input: TacticalMatchState): TacticalMatch
         rulesFor(state).maximumSubstitutions
       )
         break;
+      const reasoning = candidate.change.reasoning!;
+      const marginalCost = substitutionOpportunityCost(state, side, selected.length);
+      const marginalBenefit = candidate.benefit + reasoning.opportunityCost! - marginalCost;
+      if (marginalBenefit <= 0) continue;
+      candidate.change = {
+        ...candidate.change,
+        reasoning: { ...reasoning, opportunityCost: marginalCost, benefit: marginalBenefit },
+      };
       selected.push(candidate.change);
       used.add(candidate.change.outgoingId);
       used.add(candidate.change.incomingId);

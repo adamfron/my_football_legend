@@ -15,7 +15,7 @@ import {
 } from './matchSpace';
 import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
-import { deriveBallContactAccess } from './ballContactGeometry';
+import { deriveBallContactAccess, playerContactGeometry } from './ballContactGeometry';
 import { integrateGroundRolling } from './ballPhysics';
 import { derivePressingOpportunity } from './tacticalPreferences';
 import { deriveMovementCapability } from './locomotion';
@@ -1142,6 +1142,23 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
       ) *
         0.035;
     outcome = success > 0.58 ? 'clean_win' : success > 0.42 ? 'loose_ball' : 'beaten';
+    if (outcome === 'clean_win') {
+      const feet = playerContactGeometry(c.actor);
+      const settledReach = Math.min(
+        distance(feet.leftFoot, state.ball),
+        distance(feet.rightFoot, state.ball),
+      );
+      const relativeBallSpeed = Math.hypot(
+        (state.ball.velocity?.x ?? c.opponent.velocity.x) - c.actor.velocity.x,
+        (state.ball.velocity?.y ?? c.opponent.velocity.y) - c.actor.velocity.y,
+      );
+      // A stretched, moving poke can win the ball without trapping it under the body.
+      // Its finite deflection must be chased/acquired through the ordinary control path.
+      const trappingSpeed =
+        2 + (c.actor.profile.attributes.firstTouch + c.actor.profile.attributes.technique) / 50;
+      if (settledReach > feet.footReach && relativeBallSpeed > trappingSpeed)
+        outcome = 'loose_ball';
+    }
   }
   const diagnostic: ChallengeDiagnostic = {
     id: intent.id,
@@ -1188,6 +1205,8 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
     },
   };
   delete next.defensiveChallenge;
+  if (ballFirst && (outcome === 'clean_win' || outcome === 'loose_ball'))
+    next.ball = { ...next.ball, lastTouchPlayerId: c.actor.id };
   if (intent.technique === 'committed' || intent.technique === 'slide') {
     // Returning the support foot after a lunge/slide takes finite time. Preserve the
     // current velocity; subsequent acceleration and turning rebuild balance physically.
