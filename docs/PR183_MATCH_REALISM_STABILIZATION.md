@@ -275,8 +275,11 @@ The continuous spherical support path keeps it airborne while the loose-ball bra
 only attempts ground acquisition. The candidate's exact causal contribution has not
 been isolated by ablation; this observed path is not evidence that one specific
 changed line alone caused it. `PR183-liveness-blocker.json` and its compressed full
-state preserve the failure. The test is unchanged and remains red. Remaining career,
-build and final static-check results are recorded in `PR183-verification.json`.
+state preserve the failure. The test is unchanged and remains red. Separate downstream checks pass: career contract **4/4**, full-career **5/5**,
+TypeScript/Vite build, final lint and formatting of edited reports. Across all
+executed test stages this is **2081 passed / 1 failed (2082 total)**; the complete
+verify command remains failed. `PR183-verification.json` retains commands, scopes
+and log digests.
 
 ## Answers to the owner's 34 questions
 
@@ -336,6 +339,27 @@ build and final static-check results are recorded in `PR183-verification.json`.
     then trace the new long R3 events and open-wing/recycling rankings, followed by
     keeper/outcome/foul accounting. Re-freeze and reserve fresh confirmation inputs.
     Generation work remains planned; summary calibration stays gated.
+
+## Reproduction and receipt layout
+
+The JSON receipts are compact indexes. Their `detailArchive` and SHA-256 fields
+point to lossless gzip detail, including every five-minute pass window, substitution
+reason and retreat teammate trajectory. `cohort-diagnostics.json.gz` additionally
+retains canonical shot identities, spatial traces and clocks. No raw multi-megabyte
+original browser exports are copied into Git.
+
+Use Node with `--experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs`
+for TypeScript-backed research scripts. `preparePr183Inputs.mjs` materializes inputs
+without stepping them; `benchmarkPr183Controlled.mjs` and `benchmarkPr183Football.mjs`
+run the controlled screens. `runPr183Cohort.mjs --cohort=development` runs the paired
+development inputs, `freezePr183.mjs` checks the immutable freeze, and
+`runPr183Cohort.mjs --cohort=validation` runs the consumed confirmation inputs.
+`benchmarkPr183Integrity.mjs` compares complete observed/unobserved states.
+`reportPr183.mjs` rebuilds summaries from retained work cohorts, then
+`compactPr183Receipts.mjs` losslessly packs detailed receipts. Resume guards reject
+mixed sources/input hashes; rerunning consumed confirmation does not restore independence.
+The unchanged `npm run test:match-integration` reproduces the blocker;
+`npm run verify` remains the complete merge gate.
 
 ## Next work and roadmap
 

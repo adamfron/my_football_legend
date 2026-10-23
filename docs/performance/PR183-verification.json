@@ -24,8 +24,10 @@
       "sha256": "b61648cacdc259bcf8b898366c3699413099534a50a5b46f103ae9dae996cade",
       "bytes": 3807
     },
-    "testsUnmodified": true,
-    "downstreamInCommand": "not reached after failing integration"
+    "downstreamInCommand": "not reached after failing integration",
+    "verificationCommandUnmodified": true,
+    "assertionsAndTimeoutsNotWeakened": true,
+    "telemetryExpectedHashesUpdatedWithPairedReceipts": true
   },
   "separateChecks": {
     "finalLint": {
@@ -49,8 +51,36 @@
         "pre-existing dynamic/static import overlap and chunk size warning"
       ]
     },
-    "careerContract": "running separately",
-    "fullCareer": "queued separately"
+    "careerContract": {
+      "exit": 0,
+      "files": 1,
+      "passed": 4,
+      "failed": 0,
+      "log": {
+        "sha256": "c1e94c78fef6e3cc29ab2979b60b73e25c63b06593f99573660870b61bfdc573",
+        "bytes": 1826
+      },
+      "scope": "Full U17 with 12 human choices; full professional fixture twice; commit/save/hydrate and duplicate/conflict rejection"
+    },
+    "fullCareer": {
+      "exit": 0,
+      "files": 1,
+      "passed": 5,
+      "failed": 0,
+      "log": {
+        "sha256": "94eb0172efce822697c050b599edecca1e7f71b24e885ad4d56b2bdc0f30ca32",
+        "bytes": 337
+      }
+    },
+    "format": {
+      "scope": "New reporting scripts and edited Markdown only; frozen source/harness not reformatted",
+      "status": "pass"
+    },
+    "receiptArchives": {
+      "status": "pass",
+      "checked": 5,
+      "method": "gunzip bytes SHA256 equals compact receipt detail digest"
+    }
   },
   "research": {
     "development": {
@@ -72,5 +102,11 @@
     "R3 confirmation retreat up to 44.57m",
     "high circulation/live time/foul frequency and elevated conversion",
     "three uncounted censored shot releases lack interruption attribution"
-  ]
+  ],
+  "allExecutedTestStages": {
+    "passed": 2081,
+    "failed": 1,
+    "total": 2082,
+    "notACompleteVerifyPass": true
+  }
 }
