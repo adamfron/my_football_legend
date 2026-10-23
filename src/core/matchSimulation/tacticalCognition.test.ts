@@ -93,10 +93,17 @@ describe('isolated tactical cognition research', () => {
       expect(experienced.samples[0]!.positions[0]).toEqual(novice.samples[0]!.positions[0]);
       expect(experienced.passReleased).toBe(true);
       expect(experienced.release.action?.type).toBe('pass');
+      if (pattern === 'playmaker_run' && experienced.release.action?.type === 'pass') {
+        expect(experienced.release.action.target.x - 35).toBeGreaterThan(30);
+      }
       expect(experienced.defensiveCover).toBe(2);
     },
   );
   it('refuses novel triggers, incompatible roles and absent cover', () => {
+    const playmaker = createCognitionFixture('playmaker_run', 'expired-preparation');
+    playmaker.state.time = 11;
+    const runner = playmaker.state.players.find((p) => p.id === playmaker.runnerIds[0])!;
+    expect(observeTacticalScene(playmaker.state, runner, 'playmaker_run').trigger).toBeNull();
     expect(
       runTacticalPatternTrial({
         pattern: 'counter_support',

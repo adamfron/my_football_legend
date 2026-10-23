@@ -184,7 +184,9 @@ export const observeTacticalScene = (
     source &&
     visible.some((p) => p.team !== actor.team && distance(p.position, source.position) < 5);
   const prepared =
-    source?.role === 'deep_playmaker' && state.onBallPreparation?.actorId === source.id;
+    source?.role === 'deep_playmaker' &&
+    state.onBallPreparation?.actorId === source.id &&
+    state.onBallPreparation.readyAt > state.time;
   const regain =
     source &&
     state.timeSincePossessionChanged < 2.5 &&

@@ -49,7 +49,10 @@ export const createCognitionFixture = (pattern: PatternId, seed: string) => {
     p.velocity = { x: 0, y: 0 };
     p.facingAngle = Math.PI / 2;
   }
-  source.position = { x: pattern === 'press_triangle' ? 64 : 57, y: 34 };
+  source.position = {
+    x: pattern === 'press_triangle' ? 64 : pattern === 'playmaker_run' ? 35 : 57,
+    y: 34,
+  };
   source.velocity = { x: 2, y: 0 };
   runner.position = { x: 60, y: 32 };
   runner.facingAngle = -Math.PI / 2;
@@ -89,7 +92,7 @@ export const createCognitionFixture = (pattern: PatternId, seed: string) => {
   s.onBallPreparation = {
     actorId: source.id,
     gainedAt: 8,
-    readyAt: 9,
+    readyAt: pattern === 'playmaker_run' ? 10.6 : 9,
     kind: 'immediate_control',
     incomingSpeed: 0,
   };
