@@ -1,0 +1,444 @@
+{
+  "schema": "mfl-pr184-ci-parity-v1",
+  "beforeHead": "5d31d6296f36cb6aa5991c1fe9a0f9ab545b3c7e",
+  "beforeSourceSha256": "f084ab7f4e5ce9976c6c198ccfcecf4eacaf5ef51e59b16efde62cef6b90b622",
+  "afterSourceSha256": "12ea0ce6c0ba55d04a963e8e0f8092939302f4501785716e70fc1bd962155f63",
+  "unchangedTrialResults": 8130,
+  "unchangedCompleteTraces": 77,
+  "resultFiles": [
+    {
+      "file": "PR184-attribute-sensitivity.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-autonomous-results.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-body-property-controls.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-drill-catalog.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-first-touch-results.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-micro-lab-reference.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-orientation-controls.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-passing-accuracy.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-prediction-calibration.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-real-world-reference-index.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-rebound-results.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-shooting-results.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-slalom-profile-comparison.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-slalom-results.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-sprint-results.json",
+      "measurementsEqual": true
+    },
+    {
+      "file": "PR184-turning-results.json",
+      "measurementsEqual": true
+    }
+  ],
+  "traceReceipts": [
+    {
+      "file": "505-left.json.gz",
+      "sha256": "4eb189fd9fd6ae8af1cd9086233eba9d5f89c97742edc2e5595ca89b5e471558"
+    },
+    {
+      "file": "505-right.json.gz",
+      "sha256": "975289123245ffa812e18cf803e8dd38b6d0a6ef67d06d40d95ac903ad2ba4b7"
+    },
+    {
+      "file": "autonomous-pass-20-dominant-ground.json.gz",
+      "sha256": "2cdee7347b6b5ba5f6c10b4bb31a3905676af7343bd5175bb7636e9cbc2252e4"
+    },
+    {
+      "file": "autonomous-shot-stationary-placed-dominant.json.gz",
+      "sha256": "861dc98eafdd9021e40cdcdf7b685ba85b7f01b7f0a54b162cfd376da16e47e3"
+    },
+    {
+      "file": "autonomous-wall-receive-turn.json.gz",
+      "sha256": "9e4052a0fa812f947671487a8dc8ebf34a8efdfa21b2f64b910a61ec05e6573b"
+    },
+    {
+      "file": "out-back-left.json.gz",
+      "sha256": "972ee65d87166e3ce6487bc7670cb9aae6059f132038ae501addfa1d8e75b8e6"
+    },
+    {
+      "file": "out-back-right.json.gz",
+      "sha256": "aa59e9435def63d9398d4e860237fc3d3f4321856feaa06e9fdbbf9499cd1cb2"
+    },
+    {
+      "file": "pass-10-dominant-elevated.json.gz",
+      "sha256": "4a09e6b39ce35b51481ac76b132bbf89cede1df1dfc27bb5534ed2f7dd8d950a"
+    },
+    {
+      "file": "pass-10-dominant-ground.json.gz",
+      "sha256": "7b65d8f9a726a31d8149b20eb527f591ab4c371e337c509b6975bd2e288f047f"
+    },
+    {
+      "file": "pass-10-weak-elevated.json.gz",
+      "sha256": "f023891d167376618f12ad227d490f875ed08efdc16301ee23307db1dd9fff3f"
+    },
+    {
+      "file": "pass-10-weak-ground.json.gz",
+      "sha256": "fa383eedf3b637dea64796bb128177fb80e906d870bc610c4eb85a9857e7fdd1"
+    },
+    {
+      "file": "pass-20-dominant-elevated.json.gz",
+      "sha256": "f408bfe85770da85e6e23b83f8c26a62e7adf3fcc7f86cf6585c37f0e8f86aaa"
+    },
+    {
+      "file": "pass-20-dominant-ground.json.gz",
+      "sha256": "e381aa5f51f50f7545bffbf99fa75b5cfca30c60c66bf2788fbcbe217bf81c50"
+    },
+    {
+      "file": "pass-20-weak-elevated.json.gz",
+      "sha256": "f479fe17ef6ac485659d9b8f8937f46bb781786b24eee2d8f1d1f40302c1cb31"
+    },
+    {
+      "file": "pass-20-weak-ground.json.gz",
+      "sha256": "1700ed95fdb341334aae8333463a95050aa78214637bae6a84f95fb4e643fb72"
+    },
+    {
+      "file": "pass-30-dominant-elevated.json.gz",
+      "sha256": "3ce86fe4f5bfd2c70ff900deefbf7117c30944f21843db404b0c7eb895023746"
+    },
+    {
+      "file": "pass-30-dominant-ground.json.gz",
+      "sha256": "222fdc99787a9327b1d8d817d73b4c3a4b255580f7ef0b89bc45c74db12992e4"
+    },
+    {
+      "file": "pass-30-weak-elevated.json.gz",
+      "sha256": "613f846cee49cc6a6b2dcd5c68e18f501ea335543f9768dd843ba871e881cd64"
+    },
+    {
+      "file": "pass-30-weak-ground.json.gz",
+      "sha256": "c4a642f3377c074f6e98c33fa54b0d5e9ce8f57ffd107a0d4bce74ec34e0cec8"
+    },
+    {
+      "file": "pass-5-dominant-elevated.json.gz",
+      "sha256": "0f932e7488204125478fe7d0f8772f71b67385aa36fbc96331618ee08b5aa6de"
+    },
+    {
+      "file": "pass-5-dominant-ground.json.gz",
+      "sha256": "f64f5ba679e9260d4da552165805c6834f0f251f87488e9b527f165f1ea6d12d"
+    },
+    {
+      "file": "pass-5-weak-elevated.json.gz",
+      "sha256": "f5f78ab145d68f9b669cb02bd821c710938769fe11e2ce31ca8217c7c9f1ed08"
+    },
+    {
+      "file": "pass-5-weak-ground.json.gz",
+      "sha256": "c8de52aa4756bc49772fec27f3b160e10e9d77343f330f715e6102d80f872c70"
+    },
+    {
+      "file": "pass-first-time.json.gz",
+      "sha256": "1069cf280033cd959f9a84e36007604e91286584d33366d54bf66ce7b5965d4b"
+    },
+    {
+      "file": "pass-large-target.json.gz",
+      "sha256": "a7dd91d566470e284813fb65d66911e34d9679e0cfcc8bbb14205fcf26d313e6"
+    },
+    {
+      "file": "receive-18-spin-0.json.gz",
+      "sha256": "0f29f679b0eb0575bd0705a0094dbfe6d29fa34a7fc872230d76ecbc3d4d6197"
+    },
+    {
+      "file": "receive-18-spin-60.json.gz",
+      "sha256": "dda9f749e668d77563a16a4b515980c553e5bbb81694a11abca553be0a03313d"
+    },
+    {
+      "file": "receive-26-spin-0.json.gz",
+      "sha256": "b8c45a292212883dfd4ca0b5775ecc93f7f59e5167764b56da7d7c1ce298332a"
+    },
+    {
+      "file": "receive-26-spin-60.json.gz",
+      "sha256": "4279ce06517bf6e368f81f8956808a0df0f0d236ca95b49fa2f28288fe2fe0b3"
+    },
+    {
+      "file": "receive-6-spin-0.json.gz",
+      "sha256": "127a312cd2d67f9c4b53fdfd987b80e3a3c4b28b134620e0aba3e04243476534"
+    },
+    {
+      "file": "receive-6-spin-60.json.gz",
+      "sha256": "20015227ba44a7e44384f165465bd02aa95bee92796ff1431091ee8cf4f9c226"
+    },
+    {
+      "file": "shot-carry-chip-dominant.json.gz",
+      "sha256": "e99e9c5375b00fd61ccb03d8f94bf555bcacc476da0284317f09ab86d9bc5f7a"
+    },
+    {
+      "file": "shot-carry-chip-weak.json.gz",
+      "sha256": "1163115aab83bd4a91ffdad2b6ff5246f91f275e9bfb4c95f17c053313c325b0"
+    },
+    {
+      "file": "shot-carry-driven-dominant.json.gz",
+      "sha256": "9d6f83326ea1d6a175258e5e62f9a9147238ba12107b9f901aad046097196962"
+    },
+    {
+      "file": "shot-carry-driven-weak.json.gz",
+      "sha256": "d5252f03cb4ed148fb6cfe4e3e25d7eee256aeea2152f1df6217b9ac9e6054b3"
+    },
+    {
+      "file": "shot-carry-placed-dominant.json.gz",
+      "sha256": "a331f8651b067975e7ea33a987bcb4b05f94b93e27292e0b19d175c0f184ffb6"
+    },
+    {
+      "file": "shot-carry-placed-weak.json.gz",
+      "sha256": "bd29ccb5ddf3a12dc5b60edb4f631659a0ffdff79546ea4494ce137941cdf264"
+    },
+    {
+      "file": "shot-first-time-chip-dominant.json.gz",
+      "sha256": "b0094d82aeea5f610dbfd8933350c46cdd5fdaebbc001f6e187b2d57f7f2a334"
+    },
+    {
+      "file": "shot-first-time-chip-weak.json.gz",
+      "sha256": "9fb37901704aa517a20cc474125d0f510ca3af82dd696cd2e7675f743e83e461"
+    },
+    {
+      "file": "shot-first-time-driven-dominant.json.gz",
+      "sha256": "e8930fa49c363e390dfa4be2498cc1552715486537e8d403a436995d1c5136f8"
+    },
+    {
+      "file": "shot-first-time-driven-weak.json.gz",
+      "sha256": "b1285b95c5c800871938d2e1391804f34d2feaa5be4782941003df3c9bded674"
+    },
+    {
+      "file": "shot-first-time-placed-dominant.json.gz",
+      "sha256": "26a7f080849c7cb8d948defb4a99aa64db286cc94ecd519758b08b6571b7ec3d"
+    },
+    {
+      "file": "shot-first-time-placed-weak.json.gz",
+      "sha256": "ebbbb05282da3836b0a8e7f802858fc66d0013946cff3a6ebc3c44cf51cf77cf"
+    },
+    {
+      "file": "shot-stationary-chip-dominant.json.gz",
+      "sha256": "e1015753e2fbbe56228d9d5b973ece36fe261a929d81a06061e4f2c7df8aa534"
+    },
+    {
+      "file": "shot-stationary-chip-weak.json.gz",
+      "sha256": "36c0e08c125ecb86bd7a1dd11806f247ef7e2888b646a4354c5fa80f4cbafc36"
+    },
+    {
+      "file": "shot-stationary-driven-dominant.json.gz",
+      "sha256": "ccdc2597cc309f2b62e4d62a5915c358641610b705df83952b439eefbd016995"
+    },
+    {
+      "file": "shot-stationary-driven-weak.json.gz",
+      "sha256": "195492c70dea8c114f2a5b4c38fe5190dd338337c73c29ed31a8d7283330f9c5"
+    },
+    {
+      "file": "shot-stationary-placed-dominant.json.gz",
+      "sha256": "c131a3ed7424ad76d85a21f8459c35791d3eb0564273d1e19824fe18dad70558"
+    },
+    {
+      "file": "shot-stationary-placed-weak.json.gz",
+      "sha256": "aa53a10ff62a99465af4b86504a75477ef402f15041003eba41f5ac5f3ada360"
+    },
+    {
+      "file": "shot-turn-chip-dominant.json.gz",
+      "sha256": "80f09b8f5c89bb2688711602859a773607af2a41b53637474c43a5efa82f56d0"
+    },
+    {
+      "file": "shot-turn-chip-weak.json.gz",
+      "sha256": "be6614fdd6e6eef5b6ecedd6315df66ae5aa851b392dd5717b51056d22df3d6a"
+    },
+    {
+      "file": "shot-turn-driven-dominant.json.gz",
+      "sha256": "7c81fbbb50eb2da97c194dbfc129a0bd287bb517eaf467f73aee7d8c516cf6b1"
+    },
+    {
+      "file": "shot-turn-driven-weak.json.gz",
+      "sha256": "40287ff08f496e6f8a46b410f364fb299136344f9035d80ce345258336267ad3"
+    },
+    {
+      "file": "shot-turn-placed-dominant.json.gz",
+      "sha256": "6376cb0c70528e4de6818ae06d6afeb0851b48434f9781105cf8d44c46f9a5d7"
+    },
+    {
+      "file": "shot-turn-placed-weak.json.gz",
+      "sha256": "9cef658a5fb27a450baac7d3a37f378570d812186b14c778d14e8238bc19dd94"
+    },
+    {
+      "file": "shuttle-left.json.gz",
+      "sha256": "14ae2c4c53806c2171fc075e51386f982cf4318283314ece050ff1d2ea410f49"
+    },
+    {
+      "file": "shuttle-right.json.gz",
+      "sha256": "b7d74b0998c08e5d3f3c327de609797870888d8c16b61dbb6ea57e22cc4cee17"
+    },
+    {
+      "file": "slalom-2-dominant.json.gz",
+      "sha256": "238f41e0ce4ca29151710ad8486cb71db4dc7b3b45cc24c6b653e085678d194e"
+    },
+    {
+      "file": "slalom-2-unrestricted.json.gz",
+      "sha256": "5134cb08e668fbd2ce43ceae0005e2270fb6a6276fc2ea9909ff6e069be45fea"
+    },
+    {
+      "file": "slalom-2-weak.json.gz",
+      "sha256": "c650dc0af50231cad29b44ba96b12ab447a5fb54d285c19cad8ed3562a6ac0ef"
+    },
+    {
+      "file": "slalom-4-dominant.json.gz",
+      "sha256": "b4d8b938e507a476f6b7851bac943da01833218c433990c3398d50191cbcc893"
+    },
+    {
+      "file": "slalom-4-unrestricted.json.gz",
+      "sha256": "a0e9c4065b5456ce997c2c8de232797e082f265c8e5d20564a75ad9b438d971f"
+    },
+    {
+      "file": "slalom-4-weak.json.gz",
+      "sha256": "e67fd08240dce48df6e4273a57e6b380b27c34dbfddc6f29fac1cf362f9e58af"
+    },
+    {
+      "file": "slalom-6-dominant.json.gz",
+      "sha256": "2d11eaed18fc7274e168ae54d5634f99dd4df7127ae453bd8decf0229447729b"
+    },
+    {
+      "file": "slalom-6-unrestricted.json.gz",
+      "sha256": "691f6b9c0aae6076fd6a36ff62736c9ffe2132525a4e947f095f0d7ee8a68dfc"
+    },
+    {
+      "file": "slalom-6-weak.json.gz",
+      "sha256": "6c3bfebcc66d7d3403cca3419422ccef2708e3071aa798bb79cc9aae5ee577a1"
+    },
+    {
+      "file": "sprint-10-moving.json.gz",
+      "sha256": "4635f80707a2e2132ac2f0c0f13ad07c3e48bb7370e3a6c01c938c0a6375580c"
+    },
+    {
+      "file": "sprint-10-standing.json.gz",
+      "sha256": "1e84224848f37fea37223b899f60e0a15c266d822b1d3202879316651932bf8c"
+    },
+    {
+      "file": "sprint-20-moving.json.gz",
+      "sha256": "63a285de6ecb8eea9ebe19e08752f839e671c81344b06dde6df58817444f5600"
+    },
+    {
+      "file": "sprint-20-standing.json.gz",
+      "sha256": "d68833be57561f1377e9eafc006f125d76d1bb2f557c8473652bb289bc3575ad"
+    },
+    {
+      "file": "sprint-30-moving.json.gz",
+      "sha256": "8d074051a5f2bfa0153679053d15b2854544efc7105a614a6ba0e44dfbec6d7e"
+    },
+    {
+      "file": "sprint-30-standing.json.gz",
+      "sha256": "9ea350d1b59112e8e15954314eb10577f0bda29cd40fbaf5736f16de2b8865c0"
+    },
+    {
+      "file": "sprint-40-moving.json.gz",
+      "sha256": "8d95ec89c558bf3dbb8deec07095ac7c2cdc1180c9d4687a50e756312c077d26"
+    },
+    {
+      "file": "sprint-40-standing.json.gz",
+      "sha256": "1e6b0a578cbad043b0968e2e40835f791efc29e5c0134a78c8842c2ddd30a4e2"
+    },
+    {
+      "file": "sprint-5-moving.json.gz",
+      "sha256": "311c562dc589bb6b3a5ebcf58696e7bbf31800a5c39f2011a5b73bafef119f0d"
+    },
+    {
+      "file": "sprint-5-standing.json.gz",
+      "sha256": "01e79ce5a5ae58670caf113741d4f385594932980c8652850f1736ffd1ba3081"
+    },
+    {
+      "file": "wall-receive-turn.json.gz",
+      "sha256": "fd5ecb91078a34a72bb3abcf46159ea7795bf26a4f1d5f619c042655f794493c"
+    }
+  ],
+  "command": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr184.ts",
+  "scope": "All 9360 physical trials rerun in an isolated source copy. Complete result hashes and all 77 decompressed exported traces match the original receipts. Published original timing and provenance remain frozen. This receipt identifies the optimized production source separately.",
+  "physicalTrialsRerun": 9360,
+  "uniqueTrialInputs": 8130,
+  "ciFailure": {
+    "runId": 39971863822,
+    "jobId": 120476352595,
+    "test": "whole-half penalty contract: legacy-pr176",
+    "childBudgetMilliseconds": 89500,
+    "unitTestsPassed": 2062,
+    "integrationTestsPassed": 55,
+    "integrationTestsFailed": 1,
+    "careerJobPassed": true
+  },
+  "nativeHalf": {
+    "baselinePr183": {
+      "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "resultHash": "0591889665c18fe9f71e3a27e35b3f2c058aea9ddffc99aee22fcb1d0f9fec18",
+      "stateHash": "d3d2a6e1f7098c627c1ef94e39acc3d3684ba5966c4688643214ad4bcbedd7ac",
+      "status": "half_time",
+      "time": 2760.6250000056602,
+      "decisions": 1110,
+      "penaltyExecution": 436.5749999998768,
+      "awarded": true,
+      "cpuSeconds": 82.937,
+      "maxRssBytes": 469929984
+    },
+    "beforeFixProfiled": {
+      "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "resultHash": "0591889665c18fe9f71e3a27e35b3f2c058aea9ddffc99aee22fcb1d0f9fec18",
+      "stateHash": "d3d2a6e1f7098c627c1ef94e39acc3d3684ba5966c4688643214ad4bcbedd7ac",
+      "status": "half_time",
+      "time": 2760.6250000056602,
+      "decisions": 1110,
+      "penaltyExecution": 436.5749999998768,
+      "awarded": true,
+      "cpuSeconds": 95.139,
+      "maxRssBytes": 623759360
+    },
+    "afterFix": {
+      "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "resultHash": "0591889665c18fe9f71e3a27e35b3f2c058aea9ddffc99aee22fcb1d0f9fec18",
+      "stateHash": "d3d2a6e1f7098c627c1ef94e39acc3d3684ba5966c4688643214ad4bcbedd7ac",
+      "status": "half_time",
+      "time": 2760.6250000056602,
+      "decisions": 1110,
+      "penaltyExecution": 436.5749999998768,
+      "awarded": true,
+      "cpuSeconds": 78.39,
+      "maxRssBytes": 490061824
+    },
+    "afterFixWholeProcessWallSeconds": 67.9871622,
+    "completeResultsEqual": true,
+    "notes": "Same fixture, seed, 110k+ fixed ticks and NODE_OPTIONS=--max-semi-space-size=64. Before-fix CPU profile has sampling overhead and is not a like-for-like speed comparison. Baseline and fixed runs are serial and unprofiled on the same Windows host. CI runner timings must be assessed by its checks, not extrapolated from this host."
+  },
+  "focusedTests": {
+    "passed": 37,
+    "files": 2,
+    "command": "node node_modules/vitest/vitest.mjs run src/core/matchSimulation/playerArrival.test.ts src/core/matchSimulation/footballPerformanceLab.test.ts --maxWorkers=1"
+  }
+}

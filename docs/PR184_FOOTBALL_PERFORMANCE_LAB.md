@@ -319,6 +319,25 @@ The unchanged **`npm run verify` exits 0**: ESLint, 2,060 main tests, 56 match-i
 
 Nine compressed successful, failed and autonomous traces are rerun through the public headless API and compared by complete SHA256. The verification receipt retains command results, hashes and compressed logs; no timeout, test expectation or match length was changed.
 
+The first GitHub CI run (`39971863822`) passed all 2,062 unit tests and the
+career job, but the legacy whole-half penalty child reached its existing 89.5 s
+process budget before returning. The dependent `quality` check consequently failed.
+A follow-up removes redundant geometry work: distant bodies are rejected before
+the unchanged exact 1.15 m contact predicate, and arrival micro-steps reuse one
+exact distance for both stopping and integration. Tick size, ordering, physics,
+assertions and the 90/180 s test budgets remain unchanged. Child-process errors
+now also report the termination signal.
+
+The optimized native legacy half finishes in **67.99 s** on this Windows host.
+Its complete result SHA256 is identical to PR183 and the original PR184 run
+(`0591889665c18fe9f71e3a27e35b3f2c058aea9ddffc99aee22fcb1d0f9fec18`).
+All **9,360** laboratory trials were rerun: the 8,130 distinct input/result
+receipts, 16 measurement files and all 77 complete exported traces are unchanged.
+The original published measurements and their source fingerprint remain frozen;
+`PR184-ci-parity.json` identifies the optimized source fingerprint separately and
+retains native/benchmark/focused-test receipts. All 37 arrival/laboratory tests pass.
+GitHub checks remain the authority for execution on its shared runner.
+
 The apparatus has no save access and copies the complete input profile/fitness.
 It does not train attributes or apply career results. Existing canonical full-match,
 human agency, laws, historical telemetry and career-contract tests remain required.

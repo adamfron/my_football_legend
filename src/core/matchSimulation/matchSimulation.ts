@@ -1778,7 +1778,13 @@ const stepTacticalMatchCore = (
     }
     let next = integratedPosition;
     const close = state.players.filter(
-      (p) => p.id !== player.id && distance(p.position, next) < 1.15,
+      // Reject distant bodies before the exact circular contact check. Keep candidate
+      // order and the original distance predicate for every possible separation.
+      (p) =>
+        p.id !== player.id &&
+        Math.abs(p.position.x - next.x) < 1.15 &&
+        Math.abs(p.position.y - next.y) < 1.15 &&
+        distance(p.position, next) < 1.15,
     );
     for (const other of close) {
       const ox = next.x - other.position.x,
