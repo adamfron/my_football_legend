@@ -55,11 +55,17 @@ export const derivePassDifficulty = (
   target: PitchPoint,
   intent: PassLaunchIntent,
   delivery: PassDelivery,
-  options: { firstTime?: boolean; receiverSpeed?: number; foot?: 'left' | 'right' } = {},
+  options: {
+    firstTime?: boolean;
+    receiverSpeed?: number;
+    foot?: 'left' | 'right';
+    goalkeeperDistribution?: boolean;
+  } = {},
 ): PassDifficultyProfile => {
   const a = passer.profile.attributes;
   const distribution =
-    isMatchGoalkeeper(passer) && isRestartSetup(state) && state.scenario === 'goal_kick';
+    isMatchGoalkeeper(passer) &&
+    ((isRestartSetup(state) && state.scenario === 'goal_kick') || options.goalkeeperDistribution);
   const primary = (distribution ? a.goalkeeperKicking : a.passing) / 100;
   const ability =
     Math.pow(primary, 0.65) *
@@ -124,6 +130,7 @@ export const interpretPassExecution = (
   intent: PassLaunchIntent,
   delivery: PassDelivery,
   options: {
+    goalkeeperDistribution?: boolean;
     firstTime?: boolean;
     spatial?: boolean;
     receiverSpeed?: number;

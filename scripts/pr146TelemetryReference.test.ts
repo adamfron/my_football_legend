@@ -14,7 +14,11 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR183 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR185 complete telemetry reference (PR146 observer contract)', () => {
+  // PR185 changes shared finite surface impulses, spin and support loading. Both pristine
+  // PR184 and these complete 2400-tick outputs repeat twice in fresh processes, retaining
+  // all schemas/identity assertions: docs/performance/PR185-telemetry-reference.json.
+  // Historical PR184 hashes remain b9a869d6... (a) / e2f554e8... (b) in its receipts.
   // PR183 ownership/keeper repairs intentionally change the physical trajectories.
   // Both pristine PR182 hashes and both complete current payloads repeat twice in
   // fresh serial processes: PR183-telemetry-reference.json. Retain every field,
@@ -103,8 +107,8 @@ describe('PR183 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', 'b9a869d6f193c8ab05e18f58ec4d425901ff4c840d62023278304c31d1934f85'],
-    ['pr146-flow-reference:b', 'e2f554e8ae4923ea2bb77a97259bb82da22ec3b28e23ebf4b4576c5a88093619'],
+    ['pr146-flow-reference:a', '2a6a9a7abd3aa81def55965bc0ee1a06b708aa31156a6c1ba90afb964e523739'],
+    ['pr146-flow-reference:b', '5e930dac7d25edda5a141eb87c4678d7a842d8bfe01f542295e8b539138141c0'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

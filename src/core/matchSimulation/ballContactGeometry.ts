@@ -1,6 +1,17 @@
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
-import { integrateGroundRolling } from './ballPhysics';
+import {
+  chooseContactFoot,
+  executeFootContact,
+  footContactExecutionSchema,
+  playerFootGeometry,
+  selectFootSurface,
+  multiContactStateSchema,
+  multiContactSurface,
+  beginMultiContactMove,
+} from './footContact';
+import { integrateBallFlight } from './ballPhysics';
+import { BALL_RADIUS } from './ballFlight';
 import { distance, distanceToSegment, physicalPointSchema } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
@@ -47,6 +58,7 @@ export const groundContactFactSchema = z.object({
   retained: z.boolean(),
   executed: z.boolean(),
   physicalCount: z.number().int().nonnegative(),
+  surfaceContact: footContactExecutionSchema.optional(),
 });
 export type GroundContactFact = z.infer<typeof groundContactFactSchema>;
 export const controlledBallContactSchema = z.object({
@@ -58,6 +70,7 @@ export const controlledBallContactSchema = z.object({
   lastDirection: unit,
   lastBodyOrientation: z.number().finite(),
   balance: z.number().min(0).max(1),
+  multiContact: multiContactStateSchema.optional(),
 });
 export type ControlledBallContact = z.infer<typeof controlledBallContactSchema>;
 export const contactControlTelemetrySchema = z.object({
@@ -107,22 +120,7 @@ const directionFor = (vector: { x: number; y: number }, fallback: number) => {
 };
 
 /** Metres, pitch x/y and the existing orientation convention: 0 faces positive y. */
-export const playerContactGeometry = (actor: MatchPlayerState) => {
-  const forward = { x: Math.sin(actor.facingAngle), y: Math.cos(actor.facingAngle) };
-  const right = { x: forward.y, y: -forward.x };
-  const foot = (side: number) => ({
-    x: actor.position.x + forward.x * 0.2 + right.x * side * 0.17,
-    y: actor.position.y + forward.y * 0.2 + right.y * side * 0.17,
-  });
-  return {
-    leftFoot: foot(-1),
-    rightFoot: foot(1),
-    footReach: 0.82,
-    torso: actor.position,
-    torsoRadius: 0.34,
-    headHeight: 1.65,
-  };
-};
+export const playerContactGeometry = playerFootGeometry;
 const controlSkill = (actor: MatchPlayerState) => {
   const a = actor.profile.attributes;
   return (
@@ -348,16 +346,19 @@ export const deriveShieldBodyContest = (state: TacticalMatchState, carrier: Matc
       bodyMetres < distance(defender.position, state.ball) &&
       distanceToSegment(carrier.position, defender.position, state.ball) < 0.34;
     if (!bodyOccludes) continue;
-    const relativeSpeed = Math.hypot(
-      defender.velocity.x - carrier.velocity.x,
-      defender.velocity.y - carrier.velocity.y,
+    const relativeSpeed = Math.max(
+      0,
+      ((defender.velocity.x - carrier.velocity.x) * (carrier.position.x - defender.position.x) +
+        (defender.velocity.y - carrier.velocity.y) * (carrier.position.y - defender.position.y)) /
+        Math.max(0.01, bodyMetres),
     );
     const compression = clamp01((1.35 - bodyMetres) / 0.35);
     load = clamp01(
       load +
         compression *
           (0.45 + relativeSpeed * 0.12) *
-          (0.55 + (defender.profile.attributes.strength / 100) * 0.45),
+          (0.55 + (defender.profile.attributes.strength / 100) * 0.45) *
+          Math.max(0.65, Math.min(1.4, defender.profile.weightKg / carrier.profile.weightKg)),
     );
   }
   const resistance =
@@ -451,12 +452,24 @@ export const advanceControlledBall = (
     state.controlledBallContact.ownershipStartedAt === ownershipStartedAt
       ? state.controlledBallContact
       : undefined;
+  const recent =
+    state.lastGroundContact?.actorId === actor.id &&
+    state.lastGroundContact.executed &&
+    state.time - state.lastGroundContact.at < 0.5
+      ? state.lastGroundContact
+      : undefined;
   let active: ControlledBallContact = previous ?? {
     actorId: actor.id,
     ownershipStartedAt,
-    lastContactAt: Math.max(0, state.time - 1),
-    physicalContacts: 0,
-    nextContact: planContact(state, actor),
+    lastContactAt: recent?.at ?? Math.max(0, state.time - 1),
+    physicalContacts: recent?.physicalCount ?? 0,
+    nextContact: planContact(
+      state,
+      actor,
+      recent
+        ? Math.max(state.time, recent.at + (recent.surfaceContact?.recoverySeconds ?? 0.1))
+        : undefined,
+    ),
     lastDirection: directionFor(actor.velocity, actor.facingAngle),
     lastBodyOrientation: actor.facingAngle,
     balance: 1,
@@ -465,6 +478,23 @@ export const advanceControlledBall = (
   const rotation = Math.abs(normalizeAngle(actor.facingAngle - active.lastBodyOrientation));
   const window = estimateCarrierContactWindow({ ...state, controlledBallContact: active }, actor);
   const wanted = wantedDirection(state, actor);
+  const carryIntent =
+    state.ballCarrierIntent?.actorId === actor.id ? state.ballCarrierIntent : undefined;
+  if (!active.multiContact && carryIntent?.skillMove && state.time - carryIntent.startedAt < 0.1)
+    active = {
+      ...active,
+      multiContact: beginMultiContactMove(
+        actor,
+        state.time,
+        carryIntent.skillMove,
+        wanted,
+        carryIntent.contactFoot,
+      ),
+    };
+  const move = active.multiContact;
+  const activeMove = move?.status === 'active' && state.time <= move.expiresAt ? move : undefined;
+  if (move?.status === 'active' && state.time > move.expiresAt)
+    active = { ...active, multiContact: { ...move, status: 'failed' } };
   if (
     Math.abs(
       normalizeAngle(angleForVector(wanted) - angleForVector(active.nextContact.outgoingDirection)),
@@ -481,8 +511,9 @@ export const advanceControlledBall = (
     telemetry.planRevisions++;
   }
   const geometry = playerContactGeometry(actor);
-  const reachable = requiredFoot
-    ? distance(geometry[requiredFoot === 'left' ? 'leftFoot' : 'rightFoot'], state.ball) <=
+  const executionFoot = activeMove?.foot ?? requiredFoot ?? carryIntent?.contactFoot;
+  const reachable = executionFoot
+    ? distance(geometry[executionFoot === 'left' ? 'leftFoot' : 'rightFoot'], state.ball) <=
       geometry.footReach
     : Math.min(distance(geometry.leftFoot, state.ball), distance(geometry.rightFoot, state.ball)) <=
       geometry.footReach;
@@ -503,7 +534,7 @@ export const advanceControlledBall = (
         (1 - (actor.profile.attributes.agility / 100) * 0.65),
   );
   balance = clamp01(balance - bodyContest.balanceDemand * dt * 3.2);
-  if (state.time + 1e-8 >= active.nextContact.earliestAt && reachable) {
+  if (state.time + 1e-8 >= (activeMove?.nextAt ?? active.nextContact.earliestAt) && reachable) {
     const skill = controlSkill(actor);
     const interval =
       (0.15 + (1 - skill) * 0.14 + window.difficulty * 0.2 + (1 - balance) * 0.16) *
@@ -520,25 +551,38 @@ export const advanceControlledBall = (
             state.onBallPreparation.micro?.phase === 'directional_touch'
               ? 0.72
               : 0.43));
+    const contactWanted = activeMove
+      ? activeMove.phase === 0
+        ? activeMove.firstDirection
+        : activeMove.secondDirection
+      : wanted;
     const impulse = deriveGroundControlImpulse(
       state,
       actor,
-      wanted,
-      offset,
+      contactWanted,
+      activeMove ? 0.38 : offset,
       interval,
       window.difficulty,
       balance,
     );
-    const efficiency = impulse.efficiency;
-    velocity = impulse.velocity;
+    const foot = chooseContactFoot(actor, state.ball, executionFoot);
+    const surfaceContact = executeFootContact(state, actor, {
+      intended: activeMove
+        ? multiContactSurface(activeMove)
+        : selectFootSurface(state, actor, wanted, foot),
+      foot,
+      desiredVelocity: { ...impulse.velocity, z: 0 },
+      balance,
+      preparationSeconds: Math.max(0.012, state.time - active.lastContactAt),
+      contactSeconds: Math.min(0.12, interval * 0.3),
+      pressure: state.currentPressure,
+    });
+    const efficiency = surfaceContact.quality;
+    velocity = surfaceContact.outgoingVelocity;
     contactFact = {
       actorId: actor.id,
       at: state.time,
-      region: requiredFoot
-        ? `${requiredFoot}_foot`
-        : distance(geometry.leftFoot, state.ball) < distance(geometry.rightFoot, state.ball)
-          ? 'left_foot'
-          : 'right_foot',
+      region: `${foot}_foot`,
       intendedRegion: active.nextContact.region,
       point: { x: state.ball.x, y: state.ball.y },
       incomingVelocity: {
@@ -548,16 +592,31 @@ export const advanceControlledBall = (
       outgoingVelocity: { ...velocity },
       quality: efficiency,
       retained: true,
-      executed: true,
-      physicalCount: active.physicalContacts + 1,
+      executed: surfaceContact.available,
+      physicalCount: active.physicalContacts + Number(surfaceContact.available),
+      surfaceContact,
     };
     balance = clamp01(balance - window.difficulty * (1 - skill) * 0.12);
     active = {
       ...active,
       lastContactAt: state.time,
-      physicalContacts: active.physicalContacts + 1,
+      physicalContacts: active.physicalContacts + Number(surfaceContact.available),
       lastDirection: wanted,
       balance,
+      ...(activeMove
+        ? {
+            multiContact: {
+              ...activeMove,
+              phase: surfaceContact.available ? (activeMove.phase === 0 ? 1 : 2) : activeMove.phase,
+              nextAt: state.time + Math.max(0.075, interval * 0.55),
+              status: surfaceContact.available
+                ? activeMove.phase === 0
+                  ? 'active'
+                  : 'completed'
+                : 'failed',
+            },
+          }
+        : {}),
       nextContact: planContact(
         {
           ...state,
@@ -573,17 +632,43 @@ export const advanceControlledBall = (
         state.time + interval,
       ),
     };
-    telemetry.physicalContacts++;
+    telemetry.physicalContacts += Number(surfaceContact.available);
     if (window.difficulty > 0.5 && skill < 0.5) telemetry.heavyTouches++;
   } else telemetry.betweenContactSeconds += dt;
-  const rolled = integrateGroundRolling(state.ball, velocity, dt);
+  const spin = contactFact?.surfaceContact?.outgoingSpin ?? state.ball.spin;
+  const physical = integrateBallFlight(
+    {
+      position: {
+        x: state.ball.x,
+        y: state.ball.y,
+        z: Math.max(BALL_RADIUS, state.ball.height ?? BALL_RADIUS),
+      },
+      velocity: {
+        ...velocity,
+        z: contactFact?.surfaceContact?.outgoingVelocity.z ?? state.ball.velocity?.z ?? 0,
+      },
+      ...(spin ? { spin } : {}),
+      airborne: state.ball.airborne ?? false,
+      bounceCount: state.ball.bounceCount ?? 0,
+    },
+    dt,
+  );
+  const rolled = {
+    position: { x: physical.position.x, y: physical.position.y },
+    velocity: physical.velocity,
+  };
   const ball = {
     ...state.ball,
     ...rolled.position,
-    velocity: { ...rolled.velocity, z: 0 },
-    height: 0,
-    airborne: false,
+    velocity: physical.velocity,
+    height: physical.position.z,
+    airborne: physical.airborne,
+    bounceCount: physical.bounceCount,
+    ...(physical.spin ? { spin: physical.spin } : {}),
   };
+  // Dropping a caught ball into ordinary foot control ends the hand-distribution window.
+  // It must never leave an owned ball stationary while its goalkeeper walks away.
+  if (contactFact?.executed) delete ball.heldByKeeperId;
   active = { ...active, lastBodyOrientation: actor.facingAngle, balance };
   const localDefenders = state.players.filter(
     (p) =>

@@ -9,7 +9,12 @@ import {
   type MatchPlayerState,
   type TacticalMatchState,
 } from './matchState';
-import { physicalPointSchema, distance } from './matchSpace';
+import { physicalPointSchema, distance, distanceToSegment } from './matchSpace';
+import {
+  footSurfaceSchema,
+  footContactExecutionSchema,
+  type FootContactExecution,
+} from './footContact';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { integrateCanonicalMovement } from './canonicalMovement';
 import {
@@ -73,6 +78,7 @@ export const footballSkillTrialConfigSchema = z
     checkpointRadius: z.number().positive().max(2).default(1.1),
     turnDirection: z.enum(['left', 'right']).default('left'),
     foot: z.enum(['dominant', 'weak', 'unrestricted']).default('unrestricted'),
+    contactSurface: footSurfaceSchema.optional(),
     firstTime: z.boolean().default(false),
     delivery: z.enum(['ground', 'lofted']).default('ground'),
     shotTechnique: z.enum(['placed', 'driven', 'chip']).default('placed'),
@@ -145,6 +151,7 @@ export const footballSkillTrialResultSchema = z.object({
   units: z.record(z.string(), z.string()),
   events: z.array(labEventSchema),
   contacts: z.array(labContactSchema),
+  footContacts: z.array(footContactExecutionSchema).default([]),
   samples: z.array(labSampleSchema),
   decisions: z.array(
     z.object({
@@ -196,7 +203,7 @@ const footFor = (c: FootballSkillTrialConfig, p: FootballerProfile) =>
       : p.dominantFoot === 'left'
         ? 'right'
         : 'left';
-const makeAthlete = (
+export const makeLabAthlete = (
   profile: FootballerProfile,
   c: FootballSkillTrialConfig,
 ): MatchPlayerState => ({
@@ -217,12 +224,12 @@ const makeAthlete = (
   samples: 1,
   fitness: structuredClone(c.fitness ?? createMatchFitness()),
 });
-const makeState = (
+export const makeLabState = (
   profile: FootballerProfile,
   c: FootballSkillTrialConfig,
   seed: string,
 ): TacticalMatchState => {
-  const athlete = makeAthlete(profile, c),
+  const athlete = makeLabAthlete(profile, c),
     feet = playerContactGeometry(athlete),
     foot = footFor(c, profile);
   const contact = foot
@@ -293,7 +300,7 @@ export const runFootballSkillTrial = (
     profile = footballerProfileSchema.parse(structuredClone(playerProfile));
   const input = { config: c, player: profile };
   const inputHash = `fnv1a32:${hashRandomSeed(JSON.stringify({ input, seed })).toString(16).padStart(8, '0')}`;
-  let state = makeState(profile, c, seed),
+  let state = makeLabState(profile, c, seed),
     checkpoint = 0,
     finishSeconds: number | null = null,
     failure: string | null = null;
@@ -329,6 +336,7 @@ export const runFootballSkillTrial = (
     decisions: FootballSkillTrialResult['decisions'] = [],
     predictions: FootballSkillTrialResult['predictions'] = [];
   let autonomousAction: MatchAction | undefined;
+  const footContacts: FootContactExecution[] = [];
   let manualAction: MatchAction | undefined;
   const launched = new Set<string>(),
     crossings = new Set<string>(),
@@ -517,7 +525,13 @@ export const runFootballSkillTrial = (
     if (c.mode === 'autonomous' && !requested && !autonomousAction) {
       const ranked = rankAvailableActionsForAI(planning, p.id);
       if (!ranked.length) return false;
-      action = ranked[0]!.action;
+      // A drill supplies its objective, while ordinary ranking/execution still owns quality.
+      // The target is a physical opening; match territorial utility alone does not describe it.
+      const objective =
+        c.drill === 'pass' || c.drill === 'rebound'
+          ? ranked.filter((r) => r.action.type === 'pass' && r.action.receiverId === receiver.id)
+          : ranked;
+      action = (objective[0] ?? ranked[0])!.action;
       decisions.push({
         at: state.time,
         alternatives: ranked.map((r) => ({
@@ -586,6 +600,7 @@ export const runFootballSkillTrial = (
     if (planning.decisionIndex === state.decisionIndex) return false;
     state = { ...planning, players: planning.players.filter((a) => a.id === p.id) };
     released++;
+    if (c.mode === 'autonomous' && c.drill === 'rebound') autonomousAction = undefined;
     if (c.mode === 'manual') manualAction = undefined;
     releaseAt = state.time;
     const actualPreparation = state.time - preparationAt;
@@ -828,6 +843,7 @@ export const runFootballSkillTrial = (
       state.ballCarrierIntent = {
         actorId: before.id,
         type: 'carry',
+        ...(c.contactSurface ? { contactSurface: c.contactSurface } : {}),
         target: goal,
         startedAt: 0,
         estimatedArrival: 0,
@@ -865,6 +881,38 @@ export const runFootballSkillTrial = (
         };
         speed = deriveMovementCapability(before).jogSpeed;
       }
+    }
+    if (c.drill === 'slalom' || (c.drill === 'rebound' && received)) {
+      // Objective adapter: brake before a tight corner and route the BODY around obstacles.
+      // A reachable-foot pursuit must not send the body through a cone to reach its ball.
+      const capability = deriveMovementCapability(before);
+      for (const o of c.objects)
+        if ((o.kind === 'cone' || o.kind === 'pole') && o.collision) {
+          const clearance = distance(before.position, o.position) - o.radius - 0.34;
+          speed = Math.min(
+            speed,
+            Math.sqrt(2 * capability.acceleration * Math.max(0.1, clearance)) * 0.62,
+          );
+          const safeRadius = o.radius + 0.34 + 0.28;
+          if (
+            distanceToSegment(o.position, before.position, goal) < safeRadius &&
+            distance(before.position, goal) > 0.2
+          ) {
+            const dx = goal.x - before.position.x,
+              dy = goal.y - before.position.y,
+              d = Math.max(0.01, Math.hypot(dx, dy));
+            const route = c.route[checkpoint] ?? goal;
+            const side = (route.x - o.position.x) * -dy + (route.y - o.position.y) * dx;
+            const sign =
+              Math.abs(side) > 1e-8
+                ? Math.sign(side)
+                : Math.sign(before.position.y - o.position.y) || 1;
+            goal = {
+              x: o.position.x + (-dy / d) * safeRadius * sign + (dx / d) * safeRadius * 0.7,
+              y: o.position.y + (dx / d) * safeRadius * sign + (dy / d) * safeRadius * 0.7,
+            };
+          }
+        }
     }
     if (distance(before.position, goal) > 0.05)
       desiredFacing = angleForVector({
@@ -956,6 +1004,8 @@ export const runFootballSkillTrial = (
     );
     let athlete: MatchPlayerState = {
       ...before,
+      plantBalance: moved.plantBalance,
+      ...(moved.verticalJump ? { verticalJump: moved.verticalJump } : {}),
       position: moved.position,
       velocity: moved.velocity,
       target: goal,
@@ -1000,15 +1050,24 @@ export const runFootballSkillTrial = (
         if (foot === 'left_foot') leftTouches++;
         if (foot === 'right_foot') rightTouches++;
         event('touch', { foot, quality: state.lastGroundContact.quality ?? 0 });
+        if (state.lastGroundContact.surfaceContact)
+          footContacts.push(structuredClone(state.lastGroundContact.surfaceContact));
       }
       // Reintegrate the actual contact impulse from its actual starting point through apparatus.
       const contact = state.lastGroundContact;
       const initialVelocity =
         contact?.executed && contact.at === state.time
-          ? { ...contact.outgoingVelocity, z: 0 }
+          ? { ...contact.outgoingVelocity, z: contact.surfaceContact?.outgoingVelocity.z ?? 0 }
           : beforeControl.velocity;
       const obstacle = advanceLabBall(
-        { ...beforeControl, velocity: initialVelocity, airborne: false },
+        {
+          ...beforeControl,
+          velocity: initialVelocity,
+          spin: (contact?.executed && contact.at === state.time
+            ? contact.surfaceContact?.outgoingSpin
+            : beforeControl.spin) ?? { x: 0, y: 0, z: 0 },
+          airborne: beforeControl.airborne,
+        },
         dt,
         c.objects,
         state.time,
@@ -1118,6 +1177,7 @@ export const runFootballSkillTrial = (
       const assessment = assessFirstTouch(state, athlete, state.ball, athlete.position, 'cushion');
       if (assessment.feasible) {
         state.receptionPreparation = {
+          ...(c.contactSurface ? { contactSurface: c.contactSurface } : {}),
           sourceActorId: 'lab-launcher',
           releasedAt: 0,
           ballEpisode: `${seed}:delivery`,
@@ -1129,12 +1189,17 @@ export const runFootballSkillTrial = (
           awarenessAt: 0,
         };
         state = applyCanonicalBallControl(state, athlete.id);
+        if (state.lastGroundContact?.surfaceContact?.at === state.time)
+          footContacts.push(structuredClone(state.lastGroundContact.surfaceContact));
         received = true;
         event('reception', {
           quality: state.lastReceptionOutcome?.quality?.score ?? assessment.quality,
           kind: state.lastReceptionOutcome?.kind ?? 'control',
           incomingSpeed: assessment.relativeSpeed,
           spinSpeed: assessment.spinSpeed,
+          surface: state.lastGroundContact?.surfaceContact?.executed ?? 'unavailable',
+          surfaceQuality: state.lastGroundContact?.surfaceContact?.quality ?? null,
+          initialRetained: Boolean(state.ball.ownerId),
         });
         touches++;
         if (assessment.region === 'left_foot') leftTouches++;
@@ -1305,6 +1370,37 @@ export const runFootballSkillTrial = (
       collisions,
       missedCheckpoints: c.route.length - checkpoint,
       touchFrequencyHertz: touches / Math.max(0.025, state.time),
+      routeLengthMetres: c.route.reduce(
+        (sum, p, i) => sum + distance(i ? c.route[i - 1]! : c.position, p),
+        0,
+      ),
+      pathEfficiency: c.route.length
+        ? c.route.reduce((sum, p, i) => sum + distance(i ? c.route[i - 1]! : c.position, p), 0) /
+          Math.max(0.01, distanceCovered)
+        : null,
+      controlledMetresPerSecond:
+        samples
+          .slice(1)
+          .reduce((sum, s, i) => sum + (s.owner ? distance(samples[i]!.player, s.player) : 0), 0) /
+        Math.max(0.025, state.time),
+      contactsPerMetre: touches / Math.max(0.01, distanceCovered),
+      positiveKineticWorkJoules: samples
+        .slice(1)
+        .reduce(
+          (sum, s, i) =>
+            sum +
+            0.5 *
+              profile.weightKg *
+              Math.max(0, s.speed * s.speed - samples[i]!.speed * samples[i]!.speed),
+          0,
+        ),
+      firstReachableContactSeconds: events.find((e) => e.kind === 'reception')?.at ?? null,
+      firstAttemptedContactSeconds: events.find((e) => e.kind === 'reception')?.at ?? null,
+      firstContactQuality:
+        receptionEvent && typeof receptionEvent.values.quality === 'number'
+          ? receptionEvent.values.quality
+          : null,
+      laterRecoverySeconds: events.find((e) => e.kind === 'recovered_control')?.at ?? null,
       turnSeconds: turnAt !== null && turnEnd !== null ? turnEnd - turnAt : null,
       preparationSeconds:
         typeof releaseEvent?.values.preparationSeconds === 'number'
@@ -1346,6 +1442,7 @@ export const runFootballSkillTrial = (
     },
     events,
     contacts,
+    footContacts,
     samples,
     decisions,
     predictions,
