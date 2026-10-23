@@ -1,378 +1,294 @@
 # PR183 — Match Realism Stabilization
 
-**Reviewable draft; acceptance rejected. Do not merge this candidate.** Four native
-retreat regressions improve, but the complete verification command fails a real
-liveness contract and fresh matches still contain long R3 retreats. Canonical is
-**NOT READY for summary calibration**. The owner's requested stabilization is not
-complete. This report records the useful changes and the evidence needed to finish it.
+The closure candidate fixes the saved loose aerial-ball lock, the seven frozen R3
+retreat regressions, and a selected free-kick delivery whose receiver run was lost
+after a substitution. **Mechanical closure and full local verification pass.**
+Merge requires green checks on the final PR head.
+**Canonical remains NOT READY for summary-simulation calibration.** B
+`state-value-v1` remains the provisional default; all five policies remain available.
 
-## Source, scope and work plan
+## Source and evidence boundaries
 
-Baseline: merged PR182 `16c2e71efcec98862b6d6c996f0737f02131235e`.
-Frozen candidate commit: `74213611bc9ad1594f212359f63437a8ef07fe19`.
-Production digest: `be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1`.
-Harness digest: `7daee0fb672bbc5219eb78555a748968bdf52217b46ebaeac62f345d58164f4a`.
-Later commits add analysis and documentation; production and frozen observers remain
-identical to that candidate. Default **B `state-value-v1`** and all five policies
-remain available; fixed physics stays **0.025 seconds**.
+The merged PR182 baseline is `16c2e71efcec98862b6d6c996f0737f02131235e`.
+The rejected PR183 draft is `94550a3dd66d63f3386c1d42584893a2f8b2273c`, production
+digest `be41fcb550b6d049343df36acc576c298e62bdc77e0510d887b238e64d0b06b1`.
+Its original report and receipts remain historical evidence in
+[PR183_REJECTED_DRAFT.md](PR183_REJECTED_DRAFT.md).
 
-The plan was evidence provenance → native reproductions → shared mechanical fixes →
-controlled screens → six native development designs × five policies → committed
-source/harness/acceptance freeze → three untouched confirmation designs × five
-policies → real browser/human smoke → full unchanged verification. These stages
-were executed, but their results do not satisfy the final acceptance decision.
-No new broad redesign, event quotas, forced-pass timers, territorial carry bans,
-remote possession grants, global foul multiplier or shot-probability multiplier
-were introduced. No additional old-save migration is added.
+Frozen simulated production commit: `a5c11fa2b64607a3ae83a7bc95de2f29ed4b0ff9`.
+Simulated production digest:
+`4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295`.
+The final compilable source digest is
+`57863da9df8f0a8c8c4bb6f638a85ea0d6272c271f409734a7501e8977b39321`.
+Commit `71c2152c1acf348aae0d9148a9a5a06e3efb198b` only adds `| undefined` to two
+optional TypeScript parameter declarations. All **324 production TS/TSX files**
+emit byte-identical JavaScript, and Node's transformed changed module is identical;
+runtime dependencies are unchanged. [The explicit type-only bridge](performance/PR183-closure-type-only-bridge.json)
+preserves both source identities. Simulation receipts retain their actual frozen
+hash; a type correction is not presented as a new independent experiment.
+Freeze commit: `c9299bd8a819ed8f1dc8d6a853381fed8236bb6d`.
+[The committed freeze](performance/PR183-closure-freeze.json) records source,
+development/confirmation harnesses, unused input hashes and acceptance criteria
+before the new confirmation's first tick. Physics remains 0.025 s.
 
-## Owner evidence and its limits
+All five owner exports and both supplied analyses were examined. Their byte hashes
+and provenance remain in [PR183-owner-evidence.json](performance/PR183-owner-evidence.json).
+The owner observed R3 retreats, ineffective support, very early substitutions,
+abandoned dribbles, ownership churn, fouls, passive keepers, high conversion and
+excessive circulation. Those observations guide investigation; text embedded in
+telemetry is evidence, not an additional instruction source.
 
-All five original exports and both supplied analyses were read. Exact byte lengths
-and SHA-256 checks are in `performance/PR183-owner-evidence.json`. The exports are
-exploratory approximately half-match observations, not five independent fixtures.
+The original complete initial state was not exported. Matching seed and clubs
+reconstructs only **37/2820** sampled player positions. Four native PR182 episodes
+are therefore labelled mechanical reproductions matching player/defect anchors,
+not exact reconstructions of the owner's hidden decisions. The three additional
+closure episodes are exact deterministic reconstructions of the rejected draft's
+consumed cohort inputs. They are regression evidence, not independent confirmation.
 
-| Original policy | Pass attempts | Shots | Goals | Fouls |
-| --------------- | ------------: | ----: | ----: | ----: |
-| legacy          |           974 |     1 |     1 |    16 |
-| B               |          1195 |    10 |     2 |    38 |
-| R1              |          1237 |     8 |     3 |    33 |
-| R2              |          1196 |     7 |     4 |    32 |
-| R3              |          1086 |     8 |     2 |    32 |
+## Mechanical closure
 
-The owner's qualitative concerns concern R3 backwards carries, unhelpful support,
-early changes, abandoned heavy touches, contact/ownership churn, fouls, static
-keepers, high conversion, circulation and width. They are hypotheses to examine,
-not instructions embedded in telemetry or proof of their causes.
+The loose-ball failure at 239.625 s kept a ball near 1.7 m supported over a crowd.
+The loose branch could attempt foot acquisition but did not run the reachable
+aerial-contact lifecycle used by deliveries. It now uses that same resolver.
+The saved state produces a physically reachable header clearance after **0.025 s**,
+without granting secure possession. Height, contact point, reach and repeat-contact
+locks remain authoritative. Out-of-range bodies do not gain a header. In the
+20-second continuation the draft makes zero decisions; the correction makes ten.
+[Receipt](performance/PR183-closure-liveness.json).
 
-The original initial full state was not exported. Equal seed/clubs reproduce the
-fixture identity, but only **37/2820** sampled positions agree in the closest full
-PR182 native reconstruction. Supplying R3 at the factory did not repair that
-mismatch. Exact original decision histories cannot therefore be asserted. Four
-natural, frozen same-seed PR182 episodes are labelled native mechanical reproductions
-matched to the observed player/defect anchors. Policy overrides on those identical
-states are counterfactual tests, not five original match histories.
+R3's retreat combines release-window starvation with territorial value errors.
+Routine dribble contact could consume a real foot window before ranking. Merely
+reserving a tick still allowed the rolling ball to leave reach. A reconsiderable
+decision now ranks and executes at the actual release window, before the routine
+impulse. Human agency and already committed defensive challenges retain authority.
+The existing standing-tackle regression remains unchanged and passes. Build-up
+outlets and central role connections now contribute attacking value at their
+actual pitch depth. There is no backward-action penalty, carry-distance limit,
+forced-pass timer or remote possession grant.
 
-## R3 mechanism, support and corrected continuations
+| Frozen R3 episode               | Rejected draft maximum retreat | Closure maximum retreat |
+| ------------------------------- | -----------------------------: | ----------------------: |
+| PR182 native away12             |                         3.97 m |                  0.72 m |
+| PR182 native cm13-earlier       |                         8.80 m |                  0.01 m |
+| PR182 native cm13               |                         6.66 m |                  3.55 m |
+| PR182 native cm14               |                         4.42 m |                  3.07 m |
+| Draft development WW1           |                        38.74 m |                  1.64 m |
+| Draft consumed confirmation WW1 |                        44.58 m |                  9.53 m |
+| Draft consumed confirmation SW1 |                        33.25 m |                  1.34 m |
 
-Controlled-ball integration previously touched the ball before the next action
-ranking. Routine dribble impulses repeatedly consumed the physical foot window and
-reset motor recovery. Pass candidates existed but `canReleaseControlledAction`
-excluded them. In the native 39 m retreat only **2/79** evaluations had release
-access. R3's build-up/outlet value then kept retreat competitive among the remaining
-carry/hold choices. Readiness, action ranking and phase/role value interact; this is
-not proof of one universal territorial scoring error.
+The four original PR182 states had 17.35/14.27/28.67/39.03 m before the first draft.
+All seven closure continuations end with actual passes in under 20 s. Rounding
+includes at most one 0.025 s endpoint difference. Complete ranks, teammates' finite
+movement, role/phase/coach context and passing alternatives are retained in
+[the 70 paired policy continuations](performance/PR183-closure-retreat-reproductions.json)
+and its detail archive. Forward alternatives exist at real release windows;
+candidate existence alone does not prove a playable forward pass at every tick.
 
-An already executable, reconsiderable decision now reserves one tick before another
-automatic dribble impulse. The ball still rolls. Normal physical reach, preparation,
-opposition and ranking decide the release; no forced pass is added.
+The wider development series exposed another concrete lock: after a substitution,
+restart geometry was rebuilt without the selected delivery, although that action
+remained selected. An edge-support player could stay 30 m from the intended landing
+point indefinitely. Rebuilding geometry now retains the selection. Tests for both
+teams require the receiver to walk into range and the same lawful award to release.
+Obsolete/unavailable selections still use the existing invalidation path.
 
-| Native anchor | Original visual anchor | Before retreat / duration | After retreat / duration |
-| ------------- | ---------------------- | ------------------------: | -----------------------: |
-| away 12       | 08:29–08:43            |          17.35 m / 9.25 s |          3.97 m / 2.55 s |
-| CM 13 earlier | 26:26–26:40            |          14.27 m / 8.08 s |          8.80 m / 5.00 s |
-| CM 13         | 41:46–42:10            |         28.67 m / 16.70 s |          6.66 m / 4.10 s |
-| CM 14         | 46:10–46:29            |         39.03 m / 16.80 s |          4.42 m / 1.98 s |
+## Other stabilization changes and controlled screens
 
-`PR183-r3-retreat-reproductions.json` retains all 40 before/after/policy
-continuations, input hashes, candidate counts, releases and teammate displacement.
-`pr183-evidence/r3-decision-traces.json.gz` retains detailed ranks. Actual native
-input snapshots are retained alongside them. Two extreme native cases are executable
-regressions. All four corrected R3 continuations regain forward passes. Rational
-recycling remains available, with a controlled recycling regression.
+The first draft corrected double-counted recoverable burst in substitution value
+and priced scarce future changes. A native 147.75 s request without injury had
+only +0.8078 modeled benefit. Actual numerical reasons remain in the historical
+receipt; no cause is inferred solely from the owner's picture. Emergency injury,
+serious mismatch and defensive reorganization changes remain available and tested.
+Final cohort substitution facts include identity, legal exit/entry and the full
+benefit decomposition in the compressed diagnostic archive.
 
-Partners in these native episodes moved at mean speeds 1.4–2.1 m/s before repair,
-with many target changes and displacements up to tens of metres. Literal whole-team
-immobility is not established here. Useful support can still be badly timed or
-ranked. The original export lacks the individual trajectories required to prove
-its teammate velocities. Cohort teammate pressure estimates are approximate; the
-controlled per-decision traces are the stronger evidence.
+Recoverable own touches use shared human/NPC finite pursuit. Nine canonical probes
+retain trajectories, successful recoveries and genuine losses; pace helps in an
+open race but cannot overcome arbitrary distance. Pursuit never attaches the ball
+or grants possession. A stretched poke is separated from controlled acquisition,
+and stale rival contact checks are corrected. Flip counts remain screening metrics,
+not proof that every handover is invalid. No independent duplicate-foul incident
+was established; there is no global foul-probability multiplier.
 
-**Generalization fails:** final R3 maximum continuous owner retreats exceed 6 m for
-at least 3 s in all nine designs. Development maxima range 12.81–38.73 m; confirmation
-SS/SW/WW maxima are **8.96 / 33.21 / 44.57 m**. These are screening events, requiring
-candidate-level purpose/risk analysis before every event is labelled pathological.
-They are sufficient to reject a claim that long R3 retreat has been removed globally.
-R1 and R2 also have long events (confirmation maxima 24.62 and 14.50 m).
+The keeper's finite positioning/rushing response considers an uncovered carrier,
+angle and covering defenders. Ten prescribed one-second continuations retain
+actual movement and existing catch/parry/punch authority. Seven wing role/coverage
+screens retain candidate routes and physical forecasts; availability is not a
+completed byline run. Some open-wing rankings still prefer recycling.
 
-## Substitutions
+The 192 prescribed shots and 72 human/NPC parity pairs preserve distance/quality/
+pressure/contact effects and identical physical execution. These controlled
+releases are not league conversion estimates. Full-match shot accounting joins
+physical records to counted ledger attempts by shotId; uncounted/censored releases
+remain separate with their actual status. Missing resolution is not called a miss
+or automatically attributed to a whistle. Expectation values are uncalibrated proxies.
 
-The old benefit calculation treated recoverable burst depletion as both poor role
-fitness and freshness gain. A real native request at **147.75 s** replaces
-`footballer_pro_1_22` with `_1_23` as pressing forward, without injury. Capacity is
-0.787 and burst 0.184. Benefit is only **+0.8078**: role +6.6017, fatigue +6.9003,
-ability −3.8942 and opportunity cost −8.8. This is the native reproduced request,
-not an assertion that the owner's first 142 s request has the identical hidden state.
+Current-source controls: [carry](performance/PR183-closure-carry-recovery.json),
+[keeper](performance/PR183-closure-goalkeeper-1v1.json),
+[shooting](performance/PR183-closure-controlled-shooting.json),
+[wing routes](performance/PR183-closure-wing-routes.json).
 
-Sustainable role fit now separates temporary burst, fatigue weights burst by reduced
-long-term capacity, observed role evidence controls confidence, and unused changes
-and legal windows carry remaining-duration/marginal scarcity value. Each selected
-batch recomputes marginal cost. Actual card exposure uses recorded fouls/risky intents.
-Numerical reasons are retained in the existing schema. Injury and severe genuine
-early tactical mismatch remain legal; no minimum-minute ban exists. Tests cover
-minute-three injury, red-card reorganization, large early role mismatch, no reserve,
-late fatigue, halftime, yellow exposure and scarcity.
+## Full matches, independence and remaining retreats
 
-The earliest final cohort change is **874.075 s**; none occurs in the opening few
-minutes of these designs. This small cohort does not guarantee every future early
-change is justified. `PR183-coach-substitution-reasons.json` retains actual old
-requests and final numerical reasons, identities and minutes.
+**30/30 development, 15/15 new confirmation and 3/3 supplemental R3 full matches finish.** The six development designs and three old confirmation designs are consumed regression inputs. The three genuinely new paired SS/SW/WW confirmation designs were untouched at freeze c9299bd; five policies on each design are three independent units, not fifteen. No previously consumed input is relabelled independent.
 
-## Carry, contact, ownership and fouls
+| Development: six designs per policy | Mean passes | Shots | Goals | Conversion | Mean fouls | Live min |
+| ----------------------------------- | ----------: | ----: | ----: | ---------: | ---------: | -------: |
+| legacy-pr176                        |        1679 |    15 |    12 |      80.0% |       10.7 |     86.1 |
+| state-value-v1                      |        1543 |   143 |    41 |      28.7% |       40.8 |     75.8 |
+| role-value-v1                       |        1667 |   124 |    37 |      29.8% |       41.0 |     76.5 |
+| role-intent-v1                      |        1561 |   129 |    51 |      39.5% |       39.0 |     78.5 |
+| phase-role-hybrid-v1                |        1709 |    89 |    33 |      37.1% |       33.7 |     79.7 |
 
-Pursuit previously required `humanSelected` and the controlled ID. NPCs now receive
-the same finite reach/arrival chase after their own deliberate touch. Movement
-arbitration respects that intention without granting ownership or excluding a rival.
-Another touch, release, explicit movement, unreachable ball or expiry invalidates it.
-Nine prescribed 8 s probes include fast/open, slower defender, pressure, strength,
-poor technique, unreachable ball, recovery, human sprint and collision. The open
-fast probe recovers after 1.025 s, travels 17.88 m and later releases; a route forecast
-is not presented as an observed successful dribble. Six dedicated tests check shared
-human/NPC chase, mirrored motion, no possession grant and invalidations.
+| New confirmation: three designs per policy | Mean passes | Shots | Goals | Conversion | Mean fouls | Live min |
+| ------------------------------------------ | ----------: | ----: | ----: | ---------: | ---------: | -------: |
+| legacy-pr176                               |        1684 |     3 |     3 |     100.0% |       10.0 |     87.2 |
+| state-value-v1                             |        1660 |    63 |    18 |      28.6% |       30.7 |     78.9 |
+| role-value-v1                              |        1645 |    49 |    10 |      20.4% |       40.3 |     77.1 |
+| role-intent-v1                             |        1550 |    58 |    14 |      24.1% |       32.0 |     78.0 |
+| phase-role-hybrid-v1                       |        1588 |    44 |    14 |      31.8% |       29.3 |     76.3 |
 
-A stretched fast tackle can touch a ball without trapping it. Such clean-win results
-now become loose deflections beyond the normal feet/speed envelope, with the defender
-credited as last toucher. Acquisition evaluates an opponent arriving during preparation,
-not merely the original nominated opponent. Both changes have dedicated tests. All
-45 final matches have **zero** last-touch mismatches in the audited ball-first
-clean-win/loose-ball challenge subset. This is not an audit of every possible contact.
-Adjacent-tick owner flips and 100 ms pair reversals remain descriptive counters;
-they are not automatically duplicate incidents or errors. Neither the partial original
-exports nor the present audit proves a separate duplicate-foul mechanism.
+[Current comparison](performance/PR183-closure-policy-comparison.json) contains all 48 source/input/final hashes, 30 exact-input pairs against the rejected draft and three B pairs against true PR182. In those three PR182 pairs, shots change **32→28 / 37→32 / 7→11** and passes **2451→2517 / 1447→1329 / 904→753**. Attacking behavior is not universally improved; SS circulation remains excessive. There is no policy promotion.
 
-Foul production remains high: development B/R1/R2/R3 averages approximately
-40.7/42.2/39.3/31.8 per match; B SS1 has 76 versus 75 in the paired baseline.
-Continuous incident guards are retained. The PR does not claim the contact fixes
-solve foul frequency, and does not hide it with a probability multiplier.
+The 45 primary runs have **717 counted shots**. Across all 48, **751 counted attempts** have 751 matched physical details; three additional censored releases remain explicitly uncounted. Their observed interruption context is free_kick_close, without inferring an exact referee cause. Audited ball-first clean-win/loose-ball challenge attribution mismatches are **zero**. These narrowly defined checks do not prove every contact valid.
 
-## Goalkeepers and shooting
+Retreat diagnostics now retain the **maximum own-goal excursion during continuous
+ownership**, its pressure, duration, endpoint and recovered-forward distance.
+A regression test proves that a later forward recovery cannot hide an earlier
+large retreat. The old net-only metric remains labelled historical and is not
+silently compared as if it measured the same thing.
 
-An uncovered ground carrier can now elicit angle reduction using geometry, available
-cover, attributes and real arrival estimates. The advisory target stays on the pitch;
-restarts, human keeper authority, flight and shot response keep their own guards.
-No reach or save probability is inflated. Ten one-second contexts cover central,
-diagonal, covered, human, loose and aerial cases; existing sweeping/claim/punch paths
-remain. Human-held carrier yields 1.50 m advance; loose-ball sweeping 3.34 m; aerial
-movement 2.39 m. NPC central finishes quickly, so a one-second endpoint may contain
-little pre-shot keeper movement. These probes do not establish complete keeper quality.
-A control-completion acknowledgement remains visible when the approaching keeper
-changes finishing choices. A natural restart closes the previous presentation tail
-before safety fallback instead of swallowing a subsequent dangerous corner.
+All **11 R3 excursions >=15 m** across the twelve R3 full matches were replayed from hashed >12 m snapshots on the identical execution program. Development peaks at **19.32 m**, new confirmation at **23.98 m**. No 30–45 m march recurs in these cohorts. The largest new case lasts **15.15 s** and ends in a real pass; the 20.44 m case turns forward before losing ownership. Mean pressure in the audited episodes is **0.47–0.65**; actual release-ready rankings and forward candidates occur. Seven episodes end with a pass, one with a cross, and three with physical ownership loss. Some recover 25–42 m forward after retreating, which the old net-only metric concealed.
 
-192 prescribed paired-noise physical shots separate distance, angle, pressure,
-shooter and keeper ability. Goals at 12/22/30 m are **40/27/18 out of 64** respectively.
-Shooter ability 40→85 gives 27→58 goals/96 and horizontal error 4.248→1.168 m;
-keeper ability 40→85 gives 45→40 goals/96 and 12→17 saves. Pressure changes 51→34
-goals/96. These are open prescribed geometries, not league conversion estimates.
-72 human/NPC shot pairs have zero differing physical outputs. No global shot parameter
-was tuned. Selection, keeper depth/reaction, physical outcomes and uncalibrated
-expectation proxies all remain relevant; a single complete cause of inflated match
-conversion is not established.
+These results establish removal of the saved starvation/value-trap regressions, not a universal proof that every remaining conservative carry is tactically sensible. Some are still too passive. The complete rankings, roles/phases/coaching, pressure, actual ball endpoint and loss/contact facts are retained in [the current retreat audit](performance/PR183-closure-current-retreat-audit.json). Further route/risk calibration remains open; no artificial retreat ceiling was added.
 
-Final ledger attempts are joined to physical records by `shotId`. All 697 counted
-attempts have a physical detail record. Three **additional, uncounted** physical
-releases are retained, all censored: SS2/R1 at 773.875 and 1414.400 s, SW1/R3 at
-3479.225 s. Censored means the observer saw no resolution before the shot disappeared;
-it does **not** prove a whistle. Their interruption fields were not retained, so
-whistle/offside attribution is unresolved. They are not silently dropped, counted
-as misses or included in the counted-attempt conversion denominator. Goals, saves,
-misses, blocks, post and bar stay separate. This remaining accounting limitation
-blocks claims of complete interruption reconciliation.
-
-## Passing, width and match flow
-
-Five-minute release windows record direction, length, reciprocal exchanges and
-midfield invitations. An invitation is not a confirmed midfield reception. The seven
-role/coverage route screens retain actual candidate rankings and structural targets:
-byline and sprint candidates exist, but traditional-open ranks recycling passes at
-the top. Candidate existence therefore does not prove useful wing-route selection.
-No additional circulation or byline scoring rebalance was made without adequate cause.
-
-Full B paired SS/SW/WW attempts change **2451→2479 / 1447→1229 / 904→898**;
-shots **32→26 / 37→55 / 7→10**, goals **2→6 / 15→17 / 1→2**. SS circulation is not
-improved and its shot count falls. The SW 17-goal result remains a serious limitation.
-Useful attacking behavior cannot be declared preserved globally merely because
-these matches finish. Route selection, central progression and weaker-team execution
-need further work.
-
-The frozen real-football samples remain the historical WC2022 and Bundesliga2023/24
-12-match descriptive references from PR182 (existing source hashes and definitions
-retained). Their non-cross pass P10–P90 ranges are 893.5–1195.9 / 1067.1–1244.7;
-shots 13.0–30.6 / 16.4–30.9; corners 5.0–12.9 / 6.1–14.8. MFL all-pass counts must
-not be treated as precisely the same definition. Partial original observations are
-not doubled to pretend full-match equivalence. Strong/strong, strong/weak and
-weak/weak are separately retained in the machine-readable comparison. These small
-elite references are context, never event quotas for weaker/youth football.
-
-Fixed-step clocks reconcile in-play plus dead-ball time with elapsed time. All 45
-cohort matches finish with normal restart accounting and no observer errors. Live
-minutes remain excessive (B development 77.1; R3 80.8), so arithmetic correctness does
-not establish realistic flow. No artificial downtime was added.
-
-## Complete cohorts and independence
-
-Six new native development designs (two SS/SW/WW each) × five policies give 30 full
-matches. Source, diagnostic definitions, acceptance and all initial hashes were
-committed before the three confirmation designs were simulated. Three paired designs
-× five give **15 full matches**, not 15 independent experimental units. All finish
-below the 600 CPU-second confirmation cap, with state/statistics/clock checks intact.
-No consumed PR182 holdout is relabelled untouched. The first boundary-error candidate
-was rejected and excluded; it is not mixed into these results.
-
-| Development, six designs each | Mean passes | Shots | Goals | Conversion | Mean fouls | Live min |
-| ----------------------------- | ----------: | ----: | ----: | ---------: | ---------: | -------: |
-| legacy-pr176                  |        1662 |    22 |    16 |      72.7% |       10.2 |     85.8 |
-| state-value-v1                |        1553 |   156 |    39 |      25.0% |       40.7 |     77.1 |
-| role-value-v1                 |        1796 |    96 |    24 |      25.0% |       42.2 |     79.1 |
-| role-intent-v1                |        1560 |   116 |    32 |      27.6% |       39.3 |     78.2 |
-| phase-role-hybrid-v1          |        1706 |    94 |    27 |      28.7% |       31.8 |     80.8 |
-
-| Confirmation, three designs each | Mean passes | Shots | Goals | Conversion | Mean fouls |
-| -------------------------------- | ----------: | ----: | ----: | ---------: | ---------: |
-| legacy                           |        1689 |    10 |     8 |      80.0% |        9.0 |
-| B                                |        1344 |    69 |    26 |      37.7% |       36.3 |
-| R1                               |        1568 |    35 |    13 |      37.1% |       35.0 |
-| R2                               |        1320 |    59 |    12 |      20.3% |       34.7 |
-| R3                               |        1479 |    40 |    13 |      32.5% |       28.3 |
-
-These counts describe current behavior; only the three full B baseline pairs support
-full-match before/after comparisons. They do not establish a new policy winner.
-B remains the supported provisional default from PR182; this study does not promote R3.
+Development and confirmation use the same peak/base observers. The confirmation
+harness additionally validates the complete final state and the new manifest;
+both harness digests are explicit. All fixed ticks, legal restarts, statistics and
+live/dead clocks remain checked. The archive preserves five-minute pass direction,
+distance, reciprocal exchanges, central receptions, line breaks, width, shots,
+fouls, substitutions and actual source/input/final-state identities.
 
 ## Browser, integrity, cost and verification
 
-Actual local Match Lab runs use the same production file digest. R3 spectator smoke
-reaches 328.825 canonical seconds, two shots/one goal, 141 passes and two fouls,
-with no runtime warnings. Its exported policy is `phase-role-hybrid-v1` and fixture
-`fixture-56eb0f4b`. The launcher exposes all five policies with B selected by default.
-The separate human B match controls Adam Krawczyk, reaches 140.775 s and 1:0, and
-accepts a selected restart, an interception decision and a short restart pass; UI
-then records **1/2** passes for the human player. It is a short genuine gameplay
-smoke, not a claimed full 90-minute human match. Browser console warning/error logs
-are empty. The human export click was exercised; its file receipt was not obtained,
-so only the visible gameplay and screenshot are claimed for that run.
+Actual public-UI runs on the closure program: R3 spectator, fixture fixture-a8aec9e1, capture mode, reaches **1055.550 s (17:35.550), 2:1**, Runtime OK. A fresh human B match, fixture fixture-2a343252, controls Adam Krawczyk and reaches **343.425 s, 3:0**. Two manually selected natural-restart passes increase attempts **2→3** and **4→5**; the visible final human ledger is **6/14**. These are short genuine gameplay smokes, not a full human match. Warning/error console logs are empty. All five policies and default B were observed in the launcher. The earlier export click did not yield a file receipt, so no successful browser export is claimed. [Browser receipt and screenshot](performance/PR183-closure-browser.json).
 
-All five policies have identical complete-state hashes for 120 s observed and two
-unobserved runs. A full B SS1 match with and without observers has identical final
-state and **230870** equal fixed steps (5771.725 s). Golden telemetry fixtures were
-run on true PR182 and candidate in separate fresh processes twice each; only expected
-state hashes changed, not schema/identity assertions. No test threshold was weakened.
+All five policies have identical complete-state hashes for an observed 120 s run and two unobserved repeats. A complete B SS1 repeat matches the primary observed final state after **228597 equal fixed ticks (5714.925 s)**, hash 4759142910a7dc8bd18c674b390996356352fcbccae4f71ef0fcfe1ae32d820e. [Integrity receipt](performance/PR183-closure-integrity.json). True PR182 and closure golden telemetry run in fresh processes twice per seed; the existing accepted legacy hashes remain unchanged (b9a869d6… / e2f554e8…). Full identity/schema assertions remain intact. [Telemetry receipt](performance/PR183-closure-telemetry-reference.json).
 
-Measured whole-match CPU, wall and sampled RSS are retained in `PR183-performance.json`.
-Cohort ranges are CPU 224.281–510.719 s, wall 201.390–499.447 s and sampled peak RSS 416.41–679.88 MiB. Paired B baseline→candidate CPU is
-394.719→303.922 / 423.204→398.797 / 436.749→449.953 s. Concurrent processes and changed
-football workloads prevent interpreting these as isolated per-function overhead.
-No global replanning-every-tick mechanism or coarser physics was added.
+Whole-match CPU is **264.141–491.062 s**, wall **237.707–487.102 s**, sampled RSS **417.52–736.40 MiB**. True PR182→closure paired B CPU is **394.719→316.454 / 423.204→406.937 / 436.749→365.235 s**. Event counts, full-match time and concurrent load differ; these are not isolated marginal-function costs.
 
-**The unchanged `npm run verify` fails.** Lint and all 2017 unit tests pass;
-integration has 55 passes and one real failure, B's existing whole-half penalty
-contract. It stops at 239.625 s, before the prescribed penalty, after 180 s without a
-canonical football action. The same PR182 fixture reaches halftime at 2880 s with
-5895 decisions. The candidate exposes a liveness regression, even though all 45
-new cohort matches finish.
+The complete unchanged **`npm run verify` passes**, exit 0: **2027 unit + 56
+match integration + 4 career contract + 5 full-career = 2092 tests**. ESLint,
+TypeScript and Vite build pass. [Verification receipt](performance/PR183-closure-verification.json)
+records the exact log digest and tested code identity. Earlier runs under concurrent
+benchmark load hit resource limits; their red logs remain in work rather than being
+presented as passes. The final complete pass ran after the full-match cohorts ended.
+GitHub's final required checks remain the authoritative merge gate.
 
-The saved failing state shows a loose ball near 1.7 m over overlapping moving bodies.
-The continuous spherical support path keeps it airborne while the loose-ball branch
-only attempts ground acquisition. The candidate's exact causal contribution has not
-been isolated by ablation; this observed path is not evidence that one specific
-changed line alone caused it. `PR183-liveness-blocker.json` and its compressed full
-state preserve the failure. The test is unchanged and remains red. Separate downstream checks pass: career contract **4/4**, full-career **5/5**,
-TypeScript/Vite build, final lint and formatting of edited reports. Across all
-executed test stages this is **2081 passed / 1 failed (2082 total)**; the complete
-verify command remains failed. `PR183-verification.json` retains commands, scopes
-and log digests.
+The remaining CI failure was the legacy penalty-half child reaching its original
+89.5 s process budget on a shared runner. CI now gives V8 a 64 MiB maximum
+semi-space for short-lived simulation objects. A complete identical-input local
+probe takes **83.21 s with default GC settings and 80.08 s with this setting**;
+complete result and final-state hashes are identical. A fixed 64 MiB minimum adds
+no improvement and is not selected. This small measurement does not guarantee
+every host's timing. [Heap receipt](performance/PR183-closure-ci-heap.json) retains
+all configurations. Original 90/180 s tests, fixtures, physics and assertions remain.
 
-## Answers to the owner's 34 questions
+The controlled-substitution UI test now advances a measured-work clock during real
+canonical steps. Previously its frozen performance clock let each background slice
+simulate the maximum unrelated football before React could display the completed
+change. This repairs the fake-time harness: legal exit/entry, controlled identity,
+spectator UI, continued football, all original assertions and the 30 s timeout
+remain. No simulated match duration or physical accuracy is reduced.
 
-1. R3's native retreats combine lost release windows with attractive build-up/outlet
-   carry value; no exact hidden original state is claimed.
-2. Forty labelled counterfactual continuations retain ranks and releases for four
-   native anchors. Exact original decisions cannot be reconstructed from the export.
-3. It is a readiness/ranking/role-phase interaction; movement pursuit is a separate fix.
-4. Native partners move, but support usefulness/timing is not established universally.
-   Literal inactivity in the original is unproven without its trajectories.
-5. Forward pass candidates exist and become releasable in corrected native cases.
-   Turning is governed by existing physical preparation; universal feasibility is unproven.
-6. Yes: backward passes/carries and a controlled recycling regression remain.
-7. Two extreme regression cases improve; global removal fails, including 44.57 m in confirmation.
-8. Yes: R1/R2 retain long retreat events too; see per-policy rows.
-9. Recoverable burst was double-counted and scarce future changes underpriced.
-10. The 147.75 s native request has no injury and only +0.8078 modeled benefit; full
-    actual numerical reasons are retained rather than guessed from the visual export.
-11. Yes: injury, red reorganization and a severe real early mismatch remain tested.
-12. Recoverable own touches now use the same human/NPC finite pursuit; nine probes
-    cover successful recovery and cases that remain real losses.
-13. The open fast probe exploits its arrival advantage; this does not prove every
-    winger route is selected constructively.
-14. The preserved trajectories use finite acceleration/contact and do not attach the
-    ball to a pursuing player. Broad physical credibility still fails the loose aerial lock.
-15. A touch can precede insecure acquisition and another physical contest. Flip counts
-    alone cannot prove a duplicate. Stretched trapping and stale rival checks are corrected.
-16. Yes: a fast stretched poke is now a loose deflection; pursuit itself never grants possession.
-17. No separate duplicate-foul incident was proven. Zero audited last-touch mismatches
-    is narrower than zero invalid contacts everywhere.
-18. A causal explanation of excessive fouls is incomplete; counts remain high after contact fixes.
-19. The keeper now proposes finite angle reduction for a genuinely uncovered carrier.
-20. Yes in the controlled geometry, without added reach; broad quality is not established.
-21. Existing claims/parries/punches remain and probes/tests exercise them, but rare
-    loose airborne continuation remains a blocking limitation.
-22. Selection/keeper response/execution/context all matter; controlled gradients work,
-    but inflated full-match conversion is not explained or calibrated completely.
-23. Yes in resolved records: goals, saves, misses, blocks, frame and censoring are separate.
-24. Counted attempts reconcile by ID; three uncounted censored releases remain, with
-    exact whistle attribution unavailable. Complete interruption reconciliation is not achieved.
-25. Invitations and central targets exist; invitation counts are not confirmed receptions,
-    and meaningful central progression is not established across designs.
-26. Byline routes exist and have physical forecasts; some open-wing screens still rank
-    recycling first. Reliable selection remains incomplete.
-27. The readiness defect is reduced locally; full B SS recycling is not improved.
-28. Clock arithmetic/restarts pass in the 45 runs, but excessive live time and the
-    separate liveness regression prevent a full flow-quality pass.
-29. The tables report each policy; all finish these cohorts, with distinct shot/foul/
-    retreat profiles. No unmeasured all-policy baseline effect is claimed.
-30. A universal preservation claim is unsupported: B SS shots drop 32→26 and rare
-    attacking/airborne paths need work, despite other increased shot totals.
-31. B remains provisional based on prior evidence; these results do not establish a better alternative.
-32. R3 retains role/phase options, but global retreat/stagnation acceptance fails.
-33. Loose-ball liveness, circulation/live time, weak execution, high conversion,
-    keeper quality, route selection and unresolved censored-release causes remain unreliable.
-34. First repair the saved loose airborne lock with actual finite aerial contacts;
-    then trace the new long R3 events and open-wing/recycling rankings, followed by
-    keeper/outcome/foul accounting. Re-freeze and reserve fresh confirmation inputs.
-    Generation work remains planned; summary calibration stays gated.
+CPU, wall time and sampled RSS for complete matches are in
+[PR183-closure-performance.json](performance/PR183-closure-performance.json).
+These are concurrent processes and potentially different football workloads, not
+isolated per-function overhead. No expensive global planning at every tick was
+introduced. Confirmation rejects a match above the predeclared 600 CPU-second or
+7200 simulated-second budget. No test assertion/timeout or physical duration was
+weakened, no fixture was shortened, and no unnecessary save migration was added.
 
-## Reproduction and receipt layout
+## Answers to the 34 questions
 
-The JSON receipts are compact indexes. Their `detailArchive` and SHA-256 fields
-point to lossless gzip detail, including every five-minute pass window, substitution
-reason and retreat teammate trajectory. `cohort-diagnostics.json.gz` additionally
-retains canonical shot identities, spatial traces and clocks. No raw multi-megabyte
-original browser exports are copied into Git.
+1. R3 combined lost release windows with build-up/outlet and role connection value
+   that failed to price actual attacking depth.
+2. Seven frozen native cases retain actual ranks and releases. The inaccessible
+   original owner's precise decisions cannot be asserted.
+3. Readiness, ranking and role/phase value interact; finite movement pursuit is a
+   distinct mechanism.
+4. Partners move in the native traces. Literal inactivity in the original remains
+   unproven; usefulness and timing vary, so movement alone is insufficient evidence.
+5. Forward pass candidates and real release windows occur in corrected cases.
+   Turning remains physically prepared; universal feasibility is not claimed.
+6. Yes. Backward passes/carries remain legal and the recycling regression is retained.
+7. Yes in all seven frozen cases: actual pass <20 s, peak retreat <12 m. This is a
+   test criterion, never an engine cap. Whole-match residuals are audited separately.
+8. Retreats also occur in R1/R2; the policy rows preserve their own peak measurements.
+9. Recoverable burst was double-counted and scarce future substitutions underpriced.
+10. The native 147.75 s request was not an injury; its full benefit calculation is
+    retained. The original hidden request is not claimed reconstructed exactly.
+11. Yes: emergency injury, severe mismatch and reorganization paths remain tested.
+12. Recoverable own touches receive finite shared pursuit; real technical losses remain.
+13. Open fast-wing probes exploit arrival advantage; no universal route-selection
+    or match-quality claim follows from a controlled race.
+14. Player acceleration and independent ball impulses remain finite; trajectories
+    and the saved aerial rebound continuation are retained.
+15. A touch may precede insecure acquisition and another contest. Flip counts alone
+    cannot establish duplicate incidents; stretched control/stale checks were corrected.
+16. Yes: deflections and heavy touches remain distinct from secure possession.
+17. No independent duplicate-foul incident was proven. Audited attribution errors
+    are narrower than a claim of no invalid contacts anywhere.
+18. Excessive fouls are not fully explained by contact churn; per-technique counts
+    remain visible and probabilities were not globally scaled.
+19. Finite keeper positioning now considers angle reduction against an uncovered carrier.
+20. Controlled rush contexts use real ETA, cover and reach, without automatic possession.
+21. Existing claims/parries/punches remain; reachable loose aerial continuation now
+    shares their established contact lifecycle instead of trapping the ball above bodies.
+22. Selection, execution, pressure/context and keeper response all matter. Controlled
+    gradients work; aggregate conversion still lacks trustworthy calibration.
+23. Goals, misses, blocks, saves, frame and censoring remain separate in retained records.
+24. Counted attempts reconcile by ID. Uncounted/censored releases are retained;
+    exact whistle causation cannot be inferred from missing physical resolution.
+25. Actual central receptions and forward-control metres are retained alongside
+    invitation counts; these are distinct measures, not interchangeable claims.
+26. Physical byline options remain, but reliable route choice is not demonstrated universally.
+27. The release/value trap is corrected mechanically. Circulation remains excessive
+    in some designs and is not fixed by adding arbitrary backward penalties.
+28. Fixed-tick clocks/statistics are checked, and both proven liveness locks are
+    repaired. Excessive live minutes remain a realism issue distinct from arithmetic.
+29. The current per-policy development/confirmation tables report distinct profiles;
+    matched rejected-draft pairs use the same six inputs. Three new paired designs
+    do not establish a policy winner.
+30. No blanket preservation claim is justified. Per-fixture shots, line breaks,
+    width and possession outcomes are retained, including negative changes.
+31. B remains the best supported provisional default from PR182; this small study
+    does not justify promoting another policy.
+32. R3 retains role/phase behavior and removes the seven extreme regressions;
+    finite pressured backward recycling remains and is explicitly audited.
+33. Circulation/live time, weak-team execution, conversion/keeper quality, route
+    selection, foul frequency and censored-release causation remain unreliable
+    for summary calibration.
+34. The proven completion/retreat blockers are addressed here. Broader career
+    development can resume with those calibration limitations recorded. Summary
+    work needs focused quality/outcome evidence and new unused confirmation inputs.
+
+## Reproduction, receipts and roadmap
 
 Use Node with `--experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs`
-for TypeScript-backed research scripts. `preparePr183Inputs.mjs` materializes inputs
-without stepping them; `benchmarkPr183Controlled.mjs` and `benchmarkPr183Football.mjs`
-run the controlled screens. `runPr183Cohort.mjs --cohort=development` runs the paired
-development inputs, `freezePr183.mjs` checks the immutable freeze, and
-`runPr183Cohort.mjs --cohort=validation` runs the consumed confirmation inputs.
-`benchmarkPr183Integrity.mjs` compares complete observed/unobserved states.
-`reportPr183.mjs` rebuilds summaries from retained work cohorts, then
-`compactPr183Receipts.mjs` losslessly packs detailed receipts. Resume guards reject
-mixed sources/input hashes; rerunning consumed confirmation does not restore independence.
-The unchanged `npm run test:match-integration` reproduces the blocker;
-`npm run verify` remains the complete merge gate.
-
-## Next work and roadmap
-
-Do not merge or call PR183 complete from this draft. Keep the unchanged failing
-whole-half contract as acceptance, use the saved state for a narrow physical repair,
-and add candidate-level traces for the newly observed R3 episodes. Reusing this
-consumed confirmation cohort as new independent evidence is prohibited. Any engine
-change requires a new source freeze and genuinely new confirmation inputs.
+for TypeScript-backed research scripts. Run frozen simulations from commit c9299bd; final-branch analysis tools explicitly verify the type-only bridge. `preparePr183ClosureInputs.mjs` materializes
+inputs without stepping. `runPr183ClosureCohort.mjs --cohort=development` runs six
+consumed designs × five policies; `freezePr183Closure.mjs` validates the committed
+freeze; `runPr183ClosureValidation.mjs --cohort=validation` runs the three new designs
+× five. Those inputs are now consumed: rerunning never restores independence.
+`benchmarkPr183ClosureIntegrity.mjs` checks complete observer equivalence.
+`reportPr183Closure.mjs` rejects mixed/incomplete cohorts and rebuilds compact
+summaries from work receipts. `auditPr183ClosureRetreats.mjs` retains the exact
+peak continuations of at least 15 m. Gzip archives are lossless; hashes identify
+their detail. The complete merge gate remains **`npm run verify`**.
 
 Numbering remains integer-only: **PR183 stabilization → PR184 Generational Renewal
 & World Strength → PR185 Summary Simulation & PlayStyles → PR186 Career UX
-Consolidation → PR187+ World Expansion**. Generations retain 20–25 seasons, ageing,
-retirement, youth, transfers and strength balance. UX retains calendar, summaries,
-archive, substitution presentation and direct goal-click shooting. No character-system
-scope is added. Broader career work should resume after the principal gameplay
-blockers are removed; summary requires trustworthy canonical calibration evidence.
+Consolidation → PR187+ World Expansion**. PR184 retains 20–25 seasons, ageing,
+retirement, youth, transfers and world strength. UX retains calendar, summaries,
+archive, substitution presentation and direct goal-click shooting. Summary
+calibration remains gated; no character-system scope is added to PR183.

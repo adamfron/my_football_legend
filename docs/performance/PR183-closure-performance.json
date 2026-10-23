@@ -1,0 +1,487 @@
+{
+  "schema": "mfl-pr183-closure-performance-v1",
+  "sourceHash": "4eef2287eb08f2990a0e728776eaaf2d316383d1844664f5d2fc552976cdc295",
+  "context": "Paired native designs, small descriptive cohorts; B default, all five policies retained. Peak and historical net retreat metrics are explicitly distinguished. Summary calibration NOT READY. Concurrent timings are not isolated marginal costs.",
+  "rows": [
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "legacy-pr176",
+      "analysisGroup": "development",
+      "cpuSeconds": 264.141,
+      "wallSeconds": 237.7069552,
+      "maxRssBytes": 467980288,
+      "time": 5520,
+      "ticks": 220801
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 367.095,
+      "wallSeconds": 334.1929676,
+      "maxRssBytes": 570392576,
+      "time": 5665.250000000092,
+      "ticks": 226611
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "role-intent-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 332.094,
+      "wallSeconds": 302.51229939999996,
+      "maxRssBytes": 581201920,
+      "time": 5702.449999987141,
+      "ticks": 228098
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "role-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 309.875,
+      "wallSeconds": 282.0123185,
+      "maxRssBytes": 556113920,
+      "time": 5703.125000006106,
+      "ticks": 228126
+    },
+    {
+      "id": "pr183-development-ss-1",
+      "policy": "state-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 316.454,
+      "wallSeconds": 286.3986457,
+      "maxRssBytes": 576389120,
+      "time": 5714.924999981084,
+      "ticks": 228597
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "legacy-pr176",
+      "analysisGroup": "development",
+      "cpuSeconds": 282.827,
+      "wallSeconds": 255.70620300000002,
+      "maxRssBytes": 477065216,
+      "time": 5581.374999983245,
+      "ticks": 223255
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 388.312,
+      "wallSeconds": 356.18020650000005,
+      "maxRssBytes": 598859776,
+      "time": 5731.799999999537,
+      "ticks": 229273
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "role-intent-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 356.516,
+      "wallSeconds": 324.6613727,
+      "maxRssBytes": 571330560,
+      "time": 5970.600000005672,
+      "ticks": 238825
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "role-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 345.281,
+      "wallSeconds": 313.3257636,
+      "maxRssBytes": 548581376,
+      "time": 5732.225000005994,
+      "ticks": 229290
+    },
+    {
+      "id": "pr183-development-ss-2",
+      "policy": "state-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 330.031,
+      "wallSeconds": 296.9454021,
+      "maxRssBytes": 571772928,
+      "time": 5940,
+      "ticks": 237601
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "legacy-pr176",
+      "analysisGroup": "development",
+      "cpuSeconds": 301.109,
+      "wallSeconds": 270.0908283,
+      "maxRssBytes": 482029568,
+      "time": 5671.575000005202,
+      "ticks": 226864
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 488.578,
+      "wallSeconds": 462.56760959999997,
+      "maxRssBytes": 693882880,
+      "time": 5820,
+      "ticks": 232801
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "role-intent-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 470.672,
+      "wallSeconds": 447.086182,
+      "maxRssBytes": 551239680,
+      "time": 5916.950000005872,
+      "ticks": 236679
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "role-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 459.126,
+      "wallSeconds": 434.8793681,
+      "maxRssBytes": 494845952,
+      "time": 6090.100000006641,
+      "ticks": 243605
+    },
+    {
+      "id": "pr183-development-sw-1",
+      "policy": "state-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 406.937,
+      "wallSeconds": 381.79651509999997,
+      "maxRssBytes": 596934656,
+      "time": 5820,
+      "ticks": 232801
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "legacy-pr176",
+      "analysisGroup": "development",
+      "cpuSeconds": 344.891,
+      "wallSeconds": 324.6660418,
+      "maxRssBytes": 453541888,
+      "time": 5598.049999999737,
+      "ticks": 223923
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 445.797,
+      "wallSeconds": 415.28354579999996,
+      "maxRssBytes": 537554944,
+      "time": 5700.249999981515,
+      "ticks": 228010
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "role-intent-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 424.327,
+      "wallSeconds": 396.9384527,
+      "maxRssBytes": 570540032,
+      "time": 5880.350000006096,
+      "ticks": 235215
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "role-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 424.25,
+      "wallSeconds": 398.0873554,
+      "maxRssBytes": 518483968,
+      "time": 5820.349999979113,
+      "ticks": 232814
+    },
+    {
+      "id": "pr183-development-sw-2",
+      "policy": "state-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 426.375,
+      "wallSeconds": 401.1280362,
+      "maxRssBytes": 519917568,
+      "time": 5851.675000000116,
+      "ticks": 234068
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "legacy-pr176",
+      "analysisGroup": "development",
+      "cpuSeconds": 295.859,
+      "wallSeconds": 270.6805369,
+      "maxRssBytes": 442748928,
+      "time": 5580,
+      "ticks": 223201
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 457.095,
+      "wallSeconds": 424.9356386,
+      "maxRssBytes": 469659648,
+      "time": 5724.899999999638,
+      "ticks": 228997
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "role-intent-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 409.797,
+      "wallSeconds": 378.3571461,
+      "maxRssBytes": 492646400,
+      "time": 5641.599999982369,
+      "ticks": 225664
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "role-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 394.501,
+      "wallSeconds": 363.30331830000006,
+      "maxRssBytes": 485416960,
+      "time": 5580.250000005441,
+      "ticks": 223211
+    },
+    {
+      "id": "pr183-development-ww-1",
+      "policy": "state-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 365.235,
+      "wallSeconds": 335.5430185,
+      "maxRssBytes": 484319232,
+      "time": 5521.374999984118,
+      "ticks": 220855
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "legacy-pr176",
+      "analysisGroup": "development",
+      "cpuSeconds": 286.484,
+      "wallSeconds": 261.10821300000003,
+      "maxRssBytes": 438718464,
+      "time": 5520,
+      "ticks": 220801
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 396.125,
+      "wallSeconds": 367.797414,
+      "maxRssBytes": 490577920,
+      "time": 5700,
+      "ticks": 228001
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "role-intent-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 377.671,
+      "wallSeconds": 345.20191750000004,
+      "maxRssBytes": 486236160,
+      "time": 5761.199999999665,
+      "ticks": 230449
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "role-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 368.297,
+      "wallSeconds": 338.79538080000003,
+      "maxRssBytes": 505872384,
+      "time": 5580,
+      "ticks": 223201
+    },
+    {
+      "id": "pr183-development-ww-2",
+      "policy": "state-value-v1",
+      "analysisGroup": "development",
+      "cpuSeconds": 367.922,
+      "wallSeconds": 339.601886,
+      "maxRssBytes": 467427328,
+      "time": 5580,
+      "ticks": 223201
+    },
+    {
+      "id": "pr183-closure-validation-ss-1",
+      "policy": "legacy-pr176",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 286.671,
+      "wallSeconds": 258.8196992,
+      "maxRssBytes": 485052416,
+      "time": 5581.399999983245,
+      "ticks": 223256
+    },
+    {
+      "id": "pr183-closure-validation-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 457.781,
+      "wallSeconds": 433.9017516,
+      "maxRssBytes": 579739648,
+      "time": 5760.750000005879,
+      "ticks": 230431
+    },
+    {
+      "id": "pr183-closure-validation-ss-1",
+      "policy": "role-intent-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 369.547,
+      "wallSeconds": 338.3944821,
+      "maxRssBytes": 543981568,
+      "time": 5821.3249999854115,
+      "ticks": 232853
+    },
+    {
+      "id": "pr183-closure-validation-ss-1",
+      "policy": "role-value-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 365.469,
+      "wallSeconds": 331.8286201,
+      "maxRssBytes": 772173824,
+      "time": 5760.549999980201,
+      "ticks": 230422
+    },
+    {
+      "id": "pr183-closure-validation-ss-1",
+      "policy": "state-value-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 335.047,
+      "wallSeconds": 304.3793811,
+      "maxRssBytes": 600686592,
+      "time": 5851.399999978879,
+      "ticks": 234056
+    },
+    {
+      "id": "pr183-closure-validation-sw-1",
+      "policy": "legacy-pr176",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 353.25,
+      "wallSeconds": 331.9280824,
+      "maxRssBytes": 463290368,
+      "time": 5640.32500000566,
+      "ticks": 225614
+    },
+    {
+      "id": "pr183-closure-validation-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 408.156,
+      "wallSeconds": 379.0955578,
+      "maxRssBytes": 482267136,
+      "time": 5700,
+      "ticks": 228001
+    },
+    {
+      "id": "pr183-closure-validation-sw-1",
+      "policy": "role-intent-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 382.97,
+      "wallSeconds": 353.21347430000003,
+      "maxRssBytes": 519200768,
+      "time": 5687.849999981696,
+      "ticks": 227514
+    },
+    {
+      "id": "pr183-closure-validation-sw-1",
+      "policy": "role-value-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 394.422,
+      "wallSeconds": 364.055406,
+      "maxRssBytes": 505397248,
+      "time": 5580,
+      "ticks": 223201
+    },
+    {
+      "id": "pr183-closure-validation-sw-1",
+      "policy": "state-value-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 377.891,
+      "wallSeconds": 348.0404218,
+      "maxRssBytes": 682917888,
+      "time": 5700,
+      "ticks": 228001
+    },
+    {
+      "id": "pr183-closure-validation-ww-1",
+      "policy": "legacy-pr176",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 280.609,
+      "wallSeconds": 255.29979600000001,
+      "maxRssBytes": 437805056,
+      "time": 5520,
+      "ticks": 220801
+    },
+    {
+      "id": "pr183-closure-validation-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 491.062,
+      "wallSeconds": 471.2566938,
+      "maxRssBytes": 483119104,
+      "time": 5580.125000005659,
+      "ticks": 223206
+    },
+    {
+      "id": "pr183-closure-validation-ww-1",
+      "policy": "role-intent-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 460.968,
+      "wallSeconds": 440.5062084,
+      "maxRssBytes": 478744576,
+      "time": 5581.324999983464,
+      "ticks": 223253
+    },
+    {
+      "id": "pr183-closure-validation-ww-1",
+      "policy": "role-value-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 443.078,
+      "wallSeconds": 423.25651530000005,
+      "maxRssBytes": 473935872,
+      "time": 5580,
+      "ticks": 223201
+    },
+    {
+      "id": "pr183-closure-validation-ww-1",
+      "policy": "state-value-v1",
+      "analysisGroup": "confirmation",
+      "cpuSeconds": 343.126,
+      "wallSeconds": 313.52583030000005,
+      "maxRssBytes": 482717696,
+      "time": 5521.525000005446,
+      "ticks": 220862
+    },
+    {
+      "id": "pr183-validation-ss-1",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "supplemental consumed confirmation",
+      "cpuSeconds": 354.234,
+      "wallSeconds": 322.91051120000003,
+      "maxRssBytes": 574291968,
+      "time": 5608.624999999583,
+      "ticks": 224346
+    },
+    {
+      "id": "pr183-validation-sw-1",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "supplemental consumed confirmation",
+      "cpuSeconds": 408.547,
+      "wallSeconds": 393.9261868,
+      "maxRssBytes": 540512256,
+      "time": 5700,
+      "ticks": 228001
+    },
+    {
+      "id": "pr183-validation-ww-1",
+      "policy": "phase-role-hybrid-v1",
+      "analysisGroup": "supplemental consumed confirmation",
+      "cpuSeconds": 479.641,
+      "wallSeconds": 487.10184030000005,
+      "maxRssBytes": 526999552,
+      "time": 5580,
+      "ticks": 223201
+    }
+  ]
+}

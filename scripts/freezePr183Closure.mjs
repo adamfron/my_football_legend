@@ -1,6 +1,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import console from 'node:console';
+import process from 'node:process';
+import { execFileSync } from 'node:child_process';
 import { digest, pr183SourceHash, pr183HarnessHash } from './pr183ClosureValidationEvidence.mjs';
 import { pr183HarnessHash as developmentHarnessHash } from './pr183ClosureEvidence.mjs';
 const sourceHash = pr183SourceHash(),
@@ -8,8 +10,17 @@ const sourceHash = pr183SourceHash(),
 const path = 'docs/performance/PR183-closure-freeze.json';
 if (existsSync(path)) {
   const frozen = JSON.parse(readFileSync(path));
-  if (frozen.sourceHash !== sourceHash || frozen.harnessHash !== harnessHash)
+  if (frozen.harnessHash !== harnessHash)
     throw Error('Frozen closure source/harness differs; preserve consumed confirmation');
+  if (frozen.sourceHash !== sourceHash) {
+    execFileSync(process.execPath, ['scripts/verifyPr183TypeOnlyBridge.mjs'], { stdio: 'pipe' });
+    const bridge = JSON.parse(readFileSync('docs/performance/PR183-closure-type-only-bridge.json'));
+    if (
+      bridge.simulatedSourceHash !== frozen.sourceHash ||
+      bridge.compilableSourceHash !== sourceHash
+    )
+      throw Error('Invalid type-only bridge');
+  }
   console.log('Closure freeze verified.');
 } else {
   const validation = JSON.parse(

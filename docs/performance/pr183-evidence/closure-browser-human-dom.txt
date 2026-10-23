@@ -1,0 +1,337 @@
+- main:
+  - text: SINGLE MATCH LAB · MECZ
+  - paragraph:
+    - text: "Polityka:"
+    - strong: state-value-v1
+    - text: · fixture-2a343252
+  - heading "Błękitni Port 3–0 Górnik Brzeziny" [level=1]:
+    - text: Błękitni Port
+    - generic: 3–0
+    - text: Górnik Brzeziny
+  - paragraph: 05:43 · Twój wybór
+  - navigation:
+    - text: Powtórz te same składy i seed
+    - combobox "Powtórz z polityką":
+      - option "legacy-pr176"
+      - option "state-value-v1" [selected]
+      - option "role-value-v1"
+      - option "role-intent-v1"
+      - option "phase-role-hybrid-v1"
+    - button "Zamroź role i taktykę do powtórek" [disabled]
+    - button "Eksportuj porównanie polityk JSON"
+    - button "Eksportuj eksperyment ról JSON"
+    - text: Czułość momentów
+    - combobox "Czułość momentów":
+      - option "Najważniejsze moje akcje"
+      - option "Rozszerzone moje akcje"
+      - option "Moje akcje + ważne momenty"
+      - option "Rozszerzone wydarzenia"
+      - option "Oglądaj cały mecz" [selected]
+    - button "Odtwórz"
+    - button "1×"
+    - button "2×"
+    - button "4×"
+    - button "8×"
+    - button "16×"
+    - button "Powtórka"
+    - button "Restart — ten sam seed"
+    - button "Losuj seed"
+    - button "Zmień ustawienia"
+    - button "Powrót do menu"
+  - generic "Role taktyczne i zmiany instrukcji"
+  - option "Zrównoważona" [selected]
+  - option "Wysoki pressing"
+  - option "Niski blok i kontry"
+  - option "Posiadanie"
+  - option "Gra bezpośrednia"
+  - option "Zrównoważona"
+  - option "Wysoki pressing" [selected]
+  - option "Niski blok i kontry"
+  - option "Posiadanie"
+  - option "Gra bezpośrednia"
+  - option "Bramkarz klasyczny" [selected]
+  - option "Bramkarz libero"
+  - option "Bramkarz rozgrywający"
+  - option "Boczny obrońca defensywny"
+  - option "Boczny obrońca ofensywny"
+  - option "Boczny obrońca odwrócony" [selected]
+  - option "Boczny rozgrywający"
+  - option "Stoper" [selected]
+  - option "Obrońca asekurujący"
+  - option "Obrońca rozgrywający"
+  - option "Stoper"
+  - option "Obrońca asekurujący" [selected]
+  - option "Obrońca rozgrywający"
+  - option "Boczny obrońca defensywny"
+  - option "Boczny obrońca ofensywny" [selected]
+  - option "Boczny obrońca odwrócony"
+  - option "Boczny rozgrywający"
+  - option "Kotwica"
+  - option "Odbierający"
+  - option "Cofnięty rozgrywający"
+  - option "Rozgrywający" [selected]
+  - option "Pomocnik od pola do pola"
+  - option "Kontrolujący pomocnik"
+  - option "Mezzala"
+  - option "Cofnięty rozgrywający"
+  - option "Rozgrywający" [selected]
+  - option "Pomocnik od pola do pola"
+  - option "Kontrolujący pomocnik"
+  - option "Mezzala"
+  - option "Cofnięty rozgrywający"
+  - option "Rozgrywający"
+  - option "Pomocnik od pola do pola"
+  - option "Kontrolujący pomocnik"
+  - option "Mezzala"
+  - option "Kreatywna dziesiątka" [selected]
+  - option "Cofnięty napastnik"
+  - option "Pressujący pomocnik"
+  - option "Skrzydłowy klasyczny" [selected]
+  - option "Schodzący napastnik"
+  - option "Skrzydłowy rozgrywający"
+  - option "Skrzydłowy defensywny"
+  - option "Skrzydłowy klasyczny"
+  - option "Schodzący napastnik"
+  - option "Skrzydłowy rozgrywający" [selected]
+  - option "Skrzydłowy defensywny"
+  - option "Napastnik docelowy" [selected]
+  - option "Fałszywa dziewiątka"
+  - option "Wysunięty napastnik"
+  - option "Łowca bramek"
+  - option "Pressujący napastnik"
+  - option "Bramkarz klasyczny"
+  - option "Bramkarz libero" [selected]
+  - option "Bramkarz rozgrywający"
+  - option "Boczny obrońca defensywny" [selected]
+  - option "Boczny obrońca ofensywny"
+  - option "Boczny obrońca odwrócony"
+  - option "Boczny rozgrywający"
+  - option "Stoper" [selected]
+  - option "Obrońca asekurujący"
+  - option "Obrońca rozgrywający"
+  - option "Stoper" [selected]
+  - option "Obrońca asekurujący"
+  - option "Obrońca rozgrywający"
+  - option "Boczny obrońca defensywny"
+  - option "Boczny obrońca ofensywny" [selected]
+  - option "Boczny obrońca odwrócony"
+  - option "Boczny rozgrywający"
+  - option "Cofnięty rozgrywający"
+  - option "Rozgrywający"
+  - option "Pomocnik od pola do pola"
+  - option "Kontrolujący pomocnik"
+  - option "Mezzala" [selected]
+  - option "Cofnięty rozgrywający"
+  - option "Rozgrywający" [selected]
+  - option "Pomocnik od pola do pola"
+  - option "Kontrolujący pomocnik"
+  - option "Mezzala"
+  - option "Skrzydłowy klasyczny"
+  - option "Schodzący napastnik"
+  - option "Skrzydłowy rozgrywający"
+  - option "Skrzydłowy defensywny" [selected]
+  - option "Skrzydłowy klasyczny"
+  - option "Schodzący napastnik" [selected]
+  - option "Skrzydłowy rozgrywający"
+  - option "Skrzydłowy defensywny"
+  - option "Napastnik docelowy"
+  - option "Fałszywa dziewiątka"
+  - option "Wysunięty napastnik"
+  - option "Łowca bramek"
+  - option "Pressujący napastnik" [selected]
+  - option "Napastnik docelowy"
+  - option "Fałszywa dziewiątka"
+  - option "Wysunięty napastnik"
+  - option "Łowca bramek"
+  - option "Pressujący napastnik" [selected]
+  - navigation "Ustawienia kamery":
+    - generic: "Kamera:"
+    - button "Przegląd"
+    - button "Akcja"
+    - button "Zawodnik"
+    - button "Taktyczna z góry"
+    - text: Zoom
+    - slider "Zoom kamery": "0.35"
+    - button "Resetuj widok"
+    - generic: "Kółko: zoom · Środkowy: obrót · Shift + środkowy: przesunięcie"
+    - text: Stadion
+    - combobox "Szczegółowość stadionu":
+      - option "Minimalny"
+      - option "Standardowy" [selected]
+    - text: Modele
+    - combobox "Cieniowanie zawodników":
+      - option "Klasyczne" [selected]
+      - option "Fasetowe (opcjonalne)"
+  - generic "Widok diagnostyczny"
+  - generic "DEV · Diagnostyka, scenariusze i zapis meczu" [active]
+  - paragraph: "OVR XI: Błękitni Port 79.0 · Górnik Brzeziny 72.0 · OVR kadr: 75.8 / 68.5"
+  - generic "DEV · Attribute Micro Lab"
+  - generic "DEV · Reakcja wsparcia na presję"
+  - navigation "Eksport diagnostyczny":
+    - text: Tryb obserwacji
+    - combobox "Tryb obserwacji":
+      - option "release_minimal"
+      - option "normal" [selected]
+      - option "dev"
+      - option "capture"
+    - checkbox "Nagrywaj WebM (DEV)" [disabled]
+    - text: Nagrywaj WebM (DEV)
+    - checkbox "Profiluj podsystemy (DEV)"
+    - text: Profiluj podsystemy (DEV)
+    - button "Eksportuj benchmark sesji"
+    - button "Przechwyć debug ±10 s" [disabled]
+    - button "Zapisz ostatnie 10 s" [disabled]
+    - button "Wyczyść bufor debug"
+    - generic: Włącz tryb capture, aby buforować debug ±10 s
+  - navigation "Scenariusz developerski":
+    - strong: "Sytuacja:"
+    - button "Gra otwarta"
+    - button "Środek"
+    - button "Wykop"
+    - button "Krótkie od BR"
+    - button "Rożny"
+    - button "Aut"
+    - button "Wolny · daleki środek"
+    - button "Wolny · bliski środek"
+    - button "Wolny · skrzydło"
+    - button "Karny"
+  - paragraph:
+    - text: "Prezentacja:"
+    - strong: awaiting_player_decision
+    - text: "· Polityka:"
+    - strong: full_match
+    - text: "· Renderer:"
+    - strong: ready
+    - text: "· Kanoniczny:"
+    - strong: 05:43.425
+    - text: "· Wyświetlany:"
+    - strong: 05:43.425
+    - text: "· Runtime:"
+    - strong: OK
+  - generic "DEV · Wydajność symulacji w tle"
+  - generic "DEV · Dlaczego pokazano lub ukryto decyzję?"
+  - complementary:
+    - group "Cel zagrania":
+      - generic: Cel zagrania
+      - text: Piłkarz, piłka lub bramka
+      - combobox "Cel decyzji piłkarskiej":
+        - option "Wybierz cel…" [selected]
+        - option "Przestrzeń 98, 38 m"
+        - option "Kowalski · kolega"
+        - option "Przestrzeń 95, 34 m"
+        - option "Baran · kolega"
+        - option "Przestrzeń 97, 30 m"
+        - option "Lis · kolega"
+        - option "Przestrzeń 85, 34 m"
+        - option "Dudek · kolega"
+        - option "Przestrzeń 91, 27 m"
+        - option "Przestrzeń 93, 41 m"
+        - option "Przestrzeń 92, 34 m"
+        - option "Pawlak · kolega"
+        - option "Król · kolega"
+        - option "Dudek · kolega"
+        - option "Przestrzeń 84, 30 m"
+        - option "Bramka rywala"
+        - option "Sikora · rywal"
+        - option "Zając · rywal"
+      - text: X [m]
+      - spinbutton "Cel na boisku X": "52.5"
+      - text: Y [m]
+      - spinbutton "Cel na boisku Y": "34"
+      - button "Wskaż punkt"
+    - button "Ocena sytuacji"
+    - region "Centrum meczu":
+      - heading "Centrum meczu" [level=2]
+      - paragraph:
+        - generic "Błękitni Port"
+        - strong: 3–0
+        - generic "Górnik Brzeziny"
+      - paragraph: 05:43 · Pierwsza połowa · pełny przebieg spotkania
+      - heading "Wydarzenia" [level=3]
+      - list "Wydarzenia meczu":
+        - time: 05:34
+        - strong: Faul
+        - generic: Jan Krawczyk (Górnik Brzeziny)
+        - time: 05:07
+        - strong: Faul
+        - generic: Piotr Król (Błękitni Port)
+        - time: 03:59
+        - strong: Gol
+        - generic: Tomasz Baran (Błękitni Port)
+        - generic: 3–0
+        - 'button "Powtórka: Gol, 03:59"': ▶
+        - time: 02:38
+        - strong: Gol
+        - generic: Igor Pawlak (Błękitni Port)
+        - generic: 2–0
+        - 'button "Powtórka: Gol, 02:38"': ▶
+        - time: 00:57
+        - strong: Gol
+        - generic: Tomasz Baran (Błękitni Port)
+        - generic: 1–0
+        - 'button "Powtórka: Gol, 00:57"': ▶
+      - heading "Statystyki" [level=3]
+      - table "Statystyki meczu":
+        - rowgroup:
+          - row "Gospodarze Statystyka Goście":
+            - columnheader "Gospodarze"
+            - columnheader "Statystyka"
+            - columnheader "Goście"
+        - rowgroup:
+          - row "3 Strzały 1":
+            - cell "3"
+            - rowheader "Strzały"
+            - cell "1"
+          - row "3 Celne 0":
+            - cell "3"
+            - rowheader "Celne"
+            - cell "0"
+          - row "65% Posiadanie 35%":
+            - cell "65%"
+            - rowheader "Posiadanie"
+            - cell "35%"
+          - row "60 Podania 36":
+            - cell "60"
+            - rowheader "Podania"
+            - cell "36"
+          - row "52% Celność podań 50%":
+            - cell "52%"
+            - rowheader "Celność podań"
+            - cell "50%"
+      - generic "Wszystkie statystyki"
+    - generic "Zapisane akcje"
+    - 'region "Kondycja: Adam Krawczyk"':
+      - strong: Adam Krawczyk
+      - text: Rezerwa fizyczna
+      - meter "Rezerwa fizyczna"
+      - generic: 76%
+      - text: Gotowość do zrywu
+      - meter "Gotowość do zrywu"
+      - generic: 55%
+      - generic: Krótki zryw zużywa gotowość, która wraca podczas spokojniejszej gry w granicach dostępnej rezerwy.
+    - generic: TWOJA DECYZJA
+    - paragraph: Mecz czeka na Twój wybór. Wskaż cel na boisku, następnie wybierz dostępne zagranie.
+    - region "Przygotowanie wznowienia":
+      - strong: Przygotowanie wznowienia
+      - status: ◉ Sędzia pozwala wznowić
+      - generic: "Wykonawca: Krawczyk"
+      - generic: Piłka na miejscu · Pozycje zgodne z przepisami
+      - generic: Czeka na Twój wybór
+    - region "Wybór wznowienia":
+      - group "Strzał":
+        - generic: Strzał
+        - button "Wskaż miejsce i wysokość strzału"
+    - paragraph:
+      - strong
+      - text: "Presja: 69% · Wznowienie gry"
+    - paragraph:
+      - strong: Twój występ · Krawczyk
+      - text: "Żółty: Twój piłkarz · turkusowy: posiadacz · jasny: dostępny cel"
+      - text: Minuty 6 · Kontakty 14
+      - text: Podania 6/14 · Strzały 0 · Gole 0
+      - text: Otrzymane podania 7
+      - text: Odbiory 2/4 · Przechwyty 1
+      - text: Dystans 0.8 km · Sprinty 0
+    - heading "Błękitni Port przy piłce" [level=2]
+    - generic "DEV · Tempo i pierwszy kontakt"
+    - generic "DEV · Stan i geometria"

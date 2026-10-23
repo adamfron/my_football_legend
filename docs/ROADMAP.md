@@ -1,11 +1,13 @@
 # Roadmap
 
-Aktualny etap: **PR183 — Match Realism Stabilization (draft, blokady akceptacji)**.
-Naprawy okien kontaktu R3, pościgu po własnym kontakcie, cenienia zmian, odbiorów
-i wychodzenia bramkarza mają kontrolowane reprodukcje. 30/30 development i 15/15
-confirmation kończy mecz, ale nowe cofnięcia R3 dochodzą do 44,57 m, a pełne
-`npm run verify` wykrywa zastój luźnej piłki nad zawodnikami. **Nie scalać; canonical
-NOT READY do kalibracji summary.** [Raport PR183](PR183_MATCH_REALISM_STABILIZATION.md).
+Aktualny etap: **PR183 — Match Realism Stabilization (zamknięcie regresji)**.
+Zastój luźnej piłki, siedem zamrożonych długich cofnięć R3 i utrata biegu odbiorcy
+po zmianie podczas wolnego mają rzeczywiste naprawy. 30/30 development, 15/15 nowych
+wariantów potwierdzających i 3/3 dodatkowych regresji kończy mecz. Pełne
+`npm run verify` jest zielone: 2092 testy, lint i build. Scalenie wymaga zielonych
+kontroli ostatniego commita. Zachowawcze cofnięcia do 23,98 m są jawnie zbadane;
+**canonical pozostaje NOT READY do kalibracji summary.**
+[Raport PR183](PR183_MATCH_REALISM_STABILIZATION.md).
 
 Następnie **PR184 — Generational Renewal & World Strength**: zachowane 20–25 sezonów,
 starzenie, emerytury, młodzież, wymiana składów, transfery i długofalowa równowaga;
@@ -108,7 +110,7 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   wspólnych korektach, wybrać politykę lub uzasadnioną hybrydę na podstawie jakości
   futbolu. Pełny benchmark ręczny i automatyczny. Nie uruchamiać ani stroić na
   `pr182-sealed-*` i historycznych `pr180-reserved-*` przed zamrożeniem kandydata PR182.
-- **PR183 — Match Realism Stabilization**. Bieżący draft napraw fizycznych i taktycznych; blokady i wymagane dalsze sprawdzenia w raporcie PR183.
+- **PR183 — Match Realism Stabilization**. Zamknięcie regresji fizycznych i taktycznych; wymagane zielone CI, a ograniczenia kalibracji zachowane w raporcie PR183.
 - **PR184 — Generational Renewal & World Strength**. Zachowany dawny PR176:
   20–25 sezonów rozwoju NPC, suma/średnia OVR kadr i najlepszej XI, jakość pozycji,
   rozkład wieku, akademie i ich absolwenci, integracja/blokowanie młodych przez

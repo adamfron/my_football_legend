@@ -24,6 +24,9 @@ jobs:
     env:
       # Simulation parity tests keep their original time limits on a shared CPU.
       VITEST_MAX_WORKERS: '1'
+      # Canonical fixed-tick fixtures allocate many short-lived state objects.
+      # Give V8 more young-generation space; preserve every test and wall budget.
+      NODE_OPTIONS: '--max-semi-space-size=64'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
