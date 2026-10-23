@@ -32,6 +32,8 @@ import {
 import { projectPlayerDecisionOpportunity } from './playerDecision';
 import { endStoppage } from './stoppageLedger';
 import { resolveMatchAction } from './matchActions';
+import { selectRestartAction } from './restartLifecycle';
+import { distance } from './matchSpace';
 
 const world = createCanonicalWorldDatabase();
 const session = () =>
@@ -88,6 +90,51 @@ const finish = (initial: TacticalMatchState, seconds = 35) => {
 };
 
 describe('PR160 real bench and legal physical substitutions', () => {
+  it.each(['home', 'away'] as const)(
+    'preserves the selected delivery receiver run after a substitution for %s',
+    (side) => {
+      const awarded = awardNaturalRestart(fixture(), 'free_kick_far', {
+        restartTeam: side,
+        restartPoint: { x: side === 'home' ? 48 : 57, y: 28 },
+      });
+      const receiver = awarded.players.find(
+        (player) =>
+          player.team === side && awarded.restart!.roles[player.id]?.key === 'edge_support',
+      )!;
+      const target = { x: side === 'home' ? 85 : 20, y: 34 };
+      const selected = selectRestartAction(
+        awarded,
+        {
+          type: 'cross',
+          actorId: awarded.restart!.takerId,
+          intendedTargetId: receiver.id,
+          target,
+          intent: 'cutback',
+        },
+        'autonomous_npc',
+      );
+      const change = pair(selected, undefined, [receiver.id, selected.restart!.takerId]);
+      const finished = finish(requestSubstitutions(selected, 'home', [change]));
+      expect(finished.substitutionState!.pending).toHaveLength(0);
+      expect(finished.substitutionState!.completed.length).toBeGreaterThan(0);
+      expect(finished.restart!.selectedAction).toEqual(selected.restart!.selectedAction);
+      expect(finished.restart!.awardId).toBe(selected.restart!.awardId);
+      expect(distance(finished.restart!.roles[receiver.id]!.zone.centre, target)).toBeLessThan(
+        0.01,
+      );
+      const award = finished.restart!.awardId;
+      let state = finished;
+      let arrived = false;
+      for (let tick = 0; tick < 2000 && state.restart?.awardId === award; tick++) {
+        arrived ||=
+          distance(state.players.find((p) => p.id === receiver.id)!.position, target) <= 9;
+        state = stepTacticalMatch(state, 0.025);
+      }
+      expect(arrived).toBe(true);
+      expect(state.restart?.awardId).not.toBe(award);
+      tacticalMatchStateSchema.parse(state);
+    },
+  );
   it('names genuine active squad profiles, preserves attributes/condition and excludes XI', () => {
     const match = session();
     for (const side of ['home', 'away'] as const) {

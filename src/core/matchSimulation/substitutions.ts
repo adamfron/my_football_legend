@@ -772,7 +772,10 @@ export const advanceMatchSubstitutions = (
       state.scenario,
       state.restart.restartTeam,
       state.restart.spot ?? state.ball,
-      { takerId: state.restart.takerId },
+      {
+        takerId: state.restart.takerId,
+        selectedAction: state.restart.selectedAction,
+      },
     );
     state = {
       ...state,
