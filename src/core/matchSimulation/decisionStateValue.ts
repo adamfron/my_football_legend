@@ -105,7 +105,9 @@ export const evaluateControlledState = (
       (0.25 + territory * 0.75) *
       (phase === 'rapid_transition' ? 1.6 : 1) +
     roleControlledValue(state, actor, point, elapsed) +
-    (phase === 'build_up' ? 0.008 * Math.min(3, outlets) * space : 0);
+    // The same open outlets near the own goal are not an equally valuable
+    // attacking position. Safe retention remains a separate outcome branch.
+    (phase === 'build_up' ? 0.008 * Math.min(3, outlets) * space * territory : 0);
   return { territory, shotAccess, space, outlets, transition, value };
 };
 
