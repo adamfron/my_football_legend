@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
+  "independentDevelopmentDesigns": 2,
+  "fullDevelopmentDesigns": 1,
+  "freshConfirmationDesigns": 0,
+  "shortSSObserverEquivalent": true,
+  "matches": [
+    {
+      "receipt": "PR186-match-pr185-sw-phase-role-hybrid-v1-full-observed-0.json",
+      "policy": "phase-role-hybrid-v1",
+      "design": "pr185-sw",
+      "full": true,
+      "observed": true,
+      "inputSha256": "3a97323e24e6a65ba29948e5960b617ec17c4bcb316282307152c53f6916e9bd",
+      "finalStateSha256": "16de85216d7e374719fbe0cac1a0e3a764adf2751fa7c1e0d127c56ff5e0d6f1",
+      "matchesPr185Exactly": true,
+      "score": {
+        "home": 9,
+        "away": 0
+      },
+      "passes": 1838,
+      "completedPasses": 1106,
+      "shots": 20,
+      "goals": 9,
+      "saves": 4,
+      "holdMeanSeconds": 1.2232434438367326,
+      "maximumHoldSeconds": 16.72499999975662,
+      "threatFlow": {
+        "progressiveReceptions": 364,
+        "resultingFinalThirdEntries": 35,
+        "resultingBoxEntries": 0,
+        "resultingShots": 20
+      },
+      "counts": {
+        "rankings": 14869,
+        "atCandidateCap": 316,
+        "shotPresent": 1720,
+        "shotSelected": 20,
+        "holdSelected": 454,
+        "shotPresentButOtherSelected": 1700,
+        "reciprocalPasses": 207,
+        "backwardPasses": 532,
+        "longProgressivePasses": 338,
+        "highOpportunitySamples": 11,
+        "highOpportunityContactUnavailable": 8,
+        "controlSamples": 4839
+      },
+      "unusedWindows": [
+        {
+          "at": 699.0499999996381,
+          "endedAt": 699.5749999996376,
+          "maximumExpectation": 0.10664129849362589,
+          "contactUnavailableSamples": 0,
+          "readyAtOpen": true,
+          "shotRejectionsAtOpen": [
+            {
+              "intent": "driven",
+              "reason": "preparation"
+            },
+            {
+              "intent": "placed",
+              "reason": "preparation"
+            },
+            {
+              "intent": "chip",
+              "reason": "preparation"
+            }
+          ]
+        },
+        {
+          "at": 3504.0500000022703,
+          "endedAt": 3506.0500000022776,
+          "maximumExpectation": 0.19895397821124258,
+          "contactUnavailableSamples": 3,
+          "readyAtOpen": true,
+          "shotRejectionsAtOpen": [
+            {
+              "intent": "driven",
+              "reason": "preparation"
+            },
+            {
+              "intent": "placed",
+              "reason": "preparation"
+            },
+            {
+              "intent": "chip",
+              "reason": "preparation"
+            }
+          ]
+        }
+      ],
+      "wallMilliseconds": 262575.7879,
+      "cpuMicroseconds": {
+        "user": 284813000,
+        "system": 1282000
+      },
+      "rssBytes": 590815232
+    },
+    {
+      "receipt": "PR186-match-pr185-sw-state-value-v1-full-observed-0.json",
+      "policy": "state-value-v1",
+      "design": "pr185-sw",
+      "full": true,
+      "observed": true,
+      "inputSha256": "4654333f2b8d9ff04e603e0dbc9fba308af51fb6c1da7e66012f5e87d670bf7d",
+      "finalStateSha256": "efbe24439a12484a870e2617577d5ccb304392f36f7480b11e8295cdf5f2ed46",
+      "matchesPr185Exactly": true,
+      "score": {
+        "home": 10,
+        "away": 2
+      },
+      "passes": 1974,
+      "completedPasses": 1044,
+      "shots": 27,
+      "goals": 8,
+      "saves": 4,
+      "holdMeanSeconds": 1.1034687357309039,
+      "maximumHoldSeconds": 8.77499999999202,
+      "threatFlow": {
+        "progressiveReceptions": 344,
+        "resultingFinalThirdEntries": 28,
+        "resultingBoxEntries": 0,
+        "resultingShots": 27
+      },
+      "counts": {
+        "rankings": 14657,
+        "atCandidateCap": 22,
+        "shotPresent": 1633,
+        "shotSelected": 28,
+        "holdSelected": 516,
+        "shotPresentButOtherSelected": 1605,
+        "reciprocalPasses": 188,
+        "backwardPasses": 450,
+        "longProgressivePasses": 431,
+        "highOpportunitySamples": 6,
+        "highOpportunityContactUnavailable": 5,
+        "controlSamples": 4726
+      },
+      "unusedWindows": [],
+      "wallMilliseconds": 221678.9947,
+      "cpuMicroseconds": {
+        "user": 242000000,
+        "system": 1282000
+      },
+      "rssBytes": 542732288
+    },
+    {
+      "receipt": "PR186-match-pr186-ss-phase-role-hybrid-v1-120-observed-0.json",
+      "policy": "phase-role-hybrid-v1",
+      "design": "pr186-ss",
+      "full": false,
+      "observed": true,
+      "inputSha256": "2b98dedd09e21804d36a79caf3f825444732cd1d455b5dc042ad766310464ae7",
+      "finalStateSha256": "7d5d416b18e9f0654773f27a369689cc8483de06faa05e993c7c89bb7db5085a",
+      "matchesPr185Exactly": null,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "passes": 34,
+      "completedPasses": 24,
+      "shots": 1,
+      "goals": 1,
+      "saves": 0,
+      "holdMeanSeconds": 1.265131578947526,
+      "maximumHoldSeconds": 3.5250000000008015,
+      "threatFlow": {
+        "progressiveReceptions": 9,
+        "resultingFinalThirdEntries": 2,
+        "resultingBoxEntries": 0,
+        "resultingShots": 1
+      },
+      "counts": {
+        "rankings": 311,
+        "atCandidateCap": 6,
+        "shotPresent": 37,
+        "shotSelected": 1,
+        "holdSelected": 3,
+        "shotPresentButOtherSelected": 36,
+        "reciprocalPasses": 1,
+        "backwardPasses": 9,
+        "longProgressivePasses": 12,
+        "highOpportunitySamples": 0,
+        "highOpportunityContactUnavailable": 0,
+        "controlSamples": 96
+      },
+      "unusedWindows": [],
+      "wallMilliseconds": 5484.8252999999995,
+      "cpuMicroseconds": {
+        "user": 7093000,
+        "system": 109000
+      },
+      "rssBytes": 318435328
+    },
+    {
+      "receipt": "PR186-match-pr186-ss-state-value-v1-120-bare-0.json",
+      "policy": "state-value-v1",
+      "design": "pr186-ss",
+      "full": false,
+      "observed": false,
+      "inputSha256": "01447ee65f04955737adaa21fda105e4e9a0fbccced6cb5e678fb22aae933031",
+      "finalStateSha256": "8dc1c356ccb025d514f7b908cf59dde6b80ef4fba09827790daf12ae49cff79c",
+      "matchesPr185Exactly": null,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": null,
+      "completedPasses": null,
+      "shots": null,
+      "goals": null,
+      "saves": null,
+      "holdMeanSeconds": null,
+      "maximumHoldSeconds": null,
+      "threatFlow": null,
+      "counts": {
+        "rankings": 0,
+        "atCandidateCap": 0,
+        "shotPresent": 0,
+        "shotSelected": 0,
+        "holdSelected": 0,
+        "shotPresentButOtherSelected": 0,
+        "reciprocalPasses": 0,
+        "backwardPasses": 0,
+        "longProgressivePasses": 0,
+        "highOpportunitySamples": 0,
+        "highOpportunityContactUnavailable": 0,
+        "controlSamples": 0
+      },
+      "unusedWindows": [],
+      "wallMilliseconds": 4621.6206,
+      "cpuMicroseconds": {
+        "user": 5984000,
+        "system": 250000
+      },
+      "rssBytes": 311414784
+    },
+    {
+      "receipt": "PR186-match-pr186-ss-state-value-v1-120-observed-0.json",
+      "policy": "state-value-v1",
+      "design": "pr186-ss",
+      "full": false,
+      "observed": true,
+      "inputSha256": "01447ee65f04955737adaa21fda105e4e9a0fbccced6cb5e678fb22aae933031",
+      "finalStateSha256": "8dc1c356ccb025d514f7b908cf59dde6b80ef4fba09827790daf12ae49cff79c",
+      "matchesPr185Exactly": null,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": 44,
+      "completedPasses": 31,
+      "shots": 0,
+      "goals": 0,
+      "saves": 0,
+      "holdMeanSeconds": 1.056111111111224,
+      "maximumHoldSeconds": 3.500000000000796,
+      "threatFlow": {
+        "progressiveReceptions": 9,
+        "resultingFinalThirdEntries": 2,
+        "resultingBoxEntries": 0,
+        "resultingShots": 0
+      },
+      "counts": {
+        "rankings": 317,
+        "atCandidateCap": 1,
+        "shotPresent": 28,
+        "shotSelected": 0,
+        "holdSelected": 10,
+        "shotPresentButOtherSelected": 28,
+        "reciprocalPasses": 2,
+        "backwardPasses": 15,
+        "longProgressivePasses": 6,
+        "highOpportunitySamples": 0,
+        "highOpportunityContactUnavailable": 0,
+        "controlSamples": 95
+      },
+      "unusedWindows": [],
+      "wallMilliseconds": 4900.6757,
+      "cpuMicroseconds": {
+        "user": 6109000,
+        "system": 203000
+      },
+      "rssBytes": 320888832
+    }
+  ],
+  "interpretation": "Repeated historical SW and a short new development SS probe. Neither is untouched validation. Rankings/windows are observations, not independent opportunities or causal proof."
+}

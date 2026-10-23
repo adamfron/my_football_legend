@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
+  "codeCommit": "f72ec40bfe1c0a1604836eabaaa7546cb9009d8b",
+  "node": "v24.19.0",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "status": "passed",
+  "stages": {
+    "unit": 2119,
+    "matchIntegration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "lint": "passed",
+    "build": "passed"
+  },
+  "fullRunTestTotal": 2184,
+  "finalResearchFocusedTests": 21,
+  "scopeNote": "The full run started before final research-only apparatus edits. Final research modules were checked by 21 focused tests, lint and TypeScript; existing live engine files are unchanged. CI on the final PR head is the complete exact-head check.",
+  "replay": {
+    "command": "npm run benchmark:pr186:replay",
+    "status": "passed",
+    "deterministicTrials": 2086
+  },
+  "archive": "docs/performance/pr186-traces/verify.log.gz",
+  "archiveSha256": "6dcbee453e0fb8877fec5531d1ec2d8803818c8c33574cef31ffacd2b0638a9b",
+  "environment": {
+    "npm": "11.6.2, pinned local tooling installed via bundled pnpm with install scripts disabled",
+    "initialSandboxFailure": "Vitest EPERM rename before tests; rerun outside sandbox succeeded",
+    "rejectedOldWrapper": "Auto-review rejected cross-workspace npm wrapper; replaced with approved local pinned npm installation"
+  },
+  "ci": {
+    "url": "https://github.com/adamfron/my_football_legend/pull/186/checks",
+    "statusAtReceipt": "pending; use final-head checks"
+  }
+}

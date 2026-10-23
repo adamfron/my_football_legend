@@ -123,8 +123,11 @@ dotarcie lub jego brak i rzeczywisty rezultat podania. Dla system coach i
 prepared, familiarity 0,1→0,9 daje 0,7995→0,2595 s rozpoznania. Wsparcie kontry
 przemieszcza się średnio 6,516→9,140 m; playmaker run 6,516→9,387 m.
 To skutek jawnego modelu opóźnienia i kanonicznego ruchu, nie odkryte empiryczne
-czasy reakcji piłkarzy. Wszystkie cztery podania każdej z tych prostych komórek
-zostały ukończone; taki test nie rozstrzyga jakości wzorca przeciw mocnej obronie.
+czasy reakcji piłkarzy. Wsparcie kontry kończy się czterema ukończonymi podaniami,
+a długie podanie playmakera trzema i jednym wyjściem poza boisko w każdym
+z dwóch pasm. Rzeczywisty długi release ma ponad 30 m; aktywne przygotowanie
+jest wymaganym cue, a wygasłe przygotowanie go nie wyzwala. Ten test nie
+rozstrzyga jakości wzorca przeciw mocnej obronie ani przewagi familiar graczy w konwersji.
 
 Minimalna wiedza eksperymentalna przechowuje wzorzec/signature, rolę, partnera,
 trzy znajomości i liczbę istotnych ekspozycji. Nie jest częścią karty ani save.
@@ -224,6 +227,12 @@ Determination występuje m.in. przy restartach i rozwoju; aggression w willingne
 to challenge; ambition/professionalism mają rzeczywiste odpowiedzialności kariery,
 treningu i transferów (`development.ts`, `npcTransferMarket.ts`, `npcRetirement.ts`).
 Nie dodano im dowolnych nowych funkcji meczowych. Nie zmieniono żadnej karty.
+
+Hidden adaptability ma już zastosowanie w `positionLearning.ts`. Poza generowaniem
+profili i nowym eksperymentem nie znaleziono bezpośrednich odczytów hiddenProfile
+w istniejącym katalogu `matchSimulation`. PressureResistance, consistency i
+importantMatches nie dostają tu arbitralnego wpływu live; brak bezpośredniego
+odczytu w tym katalogu nie jest dowodem zbędności całego pola kariery.
 
 ## 10. Kontakty i bezpieczeństwo
 
