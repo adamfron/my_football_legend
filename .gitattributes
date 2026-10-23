@@ -36,3 +36,14 @@ docs/performance/pr182-evidence/** binary linguist-generated=true
 docs/PR182*.md text eol=lf
 scripts/*Pr182* text eol=lf
 scripts/pr182* text eol=lf
+
+docs/performance/PR184-*.json -diff linguist-generated=true text eol=lf
+docs/performance/pr184-traces/** binary linguist-generated=true
+docs/PR184*.md text eol=lf
+scripts/*Pr184* text eol=lf
+scripts/footballLab*.ts text eol=lf
+scripts/replayFootballSkillTrial.ts text eol=lf
+src/core/matchSimulation/footballLab*.ts text eol=lf
+src/core/matchSimulation/footballPerformanceLab*.ts text eol=lf
+src/core/matchSimulation/canonicalMovement.ts text eol=lf
+docs/performance/pr184-verification/** binary linguist-generated=true

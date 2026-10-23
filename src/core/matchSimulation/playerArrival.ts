@@ -79,10 +79,13 @@ export const estimatePlayerArrivalTime = (
     let position = { ...player.position };
     let velocity = { ...player.velocity };
     let estimatedTime = 0;
-    while (estimatedTime < 10 && distance(position, target) > 0.8) {
+    while (estimatedTime < 10) {
       const dx = target.x - position.x;
       const dy = target.y - position.y;
-      const remaining = Math.max(0.001, Math.hypot(dx, dy));
+      // The stopping check and integration use the same distance. Avoid a second
+      // hypot per micro-step while preserving the exact 0.8 m boundary and tick count.
+      const remaining = Math.hypot(dx, dy);
+      if (!(remaining > 0.8)) break;
       const desired = { x: (dx / remaining) * targetSpeed, y: (dy / remaining) * targetSpeed };
       const change = { x: desired.x - velocity.x, y: desired.y - velocity.y };
       const changeLength = Math.hypot(change.x, change.y);

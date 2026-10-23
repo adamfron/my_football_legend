@@ -1,6 +1,17 @@
 # Roadmap
 
-Aktualny etap: **PR183 — Match Realism Stabilization (zamknięcie regresji)**.
+Aktualny etap: **PR184 — Football Performance Lab Core**. Deterministyczne próby
+ruchu, prowadzenia, podań, przyjęcia i strzałów mierzą fizyczne wykonanie silnika
+kanonicznego, z obiektami treningowymi, macierzą 28 atrybutów i parami seedów.
+[Raport i ograniczenia](PR184_FOOTBALL_PERFORMANCE_LAB.md). Wyniki laboratorium
+nie promują polityki ani nie odblokowują kalibracji summary.
+
+Aktualna kolejność: **PR184 laboratorium → PR185 rozszerzone próby fizyczne →
+PR186 kalibracja atrybutów/wykonania → PR187 walidacja przeniesienia do meczów →
+PR188 generacje/siła świata → PR189 summary/PlayStyles → PR190 career UX →
+PR191+ świat**. Zakres odłożonych zadań zachowany poniżej.
+
+Scalony etap: **PR183 — Match Realism Stabilization (zamknięcie regresji)**.
 Zastój luźnej piłki, siedem zamrożonych długich cofnięć R3 i utrata biegu odbiorcy
 po zmianie podczas wolnego mają rzeczywiste naprawy. 30/30 development, 15/15 nowych
 wariantów potwierdzających i 3/3 dodatkowych regresji kończy mecz. Pełne
@@ -9,11 +20,10 @@ kontroli ostatniego commita. Zachowawcze cofnięcia do 23,98 m są jawnie zbadan
 **canonical pozostaje NOT READY do kalibracji summary.**
 [Raport PR183](PR183_MATCH_REALISM_STABILIZATION.md).
 
-Następnie **PR184 — Generational Renewal & World Strength**: zachowane 20–25 sezonów,
-starzenie, emerytury, młodzież, wymiana składów, transfery i długofalowa równowaga;
-powrót po usunięciu głównych blockerów gameplay. **PR185 — Summary Simulation &
-PlayStyles** wymaga wiarygodnego canonical i nowych nieużytych wejść potwierdzających.
-Dalej **PR186 — Career UX Consolidation → PR187+ — World Expansion**.
+Dawny plan po PR183 zostaje zastąpiony powyższą kolejnością. Generacje zachowują
+20–25 sezonów, starzenie, emerytury, młodzież, wymianę składów, transfery i siłę
+świata w PR188. Kalibracja summary w PR189 nadal wymaga wiarygodnego canonical
+oraz nowych, nieużytych wejść potwierdzających.
 
 Scalony etap: **PR182 — Tactical Intelligence & Independent Policy Validation**.
 Prowizorycznie domyślne B `state-value-v1`, pięć polityk, obserwacja rywala, role,
@@ -72,7 +82,7 @@ Poprzednie scalone etapy pozostają ważne:
 [PR175 — independent reality validation](PR175_MATCH_REALITY_VALIDATION.md).
 Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
 
-## Autorytatywna kolejność PR176–PR187+
+## Autorytatywna kolejność PR176–PR191+
 
 - **PR176 — Match Engine Mathematical Audit & Reform Blueprint**. Scalony audyt:
   pełne mathematical/action pipeline, correlated risk, candidate gates, pass flight,
@@ -111,27 +121,43 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   futbolu. Pełny benchmark ręczny i automatyczny. Nie uruchamiać ani stroić na
   `pr182-sealed-*` i historycznych `pr180-reserved-*` przed zamrożeniem kandydata PR182.
 - **PR183 — Match Realism Stabilization**. Zamknięcie regresji fizycznych i taktycznych; wymagane zielone CI, a ograniczenia kalibracji zachowane w raporcie PR183.
-- **PR184 — Generational Renewal & World Strength**. Zachowany dawny PR176:
+- **PR184 — Football Performance Lab Core**. Rzeczywiste deterministyczne próby
+  kanonicznego ruchu, hamowania/nawrotów, slalomu, podań, odbicia/przyjęcia i strzałów.
+  Obiekty treningowe i wyrzutnia, tryby prescribed/autonomous/manual, jawne porażki,
+  macierz 28 atrybutów, kontrolowana czułość, prognozy kontra pomiary, źródła naukowe
+  i headless JSON/replay. Bez strojenia całego meczu lub zmiany schematu atrybutów.
+- **PR185 — Extended Physical Testing**. Powtarzane sprinty, zmęczenie/odnowa,
+  skoki z miejsca i rozbiegu, rzeczywisty zasięg główki, reakcja/przechwyt bramkarza,
+  ruchome górne dostawy, osłona piłki, manekiny odbioru, pojedynki defensywne,
+  kontakt/równowaga oraz zależności ciała i biegłości stóp.
+- **PR186 — Attribute & Execution Calibration**. Kalibracja na zmierzonych
+  zależnościach, zgodność prognoz decyzji z wykonaniem, kontrola skal/interakcji,
+  ocena zmian lub podziału przeciążonych atrybutów. Nie rozstrzygać redundancji
+  na podstawie pojedynczego ćwiczenia albo niewłaściwego kontekstu.
+- **PR187 — Match Transfer Validation**. Nowe pełne mecze i wszystkie polityki
+  na poprawionych zdolnościach fizycznych; sprawdzić przeniesienie wniosków z prób
+  izolowanych. Kalibracja summary pozostaje zablokowana do wiarygodnej walidacji.
+- **PR188 — Generational Renewal & World Strength**. Zachowany dawny PR176:
   20–25 sezonów rozwoju NPC, suma/średnia OVR kadr i najlepszej XI, jakość pozycji,
   rozkład wieku, akademie i ich absolwenci, integracja/blokowanie młodych przez
   dobrych weteranów, aging, retirement, uzupełnienia, trajektorie talentu i pułapy,
   transfery między silnymi/słabymi klubami oraz długofalowa jakość świata.
   Powtórzyć pomiary po istotnej rozbudowie bazy.
-- **PR185 — Summary Simulation & PlayStyles**. Zachowany dawny PR177:
+- **PR189 — Summary Simulation & PlayStyles**. Zachowany dawny PR177:
   kalibrować lightweight simulation dopiero przeciw właściwie zweryfikowanemu
   canonical; gole/asysty DM/CM i innych pozycji. Rozwijać ludzkie PlayStyles na
   podstawie właściwie udokumentowanych summary matches, zachowując źródło danych,
   wieloletnie wymagania i progi. Udział/zmiany: starter/substitute, entry/exit,
   realne ID zastępowanego/zastępującego i tylko rzeczywiście modelowany powód.
   Nie wnioskować słabej gry z oceny/minut. Tożsamości/minuty/exactly-once zostają.
-- **PR186 — Career UX Consolidation**. Zachowany dawny PR178: zwarte fixture rows,
+- **PR190 — Career UX Consolidation**. Zachowany dawny PR178: zwarte fixture rows,
   zbiorcze sezonowe archive bez dublowania historii; calendar zgodny z career.currentDate,
   rzeczywistymi terminami meczów, zapisanym treningiem, urazami/niedostępnością i życiem.
   Odróżniać saved facts od presentation recurrence; nie wymyślać treningów w pustych dniach.
   Normalny strzał: **klik miejsca w bramce → kontekstowe menu techniki → wybór
   techniki wykonuje strzał**. Usunąć dodatkowe obowiązkowe potwierdzenie i redundantne
   suwaki; zachować keyboard accessibility i accurate substitution records.
-- **PR187+ — World Expansion**. Zachowany dawny PR179+: więcej lig/klubów, puchary,
+- **PR191+ — World Expansion**. Zachowany dawny PR179+: więcej lig/klubów, puchary,
   reprezentacje, transfery, ekonomia i dalsze systemy futbolu.
 
 Wyłącznie całkowite numery PR. Kolejność powyżej zastępuje dawne przypisania.

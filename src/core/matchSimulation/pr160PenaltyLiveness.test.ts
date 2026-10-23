@@ -50,8 +50,11 @@ const nativePenaltyHalf = (initial: TacticalMatchState, budget: number) =>
       stderr += chunk.toString();
     });
     child.on('error', reject);
-    child.on('close', (code) => {
-      if (code !== 0) return reject(new Error(`Native penalty half failed (${code}): ${stderr}`));
+    child.on('close', (code, signal) => {
+      if (code !== 0)
+        return reject(
+          new Error(`Native penalty half failed (exit=${code}, signal=${signal}): ${stderr}`),
+        );
       try {
         resolve(penaltyHalfReceiptSchema.parse(deserialize(Buffer.concat(chunks))));
       } catch (error) {

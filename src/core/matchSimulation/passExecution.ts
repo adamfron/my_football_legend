@@ -55,7 +55,7 @@ export const derivePassDifficulty = (
   target: PitchPoint,
   intent: PassLaunchIntent,
   delivery: PassDelivery,
-  options: { firstTime?: boolean; receiverSpeed?: number } = {},
+  options: { firstTime?: boolean; receiverSpeed?: number; foot?: 'left' | 'right' } = {},
 ): PassDifficultyProfile => {
   const a = passer.profile.attributes;
   const distribution =
@@ -79,7 +79,11 @@ export const derivePassDifficulty = (
   );
   const pressure = Math.max(0, 1 - nearest / 14);
   const lateral = dx * Math.cos(passer.facingAngle) - dy * Math.sin(passer.facingAngle);
-  const weaker = passer.profile.dominantFoot === 'right' ? lateral < -1 : lateral > 1;
+  const weaker = options.foot
+    ? options.foot !== passer.profile.dominantFoot
+    : passer.profile.dominantFoot === 'right'
+      ? lateral < -1
+      : lateral > 1;
   const touch = options.firstTime
     ? assessFirstTouch(state, passer, state.ball, target, 'pass')
     : undefined;
@@ -119,7 +123,12 @@ export const interpretPassExecution = (
   target: PitchPoint,
   intent: PassLaunchIntent,
   delivery: PassDelivery,
-  options: { firstTime?: boolean; spatial?: boolean; receiverSpeed?: number } = {},
+  options: {
+    firstTime?: boolean;
+    spatial?: boolean;
+    receiverSpeed?: number;
+    foot?: 'left' | 'right';
+  } = {},
 ): PassExecution => {
   const a = passer.profile.attributes;
   const metres = distance(passer.position, target);
@@ -134,7 +143,11 @@ export const interpretPassExecution = (
   const pressure = Math.max(0, 1 - nearestOpponent / 14);
   const lateral =
     direction.x * Math.cos(passer.facingAngle) - direction.y * Math.sin(passer.facingAngle);
-  const weakerSide = passer.profile.dominantFoot === 'right' ? lateral < -1 : lateral > 1;
+  const weakerSide = options.foot
+    ? options.foot !== passer.profile.dominantFoot
+    : passer.profile.dominantFoot === 'right'
+      ? lateral < -1
+      : lateral > 1;
   let type: PassExecutionType =
     delivery === 'lofted'
       ? intent === 'through' || intent === 'lead'
@@ -154,9 +167,11 @@ export const interpretPassExecution = (
   if (options.firstTime) type = 'first_time';
   else if (delivery === 'ground' && facingError > 2.2 && metres < 12)
     type = a.technique >= 70 && a.passing >= 55 && pressure > 0.25 ? 'backheel' : 'turning_pass';
-  else if (delivery === 'ground' && weakerSide && facingError > 0.65)
+  else if (delivery === 'ground' && weakerSide && (options.foot || facingError > 0.65))
     type =
-      a.technique >= 78 && passer.profile.weakFootProficiency < 65 ? 'outside_foot' : 'weak_foot';
+      !options.foot && a.technique >= 78 && passer.profile.weakFootProficiency < 65
+        ? 'outside_foot'
+        : 'weak_foot';
   const incomingSpeed = Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0);
   const incomingHeight = state.ball.height ?? 0;
   const profile = derivePassDifficulty(state, passer, target, intent, delivery, options);

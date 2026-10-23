@@ -435,6 +435,7 @@ export const advanceControlledBall = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
   dt: number,
+  requiredFoot?: 'left' | 'right',
 ): { state: TacticalMatchState; looseVelocity?: { x: number; y: number } } => {
   if (
     state.ball.ownerId !== actor.id ||
@@ -480,9 +481,11 @@ export const advanceControlledBall = (
     telemetry.planRevisions++;
   }
   const geometry = playerContactGeometry(actor);
-  const reachable =
-    Math.min(distance(geometry.leftFoot, state.ball), distance(geometry.rightFoot, state.ball)) <=
-    geometry.footReach;
+  const reachable = requiredFoot
+    ? distance(geometry[requiredFoot === 'left' ? 'leftFoot' : 'rightFoot'], state.ball) <=
+      geometry.footReach
+    : Math.min(distance(geometry.leftFoot, state.ball), distance(geometry.rightFoot, state.ball)) <=
+      geometry.footReach;
   let velocity = {
     x: state.ball.velocity?.x ?? actor.velocity.x,
     y: state.ball.velocity?.y ?? actor.velocity.y,
@@ -531,8 +534,9 @@ export const advanceControlledBall = (
     contactFact = {
       actorId: actor.id,
       at: state.time,
-      region:
-        distance(geometry.leftFoot, state.ball) < distance(geometry.rightFoot, state.ball)
+      region: requiredFoot
+        ? `${requiredFoot}_foot`
+        : distance(geometry.leftFoot, state.ball) < distance(geometry.rightFoot, state.ball)
           ? 'left_foot'
           : 'right_foot',
       intendedRegion: active.nextContact.region,

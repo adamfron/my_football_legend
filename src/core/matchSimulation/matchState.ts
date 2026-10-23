@@ -167,6 +167,8 @@ export const matchActionSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('space_pass'), actorId: z.string(), target: pitchPointSchema }),
   z.object({
     type: z.literal('pass'),
+    /** Optional explicit execution foot; absent retains canonical inferred choice. */
+    foot: z.enum(['left', 'right']).optional(),
     receiverPositionAtSelection: pitchPointSchema.optional(),
     actorId: z.string(),
     receiverId: z.string(),

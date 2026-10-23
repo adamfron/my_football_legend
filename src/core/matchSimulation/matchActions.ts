@@ -16,7 +16,7 @@ import { isHumanControlled, isShotAction, requiresHumanRestart } from './actionA
 import { enumerateFirstTimePasses, canExecuteFirstTimePass } from './firstTimePassing';
 import { beginDefensiveChallenge, enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { emitCanonicalActionEvents } from './actionEvents';
-import { reconcileControlledBallContact } from './ballContactGeometry';
+import { reconcileControlledBallContact, playerContactGeometry } from './ballContactGeometry';
 import {
   deriveBuildUpReliefWeight,
   deriveSolutionPenalty,
@@ -1048,6 +1048,13 @@ const resolveMatchActionCanonical = (
   if (!hasActiveMatchActionParticipants(state, action)) return state;
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor) return state;
+  if (action.type === 'pass' && action.foot) {
+    const feet = playerContactGeometry(actor);
+    if (
+      distance(feet[action.foot === 'left' ? 'leftFoot' : 'rightFoot'], state.ball) > feet.footReach
+    )
+      return state;
+  }
   // A settled possession is no longer an incoming first touch. Its next pass must carry
   // ordinary preparation/execution identity, including explicitly constructed DEV requests.
   if (action.type === 'pass' && action.firstTime && state.ball.ownerId === actor.id) return state;
@@ -1485,6 +1492,7 @@ const resolveMatchActionCanonical = (
     action.delivery ?? 'ground',
     {
       firstTime: Boolean(action.firstTime),
+      ...(action.foot ? { foot: action.foot } : {}),
       spatial: Boolean(action.requestedSpace) || action.intent === 'through',
       receiverSpeed: Math.hypot(receiver.velocity.x, receiver.velocity.y),
     },

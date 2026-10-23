@@ -65,3 +65,8 @@ export * from './substitutions';
 export * from './injuryStoppage';
 export * from './matchTimekeeping';
 export * from './restartLiveness';
+
+export * from './footballPerformanceLab';
+export * from './footballLabCatalog';
+export * from './footballLabObjects';
+export * from './footballLabAnalysis';
