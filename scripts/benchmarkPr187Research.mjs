@@ -426,8 +426,8 @@ const payload = {
   shootingSummary,
   missedWindows,
 };
-const archive = 'docs/performance/pr187-traces/research-final.json.gz',
-  receiptPath = 'docs/performance/PR187-research-final.json';
+const archive = 'docs/performance/pr187-traces/research-cycle5.json.gz',
+  receiptPath = 'docs/performance/PR187-research-cycle5.json';
 mkdirSync('docs/performance/pr187-traces', { recursive: true });
 if (replay) {
   const saved = JSON.parse(readFileSync(receiptPath));

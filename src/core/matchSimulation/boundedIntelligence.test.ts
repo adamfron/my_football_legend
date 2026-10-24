@@ -15,6 +15,8 @@ import {
   advanceBoundedPatterns,
   boundedPatternTarget,
   inspectBoundedAction,
+  advanceBoundedOwnerDecision,
+  boundedDecisionSignature,
   withBoundedObserver,
 } from './boundedIntelligence';
 import { stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
@@ -201,6 +203,29 @@ describe('bounded decision boundary and distinct mechanisms', () => {
 });
 
 describe('canonical integration, familiarity and compatibility', () => {
+  it('reconsiders observed events sooner than quiet holds, with player-specific recognition', () => {
+    const f = fixture(),
+      a = f.state.players.find((p) => p.id === f.sourceId)!;
+    a.profile = structuredClone(a.profile);
+    a.profile.attributes.gameReading = 100;
+    a.profile.attributes.concentration = 100;
+    f.state.boundedRuntime = boundedRuntimeSchema.parse({
+      lastActorId: a.id,
+      lastDecisionAt: 9.8,
+      lastAction: 'hold',
+    });
+    f.state.boundedRuntime.decisionSignature = boundedDecisionSignature(
+      observeBoundedScene(f.state, a),
+    );
+    expect(advanceBoundedOwnerDecision(f.state, a).state).toBe(f.state);
+    f.state.boundedRuntime.decisionSignature = 'new_observed_event';
+    expect(advanceBoundedOwnerDecision(f.state, a).state.boundedRuntime!.lastDecisionAt).toBe(10);
+    const slow = structuredClone(f.state),
+      p = slow.players.find((p) => p.id === a.id)!;
+    p.profile.attributes.gameReading = 20;
+    p.profile.attributes.concentration = 20;
+    expect(advanceBoundedOwnerDecision(slow, p).state).toBe(slow);
+  });
   it('deduplicates clipped carry destinations at the touchline without losing the decision', () => {
     const s = scene();
     s.position = { x: 104, y: 68 };

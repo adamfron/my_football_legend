@@ -63,6 +63,8 @@ export const boundedRuntimeSchema = z.object({
   lastPatternScanAt: z.number().default(-1),
   lastActorId: z.string().default(''),
   lastDecisionAt: z.number().default(-1),
+  decisionSignature: z.string().default(''),
+  lastAction: z.enum(['hold', 'carry', 'pass', 'shot', 'none']).default('none'),
   sightings: z
     .record(
       z.string(),

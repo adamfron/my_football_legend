@@ -6,7 +6,7 @@ import {
   boundedRuntimeSchema,
   usesBoundedIntelligence,
 } from './boundedIntelligenceState';
-import { boundedSceneSchema, observeBoundedScene } from './boundedPerception';
+import { boundedSceneSchema, observeBoundedScene, type BoundedScene } from './boundedPerception';
 import {
   constructBoundedCandidates,
   runBoundedPolicy,
@@ -64,22 +64,70 @@ export const inspectBoundedAction = (state: TacticalMatchState, actor: MatchPlay
   };
 };
 /** Scheduler state is explicit and serialisable; diagnostic inspection remains pure. */
+export const boundedDecisionSignature = (s: BoundedScene) =>
+  JSON.stringify([
+    s.signature,
+    s.ball?.ownerId,
+    s.contactReady,
+    Math.round((s.ball?.height ?? 0) * 2),
+    s.scoreDifference,
+    Math.round(
+      Math.min(
+        36,
+        ...s.visible.filter((p) => p.team !== s.team).map((p) => distance(p.position, s.position)),
+      ) * 2,
+    ),
+    s.visible.map((p) => [
+      p.id,
+      Math.round(p.position.x / 3),
+      Math.round(p.position.y / 3),
+      Math.round(p.velocity.x / 2),
+      Math.round(p.velocity.y / 2),
+    ]),
+  ]);
 export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: MatchPlayerState) => {
   const runtime = boundedRuntimeSchema.parse(state.boundedRuntime ?? {});
-  if (runtime.lastActorId === actor.id && state.time - runtime.lastDecisionAt < 0.2 - 1e-8)
-    return { state, action: undefined };
   const perception =
     0.3 -
     ((actor.profile.attributes.gameReading + actor.profile.attributes.concentration) / 200) * 0.18;
   if (state.time < (state.ballOwnershipStartedAt ?? state.time) + perception)
     return { state, action: undefined };
-  const result = inspectBoundedAction(state, actor);
+  const scene = observeBoundedScene(state, actor),
+    signature = boundedDecisionSignature(scene);
+  // Reconsider meaningful bounded evidence sooner than unchanged geometry.
+  // Quiet review depends on the player's perception/fatigue and the OWN previous
+  // action. Preparation and actual feet remain authoritative, with no universal
+  // decision timer and no full-state signature borrowed from the old policies.
+  const quietReview =
+    runtime.lastAction === 'hold'
+      ? perception * (2 + scene.fatigue)
+      : runtime.lastAction === 'carry'
+        ? perception * (1.4 + scene.fatigue)
+        : Math.max(perception, scene.readyAt - scene.at);
+  if (
+    runtime.lastActorId === actor.id &&
+    state.time - runtime.lastDecisionAt <
+      (signature !== runtime.decisionSignature ? perception : quietReview) - 1e-8
+  )
+    return { state, action: undefined };
+  const candidates = constructBoundedCandidates(scene);
+  const decision = runBoundedPolicy(boundedPolicySchema.parse(state.decisionPolicy), {
+    scene,
+    candidates,
+  });
+  const result = {
+    scene,
+    decision,
+    action: candidates.find((c) => c.id === decision.selectedCandidateId)?.action,
+  };
   const next = {
     ...state,
     boundedRuntime: {
       ...runtime,
       lastActorId: actor.id,
       lastDecisionAt: state.time,
+      decisionSignature: signature,
+      lastAction: boundedRuntimeSchema.shape.lastAction.parse(result.action?.type ?? 'none'),
       intent: intentFromDecision(result.scene, result.decision),
     },
   };
