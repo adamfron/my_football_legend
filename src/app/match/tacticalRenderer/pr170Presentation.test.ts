@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { createCanonicalWorldDatabase } from '../../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../../core/singleMatch';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   FIXED_MATCH_DT,
   stepTacticalMatchAfterDecisionProbe,
 } from '../../../core/matchSimulation/matchSimulation';

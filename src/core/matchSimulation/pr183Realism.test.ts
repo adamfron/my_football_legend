@@ -4,7 +4,7 @@ import { gunzipSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
 import { createMatchFitness } from './matchFitness';
 import { awardNaturalRestart } from './restartScenarios';
 import {

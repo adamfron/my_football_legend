@@ -7,7 +7,7 @@ import {
   applyThrowInContact,
   canContactAfterThrowIn,
   chooseRestartAction,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   deriveHumanLeadPass,
   deriveLeadPass,
   distance,

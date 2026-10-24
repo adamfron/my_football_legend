@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
 import { PRIMARY_DECISION_POLICIES } from './decisionPolicyConfig';
-import { createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
 import { captureMatchTactics, fixtureIdentity, RoleExperimentRecorder } from './roleExperiment';
 import { changeTacticalRole } from './tacticalRoles';
 import { createMatchFlowTelemetry, observeMatchFlow } from './matchFlowTelemetry';

@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from './matchSimulation';
 import { projectLiveReceptionTarget } from './passReception';
 import { projectReceiverReadiness } from './receiverReadiness';
 import { BALL_RADIUS } from './ballFlight';

@@ -7,7 +7,7 @@ import {
 } from '../src/core/matchSimulation/defensiveChallenges';
 import { chooseNpcAction } from '../src/core/matchSimulation/matchActions';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   stepTacticalMatchAfterDecisionProbe,
 } from '../src/core/matchSimulation/matchSimulation';
 import type { TacticalMatchState } from '../src/core/matchSimulation/matchState';

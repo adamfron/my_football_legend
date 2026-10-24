@@ -6,7 +6,7 @@ import { PlayerAgencyTracker } from '../../core/matchSimulation/playerAgency';
 import { createSessionTelemetryReport, sessionTelemetryReportSchema } from './matchBenchmarkReport';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../core/singleMatch';
-import { createTacticalMatch } from '../../core/matchSimulation/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from '../../core/matchSimulation/matchSimulation';
 import { CanonicalParticipationTracker } from '../../core/matchSimulation/canonicalMatchSanity';
 
 const fixture = () => {

@@ -7,7 +7,7 @@ import {
   advancePresentationClock,
   applyRestartScenario,
   createPresentationClock,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   enumerateRestartActions,
   projectMatchMoment,
   projectPlayerDecisionOpportunity,

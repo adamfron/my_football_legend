@@ -12,7 +12,7 @@ import {
   FIXED_MATCH_DT,
   calculateOffsideLine,
   constrainTargetOnside,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   deriveNeutralFormationAnchor,
   derivePressingAssignment,
   deriveDefensiveWall,

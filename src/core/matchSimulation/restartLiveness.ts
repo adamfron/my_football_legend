@@ -84,6 +84,7 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
   const restart = state.restart;
   const humanPending =
     !restart.selectedAction &&
+    restart.humanPreparation !== 'waiting_team' &&
     state.scenario !== 'throw_in' &&
     isHumanControlled(state, restart.takerId) &&
     deriveRestartLegalReadiness(state).ready;

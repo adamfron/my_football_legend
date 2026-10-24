@@ -7,7 +7,7 @@ import { sampleReplayFrame } from './replay';
 import { tacticalFrameSchema, type TacticalFrame } from './model';
 import { createCanonicalWorldDatabase } from '../../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../../core/singleMatch';
-import { createTacticalMatch } from '../../../core/matchSimulation/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from '../../../core/matchSimulation/matchSimulation';
 import { applyChallengeInfringement } from '../../../core/matchSimulation/matchRules';
 import { emitCanonicalActionEvents } from '../../../core/matchSimulation/actionEvents';
 import {

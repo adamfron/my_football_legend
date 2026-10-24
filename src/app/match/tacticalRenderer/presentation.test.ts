@@ -15,7 +15,7 @@ import { projectMatchKits, kitColorDistance } from './kits';
 import { createCanonicalWorldDatabase } from '../../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../../core/singleMatch';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   resolveCanonicalShot,
   stepTacticalMatch,
   FIXED_MATCH_DT,

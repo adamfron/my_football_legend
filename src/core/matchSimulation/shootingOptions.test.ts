@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch, FIXED_MATCH_DT, stepTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, FIXED_MATCH_DT, stepTacticalMatch } from './matchSimulation';
 import {
   canExecuteCanonicalShot,
   deriveShotExecutionProfile,

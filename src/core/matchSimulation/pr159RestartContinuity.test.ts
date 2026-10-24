@@ -4,7 +4,7 @@ import { RandomGenerator } from '../random/RandomGenerator';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   FIXED_MATCH_DT,
   startSecondHalf,
   stepTacticalMatchAfterDecisionProbe,

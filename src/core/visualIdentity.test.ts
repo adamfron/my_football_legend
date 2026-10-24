@@ -16,7 +16,7 @@ import { createCareerMatchInput, startCareerMatch } from './careerMatchContract'
 import { hydrateCareerWithWorld, parseCareerSave, serializeCareerSave } from './persistence';
 import { createSingleMatchSession } from './singleMatch';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   FIXED_MATCH_DT,
   stepTacticalMatch,
 } from './matchSimulation/matchSimulation';

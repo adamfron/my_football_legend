@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createOffensiveScenario } from './pr163Fixtures';
-import { createTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from './matchSimulation';
 import type { MatchAction } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { deriveOnBallPreparation } from './onBallPreparation';

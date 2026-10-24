@@ -6,7 +6,7 @@ import {
   aerialAbility,
   applyRestartScenario,
   chooseRestartAction,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   goalkeeperIntervention,
   matchActionSchema,
   resolveAerialDuel,

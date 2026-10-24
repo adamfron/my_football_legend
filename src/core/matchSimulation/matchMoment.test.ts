@@ -3,7 +3,7 @@ import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWo
 import { createSingleMatchSession } from '../singleMatch';
 import {
   MATCH_PRESENTATION_POLICIES,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   projectMatchMoment,
   shouldSurfaceMatchMoment,
   projectPlayerAgency,

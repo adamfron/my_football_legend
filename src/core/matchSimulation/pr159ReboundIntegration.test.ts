@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
 import { integrateBallFlight } from './ballPhysics';
 import { BALL_RADIUS, GOAL_CENTRE_Y, GOAL_WIDTH } from './ballFlight';
 import { shotDiagnosticSchema, type TacticalMatchState } from './matchState';

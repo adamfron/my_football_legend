@@ -1,4 +1,8 @@
 import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
+import {
+  requestHumanFreeKickPreparation,
+  chooseCurrentFreeKickPositions,
+} from '../../core/matchSimulation/restartLifecycle';
 import { FirstTouchDiagnostics } from './FirstTouchDiagnostics';
 import { TACTICAL_PREFERENCE_DEFAULTS } from '../../core/matchSimulation/tacticalPreferences';
 import {
@@ -1563,7 +1567,7 @@ export const RunningLab = ({
         free_kick_controlled_curl: 'Podkręcony strzał techniczny',
         free_kick_dipping: 'Strzał opadający',
         free_kick_under_wall: 'Nisko pod murem',
-        free_kick_wall_gap: 'Przez lukę w murze',
+        free_kick_wall_gap: 'Spróbuj wykorzystać widoczną lukę',
         free_kick_wall_power: 'Z całej siły w mur',
         hold_ball: 'Osłoń / utrzymaj piłkę',
         carry_here: 'Prowadź tutaj',
@@ -3044,6 +3048,60 @@ export const RunningLab = ({
               aria-live="polite"
             >
               <strong>Przygotowanie wznowienia</strong>
+              {opportunity?.kind === 'restart' &&
+                state.scenario.startsWith('free_kick') &&
+                state.restart.ceremonial === false && (
+                  <span role="status">Możliwe szybkie wznowienie</span>
+                )}
+              {state.controlledFootballerId === state.restart.takerId &&
+                state.playerAgencyEnabled !== false &&
+                state.scenario.startsWith('free_kick') &&
+                !state.restart.humanPreparation && (
+                  <button
+                    onClick={() => {
+                      const next = requestHumanFreeKickPreparation(state);
+                      if (opportunity) closeOpportunity(next, 'player', 'prepare_team');
+                      else if (next !== state) {
+                        publishState(next);
+                        setDecisionBoundary(undefined);
+                        setSelectedTarget(undefined);
+                        setShotAim(undefined);
+                      }
+                    }}
+                  >
+                    Poczekaj na ustawienie drużyny
+                  </button>
+                )}
+              {state.restart.humanPreparation === 'waiting_team' && (
+                <span role="status">
+                  Drużyna zajmuje pozycje · Gotowych:{' '}
+                  {
+                    state.players.filter(
+                      (p) =>
+                        p.team === state.restart!.restartTeam &&
+                        Math.hypot(p.position.x - p.target.x, p.position.y - p.target.y) <= 2 &&
+                        Math.hypot(p.velocity.x, p.velocity.y) <= 0.8,
+                    ).length
+                  }
+                  /{state.players.filter((p) => p.team === state.restart!.restartTeam).length}
+                </span>
+              )}
+              {state.restart.humanPreparation === 'waiting_team' &&
+                state.restart.readiness?.legalReady && (
+                  <button
+                    onClick={() => {
+                      const next = chooseCurrentFreeKickPositions(state);
+                      if (next !== state) {
+                        publishState(next);
+                        setDecisionBoundary(undefined);
+                        setSelectedTarget(undefined);
+                        setShotAim(undefined);
+                      }
+                    }}
+                  >
+                    Zagraj z obecnego ustawienia
+                  </button>
+                )}
               {state.restart.authorisedAt !== undefined && (
                 <span role="status">◉ Sędzia pozwala wznowić</span>
               )}

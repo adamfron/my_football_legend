@@ -4,6 +4,7 @@ import { recordPossessionLoss, restartAwardId, type RestartAward } from './posse
 import { legalRestartPosition, deriveRestartLegalReadiness } from './restartLaws';
 import { beginStoppage, restartStoppageReason } from './stoppageLedger';
 import { ensureMatchGoalkeepers } from './matchGoalkeeper';
+import { isHumanControlled } from './actionAgency';
 
 export interface RestartScenarioOptions {
   restartTeam: 'home' | 'away';
@@ -77,6 +78,11 @@ const buildRestart = (
       )
     : options.restartPoint;
   const geometry = deriveRestartGeometry(input, scenario, restartTeam, spot);
+  const humanFreeKick =
+    scenario.startsWith('free_kick') && isHumanControlled(input, geometry.taker.id);
+  const disciplinaryPause = Boolean(
+    input.pendingCards?.some((foul) => foul.card !== 'none') || input.injuryAssessment,
+  );
   const setPiece =
     scenario === 'corner' || scenario.startsWith('free_kick') || scenario === 'penalty';
   const {
@@ -144,11 +150,13 @@ const buildRestart = (
       spot: { ...(spot ?? geometry.ball) },
       ...(options.indirect ? { indirect: true } : {}),
       ceremonial:
-        options.ceremonial ??
-        (scenario === 'penalty' ||
-          scenario === 'kick_off' ||
-          (scenario.startsWith('free_kick') &&
-            Object.values(geometry.roles).some((role) => role.key === 'wall'))),
+        (humanFreeKick && disciplinaryPause) ||
+        (options.ceremonial ??
+          (scenario === 'penalty' ||
+            scenario === 'kick_off' ||
+            (scenario.startsWith('free_kick') &&
+              !humanFreeKick &&
+              Object.values(geometry.roles).some((role) => role.key === 'wall')))),
       restartTeam,
       startedAt: input.time,
       takerId: geometry.taker.id,

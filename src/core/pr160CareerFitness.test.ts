@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../scripts/createCanonicalWorldDatabase';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
-import { createTacticalMatch } from './matchSimulation/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from './matchSimulation/matchSimulation';
 import { createSingleMatchSession } from './singleMatch';
 import { createMatchFitness } from './matchSimulation/matchFitness';
 import { careerStateSchema } from '../schemas/domainSchemas';

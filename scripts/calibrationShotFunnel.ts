@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { createCanonicalWorldDatabase } from './createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../src/core/singleMatch';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   resolveMatchAction,
   stepTacticalMatch,
 } from '../src/core/matchSimulation/index';

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch, estimatePlayerArrivalTime } from '.';
+import { createOpenPlayMatchFixture as createTacticalMatch, estimatePlayerArrivalTime } from '.';
 
 const fixture = () => {
   const world = createCanonicalWorldDatabase();

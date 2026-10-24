@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
 import { isEligibleForNormalPosition } from '../footballerWorld';
-import { createTacticalMatch, stepTacticalMatch, startSecondHalf } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, stepTacticalMatch, startSecondHalf } from './matchSimulation';
 import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
 import { awardNaturalRestart } from './restartScenarios';
 import { enforceMinimumPlayers, advanceMatchRules } from './matchRules';

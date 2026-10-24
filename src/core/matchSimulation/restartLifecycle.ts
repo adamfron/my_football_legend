@@ -153,7 +153,10 @@ export const selectRestartAction = (
   if (!restart || restart.selectedAction || action.actorId !== restart.takerId) return state;
   const spot = restart.spot ?? state.ball;
   const preserveWall =
-    state.scenario.startsWith('free_kick') && restart.ceremonial && action.type === 'shot';
+    state.scenario.startsWith('free_kick') &&
+    (restart.ceremonial === false ||
+      restart.humanPreparation === 'ready' ||
+      (restart.ceremonial && action.type === 'shot'));
   const geometry = preserveWall
     ? restart
     : deriveRestartGeometry(state, state.scenario, restart.restartTeam, spot, {
@@ -174,6 +177,74 @@ export const selectRestartAction = (
       ...(geometry.landingZone ? { landingZone: geometry.landingZone } : {}),
     },
   };
+};
+
+/** Human chooses preparation, not an action. Time resumes until bodies actually arrive. */
+export const requestHumanFreeKickPreparation = (state: TacticalMatchState): TacticalMatchState => {
+  const restart = state.restart;
+  if (
+    !restart ||
+    !isRestartSetup(state) ||
+    !state.scenario.startsWith('free_kick') ||
+    !isHumanControlled(state, restart.takerId) ||
+    restart.selectedAction ||
+    restart.humanPreparation
+  )
+    return state;
+  const next: TacticalMatchState = {
+    ...state,
+    restart: {
+      ...restart,
+      origin: 'live_event',
+      phase: 'preparing',
+      ceremonial: true,
+      humanPreparation: 'waiting_team',
+      authorisedAt: undefined,
+      readiness: {
+        ballReady: false,
+        takerReady: false,
+        legalReady: false,
+        tacticalReady: false,
+        blockers: ['teammates_moving_to_positions'],
+      },
+      ...(deriveRestartLegalReadiness(state).ballReady
+        ? { retrieval: { playerId: restart.takerId, stage: 'placed' } }
+        : {}),
+    },
+  };
+  delete next.pendingPlayerDecision;
+  delete next.playerDecisionGate;
+  delete next.shotAgencyRequest;
+  return next;
+};
+
+/** Explicit human recovery from slow/blocked preparation. Referee restrictions remain. */
+export const chooseCurrentFreeKickPositions = (state: TacticalMatchState): TacticalMatchState => {
+  const r = state.restart;
+  if (
+    !r ||
+    r.humanPreparation !== 'waiting_team' ||
+    !isHumanControlled(state, r.takerId) ||
+    !deriveRestartLegalReadiness(state).ready
+  )
+    return state;
+  const next: TacticalMatchState = {
+    ...state,
+    restart: {
+      ...r,
+      humanPreparation: 'available_now',
+      phase: 'awaiting_decision',
+      readiness: {
+        ballReady: true,
+        takerReady: true,
+        legalReady: true,
+        tacticalReady: true,
+        blockers: [],
+      },
+    },
+  };
+  delete next.playerDecisionGate;
+  return next;
 };
 
 export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatchState => {
@@ -483,11 +554,26 @@ export const advanceRestartPlacement = (
     !('target' in action) ||
     distance(receiver.position, action.target) <= 9;
   const keepersReady = areKickoffGoalkeepersReady(next);
-  const tacticalReady = receiverReady && keepersReady;
+  const needsTeam =
+    next.restart!.humanPreparation === 'waiting_team' ||
+    (next.restart!.ceremonial &&
+      isHumanControlled(next, next.restart!.takerId) &&
+      !next.restart!.humanPreparation);
+  const teamReady =
+    !needsTeam ||
+    next.players.every(
+      (p) =>
+        p.team !== next.restart!.restartTeam ||
+        p.id === next.restart!.takerId ||
+        next.discipline?.[p.id]?.sentOff ||
+        (distance(p.position, p.target) <= 2 && Math.hypot(p.velocity.x, p.velocity.y) <= 0.8),
+    );
+  const tacticalReady = receiverReady && keepersReady && teamReady;
   const blockers = [
     ...legal.blockers,
     ...(!receiverReady ? ['delivery_receiver_developing'] : []),
     ...(!keepersReady ? ['kickoff_goalkeeper_developing'] : []),
+    ...(!teamReady ? ['teammates_moving_to_positions'] : []),
   ];
   let phase = next.restart!.phase;
   if (
@@ -503,6 +589,7 @@ export const advanceRestartPlacement = (
     restart: {
       ...next.restart!,
       phase,
+      ...(needsTeam && legal.ready && tacticalReady ? { humanPreparation: 'ready' as const } : {}),
       readiness: {
         ballReady: legal.ballReady,
         takerReady: legal.takerReady,

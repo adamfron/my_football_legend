@@ -3,7 +3,7 @@ import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { describe, expect, it, vi } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
-import { createMatchFlowTelemetry, createTacticalMatch } from '../../core/matchSimulation';
+import { createMatchFlowTelemetry, createOpenPlayMatchFixture as createTacticalMatch } from '../../core/matchSimulation';
 import { createSingleMatchSession } from '../../core/singleMatch';
 import { MatchLabErrorBoundary } from './TacticalMatchSandbox';
 import { MatchLabDiagnosticsController } from './matchLabDiagnostics';

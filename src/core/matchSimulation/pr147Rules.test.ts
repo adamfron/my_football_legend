@@ -4,7 +4,7 @@ import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   matchStateToFrame,
   stepTacticalMatch,
   stepTacticalMatchAfterDecisionProbe,

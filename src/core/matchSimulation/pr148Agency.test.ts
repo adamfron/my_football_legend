@@ -10,7 +10,7 @@ import {
   resolveMatchAction,
 } from './matchActions';
 import { distance, fieldValue } from './matchSpace';
-import { createTacticalMatch, stepTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, stepTacticalMatch } from './matchSimulation';
 import {
   evaluateOnBallDecisionRelevance,
   evaluateDefensiveCommitment,

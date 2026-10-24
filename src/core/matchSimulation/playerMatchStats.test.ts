@@ -3,7 +3,7 @@ import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWo
 import { createSingleMatchSession } from '../singleMatch';
 import {
   createMatchStatistics,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   observePlayerMatchStats,
   resolveCanonicalShot,
   matchStateToFrame,

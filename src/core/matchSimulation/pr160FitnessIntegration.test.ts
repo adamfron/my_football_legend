@@ -5,7 +5,7 @@ import { createSingleMatchSession } from '../singleMatch';
 import { isEligibleForNormalPosition } from '../footballerWorld';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   FIXED_MATCH_DT,
   stepTacticalMatch,
   stepTacticalMatchAfterDecisionProbe,

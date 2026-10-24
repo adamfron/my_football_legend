@@ -5,7 +5,7 @@ import { deriveRestartGeometry } from './restartGeometry';
 import {
   applyRestartScenario,
   chooseRestartAction,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   deriveTeamShapeMetrics,
   distance,
   tacticalSituationDefinitionSchema,

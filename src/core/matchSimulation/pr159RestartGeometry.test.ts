@@ -2,7 +2,11 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch } from './matchSimulation';
+import {
+  createOpenPlayMatchFixture as createTacticalMatch,
+  stepTacticalMatchAfterDecisionProbe,
+} from './matchSimulation';
+import { requestHumanFreeKickPreparation } from './restartLifecycle';
 import { applyRestartScenario } from './restartScenarios';
 import { deriveRestartGeometry, deriveRestartMovementTargets } from './restartGeometry';
 import {
@@ -260,7 +264,9 @@ describe('PR159 canonical restart presentation', () => {
       restart: { ...state.restart!, origin: 'live_event', phase: 'preparing' },
     };
     expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
-    state = { ...state, restart: { ...state.restart!, phase: 'awaiting_decision' } };
+    state = requestHumanFreeKickPreparation(state);
+    for (let tick = 0; tick < 2400 && !projectPlayerDecisionOpportunity(state); tick++)
+      state = stepTacticalMatchAfterDecisionProbe(state, 0.025);
     const opportunity = projectPlayerDecisionOpportunity(state);
     expect(opportunity?.kind).toBe('restart');
     const chosen = opportunity!.options.find((option) => option.kind === 'action')!;

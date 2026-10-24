@@ -5,7 +5,7 @@ import { createSingleMatchSession } from '../singleMatch';
 import { advanceBallAcquisition } from './ballAcquisition';
 import { playerContactGeometry } from './ballContactGeometry';
 import { collectContactEvidence, projectControlEpisodes } from './contactEvidence';
-import { createTacticalMatch, stepTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, stepTacticalMatch } from './matchSimulation';
 import { distance } from './matchSpace';
 import { RandomGenerator } from '../random/RandomGenerator';
 

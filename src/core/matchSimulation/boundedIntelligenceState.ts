@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { pitchPointSchema } from './matchSpace';
+import { opponentMemorySchema } from './opponentKnowledge';
 
 const unit = z.number().min(0).max(1);
 export const boundedPolicySchema = z.enum([
@@ -35,6 +36,11 @@ export const boundedExperimentSchema = z.object({
   patterns: z.boolean().default(true),
   planning: z.boolean().default(true),
   individuality: z.boolean().default(true),
+  relativeOpportunities: z.boolean().default(true),
+  opponentLearning: z.boolean().default(true),
+  psychology: z.boolean().default(false),
+  /** Approximate briefing; never inferred from hidden individual ratings. */
+  expectedAdvantage: z.number().min(-1).max(1).default(0),
 });
 export const boundedPatternSchema = z.object({
   actorId: z.string(),
@@ -59,6 +65,18 @@ export const boundedIntentSchema = z.object({
   signature: z.string(),
 });
 export const boundedRuntimeSchema = z.object({
+  opponents: z.record(z.string(), opponentMemorySchema).default({}),
+  selfEvidence: z
+    .record(
+      z.string(),
+      z.object({
+        value: z.number().min(-1).max(1),
+        lastEvent: z.string(),
+        seenEvents: z.array(z.string()).max(8).default([]),
+      }),
+    )
+    .default({}),
+  preparationCandidateId: z.string().nullable().default(null),
   patterns: z.record(z.string(), boundedPatternSchema).default({}),
   lastPatternScanAt: z.number().default(-1),
   lastActorId: z.string().default(''),

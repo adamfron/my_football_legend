@@ -283,7 +283,16 @@ export const advanceTacticalMatch = (
   return state;
 };
 
-export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchState => {
+/** Normal matches always establish a lawful opening. */
+export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchState =>
+  createInitialMatch(session, false);
+/** Explicit historical apparatus for open-play/contact tests; never used by the match UI. */
+export const createOpenPlayMatchFixture = (session: SingleMatchSession): TacticalMatchState =>
+  createInitialMatch(session, true);
+const createInitialMatch = (
+  session: SingleMatchSession,
+  openPlayFixture: boolean,
+): TacticalMatchState => {
   const build = (side: TeamSide, team: SingleMatchSession['home']): MatchPlayerState[] =>
     team.players.map((player) => {
       const prototype = { slot: player.slot, team: side, profile: player.profile };
@@ -310,7 +319,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
       };
     });
   const players = [...build('home', session.home), ...build('away', session.away)];
-  const owner = session.home.players.find((p) => !isMatchGoalkeeper(p))!;
+  const fixtureOwner = players.find((p) => p.team === 'home' && !isMatchGoalkeeper(p))!;
   const state: TacticalMatchState = {
     seed: session.setup.seed,
     time: 0,
@@ -343,10 +352,9 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
       },
     },
     players,
-    ball: {
-      ...players.find((p) => p.id === owner.footballerId)!.position,
-      ownerId: owner.footballerId,
-    },
+    ball: openPlayFixture
+      ? { ...fixtureOwner.position, ownerId: fixtureOwner.id }
+      : { x: 52.5, y: 34, height: 0, velocity: { x: 0, y: 0, z: 0 } },
     possessionTeam: 'home',
     timeSincePossessionChanged: 0,
     decisionPolicy: session.setup.decisionPolicy ?? DEFAULT_DECISION_POLICY,
@@ -376,10 +384,38 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
     initialised.rolePlan = { initial: { ...assignments }, assignments, changes: [] };
   }
   const positioned = { ...initialised, players: deriveTacticalTargets(initialised) };
-  return initialiseMatchSubstitutions(
-    { ...positioned, statistics: createMatchStatistics(positioned) },
-    session,
+  if (openPlayFixture)
+    return initialiseMatchSubstitutions(
+      { ...positioned, statistics: createMatchStatistics(positioned) },
+      session,
+    );
+  const opening = awardNaturalRestart(
+    initialiseMatchSubstitutions(
+      { ...positioned, statistics: createMatchStatistics(positioned) },
+      session,
+    ),
+    'kick_off',
+    { restartTeam: 'home', restartPoint: { x: 52.5, y: 34 } },
   );
+  // Time-zero establishment, before any body has a physical history. Later kick-offs
+  // retain their real positions and travel through this same canonical lifecycle.
+  return {
+    ...opening,
+    players: opening.players.map((p) => {
+      const position = opening.restart!.targets[p.id] ?? p.position;
+      return {
+        ...p,
+        position: { ...position },
+        target: { ...position },
+        idealTarget: { ...position },
+        velocity: { x: 0, y: 0 },
+      };
+    }),
+    restart: {
+      ...opening.restart!,
+      retrieval: { playerId: opening.restart!.takerId, stage: 'placed' },
+    },
+  };
 };
 
 /** A direct restart exemption and its delivery context end at another player's real contact. */

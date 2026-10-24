@@ -2,8 +2,9 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
+import { requestHumanFreeKickPreparation } from './restartLifecycle';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   stepTacticalMatch,
   stepTacticalMatchAfterDecisionProbe,
   FIXED_MATCH_DT,
@@ -187,13 +188,18 @@ describe('PR155 human shot ownership', () => {
       let { state } = fixture();
       state = applyRestartScenario(state, scenario, { restartTeam: 'home' });
       state.controlledFootballerId = state.restart!.takerId;
+      if (scenario === 'free_kick_close') {
+        state = requestHumanFreeKickPreparation(state);
+        for (let tick = 0; tick < 2400 && !projectPlayerDecisionOpportunity(state); tick++)
+          state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
+      }
       const op = projectPlayerDecisionOpportunity(state)!;
       state.playerDecisionGate = {
         lastSituationSignature: op.signature,
         lastResolvedAt: state.time,
       };
       expect(projectPlayerDecisionOpportunity(state)).toBeDefined();
-      const shot = enumerateAvailableActions(state, state.controlledFootballerId).find(
+      const shot = enumerateAvailableActions(state, state.controlledFootballerId!).find(
         (a) => a.type === 'shot',
       )!;
       expect(shot).toBeDefined();

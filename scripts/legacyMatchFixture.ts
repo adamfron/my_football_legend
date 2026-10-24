@@ -1,4 +1,4 @@
-import { createTacticalMatch } from '../src/core/matchSimulation/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from '../src/core/matchSimulation/matchSimulation';
 
 /** Historical regression geometries and utility scales keep their declared policy.
  * New-match defaults and five-policy physical authority are exercised separately. */

@@ -4,7 +4,7 @@ import { createSingleMatchSession } from '../singleMatch';
 import { advanceControlledBall } from './ballContactGeometry';
 import { collectContactEvidence } from './contactEvidence';
 import { resolveMatchAction } from './matchActions';
-import { createTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from './matchSimulation';
 import {
   createMatchStatistics,
   matchStatisticsSchema,

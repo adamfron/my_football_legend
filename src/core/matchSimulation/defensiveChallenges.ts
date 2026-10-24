@@ -19,6 +19,9 @@ import { deriveBallContactAccess, playerContactGeometry } from './ballContactGeo
 import { integrateGroundRolling } from './ballPhysics';
 import { derivePressingOpportunity } from './tacticalPreferences';
 import { deriveMovementCapability } from './locomotion';
+import { usesBoundedIntelligence } from './boundedIntelligenceState';
+const relativeDefence = (s: TacticalMatchState) =>
+  usesBoundedIntelligence(s) && s.boundedExperiment?.relativeOpportunities !== false;
 
 export const defensiveTechniqueSchema = z.enum(['standing', 'committed', 'slide', 'tactical']);
 export type DefensiveTechnique = z.infer<typeof defensiveTechniqueSchema>;
@@ -250,6 +253,12 @@ const projectPressingPlan = (
         explicit.type === 'attack_space'),
   );
   const protectedReceiver = protectedPressReceiver(state, c.actor);
+  const access = deriveBallContactAccess(state, c.actor, c.opponent);
+  const reachableExposure =
+    relativeDefence(state) &&
+    !access.bodyOccludes &&
+    c.ballDistance < c.opponentDistance - 0.1 &&
+    c.ballDistance < 1.5;
   const progress = attacksRight(c.opponent) ? c.opponent.position.x : 105 - c.opponent.position.x;
   const nearGoal = progress >= 78 && Math.abs(c.opponent.position.y - 34) <= 18;
   const carry = state.ballCarrierIntent;
@@ -316,13 +325,14 @@ const projectPressingPlan = (
     Math.abs(c.opponent.position.y - 34) > 15 && c.covering === 0 && paceExposure > 0.65;
   const partner = cooperativePress?.secondaryId === c.actor.id;
   const screening =
-    protectedReceiver ||
+    (protectedReceiver && !reachableExposure) ||
     (!selected && !nearGoal && !unstableControl && easyBuildUp) ||
     (cooperativePress?.primaryId === c.actor.id &&
       !selected &&
       !invited &&
       !unstableControl &&
-      !nearGoal);
+      !nearGoal &&
+      !reachableExposure);
   const intention: PressingPlan['intention'] = locked
     ? 'contain'
     : isolatedWing && !selected && !unstableControl && !nearGoal
@@ -333,6 +343,7 @@ const projectPressingPlan = (
           ? 'emergency'
           : selected ||
               partner ||
+              reachableExposure ||
               unstableControl ||
               (invited && !easyBuildUp) ||
               (c.dogso && progress >= 88) ||
@@ -895,11 +906,31 @@ export const chooseNpcDefensiveChallengeAction = (
     !forwardRole ||
     a.tackling >= 58 ||
     c.danger ||
-    (exposedBall && c.ballDistance < c.opponentDistance - 0.12 && a.gameReading >= 45);
+    (exposedBall &&
+      c.ballDistance < c.opponentDistance - 0.12 &&
+      (relativeDefence(state) || a.gameReading >= 45));
+  // Comfort is not physical reach. A covered, exposed 0.8m contact is a valid
+  // imperfect attempt even for a weak defender; the existing 0.95m resolver and
+  // absolute execution attributes still decide its contact and consequence.
+  if (
+    relativeDefence(state) &&
+    standing &&
+    standingWorthwhile &&
+    exposedBall &&
+    contactAccess.ballReachable &&
+    c.ballDistance < c.opponentDistance - 0.12 &&
+    (!booked || c.danger) &&
+    c.relativeSpeed <= 4.5 &&
+    !rearApproach &&
+    (c.covering > 0 || c.danger)
+  )
+    return standing;
   // Containment is still effective defence: a clearly reachable exposed ball may be
   // poked safely without converting every jockey into a committed engagement.
   if (!commits)
-    return standingWorthwhile && exposedBall && (c.danger || c.covering < 2)
+    return standingWorthwhile &&
+      exposedBall &&
+      (relativeDefence(state) || c.danger || c.covering < 2)
       ? comfortableStanding
       : undefined;
   const committedWindow = Math.max(0.75, 1.1 - c.relativeSpeed * 0.025);

@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../core/singleMatch';
-import { createTacticalMatch, projectPlayerDecisionOpportunity } from '../../core/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, projectPlayerDecisionOpportunity } from '../../core/matchSimulation';
 import { DecisionTargets } from './DecisionTargets';
 import { MatchOccasion } from './MatchOccasion';
 import { DEFAULT_KITS } from './tacticalRenderer/model';
