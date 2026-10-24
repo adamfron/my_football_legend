@@ -75,6 +75,8 @@
     "benchmark:pr187": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr187.mjs",
     "benchmark:pr187:research": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr187Research.mjs",
     "benchmark:pr187:index": "node scripts/recordPr187Evidence.mjs",
+    "benchmark:pr187:replay": "node scripts/replayPr187Baseline.mjs",
+    "benchmark:pr188:index": "node scripts/recordPr188Evidence.mjs",
     "benchmark:pr188": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr188.mjs",
     "benchmark:pr188:research": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr188Research.mjs",
     "benchmark:pr188:matches": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr188Matches.mjs"
