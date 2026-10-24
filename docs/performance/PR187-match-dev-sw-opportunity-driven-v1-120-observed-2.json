@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "dev-sw",
+  "fixture": {
+    "anchor": "4-3-3",
+    "opponent": "3-5-2",
+    "attributes": 78,
+    "opponentAttributes": 48,
+    "style": "counter_attacking",
+    "seed": "pr187-development-sw-01"
+  },
+  "policy": "opportunity-driven-v1",
+  "informationComparison": "historical shared defensive/GK/restart controllers; bounded on-ball candidates only; NOT an equal-information full-match comparison",
+  "sourceSha256": "09543835608419489f69d43d364b3ae0b2f4eac9562099af1a7837d1caa547af",
+  "evaluatorSha256": "c976503e85d817b0ce54d4845776d35766846a8bf22dbac26d5c404f47becfd1",
+  "inputSha256": "41fbc6c1f09b2c6ffd54653dafd1df27eb75e26eeb58fe762779648d102007a2",
+  "full": false,
+  "observed": true,
+  "ticks": 4800,
+  "status": "first_half",
+  "canonicalSeconds": 120.00000000001016,
+  "score": {
+    "home": 1,
+    "away": 0
+  },
+  "finalStateSha256": "4e0838e0578a0152bfea7c715f0892ab5bd384a053bb2f82ba09b8e4b9f299c4",
+  "failure": null,
+  "counts": {
+    "decisions": 286,
+    "candidates": 2576,
+    "evaluations": 2576,
+    "forecasts": 450,
+    "waits": 0,
+    "continuations": 0,
+    "cancellations": 0,
+    "patternObservations": 4,
+    "patternArrivals": 0,
+    "patternCancellations": 4,
+    "attempts": 296,
+    "releases": 18,
+    "shotAttempts": 1,
+    "shotReleases": 1,
+    "passAttempts": 18,
+    "passReleases": 17,
+    "backwardPasses": 2,
+    "progressivePasses": 6,
+    "reciprocalPasses": 0
+  },
+  "reasons": {
+    "no_admitted_transient_window|benefit_and_risk_admitted": 198,
+    "canonical_state_changed": 296,
+    "observed:press_triangle:recognised_at:3.5346": 1,
+    "cancel:lost_possession_or_sight": 2,
+    "useful_window_closes_before_next_deliberation|benefit_and_risk_admitted": 88,
+    "observed:press_triangle:recognised_at:7.2346": 1,
+    "cancel:opponent_blocks_target": 1,
+    "observed:press_triangle:recognised_at:14.1886": 2,
+    "cancel:missing_cover": 1
+  },
+  "wallMilliseconds": 4184.581999999999,
+  "cpuMicroseconds": {
+    "user": 5765000,
+    "system": 250000
+  },
+  "rssBytes": 317390848,
+  "archive": "docs/performance/pr187-traces/dev-sw-opportunity-driven-v1-120-observed-2.json.gz",
+  "archiveSha256": "04cd58876f14e4b0daf9eca907012aeb8196bd7e3d5c5d5c9c49ccc9433ae3e6",
+  "payloadSha256": "46729c13d4591b909173255decb401429020708f78fad5058c8cf507a02eda4f"
+}

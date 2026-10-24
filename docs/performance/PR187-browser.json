@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "dateLocal": "2026-10-24",
+  "timezone": "Europe/Warsaw",
+  "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+  "baseUrl": "http://127.0.0.1:5178/my_football_legend/",
+  "tool": "computer-use / cua browser",
+  "seed": "pr187-browser-development-01",
+  "tests": [
+    {
+      "case": "policy_picker",
+      "result": "passed",
+      "evidence": "Default state-value-v1 visible; legacy/B/R1/R2/R3 and three experimental IDs selectable."
+    },
+    {
+      "case": "autonomous_match",
+      "policy": "hierarchical-intent-v1",
+      "fixture": "fixture-caad3a04",
+      "result": "passed_partial",
+      "canonicalAt": "17:48.950",
+      "displayedAt": "17:45.862",
+      "evidence": "Renderer ready, runtime OK, 232/183 attempted passes visible; no browser completion claim."
+    },
+    {
+      "case": "human_restart_handover",
+      "policy": "contextual-judgment-v1",
+      "fixture": "fixture-8aa1de71",
+      "player": "Tomasz Król — N — 71 OVR",
+      "result": "passed",
+      "evidence": "Penalty waited at awaiting_player_decision until selected target and technique."
+    },
+    {
+      "case": "human_shot",
+      "result": "passed",
+      "evidence": "Placed shot selected and executed; menu closed, canonical time advanced, player and team shot count became 1, on-target count 1. Goal not guaranteed."
+    },
+    {
+      "case": "human_carry_request",
+      "result": "passed_request_only",
+      "at": "01:23.250",
+      "target": {
+        "x": 70,
+        "y": 30
+      },
+      "evidence": "Prowadź tutaj accepted; canonical time advanced to 01:23.325. Arrival at destination not asserted."
+    },
+    {
+      "case": "human_aim_cancellation",
+      "result": "passed",
+      "evidence": "After Anuluj, penalty still awaited human choice at 00:00, shots 0, contacts 0."
+    },
+    {
+      "case": "console",
+      "result": "passed",
+      "errors": 0,
+      "warnings": 0,
+      "evidence": "Read through browser dev.logs; final captured log is an empty array."
+    }
+  ],
+  "notExecuted": [
+    "manual substitutions in career UI",
+    "complete browser matches for every policy",
+    "all restart variants",
+    "browser save/load roundtrip",
+    "dedicated goalkeeper human interaction"
+  ],
+  "image": "docs/images/pr187/browser-human-shot.jpg",
+  "imageSha256": "38f0ce00b0ca763a490efbf715ff0730be68d288af59f93c546692a43238bbe3",
+  "readiness": "Partial Stage E only; headless/tests do not substitute for the unexecuted browser cases.",
+  "browser-dom": {
+    "archive": "docs/performance/pr187-traces/browser-dom.gz",
+    "sha256": "11aa931c238d4c0d994fc66bd730531bff01653fcd55654e11711fd50e0d01d2"
+  },
+  "browser-console": {
+    "archive": "docs/performance/pr187-traces/browser-console.gz",
+    "sha256": "61663fde99b3394d71653f41c19fe91269442622a4a6695f8352a70fbf5ca4c1"
+  }
+}

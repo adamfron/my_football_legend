@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "dev-sw",
+  "fixture": {
+    "anchor": "4-3-3",
+    "opponent": "3-5-2",
+    "attributes": 78,
+    "opponentAttributes": 48,
+    "style": "counter_attacking",
+    "seed": "pr187-development-sw-01"
+  },
+  "policy": "contextual-judgment-v1",
+  "informationComparison": "historical shared defensive/GK/restart controllers; bounded on-ball candidates only; NOT an equal-information full-match comparison",
+  "sourceSha256": "1255a176aa0ee18a290b71cb31b69eb37712e88d04558c1e1a1ff3520dcec5f4",
+  "evaluatorSha256": "c976503e85d817b0ce54d4845776d35766846a8bf22dbac26d5c404f47becfd1",
+  "inputSha256": "c3a894ddcaec4a0f39ea769b9f0fa48a6c99cf080b9f0a4b7f8be26da2f8b140",
+  "full": true,
+  "observed": true,
+  "ticks": 138113,
+  "status": "second_half",
+  "canonicalSeconds": 3452.825000002084,
+  "score": {
+    "home": 5,
+    "away": 0
+  },
+  "finalStateSha256": "232925c0bbc29b0602675efe5b7be7589b7e314ebbd9e34cc77f91e16d3ecf47",
+  "failure": "Error: Duplicate candidate",
+  "counts": {
+    "decisions": 11524,
+    "candidates": 118535,
+    "evaluations": 118535,
+    "forecasts": 16818,
+    "waits": 0,
+    "continuations": 0,
+    "cancellations": 0,
+    "patternObservations": 5,
+    "patternArrivals": 0,
+    "patternCancellations": 5,
+    "attempts": 11627,
+    "releases": 401,
+    "shotAttempts": 8,
+    "shotReleases": 8,
+    "passAttempts": 404,
+    "passReleases": 393,
+    "backwardPasses": 79,
+    "progressivePasses": 93,
+    "reciprocalPasses": 30
+  },
+  "reasons": {
+    "best_within_subjective_risk_budget|context:neutral": 10099,
+    "canonical_state_changed": 11627,
+    "observed:press_triangle:recognised_at:3.5346": 1,
+    "bounded_individual_discretion|context:neutral": 1425,
+    "cancel:lost_possession_or_sight": 3,
+    "observed:press_triangle:recognised_at:15.8346": 1,
+    "observed:press_triangle:recognised_at:141.5886": 1,
+    "observed:press_triangle:recognised_at:143.8886": 1,
+    "cancel:offside": 1,
+    "observed:press_triangle:recognised_at:911.2346": 1,
+    "cancel:missing_cover": 1
+  },
+  "wallMilliseconds": 133901.27719999998,
+  "cpuMicroseconds": {
+    "user": 145468000,
+    "system": 1125000
+  },
+  "rssBytes": 550264832,
+  "archive": "docs/performance/pr187-traces/dev-sw-contextual-judgment-v1-full-observed-3.json.gz",
+  "archiveSha256": "b52a785f4bb3a118c98d7120cc17c933033fcca847fe7cdfa01c105d2e82250f",
+  "payloadSha256": "df0124326fcff9cc995e14b65833c3d79a45948caeb3eefc5f7dec914866e290"
+}

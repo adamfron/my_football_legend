@@ -29,6 +29,8 @@ jobs:
       NODE_OPTIONS: '--max-semi-space-size=64'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -36,7 +38,7 @@ jobs:
       - run: npm ci
       - run: ${{ matrix.command }}
       - if: matrix.group == 'main'
-        run: npm run benchmark:pr186:replay && git diff --exit-code -- docs/performance
+        run: npm run benchmark:pr186:replay && npm run benchmark:pr187:research -- --replay && npm run benchmark:pr187:index -- --replay && git diff --exit-code -- docs/performance
       - if: matrix.group == 'main'
         run: test -f dist/data/world/pl-2026-v2.json
   quality:

@@ -1,6 +1,21 @@
 # Roadmap
 
-Aktualny etap: **PR186 — Tactical Cognition, Team Familiarity & Attribute Diagnostics**.
+Aktualny etap: **PR187 — Bounded Football Intelligence & Decision Policy Validation (eksperyment)**.
+Trzy wybieralne polityki przy piłce mają osobne mechanizmy, ograniczony adapter
+kandydatów i wykonanie w pełnym meczu. Trzy wzorce są podłączone do ruchu live.
+**Walidacja całego AI pozostaje nieukończona**: obrona/GK/wznowienia nadal mają
+historyczny dostęp do pełnego stanu, prognozy strzałów wymagają kalibracji,
+a skuteczna koordynacja nie jest potwierdzona. Niezależna kohorta pozostaje nieotwarta.
+**B domyślne, 28 atrybutów bez zmian, canonical NOT READY dla summary.**
+[Raport PR187, bramy i priorytety](PR187_BOUNDED_FOOTBALL_INTELLIGENCE_AND_POLICY_VALIDATION.md).
+
+Przed niezależnym confirmation należy dokończyć bounded controllers, techniki
+strzału/GK, kontrfaktyczne utracone okna, współpracę i human/browser matrix.
+Pozostałe prerequisite PR187 przechodzą jawnie do PR188+; nie są oznaczone jako wykonane.
+Generacje/siła świata zachowują pełny zakres PR188, summary/PlayStyles PR189 pozostaje
+zablokowane przez canonical readiness, career UX PR190 i world expansion PR191+ bez usuwania zobowiązań.
+
+Scalony etap: **PR186 — Tactical Cognition, Team Familiarity & Attribute Diagnostics**.
 Izolowane prototypy współpracy, wiedzy i komunikacji, kontrolowane epizody decyzja–
 przygotowanie–release oraz nowe próby atrybutowe mają wykonywalne dowody.
 Wycena technik strzału wymaga dalszej implementacji; wyniki keeperów i części

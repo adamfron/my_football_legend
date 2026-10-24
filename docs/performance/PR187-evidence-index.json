@@ -1,0 +1,1298 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "baseCommit": "68487f1c0e16f32b840056550708832ac1a68cdf",
+  "codeCommit": "6feb93804a36422351830365468d343e0c2e7065",
+  "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+  "preservedHistoricalFiles": 193,
+  "independentDevelopmentDesigns": 3,
+  "pairedFullMatchVariants": 15,
+  "additionalFullObserverReplays": 3,
+  "developmentCycle": 5,
+  "previousCycleEvidence": "PR187-evidence-cycle4.json",
+  "reusedDevelopmentDesigns": true,
+  "independentConfirmationDesigns": 0,
+  "confirmationStatus": "not_run_blocked_by_incomplete_whole_match_perception_and_calibration",
+  "informationComparison": "Historical B/R3 versus experimental on-ball policies sharing unbounded defensive/GK/restart controllers. Not a whole-match equal-information comparison.",
+  "rows": [
+    {
+      "receipt": "PR187-match-dev-ss-contextual-judgment-v1-full-observed-5.json",
+      "design": "dev-ss",
+      "policy": "contextual-judgment-v1",
+      "canonicalSeconds": 5594.225000000051,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "passes": 990,
+      "completedPasses": 714,
+      "shots": 1,
+      "goals": 1,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 296,
+        "resultingFinalThirdEntries": 11,
+        "resultingBoxEntries": 0,
+        "resultingShots": 1
+      },
+      "counts": {
+        "decisions": 19792,
+        "candidates": 193392,
+        "evaluations": 193392,
+        "forecasts": 2883,
+        "waits": 6470,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 15,
+        "patternArrivals": 0,
+        "patternCancellations": 13,
+        "attempts": 13998,
+        "releases": 991,
+        "shotAttempts": 2,
+        "shotReleases": 1,
+        "passAttempts": 1016,
+        "passReleases": 989,
+        "backwardPasses": 191,
+        "progressivePasses": 311,
+        "reciprocalPasses": 61
+      },
+      "wallMilliseconds": 307834.42470000003,
+      "cpuMicroseconds": {
+        "user": 327000000,
+        "system": 1157000
+      },
+      "rssBytes": 438226944,
+      "finalStateSha256": "4df6422c83548f4c55cd90ac5292cfd5db5211dc5c90612ad5e09728f15b046b",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ss-hierarchical-intent-v1-full-observed-5.json",
+      "design": "dev-ss",
+      "policy": "hierarchical-intent-v1",
+      "canonicalSeconds": 5580,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "passes": 1850,
+      "completedPasses": 1208,
+      "shots": 1,
+      "goals": 1,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 348,
+        "resultingFinalThirdEntries": 32,
+        "resultingBoxEntries": 0,
+        "resultingShots": 1
+      },
+      "counts": {
+        "decisions": 13189,
+        "candidates": 115114,
+        "evaluations": 72641,
+        "forecasts": 3303,
+        "waits": 0,
+        "continuations": 5481,
+        "cancellations": 5514,
+        "patternObservations": 15,
+        "patternArrivals": 0,
+        "patternCancellations": 15,
+        "attempts": 14077,
+        "releases": 1851,
+        "shotAttempts": 2,
+        "shotReleases": 1,
+        "passAttempts": 1896,
+        "passReleases": 1850,
+        "backwardPasses": 414,
+        "progressivePasses": 252,
+        "reciprocalPasses": 189
+      },
+      "wallMilliseconds": 251064.52000000002,
+      "cpuMicroseconds": {
+        "user": 269265000,
+        "system": 1781000
+      },
+      "rssBytes": 459706368,
+      "finalStateSha256": "7c9d614fa4c8996eebeacdc49235dd3c388ab332f72a0a6182c4ced93f20a525",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ss-opportunity-driven-v1-full-observed-5.json",
+      "design": "dev-ss",
+      "policy": "opportunity-driven-v1",
+      "canonicalSeconds": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": 1536,
+      "completedPasses": 1070,
+      "shots": 1,
+      "goals": 0,
+      "saves": 1,
+      "threatFlow": {
+        "progressiveReceptions": 439,
+        "resultingFinalThirdEntries": 15,
+        "resultingBoxEntries": 0,
+        "resultingShots": 1
+      },
+      "counts": {
+        "decisions": 15417,
+        "candidates": 151047,
+        "evaluations": 151047,
+        "forecasts": 3936,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 11,
+        "patternArrivals": 0,
+        "patternCancellations": 11,
+        "attempts": 16340,
+        "releases": 1537,
+        "shotAttempts": 1,
+        "shotReleases": 1,
+        "passAttempts": 1571,
+        "passReleases": 1536,
+        "backwardPasses": 267,
+        "progressivePasses": 461,
+        "reciprocalPasses": 100
+      },
+      "wallMilliseconds": 282192.7528,
+      "cpuMicroseconds": {
+        "user": 299516000,
+        "system": 2000000
+      },
+      "rssBytes": 567320576,
+      "finalStateSha256": "9ef7f1fa67b09933ea70c0ee22da118895abd5212ad6ede5fda7c9a5edb38055",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ss-phase-role-hybrid-v1-full-observed-5.json",
+      "design": "dev-ss",
+      "policy": "phase-role-hybrid-v1",
+      "canonicalSeconds": 5820,
+      "score": {
+        "home": 6,
+        "away": 2
+      },
+      "passes": 2258,
+      "completedPasses": 1507,
+      "shots": 22,
+      "goals": 8,
+      "saves": 4,
+      "threatFlow": {
+        "progressiveReceptions": 434,
+        "resultingFinalThirdEntries": 49,
+        "resultingBoxEntries": 1,
+        "resultingShots": 22
+      },
+      "counts": {
+        "decisions": 0,
+        "candidates": 0,
+        "evaluations": 0,
+        "forecasts": 0,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 0,
+        "patternArrivals": 0,
+        "patternCancellations": 0,
+        "attempts": 0,
+        "releases": 0,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 0,
+        "passReleases": 0,
+        "backwardPasses": 580,
+        "progressivePasses": 350,
+        "reciprocalPasses": 220
+      },
+      "wallMilliseconds": 271729.49450000003,
+      "cpuMicroseconds": {
+        "user": 294250000,
+        "system": 1828000
+      },
+      "rssBytes": 495878144,
+      "finalStateSha256": "789c20651323bac40c943095b56ac953c7dca1ab78389c79356cbd6a817c9c08",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ss-state-value-v1-full-observed-5.json",
+      "design": "dev-ss",
+      "policy": "state-value-v1",
+      "canonicalSeconds": 5700,
+      "score": {
+        "home": 1,
+        "away": 4
+      },
+      "passes": 2400,
+      "completedPasses": 1496,
+      "shots": 19,
+      "goals": 5,
+      "saves": 2,
+      "threatFlow": {
+        "progressiveReceptions": 478,
+        "resultingFinalThirdEntries": 43,
+        "resultingBoxEntries": 0,
+        "resultingShots": 19
+      },
+      "counts": {
+        "decisions": 0,
+        "candidates": 0,
+        "evaluations": 0,
+        "forecasts": 0,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 0,
+        "patternArrivals": 0,
+        "patternCancellations": 0,
+        "attempts": 0,
+        "releases": 0,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 0,
+        "passReleases": 0,
+        "backwardPasses": 545,
+        "progressivePasses": 481,
+        "reciprocalPasses": 265
+      },
+      "wallMilliseconds": 247481.668,
+      "cpuMicroseconds": {
+        "user": 270234000,
+        "system": 1718000
+      },
+      "rssBytes": 556527616,
+      "finalStateSha256": "0eb057fb642971b9be47d0d97e573f80d34492c346e6d9831fd0e45f47b742d5",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-sw-contextual-judgment-v1-full-observed-5.json",
+      "design": "dev-sw",
+      "policy": "contextual-judgment-v1",
+      "canonicalSeconds": 5580,
+      "score": {
+        "home": 3,
+        "away": 0
+      },
+      "passes": 629,
+      "completedPasses": 215,
+      "shots": 5,
+      "goals": 2,
+      "saves": 1,
+      "threatFlow": {
+        "progressiveReceptions": 83,
+        "resultingFinalThirdEntries": 9,
+        "resultingBoxEntries": 0,
+        "resultingShots": 5
+      },
+      "counts": {
+        "decisions": 20929,
+        "candidates": 196293,
+        "evaluations": 196293,
+        "forecasts": 5361,
+        "waits": 7499,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 8,
+        "patternArrivals": 0,
+        "patternCancellations": 8,
+        "attempts": 13636,
+        "releases": 634,
+        "shotAttempts": 5,
+        "shotReleases": 5,
+        "passAttempts": 649,
+        "passReleases": 629,
+        "backwardPasses": 116,
+        "progressivePasses": 185,
+        "reciprocalPasses": 37
+      },
+      "wallMilliseconds": 310378.45190000004,
+      "cpuMicroseconds": {
+        "user": 327172000,
+        "system": 1844000
+      },
+      "rssBytes": 508854272,
+      "finalStateSha256": "b16eeba216f7936017728f9dc6ee20bd0ceb5cea1157c42b9c70a3c519468845",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-5.json",
+      "design": "dev-sw",
+      "policy": "hierarchical-intent-v1",
+      "canonicalSeconds": 5640.275000005877,
+      "score": {
+        "home": 5,
+        "away": 0
+      },
+      "passes": 1276,
+      "completedPasses": 417,
+      "shots": 6,
+      "goals": 2,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 86,
+        "resultingFinalThirdEntries": 14,
+        "resultingBoxEntries": 0,
+        "resultingShots": 6
+      },
+      "counts": {
+        "decisions": 13226,
+        "candidates": 117725,
+        "evaluations": 70776,
+        "forecasts": 16716,
+        "waits": 0,
+        "continuations": 5905,
+        "cancellations": 5735,
+        "patternObservations": 9,
+        "patternArrivals": 0,
+        "patternCancellations": 9,
+        "attempts": 13504,
+        "releases": 1282,
+        "shotAttempts": 6,
+        "shotReleases": 6,
+        "passAttempts": 1329,
+        "passReleases": 1276,
+        "backwardPasses": 355,
+        "progressivePasses": 129,
+        "reciprocalPasses": 161
+      },
+      "wallMilliseconds": 254087.90959999998,
+      "cpuMicroseconds": {
+        "user": 274578000,
+        "system": 1765000
+      },
+      "rssBytes": 483708928,
+      "finalStateSha256": "4613f266eecfa93bfebf66c6bb5682112438d6e717548541b08823af2e2183f7",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-sw-opportunity-driven-v1-full-observed-5.json",
+      "design": "dev-sw",
+      "policy": "opportunity-driven-v1",
+      "canonicalSeconds": 5770.90000000004,
+      "score": {
+        "home": 8,
+        "away": 0
+      },
+      "passes": 923,
+      "completedPasses": 331,
+      "shots": 19,
+      "goals": 8,
+      "saves": 8,
+      "threatFlow": {
+        "progressiveReceptions": 103,
+        "resultingFinalThirdEntries": 17,
+        "resultingBoxEntries": 0,
+        "resultingShots": 19
+      },
+      "counts": {
+        "decisions": 16338,
+        "candidates": 156153,
+        "evaluations": 156153,
+        "forecasts": 9327,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 12,
+        "patternArrivals": 0,
+        "patternCancellations": 11,
+        "attempts": 16575,
+        "releases": 942,
+        "shotAttempts": 19,
+        "shotReleases": 19,
+        "passAttempts": 954,
+        "passReleases": 922,
+        "backwardPasses": 144,
+        "progressivePasses": 214,
+        "reciprocalPasses": 67
+      },
+      "wallMilliseconds": 274949.07479999994,
+      "cpuMicroseconds": {
+        "user": 296125000,
+        "system": 1563000
+      },
+      "rssBytes": 490319872,
+      "finalStateSha256": "46ac465b7225cd5c17b7b5fbf1f2817d6f6d3a4e66368029b5a2bc434b34f102",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-sw-phase-role-hybrid-v1-full-observed-5.json",
+      "design": "dev-sw",
+      "policy": "phase-role-hybrid-v1",
+      "canonicalSeconds": 5897.100000006593,
+      "score": {
+        "home": 11,
+        "away": 0
+      },
+      "passes": 1743,
+      "completedPasses": 787,
+      "shots": 39,
+      "goals": 11,
+      "saves": 11,
+      "threatFlow": {
+        "progressiveReceptions": 195,
+        "resultingFinalThirdEntries": 46,
+        "resultingBoxEntries": 4,
+        "resultingShots": 39
+      },
+      "counts": {
+        "decisions": 0,
+        "candidates": 0,
+        "evaluations": 0,
+        "forecasts": 0,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 0,
+        "patternArrivals": 0,
+        "patternCancellations": 0,
+        "attempts": 0,
+        "releases": 0,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 0,
+        "passReleases": 0,
+        "backwardPasses": 462,
+        "progressivePasses": 261,
+        "reciprocalPasses": 150
+      },
+      "wallMilliseconds": 313511.7479,
+      "cpuMicroseconds": {
+        "user": 334985000,
+        "system": 1610000
+      },
+      "rssBytes": 546598912,
+      "finalStateSha256": "1d5c98bf5f8e6953a34aadcc5f75af5cab4145a12a80a935e5e0d688a5f106b2",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-sw-state-value-v1-full-observed-5.json",
+      "design": "dev-sw",
+      "policy": "state-value-v1",
+      "canonicalSeconds": 6030.349999999733,
+      "score": {
+        "home": 16,
+        "away": 0
+      },
+      "passes": 1768,
+      "completedPasses": 760,
+      "shots": 33,
+      "goals": 14,
+      "saves": 4,
+      "threatFlow": {
+        "progressiveReceptions": 199,
+        "resultingFinalThirdEntries": 46,
+        "resultingBoxEntries": 0,
+        "resultingShots": 33
+      },
+      "counts": {
+        "decisions": 0,
+        "candidates": 0,
+        "evaluations": 0,
+        "forecasts": 0,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 0,
+        "patternArrivals": 0,
+        "patternCancellations": 0,
+        "attempts": 0,
+        "releases": 0,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 0,
+        "passReleases": 0,
+        "backwardPasses": 393,
+        "progressivePasses": 333,
+        "reciprocalPasses": 138
+      },
+      "wallMilliseconds": 241098.3659,
+      "cpuMicroseconds": {
+        "user": 261875000,
+        "system": 1672000
+      },
+      "rssBytes": 505430016,
+      "finalStateSha256": "6632504c057b6559d6cbd8fe118db8742740845cf77931ee33dd10ade52ba61f",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ww-contextual-judgment-v1-full-observed-5.json",
+      "design": "dev-ww",
+      "policy": "contextual-judgment-v1",
+      "canonicalSeconds": 5400,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": 10,
+      "completedPasses": 0,
+      "shots": 0,
+      "goals": 0,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 0,
+        "resultingFinalThirdEntries": 0,
+        "resultingBoxEntries": 0,
+        "resultingShots": 0
+      },
+      "counts": {
+        "decisions": 18130,
+        "candidates": 158451,
+        "evaluations": 158451,
+        "forecasts": 0,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 5,
+        "patternArrivals": 0,
+        "patternCancellations": 5,
+        "attempts": 18132,
+        "releases": 10,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 11,
+        "passReleases": 10,
+        "backwardPasses": 2,
+        "progressivePasses": 1,
+        "reciprocalPasses": 2
+      },
+      "wallMilliseconds": 242910.6177,
+      "cpuMicroseconds": {
+        "user": 251000000,
+        "system": 1641000
+      },
+      "rssBytes": 457826304,
+      "finalStateSha256": "dcab3afdafbd5f2007df83ee6fde373644c1425935ad03e29e37205e0c370551",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ww-hierarchical-intent-v1-full-observed-5.json",
+      "design": "dev-ww",
+      "policy": "hierarchical-intent-v1",
+      "canonicalSeconds": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": 800,
+      "completedPasses": 26,
+      "shots": 0,
+      "goals": 0,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 9,
+        "resultingFinalThirdEntries": 0,
+        "resultingBoxEntries": 0,
+        "resultingShots": 0
+      },
+      "counts": {
+        "decisions": 12122,
+        "candidates": 90658,
+        "evaluations": 60428,
+        "forecasts": 459,
+        "waits": 0,
+        "continuations": 4542,
+        "cancellations": 6741,
+        "patternObservations": 9,
+        "patternArrivals": 1,
+        "patternCancellations": 9,
+        "attempts": 12127,
+        "releases": 800,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 803,
+        "passReleases": 800,
+        "backwardPasses": 294,
+        "progressivePasses": 57,
+        "reciprocalPasses": 162
+      },
+      "wallMilliseconds": 237405.9844,
+      "cpuMicroseconds": {
+        "user": 249078000,
+        "system": 1640000
+      },
+      "rssBytes": 527310848,
+      "finalStateSha256": "26c33c8e71adb2a298fd09b470fa5c4b78b67634c9bcfdcfcacec7172cee50b5",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ww-opportunity-driven-v1-full-observed-5.json",
+      "design": "dev-ww",
+      "policy": "opportunity-driven-v1",
+      "canonicalSeconds": 5400,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": 11,
+      "completedPasses": 1,
+      "shots": 0,
+      "goals": 0,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 0,
+        "resultingFinalThirdEntries": 0,
+        "resultingBoxEntries": 0,
+        "resultingShots": 0
+      },
+      "counts": {
+        "decisions": 18419,
+        "candidates": 168815,
+        "evaluations": 168815,
+        "forecasts": 0,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 5,
+        "patternArrivals": 0,
+        "patternCancellations": 5,
+        "attempts": 18422,
+        "releases": 11,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 12,
+        "passReleases": 11,
+        "backwardPasses": 4,
+        "progressivePasses": 4,
+        "reciprocalPasses": 0
+      },
+      "wallMilliseconds": 243102.2139,
+      "cpuMicroseconds": {
+        "user": 252469000,
+        "system": 1703000
+      },
+      "rssBytes": 479158272,
+      "finalStateSha256": "7516b2984badb616824819dbd1a6819d998e9510a886a5a2f4806bdcca7b6438",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ww-phase-role-hybrid-v1-full-observed-5.json",
+      "design": "dev-ww",
+      "policy": "phase-role-hybrid-v1",
+      "canonicalSeconds": 5532.225000000044,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": 664,
+      "completedPasses": 96,
+      "shots": 3,
+      "goals": 0,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 31,
+        "resultingFinalThirdEntries": 1,
+        "resultingBoxEntries": 0,
+        "resultingShots": 3
+      },
+      "counts": {
+        "decisions": 0,
+        "candidates": 0,
+        "evaluations": 0,
+        "forecasts": 0,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 0,
+        "patternArrivals": 0,
+        "patternCancellations": 0,
+        "attempts": 0,
+        "releases": 0,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 0,
+        "passReleases": 0,
+        "backwardPasses": 205,
+        "progressivePasses": 147,
+        "reciprocalPasses": 43
+      },
+      "wallMilliseconds": 289717.8751,
+      "cpuMicroseconds": {
+        "user": 312813000,
+        "system": 1922000
+      },
+      "rssBytes": 474906624,
+      "finalStateSha256": "0ce0bb66d3f7daa389e1126b50e0331e50bd0dcc93545399f19f8a8a81d01dfb",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ww-state-value-v1-full-observed-5.json",
+      "design": "dev-ww",
+      "policy": "state-value-v1",
+      "canonicalSeconds": 5640,
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "passes": 601,
+      "completedPasses": 88,
+      "shots": 10,
+      "goals": 2,
+      "saves": 1,
+      "threatFlow": {
+        "progressiveReceptions": 36,
+        "resultingFinalThirdEntries": 0,
+        "resultingBoxEntries": 0,
+        "resultingShots": 10
+      },
+      "counts": {
+        "decisions": 0,
+        "candidates": 0,
+        "evaluations": 0,
+        "forecasts": 0,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 0,
+        "patternArrivals": 0,
+        "patternCancellations": 0,
+        "attempts": 0,
+        "releases": 0,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 0,
+        "passReleases": 0,
+        "backwardPasses": 125,
+        "progressivePasses": 154,
+        "reciprocalPasses": 26
+      },
+      "wallMilliseconds": 259666.6196,
+      "cpuMicroseconds": {
+        "user": 280641000,
+        "system": 1750000
+      },
+      "rssBytes": 478187520,
+      "finalStateSha256": "7c87b488f500694cdc7af067ee4a83634f04b5c6c7b1ad03c1cf6a9b7f8917b4",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    }
+  ],
+  "observerNeutrality": [
+    {
+      "policy": "opportunity-driven-v1",
+      "design": "dev-sw",
+      "inputSha256": "41fbc6c1f09b2c6ffd54653dafd1df27eb75e26eeb58fe762779648d102007a2",
+      "finalStateSha256": "46ac465b7225cd5c17b7b5fbf1f2817d6f6d3a4e66368029b5a2bc434b34f102",
+      "equivalent": true,
+      "canonicalSeconds": 5770.90000000004
+    },
+    {
+      "policy": "hierarchical-intent-v1",
+      "design": "dev-sw",
+      "inputSha256": "342ed8d2945e902bf7bcfb08d2de97df0cae04b815e0b34bb862b24fc9e949c8",
+      "finalStateSha256": "4613f266eecfa93bfebf66c6bb5682112438d6e717548541b08823af2e2183f7",
+      "equivalent": true,
+      "canonicalSeconds": 5640.275000005877
+    },
+    {
+      "policy": "contextual-judgment-v1",
+      "design": "dev-sw",
+      "inputSha256": "c3a894ddcaec4a0f39ea769b9f0fa48a6c99cf080b9f0a4b7f8be26da2f8b140",
+      "finalStateSha256": "b16eeba216f7936017728f9dc6ee20bd0ceb5cea1157c42b9c70a3c519468845",
+      "equivalent": true,
+      "canonicalSeconds": 5580
+    }
+  ],
+  "historicalCompatibility": [
+    {
+      "design": "dev-ss",
+      "policy": "phase-role-hybrid-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "789c20651323bac40c943095b56ac953c7dca1ab78389c79356cbd6a817c9c08",
+      "equivalent": true
+    },
+    {
+      "design": "dev-ss",
+      "policy": "state-value-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "0eb057fb642971b9be47d0d97e573f80d34492c346e6d9831fd0e45f47b742d5",
+      "equivalent": true
+    },
+    {
+      "design": "dev-sw",
+      "policy": "phase-role-hybrid-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "1d5c98bf5f8e6953a34aadcc5f75af5cab4145a12a80a935e5e0d688a5f106b2",
+      "equivalent": true
+    },
+    {
+      "design": "dev-sw",
+      "policy": "state-value-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "6632504c057b6559d6cbd8fe118db8742740845cf77931ee33dd10ade52ba61f",
+      "equivalent": true
+    },
+    {
+      "design": "dev-ww",
+      "policy": "phase-role-hybrid-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "0ce0bb66d3f7daa389e1126b50e0331e50bd0dcc93545399f19f8a8a81d01dfb",
+      "equivalent": true
+    },
+    {
+      "design": "dev-ww",
+      "policy": "state-value-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "7c87b488f500694cdc7af067ee4a83634f04b5c6c7b1ad03c1cf6a9b7f8917b4",
+      "equivalent": true
+    }
+  ],
+  "shootingSummary": [
+    {
+      "intent": "driven",
+      "trials": 48,
+      "releases": 48,
+      "resolved": 48,
+      "nullOutcomes": 0,
+      "predictedMean": 0.1399940201133453,
+      "goals": 13,
+      "brierMean": 0.1765155603417583,
+      "outcomes": {
+        "goal": 13,
+        "save": 29,
+        "miss": 2,
+        "crossbar": 1,
+        "block": 3
+      }
+    },
+    {
+      "intent": "placed",
+      "trials": 48,
+      "releases": 48,
+      "resolved": 48,
+      "nullOutcomes": 0,
+      "predictedMean": 0.1575287433012333,
+      "goals": 12,
+      "brierMean": 0.15930998113592343,
+      "outcomes": {
+        "save": 32,
+        "miss": 1,
+        "goal": 12,
+        "block": 2,
+        "crossbar": 1
+      }
+    },
+    {
+      "intent": "chip",
+      "trials": 48,
+      "releases": 32,
+      "resolved": 32,
+      "nullOutcomes": 16,
+      "predictedMean": 0.11778450036875712,
+      "goals": 21,
+      "brierMean": 0.49873325331153895,
+      "outcomes": {
+        "goal": 21,
+        "miss": 4,
+        "crossbar": 2,
+        "save": 4,
+        "post": 1,
+        "null": 16
+      }
+    }
+  ],
+  "patternSummary": [
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.1,
+      "blocked": false,
+      "movement": {
+        "geometry:anchor:9": 17.052806617796076,
+        "geometry:anchor:10": 21.988706483136184
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.5545
+        },
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.125000000000002,
+          "recognisedAt": 10.6545
+        }
+      ],
+      "estimatedPassAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": "completed"
+    },
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.1,
+      "blocked": true,
+      "movement": {
+        "geometry:anchor:9": 12.793947259546407,
+        "geometry:anchor:10": 21.57014647134623
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.125000000000002,
+          "recognisedAt": 10.6545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.125000000000002,
+          "recognisedAt": 10.6545
+        }
+      ],
+      "estimatedPassAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": null
+    },
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.9,
+      "blocked": false,
+      "movement": {
+        "geometry:anchor:9": 17.70128094305419,
+        "geometry:anchor:10": 15.27117699307446
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.2545
+        },
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.125000000000002,
+          "recognisedAt": 10.3545
+        }
+      ],
+      "estimatedPassAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": null,
+      "receiverArrival": null,
+      "passOutcome": null
+    },
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.9,
+      "blocked": true,
+      "movement": {
+        "geometry:anchor:9": 17.89697972145411,
+        "geometry:anchor:10": 14.404644702935762
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.125000000000002,
+          "recognisedAt": 10.3545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.125000000000002,
+          "recognisedAt": 10.3545
+        }
+      ],
+      "estimatedPassAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": null
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.1,
+      "blocked": false,
+      "movement": {
+        "geometry:anchor:9": 18.89146344245293,
+        "geometry:anchor:10": 25.327792635948555
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.025,
+          "recognisedAt": 10.5545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.5545
+        }
+      ],
+      "estimatedPassAvailableAt": 10.825000000000012,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": "completed"
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.1,
+      "blocked": true,
+      "movement": {
+        "geometry:anchor:9": 14.358653699219234,
+        "geometry:anchor:10": 22.022354496549845
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.025,
+          "recognisedAt": 10.5545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.5545
+        }
+      ],
+      "estimatedPassAvailableAt": 10.825000000000012,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": "completed"
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.9,
+      "blocked": false,
+      "movement": {
+        "geometry:anchor:9": 15.91335090750659,
+        "geometry:anchor:10": 23.34042595346882
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.025,
+          "recognisedAt": 10.2545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.2545
+        }
+      ],
+      "estimatedPassAvailableAt": 10.825000000000012,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": "completed"
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.9,
+      "blocked": true,
+      "movement": {
+        "geometry:anchor:9": 14.6247751485673,
+        "geometry:anchor:10": 19.812153243747723
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.025,
+          "recognisedAt": 10.2545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.2545
+        }
+      ],
+      "estimatedPassAvailableAt": 10.825000000000012,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": null
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.1,
+      "blocked": false,
+      "movement": {
+        "geometry:anchor:9": 15.196394793622739,
+        "geometry:anchor:10": 16.574677983062934
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.025,
+          "recognisedAt": 10.5545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.5545
+        }
+      ],
+      "estimatedPassAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": null
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.1,
+      "blocked": true,
+      "movement": {
+        "geometry:anchor:9": 10.370817387411625,
+        "geometry:anchor:10": 13.288048678054817
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.025,
+          "recognisedAt": 10.5545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.5545
+        }
+      ],
+      "estimatedPassAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": null
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.9,
+      "blocked": false,
+      "movement": {
+        "geometry:anchor:9": 15.003458112392062,
+        "geometry:anchor:10": 14.304491841336018
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.025,
+          "recognisedAt": 10.2545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.2545
+        }
+      ],
+      "estimatedPassAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": null
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.9,
+      "blocked": true,
+      "movement": {
+        "geometry:anchor:9": 15.133894834438609,
+        "geometry:anchor:10": 13.24868633703606
+      },
+      "firstRecognition": [
+        {
+          "actorId": "geometry:anchor:9",
+          "observedAt": 10.025,
+          "recognisedAt": 10.2545
+        },
+        {
+          "actorId": "geometry:anchor:10",
+          "observedAt": 10.025,
+          "recognisedAt": 10.2545
+        }
+      ],
+      "estimatedPassAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "receiverArrival": null,
+      "passOutcome": null
+    }
+  ],
+  "negativeDevelopmentRuns": [
+    {
+      "receipt": "PR187-match-dev-sw-contextual-judgment-v1-full-observed-3.json",
+      "sourceSha256": "1255a176aa0ee18a290b71cb31b69eb37712e88d04558c1e1a1ff3520dcec5f4",
+      "at": 3452.825000002084,
+      "failure": "Error: Duplicate candidate"
+    },
+    {
+      "receipt": "PR187-match-dev-sw-hierarchical-intent-v1-120-observed-1.json",
+      "sourceSha256": "6b63b08321af346880b896b1de87f7c9f4f5957331b88b9d907d693aed4ffd90",
+      "at": 90.80000000000352,
+      "failure": "[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_big\",\n    \"maximum\": 105,\n    \"inclusive\": true,\n    \"path\": [\n      \"ball\",\n      \"position\",\n      \"x\"\n    ],\n    \"message\": \"Too big: expected number to be <=105\"\n  }\n]"
+    },
+    {
+      "receipt": "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-3.json",
+      "sourceSha256": "1255a176aa0ee18a290b71cb31b69eb37712e88d04558c1e1a1ff3520dcec5f4",
+      "at": 1324.900000000437,
+      "failure": "[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_big\",\n    \"maximum\": 105,\n    \"inclusive\": true,\n    \"path\": [\n      \"ball\",\n      \"x\"\n    ],\n    \"message\": \"Too big: expected number to be <=105\"\n  }\n]"
+    }
+  ],
+  "allMatchReceipts": [
+    "PR187-match-dev-ss-contextual-judgment-v1-full-observed-4.json",
+    "PR187-match-dev-ss-contextual-judgment-v1-full-observed-5.json",
+    "PR187-match-dev-ss-hierarchical-intent-v1-full-observed-4.json",
+    "PR187-match-dev-ss-hierarchical-intent-v1-full-observed-5.json",
+    "PR187-match-dev-ss-opportunity-driven-v1-full-observed-4.json",
+    "PR187-match-dev-ss-opportunity-driven-v1-full-observed-5.json",
+    "PR187-match-dev-ss-phase-role-hybrid-v1-full-observed-4.json",
+    "PR187-match-dev-ss-phase-role-hybrid-v1-full-observed-5.json",
+    "PR187-match-dev-ss-state-value-v1-full-observed-4.json",
+    "PR187-match-dev-ss-state-value-v1-full-observed-5.json",
+    "PR187-match-dev-sw-contextual-judgment-v1-120-observed-1.json",
+    "PR187-match-dev-sw-contextual-judgment-v1-120-observed-2.json",
+    "PR187-match-dev-sw-contextual-judgment-v1-full-bare-4.json",
+    "PR187-match-dev-sw-contextual-judgment-v1-full-bare-5.json",
+    "PR187-match-dev-sw-contextual-judgment-v1-full-observed-3.json",
+    "PR187-match-dev-sw-contextual-judgment-v1-full-observed-4.json",
+    "PR187-match-dev-sw-contextual-judgment-v1-full-observed-5.json",
+    "PR187-match-dev-sw-hierarchical-intent-v1-120-observed-1.json",
+    "PR187-match-dev-sw-hierarchical-intent-v1-120-observed-2.json",
+    "PR187-match-dev-sw-hierarchical-intent-v1-full-bare-4.json",
+    "PR187-match-dev-sw-hierarchical-intent-v1-full-bare-5.json",
+    "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-3.json",
+    "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-4.json",
+    "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-5.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-120-observed-0.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-120-observed-1.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-120-observed-2.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-full-bare-4.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-full-bare-5.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-full-observed-3.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-full-observed-4.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-full-observed-5.json",
+    "PR187-match-dev-sw-phase-role-hybrid-v1-full-observed-4.json",
+    "PR187-match-dev-sw-phase-role-hybrid-v1-full-observed-5.json",
+    "PR187-match-dev-sw-state-value-v1-full-observed-4.json",
+    "PR187-match-dev-sw-state-value-v1-full-observed-5.json",
+    "PR187-match-dev-ww-contextual-judgment-v1-full-observed-4.json",
+    "PR187-match-dev-ww-contextual-judgment-v1-full-observed-5.json",
+    "PR187-match-dev-ww-hierarchical-intent-v1-full-observed-4.json",
+    "PR187-match-dev-ww-hierarchical-intent-v1-full-observed-5.json",
+    "PR187-match-dev-ww-opportunity-driven-v1-full-observed-4.json",
+    "PR187-match-dev-ww-opportunity-driven-v1-full-observed-5.json",
+    "PR187-match-dev-ww-phase-role-hybrid-v1-full-observed-4.json",
+    "PR187-match-dev-ww-phase-role-hybrid-v1-full-observed-5.json",
+    "PR187-match-dev-ww-state-value-v1-full-observed-4.json",
+    "PR187-match-dev-ww-state-value-v1-full-observed-5.json"
+  ],
+  "researchReceipt": "PR187-research-cycle5.json",
+  "previousApparatusReceipt": "PR187-research.json"
+}

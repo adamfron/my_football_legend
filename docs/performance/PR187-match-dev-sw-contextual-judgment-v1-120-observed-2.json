@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "dev-sw",
+  "fixture": {
+    "anchor": "4-3-3",
+    "opponent": "3-5-2",
+    "attributes": 78,
+    "opponentAttributes": 48,
+    "style": "counter_attacking",
+    "seed": "pr187-development-sw-01"
+  },
+  "policy": "contextual-judgment-v1",
+  "informationComparison": "historical shared defensive/GK/restart controllers; bounded on-ball candidates only; NOT an equal-information full-match comparison",
+  "sourceSha256": "09543835608419489f69d43d364b3ae0b2f4eac9562099af1a7837d1caa547af",
+  "evaluatorSha256": "c976503e85d817b0ce54d4845776d35766846a8bf22dbac26d5c404f47becfd1",
+  "inputSha256": "c3a894ddcaec4a0f39ea769b9f0fa48a6c99cf080b9f0a4b7f8be26da2f8b140",
+  "full": false,
+  "observed": true,
+  "ticks": 4800,
+  "status": "first_half",
+  "canonicalSeconds": 120.00000000001016,
+  "score": {
+    "home": 0,
+    "away": 0
+  },
+  "finalStateSha256": "4ffff18b18d840a5efc9be94e19cfc167cac9e818de17626c355f85cb200492e",
+  "failure": null,
+  "counts": {
+    "decisions": 347,
+    "candidates": 3388,
+    "evaluations": 3388,
+    "forecasts": 507,
+    "waits": 0,
+    "continuations": 0,
+    "cancellations": 0,
+    "patternObservations": 2,
+    "patternArrivals": 0,
+    "patternCancellations": 2,
+    "attempts": 354,
+    "releases": 25,
+    "shotAttempts": 0,
+    "shotReleases": 0,
+    "passAttempts": 25,
+    "passReleases": 25,
+    "backwardPasses": 3,
+    "progressivePasses": 9,
+    "reciprocalPasses": 3
+  },
+  "reasons": {
+    "best_within_subjective_risk_budget|context:neutral": 316,
+    "canonical_state_changed": 354,
+    "observed:press_triangle:recognised_at:3.5346": 1,
+    "bounded_individual_discretion|context:neutral": 31,
+    "cancel:lost_possession_or_sight": 2,
+    "observed:press_triangle:recognised_at:15.8346": 1
+  },
+  "wallMilliseconds": 4623.219,
+  "cpuMicroseconds": {
+    "user": 5938000,
+    "system": 281000
+  },
+  "rssBytes": 313143296,
+  "archive": "docs/performance/pr187-traces/dev-sw-contextual-judgment-v1-120-observed-2.json.gz",
+  "archiveSha256": "99cc49b89d06b7ff6182e133c657a2496d7bec6396f410c7278d67b6fe4723db",
+  "payloadSha256": "9760d65f0b732cd81cd640b01610b7be0d62c5f5b8e6909eded351bc53f7f845"
+}

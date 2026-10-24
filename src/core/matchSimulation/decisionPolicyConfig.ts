@@ -7,6 +7,9 @@ export const decisionPolicyIdSchema = z.enum([
   'role-value-v1',
   'role-intent-v1',
   'phase-role-hybrid-v1',
+  'opportunity-driven-v1',
+  'hierarchical-intent-v1',
+  'contextual-judgment-v1',
 ]);
 export type DecisionPolicyId = z.infer<typeof decisionPolicyIdSchema>;
 export const decisionAblationSchema = z.enum([

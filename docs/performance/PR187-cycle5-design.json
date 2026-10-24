@@ -1,0 +1,22 @@
+{
+  "matrix": "5 policies x 3 existing development designs + full SW observer-off repeats for the 3 new policies",
+  "blockers": [
+    "non-completion",
+    "unobserved signature input",
+    "observer mismatch",
+    "historical state mismatch",
+    "physical shortcut"
+  ],
+  "schemaVersion": 1,
+  "change": "Replace universal 0.2s on-ball review with bounded semantic events and actor/action-specific quiet reconsideration. Candidate features, policy mechanisms, preparation and physics are unchanged.",
+  "cycle": 5,
+  "previousCodeCommit": "5b929dc9bb9a0faeb2e148db69d6051d76ddc57e",
+  "tuning": "No tuning in response to this final development matrix; negative quality remains a blocker and confirmation is not opened.",
+  "cohort": "development_only",
+  "hypotheses": [
+    "Meaningful observed changes are reviewed sooner than quiet holds; reading/concentration change recognition latency.",
+    "All three policies still complete the same SS/SW/WW development designs; this is not new independent confirmation.",
+    "Full SW observer on/off states remain identical.",
+    "Historical B/R3 canonical states remain exactly unchanged across this opt-in-only scheduler correction."
+  ]
+}

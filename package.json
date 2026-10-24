@@ -70,8 +70,11 @@
     "benchmark:pr165-browser": "node scripts/benchmarkPr165Browser.mjs",
     "benchmark:pr165-models": "node scripts/benchmarkPr165ModelRender.mjs",
     "benchmark:pr186": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr186.mjs",
-    "benchmark:pr186:replay": "npm run benchmark:pr186 -- --replay",
-    "benchmark:pr186:matches": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr186Matches.mjs"
+    "benchmark:pr186:replay": "node scripts/replayPr186Baseline.mjs",
+    "benchmark:pr186:matches": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr186Matches.mjs",
+    "benchmark:pr187": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr187.mjs",
+    "benchmark:pr187:research": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr187Research.mjs",
+    "benchmark:pr187:index": "node scripts/recordPr187Evidence.mjs"
   },
   "dependencies": {
     "react": "19.2.8",

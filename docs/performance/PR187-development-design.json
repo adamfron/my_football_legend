@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "68487f1c0e16f32b840056550708832ac1a68cdf",
+  "cohort": "development_only",
+  "frozenBeforeImplementation": true,
+  "hypotheses": [
+    "Hidden opponent attributes, instructions, targets, future RNG and unseen positions cannot change bounded candidates or policy decisions when observed evidence is identical.",
+    "A selects useful feasible expiring windows; H continues a supported objective with at most three dependencies and cancels contradictions; C allows trait/context-dependent discretion only among near-comparable viable options.",
+    "Recognition may change movement timing but cannot change speed, skill, physical contact or assign a pass outcome.",
+    "Selected actions, physical preparation, attempted resolution, actual release and outcome must remain separate.",
+    "Full matches must finish, save/replay must be deterministic and observers must be neutral."
+  ],
+  "developmentCases": [
+    "closing_lane",
+    "prepared_combination",
+    "failed_run",
+    "unfamiliar_system",
+    "late_equaliser",
+    "safe_possession",
+    "unseen_opponent",
+    "no_cover",
+    "wrong_actor",
+    "expired_candidate",
+    "R3_699.050",
+    "R3_3504.050"
+  ],
+  "blockers": [
+    "hidden-information-dependent candidate",
+    "physical shortcut",
+    "stale dependency continuing after observed contradiction",
+    "observer outcome difference",
+    "non-completion",
+    "human agency bypass",
+    "historical evidence modification"
+  ],
+  "performance": {
+    "measure": "candidate construction + policy + canonical match CPU/RSS separately",
+    "allowedOverheadRatio": 2,
+    "interpretation": "A ceiling for a future confirmation gate; exceeding it is a blocker, not grounds to weaken physics."
+  },
+  "confirmation": {
+    "status": "not_frozen_not_run",
+    "prerequisite": "All bounded information paths including goalkeeper/defensive/restart decisions audited; development blockers resolved before code/evaluator/config freeze.",
+    "minimumIndependentDesignsPerCategory": 2,
+    "categories": [
+      "SS",
+      "SW",
+      "WW"
+    ],
+    "handling": "Inconclusive evidence does not establish superiority; never tune against a frozen cohort."
+  }
+}

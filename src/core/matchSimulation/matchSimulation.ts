@@ -1,5 +1,11 @@
 import { attacksRight } from './matchSpace';
 import { integrateCanonicalMovement } from './canonicalMovement';
+import { usesBoundedIntelligence } from './boundedIntelligenceState';
+import {
+  advanceBoundedOwnerDecision,
+  advanceBoundedPatterns,
+  boundedPatternTarget,
+} from './boundedIntelligence';
 import { canExecuteFirstTimePass } from './firstTimePassing';
 import {
   retainContinuousBodyContacts,
@@ -946,10 +952,21 @@ const resolveRoutineOwnerDecision = (state: TacticalMatchState): TacticalMatchSt
   const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
   // The agency evaluator owns the pause. A forced action uses the same autonomous resolver,
   // including high-impact actions when no genuinely playable alternative exists.
-  const action =
-    awaitsPlayer || hasActiveHumanPossession(state)
-      ? undefined
-      : chooseNpcRoutineAction(state, ownerId);
+  let action;
+  if (
+    usesBoundedIntelligence(state) &&
+    !awaitsPlayer &&
+    !hasActiveHumanPossession(state) &&
+    !isRestartSetup(state)
+  ) {
+    const bounded = advanceBoundedOwnerDecision(state, owner);
+    state = bounded.state;
+    action = bounded.action;
+  } else
+    action =
+      awaitsPlayer || hasActiveHumanPossession(state)
+        ? undefined
+        : chooseNpcRoutineAction(state, ownerId);
   if (hybrid && !awaitsPlayer && !hasActiveHumanPossession(state))
     state = { ...state, decisionReadiness: markDecisionEvaluated(state, owner) };
   if (action) {
@@ -1626,6 +1643,7 @@ const stepTacticalMatchCore = (
     delete state.keeperIntervention;
   }
   const planningSpan = startPerformanceSpan('tactical_planning');
+  state = advanceBoundedPatterns(state);
   state = reconcileCombination(advanceOnBallPreparation(state));
   const semanticKey = tacticalSemanticKey(state);
   const tacticalPlanDue =
@@ -1774,6 +1792,17 @@ const stepTacticalMatchCore = (
     }
     if (usesStateValue(state) && state.decisionAblation !== 'movement')
       movementTarget = authoritativeMovementTarget(state, player, movementTarget);
+    const patternTarget = boundedPatternTarget(state, player);
+    if (
+      patternTarget &&
+      state.playerMovementIntent?.actorId !== player.id &&
+      state.receptionPreparation?.actorId !== player.id &&
+      state.defensiveChallenge?.actorId !== player.id &&
+      !(state.playerAgencyEnabled !== false && player.id === state.controlledFootballerId)
+    ) {
+      movementTarget = patternTarget;
+      player = { ...player, target: patternTarget };
+    }
     const locomotion = projectLocomotion(state, player, movementTarget, cooperativePress ?? null);
     const preparing =
       state.onBallPreparation?.actorId === player.id &&
@@ -2736,12 +2765,12 @@ const stepTacticalMatchCore = (
       const beforeContact = { x: state.ball.x, y: state.ball.y };
       const contactSpan = startPerformanceSpan('ball_contact_control');
       if (
-        usesStateValue(state) &&
-        state.decisionAblation !== 'readiness' &&
+        (usesBoundedIntelligence(state) ||
+          (usesStateValue(state) && state.decisionAblation !== 'readiness')) &&
         !state.periodEndPending &&
         !state.defensiveChallenge &&
         canReleaseControlledAction(state, owner) &&
-        canReconsiderDecision(state, owner)
+        (usesBoundedIntelligence(state) || canReconsiderDecision(state, owner))
       )
         state = resolveRoutineOwnerDecision(state);
       const controlled =

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "dev-sw",
+  "fixture": {
+    "anchor": "4-3-3",
+    "opponent": "3-5-2",
+    "attributes": 78,
+    "opponentAttributes": 48,
+    "style": "counter_attacking",
+    "seed": "pr187-development-sw-01"
+  },
+  "policy": "opportunity-driven-v1",
+  "informationComparison": "historical shared defensive/GK/restart controllers; bounded on-ball candidates only; NOT an equal-information full-match comparison",
+  "sourceSha256": "6b63b08321af346880b896b1de87f7c9f4f5957331b88b9d907d693aed4ffd90",
+  "evaluatorSha256": "c976503e85d817b0ce54d4845776d35766846a8bf22dbac26d5c404f47becfd1",
+  "inputSha256": "41fbc6c1f09b2c6ffd54653dafd1df27eb75e26eeb58fe762779648d102007a2",
+  "full": false,
+  "observed": true,
+  "ticks": 4800,
+  "status": "first_half",
+  "canonicalSeconds": 120.00000000001016,
+  "score": {
+    "home": 0,
+    "away": 0
+  },
+  "finalStateSha256": "a0fc431103a92d76ded9016cb0d69a1c2f37ca34fe73f40c0229681b1ae1f412",
+  "failure": null,
+  "counts": {
+    "decisions": 591,
+    "candidates": 4168,
+    "evaluations": 4168,
+    "forecasts": 0,
+    "waits": 0,
+    "continuations": 0,
+    "cancellations": 0,
+    "patternObservations": 1,
+    "patternArrivals": 0,
+    "patternCancellations": 1,
+    "attempts": 592,
+    "releases": 1,
+    "shotAttempts": 0,
+    "shotReleases": 0,
+    "passAttempts": 1,
+    "passReleases": 1,
+    "backwardPasses": 0,
+    "progressivePasses": 1,
+    "reciprocalPasses": 0
+  },
+  "reasons": {
+    "no_admitted_transient_window|benefit_and_risk_admitted": 591,
+    "canonical_state_changed": 592,
+    "observed:press_triangle:recognised_at:3.5346": 1,
+    "cancel:expired": 1
+  },
+  "wallMilliseconds": 3704.5724,
+  "cpuMicroseconds": {
+    "user": 4594000,
+    "system": 78000
+  },
+  "rssBytes": 305815552,
+  "archive": "docs/performance/pr187-traces/dev-sw-opportunity-driven-v1-120-observed-1.json.gz",
+  "archiveSha256": "13796e25f888ed081014457bbac8c0cd763f989d03379b3a1a1b925e26a96c7a",
+  "payloadSha256": "5a513f2f997fbe5454adeeeb86d289648ca3b8d3a7f8869a59d47b4ce2696c36"
+}
