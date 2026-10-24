@@ -211,6 +211,31 @@ const result = {
     rss: process.memoryUsage().rss,
   },
 };
+if (args.has('reference')) {
+  const previous = JSON.parse(
+    readFileSync(`docs/performance/PR188-labs-${args.get('reference')}.json`, 'utf8'),
+  );
+  result.referenceComparison = {
+    version: args.get('reference'),
+    sourceSha256: previous.sourceSha256,
+    variants: rows.length,
+    equalInputs:
+      rows.length === previous.rows.length &&
+      rows.every((r, i) => r.inputSha256 === previous.rows[i].inputSha256),
+    equalFinalStates:
+      rows.length === previous.rows.length &&
+      rows.every((r, i) => r.finalSha256 === previous.rows[i].finalSha256),
+    equalChoices:
+      rows.length === previous.rows.length &&
+      rows.every((r, i) => sha(r.selectedTypes) === sha(previous.rows[i].selectedTypes)),
+  };
+  if (
+    !result.referenceComparison.equalInputs ||
+    !result.referenceComparison.equalFinalStates ||
+    !result.referenceComparison.equalChoices
+  )
+    process.exitCode = 1;
+}
 if (replay) {
   const previous = JSON.parse(readFileSync(path, 'utf8'));
   if (

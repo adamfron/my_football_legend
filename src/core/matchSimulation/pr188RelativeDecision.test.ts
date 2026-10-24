@@ -19,6 +19,8 @@ import { projectPlayerDecisionOpportunity } from './playerDecision';
 import { tacticalMatchStateSchema } from './matchState';
 import { attacksRight, distance } from './matchSpace';
 import { deriveRestartLegalReadiness } from './restartLaws';
+import { playerContactGeometry } from './ballContactGeometry';
+import { resolveMatchAction } from './matchActions';
 import { chooseNpcDefensiveChallengeAction, deriveDefensiveContext } from './defensiveChallenges';
 import { chooseCurrentFreeKickPositions } from './restartLifecycle';
 
@@ -43,6 +45,50 @@ const scene = (
   return observeBoundedScene(f.state, f.state.players.find((p) => p.id === f.actorId)!);
 };
 describe('PR188 relative opportunities and evidence boundaries', () => {
+  const finishingFixture = () => {
+    const f = fixture(80),
+      s = f.state,
+      a = s.players.find((p) => p.id === f.actorId)!;
+    s.decisionPolicy = 'hierarchical-intent-v1';
+    a.position = { x: 93, y: 34 };
+    f.defenderIds.forEach((id, i) => {
+      s.players.find((p) => p.id === id)!.position = { x: 70, y: 5 + i * 5 };
+    });
+    for (const [i, p] of s.players
+      .filter((p) => p.team === a.team && p.id !== a.id && p.slot.position === 'center_back')
+      .entries())
+      p.position = { x: 89, y: 30 + i * 8 };
+    s.ball = { ...s.ball, ...playerContactGeometry(a).rightFoot };
+    return { s, a };
+  };
+  it('gives Hierarchical Intent a finishing objective when a physical shot is better than circulation', () => {
+    const { s, a } = finishingFixture(),
+      inspection = inspectBoundedAction(s, a);
+    expect(inspection.action?.type).toBe('shot');
+    expect(inspection.decision.intent?.goal).toBe('finish');
+    const next = resolveMatchAction(s, inspection.action!, 'autonomous_npc');
+    expect(next.ball.shot).toBeDefined();
+    expect(next.ball.lastTouchPlayerId).toBe(a.id);
+  });
+  it('revises a supported progress plan for a better terminal opportunity rather than circulating indefinitely', () => {
+    const { s, a } = finishingFixture(),
+      scene = observeBoundedScene(s, a),
+      candidates = constructBoundedCandidates(scene);
+    const continuation = candidates.find((c) => c.action.type === 'carry')!;
+    scene.intent = {
+      actorId: a.id,
+      candidateKey: continuation.id,
+      goal: 'progress',
+      startedAt: 9,
+      expiresAt: 11,
+      dependencies: [],
+      signature: scene.signature,
+    };
+    const result = runBoundedPolicy('hierarchical-intent-v1', { scene, candidates });
+    expect(result.intent?.goal).toBe('finish');
+    expect(result.reasons).toContain('cancel:finishing_window_better_than_continuation');
+    expect(result.measured.evaluations).toBeLessThanOrEqual(48);
+  });
   it('lets a weak covered defender attempt an exposed contact inside the existing physical reach', () => {
     const f = fixture(),
       s = f.state,

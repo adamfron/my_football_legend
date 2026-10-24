@@ -19,9 +19,11 @@ import { deriveBallContactAccess, playerContactGeometry } from './ballContactGeo
 import { integrateGroundRolling } from './ballPhysics';
 import { derivePressingOpportunity } from './tacticalPreferences';
 import { deriveMovementCapability } from './locomotion';
-import { usesBoundedIntelligence } from './boundedIntelligenceState';
+import { boundedPolicySchema } from './boundedIntelligenceState';
+const relativeDefensivePolicies = new Set<string>(boundedPolicySchema.options);
 const relativeDefence = (s: TacticalMatchState) =>
-  usesBoundedIntelligence(s) && s.boundedExperiment?.relativeOpportunities !== false;
+  relativeDefensivePolicies.has(s.decisionPolicy ?? '') &&
+  s.boundedExperiment?.relativeOpportunities !== false;
 
 export const defensiveTechniqueSchema = z.enum(['standing', 'committed', 'slide', 'tactical']);
 export type DefensiveTechnique = z.infer<typeof defensiveTechniqueSchema>;
@@ -253,12 +255,11 @@ const projectPressingPlan = (
         explicit.type === 'attack_space'),
   );
   const protectedReceiver = protectedPressReceiver(state, c.actor);
-  const access = deriveBallContactAccess(state, c.actor, c.opponent);
   const reachableExposure =
     relativeDefence(state) &&
-    !access.bodyOccludes &&
+    c.ballDistance < 1.5 &&
     c.ballDistance < c.opponentDistance - 0.1 &&
-    c.ballDistance < 1.5;
+    !deriveBallContactAccess(state, c.actor, c.opponent).bodyOccludes;
   const progress = attacksRight(c.opponent) ? c.opponent.position.x : 105 - c.opponent.position.x;
   const nearGoal = progress >= 78 && Math.abs(c.opponent.position.y - 34) <= 18;
   const carry = state.ballCarrierIntent;

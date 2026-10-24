@@ -41,22 +41,22 @@ if (process.argv.includes('--check')) {
       : readFileSync(f.path);
     if (sha(v) !== f.sha256) throw Error(`Historical evidence modified: ${f.path}`);
   }
-  const labs = json('docs/performance/PR188-labs-relative-head.json');
+  const labs = json('docs/performance/PR188-labs-relative-optimized.json');
   if (labs.sourceSha256 !== sourceSha256) throw Error('Final laboratory source differs from head');
-  const research = json('docs/performance/PR188-research-head.json');
+  const research = json('docs/performance/PR188-research-optimized.json');
   if (research.sourceSha256 !== sourceSha256) throw Error('Research source differs from head');
   const baseline = json('docs/performance/PR188-labs-baseline-v2.json');
   const passive = json('docs/performance/PR188-labs-baseline-passive-final.json');
   const matrix = json('docs/performance/PR188-full-matrix-status.json');
   if (matrix.results.length !== 15) throw Error('Incomplete development matrix');
-  const verificationLog = readFileSync('../pr188-verify-head.log', 'utf8');
-  const exitCode = Number(readFileSync('../pr188-verify-head-exit.txt', 'utf8').trim());
+  const verificationLog = readFileSync('../pr188-verify-complete.log', 'utf8');
+  const exitCode = Number(readFileSync('../pr188-verify-complete-exit.txt', 'utf8').trim());
   if (exitCode !== 0) throw Error('Verification did not pass');
   const testStages = [...verificationLog.matchAll(/Tests\s+(\d+) passed/g)].map((m) =>
     Number(m[1]),
   );
   if (testStages.length !== 4) throw Error('Incomplete test stages');
-  const replayLog = readFileSync('../pr188-head-replay.log', 'utf8');
+  const replayLog = readFileSync('../pr188-optimized-replay.log', 'utf8');
   if (!replayLog.includes('"trials":240') || replayLog.includes('mismatch'))
     throw Error('Missing observer-off replay');
   const matches = matrix.results.map((r) => {
@@ -175,13 +175,13 @@ if (process.argv.includes('--check')) {
     totalTests: testStages.reduce((a, b) => a + b, 0),
     node: process.version,
     environment: { NODE_OPTIONS: '--max-semi-space-size=64', VITEST_MAX_WORKERS: '1' },
-    log: 'docs/performance/pr188-run-logs/pr188-verify-head.log',
+    log: 'docs/performance/pr188-run-logs/pr188-verify-complete.log',
     logSha256: sha(verificationLog),
-    targetedRegressionTests: 24,
+    targetedRegressionTests: 26,
     laboratoryObserverOffReplay: {
       variants: 240,
       equalFinalStateHashes: true,
-      log: 'docs/performance/pr188-run-logs/pr188-head-replay.log',
+      log: 'docs/performance/pr188-run-logs/pr188-optimized-replay.log',
     },
     browser: 'docs/performance/PR188-browser.json',
     ci: 'Final-head CI is checked and linked in the pull request, not inferred from local verification.',
@@ -256,7 +256,7 @@ if (process.argv.includes('--check')) {
   );
   replace(
     'VERIFY',
-    `Local npm run verify: **PASS**, ${verification.totalTests} tests (${testStages.join(' + ')}), lint, TypeScript and production build. All stages are retained; no timeout or test budget was relaxed. Twenty-four targeted PR188 tests cover liveness, evidence boundaries and real restarts. Complete observer-off replay preserves 240 final physical/runtime hashes. The verification receipt names source ${sourceSha256}; final-head CI is linked in the PR. Earlier failed/interrupted runs remain in the evidence index.`,
+    `Local npm run verify: **PASS**, ${verification.totalTests} tests (${testStages.join(' + ')}), lint, TypeScript and production build. All stages are retained; no timeout or test budget was relaxed. Twenty-six targeted PR188 tests cover liveness, evidence boundaries and real restarts. Complete observer-off replay preserves 240 final physical/runtime hashes. The verification receipt names source ${sourceSha256}; final-head CI is linked in the PR. Earlier failed/interrupted runs remain in the evidence index.`,
   );
   writeFileSync('docs/PR188_RELATIVE_DECISION_MAKING_AND_MATCH_STABILIZATION.md', report);
   const artifacts = readdirSync('docs/performance', { recursive: true })

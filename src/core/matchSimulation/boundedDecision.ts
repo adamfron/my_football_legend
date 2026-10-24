@@ -425,6 +425,17 @@ const opportunity: PolicyMechanism = ({ scene: s, candidates }, meter) => {
 // H first continues a supported commitment, then chooses ONE tactical objective.
 // Only its local alternatives are compared; a missing dependency cancels first.
 const hierarchical: PolicyMechanism = ({ scene: s, candidates }, meter) => {
+  const inspected = new Set<string>();
+  const finish = s.config.relativeOpportunities
+    ? candidates
+        .filter((c) => {
+          if (c.goal !== 'finish') return false;
+          meter.inspect(c);
+          inspected.add(c.id);
+          return (viable(s, c) || preparable(s, c)) && c.legal !== false;
+        })
+        .sort((a, b) => b.benefit - a.benefit || a.id.localeCompare(b.id))[0]
+    : undefined;
   const previous = s.config.planning ? s.intent : null;
   let cancellation: string | undefined;
   if (previous) {
@@ -441,17 +452,22 @@ const hierarchical: PolicyMechanism = ({ scene: s, candidates }, meter) => {
             ? 'receiver_unavailable'
             : previous.goal === 'progress' && cover < 2
               ? 'missing_defensive_cover'
-              : !current ||
-                  !(viable(s, current) || preparable(s, current)) ||
-                  (s.config.relativeOpportunities
-                    ? current.legal === false ||
-                      current.benefit <
-                        (candidates.find((c) => c.action.type === 'hold')?.benefit ?? -1)
-                    : current.risk > 0.55)
-                ? 'failed_movement_offside_or_lane_closed'
-                : undefined;
+              : current &&
+                  finish &&
+                  finish.id !== current.id &&
+                  finish.benefit > current.benefit + 1e-8
+                ? 'finishing_window_better_than_continuation'
+                : !current ||
+                    !(viable(s, current) || preparable(s, current)) ||
+                    (s.config.relativeOpportunities
+                      ? current.legal === false ||
+                        current.benefit <
+                          (candidates.find((c) => c.action.type === 'hold')?.benefit ?? -1)
+                      : current.risk > 0.55)
+                  ? 'failed_movement_offside_or_lane_closed'
+                  : undefined;
     if (!cancellation && current) {
-      meter.inspect(current);
+      if (!inspected.has(current.id)) meter.inspect(current);
       return {
         ...finishChoice(s, current, ['supported_objective_continues'], 'continue'),
         intent: {
@@ -464,7 +480,7 @@ const hierarchical: PolicyMechanism = ({ scene: s, candidates }, meter) => {
     }
   }
   const options = candidates.filter((c) => {
-    meter.inspect(c);
+    if (!inspected.has(c.id)) meter.inspect(c);
     return (
       (viable(s, c) || preparable(s, c)) &&
       (s.config.relativeOpportunities
@@ -480,14 +496,21 @@ const hierarchical: PolicyMechanism = ({ scene: s, candidates }, meter) => {
       36,
       ...s.visible.filter((p) => p.team !== s.team).map((p) => distance(p.position, s.position)),
     ) < 5;
-  const objective = pressure
-    ? 'escape'
-    : knowledge.system >= 0.5 &&
-        s.visible.some((p) => p.team === s.team && s.direction * p.velocity.x > 1)
-      ? 'progress'
-      : s.scoreDifference > 0 && s.at > 4500
-        ? 'retain'
-        : 'progress';
+  const finishDominates =
+    finish &&
+    finish.benefit >
+      Math.max(-Infinity, ...options.filter((c) => c.goal !== 'finish').map((c) => c.benefit)) +
+        1e-8;
+  const objective = finishDominates
+    ? 'finish'
+    : pressure
+      ? 'escape'
+      : knowledge.system >= 0.5 &&
+          s.visible.some((p) => p.team === s.team && s.direction * p.velocity.x > 1)
+        ? 'progress'
+        : s.scoreDifference > 0 && s.at > 4500
+          ? 'retain'
+          : 'progress';
   const waiting = options.find((c) => c.action.type === 'hold');
   const local = options
     .filter((c) => c.goal === objective)
