@@ -1,0 +1,26 @@
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/pr160PenaltyLiveness.test.ts (17 tests | 1 failed) 205553ms
+       × completes a whole CPU half with a penalty and meaningful canonical progress 89576ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/pr160PenaltyLiveness.test.ts > PR160 penalty liveness regression > whole-half penalty contract: 'legacy-pr176' > completes a whole CPU half with a penalty and meaningful canonical progress
+Error: Native penalty half failed (exit=null, signal=SIGTERM): 
+ ❯ ChildProcess.<anonymous> src/core/matchSimulation/pr160PenaltyLiveness.test.ts:56:11
+     54|       if (code !== 0)
+     55|         return reject(
+     56|           new Error(`Native penalty half failed (exit=${code}, signal=…
+       |           ^
+     57|         );
+     58|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 passed (17)
+   Start at  18:49:29
+   Duration  209.69s (transform 1.66s, setup 0ms, import 3.93s, tests 205.55s, environment 0ms)
+

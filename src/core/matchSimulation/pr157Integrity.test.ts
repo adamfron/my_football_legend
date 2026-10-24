@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
 import { RandomGenerator } from '../random/RandomGenerator';
-import { createTacticalMatch, FIXED_MATCH_DT, stepTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, FIXED_MATCH_DT, stepTacticalMatch } from './matchSimulation';
 import { enumerateCanonicalShootingOptions } from './shootingOptions';
 import { resolveMatchAction } from './matchActions';
 import { projectPlayerDecisionOpportunity } from './playerDecision';

@@ -54,6 +54,7 @@ import { deriveStructuralPosition } from './tacticalPositioning';
 import { arbitrateGoalkeeperClaim } from './goalkeeperClaim';
 import { isShotAction, requiresHumanRestart } from './actionAgency';
 import { enumerateFirstTimePasses } from './firstTimePassing';
+import { deriveRestartLegalReadiness } from './restartLaws';
 
 export const proxyResolutionStatusSchema = z.enum([
   'resolved_action',
@@ -1029,6 +1030,13 @@ export const projectPlayerAgency = (
     !state.restart.selectedAction &&
     state.restart.takerId === actorId;
   const mandatoryRestart = requiresHumanRestart(state, actorId);
+  if (
+    controlledRestart &&
+    state.scenario.startsWith('free_kick') &&
+    (!deriveRestartLegalReadiness(state).ready ||
+      state.restart?.humanPreparation === 'waiting_team')
+  )
+    return blocked('not_open_play');
   if (state.scenario !== 'open_play' && state.restart?.phase !== 'release' && !controlledRestart)
     return blocked('not_open_play');
   const humanPossession = hasActiveHumanPossession(state);

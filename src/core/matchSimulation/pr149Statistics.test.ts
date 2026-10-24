@@ -7,7 +7,7 @@ import {
   applyChallengeInfringement,
   applyRestartScenario,
   createMatchStatistics,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   emitCanonicalActionEvents,
   emitMatchEvents,
   FIXED_MATCH_DT,

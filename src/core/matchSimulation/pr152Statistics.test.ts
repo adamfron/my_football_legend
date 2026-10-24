@@ -7,7 +7,7 @@ import {
   assertMatchStatisticsInvariants,
   beginDefensiveChallenge,
   createMatchStatistics,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   enumerateRestartActions,
   FIXED_MATCH_DT,
   matchStatisticsSchema,

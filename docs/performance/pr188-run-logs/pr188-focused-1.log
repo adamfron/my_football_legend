@@ -1,0 +1,295 @@
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts (32 tests | 17 failed) 504ms
+     × projects canonical on-ball actions once without consuming or mutating state 11ms
+     × does not let historical action fields deadlock a meaningful receiver decision 8ms
+     × keeps routine possession automatic and diagnoses its blocker 8ms
+     × executes carry through tactical recomputation and restores tactical control 8ms
+     × surfaces a fresh human node when a selected carry finishes inside shooting range 5ms
+     × never lets autonomous routine play steal a retained-possession carry handoff 132ms
+     × restores human agency after a transient loose-ball carry contact and same-player recovery 7ms
+     × resolves a selected action through the identical canonical resolver exactly once 7ms
+     × projects target-first menus without mutating the snapshot 6ms
+     × offers a human both feet and lead intentions for a useful run without using AI utility 9ms
+     × does not duplicate a lead option for a stationary teammate 6ms
+     × rejects a distant dominated loose ball and accepts an immediate contest 17ms
+     × diagnoses stale semantic possession and does not project attacking options from it 5ms
+     × skips through the canonical NPC path and spectator mode never projects 6ms
+     × queues an imminent meaningful reception without resolving before contact 6ms
+     × keeps opponent passes interceptable and every surfaced pause actionable 6ms
+     × uses the dragged physical ETA rather than the obsolete constant-speed winger ETA 11ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 17 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > projects canonical on-ball actions once without consuming or mutating state
+TypeError: Cannot read properties of undefined (reading 'options')
+ ❯ src/core/matchSimulation/playerDecision.test.ts:111:19
+    109|     const opportunity = projectPlayerDecisionOpportunity(state)!;
+    110|     expect(
+    111|       opportunity.options
+       |                   ^
+    112|         .filter((option) => option.kind === 'action')
+    113|         .map((option) => option.action),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > does not let historical action fields deadlock a meaningful receiver decision
+AssertionError: expected undefined to be 'on_ball' // Object.is equality
+
+- Expected:
+"on_ball"
+
++ Received:
+undefined
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts:126:31
+    124|     state.latestAction = state.currentAction;
+    125|     const opportunity = projectPlayerDecisionOpportunity(state);
+    126|     expect(opportunity?.kind).toBe('on_ball');
+       |                               ^
+    127|     expect(projectPlayerDecisionProbe(state).candidate).toBe(true);
+    128|     expect(stepTacticalMatch(state, 0.025)).toBe(state);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > keeps routine possession automatic and diagnoses its blocker
+AssertionError: expected 'not_open_play' to be 'routine' // Object.is equality
+
+Expected: "routine"
+Received: "not_open_play"
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts:142:61
+    140|     state.time = 6;
+    141|     state.ballOwnershipStartedAt = 0;
+    142|     expect(projectPlayerDecisionProbe(state).blockedReason).toBe('rout…
+       |                                                             ^
+    143|     expect(stepTacticalMatch(state, 0.025).decisionIndex).toBeGreaterT…
+    144|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > executes carry through tactical recomputation and restores tactical control
+TypeError: Cannot read properties of undefined (reading 'expiresAt')
+ ❯ src/core/matchSimulation/playerDecision.test.ts:153:39
+    151|     const target = { x: actor.position.x + 8, y: actor.position.y + 3 …
+    152|     let carried = resolveMatchAction(state, { type: 'carry', actorId: …
+    153|     expect(carried.ballCarrierIntent!.expiresAt - carried.time).toBeGr…
+       |                                       ^
+    154|       carried.ballCarrierIntent!.estimatedArrival,
+    155|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > surfaces a fresh human node when a selected carry finishes inside shooting range
+AssertionError: expected undefined to be 'carry' // Object.is equality
+
+- Expected:
+"carry"
+
++ Received:
+undefined
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts:187:65
+    185|       carried = stepTacticalMatch(carried, 0.025);
+    186|     const opportunity = projectPlayerDecisionOpportunity(carried);
+    187|     expect(carried.postActionAgencyCheckpoint?.completedAction).toBe('…
+       |                                                                 ^
+    188|     expect(opportunity?.kind).toBe('on_ball');
+    189|     expect(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > never lets autonomous routine play steal a retained-possession carry handoff
+AssertionError: expected undefined to be 'footballer_pro_0_3' // Object.is equality
+
+- Expected:
+"footballer_pro_0_3"
+
++ Received:
+undefined
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts:213:57
+    211|     for (let index = 0; index < 240; index += 1) carried = stepTactica…
+    212|     expect(carried.ball.ownerId).toBe(actor.id);
+    213|     expect(carried.postActionAgencyCheckpoint?.actorId).toBe(actor.id);
+       |                                                         ^
+    214|     expect(projectPlayerDecisionOpportunity(carried)?.kind).toBe('on_b…
+    215|     expect(carried.latestActionSource).toBe('human_selected');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > restores human agency after a transient loose-ball carry contact and same-player recovery
+AssertionError: expected undefined to be 'footballer_pro_0_3' // Object.is equality
+
+- Expected:
+"footballer_pro_0_3"
+
++ Received:
+undefined
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts:239:57
+    237|     };
+    238|     episode = { ...episode, ball: { ...episode.ball, ownerId: actor.id…
+    239|     expect(episode.postActionAgencyCheckpoint?.actorId).toBe(actor.id);
+       |                                                         ^
+    240|     expect(projectPlayerDecisionOpportunity(episode)?.kind).toBe('on_b…
+    241|     expect(stepTacticalMatch(episode, 0.025).latestActionSource).not.t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > resolves a selected action through the identical canonical resolver exactly once
+TypeError: Cannot read properties of undefined (reading 'options')
+ ❯ src/core/matchSimulation/playerDecision.test.ts:294:32
+    292|     const state = makeMeaningfulState(),
+    293|       opportunity = projectPlayerDecisionOpportunity(state)!;
+    294|     const option = opportunity.options.find(
+       |                                ^
+    295|       (candidate) => candidate.kind === 'action' && candidate.action.t…
+    296|     )!;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > projects target-first menus without mutating the snapshot
+TypeError: Cannot read properties of undefined (reading 'actorId')
+ ❯ src/core/matchSimulation/playerDecision.test.ts:346:35
+    344|       (player) =>
+    345|         player.team === 'home' &&
+    346|         player.id !== opportunity.actorId &&
+       |                                   ^
+    347|         player.profile.primaryPosition !== 'goalkeeper',
+    348|     )!;
+ ❯ src/core/matchSimulation/playerDecision.test.ts:343:36
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > offers a human both feet and lead intentions for a useful run without using AI utility
+AssertionError: expected [ 'lead_pass' ] to include 'pass_to_feet'
+ ❯ src/core/matchSimulation/playerDecision.test.ts:406:47
+    404|       playerId: receiver.id,
+    405|     });
+    406|     expect(menu.map((item) => item.labelKey)).toContain('pass_to_feet'…
+       |                                               ^
+    407|     expect(menu.map((item) => item.labelKey)).toContain('lead_pass');
+    408|     // Congested defenders make this unattractive to AI, but do not re…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > does not duplicate a lead option for a stationary teammate
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts:432:67
+    430|       playerId: receiver.id,
+    431|     });
+    432|     expect(menu.some((item) => item.labelKey === 'pass_to_feet')).toBe…
+       |                                                                   ^
+    433|     expect(menu.some((item) => item.labelKey === 'lead_pass')).toBe(fa…
+    434|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > rejects a distant dominated loose ball and accepts an immediate contest
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts:448:77
+    446|     for (const player of state.players.filter((player) => player.id !=…
+    447|       player.position = { x: actor.position.x + 4, y: actor.position.y…
+    448|     expect(evaluateControlledPlayerBallRelevance(state, actor.id).rele…
+       |                                                                             ^
+    449|   });
+    450|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > diagnoses stale semantic possession and does not project attacking options from it
+AssertionError: expected undefined to be true // Object.is equality
+
+- Expected:
+true
+
++ Received:
+undefined
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts:565:38
+    563|     state.possessionTeam = actor.team;
+    564|     const probe = projectPlayerDecisionProbe(state);
+    565|     expect(probe.possessionMismatch).toBe(true);
+       |                                      ^
+    566|     expect(probe.opportunityKind).not.toBe('off_ball_run');
+    567|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > skips through the canonical NPC path and spectator mode never projects
+TypeError: Cannot read properties of undefined (reading 'actorId')
+ ❯ src/core/matchSimulation/playerDecision.test.ts:600:55
+    598|     const state = makeMeaningfulState(),
+    599|       opportunity = projectPlayerDecisionOpportunity(state)!;
+    600|     const action = chooseNpcAction(state, opportunity.actorId)!;
+       |                                                       ^
+    601|     expect(letAiDecide(state, opportunity)).toEqual(
+    602|       action.type === 'shot' || (action.type === 'header' && action.in…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > queues an imminent meaningful reception without resolving before contact
+TypeError: Cannot read properties of undefined (reading 'kind')
+ ❯ src/core/matchSimulation/playerDecision.test.ts:653:24
+    651|     };
+    652|     const opportunity = projectPlayerDecisionOpportunity(state)!;
+    653|     expect(opportunity.kind).toBe('incoming_ball');
+       |                        ^
+    654|     const queued = applyPlayerDecision(state, opportunity, 'control');
+    655|     expect(queued.ball.ownerId).toBeUndefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > keeps opponent passes interceptable and every surfaced pause actionable
+TypeError: Cannot read properties of undefined (reading 'kind')
+ ❯ src/core/matchSimulation/playerDecision.test.ts:709:24
+    707|     };
+    708|     const opportunity = projectPlayerDecisionOpportunity(state)!;
+    709|     expect(opportunity.kind).toBe('defensive_response');
+       |                        ^
+    710|     expect(projectSelectableInteractionTargets(state, opportunity)).no…
+    711|     expect(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/17]⎯
+
+ FAIL  src/core/matchSimulation/playerDecision.test.ts > player decision lifecycle > uses the dragged physical ETA rather than the obsolete constant-speed winger ETA
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts:746:27
+    744|     expect(result.arrivalTime).toBeGreaterThan(0);
+    745|     expect(result.contactPoint!.x).toBeLessThan(state.ball.x);
+    746|     expect(result.viable).toBe(true);
+       |                           ^
+    747|     expect(projectPlayerDecisionOpportunity(state)?.kind).toBe('defens…
+    748|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/17]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  17 failed | 31 passed (48)
+   Start at  17:43:22
+   Duration  19.38s (transform 2.22s, setup 0ms, import 5.16s, tests 1.45s, environment 11.93s)
+

@@ -27,7 +27,7 @@ import type { CanonicalActionEvent } from '../../../core/matchSimulation/actionE
 import { createCanonicalWorldDatabase } from '../../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../../core/singleMatch';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   FIXED_MATCH_DT,
   matchStateToFrame,
   stepTacticalMatch,

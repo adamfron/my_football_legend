@@ -14,7 +14,7 @@ import {
 import type { CareerState, HistoryFact, PlayStyleId } from '../types/domain';
 import type { PlayerDecisionOutcome } from './matchSimulation/matchState';
 import { createFormationBenchmarkSession } from './matchSimulation/benchmarkFixtures';
-import { createTacticalMatch } from './matchSimulation/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from './matchSimulation/matchSimulation';
 import { advanceMatchFitness, createMatchFitness } from './matchSimulation/matchFitness';
 import {
   deriveOnBallPreparation,

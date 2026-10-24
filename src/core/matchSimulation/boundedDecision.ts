@@ -10,6 +10,12 @@ import { validateResearchDecision } from './decisionResearchProtocol';
 import { clampPitchPoint, distance, distanceToSegment } from './matchSpace';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { shotPreparationSeconds } from './shotIntent';
+import {
+  assessRelativeSituation,
+  psychologicalContext,
+  opponentExpectationSchema,
+  relativeSituationSchema,
+} from './opponentKnowledge';
 
 const unit = z.number().min(0).max(1);
 const clamp = (v: number) => Math.max(0, Math.min(1, v));
@@ -28,6 +34,8 @@ export const boundedCandidateSchema = z.object({
   goal: z.enum(['retain', 'progress', 'finish', 'escape']),
   compliant: z.boolean(),
   feasible: z.boolean(),
+  legal: z.boolean().optional(),
+  relative: relativeSituationSchema.optional(),
   forecast: z
     .object({
       scoring: unit,
@@ -48,6 +56,7 @@ export const boundedDecisionSchema = z.object({
   observedAt: z.number(),
   recognisedAt: z.number(),
   selectedCandidateId: z.string().nullable(),
+  preparationCandidateId: z.string().nullable().default(null),
   continuation: z.enum(['new', 'continue', 'cancel', 'wait']),
   reasons: z.string().array().min(1).max(12),
   instructionCompliance: z.boolean().nullable(),
@@ -107,6 +116,7 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
   const nearest = Math.min(36, ...foes.map((p) => distance(p.position, s.position)));
   const pressure = clamp(1 - nearest / 7),
     before = threat(s, s.position);
+  const relative = s.config.relativeOpportunities ? assessRelativeSituation(s) : undefined;
   const closing = foes.reduce((soon, p) => {
     const d = distance(p.position, s.position),
       v = Math.max(
@@ -143,7 +153,8 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
       provenance: 'bounded-geometry-v1',
       observedAt: s.at,
       readyAt,
-      feasible: contact && (a.type !== 'shot' || s.ball!.height <= 0.65),
+      feasible: contact && values.legal !== false && (a.type !== 'shot' || s.ball!.height <= 0.65),
+      ...(relative ? { relative } : {}),
       ...values,
     });
   };
@@ -152,8 +163,8 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
     {
       evidenceIds: [s.observerId],
       closesAt: s.at + Math.max(0.1, closing),
-      benefit: -pressure * 0.45 * (before + 0.04),
-      risk: pressure * 0.45,
+      benefit: -(relative?.waitingRisk ?? pressure * 0.45) * (before + 0.07),
+      risk: relative?.waitingRisk ?? pressure * 0.45,
       confidence: 1,
       progress: 0,
       goal: 'retain',
@@ -170,9 +181,19 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
       20,
       ...foes.map((p) => distanceToSegment(p.position, s.position, target)),
     );
-    const risk = clamp(
+    let risk = clamp(
       (1 - clearance / 6) * 0.5 + (1 - s.attributes.dribbling / 100) * pressure * 0.3,
     );
+    if (relative) {
+      const resistance = foes.reduce((worst, p) => {
+        const expectation = s.opponents[p.id] ?? opponentExpectationSchema.parse({});
+        const speed = Math.hypot(p.velocity.x, p.velocity.y);
+        const reach = 0.7 + speed * 0.45 + ((2.5 + expectation.mobility * 3) * 0.45 ** 2) / 2;
+        const lane = distanceToSegment(p.position, s.position, target);
+        return Math.max(worst, clamp(1 - lane / (reach + 1.5)));
+      }, 0);
+      risk = clamp(resistance * 0.6 + (1 - s.attributes.dribbling / 100) * pressure * 0.22);
+    }
     add(
       { type: 'carry', actorId: s.observerId, target, movementMode: 'carry' },
       {
@@ -215,11 +236,32 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
       defenders.length >= 2 &&
       s.direction * receiver.position.x >
         Math.max(52.5 * s.direction, defenders[1]!, s.direction * s.ball.position.x) + 0.15;
-    const risk = clamp(
+    let risk = clamp(
       (1 - lane / 4) * 0.55 +
         ((1 - s.attributes.passing / 100) * metres) / 90 +
         (defenders.length < 2 && progress > 8 ? 0.12 : 0),
     );
+    if (relative) {
+      // Execution error remains absolute; resistance uses local interception geometry,
+      // observed velocity and uncertain individual mobility, never hidden attributes.
+      const resistance = foes.reduce((worst, p) => {
+        const expectation = s.opponents[p.id] ?? opponentExpectationSchema.parse({});
+        const reach =
+          0.7 +
+          Math.hypot(p.velocity.x, p.velocity.y) * travel * 0.5 +
+          (2.5 + expectation.mobility * 3) * travel * travel * 0.25;
+        return Math.max(
+          worst,
+          clamp(1 - distanceToSegment(p.position, s.position, target) / (reach + 0.8)),
+        );
+      }, 0);
+      const executionError = clamp((1 - s.attributes.passing / 100) * (0.07 + metres / 100));
+      risk = clamp(
+        executionError +
+          (1 - executionError) * resistance * 0.7 +
+          (defenders.length < 2 && progress > 8 ? 0.12 : 0),
+      );
+    }
     add(
       {
         type: 'pass',
@@ -231,9 +273,11 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
       },
       {
         evidenceIds: [receiver.id, ...foes.map((p) => p.id)],
-        closesAt: s.at + Math.max(0.12, Math.min(3, closing, lane / 2)),
+        closesAt:
+          s.at + Math.max(0.12, Math.min(3, closing, relative ? lane / 2 + 0.25 : lane / 2)),
         benefit: (1 - risk) * threat(s, target) - before - risk * 0.04,
         risk: offside ? 1 : risk,
+        legal: !offside,
         confidence: 0.8,
         progress,
         goal: pressure > 0.5 ? 'escape' : progress > 3 ? 'progress' : 'retain',
@@ -316,6 +360,7 @@ const selected = (
   continuation: BoundedDecision['continuation'] = 'new',
 ) => ({
   selectedCandidateId: c?.id ?? null,
+  preparationCandidateId: null,
   continuation: c ? continuation : 'wait',
   reasons,
   instructionCompliance: c?.compliant ?? null,
@@ -325,6 +370,29 @@ const selected = (
 const viable = (s: BoundedScene, c: BoundedCandidate) =>
   c.feasible && c.readyAt <= s.at + 1e-8 && c.closesAt > s.at;
 
+// Preparation is an intention with no release. Canonical feet and motor readiness
+// still gate every actual action; a low-confidence prediction is not impossibility.
+const preparable = (s: BoundedScene, c: BoundedCandidate) =>
+  s.config.relativeOpportunities &&
+  c.action.type !== 'hold' &&
+  c.action.type !== 'carry' &&
+  (s.ball?.height ?? 1) <= 0.65 &&
+  c.legal !== false &&
+  c.closesAt > Math.max(s.at, c.readyAt) &&
+  c.readyAt <= s.at + 1.2;
+const finishChoice = (
+  s: BoundedScene,
+  c: BoundedCandidate | undefined,
+  reasons: string[],
+  continuation: BoundedDecision['continuation'] = 'new',
+) =>
+  c && !viable(s, c)
+    ? {
+        ...selected(undefined, [...reasons, 'physical_preparation_required']),
+        preparationCandidateId: c.id,
+      }
+    : selected(c, reasons, continuation);
+
 // A is an expiring-opportunity queue with a benefit/risk admission test. It never
 // calls the state-value ranker or the hierarchical objective selector.
 const opportunity: PolicyMechanism = ({ scene: s, candidates }, meter) => {
@@ -332,10 +400,11 @@ const opportunity: PolicyMechanism = ({ scene: s, candidates }, meter) => {
   const admitted = candidates.filter((c) => {
     meter.inspect(c);
     return (
-      viable(s, c) &&
+      (viable(s, c) || preparable(s, c)) &&
       c.benefit >= holding - 1e-8 &&
-      (c.goal === 'finish' ? c.forecast!.scoring >= threat(s, s.position) : c.risk < 0.55) &&
-      c.confidence >= 0.5
+      (s.config.relativeOpportunities ||
+        (c.goal === 'finish' ? c.forecast!.scoring >= threat(s, s.position) : c.risk < 0.55)) &&
+      (s.config.relativeOpportunities || c.confidence >= 0.5)
     );
   });
   const transient = admitted.filter(
@@ -346,16 +415,27 @@ const opportunity: PolicyMechanism = ({ scene: s, candidates }, meter) => {
       ? a.closesAt - b.closesAt || b.benefit - a.benefit
       : b.benefit - a.benefit || a.id.localeCompare(b.id),
   )[0];
-  return selected(choice, [
+  return finishChoice(s, choice, [
     transient.length
       ? 'useful_window_closes_before_next_deliberation'
       : 'no_admitted_transient_window',
-    choice ? 'benefit_and_risk_admitted' : 'wait_for_preparation',
+    choice ? 'consequences_compared_with_waiting' : 'wait_for_preparation',
   ]);
 };
 // H first continues a supported commitment, then chooses ONE tactical objective.
 // Only its local alternatives are compared; a missing dependency cancels first.
 const hierarchical: PolicyMechanism = ({ scene: s, candidates }, meter) => {
+  const inspected = new Set<string>();
+  const finish = s.config.relativeOpportunities
+    ? candidates
+        .filter((c) => {
+          if (c.goal !== 'finish') return false;
+          meter.inspect(c);
+          inspected.add(c.id);
+          return (viable(s, c) || preparable(s, c)) && c.legal !== false;
+        })
+        .sort((a, b) => b.benefit - a.benefit || a.id.localeCompare(b.id))[0]
+    : undefined;
   const previous = s.config.planning ? s.intent : null;
   let cancellation: string | undefined;
   if (previous) {
@@ -372,13 +452,24 @@ const hierarchical: PolicyMechanism = ({ scene: s, candidates }, meter) => {
             ? 'receiver_unavailable'
             : previous.goal === 'progress' && cover < 2
               ? 'missing_defensive_cover'
-              : !current || !viable(s, current) || current.risk > 0.55
-                ? 'failed_movement_offside_or_lane_closed'
-                : undefined;
+              : current &&
+                  finish &&
+                  finish.id !== current.id &&
+                  finish.benefit > current.benefit + 1e-8
+                ? 'finishing_window_better_than_continuation'
+                : !current ||
+                    !(viable(s, current) || preparable(s, current)) ||
+                    (s.config.relativeOpportunities
+                      ? current.legal === false ||
+                        current.benefit <
+                          (candidates.find((c) => c.action.type === 'hold')?.benefit ?? -1)
+                      : current.risk > 0.55)
+                  ? 'failed_movement_offside_or_lane_closed'
+                  : undefined;
     if (!cancellation && current) {
-      meter.inspect(current);
+      if (!inspected.has(current.id)) meter.inspect(current);
       return {
-        ...selected(current, ['supported_objective_continues'], 'continue'),
+        ...finishChoice(s, current, ['supported_objective_continues'], 'continue'),
         intent: {
           candidateKey: current.id,
           goal: previous.goal,
@@ -389,10 +480,14 @@ const hierarchical: PolicyMechanism = ({ scene: s, candidates }, meter) => {
     }
   }
   const options = candidates.filter((c) => {
-    meter.inspect(c);
+    if (!inspected.has(c.id)) meter.inspect(c);
     return (
-      viable(s, c) &&
-      (c.goal === 'finish' ? c.forecast!.scoring > threat(s, s.position) : c.risk <= 0.5)
+      (viable(s, c) || preparable(s, c)) &&
+      (s.config.relativeOpportunities
+        ? c.legal !== false
+        : c.goal === 'finish'
+          ? c.forecast!.scoring > threat(s, s.position)
+          : c.risk <= 0.5)
     );
   });
   const knowledge = s.config.players[s.observerId] ?? s.config.knowledge;
@@ -401,23 +496,33 @@ const hierarchical: PolicyMechanism = ({ scene: s, candidates }, meter) => {
       36,
       ...s.visible.filter((p) => p.team !== s.team).map((p) => distance(p.position, s.position)),
     ) < 5;
-  const objective = pressure
-    ? 'escape'
-    : knowledge.system >= 0.5 &&
-        s.visible.some((p) => p.team === s.team && s.direction * p.velocity.x > 1)
-      ? 'progress'
-      : s.scoreDifference > 0 && s.at > 4500
-        ? 'retain'
-        : 'progress';
+  const finishDominates =
+    finish &&
+    finish.benefit >
+      Math.max(-Infinity, ...options.filter((c) => c.goal !== 'finish').map((c) => c.benefit)) +
+        1e-8;
+  const objective = finishDominates
+    ? 'finish'
+    : pressure
+      ? 'escape'
+      : knowledge.system >= 0.5 &&
+          s.visible.some((p) => p.team === s.team && s.direction * p.velocity.x > 1)
+        ? 'progress'
+        : s.scoreDifference > 0 && s.at > 4500
+          ? 'retain'
+          : 'progress';
+  const waiting = options.find((c) => c.action.type === 'hold');
   const local = options
     .filter((c) => c.goal === objective)
+    .filter((c) => !s.config.relativeOpportunities || !waiting || c.benefit >= waiting.benefit)
     .sort((a, b) => a.risk - b.risk || b.benefit - a.benefit)
     .slice(0, 3);
   const choice = [...(local.length ? local : options)].sort(
     (a, b) => b.benefit - a.benefit || a.id.localeCompare(b.id),
   )[0];
   return {
-    ...selected(
+    ...finishChoice(
+      s,
       choice,
       [
         ...(cancellation ? [`cancel:${cancellation}`] : []),
@@ -439,13 +544,17 @@ const hierarchical: PolicyMechanism = ({ scene: s, candidates }, meter) => {
 // C uses a satisficing risk envelope followed by bounded discretion in a near tie.
 // Personality never directly names an action; outcome quality is not an input.
 const contextual: PolicyMechanism = ({ scene: s, candidates }, meter) => {
+  const psychology = s.config.psychology ? psychologicalContext(s) : null;
   const chasing = s.scoreDifference < 0 && s.at > 4200,
     protecting = s.scoreDifference > 0 && s.at > 4200;
   const riskBudget = chasing ? 0.8 : protecting ? 0.35 : 0.6;
   const options = candidates.filter((c) => {
     meter.inspect(c);
     return (
-      viable(s, c) && (c.goal === 'finish' ? 1 - c.forecast!.scoring * 2 : c.risk) <= riskBudget
+      (viable(s, c) || preparable(s, c)) &&
+      (s.config.relativeOpportunities
+        ? c.legal !== false
+        : (c.goal === 'finish' ? 1 - c.forecast!.scoring * 2 : c.risk) <= riskBudget)
     );
   });
   const best = [...options].sort((a, b) => b.benefit - a.benefit || a.id.localeCompare(b.id))[0];
@@ -454,7 +563,7 @@ const contextual: PolicyMechanism = ({ scene: s, candidates }, meter) => {
     ? Math.min(
         0.02,
         (s.config.coach.creativeFreedom * 0.008 + s.config.personalIncentive * 0.012) *
-          s.confidence *
+          (psychology?.discretion ?? s.confidence) *
           (1 - s.fatigue * 0.3),
       )
     : 0;
@@ -469,7 +578,10 @@ const contextual: PolicyMechanism = ({ scene: s, candidates }, meter) => {
       (c.compliant || s.config.coach.creativeFreedom > discipline * s.config.coach.discipline),
   );
   const desiredRisk = clamp(
-    (chasing ? 0.55 : protecting ? 0.15 : 0.3) + (appetite - 0.5) * 0.2 - s.fatigue * 0.1,
+    (chasing ? 0.55 : protecting ? 0.15 : 0.3) +
+      (appetite - 0.5) * 0.2 -
+      s.fatigue * 0.1 +
+      (psychology ? psychology.urgency * 0.08 - psychology.anxiety * 0.06 : 0),
   );
   const choice =
     [...near].sort(
@@ -479,7 +591,7 @@ const contextual: PolicyMechanism = ({ scene: s, candidates }, meter) => {
         x.id.localeCompare(y.id),
     )[0] ?? best;
   return {
-    ...selected(choice, [
+    ...finishChoice(s, choice, [
       choice.id === best.id
         ? 'best_within_subjective_risk_budget'
         : 'bounded_individual_discretion',

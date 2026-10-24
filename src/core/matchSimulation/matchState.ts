@@ -421,6 +421,7 @@ export const restartLifecycleSchema = z.object({
   awardId: z.string().optional(),
   spot: pitchPointSchema.optional(),
   ceremonial: z.boolean().optional(),
+  humanPreparation: z.enum(['waiting_team', 'ready', 'available_now']).optional(),
   /** Canonical referee permission, independent of selection and actual physical release. */
   authorisedAt: z.number().nonnegative().optional(),
   selectedAction: matchActionSchema.optional(),

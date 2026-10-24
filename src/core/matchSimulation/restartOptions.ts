@@ -105,6 +105,12 @@ export const enumerateContextualRestartActions = (state: TacticalMatchState): Ma
   }
   if (state.scenario === 'penalty') return shots;
   if (state.scenario === 'kick_off') return [...passes, ...shots];
+  // Quick play describes the frozen present geometry. No ceremonial zone is a receiver.
+  if (
+    state.scenario.startsWith('free_kick') &&
+    (restart.ceremonial === false || restart.humanPreparation === 'available_now')
+  )
+    return [...passes, ...shots];
   const reset = teammates
     .filter((p) => (p.position.x - spot.x) * direction < -2)
     .sort(
@@ -201,9 +207,17 @@ export const enumerateContextualRestartActions = (state: TacticalMatchState): Ma
       ]
     : [];
   const shortFirst = state.scenario === 'corner' && restart.cornerPlan === 'short_corner';
+  const availableDeliveries =
+    restart.humanPreparation === 'ready'
+      ? deliveries.filter((action) => {
+          if (action.type !== 'cross' || !action.intendedTargetId) return false;
+          const receiver = teammates.find((p) => p.id === action.intendedTargetId);
+          return receiver && distance(receiver.position, action.target) <= 3;
+        })
+      : deliveries;
   return shortFirst
-    ? [...passes, ...deliveries, ...space, ...shots]
+    ? [...passes, ...availableDeliveries, ...space, ...shots]
     : state.scenario === 'free_kick_close'
-      ? [...shots, ...deliveries, ...passes, ...space]
-      : [...deliveries, ...passes, ...space, ...shots];
+      ? [...shots, ...availableDeliveries, ...passes, ...space]
+      : [...availableDeliveries, ...passes, ...space, ...shots];
 };

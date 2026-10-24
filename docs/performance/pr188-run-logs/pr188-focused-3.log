@@ -1,0 +1,43 @@
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/pr188RelativeDecision.test.ts (19 tests | 2 failed) 300ms
+     × starts unowned and stationary at the centre with legal established bodies 10ms
+     × physically releases the first kick and records the taker without fabricated receiving ownership 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/pr188RelativeDecision.test.ts > PR188 lawful opening and human free kicks > starts unowned and stationary at the centre with legal established bodies
+AssertionError: expected 'open_play' to be 'kick_off' // Object.is equality
+
+Expected: "kick_off"
+Received: "open_play"
+
+ ❯ src/core/matchSimulation/pr188RelativeDecision.test.ts:129:24
+    127|       seed: 'pr188-opening-regression',
+    128|     });
+    129|     expect(s.scenario).toBe('kick_off');
+       |                        ^
+    130|     expect(s.ball.ownerId).toBeUndefined();
+    131|     expect(s.ball).toMatchObject({ x: 52.5, y: 34, velocity: { x: 0, y…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/core/matchSimulation/pr188RelativeDecision.test.ts > PR188 lawful opening and human free kicks > physically releases the first kick and records the taker without fabricated receiving ownership
+TypeError: Cannot read properties of undefined (reading 'takerId')
+ ❯ src/core/matchSimulation/pr188RelativeDecision.test.ts:144:30
+    142|       seed: 'pr188-opening-contact',
+    143|     }).state;
+    144|     const taker = s.restart!.takerId;
+       |                              ^
+    145|     for (let i = 0; i < 400 && s.restart?.phase !== 'release'; i++)
+    146|       s = stepTacticalMatchAfterDecisionProbe(s, 0.025);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  2 failed | 65 passed (67)
+   Start at  17:49:28
+   Duration  10.46s (transform 2.06s, setup 0ms, import 5.41s, tests 3.37s, environment 1.15s)
+

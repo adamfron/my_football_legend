@@ -4,7 +4,7 @@ import { createSingleMatchSession } from '../singleMatch';
 import {
   applyRestartScenario,
   countSemanticPlayerChoices,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   enumerateRestartActions,
   projectPlayerDecisionOpportunity,
   stepTacticalMatch,

@@ -4,7 +4,7 @@ import { createSingleMatchSession } from '../singleMatch';
 import {
   applyPlayerDecision,
   chooseNpcAction,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   enumerateAvailableActions,
   letAiDecide,
   projectPlayerDecisionProbe,

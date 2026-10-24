@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "observedReceipt": "docs/performance/PR188-match-dev-ww-opportunity-driven-v1-full-observed-final-v1.json",
+  "diagnosticReceipt": "docs/performance/PR188-possession-diagnosis.json",
+  "sameInputs": true,
+  "equalRawFinalStateSha256": false,
+  "observedRawSha256": "67a6a00c920f7a2ee61afacf3d42d899ec21a992bbfdbad1842f2133eb208173",
+  "diagnosticRawSha256": "72fc9ddc0d60d14157a24ccfb0af08916658cbaf5ae5bd37b06d428e4dfd14d7",
+  "equalCanonicalFinalStateSha256": true,
+  "canonicalFinalStateSha256": "c1dcf9b0ba7ca8dacaeb75bc0288977ca34688cb6ef961528a36ad72c2959728",
+  "explanation": "The diagnostic input was rehydrated from archived JSON. All final state values are identical; only object-key insertion order differs in departedPlayers[8]. Raw-order checksum failure is retained in the original diagnostic receipt/log. Canonical comparison sorts object keys recursively and preserves every array order and value."
+}

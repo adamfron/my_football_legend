@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "method": "Single serial process pair, observer-disabled 30 mirrored arrived episodes per source. Frozen PR187 engine plus the same new apparatus, followed by PR188. Complete pipeline cost, not isolated forecast-function cost; decisions and subsequent physical outcomes may differ.",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "win32"
+  },
+  "context": "Verification, full matrix, diagnostic replay and renderer are stopped during this pair. System/application background load and single-order warm-up uncertainty remain; no statistical speedup or peak-memory claim.",
+  "sameRunner": true,
+  "sameConfigurations": true,
+  "samePhysicalInputs": true,
+  "sameTickCount": false,
+  "records": [
+    {
+      "version": "perf-pr187",
+      "receiptPath": "docs/performance/PR188-labs-perf-pr187.json",
+      "receiptSha256": "cc7cbcabfcf77e4e3454ed359097cd359f85bba0cc50a33a5dfd1056ecb7dcd9",
+      "archive": "docs/performance/PR188-traces-perf-pr187.json.gz",
+      "archiveSha256": "f10cc6ff1fc52987fb0ba5f30a61b223cdf3fa50a617ffee5846f854e74023be",
+      "sourceSha256": "52d51b7f03f89a41933fd435993c2001f082af79f746bc3de7324380a40a5e9f",
+      "runnerSha256": "0e41b9ac40a83994c1ba55929876a0a0a17b652b73bf231641df36016ac5902d",
+      "variants": 30,
+      "ticks": 14004,
+      "cpuMs": 20892,
+      "cpuMillisecondsPerTick": 1.4918594687232218,
+      "wallMs": 17119.823600000003,
+      "rssBytes": 329723904,
+      "configurationsSha256": "6147a7078b67ab609938d634c75aca4ccd83031c78ec38a0fc415636553c6c94",
+      "physicalInputsSha256": "16fb2d1e049fc2c825f0c1f7b444cce44fdeb739acc32eff32786c3a4f160b98"
+    },
+    {
+      "version": "perf-pr188",
+      "receiptPath": "docs/performance/PR188-labs-perf-pr188.json",
+      "receiptSha256": "9d1f6ccfc3a37a36e4a11173baa4d99eeca7a9753d5f523d5ea7819c13ccc8c6",
+      "archive": "docs/performance/PR188-traces-perf-pr188.json.gz",
+      "archiveSha256": "c072c44423ec5ec6305ad125d3454888edf4e831cdeecbd29f534f0bda8231a7",
+      "sourceSha256": "ab3b02e29abc0f50ef48dde242ca8520ff0b0d09b093ddc013dc07c16e8a366d",
+      "runnerSha256": "0e41b9ac40a83994c1ba55929876a0a0a17b652b73bf231641df36016ac5902d",
+      "variants": 30,
+      "ticks": 13608,
+      "cpuMs": 19188,
+      "cpuMillisecondsPerTick": 1.41005291005291,
+      "wallMs": 15506.635100000001,
+      "rssBytes": 344862720,
+      "configurationsSha256": "6147a7078b67ab609938d634c75aca4ccd83031c78ec38a0fc415636553c6c94",
+      "physicalInputsSha256": "16fb2d1e049fc2c825f0c1f7b444cce44fdeb739acc32eff32786c3a4f160b98"
+    }
+  ],
+  "revisedCpuRatio": 0.9451647019136967
+}

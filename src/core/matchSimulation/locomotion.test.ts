@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch, projectLocomotion } from '.';
+import { createOpenPlayMatchFixture as createTacticalMatch, projectLocomotion } from '.';
 
 const stateFor = () => {
   const world = createCanonicalWorldDatabase();

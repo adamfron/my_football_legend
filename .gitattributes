@@ -66,3 +66,15 @@ docs/PR187*.md text eol=lf
 src/core/matchSimulation/bounded*.ts text eol=lf
 scripts/*Pr187* text eol=lf
 scripts/replayPr186Baseline.mjs text eol=lf
+
+# PR188 evidence preserves raw receipts/logs and normalized source provenance.
+docs/performance/PR188-*.json -diff linguist-generated=true text eol=lf
+docs/performance/PR188-*.gz binary linguist-generated=true
+docs/performance/PR188-*.log binary linguist-generated=true
+docs/performance/pr188-traces/** binary linguist-generated=true
+docs/performance/pr188-run-logs/** binary linguist-generated=true
+docs/performance/pr188-browser/** binary linguist-generated=true
+docs/PR188*.md text eol=lf
+scripts/*Pr188* text eol=lf
+src/core/matchSimulation/opponentKnowledge.ts text eol=lf
+src/core/matchSimulation/relativeDecisionLab.ts text eol=lf

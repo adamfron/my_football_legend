@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import { createOffensiveScenario } from './pr163Fixtures';
-import { createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
 import { resolveMatchAction } from './matchActions';
 import { DEFAULT_DECISION_POLICY, PRIMARY_DECISION_POLICIES } from './decisionPolicyConfig';
 

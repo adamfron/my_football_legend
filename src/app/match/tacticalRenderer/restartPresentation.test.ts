@@ -2,7 +2,7 @@
 import { expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../../core/singleMatch';
-import { createTacticalMatch } from '../../../core/matchSimulation/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from '../../../core/matchSimulation/matchSimulation';
 import { awardNaturalRestart } from '../../../core/matchSimulation/restartScenarios';
 import { PresentationFrameProjector } from './frameProjection';
 import { deriveOwnedBallPose, tacticalFrameSchema } from './model';

@@ -4,7 +4,7 @@ import { createCanonicalWorldDatabase } from '../../../../scripts/createCanonica
 import { createSingleMatchSession } from '../../../core/singleMatch';
 import {
   applyRestartScenario,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   resolveMatchAction,
   stepTacticalMatch,
   FIXED_MATCH_DT,

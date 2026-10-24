@@ -1,0 +1,84 @@
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/pr156Integrity.test.ts (80 tests | 21 failed) 13975ms
+     × 'free_kick' across 'key_player' 6ms
+     × 'free_kick' across 'player_extended' 4ms
+     × 'free_kick' across 'key_match' 4ms
+     × 'free_kick' across 'extended_match' 3ms
+     × 'free_kick' across 'full_match' 3ms
+     × 'free_kick_far' across 'key_player' 3ms
+     × 'free_kick_far' across 'player_extended' 3ms
+     × 'free_kick_far' across 'key_match' 3ms
+     × 'free_kick_far' across 'extended_match' 5ms
+     × 'free_kick_far' across 'full_match' 6ms
+     × 'free_kick_close' across 'key_player' 3ms
+     × 'free_kick_close' across 'player_extended' 3ms
+     × 'free_kick_close' across 'key_match' 3ms
+     × 'free_kick_close' across 'extended_match' 4ms
+     × 'free_kick_close' across 'full_match' 4ms
+     × 'free_kick_wide' across 'key_player' 3ms
+     × 'free_kick_wide' across 'player_extended' 3ms
+     × 'free_kick_wide' across 'key_match' 5ms
+     × 'free_kick_wide' across 'extended_match' 4ms
+     × 'free_kick_wide' across 'full_match' 3ms
+     × requires an explicit indirect restart and leaves throw-ins autonomous 4ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 21 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick' across 'key_player'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick' across 'player_extended'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick' across 'key_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick' across 'extended_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick' across 'full_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_far' across 'key_player'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_far' across 'player_extended'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_far' across 'key_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_far' across 'extended_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_far' across 'full_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_close' across 'key_player'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_close' across 'player_extended'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_close' across 'key_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_close' across 'extended_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_close' across 'full_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_wide' across 'key_player'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_wide' across 'player_extended'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_wide' across 'key_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_wide' across 'extended_match'
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > 'free_kick_wide' across 'full_match'
+TypeError: Cannot read properties of undefined (reading 'kind')
+ ❯ src/core/matchSimulation/pr156Integrity.test.ts:79:18
+     77|     state.time = state.restart!.startedAt + 20;
+     78|     const first = projectPlayerDecisionOpportunity(state)!;
+     79|     expect(first.kind).toBe('restart');
+       |                  ^
+     80|     state.playerDecisionGate = {
+     81|       lastSituationSignature: first.signature,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/21]⎯
+
+ FAIL  src/core/matchSimulation/pr156Integrity.test.ts > PR156 restart ownership > requires an explicit indirect restart and leaves throw-ins autonomous
+AssertionError: expected undefined to be 'restart' // Object.is equality
+
+- Expected:
+"restart"
+
++ Received:
+undefined
+
+ ❯ src/core/matchSimulation/pr156Integrity.test.ts:122:63
+    120|       if (scenario === 'free_kick') {
+    121|         expect(result).toBe(state);
+    122|         expect(projectPlayerDecisionOpportunity(state)?.kind).toBe('re…
+       |                                                               ^
+    123|       } else expect(result.restart?.phase).toBe('release');
+    124|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/21]⎯
+
+
+ Test Files  1 failed | 7 passed (8)
+      Tests  21 failed | 177 passed (198)
+   Start at  18:11:27
+   Duration  39.12s (transform 3.73s, setup 0ms, import 11.24s, tests 25.56s, environment 1.05s)
+

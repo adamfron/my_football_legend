@@ -4,11 +4,12 @@ import { RandomGenerator } from '../random/RandomGenerator';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   stepTacticalMatch,
   stepTacticalMatchAfterDecisionProbe,
 } from './matchSimulation';
 import { applyRestartScenario } from './restartScenarios';
+import { requestHumanFreeKickPreparation } from './restartLifecycle';
 import { enumerateRestartActions, resolveMatchAction, scoreActionForAI } from './matchActions';
 import {
   applyPlayerDecision,
@@ -72,9 +73,14 @@ describe('PR156 restart ownership', () => {
       })),
     ),
   )('$scenario across $name', ({ scenario, policy }) => {
-    const state = applyRestartScenario(fixture(), scenario, { restartTeam: 'home' });
+    let state = applyRestartScenario(fixture(), scenario, { restartTeam: 'home' });
     state.controlledFootballerId = state.restart!.takerId;
     state.time = state.restart!.startedAt + 20;
+    if (scenario.startsWith('free_kick')) {
+      state = requestHumanFreeKickPreparation(state);
+      for (let tick = 0; tick < 2400 && !projectPlayerDecisionOpportunity(state); tick++)
+        state = stepTacticalMatchAfterDecisionProbe(state, 0.025);
+    }
     const first = projectPlayerDecisionOpportunity(state)!;
     expect(first.kind).toBe('restart');
     state.playerDecisionGate = {
@@ -103,7 +109,10 @@ describe('PR156 restart ownership', () => {
     expect(random).not.toHaveBeenCalled();
     random.mockRestore();
     const actionOption = opportunity.options.find((o) => o.kind === 'action')!;
-    const human = applyPlayerDecision(state, opportunity, actionOption.id);
+    let human = applyPlayerDecision(state, opportunity, actionOption.id);
+    if (scenario.startsWith('free_kick'))
+      for (let tick = 0; tick < 600 && human.restart?.phase !== 'release'; tick++)
+        human = stepTacticalMatchAfterDecisionProbe(human, 0.025);
     if (scenario === 'penalty') expect(human.ball.shot).toBeDefined();
     else expect(human.restart?.phase).toBe('release');
     expect(human.latestActionSource).toBe('human_selected');
@@ -111,9 +120,14 @@ describe('PR156 restart ownership', () => {
   });
   it('requires an explicit indirect restart and leaves throw-ins autonomous', () => {
     for (const scenario of ['free_kick', 'throw_in'] as const) {
-      const state = applyRestartScenario(fixture(), scenario, { restartTeam: 'home' });
+      let state = applyRestartScenario(fixture(), scenario, { restartTeam: 'home' });
       state.controlledFootballerId = state.restart!.takerId;
       if (scenario === 'free_kick') state.restart!.indirect = true;
+      if (scenario === 'free_kick') {
+        state = requestHumanFreeKickPreparation(state);
+        for (let tick = 0; tick < 2400 && !projectPlayerDecisionOpportunity(state); tick++)
+          state = stepTacticalMatchAfterDecisionProbe(state, 0.025);
+      }
       const pass = enumerateRestartActions(state).find((a) => a.type === 'pass')!;
       expect(pass).toBeDefined();
       const result = resolveMatchAction(state, pass, 'autonomous_npc');

@@ -9,7 +9,7 @@ import {
   beginDefensiveChallenge,
   createMatchFlowTelemetry,
   createMatchStatistics,
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   emitCanonicalActionEvents,
   FIXED_MATCH_DT,
   matchStatisticsSchema,

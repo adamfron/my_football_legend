@@ -1,0 +1,53 @@
+{
+  replay: true,
+  contrasts: 7,
+  patternTrials: 12,
+  shotTrials: 144,
+  shootingSummary: [
+    {
+      intent: 'driven',
+      trials: 48,
+      releases: 48,
+      resolved: 48,
+      nullOutcomes: 0,
+      predictedMean: 0.1399940201133453,
+      goals: 13,
+      brierMean: 0.1765155603417583,
+      outcomes: [Object]
+    },
+    {
+      intent: 'placed',
+      trials: 48,
+      releases: 48,
+      resolved: 48,
+      nullOutcomes: 0,
+      predictedMean: 0.1575287433012333,
+      goals: 12,
+      brierMean: 0.15930998113592343,
+      outcomes: [Object]
+    },
+    {
+      intent: 'chip',
+      trials: 48,
+      releases: 32,
+      resolved: 32,
+      nullOutcomes: 16,
+      predictedMean: 0.11778450036875712,
+      goals: 21,
+      brierMean: 0.49873325331153895,
+      outcomes: [Object]
+    }
+  ],
+  missedWindows: 2,
+  wallMs: 9911.1082
+}
+(node:32788) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  full: 15,
+  designs: 3,
+  observerReplays: 3,
+  historical: 193,
+  failures: 3
+}
+PR187 frozen-source research and index replay passed at 00fe1b5581ff5f83acb70194f6e78c3829fb4def

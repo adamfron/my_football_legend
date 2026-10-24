@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from './matchSimulation';
 import { resolveMatchAction } from './matchActions';
 import { ContactTacticalTracker } from './contactTacticalDiagnostics';
 import type { ChallengeDiagnostic } from './defensiveChallenges';

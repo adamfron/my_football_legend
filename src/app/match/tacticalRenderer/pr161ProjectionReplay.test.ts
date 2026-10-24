@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../../core/singleMatch';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   stepTacticalMatch,
   stepTacticalMatchAfterDecisionProbe,
   FIXED_MATCH_DT,

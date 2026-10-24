@@ -386,7 +386,7 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
     (state.ball.height ?? 0) <= 0.15;
   const takerReady = Boolean(
     taker &&
-      distance(taker.position, spot) <= 1.4 &&
+      distance(taker.position, spot) <= 1.4 + 1e-8 &&
       Math.hypot(taker.velocity.x, taker.velocity.y) <= 1.5,
   );
   const refereeReady =

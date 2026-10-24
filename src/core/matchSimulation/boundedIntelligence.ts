@@ -20,6 +20,8 @@ import {
 } from './tacticalCognition';
 import { tacticalRoleFor } from './tacticalRoles';
 import { clampPitchPoint, distance } from './matchSpace';
+import { updateOpponentKnowledge } from './opponentKnowledge';
+import { angleForVector } from './playerOrientation';
 
 export const boundedTraceSchema = z.object({
   stage: z.enum(['decision', 'pattern', 'attempt']),
@@ -86,7 +88,7 @@ export const boundedDecisionSignature = (s: BoundedScene) =>
     ]),
   ]);
 export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: MatchPlayerState) => {
-  const runtime = boundedRuntimeSchema.parse(state.boundedRuntime ?? {});
+  const runtime = state.boundedRuntime ?? boundedRuntimeSchema.parse({});
   const perception =
     0.3 -
     ((actor.profile.attributes.gameReading + actor.profile.attributes.concentration) / 200) * 0.18;
@@ -129,8 +131,26 @@ export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: Ma
       decisionSignature: signature,
       lastAction: boundedRuntimeSchema.shape.lastAction.parse(result.action?.type ?? 'none'),
       intent: intentFromDecision(result.scene, result.decision),
+      preparationCandidateId: result.decision.preparationCandidateId,
     },
   };
+  const preparing = candidates.find((c) => c.id === decision.preparationCandidateId);
+  if (preparing && 'target' in preparing.action && next.onBallPreparation?.micro) {
+    next.onBallPreparation = {
+      ...next.onBallPreparation,
+      micro: {
+        ...next.onBallPreparation.micro,
+        orientationTarget: angleForVector({
+          x: preparing.action.target.x - actor.position.x,
+          y: preparing.action.target.y - actor.position.y,
+        }),
+        passingAngle: angleForVector({
+          x: preparing.action.target.x - actor.position.x,
+          y: preparing.action.target.y - actor.position.y,
+        }),
+      },
+    };
+  }
   observeBoundedTrace({
     stage: 'decision',
     at: state.time,
@@ -150,10 +170,12 @@ export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: Ma
  */
 export const advanceBoundedPatterns = (state: TacticalMatchState): TacticalMatchState => {
   if (!usesBoundedIntelligence(state)) return state;
-  const runtime = boundedRuntimeSchema.parse(state.boundedRuntime ?? {});
+  const runtime = state.boundedRuntime ?? boundedRuntimeSchema.parse({});
   if (state.time - runtime.lastPatternScanAt < 0.1 - 1e-8) return state;
   const patterns = { ...runtime.patterns },
-    sightings = { ...runtime.sightings };
+    sightings = { ...runtime.sightings },
+    opponents = { ...runtime.opponents },
+    selfEvidence = { ...runtime.selfEvidence };
   if (
     state.restart ||
     state.postGoal ||
@@ -180,6 +202,18 @@ export const advanceBoundedPatterns = (state: TacticalMatchState): TacticalMatch
       continue;
     const scene = observeBoundedScene(state, actor),
       old = patterns[actor.id];
+    if (scene.config.opponentLearning) opponents[actor.id] = updateOpponentKnowledge(scene);
+    const feedback = scene.selfFeedback;
+    if (
+      scene.config.psychology &&
+      feedback &&
+      !selfEvidence[actor.id]?.seenEvents?.includes(feedback.key)
+    )
+      selfEvidence[actor.id] = {
+        value: (selfEvidence[actor.id]?.value ?? 0) * 0.8 + feedback.value * 0.2,
+        lastEvent: feedback.key,
+        seenEvents: [...(selfEvidence[actor.id]?.seenEvents ?? []), feedback.key].slice(-8),
+      };
     const source = scene.visible.find((p) => p.id === scene.ball?.ownerId && p.team === actor.team);
     const seenOwner = scene.ball?.ownerId;
     const seenTeam =
@@ -350,6 +384,8 @@ export const advanceBoundedPatterns = (state: TacticalMatchState): TacticalMatch
       lastPatternScanAt: state.time,
       patterns,
       sightings,
+      opponents,
+      selfEvidence,
       intent:
         runtime.intent && runtime.intent.actorId === state.ball.ownerId ? runtime.intent : null,
     },

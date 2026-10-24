@@ -1,0 +1,35 @@
+dev-ww/contextual-judgment-v1: 1200.00s
+dev-ww/contextual-judgment-v1: 2400.00s
+dev-ww/contextual-judgment-v1: 3600.00s
+dev-ww/contextual-judgment-v1: 4800.00s
+{
+  id: 'dev-ww-contextual-judgment-v1-full-observed-final-v1',
+  status: 'full_time',
+  at: 5460,
+  score: { home: 0, away: 0 },
+  counts: {
+    decisions: 10555,
+    candidates: 96043,
+    evaluations: 96043,
+    forecasts: 6006,
+    waits: 3777,
+    continuations: 0,
+    cancellations: 0,
+    patternObservations: 8,
+    patternArrivals: 0,
+    patternCancellations: 8,
+    attempts: 6707,
+    releases: 1422,
+    shotAttempts: 0,
+    shotReleases: 0,
+    passAttempts: 1432,
+    passReleases: 1422,
+    backwardPasses: 420,
+    progressivePasses: 67,
+    reciprocalPasses: 253
+  },
+  failure: null,
+  wall: 207797.8881
+}
+(node:27828) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

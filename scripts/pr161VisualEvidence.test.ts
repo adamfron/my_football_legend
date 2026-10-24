@@ -16,7 +16,7 @@ import { createTacticalDiagnosticFixture } from '../src/app/match/tacticalRender
 import { deriveStadiumConfiguration } from '../src/app/match/tacticalRenderer/stadium';
 import { createCanonicalWorldDatabase } from './createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../src/core/singleMatch';
-import { createTacticalMatch } from '../src/core/matchSimulation/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from '../src/core/matchSimulation/matchSimulation';
 import { PresentationFrameProjector } from '../src/app/match/tacticalRenderer/frameProjection';
 
 vi.mock('three', async (original) => {

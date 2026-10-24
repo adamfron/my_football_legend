@@ -8,7 +8,7 @@ import {
   cooperativePressSchema,
 } from './defensiveChallenges';
 import { chooseNpcAction, resolveMatchAction, scoreActionForAI } from './matchActions';
-import { createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
 import type { MatchAction, TacticalMatchState } from './matchState';
 import { applyRestartScenario } from './restartScenarios';
 import {

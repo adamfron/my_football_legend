@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch, FIXED_MATCH_DT } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, FIXED_MATCH_DT } from './matchSimulation';
 import {
   createMatchFlowTelemetry,
   assertTelemetryInvariants,

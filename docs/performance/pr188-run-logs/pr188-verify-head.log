@@ -1,0 +1,67 @@
+
+> my_football_legend@0.1.0 verify
+> npm run lint && npm run test && npm run build
+
+
+> my_football_legend@0.1.0 lint
+> eslint .
+
+
+> my_football_legend@0.1.0 test
+> npm run test:main && npm run test:full-career
+
+
+> my_football_legend@0.1.0 test:main
+> npm run test:unit && npm run test:match-integration && npm run test:match-contract
+
+
+> my_football_legend@0.1.0 test:unit
+> npm run generate:world-db && vitest run --maxWorkers=2 --exclude src/core/fullCareerSimulation.test.ts --exclude src/core/careerLifecycle.test.ts --exclude scripts/clubAudit.test.ts --exclude src/core/careerMatchContract.test.ts --exclude src/core/matchSimulation/pr160PenaltyLiveness.test.ts --exclude src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts --exclude src/app/match/backgroundOrchestration.test.tsx
+
+
+> my_football_legend@0.1.0 generate:world-db
+> node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts
+
+world database: 64 clubs, 1824 footballers
+wrote C:\Users\Admin\Documents\Codex\2026-10-24\cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2\work\mfl\.generated-public\data\world\pl-2026-v2.json
+(node:29524) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+
+ Test Files  240 passed (240)
+      Tests  2177 passed (2177)
+   Start at  18:33:19
+   Duration  604.95s (transform 13.67s, setup 0ms, import 118.19s, tests 374.55s, environment 67.06s)
+
+
+> my_football_legend@0.1.0 test:match-integration
+> vitest run src/core/matchSimulation/pr160PenaltyLiveness.test.ts src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts src/app/match/backgroundOrchestration.test.tsx --maxWorkers=1
+
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/pr160PenaltyLiveness.test.ts (17 tests | 1 failed) 201743ms
+       × completes a whole CPU half with a penalty and meaningful canonical progress 89554ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/pr160PenaltyLiveness.test.ts > PR160 penalty liveness regression > whole-half penalty contract: 'legacy-pr176' > completes a whole CPU half with a penalty and meaningful canonical progress
+Error: Native penalty half failed (exit=null, signal=SIGTERM): 
+ ❯ ChildProcess.<anonymous> src/core/matchSimulation/pr160PenaltyLiveness.test.ts:56:11
+     54|       if (code !== 0)
+     55|         return reject(
+     56|           new Error(`Native penalty half failed (exit=${code}, signal=…
+       |           ^
+     57|         );
+     58|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 55 passed (56)
+   Start at  18:43:25
+   Duration  234.70s (transform 4.76s, setup 0ms, import 11.06s, tests 222.21s, environment 823ms)
+

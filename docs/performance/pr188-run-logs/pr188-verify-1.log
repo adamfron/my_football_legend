@@ -1,0 +1,71 @@
+
+> my_football_legend@0.1.0 verify
+> npm run lint && npm run test && npm run build
+
+
+> my_football_legend@0.1.0 lint
+> eslint .
+
+
+> my_football_legend@0.1.0 test
+> npm run test:main && npm run test:full-career
+
+
+> my_football_legend@0.1.0 test:main
+> npm run test:unit && npm run test:match-integration && npm run test:match-contract
+
+
+> my_football_legend@0.1.0 test:unit
+> npm run generate:world-db && vitest run --maxWorkers=2 --exclude src/core/fullCareerSimulation.test.ts --exclude src/core/careerLifecycle.test.ts --exclude scripts/clubAudit.test.ts --exclude src/core/careerMatchContract.test.ts --exclude src/core/matchSimulation/pr160PenaltyLiveness.test.ts --exclude src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts --exclude src/app/match/backgroundOrchestration.test.tsx
+
+
+> my_football_legend@0.1.0 generate:world-db
+> node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts
+
+world database: 64 clubs, 1824 footballers
+wrote C:\Users\Admin\Documents\Codex\2026-10-24\cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2\work\mfl\.generated-public\data\world\pl-2026-v2.json
+(node:29060) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/pr156Integrity.test.ts (80 tests | 21 failed) 12920ms
+     × 'free_kick' across 'key_player' 6ms
+     × 'free_kick' across 'player_extended' 3ms
+     × 'free_kick' across 'key_match' 4ms
+     × 'free_kick' across 'extended_match' 3ms
+     × 'free_kick' across 'full_match' 3ms
+     × 'free_kick_far' across 'key_player' 3ms
+     × 'free_kick_far' across 'player_extended' 4ms
+     × 'free_kick_far' across 'key_match' 3ms
+     × 'free_kick_far' across 'extended_match' 4ms
+     × 'free_kick_far' across 'full_match' 4ms
+     × 'free_kick_close' across 'key_player' 4ms
+     × 'free_kick_close' across 'player_extended' 4ms
+     × 'free_kick_close' across 'key_match' 4ms
+     × 'free_kick_close' across 'extended_match' 4ms
+     × 'free_kick_close' across 'full_match' 2ms
+     × 'free_kick_wide' across 'key_player' 3ms
+     × 'free_kick_wide' across 'player_extended' 3ms
+     × 'free_kick_wide' across 'key_match' 3ms
+     × 'free_kick_wide' across 'extended_match' 2ms
+     × 'free_kick_wide' across 'full_match' 3ms
+     × requires an explicit indirect restart and leaves throw-ins autonomous 4ms
+ ❯ scripts/pr146TelemetryReference.test.ts (2 tests | 2 failed) 4219ms
+     × preserves every exported canonical telemetry field for pr146-flow-reference:a 2287ms
+     × preserves every exported canonical telemetry field for pr146-flow-reference:b 1931ms
+ ❯ scripts/benchmarkReactiveTactics.test.ts (1 test | 1 failed) 600ms
+     × changes executed build-up/support and real AI recycling across several seeds 599ms
+ ❯ src/core/matchSimulation/pr148Rules.test.ts (20 tests | 4 failed) 1686ms
+     × jockeys covered calm circulation but still commits to a threat, exposed control or an explicit press 10ms
+     × an eager skilled defender can press calm covered possession, with issued and pending bookings suppressing that habit 4ms
+     × routine defence contains at stretched reach while a skilled comfortable window and explicit poke remain available 3ms
+     × a booked NPC can still commit when exceptional danger, temperament and late score justify it 4ms
+ ❯ src/core/matchSimulation/pr155Stability.test.ts (36 tests | 1 failed) 817ms
+     × keeps the controlled free_kick_close taker human even with a resolved gate 6ms
+ ❯ scripts/calibrationShotFunnel.test.ts (1 test | 1 failed) 333ms
+     × releases every supported family and repeats the same physical outcomes for fixed fixtures 332ms
+ ❯ src/core/matchSimulation/pr147Rules.test.ts (36 tests | 1 failed) 477ms
+     × ends the throw restriction on a heavy physical first touch before actual recovery 46ms
+ ❯ src/core/matchSimulation/pr159RestartGeometry.test.ts (7 tests | 1 failed) 71ms
+     × shows a controlled decision only after legal preparation and never repeats a selected choice 9ms

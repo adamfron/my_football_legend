@@ -1,0 +1,33 @@
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/pr188RelativeDecision.test.ts (22 tests | 1 failed) 342ms
+     × can explicitly return from preparation to currently legal positions without selecting a kick 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/pr188RelativeDecision.test.ts > PR188 lawful opening and human free kicks > can explicitly return from preparation to currently legal positions without selecting a kick
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ src/core/matchSimulation/pr188RelativeDecision.test.ts:228:85
+    226|     expect(restored.players).toEqual(before.players);expect(restored.t…
+    227|     expect(restored.restart!.selectedAction).toBeUndefined();expect(re…
+    228|     expect(enumerateContextualRestartActions(restored).some((a)=>a.typ…
+       |                                                                                     ^
+    229|     s={...s,ball:{...s.ball,velocity:{x:2,y:0,z:0}}};
+    230|     expect(chooseCurrentFreeKickPositions(s)).toBe(s);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 21 passed (22)
+   Start at  18:01:18
+   Duration  3.92s (transform 1.39s, setup 0ms, import 3.12s, tests 342ms, environment 300ms)
+

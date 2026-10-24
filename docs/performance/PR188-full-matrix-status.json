@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "classification": "development; three paired designs, not fifteen independent experiments",
+  "startedAt": "2026-10-24T17:44:16.876Z",
+  "concurrency": 2,
+  "performanceContext": "Two independent Node processes share this host. Process CPU/RSS are recorded; wall time is not an isolated speedup experiment.",
+  "results": [
+    {
+      "design": "dev-ww",
+      "policy": "hierarchical-intent-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T17:44:16.898Z",
+      "completedAt": "2026-10-24T17:47:58.227Z",
+      "log": "docs/performance/pr188-run-logs/dev-ww-hierarchical-intent-v1-final-v1.log"
+    },
+    {
+      "design": "dev-ww",
+      "policy": "opportunity-driven-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T17:44:16.877Z",
+      "completedAt": "2026-10-24T17:48:00.605Z",
+      "log": "docs/performance/pr188-run-logs/dev-ww-opportunity-driven-v1-final-v1.log"
+    },
+    {
+      "design": "dev-ww",
+      "policy": "contextual-judgment-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T17:47:58.229Z",
+      "completedAt": "2026-10-24T17:51:27.374Z",
+      "log": "docs/performance/pr188-run-logs/dev-ww-contextual-judgment-v1-final-v1.log"
+    },
+    {
+      "design": "dev-ww",
+      "policy": "state-value-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T17:48:00.607Z",
+      "completedAt": "2026-10-24T17:51:30.948Z",
+      "log": "docs/performance/pr188-run-logs/dev-ww-state-value-v1-final-v1.log"
+    },
+    {
+      "design": "dev-ww",
+      "policy": "phase-role-hybrid-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T17:51:27.375Z",
+      "completedAt": "2026-10-24T17:55:14.707Z",
+      "log": "docs/performance/pr188-run-logs/dev-ww-phase-role-hybrid-v1-final-v1.log"
+    },
+    {
+      "design": "dev-ss",
+      "policy": "opportunity-driven-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T17:51:30.949Z",
+      "completedAt": "2026-10-24T17:55:40.449Z",
+      "log": "docs/performance/pr188-run-logs/dev-ss-opportunity-driven-v1-final-v1.log"
+    },
+    {
+      "design": "dev-ss",
+      "policy": "hierarchical-intent-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T17:55:14.708Z",
+      "completedAt": "2026-10-24T17:59:51.744Z",
+      "log": "docs/performance/pr188-run-logs/dev-ss-hierarchical-intent-v1-final-v1.log"
+    },
+    {
+      "design": "dev-ss",
+      "policy": "contextual-judgment-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T17:55:40.450Z",
+      "completedAt": "2026-10-24T18:00:35.296Z",
+      "log": "docs/performance/pr188-run-logs/dev-ss-contextual-judgment-v1-final-v1.log"
+    },
+    {
+      "design": "dev-ss",
+      "policy": "state-value-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T17:59:51.745Z",
+      "completedAt": "2026-10-24T18:03:53.038Z",
+      "log": "docs/performance/pr188-run-logs/dev-ss-state-value-v1-final-v1.log"
+    },
+    {
+      "design": "dev-ss",
+      "policy": "phase-role-hybrid-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T18:00:35.298Z",
+      "completedAt": "2026-10-24T18:05:27.186Z",
+      "log": "docs/performance/pr188-run-logs/dev-ss-phase-role-hybrid-v1-final-v1.log"
+    },
+    {
+      "design": "dev-sw",
+      "policy": "opportunity-driven-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T18:03:53.039Z",
+      "completedAt": "2026-10-24T18:08:43.758Z",
+      "log": "docs/performance/pr188-run-logs/dev-sw-opportunity-driven-v1-final-v1.log"
+    },
+    {
+      "design": "dev-sw",
+      "policy": "hierarchical-intent-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T18:05:27.187Z",
+      "completedAt": "2026-10-24T18:10:38.367Z",
+      "log": "docs/performance/pr188-run-logs/dev-sw-hierarchical-intent-v1-final-v1.log"
+    },
+    {
+      "design": "dev-sw",
+      "policy": "contextual-judgment-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T18:08:43.760Z",
+      "completedAt": "2026-10-24T18:14:01.530Z",
+      "log": "docs/performance/pr188-run-logs/dev-sw-contextual-judgment-v1-final-v1.log"
+    },
+    {
+      "design": "dev-sw",
+      "policy": "state-value-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T18:10:38.368Z",
+      "completedAt": "2026-10-24T18:15:08.683Z",
+      "log": "docs/performance/pr188-run-logs/dev-sw-state-value-v1-final-v1.log"
+    },
+    {
+      "design": "dev-sw",
+      "policy": "phase-role-hybrid-v1",
+      "exitCode": 0,
+      "signal": null,
+      "start": "2026-10-24T18:14:01.531Z",
+      "completedAt": "2026-10-24T18:18:29.325Z",
+      "log": "docs/performance/pr188-run-logs/dev-sw-phase-role-hybrid-v1-final-v1.log"
+    }
+  ]
+}

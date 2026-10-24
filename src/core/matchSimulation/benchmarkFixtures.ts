@@ -9,7 +9,7 @@ import {
   professionalClubSchema,
 } from '../../schemas/domainSchemas';
 import { TACTICAL_PREFERENCE_DEFAULTS } from './tacticalPreferences';
-import { createTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture } from './matchSimulation';
 import { tacticalStyleSchema } from './matchState';
 
 export const formationIdSchema = z.enum(['4-3-3', '4-2-3-1', '4-4-2', '3-4-2-1', '3-5-2']);
@@ -137,7 +137,9 @@ export const createFormationBenchmarkSession = (
 export const createFormationBenchmarkMatch = (input: z.input<typeof benchmarkFixtureSchema>) => {
   const config = benchmarkFixtureSchema.parse(input);
   const session = createFormationBenchmarkSession(config);
-  const state = createTacticalMatch(session);
+  // Historical deterministic benchmark configurations start at an explicit open-play
+  // apparatus condition. Normal UI/career matches use createTacticalMatch and kick off.
+  const state = createOpenPlayMatchFixture(session);
   state.playerAgencyEnabled = false;
   for (const side of ['home', 'away'] as const) {
     state.teams[side].style = config.style;

@@ -4,7 +4,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../core/singleMatch';
-import { createTacticalMatch, createMatchFlowTelemetry } from '../../core/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch, createMatchFlowTelemetry } from '../../core/matchSimulation';
 import type { TacticalMatchState } from '../../core/matchSimulation/matchState';
 import type { PlayerDecisionOpportunity } from '../../core/matchSimulation/playerDecision';
 import { MatchLabDiagnosticsController } from './matchLabDiagnostics';

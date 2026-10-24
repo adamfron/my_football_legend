@@ -1,6 +1,19 @@
 # Roadmap
 
-Aktualny etap: **PR187 — Bounded Football Intelligence & Decision Policy Validation (eksperyment)**.
+Aktualny etap: **PR188 — Relative Decision-Making & Match Behaviour Stabilization**.
+Negatywne wyniki PR187 i ręczne obserwacje Match Lab nadają stabilizacji pierwszeństwo
+przed generacjami. Względne okazje, koszt czekania, lokalne zaangażowanie obrony,
+ograniczona wiedza rywali, eksperymentalna psychologia, prawdziwy kick-off oraz
+ręczne szybkie/przygotowane wolne są rozliczane w osobnych bramach.
+[Zakres, pomiary i otwarte blokery PR188](PR188_RELATIVE_DECISION_MAKING_AND_MATCH_STABILIZATION.md).
+
+**B domyślne; canonical NOT READY dla summary; confirmation pozostaje zamknięte.**
+Aktualna kolejność: **PR188 stabilizacja → PR189 Generational Renewal & World Strength
+→ PR190 Summary Simulation & PlayStyles → PR191 Career UX → PR192+ World Expansion**.
+Pełny zakres przesuniętych zobowiązań pozostaje w autorytatywnej tabeli poniżej.
+Numery w starszych opisach są historycznym kontekstem, nie nową deklaracją wykonania.
+
+Scalony etap: **PR187 — Bounded Football Intelligence & Decision Policy Validation (eksperyment)**.
 Trzy wybieralne polityki przy piłce mają osobne mechanizmy, ograniczony adapter
 kandydatów i wykonanie w pełnym meczu. Trzy wzorce są podłączone do ruchu live.
 **Walidacja całego AI pozostaje nieukończona**: obrona/GK/wznowienia nadal mają
@@ -12,8 +25,8 @@ a skuteczna koordynacja nie jest potwierdzona. Niezależna kohorta pozostaje nie
 Przed niezależnym confirmation należy dokończyć bounded controllers, techniki
 strzału/GK, kontrfaktyczne utracone okna, współpracę i human/browser matrix.
 Pozostałe prerequisite PR187 przechodzą jawnie do PR188+; nie są oznaczone jako wykonane.
-Generacje/siła świata zachowują pełny zakres PR188, summary/PlayStyles PR189 pozostaje
-zablokowane przez canonical readiness, career UX PR190 i world expansion PR191+ bez usuwania zobowiązań.
+Generacje/siła świata zachowują pełny zakres w PR189, summary/PlayStyles PR190 pozostaje
+zablokowane przez canonical readiness, career UX PR191 i world expansion PR192+ bez usuwania zobowiązań.
 
 Scalony etap: **PR186 — Tactical Cognition, Team Familiarity & Attribute Diagnostics**.
 Izolowane prototypy współpracy, wiedzy i komunikacji, kontrolowane epizody decyzja–
@@ -112,7 +125,7 @@ Poprzednie scalone etapy pozostają ważne:
 [PR175 — independent reality validation](PR175_MATCH_REALITY_VALIDATION.md).
 Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
 
-## Autorytatywna kolejność PR176–PR191+
+## Autorytatywna kolejność PR176–PR192+
 
 - **PR176 — Match Engine Mathematical Audit & Reform Blueprint**. Scalony audyt:
   pełne mathematical/action pipeline, correlated risk, candidate gates, pass flight,
@@ -185,27 +198,35 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   Zamrozić nowe niezależne SS/SW/WW z różnymi rolami, ciałem, fatigue i GK przed
   otwarciem wyników. Pięć polityk jest sparowaniem, nie pięcioma niezależnymi
   projektami. Wymagane pełne mecze, nowe potwierdzenie, human browser smoke i CPU.
-- **PR188 — Generational Renewal & World Strength**. Zachowany dawny PR176:
+- **PR188 — Relative Decision-Making & Match Behaviour Stabilization**. Priorytet
+  po obserwacjach PR187: odtworzenie błędów, względne okazje i konsekwencje osłony,
+  rzeczywiste zaangażowanie obrony, ograniczona pamięć i opcjonalna psychologia,
+  legalny początek spotkania oraz szybkie/przygotowane ręczne wolne. Zachować B,
+  historyczne polityki i aparatury, fizykę, źródła i negatywne dowody. Pełne mecze
+  development oraz ocena blockerów poprzedzają jakiekolwiek nowe confirmation.
+  Nie uznawać krótkiego epizodu lub zielonego CI za walidację całego futbolu.
+- **PR189 — Generational Renewal & World Strength**. Pełne odłożone zobowiązanie PR188,
+  wcześniej dawny PR176; niewykonane i niepomniejszone przez stabilizację:
   20–25 sezonów rozwoju NPC, suma/średnia OVR kadr i najlepszej XI, jakość pozycji,
   rozkład wieku, akademie i ich absolwenci, integracja/blokowanie młodych przez
   dobrych weteranów, aging, retirement, uzupełnienia, trajektorie talentu i pułapy,
   transfery między silnymi/słabymi klubami oraz długofalowa jakość świata.
   Powtórzyć pomiary po istotnej rozbudowie bazy.
-- **PR189 — Summary Simulation & PlayStyles**. Zachowany dawny PR177:
+- **PR190 — Summary Simulation & PlayStyles**. Zachowany pełny dawny PR189/177:
   kalibrować lightweight simulation dopiero przeciw właściwie zweryfikowanemu
   canonical; gole/asysty DM/CM i innych pozycji. Rozwijać ludzkie PlayStyles na
   podstawie właściwie udokumentowanych summary matches, zachowując źródło danych,
   wieloletnie wymagania i progi. Udział/zmiany: starter/substitute, entry/exit,
   realne ID zastępowanego/zastępującego i tylko rzeczywiście modelowany powód.
   Nie wnioskować słabej gry z oceny/minut. Tożsamości/minuty/exactly-once zostają.
-- **PR190 — Career UX Consolidation**. Zachowany dawny PR178: zwarte fixture rows,
+- **PR191 — Career UX Consolidation**. Zachowany pełny dawny PR190/178: zwarte fixture rows,
   zbiorcze sezonowe archive bez dublowania historii; calendar zgodny z career.currentDate,
   rzeczywistymi terminami meczów, zapisanym treningiem, urazami/niedostępnością i życiem.
   Odróżniać saved facts od presentation recurrence; nie wymyślać treningów w pustych dniach.
   Normalny strzał: **klik miejsca w bramce → kontekstowe menu techniki → wybór
   techniki wykonuje strzał**. Usunąć dodatkowe obowiązkowe potwierdzenie i redundantne
   suwaki; zachować keyboard accessibility i accurate substitution records.
-- **PR191+ — World Expansion**. Zachowany dawny PR179+: więcej lig/klubów, puchary,
+- **PR192+ — World Expansion**. Zachowany pełny dawny PR191+/179+: więcej lig/klubów, puchary,
   reprezentacje, transfery, ekonomia i dalsze systemy futbolu.
 
 Wyłącznie całkowite numery PR. Kolejność powyżej zastępuje dawne przypisania.

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { opponentMemorySchema } from './opponentKnowledge';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { attacksRight, clampPitchPoint, distance, physicalPointSchema } from './matchSpace';
 import { angleForVector, normalizeAngle } from './playerOrientation';
@@ -60,6 +61,13 @@ export const boundedSceneSchema = z.object({
   config: boundedExperimentSchema,
   intent: boundedIntentSchema.nullable(),
   patterns: boundedPatternSchema.array().max(22),
+  opponents: opponentMemorySchema.default({}),
+  observedContact: z.object({ actorId: z.string(), key: z.string() }).nullable().default(null),
+  ownForm: z.number().min(-1).max(1).default(0),
+  selfFeedback: z
+    .object({ key: z.string(), value: z.number().min(-1).max(1) })
+    .nullable()
+    .default(null),
 });
 export type BoundedScene = z.infer<typeof boundedSceneSchema>;
 
@@ -150,7 +158,7 @@ export const observeBoundedScene = (
       Math.min(distance(feet.leftFoot, state.ball), distance(feet.rightFoot, state.ball)) <=
         feet.footReach &&
       (last === null || state.time - last >= 0.12 - 1e-8),
-    readyAt: prep?.readyAt ?? state.time,
+    readyAt: prep?.readyAt ?? state.ballOwnershipStartedAt ?? state.time,
     gainedAt: prep?.gainedAt ?? state.time,
     lastTouchAt: last,
     scoreDifference: state.score[actor.team] - state.score[actor.team === 'home' ? 'away' : 'home'],
@@ -166,5 +174,29 @@ export const observeBoundedScene = (
     patterns: Object.values(state.boundedRuntime?.patterns ?? {})
       .filter((p) => p.actorId === actor.id)
       .map((p) => ({ ...p })),
+    opponents: state.boundedRuntime?.opponents?.[actor.id] ?? {},
+    ownForm: state.boundedRuntime?.selfEvidence?.[actor.id]?.value ?? 0,
+    selfFeedback:
+      state.lastResolvedPass?.passerId === actor.id &&
+      state.lastResolvedPass.finalResult &&
+      state.lastResolvedPass.actualReceiverId &&
+      visible.some((p) => p.id === state.lastResolvedPass!.actualReceiverId)
+        ? {
+            key: state.lastResolvedPass.passId,
+            value: state.lastResolvedPass.finalResult === 'completed' ? 1 : -1,
+          }
+        : prep?.receptionKind
+          ? {
+              key: `reception:${prep.gainedAt}`,
+              value: prep.receptionKind === 'heavy_touch' ? -0.5 : 0.5,
+            }
+          : null,
+    observedContact:
+      state.lastGroundContact && visible.some((p) => p.id === state.lastGroundContact!.actorId)
+        ? {
+            actorId: state.lastGroundContact.actorId,
+            key: `${state.lastGroundContact.actorId}:${state.lastGroundContact.at}`,
+          }
+        : null,
   });
 };

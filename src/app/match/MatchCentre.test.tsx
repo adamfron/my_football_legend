@@ -3,7 +3,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../core/singleMatch';
-import { createTacticalMatch } from '../../core/matchSimulation/matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from '../../core/matchSimulation/matchSimulation';
 import { DEFAULT_KITS } from './tacticalRenderer/model';
 import { MatchCentre } from './MatchCentre';
 

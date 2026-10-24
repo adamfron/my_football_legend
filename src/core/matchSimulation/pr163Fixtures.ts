@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createFormationBenchmarkSession } from './benchmarkFixtures';
-import { createTacticalMatch } from './matchSimulation';
+import { createOpenPlayMatchFixture as createTacticalMatch } from './matchSimulation';
 import type { MatchAction, TacticalMatchState } from './matchState';
 import { deriveOnBallPreparation } from './onBallPreparation';
 

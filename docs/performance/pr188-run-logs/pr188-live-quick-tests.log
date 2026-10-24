@@ -1,0 +1,33 @@
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/pr188RelativeDecision.test.ts (24 tests | 1 failed) 727ms
+     × physically releases a selected live quick pass after resuming canonical time 32ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/pr188RelativeDecision.test.ts > PR188 lawful opening and human free kicks > physically releases a selected live quick pass after resuming canonical time
+AssertionError: expected undefined to be 'human_selected' // Object.is equality
+
+- Expected:
+"human_selected"
+
++ Received:
+undefined
+
+ ❯ src/core/matchSimulation/pr188RelativeDecision.test.ts:232:48
+    230|     expect(s.ball.lastTouchPlayerId).toBe(taker);
+    231|     expect(s.ball.ownerId).toBeUndefined();
+    232|     expect(s.lastPassDiagnostic?.actionSource).toBe('human_selected');
+       |                                                ^
+    233|     expect(s.time).toBeGreaterThan(at);
+    234|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 23 passed (24)
+   Start at  18:25:36
+   Duration  4.62s (transform 1.56s, setup 0ms, import 3.37s, tests 727ms, environment 340ms)
+

@@ -1,0 +1,35 @@
+dev-ss/opportunity-driven-v1: 1200.00s
+dev-ss/opportunity-driven-v1: 2400.00s
+dev-ss/opportunity-driven-v1: 3600.00s
+dev-ss/opportunity-driven-v1: 4800.00s
+{
+  id: 'dev-ss-opportunity-driven-v1-full-observed-final-v1',
+  status: 'full_time',
+  at: 5557.9250000001375,
+  score: { home: 0, away: 0 },
+  counts: {
+    decisions: 12276,
+    candidates: 112772,
+    evaluations: 112772,
+    forecasts: 3645,
+    waits: 4094,
+    continuations: 0,
+    cancellations: 0,
+    patternObservations: 16,
+    patternArrivals: 0,
+    patternCancellations: 16,
+    attempts: 9248,
+    releases: 2680,
+    shotAttempts: 3,
+    shotReleases: 3,
+    passAttempts: 2732,
+    passReleases: 2677,
+    backwardPasses: 731,
+    progressivePasses: 470,
+    reciprocalPasses: 210
+  },
+  failure: null,
+  wall: 248115.7426
+}
+(node:32500) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

@@ -7,7 +7,7 @@ import {
   protectedPressReceiver,
 } from './defensiveChallenges';
 import {
-  createTacticalMatch,
+  createOpenPlayMatchFixture as createTacticalMatch,
   FIXED_MATCH_DT,
   stepTacticalMatchAfterDecisionProbe,
 } from './matchSimulation';
