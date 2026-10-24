@@ -75,6 +75,8 @@ if (process.argv.includes('--check')) {
     const bytes = readFileSync(receipt.archive);
     if (sha(bytes) !== receipt.archiveSha256) throw Error('Match archive mismatch');
     const payload = jsonFromGzip(bytes);
+    if (sha(payload.finalState) !== receipt.finalStateSha256)
+      throw Error(`Final state hash mismatch: ${path}`);
     const players = payload.finalState.statistics?.players ?? [];
     const sum = (key) => players.reduce((n, p) => n + (p[key] ?? 0), 0);
     const depth = {};
@@ -174,6 +176,23 @@ if (process.argv.includes('--check')) {
           q.decision.selectedCandidateId !== p.decision.selectedCandidateId,
       ),
   ).length;
+  const fullBarePath = 'docs/performance/PR188-possession-diagnosis.json';
+  const fullBare = json(fullBarePath);
+  const fullObserved = matches.find(
+    (m) => m.design === 'dev-ww' && m.policy === 'opportunity-driven-v1',
+  );
+  const fullObservedReceipt = json(fullObserved.path);
+  const fullBareBytes = readFileSync(fullBare.archive);
+  if (
+    sha(fullBareBytes) !== fullBare.archiveSha256 ||
+    sha(jsonFromGzip(fullBareBytes).finalState) !== fullBare.finalStateSha256 ||
+    fullBare.sourceSha256 !== sourceSha256 ||
+    fullBare.failure !== fullObservedReceipt.failure ||
+    fullBare.status !== fullObservedReceipt.status ||
+    fullBare.finalStateSha256 !== fullObserved.finalStateSha256 ||
+    fullBare.inputSha256 !== fullObservedReceipt.inputSha256
+  )
+    throw Error('Full-match observer-off replay mismatch');
   const verification = {
     schemaVersion: 1,
     sourceSha256,
@@ -190,6 +209,18 @@ if (process.argv.includes('--check')) {
       variants: 240,
       equalFinalStateHashes: true,
       log: 'docs/performance/pr188-run-logs/pr188-optimized-replay.log',
+    },
+    fullMatchObserverOffReplay: {
+      design: 'dev-ww',
+      policy: 'opportunity-driven-v1',
+      receipt: fullBarePath,
+      equalInputs: true,
+      equalFinalStateHashes: true,
+      finalStateSha256: fullBare.finalStateSha256,
+      status: fullBare.status,
+      failure: fullBare.failure,
+      scope:
+        'Bounded trace and flow observers disabled; pure diagnostic inspections at fixed stationary-duration thresholds remain. One representative development repeat, not a new independent design.',
     },
     browser: 'docs/performance/PR188-browser.json',
     ci: 'Final-head CI is checked and linked in the pull request, not inferred from local verification.',
@@ -240,7 +271,7 @@ if (process.argv.includes('--check')) {
   ].join('\n');
   const completed = matches.filter((m) => m.status === 'full_time' && !m.failure).length;
   const zeroShots = matches.filter((m) => m.shots === 0).map((m) => `${m.design}/${m.policy}`);
-  const gates = `| Gate | Decision |\n|---|---|\n| 1 — reproduce | Local mechanism and frozen development evidence; exact human exports unavailable |\n| 2 — relative knowledge | Experimental geometry/mobility model; richer scouted technical priors deferred |\n| 3 — liveness | Local paired evidence; no forced action or risk admission fallback |\n| 4 — defence | Exposed-contact regression and autonomous episodes; historical controller retained |\n| 5 — psychology | Optional/off by default; controlled on/off only, not empirical calibration |\n| 6 — restarts | Kick-off and quick/prepared human flow tested; visual wall consistency remains open |\n| 7 — full development | ${completed}/15 finish; all outcomes and failures retained |\n| 8 — independent readiness | NOT READY / sealed cohort NOT RUN |\n| 9 — engineering | Local verify PASS (${verification.totalTests} tests); final CI in PR |`;
+  const gates = `| Gate | Decision |\n|---|---|\n| 1 — reproduce | Local mechanism and frozen development evidence; exact human exports unavailable |\n| 2 — relative knowledge | Experimental geometry/mobility model; richer scouted technical priors deferred |\n| 3 — liveness | FAILED in full WW: multi-minute stationary episodes remain despite local paired improvements |\n| 4 — defence | Exposed-contact regression and autonomous episodes; historical controller retained |\n| 5 — psychology | Optional/off by default; controlled on/off only, not empirical calibration |\n| 6 — restarts | Kick-off and quick/prepared human flow tested; visual wall consistency remains open |\n| 7 — full development | ${completed}/15 finish; completion does not validate liveness or attacking creation; all negative outcomes retained |\n| 8 — independent readiness | NOT READY / sealed cohort NOT RUN |\n| 9 — engineering | Local verify PASS (${verification.totalTests} tests); final CI in PR |`;
   let report = readFileSync(
     'docs/PR188_RELATIVE_DECISION_MAKING_AND_MATCH_STABILIZATION.md',
     'utf8',
@@ -260,7 +291,7 @@ if (process.argv.includes('--check')) {
   );
   replace(
     'MATCHES',
-    `${matchTable}\n\n${completed}/15 variants finish. ${zeroShots.length ? `Zero-shot variants remain: ${zeroShots.join(', ')}.` : 'A physically released shot occurs in every variant; this alone does not validate attacking quality.'} Scores and shot counts are observations, not calibration targets. CPU is per process; two simulations share the host. Complete telemetries preserve progression, receiving, challenges, restarts, fouls and other football consequences.\n\n${depthTable}\n\nDepth means use attacking phases only. Negative last-line distance means behind that line; these are formation/phase observations, not causal proof of a positioning repair.`,
+    `${matchTable}\n\n${completed}/15 variants finish. ${zeroShots.length ? `Zero-shot variants remain: ${zeroShots.join(', ')}.` : 'A physically released shot occurs in every variant; this alone does not validate attacking quality.'} Scores and shot counts are observations, not calibration targets. CPU is per process; two simulations share the host. Complete telemetries preserve progression, receiving, challenges, restarts, fouls and other football consequences.\n\n${depthTable}\n\nDepth means use attacking phases only. Negative last-line distance means short of the opponent second-last line in the attacking direction; positive means closer to the goal. Negative midfield distance means deeper than own midfield. These are formation/phase observations, not causal proof of a positioning repair.`,
   );
   replace(
     'VERIFY',
