@@ -34,6 +34,18 @@ export const boundedTraceSchema = z.object({
   released: z.boolean().optional(),
   actualChange: z.boolean().optional(),
   preparationMargin: z.number().optional(),
+  contactFailure: z
+    .enum([
+      'not_prepared',
+      'not_owner',
+      'height',
+      'out_of_reach',
+      'motor_recovery',
+      'wrong_foot',
+      'canonical_rules',
+      'executed_without_release',
+    ])
+    .optional(),
 });
 export type BoundedTrace = z.infer<typeof boundedTraceSchema>;
 type Observer = (trace: Readonly<BoundedTrace>) => void;
@@ -106,7 +118,16 @@ export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: Ma
       : runtime.lastAction === 'carry'
         ? perception * (1.4 + scene.fatigue)
         : Math.max(perception, scene.readyAt - scene.at);
+  // A deliberated release already has a preparation intention. Its first playable
+  // contact is a motor event, not a new visual observation requiring another full
+  // perception latency. Revalidate current visible candidates below; no stale kick
+  // is guaranteed and finite foot recovery still gates scene.contactReady.
+  const preparedContact =
+    runtime.lastActorId === actor.id &&
+    runtime.preparationCandidateId != null &&
+    scene.contactReady;
   if (
+    !preparedContact &&
     runtime.lastActorId === actor.id &&
     state.time - runtime.lastDecisionAt <
       (signature !== runtime.decisionSignature ? perception : quietReview) - 1e-8

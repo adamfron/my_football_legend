@@ -1,0 +1,593 @@
+{
+  "schemaVersion": 1,
+  "classification": "three paired development designs; no independent confirmation",
+  "completed": 14,
+  "attempted": 15,
+  "rows": [
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "label": "A",
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5521.774999984113,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "maxStationary": {
+        "baseline": 1984.7000000028374,
+        "current": 14.450000000000138
+      },
+      "maxOwnerSeconds": 16.32500000000014,
+      "passes": {
+        "attempted": 1929,
+        "completed": 24,
+        "baselineAttempted": 1221,
+        "baselineCompleted": 22
+      },
+      "shots": 0,
+      "fouls": 20,
+      "yellowCards": 0,
+      "redCards": 0,
+      "challenges": 804,
+      "cleanWins": 414,
+      "looseBalls": 127,
+      "cpu": {
+        "user": 273469000,
+        "system": 2172000
+      },
+      "rssBytes": 431226880,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "label": "H",
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "47b2b387a53f6186d2b925ebb052e48466b9952ccbd3e88a71359eeaf14ef5bb",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "maxStationary": {
+        "baseline": 436.74999999987665,
+        "current": 2.1749999999999963
+      },
+      "maxOwnerSeconds": 60.92499999999761,
+      "passes": {
+        "attempted": 1507,
+        "completed": 15,
+        "baselineAttempted": 1443,
+        "baselineCompleted": 18
+      },
+      "shots": 1,
+      "fouls": 16,
+      "yellowCards": 0,
+      "redCards": 0,
+      "challenges": 746,
+      "cleanWins": 389,
+      "looseBalls": 114,
+      "cpu": {
+        "user": 274312000,
+        "system": 2203000
+      },
+      "rssBytes": 421294080,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "ww",
+      "policy": "contextual-judgment-v1",
+      "label": "C",
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "803477ece376499eb2082cbf232b5ed8b63125fbd5b6f885fffce1baf7e2e867",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5580.67500000566,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "maxStationary": {
+        "baseline": 475.7499999998412,
+        "current": 4.124999999999991
+      },
+      "maxOwnerSeconds": 14.900000000000144,
+      "passes": {
+        "attempted": 1656,
+        "completed": 22,
+        "baselineAttempted": 1422,
+        "baselineCompleted": 9
+      },
+      "shots": 1,
+      "fouls": 17,
+      "yellowCards": 0,
+      "redCards": 0,
+      "challenges": 758,
+      "cleanWins": 395,
+      "looseBalls": 119,
+      "cpu": {
+        "user": 266344000,
+        "system": 2188000
+      },
+      "rssBytes": 407670784,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "label": "B",
+      "path": "docs/performance/pr189/ww-state-value-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "c03bb29e9df6c00d868f0c15f533233d45af6c02ddc1405279f3448bdf64b1a5",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5640,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "maxStationary": {
+        "baseline": 3.8749999999999902,
+        "current": 3.7999999999999905
+      },
+      "maxOwnerSeconds": 49.17499999999828,
+      "passes": {
+        "attempted": 527,
+        "completed": 55,
+        "baselineAttempted": 585,
+        "baselineCompleted": 64
+      },
+      "shots": 6,
+      "fouls": 7,
+      "yellowCards": 0,
+      "redCards": 0,
+      "challenges": 183,
+      "cleanWins": 74,
+      "looseBalls": 25,
+      "cpu": {
+        "user": 251032000,
+        "system": 2188000
+      },
+      "rssBytes": 460140544,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "label": "R3",
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "9258467dd0f5500403ef82c07d9788719e0281439288d6af16ee9a150293a83b",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5580,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "maxStationary": {
+        "baseline": 3.92499999999999,
+        "current": 3.97499999999999
+      },
+      "maxOwnerSeconds": 41.849999999998694,
+      "passes": {
+        "attempted": 611,
+        "completed": 85,
+        "baselineAttempted": 648,
+        "baselineCompleted": 83
+      },
+      "shots": 9,
+      "fouls": 6,
+      "yellowCards": 0,
+      "redCards": 0,
+      "challenges": 185,
+      "cleanWins": 78,
+      "looseBalls": 35,
+      "cpu": {
+        "user": 236641000,
+        "system": 1375000
+      },
+      "rssBytes": 435077120,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "label": "A",
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "3d7bfe27f3b43b944e34eb6c0ea93aa9c204573a9fb443d4bb544b1fab417161",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5592.525000005922,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "maxStationary": {
+        "baseline": 1.15,
+        "current": 1.4749999999999988
+      },
+      "maxOwnerSeconds": 10.300000000000079,
+      "passes": {
+        "attempted": 2656,
+        "completed": 1219,
+        "baselineAttempted": 2677,
+        "baselineCompleted": 1181
+      },
+      "shots": 1,
+      "fouls": 69,
+      "yellowCards": 5,
+      "redCards": 0,
+      "challenges": 929,
+      "cleanWins": 429,
+      "looseBalls": 127,
+      "cpu": {
+        "user": 260375000,
+        "system": 1468000
+      },
+      "rssBytes": 431517696,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "ss",
+      "policy": "hierarchical-intent-v1",
+      "label": "H",
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "f62908ff078e215d90c821cc87cfbcf3e8d43c7c56e3849c8ffd72d168b5c6f4",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5599.874999999967,
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "maxStationary": {
+        "baseline": 0.9750000000000005,
+        "current": 2.274999999999996
+      },
+      "maxOwnerSeconds": 11.875000000000101,
+      "passes": {
+        "attempted": 2255,
+        "completed": 1827,
+        "baselineAttempted": 2202,
+        "baselineCompleted": 1721
+      },
+      "shots": 5,
+      "fouls": 60,
+      "yellowCards": 6,
+      "redCards": 1,
+      "challenges": 768,
+      "cleanWins": 362,
+      "looseBalls": 97,
+      "cpu": {
+        "user": 280468000,
+        "system": 1235000
+      },
+      "rssBytes": 439545856,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "ss",
+      "policy": "contextual-judgment-v1",
+      "label": "C",
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "c9c82993b94e5390c2b4fac992f15ddd48186856220c4a7d11a0bc3c2c14282b",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5520.374999984133,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "maxStationary": {
+        "baseline": 0.9250000000000005,
+        "current": 1.4999999999999987
+      },
+      "maxOwnerSeconds": 26.999999999999535,
+      "passes": {
+        "attempted": 2275,
+        "completed": 1780,
+        "baselineAttempted": 2359,
+        "baselineCompleted": 1807
+      },
+      "shots": 2,
+      "fouls": 61,
+      "yellowCards": 2,
+      "redCards": 2,
+      "challenges": 745,
+      "cleanWins": 355,
+      "looseBalls": 89,
+      "cpu": {
+        "user": 259829000,
+        "system": 1343000
+      },
+      "rssBytes": 427708416,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "label": "B",
+      "path": "docs/performance/pr189/ss-state-value-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "1d4ad1925407ba3e292f96cffa3cbf8d41b8813645f63c38574f2e27c93a531d",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5780.050000000073,
+      "score": {
+        "home": 1,
+        "away": 5
+      },
+      "maxStationary": {
+        "baseline": 1.7749999999999977,
+        "current": 1.4749999999999988
+      },
+      "maxOwnerSeconds": 7.125000000000034,
+      "passes": {
+        "attempted": 2327,
+        "completed": 1485,
+        "baselineAttempted": 2376,
+        "baselineCompleted": 1497
+      },
+      "shots": 21,
+      "fouls": 77,
+      "yellowCards": 7,
+      "redCards": 0,
+      "challenges": 531,
+      "cleanWins": 219,
+      "looseBalls": 57,
+      "cpu": {
+        "user": 256922000,
+        "system": 1390000
+      },
+      "rssBytes": 460382208,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "ss",
+      "policy": "phase-role-hybrid-v1",
+      "label": "R3",
+      "path": "docs/performance/pr189/ss-phase-role-hybrid-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "f25120b8d37ae25717f00a236df235185c564369d26d13587a41b566c3a8ef8d",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5711.450000000042,
+      "score": {
+        "home": 3,
+        "away": 3
+      },
+      "maxStationary": {
+        "baseline": 1.7749999999999977,
+        "current": 1.8999999999999972
+      },
+      "maxOwnerSeconds": 8.125000000000048,
+      "passes": {
+        "attempted": 2269,
+        "completed": 1514,
+        "baselineAttempted": 2382,
+        "baselineCompleted": 1594
+      },
+      "shots": 18,
+      "fouls": 61,
+      "yellowCards": 4,
+      "redCards": 0,
+      "challenges": 469,
+      "cleanWins": 212,
+      "looseBalls": 55,
+      "cpu": {
+        "user": 295047000,
+        "system": 1454000
+      },
+      "rssBytes": 440127488,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "sw",
+      "policy": "opportunity-driven-v1",
+      "label": "A",
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "840da71e7f32985028c4b680d6f1827bf4f694d4597c7444969c6fb6b1c0175a",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5521.199999984121,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "maxStationary": {
+        "baseline": 0.9750000000000005,
+        "current": 6.450000000000024
+      },
+      "maxOwnerSeconds": 11.05000000000009,
+      "passes": {
+        "attempted": 2331,
+        "completed": 601,
+        "baselineAttempted": 2276,
+        "baselineCompleted": 579
+      },
+      "shots": 2,
+      "fouls": 43,
+      "yellowCards": 0,
+      "redCards": 0,
+      "challenges": 940,
+      "cleanWins": 473,
+      "looseBalls": 130,
+      "cpu": {
+        "user": 295797000,
+        "system": 1703000
+      },
+      "rssBytes": 526188544,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "sw",
+      "policy": "hierarchical-intent-v1",
+      "label": "H",
+      "path": "docs/performance/pr189/sw-hierarchical-intent-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "80d9832f317527564ca8581fc90c4089630fe91142c247f55444813522a1cdbb",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 6060,
+      "score": {
+        "home": 20,
+        "away": 0
+      },
+      "maxStationary": {
+        "baseline": 1.1,
+        "current": 5.400000000000009
+      },
+      "maxOwnerSeconds": 19.549999999999958,
+      "passes": {
+        "attempted": 1352,
+        "completed": 488,
+        "baselineAttempted": 1371,
+        "baselineCompleted": 533
+      },
+      "shots": 57,
+      "fouls": 41,
+      "yellowCards": 0,
+      "redCards": 1,
+      "challenges": 860,
+      "cleanWins": 361,
+      "looseBalls": 126,
+      "cpu": {
+        "user": 312641000,
+        "system": 1625000
+      },
+      "rssBytes": 430284800,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "label": "C",
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "e1c070b59dd267819644d6e8560ddfc1348c6895c78287b65bc5949bf84963e0",
+      "status": "second_half",
+      "failure": "Error: Did not finish: second_half",
+      "seconds": 7200.024999958599,
+      "score": {
+        "home": 13,
+        "away": 0
+      },
+      "maxStationary": {
+        "baseline": 0.9250000000000005,
+        "current": 1.5749999999999984
+      },
+      "maxOwnerSeconds": 16.275000000000144,
+      "passes": {
+        "attempted": 1093,
+        "completed": 415,
+        "baselineAttempted": 1438,
+        "baselineCompleted": 543
+      },
+      "shots": 21,
+      "fouls": 42,
+      "yellowCards": 0,
+      "redCards": 0,
+      "challenges": 637,
+      "cleanWins": 296,
+      "looseBalls": 78,
+      "cpu": {
+        "user": 240609000,
+        "system": 1078000
+      },
+      "rssBytes": 420823040,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "label": "B",
+      "path": "docs/performance/pr189/sw-state-value-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "7bab568a74ef736db8075901685bfa579aeafc5f494bc2fea9cbc0f751f0c60b",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 5788.449999979795,
+      "score": {
+        "home": 7,
+        "away": 0
+      },
+      "maxStationary": {
+        "baseline": 5.3500000000000085,
+        "current": 3.94999999999999
+      },
+      "maxOwnerSeconds": 17.875000000000053,
+      "passes": {
+        "attempted": 1707,
+        "completed": 692,
+        "baselineAttempted": 1839,
+        "baselineCompleted": 803
+      },
+      "shots": 32,
+      "fouls": 48,
+      "yellowCards": 0,
+      "redCards": 0,
+      "challenges": 621,
+      "cleanWins": 319,
+      "looseBalls": 87,
+      "cpu": {
+        "user": 224516000,
+        "system": 1328000
+      },
+      "rssBytes": 451911680,
+      "runnerHashTiming": "process_start"
+    },
+    {
+      "design": "sw",
+      "policy": "phase-role-hybrid-v1",
+      "label": "R3",
+      "path": "docs/performance/pr189/sw-phase-role-hybrid-v1-v3.json",
+      "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+      "inputSha256": "7db4dfe86e9ce21fb9060230c7187c5523947d256ab44fd1e8847ef1456e7dce",
+      "status": "full_time",
+      "failure": null,
+      "seconds": 6063.24999999908,
+      "score": {
+        "home": 18,
+        "away": 0
+      },
+      "maxStationary": {
+        "baseline": 3.94999999999999,
+        "current": 3.94999999999999
+      },
+      "maxOwnerSeconds": 19.52499999999996,
+      "passes": {
+        "attempted": 1601,
+        "completed": 724,
+        "baselineAttempted": 1665,
+        "baselineCompleted": 774
+      },
+      "shots": 37,
+      "fouls": 35,
+      "yellowCards": 0,
+      "redCards": 0,
+      "challenges": 560,
+      "cleanWins": 294,
+      "looseBalls": 78,
+      "cpu": {
+        "user": 238907000,
+        "system": 1312000
+      },
+      "rssBytes": 448012288,
+      "runnerHashTiming": "process_start"
+    }
+  ]
+}

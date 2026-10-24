@@ -2,7 +2,7 @@ import { z } from 'zod';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { STATE_VALUE_CONFIG } from './decisionPolicyConfig';
 import { distance } from './matchSpace';
-import { playerContactGeometry } from './ballContactGeometry';
+import { playerContactGeometry, motorContactReadyAt } from './ballContactGeometry';
 
 export const decisionReadinessSchema = z.object({
   actorId: z.string(),
@@ -58,14 +58,31 @@ export const markDecisionEvaluated = (state: TacticalMatchState, actor: MatchPla
   releaseReady: canReleaseControlledAction(state, actor),
 });
 
-export const canReleaseControlledAction = (state: TacticalMatchState, actor: MatchPlayerState) => {
-  if (state.ball.ownerId !== actor.id || (state.ball.height ?? 0) > 0.65) return false;
+export const releaseContactReadinessSchema = z.object({
+  ready: z.boolean(),
+  readyAt: z.number().nonnegative(),
+  reason: z.enum(['available', 'not_owner', 'height', 'out_of_reach', 'motor_recovery']),
+});
+/** The observation and motor scheduler share one finite recovery/foot window. */
+export const releaseContactReadiness = (state: TacticalMatchState, actor: MatchPlayerState) => {
+  const readyAt = motorContactReadyAt(state, actor.id);
   const geometry = playerContactGeometry(actor);
-  if (
-    Math.min(distance(geometry.leftFoot, state.ball), distance(geometry.rightFoot, state.ball)) >
-    geometry.footReach
-  )
-    return false;
-  const last = state.lastGroundContact;
-  return !last || last.actorId !== actor.id || state.time - last.at >= 0.12 - 1e-8;
+  const reason =
+    state.ball.ownerId !== actor.id
+      ? 'not_owner'
+      : (state.ball.height ?? 0) > 0.65
+        ? 'height'
+        : Math.min(
+              distance(geometry.leftFoot, state.ball),
+              distance(geometry.rightFoot, state.ball),
+            ) > geometry.footReach
+          ? 'out_of_reach'
+          : state.time < readyAt - 1e-8
+            ? 'motor_recovery'
+            : 'available';
+  return { ready: reason === 'available', readyAt, reason } as z.infer<
+    typeof releaseContactReadinessSchema
+  >;
 };
+export const canReleaseControlledAction = (state: TacticalMatchState, actor: MatchPlayerState) =>
+  releaseContactReadiness(state, actor).ready;

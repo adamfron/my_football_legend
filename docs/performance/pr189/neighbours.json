@@ -1,0 +1,1792 @@
+{
+  "schemaVersion": 1,
+  "classification": "96 reconstructed six-second development neighbours; four skill pairings, both directions, three policies; not independent validation",
+  "runnerSha256": "3046d53c46a23f0eee7f887af8056665e7786a6406fab3895f36036e113c7719",
+  "rows": [
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-40-safe"
+      },
+      "stateSha256": "85fa997f4b0aea2db6057c765dc9a5e48a6c4803264ffda1ccec56c5366a207f",
+      "eventsSha256": "2c2f19b03a65ce640a5a0879c23fd37a944b820055e82ef2ec64679df75f54d4",
+      "maxStationary": 0.3,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:10",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-40-arrived"
+      },
+      "stateSha256": "72e62645f1afeb019a615a3dd096d4e0832bab7d5c67532da86bfa8b10e2393b",
+      "eventsSha256": "9184dd37851fd8385bf40e5778670a861e84535d48e0d2aadb2588b5b19b0456",
+      "maxStationary": 0,
+      "releases": 2,
+      "preparations": 5,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-40-outlet"
+      },
+      "stateSha256": "809e8b4843c693f5b161851e6b85cff184d0bbc6a8077ca384a0fec2ce1af5bd",
+      "eventsSha256": "d7adb278e96456f9fd5af8d6c1a94bd67b29006f05865873c0f966d310a916e6",
+      "maxStationary": 0.125,
+      "releases": 2,
+      "preparations": 9,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:5",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-40-blocked"
+      },
+      "stateSha256": "84944206b75aa79a8a06e890fba9b4725d579318a55c89036b36a420699b1cd1",
+      "eventsSha256": "0a7dc7cfb63d54950742f86792b3fe6f335a374a4a0e6d96e6cd41c1f72d9db0",
+      "maxStationary": 0.125,
+      "releases": 2,
+      "preparations": 8,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-40-safe"
+      },
+      "stateSha256": "f1df2ab95e0b0712350e3fb196890ea97d9db6acfd78cba8420642412118b21e",
+      "eventsSha256": "bcc49a0cd1d2a630e0f7ac3436388ae2e56107d5badbf2ab7f200d06809e322a",
+      "maxStationary": 0.22499999999999998,
+      "releases": 2,
+      "preparations": 16,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:5",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-40-arrived"
+      },
+      "stateSha256": "54754920813e81b9e79184858a670f487d8fc7356b9d264fbdd640bce7d4447f",
+      "eventsSha256": "cf35690fe959c6f92ef01eea59c1b91533aff67fa0c39b200b3ccfa9d1b99266",
+      "maxStationary": 0.3,
+      "releases": 2,
+      "preparations": 4,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-40-outlet"
+      },
+      "stateSha256": "041d88d402824936994edc31fc9b0ab2c07a964955f4e8809bdbb6720719d91f",
+      "eventsSha256": "fffaf8645a9c45f3876bbbe924175797f3fb4731f199f5e6696bf61ba844ff97",
+      "maxStationary": 0.3,
+      "releases": 2,
+      "preparations": 7,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-40-blocked"
+      },
+      "stateSha256": "cefd0ab566ced392beb1ce23e968fa206866a88a27e9d48202f60e410c49530d",
+      "eventsSha256": "0054567bcdfba2c35576ef265463344082cd0f313dffb6185a6d8ba63a6a33c4",
+      "maxStationary": 0.3,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.5750000000000082,
+      "ownerAfter": "geometry:anchor:5",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-40-safe"
+      },
+      "stateSha256": "9fa7398896a5439ff2764f59d4a58488b4f4cde09ee833c9b33eff041071e697",
+      "eventsSha256": "0d5627d335b21971d0e9820521323c8e663125a74d563e53cd7f3e916b36fcdc",
+      "maxStationary": 0.22499999999999998,
+      "releases": 2,
+      "preparations": 15,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-40-arrived"
+      },
+      "stateSha256": "9d840bcf0bbce4fca51eb4a018fdd60ff23beab614b7b548fed9664263a3ff7d",
+      "eventsSha256": "101fd9b81b08a67da10f6a0f9bf667fad3bd435ddee8b76e4763260553c0efd0",
+      "maxStationary": 0.3,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:3",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-40-outlet"
+      },
+      "stateSha256": "c87b4e21457012e529fc7484e321a8ed63a4cdd5165f9141ae1ab71be6f4c374",
+      "eventsSha256": "41700ff72e93c9c0a67d045b8b88d9a266f0129016a238a31f74acb752d46470",
+      "maxStationary": 0.3,
+      "releases": 2,
+      "preparations": 5,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:10",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-40-blocked"
+      },
+      "stateSha256": "4bac282104fc622d32a2ce65711e5c75cbc042912feba18e04e5a865699cbb01",
+      "eventsSha256": "bfd5a96b0ab9b6d5faeaac20586171dc24eb200c50b6008ca336d739f0daa9a9",
+      "maxStationary": 0.3,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.5750000000000082,
+      "ownerAfter": "geometry:anchor:5",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-40-safe"
+      },
+      "stateSha256": "1275ab1ef8b250883f3e3438e2b34bde41ad55ddd22963ee0684d2aaa9b9c5ca",
+      "eventsSha256": "a7b51614718b09e48163380245b31b10ccafc9a7495ad93e88931a4564bd1dfd",
+      "maxStationary": 0.6000000000000002,
+      "releases": 2,
+      "preparations": 7,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-40-arrived"
+      },
+      "stateSha256": "4bc0eecdaae84004e36c370ff4d152d63b4c4eaf094f767d69206768e0e7d2f5",
+      "eventsSha256": "bcd9dbba38ac088bc64043352fcec217f70fe7b69546880f5b90834588ecee4b",
+      "maxStationary": 0.1,
+      "releases": 4,
+      "preparations": 8,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-40-outlet"
+      },
+      "stateSha256": "776feb1abaf64eae1b61452042cc2bb13eb6130763cd6b4113ce7f636db2b39b",
+      "eventsSha256": "d77348653abeb115dffeb6f958978d26797f90b3057ea87871e5bcfa9db124de",
+      "maxStationary": 0.3,
+      "releases": 4,
+      "preparations": 5,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-40-blocked"
+      },
+      "stateSha256": "b877fd666f2f3ae0a40faef825506ad4dbb93596f7e4e9ea0d8357d5268fd1a6",
+      "eventsSha256": "7ac787da3466135a3e376918d8cc8c56cd1202c30af34dbd78cbc7cd960131d5",
+      "maxStationary": 0.3,
+      "releases": 2,
+      "preparations": 4,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:10",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-40-safe"
+      },
+      "stateSha256": "1d4a41922a903ea91b2c7a800a38c362408dd7c6372d69e830104fc5f0f64113",
+      "eventsSha256": "c1a8363c093a06d1b2677c2c670089ce646ef8128f9865903d6c50eaf8b09a1e",
+      "maxStationary": 0.5500000000000002,
+      "releases": 2,
+      "preparations": 15,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:3",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-40-arrived"
+      },
+      "stateSha256": "149f14b248ac9efec84f4cdbd99e64dfcdb6985534ec22c76eceb5458e10798c",
+      "eventsSha256": "2346e37a6e4f9948c500d16091da703a9d7881ed750e043e4b855ae0a672e70d",
+      "maxStationary": 1.125,
+      "releases": 2,
+      "preparations": 23,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-40-outlet"
+      },
+      "stateSha256": "23dae9355dc7e2135910f1b2a13c36ac77ed5474fd58103244e4e9b83ccf07c6",
+      "eventsSha256": "3c82229d2e0b3e0a6f3ae4127025ef54a172c4261a4e9d095a884cfba200482c",
+      "maxStationary": 0.3,
+      "releases": 2,
+      "preparations": 8,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-40-blocked"
+      },
+      "stateSha256": "3215e7b99686ca829f224c949bc9c879aa4736fdb7e5687f12ef2fbefa6d9e31",
+      "eventsSha256": "b9ff8612aeb550a13f79bbe22cfabd44fcb11171a11458cefc0872f44280e21f",
+      "maxStationary": 0.3,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-40-safe"
+      },
+      "stateSha256": "ba3f908ff5248b3ddc2ccbf71d11481df145e1f9ca8ce572110b7bfcff9e6c52",
+      "eventsSha256": "8448551e9a428015448a0e6e145869037c57a582eb516950ed56982c815c1ee8",
+      "maxStationary": 0.3,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-40-arrived"
+      },
+      "stateSha256": "7ba6cb34dab6d5197d70161e4c3c5f22b26d07008ec69fadbc42b83a2a05f233",
+      "eventsSha256": "cb3859ee1a11bad54b94eea10adc037a3d4190219165ef03ea09b9165a5e0dc8",
+      "maxStationary": 1.125,
+      "releases": 2,
+      "preparations": 23,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-40-outlet"
+      },
+      "stateSha256": "e5cdc5ed24cea4909f2cc917b287355785a0718949b0f403c06f48ef6bed30a5",
+      "eventsSha256": "33751bfe6e1a519f3b94dbb113edd2ffb22124f9b78578603714d631db328da6",
+      "maxStationary": 0.3,
+      "releases": 2,
+      "preparations": 10,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-40-blocked"
+      },
+      "stateSha256": "f3e265adeb48848af2ad12165d368500187021ecaee811a60bbbe8f3be115fc7",
+      "eventsSha256": "440d5f914ac4914d4c2b8102f14990184abc0150bd34d41c0b4bcb5dc3d83763",
+      "maxStationary": 0.3,
+      "releases": 1,
+      "preparations": 2,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-80-safe"
+      },
+      "stateSha256": "8eb5d2130debe2adc7530ee05c7a592114425fcc431cb5ff1fe5d89cbe30718f",
+      "eventsSha256": "4c6e93f26096df7206a5fe2b1c509c6190c517fc2c329b44dc2d3e00f674fa05",
+      "maxStationary": 0.325,
+      "releases": 5,
+      "preparations": 12,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-80-arrived"
+      },
+      "stateSha256": "de1c3127344ae26c21710a95fc38fd1166d596aeb2d0384bea48d9b501c6bfdd",
+      "eventsSha256": "db5453edc374d81be3a7840d591b0c25d02bb4136a5e135f6402bef6de99e514",
+      "maxStationary": 0.27499999999999997,
+      "releases": 5,
+      "preparations": 23,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:10",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-80-outlet"
+      },
+      "stateSha256": "1ecf2083efe557eb73d8166906e7fdcea2bcb02f770cbda0453d666c97d408ce",
+      "eventsSha256": "cef10464153a8a1b34b0ab8413e1be2534f8db71e894dc35eab8219ba4fa5380",
+      "maxStationary": 0.3,
+      "releases": 4,
+      "preparations": 6,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-80-blocked"
+      },
+      "stateSha256": "1c070f2b7421eb4da723970cc706fde52461744144c74b43237c5dbe3ee24c9f",
+      "eventsSha256": "ebec23491641c1591ac247fccc1e6dd9958b2190d0c9d99c8c1ead5be21c4837",
+      "maxStationary": 0.15,
+      "releases": 6,
+      "preparations": 10,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:6",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-80-safe"
+      },
+      "stateSha256": "1916ac3cd59dd27973132deab4dfac40f62727bba0d745392a02f4ee4a065368",
+      "eventsSha256": "186baad727d515da72800c3bf124b54ad71b7e27a505fc7a0366e36503c6c6e4",
+      "maxStationary": 0.325,
+      "releases": 2,
+      "preparations": 9,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-80-arrived"
+      },
+      "stateSha256": "178d8d27f8477b78bde8c9ddac9a0ca546a2b37627947bf60fbba58fbffb9354",
+      "eventsSha256": "9410a91be4d19bd3475d061629b25802ad6571a713a63c7270548b1e9a54bf17",
+      "maxStationary": 0.325,
+      "releases": 3,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-80-outlet"
+      },
+      "stateSha256": "d1711c991cdaa924199384d3e47c43a2d58dcfc4b7f989c7f0ee7491e9ce7233",
+      "eventsSha256": "554d6173e93e58d34590eab2adc2dceefe5c14944bed3798b9d47d7aba3502ae",
+      "maxStationary": 0.325,
+      "releases": 5,
+      "preparations": 7,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-80-blocked"
+      },
+      "stateSha256": "cfac6007fc12378f6607a8b9cf0b768f8575978ed1b775e5dc92d614ba18284e",
+      "eventsSha256": "1ac56e548d5cb0449f00cc1d5b7354c8769f96fb1a231e3e44d6090535bbb6d9",
+      "maxStationary": 0.325,
+      "releases": 4,
+      "preparations": 5,
+      "firstRelease": 0.4500000000000064,
+      "ownerAfter": "geometry:anchor:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-80-safe"
+      },
+      "stateSha256": "1b01b1e3f2512aa0575eeae99460de6db022c328edb34ba23f50101e05bd3c26",
+      "eventsSha256": "fd6f3bba27766c106e25a3b5d9f111934f760d5e0b1a411938d9c441f73ca5e4",
+      "maxStationary": 0.325,
+      "releases": 1,
+      "preparations": 1,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-80-arrived"
+      },
+      "stateSha256": "2887353655a57f913051bc427299e8efbfa0c2a188f3f628dc300e1b9fd538c2",
+      "eventsSha256": "b4cd0180a0d13452a41b63476466910c7bfc32a4838125f8abf7056a73059673",
+      "maxStationary": 0.325,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.20000000000000284,
+      "ownerAfter": "geometry:anchor:3",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-80-outlet"
+      },
+      "stateSha256": "29510c4bce44d3bce45a203ec17f3a316c54d8e849be7c313f8f4456c7991e8f",
+      "eventsSha256": "e5ddbd2246fc024c4336b35541bf08f7051668860a6e82c7fb7c7b3b39bf5757",
+      "maxStationary": 0.3,
+      "releases": 3,
+      "preparations": 2,
+      "firstRelease": 0.7250000000000103,
+      "ownerAfter": "geometry:anchor:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-80-blocked"
+      },
+      "stateSha256": "723a285fd8db4bd747753dcff875472938b6686c9bb51088e0594d154e78b2dd",
+      "eventsSha256": "bcb2d33aa1476bacc2813d061e396549d8ef6eff806f15fb7535f7324fb747b5",
+      "maxStationary": 0.325,
+      "releases": 4,
+      "preparations": 12,
+      "firstRelease": 0.7250000000000103,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-80-safe"
+      },
+      "stateSha256": "b133ce2caafccdcf6956547ab475244600f6952267c14bd1aff0343b2ee8ac0c",
+      "eventsSha256": "018282ef6fc4505abe1aa80d793e554fe00a0bb056eff37a42c5af9bafbdc583",
+      "maxStationary": 0.37500000000000006,
+      "releases": 5,
+      "preparations": 13,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-80-arrived"
+      },
+      "stateSha256": "29d41d8e819d144d75d52adcbafd5607552dabab565e52821706cc09d27b66d4",
+      "eventsSha256": "68f21982f2e344931568f59fd238a1a72efe5962c8e08df1ba37fe5545b7ef70",
+      "maxStationary": 0.325,
+      "releases": 3,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-80-outlet"
+      },
+      "stateSha256": "449b72486a8c0b60fe62f908c7468c59898e7fee6061f6a6bc195bdaab141662",
+      "eventsSha256": "2212ec53ef0c3325af251e2a6ee89eec3aa439699a6f070635730a2d61b8c9fc",
+      "maxStationary": 0.35000000000000003,
+      "releases": 3,
+      "preparations": 23,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-80-blocked"
+      },
+      "stateSha256": "bc64ac8c703b5d59891f10b10428d8f4398cf2a9d15a5b4ae23f712b3d2ef71c",
+      "eventsSha256": "b7717dd224c3eeab6d15be1d54cbadf14788d337ce967d6eb7d62d79f74eca61",
+      "maxStationary": 0.1,
+      "releases": 5,
+      "preparations": 15,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-80-safe"
+      },
+      "stateSha256": "3b9e2a4d9b5b5eff0deed0268d3e3b5251c1e1d0883dce9fa0f4e6c4de4524e2",
+      "eventsSha256": "6bd7b0aae1ec20cfa2398ca52b9447de4f420e82bf239680822170c98dc8de84",
+      "maxStationary": 0.325,
+      "releases": 4,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:10",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-80-arrived"
+      },
+      "stateSha256": "4f9a4df338854f0fd79d0bbbefabee0eea23577324cbfbd28011f13794134fd8",
+      "eventsSha256": "75b226190f6953cc046dd6da1fa53ff2a5b931ec12b45ac50193c93513d6ff5e",
+      "maxStationary": 0.325,
+      "releases": 3,
+      "preparations": 6,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:3",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-80-outlet"
+      },
+      "stateSha256": "0d340e7949ef84b7d2ac60352997beaef7b54604dc08f6eaebfc3a385fffaace",
+      "eventsSha256": "707505430e9173de6c07539a44cc465ffd3687a9987c20f32233397d494e952d",
+      "maxStationary": 0.37500000000000006,
+      "releases": 4,
+      "preparations": 4,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-80-blocked"
+      },
+      "stateSha256": "f9512310b7b869be895bbbb0af262dec0abba9d5a2c0de11db72e8dc40ff20d6",
+      "eventsSha256": "fc6625988aafbc3bacc0bf2e5bee3c4f03f9440da9452e97ec42f2817612197e",
+      "maxStationary": 0.325,
+      "releases": 4,
+      "preparations": 6,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-80-safe"
+      },
+      "stateSha256": "5e93ee86818db952c1be07a6aae92dd8a8096e07369b7b7f97dd82e0b9e251b8",
+      "eventsSha256": "8519788025bbe5e8e734532c2fa50d0ca7eafa882d949462bcb6a5df4bdd2228",
+      "maxStationary": 0.325,
+      "releases": 4,
+      "preparations": 1,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:10",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-80-arrived"
+      },
+      "stateSha256": "59aa3d803c2c480686c29557bc7c5f55f78b627e011eac081f4bfcfd0c68116e",
+      "eventsSha256": "45b9e999a4d469ce593811f1557ec99135ee846975db1ff12b4d78e0333b169d",
+      "maxStationary": 0.325,
+      "releases": 4,
+      "preparations": 6,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-80-outlet"
+      },
+      "stateSha256": "89f4c512b078aff9324b0693a9b7aaa411264069dc26620bac6a66ce6e0dab47",
+      "eventsSha256": "281a312b08f8423c871c84a2b7e11bd0b359b2175a51ee17e44d848d0d171594",
+      "maxStationary": 0.125,
+      "releases": 3,
+      "preparations": 14,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-80-blocked"
+      },
+      "stateSha256": "0b5e69048939bb58ead015f7a7c6162d16ceb30a750391623c01da77aa9e9e96",
+      "eventsSha256": "78b09c690b9a12ae079338df13ffddd5d65d865a1107338d52275a632ad00640",
+      "maxStationary": 0.37500000000000006,
+      "releases": 3,
+      "preparations": 6,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-80-safe"
+      },
+      "stateSha256": "ffa878b940fa2dd4f66c6d45edc245cae1f347b0c8e98e58246f4bfe946f0e41",
+      "eventsSha256": "b7277126ff6fd414187eb02f52bb3890aaa09ad26081c4ef9335b0e098d3d932",
+      "maxStationary": 0.1,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-80-arrived"
+      },
+      "stateSha256": "76dd43840d937190d4b474bb4562b6d9db4703bb77974c6e5668595de253717f",
+      "eventsSha256": "4cb81c445553664fca05000bfaaa769cb6cc1015928bc8918659151408c69e23",
+      "maxStationary": 0.125,
+      "releases": 2,
+      "preparations": 2,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-80-outlet"
+      },
+      "stateSha256": "eda97954590eba895949bf30489318e111faa77c9ccacd5423997959fffdf366",
+      "eventsSha256": "fae60265b069003fc2f3debc35965a06503f6075ebd165fea773491055818552",
+      "maxStationary": 0.125,
+      "releases": 4,
+      "preparations": 9,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-80-blocked"
+      },
+      "stateSha256": "5e29625df6ea42696d71c0c2eede00b2a055039992e28401428d2246c8213196",
+      "eventsSha256": "6f017a1d3cb05f7ec9ad9624aa822c70bda671ceb54c17ce5e407a44dd42c21a",
+      "maxStationary": 0.325,
+      "releases": 4,
+      "preparations": 4,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-80-safe"
+      },
+      "stateSha256": "73381f9b442f3d470619613ae8f8fe8c963bcee2903127e927db551dfc242e85",
+      "eventsSha256": "697bbeb794b8988001a4b81e42260ebe7702d2bdabec37e64c72edde48786b3c",
+      "maxStationary": 0.7500000000000003,
+      "releases": 5,
+      "preparations": 15,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-80-arrived"
+      },
+      "stateSha256": "a392e5f4a910272f203705b8a1e876a92d09b089b0d2bda5d6adb16952c5eeb6",
+      "eventsSha256": "efac0d28ec5bb6cd396187bc09c10e9322e5d88441c90a31a648d0976ca1c7d1",
+      "maxStationary": 0.05,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-80-outlet"
+      },
+      "stateSha256": "5201c4d0d604b5f49b033b7c36ff4bb356745971d5f04336e96464c5d444e488",
+      "eventsSha256": "0c5dbda3710455cd8e620e84a4bf2d8b37496ddc293a49e28f27268407488109",
+      "maxStationary": 0.27499999999999997,
+      "releases": 4,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-80-blocked"
+      },
+      "stateSha256": "546a80190e079c00557d90de64c08a3069636b6c4de6401c6d5e0f4299f78ca2",
+      "eventsSha256": "1ac014a305f70f25fc3d6b0c745c14864910111038bbdd5740d4e4140ab0ddad",
+      "maxStationary": 0.6000000000000002,
+      "releases": 3,
+      "preparations": 7,
+      "firstRelease": 0.5750000000000082,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-80-safe"
+      },
+      "stateSha256": "48fa07df23abcb026f4ba7312eadb55699e1489ef5c9080fe3bf6360a3ec081d",
+      "eventsSha256": "fa18393213621b48f242286ac699c2b897bcbbfcf36007cb3486e6f810d3fdd4",
+      "maxStationary": 0.6250000000000002,
+      "releases": 4,
+      "preparations": 12,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-80-arrived"
+      },
+      "stateSha256": "18a3980d4387a9bd84b0b6c0b4b5d7a5146519f6fb1ba5ca6c7c7c6696794f9e",
+      "eventsSha256": "c59dac4c45108dbecf0ab29684db260ca03b879b30768c5e43169cf94ea9f5f4",
+      "maxStationary": 0.05,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-80-outlet"
+      },
+      "stateSha256": "e04f7ba1391b2bbba0e3f779c741e2c97eb8d02f10ef574d5d44735a72512a4e",
+      "eventsSha256": "107b0128db29fc8988946a2a3cbf402dadf168021b8a8231c4540c10b48d5400",
+      "maxStationary": 0.05,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-80-blocked"
+      },
+      "stateSha256": "c4fb61af736e0283781552c62dada2d43d812c3416ff7b89d19b67b7fa9d1b0f",
+      "eventsSha256": "de01fbbb1c02cc9ed0f16d8e56735b412ae2e5fe641e7c07b4984d5133b5109a",
+      "maxStationary": 0.3,
+      "releases": 4,
+      "preparations": 5,
+      "firstRelease": 0.5750000000000082,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-80-safe"
+      },
+      "stateSha256": "e0a51b12e2eada6fbf1d8cb18b9048ee93fbc853ecff978124fd3304a6973dc2",
+      "eventsSha256": "db8af5f41f0253790664fbdf060ab335edaca9a0dfa82f9387cc212575ac5dd6",
+      "maxStationary": 0.1,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-80-arrived"
+      },
+      "stateSha256": "a2d9b9f3c7cdce60a8983cc5ebc6d002dfb80e8bd2ad5f2c7b6b9e4a30581eb8",
+      "eventsSha256": "4bf65117f4e08e6c48fb0e14f5b88ec7de99fe693b95775761f95966874226d6",
+      "maxStationary": 0.125,
+      "releases": 3,
+      "preparations": 13,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-80-outlet"
+      },
+      "stateSha256": "514043bdbb5fba1ad569e56afda38ca2dd487a75075ebb9a092f4432518ec4b5",
+      "eventsSha256": "8163f052cffbcf8a66039210f695e7fbf8047d6c45ab4dea8677e15e536ab717",
+      "maxStationary": 0.1,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-80-blocked"
+      },
+      "stateSha256": "8f7a655b54757b2b630ea8dc164b29a1dd4c82ad32aaf65f929dbabbd2c79949",
+      "eventsSha256": "f67ed7a51b343b69753cd1234a35d2aa3bfa50aa8236a39f59d43617007ad876",
+      "maxStationary": 0.24999999999999997,
+      "releases": 6,
+      "preparations": 27,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-80-safe"
+      },
+      "stateSha256": "92eff86e7f8bf3ad215b0ae39f5cc9e4557f4c1fbc354a8c2e8d64446be355cd",
+      "eventsSha256": "253f675ccb4dc50cf596bfc30d91143f29ba1462c687a353443f7cc6421eb3fb",
+      "maxStationary": 0.1,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-80-arrived"
+      },
+      "stateSha256": "f8b1dc1a23420e2170f3494caab81d0c3cbb49cae4f39eea32561e638c3e925b",
+      "eventsSha256": "837cd98269e34b292953cc9c0884dc73847f0d2081a2cb167d90507b574ea390",
+      "maxStationary": 0.05,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-80-outlet"
+      },
+      "stateSha256": "07b06f644fc75b9a134307db428bd2e64922ab0145818143c14183608925bc9b",
+      "eventsSha256": "c76ed122a822e7859e4591ee0a14ce70249d391e1b565c97db8bde4917e3ce92",
+      "maxStationary": 0.07500000000000001,
+      "releases": 4,
+      "preparations": 4,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-80-blocked"
+      },
+      "stateSha256": "ed478efd6acad508b664f1a10ead65c15bf13ef89f2755c4f7378e7e97cc3f9d",
+      "eventsSha256": "c5eeb97fe3dc887fdca80229c794c55b69758f63f288f3ae9e598f2bf0eb37fe",
+      "maxStationary": 0.1,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-40-80-safe"
+      },
+      "stateSha256": "077ebd05699aace97b58cf3b68ac0ea80f65b7e434bfbd8e7d85646230f17d67",
+      "eventsSha256": "c57a467aed8bdc156115bec7841543ced5bad9397dbacfc3911b260c971dcd84",
+      "maxStationary": 0.125,
+      "releases": 2,
+      "preparations": 6,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-40-80-arrived"
+      },
+      "stateSha256": "70b05fd6094303ea3dcceabab1638ae173e66a506191ef5aae3503e54b4b71ea",
+      "eventsSha256": "2896a21bbf31cfab4ecee24de82dbe0ca4d1d0bc3a547d96e2cec56a3cbfde5b",
+      "maxStationary": 0.24999999999999997,
+      "releases": 3,
+      "preparations": 4,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:1",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-40-80-outlet"
+      },
+      "stateSha256": "bb1f9058e212e04f6c18a20ec024cc1df9cd6424cb6ac688dcddea3a15d74446",
+      "eventsSha256": "6f6425123b375ef7b98513fc653fdc1d2c4b4fc86ad4db2a2809b405df412b3f",
+      "maxStationary": 0.07500000000000001,
+      "releases": 4,
+      "preparations": 17,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 40,
+        "opposition": 80,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-40-80-blocked"
+      },
+      "stateSha256": "0699512d373f3442bcc73535718597dba6cde2930cf22b93f2c36bd459abf446",
+      "eventsSha256": "a5370d39514efc34961ea0c49deb165df401dd05ccbe739d572711142f1d55c0",
+      "maxStationary": 0.1,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-40-safe"
+      },
+      "stateSha256": "392565741347fb1ec497e78f632d2512eba0b5972e97be6e464c3356a6bc6b50",
+      "eventsSha256": "9acb1cd30cde980f358ef472c4c70802e7cc59683ebf084ddb6da2c664a48872",
+      "maxStationary": 0.35000000000000003,
+      "releases": 3,
+      "preparations": 9,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-40-arrived"
+      },
+      "stateSha256": "04eaf1beef043deae47b0ed4af80bc8d26e321f13a803b233f20d281664dae3b",
+      "eventsSha256": "dbe4576acf9c91c9445f34e30d1a2c261cd31ce0f28e1750e9052776c2b694c0",
+      "maxStationary": 0.325,
+      "releases": 5,
+      "preparations": 7,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-40-outlet"
+      },
+      "stateSha256": "57b9b3a0eba0c46ed1efbd2d6aeb9e90841d00d63101bc1b530fe2698e689b31",
+      "eventsSha256": "e398af56a685858294d61ecb56301cc4d4505d29d5e21f7a81ebc2c92c65ce32",
+      "maxStationary": 0.47500000000000014,
+      "releases": 2,
+      "preparations": 12,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "opportunity-driven-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-40-blocked"
+      },
+      "stateSha256": "29f065a7c0e9383f657ee664321fa8bbe40b07598c0733fc72d19c7141297c4e",
+      "eventsSha256": "c8c60e2e090cbf1d0c460c046c08490a36c8abc8f3444f122bcd322ab43ccce7",
+      "maxStationary": 0.15,
+      "releases": 3,
+      "preparations": 6,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-40-safe"
+      },
+      "stateSha256": "0231460c5fbc2ffbf07b9bece6dd55150c07d371124c342b0402d4a1e4744e6e",
+      "eventsSha256": "d9da898807afb8975bb759b7fea9b82471d21a4cba4877ecf96d9aa6354c075e",
+      "maxStationary": 0.6250000000000002,
+      "releases": 4,
+      "preparations": 9,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:10",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-40-arrived"
+      },
+      "stateSha256": "e9466abf826c0511fd857db9f689e16f2be1b682c5afc5fbefcffa6783d580f0",
+      "eventsSha256": "e13a74c14d3e9fbcc808e1d342fec2d756db31e2ef42ef289531cb94d7697f63",
+      "maxStationary": 0,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:5",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-40-outlet"
+      },
+      "stateSha256": "74e4f12c297d5216a8e2512f45692ff2c8a5c26d39510aed03c8ecf898bef4fd",
+      "eventsSha256": "20c5938fb394f924f7a781d13c860aa359e2a595e705b8a9e092949dadf7186e",
+      "maxStationary": 0.07500000000000001,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "hierarchical-intent-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-40-blocked"
+      },
+      "stateSha256": "ebdb66041219a0e6edbb78b43f854145c525bcbf2d4e247ee2dc9e8dbc9d499f",
+      "eventsSha256": "ad9c8fca36ba679eb5f30bea56977561779e2d6de8fcb6cc68a919f07e0842dd",
+      "maxStationary": 0.325,
+      "releases": 5,
+      "preparations": 0,
+      "firstRelease": 0.4500000000000064,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-40-safe"
+      },
+      "stateSha256": "ce4828aa62a2a6085b68f29c209a66d269347fbb59acbf698ab5d81074fdec04",
+      "eventsSha256": "c38320a24d979c3471f736012f2bba002977b91fad42026f61f379f8333aab06",
+      "maxStationary": 0.325,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:10",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-40-arrived"
+      },
+      "stateSha256": "bfbaf011423bf5ca55ad8c938eb4e686187d8f8989d4692df34db2a7f7bd2c44",
+      "eventsSha256": "e52c9e85ff205ca0f650bdd30155b6d08fc7f2dbc7c38f7a42fc1047df1d92b4",
+      "maxStationary": 0.325,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.20000000000000284,
+      "ownerAfter": "geometry:anchor:5",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-40-outlet"
+      },
+      "stateSha256": "e10faa2386a09fc42612e533f5b5d7ceb2699bcd87c6e78c81bc201afd7accb6",
+      "eventsSha256": "116eec486c7938824d51727c635663bc730ef27a50c2ef590769df5334ba6d7b",
+      "maxStationary": 0.325,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.7250000000000103,
+      "ownerAfter": "geometry:anchor:5",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": false,
+        "policy": "contextual-judgment-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-40-blocked"
+      },
+      "stateSha256": "899f9f0daa9a8ee3e79b7c40f6c8969bee57f5b477e038b70a7d70e35607cd8a",
+      "eventsSha256": "ffe52ba991af161d1e30e9413a19f2464b8d51c0a9d6b747cdc2b28351712b98",
+      "maxStationary": 0.325,
+      "releases": 4,
+      "preparations": 0,
+      "firstRelease": 0.4500000000000064,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-40-safe"
+      },
+      "stateSha256": "b3188c6b355c7a0246d68f7e2a08dd8c7a192472b4d62b2cb4b777c8370988bd",
+      "eventsSha256": "93e29e00b5b6e0f476076a69d39ec7b9bba14a6972146785548046fdc9c381d9",
+      "maxStationary": 0.47500000000000014,
+      "releases": 4,
+      "preparations": 15,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:5",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-40-arrived"
+      },
+      "stateSha256": "37adec327a8acb51fbadd4b54878d3038f4d2e0786444a663cd03a86fb6cc1e6",
+      "eventsSha256": "d6c2e4b50abec8c098fd5b6063ca3cd67a0ad2a67e9c0a71ac3d176a2c50e557",
+      "maxStationary": 0.19999999999999998,
+      "releases": 5,
+      "preparations": 24,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-40-outlet"
+      },
+      "stateSha256": "a66cb267be92c3aa958f4f197e83027067700301e0ae7daa35519c71d617b6a0",
+      "eventsSha256": "ab87718ac6a9e56f87bc57f12bcc7ea4c7b3ef8c1f8f5d2761ef2f6d2685c3d4",
+      "maxStationary": 0.325,
+      "releases": 6,
+      "preparations": 19,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "opportunity-driven-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-40-blocked"
+      },
+      "stateSha256": "ee9959c9ed4bdbd5c5ffd5276be43e17e6118f713440940be8b9ce0e2752d78d",
+      "eventsSha256": "0e55cd53d0f50d6501c71e34883b9dd5c6a3f58c9c9486cfed598fcc8cd6f6d3",
+      "maxStationary": 0.3,
+      "releases": 7,
+      "preparations": 11,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-40-safe"
+      },
+      "stateSha256": "415b05e9483f0cc91f1db3c863370d9e7c66f63c5212b1c4173d620ad19f4ea8",
+      "eventsSha256": "1f715847992853cc81811e1cce878d9000d6053b1ed590cbee8ec7f1812b72c4",
+      "maxStationary": 0.325,
+      "releases": 6,
+      "preparations": 3,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-40-arrived"
+      },
+      "stateSha256": "d1704ebdf464449b11e59a58f943e96f231ed4c2fbd462846e3bd3dbd58925cc",
+      "eventsSha256": "b16679c37a2fa8a480ed72a1e1754c85db5d070b580a67afb7812cb8903f7b2e",
+      "maxStationary": 0,
+      "releases": 1,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-40-outlet"
+      },
+      "stateSha256": "8f5f6ec4ecf346db8b48b6c3e017763d51993b4a66c02011160c9869a40872f9",
+      "eventsSha256": "f17a0f9d6b5988299c9a69f89323394b9538d7f7d72d6b5eacdbebf02aed3b87",
+      "maxStationary": 0.325,
+      "releases": 5,
+      "preparations": 1,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "hierarchical-intent-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-40-blocked"
+      },
+      "stateSha256": "b35d245501eba4819fb841b7c7948b5a32536c9011ca2d69c6cc0de873f9fca3",
+      "eventsSha256": "54e6aa6459577c637f14f9ee00bacafb72d82be41e8abb856acc18265d8377c1",
+      "maxStationary": 0.325,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:opponent:2",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "safe",
+        "seed": "pr189-neighbour-80-40-safe"
+      },
+      "stateSha256": "f1f8a63c9fc0a91933a9e418c6929a64ed0a48525249c674b6e1937853e35323",
+      "eventsSha256": "bc4709b62066eb8098c5dd5019d805ce8db97160bae0b632abd7c6bbc40d5d02",
+      "maxStationary": 0,
+      "releases": 2,
+      "preparations": 0,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "arrived",
+        "seed": "pr189-neighbour-80-40-arrived"
+      },
+      "stateSha256": "435caae7b3d60ad4e3699b80099c555c5a8cae6e69f258bb1d72ad026d5fe2e5",
+      "eventsSha256": "2a716e0f95e1a0c249c2b7143f1baba1403590492986306c2505d194aba904ce",
+      "maxStationary": 0.35000000000000003,
+      "releases": 3,
+      "preparations": 3,
+      "firstRelease": 0.025000000000000355,
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "outlet",
+        "seed": "pr189-neighbour-80-40-outlet"
+      },
+      "stateSha256": "7b1018bf09c305fcfe4f024c338a7f0aa1b5b6ba6bb237548d657ef6420e90b5",
+      "eventsSha256": "d1bf1d26d02ec1e7d4a8d45d7755fe2ca3d8c78f48b8a8c3f2aa424fb92f236f",
+      "maxStationary": 0.27499999999999997,
+      "releases": 3,
+      "preparations": 2,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "skill": 80,
+        "opposition": 40,
+        "reversed": true,
+        "policy": "contextual-judgment-v1",
+        "situation": "blocked",
+        "seed": "pr189-neighbour-80-40-blocked"
+      },
+      "stateSha256": "ea8672d56165c606e67b6bd57eaea0a3456d763e950faa694758eb8685dde527",
+      "eventsSha256": "ae8b3b7319578b44fab04f5584583c2aa4925de4f7793e534108972ff519a903",
+      "maxStationary": 0.37500000000000006,
+      "releases": 5,
+      "preparations": 13,
+      "firstRelease": 0.025000000000000355,
+      "ownerAfter": "geometry:anchor:9",
+      "status": "first_half",
+      "observerNeutral": true
+    }
+  ]
+}

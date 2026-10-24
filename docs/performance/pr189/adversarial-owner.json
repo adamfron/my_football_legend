@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "classification": "new real development captures; 800-tick continuation and observer neutrality; no independent cohort",
+  "rows": [
+    {
+      "path": "ww-opportunity-driven-v1-owner-audit-pathology-owner-120s.json.gz",
+      "capturedAt": 3204.9250000016186,
+      "owner": "geometry:anchor:6",
+      "progress": {
+        "after": 0.02500000000009095,
+        "kind": "body_movement",
+        "status": "second_half",
+        "lastChallenge": {
+          "id": "pr187-development-ww-01:challenge:3084.925000:geometry:anchor:6:geometry:opponent:10:standing",
+          "at": 3084.925000001182,
+          "actorId": "geometry:anchor:6",
+          "team": "home",
+          "opponentId": "geometry:opponent:10",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 59.97494851764654,
+            "y": 30.63650654668295
+          },
+          "outcome": "clean_win",
+          "ballFirst": true,
+          "opponentContact": true,
+          "ballDistance": 0.9363563504994936,
+          "opponentDistance": 1.1583911449688664,
+          "facingError": 0.18027154417166713,
+          "relativeSpeed": 2.6073523435005304,
+          "lateness": 0,
+          "force": 0.39110285152507956,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0.15728286197872876
+        }
+      },
+      "originalActorReleases": 0,
+      "bodyPathMetres": 0,
+      "furthestMetres": 0,
+      "sameOwnerAtEnd": true,
+      "status": "second_half",
+      "deterministic": true,
+      "stateHashes": [
+        "e45ea2a73459cbcf6dfe9f5da6b9c057d8b40ea188dc04f0a2191cd8bea6048c",
+        "e45ea2a73459cbcf6dfe9f5da6b9c057d8b40ea188dc04f0a2191cd8bea6048c",
+        "e45ea2a73459cbcf6dfe9f5da6b9c057d8b40ea188dc04f0a2191cd8bea6048c"
+      ],
+      "eventHashes": [
+        "a7c2bf5cc48cc3a5bb7aacd618f2df95749281066f3448680b24ecb3862d48e4",
+        "a7c2bf5cc48cc3a5bb7aacd618f2df95749281066f3448680b24ecb3862d48e4"
+      ]
+    }
+  ],
+  "runnerSha256": "433452989d678d87d6f7d1cdfcaedd843babf348efe498de905698b9766bd592"
+}

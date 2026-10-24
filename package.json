@@ -79,7 +79,12 @@
     "benchmark:pr188:index": "node scripts/recordPr188Evidence.mjs",
     "benchmark:pr188": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr188.mjs",
     "benchmark:pr188:research": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr188Research.mjs",
-    "benchmark:pr188:matches": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr188Matches.mjs"
+    "benchmark:pr188:matches": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr188Matches.mjs",
+    "benchmark:pr188:replay": "node scripts/replayPr188Baseline.mjs",
+    "benchmark:pr189:replay": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr189Replay.mjs --version=canonical --check",
+    "benchmark:pr189:check": "node scripts/checkPr189Evidence.mjs",
+    "benchmark:pr189:failed-cycle": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr189CycleOne.mjs --version=canonical --check",
+    "benchmark:pr189:blocked-recovery": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr189CycleOne.mjs --cycle-two --version=canonical --check"
   },
   "dependencies": {
     "react": "19.2.8",

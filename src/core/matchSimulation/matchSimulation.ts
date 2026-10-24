@@ -2810,7 +2810,15 @@ const stepTacticalMatchCore = (
       )
         state = resolveRoutineOwnerDecision(state);
       const controlled =
-        state.ball.ownerId === owner.id ? advanceControlledBall(state, owner, dt) : { state };
+        state.ball.ownerId === owner.id
+          ? advanceControlledBall(
+              state,
+              owner,
+              dt,
+              undefined,
+              input.players.find((p) => p.id === owner.id)?.position,
+            )
+          : { state };
       endPerformanceSpan('ball_contact_control', contactSpan);
       state = controlled.state;
       const crossing = findPitchBoundaryCrossing(beforeContact, state.ball);

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "failedSourceSha256": "fae76f475c24957884c3c515bb6ac4df40f79cbf35e24beb452801af87ad9b40",
+  "ticks": 800,
+  "rows": [
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v1-pathology-0.json.gz",
+      "old": {
+        "stateSha256": "ab21273a04b8f99fb725d71b1434d4d033c28a0df3ee94324711e452c8b3da25",
+        "eventsSha256": "efd439f629458821afb47b1b2a58d64002283a731a00fcff530be13a9f084ac3",
+        "prematureControls": 36,
+        "firstRelease": 7.300000000026557
+      },
+      "repeated": {
+        "stateSha256": "ab21273a04b8f99fb725d71b1434d4d033c28a0df3ee94324711e452c8b3da25",
+        "eventsSha256": "efd439f629458821afb47b1b2a58d64002283a731a00fcff530be13a9f084ac3",
+        "prematureControls": 36,
+        "firstRelease": 7.300000000026557
+      },
+      "bareStateSha256": "ab21273a04b8f99fb725d71b1434d4d033c28a0df3ee94324711e452c8b3da25",
+      "corrected": {
+        "stateSha256": "673f0da00a5419bfb05dcb8546f05fd2c7150cebc405a171351b6a2086b10743",
+        "eventsSha256": "96a95be8727bd4a47b1bdf70b46cd065dd1b4543fc03f1352933df787c8a211a",
+        "prematureControls": 0,
+        "firstRelease": 0.22500000000081855
+      }
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v1-pathology-1.json.gz",
+      "old": {
+        "stateSha256": "77804731a2199ce7f5b32c51ce7ae08b1543ebe6757255b2cce827dcc6e733fc",
+        "eventsSha256": "30179c576a50d3138e440fb999e1d2951f8f683ace3355d9f609f8ddac8e490b",
+        "prematureControls": 44,
+        "firstRelease": 8.900000000032378
+      },
+      "repeated": {
+        "stateSha256": "77804731a2199ce7f5b32c51ce7ae08b1543ebe6757255b2cce827dcc6e733fc",
+        "eventsSha256": "30179c576a50d3138e440fb999e1d2951f8f683ace3355d9f609f8ddac8e490b",
+        "prematureControls": 44,
+        "firstRelease": 8.900000000032378
+      },
+      "bareStateSha256": "77804731a2199ce7f5b32c51ce7ae08b1543ebe6757255b2cce827dcc6e733fc",
+      "corrected": {
+        "stateSha256": "a86a2deca50f1d543a2801a071cc7e5385043db1dc5089a8569e8091143a8e83",
+        "eventsSha256": "24ff329c288147fde205246b21bedd7ca74e529cb487e0473bff044e70492671",
+        "prematureControls": 0,
+        "firstRelease": 0.12500000000045475
+      }
+    }
+  ]
+}
