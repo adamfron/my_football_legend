@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "dev-sw",
+  "fixture": {
+    "anchor": "4-3-3",
+    "opponent": "3-5-2",
+    "attributes": 78,
+    "opponentAttributes": 48,
+    "style": "counter_attacking",
+    "seed": "pr187-development-sw-01"
+  },
+  "policy": "contextual-judgment-v1",
+  "informationComparison": "historical shared defensive/GK/restart controllers; bounded on-ball candidates only; NOT an equal-information full-match comparison",
+  "sourceSha256": "6b63b08321af346880b896b1de87f7c9f4f5957331b88b9d907d693aed4ffd90",
+  "evaluatorSha256": "c976503e85d817b0ce54d4845776d35766846a8bf22dbac26d5c404f47becfd1",
+  "inputSha256": "c3a894ddcaec4a0f39ea769b9f0fa48a6c99cf080b9f0a4b7f8be26da2f8b140",
+  "full": false,
+  "observed": true,
+  "ticks": 4800,
+  "status": "first_half",
+  "canonicalSeconds": 120.00000000001016,
+  "score": {
+    "home": 0,
+    "away": 0
+  },
+  "finalStateSha256": "088a37016f759286905cdfbade3f1c044b14804871607b2ae35a821a25fe9809",
+  "failure": null,
+  "counts": {
+    "decisions": 591,
+    "candidates": 4168,
+    "evaluations": 4168,
+    "forecasts": 0,
+    "waits": 0,
+    "continuations": 0,
+    "cancellations": 0,
+    "patternObservations": 1,
+    "patternArrivals": 0,
+    "patternCancellations": 1,
+    "attempts": 592,
+    "releases": 1,
+    "shotAttempts": 0,
+    "shotReleases": 0,
+    "passAttempts": 1,
+    "passReleases": 1,
+    "backwardPasses": 0,
+    "progressivePasses": 1,
+    "reciprocalPasses": 0
+  },
+  "reasons": {
+    "best_within_subjective_risk_budget|context:neutral": 591,
+    "canonical_state_changed": 592,
+    "observed:press_triangle:recognised_at:3.5346": 1,
+    "cancel:expired": 1
+  },
+  "wallMilliseconds": 3681.4466,
+  "cpuMicroseconds": {
+    "user": 4547000,
+    "system": 62000
+  },
+  "rssBytes": 306601984,
+  "archive": "docs/performance/pr187-traces/dev-sw-contextual-judgment-v1-120-observed-1.json.gz",
+  "archiveSha256": "d79ffcf8794fb637c4f21eff59781835ad6e5d448b0bcace5885ba20eed35d1d",
+  "payloadSha256": "d046dc05b0cf5b07e379aebe1010a5ed9f51460558066d7a3686f3b7650e7ec1"
+}

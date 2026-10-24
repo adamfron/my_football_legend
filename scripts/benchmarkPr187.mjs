@@ -1,7 +1,7 @@
 /* global structuredClone */
 import { createHash } from 'node:crypto';
 import { Buffer } from 'node:buffer';
-import { readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, readdirSync, mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import process from 'node:process';
 import console from 'node:console';
@@ -57,6 +57,12 @@ const full = args.has('full'),
   seconds = full ? 7200 : Number(args.get('seconds') ?? 120),
   observed = args.get('observed') !== 'false';
 if (!Number.isFinite(seconds) || seconds <= 0) throw Error('Invalid duration');
+const id = `${design}-${policy}-${full ? 'full' : seconds}-${observed ? 'observed' : 'bare'}-${args.get('rep') ?? '0'}`;
+const receiptPath = `docs/performance/PR187-match-${id}.json`;
+if (existsSync(receiptPath) && !args.has('replay'))
+  throw Error(
+    'Receipt already exists: use --replay or a new --rep identifier; archived evidence is not overwritten.',
+  );
 const sha = (v) =>
   createHash('sha256')
     .update(typeof v === 'string' || Buffer.isBuffer(v) ? v : JSON.stringify(v))
@@ -240,47 +246,71 @@ const result = {
   cpuMicroseconds: process.cpuUsage(cpu),
   rssBytes: process.memoryUsage().rss,
 };
-const id = `${design}-${policy}-${full ? 'full' : seconds}-${observed ? 'observed' : 'bare'}-${args.get('rep') ?? '0'}`;
-mkdirSync('docs/performance/pr187-traces', { recursive: true });
-const archive = `docs/performance/pr187-traces/${id}.json.gz`,
-  bytes = gzipSync(JSON.stringify(result), { level: 9 });
-writeFileSync(archive, bytes);
-const {
-  input: _i,
-  samples: _s,
-  passes: _p,
-  shots: _shots,
-  telemetry: _t,
-  finalRuntime: _r,
-  finalState: _f,
-  ...receipt
-} = result;
-void _i;
-void _s;
-void _p;
-void _shots;
-void _t;
-void _r;
-void _f;
-writeFileSync(
-  `docs/performance/PR187-match-${id}.json`,
-  JSON.stringify(
-    { ...receipt, archive, archiveSha256: sha(bytes), payloadSha256: sha(JSON.stringify(result)) },
-    null,
-    2,
-  ) + '\n',
-);
-writeFileSync(
-  `docs/performance/PR187-source-${sourceSha256.slice(0, 12)}.json`,
-  JSON.stringify({ schemaVersion: 1, sourceSha256, files: sourceManifest }, null, 2) + '\n',
-);
-console.log({
-  id,
-  status: state.status,
-  at: state.time,
-  score: state.score,
-  counts,
-  failure,
-  wall: result.wallMilliseconds,
-});
-if (failure) process.exitCode = 1;
+if (args.has('replay')) {
+  const saved = JSON.parse(readFileSync(receiptPath));
+  if (
+    saved.finalStateSha256 !== result.finalStateSha256 ||
+    saved.inputSha256 !== inputSha256 ||
+    saved.sourceSha256 !== sourceSha256 ||
+    saved.status !== state.status ||
+    saved.failure !== failure
+  )
+    throw Error('Canonical match replay mismatch');
+  console.log({
+    id,
+    replay: true,
+    equivalent: true,
+    evaluatorSha256,
+    originalEvaluatorSha256: saved.evaluatorSha256,
+  });
+  if (failure) process.exitCode = 1;
+} else {
+  mkdirSync('docs/performance/pr187-traces', { recursive: true });
+  const archive = `docs/performance/pr187-traces/${id}.json.gz`,
+    bytes = gzipSync(JSON.stringify(result), { level: 9 });
+  writeFileSync(archive, bytes);
+  const {
+    input: _i,
+    samples: _s,
+    passes: _p,
+    shots: _shots,
+    telemetry: _t,
+    finalRuntime: _r,
+    finalState: _f,
+    ...receipt
+  } = result;
+  void _i;
+  void _s;
+  void _p;
+  void _shots;
+  void _t;
+  void _r;
+  void _f;
+  writeFileSync(
+    `docs/performance/PR187-match-${id}.json`,
+    JSON.stringify(
+      {
+        ...receipt,
+        archive,
+        archiveSha256: sha(bytes),
+        payloadSha256: sha(JSON.stringify(result)),
+      },
+      null,
+      2,
+    ) + '\n',
+  );
+  writeFileSync(
+    `docs/performance/PR187-source-${sourceSha256.slice(0, 12)}.json`,
+    JSON.stringify({ schemaVersion: 1, sourceSha256, files: sourceManifest }, null, 2) + '\n',
+  );
+  console.log({
+    id,
+    status: state.status,
+    at: state.time,
+    score: state.score,
+    counts,
+    failure,
+    wall: result.wallMilliseconds,
+  });
+  if (failure) process.exitCode = 1;
+}

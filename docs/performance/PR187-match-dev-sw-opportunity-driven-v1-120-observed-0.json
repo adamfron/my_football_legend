@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "dev-sw",
+  "fixture": {
+    "anchor": "4-3-3",
+    "opponent": "3-5-2",
+    "attributes": 78,
+    "opponentAttributes": 48,
+    "style": "counter_attacking",
+    "seed": "pr187-development-sw-01"
+  },
+  "policy": "opportunity-driven-v1",
+  "informationComparison": "historical shared defensive/GK/restart controllers; bounded on-ball candidates only; NOT an equal-information full-match comparison",
+  "sourceSha256": "475305acd59ccbd37601ad633571c3b888ff8c226ec0767b5b3ddeee2fc70161",
+  "evaluatorSha256": "c976503e85d817b0ce54d4845776d35766846a8bf22dbac26d5c404f47becfd1",
+  "inputSha256": "41fbc6c1f09b2c6ffd54653dafd1df27eb75e26eeb58fe762779648d102007a2",
+  "full": false,
+  "observed": true,
+  "ticks": 4800,
+  "status": "first_half",
+  "canonicalSeconds": 120.00000000001016,
+  "score": {
+    "home": 0,
+    "away": 0
+  },
+  "finalStateSha256": "140efe9ecdf1b904c2903c7904c63703f3ebcdc932ec924761278268b33900e1",
+  "failure": null,
+  "counts": {
+    "decisions": 600,
+    "candidates": 5505,
+    "evaluations": 5505,
+    "forecasts": 0,
+    "waits": 0,
+    "continuations": 0,
+    "cancellations": 0,
+    "patternObservations": 0,
+    "patternArrivals": 0,
+    "patternCancellations": 0,
+    "attempts": 600,
+    "releases": 0,
+    "shotAttempts": 0,
+    "shotReleases": 0,
+    "passAttempts": 0,
+    "passReleases": 0,
+    "backwardPasses": 0,
+    "progressivePasses": 0,
+    "reciprocalPasses": 0
+  },
+  "reasons": {
+    "no_admitted_transient_window|benefit_and_risk_admitted": 600,
+    "canonical_state_changed": 600
+  },
+  "wallMilliseconds": 1785.1436,
+  "cpuMicroseconds": {
+    "user": 2422000,
+    "system": 62000
+  },
+  "rssBytes": 300937216,
+  "archive": "docs/performance/pr187-traces/dev-sw-opportunity-driven-v1-120-observed-0.json.gz",
+  "archiveSha256": "8d4147b3d0a25cc367cfb149e6b5de7a73624eb1d1d33fc7be117f9d024b9115",
+  "payloadSha256": "7006659f9094b1105d695ea28bcac5613786ab41732503002f4672e320314d3e"
+}

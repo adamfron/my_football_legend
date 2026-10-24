@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "dev-ww",
+  "fixture": {
+    "anchor": "4-2-3-1",
+    "opponent": "4-3-3",
+    "attributes": 39,
+    "opponentAttributes": 44,
+    "style": "pressing",
+    "seed": "pr187-development-ww-01"
+  },
+  "policy": "state-value-v1",
+  "informationComparison": "historical shared defensive/GK/restart controllers; bounded on-ball candidates only; NOT an equal-information full-match comparison",
+  "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+  "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957",
+  "inputSha256": "5b080911d30b91b3fd797cddb157e47138fdcb478a47ea41b1b05c35a632610c",
+  "full": true,
+  "observed": true,
+  "ticks": 225601,
+  "status": "full_time",
+  "canonicalSeconds": 5640,
+  "score": {
+    "home": 1,
+    "away": 1
+  },
+  "finalStateSha256": "7c87b488f500694cdc7af067ee4a83634f04b5c6c7b1ad03c1cf6a9b7f8917b4",
+  "failure": null,
+  "failureStack": null,
+  "counts": {
+    "decisions": 0,
+    "candidates": 0,
+    "evaluations": 0,
+    "forecasts": 0,
+    "waits": 0,
+    "continuations": 0,
+    "cancellations": 0,
+    "patternObservations": 0,
+    "patternArrivals": 0,
+    "patternCancellations": 0,
+    "attempts": 0,
+    "releases": 0,
+    "shotAttempts": 0,
+    "shotReleases": 0,
+    "passAttempts": 0,
+    "passReleases": 0,
+    "backwardPasses": 125,
+    "progressivePasses": 154,
+    "reciprocalPasses": 26
+  },
+  "reasons": {},
+  "wallMilliseconds": 247604.3085,
+  "cpuMicroseconds": {
+    "user": 267281000,
+    "system": 1781000
+  },
+  "rssBytes": 492367872,
+  "archive": "docs/performance/pr187-traces/dev-ww-state-value-v1-full-observed-4.json.gz",
+  "archiveSha256": "e14f9cb2e1401df6d13125c24a7d89d4d6891fe33d09edeb86ced9856ef52c5c",
+  "payloadSha256": "097a3b086cbfc30e1361b20c2a92d8c42df89002bf4e02c4ab5d410ec0d47a6f"
+}

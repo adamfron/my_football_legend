@@ -1,5 +1,28 @@
 # My Football Legend — Current Project State
 
+## PR187 — Executable Policy Experiments, Validation Incomplete
+
+Nowe `opportunity-driven-v1`, `hierarchical-intent-v1`, `contextual-judgment-v1`
+są wybieralne w Match Lab/headless. Odrębne mechanizmy korzystają z nowego
+adaptera i kandydatów opartych na obserwacji; nie używają końcowego rankingu B.
+Counter support, playmaker cue i press triangle mają live recognition, target,
+cancellation i fizyczny ruch. Opcjonalne, jawne dane match-level nie wymyślają historii kariery.
+
+To etap eksperymentalny. **Pozostałe kontrolery obrony/GK/wznowień nadal czytają
+pełny stan**, więc nie ma deklaracji pełnego bounded AI. Techniki strzałów mają
+oddzielny, słabo skalibrowany estymator; historyczny mismatch jest odizolowany,
+nie uznany za rozwiązany. Koordynacja, kontrfaktyczne okna R3, coach/communication,
+keeper calibration i pełny human/browser matrix wymagają dalszych prac.
+
+Pełne mecze development i negatywne próby są archiwizowane osobno od niezależnego
+potwierdzenia. Nowej kohorty confirmation nie otwarto. **B `state-value-v1` pozostaje
+domyślne; 28 atrybutów, stare ID, fizyka i przepisy zachowane. Canonical NOT READY
+dla summary.** Dokładne wyniki i final-head CI należy czytać z receipt i PR.
+
+[Raport PR187 i jawne niezakończone bramy](PR187_BOUNDED_FOOTBALL_INTELLIGENCE_AND_POLICY_VALIDATION.md).
+Roadmapa zachowuje fizyczną kalibrację, generacje/siłę świata, summary/PlayStyles,
+career UX i world expansion; częściowe wdrożenie nie zamyka tych zobowiązań.
+
 ## PR186 — Tactical Cognition, Team Familiarity & Attribute Diagnostics
 
 Dodano izolowany, typowany research: trzy wzorce współpracy, system/role/partner
