@@ -64,6 +64,24 @@ export const validateResearchDecision = (
     ...input.observation.visible.map((p) => p.id),
   ]);
   const selected = input.candidates.find((c) => c.id === decision.selectedCandidateId);
+  if (new Set(input.candidates.map((c) => c.id)).size !== input.candidates.length)
+    throw Error('Duplicate candidate provenance');
+  for (const candidate of input.candidates) {
+    if (candidate.action.actorId !== input.observation.observerId)
+      throw Error('Player agency mismatch');
+    if (candidate.evidenceIds.some((id) => !known.has(id)))
+      throw Error('Unobserved candidate provenance');
+    const action = candidate.action;
+    if (action.type === 'pass' && !known.has(action.receiverId)) throw Error('Unobserved receiver');
+    if (action.type === 'challenge' && !known.has(action.opponentId))
+      throw Error('Unobserved challenger');
+    if (
+      (action.type === 'cross' || action.type === 'header') &&
+      action.intendedTargetId &&
+      !known.has(action.intendedTargetId)
+    )
+      throw Error('Unobserved target');
+  }
   if (decision.observedAt !== input.observation.at || decision.recognisedAt < decision.observedAt)
     throw Error('Invalid observation chronology');
   if (decision.evidenceIds.some((id) => !known.has(id))) throw Error('Unobserved evidence');
@@ -95,7 +113,9 @@ export const validateResearchDecision = (
     throw Error('Unobserved target');
   if (
     decision.continuation === 'continue' &&
-    (!input.currentIntent || input.currentIntent.expiresAt <= decision.recognisedAt)
+    (!input.currentIntent ||
+      input.currentIntent.expiresAt <= decision.recognisedAt ||
+      input.currentIntent.dependencies.some((id) => !known.has(id)))
   )
     throw Error('Expired intent');
   return decision;

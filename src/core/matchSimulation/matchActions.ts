@@ -2,6 +2,8 @@ import { enumerateCrossChoices } from './crossOpportunity';
 import { attacksRight } from './matchSpace';
 import { usesStateValue } from './decisionPolicyConfig';
 import { rankStateValueActions, enumerateStateValueActions } from './decisionPolicy';
+import { usesBoundedIntelligence } from './boundedIntelligenceState';
+import { inspectBoundedAction, observeBoundedTrace } from './boundedIntelligence';
 import { observeDecisionRanking } from './decisionObservation';
 import { evaluateStateValueAction } from './decisionStateValue';
 import { canReconsiderDecision } from './decisionReadiness';
@@ -799,6 +801,18 @@ export interface RankedAiAction {
 /** Canonical AI ranking; safe for diagnostics because its noise is seed-derived, not stateful RNG. */
 const rankActionsForAI = (state: TacticalMatchState, actorId: string): RankedAiAction[] => {
   const stateValueActor = state.players.find((p) => p.id === actorId);
+  if (
+    usesBoundedIntelligence(state) &&
+    stateValueActor &&
+    state.ball.ownerId === actorId &&
+    !isRestartSetup(state)
+  ) {
+    const result = inspectBoundedAction(state, stateValueActor);
+    const c = result.candidates.find((c) => c.id === result.decision.selectedCandidateId);
+    return c
+      ? [{ action: c.action, canonicalScore: c.benefit, deterministicNoise: 0, score: c.benefit }]
+      : [];
+  }
   if (usesStateValue(state) && stateValueActor && !isRestartSetup(state)) {
     if (state.ball.ownerId === actorId) return rankStateValueActions(state, stateValueActor);
     const options = enumerateAvailableActions(state, actorId);
@@ -915,6 +929,9 @@ export const chooseIncomingShotAction = (
   // clock must not devalue a fresh control and force every routine reception into a layoff.
   const actor = state.players.find((p) => p.id === actorId);
   if (!actor) return undefined;
+  // Experimental policies currently choose incoming control only. They do not
+  // inherit a privileged full-state first-time candidate ranking.
+  if (usesBoundedIntelligence(state)) return control;
   if (usesStateValue(state)) {
     // Control, directional touch and immediate release use the same value units/horizon.
     // Do not compare a quick redirect against the role policy's long stationary hold.
@@ -1011,6 +1028,23 @@ export const resolveMatchAction = (
   source: ActionSource = 'autonomous_npc',
 ): TacticalMatchState => {
   let next = resolveMatchActionCanonical(state, action, source);
+  if (usesBoundedIntelligence(state)) {
+    const actor = state.players.find((p) => p.id === action.actorId);
+    observeBoundedTrace({
+      stage: 'attempt',
+      at: state.time,
+      actorId: action.actorId,
+      action,
+      reason: next === state ? 'canonical_rejected_or_no_change' : 'canonical_state_changed',
+      actualChange: next !== state,
+      released:
+        (next.ball.shot?.shotId !== undefined &&
+          next.ball.shot.shotId !== state.ball.shot?.shotId) ||
+        (next.lastPassDiagnostic?.passId !== undefined &&
+          next.lastPassDiagnostic.passId !== state.lastPassDiagnostic?.passId),
+      ...(actor ? { preparationMargin: preparationMarginForAction(state, actor, action) } : {}),
+    });
+  }
   if (next === state) return state;
   if (isRestartSetup(state) && action.type !== 'hold' && next.decisionIndex > state.decisionIndex) {
     const restart = state.restart!;
@@ -1049,6 +1083,15 @@ const resolveMatchActionCanonical = (
   if (!hasActiveMatchActionParticipants(state, action)) return state;
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor) return state;
+  if (
+    usesBoundedIntelligence(state) &&
+    source === 'autonomous_npc' &&
+    state.ball.ownerId === actor.id &&
+    !isRestartSetup(state) &&
+    !['hold', 'carry', 'challenge'].includes(action.type) &&
+    preparationMarginForAction(state, actor, action) < -1e-8
+  )
+    return state;
   if (action.type === 'pass' && action.foot) {
     const feet = playerContactGeometry(actor);
     if (

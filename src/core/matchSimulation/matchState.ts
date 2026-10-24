@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { boundedExperimentSchema, boundedRuntimeSchema } from './boundedIntelligenceState';
 import { footSurfaceSchema, multiContactMoveSchema } from './footContact';
 import {
   plantBalanceSchema,
@@ -787,6 +788,8 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  boundedExperiment?: import('./boundedIntelligenceState').BoundedExperiment | undefined;
+  boundedRuntime?: import('./boundedIntelligenceState').BoundedRuntime | undefined;
   rolePlan?: import('./tacticalRoles').RolePlan;
   /** Runtime experiment selection, fixed for this match. No career-save migration contract. */
   decisionPolicy?: DecisionPolicyId;
@@ -998,6 +1001,8 @@ export interface TacticalMatchState {
 export const tacticalMatchStateSchema = z
   .object({
     decisionPolicy: decisionPolicyIdSchema.optional(),
+    boundedExperiment: boundedExperimentSchema.optional(),
+    boundedRuntime: boundedRuntimeSchema.optional(),
     rolePlan: rolePlanSchema.optional(),
     decisionAblation: decisionAblationSchema.optional(),
     decisionReadiness: decisionReadinessSchema.optional(),

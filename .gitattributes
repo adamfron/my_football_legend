@@ -58,3 +58,11 @@ src/core/matchSimulation/tacticalCognition*.ts text eol=lf
 src/core/matchSimulation/attributeCognitionLab.ts text eol=lf
 src/core/matchSimulation/decisionResearchProtocol.ts text eol=lf
 src/core/matchSimulation/footballContactResearchPlan*.ts text eol=lf
+
+# PR187 experiment evidence is additive; historical receipts stay frozen.
+docs/performance/PR187-*.json -diff linguist-generated=true text eol=lf
+docs/performance/pr187-traces/** binary linguist-generated=true
+docs/PR187*.md text eol=lf
+src/core/matchSimulation/bounded*.ts text eol=lf
+scripts/*Pr187* text eol=lf
+scripts/replayPr186Baseline.mjs text eol=lf
