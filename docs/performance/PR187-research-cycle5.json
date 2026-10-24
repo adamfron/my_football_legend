@@ -1,0 +1,1434 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+  "evaluatorSha256": "14f3568ffb70b9fecc9a96bf7b2a83ed7c7212297b34b8c2d3efd6dafa5f7b41",
+  "payloadSha256": "887f2ec178d14baa5509b6d0cb261bf867a1c5e2afbed0f23192beec9012e7aa",
+  "archive": "docs/performance/pr187-traces/research-cycle5.json.gz",
+  "archiveSha256": "a5233c6b706c40a5ebbdf4a5fc277eb4221c24a7d2105bd8c7b39e00d06ffbb6",
+  "contrasts": [
+    {
+      "condition": "prepared_combination",
+      "decisions": [
+        {
+          "policy": "opportunity-driven-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "window",
+          "continuation": "new",
+          "reasons": [
+            "useful_window_closes_before_next_deliberation",
+            "benefit_and_risk_admitted"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "hierarchical-intent-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "combination",
+          "continuation": "continue",
+          "reasons": [
+            "supported_objective_continues"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": {
+            "candidateKey": "combination",
+            "goal": "progress",
+            "dependencies": [
+              "geometry:anchor:9"
+            ],
+            "expiresAt": 11
+          },
+          "measured": {
+            "generated": 4,
+            "evaluations": 1,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "contextual-judgment-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "best_within_subjective_risk_budget",
+            "context:neutral"
+          ],
+          "instructionCompliance": true,
+          "regret": 0,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        }
+      ]
+    },
+    {
+      "condition": "failed_run",
+      "decisions": [
+        {
+          "policy": "opportunity-driven-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "window",
+          "continuation": "new",
+          "reasons": [
+            "useful_window_closes_before_next_deliberation",
+            "benefit_and_risk_admitted"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "hierarchical-intent-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "possession",
+          "continuation": "cancel",
+          "reasons": [
+            "cancel:receiver_unavailable",
+            "objective:escape",
+            "bounded_local_continuation"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": {
+            "candidateKey": "possession",
+            "goal": "retain",
+            "dependencies": [],
+            "expiresAt": 11.5
+          },
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "contextual-judgment-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "best_within_subjective_risk_budget",
+            "context:neutral"
+          ],
+          "instructionCompliance": true,
+          "regret": 0,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        }
+      ]
+    },
+    {
+      "condition": "expired_window",
+      "decisions": [
+        {
+          "policy": "opportunity-driven-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "no_admitted_transient_window",
+            "benefit_and_risk_admitted"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "hierarchical-intent-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "combination",
+          "continuation": "continue",
+          "reasons": [
+            "supported_objective_continues"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": {
+            "candidateKey": "combination",
+            "goal": "progress",
+            "dependencies": [
+              "geometry:anchor:9"
+            ],
+            "expiresAt": 11
+          },
+          "measured": {
+            "generated": 4,
+            "evaluations": 1,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "contextual-judgment-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "best_within_subjective_risk_budget",
+            "context:neutral"
+          ],
+          "instructionCompliance": true,
+          "regret": 0,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        }
+      ]
+    },
+    {
+      "condition": "planning_off",
+      "decisions": [
+        {
+          "policy": "opportunity-driven-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "window",
+          "continuation": "new",
+          "reasons": [
+            "useful_window_closes_before_next_deliberation",
+            "benefit_and_risk_admitted"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "hierarchical-intent-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "objective:escape",
+            "bounded_local_continuation"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": {
+            "candidateKey": "possession",
+            "goal": "retain",
+            "dependencies": [],
+            "expiresAt": 11.5
+          },
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "contextual-judgment-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "best_within_subjective_risk_budget",
+            "context:neutral"
+          ],
+          "instructionCompliance": true,
+          "regret": 0,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        }
+      ]
+    },
+    {
+      "condition": "individuality_off",
+      "decisions": [
+        {
+          "policy": "opportunity-driven-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "window",
+          "continuation": "new",
+          "reasons": [
+            "useful_window_closes_before_next_deliberation",
+            "benefit_and_risk_admitted"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "hierarchical-intent-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "combination",
+          "continuation": "continue",
+          "reasons": [
+            "supported_objective_continues"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": {
+            "candidateKey": "combination",
+            "goal": "progress",
+            "dependencies": [
+              "geometry:anchor:9"
+            ],
+            "expiresAt": 11
+          },
+          "measured": {
+            "generated": 4,
+            "evaluations": 1,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "contextual-judgment-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 10,
+          "recognisedAt": 10,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "best_within_subjective_risk_budget",
+            "context:neutral"
+          ],
+          "instructionCompliance": true,
+          "regret": 0,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        }
+      ]
+    },
+    {
+      "condition": "chasing",
+      "decisions": [
+        {
+          "policy": "opportunity-driven-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 4800,
+          "recognisedAt": 4800,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "no_admitted_transient_window",
+            "benefit_and_risk_admitted"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "hierarchical-intent-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 4800,
+          "recognisedAt": 4800,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "objective:escape",
+            "bounded_local_continuation"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": {
+            "candidateKey": "possession",
+            "goal": "retain",
+            "dependencies": [],
+            "expiresAt": 4801.5
+          },
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "contextual-judgment-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 4800,
+          "recognisedAt": 4800,
+          "selectedCandidateId": "combination",
+          "continuation": "new",
+          "reasons": [
+            "bounded_individual_discretion",
+            "context:chasing"
+          ],
+          "instructionCompliance": true,
+          "regret": 0.0020000000000000018,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        }
+      ]
+    },
+    {
+      "condition": "protecting",
+      "decisions": [
+        {
+          "policy": "opportunity-driven-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 4800,
+          "recognisedAt": 4800,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "no_admitted_transient_window",
+            "benefit_and_risk_admitted"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "hierarchical-intent-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 4800,
+          "recognisedAt": 4800,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "objective:escape",
+            "bounded_local_continuation"
+          ],
+          "instructionCompliance": true,
+          "regret": null,
+          "intent": {
+            "candidateKey": "possession",
+            "goal": "retain",
+            "dependencies": [],
+            "expiresAt": 4801.5
+          },
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        },
+        {
+          "policy": "contextual-judgment-v1",
+          "actorId": "geometry:anchor:5",
+          "observedAt": 4800,
+          "recognisedAt": 4800,
+          "selectedCandidateId": "possession",
+          "continuation": "new",
+          "reasons": [
+            "best_within_subjective_risk_budget",
+            "context:protecting"
+          ],
+          "instructionCompliance": true,
+          "regret": 0,
+          "intent": null,
+          "measured": {
+            "generated": 4,
+            "evaluations": 4,
+            "forecasts": 0
+          }
+        }
+      ]
+    }
+  ],
+  "patternTrials": [
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.1,
+      "blocked": false,
+      "seed": "pr187-live-pattern-counter_support-false",
+      "movement": {
+        "geometry:anchor:9": 17.052806617796076,
+        "geometry:anchor:10": 21.988706483136184
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "counter_support",
+            "observedAt": 10.125000000000002,
+            "recognisedAt": 10.654500000000002,
+            "expiresAt": 12.525000000000002,
+            "target": {
+              "x": 70.03052543604787,
+              "y": 29.973197558566937
+            },
+            "origin": {
+              "x": 60.030525436047874,
+              "y": 31.973197558566937
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 74.82257582272301,
+            "y": 29.1277884655204
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "counter_support",
+            "observedAt": 10.025,
+            "recognisedAt": 10.5545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 70,
+              "y": 38
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 73.79046365654071,
+            "y": 29.351016093607964
+          }
+        }
+      ],
+      "passAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-counter_support-false:pass:8:geometry:anchor:5",
+      "passOutcome": "completed",
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.1,
+      "blocked": true,
+      "seed": "pr187-live-pattern-counter_support-true",
+      "movement": {
+        "geometry:anchor:9": 12.793947259546407,
+        "geometry:anchor:10": 21.57014647134623
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "counter_support",
+            "observedAt": 10.125000000000002,
+            "recognisedAt": 10.654500000000002,
+            "expiresAt": 12.525000000000002,
+            "target": {
+              "x": 70.02928476138476,
+              "y": 29.971847276094092
+            },
+            "origin": {
+              "x": 60.029284761384766,
+              "y": 31.971847276094092
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 69.28765840759962,
+            "y": 30.37259325442934
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "counter_support",
+            "observedAt": 10.125000000000002,
+            "recognisedAt": 10.654500000000002,
+            "expiresAt": 12.525000000000002,
+            "target": {
+              "x": 70.03712069413712,
+              "y": 37.98350069154584
+            },
+            "origin": {
+              "x": 60.037120694137116,
+              "y": 35.98350069154584
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 69.92537420751086,
+            "y": 31.18140532871788
+          }
+        }
+      ],
+      "passAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-counter_support-true:pass:8:geometry:anchor:5",
+      "passOutcome": null,
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.9,
+      "blocked": false,
+      "seed": "pr187-live-pattern-counter_support-false",
+      "movement": {
+        "geometry:anchor:9": 17.70128094305419,
+        "geometry:anchor:10": 15.27117699307446
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "counter_support",
+            "observedAt": 10.125000000000002,
+            "recognisedAt": 10.354500000000002,
+            "expiresAt": 12.525000000000002,
+            "target": {
+              "x": 70.03052543604787,
+              "y": 29.973197558566937
+            },
+            "origin": {
+              "x": 60.030525436047874,
+              "y": 31.973197558566937
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 69.0009715713115,
+            "y": 30.848032064826224
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "counter_support",
+            "observedAt": 10.025,
+            "recognisedAt": 10.2545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 70,
+              "y": 38
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 68.92153415031403,
+            "y": 39.64907206172994
+          }
+        }
+      ],
+      "passAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": null,
+      "passId": null,
+      "passOutcome": null,
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "counter_support",
+      "familiarity": 0.9,
+      "blocked": true,
+      "seed": "pr187-live-pattern-counter_support-true",
+      "movement": {
+        "geometry:anchor:9": 17.89697972145411,
+        "geometry:anchor:10": 14.404644702935762
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "counter_support",
+            "observedAt": 10.125000000000002,
+            "recognisedAt": 10.354500000000002,
+            "expiresAt": 12.525000000000002,
+            "target": {
+              "x": 70.02928476138476,
+              "y": 29.971847276094092
+            },
+            "origin": {
+              "x": 60.029284761384766,
+              "y": 31.971847276094092
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 68.73759701641589,
+            "y": 27.24813478098684
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "counter_support",
+            "observedAt": 10.125000000000002,
+            "recognisedAt": 10.354500000000002,
+            "expiresAt": 12.525000000000002,
+            "target": {
+              "x": 70.03712069413712,
+              "y": 37.98350069154584
+            },
+            "origin": {
+              "x": 60.037120694137116,
+              "y": 35.98350069154584
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 61.509022272960514,
+            "y": 38.35279150095643
+          }
+        }
+      ],
+      "passAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-counter_support-true:pass:8:geometry:anchor:5",
+      "passOutcome": null,
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.1,
+      "blocked": false,
+      "seed": "pr187-live-pattern-playmaker_run-false",
+      "movement": {
+        "geometry:anchor:9": 18.89146344245293,
+        "geometry:anchor:10": 25.327792635948555
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "playmaker_run",
+            "observedAt": 10.025,
+            "recognisedAt": 10.5545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 72,
+              "y": 30
+            },
+            "origin": {
+              "x": 60,
+              "y": 32
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 73.30017490322959,
+            "y": 21.789304697645576
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "playmaker_run",
+            "observedAt": 10.025,
+            "recognisedAt": 10.5545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 72,
+              "y": 38
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 77.6526352742293,
+            "y": 23.266451132031424
+          }
+        }
+      ],
+      "passAvailableAt": 10.825000000000012,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-playmaker_run-false:pass:8:geometry:anchor:5",
+      "passOutcome": "completed",
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.1,
+      "blocked": true,
+      "seed": "pr187-live-pattern-playmaker_run-true",
+      "movement": {
+        "geometry:anchor:9": 14.358653699219234,
+        "geometry:anchor:10": 22.022354496549845
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "playmaker_run",
+            "observedAt": 10.025,
+            "recognisedAt": 10.5545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 72,
+              "y": 30
+            },
+            "origin": {
+              "x": 60,
+              "y": 32
+            },
+            "arrivedAt": null,
+            "cancelled": "lost_possession_or_sight",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 69.79764861473863,
+            "y": 23.7174049582438
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "playmaker_run",
+            "observedAt": 10.025,
+            "recognisedAt": 10.5545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 72,
+              "y": 38
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 71.87067858998817,
+            "y": 24.9852889709806
+          }
+        }
+      ],
+      "passAvailableAt": 10.825000000000012,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-playmaker_run-true:pass:8:geometry:anchor:5",
+      "passOutcome": "completed",
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.9,
+      "blocked": false,
+      "seed": "pr187-live-pattern-playmaker_run-false",
+      "movement": {
+        "geometry:anchor:9": 15.91335090750659,
+        "geometry:anchor:10": 23.34042595346882
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "playmaker_run",
+            "observedAt": 10.025,
+            "recognisedAt": 10.2545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 72,
+              "y": 30
+            },
+            "origin": {
+              "x": 60,
+              "y": 32
+            },
+            "arrivedAt": null,
+            "cancelled": "lost_possession_or_sight",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 68.05008522825695,
+            "y": 20.771259550656733
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "playmaker_run",
+            "observedAt": 10.025,
+            "recognisedAt": 10.2545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 72,
+              "y": 38
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "lost_possession_or_sight",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 68.9873228091834,
+            "y": 22.889700919668233
+          }
+        }
+      ],
+      "passAvailableAt": 10.825000000000012,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-playmaker_run-false:pass:8:geometry:anchor:5",
+      "passOutcome": "completed",
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "playmaker_run",
+      "familiarity": 0.9,
+      "blocked": true,
+      "seed": "pr187-live-pattern-playmaker_run-true",
+      "movement": {
+        "geometry:anchor:9": 14.6247751485673,
+        "geometry:anchor:10": 19.812153243747723
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "playmaker_run",
+            "observedAt": 10.025,
+            "recognisedAt": 10.2545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 72,
+              "y": 30
+            },
+            "origin": {
+              "x": 60,
+              "y": 32
+            },
+            "arrivedAt": null,
+            "cancelled": "lost_possession_or_sight",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 70.29899556383289,
+            "y": 26.456439245461702
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "playmaker_run",
+            "observedAt": 10.025,
+            "recognisedAt": 10.2545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 72,
+              "y": 38
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "lost_possession_or_sight",
+            "signature": "[\"advanced_forward\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 70.6711486694442,
+            "y": 24.594695273572984
+          }
+        }
+      ],
+      "passAvailableAt": 10.825000000000012,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-playmaker_run-true:pass:8:geometry:anchor:5",
+      "passOutcome": null,
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.1,
+      "blocked": false,
+      "seed": "pr187-live-pattern-press_triangle-false",
+      "movement": {
+        "geometry:anchor:9": 15.196394793622739,
+        "geometry:anchor:10": 16.574677983062934
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "press_triangle",
+            "observedAt": 10.025,
+            "recognisedAt": 10.5545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 60.91070413426496,
+              "y": 25.869907775870523
+            },
+            "origin": {
+              "x": 60,
+              "y": 32
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"false_nine\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 62.30102038342143,
+            "y": 27.33985343388898
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "press_triangle",
+            "observedAt": 10.025,
+            "recognisedAt": 10.5545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 60.87802076055668,
+              "y": 41.8772860045312
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"false_nine\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 62.09643421802667,
+            "y": 39.06727494749003
+          }
+        }
+      ],
+      "passAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-press_triangle-false:pass:8:geometry:anchor:5",
+      "passOutcome": null,
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.1,
+      "blocked": true,
+      "seed": "pr187-live-pattern-press_triangle-true",
+      "movement": {
+        "geometry:anchor:9": 10.370817387411625,
+        "geometry:anchor:10": 13.288048678054817
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "press_triangle",
+            "observedAt": 10.025,
+            "recognisedAt": 10.5545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 60.934113050228916,
+              "y": 25.99575267843902
+            },
+            "origin": {
+              "x": 60,
+              "y": 32
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"false_nine\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 67.48456365939263,
+            "y": 29.61690189961927
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "press_triangle",
+            "observedAt": 10.025,
+            "recognisedAt": 10.5545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 60.99136602778454,
+              "y": 42.10821844297461
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"false_nine\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 70.50057268590064,
+            "y": 35.43982856068393
+          }
+        }
+      ],
+      "passAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-press_triangle-true:pass:8:geometry:anchor:5",
+      "passOutcome": null,
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.9,
+      "blocked": false,
+      "seed": "pr187-live-pattern-press_triangle-false",
+      "movement": {
+        "geometry:anchor:9": 15.003458112392062,
+        "geometry:anchor:10": 14.304491841336018
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "press_triangle",
+            "observedAt": 10.025,
+            "recognisedAt": 10.2545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 60.91070413426496,
+              "y": 25.869907775870523
+            },
+            "origin": {
+              "x": 60,
+              "y": 32
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"false_nine\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 70.97369161224034,
+            "y": 31.364499952725605
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "press_triangle",
+            "observedAt": 10.025,
+            "recognisedAt": 10.2545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 60.87802076055668,
+              "y": 41.8772860045312
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "lost_possession_or_sight",
+            "signature": "[\"false_nine\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 71.19080255209988,
+            "y": 36.84090915617645
+          }
+        }
+      ],
+      "passAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-press_triangle-false:pass:8:geometry:anchor:5",
+      "passOutcome": null,
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    },
+    {
+      "pattern": "press_triangle",
+      "familiarity": 0.9,
+      "blocked": true,
+      "seed": "pr187-live-pattern-press_triangle-true",
+      "movement": {
+        "geometry:anchor:9": 15.133894834438609,
+        "geometry:anchor:10": 13.24868633703606
+      },
+      "participants": [
+        {
+          "id": "geometry:anchor:9",
+          "intent": {
+            "actorId": "geometry:anchor:9",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "press_triangle",
+            "observedAt": 10.025,
+            "recognisedAt": 10.2545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 60.934113050228916,
+              "y": 25.99575267843902
+            },
+            "origin": {
+              "x": 60,
+              "y": 32
+            },
+            "arrivedAt": null,
+            "cancelled": "lost_possession_or_sight",
+            "signature": "[\"false_nine\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 67.95732093518676,
+            "y": 33.43959603529088
+          }
+        },
+        {
+          "id": "geometry:anchor:10",
+          "intent": {
+            "actorId": "geometry:anchor:10",
+            "sourceId": "geometry:anchor:5",
+            "pattern": "press_triangle",
+            "observedAt": 10.025,
+            "recognisedAt": 10.2545,
+            "expiresAt": 12.425,
+            "target": {
+              "x": 60.99136602778454,
+              "y": 42.10821844297461
+            },
+            "origin": {
+              "x": 60,
+              "y": 36
+            },
+            "arrivedAt": null,
+            "cancelled": "missing_cover",
+            "signature": "[\"false_nine\",{\"blockHeight\":0.5,\"organisedPress\":0.5,\"counterpress\":0.5,\"compactness\":0.5,\"possessionPatience\":0.5,\"verticality\":0.5}]"
+          },
+          "final": {
+            "x": 58.974264318556344,
+            "y": 38.72894685668239
+          }
+        }
+      ],
+      "passAvailableAt": 10,
+      "passAttemptedAt": 11.700000000000024,
+      "passReleasedAt": 11.700000000000024,
+      "passId": "pr187-live-pattern-press_triangle-true:pass:8:geometry:anchor:5",
+      "passOutcome": null,
+      "receiverArrival": null,
+      "interpretation": "Designated tactical target arrival and pass completion are separate. A scripted opponent movement command starts after 0.6s and uses canonical locomotion; no body is relocated after initial placement."
+    }
+  ],
+  "shootingSummary": [
+    {
+      "intent": "driven",
+      "trials": 48,
+      "releases": 48,
+      "resolved": 48,
+      "nullOutcomes": 0,
+      "predictedMean": 0.1399940201133453,
+      "goals": 13,
+      "brierMean": 0.1765155603417583,
+      "outcomes": {
+        "goal": 13,
+        "save": 29,
+        "miss": 2,
+        "crossbar": 1,
+        "block": 3
+      }
+    },
+    {
+      "intent": "placed",
+      "trials": 48,
+      "releases": 48,
+      "resolved": 48,
+      "nullOutcomes": 0,
+      "predictedMean": 0.1575287433012333,
+      "goals": 12,
+      "brierMean": 0.15930998113592343,
+      "outcomes": {
+        "save": 32,
+        "miss": 1,
+        "goal": 12,
+        "block": 2,
+        "crossbar": 1
+      }
+    },
+    {
+      "intent": "chip",
+      "trials": 48,
+      "releases": 32,
+      "resolved": 32,
+      "nullOutcomes": 16,
+      "predictedMean": 0.11778450036875712,
+      "goals": 21,
+      "brierMean": 0.49873325331153895,
+      "outcomes": {
+        "goal": 21,
+        "miss": 4,
+        "crossbar": 2,
+        "save": 4,
+        "post": 1,
+        "null": 16
+      }
+    }
+  ],
+  "missedWindows": [
+    {
+      "at": 699.0499999996381,
+      "endsAt": 699.5749999996376,
+      "initialStateSha256": "983e843be915cabb26061ef0d78a9739c004643a2971826f0093bc7e3d9fac8e",
+      "interpretation": "Development diagnostic only. No earlier unobserved cue, preparation time reduction, foot reach bypass or forced release was invented. Earlier recognition/legitimate preparation counterfactuals remain unvalidated."
+    },
+    {
+      "at": 3504.0500000022703,
+      "endsAt": 3506.0500000022776,
+      "initialStateSha256": "1a4d6a78e3dfcee7e2306446bd3575b059b54ee1433544681514ab2273a996bd",
+      "interpretation": "Development diagnostic only. No earlier unobserved cue, preparation time reduction, foot reach bypass or forced release was invented. Earlier recognition/legitimate preparation counterfactuals remain unvalidated."
+    }
+  ],
+  "wallMilliseconds": 8239.7185,
+  "cpuMicroseconds": {
+    "user": 10094000,
+    "system": 391000
+  },
+  "rssBytes": 423227392,
+  "confirmation": "NOT RUN: whole-match information boundary remains incomplete."
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "developmentCycle": 5,
+  "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+  "codeCommit": "6feb93804a36422351830365468d343e0c2e7065",
+  "dateLocal": "2026-10-24",
+  "timezone": "Europe/Warsaw",
+  "seed": "pr187-browser-cycle5-02",
+  "previousReceipt": "PR187-browser.json",
+  "tests": [
+    {
+      "case": "default_and_policy_picker",
+      "result": "passed",
+      "default": "state-value-v1",
+      "policyOptions": 8
+    },
+    {
+      "case": "autonomous_after_reload",
+      "policy": "opportunity-driven-v1",
+      "fixture": "fixture-b67d930d",
+      "result": "passed_partial",
+      "displayedAt": "08:48",
+      "canonicalAt": "08:51",
+      "passes": {
+        "home": 90,
+        "away": 66
+      },
+      "evidence": "Actual browser UI advances on the final scheduler; full browser completion is not claimed."
+    },
+    {
+      "case": "human_handover_and_cancellation",
+      "policy": "contextual-judgment-v1",
+      "fixture": "fixture-2f356302",
+      "result": "passed",
+      "evidence": "Penalty awaits human at 00:00. Anuluj leaves shots 0 and awaiting_player_decision."
+    },
+    {
+      "case": "human_release",
+      "policy": "contextual-judgment-v1",
+      "result": "passed",
+      "evidence": "Human placed shot executes; team/player shots 1, on-target 1, canonical time advances, away team takes possession. Goal not assigned."
+    },
+    {
+      "case": "console",
+      "result": "passed",
+      "errors": 0,
+      "warnings": 0
+    }
+  ],
+  "notExecuted": [
+    "manual substitutions in career UI",
+    "complete browser matches for every policy",
+    "all restart variants",
+    "browser save/load roundtrip",
+    "dedicated goalkeeper human interaction"
+  ],
+  "images": [
+    {
+      "image": "docs/images/pr187/browser-cycle5-auto.jpg",
+      "sha256": "d288dbba6219e645f16813dc1c5b4c1b4c8180373fd11880c6bdf9e865251a31",
+      "domArchive": "docs/performance/pr187-traces/browser-cycle5-auto-dom.gz",
+      "domArchiveSha256": "2d16dea8fe023247cf9b2820946b8c91a404f808cfcdcd62213ac9e0dd88e2b5"
+    },
+    {
+      "image": "docs/images/pr187/browser-cycle5-human.jpg",
+      "sha256": "fe2cbca7ffd77ecde7afee6b1eb29cabd4ed99ea3f2611d729dcd82aff047b52",
+      "domArchive": "docs/performance/pr187-traces/browser-cycle5-human-dom.gz",
+      "domArchiveSha256": "c5343792032f9dd314a86e584468c8aeaa76601080d59ff771cf428eef4416e2"
+    }
+  ],
+  "console": {
+    "archive": "docs/performance/pr187-traces/browser-cycle5-console.gz",
+    "sha256": "61663fde99b3394d71653f41c19fe91269442622a4a6695f8352a70fbf5ca4c1"
+  }
+}

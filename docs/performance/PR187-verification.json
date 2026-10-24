@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-24T04:14:52.468Z",
+  "codeCommit": "6feb93804a36422351830365468d343e0c2e7065",
+  "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+  "focusedTestSha256": "39910e817f814f8b68de5729cebcab12c5be4570867ec4ed7eca35b9c18c5574",
+  "verification": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "includes": [
+      "eslint .",
+      "test:unit",
+      "test:match-integration",
+      "test:match-contract",
+      "test:full-career",
+      "tsc -b",
+      "vite build"
+    ],
+    "tests": {
+      "unit": 2153,
+      "matchIntegration": 56,
+      "careerMatchContract": 4,
+      "fullCareer": 5
+    },
+    "totalTests": 2218,
+    "node": "v24.19.0",
+    "platform": "win32",
+    "environment": {
+      "NODE_OPTIONS": "--max-semi-space-size=64",
+      "VITEST_MAX_WORKERS": "1"
+    },
+    "concurrency": "No development simulations or Vite server running concurrently."
+  },
+  "focusedCognitionAndPolicyTests": 35,
+  "frozenPr186Replay": {
+    "trials": 2086,
+    "codeCommit": "68487f1c0e16f32b840056550708832ac1a68cdf",
+    "exitCode": 0
+  },
+  "researchReplay": {
+    "contrasts": 7,
+    "patternTrials": 12,
+    "shotTrials": 144,
+    "missedWindows": 2,
+    "exitCode": 0
+  },
+  "evidenceIndexReplay": {
+    "pairedFullMatches": 15,
+    "designs": 3,
+    "observerOffReplays": 3,
+    "historicalFiles": 193,
+    "historicalPolicyStateComparisons": 6,
+    "exitCode": 0
+  },
+  "logs": [
+    {
+      "commandId": "verify-final",
+      "archive": "docs/performance/pr187-traces/verify-final.log.gz",
+      "archiveSha256": "a7a850e101c224ab00135c5731215cab57d72eea127acde09fb06402b1abf06e",
+      "logSha256": "843f9fe007afe4cb634c2855bb715d2e05ab2c0ad118e29c5adae0da1fc8740c"
+    },
+    {
+      "commandId": "tests-cycle5",
+      "archive": "docs/performance/pr187-traces/tests-cycle5.log.gz",
+      "archiveSha256": "67716aba1bd4386dee6962d4a53d8de22356cfd8155142e5d02dc6670ca2ec7a",
+      "logSha256": "d70ea6628161ac1e323c488ab33b7ee5b67cbce5a26d624ef8e781d273435b17"
+    },
+    {
+      "commandId": "pr186-replay",
+      "archive": "docs/performance/pr187-traces/pr186-replay.log.gz",
+      "archiveSha256": "8c76088442b8bb69185100d94e7f47ab05ca568997d08cf7207aadbbf67ad5fb",
+      "logSha256": "159fc2d15637d07e47e938983d0399284c951e675273a500b1e4a95053f234cb"
+    },
+    {
+      "commandId": "research-cycle5-replay",
+      "archive": "docs/performance/pr187-traces/research-cycle5-replay.log.gz",
+      "archiveSha256": "c8238dabd0d7b3399fecdb36b2b9255d36c16c49c56f321a01cac1b4b0e3a57f",
+      "logSha256": "431d2b6db6cce348cc5d99d8fb88e64bb82f34d32f57941a8f8ac84d172fb766"
+    },
+    {
+      "commandId": "index-cycle5-replay",
+      "archive": "docs/performance/pr187-traces/index-cycle5-replay.log.gz",
+      "archiveSha256": "b2b80d5d77befaead44b02090c7336fe85da0fb1b78599f298967f8c2122d55d",
+      "logSha256": "6d1b74fb6ed62c5afce383dae7082adf881c81dacec8123570a4e1784b15343e"
+    }
+  ],
+  "earlierAttempts": [
+    {
+      "archive": "docs/performance/pr187-traces/verify-contention.log.gz",
+      "result": "unit 2150 pass; integration 55 pass, 1 legacy whole-half penalty SIGTERM timeout while development simulations ran concurrently. No timeout or assertion weakened."
+    },
+    {
+      "archive": "docs/performance/pr187-traces/verify-scheduler-superseded.log.gz",
+      "result": "Interrupted before scheduler correction; superseded, not a successful verification claim."
+    }
+  ],
+  "finalHeadCi": {
+    "statusAtReceipt": "not_published_yet",
+    "instructions": "Check the exact final PR head; its status and workflow link are reported in the PR description after publication. This receipt is not a CI pass claim."
+  },
+  "readiness": "Experimental draft. Whole-match perception, football quality, calibration and independent confirmation remain blocked."
+}

@@ -35,7 +35,7 @@ const receipts = names.map((name) => {
     throw Error(`Final state mismatch: ${name}`);
   return { name, r, data };
 });
-const current = receipts.filter(({ name, r }) => r.full && r.observed && name.endsWith('-4.json'));
+const current = receipts.filter(({ name, r }) => r.full && r.observed && name.endsWith('-5.json'));
 if (current.length !== 15 || current.some(({ r }) => r.failure || r.status !== 'full_time'))
   throw Error(`Expected 15 completed paired development variants, found ${current.length}`);
 if (new Set(current.map(({ r }) => r.sourceSha256)).size !== 1)
@@ -59,7 +59,7 @@ const observerNeutrality = policies.map((policy) => {
       !r.observed &&
       r.design === 'dev-sw' &&
       r.policy === policy &&
-      name.endsWith('-4.json'),
+      name.endsWith('-5.json'),
   );
   if (
     !bare ||
@@ -77,7 +77,7 @@ const observerNeutrality = policies.map((policy) => {
     canonicalSeconds: bare.r.canonicalSeconds,
   };
 });
-const research = read(`${root}/PR187-research-final.json`);
+const research = read(`${root}/PR187-research-cycle5.json`);
 if (sha(readFileSync(research.archive)) !== research.archiveSha256)
   throw Error('Research archive mismatch');
 const trials = JSON.parse(gunzipSync(readFileSync(research.archive)));
@@ -104,22 +104,52 @@ const rows = current.map(({ name, r, data }) => {
     evaluatorSha256: r.evaluatorSha256,
   };
 });
+const historicalCompatibility = current
+  .filter(({ r }) => ['state-value-v1', 'phase-role-hybrid-v1'].includes(r.policy))
+  .map(({ r }) => {
+    const previous = receipts.find(
+      (x) =>
+        x.r.design === r.design &&
+        x.r.policy === r.policy &&
+        x.r.full &&
+        x.r.observed &&
+        x.name.endsWith('-4.json'),
+    );
+    if (
+      !previous ||
+      previous.r.finalStateSha256 !== r.finalStateSha256 ||
+      previous.r.inputSha256 !== r.inputSha256
+    )
+      throw Error(`Historical policy changed: ${r.design}/${r.policy}`);
+    return {
+      design: r.design,
+      policy: r.policy,
+      previousSourceSha256: previous.r.sourceSha256,
+      sourceSha256: r.sourceSha256,
+      finalStateSha256: r.finalStateSha256,
+      equivalent: true,
+    };
+  });
 const summary = {
   schemaVersion: 1,
   cohort: 'development_only',
   baseCommit: baseline.baseCommit,
-  codeCommit: 'bdc8db10db0b82cb0f116a0eeca581d24fb992ac',
+  codeCommit: '6feb93804a36422351830365468d343e0c2e7065',
   sourceSha256: current[0].r.sourceSha256,
   preservedHistoricalFiles: baseline.historical.length,
   independentDevelopmentDesigns: 3,
   pairedFullMatchVariants: 15,
   additionalFullObserverReplays: 3,
+  developmentCycle: 5,
+  previousCycleEvidence: 'PR187-evidence-cycle4.json',
+  reusedDevelopmentDesigns: true,
   independentConfirmationDesigns: 0,
   confirmationStatus: 'not_run_blocked_by_incomplete_whole_match_perception_and_calibration',
   informationComparison:
     'Historical B/R3 versus experimental on-ball policies sharing unbounded defensive/GK/restart controllers. Not a whole-match equal-information comparison.',
   rows,
   observerNeutrality,
+  historicalCompatibility,
   shootingSummary: research.shootingSummary,
   patternSummary: trials.patternTrials.map((r) => ({
     pattern: r.pattern,
@@ -149,7 +179,7 @@ const summary = {
       failure: r.failure,
     })),
   allMatchReceipts: names,
-  researchReceipt: 'PR187-research-final.json',
+  researchReceipt: 'PR187-research-cycle5.json',
   previousApparatusReceipt: 'PR187-research.json',
 };
 const path = `${root}/PR187-evidence-index.json`;
@@ -162,7 +192,7 @@ if (process.argv.includes('--replay')) {
     '| --- | --- | ---: | ---: | ---: | ---: | ---: |',
     ...rows.map(
       (r) =>
-        `| ${r.design} | ${r.policy} | ${r.score.home}:${r.score.away} | ${r.passes}/${r.completedPasses} | ${r.shots} | ${r.counts.decisions}/${r.counts.evaluations} | ${r.counts.patternObservations}/${r.counts.patternArrivals} |`,
+        `| ${r.design} | ${r.policy} | ${r.score.home}:${r.score.away} | ${r.passes}/${r.completedPasses} | ${r.shots} | ${policies.includes(r.policy)?`${r.counts.decisions}/${r.counts.evaluations}`:'—'} | ${policies.includes(r.policy)?`${r.counts.patternObservations}/${r.counts.patternArrivals}`:'—'} |`,
     ),
   ].join('\n');
   const shotTable = [

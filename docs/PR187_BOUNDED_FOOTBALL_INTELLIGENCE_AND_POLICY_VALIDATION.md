@@ -172,8 +172,13 @@ filozofii trenerów, spontanicznej komunikacji ani lidera rozpoznającego własn
 Observation/recognition wzorca, rozpoczęcie ruchu, arrival, wybrana akcja,
 przygotowanie, attempted canonical resolution i faktyczny release mają różne pola.
 Przy piłce pierwsza interpretacja czeka na istniejącą zdolność percepcyjną gracza;
-następne zapytania mają eksperymentalną kadencję 0,2 s. To nadal uproszczony
-scheduler, nie kompletny event-sensitive system motor/prepared/deliberate.
+następne zapytania rozróżniają zmianę obserwowanej geometrii/presji, własny kontakt,
+wynik i instrukcje od spokojnej kontynuacji. Recognition zależy od gameReading/
+concentration, a spokojny przegląd od własnej poprzedniej akcji, zmęczenia i
+przygotowania. Nie ma jednego 0,2-s timera wszystkich zawodników i akcji.
+Pełny podział motor/prepared/deliberate pozostaje do rozbudowy. Wcześniejszy
+cykl 4 ze sztywną kadencją zachowano w `PR187-evidence-cycle4.json`; cykl 5 ma
+osobny preregistered development design, te same zużyte projekty i nowe receipts.
 
 Własna prognoza action preparation kopiuje ostrożnie kanoniczne potrzeby obrotu,
 dystansu i techniki, bez przyznawania PlayStyle relief. Resolver autonomicznych
@@ -220,7 +225,9 @@ Pełne powtórki observer on/off są dodatkowym testem tego samego projektu SW.
 Telemetria zachowuje progresywne/cofające/zwrotne podania, entries/threat flow,
 kontakty, straty, faule, kary, goalkeeper events i wynik. Nowe liczniki oddzielają
 decision/candidates/inspections, continuation/cancellation, pattern observation/arrival,
-attempt i release. Powtarzane zapytania nie są niezależnymi okazjami. Nie narzucono
+attempt i release. Te dodatkowe liczniki dotyczą nowej ścieżki; historycznych rankingów
+B/R3 ten harness nie instrumentuje, dlatego ich komórki mają „—”, nie fikcyjne zero decyzji.
+Powtarzane zapytania nie są niezależnymi okazjami. Nie narzucono
 kwot podań, strzałów ani goli. Samo ukończenie meczu i różna liczba akcji nie dowodzą
 poprawy futbolu; brak dotarć, długa cyrkulacja i błędy estymacji są wynikami negatywnymi.
 
@@ -228,45 +235,45 @@ poprawy futbolu; brak dotarć, długa cyrkulacja i błędy estymacji są wynikam
 
 15/15 wariantów development kończy mecz (trzy nowe polityki × trzy projekty oraz B/R3 × trzy projekty). Trzy dodatkowe pełne SW observer on/off mają identyczne wejścia i końcowe hashe. Historyczne pliki: 193/193 zachowane.
 
-| Projekt | Polityka               | Wynik | Podania / celne | Strzały | Decyzje / inspekcje | Wzorce / dotarcia |
-| ------- | ---------------------- | ----: | --------------: | ------: | ------------------: | ----------------: |
-| dev-ss  | contextual-judgment-v1 |   1:0 |        1028/740 |       2 |        17882/174704 |              11/0 |
-| dev-ss  | hierarchical-intent-v1 |   0:0 |       1922/1271 |       1 |         12325/73628 |              16/0 |
-| dev-ss  | opportunity-driven-v1  |   2:1 |       1450/1017 |       3 |        14377/139136 |              15/0 |
-| dev-ss  | phase-role-hybrid-v1   |   6:2 |       2258/1507 |      22 |                 0/0 |               0/0 |
-| dev-ss  | state-value-v1         |   1:4 |       2400/1496 |      19 |                 0/0 |               0/0 |
-| dev-sw  | contextual-judgment-v1 |   5:0 |         393/119 |       8 |        22485/217511 |               6/0 |
-| dev-sw  | hierarchical-intent-v1 |   8:0 |        1327/415 |      18 |         12678/71397 |              10/0 |
-| dev-sw  | opportunity-driven-v1  |   7:0 |         561/199 |      10 |        19675/178088 |              10/0 |
-| dev-sw  | phase-role-hybrid-v1   |  11:0 |        1743/787 |      39 |                 0/0 |               0/0 |
-| dev-sw  | state-value-v1         |  16:0 |        1768/760 |      33 |                 0/0 |               0/0 |
-| dev-ww  | contextual-judgment-v1 |   0:1 |            24/2 |       1 |        22889/210519 |               6/1 |
-| dev-ww  | hierarchical-intent-v1 |   0:0 |          821/16 |       0 |         15788/67682 |               8/0 |
-| dev-ww  | opportunity-driven-v1  |   0:0 |            11/0 |       0 |        22142/202533 |               5/1 |
-| dev-ww  | phase-role-hybrid-v1   |   0:0 |          664/96 |       3 |                 0/0 |               0/0 |
-| dev-ww  | state-value-v1         |   1:1 |          601/88 |      10 |                 0/0 |               0/0 |
+| Projekt | Polityka | Wynik | Podania / celne | Strzały | Decyzje / inspekcje | Wzorce / dotarcia |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| dev-ss | contextual-judgment-v1 | 0:1 | 990/714 | 1 | 19792/193392 | 15/0 |
+| dev-ss | hierarchical-intent-v1 | 0:1 | 1850/1208 | 1 | 13189/72641 | 15/0 |
+| dev-ss | opportunity-driven-v1 | 0:0 | 1536/1070 | 1 | 15417/151047 | 11/0 |
+| dev-ss | phase-role-hybrid-v1 | 6:2 | 2258/1507 | 22 | — | — |
+| dev-ss | state-value-v1 | 1:4 | 2400/1496 | 19 | — | — |
+| dev-sw | contextual-judgment-v1 | 3:0 | 629/215 | 5 | 20929/196293 | 8/0 |
+| dev-sw | hierarchical-intent-v1 | 5:0 | 1276/417 | 6 | 13226/70776 | 9/0 |
+| dev-sw | opportunity-driven-v1 | 8:0 | 923/331 | 19 | 16338/156153 | 12/0 |
+| dev-sw | phase-role-hybrid-v1 | 11:0 | 1743/787 | 39 | — | — |
+| dev-sw | state-value-v1 | 16:0 | 1768/760 | 33 | — | — |
+| dev-ww | contextual-judgment-v1 | 0:0 | 10/0 | 0 | 18130/158451 | 5/0 |
+| dev-ww | hierarchical-intent-v1 | 0:0 | 800/26 | 0 | 12122/60428 | 9/1 |
+| dev-ww | opportunity-driven-v1 | 0:0 | 11/1 | 0 | 18419/168815 | 5/0 |
+| dev-ww | phase-role-hybrid-v1 | 0:0 | 664/96 | 3 | — | — |
+| dev-ww | state-value-v1 | 1:1 | 601/88 | 10 | — | — |
 
 | Technika | Próby / release | Rozstrzygnięte / null | Średnia prognoza | Gole w rozstrzygniętych | Brier |
-| -------- | --------------: | --------------------: | ---------------: | ----------------------: | ----: |
-| driven   |           48/48 |                  48/0 |            0.140 |                   13/48 | 0.177 |
-| placed   |           48/48 |                  48/0 |            0.158 |                   12/48 | 0.159 |
-| chip     |           48/32 |                 32/16 |            0.118 |                   21/32 | 0.499 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| driven | 48/48 | 48/0 | 0.140 | 13/48 | 0.177 |
+| placed | 48/48 | 48/0 | 0.158 | 12/48 | 0.159 |
+| chip | 48/32 | 32/16 | 0.118 | 21/32 | 0.499 |
 
 Wcześniejsze błędy/non-completions zachowano w 3 receipts; krótkie próby i poprzednia aparatura również pozostają w indeksie. Tabele nie ustanawiają zwycięzcy ani gotowości canonical. Surowe traces, wejścia, CPU/RSS i hashe: [PR187-evidence-index.json](performance/PR187-evidence-index.json).
 
 <!-- PR187_RESULTS_END -->
 
-WW jest blockerem jakości: A wykonuje 11 podań i nie kończy żadnego, C 24/2, a H 821/16. Ukończenie spotkań nie rozwiązuje tej regresji. Pełne mecze dają tylko dwa zarejestrowane dotarcia do celów wzorców. Próby kontrolowane nie wykazują, że szybsze rozpoznanie regularnie prowadzi do ukończenia wzorca. Hipotezy poprawy futbolu pozostają niepotwierdzone.
+Końcowy cykl 5 nadal ujawnia blocker jakości WW: A wykonuje 11 podań, kończąc jedno, C 10/0, a H 800/26; żadna nowa polityka nie oddaje strzału. W zachowanym cyklu 4 było odpowiednio 11/0, 24/2 i 821/16. Ukończenie spotkań i zmiana harmonogramu rozpoznania nie rozwiązują tej regresji. Dotarcia do celów wzorców są rzadkie. Próby kontrolowane nie wykazują, że szybsze rozpoznanie regularnie prowadzi do ukończenia wzorca. Hipotezy poprawy futbolu pozostają niepotwierdzone.
 
 ## 10. Reprodukcja, CPU i pamięć
 
 ```sh
-npm run benchmark:pr187 -- --design=dev-sw --policy=opportunity-driven-v1 --full --rep=4 --replay
-npm run benchmark:pr187 -- --design=dev-ss --policy=hierarchical-intent-v1 --full --rep=4 --replay
-npm run benchmark:pr187 -- --design=dev-ww --policy=contextual-judgment-v1 --full --rep=4 --replay
-npm run benchmark:pr187 -- --design=dev-sw --policy=state-value-v1 --full --rep=4 --replay
-npm run benchmark:pr187 -- --design=dev-sw --policy=phase-role-hybrid-v1 --full --rep=4 --replay
-npm run benchmark:pr187 -- --design=dev-sw --policy=opportunity-driven-v1 --full --observed=false --rep=4 --replay
+npm run benchmark:pr187 -- --design=dev-sw --policy=opportunity-driven-v1 --full --rep=5 --replay
+npm run benchmark:pr187 -- --design=dev-ss --policy=hierarchical-intent-v1 --full --rep=5 --replay
+npm run benchmark:pr187 -- --design=dev-ww --policy=contextual-judgment-v1 --full --rep=5 --replay
+npm run benchmark:pr187 -- --design=dev-sw --policy=state-value-v1 --full --rep=5 --replay
+npm run benchmark:pr187 -- --design=dev-sw --policy=phase-role-hybrid-v1 --full --rep=5 --replay
+npm run benchmark:pr187 -- --design=dev-sw --policy=opportunity-driven-v1 --full --observed=false --rep=5 --replay
 npm run benchmark:pr187:research -- --replay
 npm run benchmark:pr187:index -- --replay
 npm run benchmark:pr186:replay
@@ -291,6 +298,8 @@ oryginalny harness z istniejącymi zależnościami i sprawdza 2086 historycznych
 CI pobiera historię potrzebną do tego commita. Nie odświeża historycznych hashy
 nowym kodem. Katalog tymczasowy i junction są ograniczone do własnego scratch path.
 
+Końcowe lokalne `npm run verify` przeszło: 2153 + 56 + 4 + 5 = **2218 testów**, lint, TypeScript i build. Bieżący research replay oraz indeks archiwów również przeszły. Dokładne polecenia, środowisko, hashe logów i wcześniejsze nieudane/przerwane uruchomienia: [PR187-verification.json](performance/PR187-verification.json). Wynik CI ostatniego head jest raportowany osobno w opisie PR.
+
 ## 11. Human/browser, save i zgodność
 
 Nowe ID są wybieralne w istniejącym Match Lab oraz `configureMatchPolicy`.
@@ -300,9 +309,9 @@ przechodzą JSON/schema roundtrip i deterministyczną fizyczną kontynuację.
 Historyczny schema roundtrip normalizuje część diagnostycznych velocity fields;
 test nie utożsamia kolejności kluczy lub signed zero z inną fizyką.
 
-Browser smoke obejmuje widoczny domyślny B, osiem opcji, autonomiczny H,
+Browser smoke obejmuje widoczny domyślny B, osiem opcji, autonomiczny A (cykl 5) i H (wcześniejszy cykl 4),
 renderer/runtime i ludzką decyzję/strzał z C. Dokładny zakres, seed i niewykonane
-przypadki zapisano w `PR187-browser.json`. Nie zastępuje on pełnego Stage E:
+przypadki zapisano w `PR187-browser-cycle5.json` i wcześniejszym `PR187-browser.json`. Nie zastępuje on pełnego Stage E:
 manual substitutions, wszystkie restarty, movement/cancellation i GK interaction
 wymagają szerszego smoke. Testy projektu weryfikują istniejące kontrakty.
 
@@ -340,4 +349,4 @@ transfery i siłę świata. Summary/PlayStyles nadal czeka na przekonujący cano
 Career UX, player–coach relacje, ekonomia treningowa i world expansion zachowują
 swoje miejsca i pełny zakres; ten PR ich nie uznaje za wykonane.
 
-![Przeglądarkowy ręczny strzał przy Contextual Judgment](images/pr187/browser-human-shot.jpg)
+![Przeglądarkowy ręczny strzał przy Contextual Judgment](images/pr187/browser-cycle5-human.jpg)

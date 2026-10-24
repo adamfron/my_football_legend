@@ -2,81 +2,84 @@
   "schemaVersion": 1,
   "cohort": "development_only",
   "baseCommit": "68487f1c0e16f32b840056550708832ac1a68cdf",
-  "codeCommit": "bdc8db10db0b82cb0f116a0eeca581d24fb992ac",
-  "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+  "codeCommit": "6feb93804a36422351830365468d343e0c2e7065",
+  "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
   "preservedHistoricalFiles": 193,
   "independentDevelopmentDesigns": 3,
   "pairedFullMatchVariants": 15,
   "additionalFullObserverReplays": 3,
+  "developmentCycle": 5,
+  "previousCycleEvidence": "PR187-evidence-cycle4.json",
+  "reusedDevelopmentDesigns": true,
   "independentConfirmationDesigns": 0,
   "confirmationStatus": "not_run_blocked_by_incomplete_whole_match_perception_and_calibration",
   "informationComparison": "Historical B/R3 versus experimental on-ball policies sharing unbounded defensive/GK/restart controllers. Not a whole-match equal-information comparison.",
   "rows": [
     {
-      "receipt": "PR187-match-dev-ss-contextual-judgment-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-ss-contextual-judgment-v1-full-observed-5.json",
       "design": "dev-ss",
       "policy": "contextual-judgment-v1",
-      "canonicalSeconds": 5580,
-      "score": {
-        "home": 1,
-        "away": 0
-      },
-      "passes": 1028,
-      "completedPasses": 740,
-      "shots": 2,
-      "goals": 1,
-      "saves": 1,
-      "threatFlow": {
-        "progressiveReceptions": 299,
-        "resultingFinalThirdEntries": 13,
-        "resultingBoxEntries": 1,
-        "resultingShots": 2
-      },
-      "counts": {
-        "decisions": 17882,
-        "candidates": 174704,
-        "evaluations": 174704,
-        "forecasts": 2490,
-        "waits": 5828,
-        "continuations": 0,
-        "cancellations": 0,
-        "patternObservations": 11,
-        "patternArrivals": 0,
-        "patternCancellations": 9,
-        "attempts": 12810,
-        "releases": 1030,
-        "shotAttempts": 2,
-        "shotReleases": 2,
-        "passAttempts": 1053,
-        "passReleases": 1028,
-        "backwardPasses": 218,
-        "progressivePasses": 372,
-        "reciprocalPasses": 60
-      },
-      "wallMilliseconds": 323709.2647,
-      "cpuMicroseconds": {
-        "user": 343703000,
-        "system": 1546000
-      },
-      "rssBytes": 430948352,
-      "finalStateSha256": "6ecc17b21b536037a1477ed1a8fe7cd903941181f9d1587c9e4bdc551d0ff88d",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
-    },
-    {
-      "receipt": "PR187-match-dev-ss-hierarchical-intent-v1-full-observed-4.json",
-      "design": "dev-ss",
-      "policy": "hierarchical-intent-v1",
-      "canonicalSeconds": 5592.425000000045,
+      "canonicalSeconds": 5594.225000000051,
       "score": {
         "home": 0,
-        "away": 0
+        "away": 1
       },
-      "passes": 1922,
-      "completedPasses": 1271,
+      "passes": 990,
+      "completedPasses": 714,
       "shots": 1,
-      "goals": 0,
-      "saves": 1,
+      "goals": 1,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 296,
+        "resultingFinalThirdEntries": 11,
+        "resultingBoxEntries": 0,
+        "resultingShots": 1
+      },
+      "counts": {
+        "decisions": 19792,
+        "candidates": 193392,
+        "evaluations": 193392,
+        "forecasts": 2883,
+        "waits": 6470,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 15,
+        "patternArrivals": 0,
+        "patternCancellations": 13,
+        "attempts": 13998,
+        "releases": 991,
+        "shotAttempts": 2,
+        "shotReleases": 1,
+        "passAttempts": 1016,
+        "passReleases": 989,
+        "backwardPasses": 191,
+        "progressivePasses": 311,
+        "reciprocalPasses": 61
+      },
+      "wallMilliseconds": 307834.42470000003,
+      "cpuMicroseconds": {
+        "user": 327000000,
+        "system": 1157000
+      },
+      "rssBytes": 438226944,
+      "finalStateSha256": "4df6422c83548f4c55cd90ac5292cfd5db5211dc5c90612ad5e09728f15b046b",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ss-hierarchical-intent-v1-full-observed-5.json",
+      "design": "dev-ss",
+      "policy": "hierarchical-intent-v1",
+      "canonicalSeconds": 5580,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "passes": 1850,
+      "completedPasses": 1208,
+      "shots": 1,
+      "goals": 1,
+      "saves": 0,
       "threatFlow": {
         "progressiveReceptions": 348,
         "resultingFinalThirdEntries": 32,
@@ -84,89 +87,89 @@
         "resultingShots": 1
       },
       "counts": {
-        "decisions": 12325,
-        "candidates": 112725,
-        "evaluations": 73628,
-        "forecasts": 3894,
+        "decisions": 13189,
+        "candidates": 115114,
+        "evaluations": 72641,
+        "forecasts": 3303,
         "waits": 0,
-        "continuations": 4786,
-        "cancellations": 5297,
-        "patternObservations": 16,
-        "patternArrivals": 0,
-        "patternCancellations": 16,
-        "attempts": 13434,
-        "releases": 1923,
-        "shotAttempts": 2,
-        "shotReleases": 1,
-        "passAttempts": 1965,
-        "passReleases": 1922,
-        "backwardPasses": 432,
-        "progressivePasses": 231,
-        "reciprocalPasses": 184
-      },
-      "wallMilliseconds": 298188.9553,
-      "cpuMicroseconds": {
-        "user": 317437000,
-        "system": 1906000
-      },
-      "rssBytes": 577171456,
-      "finalStateSha256": "49eda0629ccb1b8475c14c3578a6cc028661688fed3d2763aa5b093580290cc0",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
-    },
-    {
-      "receipt": "PR187-match-dev-ss-opportunity-driven-v1-full-observed-4.json",
-      "design": "dev-ss",
-      "policy": "opportunity-driven-v1",
-      "canonicalSeconds": 5632.299999999474,
-      "score": {
-        "home": 2,
-        "away": 1
-      },
-      "passes": 1450,
-      "completedPasses": 1017,
-      "shots": 3,
-      "goals": 3,
-      "saves": 0,
-      "threatFlow": {
-        "progressiveReceptions": 410,
-        "resultingFinalThirdEntries": 10,
-        "resultingBoxEntries": 0,
-        "resultingShots": 3
-      },
-      "counts": {
-        "decisions": 14377,
-        "candidates": 139136,
-        "evaluations": 139136,
-        "forecasts": 4374,
-        "waits": 0,
-        "continuations": 0,
-        "cancellations": 0,
+        "continuations": 5481,
+        "cancellations": 5514,
         "patternObservations": 15,
         "patternArrivals": 0,
         "patternCancellations": 15,
-        "attempts": 15375,
-        "releases": 1453,
-        "shotAttempts": 4,
-        "shotReleases": 3,
-        "passAttempts": 1492,
-        "passReleases": 1450,
-        "backwardPasses": 232,
-        "progressivePasses": 419,
-        "reciprocalPasses": 107
+        "attempts": 14077,
+        "releases": 1851,
+        "shotAttempts": 2,
+        "shotReleases": 1,
+        "passAttempts": 1896,
+        "passReleases": 1850,
+        "backwardPasses": 414,
+        "progressivePasses": 252,
+        "reciprocalPasses": 189
       },
-      "wallMilliseconds": 310601.1042,
+      "wallMilliseconds": 251064.52000000002,
       "cpuMicroseconds": {
-        "user": 329703000,
-        "system": 2094000
+        "user": 269265000,
+        "system": 1781000
       },
-      "rssBytes": 439463936,
-      "finalStateSha256": "6d4eb02386665ad1a38aa73b5a51bb96d06a725d9ca5cf0e9ffd176c3eb2a947",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "rssBytes": 459706368,
+      "finalStateSha256": "7c9d614fa4c8996eebeacdc49235dd3c388ab332f72a0a6182c4ced93f20a525",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     },
     {
-      "receipt": "PR187-match-dev-ss-phase-role-hybrid-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-ss-opportunity-driven-v1-full-observed-5.json",
+      "design": "dev-ss",
+      "policy": "opportunity-driven-v1",
+      "canonicalSeconds": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": 1536,
+      "completedPasses": 1070,
+      "shots": 1,
+      "goals": 0,
+      "saves": 1,
+      "threatFlow": {
+        "progressiveReceptions": 439,
+        "resultingFinalThirdEntries": 15,
+        "resultingBoxEntries": 0,
+        "resultingShots": 1
+      },
+      "counts": {
+        "decisions": 15417,
+        "candidates": 151047,
+        "evaluations": 151047,
+        "forecasts": 3936,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 11,
+        "patternArrivals": 0,
+        "patternCancellations": 11,
+        "attempts": 16340,
+        "releases": 1537,
+        "shotAttempts": 1,
+        "shotReleases": 1,
+        "passAttempts": 1571,
+        "passReleases": 1536,
+        "backwardPasses": 267,
+        "progressivePasses": 461,
+        "reciprocalPasses": 100
+      },
+      "wallMilliseconds": 282192.7528,
+      "cpuMicroseconds": {
+        "user": 299516000,
+        "system": 2000000
+      },
+      "rssBytes": 567320576,
+      "finalStateSha256": "9ef7f1fa67b09933ea70c0ee22da118895abd5212ad6ede5fda7c9a5edb38055",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ss-phase-role-hybrid-v1-full-observed-5.json",
       "design": "dev-ss",
       "policy": "phase-role-hybrid-v1",
       "canonicalSeconds": 5820,
@@ -206,18 +209,18 @@
         "progressivePasses": 350,
         "reciprocalPasses": 220
       },
-      "wallMilliseconds": 269715.3722,
+      "wallMilliseconds": 271729.49450000003,
       "cpuMicroseconds": {
-        "user": 291860000,
-        "system": 1250000
+        "user": 294250000,
+        "system": 1828000
       },
-      "rssBytes": 596951040,
+      "rssBytes": 495878144,
       "finalStateSha256": "789c20651323bac40c943095b56ac953c7dca1ab78389c79356cbd6a817c9c08",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     },
     {
-      "receipt": "PR187-match-dev-ss-state-value-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-ss-state-value-v1-full-observed-5.json",
       "design": "dev-ss",
       "policy": "state-value-v1",
       "canonicalSeconds": 5700,
@@ -257,171 +260,171 @@
         "progressivePasses": 481,
         "reciprocalPasses": 265
       },
-      "wallMilliseconds": 248820.40019999997,
+      "wallMilliseconds": 247481.668,
       "cpuMicroseconds": {
-        "user": 271344000,
-        "system": 2000000
+        "user": 270234000,
+        "system": 1718000
       },
-      "rssBytes": 556400640,
+      "rssBytes": 556527616,
       "finalStateSha256": "0eb057fb642971b9be47d0d97e573f80d34492c346e6d9831fd0e45f47b742d5",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     },
     {
-      "receipt": "PR187-match-dev-sw-contextual-judgment-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-sw-contextual-judgment-v1-full-observed-5.json",
       "design": "dev-sw",
       "policy": "contextual-judgment-v1",
-      "canonicalSeconds": 5645.050000000018,
+      "canonicalSeconds": 5580,
+      "score": {
+        "home": 3,
+        "away": 0
+      },
+      "passes": 629,
+      "completedPasses": 215,
+      "shots": 5,
+      "goals": 2,
+      "saves": 1,
+      "threatFlow": {
+        "progressiveReceptions": 83,
+        "resultingFinalThirdEntries": 9,
+        "resultingBoxEntries": 0,
+        "resultingShots": 5
+      },
+      "counts": {
+        "decisions": 20929,
+        "candidates": 196293,
+        "evaluations": 196293,
+        "forecasts": 5361,
+        "waits": 7499,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 8,
+        "patternArrivals": 0,
+        "patternCancellations": 8,
+        "attempts": 13636,
+        "releases": 634,
+        "shotAttempts": 5,
+        "shotReleases": 5,
+        "passAttempts": 649,
+        "passReleases": 629,
+        "backwardPasses": 116,
+        "progressivePasses": 185,
+        "reciprocalPasses": 37
+      },
+      "wallMilliseconds": 310378.45190000004,
+      "cpuMicroseconds": {
+        "user": 327172000,
+        "system": 1844000
+      },
+      "rssBytes": 508854272,
+      "finalStateSha256": "b16eeba216f7936017728f9dc6ee20bd0ceb5cea1157c42b9c70a3c519468845",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-5.json",
+      "design": "dev-sw",
+      "policy": "hierarchical-intent-v1",
+      "canonicalSeconds": 5640.275000005877,
       "score": {
         "home": 5,
         "away": 0
       },
-      "passes": 393,
-      "completedPasses": 119,
-      "shots": 8,
-      "goals": 5,
-      "saves": 2,
+      "passes": 1276,
+      "completedPasses": 417,
+      "shots": 6,
+      "goals": 2,
+      "saves": 0,
       "threatFlow": {
-        "progressiveReceptions": 40,
-        "resultingFinalThirdEntries": 6,
+        "progressiveReceptions": 86,
+        "resultingFinalThirdEntries": 14,
         "resultingBoxEntries": 0,
-        "resultingShots": 8
+        "resultingShots": 6
       },
       "counts": {
-        "decisions": 22485,
-        "candidates": 217511,
-        "evaluations": 217511,
-        "forecasts": 16818,
-        "waits": 7225,
-        "continuations": 0,
-        "cancellations": 0,
-        "patternObservations": 6,
+        "decisions": 13226,
+        "candidates": 117725,
+        "evaluations": 70776,
+        "forecasts": 16716,
+        "waits": 0,
+        "continuations": 5905,
+        "cancellations": 5735,
+        "patternObservations": 9,
         "patternArrivals": 0,
-        "patternCancellations": 6,
-        "attempts": 15363,
-        "releases": 401,
-        "shotAttempts": 8,
-        "shotReleases": 8,
-        "passAttempts": 404,
-        "passReleases": 393,
-        "backwardPasses": 79,
-        "progressivePasses": 93,
-        "reciprocalPasses": 30
+        "patternCancellations": 9,
+        "attempts": 13504,
+        "releases": 1282,
+        "shotAttempts": 6,
+        "shotReleases": 6,
+        "passAttempts": 1329,
+        "passReleases": 1276,
+        "backwardPasses": 355,
+        "progressivePasses": 129,
+        "reciprocalPasses": 161
       },
-      "wallMilliseconds": 296939.59239999996,
+      "wallMilliseconds": 254087.90959999998,
       "cpuMicroseconds": {
-        "user": 312047000,
-        "system": 1797000
+        "user": 274578000,
+        "system": 1765000
       },
-      "rssBytes": 507584512,
-      "finalStateSha256": "2ee675f09d124919b7ac092e9c593c3f4ca2783bef6fef19b4a2d5ca8d603753",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "rssBytes": 483708928,
+      "finalStateSha256": "4613f266eecfa93bfebf66c6bb5682112438d6e717548541b08823af2e2183f7",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     },
     {
-      "receipt": "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-sw-opportunity-driven-v1-full-observed-5.json",
       "design": "dev-sw",
-      "policy": "hierarchical-intent-v1",
-      "canonicalSeconds": 5760,
+      "policy": "opportunity-driven-v1",
+      "canonicalSeconds": 5770.90000000004,
       "score": {
         "home": 8,
         "away": 0
       },
-      "passes": 1327,
-      "completedPasses": 415,
-      "shots": 18,
+      "passes": 923,
+      "completedPasses": 331,
+      "shots": 19,
       "goals": 8,
-      "saves": 3,
+      "saves": 8,
       "threatFlow": {
-        "progressiveReceptions": 79,
-        "resultingFinalThirdEntries": 19,
+        "progressiveReceptions": 103,
+        "resultingFinalThirdEntries": 17,
         "resultingBoxEntries": 0,
-        "resultingShots": 18
+        "resultingShots": 19
       },
       "counts": {
-        "decisions": 12678,
-        "candidates": 112677,
-        "evaluations": 71397,
-        "forecasts": 14616,
-        "waits": 0,
-        "continuations": 5170,
-        "cancellations": 5842,
-        "patternObservations": 10,
-        "patternArrivals": 0,
-        "patternCancellations": 10,
-        "attempts": 13012,
-        "releases": 1345,
-        "shotAttempts": 20,
-        "shotReleases": 18,
-        "passAttempts": 1374,
-        "passReleases": 1327,
-        "backwardPasses": 387,
-        "progressivePasses": 119,
-        "reciprocalPasses": 172
-      },
-      "wallMilliseconds": 260722.263,
-      "cpuMicroseconds": {
-        "user": 282328000,
-        "system": 1891000
-      },
-      "rssBytes": 522829824,
-      "finalStateSha256": "2a47a935003adb2795798ecd63da06ce54ea8891c55c2791905ab046bf1a7b22",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
-    },
-    {
-      "receipt": "PR187-match-dev-sw-opportunity-driven-v1-full-observed-4.json",
-      "design": "dev-sw",
-      "policy": "opportunity-driven-v1",
-      "canonicalSeconds": 5700.250000005659,
-      "score": {
-        "home": 7,
-        "away": 0
-      },
-      "passes": 561,
-      "completedPasses": 199,
-      "shots": 10,
-      "goals": 7,
-      "saves": 2,
-      "threatFlow": {
-        "progressiveReceptions": 66,
-        "resultingFinalThirdEntries": 8,
-        "resultingBoxEntries": 0,
-        "resultingShots": 10
-      },
-      "counts": {
-        "decisions": 19675,
-        "candidates": 178088,
-        "evaluations": 178088,
-        "forecasts": 8118,
+        "decisions": 16338,
+        "candidates": 156153,
+        "evaluations": 156153,
+        "forecasts": 9327,
         "waits": 0,
         "continuations": 0,
         "cancellations": 0,
-        "patternObservations": 10,
+        "patternObservations": 12,
         "patternArrivals": 0,
-        "patternCancellations": 10,
-        "attempts": 19914,
-        "releases": 571,
-        "shotAttempts": 10,
-        "shotReleases": 10,
-        "passAttempts": 584,
-        "passReleases": 561,
-        "backwardPasses": 102,
-        "progressivePasses": 139,
-        "reciprocalPasses": 40
+        "patternCancellations": 11,
+        "attempts": 16575,
+        "releases": 942,
+        "shotAttempts": 19,
+        "shotReleases": 19,
+        "passAttempts": 954,
+        "passReleases": 922,
+        "backwardPasses": 144,
+        "progressivePasses": 214,
+        "reciprocalPasses": 67
       },
-      "wallMilliseconds": 300479.8306,
+      "wallMilliseconds": 274949.07479999994,
       "cpuMicroseconds": {
-        "user": 317422000,
-        "system": 2015000
+        "user": 296125000,
+        "system": 1563000
       },
-      "rssBytes": 436535296,
-      "finalStateSha256": "430d1841ee8b0ea67f712a894254a5c3158094effb622302653df1378fb3020d",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "rssBytes": 490319872,
+      "finalStateSha256": "46ac465b7225cd5c17b7b5fbf1f2817d6f6d3a4e66368029b5a2bc434b34f102",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     },
     {
-      "receipt": "PR187-match-dev-sw-phase-role-hybrid-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-sw-phase-role-hybrid-v1-full-observed-5.json",
       "design": "dev-sw",
       "policy": "phase-role-hybrid-v1",
       "canonicalSeconds": 5897.100000006593,
@@ -461,18 +464,18 @@
         "progressivePasses": 261,
         "reciprocalPasses": 150
       },
-      "wallMilliseconds": 354907.87830000004,
+      "wallMilliseconds": 313511.7479,
       "cpuMicroseconds": {
-        "user": 378875000,
-        "system": 2219000
+        "user": 334985000,
+        "system": 1610000
       },
-      "rssBytes": 553795584,
+      "rssBytes": 546598912,
       "finalStateSha256": "1d5c98bf5f8e6953a34aadcc5f75af5cab4145a12a80a935e5e0d688a5f106b2",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     },
     {
-      "receipt": "PR187-match-dev-sw-state-value-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-sw-state-value-v1-full-observed-5.json",
       "design": "dev-sw",
       "policy": "state-value-v1",
       "canonicalSeconds": 6030.349999999733,
@@ -512,128 +515,26 @@
         "progressivePasses": 333,
         "reciprocalPasses": 138
       },
-      "wallMilliseconds": 285907.99830000004,
+      "wallMilliseconds": 241098.3659,
       "cpuMicroseconds": {
-        "user": 308969000,
-        "system": 1859000
+        "user": 261875000,
+        "system": 1672000
       },
-      "rssBytes": 506077184,
+      "rssBytes": 505430016,
       "finalStateSha256": "6632504c057b6559d6cbd8fe118db8742740845cf77931ee33dd10ade52ba61f",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     },
     {
-      "receipt": "PR187-match-dev-ww-contextual-judgment-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-ww-contextual-judgment-v1-full-observed-5.json",
       "design": "dev-ww",
       "policy": "contextual-judgment-v1",
-      "canonicalSeconds": 5460,
-      "score": {
-        "home": 0,
-        "away": 1
-      },
-      "passes": 24,
-      "completedPasses": 2,
-      "shots": 1,
-      "goals": 1,
-      "saves": 0,
-      "threatFlow": {
-        "progressiveReceptions": 1,
-        "resultingFinalThirdEntries": 0,
-        "resultingBoxEntries": 0,
-        "resultingShots": 1
-      },
-      "counts": {
-        "decisions": 22889,
-        "candidates": 210519,
-        "evaluations": 210519,
-        "forecasts": 489,
-        "waits": 6147,
-        "continuations": 0,
-        "cancellations": 0,
-        "patternObservations": 6,
-        "patternArrivals": 1,
-        "patternCancellations": 6,
-        "attempts": 16750,
-        "releases": 25,
-        "shotAttempts": 1,
-        "shotReleases": 1,
-        "passAttempts": 26,
-        "passReleases": 24,
-        "backwardPasses": 8,
-        "progressivePasses": 5,
-        "reciprocalPasses": 2
-      },
-      "wallMilliseconds": 293937.4121,
-      "cpuMicroseconds": {
-        "user": 303782000,
-        "system": 1516000
-      },
-      "rssBytes": 442232832,
-      "finalStateSha256": "0de6425ed4638206233e045f7beaff0a1168f8d5c45f2693533baa0d930ce8f3",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
-    },
-    {
-      "receipt": "PR187-match-dev-ww-hierarchical-intent-v1-full-observed-4.json",
-      "design": "dev-ww",
-      "policy": "hierarchical-intent-v1",
-      "canonicalSeconds": 5460.024999985229,
-      "score": {
-        "home": 0,
-        "away": 0
-      },
-      "passes": 821,
-      "completedPasses": 16,
-      "shots": 0,
-      "goals": 0,
-      "saves": 0,
-      "threatFlow": {
-        "progressiveReceptions": 0,
-        "resultingFinalThirdEntries": 0,
-        "resultingBoxEntries": 0,
-        "resultingShots": 0
-      },
-      "counts": {
-        "decisions": 15788,
-        "candidates": 112560,
-        "evaluations": 67682,
-        "forecasts": 246,
-        "waits": 0,
-        "continuations": 7456,
-        "cancellations": 7464,
-        "patternObservations": 8,
-        "patternArrivals": 0,
-        "patternCancellations": 8,
-        "attempts": 15771,
-        "releases": 821,
-        "shotAttempts": 0,
-        "shotReleases": 0,
-        "passAttempts": 825,
-        "passReleases": 821,
-        "backwardPasses": 321,
-        "progressivePasses": 52,
-        "reciprocalPasses": 160
-      },
-      "wallMilliseconds": 259133.1316,
-      "cpuMicroseconds": {
-        "user": 273375000,
-        "system": 1797000
-      },
-      "rssBytes": 472825856,
-      "finalStateSha256": "eca59e11cf253a732efe46f0c0b7f20a5342719198bdada4a24e77136921b4b4",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
-    },
-    {
-      "receipt": "PR187-match-dev-ww-opportunity-driven-v1-full-observed-4.json",
-      "design": "dev-ww",
-      "policy": "opportunity-driven-v1",
       "canonicalSeconds": 5400,
       "score": {
         "home": 0,
         "away": 0
       },
-      "passes": 11,
+      "passes": 10,
       "completedPasses": 0,
       "shots": 0,
       "goals": 0,
@@ -645,38 +546,140 @@
         "resultingShots": 0
       },
       "counts": {
-        "decisions": 22142,
-        "candidates": 202533,
-        "evaluations": 202533,
+        "decisions": 18130,
+        "candidates": 158451,
+        "evaluations": 158451,
         "forecasts": 0,
         "waits": 0,
         "continuations": 0,
         "cancellations": 0,
         "patternObservations": 5,
-        "patternArrivals": 1,
+        "patternArrivals": 0,
         "patternCancellations": 5,
-        "attempts": 22132,
+        "attempts": 18132,
+        "releases": 10,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 11,
+        "passReleases": 10,
+        "backwardPasses": 2,
+        "progressivePasses": 1,
+        "reciprocalPasses": 2
+      },
+      "wallMilliseconds": 242910.6177,
+      "cpuMicroseconds": {
+        "user": 251000000,
+        "system": 1641000
+      },
+      "rssBytes": 457826304,
+      "finalStateSha256": "dcab3afdafbd5f2007df83ee6fde373644c1425935ad03e29e37205e0c370551",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ww-hierarchical-intent-v1-full-observed-5.json",
+      "design": "dev-ww",
+      "policy": "hierarchical-intent-v1",
+      "canonicalSeconds": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": 800,
+      "completedPasses": 26,
+      "shots": 0,
+      "goals": 0,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 9,
+        "resultingFinalThirdEntries": 0,
+        "resultingBoxEntries": 0,
+        "resultingShots": 0
+      },
+      "counts": {
+        "decisions": 12122,
+        "candidates": 90658,
+        "evaluations": 60428,
+        "forecasts": 459,
+        "waits": 0,
+        "continuations": 4542,
+        "cancellations": 6741,
+        "patternObservations": 9,
+        "patternArrivals": 1,
+        "patternCancellations": 9,
+        "attempts": 12127,
+        "releases": 800,
+        "shotAttempts": 0,
+        "shotReleases": 0,
+        "passAttempts": 803,
+        "passReleases": 800,
+        "backwardPasses": 294,
+        "progressivePasses": 57,
+        "reciprocalPasses": 162
+      },
+      "wallMilliseconds": 237405.9844,
+      "cpuMicroseconds": {
+        "user": 249078000,
+        "system": 1640000
+      },
+      "rssBytes": 527310848,
+      "finalStateSha256": "26c33c8e71adb2a298fd09b470fa5c4b78b67634c9bcfdcfcacec7172cee50b5",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
+    },
+    {
+      "receipt": "PR187-match-dev-ww-opportunity-driven-v1-full-observed-5.json",
+      "design": "dev-ww",
+      "policy": "opportunity-driven-v1",
+      "canonicalSeconds": 5400,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "passes": 11,
+      "completedPasses": 1,
+      "shots": 0,
+      "goals": 0,
+      "saves": 0,
+      "threatFlow": {
+        "progressiveReceptions": 0,
+        "resultingFinalThirdEntries": 0,
+        "resultingBoxEntries": 0,
+        "resultingShots": 0
+      },
+      "counts": {
+        "decisions": 18419,
+        "candidates": 168815,
+        "evaluations": 168815,
+        "forecasts": 0,
+        "waits": 0,
+        "continuations": 0,
+        "cancellations": 0,
+        "patternObservations": 5,
+        "patternArrivals": 0,
+        "patternCancellations": 5,
+        "attempts": 18422,
         "releases": 11,
         "shotAttempts": 0,
         "shotReleases": 0,
         "passAttempts": 12,
         "passReleases": 11,
-        "backwardPasses": 2,
-        "progressivePasses": 2,
+        "backwardPasses": 4,
+        "progressivePasses": 4,
         "reciprocalPasses": 0
       },
-      "wallMilliseconds": 284641.3159,
+      "wallMilliseconds": 243102.2139,
       "cpuMicroseconds": {
-        "user": 293875000,
-        "system": 2172000
+        "user": 252469000,
+        "system": 1703000
       },
-      "rssBytes": 473346048,
-      "finalStateSha256": "a9120a233674fffaf0595249cac9d5c1f5f63f64af32d286ad7b4aa9e81e8bae",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "rssBytes": 479158272,
+      "finalStateSha256": "7516b2984badb616824819dbd1a6819d998e9510a886a5a2f4806bdcca7b6438",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     },
     {
-      "receipt": "PR187-match-dev-ww-phase-role-hybrid-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-ww-phase-role-hybrid-v1-full-observed-5.json",
       "design": "dev-ww",
       "policy": "phase-role-hybrid-v1",
       "canonicalSeconds": 5532.225000000044,
@@ -716,18 +719,18 @@
         "progressivePasses": 147,
         "reciprocalPasses": 43
       },
-      "wallMilliseconds": 290259.66069999995,
+      "wallMilliseconds": 289717.8751,
       "cpuMicroseconds": {
-        "user": 311797000,
-        "system": 1735000
+        "user": 312813000,
+        "system": 1922000
       },
-      "rssBytes": 500203520,
+      "rssBytes": 474906624,
       "finalStateSha256": "0ce0bb66d3f7daa389e1126b50e0331e50bd0dcc93545399f19f8a8a81d01dfb",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     },
     {
-      "receipt": "PR187-match-dev-ww-state-value-v1-full-observed-4.json",
+      "receipt": "PR187-match-dev-ww-state-value-v1-full-observed-5.json",
       "design": "dev-ww",
       "policy": "state-value-v1",
       "canonicalSeconds": 5640,
@@ -767,15 +770,15 @@
         "progressivePasses": 154,
         "reciprocalPasses": 26
       },
-      "wallMilliseconds": 247604.3085,
+      "wallMilliseconds": 259666.6196,
       "cpuMicroseconds": {
-        "user": 267281000,
-        "system": 1781000
+        "user": 280641000,
+        "system": 1750000
       },
-      "rssBytes": 492367872,
+      "rssBytes": 478187520,
       "finalStateSha256": "7c87b488f500694cdc7af067ee4a83634f04b5c6c7b1ad03c1cf6a9b7f8917b4",
-      "sourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
-      "evaluatorSha256": "b6ae397134f250aa4ec17fa2c7d38b43f7b4e58a66fd009fe7d8903a1e0cb957"
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "evaluatorSha256": "018b36a33be3c4b8ae3a3e2962bc95132bd17a5562c73f8d8e1a3e6eb8ed81fd"
     }
   ],
   "observerNeutrality": [
@@ -783,25 +786,75 @@
       "policy": "opportunity-driven-v1",
       "design": "dev-sw",
       "inputSha256": "41fbc6c1f09b2c6ffd54653dafd1df27eb75e26eeb58fe762779648d102007a2",
-      "finalStateSha256": "430d1841ee8b0ea67f712a894254a5c3158094effb622302653df1378fb3020d",
+      "finalStateSha256": "46ac465b7225cd5c17b7b5fbf1f2817d6f6d3a4e66368029b5a2bc434b34f102",
       "equivalent": true,
-      "canonicalSeconds": 5700.250000005659
+      "canonicalSeconds": 5770.90000000004
     },
     {
       "policy": "hierarchical-intent-v1",
       "design": "dev-sw",
       "inputSha256": "342ed8d2945e902bf7bcfb08d2de97df0cae04b815e0b34bb862b24fc9e949c8",
-      "finalStateSha256": "2a47a935003adb2795798ecd63da06ce54ea8891c55c2791905ab046bf1a7b22",
+      "finalStateSha256": "4613f266eecfa93bfebf66c6bb5682112438d6e717548541b08823af2e2183f7",
       "equivalent": true,
-      "canonicalSeconds": 5760
+      "canonicalSeconds": 5640.275000005877
     },
     {
       "policy": "contextual-judgment-v1",
       "design": "dev-sw",
       "inputSha256": "c3a894ddcaec4a0f39ea769b9f0fa48a6c99cf080b9f0a4b7f8be26da2f8b140",
-      "finalStateSha256": "2ee675f09d124919b7ac092e9c593c3f4ca2783bef6fef19b4a2d5ca8d603753",
+      "finalStateSha256": "b16eeba216f7936017728f9dc6ee20bd0ceb5cea1157c42b9c70a3c519468845",
       "equivalent": true,
-      "canonicalSeconds": 5645.050000000018
+      "canonicalSeconds": 5580
+    }
+  ],
+  "historicalCompatibility": [
+    {
+      "design": "dev-ss",
+      "policy": "phase-role-hybrid-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "789c20651323bac40c943095b56ac953c7dca1ab78389c79356cbd6a817c9c08",
+      "equivalent": true
+    },
+    {
+      "design": "dev-ss",
+      "policy": "state-value-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "0eb057fb642971b9be47d0d97e573f80d34492c346e6d9831fd0e45f47b742d5",
+      "equivalent": true
+    },
+    {
+      "design": "dev-sw",
+      "policy": "phase-role-hybrid-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "1d5c98bf5f8e6953a34aadcc5f75af5cab4145a12a80a935e5e0d688a5f106b2",
+      "equivalent": true
+    },
+    {
+      "design": "dev-sw",
+      "policy": "state-value-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "6632504c057b6559d6cbd8fe118db8742740845cf77931ee33dd10ade52ba61f",
+      "equivalent": true
+    },
+    {
+      "design": "dev-ww",
+      "policy": "phase-role-hybrid-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "0ce0bb66d3f7daa389e1126b50e0331e50bd0dcc93545399f19f8a8a81d01dfb",
+      "equivalent": true
+    },
+    {
+      "design": "dev-ww",
+      "policy": "state-value-v1",
+      "previousSourceSha256": "9f58a342cdff373fca1389bbacae540d57d706d10814ba5a71e2d30b86486a74",
+      "sourceSha256": "1c74160b84a77482dbba1fb235a4651f46293e77e43f590933b648e524df4bc1",
+      "finalStateSha256": "7c87b488f500694cdc7af067ee4a83634f04b5c6c7b1ad03c1cf6a9b7f8917b4",
+      "equivalent": true
     }
   ],
   "shootingSummary": [
@@ -1098,8 +1151,8 @@
       "familiarity": 0.1,
       "blocked": true,
       "movement": {
-        "geometry:anchor:9": 10.37248482711209,
-        "geometry:anchor:10": 13.288182935319627
+        "geometry:anchor:9": 10.370817387411625,
+        "geometry:anchor:10": 13.288048678054817
       },
       "firstRecognition": [
         {
@@ -1194,34 +1247,52 @@
   ],
   "allMatchReceipts": [
     "PR187-match-dev-ss-contextual-judgment-v1-full-observed-4.json",
+    "PR187-match-dev-ss-contextual-judgment-v1-full-observed-5.json",
     "PR187-match-dev-ss-hierarchical-intent-v1-full-observed-4.json",
+    "PR187-match-dev-ss-hierarchical-intent-v1-full-observed-5.json",
     "PR187-match-dev-ss-opportunity-driven-v1-full-observed-4.json",
+    "PR187-match-dev-ss-opportunity-driven-v1-full-observed-5.json",
     "PR187-match-dev-ss-phase-role-hybrid-v1-full-observed-4.json",
+    "PR187-match-dev-ss-phase-role-hybrid-v1-full-observed-5.json",
     "PR187-match-dev-ss-state-value-v1-full-observed-4.json",
+    "PR187-match-dev-ss-state-value-v1-full-observed-5.json",
     "PR187-match-dev-sw-contextual-judgment-v1-120-observed-1.json",
     "PR187-match-dev-sw-contextual-judgment-v1-120-observed-2.json",
     "PR187-match-dev-sw-contextual-judgment-v1-full-bare-4.json",
+    "PR187-match-dev-sw-contextual-judgment-v1-full-bare-5.json",
     "PR187-match-dev-sw-contextual-judgment-v1-full-observed-3.json",
     "PR187-match-dev-sw-contextual-judgment-v1-full-observed-4.json",
+    "PR187-match-dev-sw-contextual-judgment-v1-full-observed-5.json",
     "PR187-match-dev-sw-hierarchical-intent-v1-120-observed-1.json",
     "PR187-match-dev-sw-hierarchical-intent-v1-120-observed-2.json",
     "PR187-match-dev-sw-hierarchical-intent-v1-full-bare-4.json",
+    "PR187-match-dev-sw-hierarchical-intent-v1-full-bare-5.json",
     "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-3.json",
     "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-4.json",
+    "PR187-match-dev-sw-hierarchical-intent-v1-full-observed-5.json",
     "PR187-match-dev-sw-opportunity-driven-v1-120-observed-0.json",
     "PR187-match-dev-sw-opportunity-driven-v1-120-observed-1.json",
     "PR187-match-dev-sw-opportunity-driven-v1-120-observed-2.json",
     "PR187-match-dev-sw-opportunity-driven-v1-full-bare-4.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-full-bare-5.json",
     "PR187-match-dev-sw-opportunity-driven-v1-full-observed-3.json",
     "PR187-match-dev-sw-opportunity-driven-v1-full-observed-4.json",
+    "PR187-match-dev-sw-opportunity-driven-v1-full-observed-5.json",
     "PR187-match-dev-sw-phase-role-hybrid-v1-full-observed-4.json",
+    "PR187-match-dev-sw-phase-role-hybrid-v1-full-observed-5.json",
     "PR187-match-dev-sw-state-value-v1-full-observed-4.json",
+    "PR187-match-dev-sw-state-value-v1-full-observed-5.json",
     "PR187-match-dev-ww-contextual-judgment-v1-full-observed-4.json",
+    "PR187-match-dev-ww-contextual-judgment-v1-full-observed-5.json",
     "PR187-match-dev-ww-hierarchical-intent-v1-full-observed-4.json",
+    "PR187-match-dev-ww-hierarchical-intent-v1-full-observed-5.json",
     "PR187-match-dev-ww-opportunity-driven-v1-full-observed-4.json",
+    "PR187-match-dev-ww-opportunity-driven-v1-full-observed-5.json",
     "PR187-match-dev-ww-phase-role-hybrid-v1-full-observed-4.json",
-    "PR187-match-dev-ww-state-value-v1-full-observed-4.json"
+    "PR187-match-dev-ww-phase-role-hybrid-v1-full-observed-5.json",
+    "PR187-match-dev-ww-state-value-v1-full-observed-4.json",
+    "PR187-match-dev-ww-state-value-v1-full-observed-5.json"
   ],
-  "researchReceipt": "PR187-research-final.json",
+  "researchReceipt": "PR187-research-cycle5.json",
   "previousApparatusReceipt": "PR187-research.json"
 }
