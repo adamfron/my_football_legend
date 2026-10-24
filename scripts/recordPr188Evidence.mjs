@@ -16,6 +16,14 @@ const sha = (v) =>
     .update(typeof v === 'string' || v instanceof Uint8Array ? v : JSON.stringify(v))
     .digest('hex');
 const json = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^\uFEFF/, ''));
+// Windows PowerShell 5 transcripts are UTF-16LE; preserve their raw archive bytes
+// while parsing both those transcripts and UTF-8 Node/PowerShell 7 logs.
+const transcript = (p) => {
+  const bytes = readFileSync(p);
+  return bytes
+    .toString(bytes[0] === 0xff && bytes[1] === 0xfe ? 'utf16le' : 'utf8')
+    .replace(/^\uFEFF/, '');
+};
 const source = readdirSync('src', { recursive: true })
   .map((p) => p.replaceAll('\\', '/'))
   .filter((p) => /\.(ts|tsx)$/.test(p) && !p.includes('.test.'))
@@ -49,14 +57,14 @@ if (process.argv.includes('--check')) {
   const passive = json('docs/performance/PR188-labs-baseline-passive-final.json');
   const matrix = json('docs/performance/PR188-full-matrix-status.json');
   if (matrix.results.length !== 15) throw Error('Incomplete development matrix');
-  const verificationLog = readFileSync('../pr188-verify-complete.log', 'utf8');
-  const exitCode = Number(readFileSync('../pr188-verify-complete-exit.txt', 'utf8').trim());
+  const verificationLog = transcript('../pr188-verify-complete.log');
+  const exitCode = Number(transcript('../pr188-verify-complete-exit.txt').trim());
   if (exitCode !== 0) throw Error('Verification did not pass');
   const testStages = [...verificationLog.matchAll(/Tests\s+(\d+) passed/g)].map((m) =>
     Number(m[1]),
   );
   if (testStages.length !== 4) throw Error('Incomplete test stages');
-  const replayLog = readFileSync('../pr188-optimized-replay.log', 'utf8');
+  const replayLog = transcript('../pr188-optimized-replay.log');
   if (!replayLog.includes('"trials":240') || replayLog.includes('mismatch'))
     throw Error('Missing observer-off replay');
   const matches = matrix.results.map((r) => {
@@ -176,7 +184,7 @@ if (process.argv.includes('--check')) {
     node: process.version,
     environment: { NODE_OPTIONS: '--max-semi-space-size=64', VITEST_MAX_WORKERS: '1' },
     log: 'docs/performance/pr188-run-logs/pr188-verify-complete.log',
-    logSha256: sha(verificationLog),
+    logSha256: sha(readFileSync('../pr188-verify-complete.log')),
     targetedRegressionTests: 26,
     laboratoryObserverOffReplay: {
       variants: 240,
