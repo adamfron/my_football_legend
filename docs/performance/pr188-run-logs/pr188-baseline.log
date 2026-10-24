@@ -1,0 +1,18 @@
+baseline: 40:40 completed
+baseline: 60:60 completed
+baseline: 80:80 completed
+file:///C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl/scripts/benchmarkPr188.mjs:51
+       return {id,position:d.position,velocity:d.velocity,ballDistance:distance(d.position,s.ball),carrierDistance:distance(d.position,actor.position),facingError:context?.facingError??null,plan:derivePressingPlan(s,id),eligible:enumerateDefensiveChallengeActions(s,id).length};
+                                                                                                                                             ^
+
+TypeError: Cannot read properties of undefined (reading 'position')
+    at file:///C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl/scripts/benchmarkPr188.mjs:51:142
+    at Array.map (<anonymous>)
+    at file:///C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl/scripts/benchmarkPr188.mjs:49:116
+    at withBoundedObserver (C:\Users\Admin\Documents\Codex\2026-10-24\cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2\work\mfl\src\core\matchSimulation\boundedIntelligence.ts:43:12)
+    at file:///C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl/scripts/benchmarkPr188.mjs:33:4
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0

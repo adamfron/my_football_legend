@@ -1,0 +1,35 @@
+dev-ss/hierarchical-intent-v1: 1200.00s
+dev-ss/hierarchical-intent-v1: 2400.00s
+dev-ss/hierarchical-intent-v1: 3600.00s
+dev-ss/hierarchical-intent-v1: 4800.00s
+{
+  id: 'dev-ss-hierarchical-intent-v1-full-observed-final-v1',
+  status: 'full_time',
+  at: 5536.7750000057185,
+  score: { home: 1, away: 0 },
+  counts: {
+    decisions: 13104,
+    candidates: 122972,
+    evaluations: 84201,
+    forecasts: 2940,
+    waits: 1879,
+    continuations: 4234,
+    cancellations: 5272,
+    patternObservations: 14,
+    patternArrivals: 0,
+    patternCancellations: 12,
+    attempts: 12707,
+    releases: 2206,
+    shotAttempts: 5,
+    shotReleases: 4,
+    passAttempts: 2258,
+    passReleases: 2202,
+    backwardPasses: 527,
+    progressivePasses: 198,
+    reciprocalPasses: 384
+  },
+  failure: null,
+  wall: 275407.0599
+}
+(node:29568) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

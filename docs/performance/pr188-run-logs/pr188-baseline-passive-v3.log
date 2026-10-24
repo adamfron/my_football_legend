@@ -1,0 +1,13 @@
+file:///C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/pr187-baseline/scripts/benchmarkPr188.mjs:108
+              if (s === prev) throw Error(`Stall ${s.time}`);
+                                    ^
+
+Error: Stall 20.449999999999832
+    at file:///C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/pr187-baseline/scripts/benchmarkPr188.mjs:108:37
+    at withBoundedObserver (C:\Users\Admin\Documents\Codex\2026-10-24\cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2\work\pr187-baseline\src\core\matchSimulation\boundedIntelligence.ts:43:12)
+    at file:///C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/pr187-baseline/scripts/benchmarkPr188.mjs:91:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0

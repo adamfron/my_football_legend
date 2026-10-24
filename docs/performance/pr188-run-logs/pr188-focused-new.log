@@ -1,0 +1,30 @@
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/pr188RelativeDecision.test.ts (19 tests | 1 failed) 1196ms
+     × preparation resumes time, travels physically, returns agency and never chooses a kick 878ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/pr188RelativeDecision.test.ts > PR188 lawful opening and human free kicks > preparation resumes time, travels physically, returns agency and never chooses a kick
+AssertionError: expected 'waiting_team' to be 'ready' // Object.is equality
+
+Expected: "ready"
+Received: "waiting_team"
+
+ ❯ src/core/matchSimulation/pr188RelativeDecision.test.ts:114:85
+    112|     expect(s.restart!.selectedAction).toBeUndefined();expect(projectPl…
+    113|     for(let i=0;i<2400 && s.restart?.humanPreparation!=='ready';i++) s…
+    114|     expect(s.time).toBeGreaterThan(before.time);expect(s.restart?.huma…
+       |                                                                                     ^
+    115|     expect(s.restart!.selectedAction).toBeUndefined();expect(projectPl…
+    116|     expect(tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(s)…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 18 passed (19)
+   Start at  17:44:51
+   Duration  5.51s (transform 1.67s, setup 0ms, import 3.80s, tests 1.20s, environment 339ms)
+

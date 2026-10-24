@@ -15,6 +15,16 @@ const sha = (v) =>
   createHash('sha256')
     .update(typeof v === 'string' || v instanceof Uint8Array ? v : JSON.stringify(v))
     .digest('hex');
+const canonical = (v) =>
+  Array.isArray(v)
+    ? v.map(canonical)
+    : v && typeof v === 'object'
+      ? Object.fromEntries(
+          Object.keys(v)
+            .sort()
+            .map((k) => [k, canonical(v[k])]),
+        )
+      : v;
 const json = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^\uFEFF/, ''));
 // Windows PowerShell 5 transcripts are UTF-16LE; preserve their raw archive bytes
 // while parsing both those transcripts and UTF-8 Node/PowerShell 7 logs.
@@ -183,16 +193,36 @@ if (process.argv.includes('--check')) {
   );
   const fullObservedReceipt = json(fullObserved.path);
   const fullBareBytes = readFileSync(fullBare.archive);
+  const fullBareState = jsonFromGzip(fullBareBytes).finalState;
+  const fullObservedState = jsonFromGzip(readFileSync(fullObservedReceipt.archive)).finalState;
+  const canonicalFinalStateSha256 = sha(canonical(fullBareState));
   if (
     sha(fullBareBytes) !== fullBare.archiveSha256 ||
-    sha(jsonFromGzip(fullBareBytes).finalState) !== fullBare.finalStateSha256 ||
+    sha(fullBareState) !== fullBare.finalStateSha256 ||
     fullBare.sourceSha256 !== sourceSha256 ||
     fullBare.failure !== fullObservedReceipt.failure ||
     fullBare.status !== fullObservedReceipt.status ||
-    fullBare.finalStateSha256 !== fullObserved.finalStateSha256 ||
+    canonicalFinalStateSha256 !== sha(canonical(fullObservedState)) ||
     fullBare.inputSha256 !== fullObservedReceipt.inputSha256
   )
     throw Error('Full-match observer-off replay mismatch');
+  const fullReplayComparison = {
+    schemaVersion: 1,
+    observedReceipt: fullObserved.path,
+    diagnosticReceipt: fullBarePath,
+    sameInputs: true,
+    equalRawFinalStateSha256: fullBare.finalStateSha256 === fullObserved.finalStateSha256,
+    observedRawSha256: fullObserved.finalStateSha256,
+    diagnosticRawSha256: fullBare.finalStateSha256,
+    equalCanonicalFinalStateSha256: true,
+    canonicalFinalStateSha256,
+    explanation:
+      'The diagnostic input was rehydrated from archived JSON. All final state values are identical; only object-key insertion order differs in departedPlayers[8]. Raw-order checksum failure is retained in the original diagnostic receipt/log. Canonical comparison sorts object keys recursively and preserves every array order and value.',
+  };
+  writeFileSync(
+    'docs/performance/PR188-full-replay-comparison.json',
+    JSON.stringify(fullReplayComparison, null, 2) + '\n',
+  );
   const verification = {
     schemaVersion: 1,
     sourceSha256,
@@ -215,8 +245,10 @@ if (process.argv.includes('--check')) {
       policy: 'opportunity-driven-v1',
       receipt: fullBarePath,
       equalInputs: true,
-      equalFinalStateHashes: true,
-      finalStateSha256: fullBare.finalStateSha256,
+      equalRawFinalStateHashes: fullReplayComparison.equalRawFinalStateSha256,
+      equalCanonicalFinalStateHashes: true,
+      canonicalFinalStateSha256,
+      comparison: 'docs/performance/PR188-full-replay-comparison.json',
       status: fullBare.status,
       failure: fullBare.failure,
       scope:
@@ -325,8 +357,11 @@ if (process.argv.includes('--check')) {
     research: { ...research, psychologyChangedChoices: changedPsychology },
     matches,
     verification,
+    fullReplayComparison,
+    performance: json('docs/performance/PR188-performance.json'),
     artifacts,
     limits: [
+      'Full WW falsifies general experimental-policy liveness: multi-minute open-play stationary episodes remain.',
       'Development designs are reused, not independent validation.',
       'Physical success forecasts remain uncalibrated.',
       'Legacy shared defensive/GK/restart controllers retain privileged state access.',

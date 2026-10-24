@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "method": "Interactive in-app Chromium smoke; actual Vite application, browser DOM/accessibility and screenshots",
+  "sourceContext": "PR188 working tree during UI development after checkpoint 64814a6; later finishing-policy and defensive assessment optimizations are covered by canonical tests, not attributed to these screenshots",
+  "url": "http://localhost:5188/my_football_legend/?devtools=1&matchSandbox=1",
+  "session": {
+    "seed": "pr188-browser-smoke",
+    "policy": "contextual-judgment-v1",
+    "human": "Tomasz Lis, LO, 73",
+    "home": "KS Nadwiśle",
+    "away": "Górnik Brzeziny"
+  },
+  "observations": [
+    "Setup default policy is B (state-value-v1). The experimental policy was selected explicitly.",
+    "The human free-kick fixture displays Możliwe szybkie wznowienie and Poczekaj na ustawienie drużyny at canonical 00:00 with a real human decision pause.",
+    "Selecting preparation resumes canonical movement and displays actual teammate progress (observed 10/11).",
+    "A prepared decision menu returns after physical travel (observed 00:02.800) and referee authorization.",
+    "Opening and cancelling aiming leaves the paused canonical clock at 00:02.800; no shot is manufactured.",
+    "No browser console errors were observed."
+  ],
+  "screenshots": [
+    "docs/performance/pr188-browser/quick-free-kick.png",
+    "docs/performance/pr188-browser/prepared-free-kick.png"
+  ],
+  "scopeLimits": [
+    "This is a focused human free-kick smoke, not a complete browser policy or save matrix.",
+    "The quick kick was not physically executed in this browser session; targeted canonical regressions verify actual human pass contact and flight.",
+    "Screenshots do not establish visual body-envelope and wall-spacing consistency.",
+    "The browser tab and Vite server were stopped before isolated CPU-budget verification."
+  ]
+}

@@ -1,0 +1,764 @@
+
+> my_football_legend@0.1.0 test:unit
+> npm run generate:world-db && vitest run --maxWorkers=2 --exclude src/core/fullCareerSimulation.test.ts --exclude src/core/careerLifecycle.test.ts --exclude scripts/clubAudit.test.ts --exclude src/core/careerMatchContract.test.ts --exclude src/core/matchSimulation/pr160PenaltyLiveness.test.ts --exclude src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts --exclude src/app/match/backgroundOrchestration.test.tsx
+
+
+> my_football_legend@0.1.0 generate:world-db
+> node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts
+
+world database: 64 clubs, 1824 footballers
+wrote C:\Users\Admin\Documents\Codex\2026-10-24\cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2\work\mfl\.generated-public\data\world\pl-2026-v2.json
+(node:17192) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/playerDecision.test.ts (32 tests | 17 failed) 561ms
+     × projects canonical on-ball actions once without consuming or mutating state 14ms
+     × does not let historical action fields deadlock a meaningful receiver decision 15ms
+     × keeps routine possession automatic and diagnoses its blocker 10ms
+     × executes carry through tactical recomputation and restores tactical control 6ms
+     × surfaces a fresh human node when a selected carry finishes inside shooting range 4ms
+     × never lets autonomous routine play steal a retained-possession carry handoff 170ms
+     × restores human agency after a transient loose-ball carry contact and same-player recovery 9ms
+     × resolves a selected action through the identical canonical resolver exactly once 7ms
+     × projects target-first menus without mutating the snapshot 6ms
+     × offers a human both feet and lead intentions for a useful run without using AI utility 9ms
+     × does not duplicate a lead option for a stationary teammate 8ms
+     × rejects a distant dominated loose ball and accepts an immediate contest 16ms
+     × diagnoses stale semantic possession and does not project attacking options from it 7ms
+     × skips through the canonical NPC path and spectator mode never projects 6ms
+     × queues an imminent meaningful reception without resolving before contact 6ms
+     × keeps opponent passes interceptable and every surfaced pause actionable 4ms
+     × uses the dragged physical ETA rather than the obsolete constant-speed winger ETA 11ms
+ ❯ src/core/matchSimulation/pr152Participation.test.ts (10 tests | 6 failed) 28919ms
+     × keeps routine hidden midfield reception and positional play autonomous with agency enabled 174ms
+     × keeps shooting human-owned after a previously delegated choice 6ms
+     × permits a routine controlled cross when the exact agency probe has no pending choice 5ms
+     × surfaces a late first-time finishing contact and shares the NPC physics after human commitment 4ms
+     × records a first-time interception and shot without requiring a settled ownership frame 7ms
+     × preserves explicitly selected carry ownership and rejects stale choices when agency is disabled 4ms
+ ❯ src/core/matchSimulation/pr156Integrity.test.ts (80 tests | 23 failed) 15054ms
+     × 'free_kick' across 'key_player' 7ms
+     × 'free_kick' across 'player_extended' 4ms
+     × 'free_kick' across 'key_match' 4ms
+     × 'free_kick' across 'extended_match' 3ms
+     × 'free_kick' across 'full_match' 4ms
+     × 'free_kick_far' across 'key_player' 3ms
+     × 'free_kick_far' across 'player_extended' 4ms
+     × 'free_kick_far' across 'key_match' 4ms
+     × 'free_kick_far' across 'extended_match' 4ms
+     × 'free_kick_far' across 'full_match' 4ms
+     × 'free_kick_close' across 'key_player' 6ms
+     × 'free_kick_close' across 'player_extended' 6ms
+     × 'free_kick_close' across 'key_match' 6ms
+     × 'free_kick_close' across 'extended_match' 8ms
+     × 'free_kick_close' across 'full_match' 6ms
+     × 'free_kick_wide' across 'key_player' 5ms
+     × 'free_kick_wide' across 'player_extended' 5ms
+     × 'free_kick_wide' across 'key_match' 5ms
+     × 'free_kick_wide' across 'extended_match' 3ms
+     × 'free_kick_wide' across 'full_match' 4ms
+     × requires an explicit indirect restart and leaves throw-ins autonomous 6ms
+     × waiting for a high delivery creates no contact lock and permits the subsequent real control 6ms
+     × clips continuous low-airborne contact to reachable foot height 5ms
+ ❯ src/core/matchSimulation/pr143.test.ts (7 tests | 3 failed) 644ms
+     × preserves decision IDs, kinds, choices, counts and the entire canonical result across all five modes 288ms
+     × delegates a genuinely forced close-down menu, but preserves distinct challenge commitments 9ms
+     × keeps a selected pass visible until canonical reception and a readable tail 4ms
+ ❯ src/core/matchSimulation/pr149Statistics.test.ts (8 tests | 4 failed) 2516ms
+     × credits the actual teammate receiver without inventing a second attempted pass 16ms
+     × counts blocked shots separately from on-target saves, without duplicating copied shot facts 5ms
+     × uses canonical live time once, excludes dead balls and halftime, and sums percentages to 100 5ms
+     × retains the incoming physical completion when a queued reception pass starts immediately 5ms
+ ❯ scripts/pr146TelemetryReference.test.ts (2 tests | 2 failed) 3899ms
+     × preserves every exported canonical telemetry field for pr146-flow-reference:a 1699ms
+     × preserves every exported canonical telemetry field for pr146-flow-reference:b 2199ms
+ ❯ src/core/matchSimulation/pr160FitnessIntegration.test.ts (6 tests | 1 failed) 4349ms
+     × continues measured high pressing through coach replacement, one lawful opportunity, lost time and incoming participation 353ms
+ ❯ src/core/matchSimulation/matchSimulation.test.ts (26 tests | 8 failed) 3664ms
+     × leads a moving receiver but keeps a stationary support target close to their feet 15ms
+     × lets an elite passer anticipate more and an aware receiver react sooner 5ms
+     × maps slots to compact, mirrored resting blocks while preserving line order 5ms
+     × offers progressive, long and genuinely leading passes plus varied carries 3ms
+     × uses identical action enumeration, policy and resolution for a selected player 10ms
+     × builds press and cover layers without dragging the cover as aggressively 5ms
+     × gives a committed primary presser a challenge-distance approach point 5ms
+     × makes perception speed and positional error attribute-driven 13ms
+ ❯ scripts/benchmarkReactiveTactics.test.ts (1 test | 1 failed) 677ms
+     × changes executed build-up/support and real AI recycling across several seeds 676ms
+ ❯ src/core/matchSimulation/pr152DisciplineCalibration.test.ts (6 tests | 5 failed) 146ms
+     × keeps ordinary standing challenges low risk across seeds while preserving accidental fouls 5ms
+     × does not infer a foul or reckless contact from a slow poke missing an inaccessible ball 1ms
+     × preserves greater risk for rear committed/sliding contact while skilled exposed-ball attempts can be clean 1ms
+     × attributes a standing yellow to genuine high-speed rear contact and still removes a second-yellow player 1ms
+     × keeps the original technique on a booking delayed until a later stoppage 1ms
+ ❯ src/core/matchSimulation/pr148Rules.test.ts (20 tests | 18 failed) 727ms
+     × rejects stale action and movement choices at either terminal state and while half time is paused 23ms
+     × a queued second yellow reducing seven to six at the final whistle preserves the abandonment result 10ms
+     × home: exactly seven can continue, seven to six stops at the canonical whistle 13ms
+     × away: exactly seven can continue, seven to six stops at the canonical whistle 7ms
+     × keeps historical statistics but removes physics, renderer and action targets 8ms
+     × a second yellow reaches the same terminal lifecycle 4ms
+     × retains the final movement tick before a physical red card, then freezes that player history 3ms
+     × jockeys covered calm circulation but still commits to a threat, exposed control or an explicit press 4ms
+     × an eager skilled defender can press calm covered possession, with issued and pending bookings suppressing that habit 4ms
+     × a close standing poke cannot win or loosen the ball without a legal ball-first contact 4ms
+     × routine defence contains at stretched reach while a skilled comfortable window and explicit poke remain available 4ms
+     × booked defenders and an already queued booking suppress ordinary risky choices 4ms
+     × all routine standing defence withdraws from rear/unsafe contact while committed actions retain risk 3ms
+     × a booked NPC can still commit when exceptional danger, temperament and late score justify it 3ms
+     × does not reopen a close unchanged contest after its short recovery timer, but releases on separation 4ms
+     × a genuinely different attacker can challenge immediately without a global lock 4ms
+     × a clean win advances possession without re-arming the close pair until a football release 52ms
+     × component ability changes a seeded distribution without removing stochastic outcomes 3ms
+ ❯ src/core/matchSimulation/matchEventFeed.test.ts (8 tests | 1 failed) 1190ms
+     × records a physical goal with the scorer, score and exact shot reference across the following kickoff 20ms
+ ❯ src/core/matchSimulation/pr162Audit.test.ts (7 tests | 3 failed) 1074ms
+     × separates unique possessions from repeated controlled final-third and box transitions 7ms
+     × counts a physical release before its later goal closes possession, without double counting the outcome 5ms
+     × attributes a release resolved in the same step before a stoppage closes the attacking sequence 4ms
+ ❯ src/core/matchSimulation/looseBallPhysics.test.ts (11 tests | 3 failed) 916ms
+     × selects a local race without collapsing either whole team 174ms
+     × turns a natural loose-ball touchline crossing into the canonical throw-in 112ms
+     × regresses lab-mtxzr4uq without an off-pitch decision or race candidate 89ms
+ ❯ src/core/matchSimulation/pr155Stability.test.ts (36 tests | 1 failed) 892ms
+     × keeps the controlled free_kick_close taker human even with a resolved gate 6ms
+ ❯ src/core/matchSimulation/matchFlowTelemetry.test.ts (7 tests | 4 failed) 703ms
+     × reattributes the original attempt to the actual queued reception without completion-only edges 169ms
+     × exports canonical shape/support data and records interaction events at their source 99ms
+     × counts each immutable pass episode and its result exactly once 84ms
+     × preserves earlier snapshots, branch independence and imported deduplication evidence 84ms
+ ❯ src/core/matchSimulation/pr147Agency.test.ts (10 tests | 9 failed) 84ms
+     × keeps harmless standing defence autonomous without adding a menu prompt 19ms
+     × offers physical slide and tactical risk only for the selected dangerous carrier 6ms
+     × passes explicit human commitment through the canonical action path 5ms
+     × uses the same canonical action path for an NPC high-risk intent 6ms
+     × waits for a physical result rather than reporting loss at intent selection 4ms
+     × removes all agency and action availability after dismissal (false) 7ms
+     × removes all agency and action availability after dismissal (true) 3ms
+     × rejects a stale selected pass to a dismissed teammate and enumerates only active targets 13ms
+     × releases a legal restart and deterministically continues with ten players and preserved records 16ms
+ ❯ src/core/matchSimulation/pr149Possession.test.ts (14 tests | 14 failed) 66ms
+     × preserves physical preparation while moving the body and ball through bounded preparation 17ms
+     × protects the actual ball away from nearby pressure and keeps phase identity stable 5ms
+     × rebases local preparation after committed carry without restarting possession readiness 4ms
+     × rebases local preparation after committed movement without restarting possession readiness 5ms
+     × does not turn an accepted human hold into more first-touch/body-adjustment menus 4ms
+     × records height, concentration and weak-side contact as separate canonical quality costs 3ms
+     × usually controls an easy professional pass and deteriorates with speed, pressure and orientation 3ms
+     × lets a prepared professional cushion a firm ordinary ground pass 5ms
+     × keeps a forward directional touch when the receiver faces back toward the passer 3ms
+     × records the actual successful teammate receiver even when the intended target differs 3ms
+     × rebases 45-skill recovery after a 12 m/s poor touch when still_recovering 3ms
+     × rebases 10-skill recovery after a 18 m/s poor touch when recovery_elapsed 3ms
+     × passes incoming physical evidence through a 45-skill 12 m/s contact and creates heavy_touch recovery 3ms
+     × passes incoming physical evidence through a 10-skill 18 m/s contact and creates failed_control recovery 3ms
+ ❯ scripts/calibrationShotFunnel.test.ts (1 test | 1 failed) 330ms
+     × releases every supported family and repeats the same physical outcomes for fixed fixtures 329ms
+ ❯ src/core/matchSimulation/pr159RestartContinuity.test.ts (23 tests | 2 failed) 239ms
+     × starts the second half with an away kickoff and preserves bodies until physical release 11ms
+     × records overlapping reasons once and preserves timestamps across a save round trip 5ms
+ ❯ src/core/matchSimulation/pr131.test.ts (7 tests | 3 failed) 646ms
+     × gives an oriented receiver preparation margin and a controllable support arrival 18ms
+     × never turns a ball-carrier space click into an off-ball run, including beyond 15 m 6ms
+     × recovers an already-outside loose ball into a restart instead of clamping it 9ms
+ ❯ src/core/matchSimulation/pr147Rules.test.ts (36 tests | 36 failed) 70ms
+     × uses the canonical orientation for horizontal and vertical ball access 8ms
+     × classifies rear contact in both canonical axes as a dangerous opponent-first slide 3ms
+     × wins a standing challenge only after reaching the accessible ball 2ms
+     × records a miss when the opponent escapes an accepted approach 2ms
+     × executes a clean slide through the same resolver and canonical timing 2ms
+     × makes a mistimed slide an actual opponent-first foul 2ms
+     × permits an accidental foul from ordinary low-risk defence 2ms
+     × a tactical intent still misses when it cannot contact its opponent 2ms
+     × ranks canonical defensive intent identically when human agency is suppressed 1ms
+     × NPC high-risk intent enters the same canonical physical resolver 2ms
+     × an ordinary NPC approach can foul and award a restart in the complete tick 1ms
+     × committed reckless physical contact books the player and restarts during full ticks 1ms
+     × does not steal another player's ball when the original opponent has passed 2ms
+     × an NPC challenge preserves the human's independent movement intent 2ms
+     × ends the original throw release on a clean first physical touch before an ordinary pass 2ms
+     × ends the throw restriction on a heavy physical first touch before actual recovery 1ms
+     × keeps the released throw and its physical restriction while no other player touches it 1ms
+     × shows a yellow card for a reckless infringement 2ms
+     × does not book the same canonical contact twice 1ms
+     × a second yellow dismisses the player from physics and keeps the canonical identity 2ms
+     × excessive force is a straight red, including a ball-first contact 2ms
+     × a dismissed keeper has one deterministic emergency replacement and legal restart geometry 2ms
+     × classifies a tactical denial of an obvious goal-scoring opportunity 1ms
+     × uses the actual outside-area infringement point for the same free-kick lifecycle 1ms
+     × defending-team penalty-area contact produces a penalty at the canonical spot 1ms
+     × allows useful attacking possession and realizes advantage on forward progress 1ms
+     × recalls failed immediate advantage at the original point without resetting time 1ms
+     × retains a delayed card after realized advantage until the next stoppage 2ms
+     × merges delayed discipline into the natural stoppage without counting advantage play as dead ball 4ms
+     × applies a delayed card when the advantage is recalled 2ms
+     × a second-yellow dismissal occurs at the stoppage after advantage, preserving ten active players 2ms
+     × a later whistle explicitly closes the earlier advantage and shows its queued card once 2ms
+     × canonical tick entry points agree and bookkeeping passes the runtime schema 2ms
+     × finishes a pending challenge at half time without carrying it into the second half 2ms
+     × settles an existing advantage and delayed card at the canonical period stoppage 2ms
+     × does not start a new advantage while the referee is finishing the period 1ms
+ ❯ src/core/matchSimulation/pr140.test.ts (3 tests | 3 failed) 377ms
+     × reuses a tactical plan between cadence boundaries and invalidates on possession semantics 176ms
+     × fast entry is canonical after the exact agency probe found no decision 108ms
+     × keeps a human outcome window open while canonical action resolution is pending 91ms
+ ❯ src/core/matchSimulation/spatialHardening.test.ts (4 tests | 4 failed) 436ms
+     × uses ball and second-last opponent, and does not continuously re-evaluate a legal run 155ms
+     × flags only an involved attacker and exempts a goal kick 96ms
+     × is deterministic, immutable and follows diagonal velocity within its horizon 85ms
+     × does not invent a large lead for a stationary runner and prices defender arrival 99ms
+ ❯ src/core/matchSimulation/pr182Comparison.test.ts (2 tests | 2 failed) 252ms
+     × preserves complete squads, formations, preferences and explicit roles across all five policies 152ms
+     × exports compact canonical totals with identity, observed scope, roles and errors 98ms
+ ❯ src/app/match/tacticalRenderer/animation.test.ts (50 tests | 21 failed) 58ms
+     × preserves canonical preparation and ball placement in live, hidden context and event replay 6ms
+     × gives recorded burst carry precedence over historical preparation 3ms
+     × gives recorded shield carry precedence over historical preparation 2ms
+     × preserves a real ball between contacts while the carrier turns in live, hidden and replay frames 2ms
+     × uses the actual incoming receiver and contact time when a new pass diagnostic is already active 1ms
+     × preserves canonical settled shot evidence in visible and historical frames 2ms
+     × preserves canonical first_time shot evidence in visible and historical frames 1ms
+     × preserves canonical half_volley shot evidence in visible and historical frames 1ms
+     × preserves canonical volley shot evidence in visible and historical frames 1ms
+     × preserves canonical header shot evidence in visible and historical frames 1ms
+     × observes pass release once without changing the ball 1ms
+     × observes cross release once without changing the ball 1ms
+     × observes shot release once without changing the ball 4ms
+     × observes header release once without changing the ball 1ms
+     × projects throw setup and release without creating an alternate trajectory 2ms
+     × observes reception and aerial winners/contestants rather than guessing from possession 1ms
+     × uses canonical keeper contact height 0.3 1ms
+     × uses canonical keeper contact height 1.8 1ms
+     × never changes canonical results when rendering at different FPS or seeking poses 1ms
+     × distinguishes keeper ready, moving, claim and distribution without inventing a save 1ms
+     × projects a canonical aerial claim as a catch and expires it without replaying stale evidence 1ms
+ ❯ src/core/matchSimulation/shotResolver.test.ts (9 tests | 9 failed) 20ms
+     × is seed deterministic while different seeds alter execution error 6ms
+     × classifies goal-plane geometry, including wide, over and frame contacts 2ms
+     × does not pre-resolve defenders before the physical flight 2ms
+     × routes a header shot through the same flight and keeps continuations finite 2ms
+     × creates different launch energy, lateral curvature and topspin through the shared solver 2ms
+     × keeps set-piece skill and the vertical demand of dipping strikes in execution error 1ms
+     × widens the distribution with pressure, awkward orientation and difficult contacts 1ms
+     × improves with finishing/composure and worsens with distance, angle and weak-foot contact 1ms
+     × lets ordinary seeded attempts miss while close elite finishes remain concentrated 1ms
+ ❯ src/core/matchSimulation/pr144Agency.test.ts (13 tests | 13 failed) 25ms
+     × opens human possession at the canonical contact of a selected receive 7ms
+     × keeps every terminal action human-owned after a carry cooldown expires 2ms
+     × consumes ownership on an explicitly selected terminal release and on canonical loss/restart 2ms
+     × lets an NPC shoot a low incoming ball without first awarding settled possession 2ms
+     × executes a selected human half-volley at its actual airborne contact point 1ms
+     × executes the human-selected header through real aerial contact and shared shot physics 1ms
+     × keeps a selected high receive in flight until foot contact instead of heading a shot 1ms
+     × resolves headed shooting feedback only from a fresh completed shot 1ms
+     × prompts near the selected waypoint and after overshoot, even during physical resolution 1ms
+     × interrupts a selected carry immediately for a rushing keeper and allows the next choice 1ms
+     × interrupts for major pressure, a newly open shot lane, and entering the penalty area 2ms
+     × ignores minor changes and latches offered zone/keeper families through repeated selections 2ms
+     × produces the same possession sequence for the same seed and human carry choices 1ms
+ ❯ src/core/matchSimulation/cooperativePressPhysics.test.ts (8 tests | 8 failed) 19ms
+     × turns a safe home double press into canonical contact against prolonged shielding 6ms
+     × turns a safe away double press into canonical contact against prolonged shielding 2ms
+     × lets a safety-vetted partner access the ball while the nearest body remains locked 2ms
+     × closes the primary screen through ordinary containment when it initially stands farther away 2ms
+     × preserves central cover behind a wide carrier using the line toward the goal centre 2ms
+     × keeps ordinary central scanning contained while deliberate retention and remembered pressure can recruit support 2ms
+     × keeps the secondary on a dangerous receiver when its mark cannot be inherited 1ms
+     × recruits a fresh safe player after the earlier secondary already joined the same possession duel 1ms
+ ❯ src/core/matchSimulation/ballContactGeometry.test.ts (13 tests | 13 failed) 25ms
+     × transforms foot regions in pitch metres consistently 6ms
+     × a body rotation between contacts cannot rotate or teleport a stationary ball 2ms
+     × unpressured moving control uses repeated physical contacts and one public control episode 2ms
+     × Technique, Dribbling and Agility continuously shorten a difficult second-contact preparation 2ms
+     × a next-contact plan misses a ball outside actual foot reach and creates recoverable loose control 2ms
+     × a defender can legally intervene between two planned carrier contacts 1ms
+     × shielding depends on front, side and back access and the second defender has an independent opportunity 1ms
+     × a reachable ball on the rear side may be contacted without going through the torso 1ms
+     × Strength resists actual protecting body contact and changes the ensuing physical touch trajectory 1ms
+     × identical selected standing/committed contacts preserve human/NPC source and controlled-identity physical parity 1ms
+     × selected elite push-and-run creates genuine displacement through the canonical engine 2ms
+     × an elite two-contact rotation can keep control and escape through real displacement 1ms
+     × a low-skill turn can fail through the canonical pressure/contact lifecycle 1ms
+ ❯ src/app/match/matchLabDiagnostics.test.tsx (3 tests | 3 failed) 368ms
+     × notifies only actual renderer lifecycle changes, so successful frames cannot render recursively 157ms
+     × closes the old canonical clock before starting a scenario segment 111ms
+     × keeps a React failure visible and freezes downloadable past-only evidence 99ms
+ ❯ src/core/matchSimulation/shootingOptions.test.ts (27 tests | 27 failed) 39ms
+     × offers under-wall risk without ordering a jump, and hides physically impossible gaps 6ms
+     × does not offer spin profiles for indirect restarts or high under-wall targets 2ms
+     × keeps legally direct keeper goal-kick attempts beyond open-play range available 2ms
+     × retains a penalty chip without requiring the keeper to leave the goal line 2ms
+     × offers mechanically separate settled styles and promotes chip for a rushing keeper 1ms
+     × uses canonical height 0.11 and bounces 0 for first_time foot contact 1ms
+     × uses canonical height 0.11 and bounces 2 for first_time foot contact 1ms
+     × uses canonical height 0.4 and bounces 1 for half_volley foot contact 1ms
+     × uses canonical height 0.95 and bounces 0 for volley foot contact 1ms
+     × offers a header only at physically reachable aerial height, never teleports contact 1ms
+     × uses body orientation, incoming speed, weaker foot and ability in first-time execution 1ms
+     × exposes precisely the same settled goal family to a human and AI 1ms
+     × exposes the same incoming family and allows an NPC to choose and execute first time 1ms
+     × projects incoming finishing before arrival using the committed physical flight 1ms
+     × uses the NPC incoming choice inside the sole match simulation before a settled control 1ms
+     × executes an NPC finish at real aerial height 0.4 1ms
+     × executes an NPC finish at real aerial height 0.95 1ms
+     × executes an NPC finish at real aerial height 1.8 1ms
+     × preserves a human first-time selection and its original decision height until physical contact 1ms
+     × does not replace a human control with an autonomous terminal aerial finish 1ms
+     × a released headed shot remains one canonical shot as the ball leaves the contact envelope 1ms
+     × rejects a hand-constructed nearby header against an already launched canonical shot 1ms
+     × revalidates changed geometry and never allows a settled technique at volley contact 1ms
+     × keeps power, placement and chip physically distinct even when a chip is aimed at grass 1ms
+     × preserves loft over low goal targets, distances, seeds and both attack directions 1ms
+     × records validated style, contact, intent, error, launch and final keeper/outcome evidence 1ms
+     × same seed and same shot choices reproduce the canonical launch and trajectory 1ms
+ ❯ src/core/matchSimulation/pr157Pressing.test.ts (12 tests | 12 failed) 23ms
+     × isolates aggression commitment and makes a booking a contextual risk shift 7ms
+     × aggression does not improve identical physical contact; tackling independently improves outcomes 2ms
+     × safe cover permits engagement, poor cover delays, and immediate danger justifies risk 2ms
+     × a cautious defender closes immediate goal danger when booked=false but retains safe contact selection 1ms
+     × a cautious defender closes immediate goal danger when booked=true but retains safe contact selection 1ms
+     × targets the exposed ball shoulder rather than stopping outside the physical resolver 1ms
+     × takes an attainable standing contact before a slower high-risk action even at maximum aggression 1ms
+     × reserves prepared contact for exposed control at the physical contact time 1ms
+     × a stationary pressured control stays dynamically responsive at aggression 30 1ms
+     × a stationary pressured control stays dynamically responsive at aggression 90 1ms
+     × changes the evasion route using incoming momentum while preserving the chosen destination 1ms
+     × preserves complementary local support and remote defensive structure 1ms
+ ❯ src/core/matchSimulation/pr183Realism.test.ts (16 tests | 14 failed) 292ms
+     × retains a healthy equal-strength opening XI and a slightly better reserve 6ms
+     × does not double-count a recoverable burst deficit as role unsuitability 2ms
+     × allows an actual injury replacement in minute three 1ms
+     × reorganises a minute-two dismissal without trying to replace the dismissed player 1ms
+     × allows a severe observed mismatch early instead of imposing a minute ban 1ms
+     × prices repeated dangerous exposure of a booked player from actual challenge evidence 1ms
+     × values significant late fatigue and a suitable halftime replacement 1ms
+     × preserves scarcity, marginal batch cost and the absence of a suitable reserve 1ms
+     × keeps ordinary recycling and build-up as legal tactical states 2ms
+     × moves toward a credible uncovered central/diagonal threat, wide=false 2ms
+     × moves toward a credible uncovered central/diagonal threat, wide=true 1ms
+     × holds ordinary shape when a defender can immediately cover or no attacker owns the ball 1ms
+     × reads human attackers identically and preserves explicit keeper control 1ms
+     × leaves an out-of-play ball to the boundary resolver, without an invalid arrival target 1ms
+ ❯ src/core/matchSimulation/pr150Statistics.test.ts (1 test | 1 failed) 155ms
+     × does not change pass target rankings merely because a teammate is human-controlled 154ms
+ ❯ src/core/matchSimulation/pr152Turnovers.test.ts (17 tests | 17 failed) 28ms
+     × 1. completes a clean pass with one attempt, one actual reception and no loss 6ms
+     × 2. attributes a controlled lane interception to the original passer 2ms
+     × 3. separates a displaced inaccurate pass collected by an opponent from a lane interception 2ms
+     × 4/5. preserves pass_out over the touchline before the opponent { x: 52, y: 67.95 } 2ms
+     × 4/5. preserves pass_out over the goal line before the opponent { x: 104.95, y: 10 } 1ms
+     × 6. credits 55-skill 4 m/s failed reception loss to the receiver as heavy_touch 1ms
+     × 6. credits 10-skill 18 m/s failed reception loss to the receiver as failed_control 1ms
+     × 7. attributes a standing tackle to the challenger and counts the loss once 1ms
+     × 8. distinguishes a loose-ball recovery without a pass or challenge 1ms
+     × 9. keeps a foul free kick separate from possession loss and counts bookkeeping only as an award 1ms
+     × does not count a defender deflection or keeper parry as controlled possession 1ms
+     × retains shot cause through a later parry rebound recovery 1ms
+     × retains shot cause through a later block rebound recovery 1ms
+     × records physical keeper saves and retains shot lineage at handling 0 1ms
+     × records physical keeper saves and retains shot lineage at handling 100 1ms
+     × closes removed-player episodes and freezes later playing statistics while preserving entry time 1ms
+     × does not create a loss merely by releasing a shot or recording an own-team rebound 1ms
+ ❯ src/core/matchSimulation/pr164RestartIntegrity.test.ts (5 tests | 5 failed) 14ms
+     × releases every physically available profile toward home without self-invalidation 6ms
+     × releases every physically available profile toward away without self-invalidation 2ms
+     × waits for the real wall, records permission and freezes canonical time during human input 2ms
+     × preserves the quick-kick exception while opponents are still retreating 2ms
+     × offers techniques only for the selected goal target and the Easter egg only for a real wall 1ms
+ ❯ src/core/matchSimulation/actionEvents.test.ts (5 tests | 5 failed) 14ms
+     × records the actual pass release once, with stable IDs, actor and physical origin 6ms
+     × keeps event memory bounded by capacity and canonical age throughout a long stream 2ms
+     × dates a new reception independently of a stale earlier pass 2ms
+     × shows physical heavy touch then opponent recovery before any meaningful prompt 2ms
+     × leaves the complete deterministic canonical state identical with presentation observation 1ms
+ ❯ src/core/matchSimulation/pr148Cadence.test.ts (14 tests | 13 failed) 23ms
+     × does not infer touches from provenance updates or unchanged copied reception evidence 6ms
+     × counts one meaningful carry contact after movement, never ticks or intent selection 2ms
+     × retains exact dismissal minutes and rejects all observer work after termination 2ms
+     × keeps a scanning owner still while allowing an explicit carry to move the ball 1ms
+     × jockeys a controlled owner with defensive cover instead of creating a routine tackle 1ms
+     × closes down a consciously held ball and restores agency on physical pressure 1ms
+     × contains a completed duel instead of running back into its locked opponent 1ms
+     × does not sprint nearby formation players merely because a pass is in flight 1ms
+     × accounts every integrated metre once across speed categories and preserves touch provenance 1ms
+     × values brief scanning but releases after scanning finishes instead of renewing hold forever 1ms
+     × keeps a last-resort shield preferable to unsafe passes or running into elite markers 1ms
+     × waits for ordinary scanning but allows pressured and transition possession to play quickly 1ms
+     × penalizes unchanged immediate returns while preserving forward wall-pass value 1ms
+ ❯ src/core/matchSimulation/pr148Agency.test.ts (16 tests | 16 failed) 44ms
+     × surfaces a near-best line-breaking outlet even when recycling ranks first 8ms
+     × keeps short recycling and forward passes without a defensive line routine 3ms
+     × recognizes distinct competitive forward receivers within one action family 2ms
+     × retains the same midfield decision and canonical state across every viewing policy 2ms
+     × measures a line adjustment against the moving team block 2ms
+     × distinguishes a safely covered interception from an uncovered step out 2ms
+     × preserves dangerous receivers and protected runners even with another defender covering 2ms
+     × keeps a harmless %.1f m close-down autonomous 2ms
+     × keeps a harmless %.1f m close-down autonomous 2ms
+     × commits a canonical DEV-ranked hold without opening another menu on the next tick 2ms
+     × retains a delegated hold until a substantial physical situation changes 2ms
+     × treats a delegated carry as one committed destination and resurfaces its waypoint 3ms
+     × does not let a physically available speculative shot bypass the resolved-situation gate 3ms
+     × preserves half_time state on a stale DEV selection 2ms
+     × preserves full_time state on a stale DEV selection 3ms
+     × preserves abandoned state on a stale DEV selection 2ms
+ ❯ src/core/matchSimulation/pr164OffsideReplay.test.ts (2 tests | 2 failed) 255ms
+     × retains the actual home pass frame after later bodies move 156ms
+     × retains the actual away pass frame after later bodies move 98ms
+ ❯ src/app/match/tacticalRenderer/actionFeedback.test.ts (8 tests | 2 failed) 260ms
+     × reveals events between recorded samples exactly at canonical time in replay and lead-in 152ms
+     × retains pre-dismissal history and removes the actor at the canonical card boundary 97ms
+ ❯ src/core/matchSimulation/pr145Passing.test.ts (28 tests | 28 failed) 43ms
+     × rolls through the declared target without a scripted contact or speed reduction 6ms
+     × preserves an unclaimed aerial flight at horizontal speed 8 2ms
+     × preserves an unclaimed aerial flight at horizontal speed 0.1 2ms
+     × ends a grounded delivery at rest without fabricating reception contact 2ms
+     × predicts forward along movement despite opposite body facing 1ms
+     × predicts diagonal along movement despite opposite body facing 1ms
+     × predicts winger down touch along movement despite opposite body facing 1ms
+     × predicts striker across box along movement despite opposite body facing 1ms
+     × keeps a stationary receiver at feet and reclassifies absent path intent 1ms
+     × uses support for checking toward the passer in both human and AI menus 1ms
+     × clips an outward path legally while keeping the along-channel movement 1ms
+     × does not label a slow check-back as lead when its tactical target still points forward 1ms
+     × solves a selected lofted path pass against its aerial arrival instead of a ground ETA 1ms
+     × launches from the real ball contact point when it is ahead of the passer body 1ms
+     × shares meeting geometry between human and autonomous releases without duplicate ground path options 1ms
+     × starts the home throw preset on its canonical touchline 1ms
+     × starts the away throw preset on its canonical touchline 1ms
+     × directs human_selected release to its selected legal teammate 1ms
+     × directs autonomous_npc release to its selected legal teammate 1ms
+     × delivers to the selected teammate through actual canonical contact 1ms
+     × tracks receiver movement between selection and release 1ms
+     × uses one legal fallback when the selected receiver disappears 1ms
+     × rejects self throws and carry without consuming the restart 1ms
+     × excludes the thrower from immediate loose-ball ownership and actions 1ms
+     × does not clear the restriction merely because a selected high reception is waiting for foot height 1ms
+     × preserves a controlled receiver selection and terminal ownership during released throw play 1ms
+     × clears the restriction after any other contact, including an immediate opponent contest 1ms
+     × uses a legal autonomous receiver and keeps restriction past presentation restart expiry 1ms
+ ❯ src/core/matchSimulation/pr182PolicyIntegration.test.ts (9 tests | 8 failed) 39ms
+     × preserves human authority and physical parity before NPC re-selection: legacy-pr176 3ms
+     × preserves human authority and physical parity before NPC re-selection: state-value-v1 2ms
+     × preserves human authority and physical parity before NPC re-selection: role-value-v1 1ms
+     × preserves human authority and physical parity before NPC re-selection: role-intent-v1 1ms
+     × preserves human authority and physical parity before NPC re-selection: phase-role-hybrid-v1 1ms
+     × preserves human authority and physical parity before NPC re-selection: opportunity-driven-v1 1ms
+     × preserves human authority and physical parity before NPC re-selection: hierarchical-intent-v1 1ms
+     × preserves human authority and physical parity before NPC re-selection: contextual-judgment-v1 1ms
+ ❯ src/core/matchSimulation/playerArrival.test.ts (2 tests | 2 failed) 268ms
+     × ranks existing momentum toward, stationary, and away from the target 165ms
+     × lets agility reduce the cost of a large direction change without consuming RNG 102ms
+ ❯ src/core/matchSimulation/locomotion.test.ts (2 tests | 2 failed) 272ms
+     × distinguishes structural adjustment, depth sprint, and contain deterministically 169ms
+     × uses pace for sprint capability and keeps jog clearly below sprint 102ms
+ ❯ src/core/matchSimulation/matchMoment.test.ts (5 tests | 5 failed) 15ms
+     × reuses exact negative agency probes without changing the projected moment 6ms
+     × reuses positive and negative agency probes for the same controlled-player state 2ms
+     × keeps routine midfield circulation low and is side-effect free 2ms
+     × surfaces a shot without requiring controlled-player involvement 2ms
+     × treats penalties as very important and ordinary throw-ins as routine 2ms
+ ❯ src/core/matchSimulation/aerialPlay.test.ts (9 tests | 8 failed) 18ms
+     × makes crosses parametric airborne travel and renders only core height 6ms
+     × uses the same deterministic resolver for protagonist and NPC 2ms
+     × permits seed variation without making superior aerial skill a guarantee 2ms
+     × routes direct corners, wide free kicks and long goal kicks through airborne travel 2ms
+     × releases throw-ins from hand height on a shallow canonical aerial trajectory 1ms
+     × allows reachable keeper claims/punches but rejects remote crosses 1ms
+     × prioritises tactical second-ball roles and resolves all dead-ball boundaries 1ms
+     × keeps canonical coordinates finite and schema-valid through an aerial sequence 1ms
+ ❯ src/core/matchSimulation/ballAcquisition.test.ts (6 tests | 6 failed) 16ms
+     × a ready nomination at 2.06 m keeps pursuing instead of creating a false claim and loss 6ms
+     × a 1.2 m nomination reaches the ball through canonical movement and starts exactly one public touch 2ms
+     × a 2.06 m nomination reaches the ball through canonical movement and starts exactly one public touch 2ms
+     × a reachable ready acquisition still secures, while height invalidates a ground-foot claim 2ms
+     × a future nomination yields to a reachable rival with their own preparation and no early random draw 2ms
+     × an unavailable ground contact neither consumes RNG nor lets a restricted thrower replace the nominee 1ms
+ ❯ src/core/matchSimulation/teamThreatMemory.test.ts (11 tests | 11 failed) 21ms
+     × reacts to repeated losses with a lower block, short support and safer actual action scores 6ms
+     × records real canonical press wins and moves the adapted team through normal locomotion 2ms
+     × retains normal carry/progression utility and forward options once stored danger is no longer nearby 2ms
+     × decays evidence and relaxes responses after persistence without flipping on each tick 1ms
+     × observes dangerous losses in released GK build-up and excludes restart setup 1ms
+     × does not mistake a keeper claiming a shot for the stale last passer losing build-up possession 1ms
+     × keeps a long carry to one entry/line observation and reproduces the same responses 1ms
+     × derives bounded conservatism from mismatch/territory and late game state, retaining attacking outlets 1ms
+     × recruits a second presser when shielding/slow control has goal cover and normal targets close down 2ms
+     × declines a double press when the second defender would abandon a dangerous receiver or the last cover 1ms
+     × does not chase a fast unconfined carrier or assign a sent-off defender 1ms
+ ❯ src/core/matchSimulation/firstTouch.test.ts (0 test)
+ ❯ src/core/matchSimulation/pr150Interactions.test.ts (1 test | 1 failed) 166ms
+     × offers play into space only where a teammate can reach without changing the clicked goal 165ms
+ ❯ src/core/pr166PlayStyles.test.ts (13 tests | 6 failed) 164ms
+     × progressive_passer: contextual preparation relief has a small deterministic bound 5ms
+     × goalkeeper_distributor: contextual preparation relief has a small deterministic bound 1ms
+     × calm_finisher: contextual preparation relief has a small deterministic bound 1ms
+     × between_the_lines: contextual preparation relief has a small deterministic bound 1ms
+     × engine improves late low-work recovery while real exertion remains equal 1ms
+     × ball winner modestly anticipates a nearby moving carrier through the real pressing plan 1ms
+ ❯ src/app/match/tacticalRenderer/restartPresentation.test.ts (1 test | 1 failed) 149ms
+   × projects the anchored restart spot, actual ball, selected delivery and wall without changing physics 149ms
+ ❯ src/app/match/matchBenchmarkReport.test.ts (4 tests | 1 failed) 149ms
+     × exports cheap canonical participation in normal mode without claiming detailed observer coverage 140ms
+ ❯ src/core/matchSimulation/passReceptionSpin.test.ts (1 test | 1 failed) 147ms
+   × moves a prepared reception objective with the actual curved flight without altering the ball 146ms
+ ❯ src/core/matchSimulation/pr160Timekeeping.test.ts (17 tests | 17 failed) 28ms
+     × does not add time for an ordinary short restart or uninterrupted play 6ms
+     × qualifies actual goal delay 2ms
+     × qualifies actual substitution delay 2ms
+     × qualifies actual injury delay 1ms
+     × qualifies actual discipline delay 1ms
+     × counts abnormal restart delay and overlapping reasons once, respecting reason onset 1ms
+     × keeps announced minimum immutable and extends only for further qualifying added-time loss 1ms
+     × does not lose aggregate qualified time when bounded interval retention discards old records 1ms
+     × gives the second half its own full duration and own allowance after first-half added time 1ms
+     × completes a scored terminal penalty in 'first_half' without creating kickoff 1ms
+     × completes a scored terminal penalty in 'second_half' without creating kickoff 1ms
+     × waits for a physically unready terminal penalty instead of cancelling or executing it 1ms
+     × completes a terminal miss at the actual boundary and a caught save when the ball is held 1ms
+     × keeps a moving keeper failed-save block live but ends on a subsequent nonkeeper contact 1ms
+     × removes an injured body after a terminal parry while preserving its rebound through genuine completion 1ms
+     × extends a retake and ignores the preceding completed kick 1ms
+     × finishes an already released shot but gives no automatic extension to an unreleased attack 1ms
+ ❯ src/core/matchSimulation/pr152Statistics.test.ts (15 tests | 15 failed) 33ms
+     × counts a committed attempt once while pending and its successful result once after a same-tick release 9ms
+     × keeps interceptions, recoveries, blocks and aerial duels separate from tackle results 2ms
+     × cannot manufacture a successful tackle from claim ownership or an unsupported legacy tackle label 2ms
+     × resumes old possession ledgers without replaying stale acquisition facts 2ms
+     × migrates old challenge ledgers without replaying an already counted clean tackle 2ms
+     × counts each canonical restart award once, without recording setup ownership as a touch 2ms
+     × migrates absent historical team totals after legacy schema parsing and counts later awards once 1ms
+     × credits actual released goal_kick flight as live possession before another player touches it 2ms
+     × credits actual released gk_short flight as live possession before another player touches it 1ms
+     × credits actual released throw_in flight as live possession before another player touches it 2ms
+     × credits actual released free_kick_far flight as live possession before another player touches it 1ms
+     × excludes the scored-goal completion pause despite retaining an open-play scenario 1ms
+     × allows repeated carries in one possession and records recovery then shot as one episode 1ms
+     × keeps interception then multiple carries and a pass within one possession episode 1ms
+     × merges a first-time reception and pass release into one episode with coherent incoming/outgoing edges 1ms
+ ❯ src/core/matchSimulation/tacticalSituations.test.ts (6 tests | 6 failed) 37ms
+     × validates declarative definitions and produces deterministic role targets 15ms
+     × enforces kick-off and goal-kick setup laws 4ms
+     × gives every restart a taker, role graph and executable motive 5ms
+     × creates limited short pressure and layered long distribution roles 5ms
+     × builds a finite free-kick wall from the available sparse defensive roster on either side 3ms
+     × derives finite ephemeral shape diagnostics and keeps random out of match core 3ms
+ ❯ src/core/matchSimulation/pr145Agency.test.ts (10 tests | 10 failed) 21ms
+     × delegates routine close-down and a harmless nearby challenge 6ms
+     × keeps a small ordinary interception/line adjustment autonomous 2ms
+     × uses earlier teammate ETA to leave the controlled player in their defensive role 2ms
+     × respects a teammate standing earlier in the actual lane even far from its later endpoint 2ms
+     × offers the genuine best interceptor a meaningful dangerous-space choice 1ms
+     × offers contain versus committed challenge against a dangerous receiver 1ms
+     × does not reopen a defensive choice for unrelated AI decision indices or tiny geometry changes 1ms
+     × never treats an opponent delivery or another teammate target as a controlled reception 1ms
+     × uses normal preparation for routine shielding and restores terminal attacking agency afterward 1ms
+     × does not use pressure by itself to classify safe midfield recycling as a human decision 2ms
+ ❯ src/core/matchSimulation/pr138.test.ts (9 tests | 8 failed) 19ms
+     × surfaces a controlled throw-in in key_player and permits explicit DEV delegation 6ms
+     × explicitly delegates DEV incoming_ball to canonical autonomy 2ms
+     × explicitly delegates DEV off_ball_run to canonical autonomy 2ms
+     × explicitly delegates DEV defensive_response to canonical autonomy 2ms
+     × explicitly delegates DEV goalkeeper_response to canonical autonomy 1ms
+     × explicitly delegates DEV loose_ball to canonical autonomy 1ms
+     × uses the canonical restart watchdog only after a pathological controlled stall 1ms
+     × is presentation-only and does not mutate authoritative input 1ms
+ ❯ src/core/pr160CareerFitness.test.ts (5 tests | 2 failed) 86ms
+     × persists actual workload condition and outgoing minutes without changing attributes or unused bench 80ms
+     × both world resolvers expose insufficient rest and an adapter uses it at the next kickoff 2ms
+ ❯ src/core/matchSimulation/pr157Integrity.test.ts (5 tests | 5 failed) 15ms
+     × incoming=false retainedLedger=false 6ms
+     × incoming=true retainedLedger=false 2ms
+     × incoming=false retainedLedger=true 3ms
+     × incoming=true retainedLedger=true 2ms
+     × a deliberately held controlled ball develops physical pressure and returns its next genuine choice 2ms
+ ❯ src/core/matchSimulation/goalkeeperIntervention.test.ts (10 tests | 10 failed) 21ms
+     × reads canonical spin when projecting the keeper contact point 6ms
+     × gives the keeper substantially more response time on the same distant trajectory 2ms
+     × penalizes facing away from the ball without changing the trajectory 2ms
+     × does not turn the last forecast sample into a fake off-pitch contact 2ms
+     × consumes reaction delay from release instead of restarting it on every tick 2ms
+     × does not lose already-earned reaction time as a reachable shot approaches 1ms
+     × turns an ordinary central reachable shot into a live physical save contact 1ms
+     × gives a slower ordinary shot more intervention time than a powerful close attempt 1ms
+     × cannot save a physically unreachable shot and records goals without fake keeper contact 1ms
+     × physically deflects a close shot through the unreacted keeper body without inventing a save 1ms
+ ❯ src/core/matchSimulation/pr134.test.ts (4 tests | 2 failed) 10ms
+     × automatically releases a controlled throw-in when only one receiver is legal 5ms
+     × surfaces a controlled throw-in when several receivers are legal 2ms
+ ❯ src/app/match/pr170Hud.test.tsx (2 tests | 2 failed) 4ms
+     × uses canonical contextual targets, exposes pitch coordinates and emits only a presentation selection 2ms
+     × dismisses a canonical transition without changing time, score, positions or invoking a commit 0ms
+ ❯ src/core/matchSimulation/shootingDifficulty.test.ts (12 tests | 12 failed) 28ms
+     × crosses the sampled horizontal target at the real goal plane for angled strikes 8ms
+     × resolves a physical touchline escape before a later goal-plane miss and preserves the shot identity 2ms
+     × preserves an already resolved save if a recovered flight later leaves the touchline 2ms
+     × preserves an already resolved block if a recovered flight later leaves the touchline 2ms
+     × keeps a missing primary finishing skill consequential with other skills held fixed 2ms
+     × uses composure specifically for pressure rather than universal placement quality 2ms
+     × makes technique particularly useful for airborne contact and turning, with intrinsic demand independent of skill 1ms
+     × uses heading as the primary header skill without inheriting finishing 1ms
+     × has continuous range, angle, turn, ball speed/height, weak-foot and blocker demand 1ms
+     × allows poor point-blank successes and elite difficult misses through the same seeded resolver 1ms
+     × does not let goalkeeper attributes alter either shot or header trajectories 1ms
+     × keeps blocker execution demand continuous across the historical reporting lane cutoff 1ms
+ ❯ src/core/matchSimulation/playerMatchStats.test.ts (17 tests | 17 failed) 30ms
+     × counts reception, carry samples, shielding and release as one public control episode 7ms
+     × starts a controlled public episode on recovery while retaining unsuccessful contact separately 2ms
+     × moves exactly one attempt to an unintended actual receiver and preserves intended evidence 2ms
+     × never reports an own recovery as a self pass 2ms
+     × reuses inert whole-match histories and preserves earlier snapshots on a new event 1ms
+     × indexes a large unchanged contact ledger once instead of scanning it every tick 1ms
+     × counts one release and one intended reception even without an ownership transition 1ms
+     × never creates a reception/network completion from an intercepted pass 1ms
+     × merges first-time reception, ownership and shot evidence into one physical contact 1ms
+     × records failed-control contact but never a completed reception 1ms
+     × counts separate failed receptions at the same point after preparation has been cleared 1ms
+     × counts a substep keeper catch once when ownership also changes at the tick boundary 1ms
+     × requires physical contact evidence before crediting a claimed pass completion 1ms
+     × counts a carry intent once across copied snapshots and subsequent off-ball decisions 1ms
+     × presentation projections cannot change contact statistics or canonical snapshots 1ms
+     × attributes one assist after normal scorer possession and never double counts the goal 1ms
+     × invalidates the provider after controlled opponent possession 1ms
+ ❯ src/core/matchSimulation/pr159RestartOptions.test.ts (15 tests | 15 failed) 26ms
+     × home free_kick_wide retains ordinary direct shots and offers only supported chips 6ms
+     × home corner retains ordinary direct shots and offers only supported chips 2ms
+     × home goal_kick retains ordinary direct shots and offers only supported chips 2ms
+     × home gk_short retains ordinary direct shots and offers only supported chips 1ms
+     × home kick_off retains ordinary direct shots and offers only supported chips 1ms
+     × home penalty retains ordinary direct shots and offers only supported chips 1ms
+     × away free_kick_wide retains ordinary direct shots and offers only supported chips 1ms
+     × away corner retains ordinary direct shots and offers only supported chips 1ms
+     × away goal_kick retains ordinary direct shots and offers only supported chips 1ms
+     × away gk_short retains ordinary direct shots and offers only supported chips 1ms
+     × away kick_off retains ordinary direct shots and offers only supported chips 1ms
+     × away penalty retains ordinary direct shots and offers only supported chips 1ms
+     × does not advertise a long-range chip that the physical resolver cannot execute 1ms
+     × retains short, crossed and space options for an indirect kick while a goal requires another touch 1ms
+     × offers no restart after terminal state, a pending period end or an unavailable taker 1ms
+ ❯ src/core/matchSimulation/pr158RestartAccounting.test.ts (3 tests | 3 failed) 12ms
+     × preserves a physically released human shot during valid advantage after a later DEV restart 6ms
+     × recalls failed advantage to its actual foul point without inventing a shot 2ms
+     × does not turn a pending shot request into a released shot after the canonical period whistle 2ms
+ ❯ src/core/matchSimulation/pr159RestartLaws.test.ts (28 tests | 17 failed) 39ms
+     × accepts legal physical readiness for free_kick_close without ideal-position equality 5ms
+     × accepts legal physical readiness for corner without ideal-position equality 2ms
+     × accepts legal physical readiness for goal_kick without ideal-position equality 2ms
+     × accepts legal physical readiness for gk_short without ideal-position equality 3ms
+     × accepts legal physical readiness for penalty without ideal-position equality 2ms
+     × accepts legal physical readiness for kick_off without ideal-position equality 2ms
+     × accepts legal physical readiness for throw_in without ideal-position equality 1ms
+     × waits for placement, deceleration and taker reach instead of elapsed delay 1ms
+     × allows a quick free kick with an opponent who has not yet retreated 2ms
+     × keeps the 1 m attacking restriction for a three-player wall even during a quick kick 3ms
+     × rejects penalty encroachment and a keeper who is away from the goal line 3ms
+     × measures corner distance from the arc instead of from a shifted ball 1ms
+     × prevents release during half_time 2ms
+     × prevents release during full_time 1ms
+     × prevents release during abandoned 1ms
+     × does not change real positions while deriving legal movement targets 2ms
+     × awards at the involvement point in the player own half, without teleporting to the old offside position 2ms
+ ❯ src/app/match/MatchCentre.test.tsx (5 tests | 5 failed) 14ms
+     × uses canonical match time, unknown percentages and trustworthy team totals 9ms
+     × retains the named dismissed actor and only offers available canonical event recordings 1ms
+     × rounds complementary canonical possession percentages to a displayed total of 100% 1ms
+     × shows real substitute names, injury facts, added time and departed controlled participation 1ms
+     × identifies the fouling team from canonical metadata even after the actor leaves the pitch 1ms
+ ❯ src/core/matchSimulation/pr166OrientationMenus.test.ts (5 tests | 4 failed) 25ms
+     × switches home geometry, laws and aim without moving the bodies (mirrored=false) 10ms
+     × switches away geometry, laws and aim without moving the bodies (mirrored=false) 2ms
+     × switches home geometry, laws and aim without moving the bodies (mirrored=true) 1ms
+     × switches away geometry, laws and aim without moving the bodies (mirrored=true) 1ms
+ ❯ src/core/matchSimulation/pr123.test.ts (10 tests | 10 failed) 22ms
+     × assigns one covered ball-side flank run independently of the generic home run budget 6ms
+     × assigns one covered ball-side flank run independently of the generic away run budget 2ms
+     × suppresses an empty-box cross and targets a real final-third occupation 2ms
+     × derives onside, team-symmetric final-third occupations for home 2ms
+     × derives onside, team-symmetric final-third occupations for away 1ms
+     × rejects an autonomous controlled shot at the exact commit boundary 2ms
+     × fades outward prediction near touch while preserving the forward channel lead 2ms
+     × offers a bounded lead point for a moving home runner 1ms
+     × offers a bounded lead point for a moving away runner 1ms
+     × does not duplicate a feet pass for a stationary receiver 1ms
+ ❯ src/core/matchSimulation/pr159RestartGeometry.test.ts (7 tests | 7 failed) 19ms
+     × assigns distinct receiver zones and preserves cover, without moving players or drawing canonical RNG 8ms
+     × changes receiving plans for far-post, driven near-post and direct-shot selections 2ms
+     × keeps the explicitly selected receiver while retaining other cover and mirrors away deliveries 2ms
+     × omits dismissed players and projects live marking from current positions without mutation 2ms
+     × does not demand a perfect point inside a live zone or move frozen DEV targets 2ms
+     × preserves every legal cross, pass-to-space, target and shot profile in grouped menus 2ms
+     × shows a controlled decision only after legal preparation and never repeats a selected choice 1ms
+ ❯ src/core/matchSimulation/pr158CrossContracts.test.ts (7 tests | 7 failed) 17ms
+     × does not turn an older shot result into a new post-regain release 6ms
+     × measures actual forward pass release geometry rather than a direct-pass label 2ms
+     × closes an interrupted open-play loss before a restart recovery and later shot 2ms
+     × stops an already regained attack clock at a later interruption 2ms
+     × counts two simultaneous pressers once each despite nearest-player swaps 1ms
+     × ongoing diagnostic snapshots do not split a continuous carrier episode 1ms
+     × a pass after contact in the same pressure episode is not release-before-contact 1ms
+ ❯ src/core/matchSimulation/playerMatchStatsPhysicalContacts.test.ts (4 tests | 4 failed) 13ms
+     × keeps one watermark across repeated real foot contacts without growing the event ledger 6ms
+     × deduplicates a physical transition after the control episode has ended 2ms
+     × merges same-time physical contact and release, including separate observations and replay 2ms
+     × reads legacy physical IDs without a watermark and deduplicates a closed saved episode 2ms
+ ❯ src/core/matchSimulation/pr159ReboundIntegration.test.ts (4 tests | 4 failed) 14ms
+     × continues loose spin and vertical motion through the next ticks and a real grass bounce 7ms
+     × collides with a finite moving defender once, without repeated zero-time impacts 2ms
+     × keeps an ended shot ended while its frame rebound retains height, spin and source identity 2ms
+     × counts a real goal after an inward continuation without manufacturing another shot 2ms
+ ❯ src/core/matchSimulation/pr151Cadence.test.ts (5 tests | 5 failed) 14ms
+     × keeps an unpressured long distribution in safe midfield autonomous 6ms
+     × retains an advanced or tightly pressured long reception as a human choice 2ms
+     × does not open an episode merely because a speculative first-time shot is physically legal 2ms
+     × filters low-value NPC shot episodes but retains high-value chances and every controlled shot 2ms
+     × restores human control at a selected carry waypoint even in a low-value zone 1ms
+ ❯ src/core/matchSimulation/pressingDiagnostics.test.ts (6 tests | 6 failed) 18ms
+     × records the reproduced stationary press without altering any canonical input 7ms
+     × recognises an evolving target and an active lateral contain as responsive 2ms
+     × does not mistake repeated unchanged hold decisions for an evolving solution 2ms
+     × measures a controlled ball touch relative to the carrier without an explicit velocity 2ms
+     × starts during a closing approach and closes on release rather than proximity alone 2ms
+     × retains at most 256 episode summaries while totals include older episodes 2ms
+ ❯ src/core/matchSimulation/pr120.test.ts (3 tests | 3 failed) 12ms
+     × offers a physical shot at sixty metres and values an exposed keeper continuously 6ms
+     × enters half time safely, starts the alternate kickoff, and makes full time terminal 2ms
+     × counts a human-selected shot once from its exact action episode 3ms
+ ❯ src/core/matchSimulation/canonicalMatchSanity.test.ts (6 tests | 6 failed) 23ms
+     × partitions possession starts without turning continuous carries/passes into extra touches 8ms
+     × retains canonical totals without detailed observation and derives old snapshot award facts 3ms
+     × reports unavailable data as null and preserves undefined ratios at zero duration/denominators 3ms
+     × uses dismissed active minutes, preserves role metadata and keeps whole-session rates separate 2ms
+     × uses cumulative played minutes for a substitute rather than elapsed match time 2ms
+     × reports challenge card incidents without double-counting a second-yellow dismissal 4ms
+ ❯ src/app/match/tacticalRenderer/presentation.test.ts (11 tests | 3 failed) 17ms
+     × keeps the clicked goal side for home from front, behind and oblique cameras 6ms
+     × keeps the clicked goal side for away from front, behind and oblique cameras 2ms
+     × camera and kit projections leave canonical state and the next deterministic tick unchanged 2ms
+ ❯ src/core/matchSimulation/pr136.test.ts (3 tests | 3 failed) 11ms
+     × offers the goalkeeper at their feet and suppresses a static keeper lead 6ms
+     × keeps tactical intent orthogonal while a lofted delivery rises and descends physically 2ms
+     × does not let the controlled flag alter an NPC receiver ranking 2ms
+ ❯ src/core/matchSimulation/matchSituationEvaluator.test.ts (7 tests | 7 failed) 18ms
+     × distinguishes teammate possession from opponent possession 6ms
+     × separates routine, pressure, central chances, poor angles and transitions 2ms
+     × recognises defensive threat, loose balls and set pieces 2ms
+     × is stable, non-mutating and does not affect deterministic RNG 2ms
+     × favours 18m over 35m and penalises pressure and blockers 1ms
+     × lets quality improve but not normalise a long shot 2ms
+     × claims only at the landing point, permits interception and otherwise stays loose 1ms
+ ❯ src/core/matchSimulation/pr121.test.ts (3 tests | 3 failed) 14ms
+     × accepts a finite physical shot endpoint beyond either goal plane 8ms
+     × accepts a finite physical shot endpoint beyond either goal plane 2ms
+     × offers a pre-outcome goalkeeper commitment against a real breakaway 2ms
+ ❯ src/core/matchSimulation/tacticalPreferences.test.ts (6 tests | 5 failed) 20ms
+     × screens safe centre-back outlets despite a high press preference and recognises a covered constrained touch 6ms
+     × separates a decaying counterpress from reorganised opponents without an eight-second discontinuity 3ms
+     × adapts pressing and high cover continuously to the actual squad without changing attributes 3ms
+     × changes block height, compactness and patience independently and preserves the physical state 2ms
+     × values shorter intelligent routes and exposes low-stamina running cost without depletion 2ms
+ ❯ src/core/matchSimulation/playerAgency.test.ts (4 tests | 3 failed) 17ms
+     × uses dismissal exposure even when the full-half clock continues 9ms
+     × respects cumulative substitute exposure and final exposure after the last candidate 3ms
+     × subtracts a substitute entry timestamp in the legacy roster-clock fallback 3ms

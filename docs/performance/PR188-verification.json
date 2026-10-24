@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "ab3b02e29abc0f50ef48dde242ca8520ff0b0d09b093ddc013dc07c16e8a366d",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "testStages": [
+    2179,
+    56,
+    4,
+    5
+  ],
+  "totalTests": 2244,
+  "node": "v24.19.0",
+  "environment": {
+    "NODE_OPTIONS": "--max-semi-space-size=64",
+    "VITEST_MAX_WORKERS": "1"
+  },
+  "log": "docs/performance/pr188-run-logs/pr188-verify-complete.log",
+  "logSha256": "9a8eb2ec3f40ba47083f2eb77ddfc8dda380f56829be20f0eb3d4693fff06e1a",
+  "targetedRegressionTests": 26,
+  "laboratoryObserverOffReplay": {
+    "variants": 240,
+    "equalFinalStateHashes": true,
+    "log": "docs/performance/pr188-run-logs/pr188-optimized-replay.log"
+  },
+  "fullMatchObserverOffReplay": {
+    "design": "dev-ww",
+    "policy": "opportunity-driven-v1",
+    "receipt": "docs/performance/PR188-possession-diagnosis.json",
+    "equalInputs": true,
+    "equalRawFinalStateHashes": false,
+    "equalCanonicalFinalStateHashes": true,
+    "canonicalFinalStateSha256": "c1dcf9b0ba7ca8dacaeb75bc0288977ca34688cb6ef961528a36ad72c2959728",
+    "comparison": "docs/performance/PR188-full-replay-comparison.json",
+    "status": "full_time",
+    "failure": null,
+    "scope": "Bounded trace and flow observers disabled; pure diagnostic inspections at fixed stationary-duration thresholds remain. One representative development repeat, not a new independent design."
+  },
+  "browser": "docs/performance/PR188-browser.json",
+  "ci": "Final-head CI is checked and linked in the pull request, not inferred from local verification."
+}

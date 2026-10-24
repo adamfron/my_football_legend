@@ -1,5 +1,33 @@
 # My Football Legend — Current Project State
 
+## PR188 — Relative Decisions & Match Stabilization (experimental)
+
+Priorytetem jest stabilizacja decyzji i wznowień po negatywnych wynikach PR187.
+Trzy eksperymentalne polityki porównują względne lokalne okazje i krótki koszt
+czekania; zamiar przygotowania jest oddzielony od fizycznego wykonania. Ograniczona
+pamięć widocznych zdarzeń rywala nie odczytuje ukrytych ocen. Psychologia pozostaje
+opcjonalna i domyślnie wyłączona. Nowe preferencje obrony są etapowane wyłącznie
+w tych trzech politykach; historyczne legacy/B/R1/R2/R3 zachowują swój kontroler.
+
+Normalny mecz rozpoczyna się nieposiadaną, nieruchomą piłką na środku i kanonicznym
+kick-offem. Jawne historyczne aparatury open-play zachowują dotychczasowe warunki.
+Ręczny wolny rozróżnia legalne szybkie zagranie z obecnych pozycji oraz fizyczne
+przygotowanie drużyny; gotowość nie wybiera kopnięcia za człowieka. Wymiary muru
+pozostają bez arbitralnego zwężania, a potencjalna luka nie obiecuje sukcesu.
+
+**B pozostaje domyślne, 28 atrybutów i fizyczny resolver pozostają zachowane.
+Canonical NOT READY dla summary; niezależna kohorta pozostaje zamknięta.**
+Wyniki rozwojowe, nieudane próby, zakres technicznej weryfikacji i niezaliczone
+bramy: [raport PR188](PR188_RELATIVE_DECISION_MAKING_AND_MATCH_STABILIZATION.md).
+Pełne WW falsyfikuje ogólną poprawę liveness: trzy polityki eksperymentalne nadal
+mają wielominutowe zastoje i bardzo słabą skuteczność podań. Naprawy lokalne oraz
+zielone testy techniczne nie zamykają tych bram; PR pozostaje eksperymentalnym szkicem.
+
+Aktualna kolejność: **PR188 stabilizacja → PR189 pełne generacje/siła świata →
+PR190 summary/PlayStyles → PR191 career UX → PR192+ world expansion**.
+Generacje zachowują całe 20–25-sezonowe zobowiązanie; niczego nie oznaczono jako
+wykonane. Sekcje historyczne poniżej zachowują numery planów ze swoich okresów.
+
 ## PR187 — Executable Policy Experiments, Validation Incomplete
 
 Nowe `opportunity-driven-v1`, `hierarchical-intent-v1`, `contextual-judgment-v1`

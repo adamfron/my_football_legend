@@ -1,0 +1,61 @@
+
+> my_football_legend@0.1.0 verify
+> npm run lint && npm run test && npm run build
+
+
+> my_football_legend@0.1.0 lint
+> eslint .
+
+
+> my_football_legend@0.1.0 test
+> npm run test:main && npm run test:full-career
+
+
+> my_football_legend@0.1.0 test:main
+> npm run test:unit && npm run test:match-integration && npm run test:match-contract
+
+
+> my_football_legend@0.1.0 test:unit
+> npm run generate:world-db && vitest run --maxWorkers=2 --exclude src/core/fullCareerSimulation.test.ts --exclude src/core/careerLifecycle.test.ts --exclude scripts/clubAudit.test.ts --exclude src/core/careerMatchContract.test.ts --exclude src/core/matchSimulation/pr160PenaltyLiveness.test.ts --exclude src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts --exclude src/app/match/backgroundOrchestration.test.tsx
+
+
+> my_football_legend@0.1.0 generate:world-db
+> node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts
+
+world database: 64 clubs, 1824 footballers
+wrote C:\Users\Admin\Documents\Codex\2026-10-24\cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2\work\mfl\.generated-public\data\world\pl-2026-v2.json
+(node:13404) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-24/cze-przeczytaj-prosz-prompt-zaplanuj-kolejno-2/work/mfl
+
+ ❯ src/core/matchSimulation/pr159RestartGeometry.test.ts (7 tests | 1 failed) 70ms
+     × shows a controlled decision only after legal preparation and never repeats a selected choice 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/pr159RestartGeometry.test.ts > PR159 canonical restart presentation > shows a controlled decision only after legal preparation and never repeats a selected choice
+AssertionError: expected undefined to be 'restart' // Object.is equality
+
+- Expected:
+"restart"
+
++ Received:
+undefined
+
+ ❯ src/core/matchSimulation/pr159RestartGeometry.test.ts:265:31
+    263|     state = { ...state, restart: { ...state.restart!, phase: 'awaiting…
+    264|     const opportunity = projectPlayerDecisionOpportunity(state);
+    265|     expect(opportunity?.kind).toBe('restart');
+       |                               ^
+    266|     const chosen = opportunity!.options.find((option) => option.kind =…
+    267|     if (chosen.kind !== 'action') throw new Error('Expected action');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 239 passed (240)
+      Tests  1 failed | 2175 passed (2176)
+   Start at  18:19:00
+   Duration  482.32s (transform 11.70s, setup 0ms, import 102.21s, tests 285.46s, environment 56.42s)
+

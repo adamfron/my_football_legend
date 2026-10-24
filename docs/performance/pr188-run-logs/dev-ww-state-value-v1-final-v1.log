@@ -1,0 +1,35 @@
+dev-ww/state-value-v1: 1200.00s
+dev-ww/state-value-v1: 2400.00s
+dev-ww/state-value-v1: 3600.00s
+dev-ww/state-value-v1: 4800.00s
+{
+  id: 'dev-ww-state-value-v1-full-observed-final-v1',
+  status: 'full_time',
+  at: 5640,
+  score: { home: 1, away: 3 },
+  counts: {
+    decisions: 0,
+    candidates: 0,
+    evaluations: 0,
+    forecasts: 0,
+    waits: 0,
+    continuations: 0,
+    cancellations: 0,
+    patternObservations: 0,
+    patternArrivals: 0,
+    patternCancellations: 0,
+    attempts: 0,
+    releases: 0,
+    shotAttempts: 0,
+    shotReleases: 0,
+    passAttempts: 0,
+    passReleases: 0,
+    backwardPasses: 143,
+    progressivePasses: 120,
+    reciprocalPasses: 24
+  },
+  failure: null,
+  wall: 208978.2296
+}
+(node:16468) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
