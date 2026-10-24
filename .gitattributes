@@ -47,3 +47,14 @@ src/core/matchSimulation/footballLab*.ts text eol=lf
 src/core/matchSimulation/footballPerformanceLab*.ts text eol=lf
 src/core/matchSimulation/canonicalMovement.ts text eol=lf
 docs/performance/pr184-verification/** binary linguist-generated=true
+
+# Committed historical JSON bytes are LF; working-copy conversion is not evidence.
+docs/performance/PR185-*.json -diff linguist-generated=true text eol=lf
+docs/performance/PR186-*.json -diff linguist-generated=true text eol=lf
+docs/performance/pr186-traces/** binary linguist-generated=true
+docs/PR186*.md text eol=lf
+scripts/*Pr186* text eol=lf
+src/core/matchSimulation/tacticalCognition*.ts text eol=lf
+src/core/matchSimulation/attributeCognitionLab.ts text eol=lf
+src/core/matchSimulation/decisionResearchProtocol.ts text eol=lf
+src/core/matchSimulation/footballContactResearchPlan*.ts text eol=lf

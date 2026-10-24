@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "cohort": "development_only",
+  "design": "pr185-sw",
+  "policy": "phase-role-hybrid-v1",
+  "observed": true,
+  "full": true,
+  "sourceSha256": "b861774d174f9400a757cc2e4014d2e19beba153bcb981196c2c513f2e549745",
+  "inputSha256": "3a97323e24e6a65ba29948e5960b617ec17c4bcb316282307152c53f6916e9bd",
+  "finalStateSha256": "16de85216d7e374719fbe0cac1a0e3a764adf2751fa7c1e0d127c56ff5e0d6f1",
+  "ticks": 232132,
+  "status": "full_time",
+  "canonicalSeconds": 5803.299999979579,
+  "score": {
+    "home": 9,
+    "away": 0
+  },
+  "counts": {
+    "rankings": 14869,
+    "atCandidateCap": 316,
+    "shotPresent": 1720,
+    "shotSelected": 20,
+    "holdSelected": 454,
+    "shotPresentButOtherSelected": 1700,
+    "reciprocalPasses": 207,
+    "backwardPasses": 532,
+    "longProgressivePasses": 338,
+    "highOpportunitySamples": 11,
+    "highOpportunityContactUnavailable": 8,
+    "controlSamples": 4839
+  },
+  "wallMilliseconds": 262575.7879,
+  "cpuMicroseconds": {
+    "user": 284813000,
+    "system": 1282000
+  },
+  "rssBytes": 590815232,
+  "archive": "docs/performance/pr186-traces/pr185-sw-phase-role-hybrid-v1-full-observed-0.json.gz",
+  "archiveSha256": "c87a563d95bf762b79da7600b876cd72b6d5e5515c7db77757c73361d749e615",
+  "opportunityWindows": 5,
+  "unconvertedOpportunityWindows": 2,
+  "passes": null
+}

@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
+  "defaultPolicy": "state-value-v1",
+  "cohort": "development_only",
+  "historicalTextPolicy": "JSON: canonical LF Git text bytes; binary archives: exact bytes. Working-copy CRLF conversion is ignored.",
+  "historical": [
+    {
+      "path": "docs/performance/PR184-attribute-coverage.json",
+      "sha256": "e4c0ce2bc2f96cdd3c4660335ecf1d207b1288256dc8178c3b97e2b25179796a"
+    },
+    {
+      "path": "docs/performance/PR184-attribute-sensitivity.json",
+      "sha256": "503eef6c02eb54b0b0834bd40e47b9c8ef8f266126f4a14628ada12c4f827ff3"
+    },
+    {
+      "path": "docs/performance/PR184-autonomous-results.json",
+      "sha256": "db7b638914414146efe9d31d7e80eabad9310b58ecfa568c30780dbdc112273d"
+    },
+    {
+      "path": "docs/performance/PR184-body-property-controls.json",
+      "sha256": "3f7765ce8c762b86fe52cad4ae0950cd4c4f1c8304b65d145f50688ddd2ee8bf"
+    },
+    {
+      "path": "docs/performance/PR184-ci-parity.json",
+      "sha256": "367f1040957cef0fb22a15513540febe5cdcdddbe13b84275547523b63737154"
+    },
+    {
+      "path": "docs/performance/PR184-drill-catalog.json",
+      "sha256": "93e5b38655d593a134365e5599afe165802e6ac39b6ecdad2ec66f52b4142fae"
+    },
+    {
+      "path": "docs/performance/PR184-first-touch-results.json",
+      "sha256": "59008f7f13c8acfb7b97a9bed56a60d8fc3f4e6bf70b90547cc1d10491697330"
+    },
+    {
+      "path": "docs/performance/PR184-micro-lab-reference.json",
+      "sha256": "52e3a7faec94a99e754a8695a0a6751d3d0b7fc702f54bc31817d4cec49cd2ee"
+    },
+    {
+      "path": "docs/performance/PR184-orientation-controls.json",
+      "sha256": "6072606c44c15580ac52f7e9007eadd2d46db809c99d35bb55093dd5e9b2806c"
+    },
+    {
+      "path": "docs/performance/PR184-passing-accuracy.json",
+      "sha256": "3560e6af33daa9fd90976db7110d6020b510c9e979a970c3500af26c01e87294"
+    },
+    {
+      "path": "docs/performance/PR184-performance-drills.json",
+      "sha256": "4d34d5fc0b998e84f93fac24f2edd17777dc4e0cb7c891ae35a221fe98dc1329"
+    },
+    {
+      "path": "docs/performance/PR184-performance.json",
+      "sha256": "ebea19d33c44b2968d574de2824af0c2c75fcf59d6e55e22cc430b6aefdf6000"
+    },
+    {
+      "path": "docs/performance/PR184-prediction-calibration-drills.json",
+      "sha256": "ca55f9c20b6c92910da5f9826cbe3ee9801471707a6455493377886e76189066"
+    },
+    {
+      "path": "docs/performance/PR184-prediction-calibration.json",
+      "sha256": "c47ed28524e9afae27e1c96a681e8e8240d493d610ef3f4309393b548650b14f"
+    },
+    {
+      "path": "docs/performance/PR184-real-world-reference-index.json",
+      "sha256": "75a7614f8437d06a1a3e242775d73719deb563aea90b355e26535a000d5941b4"
+    },
+    {
+      "path": "docs/performance/PR184-rebound-results.json",
+      "sha256": "2a4bd09fb8fb159d94cd223bcc4b2cff182a19ea6f037270fe08677caa890e4f"
+    },
+    {
+      "path": "docs/performance/PR184-shooting-results.json",
+      "sha256": "72fbd376b7006b38b3dbb9614bb70753d84cf3978c8ec2d66874f33d8701fe7e"
+    },
+    {
+      "path": "docs/performance/PR184-slalom-profile-comparison.json",
+      "sha256": "eaf3c5a26fbc04f579601603c70acd09e303941de106f418ac6816d53dee8ba4"
+    },
+    {
+      "path": "docs/performance/PR184-slalom-results.json",
+      "sha256": "4d3308b5d4421ec2a4ce363f78e46acc4c6b447a5e56b8e0fe42871f3e31f3dd"
+    },
+    {
+      "path": "docs/performance/PR184-sprint-results.json",
+      "sha256": "dc35f53b4657d2a29c47502dabce6740d1adaf27875fa9c776bf114ab912de33"
+    },
+    {
+      "path": "docs/performance/PR184-turning-results.json",
+      "sha256": "b29c340ab788f4a07f87d28c314c21a0d8803343b3961f8f52dcc0f520943de0"
+    },
+    {
+      "path": "docs/performance/PR184-verification.json",
+      "sha256": "a43da8c344915b84392c277c5cfe24937ed09a281edd64ae1f7c9d446cbaa92b"
+    },
+    {
+      "path": "docs/performance/PR185-attribute-coverage.json",
+      "sha256": "8f7c17382df4bc3138967f60774e74c2aee8ed559a4fea5a8508d0f1780f9afe"
+    },
+    {
+      "path": "docs/performance/PR185-attribute-sensitivity.json",
+      "sha256": "26d1ab2d4855da25b31e99d56ddac13657a4cc03b588d00e40df7d8c76a5808f"
+    },
+    {
+      "path": "docs/performance/PR185-autonomous-experiments.json",
+      "sha256": "f1ae16add0afc0bb3dc6e7f499057fc73264bb2ca33115fc2e04191b197db22f"
+    },
+    {
+      "path": "docs/performance/PR185-balance-and-turns.json",
+      "sha256": "bb6d210edc99cee530f7b3873630d3d23097591934ef7cc5e1e0f77b05005a75"
+    },
+    {
+      "path": "docs/performance/PR185-baseline.json",
+      "sha256": "3865b2ad8d1dc4bc8d2ea2aa86776b718ab0eaee98aa6b5909e1a3dfcaee4759"
+    },
+    {
+      "path": "docs/performance/PR185-contact-and-shielding.json",
+      "sha256": "762c4b145966763720e7e31baf73313f7c42c34bb7239a71e588c9a564ad4989"
+    },
+    {
+      "path": "docs/performance/PR185-dribbling-mechanics.json",
+      "sha256": "1de9c808632d11ab83efb712ba21cd7aa5e5f4ae0293b6dfd557cc60f7558c7a"
+    },
+    {
+      "path": "docs/performance/PR185-elastico-feint.json",
+      "sha256": "3b0d9769a6161a70950111f8bef91c5ad4a53d1605c7b239c278938a8ac343c4"
+    },
+    {
+      "path": "docs/performance/PR185-evidence-index.json",
+      "sha256": "84dddc8a9b43fabb5ace30f38cd4aa5ecda696c7280f4562788a7c83cabd6c5d"
+    },
+    {
+      "path": "docs/performance/PR185-foot-contact-techniques.json",
+      "sha256": "81807cbec9b9138b1597cc580935dbc52617ffd087452459a50f29170985db21"
+    },
+    {
+      "path": "docs/performance/PR185-goalkeeper-distribution.json",
+      "sha256": "09920d9445faeeca7f9e33995728f0cc6386ac4307ea5bfbcf85416c30dc5265"
+    },
+    {
+      "path": "docs/performance/PR185-goalkeeper-reactions.json",
+      "sha256": "10456c85f526c19e7061c0736be412e0b0b751a1166c4d8e6b0f5a7f462777c9"
+    },
+    {
+      "path": "docs/performance/PR185-hoop-trajectories.json",
+      "sha256": "9265d8b92cade6758aabea5211054526b070cc1217bd3de4781f6daec617f621"
+    },
+    {
+      "path": "docs/performance/PR185-jumping-and-heading.json",
+      "sha256": "ec5960d193512efedec7fee29077a3faf4f1a0137981c38d9afaf04f83190e18"
+    },
+    {
+      "path": "docs/performance/PR185-match-regression.json",
+      "sha256": "acc0028dd6db8dc4e8037b40cb7921494bb1b5d6d774097005ed146a12b19ea9"
+    },
+    {
+      "path": "docs/performance/PR185-match-source-bridge.json",
+      "sha256": "31cd86591b12f54f01755415ffb66571e84d150bff94c1eb564d4b8cad42e777"
+    },
+    {
+      "path": "docs/performance/PR185-mirrored-slalom.json",
+      "sha256": "5a3789de3bdcb7676f58d1a6dff135fd9b284f0f7251c01f25f69134f77bfd9d"
+    },
+    {
+      "path": "docs/performance/PR185-performance.json",
+      "sha256": "2fb121dfd0edd9efb4818aa793c71c1a20e5d93adf76322b2b6bf4ca5cec66f1"
+    },
+    {
+      "path": "docs/performance/PR185-repeated-sprints.json",
+      "sha256": "6065a0f9a8ca806e86bac9f7573b62dbdcb07edfd7f4c5fce00e76242f4b039e"
+    },
+    {
+      "path": "docs/performance/PR185-replay.json",
+      "sha256": "f87f94fad2fd580042c1ab8405d837e8f9a2a9dbcb92a6928b10cf9c743bd288"
+    },
+    {
+      "path": "docs/performance/PR185-source-manifest.json",
+      "sha256": "b905b8ace537be89ad7733ddf774b37b246c0c82a5d777a995c7205bdebdbba9"
+    },
+    {
+      "path": "docs/performance/PR185-spin-reception.json",
+      "sha256": "05c7ec0739c69b889afcd132eaab6051c96b046fa5527a9c6cecf7b99529cb32"
+    },
+    {
+      "path": "docs/performance/PR185-telemetry-reference.json",
+      "sha256": "8cc0f4897d8d4d2a4a1436918c8088b90ba6a045e69524595af889b316011c5a"
+    },
+    {
+      "path": "docs/performance/PR185-type-repair.json",
+      "sha256": "2f7eaf1d587fa2b5fa9283fef16f53ad534f5be17f93dc5c3d40b6d2148cf1d5"
+    },
+    {
+      "path": "docs/performance/PR185-verification.json",
+      "sha256": "ac4e6be6ad592625f8bb9693a131ad01dc6deb0439f8650734913294251cf2b9"
+    },
+    {
+      "path": "docs/performance/pr184-traces/505-left.json.gz",
+      "sha256": "d95942cc87efc2fd53296bf14273f9a07e2add7e79b86e7275850f5da877c342"
+    },
+    {
+      "path": "docs/performance/pr184-traces/505-right.json.gz",
+      "sha256": "5eb5014ddbec00a1a4f980a67fd5815414f223cb9612464073c3b5da70e14804"
+    },
+    {
+      "path": "docs/performance/pr184-traces/autonomous-pass-20-dominant-ground.json.gz",
+      "sha256": "8a60871ee74feab8ff3a2b03a0fca6f01a4957c88dec861e6d8569801b210558"
+    },
+    {
+      "path": "docs/performance/pr184-traces/autonomous-shot-stationary-placed-dominant.json.gz",
+      "sha256": "25c5774254ab117dec0e144faa1a184f0f9f833a9a5d0ac55d9c3d071db68164"
+    },
+    {
+      "path": "docs/performance/pr184-traces/autonomous-wall-receive-turn.json.gz",
+      "sha256": "15aacd415b5a57376edef80a4c76d4f65d18490811131b5719f711803ad29a2e"
+    },
+    {
+      "path": "docs/performance/pr184-traces/out-back-left.json.gz",
+      "sha256": "edabda311b4c9d490eaf4a1fb34a53bd44f539818042e4e49cd986af17aebbd5"
+    },
+    {
+      "path": "docs/performance/pr184-traces/out-back-right.json.gz",
+      "sha256": "98cdf893b27d1f0e60998d94cbadd9c6c142b1c08e5708391a8d0ef78dcefe71"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-10-dominant-elevated.json.gz",
+      "sha256": "a5db484c276b7c85b2bc16e6b9f2db11809811b60a3a1526684431ca8e6eb7ef"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-10-dominant-ground.json.gz",
+      "sha256": "35f77a5a8d62baf61bba64861c2bb7e3a1da7771b73f32ced919f3715c120c7b"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-10-weak-elevated.json.gz",
+      "sha256": "6c7299a0519af794a2e8f528f2e797f66179e1e2757f2afbbad4cbc73c9e10c0"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-10-weak-ground.json.gz",
+      "sha256": "5ebd336cc700d63ffc6b0603c776b4d3166d35707d92e3c5eef9332110944e95"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-20-dominant-elevated.json.gz",
+      "sha256": "732c5cdacd44f86a8d8907e7df4e6afa775562d5e624f9c07d7eee40f6b57d03"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-20-dominant-ground.json.gz",
+      "sha256": "8f19628ba58860f0fcd4cb3310f200c8923e8b7011b50e6fb14db433c992b29f"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-20-weak-elevated.json.gz",
+      "sha256": "6a272f95b8f4625c302f831efe47d4a4c60e0d60618e74669834c2307ad7edc2"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-20-weak-ground.json.gz",
+      "sha256": "d89425751974e10d737d478b86dccf04c26cb03b2a7c27c47c963e26e181e1bf"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-30-dominant-elevated.json.gz",
+      "sha256": "d1d0fbdb57a35bfc6147bc216366715628fbcb7760a490aa408cefe921d139ba"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-30-dominant-ground.json.gz",
+      "sha256": "387dfdf307c945737700676b92d0ebd3e3463950b1d0eb05ca179f007087e17a"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-30-weak-elevated.json.gz",
+      "sha256": "fba54c915af21aca6d993bad8fa00ab66e22422aab88962d4d174797745f2f1e"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-30-weak-ground.json.gz",
+      "sha256": "8655ec6bdc0c779d28eb6759b9992ac3bf23bbbce7dd95c529a0ed7d2b45219b"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-5-dominant-elevated.json.gz",
+      "sha256": "23eb1e79d9704f07f4831b56a870e25c228563690783f9a8ad339b24aec895b3"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-5-dominant-ground.json.gz",
+      "sha256": "644aa1df54708db856176da9959cd69ad1904b055dab1d951f372daab3c51fdb"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-5-weak-elevated.json.gz",
+      "sha256": "02a8f594b0da696817d8b782f962a49502057a1a3db5145bc62f555a4ad96c8d"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-5-weak-ground.json.gz",
+      "sha256": "3b34e9a50061b04be3b8f388529f55a6e9a3ba9e7a85f6d053b592706e324b47"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-first-time.json.gz",
+      "sha256": "87e023c034a6103bbbc5212f82aecf791b7048b37adced6610a1330966cae013"
+    },
+    {
+      "path": "docs/performance/pr184-traces/pass-large-target.json.gz",
+      "sha256": "ca1024907ff642b032550fce6fd0526a617b304563041751a5a19f3353caa273"
+    },
+    {
+      "path": "docs/performance/pr184-traces/receive-18-spin-0.json.gz",
+      "sha256": "7026841e7a884f120bf5731a313d05047194e7fe3d623c44321d0fe6c2e27de1"
+    },
+    {
+      "path": "docs/performance/pr184-traces/receive-18-spin-60.json.gz",
+      "sha256": "b89812a0e7636682869d69003ea348a7b1b2ad86495a975ad0c6697267548ef4"
+    },
+    {
+      "path": "docs/performance/pr184-traces/receive-26-spin-0.json.gz",
+      "sha256": "b47142595a7c48a9a9f1d49d0ef401f37ce4a83aa7d2b86212439ef362209251"
+    },
+    {
+      "path": "docs/performance/pr184-traces/receive-26-spin-60.json.gz",
+      "sha256": "7c788c72d86b2526739ddfd0bf975989763d452839c29c64fedb6f1c9adc2dbf"
+    },
+    {
+      "path": "docs/performance/pr184-traces/receive-6-spin-0.json.gz",
+      "sha256": "6453e846a7c53b10a692711bd0a70de490f9ba24d029b4fd5230d4d4bce54dd5"
+    },
+    {
+      "path": "docs/performance/pr184-traces/receive-6-spin-60.json.gz",
+      "sha256": "edfae36e0d1c29430a1700f2cecc43e200a814af022bfd2cd0f660809f07bfd7"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-carry-chip-dominant.json.gz",
+      "sha256": "110c1d4338392e7bd49aaf6b362167fd7f6791273ee0c0b6e48a1b238d3b836e"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-carry-chip-weak.json.gz",
+      "sha256": "814703588c792ac679a7af1d2dd7d39f347913a3edf6236277d2d6188c384e12"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-carry-driven-dominant.json.gz",
+      "sha256": "a44d8ff961c072a3b4d16c60199257380650d1f83111ed430d6164a3d9b0ef9c"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-carry-driven-weak.json.gz",
+      "sha256": "fbc8cf136f684335d6577aaf72e0708971e607345ddc1a70cd6479330bbe108a"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-carry-placed-dominant.json.gz",
+      "sha256": "bb05b13eacb5191a7e00b0b0031271c297218d2290ea84cdf94a0fe4a4fc024e"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-carry-placed-weak.json.gz",
+      "sha256": "fa69933dc71e1e436d7eb43ffaba59cdaec734daece2f1768bdacaa38bd50959"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-first-time-chip-dominant.json.gz",
+      "sha256": "19472fc4cbeaa66515dbcf85921d56eb1952f2ff17decb8484fe32cfbdfc6edd"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-first-time-chip-weak.json.gz",
+      "sha256": "1ea6d2e2f66f661310afc70f8302eeba3e7c86c13bc0eadde6a3c15b5a8a3612"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-first-time-driven-dominant.json.gz",
+      "sha256": "c67bf453b223b919c6d1649365f8389c4a041b66957b60635ff1491c14bad27a"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-first-time-driven-weak.json.gz",
+      "sha256": "c997c7416c5d00ff87b1eba33bf8780a5b190d2bc97adabed713318743c528e4"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-first-time-placed-dominant.json.gz",
+      "sha256": "cdac4320bc84c9674c3170fed710a4a5b4a55bef1e0550d6dce294cb705c71e3"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-first-time-placed-weak.json.gz",
+      "sha256": "fc111c4bdf0547ce992de0df880d452daa60319e162549ae9af65736c295f1d2"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-stationary-chip-dominant.json.gz",
+      "sha256": "53675fcb228d09886849e4e69a472526c8ca46e62b7b81056bcb02d0362a2b5d"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-stationary-chip-weak.json.gz",
+      "sha256": "953e904ed96b6c080c29da24ec22f8115d6b0555ec5948d05171694d6e2be685"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-stationary-driven-dominant.json.gz",
+      "sha256": "439bcb37554219a6f07410ecb2b276f1c43db0300d28d396bd86f0ef9cabe774"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-stationary-driven-weak.json.gz",
+      "sha256": "511832550233f15ebe5d396dc09a3226cb1c48302d74f14abf72a50a657e6f49"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-stationary-placed-dominant.json.gz",
+      "sha256": "26b195a641904997a6b932942539e42c39448d248a441fa5d1e8c2e3ef5f3eef"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-stationary-placed-weak.json.gz",
+      "sha256": "f754c18e90e3ed740d08962d4f6ea9cece28227105644b4d8fbe17d2a8f9ac0b"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-turn-chip-dominant.json.gz",
+      "sha256": "9b7c09e4f03adb1b4da40a719edfabb4deedf170a157d5c920398105662d7cff"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-turn-chip-weak.json.gz",
+      "sha256": "31da5a806ea97f9a3c581e3ee73f94feea0848756de7e46f00c5bf7ec9d7548f"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-turn-driven-dominant.json.gz",
+      "sha256": "6fd5018f933e995aced5a31a3c320b61bdd4be6047efd3032d34cd1fd7df048e"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-turn-driven-weak.json.gz",
+      "sha256": "328367d0ec1035f5cf5c102452194e85ef42f4270a05afeec634087e1dd894d4"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-turn-placed-dominant.json.gz",
+      "sha256": "4a487cef8d81513c4ff427ff37570c747e8812b1750aecdcc4ea5220440a8a15"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shot-turn-placed-weak.json.gz",
+      "sha256": "01e806d9d0b6e5afee3014c85ca3414f12e063b8f886ce6ed35417320d830c56"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shuttle-left.json.gz",
+      "sha256": "9cc3778d32319e1e4f3575081bc447b960805f935493954d3165e9a27abe086c"
+    },
+    {
+      "path": "docs/performance/pr184-traces/shuttle-right.json.gz",
+      "sha256": "28ecc59f94d62fb6e1abf93282fba39f2f2f1ba5bf325a8c29b2235c2b255a74"
+    },
+    {
+      "path": "docs/performance/pr184-traces/slalom-2-dominant.json.gz",
+      "sha256": "f1b47169464d0ba306f7648be71a80891461103a7a1cbe334424f5ad89d6b4b2"
+    },
+    {
+      "path": "docs/performance/pr184-traces/slalom-2-unrestricted.json.gz",
+      "sha256": "ab8f691f59f5e7b345fa5dc1c5457d12a0f27efae23860fb623d2de4641f2879"
+    },
+    {
+      "path": "docs/performance/pr184-traces/slalom-2-weak.json.gz",
+      "sha256": "5682d64b95d14b1cd15bb718fc16438ca9088294e8b55c0329229d321ed08369"
+    },
+    {
+      "path": "docs/performance/pr184-traces/slalom-4-dominant.json.gz",
+      "sha256": "c0f12247056ebfc286845e05fb60726dada0d64ae940a25425f2f50303355ece"
+    },
+    {
+      "path": "docs/performance/pr184-traces/slalom-4-unrestricted.json.gz",
+      "sha256": "60a64e93aded2e103d46ade598f8782c0b390c855d4034c206293686db944513"
+    },
+    {
+      "path": "docs/performance/pr184-traces/slalom-4-weak.json.gz",
+      "sha256": "6070a543d942bb8b67fdfd6d3de85e47d7db7fc5ebff3d83e71425eb065ee855"
+    },
+    {
+      "path": "docs/performance/pr184-traces/slalom-6-dominant.json.gz",
+      "sha256": "93e91a230c9749e5d783412238eb0b37ca6796f882a650b04f3e070eb84dc32b"
+    },
+    {
+      "path": "docs/performance/pr184-traces/slalom-6-unrestricted.json.gz",
+      "sha256": "28c9ba09934204db512127501eb2bbda2c07fd70e255da4c2838481cbb4c16f1"
+    },
+    {
+      "path": "docs/performance/pr184-traces/slalom-6-weak.json.gz",
+      "sha256": "d93f1345f1d16a6c12c16657b89648a74411f677bd3c2763c3fabcfe625519b3"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-10-moving.json.gz",
+      "sha256": "517179152ae662dabdb95de3d8132c9cfc62567c22ed4217b170db370f022b91"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-10-standing.json.gz",
+      "sha256": "57026162251205982302a0dea1f4d61f3e0e87b460d04313c57f481c5d1ed129"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-20-moving.json.gz",
+      "sha256": "c427dcdc70722ab2dccbdd2ebeab17d4baa59a068d6f6c1c1f0c9f1f53279ae7"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-20-standing.json.gz",
+      "sha256": "e84f8faefa3c5631dc55a8a27c682b2ad57d89671a7111b95940a1955782717c"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-30-moving.json.gz",
+      "sha256": "e1b01d7e2d43d6a15f01e778ea6d80a06c491a554573468ea16900d5253deea6"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-30-standing.json.gz",
+      "sha256": "69b94f650274671f824388ba1da11332a80b68c27161f183982a924a235ea265"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-40-moving.json.gz",
+      "sha256": "52a515f7386eb7f2a1e7b45c7a6eab24461c6d463cd32835757148cdd70f8484"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-40-standing.json.gz",
+      "sha256": "b128aa1d592622804bbe10d496fb9c9b3973c2baa441ab30d8e6c1696c5ca9e0"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-5-moving.json.gz",
+      "sha256": "a34460cd5ee4ab9ccde4b72c482a2a4db5a6ca21960bfce2c36bff4569ce586c"
+    },
+    {
+      "path": "docs/performance/pr184-traces/sprint-5-standing.json.gz",
+      "sha256": "5ecc17452867f39df62ad1f31a2de4e5c76b59fbb2cd90d1b2e9c04c836456d9"
+    },
+    {
+      "path": "docs/performance/pr184-traces/wall-receive-turn.json.gz",
+      "sha256": "64703c164deb81404f9e1e3d78dcb22998c99d7f94ce0f49edbec855205c9982"
+    },
+    {
+      "path": "docs/performance/pr184-verification/ci-baseline-half.log.gz",
+      "sha256": "d306144698e4a697357333d340851b06793ef600a20db4b85fbafe9716015de7"
+    },
+    {
+      "path": "docs/performance/pr184-verification/ci-current-half.log.gz",
+      "sha256": "dd5d3e19eb352a6bcbdfc0113ae37810d5ffd7438c578e371c90ddf248aea681"
+    },
+    {
+      "path": "docs/performance/pr184-verification/ci-fixed-half.log.gz",
+      "sha256": "cce12e4f2b51c77dc5b6603a4bdf474141446343779534c3f338904002f20a48"
+    },
+    {
+      "path": "docs/performance/pr184-verification/ci-focused.log.gz",
+      "sha256": "a2cf1181e51561e5d384d864b3ce8dffe2bef917322f0aaa348c6d60d0801267"
+    },
+    {
+      "path": "docs/performance/pr184-verification/ci-lab-parity.log.gz",
+      "sha256": "b94e4c2359883788f5d43b935982c26a9d27010d26b2683d8cefcb711ff7e50e"
+    },
+    {
+      "path": "docs/performance/pr184-verification/lab-final.log.gz",
+      "sha256": "98c85a08053e1c18825b062610767284363a4e014f65ab6979b700fbc98b3cef"
+    },
+    {
+      "path": "docs/performance/pr184-verification/verify.log.gz",
+      "sha256": "6b2795625c0b9cbb84e3ce0fb8f0aa0986ba297567b4eb53cdd42fd5ccf88520"
+    },
+    {
+      "path": "docs/performance/pr185-traces/attribute-sensitivity.json.gz",
+      "sha256": "d30332e948b870fdf69ce220a121d7d56914efed7af37083b24c030ba427bef8"
+    },
+    {
+      "path": "docs/performance/pr185-traces/autonomous-experiments.json.gz",
+      "sha256": "ce2d603f375042b16063f57f1168415885c9254f25d4f04c9f7fc2ba80172891"
+    },
+    {
+      "path": "docs/performance/pr185-traces/balance-and-turns.json.gz",
+      "sha256": "8c2de04243946a3e08ed4db3ecf321520781daa2fb5c3489e1d7a3cb2c42cfc9"
+    },
+    {
+      "path": "docs/performance/pr185-traces/contact-and-shielding.json.gz",
+      "sha256": "3ca641cc47e9c1f8e2e51c4d1b31d45de5b241d77ea814e0cc2085fdaa379aaf"
+    },
+    {
+      "path": "docs/performance/pr185-traces/dribbling-mechanics.json.gz",
+      "sha256": "b7b2742c1a0e870e39ac5190aa167adb8e573f5dd0f799e762fc128dd0e37dd5"
+    },
+    {
+      "path": "docs/performance/pr185-traces/elastico-feint.json.gz",
+      "sha256": "7537208831bbf5977b5b84c2354e27032c3e3c0fc7d95437a1b54e18f0b9ecb7"
+    },
+    {
+      "path": "docs/performance/pr185-traces/foot-contact-techniques.json.gz",
+      "sha256": "830189b0919797e2732024bb51817681c610565695f0dcf07c86b3408651b214"
+    },
+    {
+      "path": "docs/performance/pr185-traces/goalkeeper-distribution.json.gz",
+      "sha256": "eba9b88e2bc5babd667a7d86ec5983e1f0fff62aa93fb5158efd124f4a110980"
+    },
+    {
+      "path": "docs/performance/pr185-traces/goalkeeper-reactions.json.gz",
+      "sha256": "afff09373c9236f4444f046e5c5c77a88c7f2169c448792827079634bfb813e5"
+    },
+    {
+      "path": "docs/performance/pr185-traces/hoop-trajectories.json.gz",
+      "sha256": "9cf147c395729f1fa8131d9d478b7b78ef40ab28b793d69558e2cc1859548f04"
+    },
+    {
+      "path": "docs/performance/pr185-traces/jumping-and-heading.json.gz",
+      "sha256": "8dfbf061d3229efff93f9d1ba0716856f23aff63568267e4f472919e7d62030f"
+    },
+    {
+      "path": "docs/performance/pr185-traces/match-regression.json.gz",
+      "sha256": "068190424e593fee774419d5602df0831913924f4c8183b543d052c062eace4d"
+    },
+    {
+      "path": "docs/performance/pr185-traces/mirrored-slalom.json.gz",
+      "sha256": "d527638fb021fa8df3b2a30086f46d60cd061282fab6663d7714d59eacdeb2e4"
+    },
+    {
+      "path": "docs/performance/pr185-traces/repeated-sprints.json.gz",
+      "sha256": "8784a29967503a3ea20a42c34e369cb25667ff581dafe4c46292fb627163e492"
+    },
+    {
+      "path": "docs/performance/pr185-traces/spin-reception.json.gz",
+      "sha256": "4452d4c3b02d2d44def91727965ba2589c6761869cdc6df6655e30c8e273d4fe"
+    },
+    {
+      "path": "docs/performance/pr185-traces/type-repair-verification.log.gz",
+      "sha256": "c73aea6d74a78996f78059c47f159643c40755a945407214dae55def6acbb662"
+    },
+    {
+      "path": "docs/performance/pr185-traces/verification.log.gz",
+      "sha256": "58c3542a45c76fe7022acb9f8ab4ab0fdd164bed2ea910fc30d81d10f6a04b04"
+    }
+  ]
+}

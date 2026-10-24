@@ -1,5 +1,31 @@
 # My Football Legend — Current Project State
 
+## PR186 — Tactical Cognition, Team Familiarity & Attribute Diagnostics
+
+Dodano izolowany, typowany research: trzy wzorce współpracy, system/role/partner
+familiarity, oddzielne wymagania coacha i hidden player adaptability, bounded
+obserwację/komunikację oraz indywidualne wybory z ograniczonym regret.
+Ruch, kontakty, lot i późniejsze podania wykonuje istniejąca fizyka.
+Prototypy nie są aktywne w karierze ani schedulerze live.
+
+Nowe próby rozróżniają celność główki od reach, composure pod presją, przygotowanie
+od rozpoznania i faktycznego release oraz pierwszy kontakt od odzysku/nawrotu.
+Wyniki keeperów i nasycone testy feint pozostają jawnie niejednoznaczne.
+Zdiagnozowano wspólne oczekiwanie gola dla różnych technik strzału; korekta
+wymaga PR187 i szerzej zamrożonej walidacji. Nie dostrojono fizyki do jednego meczu.
+
+Pełne B/R3 powtarzają stany PR185 dokładnie. Nowe pomiary cyrkulacji i kontaktu
+są development evidence, bez deklaracji generalnej poprawy. **B `state-value-v1`
+pozostaje domyślne, schemat 28 atrybutów i save bez zmian, canonical NOT READY
+do kalibracji summary.** Dokładne wyniki weryfikacji są w receipt PR186.
+
+[Raport i wykonywalne specyfikacje PR187](PR186_TACTICAL_COGNITION_AND_ATTRIBUTE_DIAGNOSTICS.md).
+Jawna zmiana sekwencji: **PR186 diagnostyka/prototypy → PR187 eksperymentalne
+polityki, pozostała kalibracja i nowe niezależne SS/SW/WW → PR188 generacje/siła
+świata i większe prerequisite fizyki → PR189 summary/PlayStyles → PR190 career UX →
+PR191+ świat**. Pełny dawny zakres pozostaje w [roadmapie](ROADMAP.md).
+Poniższe sekcje zachowują historyczny kontekst swoich etapów.
+
 ## PR185 — Extended Physical Testing & Ball-Control Mechanics
 
 Wspólne prowadzenie i przyjęcie używa fizycznych inside/outside/instep/sole/cushion

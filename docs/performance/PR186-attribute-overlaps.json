@@ -1,0 +1,793 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "1e60d6afe6d331a4f9cdebee939f668caced6968620eae5d07c9d61877dac865",
+  "harnessSha256": "ba5a15f461c0bf2a8522be562fb87d7e9f598ba39c0df9c7a392930f146a699c",
+  "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
+  "name": "attribute-overlaps",
+  "archive": "docs/performance/pr186-traces/attribute-overlaps.json.gz",
+  "archiveSha256": "cb71fee21251ed55996bde3795d4c50359e730583ca44d73f3637533ed14951a",
+  "payloadSha256": "2fe50b5520925325b0916f695b5669cca5058764b8e1ef817114c09b5b499214",
+  "trials": 160,
+  "summary": [
+    {
+      "attribute": "technique",
+      "band": 20,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.15741264537127186,
+        "min": 0.15741264537127186,
+        "median": 0.15741264537127186,
+        "max": 0.15741264537127186
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.5750000000000001,
+        "min": 0.5750000000000001,
+        "median": 0.5750000000000001,
+        "max": 0.5750000000000001
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.222338457867891,
+        "min": 0.055271389290359574,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "technique",
+      "band": 40,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.21247612460906623,
+        "min": 0.21247612460906623,
+        "median": 0.21247612460906623,
+        "max": 0.21247612460906623
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.5750000000000001,
+        "min": 0.5750000000000001,
+        "median": 0.5750000000000001,
+        "max": 0.5750000000000001
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.222338457867891,
+        "min": 0.055271389290359574,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "technique",
+      "band": 60,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.2677183538468604,
+        "min": 0.2677183538468604,
+        "median": 0.2677183538468604,
+        "max": 0.2677183538468604
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2199065534956812,
+        "min": 0.0504075805459404,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "technique",
+      "band": 80,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.32318058308465475,
+        "min": 0.32318058308465475,
+        "median": 0.32318058308465475,
+        "max": 0.32318058308465475
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2199065534956812,
+        "min": 0.0504075805459404,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "technique",
+      "band": 100,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.37891781232244903,
+        "min": 0.37891781232244903,
+        "median": 0.37891781232244903,
+        "max": 0.37891781232244903
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.525,
+        "min": 0.525,
+        "median": 0.525,
+        "max": 0.525
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.206068522317341,
+        "min": 0.02273151818926067,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 20,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.2677183538468604,
+        "min": 0.2677183538468604,
+        "median": 0.2677183538468604,
+        "max": 0.2677183538468604
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2199065534956812,
+        "min": 0.0504075805459404,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 40,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.2677183538468604,
+        "min": 0.2677183538468604,
+        "median": 0.2677183538468604,
+        "max": 0.2677183538468604
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2199065534956812,
+        "min": 0.0504075805459404,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 60,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.2677183538468604,
+        "min": 0.2677183538468604,
+        "median": 0.2677183538468604,
+        "max": 0.2677183538468604
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2199065534956812,
+        "min": 0.0504075805459404,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 80,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.2677183538468604,
+        "min": 0.2677183538468604,
+        "median": 0.2677183538468604,
+        "max": 0.2677183538468604
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2199065534956812,
+        "min": 0.0504075805459404,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 100,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.2677183538468604,
+        "min": 0.2677183538468604,
+        "median": 0.2677183538468604,
+        "max": 0.2677183538468604
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2199065534956812,
+        "min": 0.0504075805459404,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "firstTouch",
+      "band": 20,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.09074597870460523,
+        "min": 0.09074597870460523,
+        "median": 0.09074597870460523,
+        "max": 0.09074597870460523
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.8,
+        "min": 0.8,
+        "median": 0.8,
+        "max": 0.8
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2373747910909376,
+        "min": 0.08534405573645376,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "firstTouch",
+      "band": 40,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.1791427912757329,
+        "min": 0.1791427912757329,
+        "median": 0.1791427912757329,
+        "max": 0.1791427912757329
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.5750000000000001,
+        "min": 0.5750000000000001,
+        "median": 0.5750000000000001,
+        "max": 0.5750000000000001
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.222338457867891,
+        "min": 0.055271389290359574,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "firstTouch",
+      "band": 60,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.2677183538468604,
+        "min": 0.2677183538468604,
+        "median": 0.2677183538468604,
+        "max": 0.2677183538468604
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2199065534956812,
+        "min": 0.0504075805459404,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "firstTouch",
+      "band": 80,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.3565139164179881,
+        "min": 0.3565139164179881,
+        "median": 0.3565139164179881,
+        "max": 0.3565139164179881
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.525,
+        "min": 0.525,
+        "median": 0.525,
+        "max": 0.525
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.206068522317341,
+        "min": 0.02273151818926067,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "firstTouch",
+      "band": 100,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.4455844789891157,
+        "min": 0.4455844789891157,
+        "median": 0.4455844789891157,
+        "max": 0.4455844789891157
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.525,
+        "min": 0.525,
+        "median": 0.525,
+        "max": 0.525
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.206068522317341,
+        "min": 0.02273151818926067,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 20,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.18863283033517775,
+        "min": 0.18863283033517775,
+        "median": 0.18863283033517775,
+        "max": 0.18863283033517775
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.8500000000000001,
+        "min": 0.8500000000000001,
+        "median": 0.8500000000000001,
+        "max": 0.8500000000000001
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 1.1103423305530904,
+        "min": 1.1103423305530904,
+        "median": 1.1103423305530904,
+        "max": 1.1103423305530904
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 1.9784559843893343,
+        "min": 0.06986891613127083,
+        "median": 3.887043052647398,
+        "max": 3.887043052647398
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 40,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.22571683387409303,
+        "min": 0.22571683387409303,
+        "median": 0.22571683387409303,
+        "max": 0.22571683387409303
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.8661991341284114,
+        "min": 0.8661991341284114,
+        "median": 0.8661991341284114,
+        "max": 0.8661991341284114
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.0952977567907576,
+        "min": 0.043844919415899526,
+        "median": 4.146750594165615,
+        "max": 4.146750594165615
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 60,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.2677183538468604,
+        "min": 0.2677183538468604,
+        "median": 0.2677183538468604,
+        "max": 0.2677183538468604
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.7455866258216175,
+        "min": 0.7455866258216175,
+        "median": 0.7455866258216175,
+        "max": 0.7455866258216175
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.2199065534956812,
+        "min": 0.0504075805459404,
+        "median": 4.3894055264454215,
+        "max": 4.3894055264454215
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 80,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.31124062838080707,
+        "min": 0.31124062838080707,
+        "median": 0.31124062838080707,
+        "max": 0.31124062838080707
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.6232555634310306,
+        "min": 0.6232555634310306,
+        "median": 0.6232555634310306,
+        "max": 0.6232555634310306
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.3312799700153235,
+        "min": 0.057338085768899365,
+        "median": 4.605221854261748,
+        "max": 4.605221854261748
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 100,
+      "statuses": {
+        "completed": 8
+      },
+      "firstContact": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.34962559227688605,
+        "min": 0.34962559227688605,
+        "median": 0.34962559227688605,
+        "max": 0.34962559227688605
+      },
+      "recovery": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.55,
+        "min": 0.55,
+        "median": 0.55,
+        "max": 0.55
+      },
+      "turnSeconds": {
+        "samples": 4,
+        "censored": 4,
+        "mean": 0.5571058445819002,
+        "min": 0.5571058445819002,
+        "median": 0.5571058445819002,
+        "max": 0.5571058445819002
+      },
+      "controlledSpeed": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 2.4166426962533274,
+        "min": 0.03921713486172832,
+        "median": 4.794068257644926,
+        "max": 4.794068257644926
+      }
+    }
+  ]
+}

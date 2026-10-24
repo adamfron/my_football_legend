@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "policies": [
+    {
+      "policy": "opportunity_driven",
+      "algorithm": [
+        "Observe local event; generate at most 48 feasible contact windows",
+        "Prioritise recognised windows by closing time and opportunity cost within a fixed risk budget",
+        "Select only after recognition plus action preparation fits the window; cancel on visible closure"
+      ],
+      "hypotheses": [
+        "More physically released transient opportunities than B at equal perception",
+        "No increase in unobserved opportunity use; no future RNG access"
+      ],
+      "falsifiers": [
+        "Selected actions routinely expire before release",
+        "Progress depends on privileged opponent knowledge"
+      ],
+      "traceExtras": [
+        "window_open/close",
+        "missed_window_reason",
+        "recognition/preparation/release timestamps"
+      ]
+    },
+    {
+      "policy": "hierarchical_intent",
+      "algorithm": [
+        "Choose one tactical goal and at most three dependent role intentions from learned patterns",
+        "Continue while visible preconditions and cover hold; evaluate a maximum of three local continuations",
+        "Reassess only after meaningful new evidence, expiry or physical failure; no guaranteed teammate action"
+      ],
+      "hypotheses": [
+        "Fewer redundant rankings and coordination failures than B under rehearsed triggers",
+        "Novel events cancel stale commitments without worsening cover integrity"
+      ],
+      "falsifiers": [
+        "Continuations persist after dependencies fail",
+        "Predicted cooperation is assigned as completed movement or possession"
+      ],
+      "traceExtras": [
+        "goal/intent/dependency IDs",
+        "continuation/cancellation evidence",
+        "expected_vs_actual_cooperation"
+      ]
+    },
+    {
+      "policy": "contextual_judgment",
+      "algorithm": [
+        "Construct a bounded interpretation from local evidence, confidence, pressure and coach demands",
+        "Apply individual risk budgets and near-tie discretion to observed feasible candidates",
+        "Record compliance and decision regret separately from subsequent execution and outcome"
+      ],
+      "hypotheses": [
+        "Players make reproducibly different explainable choices in near ties",
+        "Personal incentives cannot override clearly superior team options or create new abilities"
+      ],
+      "falsifiers": [
+        "Ambition alone maps directly to shooting",
+        "Distinct choices require unrestricted action noise or physical skill bonuses"
+      ],
+      "traceExtras": [
+        "interpreted_context/risk_budget",
+        "instruction_compliance/regret",
+        "confidence/pressure/incentive bounds"
+      ]
+    }
+  ],
+  "productionActivation": false
+}

@@ -1,0 +1,151 @@
+import { z } from 'zod';
+
+/** Planning contracts only: this module does not classify a live offence. */
+export const contactResearchCaseSchema = z.object({
+  id: z.string(),
+  category: z.enum(['intentional', 'improvised', 'incidental', 'potentially_illegal']),
+  surfaces: z.string().array().min(1),
+  existing: z.string(),
+  feasibility: z.string().array().min(2),
+  safety: z.string().array().min(1),
+  canonicalMetrics: z.string().array().min(2),
+  negativeControl: z.string(),
+  nextImplementation: z.string(),
+});
+export const CONTACT_RESEARCH_PLAN = contactResearchCaseSchema.array().parse([
+  {
+    id: 'foot_surfaces',
+    category: 'intentional',
+    surfaces: ['inside', 'outside', 'instep', 'sole'],
+    existing: 'PR185 executeFootContact for control; specialised pass/shot resolvers remain',
+    feasibility: ['foot reach and height', 'plant, orientation, friction and weak foot'],
+    safety: ['opponent swept volume'],
+    canonicalMetrics: ['outgoing impulse/spin', 'target-plane error'],
+    negativeControl: 'ball outside foot envelope',
+    nextImplementation:
+      'bridge pass/shot surface intentions to shared contact only after paired execution calibration',
+  },
+  {
+    id: 'body_control',
+    category: 'intentional',
+    surfaces: ['thigh', 'chest', 'torso', 'head'],
+    existing:
+      'aerial eligibility, reception and capsule ricochets; no complete selectable chest/thigh control',
+    feasibility: ['height and relative velocity', 'surface orientation and balance'],
+    safety: ['opponent proximity and actual body collision'],
+    canonicalMetrics: ['first outgoing velocity', 'subsequent recovery/ownership'],
+    negativeControl: 'same ball beyond surface reach',
+    nextImplementation:
+      'finite surface regions and intentional cushioning; retain actual acquisition',
+  },
+  {
+    id: 'heel_unconventional',
+    category: 'improvised',
+    surfaces: ['heel', 'toe', 'outside_foot'],
+    existing: 'outside control exists; selectable heel/toe finish not generalised',
+    feasibility: ['behind-body geometry', 'rotation, flexibility and available preparation'],
+    safety: ['nearby opponent approach'],
+    canonicalMetrics: ['contact availability', 'trajectory and recovery'],
+    negativeControl: 'same instruction with impossible body orientation',
+    nextImplementation: 'surface-local reach and contact normal, not trait unlocks',
+  },
+  {
+    id: 'first_time_airborne',
+    category: 'intentional',
+    surfaces: ['foot', 'head'],
+    existing: 'first_time, volley, half_volley and header recognition/execution already exist',
+    feasibility: ['actual incoming flight and bounce phase', 'foot/head envelope and preparation'],
+    safety: ['challenger head/torso corridor'],
+    canonicalMetrics: ['release time and contact height', 'actual ball flight'],
+    negativeControl: 'late cached menu after ball leaves reach',
+    nextImplementation: 'connect richer surfaces without replacing existing contact gates',
+  },
+  {
+    id: 'acrobatic_safe',
+    category: 'improvised',
+    surfaces: ['raised_foot', 'overhead_foot'],
+    existing:
+      'no generalised overhead-kick body pose; vertical jump and aerial contact are partial foundations',
+    feasibility: [
+      'flexibility and body orientation',
+      'balance, launch, landing and finite swept limb volume',
+    ],
+    safety: ['opponent reach/proximity and opportunity to play ball'],
+    canonicalMetrics: ['reachable contact and landing time', 'actual ball impulse'],
+    negativeControl: 'identical intent with ball out of physical reach',
+    nextImplementation: 'research pose feasibility before new action selection',
+  },
+  {
+    id: 'crowded_high_foot',
+    category: 'potentially_illegal',
+    surfaces: ['raised_foot'],
+    existing: 'fouls/cards/challenge and injury machinery exist; no universal high-foot classifier',
+    feasibility: [
+      'same geometric feasibility as safe counterpart',
+      'real limb/head swept intersection',
+    ],
+    safety: [
+      'danger without contact assessed separately',
+      'actual contact, force and consequences separately',
+      'restart and disciplinary assessment separately',
+    ],
+    canonicalMetrics: [
+      'nearest opponent swept clearance',
+      'actual player contact and injury',
+      'law decision/restart/card',
+    ],
+    negativeControl: 'same high foot without nearby endangered opponent',
+    nextImplementation: 'Law 12 context classifier after geometry; height alone never implies red',
+  },
+  {
+    id: 'shield_contest',
+    category: 'intentional',
+    surfaces: ['torso', 'shoulder', 'hip'],
+    existing: 'PR185 protection contact, body contest and defensive challenges',
+    feasibility: ['ball within playing distance', 'actual balance, body placement and reach'],
+    safety: ['holding/pushing separate from legal positioning'],
+    canonicalMetrics: ['physical separation and retention', 'foul and recovery'],
+    negativeControl: 'shield position while ball is beyond playing distance',
+    nextImplementation: 'refine body geometry only with before/after paired evidence',
+  },
+  {
+    id: 'traffic_ricochet',
+    category: 'incidental',
+    surfaces: ['legs', 'torso', 'head'],
+    existing: 'swept capsules, playerDeflection, continuous contact locks and actual attribution',
+    feasibility: ['actual ball-body intersection', 'relative surface velocity and separation'],
+    safety: ['incidental ball contact is not itself a player offence'],
+    canonicalMetrics: [
+      'deflection normal and outgoing velocity',
+      'last touch, blocks, own goals and restart attribution',
+    ],
+    negativeControl: 'near miss through a finite physical gap',
+    nextImplementation:
+      'surface segmentation and attribution regressions; no traffic probability multiplier',
+  },
+  {
+    id: 'hand_arm',
+    category: 'potentially_illegal',
+    surfaces: ['hand', 'arm'],
+    existing: 'goalkeeper handling rules exist; outfield capsule is not a handball body region',
+    feasibility: ['actual arm surface/ball intersection', 'arm motion and body support geometry'],
+    safety: [
+      'deliberateness, body enlargement and scoring exceptions require separate law context',
+    ],
+    canonicalMetrics: ['actual arm contact', 'restart and disciplinary context'],
+    negativeControl: 'ball missing arm or a non-offence arm position',
+    nextImplementation:
+      'explicit arm regions and Law 12 evidence; never classify all ricochets as handball',
+  },
+  {
+    id: 'roulette_combination',
+    category: 'improvised',
+    surfaces: ['sole', 'inside', 'outside'],
+    existing: 'PR185 two-contact feints and spin/balance exist; no general roulette repertoire',
+    feasibility: ['continuous ball reach per contact', 'finite pivot, plant and opponent geometry'],
+    safety: ['body contest versus holding or kicking'],
+    canonicalMetrics: ['individual contact times', 'controlled progression versus opponent'],
+    negativeControl: 'defender closes actual second contact',
+    nextImplementation: 'compose existing contact intentions; no guaranteed escape',
+  },
+]);

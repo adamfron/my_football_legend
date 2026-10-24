@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "1e60d6afe6d331a4f9cdebee939f668caced6968620eae5d07c9d61877dac865",
+  "harnessSha256": "ba5a15f461c0bf2a8522be562fb87d7e9f598ba39c0df9c7a392930f146a699c",
+  "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
+  "name": "communication",
+  "archive": "docs/performance/pr186-traces/communication.json.gz",
+  "archiveSha256": "862087fa4ec922b9a77063dad7fdaa2da0f00b491aa19e024c676faba7f4f968",
+  "payloadSha256": "2645a1a8fa9dab634d5927ec369203d44bad36e83c1b4238ed8acdc429843790",
+  "trials": 40,
+  "summary": [
+    {
+      "condition": "none",
+      "responses": {
+        "none": 8
+      },
+      "movementMetres": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 6.242565549660517,
+        "min": 6.242565549660516,
+        "median": 6.242565549660516,
+        "max": 6.242565549660516
+      },
+      "passOutcomes": {
+        "completed": 8
+      }
+    },
+    {
+      "condition": "relevant",
+      "responses": {
+        "accepted": 8
+      },
+      "movementMetres": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 6.926164452739771,
+        "min": 6.926164452739772,
+        "median": 6.926164452739772,
+        "max": 6.926164452739772
+      },
+      "passOutcomes": {
+        "completed": 8
+      }
+    },
+    {
+      "condition": "inaccurate",
+      "responses": {
+        "accepted": 8
+      },
+      "movementMetres": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 6.926164452739763,
+        "min": 6.926164452739764,
+        "median": 6.926164452739764,
+        "max": 6.926164452739764
+      },
+      "passOutcomes": {
+        "completed": 8
+      }
+    },
+    {
+      "condition": "expired",
+      "responses": {
+        "unavailable": 8
+      },
+      "movementMetres": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 6.242565549660517,
+        "min": 6.242565549660516,
+        "median": 6.242565549660516,
+        "max": 6.242565549660516
+      },
+      "passOutcomes": {
+        "completed": 8
+      }
+    },
+    {
+      "condition": "low_authority",
+      "responses": {
+        "rejected": 8
+      },
+      "movementMetres": {
+        "samples": 8,
+        "censored": 0,
+        "mean": 6.242565549660517,
+        "min": 6.242565549660516,
+        "median": 6.242565549660516,
+        "max": 6.242565549660516
+      },
+      "passOutcomes": {
+        "completed": 8
+      }
+    }
+  ]
+}

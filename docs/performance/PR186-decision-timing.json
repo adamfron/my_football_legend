@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "1e60d6afe6d331a4f9cdebee939f668caced6968620eae5d07c9d61877dac865",
+  "harnessSha256": "ba5a15f461c0bf2a8522be562fb87d7e9f598ba39c0df9c7a392930f146a699c",
+  "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
+  "name": "decision-timing",
+  "archive": "docs/performance/pr186-traces/decision-timing.json.gz",
+  "archiveSha256": "c9c979cb2255f92961c6904e517099e794b32d9acd6b41dbbafa6345c1f5305f",
+  "payloadSha256": "fe675fb8009cbce1ca453c66b488432b8afe91fe81acebf6edc7a10c1a49b47b",
+  "trials": 96,
+  "summary": [
+    {
+      "mode": "motor",
+      "preparationSeconds": 0.1,
+      "closingOpponent": false,
+      "trials": 8,
+      "released": 8,
+      "intendedOutcomes": {
+        "goal": 4,
+        "miss": 2,
+        "save": 2
+      },
+      "episodeOutcomes": {
+        "goal": 4,
+        "miss": 2,
+        "save": 2
+      },
+      "cancelled": {}
+    },
+    {
+      "mode": "motor",
+      "preparationSeconds": 0.1,
+      "closingOpponent": true,
+      "trials": 8,
+      "released": 8,
+      "intendedOutcomes": {
+        "block": 8
+      },
+      "episodeOutcomes": {
+        "block": 8
+      },
+      "cancelled": {}
+    },
+    {
+      "mode": "motor",
+      "preparationSeconds": 1.2,
+      "closingOpponent": false,
+      "trials": 8,
+      "released": 2,
+      "intendedOutcomes": {
+        "goal": 2,
+        "no_intended_outcome": 6
+      },
+      "episodeOutcomes": {
+        "goal": 6,
+        "not_released": 2
+      },
+      "cancelled": {
+        "control_lost_before_release": 6
+      }
+    },
+    {
+      "mode": "motor",
+      "preparationSeconds": 1.2,
+      "closingOpponent": true,
+      "trials": 8,
+      "released": 0,
+      "intendedOutcomes": {
+        "no_intended_outcome": 8
+      },
+      "episodeOutcomes": {
+        "block": 2,
+        "goal": 2,
+        "not_released": 4
+      },
+      "cancelled": {
+        "control_lost_before_release": 8
+      }
+    },
+    {
+      "mode": "prepared",
+      "preparationSeconds": 0.1,
+      "closingOpponent": false,
+      "trials": 8,
+      "released": 4,
+      "intendedOutcomes": {
+        "goal": 2,
+        "miss": 1,
+        "no_intended_outcome": 4,
+        "save": 1
+      },
+      "episodeOutcomes": {
+        "goal": 3,
+        "miss": 2,
+        "save": 3
+      },
+      "cancelled": {
+        "control_lost_before_release": 4
+      }
+    },
+    {
+      "mode": "prepared",
+      "preparationSeconds": 0.1,
+      "closingOpponent": true,
+      "trials": 8,
+      "released": 4,
+      "intendedOutcomes": {
+        "block": 4,
+        "no_intended_outcome": 4
+      },
+      "episodeOutcomes": {
+        "block": 4,
+        "miss": 1,
+        "not_released": 3
+      },
+      "cancelled": {
+        "control_lost_before_release": 4
+      }
+    },
+    {
+      "mode": "prepared",
+      "preparationSeconds": 1.2,
+      "closingOpponent": false,
+      "trials": 8,
+      "released": 2,
+      "intendedOutcomes": {
+        "goal": 2,
+        "no_intended_outcome": 6
+      },
+      "episodeOutcomes": {
+        "goal": 6,
+        "not_released": 2
+      },
+      "cancelled": {
+        "control_lost_before_release": 6
+      }
+    },
+    {
+      "mode": "prepared",
+      "preparationSeconds": 1.2,
+      "closingOpponent": true,
+      "trials": 8,
+      "released": 0,
+      "intendedOutcomes": {
+        "no_intended_outcome": 8
+      },
+      "episodeOutcomes": {
+        "block": 2,
+        "goal": 2,
+        "not_released": 4
+      },
+      "cancelled": {
+        "control_lost_before_release": 8
+      }
+    },
+    {
+      "mode": "deliberate",
+      "preparationSeconds": 0.1,
+      "closingOpponent": false,
+      "trials": 8,
+      "released": 0,
+      "intendedOutcomes": {
+        "no_intended_outcome": 8
+      },
+      "episodeOutcomes": {
+        "goal": 2,
+        "miss": 2,
+        "save": 4
+      },
+      "cancelled": {
+        "control_lost_before_release": 8
+      }
+    },
+    {
+      "mode": "deliberate",
+      "preparationSeconds": 0.1,
+      "closingOpponent": true,
+      "trials": 8,
+      "released": 2,
+      "intendedOutcomes": {
+        "miss": 2,
+        "no_intended_outcome": 6
+      },
+      "episodeOutcomes": {
+        "miss": 2,
+        "not_released": 6
+      },
+      "cancelled": {
+        "control_lost_before_release": 6
+      }
+    },
+    {
+      "mode": "deliberate",
+      "preparationSeconds": 1.2,
+      "closingOpponent": false,
+      "trials": 8,
+      "released": 2,
+      "intendedOutcomes": {
+        "goal": 2,
+        "no_intended_outcome": 6
+      },
+      "episodeOutcomes": {
+        "goal": 6,
+        "not_released": 2
+      },
+      "cancelled": {
+        "control_lost_before_release": 6
+      }
+    },
+    {
+      "mode": "deliberate",
+      "preparationSeconds": 1.2,
+      "closingOpponent": true,
+      "trials": 8,
+      "released": 0,
+      "intendedOutcomes": {
+        "no_intended_outcome": 8
+      },
+      "episodeOutcomes": {
+        "block": 2,
+        "goal": 2,
+        "not_released": 4
+      },
+      "cancelled": {
+        "control_lost_before_release": 8
+      }
+    }
+  ]
+}

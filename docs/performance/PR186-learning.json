@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "1e60d6afe6d331a4f9cdebee939f668caced6968620eae5d07c9d61877dac865",
+  "harnessSha256": "ba5a15f461c0bf2a8522be562fb87d7e9f598ba39c0df9c7a392930f146a699c",
+  "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
+  "name": "learning",
+  "archive": "docs/performance/pr186-traces/learning.json.gz",
+  "archiveSha256": "cb7956ca594e3b850388219cffe7365b24847596aa3ca39a7c951249786a60f3",
+  "payloadSha256": "093d3a29c5ef9ba60b816e4921446aa4deb0df8f6caaa082dba80fe581f2cf71",
+  "trials": 9,
+  "summary": [
+    {
+      "coach": "system",
+      "adaptability": 20,
+      "final": {
+        "pattern": "counter_support",
+        "signature": "v1",
+        "roleId": "advanced_forward",
+        "partnerId": "geometry:anchor:5",
+        "system": 0.6322309494560092,
+        "role": 0.5592497854820737,
+        "partner": 0.539638206808328,
+        "relevantExposures": 32
+      },
+      "interpretation": "experimental relevant-exposure model; no career persistence"
+    },
+    {
+      "coach": "system",
+      "adaptability": 60,
+      "final": {
+        "pattern": "counter_support",
+        "signature": "v1",
+        "roleId": "advanced_forward",
+        "partnerId": "geometry:anchor:5",
+        "system": 0.790677306998831,
+        "role": 0.7182538333757712,
+        "partner": 0.6982032203234017,
+        "relevantExposures": 32
+      },
+      "interpretation": "experimental relevant-exposure model; no career persistence"
+    },
+    {
+      "coach": "system",
+      "adaptability": 100,
+      "final": {
+        "pattern": "counter_support",
+        "signature": "v1",
+        "roleId": "advanced_forward",
+        "partnerId": "geometry:anchor:5",
+        "system": 0.8820714838041707,
+        "role": 0.8210480914147993,
+        "partner": 0.8036793649176275,
+        "relevantExposures": 32
+      },
+      "interpretation": "experimental relevant-exposure model; no career persistence"
+    },
+    {
+      "coach": "tinkerer",
+      "adaptability": 20,
+      "final": {
+        "pattern": "counter_support",
+        "signature": "revision-31",
+        "roleId": "advanced_forward",
+        "partnerId": "geometry:anchor:5",
+        "system": 0.30680142582275105,
+        "role": 0.5745115036738192,
+        "partner": 0.5546694472252018,
+        "relevantExposures": 32
+      },
+      "interpretation": "experimental relevant-exposure model; no career persistence"
+    },
+    {
+      "coach": "tinkerer",
+      "adaptability": 60,
+      "final": {
+        "pattern": "counter_support",
+        "signature": "revision-31",
+        "roleId": "advanced_forward",
+        "partnerId": "geometry:anchor:5",
+        "system": 0.4091556865512389,
+        "role": 0.7340658524833124,
+        "partner": 0.7142461083457703,
+        "relevantExposures": 32
+      },
+      "interpretation": "experimental relevant-exposure model; no career persistence"
+    },
+    {
+      "coach": "tinkerer",
+      "adaptability": 100,
+      "final": {
+        "pattern": "counter_support",
+        "signature": "revision-31",
+        "roleId": "advanced_forward",
+        "partnerId": "geometry:anchor:5",
+        "system": 0.4799869339533278,
+        "role": 0.8349622405423732,
+        "partner": 0.8182043546346087,
+        "relevantExposures": 32
+      },
+      "interpretation": "experimental relevant-exposure model; no career persistence"
+    },
+    {
+      "coach": "trusting",
+      "adaptability": 20,
+      "final": {
+        "pattern": "counter_support",
+        "signature": "v1",
+        "roleId": "advanced_forward",
+        "partnerId": "geometry:anchor:5",
+        "system": 0.6708330869541985,
+        "role": 0.5964486863062594,
+        "partner": 0.5763384726606288,
+        "relevantExposures": 32
+      },
+      "interpretation": "experimental relevant-exposure model; no career persistence"
+    },
+    {
+      "coach": "trusting",
+      "adaptability": 60,
+      "final": {
+        "pattern": "counter_support",
+        "signature": "v1",
+        "roleId": "advanced_forward",
+        "partnerId": "geometry:anchor:5",
+        "system": 0.8256052125390579,
+        "role": 0.7561840034821216,
+        "partner": 0.7367887242005258,
+        "relevantExposures": 32
+      },
+      "interpretation": "experimental relevant-exposure model; no career persistence"
+    },
+    {
+      "coach": "trusting",
+      "adaptability": 100,
+      "final": {
+        "pattern": "counter_support",
+        "signature": "v1",
+        "roleId": "advanced_forward",
+        "partnerId": "geometry:anchor:5",
+        "system": 0.9087993696546464,
+        "role": 0.8538884383704171,
+        "partner": 0.8380789910872793,
+        "relevantExposures": 32
+      },
+      "interpretation": "experimental relevant-exposure model; no career persistence"
+    }
+  ]
+}

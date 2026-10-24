@@ -1,13 +1,27 @@
 # Roadmap
 
-Aktualny etap: **PR185 — Extended Physical Testing & Ball-Control Mechanics**.
+Aktualny etap: **PR186 — Tactical Cognition, Team Familiarity & Attribute Diagnostics**.
+Izolowane prototypy współpracy, wiedzy i komunikacji, kontrolowane epizody decyzja–
+przygotowanie–release oraz nowe próby atrybutowe mają wykonywalne dowody.
+Wycena technik strzału wymaga dalszej implementacji; wyniki keeperów i części
+pojedynków pozostają niejednoznaczne. Pełne B/R3 odtwarzają PR185 dokładnie.
+**B pozostaje domyślne, 28 atrybutów bez zmian, canonical NOT READY dla summary.**
+[Raport PR186 i specyfikacje PR187](PR186_TACTICAL_COGNITION_AND_ATTRIBUTE_DIAGNOSTICS.md).
+
+Zmieniona jawnie kolejność: **PR186 diagnostyka i prototypy → PR187 eksperymentalne
+polityki, selektywna kalibracja i niezależna walidacja transferu → PR188 generacje/
+siła świata oraz pozostałe większe prerequisite fizyki → PR189 summary/PlayStyles →
+PR190 career UX → PR191+ świat**. Niezależne, nowe SS/SW/WW pozostają nieotwarte.
+Żadne zobowiązanie kalibracji lub walidacji nie zostało usunięte.
+
+Scalony etap: **PR185 — Extended Physical Testing & Ball-Control Mechanics**.
 Wspólne kontakty powierzchni stopy, spin, równowaga, dwukontaktowy zwód i wyrzut
 bramkarza mają fizyczne wykonanie. 2 580 zapisanych prób, naprawiona asymetria
 slalomu, rzeczywista obręcz, wysiłek, skok/główka i GK dostarczają wejść kalibracji.
 Live scheduling skoku pozostaje etapowany. [Raport i ograniczenia PR185](PR185_EXTENDED_PHYSICAL_TESTING.md).
 Wyniki nie promują polityki ani nie odblokowują kalibracji summary; B pozostaje domyślne.
 
-Aktualna kolejność: **PR184 laboratorium → PR185 rozszerzone próby fizyczne →
+Poprzednia kolejność (zachowana jako kontekst PR185): **PR184 laboratorium → PR185 rozszerzone próby fizyczne →
 PR186 kalibracja atrybutów/wykonania → PR187 walidacja przeniesienia do meczów →
 PR188 generacje/siła świata → PR189 summary/PlayStyles → PR190 career UX →
 PR191+ świat**. Zakres odłożonych zadań zachowany poniżej.
@@ -132,7 +146,13 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   dwukontaktowe ruchy; naprawa geometrii slalomu, obręcz i 2 580 zapisanych prób.
   Powtarzany wysiłek/odnowa, pionowy skok i główka, osłona/odbiór, reakcje i legalna
   dystrybucja GK. Skok w pełnym AI etapowany; brak deklaracji empirycznej kalibracji.
-- **PR186 — Attribute & Execution Calibration**. Kalibracja na zmierzonych
+- **PR186 — Tactical Cognition, Team Familiarity & Attribute Diagnostics**.
+  Badawczy etap zastępuje pierwotnie planowaną pełną Attribute & Execution
+  Calibration. Dostarcza bounded perception, system/role/partner familiarity,
+  trzy wzorce współpracy, timing i komunikację, nowe eksperymenty oraz plan kontaktów.
+  Potwierdzona rozbieżność wspólnej wyceny technik strzału jest zdiagnozowana;
+  jej live korekta pozostaje do PR187. Brak szerokich zmian gameplay i kart.
+  **Zachowane zobowiązanie kalibracji PR187/188:** kalibracja na zmierzonych
   zależnościach, zgodność prognoz decyzji z wykonaniem, kontrola skal/interakcji,
   ocena zmian lub podziału przeciążonych atrybutów. Nie rozstrzygać redundancji
   na podstawie pojedynczego ćwiczenia albo niewłaściwego kontekstu.
@@ -140,7 +160,11 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   touch, tempo trasy kontra zdolności, impuls/timing skoku i celową główkę przed
   live schedulerem; aktywować sweeping/1v1 i trudny catch/parry/recovery. Wyjaśnić
   cyrkulację/konwersję i mniej strzałów bez strojenia pod jeden development seed.
-- **PR187 — Match Transfer Validation**. Nowe pełne mecze i wszystkie polityki
+- **PR187 — Decision Policy Experiments & Match Transfer Validation**.
+  Trzy odmienne eksperymenty: Opportunity-Driven, Hierarchical Intent i Contextual
+  Individual Judgment, z kontraktami/hipotezami PR186. Zachować legacy/B/R1/R2/R3.
+  Najpierw adapter ograniczonej wiedzy i selektywna kalibracja, następnie niezależna
+  walidacja. Nie promować polityki na development PR185/186. Nowe pełne mecze i wszystkie polityki
   na poprawionych zdolnościach fizycznych; sprawdzić przeniesienie wniosków z prób
   izolowanych. Kalibracja summary pozostaje zablokowana do wiarygodnej walidacji.
   Zamrozić nowe niezależne SS/SW/WW z różnymi rolami, ciałem, fatigue i GK przed

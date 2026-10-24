@@ -68,7 +68,10 @@
     "benchmark:pr165-visual": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr165VisualIdentity.ts",
     "benchmark:pr165-integrity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr165Integrity.ts",
     "benchmark:pr165-browser": "node scripts/benchmarkPr165Browser.mjs",
-    "benchmark:pr165-models": "node scripts/benchmarkPr165ModelRender.mjs"
+    "benchmark:pr165-models": "node scripts/benchmarkPr165ModelRender.mjs",
+    "benchmark:pr186": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr186.mjs",
+    "benchmark:pr186:replay": "npm run benchmark:pr186 -- --replay",
+    "benchmark:pr186:matches": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr186Matches.mjs"
   },
   "dependencies": {
     "react": "19.2.8",

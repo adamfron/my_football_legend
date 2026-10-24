@@ -1,0 +1,2843 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "e5b1a5cbbeb32f22be0278ad4a6800c3beea5496",
+  "sourceSha256": "1e60d6afe6d331a4f9cdebee939f668caced6968620eae5d07c9d61877dac865",
+  "harnessSha256": "ba5a15f461c0bf2a8522be562fb87d7e9f598ba39c0df9c7a392930f146a699c",
+  "stepSeconds": 0.025,
+  "groups": [
+    {
+      "name": "tactical-patterns",
+      "archive": "docs/performance/pr186-traces/tactical-patterns.json.gz",
+      "archiveSha256": "7d6534fa28b33478e00f62af365d315e7af2fd864fd16212957db8e467c691f1",
+      "payloadSha256": "d0d0d61699b5ffc2b35d21d265133482bdc8b63de968b758ad8a30159db431fe",
+      "trials": 308,
+      "summary": [
+        {
+          "pattern": "counter_support",
+          "familiarity": 0.1,
+          "mode": "prepared",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.7995000000000001,
+            "min": 0.7995000000000001,
+            "median": 0.7995000000000001,
+            "max": 0.7995000000000001
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 6.516010218428818,
+            "min": 6.516010218428818,
+            "median": 6.516010218428818,
+            "max": 6.516010218428818
+          },
+          "arrivals": 0,
+          "passOutcomes": {
+            "completed": 4
+          }
+        },
+        {
+          "pattern": "counter_support",
+          "familiarity": 0.1,
+          "mode": "deliberate",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.6720000000000006,
+            "min": 0.6720000000000006,
+            "median": 0.6720000000000006,
+            "max": 0.6720000000000006
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 7.199592095933091,
+            "min": 7.199592095933091,
+            "median": 7.199592095933091,
+            "max": 7.199592095933091
+          },
+          "arrivals": 0,
+          "passOutcomes": {
+            "completed": 4
+          }
+        },
+        {
+          "pattern": "counter_support",
+          "familiarity": 0.9,
+          "mode": "prepared",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.2594999999999992,
+            "min": 0.2594999999999992,
+            "median": 0.2594999999999992,
+            "max": 0.2594999999999992
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 9.140132262602624,
+            "min": 9.140132262602624,
+            "median": 9.140132262602624,
+            "max": 9.140132262602624
+          },
+          "arrivals": 0,
+          "passOutcomes": {
+            "completed": 4
+          }
+        },
+        {
+          "pattern": "counter_support",
+          "familiarity": 0.9,
+          "mode": "deliberate",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.6720000000000006,
+            "min": 0.6720000000000006,
+            "median": 0.6720000000000006,
+            "max": 0.6720000000000006
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 7.199592095933091,
+            "min": 7.199592095933091,
+            "median": 7.199592095933091,
+            "max": 7.199592095933091
+          },
+          "arrivals": 0,
+          "passOutcomes": {
+            "completed": 4
+          }
+        },
+        {
+          "pattern": "playmaker_run",
+          "familiarity": 0.1,
+          "mode": "prepared",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.7995000000000001,
+            "min": 0.7995000000000001,
+            "median": 0.7995000000000001,
+            "max": 0.7995000000000001
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 6.516010218428801,
+            "min": 6.516010218428801,
+            "median": 6.516010218428801,
+            "max": 6.516010218428801
+          },
+          "arrivals": 0,
+          "passOutcomes": {
+            "completed": 3,
+            "out_of_play": 1
+          }
+        },
+        {
+          "pattern": "playmaker_run",
+          "familiarity": 0.1,
+          "mode": "deliberate",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.6720000000000006,
+            "min": 0.6720000000000006,
+            "median": 0.6720000000000006,
+            "max": 0.6720000000000006
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 7.199592095933078,
+            "min": 7.199592095933078,
+            "median": 7.199592095933078,
+            "max": 7.199592095933078
+          },
+          "arrivals": 0,
+          "passOutcomes": {
+            "completed": 3,
+            "out_of_play": 1
+          }
+        },
+        {
+          "pattern": "playmaker_run",
+          "familiarity": 0.9,
+          "mode": "prepared",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.2594999999999992,
+            "min": 0.2594999999999992,
+            "median": 0.2594999999999992,
+            "max": 0.2594999999999992
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 9.386768027541562,
+            "min": 9.386768027541562,
+            "median": 9.386768027541562,
+            "max": 9.386768027541562
+          },
+          "arrivals": 0,
+          "passOutcomes": {
+            "completed": 3,
+            "out_of_play": 1
+          }
+        },
+        {
+          "pattern": "playmaker_run",
+          "familiarity": 0.9,
+          "mode": "deliberate",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.6720000000000006,
+            "min": 0.6720000000000006,
+            "median": 0.6720000000000006,
+            "max": 0.6720000000000006
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 7.199592095933078,
+            "min": 7.199592095933078,
+            "median": 7.199592095933078,
+            "max": 7.199592095933078
+          },
+          "arrivals": 0,
+          "passOutcomes": {
+            "completed": 3,
+            "out_of_play": 1
+          }
+        },
+        {
+          "pattern": "press_triangle",
+          "familiarity": 0.1,
+          "mode": "prepared",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.7995000000000001,
+            "min": 0.7995000000000001,
+            "median": 0.7995000000000001,
+            "max": 0.7995000000000001
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 5.718004086866411,
+            "min": 5.665016444810986,
+            "median": 5.7247061649270705,
+            "max": 5.773895880599433
+          },
+          "arrivals": 4,
+          "passOutcomes": {
+            "completed": 4
+          }
+        },
+        {
+          "pattern": "press_triangle",
+          "familiarity": 0.1,
+          "mode": "deliberate",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.6720000000000006,
+            "min": 0.6720000000000006,
+            "median": 0.6720000000000006,
+            "max": 0.6720000000000006
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 5.950711728604318,
+            "min": 5.884450235944811,
+            "median": 5.958996952469605,
+            "max": 6.020785572528914
+          },
+          "arrivals": 4,
+          "passOutcomes": {
+            "completed": 4
+          }
+        },
+        {
+          "pattern": "press_triangle",
+          "familiarity": 0.9,
+          "mode": "prepared",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.2594999999999992,
+            "min": 0.2594999999999992,
+            "median": 0.2594999999999992,
+            "max": 0.2594999999999992
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 6.116492533474997,
+            "min": 6.026329737855619,
+            "median": 6.127259754435839,
+            "max": 6.212838461555166
+          },
+          "arrivals": 4,
+          "passOutcomes": {
+            "completed": 4
+          }
+        },
+        {
+          "pattern": "press_triangle",
+          "familiarity": 0.9,
+          "mode": "deliberate",
+          "recognitionSeconds": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 0.6720000000000006,
+            "min": 0.6720000000000006,
+            "median": 0.6720000000000006,
+            "max": 0.6720000000000006
+          },
+          "movementMetres": {
+            "samples": 4,
+            "censored": 0,
+            "mean": 5.950711728604318,
+            "min": 5.884450235944811,
+            "median": 5.958996952469605,
+            "max": 6.020785572528914
+          },
+          "arrivals": 4,
+          "passOutcomes": {
+            "completed": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "decision-timing",
+      "archive": "docs/performance/pr186-traces/decision-timing.json.gz",
+      "archiveSha256": "c9c979cb2255f92961c6904e517099e794b32d9acd6b41dbbafa6345c1f5305f",
+      "payloadSha256": "fe675fb8009cbce1ca453c66b488432b8afe91fe81acebf6edc7a10c1a49b47b",
+      "trials": 96,
+      "summary": [
+        {
+          "mode": "motor",
+          "preparationSeconds": 0.1,
+          "closingOpponent": false,
+          "trials": 8,
+          "released": 8,
+          "intendedOutcomes": {
+            "goal": 4,
+            "miss": 2,
+            "save": 2
+          },
+          "episodeOutcomes": {
+            "goal": 4,
+            "miss": 2,
+            "save": 2
+          },
+          "cancelled": {}
+        },
+        {
+          "mode": "motor",
+          "preparationSeconds": 0.1,
+          "closingOpponent": true,
+          "trials": 8,
+          "released": 8,
+          "intendedOutcomes": {
+            "block": 8
+          },
+          "episodeOutcomes": {
+            "block": 8
+          },
+          "cancelled": {}
+        },
+        {
+          "mode": "motor",
+          "preparationSeconds": 1.2,
+          "closingOpponent": false,
+          "trials": 8,
+          "released": 2,
+          "intendedOutcomes": {
+            "goal": 2,
+            "no_intended_outcome": 6
+          },
+          "episodeOutcomes": {
+            "goal": 6,
+            "not_released": 2
+          },
+          "cancelled": {
+            "control_lost_before_release": 6
+          }
+        },
+        {
+          "mode": "motor",
+          "preparationSeconds": 1.2,
+          "closingOpponent": true,
+          "trials": 8,
+          "released": 0,
+          "intendedOutcomes": {
+            "no_intended_outcome": 8
+          },
+          "episodeOutcomes": {
+            "block": 2,
+            "goal": 2,
+            "not_released": 4
+          },
+          "cancelled": {
+            "control_lost_before_release": 8
+          }
+        },
+        {
+          "mode": "prepared",
+          "preparationSeconds": 0.1,
+          "closingOpponent": false,
+          "trials": 8,
+          "released": 4,
+          "intendedOutcomes": {
+            "goal": 2,
+            "miss": 1,
+            "no_intended_outcome": 4,
+            "save": 1
+          },
+          "episodeOutcomes": {
+            "goal": 3,
+            "miss": 2,
+            "save": 3
+          },
+          "cancelled": {
+            "control_lost_before_release": 4
+          }
+        },
+        {
+          "mode": "prepared",
+          "preparationSeconds": 0.1,
+          "closingOpponent": true,
+          "trials": 8,
+          "released": 4,
+          "intendedOutcomes": {
+            "block": 4,
+            "no_intended_outcome": 4
+          },
+          "episodeOutcomes": {
+            "block": 4,
+            "miss": 1,
+            "not_released": 3
+          },
+          "cancelled": {
+            "control_lost_before_release": 4
+          }
+        },
+        {
+          "mode": "prepared",
+          "preparationSeconds": 1.2,
+          "closingOpponent": false,
+          "trials": 8,
+          "released": 2,
+          "intendedOutcomes": {
+            "goal": 2,
+            "no_intended_outcome": 6
+          },
+          "episodeOutcomes": {
+            "goal": 6,
+            "not_released": 2
+          },
+          "cancelled": {
+            "control_lost_before_release": 6
+          }
+        },
+        {
+          "mode": "prepared",
+          "preparationSeconds": 1.2,
+          "closingOpponent": true,
+          "trials": 8,
+          "released": 0,
+          "intendedOutcomes": {
+            "no_intended_outcome": 8
+          },
+          "episodeOutcomes": {
+            "block": 2,
+            "goal": 2,
+            "not_released": 4
+          },
+          "cancelled": {
+            "control_lost_before_release": 8
+          }
+        },
+        {
+          "mode": "deliberate",
+          "preparationSeconds": 0.1,
+          "closingOpponent": false,
+          "trials": 8,
+          "released": 0,
+          "intendedOutcomes": {
+            "no_intended_outcome": 8
+          },
+          "episodeOutcomes": {
+            "goal": 2,
+            "miss": 2,
+            "save": 4
+          },
+          "cancelled": {
+            "control_lost_before_release": 8
+          }
+        },
+        {
+          "mode": "deliberate",
+          "preparationSeconds": 0.1,
+          "closingOpponent": true,
+          "trials": 8,
+          "released": 2,
+          "intendedOutcomes": {
+            "miss": 2,
+            "no_intended_outcome": 6
+          },
+          "episodeOutcomes": {
+            "miss": 2,
+            "not_released": 6
+          },
+          "cancelled": {
+            "control_lost_before_release": 6
+          }
+        },
+        {
+          "mode": "deliberate",
+          "preparationSeconds": 1.2,
+          "closingOpponent": false,
+          "trials": 8,
+          "released": 2,
+          "intendedOutcomes": {
+            "goal": 2,
+            "no_intended_outcome": 6
+          },
+          "episodeOutcomes": {
+            "goal": 6,
+            "not_released": 2
+          },
+          "cancelled": {
+            "control_lost_before_release": 6
+          }
+        },
+        {
+          "mode": "deliberate",
+          "preparationSeconds": 1.2,
+          "closingOpponent": true,
+          "trials": 8,
+          "released": 0,
+          "intendedOutcomes": {
+            "no_intended_outcome": 8
+          },
+          "episodeOutcomes": {
+            "block": 2,
+            "goal": 2,
+            "not_released": 4
+          },
+          "cancelled": {
+            "control_lost_before_release": 8
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning",
+      "archive": "docs/performance/pr186-traces/learning.json.gz",
+      "archiveSha256": "cb7956ca594e3b850388219cffe7365b24847596aa3ca39a7c951249786a60f3",
+      "payloadSha256": "093d3a29c5ef9ba60b816e4921446aa4deb0df8f6caaa082dba80fe581f2cf71",
+      "trials": 9,
+      "summary": [
+        {
+          "coach": "system",
+          "adaptability": 20,
+          "final": {
+            "pattern": "counter_support",
+            "signature": "v1",
+            "roleId": "advanced_forward",
+            "partnerId": "geometry:anchor:5",
+            "system": 0.6322309494560092,
+            "role": 0.5592497854820737,
+            "partner": 0.539638206808328,
+            "relevantExposures": 32
+          },
+          "interpretation": "experimental relevant-exposure model; no career persistence"
+        },
+        {
+          "coach": "system",
+          "adaptability": 60,
+          "final": {
+            "pattern": "counter_support",
+            "signature": "v1",
+            "roleId": "advanced_forward",
+            "partnerId": "geometry:anchor:5",
+            "system": 0.790677306998831,
+            "role": 0.7182538333757712,
+            "partner": 0.6982032203234017,
+            "relevantExposures": 32
+          },
+          "interpretation": "experimental relevant-exposure model; no career persistence"
+        },
+        {
+          "coach": "system",
+          "adaptability": 100,
+          "final": {
+            "pattern": "counter_support",
+            "signature": "v1",
+            "roleId": "advanced_forward",
+            "partnerId": "geometry:anchor:5",
+            "system": 0.8820714838041707,
+            "role": 0.8210480914147993,
+            "partner": 0.8036793649176275,
+            "relevantExposures": 32
+          },
+          "interpretation": "experimental relevant-exposure model; no career persistence"
+        },
+        {
+          "coach": "tinkerer",
+          "adaptability": 20,
+          "final": {
+            "pattern": "counter_support",
+            "signature": "revision-31",
+            "roleId": "advanced_forward",
+            "partnerId": "geometry:anchor:5",
+            "system": 0.30680142582275105,
+            "role": 0.5745115036738192,
+            "partner": 0.5546694472252018,
+            "relevantExposures": 32
+          },
+          "interpretation": "experimental relevant-exposure model; no career persistence"
+        },
+        {
+          "coach": "tinkerer",
+          "adaptability": 60,
+          "final": {
+            "pattern": "counter_support",
+            "signature": "revision-31",
+            "roleId": "advanced_forward",
+            "partnerId": "geometry:anchor:5",
+            "system": 0.4091556865512389,
+            "role": 0.7340658524833124,
+            "partner": 0.7142461083457703,
+            "relevantExposures": 32
+          },
+          "interpretation": "experimental relevant-exposure model; no career persistence"
+        },
+        {
+          "coach": "tinkerer",
+          "adaptability": 100,
+          "final": {
+            "pattern": "counter_support",
+            "signature": "revision-31",
+            "roleId": "advanced_forward",
+            "partnerId": "geometry:anchor:5",
+            "system": 0.4799869339533278,
+            "role": 0.8349622405423732,
+            "partner": 0.8182043546346087,
+            "relevantExposures": 32
+          },
+          "interpretation": "experimental relevant-exposure model; no career persistence"
+        },
+        {
+          "coach": "trusting",
+          "adaptability": 20,
+          "final": {
+            "pattern": "counter_support",
+            "signature": "v1",
+            "roleId": "advanced_forward",
+            "partnerId": "geometry:anchor:5",
+            "system": 0.6708330869541985,
+            "role": 0.5964486863062594,
+            "partner": 0.5763384726606288,
+            "relevantExposures": 32
+          },
+          "interpretation": "experimental relevant-exposure model; no career persistence"
+        },
+        {
+          "coach": "trusting",
+          "adaptability": 60,
+          "final": {
+            "pattern": "counter_support",
+            "signature": "v1",
+            "roleId": "advanced_forward",
+            "partnerId": "geometry:anchor:5",
+            "system": 0.8256052125390579,
+            "role": 0.7561840034821216,
+            "partner": 0.7367887242005258,
+            "relevantExposures": 32
+          },
+          "interpretation": "experimental relevant-exposure model; no career persistence"
+        },
+        {
+          "coach": "trusting",
+          "adaptability": 100,
+          "final": {
+            "pattern": "counter_support",
+            "signature": "v1",
+            "roleId": "advanced_forward",
+            "partnerId": "geometry:anchor:5",
+            "system": 0.9087993696546464,
+            "role": 0.8538884383704171,
+            "partner": 0.8380789910872793,
+            "relevantExposures": 32
+          },
+          "interpretation": "experimental relevant-exposure model; no career persistence"
+        }
+      ]
+    },
+    {
+      "name": "communication",
+      "archive": "docs/performance/pr186-traces/communication.json.gz",
+      "archiveSha256": "862087fa4ec922b9a77063dad7fdaa2da0f00b491aa19e024c676faba7f4f968",
+      "payloadSha256": "2645a1a8fa9dab634d5927ec369203d44bad36e83c1b4238ed8acdc429843790",
+      "trials": 40,
+      "summary": [
+        {
+          "condition": "none",
+          "responses": {
+            "none": 8
+          },
+          "movementMetres": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 6.242565549660517,
+            "min": 6.242565549660516,
+            "median": 6.242565549660516,
+            "max": 6.242565549660516
+          },
+          "passOutcomes": {
+            "completed": 8
+          }
+        },
+        {
+          "condition": "relevant",
+          "responses": {
+            "accepted": 8
+          },
+          "movementMetres": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 6.926164452739771,
+            "min": 6.926164452739772,
+            "median": 6.926164452739772,
+            "max": 6.926164452739772
+          },
+          "passOutcomes": {
+            "completed": 8
+          }
+        },
+        {
+          "condition": "inaccurate",
+          "responses": {
+            "accepted": 8
+          },
+          "movementMetres": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 6.926164452739763,
+            "min": 6.926164452739764,
+            "median": 6.926164452739764,
+            "max": 6.926164452739764
+          },
+          "passOutcomes": {
+            "completed": 8
+          }
+        },
+        {
+          "condition": "expired",
+          "responses": {
+            "unavailable": 8
+          },
+          "movementMetres": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 6.242565549660517,
+            "min": 6.242565549660516,
+            "median": 6.242565549660516,
+            "max": 6.242565549660516
+          },
+          "passOutcomes": {
+            "completed": 8
+          }
+        },
+        {
+          "condition": "low_authority",
+          "responses": {
+            "rejected": 8
+          },
+          "movementMetres": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 6.242565549660517,
+            "min": 6.242565549660516,
+            "median": 6.242565549660516,
+            "max": 6.242565549660516
+          },
+          "passOutcomes": {
+            "completed": 8
+          }
+        }
+      ]
+    },
+    {
+      "name": "human-factors",
+      "archive": "docs/performance/pr186-traces/human-factors.json.gz",
+      "archiveSha256": "8fe72439abaa88323f195c25721f09c9625a39952b58828834b69bcb72514f50",
+      "payloadSha256": "5b15679c6ec2ca1c50991bb9e369187bf2d30b42abced8f1fc874f2937a62e98",
+      "trials": 36,
+      "summary": {
+        "selected": {
+          "individual_attempt": 4,
+          "team_support": 32
+        },
+        "maximumRegret": 0.010000000000000009,
+        "executionAndOutcomeNotInferred": true
+      }
+    },
+    {
+      "name": "attribute-contacts",
+      "archive": "docs/performance/pr186-traces/attribute-contacts.json.gz",
+      "archiveSha256": "f4b05b07dffaf3375243eaec43fa666c8494834cfbcffde826d800a103ac0fd7",
+      "payloadSha256": "3a3249659efb1219e2efad1464ba761faeb18fcc06f0c868de3addababda760c",
+      "trials": 800,
+      "summary": [
+        {
+          "family": "heading",
+          "condition": "slow",
+          "band": 20,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.519752446754727,
+            "min": 0.25022621072319157,
+            "median": 2.9515013038563582,
+            "max": 5.949213397568274
+          },
+          "onTarget": 14
+        },
+        {
+          "family": "heading",
+          "condition": "slow",
+          "band": 40,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.7271753183556415,
+            "min": 0.21518355871215217,
+            "median": 1.9990312741587954,
+            "max": 4.138467843538488
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "slow",
+          "band": 60,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.1559585832863863,
+            "min": 0.1141536545185233,
+            "median": 1.3230250420377796,
+            "max": 2.8046402687338308
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "slow",
+          "band": 80,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.813315305146342,
+            "min": 0.05412148394879115,
+            "median": 0.9204705849318421,
+            "max": 1.9887475793738874
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "heading",
+          "condition": "slow",
+          "band": 100,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.6978454322695289,
+            "min": 0.034603550066390265,
+            "median": 0.7815530720969238,
+            "max": 1.7144866057169295
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "heading",
+          "condition": "fast",
+          "band": 20,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.600687304476075,
+            "min": 0.2329885684761107,
+            "median": 3.039538503742631,
+            "max": 6.168765420522821
+          },
+          "onTarget": 13
+        },
+        {
+          "family": "heading",
+          "condition": "fast",
+          "band": 40,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.791182029621192,
+            "min": 0.21463484548433262,
+            "median": 2.066019445740334,
+            "max": 4.313295202476304
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "fast",
+          "band": 60,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.2064529472491532,
+            "min": 0.11423361980342463,
+            "median": 1.376088500929761,
+            "max": 2.9452004632879976
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "fast",
+          "band": 80,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.8564046418267842,
+            "min": 0.052526419071791765,
+            "median": 0.967421499408409,
+            "max": 2.1080668981565176
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "heading",
+          "condition": "fast",
+          "band": 100,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.7370220005517887,
+            "min": 0.03265913674859439,
+            "median": 0.8212971403009132,
+            "max": 1.8261006848255024
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "heading",
+          "condition": "oblique",
+          "band": 20,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.5530747660452984,
+            "min": 0.2508020870626265,
+            "median": 2.9924357335524117,
+            "max": 6.01985000844701
+          },
+          "onTarget": 13
+        },
+        {
+          "family": "heading",
+          "condition": "oblique",
+          "band": 40,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.760725666289132,
+            "min": 0.22083450063212873,
+            "median": 2.0392179034638698,
+            "max": 4.212227640579673
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "oblique",
+          "band": 60,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.1894205874198576,
+            "min": 0.11975185877888354,
+            "median": 1.3628566319829087,
+            "max": 2.880334281102463
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "oblique",
+          "band": 80,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.8471450054357333,
+            "min": 0.059620936677775564,
+            "median": 0.9610634570376111,
+            "max": 2.0653569710424056
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "heading",
+          "condition": "oblique",
+          "band": 100,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.7315364483949496,
+            "min": 0.03995499749324763,
+            "median": 0.8235593080068309,
+            "max": 1.7913848642573524
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "heading",
+          "condition": "pressure",
+          "band": 20,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 4.285546993555205,
+            "min": 0.27145178995397934,
+            "median": 5.022913218452015,
+            "max": 10.189064892017294
+          },
+          "onTarget": 6
+        },
+        {
+          "family": "heading",
+          "condition": "pressure",
+          "band": 40,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3.5063618721588217,
+            "min": 0.26458198210597356,
+            "median": 4.063866891724814,
+            "max": 8.56773461389357
+          },
+          "onTarget": 6
+        },
+        {
+          "family": "heading",
+          "condition": "pressure",
+          "band": 60,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.9467621007840927,
+            "min": 0.2565031209239287,
+            "median": 3.3809268173507356,
+            "max": 7.366332528282783
+          },
+          "onTarget": 11
+        },
+        {
+          "family": "heading",
+          "condition": "pressure",
+          "band": 80,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.609959805342049,
+            "min": 0.25051883103477957,
+            "median": 2.9726284267052585,
+            "max": 6.6282096262746055
+          },
+          "onTarget": 13
+        },
+        {
+          "family": "heading",
+          "condition": "pressure",
+          "band": 100,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.497585787119276,
+            "min": 0.2486682343141875,
+            "median": 2.8367752078426904,
+            "max": 6.379377755876766
+          },
+          "onTarget": 14
+        },
+        {
+          "family": "heading",
+          "condition": "unreachable",
+          "band": 20,
+          "reached": 0,
+          "executed": 0,
+          "targetError": {
+            "samples": 0,
+            "censored": 16,
+            "mean": null,
+            "min": null,
+            "median": null,
+            "max": null
+          },
+          "onTarget": 0
+        },
+        {
+          "family": "heading",
+          "condition": "unreachable",
+          "band": 40,
+          "reached": 0,
+          "executed": 0,
+          "targetError": {
+            "samples": 0,
+            "censored": 16,
+            "mean": null,
+            "min": null,
+            "median": null,
+            "max": null
+          },
+          "onTarget": 0
+        },
+        {
+          "family": "heading",
+          "condition": "unreachable",
+          "band": 60,
+          "reached": 0,
+          "executed": 0,
+          "targetError": {
+            "samples": 0,
+            "censored": 16,
+            "mean": null,
+            "min": null,
+            "median": null,
+            "max": null
+          },
+          "onTarget": 0
+        },
+        {
+          "family": "heading",
+          "condition": "unreachable",
+          "band": 80,
+          "reached": 0,
+          "executed": 0,
+          "targetError": {
+            "samples": 0,
+            "censored": 16,
+            "mean": null,
+            "min": null,
+            "median": null,
+            "max": null
+          },
+          "onTarget": 0
+        },
+        {
+          "family": "heading",
+          "condition": "unreachable",
+          "band": 100,
+          "reached": 0,
+          "executed": 0,
+          "targetError": {
+            "samples": 0,
+            "censored": 16,
+            "mean": null,
+            "min": null,
+            "median": null,
+            "max": null
+          },
+          "onTarget": 0
+        },
+        {
+          "family": "heading",
+          "condition": "negative_control",
+          "band": 20,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.1559585832863863,
+            "min": 0.1141536545185233,
+            "median": 1.3230250420377796,
+            "max": 2.8046402687338308
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "negative_control",
+          "band": 40,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.1559585832863863,
+            "min": 0.1141536545185233,
+            "median": 1.3230250420377796,
+            "max": 2.8046402687338308
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "negative_control",
+          "band": 60,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.1559585832863863,
+            "min": 0.1141536545185233,
+            "median": 1.3230250420377796,
+            "max": 2.8046402687338308
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "negative_control",
+          "band": 80,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.1559585832863863,
+            "min": 0.1141536545185233,
+            "median": 1.3230250420377796,
+            "max": 2.8046402687338308
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "heading",
+          "condition": "negative_control",
+          "band": 100,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.1559585832863863,
+            "min": 0.1141536545185233,
+            "median": 1.3230250420377796,
+            "max": 2.8046402687338308
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "composure",
+          "condition": "unpressured",
+          "band": 20,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.8560532172763553,
+            "min": 0.1774502426890558,
+            "median": 0.7693799731472379,
+            "max": 2.1575972638622867
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "composure",
+          "condition": "unpressured",
+          "band": 40,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.8560532172763553,
+            "min": 0.1774502426890558,
+            "median": 0.7693799731472379,
+            "max": 2.1575972638622867
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "composure",
+          "condition": "unpressured",
+          "band": 60,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.8560532172763553,
+            "min": 0.1774502426890558,
+            "median": 0.7693799731472379,
+            "max": 2.1575972638622867
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "composure",
+          "condition": "unpressured",
+          "band": 80,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.8560532172763553,
+            "min": 0.1774502426890558,
+            "median": 0.7693799731472379,
+            "max": 2.1575972638622867
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "composure",
+          "condition": "unpressured",
+          "band": 100,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.8560532172763553,
+            "min": 0.1774502426890558,
+            "median": 0.7693799731472379,
+            "max": 2.1575972638622867
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "composure",
+          "condition": "pressure",
+          "band": 20,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 6.414644288841836,
+            "min": 0.6621340922734386,
+            "median": 6.9884755050915945,
+            "max": 15.377497842701358
+          },
+          "onTarget": 4
+        },
+        {
+          "family": "composure",
+          "condition": "pressure",
+          "band": 40,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 4.284016067524762,
+            "min": 0.47949625375674,
+            "median": 4.657970215921932,
+            "max": 10.286487713676449
+          },
+          "onTarget": 5
+        },
+        {
+          "family": "composure",
+          "condition": "pressure",
+          "band": 60,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.7546050369421295,
+            "min": 0.3841168503447185,
+            "median": 2.9853696495028257,
+            "max": 6.6514604865738916
+          },
+          "onTarget": 10
+        },
+        {
+          "family": "composure",
+          "condition": "pressure",
+          "band": 80,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.8336796981805383,
+            "min": 0.3121193679508884,
+            "median": 1.9377999257248617,
+            "max": 4.471761767448767
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "composure",
+          "condition": "pressure",
+          "band": 100,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.5260070708220055,
+            "min": 0.27575673721282506,
+            "median": 1.573442203435483,
+            "max": 3.7463806353688756
+          },
+          "onTarget": 15
+        },
+        {
+          "family": "setPieces",
+          "condition": "unpressured",
+          "band": 20,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.3543155456901683,
+            "min": 0.12331844200826901,
+            "median": 1.3629949424523518,
+            "max": 2.9813640892904134
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "setPieces",
+          "condition": "unpressured",
+          "band": 40,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.9972343740382887,
+            "min": 0.09039034076610807,
+            "median": 1.0090263995512796,
+            "max": 2.181543970039351
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "setPieces",
+          "condition": "unpressured",
+          "band": 60,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.7234719600544322,
+            "min": 0.0650199968891439,
+            "median": 0.7418721930587024,
+            "max": 1.5652823783787548
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "setPieces",
+          "condition": "unpressured",
+          "band": 80,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.5329651112261455,
+            "min": 0.047207197357671996,
+            "median": 0.5588818579653533,
+            "max": 1.1325874403377405
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "setPieces",
+          "condition": "unpressured",
+          "band": 100,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 0.4216105220705409,
+            "min": 0.036951916398575445,
+            "median": 0.4355876307055532,
+            "max": 0.8834638819943491
+          },
+          "onTarget": 16
+        },
+        {
+          "family": "setPieces",
+          "condition": "pressure",
+          "band": 20,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.871791610994034,
+            "min": 0.27625461780529903,
+            "median": 2.83900597008451,
+            "max": 6.62896360463179
+          },
+          "onTarget": 11
+        },
+        {
+          "family": "setPieces",
+          "condition": "pressure",
+          "band": 40,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.5127582761425566,
+            "min": 0.24313066952590193,
+            "median": 2.477552118869884,
+            "max": 5.827820275261783
+          },
+          "onTarget": 11
+        },
+        {
+          "family": "setPieces",
+          "condition": "pressure",
+          "band": 60,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.2365188686424955,
+            "min": 0.21772462521179595,
+            "median": 2.198776648722838,
+            "max": 5.211088721939532
+          },
+          "onTarget": 13
+        },
+        {
+          "family": "setPieces",
+          "condition": "pressure",
+          "band": 80,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 2.0431162370821347,
+            "min": 0.19991638193302863,
+            "median": 2.0036799216763326,
+            "max": 4.778426428560439
+          },
+          "onTarget": 13
+        },
+        {
+          "family": "setPieces",
+          "condition": "pressure",
+          "band": 100,
+          "reached": 16,
+          "executed": 16,
+          "targetError": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 1.931802500041265,
+            "min": 0.18967119293688028,
+            "median": 1.8914300853916604,
+            "max": 4.529505168169044
+          },
+          "onTarget": 13
+        }
+      ]
+    },
+    {
+      "name": "attribute-keepers",
+      "archive": "docs/performance/pr186-traces/attribute-keepers.json.gz",
+      "archiveSha256": "8302ff7c34c6589ddf1f7f12df90c86f3e2538ef55c5a125dbf36dcf6277c83f",
+      "payloadSha256": "2cd33da06c7c32069ba3920022d52e408e0c35a3be46d93b162ae3022c27f405",
+      "trials": 440,
+      "summary": [
+        {
+          "family": "oneOnOnes",
+          "band": 20,
+          "episodeOutcomes": {
+            "goal": 27,
+            "save": 37
+          },
+          "scheduledShotOutcomes": {
+            "goal": 9,
+            "no_scheduled_shot_outcome": 48,
+            "save": 7
+          },
+          "meaningfulSweeps": 0,
+          "actualShotReleases": 16,
+          "keeperMetres": {
+            "samples": 64,
+            "censored": 0,
+            "mean": 0.4288111301629016,
+            "min": 0,
+            "median": 0.39474203212611825,
+            "max": 2.3045584375170574
+          }
+        },
+        {
+          "family": "oneOnOnes",
+          "band": 40,
+          "episodeOutcomes": {
+            "goal": 27,
+            "save": 37
+          },
+          "scheduledShotOutcomes": {
+            "goal": 9,
+            "no_scheduled_shot_outcome": 48,
+            "save": 7
+          },
+          "meaningfulSweeps": 0,
+          "actualShotReleases": 16,
+          "keeperMetres": {
+            "samples": 64,
+            "censored": 0,
+            "mean": 0.4283923489395939,
+            "min": 0,
+            "median": 0.39474203212611825,
+            "max": 2.3045584375170574
+          }
+        },
+        {
+          "family": "oneOnOnes",
+          "band": 60,
+          "episodeOutcomes": {
+            "goal": 27,
+            "save": 37
+          },
+          "scheduledShotOutcomes": {
+            "goal": 9,
+            "no_scheduled_shot_outcome": 48,
+            "save": 7
+          },
+          "meaningfulSweeps": 0,
+          "actualShotReleases": 16,
+          "keeperMetres": {
+            "samples": 64,
+            "censored": 0,
+            "mean": 0.427270732348362,
+            "min": 0,
+            "median": 0.39474203212611825,
+            "max": 2.3045584375170574
+          }
+        },
+        {
+          "family": "oneOnOnes",
+          "band": 80,
+          "episodeOutcomes": {
+            "goal": 27,
+            "save": 37
+          },
+          "scheduledShotOutcomes": {
+            "goal": 9,
+            "no_scheduled_shot_outcome": 48,
+            "save": 7
+          },
+          "meaningfulSweeps": 0,
+          "actualShotReleases": 16,
+          "keeperMetres": {
+            "samples": 64,
+            "censored": 0,
+            "mean": 0.4262798255240915,
+            "min": 0,
+            "median": 0.39474203212611825,
+            "max": 2.3045584375170574
+          }
+        },
+        {
+          "family": "oneOnOnes",
+          "band": 100,
+          "episodeOutcomes": {
+            "goal": 27,
+            "save": 37
+          },
+          "scheduledShotOutcomes": {
+            "goal": 9,
+            "no_scheduled_shot_outcome": 48,
+            "save": 7
+          },
+          "meaningfulSweeps": 0,
+          "actualShotReleases": 16,
+          "keeperMetres": {
+            "samples": 64,
+            "censored": 0,
+            "mean": 0.4255661529104787,
+            "min": 0,
+            "median": 0.39474203212611825,
+            "max": 2.3045584375170574
+          }
+        },
+        {
+          "family": "goalkeeperSweeping",
+          "band": 20,
+          "episodeOutcomes": {
+            "goal": 8,
+            "miss": 7,
+            "save": 8,
+            "unresolved": 1
+          },
+          "scheduledShotOutcomes": {
+            "no_scheduled_shot_outcome": 24
+          },
+          "meaningfulSweeps": 8,
+          "actualShotReleases": 0,
+          "keeperMetres": {
+            "samples": 24,
+            "censored": 0,
+            "mean": 2.143437649428882,
+            "min": 0.040622322837123,
+            "median": 2.943537133170265,
+            "max": 3.5979478535900484
+          }
+        },
+        {
+          "family": "goalkeeperSweeping",
+          "band": 40,
+          "episodeOutcomes": {
+            "goal": 8,
+            "miss": 7,
+            "save": 8,
+            "unresolved": 1
+          },
+          "scheduledShotOutcomes": {
+            "no_scheduled_shot_outcome": 24
+          },
+          "meaningfulSweeps": 8,
+          "actualShotReleases": 0,
+          "keeperMetres": {
+            "samples": 24,
+            "censored": 0,
+            "mean": 2.143437649428882,
+            "min": 0.040622322837123,
+            "median": 2.943537133170265,
+            "max": 3.5979478535900484
+          }
+        },
+        {
+          "family": "goalkeeperSweeping",
+          "band": 60,
+          "episodeOutcomes": {
+            "goal": 8,
+            "miss": 7,
+            "save": 8,
+            "unresolved": 1
+          },
+          "scheduledShotOutcomes": {
+            "no_scheduled_shot_outcome": 24
+          },
+          "meaningfulSweeps": 8,
+          "actualShotReleases": 0,
+          "keeperMetres": {
+            "samples": 24,
+            "censored": 0,
+            "mean": 2.143437649428882,
+            "min": 0.040622322837123,
+            "median": 2.943537133170265,
+            "max": 3.5979478535900484
+          }
+        },
+        {
+          "family": "goalkeeperSweeping",
+          "band": 80,
+          "episodeOutcomes": {
+            "goal": 8,
+            "miss": 7,
+            "save": 8,
+            "unresolved": 1
+          },
+          "scheduledShotOutcomes": {
+            "no_scheduled_shot_outcome": 24
+          },
+          "meaningfulSweeps": 8,
+          "actualShotReleases": 0,
+          "keeperMetres": {
+            "samples": 24,
+            "censored": 0,
+            "mean": 2.143437649428882,
+            "min": 0.040622322837123,
+            "median": 2.943537133170265,
+            "max": 3.5979478535900484
+          }
+        },
+        {
+          "family": "goalkeeperSweeping",
+          "band": 100,
+          "episodeOutcomes": {
+            "goal": 8,
+            "miss": 7,
+            "save": 8,
+            "unresolved": 1
+          },
+          "scheduledShotOutcomes": {
+            "no_scheduled_shot_outcome": 24
+          },
+          "meaningfulSweeps": 8,
+          "actualShotReleases": 0,
+          "keeperMetres": {
+            "samples": 24,
+            "censored": 0,
+            "mean": 2.143437649428882,
+            "min": 0.040622322837123,
+            "median": 2.943537133170265,
+            "max": 3.5979478535900484
+          }
+        }
+      ]
+    },
+    {
+      "name": "attribute-overlaps",
+      "archive": "docs/performance/pr186-traces/attribute-overlaps.json.gz",
+      "archiveSha256": "cb71fee21251ed55996bde3795d4c50359e730583ca44d73f3637533ed14951a",
+      "payloadSha256": "2fe50b5520925325b0916f695b5669cca5058764b8e1ef817114c09b5b499214",
+      "trials": 160,
+      "summary": [
+        {
+          "attribute": "technique",
+          "band": 20,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.15741264537127186,
+            "min": 0.15741264537127186,
+            "median": 0.15741264537127186,
+            "max": 0.15741264537127186
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.5750000000000001,
+            "min": 0.5750000000000001,
+            "median": 0.5750000000000001,
+            "max": 0.5750000000000001
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.222338457867891,
+            "min": 0.055271389290359574,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "technique",
+          "band": 40,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.21247612460906623,
+            "min": 0.21247612460906623,
+            "median": 0.21247612460906623,
+            "max": 0.21247612460906623
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.5750000000000001,
+            "min": 0.5750000000000001,
+            "median": 0.5750000000000001,
+            "max": 0.5750000000000001
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.222338457867891,
+            "min": 0.055271389290359574,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "technique",
+          "band": 60,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.2677183538468604,
+            "min": 0.2677183538468604,
+            "median": 0.2677183538468604,
+            "max": 0.2677183538468604
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2199065534956812,
+            "min": 0.0504075805459404,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "technique",
+          "band": 80,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.32318058308465475,
+            "min": 0.32318058308465475,
+            "median": 0.32318058308465475,
+            "max": 0.32318058308465475
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2199065534956812,
+            "min": 0.0504075805459404,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "technique",
+          "band": 100,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.37891781232244903,
+            "min": 0.37891781232244903,
+            "median": 0.37891781232244903,
+            "max": 0.37891781232244903
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.525,
+            "min": 0.525,
+            "median": 0.525,
+            "max": 0.525
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.206068522317341,
+            "min": 0.02273151818926067,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 20,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.2677183538468604,
+            "min": 0.2677183538468604,
+            "median": 0.2677183538468604,
+            "max": 0.2677183538468604
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2199065534956812,
+            "min": 0.0504075805459404,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 40,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.2677183538468604,
+            "min": 0.2677183538468604,
+            "median": 0.2677183538468604,
+            "max": 0.2677183538468604
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2199065534956812,
+            "min": 0.0504075805459404,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 60,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.2677183538468604,
+            "min": 0.2677183538468604,
+            "median": 0.2677183538468604,
+            "max": 0.2677183538468604
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2199065534956812,
+            "min": 0.0504075805459404,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 80,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.2677183538468604,
+            "min": 0.2677183538468604,
+            "median": 0.2677183538468604,
+            "max": 0.2677183538468604
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2199065534956812,
+            "min": 0.0504075805459404,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 100,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.2677183538468604,
+            "min": 0.2677183538468604,
+            "median": 0.2677183538468604,
+            "max": 0.2677183538468604
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2199065534956812,
+            "min": 0.0504075805459404,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "firstTouch",
+          "band": 20,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.09074597870460523,
+            "min": 0.09074597870460523,
+            "median": 0.09074597870460523,
+            "max": 0.09074597870460523
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.8,
+            "min": 0.8,
+            "median": 0.8,
+            "max": 0.8
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2373747910909376,
+            "min": 0.08534405573645376,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "firstTouch",
+          "band": 40,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.1791427912757329,
+            "min": 0.1791427912757329,
+            "median": 0.1791427912757329,
+            "max": 0.1791427912757329
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.5750000000000001,
+            "min": 0.5750000000000001,
+            "median": 0.5750000000000001,
+            "max": 0.5750000000000001
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.222338457867891,
+            "min": 0.055271389290359574,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "firstTouch",
+          "band": 60,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.2677183538468604,
+            "min": 0.2677183538468604,
+            "median": 0.2677183538468604,
+            "max": 0.2677183538468604
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2199065534956812,
+            "min": 0.0504075805459404,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "firstTouch",
+          "band": 80,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.3565139164179881,
+            "min": 0.3565139164179881,
+            "median": 0.3565139164179881,
+            "max": 0.3565139164179881
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.525,
+            "min": 0.525,
+            "median": 0.525,
+            "max": 0.525
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.206068522317341,
+            "min": 0.02273151818926067,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "firstTouch",
+          "band": 100,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.4455844789891157,
+            "min": 0.4455844789891157,
+            "median": 0.4455844789891157,
+            "max": 0.4455844789891157
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.525,
+            "min": 0.525,
+            "median": 0.525,
+            "max": 0.525
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.206068522317341,
+            "min": 0.02273151818926067,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "agility",
+          "band": 20,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.18863283033517775,
+            "min": 0.18863283033517775,
+            "median": 0.18863283033517775,
+            "max": 0.18863283033517775
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.8500000000000001,
+            "min": 0.8500000000000001,
+            "median": 0.8500000000000001,
+            "max": 0.8500000000000001
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 1.1103423305530904,
+            "min": 1.1103423305530904,
+            "median": 1.1103423305530904,
+            "max": 1.1103423305530904
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 1.9784559843893343,
+            "min": 0.06986891613127083,
+            "median": 3.887043052647398,
+            "max": 3.887043052647398
+          }
+        },
+        {
+          "attribute": "agility",
+          "band": 40,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.22571683387409303,
+            "min": 0.22571683387409303,
+            "median": 0.22571683387409303,
+            "max": 0.22571683387409303
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.8661991341284114,
+            "min": 0.8661991341284114,
+            "median": 0.8661991341284114,
+            "max": 0.8661991341284114
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.0952977567907576,
+            "min": 0.043844919415899526,
+            "median": 4.146750594165615,
+            "max": 4.146750594165615
+          }
+        },
+        {
+          "attribute": "agility",
+          "band": 60,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.2677183538468604,
+            "min": 0.2677183538468604,
+            "median": 0.2677183538468604,
+            "max": 0.2677183538468604
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.7455866258216175,
+            "min": 0.7455866258216175,
+            "median": 0.7455866258216175,
+            "max": 0.7455866258216175
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.2199065534956812,
+            "min": 0.0504075805459404,
+            "median": 4.3894055264454215,
+            "max": 4.3894055264454215
+          }
+        },
+        {
+          "attribute": "agility",
+          "band": 80,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.31124062838080707,
+            "min": 0.31124062838080707,
+            "median": 0.31124062838080707,
+            "max": 0.31124062838080707
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.6232555634310306,
+            "min": 0.6232555634310306,
+            "median": 0.6232555634310306,
+            "max": 0.6232555634310306
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.3312799700153235,
+            "min": 0.057338085768899365,
+            "median": 4.605221854261748,
+            "max": 4.605221854261748
+          }
+        },
+        {
+          "attribute": "agility",
+          "band": 100,
+          "statuses": {
+            "completed": 8
+          },
+          "firstContact": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.34962559227688605,
+            "min": 0.34962559227688605,
+            "median": 0.34962559227688605,
+            "max": 0.34962559227688605
+          },
+          "recovery": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.55,
+            "min": 0.55,
+            "median": 0.55,
+            "max": 0.55
+          },
+          "turnSeconds": {
+            "samples": 4,
+            "censored": 4,
+            "mean": 0.5571058445819002,
+            "min": 0.5571058445819002,
+            "median": 0.5571058445819002,
+            "max": 0.5571058445819002
+          },
+          "controlledSpeed": {
+            "samples": 8,
+            "censored": 0,
+            "mean": 2.4166426962533274,
+            "min": 0.03921713486172832,
+            "median": 4.794068257644926,
+            "max": 4.794068257644926
+          }
+        }
+      ]
+    },
+    {
+      "name": "attribute-duels",
+      "archive": "docs/performance/pr186-traces/attribute-duels.json.gz",
+      "archiveSha256": "5223f6e8c342ec404e9dea034542eac72b722c70f33aebec37f714bb425fea79",
+      "payloadSha256": "2d69094c2b51ad6baf33112d6c681a830297153d92c10f26f1389d36d915c726",
+      "trials": 160,
+      "summary": [
+        {
+          "attribute": "technique",
+          "band": 20,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        },
+        {
+          "attribute": "technique",
+          "band": 40,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        },
+        {
+          "attribute": "technique",
+          "band": 60,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        },
+        {
+          "attribute": "technique",
+          "band": 80,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        },
+        {
+          "attribute": "technique",
+          "band": 100,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 20,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 40,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 60,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 80,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        },
+        {
+          "attribute": "dribbling",
+          "band": 100,
+          "escaped": 16,
+          "completedMove": 16,
+          "contactCounts": {
+            "samples": 16,
+            "censored": 0,
+            "mean": 3,
+            "min": 3,
+            "median": 3,
+            "max": 3
+          },
+          "failures": {
+            "none": 16
+          }
+        }
+      ]
+    },
+    {
+      "name": "decision-audit",
+      "archive": "docs/performance/pr186-traces/decision-audit.json.gz",
+      "archiveSha256": "58848376ca3a438a2fc6f36c5772ec64ebb31de319fac442070d8c75dc219861",
+      "payloadSha256": "4242a7715ec6822227845d9d159717d9fb6d365418a984b81b9d7dbbab9801dd",
+      "trials": 36,
+      "summary": {
+        "snapshots": 36,
+        "shotMenuMissing": 0,
+        "atCap": 0,
+        "collapsedTechniqueSnapshots": 12,
+        "interpretation": "Controlled geometry only; candidate absence/valuation/preparation/contact separated. Shared shot expectation is diagnosed for PR187, not retuned."
+      }
+    },
+    {
+      "name": "observer-neutrality",
+      "archive": "docs/performance/pr186-traces/observer-neutrality.json.gz",
+      "archiveSha256": "aa7c8bc18f4d17f917ad7bac8a7b91ca416a34e780c77410ebac2fc42c8adf00",
+      "payloadSha256": "d6cd79dbb3fad1d527a1ead88ddc68d65cdda87eb2d86367b80962978c66656e",
+      "trials": 1,
+      "summary": {
+        "identical": true
+      }
+    }
+  ],
+  "totalTrials": 2086,
+  "seeds": "pr186:<family>:<context>:<rep>; shared across compared bands",
+  "interpretation": "Development and engineering evidence only. Prototype equations do not validate their source attributes. Untouched SS/SW/WW validation is reserved for PR187."
+}
