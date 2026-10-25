@@ -235,12 +235,13 @@ No permanent balance rating or hidden laboratory success multiplier was added.
 
 ## 11. Physical validation and retained negatives
 
-Fourteen new tests cover swept fast impact, impulse consistency, spin persistence,
+Fifteen new tests cover swept fast impact, impulse consistency, spin persistence,
 near miss, unreachable high foot, absent thigh geometry, unsupported head/overhead,
 overlap deduplication, recovery, old/optional save roundtrip, human/default isolation,
 multi-contact reception, actual defender disruption, real receiver/goal crossing,
-repeated flights, attribute isolation, flight-counter continuity and observer neutrality.
-PR189's 21 and PR190's seven relevant regressions are retained; all 42 final focused
+repeated flights, attribute isolation, flight-counter continuity, same-tick boundary
+refereeing and observer neutrality.
+PR189's 21 and PR190's seven relevant regressions are retained; all 43 final focused
 tests pass and are recorded with the verification receipt.
 
 Early apparatus receipts are compressed under `rejected-apparatus-*`: direct
@@ -386,8 +387,25 @@ rerun and final-head CI results are recorded in `verification.json` and on the P
 No test assertion, test stage or original time budget was removed or enlarged.
 The complete rerun passes 2,229 unit + 56 integration + four career-contract + five
 full-career tests (2,294), lint and production build. Its unit stage preceded the
-last opt-in counter/reporting refinements; the subsequent 42-test focused suite,
+last opt-in counter/reporting and post-impact boundary refinements; the subsequent 43-test focused suite,
 TypeScript check and final-head CI validate those final additions explicitly.
+
+Final review adds a same-tick boundary regression: an oblique chest impact can
+send a ball across the touchline during the remaining part of the 25 ms step.
+That actual segment now reaches the existing boundary referee with the real
+last toucher and remaining duration. The new canonical fixture awards the away
+throw-in, without granting ownership. All 298 laboratory result hashes remain
+identical after re-execution; the previous receipt is retained compressed.
+Three additional full B development repeats use the `body-boundary` suffix.
+`boundary-revalidation.json` also preserves the first CI integration timeout:
+55/56 tests passed, and the unchanged legacy 90 s subprocess budget killed the
+remaining half (SIGTERM). No assertion or budget is weakened.
+The same CI attempt passed lint, 2,230 unit tests, build and historical replays,
+then found an apparatus portability bug: regenerated gzip headers identify
+Windows/Linux differently. Check mode now verifies the retained archive's byte
+hash and compares its decompressed full trace exactly with the rerun, instead
+of requiring identical platform-dependent recompression. Physical values and
+outcomes still require exact equality.
 
 ## 18. Gates, readiness and next steps
 

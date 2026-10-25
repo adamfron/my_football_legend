@@ -2125,6 +2125,17 @@ const stepTacticalMatchCore = (
           if (!crossing || fraction < crossing.segmentFraction) {
             if (isOffsideOffence(state.offsideSnapshot, body.contact.playerId))
               return awardOffsideRestart(state, body.contact.playerId, body.contact.point);
+            const afterContactCrossing = findPitchBoundaryCrossing(
+              body.contact.point,
+              body.state.ball,
+            );
+            if (afterContactCrossing)
+              return applyBoundaryRestart(
+                body.state,
+                afterContactCrossing,
+                body.contact.point,
+                dt * (1 - fraction),
+              );
             return body.state;
           }
         }

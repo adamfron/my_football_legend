@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceHash": "7787f24c97046d3b8a8ba094b61ec498721623a7d17527d908dd09d42559faf1",
+  "sourceHash": "5cf2977733cd46ed752186c83ebe587d565b53066fc221eb2745b88346fc51f0",
   "source": [
     {
       "path": "src/app/App.tsx",
@@ -912,7 +912,7 @@
     },
     {
       "path": "src/core/matchSimulation/matchSimulation.ts",
-      "sha256": "cf6a71767b20e4eb5f7b69d76e5cf6dfbd65ae11c6f420e5fe6a5d6655840112"
+      "sha256": "29730c662e5071bdde9793468da9c71cb79b0a190f717ccc77ee1c2b234cf996"
     },
     {
       "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
@@ -1418,7 +1418,7 @@
   "runners": [
     {
       "path": "scripts/benchmarkPr191.mjs",
-      "sha256": "17cb4008203833cf06bd29c5d74ee4e4006cba0d97f3aa1d8b32d40de17243ca"
+      "sha256": "e68585db8faeeae2d34c5f7f98e71fdadae4fa563b35848fe7a85bc9c6e880fc"
     },
     {
       "path": "scripts/benchmarkPr191Matches.mjs",
@@ -1453,6 +1453,10 @@
     {
       "path": "docs/performance/pr191/baseline.json",
       "sha256": "3d9bb4f1d36b03e51a087beeec24dd39d9e281ab77978387fdb70dd19ab19b38"
+    },
+    {
+      "path": "docs/performance/pr191/boundary-revalidation.json",
+      "sha256": "97fe7ffb762cf48796f296e5a02bab520c2ece1985d4f4a77ac5eb3bbfc6aabd"
     },
     {
       "path": "docs/performance/pr191/browser-smoke.json",
@@ -1495,6 +1499,10 @@
       "sha256": "d57a4d49162d30b847b504264fe9aa2afeaec1b348619e4ff1af18c90a2eae1b"
     },
     {
+      "path": "docs/performance/pr191/focused-boundary.log.gz",
+      "sha256": "0cdc6ef94fe634e76eea03b1462303fcd729c43cd306c683447f37723177d4c6"
+    },
+    {
       "path": "docs/performance/pr191/focused-final.log.gz",
       "sha256": "41381fbbd866d1204e51487928be797316f3df96c30a8c265e0d667bc3d82ca9"
     },
@@ -1523,8 +1531,12 @@
       "sha256": "26ab4388dfc1b81f33da6839f88747f73ef899af014cd0561f3c36d8e4d60cea"
     },
     {
+      "path": "docs/performance/pr191/laboratory.before-boundary.gz",
+      "sha256": "6a815a8c96a011a638b702949fa10bbe7d00448c53c261f0f40852151c8fc81d"
+    },
+    {
       "path": "docs/performance/pr191/laboratory.json",
-      "sha256": "e6e80abab021265f27559c4f1ea3f2d8d19e77112c0a7fae193e8ed51eefe701"
+      "sha256": "d6667cbdc736158f1e2befaa21a0d7a5888b31bf014d43c8e89c8764a1667b56"
     },
     {
       "path": "docs/performance/pr191/performance.json",
@@ -1547,12 +1559,20 @@
       "sha256": "0f707e4a6df497818541bc22110c0113b23d7076837893c8206f0257ed2f56f4"
     },
     {
+      "path": "docs/performance/pr191/ss-state-value-v1-body-boundary.json",
+      "sha256": "3a39ce2dd5386d52a2b599a09f72a9fbbd52f67edf6fdbf0d91a49f82a6dce67"
+    },
+    {
       "path": "docs/performance/pr191/ss-state-value-v1-body-flow.json",
       "sha256": "573542c41820a63c394cbf167335817b4e2e1080148b51cebc03796d400da293"
     },
     {
       "path": "docs/performance/pr191/ss-state-value-v1-body.json",
       "sha256": "c8cdabaafff7888354796f221a284010b1cd57401f83798ab8abb5f7de5aa3ed"
+    },
+    {
+      "path": "docs/performance/pr191/sw-state-value-v1-body-boundary.json",
+      "sha256": "0f024b835ee59eef0b66f35b7e02236b186aa526d0937effe3362bd9d95a314e"
     },
     {
       "path": "docs/performance/pr191/sw-state-value-v1-body-flow.json",
@@ -1592,7 +1612,7 @@
     },
     {
       "path": "docs/performance/pr191/verification.json",
-      "sha256": "fa21cc49297595c1e01c141188621eb439b6ac75fb2cffc33c7077ae2b38df94"
+      "sha256": "aeeb562607357df67efa6098b6183b51daa3dee9af5acff7532882b356e6bcd4"
     },
     {
       "path": "docs/performance/pr191/verify-completed.log.gz",
@@ -1605,6 +1625,10 @@
     {
       "path": "docs/performance/pr191/verify-npm-path-failed.log.gz",
       "sha256": "5b5c301dd558bd6bd539c276fed93839b2e7922f275a8f2e97a6540046bdf181"
+    },
+    {
+      "path": "docs/performance/pr191/ww-state-value-v1-body-boundary.json",
+      "sha256": "734e251740c79cb54cbd8f07049b2c25db60b460332829580ceb331a687793a7"
     },
     {
       "path": "docs/performance/pr191/ww-state-value-v1-body-flow.json",

@@ -17,6 +17,9 @@ import { tacticalMatchStateSchema } from './matchState';
 import { advanceExperimentalBodyReception } from './experimentalBodyReception';
 import { integrateBallFlight, type PhysicalBall } from './ballPhysics';
 import { FOOT_CONTACT_PHYSICS } from './footContact';
+import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
+import { createSingleMatchSession } from '../singleMatch';
+import { createOpenPlayMatchFixture, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
 let profile: FootballerProfile;
 beforeAll(() => {
   profile = createFootballLabProfile();
@@ -151,6 +154,54 @@ describe('PR191 finite surface contacts', () => {
     expect(r.state.ball.ownerId).toBeUndefined();
     expect(r.state.ball.flightTime).toBeCloseTo(2.025, 12);
     expect(r.state.ball.distanceTravelled).toBeGreaterThan(10);
+  });
+  it('awards the actual boundary restart after a body deflection within the same tick', () => {
+    const world = createCanonicalWorldDatabase();
+    const s = createOpenPlayMatchFixture(
+      createSingleMatchSession(world, {
+        homeClubId: world.clubs[0]!.id,
+        awayClubId: world.clubs[1]!.id,
+        seed: 'pr191-boundary',
+        control: { mode: 'spectator' },
+      }),
+    );
+    delete s.restart;
+    s.scenario = 'open_play';
+    s.playerAgencyEnabled = false;
+    s.actionCooldown = 1;
+    s.experimentalBodyContacts = experimentalBodyContactsSchema.parse({ version: 'body-v1' });
+    s.players.forEach((p, i) => {
+      p.position = { x: 40 + i, y: 34 };
+      p.target = { ...p.position };
+      p.velocity = { x: 0, y: 0 };
+    });
+    const actor = s.players[1]!;
+    actor.position = { x: 20, y: 0.4 };
+    actor.target = { ...actor.position };
+    actor.facingAngle = 0;
+    s.ball = {
+      x: 18.8,
+      y: 0.15,
+      height: 1.3,
+      velocity: { x: 80, y: 0, z: 0 },
+      airborne: true,
+      bounceCount: 0,
+      travelKind: 'pass',
+      from: { x: 18.8, y: 0.15 },
+      target: { x: 40, y: 0.15 },
+      lastTouchPlayerId: 'launcher',
+    };
+    const r = stepTacticalMatchAfterDecisionProbe(s, 0.025);
+    const contact = r.experimentalBodyContacts!.last!;
+    expect(contact.actualSurface).toBe('chest');
+    expect(contact.at).toBeGreaterThan(0);
+    expect(contact.at).toBeLessThan(0.025);
+    expect(r.scenario).toBe('throw_in');
+    expect(r.lastBoundaryCrossing?.boundary).toBe('touchline_top');
+    expect(r.lastBoundaryCrossing?.previous).toEqual(contact.point);
+    expect(r.lastBoundaryCrossing?.lastTouchPlayerId).toBe(actor.id);
+    expect(r.restart?.restartTeam).toBe('away');
+    expect(r.ball.ownerId).toBeUndefined();
   });
 });
 

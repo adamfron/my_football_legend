@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
-import { gzipSync } from 'node:zlib';
+import { gzipSync, gunzipSync } from 'node:zlib';
 import process from 'node:process';
 import console from 'node:console';
 import { performance } from 'node:perf_hooks';
@@ -61,7 +61,9 @@ const run = (config, player, seed) => {
     seed.endsWith(':0')
   ) {
     const tracePath = join(out, '..', `trace-${config.id}.json.gz`);
-    const bytes = gzipSync(JSON.stringify(stored));
+    const bytes = check ? readFileSync(tracePath) : gzipSync(JSON.stringify(stored));
+    if (check && gunzipSync(bytes).toString('utf8') !== JSON.stringify(stored))
+      throw Error('Selected uncompressed trace drift: ' + config.id);
     if (!check) {
       mkdirSync(join(out, '..'), { recursive: true });
       writeFileSync(tracePath, bytes);
@@ -157,7 +159,18 @@ const physics = {
 };
 if (check) {
   const old = JSON.parse(readFileSync(out));
-  if (sha(old.physics) !== sha(physics)) throw Error('Evidence drift');
+  if (sha(old.physics) !== sha(physics)) {
+    const differences = [];
+    const compare = (a, b, path) => {
+      if (differences.length >= 8 || JSON.stringify(a) === JSON.stringify(b)) return;
+      if (a && b && typeof a === 'object' && typeof b === 'object')
+        for (const key of new Set([...Object.keys(a), ...Object.keys(b)]))
+          compare(a[key], b[key], path + '.' + key);
+      else differences.push({ path, expected: a, actual: b });
+    };
+    compare(old.physics, physics, 'physics');
+    throw Error('Evidence drift: ' + JSON.stringify(differences));
+  }
 } else {
   mkdirSync(join(out, '..'), { recursive: true });
   writeFileSync(
