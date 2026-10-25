@@ -1,5 +1,30 @@
 # My Football Legend — Current Project State
 
+## PR191 — First Touch, Directional Control & One-Touch Laboratory (experimental)
+
+Fizyczne próby przyjęcia, kierunkowego kontaktu, odegrania/strzału z pierwszej
+piłki i podbijania korzystają z wyrzutni, lotu i ruchu 40 Hz. Wspólny receipt
+oddziela zamiar, rzeczywistą powierzchnię, impuls/spin, kontrolę i dalszy wynik.
+Tułów i połączone powierzchnie nogi mają rzeczywistą geometrię; przypadkowa
+klatka może przerwać zamierzone udo. Foot solver i historyczne główki są zachowane.
+W Match Lab: **Widok diagnostyczny → PR191 · Pierwszy kontakt i gra z pierwszej piłki**.
+
+Kontakt tułowia jest dostępny w pełnym meczu wyłącznie po jawnym włączeniu
+`experimentalBodyContacts: { version: 'body-v1', readyAt: {}, locks: [] }`.
+Trzy pełne development B/WW/SS/SW i autentyczne przechwycone stany nie stanowią
+niezależnego potwierdzenia ani dowodu poprawy ataku. Dynamiczne uniesienie uda,
+pełne woleje i akrobatyka pozostają otwarte; nowe impulsowe główki są niedostępne.
+[Raport, konkretne wyniki i powtarzalne polecenia](PR191_FIRST_TOUCH_DIRECTIONAL_CONTROL_AND_ONE_TOUCH_LAB.md).
+
+**B domyślne; 28 atrybutów zachowane; canonical NOT READY; confirmation nieotwarte.**
+Nadmierna cyrkulacja, mało kreacji i zbyt długi czas gry pozostają osobnymi blokerami.
+Nowa autorytatywna kolejność: **PR191 laboratorium → PR192 pełne generacje/siła świata
+→ PR193 Summary Simulation & PlayStyles → PR194 Career UX → PR195+ World Expansion**.
+Przesunięcie dawnego PR191–194+ o jeden jest jawne; całe 20–25 sezonów, NPC ageing/
+retirement, akademie i kohorty, trajektorie talentu, silne/słabe kluby, transfery,
+wymiana kadr i długoterminowa stabilność siły świata pozostają NIEWYKONANE.
+Summary pozostaje zablokowane do walidacji canonical; dalsze zobowiązania w [roadmapie](ROADMAP.md).
+
 ## PR190 — Passing, Effective Time & Contact Foundation (staged)
 
 Fizyczny impuls stopy zastępuje absolutny próg wymuszający heavy touch przy
@@ -22,8 +47,8 @@ zakresem PR190. Częstość naturalnych przerw, cyrkulacja i tworzenie sytuacji 
 blokują readiness. **Canonical NOT READY; B `state-value-v1` domyślne; 28 atrybutów
 bez zmian; niezależna kohorta confirmation nieotwarta.**
 
-PR191 zachowuje pełne 20–25 sezonów Generational Renewal i analizy siły świata.
-PR192 summary/PlayStyles wymaga wiarygodnego canonical. PR193 career UX i PR194+
+PR192 zachowuje pełne 20–25 sezonów Generational Renewal i analizy siły świata.
+PR193 summary/PlayStyles wymaga wiarygodnego canonical. PR194 career UX i PR195+
 world expansion zachowują pełne zobowiązania; pozostały zakres PR190 nie jest
 niejawnie przenoszony ani oznaczany jako wykonany.
 
@@ -62,8 +87,8 @@ w [raporcie PR189](PR189_BALL_CONTACT_DUEL_GEOMETRY_AND_DEADLOCK_RESOLUTION.md).
 **Canonical NOT READY; B `state-value-v1` nadal domyślne, 28 atrybutów bez zmian,
 niezależna kohorta confirmation zamknięta.**
 
-Aktualna kolejność: **PR189 kontakt/replay → PR190 geometria ciała i powierzchnie → PR191
-pełne generacje/siła świata → PR192 summary/PlayStyles → PR193 career UX → PR194+
+Aktualna kolejność: **PR189 kontakt/replay → PR190 fundament ciała → PR191 laboratorium → PR192
+pełne generacje/siła świata → PR193 summary/PlayStyles → PR194 career UX → PR195+
 world expansion**. Pełny zakres generacji, w tym 20–25 sezonów rozwoju i analizy
 siły świata, jest zachowany w roadmapie. Żaden z tych etapów nie jest ukończony.
 

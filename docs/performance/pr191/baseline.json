@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "commit": "251ec9f88f212f7a93d26ebc7491b1176e5a25ef",
+  "pr190Head": "a8cc1b040451399f28edf6fd55ef0a262a0b371f",
+  "sourceHash": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+  "stepSeconds": 0.025,
+  "physics": {
+    "path": "src/core/matchSimulation/ballPhysics.ts",
+    "sha256": "711579f201eda1cefef028a39f0d629f52a4c1bec973f29666f13b2d14f0eae8"
+  },
+  "rows": [
+    {
+      "path": "docs/performance/pr190/ww-state-value-v1-spin-final.json",
+      "sha256": "672dd5a25f4e0af68a3b6ea6037eab77d649ddd9ae421079a30bcaf9009f236c",
+      "seed": "pr187-development-ww-01",
+      "inputHash": "c03bb29e9df6c00d868f0c15f533233d45af6c02ddc1405279f3448bdf64b1a5",
+      "finalHash": "d2ccb9fa0aad91f4f34b81def631c2159670aa4496b3f53094205f670f26e15d",
+      "passes": {
+        "attempted": 675,
+        "completed": 321
+      },
+      "shots": 12,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/ww-phase-role-hybrid-v1-spin-final.json",
+      "sha256": "e704ef7dd346aa7af07e22d9332b764a530ea4581b282fa800b8bab521215526",
+      "seed": "pr187-development-ww-01",
+      "inputHash": "9258467dd0f5500403ef82c07d9788719e0281439288d6af16ee9a150293a83b",
+      "finalHash": "5b64419af109343cc99a3bade911b691efc4f91830940976b21c65905cbd8b5e",
+      "passes": {
+        "attempted": 728,
+        "completed": 429
+      },
+      "shots": 13,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/ww-opportunity-driven-v1-spin-final.json",
+      "sha256": "e6b3230464e2860eaed5a5b0fb547b7451646931e3a0a1e5a9941cecf5f66265",
+      "seed": "pr187-development-ww-01",
+      "inputHash": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+      "finalHash": "d82cfc6f5df14c79489f813c1f655f331e93cc26b9999a669e9082f14c7153e1",
+      "passes": {
+        "attempted": 1889,
+        "completed": 527
+      },
+      "shots": 3,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/ww-hierarchical-intent-v1-spin-final.json",
+      "sha256": "67f09745aad70d0aa93b48db03220a97f5ae54a6b1444f45f6b6d7b971477950",
+      "seed": "pr187-development-ww-01",
+      "inputHash": "47b2b387a53f6186d2b925ebb052e48466b9952ccbd3e88a71359eeaf14ef5bb",
+      "finalHash": "f6cf804805aa91181116387a0a83292c5c9ffaf238f47aa20db765c1080ad8ae",
+      "passes": {
+        "attempted": 1430,
+        "completed": 912
+      },
+      "shots": 1,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/ww-contextual-judgment-v1-spin-final.json",
+      "sha256": "cdf48f3a6807a66cd52c2ae4d515b65745899b2eec468e4c01b7df49a28031e7",
+      "seed": "pr187-development-ww-01",
+      "inputHash": "803477ece376499eb2082cbf232b5ed8b63125fbd5b6f885fffce1baf7e2e867",
+      "finalHash": "c3aebadf06d09a0c99042eb9c1f63c7c7776c77f05b252adf33a0a3e2b809b80",
+      "passes": {
+        "attempted": 1688,
+        "completed": 1107
+      },
+      "shots": 0,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/ss-state-value-v1-spin-final.json",
+      "sha256": "1d190e1948fac6fac3cbed556f3eb9d553d075ad38bd43f665e8b2d37134f982",
+      "seed": "pr187-development-ss-01",
+      "inputHash": "1d4ad1925407ba3e292f96cffa3cbf8d41b8813645f63c38574f2e27c93a531d",
+      "finalHash": "1e5b7382f5e04116cd8deb9d3dfcabffa733927ab61456ca8d10ba25620f38f2",
+      "passes": {
+        "attempted": 2238,
+        "completed": 1547
+      },
+      "shots": 12,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/ss-phase-role-hybrid-v1-spin-final.json",
+      "sha256": "953fe72223272ca06eed8206455cd9f0ea0ab823488554b63b190f40307a1833",
+      "seed": "pr187-development-ss-01",
+      "inputHash": "f25120b8d37ae25717f00a236df235185c564369d26d13587a41b566c3a8ef8d",
+      "finalHash": "9f2277523da155d1d1fcdc63927ca2168d9ca44e0580fcee373ca82a74409377",
+      "passes": {
+        "attempted": 2114,
+        "completed": 1435
+      },
+      "shots": 19,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/ss-opportunity-driven-v1-spin-final.json",
+      "sha256": "92c24e562190c34a156d722b8296fd1ce74ef4dd6dc0830d9ab715054f685d69",
+      "seed": "pr187-development-ss-01",
+      "inputHash": "3d7bfe27f3b43b944e34eb6c0ea93aa9c204573a9fb443d4bb544b1fab417161",
+      "finalHash": "616020e9b514cd8b200bc19124b4a104125bf09684c72e67ded097555f68bf53",
+      "passes": {
+        "attempted": 2407,
+        "completed": 925
+      },
+      "shots": 0,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/ss-hierarchical-intent-v1-spin-final.json",
+      "sha256": "a23b4d5454d83c77055a76c9f131669839737369f158dea2cc0170843c0de9bc",
+      "seed": "pr187-development-ss-01",
+      "inputHash": "f62908ff078e215d90c821cc87cfbcf3e8d43c7c56e3849c8ffd72d168b5c6f4",
+      "finalHash": "e7e4de9315bd41b936a4dc942c18ac61bb427776bab8be5d191bca1f18cfe3d3",
+      "passes": {
+        "attempted": 1246,
+        "completed": 1031
+      },
+      "shots": 5,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/ss-contextual-judgment-v1-spin-final.json",
+      "sha256": "d21b2c5dbabdb3e83f4d638f096652482d4937d4ec89b0e40cfdeb8f6cd9319b",
+      "seed": "pr187-development-ss-01",
+      "inputHash": "c9c82993b94e5390c2b4fac992f15ddd48186856220c4a7d11a0bc3c2c14282b",
+      "finalHash": "54dfa7975dc6e54d1d14768966fecd6245c4d3d6e4af29b248dc537e8e859300",
+      "passes": {
+        "attempted": 1736,
+        "completed": 1455
+      },
+      "shots": 4,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/sw-state-value-v1-spin-final.json",
+      "sha256": "ad8e16eae26023a97ec7837990da6d289b091b9c9be0f8c278715d080450eb9e",
+      "seed": "pr187-development-sw-01",
+      "inputHash": "7bab568a74ef736db8075901685bfa579aeafc5f494bc2fea9cbc0f751f0c60b",
+      "finalHash": "565b0c9523fa4f4617cec5a3dd930d1189edf2269f9f4c999a84c93404a6302b",
+      "passes": {
+        "attempted": 1692,
+        "completed": 966
+      },
+      "shots": 23,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/sw-phase-role-hybrid-v1-spin-final.json",
+      "sha256": "2e7865c1531fcfe22124d63432bd14535b79b3819dec6e72c666918688aff260",
+      "seed": "pr187-development-sw-01",
+      "inputHash": "7db4dfe86e9ce21fb9060230c7187c5523947d256ab44fd1e8847ef1456e7dce",
+      "finalHash": "77abf6f02fe582e933095ed059445a447c0cf221e48f73589a3c0d79885f892e",
+      "passes": {
+        "attempted": 1591,
+        "completed": 982
+      },
+      "shots": 27,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/sw-opportunity-driven-v1-spin-final.json",
+      "sha256": "73de02a4978a2a264e161307470e6fdd62b20f968fc9116a695db4890bb722ff",
+      "seed": "pr187-development-sw-01",
+      "inputHash": "840da71e7f32985028c4b680d6f1827bf4f694d4597c7444969c6fb6b1c0175a",
+      "finalHash": "2e94062c7581028027f6b545b2c2994f402047b7c6e321cf9c7a4e62b4c6b19d",
+      "passes": {
+        "attempted": 2329,
+        "completed": 764
+      },
+      "shots": 1,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/sw-hierarchical-intent-v1-spin-final.json",
+      "sha256": "bd190d2f41520cec98ef8375f90e0aee9282aa4c7950ec11e5a506f2b3e22c8f",
+      "seed": "pr187-development-sw-01",
+      "inputHash": "80d9832f317527564ca8581fc90c4089630fe91142c247f55444813522a1cdbb",
+      "finalHash": "2934b7985baa237c534179b27e7cf1bd1d7db300d4b1016a8053844a00ff919b",
+      "passes": {
+        "attempted": 591,
+        "completed": 449
+      },
+      "shots": 16,
+      "status": "full_time"
+    },
+    {
+      "path": "docs/performance/pr190/sw-contextual-judgment-v1-spin-final.json",
+      "sha256": "2502f152748bf89025155f5507efa174619f44cf6e888971c299b34235ed8b80",
+      "seed": "pr187-development-sw-01",
+      "inputHash": "e1c070b59dd267819644d6e8560ddfc1348c6895c78287b65bc5949bf84963e0",
+      "finalHash": "7233bff87c79d3fc1e5c074a7b363f1f6b95240d6bb0671f96849fe9be8729c2",
+      "passes": {
+        "attempted": 1399,
+        "completed": 1072
+      },
+      "shots": 35,
+      "status": "full_time"
+    }
+  ],
+  "retained": [
+    "docs/performance/pr189/evidence-index.json",
+    "docs/performance/pr190/evidence-index.json"
+  ],
+  "independentCohort": "unopened"
+}

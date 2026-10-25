@@ -144,6 +144,7 @@ import { positionCode } from '../../core/positionPresentation';
 import type { WorldDatabase } from '../../types/domain';
 import { projectMatchKits } from './tacticalRenderer/kits';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
+import { FirstTouchLaboratoryPanel } from './FirstTouchLaboratoryPanel';
 import {
   accrueSimulationDebt,
   availableFixedTicks,
@@ -2246,6 +2247,12 @@ export const RunningLab = ({
       {!careerMode && (
         <details className="presentation-diagnostics">
           <summary>Widok diagnostyczny</summary>
+          <details>
+            <summary>PR191 · Pierwszy kontakt i gra z pierwszej piłki</summary>
+            {state.players[0] && (
+              <FirstTouchLaboratoryPanel profiles={state.players.map((p) => p.profile)} />
+            )}
+          </details>
           <div>
             {(
               [

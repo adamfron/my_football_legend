@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "coreSourceHash": "5ec55a3e677b60fb4ab126feea23ca9c01ddfbaf4a59a9652d3c4e0f6a98ab8e",
+  "node": "v24.22.1",
+  "localFullVerify": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "unit": 2229,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "total": 2294,
+    "lint": "PASS",
+    "productionBuild": "PASS",
+    "log": "docs/performance/pr191/verify-completed.log.gz",
+    "sourceScope": "Completed before final opt-in flight-counter, laboratory evaluator/reporting and post-impact boundary refinements; final 43 focused tests and exact-head CI cover those additions. The later full local verification is reported separately on the PR."
+  },
+  "finalFocused": {
+    "command": "vitest run firstTouchLaboratory.test.ts pr189Deadlock.test.ts pr190Reception.test.ts --maxWorkers=1",
+    "tests": 43,
+    "exitCode": 0,
+    "newTests": 15,
+    "log": "docs/performance/pr191/focused-boundary.log.gz",
+    "testSourceSha256": "36fb08dc871034ce3e2bc1293c29096d23f733e7bb7631bea4785e7180ccad51"
+  },
+  "historical": {
+    "pr190FrozenArtifacts": 250,
+    "pr190FrozenCaptures": 26,
+    "currentPr190Captures": 26,
+    "pass": true
+  },
+  "currentReplays": {
+    "genuineCaptures": 5,
+    "modePairs": 2,
+    "repeatsPerMode": 3,
+    "observerNeutral": true
+  },
+  "laboratory": {
+    "inputs": 298,
+    "executions": 596,
+    "observerNeutral": true
+  },
+  "retainedFailures": [
+    "docs/performance/pr191/verify-initial-timeout.log.gz",
+    "docs/performance/pr191/verify-npm-path-failed.log.gz"
+  ],
+  "ci": "Exact-head result is recorded in GitHub Checks and the pull-request description; this committed receipt is not a future CI attestation."
+}

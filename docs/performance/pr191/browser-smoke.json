@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "classification": "manual browser inspection of final panel; not a broad human match matrix",
+  "browser": "in-app browser",
+  "url": "http://127.0.0.1:5192/my_football_legend/?devtools=1&matchSandbox=1",
+  "defaultPolicy": "state-value-v1",
+  "playerLabel": "Mateusz Kowalski",
+  "exercise": "descending_thigh",
+  "mode": "prescribed",
+  "seed": "pr191-inspection",
+  "observedControlAtSeconds": 0.5,
+  "observedContactTimeSeconds": 0.125,
+  "observedIntendedSurface": "thigh",
+  "observedActualSurface": "thigh",
+  "observedFootContinuationSeconds": [0.325, 0.5],
+  "scrubIndex": 1,
+  "maximumZoomExercised": 1.5,
+  "screenshot": "docs/performance/pr191/browser-thigh.png",
+  "finalErrorsAfterFullReload": 0,
+  "retainedDevelopmentFailure": {
+    "message": "Cannot read properties of undefined (reading 'find')",
+    "context": "HMR while changing the panel from a single profile prop to a profile-list selector",
+    "errorLogEntries": 4,
+    "lastLoggedErrorUTC": "2026-10-25T16:30:06.828Z",
+    "recovery": "full reload; new match; final player selector, exercise, execution, scrub and zoom inspected"
+  },
+  "cleanup": "test tab and both preview servers closed before isolated performance verification"
+}

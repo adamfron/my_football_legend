@@ -92,7 +92,12 @@
     "benchmark:pr190:check": "node scripts/checkPr190Evidence.mjs",
     "benchmark:pr190:summary": "node scripts/summarizePr190.mjs",
     "benchmark:pr190:optimization": "node scripts/verifyPr190Optimization.mjs --check",
-    "benchmark:pr190:arrival": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr190Arrival.mjs --before-root=.benchmark-artifacts/pr190-spin-final"
+    "benchmark:pr190:arrival": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr190Arrival.mjs --before-root=.benchmark-artifacts/pr190-spin-final",
+    "benchmark:pr191:lab": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr191.mjs",
+    "benchmark:pr191:check": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr191.mjs --check && node scripts/checkPr191Evidence.mjs",
+    "benchmark:pr191:replay": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr191.mjs --check",
+    "benchmark:pr191:baseline": "node scripts/replayPr190Baseline.mjs",
+    "benchmark:pr191:matches": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr191Matches.mjs"
   },
   "dependencies": {
     "react": "19.2.8",

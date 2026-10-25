@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "change": "Resolve the actual post-body-impact boundary crossing in the remaining fraction of a canonical tick.",
+  "previousHead": "bbadc1856614d184ed4844aa897df5f58b16c579",
+  "oldCoreSourceHash": "70ab0274e9a1da83b91db396c80bbe049b937b797111e8d5337c89befa8096ab",
+  "newCoreSourceHash": "5ec55a3e677b60fb4ab126feea23ca9c01ddfbaf4a59a9652d3c4e0f6a98ab8e",
+  "laboratory": [
+    {
+      "kind": "rows",
+      "count": 108,
+      "equal": true
+    },
+    {
+      "kind": "contrasts",
+      "count": 180,
+      "equal": true
+    },
+    {
+      "kind": "physicalVariants",
+      "count": 10,
+      "equal": true
+    }
+  ],
+  "archivedPreviousLaboratory": "docs/performance/pr191/laboratory.before-boundary.gz",
+  "ciAttempt1": {
+    "run": 40219119459,
+    "job": 121246640993,
+    "head": "bbadc1856614d184ed4844aa897df5f58b16c579",
+    "result": "FAIL",
+    "passed": 55,
+    "failed": 1,
+    "reason": "Unchanged legacy whole-half native subprocess killed at its original 90 second wall budget (SIGTERM). No assertions or budgets changed."
+  },
+  "fullMatchReceipts": [
+    "docs/performance/pr191/ww-state-value-v1-body-boundary.json",
+    "docs/performance/pr191/ss-state-value-v1-body-boundary.json",
+    "docs/performance/pr191/sw-state-value-v1-body-boundary.json"
+  ],
+  "ciApparatusFailure": {
+    "run": 40219119459,
+    "job": 121246640952,
+    "head": "bbadc1856614d184ed4844aa897df5f58b16c579",
+    "unit": 2230,
+    "lint": "PASS",
+    "build": "PASS",
+    "reason": "Recompressing a selected trace on Linux changes gzip OS header byte 9 from Windows 10 to Unix 3. Check mode now validates the retained byte hash and exact uncompressed physical trace."
+  },
+  "fullMatches": [
+    {
+      "path": "docs/performance/pr191/ww-state-value-v1-body-boundary.json",
+      "sourceHash": "5cf2977733cd46ed752186c83ebe587d565b53066fc221eb2745b88346fc51f0",
+      "finalHash": "d8ff72dad3bd9432371cf504481b998a8361b8bfa5085749d28c1551181752fa",
+      "priorFinalHashEqual": true
+    },
+    {
+      "path": "docs/performance/pr191/ss-state-value-v1-body-boundary.json",
+      "sourceHash": "5cf2977733cd46ed752186c83ebe587d565b53066fc221eb2745b88346fc51f0",
+      "finalHash": "6268c8c12bdaa5629c264d2422a51ba459931577363f815c1b477c994b990c10",
+      "priorFinalHashEqual": true
+    },
+    {
+      "path": "docs/performance/pr191/sw-state-value-v1-body-boundary.json",
+      "sourceHash": "5cf2977733cd46ed752186c83ebe587d565b53066fc221eb2745b88346fc51f0",
+      "finalHash": "8e3aa6eea9eaa8b98752a899432d31c6c15060436d1b802a4c2df81b6c5b659d",
+      "priorFinalHashEqual": true
+    }
+  ]
+}
