@@ -1,0 +1,72 @@
+{
+  "schema": "mfl-pr192-cost-v1",
+  "input": "docs/performance/pr192/matches/capture-ww-combined.json.gz",
+  "inputHash": "bdd9ba3ce5dff829dc94ef384ccf9007c6e1f6d517d5184e22dc423a855c6aa9",
+  "estimatorInputUnchanged": true,
+  "estimator": {
+    "calls": 10000,
+    "wallMs": 87.76009999999997,
+    "cpu": {
+      "user": 172000,
+      "system": 16000
+    }
+  },
+  "observation": {
+    "calls": 2000,
+    "wallMs": 73.20049999999992,
+    "cpu": {
+      "user": 109000,
+      "system": 31000
+    }
+  },
+  "estimatorCPUMicrosecondsPerCall": 18.8,
+  "observationCPUMicrosecondsPerCall": 70,
+  "observerABBA": [
+    {
+      "observed": false,
+      "ticks": 4000,
+      "wallMs": 5098.0492,
+      "cpu": {
+        "user": 6672000,
+        "system": 187000
+      },
+      "finalHash": "10e3ac2c250e56772e68c92d5a5b2ae91d2f42cab966fbd37adfcdd7496b5475",
+      "rssBytes": 326422528
+    },
+    {
+      "observed": true,
+      "ticks": 4000,
+      "wallMs": 4380.7436,
+      "cpu": {
+        "user": 5000000,
+        "system": 78000
+      },
+      "finalHash": "10e3ac2c250e56772e68c92d5a5b2ae91d2f42cab966fbd37adfcdd7496b5475",
+      "rssBytes": 337100800
+    },
+    {
+      "observed": true,
+      "ticks": 4000,
+      "wallMs": 4013.6782000000003,
+      "cpu": {
+        "user": 4359000,
+        "system": 79000
+      },
+      "finalHash": "10e3ac2c250e56772e68c92d5a5b2ae91d2f42cab966fbd37adfcdd7496b5475",
+      "rssBytes": 358027264
+    },
+    {
+      "observed": false,
+      "ticks": 4000,
+      "wallMs": 4016.248099999999,
+      "cpu": {
+        "user": 4266000,
+        "system": 46000
+      },
+      "finalHash": "10e3ac2c250e56772e68c92d5a5b2ae91d2f42cab966fbd37adfcdd7496b5475",
+      "rssBytes": 371806208
+    }
+  ],
+  "observerNeutral": true,
+  "limitation": "Local engineering cost probe, not a statistically calibrated CPU limit. No physical outcome is selected from a timing result; ABBA starts from the identical genuine captured state."
+}

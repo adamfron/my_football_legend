@@ -1,0 +1,90 @@
+{
+  "schema": "mfl-pr192-verification-v1",
+  "completedAtUTC": "2026-10-25T23:43:16.842Z",
+  "baselineCommit": "9ea0e599f72800f4210092df2722e2ee16778ab7",
+  "runtimeSourceHash": "ff47683eb5389bc29f159fe54c1fa29a497fad93f9a919bb4215407efc3419ff",
+  "fullVerify": {
+    "command": "npm run verify",
+    "status": "PASS",
+    "exitCode": 0,
+    "testGroups": {
+      "unit": 2250,
+      "integration": 56,
+      "careerContract": 4,
+      "fullCareer": 5
+    },
+    "totalTests": 2315,
+    "lint": "PASS",
+    "typescript": "PASS",
+    "productionBuild": "PASS",
+    "limitsUnchanged": true,
+    "heavyFullMatchWorkersConcurrent": false,
+    "log": {
+      "path": "docs/performance/pr192/verification-logs/pr192-verify-isolated.log.gz",
+      "rawBytes": 7154,
+      "rawSha256": "1b25a77a5c1c16139ae26abd95268e35bcce3c88f426b73d24da37968dd5ab49",
+      "archiveSha256": "3e4ee6b54d72b495f609c22cc0bf33f6cb4777805dba8a61be5892843563e37d"
+    }
+  },
+  "packedFocusedRegressions": {
+    "status": "PASS",
+    "files": 6,
+    "tests": 67,
+    "log": {
+      "path": "docs/performance/pr192/verification-logs/pr192-packed-focused.log.gz",
+      "rawBytes": 298,
+      "rawSha256": "6651eb26576e9cf5cee5cac13556527c4c3a7a96fab0e9e944227785af62851e",
+      "archiveSha256": "70b4449099f3a63636a25d7afcafbfaa1909089c06e438e20a2c9a2074d1e6e3"
+    }
+  },
+  "historicalAndCurrentEvidence": {
+    "status": "PASS",
+    "exitCode": 0,
+    "commands": [
+      "benchmark:pr186:replay",
+      "benchmark:pr187:replay",
+      "benchmark:pr188:replay",
+      "benchmark:pr189:replay",
+      "benchmark:pr190:replay",
+      "benchmark:pr191:baseline",
+      "benchmark:pr192:baseline",
+      "benchmark:pr192:check"
+    ],
+    "log": {
+      "path": "docs/performance/pr192/verification-logs/pr192-evidence-checks-final.log.gz",
+      "rawBytes": 25566,
+      "rawSha256": "463835d8e472c63247253aaab46a951e023cfc89ef43a02d8e255b34074b124b",
+      "archiveSha256": "d371d096b5385e33f76a53d7eb464d87f4a9f4e7ffaabbc49371e3f130d415e5"
+    }
+  },
+  "genuineReplays": {
+    "status": "PASS",
+    "references": 15,
+    "distinctStates": 6,
+    "ticksPerReplay": 320,
+    "observedTwiceAndBare": true,
+    "log": {
+      "path": "docs/performance/pr192/verification-logs/pr192-replay-final.log.gz",
+      "rawBytes": 1479,
+      "rawSha256": "521a40ffacf297c3c088c42bc170759ad87d5100fb88c7bd18ae0dcbca799da1",
+      "archiveSha256": "e5b9f3b02ff24171e9b33ef627345e05b70ccba1cf365c1bc6da8a18a0e14f51"
+    }
+  },
+  "development": {
+    "selected": 15,
+    "fullTime": 15,
+    "retainedFullMatchReceipts": 44,
+    "currentSourceAndRunnerFrozen": true,
+    "independentConfirmation": "sealed",
+    "canonicalReady": false
+  },
+  "retainedBuildWarnings": [
+    "Ineffective dynamic import of careerStorage alongside existing static imports.",
+    "Vite chunks larger than 500 kB; unchanged warning threshold."
+  ],
+  "previousAttempts": "See negative-evidence.json. Interrupted/failed attempts are retained, not relabelled by this successful run.",
+  "ci": {
+    "localRunDoesNotProveRemoteCI": true,
+    "instruction": "Check the PR final head and report the actual remote result on the PR. No remote result is asserted by this local receipt."
+  }
+}

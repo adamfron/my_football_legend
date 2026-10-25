@@ -1,0 +1,26 @@
+{
+  "schema": "mfl-pr192-packed-json-v1",
+  "originalSchema": "mfl-pr192-development-match-v1",
+  "receiptArchive": {
+    "path": "docs/performance/pr192/matches/ww-phase-role-hybrid-v1-combined-final-v2.json.gz",
+    "sha256": "697d5d1ff8a48b65c29b71f2d08da31943115ea8c716300d90354e3d4c12c1fe",
+    "uncompressedSha256": "8dadcf23862776ccbe535a147f02ecfb0956e4899f4d0071490efa2f9f959625"
+  },
+  "design": "ww",
+  "policy": "phase-role-hybrid-v1",
+  "mode": "combined",
+  "sourceHash": "ff47683eb5389bc29f159fe54c1fa29a497fad93f9a919bb4215407efc3419ff",
+  "runnerHash": "afcc1dca373845837088f9e2df01e0e6d0e24aa08c53d3f920cd9eacab40ccfa",
+  "inputHash": "9258467dd0f5500403ef82c07d9788719e0281439288d6af16ee9a150293a83b",
+  "seed": "pr187-development-ww-01",
+  "status": "full_time",
+  "failure": null,
+  "finalHash": "ee8f93505ad51df4bf4be8f62b5a14d095b70fcc6ab1a8375986a6b029fe31d8",
+  "seconds": 5640,
+  "capture": null,
+  "experiments": {
+    "recovery": true,
+    "naturalPreparation": true,
+    "observed": true
+  }
+}

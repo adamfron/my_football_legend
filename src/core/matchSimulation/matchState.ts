@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { experimentalBodyContactsSchema } from './ballSurfaceContact';
+import { ballMotorObservationSchema } from './ballOrientedMovement';
 import { lowerBodyPoseSchema, type LowerBodyPose } from './lowerBodyGeometry';
 import { boundedExperimentSchema, boundedRuntimeSchema } from './boundedIntelligenceState';
 import { footSurfaceSchema, multiContactMoveSchema } from './footContact';
@@ -507,6 +508,7 @@ export const spatialMovementSchema = z.object({
 });
 
 export interface MatchPlayerState {
+  ballMotorObservation?: z.infer<typeof ballMotorObservationSchema> | undefined;
   lowerBodyPose?: LowerBodyPose | undefined;
   plantBalance?: PlantBalance;
   verticalJump?: VerticalJump;
@@ -793,6 +795,8 @@ export const passDiagnosticSchema = z.object({
 
 export interface TacticalMatchState {
   experimentalBodyContacts?: z.infer<typeof experimentalBodyContactsSchema>;
+  experimentalBallRecovery?: boolean;
+  experimentalRestartPreparation?: boolean;
   boundedExperiment?: import('./boundedIntelligenceState').BoundedExperiment | undefined;
   boundedRuntime?: import('./boundedIntelligenceState').BoundedRuntime | undefined;
   rolePlan?: import('./tacticalRoles').RolePlan;
@@ -1006,6 +1010,8 @@ export interface TacticalMatchState {
 export const tacticalMatchStateSchema = z
   .object({
     experimentalBodyContacts: experimentalBodyContactsSchema.optional(),
+    experimentalBallRecovery: z.boolean().optional(),
+    experimentalRestartPreparation: z.boolean().optional(),
     decisionPolicy: decisionPolicyIdSchema.optional(),
     boundedExperiment: boundedExperimentSchema.optional(),
     boundedRuntime: boundedRuntimeSchema.optional(),
@@ -1092,6 +1098,7 @@ export const tacticalMatchStateSchema = z
           playStyles: z.array(playStyleIdSchema).max(6).optional(),
           fitness: matchFitnessSchema.optional(),
           plantBalance: plantBalanceSchema.optional(),
+          ballMotorObservation: ballMotorObservationSchema.optional(),
           lowerBodyPose: lowerBodyPoseSchema.optional(),
           verticalJump: verticalJumpSchema.optional(),
           injury: matchInjurySchema.optional(),

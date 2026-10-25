@@ -2248,7 +2248,7 @@ export const RunningLab = ({
         <details className="presentation-diagnostics">
           <summary>Widok diagnostyczny</summary>
           <details>
-            <summary>PR191 · Pierwszy kontakt i gra z pierwszej piłki</summary>
+            <summary>PR191/192 · Pierwszy kontakt i ruch do piłki</summary>
             {state.players[0] && (
               <FirstTouchLaboratoryPanel profiles={state.players.map((p) => p.profile)} />
             )}

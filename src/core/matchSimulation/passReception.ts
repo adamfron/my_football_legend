@@ -393,7 +393,10 @@ export const resolveReceptionOutcome = (
   // actual finite cushioning impulse first, shared with canonical execution below.
   // Weak players still have lower impulse/friction capacity; difficult incoming speed,
   // spin, pressure, preparation and real foot reach can leave a loose ball.
-  const directional = movingWithIntent && quality >= 0.64;
+  // Attempt selection and impulse quality are separate. The same finite surface
+  // must still absorb/redirect the actual momentum; a low rating cannot veto intent.
+  const directional =
+    movingWithIntent && (state.experimentalBallRecovery === true || quality >= 0.64);
   const controlVector = chosenTarget
     ? { x: chosenTarget.x - contactPoint.x, y: chosenTarget.y - contactPoint.y }
     : receiver.velocity;
@@ -496,7 +499,11 @@ export const resolveReceptionOutcome = (
     kind,
     contact,
     technique:
-      kind === 'directional_control' ? 'directional' : ballSpeed > 7 ? 'cushion' : 'settle',
+      kind === 'directional_control' || (state.experimentalBallRecovery === true && directional)
+        ? 'directional'
+        : ballSpeed > 7
+          ? 'cushion'
+          : 'settle',
     contactPoint,
     quality: {
       score: quality,

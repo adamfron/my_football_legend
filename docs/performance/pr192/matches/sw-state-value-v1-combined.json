@@ -1,0 +1,29 @@
+{
+  "schema": "mfl-pr192-packed-json-v1",
+  "originalSchema": "mfl-pr192-development-match-v1",
+  "receiptArchive": {
+    "path": "docs/performance/pr192/matches/sw-state-value-v1-combined.json.gz",
+    "sha256": "d19ca1ad7ded5c753e34cdde44f3fa29b945b636a9650392ae84a23c315118a5",
+    "uncompressedSha256": "a195823240bbff21c42f6651c9009a689829f7043ba5b3dedfb406afc5471797"
+  },
+  "design": "sw",
+  "policy": "state-value-v1",
+  "mode": "combined",
+  "sourceHash": "c0c020af751e72b55de91cdf5d3f994abec62b063ecd3e0413adee410b774b91",
+  "inputHash": "7bab568a74ef736db8075901685bfa579aeafc5f494bc2fea9cbc0f751f0c60b",
+  "seed": "pr187-development-sw-01",
+  "status": "full_time",
+  "failure": null,
+  "finalHash": "238b48b99bce54486e71029161a0ff514a93c50e52dc833294e965f3c03234c3",
+  "seconds": 5844.599999978978,
+  "capture": {
+    "path": "docs/performance/pr192/matches/capture-sw-combined-restored.json.gz",
+    "at": 34.7249999999991,
+    "sha256": "e21912b8c9c109be8058807b518721f97fcdb95bacc98e3ce94926459e9d5e96"
+  },
+  "captureReferenceCorrection": {
+    "oldPath": "docs/performance/pr192/matches/capture-sw-recovery.json.gz",
+    "originalReceiptHash": "8ed13c86553f87703a4405a2770a8f8764a7ab2f0a94f5bbbbd9fc96c3ce83f6",
+    "method": "Exact retained combined bytes, matched against original full-match capture hash; A bytes independently restored from its exact input prefix."
+  }
+}

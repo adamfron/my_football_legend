@@ -26,6 +26,7 @@ import {
   markDecisionEvaluated,
 } from './decisionReadiness';
 import { authoritativeMovementTarget } from './movementAuthority';
+import { observeBallMotorState, planBallOrientedMovement } from './ballOrientedMovement';
 import { deriveCarryPursuit } from './carryPursuit';
 import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
@@ -87,7 +88,7 @@ import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, MatchPhase, TacticalMatchState } from './matchState';
 import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalPositioning';
 import { awardNaturalRestart } from './restartScenarios';
-import { requiresHumanRestart } from './actionAgency';
+import { requiresHumanRestart, isHumanControlled } from './actionAgency';
 import { applyThrowInContact, canContactAfterThrowIn } from './throwIn';
 
 /** Canonical safety net. Presentation normally resolves controlled choices long before this. */
@@ -134,6 +135,7 @@ import {
   advanceControlledBall,
   reconcileControlledBallContact,
   playerContactGeometry,
+  motorContactReadyAt,
 } from './ballContactGeometry';
 import {
   GOALKEEPER_PHYSICS,
@@ -1706,6 +1708,25 @@ const stepTacticalMatchCore = (
       : null;
   state.players = plannedPlayers.map((player) => {
     if (!canParticipatePhysically(player)) return { ...player, velocity: { x: 0, y: 0 } };
+    const recoveringOwnTouch =
+      state.experimentalBallRecovery === true &&
+      !isRestartSetup(state) &&
+      !state.postGoal &&
+      !state.ball.travelKind &&
+      !state.ball.shot &&
+      (!state.ball.ownerId || state.ball.ownerId === player.id) &&
+      state.ball.lastTouchPlayerId === player.id &&
+      (state.ballCarrierIntent?.actorId === player.id ||
+        state.pendingPossessionLoss?.actorId === player.id) &&
+      state.playerMovementIntent?.actorId !== player.id &&
+      (!isHumanControlled(state, player.id) || state.ballCarrierIntent?.humanSelected === true);
+    if (recoveringOwnTouch)
+      player = { ...player, ballMotorObservation: observeBallMotorState(state, player) };
+    else if (player.ballMotorObservation) {
+      const { ballMotorObservation: _oldObservation, ...withoutObservation } = player;
+      void _oldObservation;
+      player = withoutObservation;
+    }
     let movementTarget = player.target;
     if (state.ballCarrierIntent?.actorId === player.id) {
       const execution = deriveCarryExecution(state, player, state.ballCarrierIntent);
@@ -1823,11 +1844,28 @@ const stepTacticalMatchCore = (
     }
     if (usesStateValue(state) && state.decisionAblation !== 'movement')
       movementTarget = authoritativeMovementTarget(state, player, movementTarget);
+    if (
+      recoveringOwnTouch &&
+      (distance(player.position, state.ball) > 0.8 || !state.ball.ownerId)
+    ) {
+      const recovery = planBallOrientedMovement(
+        player,
+        player.ballMotorObservation,
+        state.time,
+        state.ballCarrierIntent?.actorId === player.id
+          ? state.ballCarrierIntent.target
+          : player.target,
+        'retain',
+        motorContactReadyAt(state, player.id),
+      );
+      if (recovery.nextContact) movementTarget = recovery.movementTarget;
+    }
     const patternTarget = boundedPatternTarget(state, player);
     if (
       patternTarget &&
       state.playerMovementIntent?.actorId !== player.id &&
       state.receptionPreparation?.actorId !== player.id &&
+      !recoveringOwnTouch &&
       state.defensiveChallenge?.actorId !== player.id &&
       !(state.playerAgencyEnabled !== false && player.id === state.controlledFootballerId)
     ) {

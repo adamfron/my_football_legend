@@ -376,7 +376,9 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
     distance(spot, legalSpot) <= EPSILON &&
     distance(state.ball, spot) <= 0.15 &&
     speed <= 0.15 &&
-    (state.ball.height ?? 0) <= 0.15;
+    (state.experimentalRestartPreparation === true && state.scenario === 'throw_in'
+      ? Math.abs((state.ball.height ?? 0) - 1.9) <= 0.01
+      : (state.ball.height ?? 0) <= 0.15);
   const takerReady = Boolean(
     taker &&
       distance(taker.position, spot) <= 1.4 + 1e-8 &&

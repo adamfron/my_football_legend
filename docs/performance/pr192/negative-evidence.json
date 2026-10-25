@@ -1,0 +1,162 @@
+{
+  "schema": "mfl-pr192-negative-evidence-v1",
+  "historicalBaseline": "9ea0e599f72800f4210092df2722e2ee16778ab7",
+  "attempts": [
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-tsc.log.gz",
+      "status": "compile_failure",
+      "interpretation": "Early unused import, optional-property typing, unresolved integration names and missing generated world database. Corrected before the final runtime freeze; later TypeScript checks passed.",
+      "rawBytes": 1948,
+      "rawSha256": "261c1fd6bb1ce629bb1db20bda2e3aee67f6749af0cb62419eb4eb74f7c3cdbc",
+      "archiveSha256": "ec4149d28415e4a0f69502a0fb5f7e96e54de92fa236ab7e087dc21e9505f913"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-lint-one.log.gz",
+      "status": "lint_failure",
+      "interpretation": "Early Node script global structuredClone declarations were missing. Corrected before the final runner freeze.",
+      "rawBytes": 991,
+      "rawSha256": "13e5fe638be0977324b520f78624afa6888bf0307125aa877f84b5c41e6aa433",
+      "archiveSha256": "deedd2464803d8098ad575e42db67197ca7b70cab0c8ab5b335770eb5784ec4d"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/source-retention.log.gz",
+      "status": "provenance_reconstruction_failure",
+      "interpretation": "Early source-retention reconstruction could not satisfy all original source hashes. No mismatching source was accepted.",
+      "rawBytes": 1561,
+      "rawSha256": "8e0e22776372ed829c3759d1e4eee7f0f4f2fee0b390f3d116ab85051a6e65f2",
+      "archiveSha256": "06bfc8cbf381e737185b440bb937f3394e508a1f5db1b7a7344202bbaa0b3f7b"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/source-retention-two.log.gz",
+      "status": "provenance_reconstruction_failure",
+      "interpretation": "Incomplete staged source candidates were rejected by exact original manifest hashes.",
+      "rawBytes": 606,
+      "rawSha256": "5259aeb11ec3de59ad545f185f6b26876f0a0b9166aedcc2678df87f12816847",
+      "archiveSha256": "81bf1b3c057b2577be9bdd45f18a1dc46f88af69f425b113b2287aea85114b11"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/source-retention-three.log.gz",
+      "status": "provenance_reconstruction_failure",
+      "interpretation": "Incomplete staged source candidates were rejected by exact original manifest hashes.",
+      "rawBytes": 660,
+      "rawSha256": "d18f632c46d645e22d1e1f5304db7856fa837d5f0a7281fdc4cb3f9db75e5bab",
+      "archiveSha256": "5cad5fe7745ef58aae7fe46f303c384f078183bbd6577a728d77c0b0608bd27a"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/source-retention-four.log.gz",
+      "status": "provenance_reconstruction_failure",
+      "interpretation": "Incomplete staged source candidates were rejected by exact original manifest hashes; final retained overlays subsequently satisfy every source file hash.",
+      "rawBytes": 660,
+      "rawSha256": "edefafcd5c08bf175e284015067f561d5199bafc8120b9225f5bb8bde9e026b3",
+      "archiveSha256": "57f1a2b1b023a7f064b7544a9f7ee4eab9f1cc0fcfd640bc550048a69d1ee45e"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-first-tests.log.gz",
+      "status": "environment_failure",
+      "interpretation": "Vitest cache rename denied by sandbox; no tests ran. Superseded by approved native runs.",
+      "rawBytes": 989,
+      "rawSha256": "e8ea8f861eae9390a51ac361ae5e982abafc8ff3862cb3efa26f12181c5ef2d7",
+      "archiveSha256": "eabe5990608a419b87bb58c6c28ba7ff906a6c7831aafd8b41f428c835dcdf75"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-first-tests-native.log.gz",
+      "status": "historical_expectation_failure",
+      "interpretation": "PR191 pressure fixture expected a defender win under its original tactical chase; retained legacy comparison now explicitly selects pr191 movement. Final new-model defender losses are tested separately.",
+      "rawBytes": 1339,
+      "rawSha256": "1f166b26a3f2dff6ef8c060c9d9fafd9f08f4a7d100f9894b3e0ecd90950d7c0",
+      "archiveSha256": "fd40b86e9c2dc0cf0df54ee7583ce0f5cd0f2efc8b6d896a2debcff6f1accb9b"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-movement-tests.log.gz",
+      "status": "physical_leave_failure",
+      "interpretation": "Initial deliberate leave still made an actor contact. Actual sidestepping was corrected; the final paired leave trial and test remain.",
+      "rawBytes": 1440,
+      "rawSha256": "1f36353d642767b776399335dc135c789a370a3fd254667223639051e0a80452",
+      "archiveSha256": "57906a6ecbe478137083f17e676c5c5201d6c067a461cb85bb11145f2cbc5ccc"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-focused-two.log.gz",
+      "status": "observer_measurement_failure",
+      "interpretation": "Penalty execution disappeared with the removed restart; fixed observer reads canonical stoppage execution. Earlier receipts remain.",
+      "rawBytes": 1362,
+      "rawSha256": "4f0078221b577e73d10c02e8614b3386d0809e33127c1c1c836ae8a54108cca5",
+      "archiveSha256": "5184dbe86e26700ff5fe2dc7141163434a328f5789784cfc5e135df2a1a72527"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-focused-final.log.gz",
+      "status": "serialization_comparison_failure",
+      "interpretation": "JSON-normalized receipt zero versus live IEEE negative zero. Test now compares exact persisted JSON serialization; no physics value was changed.",
+      "rawBytes": 2602,
+      "rawSha256": "b7c11823e5ced051270c896e1a02b9a1fc4343deaed885061a0fb3dc7f9f0948",
+      "archiveSha256": "339ea3472d81170bf38d6dd20b2eebee0584065175c7acaa3fa09f24c3690fba"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-verify.log.gz",
+      "status": "interrupted_after_failures",
+      "interpretation": "Full verify interrupted while six full-match workers ran. Three tests printed failures (serious-injury half, pressure parity, reactive tactics). No completed full-verify result exists for this attempt; do not label it PASS or a fully adjudicated failure.",
+      "rawBytes": 2033,
+      "rawSha256": "92667d1d059f931b6950a94b182cb6d361aa618775630d75939dba07473df448",
+      "archiveSha256": "e0d37a77c0fec5429521edea696d5027b21451c94140618dd70d1a8cc3839bba"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-verify-isolated-lint-failure.log.gz",
+      "status": "lint_failure",
+      "interpretation": "Isolated full verify stopped at missing Buffer import in the new lossless packaging script. Import added before rerun.",
+      "rawBytes": 361,
+      "rawSha256": "aba595e5a3ee8bf13275e2f3662fbdfed68b76e7d94d2d4a5ce9e48fb548e592",
+      "archiveSha256": "5eb3e283159c9e25aa6e7923cd7b65f81ee0c22aabfcbd3c5e6b2cc704debaa0"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-final-freeze-focused.log.gz",
+      "status": "pass",
+      "interpretation": "67 tests in six focused files passed at the final runtime freeze.",
+      "rawBytes": 297,
+      "rawSha256": "3e30fac2c496750d252c466df0ffa2df0f56a7fb72d7872d80d38a49770f359d",
+      "archiveSha256": "0e44fb91c3c06e36650d2ac43408c95cfec84c6179501683902749658365fef9"
+    },
+    {
+      "path": "docs/performance/pr192/verification-logs/pr192-frozen-baseline.log.gz",
+      "status": "pass",
+      "interpretation": "Merged PR191 archived checks: original 298 laboratory inputs, 48 artifacts, five genuine captures and matching-card human reconstruction.",
+      "rawBytes": 4272,
+      "rawSha256": "5ec9d6026ba22e49d1610f7d57de439503bc39cc780fa7b044874736e31371f2",
+      "archiveSha256": "18855b4c77aacf09827e3db2a230f46157b9f8f7b1a3860048bd9ab264ace141"
+    }
+  ],
+  "retainedExperimentalFailures": [
+    {
+      "artifact": "reconstructed-human.json",
+      "finding": "Original 45/90 failures and all candidate identity matching errors are preserved. Reconstruction, not unavailable browser-export replay."
+    },
+    {
+      "artifact": "reconstructed-pr191.json",
+      "finding": "Initial neutral-profile reconstruction followed a mistaken wrapper-level player lookup; canonical profile is nested under .profile."
+    },
+    {
+      "artifact": "laboratory.json / laboratory-v2.json",
+      "finding": "Staged defender-foot mirror setup retained; final mirrored selected-foot setup is laboratory-v3.json."
+    },
+    {
+      "artifact": "natural-flow-laboratory.json / -v2.json / -v3.json",
+      "finding": "Unsupported free_kick_short apparatus and then missed penalty-execution observation retained; final repaired physical outcomes in v4/v5."
+    },
+    {
+      "artifact": "touchline-challenges-initial.json",
+      "finding": "Initial rating/mirror seeds were unpaired; final comparison pairs them."
+    },
+    {
+      "artifact": "rejected-capture-references.json",
+      "finding": "Original A/combined filename collision references and overlapped bytes retained. Restored A captures exactly equal previously recorded hashes after genuine input-prefix replay."
+    },
+    {
+      "artifact": "development-summary.json",
+      "finding": "A-only raises active time in all three fixtures. Final combined active time 79.308–89.042 minutes; SW opportunity policy has zero shots. Sparse exits, circulation, foul calibration and attacking creation remain open."
+    },
+    {
+      "artifact": "cost.json",
+      "finding": "ABBA warm-up/timing variation prevents a statistically calibrated observer-overhead or portable cost limit."
+    }
+  ],
+  "independentConfirmation": "sealed",
+  "canonicalReady": false
+}

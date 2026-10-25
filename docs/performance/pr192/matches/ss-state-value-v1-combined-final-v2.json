@@ -1,0 +1,30 @@
+{
+  "schema": "mfl-pr192-packed-json-v1",
+  "originalSchema": "mfl-pr192-development-match-v1",
+  "receiptArchive": {
+    "path": "docs/performance/pr192/matches/ss-state-value-v1-combined-final-v2.json.gz",
+    "sha256": "72f80b580204ce331407a680ef7235e0e483491dd4b99d563c60e545cf715975",
+    "uncompressedSha256": "c5db92bb4698565d1539acd738bdf7d622c36abf4c4979d2a15f3196bc5076da"
+  },
+  "design": "ss",
+  "policy": "state-value-v1",
+  "mode": "combined",
+  "sourceHash": "ff47683eb5389bc29f159fe54c1fa29a497fad93f9a919bb4215407efc3419ff",
+  "runnerHash": "afcc1dca373845837088f9e2df01e0e6d0e24aa08c53d3f920cd9eacab40ccfa",
+  "inputHash": "1d4ad1925407ba3e292f96cffa3cbf8d41b8813645f63c38574f2e27c93a531d",
+  "seed": "pr187-development-ss-01",
+  "status": "full_time",
+  "failure": null,
+  "finalHash": "bc69a8035ae21d5d5a81d3424805c9ef08ef0a6ce313d3167e652042ed2ead73",
+  "seconds": 5668.675000005669,
+  "capture": {
+    "path": "docs/performance/pr192/matches/capture-ss-combined-final-v2.json.gz",
+    "at": 81.62500000000144,
+    "sha256": "03d92ce83cd85bd6dcca97679205ba7a5445a6374be4ad2ebdf9201fe7da4c91"
+  },
+  "experiments": {
+    "recovery": true,
+    "naturalPreparation": true,
+    "observed": true
+  }
+}
