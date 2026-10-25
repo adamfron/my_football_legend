@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { experimentalBodyContactsSchema } from './ballSurfaceContact';
 import { lowerBodyPoseSchema, type LowerBodyPose } from './lowerBodyGeometry';
 import { boundedExperimentSchema, boundedRuntimeSchema } from './boundedIntelligenceState';
 import { footSurfaceSchema, multiContactMoveSchema } from './footContact';
@@ -791,6 +792,7 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  experimentalBodyContacts?: z.infer<typeof experimentalBodyContactsSchema>;
   boundedExperiment?: import('./boundedIntelligenceState').BoundedExperiment | undefined;
   boundedRuntime?: import('./boundedIntelligenceState').BoundedRuntime | undefined;
   rolePlan?: import('./tacticalRoles').RolePlan;
@@ -1003,6 +1005,7 @@ export interface TacticalMatchState {
 // are already validated by the canonical world database schema.
 export const tacticalMatchStateSchema = z
   .object({
+    experimentalBodyContacts: experimentalBodyContactsSchema.optional(),
     decisionPolicy: decisionPolicyIdSchema.optional(),
     boundedExperiment: boundedExperimentSchema.optional(),
     boundedRuntime: boundedRuntimeSchema.optional(),

@@ -1,4 +1,5 @@
 import { attacksRight } from './matchSpace';
+import { advanceExperimentalBodyReception } from './experimentalBodyReception';
 import { advanceLowerBodyPose, constrainCompliantBodyStep } from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
 import { usesBoundedIntelligence } from './boundedIntelligenceState';
@@ -2096,6 +2097,38 @@ const stepTacticalMatchCore = (
       );
       const next: FlightPoint = integrated.position;
       const nextHeight = next.z;
+      if (
+        state.experimentalBodyContacts &&
+        !state.ball.shot &&
+        Math.max(previous.z, next.z) > 0.65
+      ) {
+        const body = advanceExperimentalBodyReception(
+          state,
+          input.players,
+          {
+            position: previous,
+            velocity: {
+              x: state.ball.velocity.x,
+              y: state.ball.velocity.y,
+              z: state.ball.velocity.z ?? 0,
+            },
+            spin: state.ball.spin ?? { x: 0, y: 0, z: 0 },
+            airborne: state.ball.airborne ?? false,
+            bounceCount: state.ball.bounceCount ?? 0,
+          },
+          dt,
+        );
+        if (body && !body.contact) state = body.state;
+        if (body?.contact) {
+          const crossing = findPitchBoundaryCrossing(previous, next);
+          const fraction = (body.contact.at - (state.time - dt)) / dt;
+          if (!crossing || fraction < crossing.segmentFraction) {
+            if (isOffsideOffence(state.offsideSnapshot, body.contact.playerId))
+              return awardOffsideRestart(state, body.contact.playerId, body.contact.point);
+            return body.state;
+          }
+        }
+      }
       if (!state.ball.shot && integrated.bounceCount > (state.ball.bounceCount ?? 0))
         // A delivery which reaches grass unclaimed has an aerial outcome, but no player touch.
         state = { ...state, lastAerialResult: 'loose_ball', aerialContestantIds: [] };

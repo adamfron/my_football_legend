@@ -125,9 +125,13 @@ export const playerContactGeometry = playerFootGeometry;
  * cannot consume the ball before the recovery reported by the previous surface. */
 export const motorContactReadyAt = (state: TacticalMatchState, actorId: string) => {
   const last = state.lastGroundContact;
-  return last?.actorId === actorId
-    ? last.at + Math.max(0.12, last.surfaceContact?.recoverySeconds ?? 0)
-    : state.time;
+  const footReady =
+    last?.actorId === actorId
+      ? last.at + Math.max(0.12, last.surfaceContact?.recoverySeconds ?? 0)
+      : state.time;
+  return state.experimentalBodyContacts
+    ? Math.max(footReady, state.experimentalBodyContacts.readyAt[actorId] ?? 0)
+    : footReady;
 };
 const controlSkill = (actor: MatchPlayerState) => {
   const a = actor.profile.attributes;

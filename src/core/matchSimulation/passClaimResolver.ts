@@ -3,7 +3,7 @@ import { distance, physicalPointSchema, type PitchPoint } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
 import { canContactAfterThrowIn } from './throwIn';
 import { shouldLetPassRun } from './receptionContinuation';
-import { playerContactGeometry } from './ballContactGeometry';
+import { playerContactGeometry, motorContactReadyAt } from './ballContactGeometry';
 import type { MatchPlayerState } from './matchState';
 
 /** The broad-phase proximity radius nominates bodies; only a reachable foot controls a low ball. */
@@ -52,7 +52,12 @@ export const resolveContinuousGroundPassClaim = (
   const lowEnd = toHeight > 0.65 ? (0.65 - fromHeight) / (toHeight - fromHeight) : 1;
   const passer = state.players.find((player) => player.id === state.currentActorId);
   return state.players
-    .filter((player) => player.id !== passer?.id && canContactAfterThrowIn(state, player.id))
+    .filter(
+      (player) =>
+        player.id !== passer?.id &&
+        canContactAfterThrowIn(state, player.id) &&
+        (!state.experimentalBodyContacts || state.time >= motorContactReadyAt(state, player.id)),
+    )
     .map((player) => {
       const segmentFraction = Math.max(
         lowStart,
@@ -94,7 +99,12 @@ export const resolveGroundPassClaim = (
 ): GroundPassClaim => {
   const passer = state.players.find((player) => player.id === state.currentActorId);
   const candidate = state.players
-    .filter((player) => player.id !== passer?.id && canContactAfterThrowIn(state, player.id))
+    .filter(
+      (player) =>
+        player.id !== passer?.id &&
+        canContactAfterThrowIn(state, player.id) &&
+        (!state.experimentalBodyContacts || state.time >= motorContactReadyAt(state, player.id)),
+    )
     .map((player) => ({ player, metres: distance(player.position, landingPosition) }))
     .filter(
       ({ player, metres }) =>
