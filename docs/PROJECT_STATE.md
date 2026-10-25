@@ -13,14 +13,20 @@ obowiązuje i uwzględnia rzeczywisty czas z poprzedniego kontaktu.
 Dotknięcia kontrolne respektują ten sam recovery co podanie. Gdy kolejny kontakt
 jest już należny, stopa nie sięga piłki, a kolizja blokuje rzeczywisty krok do niej,
 kontrola kończy się luźną piłką; dalsze przejęcie rozstrzyga zwykła fizyka.
-Pomiar bezruchu używa rzeczywistych pozycji. W WW/A maksimum spada do 14,45 s,
-ale celność 24/1929 i zero strzałów nadal falsyfikują gotowość futbolu.
-Pełna seria kończy 14/15 meczów; SW/C ma odtworzony zastój legalizacji wolnego.
+Pomiar bezruchu używa rzeczywistych pozycji. W końcowym WW/A maksimum wynosi 1,35 s,
+ale celność 25/1915 i tylko jeden strzał nadal falsyfikują gotowość futbolu.
+Po naprawie drogi obrońcy do legalnej pozycji pełna seria kończy **15/15** meczów
+w tym samym limicie 7200 s. SW/C kończy w 6135,5 s. Planner omija wszystkie
+blokujące ciała, również rywali poza murem i przy końcu drogi; rzeczywisty dystans
+9,15 m nadal obowiązuje. Stary cutoff 14/15 i dokładny silnik pozostają w dowodach.
+Poprawa ukończenia nie jest poprawą wszystkich metryk: WW/B ma 11,825 s bezruchu,
+a SS/H zero strzałów. B nie jest zastępowane polityką eksperymentalną.
 
 Asekurowany obrońca eksperymentalnej polityki może podejść do nieruchomego,
 ustabilizowanego rywala z opcją podania. Decyzja zależy od bieżącej geometrii,
 asekuracji i ruchu; nie ma czasu wymuszającego odbiór. Historyczny kontroler B/R3
-pozostaje odrębny, wspólna gotowość kontaktu ma jednak zmierzone skutki także dla B.
+pozostaje odrębny, wspólna gotowość kontaktu i droga wznowień mają jednak zmierzone
+skutki także dla B.
 
 To ograniczony etap naprawczy. Pełna artykulacja dolnej części ciała, dodatkowe
 powierzchnie i fizyczne odbicia, leg-gap/GK, fast-versus-prepared oraz zwód są

@@ -1,7 +1,9 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import console from 'node:console';
+import process from 'node:process';
 const root = 'docs/performance/pr189';
+const version = process.argv.find((v) => v.startsWith('--version='))?.slice(10) ?? 'v4';
 const policies = [
   'opportunity-driven-v1',
   'hierarchical-intent-v1',
@@ -14,7 +16,6 @@ const rows = [];
 const sum = (s, key) => (s?.players ?? []).reduce((n, p) => n + (p[key] ?? 0), 0);
 for (const design of ['ww', 'ss', 'sw'])
   for (const [i, policy] of policies.entries()) {
-    const version = 'v3';
     const path = `${root}/${design}-${policy}-${version}.json`,
       r = JSON.parse(readFileSync(path));
     const old = JSON.parse(

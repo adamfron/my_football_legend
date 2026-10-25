@@ -19,7 +19,9 @@ import {
 } from './ballContactGeometry';
 import { derivePressingPlan } from './defensiveChallenges';
 import { resolveMatchAction } from './matchActions';
-import { distance } from './matchSpace';
+import { distance, distanceToSegment } from './matchSpace';
+import { prepareRestartMovement } from './restartLifecycle';
+import { deriveRestartLegalReadiness, legalizeRestartPlayerTarget } from './restartLaws';
 import type { TacticalMatchState } from './matchState';
 
 const commit = 'a74be9ee846ac4958fd67e42795cf3d86946e937';
@@ -32,6 +34,106 @@ const sha = (v: unknown) => createHash('sha256').update(JSON.stringify(v)).diges
 const owner = (s: TacticalMatchState) => s.players.find((p) => p.id === s.ball.ownerId)!;
 
 describe('PR189 real captured decision/contact deadlock', () => {
+  const restartCapture = () =>
+    restorePathologicalState(
+      JSON.parse(
+        gunzipSync(
+          readFileSync(
+            'docs/performance/pr189/sw-contextual-judgment-v1-cutoff-diagnosis-cutoff.json.gz',
+          ),
+        ).toString(),
+      ),
+    );
+
+  it('routes the captured encroaching defender around opposing bodies without granting legal readiness', () => {
+    const state = restartCapture(),
+      before = sha(state),
+      actor = state.players.find((p) => p.id === 'geometry:opponent:3')!;
+    expect(distance(actor.position, state.restart!.spot!)).toBeLessThan(9.15);
+    const blockers = state.players.filter(
+      (p) => p.id !== actor.id && distanceToSegment(p.position, actor.position, actor.target) < 1.2,
+    );
+    expect(blockers.map((p) => p.id)).toContain('geometry:anchor:7');
+    expect(blockers.every((p) => state.restart!.roles[p.id]?.key !== 'wall')).toBe(true);
+    const planned = prepareRestartMovement(state),
+      target = planned.players.find((p) => p.id === actor.id)!.target;
+    expect(target).not.toEqual(actor.target);
+    expect(distance(target, state.restart!.spot!)).toBeGreaterThanOrEqual(9.3);
+    expect(
+      blockers.every((p) => distanceToSegment(p.position, actor.position, target) >= 1.15 - 1e-8),
+    ).toBe(true);
+    expect(deriveRestartLegalReadiness(planned).opponentsReady).toBe(false);
+    expect(planned.players.find((p) => p.id === actor.id)!.position).toEqual(actor.position);
+    expect(sha(state)).toBe(before);
+  });
+
+  it('accounts for a body just beyond the restart target, including its endpoint envelope', () => {
+    const state = restartCapture(),
+      actor = state.players.find((p) => p.id === 'geometry:opponent:3')!,
+      target = { x: actor.position.x + 8, y: actor.position.y };
+    // A clear route is preserved. The obstructing neighbour is beyond the target,
+    // so its body can prevent arrival even though its centre is outside the segment.
+    state.players = [actor];
+    expect(legalizeRestartPlayerTarget(state, actor, target)).toEqual(target);
+    const other = restartCapture().players.find((p) => p.id === 'geometry:anchor:7')!;
+    state.players.push({ ...other, position: { x: target.x + 0.5, y: target.y } });
+    const bypass = legalizeRestartPlayerTarget(state, actor, target);
+    expect(bypass).not.toEqual(target);
+    expect(distance(bypass, state.players[1]!.position)).toBeGreaterThanOrEqual(1.2);
+    expect(distance(bypass, state.restart!.spot!)).toBeGreaterThanOrEqual(9.3);
+  });
+
+  it('physically releases the captured free kick with deterministic replay and no clock reset', () => {
+    const initial = restartCapture(),
+      awardId = initial.restart!.awardId,
+      requiredEndAt = initial.timekeeping!.requiredEndAt;
+    const run = (observed: boolean) => {
+      let state = restartCapture(),
+        releasedAt: number | undefined,
+        maximumStep = 0;
+      const events: unknown[] = [];
+      state = withBoundedObserver(
+        observed
+          ? (trace) => {
+              events.push(trace);
+            }
+          : undefined,
+        () => {
+          for (let i = 0; i < 160; i++) {
+            const before = state;
+            state = step(state, 0.025);
+            for (const player of state.players) {
+              const previous = before.players.find((p) => p.id === player.id);
+              if (previous)
+                maximumStep = Math.max(maximumStep, distance(previous.position, player.position));
+            }
+            const interval = state.stoppageLedger?.intervals.find((p) => p.awardId === awardId);
+            if (releasedAt === undefined && interval?.executedAt !== undefined) {
+              releasedAt = interval.executedAt;
+              const defenders = state.players.filter(
+                (p) => p.team !== initial.restart!.restartTeam,
+              );
+              expect(
+                defenders.every((p) => distance(p.position, initial.restart!.spot!) >= 9.14),
+              ).toBe(true);
+              expect(Math.hypot(state.ball.velocity!.x, state.ball.velocity!.y)).toBeGreaterThan(1);
+            }
+          }
+          return state;
+        },
+      );
+      expect(releasedAt).toBeDefined();
+      expect(releasedAt! - initial.time).toBeLessThan(4);
+      expect(maximumStep).toBeLessThan(0.35);
+      expect(state.timekeeping!.requiredEndAt).toBeGreaterThanOrEqual(requiredEndAt);
+      return { state: sha(state), events: sha(events), releasedAt };
+    };
+    const direct = run(true),
+      repeat = run(true),
+      bare = run(false);
+    expect(repeat).toEqual(direct);
+    expect(bare.state).toBe(direct.state);
+  });
   it('detects unchanged physical positions even when nominal locomotion claims movement', () => {
     const state = frozen(),
       actor = owner(state),

@@ -5,11 +5,14 @@ import process from 'node:process';
 import { createRelativeTrial } from '../src/core/matchSimulation/relativeDecisionLab.ts';
 import { stepTacticalMatchAfterDecisionProbe as step } from '../src/core/matchSimulation/matchSimulation.ts';
 import { withBoundedObserver } from '../src/core/matchSimulation/boundedIntelligence.ts';
-const suffix = process.argv.includes('--canonical')
-  ? '-canonical'
-  : process.argv.includes('--final')
-    ? '-final'
-    : '';
+const version = process.argv.find((v) => v.startsWith('--version='))?.slice(10);
+const suffix = version
+  ? `-${version}`
+  : process.argv.includes('--canonical')
+    ? '-canonical'
+    : process.argv.includes('--final')
+      ? '-final'
+      : '';
 const output = `docs/performance/pr189/neighbours${suffix}.json`;
 if (existsSync(output)) throw Error('Preserve neighbour evidence');
 const sha = (v) => createHash('sha256').update(JSON.stringify(v)).digest('hex');

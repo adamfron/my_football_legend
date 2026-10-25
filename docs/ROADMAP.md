@@ -3,7 +3,9 @@
 Aktualny etap: **PR189 — Ball Contact, Duel Geometry & Deadlock Resolution (etapowane)**.
 Priorytetem jest rzeczywisty replay zastoju PR188 i kontakt przygotowanego podania.
 PR189 naprawia aliasowanie rytmu obserwacji z dotknięciami kontrolnymi oraz podejście
-asekurowanego obrońcy. Pełna artykulacja nóg, kontakt goleni/kolana, geometria luk,
+asekurowanego obrońcy. Zablokowany wolny SW/C ma fizyczny objazd blokujących ciał,
+a końcowa seria 15/15 dochodzi do pełnego czasu bez zwiększenia limitu próby.
+Pełna artykulacja nóg, kontakt goleni/kolana, geometria luk,
 nowe techniki i demonstracja zwodu pozostają otwartymi bramami następnego etapu
 fizyki; nie zostały oznaczone jako wykonane.
 [Dowody, nieukończone bramy i wynik PR189](PR189_BALL_CONTACT_DUEL_GEOMETRY_AND_DEADLOCK_RESOLUTION.md).
@@ -218,8 +220,8 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   podejście obrońcy. Pełne ciało, dodatkowe powierzchnie, nutmegs/GK, timed/deceptive
   passing i pozostałe laboratoria są jawnie etapowane, bez twierdzenia o ich ukończeniu.
 - **PR190 — Lower-Body Geometry & Contact Surfaces**. Dokończyć otwarte bramy PR189:
-  priorytetowo odtworzony zastój legalizacji wolnego SW/C i fizyczne dojście do
-  legalnych pozycji; zachować negatywny cutoff PR189 zamiast zwiększać limit próby.
+  zachować naprawę drogi do legalnej pozycji przy wolnym SW/C, replay starego
+  zastoju i negatywny cutoff PR189; nadal nie zwiększać limitów prób.
   połączone biodra/uda/kolana/golenie/stopy i proporcje ciała, ciągłe zmiany postawy,
   fizyczne powierzchnie kontaktu i impulsy, kontrola po odbiciu, luki między nogami
   oraz reakcje GK, pełne laboratoria C/D i timing. Mały zwód dopiero po tych bramach;

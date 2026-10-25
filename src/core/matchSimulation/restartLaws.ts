@@ -229,28 +229,21 @@ export const legalizeRestartPlayerTarget = (
       if (inPenaltyArea(spot, state.teams[restart.restartTeam]))
         target = outsidePenaltyArea(target, state.teams[restart.restartTeam]);
       if (restart.roles[player.id]?.key !== 'wall' && distance(player.position, spot) < 9.3) {
-        const wall = state.players.filter(
-          (p) => p.team === player.team && restart.roles[p.id]?.key === 'wall',
-        );
+        const obstacles = state.players.filter((p) => p.id !== player.id);
         const blocked = (point: PitchPoint) =>
-          wall.some((p) => {
+          obstacles.some((p) => {
             const dx = point.x - player.position.x,
               dy = point.y - player.position.y;
             const fraction =
               ((p.position.x - player.position.x) * dx + (p.position.y - player.position.y) * dy) /
               Math.max(0.001, dx * dx + dy * dy);
-            return (
-              fraction > 0.01 &&
-              fraction < 1 &&
-              distanceToSegment(p.position, player.position, point) < 1.2
-            );
+            return fraction > 0.01 && distanceToSegment(p.position, player.position, point) < 1.2;
           });
-        // An encroaching marker can be trapped on the ball side of its own settled wall.
-        // Choose a clear legal destination around an end. Bodies still turn/walk there,
-        // and release still requires the referee's actual physical-distance checks.
-        // A two-player wall is still a physical obstacle, even though the attacking
-        // team's separate one-metre law only applies to walls of three or more.
-        if (wall.length > 0 && blocked(target)) {
+        // Any settled body can block an encroaching defender's route, including
+        // opposing support players outside the wall. Choose a clear legal target
+        // around those bodies; locomotion and actual referee distance still gate
+        // release. Include the endpoint's body envelope, not only the open segment.
+        if (blocked(target)) {
           const angle = Math.atan2(target.y - spot.y, target.x - spot.x);
           const around = [
             -Math.PI,

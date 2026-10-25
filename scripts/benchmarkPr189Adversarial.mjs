@@ -18,7 +18,14 @@ import {
 
 const root = 'docs/performance/pr189';
 const ownerOnly = process.argv.includes('--owner-only');
-const suffix = ownerOnly ? '-owner' : process.argv.includes('--early') ? '-early' : '';
+const version = process.argv.find((v) => v.startsWith('--version='))?.slice(10);
+const suffix = version
+  ? `-${version}`
+  : ownerOnly
+    ? '-owner'
+    : process.argv.includes('--early')
+      ? '-early'
+      : '';
 const output = `${root}/adversarial${suffix}.json`;
 if (existsSync(output)) throw Error('Preserve adversarial evidence');
 const sha = (v) => createHash('sha256').update(JSON.stringify(v)).digest('hex');
@@ -29,12 +36,13 @@ const captures = readdirSync(root)
 const rows = [],
   traces = [];
 const run = (input, observed) => {
+  const actorId = input.ball.ownerId ?? input.restart?.takerId;
   let state = JSON.parse(JSON.stringify(input)),
     progress = null;
   let originalActorReleases = 0,
     bodyPathMetres = 0,
     furthestMetres = 0;
-  const origin = input.players.find((p) => p.id === input.ball.ownerId)?.position;
+  const origin = input.players.find((p) => p.id === actorId)?.position;
   const events = createHash('sha256'),
     frames = [];
   state = withBoundedObserver(
@@ -45,7 +53,7 @@ const run = (input, observed) => {
       : undefined,
     () => {
       for (let i = 0; i < 800; i++) {
-        const actor = state.players.find((p) => p.id === input.ball.ownerId);
+        const actor = state.players.find((p) => p.id === actorId);
         if (observed && actor && i % 40 === 0 && state.ball.ownerId === actor.id) {
           const b = usesBoundedIntelligence(state) ? inspectBoundedAction(state, actor) : null;
           frames.push({
@@ -64,12 +72,16 @@ const run = (input, observed) => {
         state = step(state, 0.025);
         if (
           state.lastPassDiagnostic?.passId !== before.lastPassDiagnostic?.passId &&
-          state.lastPassDiagnostic?.passerId === input.ball.ownerId
+          state.lastPassDiagnostic?.passerId === actorId
         )
           originalActorReleases++;
-        if (before.ball.ownerId === input.ball.ownerId && origin) {
-          const previousActor = before.players.find((p) => p.id === input.ball.ownerId);
-          const currentActor = state.players.find((p) => p.id === input.ball.ownerId);
+        const shot = state.ball.shot ?? state.lastShot,
+          previousShot = before.ball.shot ?? before.lastShot;
+        if (shot?.shotId !== previousShot?.shotId && shot?.shooterId === actorId)
+          originalActorReleases++;
+        if ((before.ball.ownerId === actorId || before.restart?.takerId === actorId) && origin) {
+          const previousActor = before.players.find((p) => p.id === actorId);
+          const currentActor = state.players.find((p) => p.id === actorId);
           if (previousActor && currentActor) {
             bodyPathMetres += Math.hypot(
               currentActor.position.x - previousActor.position.x,
@@ -82,9 +94,11 @@ const run = (input, observed) => {
           }
         }
         if (!progress) {
-          const nextActor = state.players.find((p) => p.id === input.ball.ownerId);
-          const released = state.lastPassDiagnostic?.passId !== input.lastPassDiagnostic?.passId;
-          const previousActor = before.players.find((p) => p.id === input.ball.ownerId);
+          const nextActor = state.players.find((p) => p.id === actorId);
+          const released =
+            state.lastPassDiagnostic?.passId !== input.lastPassDiagnostic?.passId ||
+            shot?.shotId !== (input.ball.shot ?? input.lastShot)?.shotId;
+          const previousActor = before.players.find((p) => p.id === actorId);
           const moving = Boolean(
             nextActor &&
               previousActor &&
@@ -121,7 +135,7 @@ const run = (input, observed) => {
     originalActorReleases,
     bodyPathMetres,
     furthestMetres,
-    sameOwnerAtEnd: state.ball.ownerId === input.ball.ownerId,
+    sameOwnerAtEnd: input.ball.ownerId != null && state.ball.ownerId === input.ball.ownerId,
     ...(input.restart
       ? {
           restart: {

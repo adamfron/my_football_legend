@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "classification": "completed parent PR189 validation before the SW/C restart repair; not validation of the follow-up source",
+  "commit": "f8d3e0929441f49cdc448cb5c24d663a91ccc409",
+  "sourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+  "local": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "tests": {
+      "unit": 2197,
+      "integration": 56,
+      "careerContract": 4,
+      "fullCareer": 5,
+      "total": 2262
+    },
+    "logSha256": "34c789e40777d81f924c473486d8096e6d200d01f5123e018abc7ace8ec77dc9",
+    "archive": "docs/performance/pr189/verify-before-restart.log.gz"
+  },
+  "ci": {
+    "runId": 40144103303,
+    "url": "https://github.com/adamfron/my_football_legend/actions/runs/40144103303",
+    "conclusion": "success",
+    "jobs": [
+      "verify (main)",
+      "verify (career)",
+      "quality"
+    ],
+    "checkedAt": "2026-10-25 04:45:17 UTC"
+  }
+}

@@ -1,0 +1,2145 @@
+{
+  "schemaVersion": 1,
+  "classification": "actual SW/C cutoff state; unchanged clocks; 800 physical ticks; exact frozen engine and observer comparisons",
+  "baseCommit": "f8d3e0929441f49cdc448cb5c24d663a91ccc409",
+  "frozenSourceSha256": "2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb",
+  "currentSourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+  "initialStateSha256": "01b6f810eaf0e9bfe3fde66c24100b10a360ca9b6e437b76e71cbca60617c9f0",
+  "before": [
+    {
+      "stateSha256": "7dc2871dd034117c35d6fcd809ef46ffab65d11350d0522aada5ee5b7db2f3d7",
+      "after4sStateSha256": "f54ebaac2c6c3ac8568a758317a668a68e1900319fff82f3a206ea9e17621f6e",
+      "eventsSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "firstLegalAt": null,
+      "firstRelease": null,
+      "bodyPathMetres": 1.3795398019127484e-7,
+      "maximumSetupStep": 1.497746385045704e-9,
+      "finalAwardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+      "finalRequiredEndAt": 8780.024999979536,
+      "frames": [
+        {
+          "after": 0.024999999999636202,
+          "position": {
+            "x": 18.626167060619178,
+            "y": 37.89627232862835
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8760.049999979827
+        },
+        {
+          "after": 1.0249999999850843,
+          "position": {
+            "x": 18.62616705555562,
+            "y": 37.89627233331226
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8761.049999979812
+        },
+        {
+          "after": 2.0249999999705324,
+          "position": {
+            "x": 18.626167050492064,
+            "y": 37.89627233799616
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8762.049999979798
+        },
+        {
+          "after": 3.0249999999559805,
+          "position": {
+            "x": 18.626167045428506,
+            "y": 37.896272342680064
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8763.049999979783
+        },
+        {
+          "after": 4.0249999999414285,
+          "position": {
+            "x": 18.626167040364955,
+            "y": 37.896272347363954
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8764.049999979768
+        },
+        {
+          "after": 5.024999999926877,
+          "position": {
+            "x": 18.626167035301403,
+            "y": 37.89627235204785
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8765.049999979754
+        },
+        {
+          "after": 6.024999999912325,
+          "position": {
+            "x": 18.626167030237855,
+            "y": 37.89627235673175
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8766.04999997974
+        },
+        {
+          "after": 7.024999999897773,
+          "position": {
+            "x": 18.62616702517431,
+            "y": 37.89627236141564
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8767.049999979725
+        },
+        {
+          "after": 8.02499999988322,
+          "position": {
+            "x": 18.626167020110753,
+            "y": 37.89627236609953
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8768.04999997971
+        },
+        {
+          "after": 9.024999999868669,
+          "position": {
+            "x": 18.626167015047212,
+            "y": 37.89627237078342
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8769.049999979696
+        },
+        {
+          "after": 10.024999999854117,
+          "position": {
+            "x": 18.62616700998367,
+            "y": 37.89627237546731
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8770.049999979681
+        },
+        {
+          "after": 11.024999999839565,
+          "position": {
+            "x": 18.626167004920138,
+            "y": 37.896272380151196
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8771.049999979667
+        },
+        {
+          "after": 12.024999999825013,
+          "position": {
+            "x": 18.626166999856594,
+            "y": 37.89627238483508
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8772.049999979652
+        },
+        {
+          "after": 13.024999999810461,
+          "position": {
+            "x": 18.626166994793053,
+            "y": 37.89627238951896
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8773.049999979638
+        },
+        {
+          "after": 14.02499999979591,
+          "position": {
+            "x": 18.626166989729516,
+            "y": 37.89627239420284
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8774.049999979623
+        },
+        {
+          "after": 15.024999999781357,
+          "position": {
+            "x": 18.626166984665975,
+            "y": 37.896272398886715
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8775.049999979608
+        },
+        {
+          "after": 16.024999999766806,
+          "position": {
+            "x": 18.626166979602445,
+            "y": 37.89627240357059
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8776.049999979594
+        },
+        {
+          "after": 17.024999999752254,
+          "position": {
+            "x": 18.62616697453892,
+            "y": 37.89627240825447
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8777.04999997958
+        },
+        {
+          "after": 18.0249999997377,
+          "position": {
+            "x": 18.626166969475392,
+            "y": 37.896272412938345
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8778.049999979565
+        },
+        {
+          "after": 19.02499999972315,
+          "position": {
+            "x": 18.626166964411865,
+            "y": 37.896272417622214
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8779.04999997955
+        }
+      ]
+    },
+    {
+      "stateSha256": "7dc2871dd034117c35d6fcd809ef46ffab65d11350d0522aada5ee5b7db2f3d7",
+      "after4sStateSha256": "f54ebaac2c6c3ac8568a758317a668a68e1900319fff82f3a206ea9e17621f6e",
+      "eventsSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "firstLegalAt": null,
+      "firstRelease": null,
+      "bodyPathMetres": 1.3795398019127484e-7,
+      "maximumSetupStep": 1.497746385045704e-9,
+      "finalAwardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+      "finalRequiredEndAt": 8780.024999979536,
+      "frames": [
+        {
+          "after": 0.024999999999636202,
+          "position": {
+            "x": 18.626167060619178,
+            "y": 37.89627232862835
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8760.049999979827
+        },
+        {
+          "after": 1.0249999999850843,
+          "position": {
+            "x": 18.62616705555562,
+            "y": 37.89627233331226
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8761.049999979812
+        },
+        {
+          "after": 2.0249999999705324,
+          "position": {
+            "x": 18.626167050492064,
+            "y": 37.89627233799616
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8762.049999979798
+        },
+        {
+          "after": 3.0249999999559805,
+          "position": {
+            "x": 18.626167045428506,
+            "y": 37.896272342680064
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8763.049999979783
+        },
+        {
+          "after": 4.0249999999414285,
+          "position": {
+            "x": 18.626167040364955,
+            "y": 37.896272347363954
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8764.049999979768
+        },
+        {
+          "after": 5.024999999926877,
+          "position": {
+            "x": 18.626167035301403,
+            "y": 37.89627235204785
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8765.049999979754
+        },
+        {
+          "after": 6.024999999912325,
+          "position": {
+            "x": 18.626167030237855,
+            "y": 37.89627235673175
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8766.04999997974
+        },
+        {
+          "after": 7.024999999897773,
+          "position": {
+            "x": 18.62616702517431,
+            "y": 37.89627236141564
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8767.049999979725
+        },
+        {
+          "after": 8.02499999988322,
+          "position": {
+            "x": 18.626167020110753,
+            "y": 37.89627236609953
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8768.04999997971
+        },
+        {
+          "after": 9.024999999868669,
+          "position": {
+            "x": 18.626167015047212,
+            "y": 37.89627237078342
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8769.049999979696
+        },
+        {
+          "after": 10.024999999854117,
+          "position": {
+            "x": 18.62616700998367,
+            "y": 37.89627237546731
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8770.049999979681
+        },
+        {
+          "after": 11.024999999839565,
+          "position": {
+            "x": 18.626167004920138,
+            "y": 37.896272380151196
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8771.049999979667
+        },
+        {
+          "after": 12.024999999825013,
+          "position": {
+            "x": 18.626166999856594,
+            "y": 37.89627238483508
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8772.049999979652
+        },
+        {
+          "after": 13.024999999810461,
+          "position": {
+            "x": 18.626166994793053,
+            "y": 37.89627238951896
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8773.049999979638
+        },
+        {
+          "after": 14.02499999979591,
+          "position": {
+            "x": 18.626166989729516,
+            "y": 37.89627239420284
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8774.049999979623
+        },
+        {
+          "after": 15.024999999781357,
+          "position": {
+            "x": 18.626166984665975,
+            "y": 37.896272398886715
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8775.049999979608
+        },
+        {
+          "after": 16.024999999766806,
+          "position": {
+            "x": 18.626166979602445,
+            "y": 37.89627240357059
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8776.049999979594
+        },
+        {
+          "after": 17.024999999752254,
+          "position": {
+            "x": 18.62616697453892,
+            "y": 37.89627240825447
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8777.04999997958
+        },
+        {
+          "after": 18.0249999997377,
+          "position": {
+            "x": 18.626166969475392,
+            "y": 37.896272412938345
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8778.049999979565
+        },
+        {
+          "after": 19.02499999972315,
+          "position": {
+            "x": 18.626166964411865,
+            "y": 37.896272417622214
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8779.04999997955
+        }
+      ]
+    },
+    {
+      "stateSha256": "7dc2871dd034117c35d6fcd809ef46ffab65d11350d0522aada5ee5b7db2f3d7",
+      "after4sStateSha256": "f54ebaac2c6c3ac8568a758317a668a68e1900319fff82f3a206ea9e17621f6e",
+      "eventsSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "firstLegalAt": null,
+      "firstRelease": null,
+      "bodyPathMetres": 1.3795398019127484e-7,
+      "maximumSetupStep": 1.497746385045704e-9,
+      "finalAwardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+      "finalRequiredEndAt": 8780.024999979536,
+      "frames": [
+        {
+          "after": 0.024999999999636202,
+          "position": {
+            "x": 18.626167060619178,
+            "y": 37.89627232862835
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8760.049999979827
+        },
+        {
+          "after": 1.0249999999850843,
+          "position": {
+            "x": 18.62616705555562,
+            "y": 37.89627233331226
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8761.049999979812
+        },
+        {
+          "after": 2.0249999999705324,
+          "position": {
+            "x": 18.626167050492064,
+            "y": 37.89627233799616
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8762.049999979798
+        },
+        {
+          "after": 3.0249999999559805,
+          "position": {
+            "x": 18.626167045428506,
+            "y": 37.896272342680064
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8763.049999979783
+        },
+        {
+          "after": 4.0249999999414285,
+          "position": {
+            "x": 18.626167040364955,
+            "y": 37.896272347363954
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8764.049999979768
+        },
+        {
+          "after": 5.024999999926877,
+          "position": {
+            "x": 18.626167035301403,
+            "y": 37.89627235204785
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8765.049999979754
+        },
+        {
+          "after": 6.024999999912325,
+          "position": {
+            "x": 18.626167030237855,
+            "y": 37.89627235673175
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8766.04999997974
+        },
+        {
+          "after": 7.024999999897773,
+          "position": {
+            "x": 18.62616702517431,
+            "y": 37.89627236141564
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8767.049999979725
+        },
+        {
+          "after": 8.02499999988322,
+          "position": {
+            "x": 18.626167020110753,
+            "y": 37.89627236609953
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8768.04999997971
+        },
+        {
+          "after": 9.024999999868669,
+          "position": {
+            "x": 18.626167015047212,
+            "y": 37.89627237078342
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8769.049999979696
+        },
+        {
+          "after": 10.024999999854117,
+          "position": {
+            "x": 18.62616700998367,
+            "y": 37.89627237546731
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8770.049999979681
+        },
+        {
+          "after": 11.024999999839565,
+          "position": {
+            "x": 18.626167004920138,
+            "y": 37.896272380151196
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8771.049999979667
+        },
+        {
+          "after": 12.024999999825013,
+          "position": {
+            "x": 18.626166999856594,
+            "y": 37.89627238483508
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8772.049999979652
+        },
+        {
+          "after": 13.024999999810461,
+          "position": {
+            "x": 18.626166994793053,
+            "y": 37.89627238951896
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8773.049999979638
+        },
+        {
+          "after": 14.02499999979591,
+          "position": {
+            "x": 18.626166989729516,
+            "y": 37.89627239420284
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8774.049999979623
+        },
+        {
+          "after": 15.024999999781357,
+          "position": {
+            "x": 18.626166984665975,
+            "y": 37.896272398886715
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8775.049999979608
+        },
+        {
+          "after": 16.024999999766806,
+          "position": {
+            "x": 18.626166979602445,
+            "y": 37.89627240357059
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8776.049999979594
+        },
+        {
+          "after": 17.024999999752254,
+          "position": {
+            "x": 18.62616697453892,
+            "y": 37.89627240825447
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8777.04999997958
+        },
+        {
+          "after": 18.0249999997377,
+          "position": {
+            "x": 18.626166969475392,
+            "y": 37.896272412938345
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8778.049999979565
+        },
+        {
+          "after": 19.02499999972315,
+          "position": {
+            "x": 18.626166964411865,
+            "y": 37.896272417622214
+          },
+          "target": {
+            "x": 17.771546482096714,
+            "y": 35.87639909566889
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8779.04999997955
+        }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "stateSha256": "507c219c91580749b073eca81564490548b9bc2eb49dadd7f2459fc64b7b1b5e",
+      "after4sStateSha256": "5d30bc5c2a5aceef88bc5e408b8178f0063ce8931307b943f30da2abe7ff401d",
+      "eventsSha256": "36591852b4d17308c99b0b78497f77f4e768b51f838a76cd10983974710168a5",
+      "firstLegalAt": 7200.874999958587,
+      "firstRelease": {
+        "at": 7201.074999958584,
+        "after": 1.0499999999847205,
+        "minimumOpponentDistance": 9.284842490911538,
+        "ballSpeed": 26.86511246250669,
+        "requiredEndAt": 8761.074999979812,
+        "incidentStartedAt": 4319.0250000005235
+      },
+      "bodyPathMetres": 1.2821173191099224,
+      "maximumSetupStep": 0.05534243093253946,
+      "finalAwardId": null,
+      "finalRequiredEndAt": 8761.074999979812,
+      "frames": [
+        {
+          "after": 0.024999999999636202,
+          "position": {
+            "x": 18.6274166612551,
+            "y": 37.89511470010146
+          },
+          "target": {
+            "x": 27.125190967400442,
+            "y": 40.750429955486794
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8760.049999979827
+        },
+        {
+          "after": 1.0249999999850843,
+          "position": {
+            "x": 19.830982752601066,
+            "y": 37.793240529910754
+          },
+          "target": {
+            "x": 20.974853665767924,
+            "y": 36.287714628972076
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "kick_preparation",
+          "blockers": [],
+          "requiredEndAt": 8761.049999979812
+        },
+        {
+          "after": 2.0249999999705324,
+          "position": {
+            "x": 18.520062756924283,
+            "y": 36.102176277064125
+          },
+          "target": {
+            "x": 15.3111181641838,
+            "y": 31.12953118655787
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 3.0249999999559805,
+          "position": {
+            "x": 17.01175401399754,
+            "y": 31.16280665775521
+          },
+          "target": {
+            "x": 17.62415001646999,
+            "y": 29.296618222158664
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 4.0249999999414285,
+          "position": {
+            "x": 17.580181075485275,
+            "y": 28.306118869998414
+          },
+          "target": {
+            "x": 17.425709781309568,
+            "y": 28.550430047667643
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 5.024999999926877,
+          "position": {
+            "x": 17.831457146613218,
+            "y": 27.78397596345745
+          },
+          "target": {
+            "x": 17.78229733232111,
+            "y": 27.724670645662876
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 6.024999999912325,
+          "position": {
+            "x": 18.10126254349417,
+            "y": 28.14076836946893
+          },
+          "target": {
+            "x": 25.187022260383042,
+            "y": 38.32334683717416
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 7.024999999897773,
+          "position": {
+            "x": 19.727820447091364,
+            "y": 30.312244340444135
+          },
+          "target": {
+            "x": 21.219421416822684,
+            "y": 31.194576299679547
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 8.02499999988322,
+          "position": {
+            "x": 21.850041106920397,
+            "y": 30.89525070469018
+          },
+          "target": {
+            "x": 20.372691190529796,
+            "y": 29.422887374823844
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 9.024999999868669,
+          "position": {
+            "x": 20.858636651733324,
+            "y": 30.362973814057174
+          },
+          "target": {
+            "x": 19.709412810901803,
+            "y": 29.20619551879039
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 10.024999999854117,
+          "position": {
+            "x": 19.86993490876302,
+            "y": 30.130425256875064
+          },
+          "target": {
+            "x": 19.520693753039154,
+            "y": 30.39754305029531
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 11.024999999839565,
+          "position": {
+            "x": 20.203687614125055,
+            "y": 31.4289155816085
+          },
+          "target": {
+            "x": 21.61617897965599,
+            "y": 34.57987837797808
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 12.024999999825013,
+          "position": {
+            "x": 21.211112082991132,
+            "y": 33.37638636381437
+          },
+          "target": {
+            "x": 23.5408356703072,
+            "y": 39.85660207605477
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 13.024999999810461,
+          "position": {
+            "x": 21.863344656591085,
+            "y": 35.18208881956145
+          },
+          "target": {
+            "x": 23.98053549121543,
+            "y": 40.303481382922314
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 14.02499999979591,
+          "position": {
+            "x": 22.662875210908094,
+            "y": 36.65856517908669
+          },
+          "target": {
+            "x": 24.666797470920613,
+            "y": 39.494310530553165
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 15.024999999781357,
+          "position": {
+            "x": 23.471700780288064,
+            "y": 37.631214822267424
+          },
+          "target": {
+            "x": 24.671565594936023,
+            "y": 38.80983088762422
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 16.024999999766806,
+          "position": {
+            "x": 23.712630183443213,
+            "y": 37.801264791758655
+          },
+          "target": {
+            "x": 24.038198008933918,
+            "y": 37.35911497477905
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 17.024999999752254,
+          "position": {
+            "x": 23.784205935367794,
+            "y": 37.71699334529562
+          },
+          "target": {
+            "x": 24.212660563843677,
+            "y": 37.22819212666212
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 18.0249999997377,
+          "position": {
+            "x": 23.401163617592896,
+            "y": 36.90748917390064
+          },
+          "target": {
+            "x": 23.068377095038574,
+            "y": 36.66567220011733
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 19.02499999972315,
+          "position": {
+            "x": 23.48003009823833,
+            "y": 37.11269747090818
+          },
+          "target": {
+            "x": 23.713496030771445,
+            "y": 37.475332232381234
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        }
+      ]
+    },
+    {
+      "stateSha256": "507c219c91580749b073eca81564490548b9bc2eb49dadd7f2459fc64b7b1b5e",
+      "after4sStateSha256": "5d30bc5c2a5aceef88bc5e408b8178f0063ce8931307b943f30da2abe7ff401d",
+      "eventsSha256": "36591852b4d17308c99b0b78497f77f4e768b51f838a76cd10983974710168a5",
+      "firstLegalAt": 7200.874999958587,
+      "firstRelease": {
+        "at": 7201.074999958584,
+        "after": 1.0499999999847205,
+        "minimumOpponentDistance": 9.284842490911538,
+        "ballSpeed": 26.86511246250669,
+        "requiredEndAt": 8761.074999979812,
+        "incidentStartedAt": 4319.0250000005235
+      },
+      "bodyPathMetres": 1.2821173191099224,
+      "maximumSetupStep": 0.05534243093253946,
+      "finalAwardId": null,
+      "finalRequiredEndAt": 8761.074999979812,
+      "frames": [
+        {
+          "after": 0.024999999999636202,
+          "position": {
+            "x": 18.6274166612551,
+            "y": 37.89511470010146
+          },
+          "target": {
+            "x": 27.125190967400442,
+            "y": 40.750429955486794
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8760.049999979827
+        },
+        {
+          "after": 1.0249999999850843,
+          "position": {
+            "x": 19.830982752601066,
+            "y": 37.793240529910754
+          },
+          "target": {
+            "x": 20.974853665767924,
+            "y": 36.287714628972076
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "kick_preparation",
+          "blockers": [],
+          "requiredEndAt": 8761.049999979812
+        },
+        {
+          "after": 2.0249999999705324,
+          "position": {
+            "x": 18.520062756924283,
+            "y": 36.102176277064125
+          },
+          "target": {
+            "x": 15.3111181641838,
+            "y": 31.12953118655787
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 3.0249999999559805,
+          "position": {
+            "x": 17.01175401399754,
+            "y": 31.16280665775521
+          },
+          "target": {
+            "x": 17.62415001646999,
+            "y": 29.296618222158664
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 4.0249999999414285,
+          "position": {
+            "x": 17.580181075485275,
+            "y": 28.306118869998414
+          },
+          "target": {
+            "x": 17.425709781309568,
+            "y": 28.550430047667643
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 5.024999999926877,
+          "position": {
+            "x": 17.831457146613218,
+            "y": 27.78397596345745
+          },
+          "target": {
+            "x": 17.78229733232111,
+            "y": 27.724670645662876
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 6.024999999912325,
+          "position": {
+            "x": 18.10126254349417,
+            "y": 28.14076836946893
+          },
+          "target": {
+            "x": 25.187022260383042,
+            "y": 38.32334683717416
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 7.024999999897773,
+          "position": {
+            "x": 19.727820447091364,
+            "y": 30.312244340444135
+          },
+          "target": {
+            "x": 21.219421416822684,
+            "y": 31.194576299679547
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 8.02499999988322,
+          "position": {
+            "x": 21.850041106920397,
+            "y": 30.89525070469018
+          },
+          "target": {
+            "x": 20.372691190529796,
+            "y": 29.422887374823844
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 9.024999999868669,
+          "position": {
+            "x": 20.858636651733324,
+            "y": 30.362973814057174
+          },
+          "target": {
+            "x": 19.709412810901803,
+            "y": 29.20619551879039
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 10.024999999854117,
+          "position": {
+            "x": 19.86993490876302,
+            "y": 30.130425256875064
+          },
+          "target": {
+            "x": 19.520693753039154,
+            "y": 30.39754305029531
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 11.024999999839565,
+          "position": {
+            "x": 20.203687614125055,
+            "y": 31.4289155816085
+          },
+          "target": {
+            "x": 21.61617897965599,
+            "y": 34.57987837797808
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 12.024999999825013,
+          "position": {
+            "x": 21.211112082991132,
+            "y": 33.37638636381437
+          },
+          "target": {
+            "x": 23.5408356703072,
+            "y": 39.85660207605477
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 13.024999999810461,
+          "position": {
+            "x": 21.863344656591085,
+            "y": 35.18208881956145
+          },
+          "target": {
+            "x": 23.98053549121543,
+            "y": 40.303481382922314
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 14.02499999979591,
+          "position": {
+            "x": 22.662875210908094,
+            "y": 36.65856517908669
+          },
+          "target": {
+            "x": 24.666797470920613,
+            "y": 39.494310530553165
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 15.024999999781357,
+          "position": {
+            "x": 23.471700780288064,
+            "y": 37.631214822267424
+          },
+          "target": {
+            "x": 24.671565594936023,
+            "y": 38.80983088762422
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 16.024999999766806,
+          "position": {
+            "x": 23.712630183443213,
+            "y": 37.801264791758655
+          },
+          "target": {
+            "x": 24.038198008933918,
+            "y": 37.35911497477905
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 17.024999999752254,
+          "position": {
+            "x": 23.784205935367794,
+            "y": 37.71699334529562
+          },
+          "target": {
+            "x": 24.212660563843677,
+            "y": 37.22819212666212
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 18.0249999997377,
+          "position": {
+            "x": 23.401163617592896,
+            "y": 36.90748917390064
+          },
+          "target": {
+            "x": 23.068377095038574,
+            "y": 36.66567220011733
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 19.02499999972315,
+          "position": {
+            "x": 23.48003009823833,
+            "y": 37.11269747090818
+          },
+          "target": {
+            "x": 23.713496030771445,
+            "y": 37.475332232381234
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        }
+      ]
+    },
+    {
+      "stateSha256": "507c219c91580749b073eca81564490548b9bc2eb49dadd7f2459fc64b7b1b5e",
+      "after4sStateSha256": "5d30bc5c2a5aceef88bc5e408b8178f0063ce8931307b943f30da2abe7ff401d",
+      "eventsSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "firstLegalAt": 7200.874999958587,
+      "firstRelease": {
+        "at": 7201.074999958584,
+        "after": 1.0499999999847205,
+        "minimumOpponentDistance": 9.284842490911538,
+        "ballSpeed": 26.86511246250669,
+        "requiredEndAt": 8761.074999979812,
+        "incidentStartedAt": 4319.0250000005235
+      },
+      "bodyPathMetres": 1.2821173191099224,
+      "maximumSetupStep": 0.05534243093253946,
+      "finalAwardId": null,
+      "finalRequiredEndAt": 8761.074999979812,
+      "frames": [
+        {
+          "after": 0.024999999999636202,
+          "position": {
+            "x": 18.6274166612551,
+            "y": 37.89511470010146
+          },
+          "target": {
+            "x": 27.125190967400442,
+            "y": 40.750429955486794
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "preparing",
+          "blockers": [
+            "opponent_restriction"
+          ],
+          "requiredEndAt": 8760.049999979827
+        },
+        {
+          "after": 1.0249999999850843,
+          "position": {
+            "x": 19.830982752601066,
+            "y": 37.793240529910754
+          },
+          "target": {
+            "x": 20.974853665767924,
+            "y": 36.287714628972076
+          },
+          "awardId": "pr187-development-sw-01:restart:4319.0250000005235:home:free_kick_close",
+          "phase": "kick_preparation",
+          "blockers": [],
+          "requiredEndAt": 8761.049999979812
+        },
+        {
+          "after": 2.0249999999705324,
+          "position": {
+            "x": 18.520062756924283,
+            "y": 36.102176277064125
+          },
+          "target": {
+            "x": 15.3111181641838,
+            "y": 31.12953118655787
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 3.0249999999559805,
+          "position": {
+            "x": 17.01175401399754,
+            "y": 31.16280665775521
+          },
+          "target": {
+            "x": 17.62415001646999,
+            "y": 29.296618222158664
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 4.0249999999414285,
+          "position": {
+            "x": 17.580181075485275,
+            "y": 28.306118869998414
+          },
+          "target": {
+            "x": 17.425709781309568,
+            "y": 28.550430047667643
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 5.024999999926877,
+          "position": {
+            "x": 17.831457146613218,
+            "y": 27.78397596345745
+          },
+          "target": {
+            "x": 17.78229733232111,
+            "y": 27.724670645662876
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 6.024999999912325,
+          "position": {
+            "x": 18.10126254349417,
+            "y": 28.14076836946893
+          },
+          "target": {
+            "x": 25.187022260383042,
+            "y": 38.32334683717416
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 7.024999999897773,
+          "position": {
+            "x": 19.727820447091364,
+            "y": 30.312244340444135
+          },
+          "target": {
+            "x": 21.219421416822684,
+            "y": 31.194576299679547
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 8.02499999988322,
+          "position": {
+            "x": 21.850041106920397,
+            "y": 30.89525070469018
+          },
+          "target": {
+            "x": 20.372691190529796,
+            "y": 29.422887374823844
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 9.024999999868669,
+          "position": {
+            "x": 20.858636651733324,
+            "y": 30.362973814057174
+          },
+          "target": {
+            "x": 19.709412810901803,
+            "y": 29.20619551879039
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 10.024999999854117,
+          "position": {
+            "x": 19.86993490876302,
+            "y": 30.130425256875064
+          },
+          "target": {
+            "x": 19.520693753039154,
+            "y": 30.39754305029531
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 11.024999999839565,
+          "position": {
+            "x": 20.203687614125055,
+            "y": 31.4289155816085
+          },
+          "target": {
+            "x": 21.61617897965599,
+            "y": 34.57987837797808
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 12.024999999825013,
+          "position": {
+            "x": 21.211112082991132,
+            "y": 33.37638636381437
+          },
+          "target": {
+            "x": 23.5408356703072,
+            "y": 39.85660207605477
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 13.024999999810461,
+          "position": {
+            "x": 21.863344656591085,
+            "y": 35.18208881956145
+          },
+          "target": {
+            "x": 23.98053549121543,
+            "y": 40.303481382922314
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 14.02499999979591,
+          "position": {
+            "x": 22.662875210908094,
+            "y": 36.65856517908669
+          },
+          "target": {
+            "x": 24.666797470920613,
+            "y": 39.494310530553165
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 15.024999999781357,
+          "position": {
+            "x": 23.471700780288064,
+            "y": 37.631214822267424
+          },
+          "target": {
+            "x": 24.671565594936023,
+            "y": 38.80983088762422
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 16.024999999766806,
+          "position": {
+            "x": 23.712630183443213,
+            "y": 37.801264791758655
+          },
+          "target": {
+            "x": 24.038198008933918,
+            "y": 37.35911497477905
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 17.024999999752254,
+          "position": {
+            "x": 23.784205935367794,
+            "y": 37.71699334529562
+          },
+          "target": {
+            "x": 24.212660563843677,
+            "y": 37.22819212666212
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 18.0249999997377,
+          "position": {
+            "x": 23.401163617592896,
+            "y": 36.90748917390064
+          },
+          "target": {
+            "x": 23.068377095038574,
+            "y": 36.66567220011733
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        },
+        {
+          "after": 19.02499999972315,
+          "position": {
+            "x": 23.48003009823833,
+            "y": 37.11269747090818
+          },
+          "target": {
+            "x": 23.713496030771445,
+            "y": 37.475332232381234
+          },
+          "awardId": null,
+          "phase": null,
+          "blockers": [
+            "no_restart"
+          ],
+          "requiredEndAt": 8761.074999979812
+        }
+      ]
+    }
+  ]
+}

@@ -6,6 +6,9 @@ The frozen PR188 WW/A match reproduces **1,984.700 s** of stationary possession.
 This PR repairs a demonstrated scheduling deadlock, captures actual resumable
 states, shares finite contact readiness between observation and execution
 scheduling, and lets a safely covered experimental defender probe a static carrier.
+It also repairs the captured SW/C ceremonial free-kick placement jam by routing
+an encroaching defender around all obstructing bodies, including opposing support
+players and bodies close to the route endpoint. Actual legal-distance checks remain.
 It is a **staged draft**, not completion of the entire articulated-body mission.
 
 **B remains default; canonical is NOT READY; the independent cohort is unopened.**
@@ -20,7 +23,7 @@ No named trick, forced turnover, pass quota or inactivity timer is added.
 | 5 — lower-body geometry                  | NOT IMPLEMENTED                                                                                                     |
 | 6 — body-surface disruption and leg gaps | NOT IMPLEMENTED; existing contact resolver limitations remain                                                       |
 | 7 — timed/deceptive pass                 | NOT IMPLEMENTED; requires earlier geometry/contact gates                                                            |
-| 8 — full development/verification        | FAIL full-match acceptance: 14/15 finish; SW/C restart deadlock remains. Technical verification is separate         |
+| 8 — full development/verification        | PASS recorded development: 15/15 reach full time within 7,200 s. Final technical outcomes are reported separately   |
 
 ## 2. Frozen PR188 baseline
 
@@ -56,7 +59,7 @@ discipline, restarts and preparation remain in the captured graph.
 PR188's earlier observed/diagnostic raw final hashes differ only in object-key
 order under `departedPlayers`. Deep strict comparison confirms identical values.
 Both historical bytes and the original `equalFinalState: false` are preserved;
-`replay-labs-canonical.json` records the independent explanation.
+`replay-labs-restart.json` records the independent explanation.
 
 ## 4. Causal trace: selection is not release
 
@@ -151,7 +154,7 @@ stationary carrier, slow ball, nearby opponent, actual defensive cover, availabl
 outlet, no protected receiver assignment and no uncovered dangerous context.
 Existing movement and the ball-side orbit target execute the approach. It is not
 an order to tackle after any duration. Historical B/R3 defensive preference logic
-is retained; the shared contact-readiness correction can still change their match
+is retained; shared contact readiness and legal restart routes can still change their match
 trajectories and is measured separately.
 
 Six reconstructed Lab B neighbours vary zero/one/two covering teammates and ball
@@ -211,7 +214,7 @@ There is no surprise bonus and no hidden-action read.
 All six original states produce a real pass under the repaired engine. Each has
 equal restored state/event hashes and observer-off state hashes over 160 ticks.
 These continuations revalidate real targets; they do not prescribe a kick.
-`repaired-after-4s-canonical.json.gz` preserves an actual post-repair continuation.
+`repaired-after-4s-restart.json.gz` preserves an actual post-repair continuation.
 Full-match stationary detections capture at most two states per variant, with
 one additional capture for continuous same-owner possession reaching 120 s. Detection
 is external to the live engine and cannot choose an action or transfer possession.
@@ -224,14 +227,15 @@ traces remain. First full-match v1 receipts for WW/A/H precede formatting and ha
 unavailable `lastChallengeDiagnostic` counter; canonical `defence` totals remain
 valid. Cycle one is superseded after the SS recovery conflict was discovered;
 Cycle two is superseded after the collision-blocked missed contact was exposed;
-the final table uses a complete new v3 series on one frozen physical source.
+The v3 series exposes the SW/C restart jam. The final table uses the complete v4
+series after its physical route repair, on one frozen source. Earlier results remain.
 Early runner hashes were read at process completion during apparatus maintenance;
 they are file hashes, not attestations of the loaded evaluator bytes. The physical
-source manifest is always captured before stepping. The v2/v3 runner freezes its own
+source manifest is always captured before stepping. The v2/v3/v4 runner freezes its own
 hash at process start as well.
 
-Capture `sourceCommit` identifies the merged base, not a claim that PR188 generated
-modified states. Modified captures identify their actual source manifest in the
+Capture `sourceCommit` identifies the base commit (merged PR188 or pre-restart PR189),
+not a claim that the base engine generated modified states. Modified captures identify their actual source manifest in the
 reason and corresponding receipt. Frozen failed-source overlays preserve the
 exact earlier engine bytes. Automatic stationary measurements now use actual
 pre/post body positions, rather than the attempted locomotion velocity.
@@ -247,25 +251,25 @@ or longer continuations.
 
 <!-- DEVELOPMENT_RESULTS -->
 
-14/15 frozen variants reach full time within the unchanged 7,200-second development limit. Cutoff rows are incomplete matches, not accepted full-match results. Final table source: `2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb`. A/H/C are experimental; B/R3 are historical controls.
+15/15 frozen variants reach full time within the unchanged 7,200-second development limit. Cutoff rows are incomplete matches, not accepted full-match results. Final table source: `62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e`. A/H/C are experimental; B/R3 are historical controls.
 
-| Design | Policy | Result        | Stationary s, old → new | Same owner s | Completed/attempted passes | Shots | Fouls |
-| ------ | ------ | ------------- | ----------------------: | -----------: | -------------------------: | ----: | ----: |
-| WW     | A      | full_time     |       1984.700 → 14.450 |       16.325 |                    24/1929 |     0 |    20 |
-| WW     | H      | full_time     |         436.750 → 2.175 |       60.925 |                    15/1507 |     1 |    16 |
-| WW     | C      | full_time     |         475.750 → 4.125 |       14.900 |                    22/1656 |     1 |    17 |
-| WW     | B      | full_time     |           3.875 → 3.800 |       49.175 |                     55/527 |     6 |     7 |
-| WW     | R3     | full_time     |           3.925 → 3.975 |       41.850 |                     85/611 |     9 |     6 |
-| SS     | A      | full_time     |           1.150 → 1.475 |       10.300 |                  1219/2656 |     1 |    69 |
-| SS     | H      | full_time     |           0.975 → 2.275 |       11.875 |                  1827/2255 |     5 |    60 |
-| SS     | C      | full_time     |           0.925 → 1.500 |       27.000 |                  1780/2275 |     2 |    61 |
-| SS     | B      | full_time     |           1.775 → 1.475 |        7.125 |                  1485/2327 |    21 |    77 |
-| SS     | R3     | full_time     |           1.775 → 1.900 |        8.125 |                  1514/2269 |    18 |    61 |
-| SW     | A      | full_time     |           0.975 → 6.450 |       11.050 |                   601/2331 |     2 |    43 |
-| SW     | H      | full_time     |           1.100 → 5.400 |       19.550 |                   488/1352 |    57 |    41 |
-| SW     | C      | CUTOFF 7200 s |           0.925 → 1.575 |       16.275 |                   415/1093 |    21 |    42 |
-| SW     | B      | full_time     |           5.350 → 3.950 |       17.875 |                   692/1707 |    32 |    48 |
-| SW     | R3     | full_time     |           3.950 → 3.950 |       19.525 |                   724/1601 |    37 |    35 |
+| Design | Policy | Result    | Stationary s, old → new | Same owner s | Completed/attempted passes | Shots | Fouls |
+| ------ | ------ | --------- | ----------------------: | -----------: | -------------------------: | ----: | ----: |
+| WW     | A      | full_time |        1984.700 → 1.350 |        9.050 |                    25/1915 |     1 |    12 |
+| WW     | H      | full_time |         436.750 → 2.800 |       60.925 |                    19/1559 |     5 |    13 |
+| WW     | C      | full_time |         475.750 → 1.850 |       58.425 |                    10/1600 |     4 |    21 |
+| WW     | B      | full_time |          3.875 → 11.825 |       60.200 |                     61/541 |    11 |     9 |
+| WW     | R3     | full_time |           3.925 → 5.750 |       36.425 |                     80/674 |     9 |    12 |
+| SS     | A      | full_time |           1.150 → 1.825 |        9.825 |                  1209/2693 |     1 |    66 |
+| SS     | H      | full_time |           0.975 → 4.350 |       15.925 |                  1784/2272 |     0 |    39 |
+| SS     | C      | full_time |           0.925 → 3.550 |       11.100 |                  1902/2426 |     2 |    49 |
+| SS     | B      | full_time |           1.775 → 2.475 |        8.150 |                  1234/2000 |    37 |    54 |
+| SS     | R3     | full_time |           1.775 → 1.525 |        9.675 |                  1467/2156 |    16 |    55 |
+| SW     | A      | full_time |           0.975 → 1.025 |       18.200 |                   550/2263 |     5 |    50 |
+| SW     | H      | full_time |           1.100 → 2.525 |       19.525 |                   453/1331 |    49 |    49 |
+| SW     | C      | full_time |           0.925 → 0.975 |       19.350 |                   630/1518 |    44 |    44 |
+| SW     | B      | full_time |           5.350 → 4.375 |       19.275 |                   702/1701 |    39 |    42 |
+| SW     | R3     | full_time |           3.950 → 3.900 |       17.800 |                   642/1547 |    46 |    57 |
 
 <!-- END_DEVELOPMENT_RESULTS -->
 
@@ -274,32 +278,67 @@ No policy is promoted based on these matches. High circulation, poor reception,
 remaining long holds, zero-shot outcomes and default-policy regressions must be
 reported alongside removal of the original self-blocking cycle.
 
-The SW/C 7,200-second cutoff was repeated exactly with the same final-state hash.
+All v4 inputs and outputs use source `62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e`.
+SW/C ends at **6,135.5 s**, score **21:0**, without a clock or harness-budget change.
+WW/A now has 25/1,915 completed passes and one shot, despite its 1.35 s stationary
+maximum. Default B's WW maximum worsens to 11.825 s from 3.8 s in v3 (3.875 s
+historically), and SS/H has zero shots. Completion is not evidence of football
+quality or justification to promote a policy.
+
+The superseded v3 SW/C 7,200-second cutoff was repeated exactly with the same final-state hash.
 The full canonical capture is `sw-contextual-judgment-v1-cutoff-diagnosis-cutoff.json.gz`.
 This is a genuine restart deadlock, not merely a busy match exceeding a short budget:
 the same ceremonial `free_kick_close` awarded at 4,319.025 s is still preparing at
 7,200.025 s. Ball/taker/tactical readiness are true, legal readiness is false with
 `opponent_restriction`. The active stoppage makes `requiredEndAt` drift to
 8,760.025 s, with `periodEndPending: false`. No restart, clock, player position or
-law was reset to turn that failure green. The 14/15 result remains negative;
-the blocker and its reachable-target/collision cause require further work.
-An 800-tick continuation retains the same award and legal blocker and moves the
+law was reset to turn that failure green. The old 14/15 result remains negative
+in `summary-v3.json`, the original receipts and archived source `f8d3e09`.
+An 800-tick continuation on that engine retains the same award and legal blocker and moves the
 deadline by another 20 s. Opponent `geometry:opponent:3` remains 9.0007 m from the
 spot despite an assigned legal target farther away; its measured displacement is
-under a micrometre. This localizes a physical placement jam, without claiming a
-complete causal repair of the restart controller.
+under a micrometre.
 
-`adversarial.json` replays all 14 real development captures from the retained
+The route aimed between `geometry:anchor:7` and `geometry:anchor:6`, which stood
+at the ordinary 1.15 m body boundary. Escape planning considered only the wall,
+so these opposing support bodies were invisible to the route planner while the
+physical collision solver correctly blocked passage. The repair reuses the existing
+legal bypass search for every body and checks its closed endpoint envelope too.
+It changes movement intentions; no coordinates, collider sizes, referee tolerances,
+awards or time budgets are altered.
+
+`restart-replay.json` compares that exact captured state under frozen `f8d3e09`
+and current source, twice observed and once unobserved per engine. The old engine
+does not release. The repaired one reaches legal readiness after 0.85 s and executes
+after **1.05 s**, with minimum opponent distance **9.28484 m** and ball speed
+26.865 m/s. The formerly blocked defender walks 1.282 m; the largest setup step
+by any player is 0.05535 m per tick. All state/event repeats and observer comparisons
+match. `restart-repaired-after-4s.json.gz` is the actual continued canonical state.
+
+The captured state's already accrued lost time is preserved: its required end
+remains at least 8,760.025 s and settles at 8,761.075 s after execution. The full v4
+matches start from the original frozen PR188 initial inputs; they do not shorten
+the clock of this already delayed cutoff state.
+
+The superseded `adversarial.json` replays all 14 real development captures from the retained
 cycles and cutoff, twice observed and once unobserved. Every state/event replay
 is deterministic and observer-neutral. Thirteen continuations record an actual
 pass by the original actor; the restart has no progress. The six original PR188
 captures remain separately replayed in the canonical contact laboratory.
 
+The follow-up `adversarial-restart.json` repeats all 14 captures on the repaired
+source with matching state/event hashes and observer neutrality; none has zero
+measured progress. Its original-actor pass/shot counter remains zero for the free
+kick because that counter does not cover every restart launch. The dedicated
+restart replay verifies the actual launch against the stoppage ledger, moving
+ball, lawful opponent positions and retained clock instead of inferring a kick
+from that coarse counter.
+
 Superseded cycle-two WW/A reports 1.275 s stationary from nominal velocity, but
 continuous same-owner possession reaches **357.450 s**, with **20 completed passes
 from 1,832 attempts and zero shots**. The full same-input audit has the exact same
 final hash and proves that the apparent movement was false. Those small nominal
-stationary numbers must not be cited as actual liveness acceptance. Final v3
+stationary numbers must not be cited as actual liveness acceptance. Final v3/v4
 measurements and the automatic detector use actual position displacement. PR188's
 historical summary used nominal velocity; the original 1,984.7-second episode was
 also physically stationary, but other cross-version maxima have that metric caveat.
@@ -308,9 +347,11 @@ also physically stationary, but other cross-version maxima have that metric cave
 
 The 8,000-tick paired observer-off performance probe uses the same frozen WW/A
 input after 400 warm-up ticks, same Node 24 and heap flags, separate sequential
-processes on a shared host. Two fresh sequential measurements per engine give
-CPU user+system of 11.860/12.593 s baseline and 11.515/12.235 s current: means
-12.227 versus 11.875 s (about -2.9%). Mean RSS is 318.37 versus 320.89 MB.
+processes on a shared host. The restart follow-up uses Node 24.22.1 for both
+engines: two alternating measurements give CPU user+system of 14.656/12.093 s
+baseline and 11.515/11.484 s current, means 13.375 versus 11.500 s. Mean RSS is
+404.74 versus 315.99 MB. The earlier paired Node 24.19 measurements (means
+12.227 versus 11.875 s, RSS 318.37 versus 320.89 MB) remain as pre-restart evidence.
 Both repetitions within each engine have identical final-state hashes.
 Earlier single noisy probes (including 10.796 versus 14.578 s) and the initial
 incomplete patch's 10.907 s are retained, not silently replaced. Football trajectories diverge,
@@ -332,6 +373,7 @@ npm run benchmark:pr188:replay
 npm run benchmark:pr189:replay
 npm run benchmark:pr189:failed-cycle
 npm run benchmark:pr189:blocked-recovery
+npm run benchmark:pr189:restart
 npm run benchmark:pr189:check
 npm run verify
 ```
@@ -345,19 +387,25 @@ Its original source-manifest check must pass. New full runs accept a fresh
 
 <!-- VERIFICATION_RESULTS -->
 
-At the pre-publication evidence freeze, final-code lint, all 2,197 unit tests and
-all 56 integration tests pass. This includes 18 PR189 regressions on six PR188
-states, two SS captures, the real blocked-recovery state and actual-position
-diagnostics. Integration completes in 148.64 s; the original 90-second native
-penalty limit is unchanged. The earlier run under parallel benchmark load records
-55/56 integration passes and a native `SIGTERM` at 89.556 s. That failed log is retained.
+Before the restart follow-up, commit `f8d3e09` passed complete local verification:
+2,197 unit + 56 integration + 4 career-contract + 5 full-career tests = **2,262**,
+lint and build. Its exact-head CI passed all three jobs in run `40144103303`.
+`validation-before-restart.json` and `verify-before-restart.log.gz` preserve this
+completed result separately; it does not validate the follow-up source.
 
-The remaining full `npm run verify` stages (career contract, full career, build)
-continue after this snapshot. The pull request description and GitHub Checks
-record the final local result and exact-head CI outcome after publication; a
-partial passing snapshot is not a claim that the complete pipeline passed.
-`prepublication-verify.log` preserves this point-in-time output, and
-`run-logs.zip`/`run-log-index.json` retain earlier complete logs and failures.
+The follow-up adds three meaningful regressions: actual opposing-body escape,
+route-endpoint clearance and lawful deterministic execution with unchanged clocks.
+All **21 PR189 regressions** and both complete telemetry reference tests pass.
+The full follow-up unit stage passes all **2,200** tests and integration passes
+all **56**, in 146.03 s with the unchanged native test budgets.
+The old 90-second native penalty limit, every assertion and all pipeline stages remain.
+The complete follow-up `npm run verify` and new exact-head CI run after this
+evidence snapshot. Their final results are recorded in the pull request description
+and GitHub Checks; a passing earlier commit is not substituted for the final head.
+`prepublication-verify.log` and `run-logs.zip`/`run-log-index.json` retain the
+original publication snapshot. `prepublication-verify-restart.log` and
+`run-logs-restart.zip`/`run-log-index-restart.json` preserve the follow-up snapshot,
+completed development/replay logs and its initial corrected fixture assertions.
 
 <!-- END_VERIFICATION_RESULTS -->
 
@@ -380,9 +428,9 @@ Before general liveness or body realism can be certified: complete articulated
 limb/surface collision, genuine release impulse coupling, all mandatory C/D and
 timed-action experiments, broader cover/moving-winger variants, additional
 pathology neighbours/mirrors/skill bands and independent validation. Remaining
-long holds are fresh diagnostic material, not erased as success.
-The captured SW/C opponent-restriction restart is a priority liveness blocker;
-fix and replay its physical placement before claiming complete match acceptance.
+long holds are fresh diagnostic material, not erased as success. The captured SW/C
+opponent-restriction restart now has a physical placement repair and frozen replay;
+broader restart/route coverage remains development work rather than independent confirmation.
 
 The unfinished body/contact gates are assigned to **PR190**. Generational Renewal
 & World Strength moves from PR189 to **PR191**, preserving
