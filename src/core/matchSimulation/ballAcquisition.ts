@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { distance, physicalPointSchema } from './matchSpace';
 import type { TacticalMatchState, MatchPlayerState } from './matchState';
-import { playerContactGeometry } from './ballContactGeometry';
+import { motorContactReadyAt, playerContactGeometry } from './ballContactGeometry';
 import { canContactAfterThrowIn } from './throwIn';
 import { canParticipatePhysically } from './matchInjuries';
 
@@ -28,6 +28,7 @@ const groundContactDistance = (state: TacticalMatchState, player: MatchPlayerSta
 };
 const canGroundContact = (state: TacticalMatchState, player: MatchPlayerState) =>
   canParticipatePhysically(player) &&
+  state.time + 1e-8 >= motorContactReadyAt(state, player.id) &&
   !state.discipline?.[player.id]?.sentOff &&
   canContactAfterThrowIn(state, player.id) &&
   (state.ball.height ?? 0) < 0.5 &&

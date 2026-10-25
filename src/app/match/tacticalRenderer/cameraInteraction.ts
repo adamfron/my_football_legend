@@ -48,7 +48,7 @@ export const zoomFromWheel = (zoom: number, delta: number, deltaMode = 0) =>
   clamp(
     zoom - clamp(delta * (deltaMode === 1 ? 16 : deltaMode === 2 ? 240 : 1), -240, 240) * 0.0015,
     0,
-    1,
+    1.5,
   );
 
 export const resetViewPreferences = (

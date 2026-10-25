@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { lowerBodyPoseSchema, type LowerBodyPose } from './lowerBodyGeometry';
 import { boundedExperimentSchema, boundedRuntimeSchema } from './boundedIntelligenceState';
 import { footSurfaceSchema, multiContactMoveSchema } from './footContact';
 import {
@@ -505,6 +506,7 @@ export const spatialMovementSchema = z.object({
 });
 
 export interface MatchPlayerState {
+  lowerBodyPose?: LowerBodyPose | undefined;
   plantBalance?: PlantBalance;
   verticalJump?: VerticalJump;
   spatialMovement?: z.infer<typeof spatialMovementSchema> | undefined;
@@ -1087,6 +1089,7 @@ export const tacticalMatchStateSchema = z
           playStyles: z.array(playStyleIdSchema).max(6).optional(),
           fitness: matchFitnessSchema.optional(),
           plantBalance: plantBalanceSchema.optional(),
+          lowerBodyPose: lowerBodyPoseSchema.optional(),
           verticalJump: verticalJumpSchema.optional(),
           injury: matchInjurySchema.optional(),
           restartWallResponse: restartWallResponseSchema.optional(),

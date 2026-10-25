@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "classification": "development only; canonical NOT READY; independent confirmation unopened",
+  "baseCommit": "1af5b5c130b8707c9febb77b7bbc7cbc36bd0ea1",
+  "headRuntimeSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+  "finalSeries": "spin-final",
+  "cohorts": {
+    "baseline-full": [
+      {
+        "path": "docs/performance/pr190/ss-contextual-judgment-v1-baseline-full.json",
+        "design": "ss",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-hierarchical-intent-v1-baseline-full.json",
+        "design": "ss",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-opportunity-driven-v1-baseline-full.json",
+        "design": "ss",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-phase-role-hybrid-v1-baseline-full.json",
+        "design": "ss",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-state-value-v1-baseline-full.json",
+        "design": "ss",
+        "policy": "state-value-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-contextual-judgment-v1-baseline-full.json",
+        "design": "sw",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-hierarchical-intent-v1-baseline-full.json",
+        "design": "sw",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-opportunity-driven-v1-baseline-full.json",
+        "design": "sw",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-phase-role-hybrid-v1-baseline-full.json",
+        "design": "sw",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-state-value-v1-baseline-full.json",
+        "design": "sw",
+        "policy": "state-value-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-contextual-judgment-v1-baseline-full.json",
+        "design": "ww",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-hierarchical-intent-v1-baseline-full.json",
+        "design": "ww",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-baseline-full.json",
+        "design": "ww",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-phase-role-hybrid-v1-baseline-full.json",
+        "design": "ww",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-state-value-v1-baseline-full.json",
+        "design": "ww",
+        "policy": "state-value-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "full_time",
+        "failure": null
+      }
+    ],
+    "measured-final": [
+      {
+        "path": "docs/performance/pr190/ss-contextual-judgment-v1-measured-final.json",
+        "design": "ss",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-hierarchical-intent-v1-measured-final.json",
+        "design": "ss",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-opportunity-driven-v1-measured-final.json",
+        "design": "ss",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-phase-role-hybrid-v1-measured-final.json",
+        "design": "ss",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-state-value-v1-measured-final.json",
+        "design": "ss",
+        "policy": "state-value-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-contextual-judgment-v1-measured-final.json",
+        "design": "sw",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-hierarchical-intent-v1-measured-final.json",
+        "design": "sw",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-opportunity-driven-v1-measured-final.json",
+        "design": "sw",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-phase-role-hybrid-v1-measured-final.json",
+        "design": "sw",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-state-value-v1-measured-final.json",
+        "design": "sw",
+        "policy": "state-value-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-contextual-judgment-v1-measured-final.json",
+        "design": "ww",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-hierarchical-intent-v1-measured-final.json",
+        "design": "ww",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-measured-final.json",
+        "design": "ww",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-phase-role-hybrid-v1-measured-final.json",
+        "design": "ww",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-state-value-v1-measured-final.json",
+        "design": "ww",
+        "policy": "state-value-v1",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "status": "full_time",
+        "failure": null
+      }
+    ],
+    "passing-final": [
+      {
+        "path": "docs/performance/pr190/ss-contextual-judgment-v1-passing-final.json",
+        "design": "ss",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-hierarchical-intent-v1-passing-final.json",
+        "design": "ss",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-opportunity-driven-v1-passing-final.json",
+        "design": "ss",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-phase-role-hybrid-v1-passing-final.json",
+        "design": "ss",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-state-value-v1-passing-final.json",
+        "design": "ss",
+        "policy": "state-value-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-contextual-judgment-v1-passing-final.json",
+        "design": "sw",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-hierarchical-intent-v1-passing-final.json",
+        "design": "sw",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-opportunity-driven-v1-passing-final.json",
+        "design": "sw",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-phase-role-hybrid-v1-passing-final.json",
+        "design": "sw",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-state-value-v1-passing-final.json",
+        "design": "sw",
+        "policy": "state-value-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-contextual-judgment-v1-passing-final.json",
+        "design": "ww",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-hierarchical-intent-v1-passing-final.json",
+        "design": "ww",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-passing-final.json",
+        "design": "ww",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-phase-role-hybrid-v1-passing-final.json",
+        "design": "ww",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-state-value-v1-passing-final.json",
+        "design": "ww",
+        "policy": "state-value-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "full_time",
+        "failure": null
+      }
+    ],
+    "spin-final": [
+      {
+        "path": "docs/performance/pr190/ss-contextual-judgment-v1-spin-final.json",
+        "design": "ss",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-hierarchical-intent-v1-spin-final.json",
+        "design": "ss",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-opportunity-driven-v1-spin-final.json",
+        "design": "ss",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-phase-role-hybrid-v1-spin-final.json",
+        "design": "ss",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ss-state-value-v1-spin-final.json",
+        "design": "ss",
+        "policy": "state-value-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-contextual-judgment-v1-spin-final.json",
+        "design": "sw",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-hierarchical-intent-v1-spin-final.json",
+        "design": "sw",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-opportunity-driven-v1-spin-final.json",
+        "design": "sw",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-phase-role-hybrid-v1-spin-final.json",
+        "design": "sw",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/sw-state-value-v1-spin-final.json",
+        "design": "sw",
+        "policy": "state-value-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-contextual-judgment-v1-spin-final.json",
+        "design": "ww",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-hierarchical-intent-v1-spin-final.json",
+        "design": "ww",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-spin-final.json",
+        "design": "ww",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-phase-role-hybrid-v1-spin-final.json",
+        "design": "ww",
+        "policy": "phase-role-hybrid-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-state-value-v1-spin-final.json",
+        "design": "ww",
+        "policy": "state-value-v1",
+        "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+        "status": "full_time",
+        "failure": null
+      }
+    ],
+    "final-v6": [
+      {
+        "path": "docs/performance/pr190/ww-contextual-judgment-v1-final-v6.json",
+        "design": "ww",
+        "policy": "contextual-judgment-v1",
+        "sourceSha256": "448ffd11980fe3efc5cb9f27ed152cccc1699af56dab7ad200234b4670ecbd94",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-hierarchical-intent-v1-final-v6.json",
+        "design": "ww",
+        "policy": "hierarchical-intent-v1",
+        "sourceSha256": "448ffd11980fe3efc5cb9f27ed152cccc1699af56dab7ad200234b4670ecbd94",
+        "status": "full_time",
+        "failure": null
+      },
+      {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-final-v6.json",
+        "design": "ww",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "448ffd11980fe3efc5cb9f27ed152cccc1699af56dab7ad200234b4670ecbd94",
+        "status": "full_time",
+        "failure": null
+      }
+    ],
+    "baseline": [
+      {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-baseline.json",
+        "design": "ww",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+        "status": "first_half",
+        "failure": null
+      }
+    ],
+    "passing-v1": [
+      {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-passing-v1.json",
+        "design": "ww",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "a616522fda25a4e88a63a3a15c25084f5fa7c982bc72759fb794edf74ec00d55",
+        "status": "first_half",
+        "failure": null
+      }
+    ],
+    "passing-v2": [
+      {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-passing-v2.json",
+        "design": "ww",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "9f31a5142d2a4d4762800b9b4e9cc869e8903579e63f5c923b09f4eee5d16932",
+        "status": "first_half",
+        "failure": null
+      }
+    ],
+    "passing-v3": [
+      {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-passing-v3.json",
+        "design": "ww",
+        "policy": "opportunity-driven-v1",
+        "sourceSha256": "e53ee81ff891252dd7463b52aa8d209e0e4f43d3e79575fec2adc42563f9feaa",
+        "status": "first_half",
+        "failure": null
+      }
+    ]
+  },
+  "retainedNegatives": {
+    "passing-final": "rejected overly ideal cushioning and legacy selection change; 15 completed matches retained",
+    "measured-final": "15 completed pre-spin matches; loose-ball transfer lost computed spin/height; rerun final series after correcting transfer",
+    "final-v5/final-v6": "superseded partial full-match runs; not counted as a completed 15-case cohort"
+  },
+  "stageLimits": [
+    "natural interruption frequency and effective-time realism",
+    "circulation and chance creation",
+    "full ballistic shin/knee/thigh replacement",
+    "goalkeeper leg gaps and true nutmegs",
+    "tactical immediate-versus-delayed release experiment",
+    "broader browser/crowd profiling"
+  ],
+  "browserVisualQa": {
+    "status": "not completed",
+    "reason": "local in-app browser connection timed out; native Edge approval timed out",
+    "automatedCameraRegression": "passed schema/projection/picking/orbit/reset suites"
+  }
+}

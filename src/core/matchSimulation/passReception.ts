@@ -15,7 +15,8 @@ import { projectLocomotion } from './locomotion';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { receptionContinuationSchema, runOnReceptionSchema } from './receptionContinuationSchema';
 import { assessFirstTouch, firstTouchAssessmentSchema } from './firstTouch';
-import { footSurfaceSchema } from './footContact';
+import { executeFootContact, footContactExecutionSchema, footSurfaceSchema } from './footContact';
+import { deriveGroundControlImpulse } from './ballContactGeometry';
 
 /** An aware receiver meets the actual flight, including execution error. The release-time
  * desired point remains diagnostic evidence; this only supplies a normal locomotion target.
@@ -130,6 +131,7 @@ export const receptionQualityEvidenceSchema = z.object({
   weakFootDifficulty: z.number().min(0).max(1),
 });
 export const receptionOutcomeSchema = z.object({
+  surfaceContact: footContactExecutionSchema.optional(),
   receiverId: z.string(),
   kind: z.enum(['clean_control', 'directional_control', 'heavy_touch', 'failed_control']),
   contactPoint: physicalPointSchema,
@@ -387,14 +389,49 @@ export const resolveReceptionOutcome = (
       state.receptionPreparation.movement !== 'wait') ||
       (state.pendingReceptionIntent?.actorId === receiver.id &&
         state.pendingReceptionIntent.action.type === 'carry'));
+  // An absolute attribute-derived score is not a failed physical touch. Resolve the
+  // actual finite cushioning impulse first, shared with canonical execution below.
+  // Weak players still have lower impulse/friction capacity; difficult incoming speed,
+  // spin, pressure, preparation and real foot reach can leave a loose ball.
+  const directional = movingWithIntent && quality >= 0.64;
+  const controlVector = chosenTarget
+    ? { x: chosenTarget.x - contactPoint.x, y: chosenTarget.y - contactPoint.y }
+    : receiver.velocity;
+  const controlLength = Math.max(0.01, Math.hypot(controlVector.x, controlVector.y));
+  const directionalImpulse = directional
+    ? deriveGroundControlImpulse(
+        state,
+        receiver,
+        { x: controlVector.x / controlLength, y: controlVector.y / controlLength },
+        0.72,
+        0.15 + (1 - quality) * 0.34,
+        1 - quality,
+      )
+    : undefined;
+  const contactState = { ...state, ball: { ...state.ball, x: contactPoint.x, y: contactPoint.y } };
+  const surfaceContact = executeFootContact(contactState, receiver, {
+    intended: state.receptionPreparation?.contactSurface ?? 'cushion',
+    desiredVelocity: { ...(directionalImpulse?.velocity ?? receiver.velocity), z: 0 },
+    balance: receiver.plantBalance?.balance ?? 1,
+    preparationSeconds: Math.max(0.012, preparation),
+    contactSeconds: contact.contactSeconds,
+    pressure,
+    contactQuality: contact.quality,
+  });
+  const residual = Math.hypot(
+    surfaceContact.outgoingVelocity.x - receiver.velocity.x,
+    surfaceContact.outgoingVelocity.y - receiver.velocity.y,
+  );
   const kind =
-    quality >= 0.64 && movingWithIntent
-      ? 'directional_control'
-      : quality >= 0.55
-        ? 'clean_control'
-        : quality >= 0.34
-          ? 'heavy_touch'
-          : 'failed_control';
+    !surfaceContact.available || !contact.feasible
+      ? 'failed_control'
+      : surfaceContact.retained
+        ? directional
+          ? 'directional_control'
+          : 'clean_control'
+        : residual > Math.max(8, contact.relativeSpeed * 0.75)
+          ? 'failed_control'
+          : 'heavy_touch';
   const displacement =
     kind === 'directional_control'
       ? Math.min(1.8, speed * 0.25)
@@ -454,6 +491,7 @@ export const resolveReceptionOutcome = (
           ? 0.42
           : 0.18;
   return receptionOutcomeSchema.parse({
+    surfaceContact,
     receiverId: receiver.id,
     kind,
     contact,

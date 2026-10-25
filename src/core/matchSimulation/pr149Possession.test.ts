@@ -362,6 +362,18 @@ describe('PR149 context-based reception quality', () => {
       }
       const next = stepTacticalMatchAfterDecisionProbe(before, FIXED_MATCH_DT);
       let state = next;
+      // Isolate the receiver's recovery from unrelated players chasing this much
+      // firmer, momentum-preserving deflection across the laboratory pitch.
+      for (const other of state.players)
+        if (other.id !== receiver.id) {
+          other.position = { x: 5, y: other.team === 'home' ? 5 : 65 };
+          other.target = { ...other.position };
+          other.velocity = { x: 0, y: 0 };
+        }
+      // PR190 preserves the actual outgoing momentum, rather than replacing every
+      // poor touch with a slow synthetic escape. Isolate recovery-clock rebasing
+      // with an explicit long motor recovery while the real ball is chased.
+      if (recovery === 'still_recovering') state.onBallPreparation!.readyAt = state.time + 6;
       const gainedAt = next.onBallPreparation!.gainedAt;
       const readyAt = next.onBallPreparation!.readyAt;
       const originalOrigin = { ...next.onBallPreparation!.micro!.origin };
@@ -372,9 +384,19 @@ describe('PR149 context-based reception quality', () => {
         y: state.ball.y,
       };
       if (recovery === 'recovery_elapsed') state.time = readyAt + FIXED_MATCH_DT;
-      for (let tick = 0; tick < 100 && !state.ball.ownerId; tick++)
+      // A near-unabsorbed 18m/s ball can run out fifty metres before stopping.
+      // Allow the full physical chase rather than demanding a synthetic slow touch.
+      for (let tick = 0; tick < 480 && !state.ball.ownerId; tick++)
         state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
-      expect(state.ball.ownerId).toBe(receiver.id);
+      expect(
+        state.ball.ownerId,
+        JSON.stringify({
+          time: state.time,
+          ball: state.ball,
+          acquisition: state.ballAcquisition,
+          player: state.players.find((p) => p.id === receiver.id),
+        }),
+      ).toBe(receiver.id);
       const claimedPosition = { ...owner(state).position };
       expect(distance(claimedPosition, originalOrigin)).toBeGreaterThan(0.05);
       if (recovery === 'still_recovering') {

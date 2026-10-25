@@ -1,0 +1,343 @@
+{
+  "schemaVersion": 1,
+  "classification": "paired canonical team-quality apparatus; rotated geometry and prepared/unprepared contacts; no independent confirmation",
+  "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+  "runnerSha256": "18520e590a5bc8daa6e53eee5103a83345f80883e41b9316e0dd5365a90ca84c",
+  "engineRoot": "../pr189-baseline",
+  "version": "team-baseline",
+  "rows": 768,
+  "archive": "docs/performance/pr190/controlled-team-baseline.json.gz",
+  "archiveSha256": "890fb1e23cc9e11c32e394a9990bb01d1bb0f976636804fd31a2a6e5e5e898e0",
+  "groups": [
+    {
+      "teamSkill": 40,
+      "opponentSkill": 40,
+      "situation": "lateral",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 10,
+        "completed": 13,
+        "unresolved": 1
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 40,
+      "situation": "closing_defender",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 18,
+        "unclaimed": 2,
+        "completed": 4
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 40,
+      "situation": "moving_receiver",
+      "count": 24,
+      "outcomes": {
+        "unclaimed": 5,
+        "technical_error": 13,
+        "completed": 6
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 40,
+      "situation": "moving_current",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 13,
+        "unresolved": 3,
+        "completed": 7,
+        "unclaimed": 1
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 40,
+      "situation": "body_pressure",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 14,
+        "intercepted": 4,
+        "completed": 6
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 40,
+      "situation": "long_line",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 16,
+        "inaccurate": 2,
+        "intercepted": 4,
+        "completed": 2
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 40,
+      "situation": "imperfect_reception",
+      "count": 24,
+      "outcomes": {
+        "heavy_touch": 12,
+        "failed_control": 12
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 40,
+      "situation": "second_ball",
+      "count": 24,
+      "outcomes": {
+        "heavy_touch": 24
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 80,
+      "situation": "lateral",
+      "count": 24,
+      "outcomes": {
+        "completed": 23,
+        "unresolved": 1
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 80,
+      "situation": "closing_defender",
+      "count": 24,
+      "outcomes": {
+        "completed": 24
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 80,
+      "situation": "moving_receiver",
+      "count": 24,
+      "outcomes": {
+        "completed": 24
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 80,
+      "situation": "moving_current",
+      "count": 24,
+      "outcomes": {
+        "completed": 22,
+        "unresolved": 2
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 80,
+      "situation": "body_pressure",
+      "count": 24,
+      "outcomes": {
+        "completed": 22,
+        "intercepted": 2
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 80,
+      "situation": "long_line",
+      "count": 24,
+      "outcomes": {
+        "completed": 21,
+        "intercepted": 3
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 80,
+      "situation": "imperfect_reception",
+      "count": 24,
+      "outcomes": {
+        "clean_control": 12,
+        "failed_control": 6,
+        "heavy_touch": 6
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 80,
+      "situation": "second_ball",
+      "count": 24,
+      "outcomes": {
+        "clean_control": 24
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 80,
+      "situation": "lateral",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 10,
+        "completed": 13,
+        "unresolved": 1
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 80,
+      "situation": "closing_defender",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 17,
+        "completed": 6,
+        "unclaimed": 1
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 80,
+      "situation": "moving_receiver",
+      "count": 24,
+      "outcomes": {
+        "unclaimed": 5,
+        "technical_error": 13,
+        "completed": 6
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 80,
+      "situation": "moving_current",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 13,
+        "unresolved": 3,
+        "completed": 7,
+        "unclaimed": 1
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 80,
+      "situation": "body_pressure",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 14,
+        "intercepted": 4,
+        "completed": 6
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 80,
+      "situation": "long_line",
+      "count": 24,
+      "outcomes": {
+        "technical_error": 18,
+        "inaccurate": 2,
+        "intercepted": 4
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 80,
+      "situation": "imperfect_reception",
+      "count": 24,
+      "outcomes": {
+        "heavy_touch": 12,
+        "failed_control": 12
+      }
+    },
+    {
+      "teamSkill": 40,
+      "opponentSkill": 80,
+      "situation": "second_ball",
+      "count": 24,
+      "outcomes": {
+        "heavy_touch": 24
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 40,
+      "situation": "lateral",
+      "count": 24,
+      "outcomes": {
+        "completed": 23,
+        "unresolved": 1
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 40,
+      "situation": "closing_defender",
+      "count": 24,
+      "outcomes": {
+        "completed": 24
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 40,
+      "situation": "moving_receiver",
+      "count": 24,
+      "outcomes": {
+        "completed": 24
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 40,
+      "situation": "moving_current",
+      "count": 24,
+      "outcomes": {
+        "completed": 22,
+        "unresolved": 2
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 40,
+      "situation": "body_pressure",
+      "count": 24,
+      "outcomes": {
+        "completed": 20,
+        "intercepted": 4
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 40,
+      "situation": "long_line",
+      "count": 24,
+      "outcomes": {
+        "unclaimed": 2,
+        "completed": 19,
+        "intercepted": 3
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 40,
+      "situation": "imperfect_reception",
+      "count": 24,
+      "outcomes": {
+        "clean_control": 12,
+        "failed_control": 6,
+        "heavy_touch": 6
+      }
+    },
+    {
+      "teamSkill": 80,
+      "opponentSkill": 40,
+      "situation": "second_ball",
+      "count": 24,
+      "outcomes": {
+        "clean_control": 24
+      }
+    }
+  ]
+}

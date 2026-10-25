@@ -238,7 +238,18 @@ describe('TacticalPitchRenderer viewport lifecycle', () => {
     canvas.hasPointerCapture = vi.fn(() => true);
     canvas.releasePointerCapture = vi.fn();
     for (const preset of ['overview', 'action', 'player_focus'] as const)
-      for (const zoom of [0, 0.5, 1]) {
+      for (const zoom of [0, 0.5, 1, 1.5]) {
+        // Close overview deliberately crops the touchline. Test the visible
+        // central actor there while preserving every old touchline case.
+        renderer.render(
+          zoom === 1.5
+            ? {
+                ...input,
+                ball: { x: 44, y: 34 },
+                players: [{ ...input.players[0]!, y: 34 }],
+              }
+            : input,
+        );
         renderer.setCameraPreferences({ preset, zoom }, 'defender');
         for (let count = 0; animationFrames.length && count < 100; count++)
           animationFrames.shift()!(count * 16);

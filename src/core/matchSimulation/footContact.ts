@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { deriveLowerBodyGeometry } from './lowerBodyGeometry';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { physicalPointSchema, distance } from './matchSpace';
 import { ballSpinSchema } from './ballPhysics';
@@ -68,9 +69,10 @@ export const playerFootGeometry = (actor: MatchPlayerState) => {
     x: actor.position.x + forward.x * 0.2 + right.x * side * 0.17,
     y: actor.position.y + forward.y * 0.2 + right.y * side * 0.17,
   });
+  const articulated = actor.lowerBodyPose ? deriveLowerBodyGeometry(actor) : undefined;
   return {
-    leftFoot: foot(-1),
-    rightFoot: foot(1),
+    leftFoot: articulated ? { x: articulated.left.foot.x, y: articulated.left.foot.y } : foot(-1),
+    rightFoot: articulated ? { x: articulated.right.foot.x, y: articulated.right.foot.y } : foot(1),
     footReach: 0.82,
     torso: actor.position,
     torsoRadius: 0.34,
@@ -129,6 +131,7 @@ export const footContactRequestSchema = z.object({
   preparationSeconds: z.number().nonnegative().default(0.2),
   contactSeconds: z.number().positive().max(0.2).default(0.06),
   pressure: z.number().min(0).max(1).default(0),
+  contactQuality: z.number().min(0).max(1).optional(),
 });
 export type FootContactRequest = z.infer<typeof footContactRequestSchema>;
 
@@ -160,7 +163,7 @@ export const executeFootContact = (
   const skill =
     (a.technique * 0.42 + a.dribbling * 0.3 + a.firstTouch * 0.14 + a.agility * 0.14) / 100;
   const preparation = clamp(preparationSeconds / (0.08 + (1 - skill) * 0.16 + weak * 0.08));
-  const quality = clamp(
+  const surfaceQuality = clamp(
     (0.55 + skill * 0.43) *
       (0.65 + balance * 0.35) *
       (1 - weak * 0.22) *
@@ -169,6 +172,7 @@ export const executeFootContact = (
       (1 - fitness.bodyControlImpairment * 0.3),
   );
   const forward = { x: Math.sin(actor.facingAngle), y: Math.cos(actor.facingAngle), z: 0 };
+  const quality = surfaceQuality * (request.contactQuality ?? 1);
   const side = (foot === 'right' ? 1 : -1) * (intended === 'outside' ? 1 : -1);
   let normal: V =
     intended === 'sole'
@@ -232,8 +236,18 @@ export const executeFootContact = (
     z: desired.z - incomingVelocity.z,
   };
   const normalError = dot(error, normal);
+  // A prepared receiving foot can give way through a bounded 12cm stroke within
+  // its existing reach envelope. An immediate impact has almost none of that
+  // absorption path. The 24cm nominal contact path is shared with assessFirstTouch.
+  const cushionStroke =
+    intended === 'cushion' && request.contactQuality !== undefined
+      ? Math.min(0.12, preparationSeconds * 0.1) * balance
+      : 0;
   const normalImpulseLimit =
-    m * (intended === 'cushion' ? 10 + skill * 20 : 4.5 + skill * 8) * quality;
+    m *
+    (intended === 'cushion' ? 10 + skill * 20 : 4.5 + skill * 8) *
+    quality *
+    (1 + cushionStroke / 0.24);
   const jn = clamp(normalError * m, -normalImpulseLimit, normalImpulseLimit);
   const normalLoad =
     intended === 'sole'

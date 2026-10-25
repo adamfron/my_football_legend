@@ -1,4 +1,5 @@
 import { attacksRight } from './matchSpace';
+import { advanceLowerBodyPose, constrainCompliantBodyStep } from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
 import { usesBoundedIntelligence } from './boundedIntelligenceState';
 import {
@@ -25,8 +26,6 @@ import {
 } from './decisionReadiness';
 import { authoritativeMovementTarget } from './movementAuthority';
 import { deriveCarryPursuit } from './carryPursuit';
-import { deriveGroundControlImpulse } from './ballContactGeometry';
-import { executeFootContact } from './footContact';
 import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup, isLiveRestartSetup, isRestartDecisionBoundary } from './restartPhase';
@@ -124,6 +123,7 @@ import {
   incomingBallIntentKey,
   hasPendingPlayerDecision,
   projectPlayerDecisionOpportunity,
+  projectIncomingPlayerInvolvement,
 } from './playerDecision';
 import { projectLocomotion, projectSprintEpisode } from './locomotion';
 import { derivePressingPlan } from './defensiveChallenges';
@@ -647,42 +647,8 @@ const changePossession = (
         : {}),
       ...(state.ball.ownerId !== ownerId ? { ballOwnershipStartedAt: state.time } : {}),
     };
-    if (reception && reception.kind !== 'heavy_touch' && reception.kind !== 'failed_control') {
-      const targetPoint = reception.resultingPoint ?? preparedOwner.position;
-      const dx = targetPoint.x - reception.contactPoint.x;
-      const dy = targetPoint.y - reception.contactPoint.y;
-      const length = Math.max(0.01, Math.hypot(dx, dy));
-      const quality = reception.quality?.score ?? 0.64;
-      const impulse = deriveGroundControlImpulse(
-        state,
-        preparedOwner,
-        { x: dx / length, y: dy / length },
-        0.72,
-        0.15 + (1 - quality) * 0.34,
-        1 - quality,
-      );
-      const surfaceContact = executeFootContact(state, preparedOwner, {
-        intended: state.receptionPreparation?.contactSurface ?? 'cushion',
-        desiredVelocity:
-          reception.kind === 'directional_control'
-            ? { ...impulse.velocity, z: 0 }
-            : { ...preparedOwner.velocity, z: 0 },
-        balance: preparedOwner.plantBalance?.balance ?? 1,
-        preparationSeconds: Math.max(
-          0.012,
-          state.time - (state.receptionPreparation?.awarenessAt ?? state.time - 0.2),
-        ),
-        contactSeconds: Math.max(
-          0.012,
-          Math.min(
-            0.12,
-            0.24 /
-              Math.max(1.4, Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0)),
-          ),
-        ),
-        pressure: state.currentPressure,
-      });
-      // A finite first-contact impulse starts at the contact, not its future waypoint.
+    if (reception?.surfaceContact) {
+      const surfaceContact = reception.surfaceContact;
       next.ball = {
         ...controlledBall,
         spin: surfaceContact.outgoingSpin,
@@ -697,17 +663,11 @@ const changePossession = (
         incomingVelocity: surfaceContact.incomingVelocity,
         outgoingVelocity: surfaceContact.outgoingVelocity,
         quality: surfaceContact.quality,
-        retained: surfaceContact.retained,
-        executed: surfaceContact.available,
+        retained: surfaceContact.retained && reception.kind !== 'failed_control',
+        executed: surfaceContact.available && reception.contact?.feasible !== false,
         physicalCount: 1,
         surfaceContact,
       };
-      if (!surfaceContact.retained) {
-        if (next.lastPassDiagnostic)
-          next.lastPassDiagnostic = { ...next.lastPassDiagnostic, finalResult: 'technical_error' };
-        if (next.lastPassDiagnostic) next.lastResolvedPass = next.lastPassDiagnostic;
-        return makeLoose(next, surfaceContact.outgoingVelocity);
-      }
     }
     if (
       next.onBallPreparation?.plannedCarry &&
@@ -745,16 +705,12 @@ const changePossession = (
         cause: reception.kind,
         ...(state.lastPassDiagnostic ? { passId: state.lastPassDiagnostic.passId } : {}),
       };
-      const dx =
-        (reception.resultingPoint?.x ?? reception.contactPoint.x) - reception.contactPoint.x;
-      const dy =
-        (reception.resultingPoint?.y ?? reception.contactPoint.y) - reception.contactPoint.y;
       // Heavy means unstable control, not an immediate award to either team. The ordinary loose-
       // ball arrival race now decides whether the receiver, a teammate, or an opponent claims it.
       const { receptionPreparation: _resolvedReception, ...heavyTouchState } = next;
       void _resolvedReception;
       delete heavyTouchState.pendingReceptionIntent;
-      return makeLoose(
+      const loose = makeLoose(
         {
           ...heavyTouchState,
           // resultingPoint is an intended escape waypoint, not a new position at this
@@ -767,8 +723,16 @@ const changePossession = (
             secondBallPriorityIds: [ownerId],
           },
         },
-        { x: dx * 1.35, y: dy * 1.35 },
+        reception.surfaceContact?.outgoingVelocity ?? state.ball.velocity ?? { x: 0, y: 0 },
       );
+      return {
+        ...loose,
+        ball: {
+          ...loose.ball,
+          height: state.ball.height ?? 0.11,
+          spin: reception.surfaceContact?.outgoingSpin ?? state.ball.spin ?? { x: 0, y: 0, z: 0 },
+        },
+      };
     }
     if (state.pendingReceptionIntent?.actorId === ownerId) {
       const { pendingReceptionIntent, ...ready } = next;
@@ -1691,7 +1655,18 @@ const stepTacticalMatchCore = (
     const receiver = state.players.find((p) => p.id === state.receptionPreparation!.actorId);
     const point = receiver && projectLiveReceptionTarget(state, receiver);
     if (point && receiver) {
-      state.receptionPreparation = prepareReceptionContinuation(state, receiver, point)!;
+      // Routine hidden reception uses the same physical anticipation as an NPC.
+      // Important incoming choices and an explicit human intention retain agency.
+      const routineHuman =
+        state.playerAgencyEnabled !== false &&
+        state.controlledFootballerId === receiver.id &&
+        !projectIncomingPlayerInvolvement(state, receiver.id).important;
+      state.receptionPreparation = prepareReceptionContinuation(
+        state,
+        receiver,
+        point,
+        routineHuman,
+      )!;
       state.receptionPreparation = { ...state.receptionPreparation!, expectedContactPoint: point };
     }
   }
@@ -1916,11 +1891,17 @@ const stepTacticalMatchCore = (
       // order and the original distance predicate for every possible separation.
       (p) =>
         p.id !== player.id &&
-        Math.abs(p.position.x - next.x) < 1.15 &&
-        Math.abs(p.position.y - next.y) < 1.15 &&
-        distance(p.position, next) < 1.15,
+        Math.abs(p.position.x - next.x) < (player.lowerBodyPose && p.lowerBodyPose ? 1.4 : 1.15) &&
+        Math.abs(p.position.y - next.y) < (player.lowerBodyPose && p.lowerBodyPose ? 1.4 : 1.15) &&
+        distance(p.position, next) < (player.lowerBodyPose && p.lowerBodyPose ? 1.4 : 1.15),
     );
     for (const other of close) {
+      if (player.lowerBodyPose && other.lowerBodyPose) {
+        next = movementBounds(
+          constrainCompliantBodyStep({ ...player, facingAngle }, next, other, dt),
+        );
+        continue;
+      }
       const ox = next.x - other.position.x,
         oy = next.y - other.position.y,
         od = Math.max(0.1, Math.hypot(ox, oy));
@@ -1984,6 +1965,7 @@ const stepTacticalMatchCore = (
     void [_oldSprint, _oldRecovery, _oldBurst];
     return {
       ...movingPlayer,
+      ...(player.lowerBodyPose ? { lowerBodyPose: advanceLowerBodyPose(player, dt) } : {}),
       plantBalance,
       ...(verticalJump ? { verticalJump } : {}),
       fitness: advanceMatchFitness(player, {
@@ -2182,7 +2164,13 @@ const stepTacticalMatchCore = (
             dy = next.y - previous.y;
           const segmentLengthSquared = dx * dx + dy * dy;
           const contacts = state.players
-            .filter((player) => canContactAfterThrowIn(state, player.id))
+            // The outgoing launch still overlaps its kicker's reach volume. As with
+            // ground CCD, that overlap is not an incoming reception by the same foot.
+            // A later loose-ball recovery remains available through acquisition.
+            .filter(
+              (player) =>
+                player.id !== state.currentActorId && canContactAfterThrowIn(state, player.id),
+            )
             .map((player) => {
               const fraction =
                 segmentLengthSquared > 0
@@ -2770,7 +2758,10 @@ const stepTacticalMatchCore = (
       // A shot rebound remains physically playable, including by a new aerial action.
       const aerialAction = resolveReachableAerialAction(state, dt);
       if (aerialAction) return aerialAction;
-      if (state.time - looseSince > 0.35) {
+      // Each player has finite perception/acquisition preparation and motor recovery.
+      // A global 350ms ban made even an independently prepared defender unable to
+      // contact a real loose ball, while firm deflections travelled beyond reach.
+      {
         const assignments = deriveLooseBallAssignments(state);
         const assignedIds = new Set(assignments.map((assignment) => assignment.playerId));
         const claimant = state.players

@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "classification": "frozen development fixtures; independent cohort unopened",
+  "design": "ww",
+  "policy": "opportunity-driven-v1",
+  "version": "passing-v3",
+  "sourceSha256": "e53ee81ff891252dd7463b52aa8d209e0e4f43d3e79575fec2adc42563f9feaa",
+  "runnerSha256": "dd09b0e4089e10dd403f94730bb7da955399b788a75cf8628da8dfe837d2598b",
+  "diagnosticSha256": "b69c3668ee1665614065fd8df75945a920554bf91fd1953bbd7df1db716254a5",
+  "inputSha256": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+  "ticks": 24001,
+  "status": "first_half",
+  "seconds": 600.0249999997282,
+  "score": {
+    "home": 0,
+    "away": 0
+  },
+  "passes": {
+    "attempted": 219,
+    "completed": 60
+  },
+  "shots": 0,
+  "time": {
+    "canonicalElapsedSeconds": 600.0249999997282,
+    "regulationSeconds": 600.0249999997282,
+    "addedSecondsActuallyPlayed": 0,
+    "ballInPlaySeconds": 580.3249999997389,
+    "deadBallSeconds": 19.699999999989195,
+    "deadBallByReason": {
+      "period_start": 0.22499999999999998,
+      "foul": 19.474999999989194
+    },
+    "restartDurations": {
+      "period_start": {
+        "count": 1,
+        "seconds": 0.22499999999999998,
+        "mean": 0.22499999999999998,
+        "median": 0.22499999999999998,
+        "p90": 0.22499999999999998,
+        "maximum": 0.22499999999999998
+      },
+      "foul": {
+        "count": 3,
+        "seconds": 19.474999999989194,
+        "mean": 6.491666666663065,
+        "median": 6.075000000001381,
+        "p90": 6.075000000001381,
+        "maximum": 7.324999999993338
+      }
+    },
+    "unclassifiedDeadBallSeconds": 0,
+    "humanDecisionPauseSeconds": 0,
+    "passesPerInPlayMinute": 22.642484814553764
+  },
+  "periods": [
+    {
+      "period": "first_half",
+      "periodStartedAt": 0,
+      "nominalEndAt": 2700,
+      "qualifyingLostSeconds": 0,
+      "additionalLostAfterAnnouncement": 0,
+      "requiredEndAt": 2700
+    }
+  ],
+  "counts": {
+    "first_touch_failure": 24,
+    "deflection": 81,
+    "completed": 60,
+    "lane_interception": 44,
+    "landing_race": 2,
+    "undetermined": 8
+  },
+  "recoveredAfterPoorTouch": 16,
+  "archive": "docs/performance/pr190/ww-opportunity-driven-v1-passing-v3.json.gz",
+  "archiveSha256": "7b1473a5daddc4a19c0bed6e206b84aabed4c5c30acc901b88c157c04c3b1f72",
+  "sampling": {
+    "method": "two lowest seeded hashes per distance/pressure/motion/cause stratum, plus independent seeded random sample",
+    "selected": [
+      {
+        "stratum": "short:clear:static:first_touch_failure",
+        "passId": "pr187-development-ww-01:pass:0:geometry:anchor:10"
+      },
+      {
+        "stratum": "medium:pressure:moving:deflection",
+        "passId": "pr187-development-ww-01:pass:117:geometry:opponent:8"
+      },
+      {
+        "stratum": "medium:pressure:moving:deflection",
+        "passId": "pr187-development-ww-01:pass:501:geometry:opponent:6"
+      },
+      {
+        "stratum": "short:pressure:moving:deflection",
+        "passId": "pr187-development-ww-01:pass:666:geometry:anchor:2"
+      },
+      {
+        "stratum": "short:pressure:moving:deflection",
+        "passId": "pr187-development-ww-01:pass:665:geometry:opponent:10"
+      },
+      {
+        "stratum": "short:pressure:moving:completed",
+        "passId": "pr187-development-ww-01:pass:134:geometry:opponent:10"
+      },
+      {
+        "stratum": "short:pressure:moving:completed",
+        "passId": "pr187-development-ww-01:pass:79:geometry:opponent:6"
+      },
+      {
+        "stratum": "medium:pressure:moving:lane_interception",
+        "passId": "pr187-development-ww-01:pass:18:geometry:opponent:10"
+      },
+      {
+        "stratum": "medium:pressure:moving:lane_interception",
+        "passId": "pr187-development-ww-01:pass:605:geometry:opponent:6"
+      },
+      {
+        "stratum": "short:pressure:moving:lane_interception",
+        "passId": "pr187-development-ww-01:pass:494:geometry:anchor:9"
+      },
+      {
+        "stratum": "short:pressure:moving:lane_interception",
+        "passId": "pr187-development-ww-01:pass:554:geometry:anchor:9"
+      },
+      {
+        "stratum": "medium:pressure:moving:first_touch_failure",
+        "passId": "pr187-development-ww-01:pass:33:geometry:opponent:10"
+      },
+      {
+        "stratum": "medium:pressure:moving:first_touch_failure",
+        "passId": "pr187-development-ww-01:pass:236:geometry:opponent:4"
+      },
+      {
+        "stratum": "medium:pressure:static:lane_interception",
+        "passId": "pr187-development-ww-01:pass:643:geometry:anchor:6"
+      },
+      {
+        "stratum": "medium:pressure:static:lane_interception",
+        "passId": "pr187-development-ww-01:pass:42:geometry:anchor:10"
+      },
+      {
+        "stratum": "short:pressure:moving:first_touch_failure",
+        "passId": "pr187-development-ww-01:pass:673:geometry:anchor:4"
+      },
+      {
+        "stratum": "short:pressure:moving:first_touch_failure",
+        "passId": "pr187-development-ww-01:pass:660:geometry:opponent:7"
+      },
+      {
+        "stratum": "short:pressure:static:lane_interception",
+        "passId": "pr187-development-ww-01:pass:250:geometry:opponent:5"
+      },
+      {
+        "stratum": "short:pressure:static:lane_interception",
+        "passId": "pr187-development-ww-01:pass:84:geometry:opponent:5"
+      },
+      {
+        "stratum": "medium:pressure:moving:completed",
+        "passId": "pr187-development-ww-01:pass:185:geometry:opponent:6"
+      },
+      {
+        "stratum": "medium:pressure:moving:completed",
+        "passId": "pr187-development-ww-01:pass:629:geometry:anchor:6"
+      },
+      {
+        "stratum": "short:pressure:moving:landing_race",
+        "passId": "pr187-development-ww-01:pass:194:geometry:anchor:5"
+      },
+      {
+        "stratum": "short:pressure:moving:landing_race",
+        "passId": "pr187-development-ww-01:pass:199:geometry:opponent:7"
+      },
+      {
+        "stratum": "short:pressure:moving:undetermined",
+        "passId": "pr187-development-ww-01:pass:358:geometry:opponent:7"
+      },
+      {
+        "stratum": "short:pressure:moving:undetermined",
+        "passId": "pr187-development-ww-01:pass:588:geometry:opponent:6"
+      },
+      {
+        "stratum": "medium:pressure:static:deflection",
+        "passId": "pr187-development-ww-01:pass:292:geometry:opponent:6"
+      },
+      {
+        "stratum": "short:pressure:static:completed",
+        "passId": "pr187-development-ww-01:pass:307:geometry:opponent:1"
+      },
+      {
+        "stratum": "short:pressure:static:completed",
+        "passId": "pr187-development-ww-01:pass:645:geometry:opponent:2"
+      },
+      {
+        "stratum": "short:pressure:static:first_touch_failure",
+        "passId": "pr187-development-ww-01:pass:347:geometry:anchor:8"
+      },
+      {
+        "stratum": "short:pressure:static:first_touch_failure",
+        "passId": "pr187-development-ww-01:pass:662:geometry:opponent:8"
+      },
+      {
+        "stratum": "short:pressure:static:deflection",
+        "passId": "pr187-development-ww-01:pass:361:geometry:anchor:6"
+      },
+      {
+        "stratum": "short:pressure:static:deflection",
+        "passId": "pr187-development-ww-01:pass:482:geometry:opponent:5"
+      },
+      {
+        "stratum": "short:clear:moving:completed",
+        "passId": "pr187-development-ww-01:pass:394:geometry:anchor:1"
+      },
+      {
+        "stratum": "medium:pressure:static:completed",
+        "passId": "pr187-development-ww-01:pass:437:geometry:opponent:7"
+      },
+      {
+        "stratum": "long:pressure:moving:deflection",
+        "passId": "pr187-development-ww-01:pass:447:geometry:opponent:3"
+      },
+      {
+        "stratum": "long:pressure:moving:first_touch_failure",
+        "passId": "pr187-development-ww-01:pass:657:geometry:opponent:1"
+      },
+      {
+        "stratum": "long:pressure:moving:first_touch_failure",
+        "passId": "pr187-development-ww-01:pass:632:geometry:anchor:10"
+      },
+      {
+        "stratum": "long:pressure:moving:lane_interception",
+        "passId": "pr187-development-ww-01:pass:696:geometry:anchor:5"
+      }
+    ],
+    "random": [
+      "pr187-development-ww-01:pass:551:geometry:anchor:6",
+      "pr187-development-ww-01:pass:447:geometry:opponent:3",
+      "pr187-development-ww-01:pass:632:geometry:anchor:10",
+      "pr187-development-ww-01:pass:140:geometry:opponent:8",
+      "pr187-development-ww-01:pass:626:geometry:anchor:5",
+      "pr187-development-ww-01:pass:61:geometry:anchor:8",
+      "pr187-development-ww-01:pass:437:geometry:opponent:7",
+      "pr187-development-ww-01:pass:194:geometry:anchor:5",
+      "pr187-development-ww-01:pass:687:geometry:anchor:5",
+      "pr187-development-ww-01:pass:474:geometry:opponent:2",
+      "pr187-development-ww-01:pass:239:geometry:opponent:6",
+      "pr187-development-ww-01:pass:556:geometry:opponent:8",
+      "pr187-development-ww-01:pass:292:geometry:opponent:6",
+      "pr187-development-ww-01:pass:620:geometry:anchor:5",
+      "pr187-development-ww-01:pass:673:geometry:anchor:4",
+      "pr187-development-ww-01:pass:694:geometry:anchor:5",
+      "pr187-development-ww-01:pass:564:geometry:opponent:5",
+      "pr187-development-ww-01:pass:178:geometry:opponent:6",
+      "pr187-development-ww-01:pass:645:geometry:opponent:2",
+      "pr187-development-ww-01:pass:257:geometry:anchor:10",
+      "pr187-development-ww-01:pass:416:geometry:opponent:8",
+      "pr187-development-ww-01:pass:247:geometry:anchor:8",
+      "pr187-development-ww-01:pass:529:geometry:anchor:6",
+      "pr187-development-ww-01:pass:543:geometry:opponent:5"
+    ]
+  },
+  "cpu": {
+    "user": 38781000,
+    "system": 375000
+  },
+  "wallMs": 33973.9887,
+  "rssBytes": 376545280,
+  "finalStateSha256": "7b748c591ff66d9d85b6605e569480844e148a841e64a40ea5feea284ea5f5b5",
+  "failure": null
+}

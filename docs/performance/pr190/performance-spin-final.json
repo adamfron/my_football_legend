@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "node": "v24.22.1",
+  "warmupTicks": 400,
+  "classification": "real captured development state; serial variants on shared host; baseline/posed football workloads differ; head observer states identical",
+  "rows": [
+    {
+      "name": "baseline",
+      "ticks": 8000,
+      "cpu": {
+        "user": 10562000,
+        "system": 266000
+      },
+      "wallMs": 8828.4059,
+      "rssBytes": 350314496,
+      "finalStateSha256": "227685858ccb2abc7e9d89196296d8e52949781034062512c3f6bca7aa6736d7",
+      "seconds": 1005.2999999993596
+    },
+    {
+      "name": "head",
+      "ticks": 8000,
+      "cpu": {
+        "user": 10875000,
+        "system": 141000
+      },
+      "wallMs": 8842.3529,
+      "rssBytes": 404967424,
+      "finalStateSha256": "ccec871cd1ad2b84070678edc616f3cae6d31e0f22d42bfc1d65bd3e6405c6fa",
+      "seconds": 1005.2999999993596
+    },
+    {
+      "name": "head-observed",
+      "ticks": 8000,
+      "cpu": {
+        "user": 9734000,
+        "system": 94000
+      },
+      "wallMs": 8875.3034,
+      "rssBytes": 427282432,
+      "finalStateSha256": "ccec871cd1ad2b84070678edc616f3cae6d31e0f22d42bfc1d65bd3e6405c6fa",
+      "seconds": 1005.2999999993596
+    },
+    {
+      "name": "head-posed",
+      "ticks": 8000,
+      "cpu": {
+        "user": 9921000,
+        "system": 15000
+      },
+      "wallMs": 9005.171899999998,
+      "rssBytes": 444411904,
+      "finalStateSha256": "e1caf7b48ded1886ca1ff777973632f54c37fba75784c87b7a725a057bac2843",
+      "seconds": 1005.2999999993596
+    }
+  ]
+}

@@ -190,7 +190,7 @@ describe('canonical action event transitions', () => {
       x: 39.3,
       y: 34,
       height: 0.11,
-      velocity: { x: 4, y: 0, z: 0 },
+      velocity: { x: 22, y: 0, z: 0 },
       from: { x: 30, y: 34 },
       target: receiver.position,
       intendedReceiverId: receiver.id,
@@ -246,6 +246,19 @@ describe('canonical action event transitions', () => {
     state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
     expect(state.lastReceptionOutcome?.kind).toBe('heavy_touch');
     expect(state.actionEvents?.map((event) => event.kind)).toContain('heavy_touch');
+    const waiting = state.players.find((p) => p.id === opponent.id)!;
+    waiting.position = { x: state.ball.x, y: state.ball.y };
+    waiting.velocity = { x: 0, y: 0 };
+    state.ballAcquisition = {
+      id: `${state.seed}:prepared-event-recovery`,
+      candidateId: waiting.id,
+      startedAt: state.time - 0.6,
+      readyAt: state.time,
+      ballEpisode: state.ballEpisode ?? 0,
+      origin: { x: state.ball.x, y: state.ball.y },
+      controlQuality: 0.8,
+      incomingSpeed: Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0),
+    };
     for (let i = 0; i < 120 && state.possessionTeam === 'home'; i++) {
       expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
       state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);

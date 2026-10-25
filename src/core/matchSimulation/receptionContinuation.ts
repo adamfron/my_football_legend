@@ -22,13 +22,14 @@ export const prepareReceptionContinuation = (
   state: TacticalMatchState,
   receiver: MatchPlayerState,
   meeting: PitchPoint,
+  routineHuman = false,
 ) => {
   const preparation = state.receptionPreparation;
   if (
     !preparation ||
     preparation.actorId !== receiver.id ||
     state.time < preparation.awarenessAt ||
-    isHumanControlled(state, receiver.id) ||
+    (isHumanControlled(state, receiver.id) && !routineHuman) ||
     state.pendingReceptionIntent?.actorId === receiver.id ||
     state.ball.travelKind !== 'pass' ||
     isOffsideOffence(state.offsideSnapshot, receiver.id)
@@ -162,7 +163,11 @@ export const prepareReceptionContinuation = (
         }
       : undefined;
   }
-  return { ...preparation, continuation, runOn };
+  return {
+    ...preparation,
+    continuation,
+    runOn,
+  };
 };
 
 /** A deliberate non-contact excludes only the intended receiver from a real contact race.

@@ -89,7 +89,8 @@ describe('PR152 canonical identity and temporary human agency', () => {
       intent: 'support',
       target: { x: 40, y: 34 },
     });
-    state.ball = { ...state.ball, x: 39.2, y: 34, velocity: { x: 15, y: 0, z: 0 } };
+    // Ordinary support reception, rather than an unanticipated firm 15m/s impact.
+    state.ball = { ...state.ball, x: 39.2, y: 34, velocity: { x: 5, y: 0, z: 0 } };
     let npc = structuredClone(state);
     delete npc.controlledFootballerId;
     for (let tick = 0; tick < 7 / FIXED_MATCH_DT; tick++) {

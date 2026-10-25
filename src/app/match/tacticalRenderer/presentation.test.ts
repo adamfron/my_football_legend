@@ -34,7 +34,8 @@ describe('cosmetic camera state', () => {
     }
   });
   it('bounds wheel, orbit and pan, including line/page wheel units', () => {
-    expect(zoomFromWheel(0.95, -200)).toBe(1);
+    expect(zoomFromWheel(0.95, -200)).toBe(1.25);
+    expect(zoomFromWheel(1.45, -200)).toBe(1.5);
     expect(zoomFromWheel(0.05, 200)).toBe(0);
     expect(zoomFromWheel(0.5, 1, 1)).toBe(zoomFromWheel(0.5, 16));
     expect(zoomFromWheel(0.5, 1, 2)).toBe(zoomFromWheel(0.5, 240));
