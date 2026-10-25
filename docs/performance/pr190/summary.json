@@ -12,13 +12,87 @@
       "policy": "contextual-judgment-v1",
       "before": {
         "path": "docs/performance/pr190/ss-contextual-judgment-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ss-contextual-judgment-v1-v4.json",
         "passes": {
           "attempted": 2426,
           "completed": 1902
         },
         "shots": 2,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5590.650000005915,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 190.650000005915,
+          "ballInPlaySeconds": 5283.825000006024,
+          "deadBallSeconds": 306.82499999989057,
+          "deadBallByReason": {
+            "period_start": 33.67500000012169,
+            "foul": 173.69999999963264,
+            "discipline": 17.574999999897045,
+            "substitution": 78.65000000028613,
+            "goal_kick": 3.22499999995307
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 33.67500000012169,
+              "mean": 16.837500000060846,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 33.45000000012169
+            },
+            "foul": {
+              "count": 34,
+              "seconds": 269.9249999998158,
+              "mean": 7.938970588229876,
+              "median": 6.699999999902502,
+              "p90": 13.400000000048749,
+              "maximum": 19.100000000069485
+            },
+            "goal_kick": {
+              "count": 1,
+              "seconds": 3.22499999995307,
+              "mean": 3.22499999995307,
+              "median": 3.22499999995307,
+              "p90": 3.22499999995307,
+              "maximum": 3.22499999995307
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 27.54822500742058
+        },
         "inPlayMinutes": 88.0637500001004,
-        "passesPerInPlayMinute": 27.54822500742058
+        "passesPerInPlayMinute": 27.54822500742058,
+        "shotsPerInPlayMinute": 0.02271082028641433,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 9.49312287972119,
+          "possessionLossesPerInPlayMinute": 8.902641552274417,
+          "lossCauses": {
+            "tackle": 361,
+            "interception": 344,
+            "bad_pass": 24,
+            "pass_out": 0,
+            "heavy_touch": 3,
+            "failed_control": 32,
+            "loose_ball_claim": 6,
+            "shot": 2,
+            "foul_stoppage": 6,
+            "other": 0
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 360750000,
+          "system": 1672000
+        },
+        "rssBytes": 813207552
       },
       "after": {
         "path": "docs/performance/pr190/ss-contextual-judgment-v1-spin-final.json",
@@ -33,6 +107,22 @@
         "score": {
           "home": 1,
           "away": 1
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 7.086671913904299,
+          "possessionLossesPerInPlayMinute": 6.453095285840007,
+          "lossCauses": {
+            "tackle": 341,
+            "interception": 150,
+            "bad_pass": 6,
+            "pass_out": 0,
+            "heavy_touch": 5,
+            "failed_control": 22,
+            "loose_ball_claim": 9,
+            "shot": 2,
+            "foul_stoppage": 7,
+            "other": 1
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5640,
@@ -187,13 +277,78 @@
       "policy": "hierarchical-intent-v1",
       "before": {
         "path": "docs/performance/pr190/ss-hierarchical-intent-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ss-hierarchical-intent-v1-v4.json",
         "passes": {
           "attempted": 2272,
           "completed": 1784
         },
         "shots": 0,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5591.02500000004,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 191.02500000003965,
+          "ballInPlaySeconds": 5260.699999999808,
+          "deadBallSeconds": 330.3250000002321,
+          "deadBallByReason": {
+            "period_start": 33.3750000001206,
+            "foul": 210.7249999998437,
+            "discipline": 10.099999999990814,
+            "substitution": 76.12500000027694
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 33.3750000001206,
+              "mean": 16.6875000000603,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 33.1500000001206
+            },
+            "foul": {
+              "count": 35,
+              "seconds": 296.95000000011146,
+              "mean": 8.484285714288898,
+              "median": 8.100000000029468,
+              "p90": 12.90000000004693,
+              "maximum": 20.725000000075397
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 25.912901324919684
+        },
         "inPlayMinutes": 87.67833333333013,
-        "passesPerInPlayMinute": 25.912901324919684
+        "passesPerInPlayMinute": 25.912901324919684,
+        "shotsPerInPlayMinute": 0,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 9.272530271637192,
+          "possessionLossesPerInPlayMinute": 8.656642652118856,
+          "lossCauses": {
+            "tackle": 372,
+            "interception": 328,
+            "bad_pass": 13,
+            "pass_out": 0,
+            "heavy_touch": 1,
+            "failed_control": 29,
+            "loose_ball_claim": 4,
+            "shot": 0,
+            "foul_stoppage": 6,
+            "other": 0
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 350781000,
+          "system": 1547000
+        },
+        "rssBytes": 787947520
       },
       "after": {
         "path": "docs/performance/pr190/ss-hierarchical-intent-v1-spin-final.json",
@@ -208,6 +363,22 @@
         "score": {
           "home": 2,
           "away": 0
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 7.249469052266973,
+          "possessionLossesPerInPlayMinute": 6.409807873293148,
+          "lossCauses": {
+            "tackle": 371,
+            "interception": 120,
+            "bad_pass": 7,
+            "pass_out": 0,
+            "heavy_touch": 0,
+            "failed_control": 24,
+            "loose_ball_claim": 7,
+            "shot": 2,
+            "foul_stoppage": 5,
+            "other": 2
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5642.0000000058835,
@@ -371,13 +542,96 @@
       "policy": "opportunity-driven-v1",
       "before": {
         "path": "docs/performance/pr190/ss-opportunity-driven-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ss-opportunity-driven-v1-v4.json",
         "passes": {
           "attempted": 2693,
           "completed": 1209
         },
         "shots": 1,
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5580,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 180,
+          "ballInPlaySeconds": 5052.5500000001675,
+          "deadBallSeconds": 527.4499999998321,
+          "deadBallByReason": {
+            "period_start": 33.55000000012124,
+            "foul": 353.4999999993232,
+            "goal": 27.074999999975375,
+            "substitution": 76.60000000027867,
+            "goal_kick": 29.47500000010723,
+            "discipline": 7.250000000026375
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 33.55000000012124,
+              "mean": 16.77500000006062,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 33.325000000121236
+            },
+            "foul": {
+              "count": 60,
+              "seconds": 437.34999999962827,
+              "mean": 7.2891666666604715,
+              "median": 6.7750000000015405,
+              "p90": 12.675000000046111,
+              "maximum": 19.825000000072123
+            },
+            "goal": {
+              "count": 1,
+              "seconds": 27.074999999975375,
+              "mean": 27.074999999975375,
+              "median": 27.074999999975375,
+              "p90": 27.074999999975375,
+              "maximum": 27.074999999975375
+            },
+            "goal_kick": {
+              "count": 1,
+              "seconds": 29.47500000010723,
+              "mean": 29.47500000010723,
+              "median": 29.47500000010723,
+              "p90": 29.47500000010723,
+              "maximum": 29.47500000010723
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 31.979891341994566
+        },
         "inPlayMinutes": 84.20916666666946,
-        "passesPerInPlayMinute": 31.979891341994566
+        "passesPerInPlayMinute": 31.979891341994566,
+        "shotsPerInPlayMinute": 0.011875191734866158,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 19.273436185687775,
+          "possessionLossesPerInPlayMinute": 18.54904948986094,
+          "lossCauses": {
+            "tackle": 464,
+            "interception": 1005,
+            "bad_pass": 18,
+            "pass_out": 0,
+            "heavy_touch": 23,
+            "failed_control": 27,
+            "loose_ball_claim": 4,
+            "shot": 0,
+            "foul_stoppage": 10,
+            "other": 1
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 292062000,
+          "system": 1062000
+        },
+        "rssBytes": 840929280
       },
       "after": {
         "path": "docs/performance/pr190/ss-opportunity-driven-v1-spin-final.json",
@@ -392,6 +646,22 @@
         "score": {
           "home": 0,
           "away": 0
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 20.3605900564285,
+          "possessionLossesPerInPlayMinute": 19.462150185125154,
+          "lossCauses": {
+            "tackle": 432,
+            "interception": 1001,
+            "bad_pass": 13,
+            "pass_out": 1,
+            "heavy_touch": 97,
+            "failed_control": 32,
+            "loose_ball_claim": 5,
+            "shot": 0,
+            "foul_stoppage": 10,
+            "other": 2
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5526.02500000568,
@@ -530,13 +800,123 @@
       "policy": "phase-role-hybrid-v1",
       "before": {
         "path": "docs/performance/pr190/ss-phase-role-hybrid-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ss-phase-role-hybrid-v1-v4.json",
         "passes": {
           "attempted": 2156,
           "completed": 1467
         },
         "shots": 16,
+        "score": {
+          "home": 6,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5717.049999981053,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 317.0499999810527,
+          "ballInPlaySeconds": 4611.874999987203,
+          "deadBallSeconds": 1105.1749999938493,
+          "deadBallByReason": {
+            "period_start": 45.42500000016444,
+            "foul": 407.1499999987183,
+            "goal_kick": 142.87499999448568,
+            "corner": 161.10000000051164,
+            "throw_in": 48.27499999997315,
+            "substitution": 90.0500000003276,
+            "goal": 141.00000000000136,
+            "offside": 25.30000000009204,
+            "discipline": 43.999999999575266
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 45.42500000016444,
+              "mean": 22.71250000008222,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 45.20000000016444
+            },
+            "foul": {
+              "count": 53,
+              "seconds": 509.049999999089,
+              "mean": 9.604716981114887,
+              "median": 8.324999999878855,
+              "p90": 16.650000000060572,
+              "maximum": 24.25000000008822
+            },
+            "goal_kick": {
+              "count": 15,
+              "seconds": 142.87499999448568,
+              "mean": 9.524999999632378,
+              "median": 11.30000000004111,
+              "p90": 14.775000000053751,
+              "maximum": 19.72500000007176
+            },
+            "corner": {
+              "count": 8,
+              "seconds": 161.10000000051164,
+              "mean": 20.137500000063955,
+              "median": 18.750000000068212,
+              "p90": 22.35000000008131,
+              "maximum": 23.40000000008513
+            },
+            "throw_in": {
+              "count": 7,
+              "seconds": 48.27499999997315,
+              "mean": 6.896428571424735,
+              "median": 7.049999999993588,
+              "p90": 8.42500000003065,
+              "maximum": 9.825000000035743
+            },
+            "goal": {
+              "count": 6,
+              "seconds": 173.14999999953352,
+              "mean": 28.858333333255587,
+              "median": 28.050000000102045,
+              "p90": 30.30000000011023,
+              "maximum": 32.149999999532156
+            },
+            "offside": {
+              "count": 2,
+              "seconds": 25.30000000009204,
+              "mean": 12.65000000004602,
+              "median": 5.575000000020282,
+              "p90": 5.575000000020282,
+              "maximum": 19.72500000007176
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 28.04932917747314
+        },
         "inPlayMinutes": 76.86458333312005,
-        "passesPerInPlayMinute": 28.04932917747314
+        "passesPerInPlayMinute": 28.04932917747314,
+        "shotsPerInPlayMinute": 0.20815828703134057,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 9.627320775199502,
+          "possessionLossesPerInPlayMinute": 9.874508741049219,
+          "lossCauses": {
+            "tackle": 227,
+            "interception": 415,
+            "bad_pass": 6,
+            "pass_out": 2,
+            "heavy_touch": 1,
+            "failed_control": 71,
+            "loose_ball_claim": 3,
+            "shot": 9,
+            "foul_stoppage": 8,
+            "other": 15
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 336359000,
+          "system": 1437000
+        },
+        "rssBytes": 674029568
       },
       "after": {
         "path": "docs/performance/pr190/ss-phase-role-hybrid-v1-spin-final.json",
@@ -551,6 +931,22 @@
         "score": {
           "home": 3,
           "away": 2
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 10.06515389798662,
+          "possessionLossesPerInPlayMinute": 10.013801071976484,
+          "lossCauses": {
+            "tackle": 183,
+            "interception": 430,
+            "bad_pass": 12,
+            "pass_out": 1,
+            "heavy_touch": 10,
+            "failed_control": 105,
+            "loose_ball_claim": 3,
+            "shot": 11,
+            "foul_stoppage": 10,
+            "other": 11
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5700,
@@ -734,13 +1130,123 @@
       "policy": "state-value-v1",
       "before": {
         "path": "docs/performance/pr190/ss-state-value-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ss-state-value-v1-v4.json",
         "passes": {
           "attempted": 2000,
           "completed": 1234
         },
         "shots": 37,
+        "score": {
+          "home": 8,
+          "away": 2
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5826.924999999908,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 426.9249999999083,
+          "ballInPlaySeconds": 4513.249999986132,
+          "deadBallSeconds": 1313.6750000137765,
+          "deadBallByReason": {
+            "period_start": 33.3750000001206,
+            "foul": 408.799999992417,
+            "goal_kick": 217.15000000009448,
+            "goal": 281.800000000773,
+            "throw_in": 53.35000000001082,
+            "penalty": 11.199999999989814,
+            "corner": 214.15000002036413,
+            "substitution": 75.45000000027449,
+            "discipline": 18.399999999732245
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 33.3750000001206,
+              "mean": 16.6875000000603,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 33.1500000001206
+            },
+            "foul": {
+              "count": 49,
+              "seconds": 445.32499999254986,
+              "mean": 9.088265305970406,
+              "median": 7.400000000026921,
+              "p90": 16.599999999984902,
+              "maximum": 20.949999999695137
+            },
+            "goal_kick": {
+              "count": 23,
+              "seconds": 239.12500000017442,
+              "mean": 10.396739130442366,
+              "median": 12.050000000043838,
+              "p90": 16.35000000005948,
+              "maximum": 28.97500000010541
+            },
+            "goal": {
+              "count": 10,
+              "seconds": 281.800000000773,
+              "mean": 28.180000000077303,
+              "median": 27.800000000101136,
+              "p90": 29.300000000106593,
+              "maximum": 32.3250000001176
+            },
+            "throw_in": {
+              "count": 8,
+              "seconds": 70.30000000007249,
+              "mean": 8.78750000000906,
+              "median": 7.850000000028558,
+              "p90": 13.774999999987472,
+              "maximum": 16.950000000061664
+            },
+            "penalty": {
+              "count": 1,
+              "seconds": 11.199999999989814,
+              "mean": 11.199999999989814,
+              "median": 11.199999999989814,
+              "p90": 11.199999999989814,
+              "maximum": 11.199999999989814
+            },
+            "corner": {
+              "count": 12,
+              "seconds": 232.55000002009638,
+              "mean": 19.379166668341366,
+              "median": 20.774999999991905,
+              "p90": 22.800000000082946,
+              "maximum": 23.350000000084947
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 26.58837866290782
+        },
         "inPlayMinutes": 75.2208333331022,
-        "passesPerInPlayMinute": 26.58837866290782
+        "passesPerInPlayMinute": 26.58837866290782,
+        "shotsPerInPlayMinute": 0.4918850052637947,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 10.834764305134936,
+          "possessionLossesPerInPlayMinute": 11.087353902432561,
+          "lossCauses": {
+            "tackle": 225,
+            "interception": 454,
+            "bad_pass": 11,
+            "pass_out": 2,
+            "heavy_touch": 1,
+            "failed_control": 90,
+            "loose_ball_claim": 3,
+            "shot": 20,
+            "foul_stoppage": 6,
+            "other": 19
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 257250000,
+          "system": 1250000
+        },
+        "rssBytes": 659955712
       },
       "after": {
         "path": "docs/performance/pr190/ss-state-value-v1-spin-final.json",
@@ -755,6 +1261,22 @@
         "score": {
           "home": 3,
           "away": 1
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 10.960797227407937,
+          "possessionLossesPerInPlayMinute": 10.779412876126955,
+          "lossCauses": {
+            "tackle": 215,
+            "interception": 445,
+            "bad_pass": 11,
+            "pass_out": 4,
+            "heavy_touch": 22,
+            "failed_control": 98,
+            "loose_ball_claim": 1,
+            "shot": 7,
+            "foul_stoppage": 14,
+            "other": 8
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5652.025000000043,
@@ -916,13 +1438,131 @@
       "policy": "contextual-judgment-v1",
       "before": {
         "path": "docs/performance/pr190/sw-contextual-judgment-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/sw-contextual-judgment-v1-v4.json",
         "passes": {
           "attempted": 1518,
           "completed": 630
         },
         "shots": 44,
+        "score": {
+          "home": 21,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 6135.500000000275,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 735.5000000002747,
+          "ballInPlaySeconds": 4963.950000001816,
+          "deadBallSeconds": 1171.5499999984581,
+          "deadBallByReason": {
+            "period_start": 35.325000000127694,
+            "goal_kick": 54.27500000002519,
+            "corner": 126.17499999985972,
+            "goal": 594.8499999990669,
+            "foul": 220.52499999932593,
+            "penalty": 11.14999999998986,
+            "throw_in": 12.675000000000864,
+            "substitution": 96.6750000003517,
+            "offside": 19.899999999710417
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 35.325000000127694,
+              "mean": 17.662500000063847,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 35.10000000012769
+            },
+            "goal_kick": {
+              "count": 8,
+              "seconds": 54.27500000002519,
+              "mean": 6.784375000003148,
+              "median": 3.599999999947613,
+              "p90": 8.375000000001904,
+              "maximum": 26.07500000009486
+            },
+            "corner": {
+              "count": 7,
+              "seconds": 126.17499999985972,
+              "mean": 18.02499999997996,
+              "median": 18.25000000000415,
+              "p90": 20.30000000007385,
+              "maximum": 23.825000000086675
+            },
+            "goal": {
+              "count": 21,
+              "seconds": 623.3749999991707,
+              "mean": 29.68452380948432,
+              "median": 29.52500000010741,
+              "p90": 30.87500000000702,
+              "maximum": 31.799999999973522
+            },
+            "foul": {
+              "count": 35,
+              "seconds": 270.42499999950746,
+              "mean": 7.726428571414499,
+              "median": 6.925000000025193,
+              "p90": 11.675000000042473,
+              "maximum": 17.4000000000633
+            },
+            "penalty": {
+              "count": 2,
+              "seconds": 29.400000000056252,
+              "mean": 14.700000000028126,
+              "median": 11.14999999998986,
+              "p90": 11.14999999998986,
+              "maximum": 18.250000000066393
+            },
+            "throw_in": {
+              "count": 2,
+              "seconds": 12.675000000000864,
+              "mean": 6.337500000000432,
+              "median": 2.7250000000099135,
+              "p90": 2.7250000000099135,
+              "maximum": 9.94999999999095
+            },
+            "offside": {
+              "count": 2,
+              "seconds": 19.899999999710417,
+              "mean": 9.949999999855208,
+              "median": 2.449999999964348,
+              "p90": 2.449999999964348,
+              "maximum": 17.44999999974607
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 18.348291179396785
+        },
         "inPlayMinutes": 82.73250000003027,
-        "passesPerInPlayMinute": 18.348291179396785
+        "passesPerInPlayMinute": 18.348291179396785,
+        "shotsPerInPlayMinute": 0.5318345269390373,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 9.597195781581718,
+          "possessionLossesPerInPlayMinute": 8.82361828785221,
+          "lossCauses": {
+            "tackle": 407,
+            "interception": 259,
+            "bad_pass": 14,
+            "pass_out": 1,
+            "heavy_touch": 15,
+            "failed_control": 12,
+            "loose_ball_claim": 4,
+            "shot": 12,
+            "foul_stoppage": 2,
+            "other": 4
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 338484000,
+          "system": 1500000
+        },
+        "rssBytes": 699568128
       },
       "after": {
         "path": "docs/performance/pr190/sw-contextual-judgment-v1-spin-final.json",
@@ -937,6 +1577,22 @@
         "score": {
           "home": 14,
           "away": 0
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 7.357083678540116,
+          "possessionLossesPerInPlayMinute": 6.643598615915399,
+          "lossCauses": {
+            "tackle": 340,
+            "interception": 178,
+            "bad_pass": 8,
+            "pass_out": 0,
+            "heavy_touch": 8,
+            "failed_control": 10,
+            "loose_ball_claim": 6,
+            "shot": 13,
+            "foul_stoppage": 1,
+            "other": 3
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5909.299999999761,
@@ -1095,13 +1751,131 @@
       "policy": "hierarchical-intent-v1",
       "before": {
         "path": "docs/performance/pr190/sw-hierarchical-intent-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/sw-hierarchical-intent-v1-v4.json",
         "passes": {
           "attempted": 1331,
           "completed": 453
         },
         "shots": 49,
+        "score": {
+          "home": 16,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 6012.200000000044,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 612.2000000000444,
+          "ballInPlaySeconds": 5020.40000000289,
+          "deadBallSeconds": 991.7999999971541,
+          "deadBallByReason": {
+            "period_start": 39.90000000014434,
+            "foul": 261.27499999892683,
+            "goal": 450.2999999977078,
+            "goal_kick": 37.424999999828515,
+            "corner": 72.60000000010064,
+            "throw_in": 8.70000000000357,
+            "substitution": 98.42500000035807,
+            "offside": 10.7750000000392,
+            "penalty": 12.400000000045111
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 39.90000000014434,
+              "mean": 19.95000000007217,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 39.67500000014434
+            },
+            "foul": {
+              "count": 43,
+              "seconds": 296.9249999990565,
+              "mean": 6.905232558117594,
+              "median": 6.44999999990614,
+              "p90": 10.92499999984102,
+              "maximum": 14.574999999787906
+            },
+            "goal": {
+              "count": 16,
+              "seconds": 479.3249999978134,
+              "mean": 29.957812499863337,
+              "median": 30.05000000010932,
+              "p90": 31.174999999546344,
+              "maximum": 32.224999999531065
+            },
+            "goal_kick": {
+              "count": 12,
+              "seconds": 49.09999999987099,
+              "mean": 4.091666666655915,
+              "median": 3.199999999953434,
+              "p90": 4.375000000015916,
+              "maximum": 11.675000000042473
+            },
+            "corner": {
+              "count": 5,
+              "seconds": 94.67500000018094,
+              "mean": 18.93500000003619,
+              "median": 20.699999999981173,
+              "p90": 20.975000000076307,
+              "maximum": 22.07500000008031
+            },
+            "throw_in": {
+              "count": 2,
+              "seconds": 8.70000000000357,
+              "mean": 4.350000000001785,
+              "median": 2.525000000009186,
+              "p90": 2.525000000009186,
+              "maximum": 6.174999999994384
+            },
+            "offside": {
+              "count": 2,
+              "seconds": 10.7750000000392,
+              "mean": 5.3875000000196,
+              "median": 3.6500000000132786,
+              "p90": 3.6500000000132786,
+              "maximum": 7.125000000025921
+            },
+            "penalty": {
+              "count": 1,
+              "seconds": 12.400000000045111,
+              "mean": 12.400000000045111,
+              "median": 12.400000000045111,
+              "p90": 12.400000000045111,
+              "maximum": 12.400000000045111
+            }
+          },
+          "unclassifiedDeadBallSeconds": 1.1368683772161603e-13,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 15.907099035924233
+        },
         "inPlayMinutes": 83.6733333333815,
-        "passesPerInPlayMinute": 15.907099035924233
+        "passesPerInPlayMinute": 15.907099035924233,
+        "shotsPerInPlayMinute": 0.5856107083097577,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 9.525137439242386,
+          "possessionLossesPerInPlayMinute": 8.796111863591461,
+          "lossCauses": {
+            "tackle": 407,
+            "interception": 236,
+            "bad_pass": 14,
+            "pass_out": 1,
+            "heavy_touch": 18,
+            "failed_control": 11,
+            "loose_ball_claim": 10,
+            "shot": 28,
+            "foul_stoppage": 5,
+            "other": 3
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 353093000,
+          "system": 1422000
+        },
+        "rssBytes": 659034112
       },
       "after": {
         "path": "docs/performance/pr190/sw-hierarchical-intent-v1-spin-final.json",
@@ -1116,6 +1890,22 @@
         "score": {
           "home": 5,
           "away": 0
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 3.480948160222543,
+          "possessionLossesPerInPlayMinute": 3.1396787327497444,
+          "lossCauses": {
+            "tackle": 180,
+            "interception": 66,
+            "bad_pass": 7,
+            "pass_out": 0,
+            "heavy_touch": 4,
+            "failed_control": 10,
+            "loose_ball_claim": 2,
+            "shot": 6,
+            "foul_stoppage": 0,
+            "other": 1
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5610.35000000011,
@@ -1260,13 +2050,122 @@
       "policy": "opportunity-driven-v1",
       "before": {
         "path": "docs/performance/pr190/sw-opportunity-driven-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/sw-opportunity-driven-v1-v4.json",
         "passes": {
           "attempted": 2263,
           "completed": 550
         },
         "shots": 5,
+        "score": {
+          "home": 3,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5647.124999999896,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 247.12499999989632,
+          "ballInPlaySeconds": 5073.825000001549,
+          "deadBallSeconds": 573.2999999983479,
+          "deadBallByReason": {
+            "period_start": 35.0250000001266,
+            "foul": 314.17499999849497,
+            "offside": 18.54999999998313,
+            "corner": 20.574999999981287,
+            "goal_kick": 18.049999999983584,
+            "substitution": 63.95000000023265,
+            "goal": 88.62499999975444,
+            "penalty": 14.34999999979118
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 35.0250000001266,
+              "mean": 17.5125000000633,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 34.8000000001266
+            },
+            "foul": {
+              "count": 48,
+              "seconds": 378.1249999987276,
+              "mean": 7.877604166640158,
+              "median": 6.500000000023647,
+              "p90": 12.89999999981228,
+              "maximum": 16.900000000061482
+            },
+            "offside": {
+              "count": 1,
+              "seconds": 18.54999999998313,
+              "mean": 18.54999999998313,
+              "median": 18.54999999998313,
+              "p90": 18.54999999998313,
+              "maximum": 18.54999999998313
+            },
+            "corner": {
+              "count": 1,
+              "seconds": 20.574999999981287,
+              "mean": 20.574999999981287,
+              "median": 20.574999999981287,
+              "p90": 20.574999999981287,
+              "maximum": 20.574999999981287
+            },
+            "goal_kick": {
+              "count": 1,
+              "seconds": 18.049999999983584,
+              "mean": 18.049999999983584,
+              "median": 18.049999999983584,
+              "p90": 18.049999999983584,
+              "maximum": 18.049999999983584
+            },
+            "goal": {
+              "count": 3,
+              "seconds": 88.62499999975444,
+              "mean": 29.541666666584813,
+              "median": 29.600000000107684,
+              "p90": 29.600000000107684,
+              "maximum": 31.224999999545616
+            },
+            "penalty": {
+              "count": 1,
+              "seconds": 14.34999999979118,
+              "mean": 14.34999999979118,
+              "median": 14.34999999979118,
+              "p90": 14.34999999979118,
+              "maximum": 14.34999999979118
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 26.760875670713627
+        },
         "inPlayMinutes": 84.5637500000258,
-        "passesPerInPlayMinute": 26.760875670713627
+        "passesPerInPlayMinute": 26.760875670713627,
+        "shotsPerInPlayMinute": 0.0591269899927389,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 18.565874857720015,
+          "possessionLossesPerInPlayMinute": 17.454287445856522,
+          "lossCauses": {
+            "tackle": 463,
+            "interception": 887,
+            "bad_pass": 30,
+            "pass_out": 0,
+            "heavy_touch": 27,
+            "failed_control": 45,
+            "loose_ball_claim": 9,
+            "shot": 1,
+            "foul_stoppage": 7,
+            "other": 1
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 377562000,
+          "system": 1765000
+        },
+        "rssBytes": 771256320
       },
       "after": {
         "path": "docs/performance/pr190/sw-opportunity-driven-v1-spin-final.json",
@@ -1281,6 +2180,22 @@
         "score": {
           "home": 0,
           "away": 0
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 18.77054312104756,
+          "possessionLossesPerInPlayMinute": 17.87838472379952,
+          "lossCauses": {
+            "tackle": 406,
+            "interception": 960,
+            "bad_pass": 32,
+            "pass_out": 0,
+            "heavy_touch": 63,
+            "failed_control": 43,
+            "loose_ball_claim": 4,
+            "shot": 1,
+            "foul_stoppage": 6,
+            "other": 2
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5580.299999983043,
@@ -1427,13 +2342,114 @@
       "policy": "phase-role-hybrid-v1",
       "before": {
         "path": "docs/performance/pr190/sw-phase-role-hybrid-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/sw-phase-role-hybrid-v1-v4.json",
         "passes": {
           "attempted": 1547,
           "completed": 642
         },
         "shots": 46,
+        "score": {
+          "home": 26,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 6388.150000005026,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 988.1500000050264,
+          "ballInPlaySeconds": 4600.475000010019,
+          "deadBallSeconds": 1787.6749999950066,
+          "deadBallByReason": {
+            "period_start": 35.100000000126876,
+            "goal_kick": 232.92500000024737,
+            "corner": 146.5999999998448,
+            "goal": 775.2749999974378,
+            "foul": 397.22499999755996,
+            "throw_in": 97.27499999956717,
+            "substitution": 94.85000000034506,
+            "discipline": 8.4249999998774
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 35.100000000126876,
+              "mean": 17.550000000063438,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 34.875000000126875
+            },
+            "goal_kick": {
+              "count": 23,
+              "seconds": 254.9000000003273,
+              "mean": 11.082608695666405,
+              "median": 13.42500000004884,
+              "p90": 17.149999999999025,
+              "maximum": 21.975000000079945
+            },
+            "corner": {
+              "count": 9,
+              "seconds": 181.9999999999736,
+              "mean": 20.222222222219287,
+              "median": 20.700000000075306,
+              "p90": 22.800000000082946,
+              "maximum": 27.825000000101227
+            },
+            "goal": {
+              "count": 26,
+              "seconds": 804.0999999975427,
+              "mean": 30.926923076828565,
+              "median": 31.175000000113414,
+              "p90": 31.87500000011596,
+              "maximum": 33.599999999511056
+            },
+            "foul": {
+              "count": 53,
+              "seconds": 397.22499999755996,
+              "mean": 7.494811320708679,
+              "median": 6.875000000025011,
+              "p90": 11.749999999989313,
+              "maximum": 19.20000000006985
+            },
+            "throw_in": {
+              "count": 13,
+              "seconds": 114.34999999947604,
+              "mean": 8.796153846113542,
+              "median": 9.175000000033378,
+              "p90": 10.274999999990655,
+              "maximum": 14.624999999787178
+            }
+          },
+          "unclassifiedDeadBallSeconds": 2.2737367544323206e-13,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 20.176177459892262
+        },
         "inPlayMinutes": 76.67458333350032,
-        "passesPerInPlayMinute": 20.176177459892262
+        "passesPerInPlayMinute": 20.176177459892262,
+        "shotsPerInPlayMinute": 0.599938049873978,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 9.442503219755654,
+          "possessionLossesPerInPlayMinute": 9.429461088236655,
+          "lossCauses": {
+            "tackle": 265,
+            "interception": 351,
+            "bad_pass": 9,
+            "pass_out": 3,
+            "heavy_touch": 3,
+            "failed_control": 52,
+            "loose_ball_claim": 2,
+            "shot": 14,
+            "foul_stoppage": 3,
+            "other": 19
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 317719000,
+          "system": 1578000
+        },
+        "rssBytes": 591745024
       },
       "after": {
         "path": "docs/performance/pr190/sw-phase-role-hybrid-v1-spin-final.json",
@@ -1448,6 +2464,22 @@
         "score": {
           "home": 10,
           "away": 0
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 8.803074089401946,
+          "possessionLossesPerInPlayMinute": 8.650639906035678,
+          "lossCauses": {
+            "tackle": 219,
+            "interception": 335,
+            "bad_pass": 8,
+            "pass_out": 3,
+            "heavy_touch": 11,
+            "failed_control": 65,
+            "loose_ball_claim": 3,
+            "shot": 14,
+            "foul_stoppage": 3,
+            "other": 19
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5826.024999978812,
@@ -1617,13 +2649,113 @@
       "policy": "state-value-v1",
       "before": {
         "path": "docs/performance/pr190/sw-state-value-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/sw-state-value-v1-v4.json",
         "passes": {
           "attempted": 1701,
           "completed": 702
         },
         "shots": 39,
+        "score": {
+          "home": 17,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 6102.949999999597,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 702.9499999995969,
+          "ballInPlaySeconds": 4781.699999976388,
+          "deadBallSeconds": 1321.2500000232083,
+          "deadBallByReason": {
+            "period_start": 35.100000000126876,
+            "throw_in": 119.87499999996263,
+            "foul": 274.2250000234443,
+            "goal": 487.92499999918743,
+            "goal_kick": 148.6500000000801,
+            "substitution": 104.52500000038026,
+            "corner": 150.95000000002665
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 35.100000000126876,
+              "mean": 17.550000000063438,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 34.875000000126875
+            },
+            "throw_in": {
+              "count": 15,
+              "seconds": 119.87499999996263,
+              "mean": 7.991666666664175,
+              "median": 7.8499999999928605,
+              "p90": 11.000000000040018,
+              "maximum": 13.600000000049477
+            },
+            "foul": {
+              "count": 42,
+              "seconds": 318.50000002360537,
+              "mean": 7.583333333895366,
+              "median": 6.350000000023101,
+              "p90": 12.17499999982283,
+              "maximum": 21.30000000007749
+            },
+            "goal": {
+              "count": 17,
+              "seconds": 521.1249999993082,
+              "mean": 30.654411764665188,
+              "median": 30.32500000011032,
+              "p90": 32.349999999996555,
+              "maximum": 33.20000000012078
+            },
+            "goal_kick": {
+              "count": 18,
+              "seconds": 175.7000000001785,
+              "mean": 9.761111111121028,
+              "median": 11.425000000041564,
+              "p90": 19.17500000006976,
+              "maximum": 22.300000000081127
+            },
+            "corner": {
+              "count": 9,
+              "seconds": 150.95000000002665,
+              "mean": 16.77222222222518,
+              "median": 18.2999999997337,
+              "p90": 20.02500000007285,
+              "maximum": 21.500000000078217
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 21.343873517891954
+        },
         "inPlayMinutes": 79.69499999960648,
-        "passesPerInPlayMinute": 21.343873517891954
+        "passesPerInPlayMinute": 21.343873517891954,
+        "shotsPerInPlayMinute": 0.48936570675942753,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 10.289227680582835,
+          "possessionLossesPerInPlayMinute": 10.201392810138834,
+          "lossCauses": {
+            "tackle": 315,
+            "interception": 405,
+            "bad_pass": 3,
+            "pass_out": 5,
+            "heavy_touch": 0,
+            "failed_control": 49,
+            "loose_ball_claim": 3,
+            "shot": 15,
+            "foul_stoppage": 5,
+            "other": 10
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 287657000,
+          "system": 1422000
+        },
+        "rssBytes": 619065344
       },
       "after": {
         "path": "docs/performance/pr190/sw-state-value-v1-spin-final.json",
@@ -1638,6 +2770,22 @@
         "score": {
           "home": 14,
           "away": 0
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 9.801553062982036,
+          "possessionLossesPerInPlayMinute": 9.57565299238834,
+          "lossCauses": {
+            "tackle": 234,
+            "interception": 405,
+            "bad_pass": 10,
+            "pass_out": 6,
+            "heavy_touch": 17,
+            "failed_control": 70,
+            "loose_ball_claim": 2,
+            "shot": 7,
+            "foul_stoppage": 2,
+            "other": 10
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5981.350000000369,
@@ -1799,13 +2947,104 @@
       "policy": "contextual-judgment-v1",
       "before": {
         "path": "docs/performance/pr190/ww-contextual-judgment-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ww-contextual-judgment-v1-v4.json",
         "passes": {
           "attempted": 1600,
           "completed": 10
         },
         "shots": 4,
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5583.149999988877,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 183.14999998887743,
+          "ballInPlaySeconds": 5325.449999989694,
+          "deadBallSeconds": 257.6999999991832,
+          "deadBallByReason": {
+            "period_start": 38.30000000013852,
+            "foul": 109.4749999995447,
+            "substitution": 53.52500000004011,
+            "penalty": 19.22499999988713,
+            "goal_kick": 6.250000000022737,
+            "goal": 30.924999999549982
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 38.30000000013852,
+              "mean": 19.15000000006926,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 38.075000000138516
+            },
+            "foul": {
+              "count": 18,
+              "seconds": 162.99999999958482,
+              "mean": 9.05555555553249,
+              "median": 8.025000000029195,
+              "p90": 14.350000000052205,
+              "maximum": 20.100000000073123
+            },
+            "penalty": {
+              "count": 2,
+              "seconds": 19.22499999988713,
+              "mean": 9.612499999943566,
+              "median": 9.175000000033378,
+              "p90": 9.175000000033378,
+              "maximum": 10.049999999853753
+            },
+            "goal_kick": {
+              "count": 2,
+              "seconds": 6.250000000022737,
+              "mean": 3.1250000000113687,
+              "median": 2.400000000008731,
+              "p90": 2.400000000008731,
+              "maximum": 3.850000000014006
+            },
+            "goal": {
+              "count": 1,
+              "seconds": 30.924999999549982,
+              "mean": 30.924999999549982,
+              "median": 30.924999999549982,
+              "p90": 30.924999999549982,
+              "maximum": 30.924999999549982
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 18.026645635614976
+        },
         "inPlayMinutes": 88.75749999982824,
-        "passesPerInPlayMinute": 18.026645635614976
+        "passesPerInPlayMinute": 18.026645635614976,
+        "shotsPerInPlayMinute": 0.04506661408903744,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 9.080922738941045,
+          "possessionLossesPerInPlayMinute": 8.438723488172261,
+          "lossCauses": {
+            "tackle": 367,
+            "interception": 278,
+            "bad_pass": 48,
+            "pass_out": 0,
+            "heavy_touch": 5,
+            "failed_control": 40,
+            "loose_ball_claim": 5,
+            "shot": 2,
+            "foul_stoppage": 2,
+            "other": 0
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 256281000,
+          "system": 1203000
+        },
+        "rssBytes": 694812672
       },
       "after": {
         "path": "docs/performance/pr190/ww-contextual-judgment-v1-spin-final.json",
@@ -1820,6 +3059,22 @@
         "score": {
           "home": 0,
           "away": 0
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 8.792242360390295,
+          "possessionLossesPerInPlayMinute": 7.776450560088463,
+          "lossCauses": {
+            "tackle": 367,
+            "interception": 229,
+            "bad_pass": 40,
+            "pass_out": 0,
+            "heavy_touch": 32,
+            "failed_control": 16,
+            "loose_ball_claim": 5,
+            "shot": 0,
+            "foul_stoppage": 0,
+            "other": 0
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5460.300000005441,
@@ -1951,13 +3206,122 @@
       "policy": "hierarchical-intent-v1",
       "before": {
         "path": "docs/performance/pr190/ww-hierarchical-intent-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ww-hierarchical-intent-v1-v4.json",
         "passes": {
           "attempted": 1559,
           "completed": 19
         },
         "shots": 5,
+        "score": {
+          "home": 1,
+          "away": 1
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5550.35000000011,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 150.3500000001104,
+          "ballInPlaySeconds": 5324.20000000014,
+          "deadBallSeconds": 226.14999999997016,
+          "deadBallByReason": {
+            "period_start": 38.225000000138245,
+            "goal_kick": 2.9249999999998337,
+            "foul": 49.474999999946476,
+            "offside": 4.399999999995998,
+            "goal": 60.20000000008861,
+            "substitution": 44.550000000051114,
+            "throw_in": 7.350000000026739,
+            "corner": 19.02499999972315
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 38.225000000138245,
+              "mean": 19.112500000069122,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 38.00000000013824
+            },
+            "goal_kick": {
+              "count": 2,
+              "seconds": 9.024999999911067,
+              "mean": 4.5124999999555335,
+              "median": 2.9249999999998337,
+              "p90": 2.9249999999998337,
+              "maximum": 6.099999999911233
+            },
+            "foul": {
+              "count": 12,
+              "seconds": 74.80000000003861,
+              "mean": 6.23333333333655,
+              "median": 6.124999999994429,
+              "p90": 7.37500000002683,
+              "maximum": 15.150000000055115
+            },
+            "offside": {
+              "count": 1,
+              "seconds": 4.399999999995998,
+              "mean": 4.399999999995998,
+              "median": 4.399999999995998,
+              "p90": 4.399999999995998,
+              "maximum": 4.399999999995998
+            },
+            "goal": {
+              "count": 2,
+              "seconds": 60.20000000008861,
+              "mean": 30.100000000044304,
+              "median": 28.67499999997392,
+              "p90": 28.67499999997392,
+              "maximum": 31.525000000114687
+            },
+            "throw_in": {
+              "count": 2,
+              "seconds": 20.475000000074488,
+              "mean": 10.237500000037244,
+              "median": 7.350000000026739,
+              "p90": 7.350000000026739,
+              "maximum": 13.125000000047748
+            },
+            "corner": {
+              "count": 1,
+              "seconds": 19.02499999972315,
+              "mean": 19.02499999972315,
+              "median": 19.02499999972315,
+              "p90": 19.02499999972315,
+              "maximum": 19.02499999972315
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 17.568836632733095
+        },
         "inPlayMinutes": 88.736666666669,
-        "passesPerInPlayMinute": 17.568836632733095
+        "passesPerInPlayMinute": 17.568836632733095,
+        "shotsPerInPlayMinute": 0.05634649336989447,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 9.36478719807646,
+          "possessionLossesPerInPlayMinute": 8.677359978963748,
+          "lossCauses": {
+            "tackle": 374,
+            "interception": 297,
+            "bad_pass": 46,
+            "pass_out": 2,
+            "heavy_touch": 13,
+            "failed_control": 32,
+            "loose_ball_claim": 3,
+            "shot": 2,
+            "foul_stoppage": 1,
+            "other": 0
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 262390000,
+          "system": 969000
+        },
+        "rssBytes": 662749184
       },
       "after": {
         "path": "docs/performance/pr190/ww-hierarchical-intent-v1-spin-final.json",
@@ -1972,6 +3336,22 @@
         "score": {
           "home": 0,
           "away": 0
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 8.203392037501946,
+          "possessionLossesPerInPlayMinute": 7.500244148573207,
+          "lossCauses": {
+            "tackle": 379,
+            "interception": 204,
+            "bad_pass": 46,
+            "pass_out": 0,
+            "heavy_touch": 17,
+            "failed_control": 19,
+            "loose_ball_claim": 5,
+            "shot": 1,
+            "foul_stoppage": 0,
+            "other": 1
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5520,
@@ -2105,13 +3485,95 @@
       "policy": "opportunity-driven-v1",
       "before": {
         "path": "docs/performance/pr190/ww-opportunity-driven-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ww-opportunity-driven-v1-v4.json",
         "passes": {
           "attempted": 1915,
           "completed": 25
         },
         "shots": 1,
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5520,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 120,
+          "ballInPlaySeconds": 5304.300000001033,
+          "deadBallSeconds": 215.69999999896694,
+          "deadBallByReason": {
+            "period_start": 38.40000000013888,
+            "foul": 83.07499999966308,
+            "substitution": 44.72499999988531,
+            "throw_in": 17.524999999744978,
+            "goal": 31.974999999534703
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 38.40000000013888,
+              "mean": 19.20000000006944,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 38.17500000013888
+            },
+            "foul": {
+              "count": 12,
+              "seconds": 108.79999999947927,
+              "mean": 9.066666666623272,
+              "median": 7.449999999993224,
+              "p90": 12.37500000004502,
+              "maximum": 16.499999999759893
+            },
+            "throw_in": {
+              "count": 3,
+              "seconds": 36.5249999998141,
+              "mean": 12.174999999938033,
+              "median": 12.999999999810825,
+              "p90": 12.999999999810825,
+              "maximum": 19.00000000006912
+            },
+            "goal": {
+              "count": 1,
+              "seconds": 31.974999999534703,
+              "mean": 31.974999999534703,
+              "median": 31.974999999534703,
+              "p90": 31.974999999534703,
+              "maximum": 31.974999999534703
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 21.661670719977682
+        },
         "inPlayMinutes": 88.40500000001722,
-        "passesPerInPlayMinute": 21.661670719977682
+        "passesPerInPlayMinute": 21.661670719977682,
+        "shotsPerInPlayMinute": 0.011311577399466153,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 15.123578983086245,
+          "possessionLossesPerInPlayMinute": 14.263899100726817,
+          "lossCauses": {
+            "tackle": 411,
+            "interception": 673,
+            "bad_pass": 65,
+            "pass_out": 2,
+            "heavy_touch": 15,
+            "failed_control": 82,
+            "loose_ball_claim": 8,
+            "shot": 0,
+            "foul_stoppage": 2,
+            "other": 1
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 259312000,
+          "system": 1125000
+        },
+        "rssBytes": 707969024
       },
       "after": {
         "path": "docs/performance/pr190/ww-opportunity-driven-v1-spin-final.json",
@@ -2126,6 +3588,22 @@
         "score": {
           "home": 0,
           "away": 2
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 14.620918232833208,
+          "possessionLossesPerInPlayMinute": 14.112462807425562,
+          "lossCauses": {
+            "tackle": 366,
+            "interception": 681,
+            "bad_pass": 61,
+            "pass_out": 0,
+            "heavy_touch": 48,
+            "failed_control": 82,
+            "loose_ball_claim": 5,
+            "shot": 1,
+            "foul_stoppage": 3,
+            "other": 0
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5645.650000000021,
@@ -2298,13 +3776,122 @@
       "policy": "phase-role-hybrid-v1",
       "before": {
         "path": "docs/performance/pr190/ww-phase-role-hybrid-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ww-phase-role-hybrid-v1-v4.json",
         "passes": {
           "attempted": 674,
           "completed": 80
         },
         "shots": 9,
+        "score": {
+          "home": 1,
+          "away": 1
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5656.550000005936,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 256.55000000593645,
+          "ballInPlaySeconds": 4551.950000007659,
+          "deadBallSeconds": 1104.5999999982773,
+          "deadBallByReason": {
+            "period_start": 37.950000000137244,
+            "goal_kick": 448.9499999993185,
+            "throw_in": 113.10000000000912,
+            "corner": 246.74999999946692,
+            "foul": 66.92499999977144,
+            "offside": 15.750000000057298,
+            "substitution": 113.57500000041318,
+            "goal": 61.5999999991036
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 37.950000000137244,
+              "mean": 18.975000000068622,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 37.72500000013724
+            },
+            "goal_kick": {
+              "count": 37,
+              "seconds": 562.5249999997317,
+              "mean": 15.203378378371127,
+              "median": 15.899999999985539,
+              "p90": 21.450000000078035,
+              "maximum": 29.350000000106775
+            },
+            "throw_in": {
+              "count": 13,
+              "seconds": 113.10000000000912,
+              "mean": 8.700000000000701,
+              "median": 7.875000000028649,
+              "p90": 10.225000000037198,
+              "maximum": 12.500000000045475
+            },
+            "corner": {
+              "count": 12,
+              "seconds": 246.74999999946692,
+              "mean": 20.562499999955577,
+              "median": 20.57500000007485,
+              "p90": 24.950000000090768,
+              "maximum": 29.700000000108048
+            },
+            "foul": {
+              "count": 10,
+              "seconds": 66.92499999977144,
+              "mean": 6.692499999977144,
+              "median": 7.325000000026648,
+              "p90": 8.324999999878855,
+              "maximum": 8.974999999869397
+            },
+            "offside": {
+              "count": 1,
+              "seconds": 15.750000000057298,
+              "mean": 15.750000000057298,
+              "median": 15.750000000057298,
+              "p90": 15.750000000057298,
+              "maximum": 15.750000000057298
+            },
+            "goal": {
+              "count": 2,
+              "seconds": 61.5999999991036,
+              "mean": 30.7999999995518,
+              "median": 29.999999999563443,
+              "p90": 29.999999999563443,
+              "maximum": 31.59999999954016
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 8.884104614490923
+        },
         "inPlayMinutes": 75.86583333346098,
-        "passesPerInPlayMinute": 8.884104614490923
+        "passesPerInPlayMinute": 8.884104614490923,
+        "shotsPerInPlayMinute": 0.11863047704809837,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 4.086160876101166,
+          "possessionLossesPerInPlayMinute": 4.507958127827738,
+          "lossCauses": {
+            "tackle": 98,
+            "interception": 164,
+            "bad_pass": 7,
+            "pass_out": 1,
+            "heavy_touch": 0,
+            "failed_control": 28,
+            "loose_ball_claim": 0,
+            "shot": 7,
+            "foul_stoppage": 1,
+            "other": 36
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 285672000,
+          "system": 1516000
+        },
+        "rssBytes": 594321408
       },
       "after": {
         "path": "docs/performance/pr190/ww-phase-role-hybrid-v1-spin-final.json",
@@ -2319,6 +3906,22 @@
         "score": {
           "home": 1,
           "away": 4
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 3.7677011469633603,
+          "possessionLossesPerInPlayMinute": 4.177791067721277,
+          "lossCauses": {
+            "tackle": 68,
+            "interception": 146,
+            "bad_pass": 12,
+            "pass_out": 3,
+            "heavy_touch": 10,
+            "failed_control": 46,
+            "loose_ball_claim": 7,
+            "shot": 7,
+            "foul_stoppage": 0,
+            "other": 27
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5752.650000006068,
@@ -2487,13 +4090,113 @@
       "policy": "state-value-v1",
       "before": {
         "path": "docs/performance/pr190/ww-state-value-v1-baseline-full.json",
+        "canonicalStatisticsPath": "docs/performance/pr189/ww-state-value-v1-v4.json",
         "passes": {
           "attempted": 541,
           "completed": 61
         },
         "shots": 11,
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5580,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 180,
+          "ballInPlaySeconds": 4617.550000001171,
+          "deadBallSeconds": 962.4499999988298,
+          "deadBallByReason": {
+            "period_start": 37.700000000136335,
+            "goal_kick": 344.04999999991173,
+            "corner": 270.67499999970363,
+            "throw_in": 126.57499999956349,
+            "substitution": 94.85000000034506,
+            "foul": 59.44999999959373,
+            "goal": 29.14999999957581
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 37.700000000136335,
+              "mean": 18.850000000068167,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 37.47500000013633
+            },
+            "goal_kick": {
+              "count": 31,
+              "seconds": 417.6500000001795,
+              "mean": 13.47258064516708,
+              "median": 15.299999999986085,
+              "p90": 19.20000000006985,
+              "maximum": 20.89999999998099
+            },
+            "corner": {
+              "count": 12,
+              "seconds": 270.67499999970363,
+              "mean": 22.556249999975304,
+              "median": 23.224999999978877,
+              "p90": 25.249999999632564,
+              "maximum": 27.975000000006347
+            },
+            "throw_in": {
+              "count": 12,
+              "seconds": 126.57499999956349,
+              "mean": 10.547916666630291,
+              "median": 10.02500000003647,
+              "p90": 13.549999999802822,
+              "maximum": 14.450000000052569
+            },
+            "foul": {
+              "count": 9,
+              "seconds": 80.69999999967104,
+              "mean": 8.966666666630115,
+              "median": 8.825000000032105,
+              "p90": 10.824999999842476,
+              "maximum": 14.824999999784268
+            },
+            "goal": {
+              "count": 1,
+              "seconds": 29.14999999957581,
+              "mean": 29.14999999957581,
+              "median": 29.14999999957581,
+              "p90": 29.14999999957581,
+              "maximum": 29.14999999957581
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 7.029701898190983
+        },
         "inPlayMinutes": 76.95916666668617,
-        "passesPerInPlayMinute": 7.029701898190983
+        "passesPerInPlayMinute": 7.029701898190983,
+        "shotsPerInPlayMinute": 0.14293294062865214,
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 3.7422442637319833,
+          "possessionLossesPerInPlayMinute": 4.210024796698481,
+          "lossCauses": {
+            "tackle": 107,
+            "interception": 137,
+            "bad_pass": 5,
+            "pass_out": 0,
+            "heavy_touch": 1,
+            "failed_control": 25,
+            "loose_ball_claim": 4,
+            "shot": 7,
+            "foul_stoppage": 0,
+            "other": 38
+          }
+        },
+        "matchFlowCoverage": "baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics",
+        "meanPossessionSequenceSeconds": null,
+        "finalThirdEntries": null,
+        "boxEntries": null,
+        "cpu": {
+          "user": 250359000,
+          "system": 1110000
+        },
+        "rssBytes": 624177152
       },
       "after": {
         "path": "docs/performance/pr190/ww-state-value-v1-spin-final.json",
@@ -2508,6 +4211,22 @@
         "score": {
           "home": 0,
           "away": 1
+        },
+        "canonicalPlayerLedgers": {
+          "possessionGainsPerInPlayMinute": 4.4488914634782715,
+          "possessionLossesPerInPlayMinute": 4.663752698930347,
+          "lossCauses": {
+            "tackle": 83,
+            "interception": 189,
+            "bad_pass": 9,
+            "pass_out": 3,
+            "heavy_touch": 11,
+            "failed_control": 35,
+            "loose_ball_claim": 3,
+            "shot": 10,
+            "foul_stoppage": 0,
+            "other": 26
+          }
         },
         "time": {
           "canonicalElapsedSeconds": 5594.650000000053,

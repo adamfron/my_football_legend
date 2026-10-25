@@ -308,6 +308,11 @@ time, restart distributions, pass rates, completion contexts, receptions, actual
 shots, turnovers, possession sequences, final-third/box entries, CPU/RSS and score.
 Full flow telemetry is compressed separately from pass trajectories. The summary
 refuses an incomplete cohort, baseline drift or an invalid time partition.
+Both sides also expose identically defined canonical player gain/loss ledgers per
+in-play minute. The earlier baseline run did not collect the complete match-flow
+observer, so its sequence duration and final-third/box entry fields remain null,
+with an explicit coverage note and links to the unchanged PR189 statistics. They
+are not inferred from partial pass trajectories or represented as zero.
 
 ## 17. Pathological captures and replay
 
@@ -377,6 +382,8 @@ Remaining PR190 contact/timing work stays named PR190 follow-up, not silently mo
 to another number. PR191 retains the complete 20–25-season Generational Renewal and
 world-strength programme; PR192 Summary Simulation/PlayStyles remains blocked by
 canonical readiness. PR193 career UX and PR194+ world expansion keep their full
-commitments. `performance/pr190/verification.json` freezes the local verification
-checkpoint at draft publication. The PR body records the completed local verification
-and final-head CI, without treating green engineering checks as football readiness.
+commitments. `performance/pr190/verification.json` records the completed local
+`npm run verify`: lint, 2,281 tests and the production build pass. The earlier
+pre-publication checkpoint and failed checks are preserved separately. The branch
+has not been published from this environment, so final-head GitHub CI is not run
+at local delivery. Green engineering checks do not establish football readiness.

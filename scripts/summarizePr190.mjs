@@ -16,6 +16,15 @@ const baseline = loadVersion('baseline-full'),
 if (!partial && (baseline.length !== 15 || current.length !== 15))
   throw Error(`Incomplete cohort ${baseline.length}/${current.length}`);
 const rows = [];
+const canonicalLedgers = (players, minutes) => ({
+  possessionGainsPerInPlayMinute: players.reduce((n, p) => n + p.possessionWon, 0) / minutes,
+  possessionLossesPerInPlayMinute: players.reduce((n, p) => n + p.possessionLost, 0) / minutes,
+  lossCauses: players.reduce((all, p) => {
+    for (const [cause, count] of Object.entries(p.possessionLossCauses))
+      all[cause] = (all[cause] ?? 0) + count;
+    return all;
+  }, {}),
+});
 for (const after of current) {
   const before = baseline.find((r) => r.design === after.design && r.policy === after.policy),
     old = historical.find((r) => r.design === after.design && r.policy === after.policy);
@@ -76,10 +85,25 @@ for (const after of current) {
     policy: after.policy,
     before: {
       path: before.path,
+      canonicalStatisticsPath: old.path,
       passes: before.passes,
       shots: before.shots,
+      score: before.score,
+      time: before.time,
       inPlayMinutes: before.time.ballInPlaySeconds / 60,
       passesPerInPlayMinute: before.time.passesPerInPlayMinute,
+      shotsPerInPlayMinute: before.shots / (before.time.ballInPlaySeconds / 60),
+      canonicalPlayerLedgers: canonicalLedgers(
+        receipt.statistics.players,
+        before.time.ballInPlaySeconds / 60,
+      ),
+      matchFlowCoverage:
+        'baseline full flow observer was not collected; use the canonical player ledgers, archived pass trajectories and independently retained PR189 statistics',
+      meanPossessionSequenceSeconds: null,
+      finalThirdEntries: null,
+      boxEntries: null,
+      cpu: before.cpu,
+      rssBytes: before.rssBytes,
     },
     after: {
       path: after.path,
@@ -89,6 +113,7 @@ for (const after of current) {
       completion: after.passes.completed / after.passes.attempted,
       shots: after.shots,
       score: after.score,
+      canonicalPlayerLedgers: canonicalLedgers(after.statistics.players, minutes),
       time: after.time,
       passesPerInPlayMinute: after.time.passesPerInPlayMinute,
       possessionExchangesPerInPlayMinute: flow.possessionChanges / minutes,

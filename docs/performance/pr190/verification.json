@@ -1,40 +1,32 @@
 {
   "schemaVersion": 1,
-  "classification": "immutable checkpoint at draft publication; final completed local verification and final-head CI are reported in the PR body/checks",
-  "recordedAt": "2026-10-25T08:23:49.493296+00:00",
   "runtimeSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
   "command": "npm run verify",
-  "statusAtPublication": "RUNNING: unit and match integration passed; career contract/full-career/build pending",
-  "passedAtPublication": {
-    "unitTests": 2216,
-    "matchIntegrationTests": 56,
-    "targetedPhysicalRegressionTests": 96,
-    "cameraRendererTests": 16
-  },
-  "remainingAtPublication": [
-    "four career-contract tests including actual full fixtures",
-    "five full-career tests",
-    "production build"
-  ],
-  "originalWallBudgetsPreserved": true,
+  "status": "PASS",
+  "unitTests": 2216,
+  "matchIntegrationTests": 56,
+  "careerContractTests": 4,
+  "fullCareerTests": 5,
+  "totalTests": 2281,
   "environment": {
     "platform": "Windows",
     "node": "v24.22.1",
-    "nodeOptions": "--max-semi-space-size=64"
+    "nodeOptions": "--max-semi-space-size=64",
+    "originalWallBudgetsPreserved": true
   },
-  "retainedFailures": "earlier concurrent benchmark/verify runs exceeded the existing 90s legacy half limit; the serial retry passed all 56 integration tests without changing limits/assertions",
+  "retainedFailedChecks": "prior full verify exceeded the existing 90s native legacy-half budget under simultaneous full-match benchmarks; no timeout/assertion was weakened; final serial run is separate",
   "historicalPr189": {
     "status": "PASS",
     "baseCommit": "1af5b5c130b8707c9febb77b7bbc7cbc36bd0ea1",
     "artifacts": 230,
     "allOriginalReplayFamilies": true
   },
-  "capturedReplay": {
+  "capturedStateReplay": {
     "status": "PASS",
-    "states": 26,
+    "captures": 26,
     "ticks": 320,
-    "observerRepeats": 2,
-    "bareRepeats": 1
+    "repeatsWithObserver": 2,
+    "repeatsWithoutObserver": 1
   },
   "fullMatchObserverReplay": {
     "schemaVersion": 1,
@@ -49,21 +41,25 @@
     "status": "PASS",
     "seeds": 2,
     "freshProcesses": 8,
-    "ticksEach": 2400,
-    "fields": 80
+    "ticksPerProcess": 2400,
+    "fields": 80,
+    "receipt": "telemetry-reference-spin-final.json"
   },
   "pairedFullMatches": {
     "baseline": 15,
     "final": 15,
-    "baselineExactPr189FinalStates": true,
+    "baselineExactPr189StateHashes": true,
     "finalExactHeadRuntime": true
   },
   "laboratory": {
     "baselineCases": 768,
-    "finalCases": 768
+    "finalCases": 768,
+    "receipt": "controlled-team-spin-final.json"
   },
-  "sourceReconstruction": "PASS; engine-spin-final overlay reproduces exact runtime manifest",
-  "finalHeadCi": "not inferred from local results; consult PR checks",
+  "finalHeadCi": {
+    "status": "NOT_RUN_AT_LOCAL_DELIVERY",
+    "reason": "branch publication awaits explicit approval; local verification does not imply CI success"
+  },
   "logs": [
     {
       "path": "docs/performance/pr190/historical-pr189-check.log.gz",
@@ -94,16 +90,48 @@
       "uncompressedSha256": "d9b5413d8152602402785778d7ee17048586ebcf9c92a5252c7510296cd421e9"
     },
     {
+      "path": "docs/performance/pr190/verify-final-serial.log.gz",
+      "uncompressedSha256": "a3254b8317ce5bfc31517a4184f5c2f195c64ec7a858417a3a7c0b16b6e09b57"
+    },
+    {
       "path": "docs/performance/pr190/profile-half.log.gz",
       "uncompressedSha256": "55e926337c4cb470e787cb2e76cf1d606989b660b39a4a03cd1e60ba9278e404"
     },
     {
       "path": "docs/performance/pr190/reconstruct-spin.log.gz",
       "uncompressedSha256": "f35f920181f24e792900663a291a42b37c22cf3ec21563dfabe3b54891da83fb"
+    },
+    {
+      "path": "docs/performance/pr190/verify-passing.log.gz",
+      "uncompressedSha256": "1e815ebe9de73e082777c9d08e088d6b7dcac20e50c9ae14aca789f3cd53ef2d"
+    },
+    {
+      "path": "docs/performance/pr190/verify-passing-v2.log.gz",
+      "uncompressedSha256": "3ac73f0736ae5add46b0d1ba2b75f9c96e2e7f455ee857709b45af02893a2293"
+    },
+    {
+      "path": "docs/performance/pr190/verify-passing-v3.log.gz",
+      "uncompressedSha256": "d6f1c9b8ff81a7d565d4785b5b5031aba36c504a69bc32dc2550f9679886e243"
+    },
+    {
+      "path": "docs/performance/pr190/negative-controls-v2-tests.log.gz",
+      "uncompressedSha256": "f2b738340209af889678c3332b06bcdd40275f26304de0cb24718dcc476cac0b"
+    },
+    {
+      "path": "docs/performance/pr190/reception-cycle-v3-tests.log.gz",
+      "uncompressedSha256": "04346bf53e9ff34aa6027e9041627cf0b95efc5f5d5eb13e288692363ed226cc"
+    },
+    {
+      "path": "docs/performance/pr190/receiving-v5-tests.log.gz",
+      "uncompressedSha256": "1e58e8e79628839c3e2a524be36740ac46a6bb0380ebc56c8df24aadaa5e7861"
+    },
+    {
+      "path": "docs/performance/pr190/verify-final.log.gz",
+      "uncompressedSha256": "f3c1639051f7fc57cd9a8ecc50d596b82d68fbc7298cb8d85ef3a2932bd2057e"
+    },
+    {
+      "path": "docs/performance/pr190/verify-head.log.gz",
+      "uncompressedSha256": "b48128eb73c787df5add6077edf6d5c69de69a5e686d15d13d725007a52355d8"
     }
-  ],
-  "publicationLog": {
-    "path": "docs/performance/pr190/verify-at-publication.log.gz",
-    "uncompressedSha256": "57fb497c33b4c6e9a48fb603fb11dcd5d924754a3e8fa3370d89dd37f102b2ed"
-  }
+  ]
 }
