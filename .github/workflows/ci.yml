@@ -10,15 +10,17 @@ jobs:
   checks:
     name: verify (${{ matrix.group }})
     runs-on: ubuntu-latest
-    # Keep every verify stage and its time limits. Full canonical career fixtures
-    # run separately so the serial pipeline cannot exhaust one job's budget.
+    # Keep every verify stage and its time limits. Fixed-budget native integration
+    # and full career fixtures get fresh workers alongside the unit/build group.
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
         include:
           - group: main
-            command: npm run lint && npm run test:unit && npm run test:match-integration && npm run build
+            command: npm run lint && npm run test:unit && npm run build
+          - group: integration
+            command: npm run generate:world-db && npm run test:match-integration
           - group: career
             command: npm run generate:world-db && npm run test:match-contract && npm run test:full-career
     env:

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import process from 'node:process';
 import console from 'node:console';
@@ -160,6 +160,33 @@ const result = {
   currentMatches: current.length,
   rows,
   fullObserverComparisons,
+  allocationOptimizationParity: (() => {
+    const path = `${root}/optimization-full-parity.json`;
+    if (!existsSync(path)) return null;
+    const proof = JSON.parse(readFileSync(path));
+    if (
+      !proof.complete ||
+      proof.rows.length !== 15 ||
+      !proof.rows.every(
+        (r) =>
+          r.identicalFinalState &&
+          r.identicalCompletePassArchive &&
+          current.some(
+            (a) =>
+              a.design === r.design &&
+              a.policy === r.policy &&
+              a.finalStateSha256 === r.finalStateSha256,
+          ),
+      )
+    )
+      throw Error('Incomplete allocation optimization equivalence');
+    return {
+      path,
+      optimizedSourceSha256: proof.sourceSha256,
+      comparedFullMatches: 15,
+      completeFinalStatesAndPassArchivesIdentical: true,
+    };
+  })(),
   timeOnlyConfiguration:
     'reporting-only: same canonical baseline/current executions, no independent clock intervention',
   remainingBlockers: [

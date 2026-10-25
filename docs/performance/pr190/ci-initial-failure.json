@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "classification": "retained initial exact-head CI failure; not attributed to football nondeterminism",
+  "headCommit": "eb4aa7e62c0419fd50864f420f17bd5d4acda5cc",
+  "runtimeSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+  "runId": 40181867601,
+  "url": "https://github.com/adamfron/my_football_legend/actions/runs/40181867601",
+  "runner": "ubuntu-24.04 (24.04.5)",
+  "career": "success",
+  "unitTests": {
+    "passed": 2216,
+    "failed": 0
+  },
+  "integrationTests": {
+    "passed": 55,
+    "failed": 1
+  },
+  "failedContract": "legacy-pr176 whole-half penalty",
+  "wallBudgetMs": 90000,
+  "childTimeoutMs": 89500,
+  "observedFailure": "SIGTERM at 89628ms; native child did not finish inside the unchanged budget",
+  "defaultBHalfMs": 125127,
+  "quality": "failure (requires every matrix group)",
+  "logExcerpt": "09:59:56.2353938Z        ✓ completes a whole CPU half with a penalty and meaningful canonical progress  125127ms\n2026-10-25T09:59:56.2365587Z \n2026-10-25T09:59:56.2366328Z ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n2026-10-25T09:59:56.2366807Z \n2026-10-25T09:59:56.2371328Z  FAIL  src/core/matchSimulation/pr160PenaltyLiveness.test.ts > PR160 penalty liveness regression > whole-half penalty contract: 'legacy-pr176' > completes a whole CPU half with a penalty and meaningful canonical progress\n2026-10-25T09:59:56.2376273Z Error: Native penalty half failed (exit=null, signal=SIGTERM): \n2026-10-25T09:59:56.2378176Z  ❯ ChildProcess.<anonymous> src/core/matchSimulation/pr160PenaltyLiveness.test.ts:56:11\n2026-10-25T09:59:56.2480835Z      54|       if (code !== 0)\n2026-10-25T09:59:56.2481953Z      55|         return reject(\n2026-10-25T09:59:56.2483632Z      56|           new Error(`Native penalty half failed (exit=${code}, signal=…\n2026-10-25T09:59:56.2484661Z        |           ^\n2026-10-25T09:59:56.2485757Z      57|         );\n2026-10-25T09:59:56.2486396Z      58|       try {\n2026-10-25T09:59:56.2486757Z \n2026-10-25T09:59:56.2486870Z \n2026-10-25T09:59:56.2487548Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n2026-10-25T09:59:56.2487912Z \n2026-10-25T09:59:56.2491233Z  Test Files  1 failed | 2 passed (3)\n2026-10-25T09:59:56.2492847Z       Tests  1 failed | 55 passed (56)\n2026-10-25T09:59:56.2506589Z    Start at  09:55:48\n2026-10-25T09:59:56.2507899Z    Duration  247.86s (transform 3.09s, setup 0ms, import 5.00s, tests 241.75s, environment 691ms)\n2026-10-25T09:59:56.2508621Z \n2026-10-25T09:59:56.2515666Z \n2026-10-25T09:59:56.2586752Z ##[error]Error: Native penalty half failed (exit=null, signal=SIGTERM): \n ❯ ChildProcess.<anonymous> src/core/matchSimulation/pr160PenaltyLiveness.test.ts:56:11\n\n\n2026-10-25T09:59:56.3069500Z ##[error]Process completed with exit code 1.\n2026-10-25T09:59:56.3250479Z Post job cleanup.\n2026-10-25T09:59:56.4197909Z [command]/usr/bin/git version\n2026-10-25T09:59:56.4250854Z git version 2.55.0\n2026-10-25T09:59:56.4300477Z Temporarily overriding HOME='/home/runner/work/_temp/e151b439-9f26-4eec-97d4-21475bbd8366' before making global git config changes\n2026-10-25T09:59:56.4302115Z Adding repository directory to the temporary git global config as a safe directory\n2026-10-25T09:59:56.4306931Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/my_football_legend/my_football_legend\n2026-10-25T09:59:56.4357079Z [command]/usr/bin/git config --local --name-only --get-regexp core\\.sshCommand\n2026-10-25T09:59:56.4406186Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'core\\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\"\n2026-10-25T09:59:56.4745874Z [command]/usr/bin/git config --local --name-only --get-regexp http\\.https\\:\\/\\/github\\.com\\/\\.extraheader\n2026-10-25T09:59:56.4788348Z http.https://github.com/.extraheader\n2026-10-25T09:59:56.4827126Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader\n2026-10-25T09:59:56.4872424Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'http\\.https\\:\\/\\/github\\.com\\/\\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\"\n2026-10-25T09:59:56.5230588Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\\.gitdir:\n2026-10-25T09:59:56.5273492Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url\n2026-10-25T09:59:56.5743941Z Cleaning up orphan processes\n2026-10-25T09:59:56.6143664Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/\n"
+}

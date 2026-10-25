@@ -1331,6 +1331,25 @@ const tacticalSemanticKey = (state: TacticalMatchState) =>
     state.restart?.phase ?? 'none',
   ].join('|');
 
+const withoutPreviousSprintEpisode = (player: MatchPlayerState) => {
+  // Most bodies have no sprint episode to remove. The caller always constructs a
+  // fresh result, so avoid an otherwise redundant full player copy in that case.
+  if (
+    !('sprintStartedAt' in player) &&
+    !('sprintRecoveryStartedAt' in player) &&
+    !('sprintBurstCounted' in player)
+  )
+    return player;
+  const {
+    sprintStartedAt: _oldSprint,
+    sprintRecoveryStartedAt: _oldRecovery,
+    sprintBurstCounted: _oldBurst,
+    ...movingPlayer
+  } = player;
+  void [_oldSprint, _oldRecovery, _oldBurst];
+  return movingPlayer;
+};
+
 const stepTacticalMatchCore = (
   input: TacticalMatchState,
   rawDelta = 0.1,
@@ -1956,13 +1975,7 @@ const stepTacticalMatchCore = (
         sprint: 'distanceSprint',
       } as const
     )[actualSprinting ? 'sprint' : speed < 2.2 ? 'walk' : speed < 4.2 ? 'jog' : 'run'];
-    const {
-      sprintStartedAt: _oldSprint,
-      sprintRecoveryStartedAt: _oldRecovery,
-      sprintBurstCounted: _oldBurst,
-      ...movingPlayer
-    } = player;
-    void [_oldSprint, _oldRecovery, _oldBurst];
+    const movingPlayer = withoutPreviousSprintEpisode(player);
     return {
       ...movingPlayer,
       ...(player.lowerBodyPose ? { lowerBodyPose: advanceLowerBodyPose(player, dt) } : {}),

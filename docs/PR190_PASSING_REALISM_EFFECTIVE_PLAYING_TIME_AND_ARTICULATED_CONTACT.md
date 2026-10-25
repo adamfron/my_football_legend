@@ -113,8 +113,10 @@ cushioning of awkward impacts and changed legacy selection assumptions. Its full
 partial runs are not counted as completed development matches. The complete
 `measured-final` stage also exposed a later transfer defect: the loose-ball helper
 discarded the computed spin/height after a failed reception. The final `spin-final`
-stage preserves those physical quantities and reruns all 15 matches on the actual
-head runtime manifest `0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8`.
+stage preserves those physical quantities and reruns all 15 matches on runtime
+manifest `0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8`.
+The later allocation-only follow-up is separately versioned and checked against
+these retained complete states and complete pass archives (section 18).
 Earlier receipts are preserved under their original versions; no negative is
 replaced with the final result or described as confirmation.
 
@@ -327,7 +329,9 @@ remain frozen separately from these changed-engine results.
 
 The complete legacy telemetry contract retains all 80 exported fields, all 2,400
 ticks, schemas, identity ledgers and assertions. Both PR189 seeds and current seeds
-repeat in eight fresh processes. New hashes are versioned; old payloads are unchanged.
+repeat in eight fresh processes. Eight additional fresh processes after the allocation
+optimization retain the same complete payload hashes; no further golden update is
+made. New physics hashes are versioned; old payloads are unchanged.
 Some old negative fixtures assumed a low skill alone forced a slow heavy touch.
 They now provide an explicit difficult surface/firm arrival and let the actual
 outgoing ball be chased. Recovery/throw legality/turnover identity assertions remain.
@@ -337,7 +341,7 @@ performance comparisons. Fixed 40 Hz stepping, 28 attributes, player identities,
 policy IDs/default, offside, goalkeeper law, injuries/substitutions and human
 finishing agency remain. Additional posture data is optional and schema-validated.
 
-The final 8,000-tick serial performance probe records CPU user+system time of 10.828 s
+The pre-optimization 8,000-tick serial performance probe records CPU user+system time of 10.828 s
 for baseline, 11.016 s for head, 9.828 s for head with the observer and 9.936 s
 for explicit poses; RSS is approximately 350/405/427/444 MB. JIT warmup, serial
 ordering, shared-host activity and different physical continuations confound
@@ -346,6 +350,31 @@ The head/observed final state hashes agree. The complete final WW/A match repeat
 225,827 ticks with both lifecycle and match-flow observers disabled, reproducing
 the entire canonical final state. Three earlier complete WW matches independently
 agree with their uninstrumented physical stage. Broader browser/crowd profiling remains open.
+
+The initial published CI run passed all career checks and all 2,216 unit tests;
+its main group then exceeded the unchanged 90 s legacy native-half limit. This
+negative is retained in `ci-initial-failure.json` and the linked Actions run.
+Profiling identified prediction/movement work. The follow-up removes temporary
+vectors from the arrival micro-integrator and avoids copying an entire player
+solely to remove three absent sprint fields. Numerical operation order, fixed
+prediction steps, physical transitions and RNG inputs are unchanged.
+
+`arrival-optimization.json` compares 8,520 complete arrival results from 26 actual
+captures and executes the actual whole-half contract source in fresh processes.
+Every arrival field and the entire half result match exactly. Paired local wall
+time is 87.190 → 78.830 s (CPU user+system 98.673 → 89.530 s). This single pair
+does not predict every host's speed. The isolated 12,000-call arrival probe is
+161.24 → 167.15 ms and establishes no standalone arrival speedup; the combined
+whole-half measurement is the relevant retained observation.
+
+`verifyPr190Optimization.mjs` checks all 15 complete development matches against
+the pre-optimization receipts, requiring the complete final-state hash, tick
+count and every serialized pass-lifecycle/trajectory byte to agree. Its separate
+receipt records optimized runtime manifest `be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad`.
+All 15 complete final states and complete serialized pass archives match. Raw
+physical-stage archives are reused only after this exact comparison. Integration is also isolated in a fresh CI
+matrix worker; all test commands, 90/180 s budgets, assertions, iteration ceilings,
+simulated liveness limits and the required aggregate `quality` check are retained.
 
 ## 19. Remaining blockers and incomplete gates
 
@@ -366,15 +395,18 @@ aggregate football look realistic. No independent cohort was opened for tuning.
 npm run benchmark:pr189:replay
 npm run benchmark:pr190:replay
 npm run benchmark:pr190:check
-node scripts/preparePr190Engine.mjs --variant=spin-final
-node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr190.mjs --engine-root=.benchmark-artifacts/pr190-spin-final --design=ww --policy=opportunity-driven-v1 --version=reproduction
+node scripts/preparePr190Engine.mjs --variant=optimized
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr190.mjs --engine-root=.benchmark-artifacts/pr190-optimized --design=ww --policy=opportunity-driven-v1 --version=reproduction
 npm run verify
 ```
 
 Receipts refuse to overwrite an existing version. `engine-negative-v2.json.gz`,
 `engine-measured.json.gz`, `engine-head-before-spin.json.gz`, `engine-spin-final.json.gz`
 and `engine-head.json.gz` reconstruct compact source overlays against the frozen
-merged base. The final 15-match series uses the same runtime manifest as head.
+merged base. `engine-before-optimization.json.gz` and `engine-optimized.json.gz`
+preserve both sides of the later allocation-only change. The original 15-match
+measurements retain their original manifest; full optimized replay compares their
+complete state and pass-archive content without relabelling the measurements.
 Observer hashes remain explicit; earlier reporting/ordinary-human-anticipation
 changes are separate versions. The spectator fixtures' controlled-player ID is absent.
 
@@ -382,8 +414,7 @@ Remaining PR190 contact/timing work stays named PR190 follow-up, not silently mo
 to another number. PR191 retains the complete 20–25-season Generational Renewal and
 world-strength programme; PR192 Summary Simulation/PlayStyles remains blocked by
 canonical readiness. PR193 career UX and PR194+ world expansion keep their full
-commitments. `performance/pr190/verification.json` records the completed local
-`npm run verify`: lint, 2,281 tests and the production build pass. The earlier
-pre-publication checkpoint and failed checks are preserved separately. The branch
-has not been published from this environment, so final-head GitHub CI is not run
-at local delivery. Green engineering checks do not establish football readiness.
+commitments. Local `npm run verify` receipts are versioned alongside earlier
+checkpoints and failed checks. Final-head GitHub CI is reported in the PR body
+and checks, separately from the completed local run. Green engineering checks do
+not establish football readiness.

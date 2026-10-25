@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "runtimeSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+  "runners": [
+    {
+      "path": "scripts/benchmarkPr190Arrival.mjs",
+      "sha256": "587ccfee5aeb5b11167180f3cb5469dd404be23e73f13339e51d383d804fab78"
+    },
+    {
+      "path": "scripts/verifyPr190Optimization.mjs",
+      "sha256": "81a01c72c10848cd01c238eb89caf20eeadade8d8ad447820082d3d61c0c5b23"
+    }
+  ],
+  "halfContractSha256": "10f3432189b412e33927c5579e4430d786681e0725548d046dc310dc6df19877",
+  "note": "Runner sources are captured before adding the replay --check interface; numerical execution and fixed full-match step semantics stay unchanged.",
+  "replayInterfaceRunnerSha256": "07c10720df13550c82453034a6ba0861cc74548927678f8d1de3e93f22f7128f",
+  "identicalChildProgramPrefixSha256": "f66c20bb1a6b6534ba33967445a553cc338ff75f2b29075d7a666ee938ff29d1"
+}

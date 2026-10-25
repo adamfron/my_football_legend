@@ -90,7 +90,9 @@
     "benchmark:pr190:matches": "node scripts/runPr190Development.mjs",
     "benchmark:pr190:lab": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr190Lab.mjs",
     "benchmark:pr190:check": "node scripts/checkPr190Evidence.mjs",
-    "benchmark:pr190:summary": "node scripts/summarizePr190.mjs"
+    "benchmark:pr190:summary": "node scripts/summarizePr190.mjs",
+    "benchmark:pr190:optimization": "node scripts/verifyPr190Optimization.mjs --check",
+    "benchmark:pr190:arrival": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr190Arrival.mjs --before-root=.benchmark-artifacts/pr190-spin-final"
   },
   "dependencies": {
     "react": "19.2.8",

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "classification": "retained concurrent local validation failure; not the final quiet validation",
+  "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+  "unitPassed": 2216,
+  "integrationPassed": 55,
+  "integrationFailed": 1,
+  "failedCase": "legacy-pr176 full native half exceeded unchanged 90s wall budget under simultaneous three-worker full-match parity",
+  "log": "docs/performance/pr190/verify-concurrent-optimization-failure.log.gz",
+  "uncompressedSha256": "a23dcf98fec0e71a610b229d7b785d1f56ca4f1de0454e87b9686d8103deea24",
+  "followup": "repeat complete npm run verify after full-match workers finish; isolate integration in CI matrix"
+}

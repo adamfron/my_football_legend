@@ -4410,6 +4410,12 @@
       "equal": true
     }
   ],
+  "allocationOptimizationParity": {
+    "path": "docs/performance/pr190/optimization-full-parity.json",
+    "optimizedSourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+    "comparedFullMatches": 15,
+    "completeFinalStatesAndPassArchivesIdentical": true
+  },
   "timeOnlyConfiguration": "reporting-only: same canonical baseline/current executions, no independent clock intervention",
   "remainingBlockers": [
     "circulation and chance creation",

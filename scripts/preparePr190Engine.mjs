@@ -13,11 +13,19 @@ import { execFileSync } from 'node:child_process';
 import process from 'node:process';
 import console from 'node:console';
 const args = new Map(process.argv.slice(2).map((v) => v.replace(/^--/, '').split('='))),
-  variant = args.get('variant') ?? 'spin-final';
+  variant = args.get('variant') ?? 'optimized';
 if (
-  !['negative-v2', 'v5', 'v6', 'measured', 'head-before-spin', 'spin-final', 'head'].includes(
-    variant,
-  )
+  ![
+    'negative-v2',
+    'v5',
+    'v6',
+    'measured',
+    'head-before-spin',
+    'spin-final',
+    'before-optimization',
+    'optimized',
+    'head',
+  ].includes(variant)
 )
   throw Error('Unknown engine variant');
 const destination = resolve(args.get('destination') ?? `.benchmark-artifacts/pr190-${variant}`),

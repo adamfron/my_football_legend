@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "classification": "all 15 full development matches on the allocation-optimized runtime; exact complete final states and complete pass lifecycle/trajectory archive bytes match the retained pre-optimization stage",
+  "complete": true,
+  "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+  "observerSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+  "rows": [
+    {
+      "design": "ss",
+      "policy": "contextual-judgment-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "c9c82993b94e5390c2b4fac992f15ddd48186856220c4a7d11a0bc3c2c14282b",
+      "ticks": 225601,
+      "finalStateSha256": "54dfa7975dc6e54d1d14768966fecd6245c4d3d6e4af29b248dc537e8e859300",
+      "passArchiveSha256": "bcfad7bea58ab40a1b3a839cb7088c311e1fb218b16d204bc7a6a9cdcb63e765",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 247953000,
+        "system": 1250000
+      }
+    },
+    {
+      "design": "ss",
+      "policy": "hierarchical-intent-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "f62908ff078e215d90c821cc87cfbcf3e8d43c7c56e3849c8ffd72d168b5c6f4",
+      "ticks": 225681,
+      "finalStateSha256": "e7e4de9315bd41b936a4dc942c18ac61bb427776bab8be5d191bca1f18cfe3d3",
+      "passArchiveSha256": "fdac481f732ffffa808370da0b07d366d48bd298e5691b16e315e8534f899d7f",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 250766000,
+        "system": 1422000
+      }
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "3d7bfe27f3b43b944e34eb6c0ea93aa9c204573a9fb443d4bb544b1fab417161",
+      "ticks": 221042,
+      "finalStateSha256": "616020e9b514cd8b200bc19124b4a104125bf09684c72e67ded097555f68bf53",
+      "passArchiveSha256": "6f76c98f6d9c71793ea5b1ebf8470208328bb6cc924c88ad6f6467475aa9e58c",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 353609000,
+        "system": 4828000
+      }
+    },
+    {
+      "design": "ss",
+      "policy": "phase-role-hybrid-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "f25120b8d37ae25717f00a236df235185c564369d26d13587a41b566c3a8ef8d",
+      "ticks": 228001,
+      "finalStateSha256": "9f2277523da155d1d1fcdc63927ca2168d9ca44e0580fcee373ca82a74409377",
+      "passArchiveSha256": "9b7152f6f29c15eb9c64f7603f2d2c0449a97a3efb5af45ef07555a3442e53ed",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 225469000,
+        "system": 1407000
+      }
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "1d4ad1925407ba3e292f96cffa3cbf8d41b8813645f63c38574f2e27c93a531d",
+      "ticks": 226082,
+      "finalStateSha256": "1e5b7382f5e04116cd8deb9d3dfcabffa733927ab61456ca8d10ba25620f38f2",
+      "passArchiveSha256": "cd713376a97e2683307116cc1515de5bba373df13afd299c068118b3e1e6bbc8",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 175656000,
+        "system": 1297000
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "e1c070b59dd267819644d6e8560ddfc1348c6895c78287b65bc5949bf84963e0",
+      "ticks": 236373,
+      "finalStateSha256": "7233bff87c79d3fc1e5c074a7b363f1f6b95240d6bb0671f96849fe9be8729c2",
+      "passArchiveSha256": "f5e083bb8146c76fcbe545d836b23ae40b96b33b8e4b85fbc0b336d268a04959",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 280843000,
+        "system": 1468000
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "hierarchical-intent-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "80d9832f317527564ca8581fc90c4089630fe91142c247f55444813522a1cdbb",
+      "ticks": 224415,
+      "finalStateSha256": "2934b7985baa237c534179b27e7cf1bd1d7db300d4b1016a8053844a00ff919b",
+      "passArchiveSha256": "a8cb3f8689abbafba33d2c5c2fad9eeb4efb77a549ff7f7cb0dd3bbcf20c66d2",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 269687000,
+        "system": 1578000
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "opportunity-driven-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "840da71e7f32985028c4b680d6f1827bf4f694d4597c7444969c6fb6b1c0175a",
+      "ticks": 223212,
+      "finalStateSha256": "2e94062c7581028027f6b545b2c2994f402047b7c6e321cf9c7a4e62b4c6b19d",
+      "passArchiveSha256": "9784bd84d2087de8a669840076b02729a81b323d95a7999fe8abfa98cbdc85f5",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 272234000,
+        "system": 1203000
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "phase-role-hybrid-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "7db4dfe86e9ce21fb9060230c7187c5523947d256ab44fd1e8847ef1456e7dce",
+      "ticks": 233041,
+      "finalStateSha256": "77abf6f02fe582e933095ed059445a447c0cf221e48f73589a3c0d79885f892e",
+      "passArchiveSha256": "604c39d8185747c90a962822b1179d4852028d627e94563659633e2632e80692",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 252829000,
+        "system": 1141000
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "7bab568a74ef736db8075901685bfa579aeafc5f494bc2fea9cbc0f751f0c60b",
+      "ticks": 239255,
+      "finalStateSha256": "565b0c9523fa4f4617cec5a3dd930d1189edf2269f9f4c999a84c93404a6302b",
+      "passArchiveSha256": "28aef60b27f28fcedbda17f8466f73f4edafb3c0cf0a68d8d69134c4a2a2cc9f",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 247625000,
+        "system": 1578000
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "contextual-judgment-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "803477ece376499eb2082cbf232b5ed8b63125fbd5b6f885fffce1baf7e2e867",
+      "ticks": 218413,
+      "finalStateSha256": "c3aebadf06d09a0c99042eb9c1f63c7c7776c77f05b252adf33a0a3e2b809b80",
+      "passArchiveSha256": "3f5b97fe855b19073e5439324972699b3c092b549f590411a8eeefb8dcae0a89",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 349875000,
+        "system": 6984000
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "47b2b387a53f6186d2b925ebb052e48466b9952ccbd3e88a71359eeaf14ef5bb",
+      "ticks": 220801,
+      "finalStateSha256": "f6cf804805aa91181116387a0a83292c5c9ffaf238f47aa20db765c1080ad8ae",
+      "passArchiveSha256": "bb48a0b0ebb7cee4fd5704a87ff726ffb6a1eaf24a4b78a5fb0deb3ad31d5c1d",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 357531000,
+        "system": 7110000
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+      "ticks": 225827,
+      "finalStateSha256": "d82cfc6f5df14c79489f813c1f655f331e93cc26b9999a669e9082f14c7153e1",
+      "passArchiveSha256": "b2bb6a88141b2ab869554b2bad768c3976f14dd3dfe5549f091368df295d3b73",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 381797000,
+        "system": 7515000
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "9258467dd0f5500403ef82c07d9788719e0281439288d6af16ee9a150293a83b",
+      "ticks": 230107,
+      "finalStateSha256": "5b64419af109343cc99a3bade911b691efc4f91830940976b21c65905cbd8b5e",
+      "passArchiveSha256": "3d0161e4b79e0073a41e643f9068f78bf2a65db6e0d196afcf369606b0c65b54",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 359516000,
+        "system": 5688000
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "inputSha256": "c03bb29e9df6c00d868f0c15f533233d45af6c02ddc1405279f3448bdf64b1a5",
+      "ticks": 223787,
+      "finalStateSha256": "d2ccb9fa0aad91f4f34b81def631c2159670aa4496b3f53094205f670f26e15d",
+      "passArchiveSha256": "44508a91df737e9da4998313c49639f529fa61706cfc715b57e24cdc84e9151d",
+      "identicalFinalState": true,
+      "identicalCompletePassArchive": true,
+      "cpu": {
+        "user": 337093000,
+        "system": 6079000
+      }
+    }
+  ]
+}
