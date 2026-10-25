@@ -6,7 +6,7 @@ import { usesBoundedIntelligence } from './boundedIntelligenceState';
 import { inspectBoundedAction, observeBoundedTrace } from './boundedIntelligence';
 import { observeDecisionRanking } from './decisionObservation';
 import { evaluateStateValueAction } from './decisionStateValue';
-import { canReconsiderDecision } from './decisionReadiness';
+import { canReconsiderDecision, releaseContactReadiness } from './decisionReadiness';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { canThrowGoalkeeperBall, deriveGoalkeeperThrow } from './goalkeeperDistribution';
 import { selectRestartAction } from './restartLifecycle';
@@ -1030,6 +1030,34 @@ export const resolveMatchAction = (
   let next = resolveMatchActionCanonical(state, action, source);
   if (usesBoundedIntelligence(state)) {
     const actor = state.players.find((p) => p.id === action.actorId);
+    const released =
+      (next.ball.shot?.shotId !== undefined && next.ball.shot.shotId !== state.ball.shot?.shotId) ||
+      (next.lastPassDiagnostic?.passId !== undefined &&
+        next.lastPassDiagnostic.passId !== state.lastPassDiagnostic?.passId);
+    const releaseAction = !['hold', 'carry', 'challenge'].includes(action.type);
+    const contact = actor ? releaseContactReadiness(state, actor) : undefined;
+    const wrongFoot =
+      actor &&
+      action.type === 'pass' &&
+      action.foot &&
+      distance(
+        playerContactGeometry(actor)[action.foot === 'left' ? 'leftFoot' : 'rightFoot'],
+        state.ball,
+      ) > playerContactGeometry(actor).footReach;
+    const contactFailure =
+      !released && releaseAction
+        ? !actor
+          ? 'canonical_rules'
+          : preparationMarginForAction(state, actor, action) < -1e-8
+            ? 'not_prepared'
+            : wrongFoot
+              ? 'wrong_foot'
+              : contact && !contact.ready
+                ? (contact.reason as 'not_owner' | 'height' | 'out_of_reach' | 'motor_recovery')
+                : next === state
+                  ? 'canonical_rules'
+                  : 'executed_without_release'
+        : undefined;
     observeBoundedTrace({
       stage: 'attempt',
       at: state.time,
@@ -1037,11 +1065,8 @@ export const resolveMatchAction = (
       action,
       reason: next === state ? 'canonical_rejected_or_no_change' : 'canonical_state_changed',
       actualChange: next !== state,
-      released:
-        (next.ball.shot?.shotId !== undefined &&
-          next.ball.shot.shotId !== state.ball.shot?.shotId) ||
-        (next.lastPassDiagnostic?.passId !== undefined &&
-          next.lastPassDiagnostic.passId !== state.lastPassDiagnostic?.passId),
+      released,
+      ...(contactFailure ? { contactFailure } : {}),
       ...(actor ? { preparationMargin: preparationMarginForAction(state, actor, action) } : {}),
     });
   }

@@ -1,0 +1,2382 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+  "source": [
+    {
+      "path": "src/app/App.tsx",
+      "sha256": "d70858b4da405c899b596e8ee2116f7e0855f64e23157c75a0fc9545da1c41f6"
+    },
+    {
+      "path": "src/app/CareerApp.tsx",
+      "sha256": "9f00f6cd3831c93bc49878ef3cec20ec9a6c572a07c75e48758dac973c975c83"
+    },
+    {
+      "path": "src/app/StartScreen.tsx",
+      "sha256": "589d24f017ae3eb1bf5e0912df3c43004f53c3d33d77bbe60b3edf9e686dc64b"
+    },
+    {
+      "path": "src/app/appearance/AppearanceEditor.tsx",
+      "sha256": "db008c2b4ea608f95846642356712ea88312274ebd10123df6152795c4075a3c"
+    },
+    {
+      "path": "src/app/appearance/PlayerPreview.tsx",
+      "sha256": "049c106f6b6c010ed21853aaba0ad19aea6bc21152d857bd5b0e10c63a71c746"
+    },
+    {
+      "path": "src/app/appearance/ProfileAppearanceEditor.tsx",
+      "sha256": "a404a7ea3040d8355bd5db9d6114d1f09fde52a9574d3e246107040a0fffe936"
+    },
+    {
+      "path": "src/app/appearance/VisualGallery.tsx",
+      "sha256": "80713c911121e007863448b1d0c2149e3c595dc464f62edb161c476b18106acc"
+    },
+    {
+      "path": "src/app/appearance/appearanceDraft.ts",
+      "sha256": "eb942efd7fb5746fd20ddb23608ffe996c56249a426f7698eb1c554f928e85e3"
+    },
+    {
+      "path": "src/app/appearance/galleryExamples.ts",
+      "sha256": "c41411e9d5a2d5759d354ef9bb6037c11c9e2ecf122d673b6e33b6ccd21d02bf"
+    },
+    {
+      "path": "src/app/appearance/previewScene.ts",
+      "sha256": "24141335241677e0ca4ed2b77b6629a9e37d7c3d91387c3ab423f96f12c63d19"
+    },
+    {
+      "path": "src/app/career/CareerCalendar.tsx",
+      "sha256": "eb63b176a35fd3ba2c010343044baf5fbe754f6fe2eaca74276f2d1d0576cad6"
+    },
+    {
+      "path": "src/app/career/CareerView.tsx",
+      "sha256": "f9d0c0a3ece43c720bc6b5209935b2fc5586c350ccddc1e51530caf5613fde79"
+    },
+    {
+      "path": "src/app/career/ClubView.tsx",
+      "sha256": "d0ec79dfd211311f3e8de72a0dc92eb3ab11abbac4ee4786e6d42d0db75f80bd"
+    },
+    {
+      "path": "src/app/career/FinanceView.tsx",
+      "sha256": "f7707c25038b15d0c1634169b57f0a652d2fa88f85a1013952d2be5ccaa65604"
+    },
+    {
+      "path": "src/app/career/HistoryView.tsx",
+      "sha256": "5a5cc68d4e9890ec4389d8346e37bd4fa88e578f850e5ca21798d3c05ae441f9"
+    },
+    {
+      "path": "src/app/career/NewsView.tsx",
+      "sha256": "0c3446af0fc70745a441fb875c03b299a7770d12af12efa2f6895bc100cffe94"
+    },
+    {
+      "path": "src/app/career/SeasonView.tsx",
+      "sha256": "4adc7366065ddb172c3a298190d990e6e4129f1a1f31439c7b8c1f464ec2fa03"
+    },
+    {
+      "path": "src/app/career/SquadPitch.tsx",
+      "sha256": "b59479bff9249f1bf0843757cc9636b7f1b55321f430eb84e433c538daba09ae"
+    },
+    {
+      "path": "src/app/career/WorldBrowser.tsx",
+      "sha256": "457e7f6c6307293d0a1e225d2b50b3c0d2126aeba769632a428518a4d10b1a1d"
+    },
+    {
+      "path": "src/app/career/calendarPresentation.ts",
+      "sha256": "6d89039fe35e5809fae445b6fbc52f933a60bdd6fd72c3354269eac80336c70c"
+    },
+    {
+      "path": "src/app/career/financePresentation.ts",
+      "sha256": "1837c9f3b6f0ae6e520b2a020c1f0abc2a9c7c94c8986066f418bb1872afe21a"
+    },
+    {
+      "path": "src/app/career/formationCoordinates.ts",
+      "sha256": "ebd11d1fe4e4924f3f923d349b116e04ab1e914f6401308511051f23a2906798"
+    },
+    {
+      "path": "src/app/careerCommit.ts",
+      "sha256": "a0c66b61d014c53d677ac3abf64f68aaa33a6c72e2d582dfd6c61fd0544f68c2"
+    },
+    {
+      "path": "src/app/creator/CreatorHeader.tsx",
+      "sha256": "056152d8fcde519d42af215de5bc01ea66bbff0d20a32361abbc214a431bd4d4"
+    },
+    {
+      "path": "src/app/creator/CreatorSteps.tsx",
+      "sha256": "39ad2c0f90b553f7996ad56c3982f27c0de44aa250c38dc32150f632997fbb7a"
+    },
+    {
+      "path": "src/app/creator/PlayerCreator.tsx",
+      "sha256": "f219a746640ece57026f400c522867d711af64c12ba987b667219b5f1f465a25"
+    },
+    {
+      "path": "src/app/devTools.ts",
+      "sha256": "b96b10e97bcee9563c295f793e1b999183b6a6a9faf6bb2c3691cb741100be5b"
+    },
+    {
+      "path": "src/app/match/CareerCanonicalMatch.tsx",
+      "sha256": "d7f46d4349988d6ec86cbe2730b00bf15c92a71a0f8d6a71d1c86f591b4072de"
+    },
+    {
+      "path": "src/app/match/DecisionTargets.tsx",
+      "sha256": "71abf0e734ddf1c19369f23e87874c440556e8e83d94f7617c057093ab060366"
+    },
+    {
+      "path": "src/app/match/FirstTouchDiagnostics.tsx",
+      "sha256": "1c7daf1a76044fdfb22e60a841d8f64dc3cc75b1e82a9a6543c5e3f75204d5cd"
+    },
+    {
+      "path": "src/app/match/MatchCentre.tsx",
+      "sha256": "07f5b144bb1d30d945cdf4df66f20a39ca53ca3d26f736dfcc39f7be5b1e0588"
+    },
+    {
+      "path": "src/app/match/MatchGame.tsx",
+      "sha256": "210efa531bba22072d8d511c766ab76f0761438667e0394b84f0a3397760a147"
+    },
+    {
+      "path": "src/app/match/MatchOccasion.tsx",
+      "sha256": "86893936150f3e09bb883dbd82abf473b4e4ced3d6ae9c6ff86a2938d8ac1c9a"
+    },
+    {
+      "path": "src/app/match/PlayerFitness.tsx",
+      "sha256": "daf1e522044fa9ff252dd4d894b959250d291b14623c9fbfb14c6c9ab7e3dfc9"
+    },
+    {
+      "path": "src/app/match/ReplayControls.tsx",
+      "sha256": "ad1c48fbada50bb7c5f0c6da92ae749a034baa59f9da440dbf86ee431be9ca08"
+    },
+    {
+      "path": "src/app/match/ShotAimControls.tsx",
+      "sha256": "4933f280890a39fbbe200b438cf2fc1fd2a127a3a5bc7e4b0936fe2353024f0a"
+    },
+    {
+      "path": "src/app/match/TacticalExplanation.tsx",
+      "sha256": "06cbf95b998f9b5305a613b389cd04090694f196d2ae0137e41f490c94254841"
+    },
+    {
+      "path": "src/app/match/TacticalMatchSandbox.tsx",
+      "sha256": "eed018f6b18560f250243f80bd257b70f44131697b629579439e6f7e2eaed3a5"
+    },
+    {
+      "path": "src/app/match/backgroundPublication.ts",
+      "sha256": "96de89a7e02fc12aa586ebff7e89e655d6303fd825dd6eaf4c9f701a62105522"
+    },
+    {
+      "path": "src/app/match/matchBenchmarkReport.ts",
+      "sha256": "a2b0d3fabc78d2c196265120c98fffb08b3ad9a2ee36feebe2d4b30595e3f18d"
+    },
+    {
+      "path": "src/app/match/matchDebugCapture.ts",
+      "sha256": "618ee9874b6edb602c8e2b46edd2375cb3d3e878e5c9a1d5501eac15ea32dcd7"
+    },
+    {
+      "path": "src/app/match/matchEventLabels.ts",
+      "sha256": "7ff292a3630aa8b002e7d7ef222040234cb28865339068ca6e6cf6a5ad3b0a4a"
+    },
+    {
+      "path": "src/app/match/matchLabDiagnostics.ts",
+      "sha256": "93a3b2f0a0d02eb6fc93e7e14f70ec0da3f5e50055f0b1ec494356a237c4f697"
+    },
+    {
+      "path": "src/app/match/matchRuntimeClock.ts",
+      "sha256": "7110967a867d99bf7c2263c96a8817a5c00120d818d65a5b15e1f6009ab245e9"
+    },
+    {
+      "path": "src/app/match/matchTime.ts",
+      "sha256": "a807b2a56a9c2a85efe85a740612c6ffc2641eeb11054236a6823b52fca990fc"
+    },
+    {
+      "path": "src/app/match/replayViewer.ts",
+      "sha256": "85fcb7b0356cf03d0577dc1def2674d7d26135da32a011d3ee64226faac54642"
+    },
+    {
+      "path": "src/app/match/singleMatchScenarioAliases.ts",
+      "sha256": "48f5de910ba9acb3eec3c9acbd9a15a894d9f29759921fef342e773ceda2b305"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/TacticalPitchRenderer.ts",
+      "sha256": "7256f366e8e1a50b4e1e884532de47fbe4345c34decaa461b5536e02a1405243"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/actionFeedback.ts",
+      "sha256": "80c0455626096b5c0bd6ef300bad00930fa5a55e7efab2ce761f40a41072e684"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/animation.ts",
+      "sha256": "6bf0fb70355dca60f3c1f590b822f645ce4a93a6392732e3d5c9c230b15d9482"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/cameraInteraction.ts",
+      "sha256": "ce610fd360e12ba861d0b2dad6157c5ba4ebc27c456ce20aae6677e576d2992b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/contextHistory.ts",
+      "sha256": "401c04610e08191d78e8c18eaeb1f2b0c87529dc2b066310ed832a018a05cb9b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/diagnosticOverlay.ts",
+      "sha256": "a9adc6256d80487b55ef9108d3678d1062af0facdd1f184a54f01d266b0fa3df"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/faceModel.ts",
+      "sha256": "7205d1f6292731dec97d1f4494ec08fabcc840eab42bf8b031f58cf433f53378"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/frameProjection.ts",
+      "sha256": "aa346074a47e38c9e915ac4cd9e928dac62ddaa17b9b65ef42b6a93c240e782b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/goalAiming.ts",
+      "sha256": "0c4caabd24f08f9e7fb11b90a3ba461ffde0ee6bddcfbfb530d6d953f7793f8e"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/kits.ts",
+      "sha256": "b07fa66b873f0da3a383660944042c627af6870dba2a43b319aae99a30464181"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/model.ts",
+      "sha256": "a05a8925df7b389fd8fe3301737f521bc304bd1ea305a3662c2612ae5dd77420"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/motionVectors.ts",
+      "sha256": "873fc90be34f66a877c880f556a7ee44afcb28bae9152a30e1495bd2e70e4376"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/playerMarkers.ts",
+      "sha256": "dc53bbe2df0866708fb6481b0301d5907310cd9f4b9852289003375a6cc27a2d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/playerModel.ts",
+      "sha256": "00b7e0301bc2ce222a16ba7922aba1a4380e3230e2ddaab103674a5f83daeb9e"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/replay.ts",
+      "sha256": "64dc7c6ee82f288af91af18067df89524e065ce3d4da437d882cb966db666b65"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/scenarios.ts",
+      "sha256": "f4518b672808da55a86d772e65ece8025869c082b7d9116606cd79ae32b84c88"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/stadium.ts",
+      "sha256": "255aa8ecebf6ad6c8a5b2cc1023ff7183d8946f8972270275b573d4ab69aa30d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/technicalArea.ts",
+      "sha256": "6cc77650ef068871dc49db9f60322e5106796d3aa873701a0d4b29cf8a246c01"
+    },
+    {
+      "path": "src/app/shared/ClubPreview.tsx",
+      "sha256": "36e45972269871495f5bb8b24b15dd134d5894fde9b90d6ad2c3d823c9b5c957"
+    },
+    {
+      "path": "src/app/shared/FootballerHoverCard.tsx",
+      "sha256": "bcadd64f594975bf66f1bf9b6f4a664de3df7e4faf269e4dde8059cf7c5fd3f4"
+    },
+    {
+      "path": "src/app/shared/PlayerCard.tsx",
+      "sha256": "7632724ce60a4808e2a8179ebaa86fe38516a5a49a5481b70177a0b79800afe6"
+    },
+    {
+      "path": "src/components/CareerMatchDetails.tsx",
+      "sha256": "5ffd572b89520753891510ccea9d8a01c0812cca7a62aeac5897f3ed91ad09f0"
+    },
+    {
+      "path": "src/components/ClubCrest.tsx",
+      "sha256": "ce4b70513af17e9c16e6bfe09ca3f297c18a224fe6c932498fdab72658a8066f"
+    },
+    {
+      "path": "src/components/ClubStrengthTooltip.tsx",
+      "sha256": "4daef696420bcd83ce9349b84cb5ef1b001e7c6c7f9f25834a51663851707abd"
+    },
+    {
+      "path": "src/components/CompactFixtureList.tsx",
+      "sha256": "a759382de56aa1f8401f7bdf97ada9dc6e27c9597dc1005b3291f9816a1c9acb"
+    },
+    {
+      "path": "src/components/MatchMomentumChart.tsx",
+      "sha256": "3c223136d743bbf7836410d40d2d66b4015ed488447380ab61947da6ebdd16bd"
+    },
+    {
+      "path": "src/components/MatchParticipationSummary.tsx",
+      "sha256": "f3996314f3ebeaee44fc25e49de21b5059ff008caad5198929d31a78f65496b6"
+    },
+    {
+      "path": "src/components/PersonAvatar.tsx",
+      "sha256": "eacf6905415bd67d5c08fa251ef9aff631070da0328f4e37a981b77ed4e15414"
+    },
+    {
+      "path": "src/components/StarRating.tsx",
+      "sha256": "82eddef17ee6872a8a5a7573e0ea16440c7b4a72f27e37e30a8fabfc304291bb"
+    },
+    {
+      "path": "src/content/archetypes/everyman.ts",
+      "sha256": "e0a8a3e2c668c239baa2115811810e8486fb41c2fa115afd44f9b725ab04a97a"
+    },
+    {
+      "path": "src/content/clubs/sampleClub.ts",
+      "sha256": "5b92f4d46e46c199ae7bcf6a486b5d62e477c90949d06b78b154dced688206f9"
+    },
+    {
+      "path": "src/content/events/sampleMatchEvent.ts",
+      "sha256": "1b06fa9f08b66ddb0d5d2af7c05a60f069824e0ed1e4cb5273c70b3766b2e99c"
+    },
+    {
+      "path": "src/content/names/polishAcademyNames.ts",
+      "sha256": "f3f446347f61b6c241be843362199b8b4533c520750e499fce32f3d7646dbf70"
+    },
+    {
+      "path": "src/content/sampleContent.ts",
+      "sha256": "06f0bc756db30536a8a6aa0e27cb57357f1e5f0abe8bd673ed2d37b036ceced0"
+    },
+    {
+      "path": "src/content/world/polishU17.ts",
+      "sha256": "4e4542733fb829f7cfa5085ba96bb873caa226f65221af0e1e1d34a9eff8d0fb"
+    },
+    {
+      "path": "src/core/age.ts",
+      "sha256": "b5d47ae2b5acfa5a70cc26599c66319bb700ca39037eedcfa618a38bd9d01b8a"
+    },
+    {
+      "path": "src/core/appearanceConsequences.ts",
+      "sha256": "ab066207dd1fef30592531f9c2479562589fe9b18e6768ceb7d4bba45c334928"
+    },
+    {
+      "path": "src/core/attributePresentation.ts",
+      "sha256": "9cbd7cf3f9355677247a6a2b8fef55974b51681e43940c59444c9c7cd3f9bfda"
+    },
+    {
+      "path": "src/core/careerCalendar.ts",
+      "sha256": "171f3f0930a3d95a356b71bbd0b250f4ec8c243ad55ff4bb6d3edf177ee5666c"
+    },
+    {
+      "path": "src/core/careerFitness.ts",
+      "sha256": "ee09c104f7a991988c512d9be697be506c7ee212a816880fd0480606abedf47f"
+    },
+    {
+      "path": "src/core/careerFlow.ts",
+      "sha256": "1e7655f1ca54961cab567b478bdb05accd4a6777d65c1826e225a0e42db060b7"
+    },
+    {
+      "path": "src/core/careerMatchContinuation.ts",
+      "sha256": "e4e01af1df9adc4020714e5b4403860f2601470e76627c306541d7103803e7de"
+    },
+    {
+      "path": "src/core/careerMatchContract.ts",
+      "sha256": "161dea0205976c25cb8d9f42ce30f7b92b455d0dd922364b676a3a0b6eaf3226"
+    },
+    {
+      "path": "src/core/careerMatchDiscipline.ts",
+      "sha256": "1fa32ba34837be9fffc95dbc967b5b2be983861bbeb11d61f1161ecc39633b7d"
+    },
+    {
+      "path": "src/core/careerMatchMilestones.ts",
+      "sha256": "b29867cc52b0af4a445422f9436e6ea047bac91eb81eb4eb66bab2a10e52dfbe"
+    },
+    {
+      "path": "src/core/careerMatchPresentation.ts",
+      "sha256": "edcfaaf70c194470da4ea5961a47c926b514c630189f9ea937250c55b11d0e82"
+    },
+    {
+      "path": "src/core/careerMatchProvenance.ts",
+      "sha256": "99a78788686839e9435899ebd8628edca8b3b370f2ec7a893bdd6bf88b3d68c4"
+    },
+    {
+      "path": "src/core/careerMatchRetention.ts",
+      "sha256": "f8473ad218bd5a3031eed0ddd918c70e89f9fa37396768a0010c4f3c42b92b92"
+    },
+    {
+      "path": "src/core/careerMatchSummary.ts",
+      "sha256": "da5b7dceb4607d91e6be1969b27089b463e2c7a95136561670e3cc794e300258"
+    },
+    {
+      "path": "src/core/careerPresentation.ts",
+      "sha256": "4aa71e9f8030a228be6ff74cf4cf4d21faa0a9b4f62045c3c247eab77297a13c"
+    },
+    {
+      "path": "src/core/careerSeasons.ts",
+      "sha256": "c287cb7adab2f05e26ed37889e252491faac421994bd09f70ed4a49c983a7dce"
+    },
+    {
+      "path": "src/core/careerSimulation.ts",
+      "sha256": "d967e0918dc48f78eb56f74556c0f682ea21c3cbd11bee5c4f0a99f72d55a271"
+    },
+    {
+      "path": "src/core/careerStats.ts",
+      "sha256": "52285130ba33db4c72cb1f9f25823c69443738668011bd13e1d914b8c6442c0f"
+    },
+    {
+      "path": "src/core/careerWeeks.ts",
+      "sha256": "54dbe74a1303eb0248e4a037b8634b821aee625372e2405195619d5e4641c3fc"
+    },
+    {
+      "path": "src/core/characters/avatarGenome.ts",
+      "sha256": "38c388962bb843d8f5b3f96fa96c5d252c4cd846ad19ae53d2fe727cae0fbf1e"
+    },
+    {
+      "path": "src/core/clubObservability.ts",
+      "sha256": "640033824dc376283a72eb693833868919c294bec369d55da5093d76b18cf19c"
+    },
+    {
+      "path": "src/core/clubStrength.ts",
+      "sha256": "78f3be5f826f83506d875f9dd2b8a564f765dd088c543a337710c15b304d35ef"
+    },
+    {
+      "path": "src/core/clubVisualIdentity.ts",
+      "sha256": "5d71844c769e170057ca3c4dbbddd6eb8609c1952f50e24f4c0bacb27a70c4ef"
+    },
+    {
+      "path": "src/core/clubWorld.ts",
+      "sha256": "c9559fd3e7e3665898541c4a9828237a69e0d80c8316f3ab61edc12ca8a29df7"
+    },
+    {
+      "path": "src/core/coachProfiles.ts",
+      "sha256": "3edc3007aecd933e55270ba278f005e42b373af7bd9f09140a89858423a2dde2"
+    },
+    {
+      "path": "src/core/coachTactics.ts",
+      "sha256": "f816a79aeeba53f13fb49cc7f6d9fc69ac35020e17bf4bd979d5edaca39811b6"
+    },
+    {
+      "path": "src/core/competitionStrength.ts",
+      "sha256": "be342600350e71f229aa7e7677326dde3bd789f1dc5f81466b80b5d7d6ae8312"
+    },
+    {
+      "path": "src/core/contractValidity.ts",
+      "sha256": "5cef2a1e8fa0585d8d0ef552e7452b6c8237ae7d9d7903457fa357098cd56f1b"
+    },
+    {
+      "path": "src/core/contracts.ts",
+      "sha256": "36b84fb553ddea0b9033f96906448f28160c78d29967a982e1ef66897e583d76"
+    },
+    {
+      "path": "src/core/development.ts",
+      "sha256": "f86ce765a5f2e1d3d13ead8ebde02755e7081c12e99a73c5a0f9236a0ba6c0ed"
+    },
+    {
+      "path": "src/core/developmentFeedback.ts",
+      "sha256": "3680db867f2c405f9e656217f01d1f08fb2fb15294a57b49ef2a3bd1d5f25702"
+    },
+    {
+      "path": "src/core/events/applyEventResolution.ts",
+      "sha256": "f50ed7c346af894c1c73f3425ef288efbd11f83e178784b50bc63eacfe80685c"
+    },
+    {
+      "path": "src/core/events/decisionAvailability.ts",
+      "sha256": "0a7943dfb5d724d5b4d72df1c1c0fef5071c24ec66eabbeeb21c85f92e6b29e5"
+    },
+    {
+      "path": "src/core/events/eventRegistry.ts",
+      "sha256": "2f6d9cd4cc09dddff985607e8c20022d0f7cfcc736d1ebfbedcc6834e608f14b"
+    },
+    {
+      "path": "src/core/events/instantiateEvent.ts",
+      "sha256": "8304dc76911cd6ec86850a44db13497a50a821a39863a60012544fdb6e6c3e8e"
+    },
+    {
+      "path": "src/core/events/regularSeasonEvents.ts",
+      "sha256": "8611ced12df10145a01e333b84417a07054dac477efae6cedb24378dcb4b83cc"
+    },
+    {
+      "path": "src/core/events/resolveEventChoice.ts",
+      "sha256": "c6d2079be4d076ca6f510747880454a37d7af31b25e6ba630b1c90c6331d8f6f"
+    },
+    {
+      "path": "src/core/events/resolvers/resolverRegistry.ts",
+      "sha256": "b4b9ef8f8cd6a869225feab6e1caaff089eea6ddeaf98c7f2472198fbf8e8037"
+    },
+    {
+      "path": "src/core/fitnessRecovery.ts",
+      "sha256": "d69160910935ea8f9c5f4c5d6cc93d172b54b280f18f1443167898c5b8451076"
+    },
+    {
+      "path": "src/core/footballArchetypes.ts",
+      "sha256": "92f3fdfcbcd111b46b34435a0a67e3f1d4c0651d21ae85dd8d1999d60350b0d6"
+    },
+    {
+      "path": "src/core/footballerWorld.ts",
+      "sha256": "fdd3d042b1c0b1146a01e1cbbe3fbff356bf59d48159f143f3ae10a74f43a511"
+    },
+    {
+      "path": "src/core/goalkeeperAttributes.ts",
+      "sha256": "f47c9bb6e8e6d163e67e88e8ffa788aee3407d880500d01cc81f5b7cea0aa0f0"
+    },
+    {
+      "path": "src/core/goalkeeperPerformance.ts",
+      "sha256": "568f89885059966f5401c6ddc7fac4936a6a9811f87e5ba19782541f7932814b"
+    },
+    {
+      "path": "src/core/history/careerHistory.ts",
+      "sha256": "f2473ad7c7f3987dbdceb97759da1d53a04fa778ec3089ed0d19827d57911c65"
+    },
+    {
+      "path": "src/core/history/careerMemory.ts",
+      "sha256": "871a3de6e51c47c461687659f5bbd24e4177c2ab7db106d31ca7f533116e2155"
+    },
+    {
+      "path": "src/core/history/historyCompaction.ts",
+      "sha256": "44ffa1c28bb8f4b92286731b9c5178cdcf3ef3837dc44df9f91fe9847ec8cca4"
+    },
+    {
+      "path": "src/core/injuryPresentation.ts",
+      "sha256": "1d95da95f1b2578053804a6e1aecd6081781817e2da18be4b6c594515b174fd1"
+    },
+    {
+      "path": "src/core/leagueSeason.ts",
+      "sha256": "ead33b550be6a511bc745d6e658b695ca7f3a20ef4c7fa658711183b84e722a2"
+    },
+    {
+      "path": "src/core/managerLifecycle.ts",
+      "sha256": "1a5e09ca4d4959c523d8cc44db1165de3b9e89bc41b8cb7147aa495aa41f6eb2"
+    },
+    {
+      "path": "src/core/matchBriefing.ts",
+      "sha256": "78ee125e9473097dc1fc9a0cb40fd67d1f8082eb78f2b07d96017c64d893d37a"
+    },
+    {
+      "path": "src/core/matchEngine.ts",
+      "sha256": "302f56f06d8949191aa6ff86af4cf371b36dd56af9c8209314e46128f4889689"
+    },
+    {
+      "path": "src/core/matchFeedback.ts",
+      "sha256": "3e35a6fca0445ae40128bbb1eb256cdd44d474780956382ec81a0ef866438e17"
+    },
+    {
+      "path": "src/core/matchParticipationPresentation.ts",
+      "sha256": "767d7880e86ed6c9d10ced7f36e047d6377773970af22efd249e8fe9270e0d31"
+    },
+    {
+      "path": "src/core/matchSimulation/actionAgency.ts",
+      "sha256": "a952df6514404dbd5930012cbde22773ce3aa55f403dbf9035aa1cd4fb8a822e"
+    },
+    {
+      "path": "src/core/matchSimulation/actionEvents.ts",
+      "sha256": "3a581e1f2b5bcdd5a08b24e0105e2ca4f75a3e4870e97844b1a27a811cb5a6b6"
+    },
+    {
+      "path": "src/core/matchSimulation/actionImpact.ts",
+      "sha256": "9ce8abe4f5034839b4179ef5218f4ea3910a4de737887a22e6de00bf44a4d3aa"
+    },
+    {
+      "path": "src/core/matchSimulation/actionLifecycle.ts",
+      "sha256": "51704a113db2c83b89aaf6571369a6644c5502c353c1f45ec53a61ef04759557"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPlay.ts",
+      "sha256": "4cfd99eefc464009fe771b100ea0b5b87d61bd2f8d693cc0230d37a0eb2255fe"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPositioning.ts",
+      "sha256": "3c50cf101ef66fd6fb6afb7e6a53a819041534182af81e2a62358d22a6a7a1eb"
+    },
+    {
+      "path": "src/core/matchSimulation/agencyCalibration.ts",
+      "sha256": "902f1e7187779f7594193645aeb2f9ae4a3c40bfdc0d71070747ff5a0a73b086"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnel.ts",
+      "sha256": "d7494825f7de770e9b7199252350af3d8d3123ea79d2b82ef4eee531490c47af"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnelAudit.ts",
+      "sha256": "b632c5ad1b61a56fc1f17bd8e3fd73df63bdf36c10f1285920e96a5b34542c85"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingTransition.ts",
+      "sha256": "d817ae2c7f16fd2b77626b9b642625176ce1b9c196f606e646d761025673067b"
+    },
+    {
+      "path": "src/core/matchSimulation/attributeCognitionLab.ts",
+      "sha256": "79cad5a2e7dd8f6e73feee18adf1a4e0240313f88134323edbe92e27f7bdbab6"
+    },
+    {
+      "path": "src/core/matchSimulation/attributeMicroLab.ts",
+      "sha256": "cbc983bc122429c7850bbbb50e2c62a9e7a00809f79919d4098a42be0e10c416"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundBenchmark.ts",
+      "sha256": "5a22047634f11e1c9259ac5932a73687921ce05ba976bf91d1e4c4c762654007"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundPerformance.ts",
+      "sha256": "798cc91042679d3734ff93c16805c4fef0b75f095a86cf2069650f17e51a642b"
+    },
+    {
+      "path": "src/core/matchSimulation/ballAcquisition.ts",
+      "sha256": "7ce757aeb07b957d9a9c5ff499d0c9db7338330d33dc5eeffdd2ef62de46cd20"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactGeometry.ts",
+      "sha256": "af7d3c86e71426aea68911a26fad1061dac7cd8fb3d0cfbd4effa30d6cb16e04"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactResolution.ts",
+      "sha256": "a931cc91b0176fb215fe676d56bd87776b6c3bfff914dd6514ec890db46b3e02"
+    },
+    {
+      "path": "src/core/matchSimulation/ballFlight.ts",
+      "sha256": "c61f381044945733c48d9c8e410c3bf8f718e34cdb9379fa2a705260e116120e"
+    },
+    {
+      "path": "src/core/matchSimulation/ballPhysics.ts",
+      "sha256": "711579f201eda1cefef028a39f0d629f52a4c1bec973f29666f13b2d14f0eae8"
+    },
+    {
+      "path": "src/core/matchSimulation/benchmarkFixtures.ts",
+      "sha256": "c2458d4bc14c19bd0dee504dde27c36a21591407b24d71be200af7a3d4ac7c55"
+    },
+    {
+      "path": "src/core/matchSimulation/bodyMechanics.ts",
+      "sha256": "4eb8545174a1df92ba93033652d241b1d0207a48fedc0a5c744471be4a6bb98e"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedDecision.ts",
+      "sha256": "f04f1079a83802c31e09eccb2104c96aa9912825017cd28bc6aa2795cc34ff29"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedIntelligence.ts",
+      "sha256": "204aa0b47aee2255230e185502cb07946ad3221a5e47c4775e8ef4a05701fe15"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedIntelligenceState.ts",
+      "sha256": "04fa8653dfed14ab5c80cfc589f0d3465ea963621308d0e3547af0902d0fea96"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedPerception.ts",
+      "sha256": "c387b277c9d06762dff91c97988281396c8a3903f5c427d13f421807a03e0755"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMatchSanity.ts",
+      "sha256": "a4c648f1549db500ad136223cde0ddbadcb714e6d45545bdbcfa4dab6eae7e16"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMovement.ts",
+      "sha256": "f80c2b258f384f00f47510315a9c203ea998e32be43e3ec53933887d7a6728d8"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalPresentation.ts",
+      "sha256": "dc0169f29f474c5717cb4b5f12a08620036ea4960cb5e1826f7ab069ed5b019c"
+    },
+    {
+      "path": "src/core/matchSimulation/carryExecution.ts",
+      "sha256": "7d8058c2ec0b2dfbbeef7abdf2e9674bbd83aa0bc7c246d0e72c58dad27fb2e5"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "sha256": "183e13d5a905e9ce84da5ee0e182fed1361fcdbac0afa6b16af7ce6c6120bb31"
+    },
+    {
+      "path": "src/core/matchSimulation/carryPursuit.ts",
+      "sha256": "9fbe3e8d52ec5d1d679575512d7e76f0049156457d5a388ff72a66001bcbed4e"
+    },
+    {
+      "path": "src/core/matchSimulation/coachIntelligence.ts",
+      "sha256": "3e775a7a3ed4c691fd7f4ff95e0a877e5a101545e061b53fb7d1e72f701cae80"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationPlay.ts",
+      "sha256": "bcf53d2f81fa097f7b66f6f7c3f0010222094005dedd78a8bd81bda353c4f443"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationState.ts",
+      "sha256": "a09d657bf69499a46279fff7be12dda19e1fa5e15c23c89e0fc2c6f8da7785e5"
+    },
+    {
+      "path": "src/core/matchSimulation/contactEvidence.ts",
+      "sha256": "a64b81507736a8dc0dec96af0e5540402cf863940ea482a76f5e8dd0436edab0"
+    },
+    {
+      "path": "src/core/matchSimulation/contactTacticalDiagnostics.ts",
+      "sha256": "365d78486d344c8e8ce2aaee94062d628fa06912851b933d5c7500267f2959af"
+    },
+    {
+      "path": "src/core/matchSimulation/contextualInteractions.ts",
+      "sha256": "eea275620bcf1463f0b65fa3faaed6ffe90e7df46dfda9cfde65912dd3f22329"
+    },
+    {
+      "path": "src/core/matchSimulation/crossOpportunity.ts",
+      "sha256": "879108ef47136a6d32e268cf9c7f816cede3c2bad6eb99047dbf24744e7d0369"
+    },
+    {
+      "path": "src/core/matchSimulation/deadBallEnclosure.ts",
+      "sha256": "75c3e5756e669112d65d9168b6affb6df2c9cece16cd68384f96b2556a21f67c"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionObservation.ts",
+      "sha256": "c41534c352f5991bb65137b7a646ffdb2435c6e0e6891356aa9a7ef80832a4a0"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionOutcome.ts",
+      "sha256": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicy.ts",
+      "sha256": "c7a9168fe98d1389162df6bc2b164d7e1b75e14dc7dd3b144e0a67bdc558b20e"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicyConfig.ts",
+      "sha256": "56c91ab80b0743face9ac992d3411120c3c12d330800392ad0467bf50f9b2526"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionReadiness.ts",
+      "sha256": "1349b979499888f7e86a7213d96a1709bdf5673c23d93c80025fe1ef1a18c1f5"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionResearchProtocol.ts",
+      "sha256": "7ae12349486460fc16034ed8cc9279381b7e28188c971978bdd0680abd8e66e1"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionStateValue.ts",
+      "sha256": "fe6c29e23fd404d07cf942b09fe837d9e12b27580c664cb88298abd697f77ef5"
+    },
+    {
+      "path": "src/core/matchSimulation/defensiveChallenges.ts",
+      "sha256": "9dc2273e24409aae56979e18d5b32871a07944d956d233e3113de3cb5bb9c2ea"
+    },
+    {
+      "path": "src/core/matchSimulation/depthThreat.ts",
+      "sha256": "291666a6f16922421e9b2bc9cb536c13986c6e09540336edb2c7e494a60d2f7a"
+    },
+    {
+      "path": "src/core/matchSimulation/dynamicIntervention.ts",
+      "sha256": "2c247e7a347d637566927df147b7f4431d27de92e16551a8966e8cc52badd640"
+    },
+    {
+      "path": "src/core/matchSimulation/extendedPhysicalLab.ts",
+      "sha256": "01f6cd13b9f12824311797d00504b3d659036749b2dd18a22a7e48d3c9412a7c"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTimePassing.ts",
+      "sha256": "953ffeb76c9871ef50544310db1ec1619db2f705204833ffdd300e19be848f5b"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTouch.ts",
+      "sha256": "56889b20a502924427dbb52ba0f46aaba1f3397454cbb391e9b8344c2ab0d798"
+    },
+    {
+      "path": "src/core/matchSimulation/fitnessMicroLab.ts",
+      "sha256": "ba9e131b705c4e35c93e4747e8873a8d1314cb372b676512cdcfb26c739c0f0d"
+    },
+    {
+      "path": "src/core/matchSimulation/footContact.ts",
+      "sha256": "cfba3daaeae03b59de398ad72345558fea34b43c6565397929a045fca86b3275"
+    },
+    {
+      "path": "src/core/matchSimulation/footballContactResearchPlan.ts",
+      "sha256": "33fa84a80fa9b944ccb08996201cde103f911b4722703e593d98d0ccb71d6c6f"
+    },
+    {
+      "path": "src/core/matchSimulation/footballIntelligenceDiagnostics.ts",
+      "sha256": "9e8ce023d5a0cf1593c09890ba681979ba5b255ee197b54c7122e6577b8a6fba"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabAnalysis.ts",
+      "sha256": "9ab51e75602ce4b9588bb3e2ab6280e83a32ee3f9951ccc63c761a259c09b27d"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabCatalog.ts",
+      "sha256": "a408bfaa1399027ee226a66b48a90187462bce1ab15efdbd9229c82e3fb52f87"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabObjects.ts",
+      "sha256": "c68d06769925f3e949983cf2d789019b65e613280e673e16dc2d23e8134b5afc"
+    },
+    {
+      "path": "src/core/matchSimulation/footballPerformanceLab.ts",
+      "sha256": "05ec6d534c8673092fbac2a7e57db43fa44db0dbfc64aee6f792766ef042493a"
+    },
+    {
+      "path": "src/core/matchSimulation/goalCoordinates.ts",
+      "sha256": "b6277c370055ad317b00acdce5cf2d0d5cff3b859b2e32efd2d3e6c5e115c068"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperClaim.ts",
+      "sha256": "4c41e5c2e8e2fdba99f21bd3fe24b20998f1febb55f7fc0136dfb4af0a42b56f"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperDistribution.ts",
+      "sha256": "b5669d56641c5af6f4aa292e09b616df86dee31c6e0d7e61f4f53a769a447a80"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperIntervention.ts",
+      "sha256": "0dbe943e011f145c1c7c779cabea047e0c5be1ad8a2d559f5f62f19a82ef32ac"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperPositioning.ts",
+      "sha256": "99c77bf2a7116147c0dfa5744e2b4c039beabdb519e77d071d7faf98bcf24592"
+    },
+    {
+      "path": "src/core/matchSimulation/identityHistory.ts",
+      "sha256": "a053df52915c1994e2699bb3ec9ad915ebb89aece2c939fa2a41fd052f18272f"
+    },
+    {
+      "path": "src/core/matchSimulation/index.ts",
+      "sha256": "fa676786bf995cdb4bfc8be41e602f5a8f89ee41e6efaeead99ce54e8b58a2df"
+    },
+    {
+      "path": "src/core/matchSimulation/injuryStoppage.ts",
+      "sha256": "87ee6f5dbd82616867a781ae649cade58b579b3288c3999b1f5bf0019b7eb5c6"
+    },
+    {
+      "path": "src/core/matchSimulation/locomotion.ts",
+      "sha256": "ef8b15d102c58f7fe6a92c8dcd134c919fc45da9ec34c15ac57a91512b077bff"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallLiveness.ts",
+      "sha256": "6885f539edd5b20bb7e09b8493b9675d3369412ee66926ec51a5da3ebffaaff7"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallPhysics.ts",
+      "sha256": "00df4b39314c094be1a3eed43ccbf7ff0434fdef2cec3471a6e8ae177237efda"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "sha256": "bafdaf19ba2a412984f512e2c19846a6dbb0fb9ecd16046a571dce48b24b9f51"
+    },
+    {
+      "path": "src/core/matchSimulation/matchCentreStatistics.ts",
+      "sha256": "1f6c75d9d1483d112ae084b8219765afeab3d623751cb40423993c48dd12c666"
+    },
+    {
+      "path": "src/core/matchSimulation/matchComparison.ts",
+      "sha256": "694a3409c340da0f55ae7283ca97fb4c9bfe15fc008b3778f58101fb47f87e25"
+    },
+    {
+      "path": "src/core/matchSimulation/matchEventFeed.ts",
+      "sha256": "65ddd25a2212fa32eff27527f0c6d6bd25466d173bb8ae090ded7f673edffda7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFitness.ts",
+      "sha256": "a0e827218f33496d1a71129cfb0fa0095381e4f2641077f100b57b702b9201ec"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowCalibration.ts",
+      "sha256": "5f11b0cc7e57afe02c6fec3eb0d9b5cf248df702d77eb5d1dc83bd971afdec31"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowTelemetry.ts",
+      "sha256": "814214b463a92202857204b4dec56f6f7357f5f52f2a73386d00424562391d0e"
+    },
+    {
+      "path": "src/core/matchSimulation/matchGoalkeeper.ts",
+      "sha256": "a03e4270776c986dee6023fde7054421533244039333c17e970749fd834e8d7f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchInjuries.ts",
+      "sha256": "1356eab111fe24a43ffe2cb9c404641d61ba3810362c0a37fb876590db000ebd"
+    },
+    {
+      "path": "src/core/matchSimulation/matchMoment.ts",
+      "sha256": "1ca58980b14b2f238860c7f25bcdb99f3f99a145c5e99c07815e15b9831dfaa7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchParticipants.ts",
+      "sha256": "6f6f5052024e86b4095b8fb59a53284cde5164eea45c312f25c0ab9a502fe89b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchPresentation.ts",
+      "sha256": "2bd57cfedf3f7bc615c46cce94b15fdbcbcc91daa1524a8aa6847590d0c2cebf"
+    },
+    {
+      "path": "src/core/matchSimulation/matchReplay.ts",
+      "sha256": "6d575b2a72892cd8bf1a24c08a342afa67cdebe5d263b1f7cab2d1094ce199c7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchRules.ts",
+      "sha256": "2c6675fd14e2c33917f5948f10b345c82cc95dddaf5e1b42d585ad8a6e15d38a"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSimulation.ts",
+      "sha256": "4dc20adc4fdd13f7400c54b3445402bb713ae4072b097a309aa10436a9b42405"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
+      "sha256": "7f667cf65b51a93bdd0fe07e60b28e7432745968317d76bda07d1925ebe34a71"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSpace.ts",
+      "sha256": "ed0c0bba51b8dd0ff47253d7f1beae3ac4db70168a6625f867dbe6f47eb780e8"
+    },
+    {
+      "path": "src/core/matchSimulation/matchState.ts",
+      "sha256": "cd0c8e2d36dbebd0bbe391bebc3c3ad94e95c6f98db32afb50c79a6e30da0bb8"
+    },
+    {
+      "path": "src/core/matchSimulation/matchTimekeeping.ts",
+      "sha256": "de0b3592d72e33135bd8803532df42bb25bb38ec5c47429397d75dfd7ea2f924"
+    },
+    {
+      "path": "src/core/matchSimulation/movementAuthority.ts",
+      "sha256": "ab9f64fd7679af4656328fff36cf98b9acd1eb886fab480185b26059192976d7"
+    },
+    {
+      "path": "src/core/matchSimulation/offensiveContinuationFunnel.ts",
+      "sha256": "d8ef2c738a2b8a67c3acb9f623f0a601dde20142dd23f5a4b0e967aa5f9ec911"
+    },
+    {
+      "path": "src/core/matchSimulation/offside.ts",
+      "sha256": "82f1da4443c622d66310eb77bb3edb4f5a5c1d6816db39f80e4b432716d15390"
+    },
+    {
+      "path": "src/core/matchSimulation/onBallPreparation.ts",
+      "sha256": "b508090bd482e6da079089e55d70e9562f33febafdb6f3ce43dda5f2bdf22651"
+    },
+    {
+      "path": "src/core/matchSimulation/opponentKnowledge.ts",
+      "sha256": "0a89207ba2b39f2a9127f6ab3a1a3106c3e57ecf19570c521b2829a2ccad47fd"
+    },
+    {
+      "path": "src/core/matchSimulation/passClaimResolver.ts",
+      "sha256": "fcd6d33d155db4d7a9654a5b4bcbec35c1e9649da916f65d4fa442177eadb76b"
+    },
+    {
+      "path": "src/core/matchSimulation/passClassification.ts",
+      "sha256": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "sha256": "88b8abcfab41a24bbde2a6f9f82f4b27ede92941aefe7b10752a5dab118fa657"
+    },
+    {
+      "path": "src/core/matchSimulation/passExecution.ts",
+      "sha256": "963f3bb5f2f5d9bf3c59f7f8f6d3a2226163c9f4aa3e2c5cf3139ebb0765eff0"
+    },
+    {
+      "path": "src/core/matchSimulation/passLaunchPlan.ts",
+      "sha256": "5dc7f2bcf91d9d3ebd54ffd10c2955bd8a2ecfd31e9e11bc3721ec8673c4d59b"
+    },
+    {
+      "path": "src/core/matchSimulation/passReception.ts",
+      "sha256": "9bcefc81c307d5867b3749f7b6dc3dff683817d53ed29c4b90df8a4a3ea07908"
+    },
+    {
+      "path": "src/core/matchSimulation/passingConnectivityDiagnostics.ts",
+      "sha256": "1316512562e76439324226a2a876a34f711188e24c88280b901bb46696120aef"
+    },
+    {
+      "path": "src/core/matchSimulation/pathologicalReplay.ts",
+      "sha256": "b250c7deacd820d624aefbf76145e1a0502d371d6ad06ff924b76fe638dcf2c8"
+    },
+    {
+      "path": "src/core/matchSimulation/performanceProfiling.ts",
+      "sha256": "c0414fbd9adbce1cadc48faf3b7f46965380e4f4b8463d53015c90e4c311ec8e"
+    },
+    {
+      "path": "src/core/matchSimulation/pitchBoundary.ts",
+      "sha256": "9b732b20295e190f6f538979f856c12bac35f994d1fce4de5b4ef8d8f2847c93"
+    },
+    {
+      "path": "src/core/matchSimulation/playerActiveMinutes.ts",
+      "sha256": "06e1ffde7b9bc8eac314b3605c64760bda28bf6f42c18d2fbc5241f8d2e822a8"
+    },
+    {
+      "path": "src/core/matchSimulation/playerAgency.ts",
+      "sha256": "69f239096bbfc9cb9c1ca14e438647032db02d7f925afff9e759a937372a0f05"
+    },
+    {
+      "path": "src/core/matchSimulation/playerArrival.ts",
+      "sha256": "8fbbe25631be04092c97bbc1ce915a048d21c418d268f74df4f2263375db589e"
+    },
+    {
+      "path": "src/core/matchSimulation/playerDecision.ts",
+      "sha256": "8625621b6864a86beb77e4a5f3e669f1e690de8bbf5d4299058db242a3891b32"
+    },
+    {
+      "path": "src/core/matchSimulation/playerMatchStats.ts",
+      "sha256": "7af8ac035ca7409048efdc415c294ba12049ba6ade0d262f4362fe021fe38f44"
+    },
+    {
+      "path": "src/core/matchSimulation/playerOrientation.ts",
+      "sha256": "6426c3a5814bb3370018b9138cede371ea86e63ac609a5359466e5d483625bb1"
+    },
+    {
+      "path": "src/core/matchSimulation/positioningReference.ts",
+      "sha256": "0e9c67d5966c85eecff720f3ee6d59bd3265956e8e8635a2af3f118b47caad03"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionAgency.ts",
+      "sha256": "18a6ceb5587d25a89237cc0de0828746d8ad6264080e366627e8e738c6f9cfc2"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionEvents.ts",
+      "sha256": "7bd00202c102be5322f8d6ef0b39a6137d7a5d5d00d964e00353404a88789eea"
+    },
+    {
+      "path": "src/core/matchSimulation/postGoalReactions.ts",
+      "sha256": "a2fd16718d96373f7465b615b786b23505b202ca9fe61c89a62946e13891b9bf"
+    },
+    {
+      "path": "src/core/matchSimulation/pr163Fixtures.ts",
+      "sha256": "02dec0f3e501bcf53f746fb5b77ac4f58798a866a1656b3b587d575c72f90312"
+    },
+    {
+      "path": "src/core/matchSimulation/pr173Fixtures.ts",
+      "sha256": "04c2ed101f5799de342bf8c0abb61af28dc0e8ca4e406524496511a7e293dd54"
+    },
+    {
+      "path": "src/core/matchSimulation/presentationWindows.ts",
+      "sha256": "0e0eefc21d3ad219413e4259303cdbd074ec8f3f3158144ce5a131cb7789cece"
+    },
+    {
+      "path": "src/core/matchSimulation/pressingDiagnostics.ts",
+      "sha256": "1a21f31266d2c4646d81a27cca065f5d41755367743a8ff6ba50de423c5b9028"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "sha256": "d6ffb94c98f7eb9ebe7bc60e01978d9c26ccebf784601bff2fec463e52fe2ffc"
+    },
+    {
+      "path": "src/core/matchSimulation/receiverReadiness.ts",
+      "sha256": "5ec483ff5951ea8a9c3c4e8e7d66f94609b34acbf47805275ee25ed55aa4bdd1"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuation.ts",
+      "sha256": "a7a1d7ca3ff81e23048c4e59c9e584e612462f736b5e30bc21b2dd6c490fcb38"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuationSchema.ts",
+      "sha256": "85550ed89812f7328980fa2a24a62ff71f72cf0f09e7aef932f6c324ae1cf403"
+    },
+    {
+      "path": "src/core/matchSimulation/relativeDecisionLab.ts",
+      "sha256": "4beab55705205d16315a66ffe056641c74e2e62e64f5e588a1e80e39009c5997"
+    },
+    {
+      "path": "src/core/matchSimulation/restartGeometry.ts",
+      "sha256": "8bb9aff9871f6292833eb8465f59b59235fbe009413017fc7ba0768acd2d768f"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLaws.ts",
+      "sha256": "f057bd977ddfc269b9233e38d822c440e90805cdb432a5298dbb997290084be6"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLifecycle.ts",
+      "sha256": "417f8929160210b58d01b11e9508f37662c6b383f565ba102f51cb05321e2473"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLiveness.ts",
+      "sha256": "d62e8d4dbc655822e943a658f798e8f533f0c94f848dfad8687b7bbaa3c720dc"
+    },
+    {
+      "path": "src/core/matchSimulation/restartOptions.ts",
+      "sha256": "a7516e2826e804e3bef5be960124c441308471a9389e42a15ab0530273d0bae5"
+    },
+    {
+      "path": "src/core/matchSimulation/restartPhase.ts",
+      "sha256": "25824e9463b21df657c1225832ea898e32b4b0bde4193fbaa7fadd11eb9e4b9b"
+    },
+    {
+      "path": "src/core/matchSimulation/restartScenarios.ts",
+      "sha256": "530b28012106f7b9438fd2d6dd1164b6cee0ac777d637213b49a73593d60a58f"
+    },
+    {
+      "path": "src/core/matchSimulation/roleExperiment.ts",
+      "sha256": "83ec62e97f6d3276f0f1ccd9ca624f50be156a12298012979e41f320c0e64c8c"
+    },
+    {
+      "path": "src/core/matchSimulation/roleTactics.ts",
+      "sha256": "f1acb50cea6f06e00cfeb73f2732b69c17aa9f1a35ee060c5c8808cf20896e8a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingDifficulty.ts",
+      "sha256": "429f7ecd9b6e335a0329e7d908822e92554b581fa52b9b2ec86613882ea3de0a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "sha256": "752796e13ba303b1f18f672dc0e9179d21ed0d6ce5e2795460de3ced6de0ff95"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "sha256": "02114f677aa32ed832fba79a182b923f436720134b85836ce57a08c3f8b2c862"
+    },
+    {
+      "path": "src/core/matchSimulation/shotIntent.ts",
+      "sha256": "b6d7553ba010cbdc078528f738ee60828d509b0013b042b60b287a28305480b0"
+    },
+    {
+      "path": "src/core/matchSimulation/shotParityBenchmark.ts",
+      "sha256": "19130ddaed7c7faa4004c2c180bede7b0677b15db6e6ac0b71ef427490c8eea4"
+    },
+    {
+      "path": "src/core/matchSimulation/shotResolver.ts",
+      "sha256": "7a84eb30dcbe40d85894730bef14527fb72f3bb9bc8709dffde1db8ce9bde3c7"
+    },
+    {
+      "path": "src/core/matchSimulation/spacePassing.ts",
+      "sha256": "36f11dd1e67a16d761644f8e314568ebcbeda8b2c9974e977d70ab9598acb7db"
+    },
+    {
+      "path": "src/core/matchSimulation/stoppageLedger.ts",
+      "sha256": "526ff56e91e8f3e1fac8c7162e47e4a5defbd63d627bf60934467fa5040e8783"
+    },
+    {
+      "path": "src/core/matchSimulation/substitutions.ts",
+      "sha256": "75713c13f4042388df8ea9e78d163cf07fef691c2613bcdcc7cdfe57fe208198"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalActionEvaluator.ts",
+      "sha256": "9acd93a81d4d7ee674f5018f0b4299691537209aef3447d7bf892b017ffebfa2"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalCognition.ts",
+      "sha256": "a2661b893e50db5cfe428ed01c0fa9ae434430a673d8cfe013e72dcd1e1ba9bc"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalCognitionLab.ts",
+      "sha256": "d2092045b28f13b08d03fbbb917cc937a9f10834ad49f9992bac8d130ea8cdf7"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPositioning.ts",
+      "sha256": "46a060add4dbc7a6d79ea755db8690b367418be1644fbf6dff4504255a7c468c"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPreferences.ts",
+      "sha256": "19637eaab139c240caca4db0ff1c9f4a1e50a68af0ff4715073f5ba89afbc891"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalRoles.ts",
+      "sha256": "b72403c152f47a08bfd0a33a67d3119a231d0bb857d50cb45f76ea21dcd8a527"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalSituations.ts",
+      "sha256": "fea7f804d00e26f3d339c9f99309ee880f141b6b93328880c7f55e10853d46d7"
+    },
+    {
+      "path": "src/core/matchSimulation/teamShapeMetrics.ts",
+      "sha256": "53042fec058f8cdb0f35434bc0dc7936709c2243a7b56f7f883de96e7be09a66"
+    },
+    {
+      "path": "src/core/matchSimulation/teamThreatMemory.ts",
+      "sha256": "020becaa376e3763664eddd9aa26e36560fbf4c200fb09eb775fde551bc4dca8"
+    },
+    {
+      "path": "src/core/matchSimulation/throwIn.ts",
+      "sha256": "32590736ab61799e6495677d77ba35c301eab634cddfa6359f71e403e00edd9a"
+    },
+    {
+      "path": "src/core/narrative/careerEvidence.ts",
+      "sha256": "35bed6893444bcdfe4c6d3c40ad74b68066f8a73da12f57ae247c8baa4f5189f"
+    },
+    {
+      "path": "src/core/narrative/careerMilestones.ts",
+      "sha256": "9a5d217fc5f33b33495b83b51890d2d08063ce9bf0cd4ebd469c6ed23e053248"
+    },
+    {
+      "path": "src/core/narrative/careerStories.ts",
+      "sha256": "f97ab69eb48eb2ce3ceec24464d6d79ed5beb6559f815d890ca17c5745c88371"
+    },
+    {
+      "path": "src/core/narrative/factPresentation.ts",
+      "sha256": "fb8c1a363ce49d62d7073db0d4bc374eae428b33354b315f63d4c7182978d320"
+    },
+    {
+      "path": "src/core/narrative/localization.ts",
+      "sha256": "00296594afbac01927e8b684a87fc160eebf6fc7b6acfc24f5cb10eba63bfa65"
+    },
+    {
+      "path": "src/core/narrative/narrativeAudit.ts",
+      "sha256": "41b85180f21df2ab4dd4f7433a3ef72d634755a289d2cceeaee0efb353145bd2"
+    },
+    {
+      "path": "src/core/narrative/narrativeVariants.ts",
+      "sha256": "86e2cbd3a4ca07e421befafb537e33c3594f955b83605d4e6bda71f0a5500b8b"
+    },
+    {
+      "path": "src/core/narrative/playerFacingAudit.ts",
+      "sha256": "2ff711d11d7d3de53ff3bc61b226ec65cb60cdf953cb72355bde3e90bcb2f428"
+    },
+    {
+      "path": "src/core/narrative/repeatedTextAudit.ts",
+      "sha256": "3cbc58cd9601b959e83678ffab8eed949b03e331ad3c3fc102f5b52889f72ad2"
+    },
+    {
+      "path": "src/core/npcCareerIdentity.ts",
+      "sha256": "ca2ffc684165237c14cb11fbd0229dae8dfdf64d37e4996d59656d362d4afcc5"
+    },
+    {
+      "path": "src/core/npcFootballIdentity.ts",
+      "sha256": "c0aee0d4ab61d261928f45652067de75e613c0f90c8648cdd5774adb14fbf065"
+    },
+    {
+      "path": "src/core/npcRetirement.ts",
+      "sha256": "9961fe2ede12957e27bed5245721447b893079661aa3cae430379cd5d82562f7"
+    },
+    {
+      "path": "src/core/npcTransferEconomics.ts",
+      "sha256": "1fb6a65ca12ef7605d7267df5bc94b19cf29e4368755f2f9c4b8525ddf8b9814"
+    },
+    {
+      "path": "src/core/npcTransferMarket.ts",
+      "sha256": "e909718f1a99ddb5901e4f39d40765c496ba2888ed8194cf329f8722b60422a3"
+    },
+    {
+      "path": "src/core/numberPresentation.ts",
+      "sha256": "bd73aefeceeedfa97c7654bc2615007f6083fd24c5ea9066aedcda723f9d5a28"
+    },
+    {
+      "path": "src/core/participationPresentation.ts",
+      "sha256": "e31d4598f7ba1e69169292e696447fd60c63ddd8859a4c9e8cb774564e7f90d0"
+    },
+    {
+      "path": "src/core/people.ts",
+      "sha256": "360a1d86523135b1d0001a215fdb6d6af71ac4bc0a654b572376698110234fd5"
+    },
+    {
+      "path": "src/core/persistence.ts",
+      "sha256": "c365eeee2c63c2b0a4125824c7bfff42f918e6452bee8a2672a10c7df74e00d5"
+    },
+    {
+      "path": "src/core/playStyles.ts",
+      "sha256": "85f7fc287b538c2c6dc68cffad2dd0f6061b7bcd41040a9c5f3fdf2db0b9d3fb"
+    },
+    {
+      "path": "src/core/playerAvailability.ts",
+      "sha256": "dd24658b4d322c915654c3d680cf7ef36a72e8fe6e56977d74e2e599353eb1e9"
+    },
+    {
+      "path": "src/core/playerCreator.ts",
+      "sha256": "c459efb4cb6044b81b967a3f56d4d493e372b0715f9a6e7addb70cce27bff136"
+    },
+    {
+      "path": "src/core/playerEconomy.ts",
+      "sha256": "782df92c9f4c71e517ce1c64088b2824df61e1e5c3e76eadb406e2a9ab9e8de8"
+    },
+    {
+      "path": "src/core/playerOverall.ts",
+      "sha256": "f980eca9dcb35a95152c45a21b9c1d6e04c45490a4b14e7c07eb43583e4f7b52"
+    },
+    {
+      "path": "src/core/playerPreferences.ts",
+      "sha256": "cccee0480ba76c0ad8ba3c4399cb0bfcde0264b33e5e98805658c0c1ebe41b00"
+    },
+    {
+      "path": "src/core/playerProfilePresentation.ts",
+      "sha256": "51c64ca390b53975a029b807c16377dca3e6fe0cd10764a08fa5a0ee396ec97f"
+    },
+    {
+      "path": "src/core/positionCompatibility.ts",
+      "sha256": "714ae0e566e7a3418f4a8a8f9339759b49740e05cb400fee3007b831ed612f09"
+    },
+    {
+      "path": "src/core/positionLearning.ts",
+      "sha256": "2ddbf2d0003b9fa3ee43be2dfb7ae4d46c88129c9cb2b66077a00e2770934726"
+    },
+    {
+      "path": "src/core/positionPresentation.ts",
+      "sha256": "4209b9a09e0096ec695fb7ac36cc2f036f17c2d179fc43e796b52883ec88f341"
+    },
+    {
+      "path": "src/core/proceduralFootballers.ts",
+      "sha256": "a19ade4478e869c39ba0fc8ff073af3cf4036d9451a8aafed448dc85d3e6354e"
+    },
+    {
+      "path": "src/core/professionalClubs.ts",
+      "sha256": "51d9553a8cccf577d0d26889d879641e021789cb6b5eae292e842021088a2635"
+    },
+    {
+      "path": "src/core/professionalOfferPolicy.ts",
+      "sha256": "388fdc69e829682c9ff8bd1346a039f3e25efd674a6b98b2290cab5e9ce77504"
+    },
+    {
+      "path": "src/core/progressionDiagnostics.ts",
+      "sha256": "7fef94c66bad3f2ad1287d6a6d9ab0abf1f6e7c09e102a806256a6ae47d677f6"
+    },
+    {
+      "path": "src/core/radar.ts",
+      "sha256": "64b95305aba36d6663a78e26d7a87ed4dc84dce3c2cae59177d84c73ce528b16"
+    },
+    {
+      "path": "src/core/random/RandomGenerator.ts",
+      "sha256": "485ec207596f679f99608b7d2a0feedff459fa0224e138418a0f4160c0137910"
+    },
+    {
+      "path": "src/core/seasonArchive.ts",
+      "sha256": "9d38d200efdb4f62e29befa8da5c18d226d0e588b152f9fa7a8e0f226b9c33b4"
+    },
+    {
+      "path": "src/core/seasonAudit.ts",
+      "sha256": "5dc6be5093bd99b88e466765c5808ce59ccdcf38432f3919986ec15e77b464a5"
+    },
+    {
+      "path": "src/core/seasonDevelopment.ts",
+      "sha256": "de834d3cc01a2603aa01845d0f85f8be50ac3450a36a3c1c84643146029f8c24"
+    },
+    {
+      "path": "src/core/seasonInjuries.ts",
+      "sha256": "3c014b8a9ddff2f9b831746bb0981cd27eb17ae8a9df716257f5df27a1498540"
+    },
+    {
+      "path": "src/core/seasonParticipation.ts",
+      "sha256": "0797d656e575f4e9e2f6818072aedd07f4f1efeae9a584bdc70cff4377beba28"
+    },
+    {
+      "path": "src/core/seasonProgress.ts",
+      "sha256": "4a0f09c8a9c340ccba661c5426ac3c873b34c7990ff60c4ce1d22da04e1a5c19"
+    },
+    {
+      "path": "src/core/seasonSquadReference.ts",
+      "sha256": "abd21e9ca206633fb60c4bf9c01e134188c372f525fb2803a185ef26b512a663"
+    },
+    {
+      "path": "src/core/seasonTimeline.ts",
+      "sha256": "4b839b3d427d0a28b791c6f65ca5f1840fc3c54556ea9dbad26042830a51b51e"
+    },
+    {
+      "path": "src/core/singleMatch.ts",
+      "sha256": "62497bfca63400741f0f193a0f6085cfa0a2700bae4cb61258f69a29f744deac"
+    },
+    {
+      "path": "src/core/summaryMatchContinuation.ts",
+      "sha256": "b09345be60df09f768187c8feddd808a38e64f982172209a16648668a2a4188d"
+    },
+    {
+      "path": "src/core/visualIdentity.ts",
+      "sha256": "bc32bb64cebaf041a8225756fd7ce85ef062ed48603a60b5ed0320b133ec4414"
+    },
+    {
+      "path": "src/core/worldDatabase.ts",
+      "sha256": "f30e35b042fdc5b2cdc6cf21aedd62ce9130021baf98f23a20548797792442d0"
+    },
+    {
+      "path": "src/core/worldIntegrity.ts",
+      "sha256": "990ff159ddf2f675699a14dae90260bd376856a769576377eeb9f17306611058"
+    },
+    {
+      "path": "src/core/youthGraduation.ts",
+      "sha256": "2851dc63485d63600b78ab4e3f0ea82521b0a1c35b31949f0597963bec0d81a9"
+    },
+    {
+      "path": "src/core/youthIntake.ts",
+      "sha256": "5193ab0614424e2a610f3246780853a9f30c673560310103bf03f496dc08f8bb"
+    },
+    {
+      "path": "src/core/youthTalent.ts",
+      "sha256": "c336c613019f2ada3537f22b7bba61478c8ad51842a42ed477782c77d6df10b0"
+    },
+    {
+      "path": "src/core/youthWorld.ts",
+      "sha256": "decc276ce0ec12a7ae1a9703c0dceedadf528899095433e76e9f9f133a4cd833"
+    },
+    {
+      "path": "src/devtools/randomPreview.ts",
+      "sha256": "9ffa22ca1f1dae6c3682d40d48929ad2e74559616b484bbfdefc515a3b1f1eae"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "c99083c9c9cec9d57be49b55c69ede6536b3458ea17ce8ce739d14a30f1ec377"
+    },
+    {
+      "path": "src/persistence/careerStorage.ts",
+      "sha256": "5753978ad81658cddf1521ab407390d105e201823897d600894209a5e9cf9dbc"
+    },
+    {
+      "path": "src/schemas/domainSchemas.ts",
+      "sha256": "3517b61f8462f1f57b4cefe8ba32b605b16abff8218f0179a5d78f46c8e9239f"
+    },
+    {
+      "path": "src/schemas/validateContent.ts",
+      "sha256": "a368628f2dc3d8ffdb03eca23f41bb6f6c69b8c49bcf9fc2970d4c381180da73"
+    },
+    {
+      "path": "src/types/domain.ts",
+      "sha256": "c447e86ca5fd99d55dde7d8b2a8ac619a2ecabfd5439e6d9a2659bb322c1ad47"
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    }
+  ],
+  "runners": [
+    {
+      "path": "scripts/benchmarkPr189Adversarial.mjs",
+      "sha256": "4892f1eca1e7f7bbb9d589ad81265ef6464a7ebb0ecb1ca71f087391e9e6ab14"
+    },
+    {
+      "path": "scripts/benchmarkPr189Matches.mjs",
+      "sha256": "dc5cb3cc4126f67c2ff28b1bbacd97b5598c1daae53a53910dc94a0f1c5468ad"
+    },
+    {
+      "path": "scripts/benchmarkPr189Neighbours.mjs",
+      "sha256": "859b0f8c0267b47f1ba1df724cb76e24cd249a388762fdb5a29903c0f21d7daf"
+    },
+    {
+      "path": "scripts/benchmarkPr189Performance.mjs",
+      "sha256": "d7d586b2cd053589624deafb23c2e5a250b9104df0df1cb3ec7accd55b37e1db"
+    },
+    {
+      "path": "scripts/benchmarkPr189Replay.mjs",
+      "sha256": "c2614d94fd93f7f3269a065bca1df80a075247af34233008a3347411d20c3654"
+    },
+    {
+      "path": "scripts/benchmarkPr189Telemetry.mjs",
+      "sha256": "5a3cc5ec6a9bf2bd7c35d4010707091dddf4b8845c31e5b80d442c80408a9485"
+    },
+    {
+      "path": "scripts/capturePr189Baseline.mjs",
+      "sha256": "e40a981d88b9801156d4de36dda958dc836017dd38cf443bb0b7a184f2111b75"
+    },
+    {
+      "path": "scripts/checkPr189Evidence.mjs",
+      "sha256": "ee94cbf942cb2479355c8daabe5f208aa5700433bd5cb783dda5b7f846535b67"
+    },
+    {
+      "path": "scripts/compactPr189Receipts.mjs",
+      "sha256": "d3ef0ab7ed0ef84a6103f1734be0fb718a3f8deb0641642cece3123ab53beb25"
+    },
+    {
+      "path": "scripts/freezePr189CycleOne.mjs",
+      "sha256": "91f302b70000929b7c4bc01a92d692837da0b9665326a48cec4b1bc4b2e5c081"
+    },
+    {
+      "path": "scripts/freezePr189CycleTwo.mjs",
+      "sha256": "563532f00c0ca235a806a043298b9999bb49de2ff0838bfe8dde884eb4a703df"
+    },
+    {
+      "path": "scripts/recordPr189ContactTrace.mjs",
+      "sha256": "82b387fb4741880751ae3c479fa931094f2f9d25b0a417325ca5ce6d62defec2"
+    },
+    {
+      "path": "scripts/replayPr188Baseline.mjs",
+      "sha256": "59e53e7094a8e78aff86ff0a973579e416ee4438ff2dba45b109bd293e7bdcea"
+    },
+    {
+      "path": "scripts/replayPr189CycleOne.mjs",
+      "sha256": "8127d747f3f435637f9c69391f55ca92ebb085a60dcf404d0dfa500ec5152288"
+    },
+    {
+      "path": "scripts/replayPr189Restart.mjs",
+      "sha256": "b21b0b738a8c781f347fcc5e070e158383054ffb5eac2b15e538ec610ced54f7"
+    },
+    {
+      "path": "scripts/runPr189Development.mjs",
+      "sha256": "9a78ca909c576e2e783a2dd05681e36056d4efad9c35e7f74a90dea717f8e5be"
+    },
+    {
+      "path": "scripts/summarizePr189.mjs",
+      "sha256": "f2352a30560cf00570cd4caaf92b4d600530add7fabb355bb0b5de024b8577f7"
+    },
+    {
+      "path": "scripts/validatePr189FrozenReplay.mjs",
+      "sha256": "eae98edc9aec46a05e94c5306d6ae722bbf3d37bf56f0ec045675f8f32f26e4e"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/performance/pr189/adversarial-early.json",
+      "sha256": "3a5108ab9d6131275126327a60fa8a5928f31654582b6cdfd15c09dd54ab4b92"
+    },
+    {
+      "path": "docs/performance/pr189/adversarial-owner.json",
+      "sha256": "7c9ceaba23a388b8790df41bde339e2584ab07f5e64884cede4f8e2f6feaed43"
+    },
+    {
+      "path": "docs/performance/pr189/adversarial-restart.json",
+      "sha256": "82657111537a13a1a3a11db86ac51f0bf58b8c1fbe330818ce9d0eb6ef26a9e4"
+    },
+    {
+      "path": "docs/performance/pr189/adversarial-traces-early.json.gz",
+      "sha256": "4989af8c91504d69909fa44e6568cbb75ef6645edafa19a9bf0fefa1db29f64a"
+    },
+    {
+      "path": "docs/performance/pr189/adversarial-traces-owner.json.gz",
+      "sha256": "f4adc702e4677d2a6d481a27585ade2f61c0f78a2e4e682c5f8324448867336e"
+    },
+    {
+      "path": "docs/performance/pr189/adversarial-traces-restart.json.gz",
+      "sha256": "b2cf4251b29a9ff53aead731cc313a45da9867c79024cb3670ce58edf9bfd97b"
+    },
+    {
+      "path": "docs/performance/pr189/adversarial-traces.json.gz",
+      "sha256": "b2cf4251b29a9ff53aead731cc313a45da9867c79024cb3670ce58edf9bfd97b"
+    },
+    {
+      "path": "docs/performance/pr189/adversarial.json",
+      "sha256": "63bda743186498971b36989aa9b9268d70a9ddd93d82157c8c3365e3bcd06067"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-0s.json.gz",
+      "sha256": "6d432906b5a2ebe8aac03fcbbb35573c34969e9bac6d44eefc13b1a7d2aa7e32"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-1200s.json.gz",
+      "sha256": "892818a304a89791d677a05e30038dad6cad332d55c2bf04712641d7eb1faa2b"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-1984s.json.gz",
+      "sha256": "82ad049c31e368eed555a6f0dab28ba366288affef19fa521420868a11919320"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-20s.json.gz",
+      "sha256": "3f09402342aec21fe7fb595983a8e13d036d3c42eedd944b10a0c446aeb72ab4"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-300s.json.gz",
+      "sha256": "c681e8026a8ba5b64952e1331428859cd6c3855c75a2e4e7384b52a9a3d660dd"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-60s.json.gz",
+      "sha256": "8a8a60dcee99e179fe06ad5b49746d280ec60810a0b25127dab2390a4972496a"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-replay.json",
+      "sha256": "9ad423020b05a2a0f6de9d8bd1b635658d0bd9e9e51051c4b23daaad4377c4df"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-trace.json.gz",
+      "sha256": "cbdb0d731feb899984265ed3cebb47a056c518cb0609e52ad61fa3f97ea39a7f"
+    },
+    {
+      "path": "docs/performance/pr189/baseline.json",
+      "sha256": "30ac16084d37d39e13989eea47a6d99373936d4957e198c5a865933107aaa885"
+    },
+    {
+      "path": "docs/performance/pr189/contact-windows-baseline.json.gz",
+      "sha256": "a6e30736b8018765ada3984df114ec3240bdf89a3718bae41d0c4b3850ba0452"
+    },
+    {
+      "path": "docs/performance/pr189/contact-windows-current.json.gz",
+      "sha256": "531ffd4aff8af248a8bd4ecf367cc306d53387f51d2c50e258a69e05401c9cfd"
+    },
+    {
+      "path": "docs/performance/pr189/contact-windows-final.json.gz",
+      "sha256": "5189555cc9d97c413a008362839f4a8b92779bc46ddd313f1ca47c6e1fe8e5ba"
+    },
+    {
+      "path": "docs/performance/pr189/cycle-one-replay-canonical.json",
+      "sha256": "ee2596892037aa39d315ed2975550aa28179a493d02fa37a35fc745c7094c3bf"
+    },
+    {
+      "path": "docs/performance/pr189/cycle-one-replay-restart.json",
+      "sha256": "ee2596892037aa39d315ed2975550aa28179a493d02fa37a35fc745c7094c3bf"
+    },
+    {
+      "path": "docs/performance/pr189/cycle-one-replay.json",
+      "sha256": "8265f1639a4487394c655b686045bab86d9ae4235121d4427cd8301ac249830d"
+    },
+    {
+      "path": "docs/performance/pr189/cycle-two-replay-canonical.json",
+      "sha256": "fbf6cd78a4b1306a5d35f1bb773b1dc4d6de12b32338cf48dda4e72f79d89e8c"
+    },
+    {
+      "path": "docs/performance/pr189/cycle-two-replay-restart.json",
+      "sha256": "fbf6cd78a4b1306a5d35f1bb773b1dc4d6de12b32338cf48dda4e72f79d89e8c"
+    },
+    {
+      "path": "docs/performance/pr189/environment-v4.json",
+      "sha256": "052af5e17c86ff123a5a404b561794e5a1b9f0481de25ba6f3a54e81b9e1b56f"
+    },
+    {
+      "path": "docs/performance/pr189/failed-cycle-one-source.json.gz",
+      "sha256": "e409f44e0c102271d64458686299aa85db3000a426b42cc6ce1434d3e37ab101"
+    },
+    {
+      "path": "docs/performance/pr189/failed-cycle-two-source.json.gz",
+      "sha256": "79a7d4b65ce4a0fb2578031c8e32f13a2e44965352bf5237652f4cf628263044"
+    },
+    {
+      "path": "docs/performance/pr189/matrix-v2.json",
+      "sha256": "ffa5d7b47534950f0853f38ac8547be52eba7da4a84f9658405fb5fa15deb031"
+    },
+    {
+      "path": "docs/performance/pr189/matrix-v3.json",
+      "sha256": "986e7385de84880537f3a2769e94cae72677c847c02f272b67ce651b66ea981c"
+    },
+    {
+      "path": "docs/performance/pr189/matrix-v4.json",
+      "sha256": "35a81937bed6a9bdd342a3a2e420b36d8bc567e022847fdaa7060a4067dc483f"
+    },
+    {
+      "path": "docs/performance/pr189/matrix.json",
+      "sha256": "a5120c07693beeaf6f2a4ff510566b9391d1cf2eebd0ff6ab86f2429ac9510d3"
+    },
+    {
+      "path": "docs/performance/pr189/neighbours-canonical.json",
+      "sha256": "3da9d629dcfa44c15a27739105cdac2590de486338899a2e951079ff30e551e0"
+    },
+    {
+      "path": "docs/performance/pr189/neighbours-final.json",
+      "sha256": "4ce7b7bc4835420a23799c84a50e6664fb434961bf07a4923446247f15065a8c"
+    },
+    {
+      "path": "docs/performance/pr189/neighbours-restart.json",
+      "sha256": "0541597937ec1e8be223a57207dfe3fab7d81e1ddf809dde3c90c96e88134640"
+    },
+    {
+      "path": "docs/performance/pr189/neighbours.json",
+      "sha256": "3a1f7bd090753b53bb117a90d5432c419b68867e5896a3dc7f137d12df8105de"
+    },
+    {
+      "path": "docs/performance/pr189/performance-baseline.json",
+      "sha256": "0a083a419d4eda838e837bfa312c9daa2391fe447345849d370d6216f561cb81"
+    },
+    {
+      "path": "docs/performance/pr189/performance-canonical.json",
+      "sha256": "1d239bc7a5c9bd208cc9cad8da129dfec6be575c251274b65def4c839ce49b6d"
+    },
+    {
+      "path": "docs/performance/pr189/performance-current-final.json",
+      "sha256": "16fa156487ba342aea2625350f3db6014c2aa260ea1611c669091253b36669fd"
+    },
+    {
+      "path": "docs/performance/pr189/performance-current.json",
+      "sha256": "9025401ef0c46934a0d461a5bd461369c7b338f5d25073f8debaef667e3087e7"
+    },
+    {
+      "path": "docs/performance/pr189/performance-paired-baseline-1.json",
+      "sha256": "758fadbad59fc22e2768287c5f43309fb4b753ec356274d2bf8c271d02546646"
+    },
+    {
+      "path": "docs/performance/pr189/performance-paired-baseline-2.json",
+      "sha256": "8e0b88bee6d2ee0007d75e09eb4cee8d08fa1bddd524af8e22b66a79ee171626"
+    },
+    {
+      "path": "docs/performance/pr189/performance-paired-current-1.json",
+      "sha256": "ff58d179837dcaeeff43970aff6a0d3cc7528cdb4db32b64441e9284df7a081a"
+    },
+    {
+      "path": "docs/performance/pr189/performance-paired-current-2.json",
+      "sha256": "fabf900a8573362ddd07e9571c8e8286130164c850fad678cd205ff0fec92a46"
+    },
+    {
+      "path": "docs/performance/pr189/performance-restart-baseline-1.json",
+      "sha256": "57762e020d1e88775a63ac9296505adb6ba557dfcb839e2827d5f38137b3afb2"
+    },
+    {
+      "path": "docs/performance/pr189/performance-restart-baseline-2.json",
+      "sha256": "be6d331085dce807f5e973055d89e6ae0fac3eeed5baefeda04fcfcb22536112"
+    },
+    {
+      "path": "docs/performance/pr189/performance-restart-current-1.json",
+      "sha256": "3e4aa616badb49fd2a07bb2fcb0be24ed8f4170e541c382a5b4fe1b31c820873"
+    },
+    {
+      "path": "docs/performance/pr189/performance-restart-current-2.json",
+      "sha256": "3516f509c8c7fc618943bdf3e93a467daf0bcbb8c41dead23df961657bf4b4a1"
+    },
+    {
+      "path": "docs/performance/pr189/prepublication-verify-restart.log",
+      "sha256": "951a2d50b30c4fafa88eb2effb271e0ccf72dd0e2246a1cef40aa29a88e1c724"
+    },
+    {
+      "path": "docs/performance/pr189/prepublication-verify.log",
+      "sha256": "ab533680cabf49fd5969e3f610423c432383891e29aff8eee519b7ae170c189c"
+    },
+    {
+      "path": "docs/performance/pr189/release-trace-canonical.json.gz",
+      "sha256": "83757365f8c0e263d4960913195bfcd77659178476f13d9a8b372444bb55d708"
+    },
+    {
+      "path": "docs/performance/pr189/release-trace-final.json.gz",
+      "sha256": "83757365f8c0e263d4960913195bfcd77659178476f13d9a8b372444bb55d708"
+    },
+    {
+      "path": "docs/performance/pr189/release-trace-restart.json.gz",
+      "sha256": "83757365f8c0e263d4960913195bfcd77659178476f13d9a8b372444bb55d708"
+    },
+    {
+      "path": "docs/performance/pr189/release-trace-v2.json.gz",
+      "sha256": "e8f76f7ba06a8bd376cd0770c8f0b36fbeedaa94425bc08698c049cce533b7e2"
+    },
+    {
+      "path": "docs/performance/pr189/release-trace.json.gz",
+      "sha256": "e8f76f7ba06a8bd376cd0770c8f0b36fbeedaa94425bc08698c049cce533b7e2"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s-canonical.json.gz",
+      "sha256": "10122c1f2490067c48735a2b4a25aded8a335ce4b60b8089b62f9faf655f3a2a"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s-final.json.gz",
+      "sha256": "10122c1f2490067c48735a2b4a25aded8a335ce4b60b8089b62f9faf655f3a2a"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s-restart.json.gz",
+      "sha256": "10122c1f2490067c48735a2b4a25aded8a335ce4b60b8089b62f9faf655f3a2a"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s-v2.json.gz",
+      "sha256": "43e9242b473c5fb9f4913c7c0a9778d8c45ddceff1f2790c4b62e82d7379d1f1"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s.json.gz",
+      "sha256": "43e9242b473c5fb9f4913c7c0a9778d8c45ddceff1f2790c4b62e82d7379d1f1"
+    },
+    {
+      "path": "docs/performance/pr189/replay-labs-canonical.json",
+      "sha256": "33b02b78446d60d31d3859ffd14611fd7b0788c88a0125d6eb1b7f596ac81175"
+    },
+    {
+      "path": "docs/performance/pr189/replay-labs-final.json",
+      "sha256": "33b02b78446d60d31d3859ffd14611fd7b0788c88a0125d6eb1b7f596ac81175"
+    },
+    {
+      "path": "docs/performance/pr189/replay-labs-restart.json",
+      "sha256": "33b02b78446d60d31d3859ffd14611fd7b0788c88a0125d6eb1b7f596ac81175"
+    },
+    {
+      "path": "docs/performance/pr189/replay-labs-v2.json",
+      "sha256": "ef146f8a540726ac3b8be44f1a3aa25dc1b1ce1d4b21b164886e86c21012cc12"
+    },
+    {
+      "path": "docs/performance/pr189/replay-labs.json",
+      "sha256": "e63f5754524232737610a81ccf0da55f733cd5d60ea8763d32364bd21e2468f2"
+    },
+    {
+      "path": "docs/performance/pr189/restart-repaired-after-4s.json.gz",
+      "sha256": "11b734a58c6c1f1e6337f32cf3a621584da9a55125c2f3e14be7290ff26d8312"
+    },
+    {
+      "path": "docs/performance/pr189/restart-replay.json",
+      "sha256": "d6dd33823f014aa7f85b1feebeb7c2a107ffaf2c08606788b02193fdb81fa161"
+    },
+    {
+      "path": "docs/performance/pr189/run-log-index-restart.json",
+      "sha256": "50d019c64e7e37726f7df6a05cc63ebe73b251eb74fcf90e21dc2d64359a445d"
+    },
+    {
+      "path": "docs/performance/pr189/run-log-index.json",
+      "sha256": "ac6b65798be83a1d94b481c6a5fb9529c3d4dd0c4d927663f816c2f5e073dcf2"
+    },
+    {
+      "path": "docs/performance/pr189/run-logs-restart.zip",
+      "sha256": "d9671ee9bf440cd882881673c45e4e698fed53d26e34f5d8965eb529c85b69c3"
+    },
+    {
+      "path": "docs/performance/pr189/run-logs.zip",
+      "sha256": "0c6d9b5ea1d9f4c9164cdf8747b37693547b89793a0a0c5c96f48e2686ce5e8b"
+    },
+    {
+      "path": "docs/performance/pr189/source-2d0278506b91b7577d9f84c4964ffcc1767a4d57475e9d5992be4cef5e302edb.json",
+      "sha256": "c0f9475f737addc7dd0851b14391aa209e4bb374bb6056cb2a7b87abc9d05c78"
+    },
+    {
+      "path": "docs/performance/pr189/source-62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e.json",
+      "sha256": "56c427eab3865c322b955694ff7e96f67e1c55a6e2c50ce665a7be9a4b6352b0"
+    },
+    {
+      "path": "docs/performance/pr189/source-6c0908193a9f8ca514e9f6e0da93220c1974bd6733926da8b1ade77fd6e510e6.json",
+      "sha256": "05ec6cf0d1ab6942724818d0532ed46e66dd818361b074a6c49ac15587073a81"
+    },
+    {
+      "path": "docs/performance/pr189/source-ed0a996378811de14a040c163a48ca852ee58cae6776dccf05e5ae6be0c3ee36.json",
+      "sha256": "5c5c84456fdada936d9887866882bf8a7e990def9705ba462201eadd72e3893c"
+    },
+    {
+      "path": "docs/performance/pr189/source-eee4aea9954881917698780061ceeb9bd1be32a1922ca690698c3912d9e25585.json",
+      "sha256": "d5e9669066b4da0ded4c0a3b39f1cd0f72efc256ca884e408ca86169e297df45"
+    },
+    {
+      "path": "docs/performance/pr189/source-fae76f475c24957884c3c515bb6ac4df40f79cbf35e24beb452801af87ad9b40.json",
+      "sha256": "4893eadadeb778c2e3134c87a5b997d47e9fd78b3057ca5f08aedf6426aed01b"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v1-pathology-0.json.gz",
+      "sha256": "2be931e968a343d0cacaedbf7e6673eada1d455035a5f8fe91f7acf9bc0003a4"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v1.json",
+      "sha256": "b3767bcedc63cfea2f11201d3ab8bc154cd97eefafde4681a3197309a98326a4"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v1.json.gz",
+      "sha256": "36ade5c20195c01ba1bcdc08f05eebaf6d263dd04336893b9fa163f7f7b8247b"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v1.log",
+      "sha256": "406981e27174b09d378f8a2739b5c22a92074f13f84a2edafc52f00e7aef6462"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v2.json",
+      "sha256": "0673693dbd1344f258d70791a1acda00090f181a845ae1eb65fedcc7e1592ea9"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v2.log",
+      "sha256": "36b3efc0d7d4fb0e327d788586fc391b2c5250df7c8474ed55fe16140b23c997"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v3.json",
+      "sha256": "784e56e58675b4cda60b8c98d383065dd0ec1445230e3ce8bf077783ccc30228"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v3.log",
+      "sha256": "6cc609b9d9348867ae9bd5849cd2e4087a50776236e33df2c1aca62cd178f31f"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v4.json",
+      "sha256": "e21d6eff20c8781d61e4566513d0f717ce627e99f1c6012576dc313325889805"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v4.log",
+      "sha256": "49250d758069a438bf33f481aa9ff23a9f2e7a41e4f6215159d43a510102776a"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v1-pathology-0.json.gz",
+      "sha256": "e95f9d6976c331b71dab5df7cc2a7b09ceb55497f0913072b1d88b8831219bed"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v1-pathology-1.json.gz",
+      "sha256": "f19044d4e3ccba9ae263556cc10d01ad90ed6b38ce5801a1e484e7e18da511a3"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v1.json",
+      "sha256": "4e804f969fcacac220c6c23d5e9acb067a7d072516ede8b9f5614cd67d3bcbc5"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v1.json.gz",
+      "sha256": "d97229abe657865f377d487c5ff34a73c7f93e98f614a62c2ed2f93f6a221e8d"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v1.log",
+      "sha256": "dd247c616a79dece16f29ce11885d57261e5c778e19be834862f8f98697d061c"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v2.json",
+      "sha256": "9ee75487e77a721f9b63103f936c00ea79ba402b5a7737c81cd7539d87005a95"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v2.log",
+      "sha256": "85ad93f20440843638e2349e637de4067705984b91075088f061b987e18e046b"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v3.json",
+      "sha256": "b286bff0b68098b651e0931dc6b3e27e03df5f76b806c682053de73b4ee76ba7"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v3.log",
+      "sha256": "7bbc28ecc4149417a30d41a5eb1bcd9fcdfab35f6d16cb0363d431286cdee935"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v4.json",
+      "sha256": "8894b544b4fffd12aa0de80c4cce21c9a1a3374173aedc1787da3cd263f56248"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v4.log",
+      "sha256": "8060fcadfbf0225ebf8395df1bc348fc18d322d3370576a104641ae38354522c"
+    },
+    {
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v1.json",
+      "sha256": "63d6edf530d86b6522453785ec8e686495728bf72638eba685ef8b2ecdd62893"
+    },
+    {
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v1.json.gz",
+      "sha256": "6596d94a345c741b670f2020bf316f95ef98d3212098ee3c46a93f0cfd1d26e1"
+    },
+    {
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v1.log",
+      "sha256": "736574e9effbae244d2ac4d2a67a347b5c599c34c02936158534926fda06c59e"
+    },
+    {
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v2.json",
+      "sha256": "d942ca19d0025dcb25d9350c25721b98917106490d26ffabb5ded4fcf26563eb"
+    },
+    {
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v2.log",
+      "sha256": "45121ae9600fe77d5662364e3d826b18da718e3d541aaeb7cea1f771e721d1fd"
+    },
+    {
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v3.json",
+      "sha256": "bc63f94f05ac8cddabd3c8d72551503ad6d24f0ed18cb5161043a3f340c0d751"
+    },
+    {
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v3.log",
+      "sha256": "af7b114623dc0f1b132f8b9fc04c91eb8741804f7a69442ff8609c1899030ced"
+    },
+    {
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v4.json",
+      "sha256": "6b23dcc98887aad51f4fb8b959d149f4c37a10201c443685711fc3a40ae5645d"
+    },
+    {
+      "path": "docs/performance/pr189/ss-opportunity-driven-v1-v4.log",
+      "sha256": "51931a7fa00b357840ce25f219edde83acf7e2fdf7ef7c251af0d9c92850f69b"
+    },
+    {
+      "path": "docs/performance/pr189/ss-phase-role-hybrid-v1-v1.json",
+      "sha256": "bd3d46ab7ec2187371b735bcf8c820068816adf16a178f63552536e26b095751"
+    },
+    {
+      "path": "docs/performance/pr189/ss-phase-role-hybrid-v1-v1.log",
+      "sha256": "9576c0ac4af34344ffe0a712e552c4ccba1ca1491cf1cd2c13eb905bf53e9bb2"
+    },
+    {
+      "path": "docs/performance/pr189/ss-phase-role-hybrid-v1-v2.json",
+      "sha256": "d35053adf3f08a91aa596869d0597caba9eaa903c683313afeb41bed5ad15a53"
+    },
+    {
+      "path": "docs/performance/pr189/ss-phase-role-hybrid-v1-v2.log",
+      "sha256": "0eb8472935828f3c52bb6a43cd00acad0fe1ac23eb8eb820497290d5dd2373ad"
+    },
+    {
+      "path": "docs/performance/pr189/ss-phase-role-hybrid-v1-v3.json",
+      "sha256": "9acf89af86e13c24dda67b7cca5b7e05e8cbdbd02b8a1057ef87eb62187df513"
+    },
+    {
+      "path": "docs/performance/pr189/ss-phase-role-hybrid-v1-v3.log",
+      "sha256": "9da50fe58684d89751a55295d437b58fdcefb9e088d54076dc582d229ecd953b"
+    },
+    {
+      "path": "docs/performance/pr189/ss-phase-role-hybrid-v1-v4.json",
+      "sha256": "e007000e2c5e8c897544c35068fda51f2be16e321c4ba4fb5195154c8b736bde"
+    },
+    {
+      "path": "docs/performance/pr189/ss-phase-role-hybrid-v1-v4.log",
+      "sha256": "19e4da9f86944e6b225de7a8bae32b8dc965177b822bd5e29d5ff55572f19c2b"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v1-pathology-0.json.gz",
+      "sha256": "cf4c2ad4643bdacb4a299a9624f879cf03839e07e1337128839c85e74381ce20"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v1.json",
+      "sha256": "3db1942b1f21d86a8f8ddddaaabf7b3aebafd3597f6d65b0370e75544cd29e95"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v1.log",
+      "sha256": "0e384a3c9a0dad1b0f14468637c8b5e60b19cdad6f2867d9155a4b2be4895b96"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v2.json",
+      "sha256": "8937ddfb742e13bc7716b23075c385bc45612fa2568c8649de7a5c5ad5770419"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v2.log",
+      "sha256": "0a38727952a7c0bcb859540a9ff2b594af0c016e466af8266b029da0f0637c51"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v3.json",
+      "sha256": "a272989c4c36d108edfbb310d9160b22d0493df335e048fa25525f7800fdab07"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v3.log",
+      "sha256": "8bc93424cd5db014f1a4ae770ec448d062ebfcbd5698e829486ecb313f5f9d4e"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v4.json",
+      "sha256": "4b81656eda6c1640fec75129e9e21b9ee63cd37401ac41d20d1dc0fef7a6732c"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v4.log",
+      "sha256": "35a49ec30043a3004256c4f6cd406e3262d7ecbdfbcc12596eaf7995552fb36c"
+    },
+    {
+      "path": "docs/performance/pr189/summary-v3.json",
+      "sha256": "08733f147088a32f266d13afedb441fe445ac181ce586afd0315faae7ca7f2fc"
+    },
+    {
+      "path": "docs/performance/pr189/summary.json",
+      "sha256": "53efbf3c8757534c1c4a6b9518dcf1335582ccc08b524d0df44d6fb5e391d378"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-cutoff-diagnosis-cutoff.json.gz",
+      "sha256": "42de8207409c949fb246cc58258e7ece48bd48bac834c09e92262b74a7f4a15e"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-cutoff-diagnosis.json",
+      "sha256": "a8d4b4b79e61369bcc0097fe96e75f349d6aca745b02b3b5d6bdf901aaee3da1"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-v1.json",
+      "sha256": "c714352180d58a99e279611065bce648d2749a2920a2e551e6ef39b902020f1f"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-v1.log",
+      "sha256": "43f96d8177496b1e40b1ba76df6157e8e6d3d266a01aeb79993098c9c5a13950"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-v2.json",
+      "sha256": "21d05ecab9309e2b4d66c1cb9ae2bed0ec70c43c605e4c5f80334ebe47a70fbd"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-v2.log",
+      "sha256": "c8dd3623d4dd7c10db687a0237886d6eaa900f1792e411418ffa8b392c45a43a"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-v3.json",
+      "sha256": "5a7143e179a9961ea6ff741ebc74f55d69cab84af5a81bf5972bd2e138cfb72c"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-v3.log",
+      "sha256": "f0e70baa0d8769ec9b34bcf9ca1dc56f5ff16a9b0947015486658b04186fa872"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-v4.json",
+      "sha256": "7abaaf91d561b2dc7a09440bdfe9687a2f67c958a0d9af72829294b500028ca1"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-v4.log",
+      "sha256": "103b9462e63e2f16dafc058256d8fdbf40efd5fa940c00bbf89dbaa6651b7739"
+    },
+    {
+      "path": "docs/performance/pr189/sw-hierarchical-intent-v1-v1.json",
+      "sha256": "d987aae95e2874472c852a5edd12809df7cf58f36a3b1d47d70edfac0d53c47b"
+    },
+    {
+      "path": "docs/performance/pr189/sw-hierarchical-intent-v1-v1.log",
+      "sha256": "23669a8b36ce07fdb6ea94f447b6ee27ccc0cbef96b0c2470b28c1f7685d5678"
+    },
+    {
+      "path": "docs/performance/pr189/sw-hierarchical-intent-v1-v2.json",
+      "sha256": "0fb767ed5a6a7c0262dababb37d8f71f21fcd9a34a0530faaf89f8876c222407"
+    },
+    {
+      "path": "docs/performance/pr189/sw-hierarchical-intent-v1-v2.log",
+      "sha256": "189f1d3158ed59c33717ee16e1d943665e09d1dc2532611cb87bfb16f53dd751"
+    },
+    {
+      "path": "docs/performance/pr189/sw-hierarchical-intent-v1-v3.json",
+      "sha256": "5560b4fde18fe18e4019b02df85d168a8a2729abb77b257be5a9dda38aedc861"
+    },
+    {
+      "path": "docs/performance/pr189/sw-hierarchical-intent-v1-v3.log",
+      "sha256": "375c40fc55b41efa037d116264482eaa711cd54e4002fdee9e34dde2b83f9a74"
+    },
+    {
+      "path": "docs/performance/pr189/sw-hierarchical-intent-v1-v4.json",
+      "sha256": "cd8343c4ed57776f1753db99ea218f64cc2b3ec8f872586075929236d9f9d749"
+    },
+    {
+      "path": "docs/performance/pr189/sw-hierarchical-intent-v1-v4.log",
+      "sha256": "53d357174cce7fa2db0fbe5d2693041c326fd6640bd8c11503ab07c35eae3d20"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v1-pathology-0.json.gz",
+      "sha256": "f56bba80ac8390e67a185002cf449fc67bc55e42ebf44f2277588e89f9826187"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v1-pathology-1.json.gz",
+      "sha256": "6d27fd408f2d7be20cbd25610b2a1ce55b1e7bd5d91ce819fb60858369ec08a8"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v1.json",
+      "sha256": "e9dad26792633c419ba3e6278b454463b6b5bb74293c8a977d967eb28e91cfb2"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v1.log",
+      "sha256": "dc5169ae2446f52e040b48a511076fc8f6e51d70dadd033be18f73a595ccfdbb"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v2.json",
+      "sha256": "4329b2db3a5d872f08400c9565149bf8d5189ade51c6bb5c5a7edd897356540f"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v2.log",
+      "sha256": "49e1a2f1e7f9cd5a6229ba8b6a0b6479c03e790ef733e7e94b7f9ad60f77b86b"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v3.json",
+      "sha256": "4dd1fe3a53f8a65db190107593b9736552f7f56d8746c2cb7530d5b93033ecd2"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v3.log",
+      "sha256": "7d9b3d09ff8d5d01d17202422a9ff17c201323fdd732095425da6f023ebfc7ee"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v4.json",
+      "sha256": "240082cb30c1152846a1a62837730e06f075e11afffe44c15efa37f633dd4a84"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v4.log",
+      "sha256": "22e33500dee18b89a3ef9d89eab5348830d238f496482cd91e9bef9b8935dabc"
+    },
+    {
+      "path": "docs/performance/pr189/sw-phase-role-hybrid-v1-v1.log",
+      "sha256": "16c08f9186c263661485cb93237a2a026a5282d7b3b04c4abcc128118e0b64eb"
+    },
+    {
+      "path": "docs/performance/pr189/sw-phase-role-hybrid-v1-v2.json",
+      "sha256": "69389071ac9e19b6be7f3a339a5482114f7dc85c9b772caac3c67d5f43203227"
+    },
+    {
+      "path": "docs/performance/pr189/sw-phase-role-hybrid-v1-v2.log",
+      "sha256": "8b3dc7efbbc1e91b41777b76979695e1b7b267520e60d6da70b96e0a71f163c3"
+    },
+    {
+      "path": "docs/performance/pr189/sw-phase-role-hybrid-v1-v3.json",
+      "sha256": "76f0d6788adee4f017901ef6f9be1bb440bf2328f5c05d0f7316e2e7af1a6f54"
+    },
+    {
+      "path": "docs/performance/pr189/sw-phase-role-hybrid-v1-v3.log",
+      "sha256": "888b3467cd6b0844613fa23d06eabd0e5a03d0883036b732cca11f287878abbe"
+    },
+    {
+      "path": "docs/performance/pr189/sw-phase-role-hybrid-v1-v4.json",
+      "sha256": "499933c91373c6499b0538ba57c02e15514b0bde3217da6a5abf066b9aa74155"
+    },
+    {
+      "path": "docs/performance/pr189/sw-phase-role-hybrid-v1-v4.log",
+      "sha256": "60a6450cac5323bd39bae48a67d6d5e04481cc056ff26434d3b58a3346098e53"
+    },
+    {
+      "path": "docs/performance/pr189/sw-state-value-v1-v1.json",
+      "sha256": "26545df6bb61c1ea39be9f4f41427e65c947db2f33167828eeb0fde44fcbaec8"
+    },
+    {
+      "path": "docs/performance/pr189/sw-state-value-v1-v1.log",
+      "sha256": "7bdc12c35159e204a5c18c15f6f0fed0b6fc61c0c2e092e8a5438d7d2083a0ca"
+    },
+    {
+      "path": "docs/performance/pr189/sw-state-value-v1-v2.json",
+      "sha256": "9ab8b2992578abafbb0559e69fd0275775716703b027de8c1725aab9100ffbf6"
+    },
+    {
+      "path": "docs/performance/pr189/sw-state-value-v1-v2.log",
+      "sha256": "02c61fa9eac52f912e3c9417b687ba8d1dcc478b8482eee96eb9ad83f5d77824"
+    },
+    {
+      "path": "docs/performance/pr189/sw-state-value-v1-v3.json",
+      "sha256": "23492107dae32424ef98fa9b5b80242278ff838faa7fd5a052f21ac773cf872e"
+    },
+    {
+      "path": "docs/performance/pr189/sw-state-value-v1-v3.log",
+      "sha256": "c19efc7b8bcbf65b36612cf2b8f04263cf643cfe68d4b966a97910dfcb5d96e1"
+    },
+    {
+      "path": "docs/performance/pr189/sw-state-value-v1-v4.json",
+      "sha256": "0721435a9263c8f3df0a4ad9414394307c1a468a60c7e7fec54104197582bc49"
+    },
+    {
+      "path": "docs/performance/pr189/sw-state-value-v1-v4.log",
+      "sha256": "18130d4253a54aaf5f6748f111bfa9f9553a5243cef3aa500c3276e74cf6251a"
+    },
+    {
+      "path": "docs/performance/pr189/telemetry-reference-payloads.json.gz",
+      "sha256": "85f7357e9f12704b2fe93aa03f1d0f8bb86818bac80c4dd02d0fc8f2c7f77e0c"
+    },
+    {
+      "path": "docs/performance/pr189/telemetry-reference.json",
+      "sha256": "33a397fd1e3c131ac0885baff3c0e12022fc970bbcedadfe3cf53d7948fba0ad"
+    },
+    {
+      "path": "docs/performance/pr189/validation-before-restart.json",
+      "sha256": "da95c51726cc482cb445bde1573acf8f5910ee74e64716a7fba9902b115ab4b9"
+    },
+    {
+      "path": "docs/performance/pr189/verify-before-restart.log.gz",
+      "sha256": "2cc2cec4d023bbe7108760694e1b24722ace3132f5bcb70283548d3b20b4faf0"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v1-pathology-0.json.gz",
+      "sha256": "e27285b52aef05f8626b0a01d7964a30fb310ab2ad0c70024077570dddd1435d"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v1-pathology-1.json.gz",
+      "sha256": "c65b95f60c4ae0affc72fd72e9a41cb3df160e937972d56e6e25bad7cc918d8a"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v1.json",
+      "sha256": "a1c5bb60a275e65e39bd60995816fade5634ee84606da5ba6ec6b303010ed030"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v1.json.gz",
+      "sha256": "a8d6a4d0d22e1842a02a2f975778f2f6acc097e0c8f4766e9eb9556b556f417c"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v1.log",
+      "sha256": "cd9a2208acb9f66b09f0055256e312a8fbd1dda7493ca27dad1c883a963b8175"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v2.json",
+      "sha256": "334b888ed3f6cd445e5a6cec777a04e96c72666117ddecc4ff8513c031dfaf68"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v2.log",
+      "sha256": "a3dc26e0ada71d4c0b52378402b28a1ef380a721e3b8ec729f96a19e9d5169c0"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v3.json",
+      "sha256": "5f7c2ad1c88e2c363cf96d93f9e367f526e0f3c4845744c4732c0ad79522e314"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v3.log",
+      "sha256": "dafc2b4ee6b85d77f3a0e5159ceff2ce6e42f57c9e296bc43194780e44247345"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v4.json",
+      "sha256": "455040a372d4f16e1dbfe702cd64d475e6962e91d6f5daba0d515237cdc20939"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v4.log",
+      "sha256": "fd17fabb12f46fc98eb70fc292e1069b44561199e3a4915ec2a86e3be52f708b"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-final-pathology-0.json.gz",
+      "sha256": "d7830fa1eedf09cea9477495d24a1535c112aa117f0d4bdd9933b0718f2bffc7"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-final.json",
+      "sha256": "a391099722cf48474db85a93f806160c917e9eda06be7afd3767e7b09ec43740"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-final.json.gz",
+      "sha256": "05eb55618d8df35937bb34c690a5a4a7658e1ae33f344c1036377b80388d5ca3"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v1-pathology-0.json.gz",
+      "sha256": "aa6ac7770ae8270def4e7bc700c883f51dc869d0f0668ffcd13474c2e54bf334"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v1.json",
+      "sha256": "d34c16ff1c9fff5301a0a53fb4a642ca25272adce962e4ce4d4bc2e21a260e4b"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v1.json.gz",
+      "sha256": "6307ef06fd732c1067fb4aefc6e7acc733ee26781e2e4c2c4d20e156f7ec9901"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v1.log",
+      "sha256": "1d9c99f800e665e1bbdbb4a690ad75f139ae58a84ca4fdfad52346d376044253"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v2.json",
+      "sha256": "15d4098a8bf782d9830c5d43c690ec12a6afaef33bfca73ad57258b4626e038f"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v2.log",
+      "sha256": "41f184bcc4d854d14baf30221a8e6a98939a67bacfe4b1f1b627d3216724a3e6"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v3.json",
+      "sha256": "3517acc54fa99e0d1c7931ab16207f80a2acde4213536c833a79b18755bba0b4"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v3.log",
+      "sha256": "d070fd670cec8e897219b0aa9846c8794464272663e0cf0d205ac88e51265488"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v4.json",
+      "sha256": "2faa84a5eb013943014f9df486fe652c09a4a7b80d4f4fd21302610019c53761"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v4.log",
+      "sha256": "34e4786614e51244ab676d265b1f10db54c5429daf863c39e03d67cd9387619d"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-final-pathology-0.json.gz",
+      "sha256": "44624cff3735af8c6f9bee010719e3e3ada9cf544de57fa836dd7ea0b7f781c6"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-final.json",
+      "sha256": "7b462c97ccec096c7e7f19d4631f0343ce00ab62805a0dc8e709ab97d62d0428"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-final.json.gz",
+      "sha256": "dbb9fb1ffdd4af3ec9f8d5a18a49871d33e5b34d5dc6cfe417435d1b5fe19867"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-owner-audit-pathology-owner-120s.json.gz",
+      "sha256": "fbe70f179d8d8f7cd0948fe6591c91133918bd26151e2499b403f2c07d28d4fd"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-owner-audit.json",
+      "sha256": "a6db26e245790b121ded487734dc5c99704a1e7d5f494973e3e65a1b115464c0"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v1-pathology-0.json.gz",
+      "sha256": "fb896b872514dbe8fe844ba59a0a7832ab19bd0eb2e196b98a97a45dd4447734"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v1.json",
+      "sha256": "926566a1da308ed553cb3b2a3d1b33aced4ec61c0d6459e81cc9c812e8613d60"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v1.json.gz",
+      "sha256": "f6b9bbe275006f96d9f6bff3ec7ba18955d1d25e1876f8acab3a2aba1bd91b57"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v1.log",
+      "sha256": "d4ab6c23f565dd157b8c37ffaaa5607f718b328483a1fef4b5cd0ea6660f678f"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v2.json",
+      "sha256": "20e14399d126547f0d8e7a8c3b83f9b458e0d95b6f337c6a44f93af8c7c82f0b"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v2.log",
+      "sha256": "ea22333984bebe3741f849ba70d2752e75d36689a8f45897245a56687317ba2b"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v3.json",
+      "sha256": "3f48e6dc117d9208c2258a41eed3850ae4ff5e38e319750d10190b6a07a2dafa"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v3.log",
+      "sha256": "753501cd53705204512a21cb156252cfbcfc953f149d00cc41541a57bc1e0c9f"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v4.json",
+      "sha256": "6934cee9fd494af081a16f7d8bf5b346f25ac1c69b1a13787febe719690616ee"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v4.log",
+      "sha256": "f0797da07d4f46191fd41d976ee4f9c8ea959f436caaf2bcc6b74897a4125ead"
+    },
+    {
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v1.json",
+      "sha256": "a8f03719a73f375fa1f6d10f50f21e0825bd5c1146a48ca107f62232861fda6b"
+    },
+    {
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v1.json.gz",
+      "sha256": "677b8d456f1e27d2d19869a0ebd9aa60c8530af8b29519c1b080e2fba2696f0a"
+    },
+    {
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v1.log",
+      "sha256": "c07a33418d8c413eb9ae716f26b73a6ea6c34144f3874c0f87e59462e50257a8"
+    },
+    {
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v2.json",
+      "sha256": "8004ceaa5eb4d3dbe8a65dd57c396e6406c836b72122bcdc52548e3aa8cc748e"
+    },
+    {
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v2.log",
+      "sha256": "c8bf48724c31aaf7a3163fe821d59ed29f9afcf7a0be9cf32d10899aa5eff093"
+    },
+    {
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v3.json",
+      "sha256": "1fb237eda0cb08cde5a2734edc00534c7c49c774ad9181091d0a8d19b3c46595"
+    },
+    {
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v3.log",
+      "sha256": "9b42ee530cea72456064d93793ccb0fd48baf566eb387a90023705c6409822c9"
+    },
+    {
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v4.json",
+      "sha256": "4c16eac6ee70615d74c6b1ed4e74237f2249fb2750152e99d9884e7109b53983"
+    },
+    {
+      "path": "docs/performance/pr189/ww-phase-role-hybrid-v1-v4.log",
+      "sha256": "db524da2b8838e8df00c8a8c0d0ce7e5978641463f7bb595a8af8460931e0eeb"
+    },
+    {
+      "path": "docs/performance/pr189/ww-state-value-v1-v1.json",
+      "sha256": "829f9b4bcb4b779504fd68120ac1c6f7101806dc2ec70431db64862c52169338"
+    },
+    {
+      "path": "docs/performance/pr189/ww-state-value-v1-v1.json.gz",
+      "sha256": "dd34e62f2306ee6f562a223be4820708a16762d02dec0e951f58231c34be3cf2"
+    },
+    {
+      "path": "docs/performance/pr189/ww-state-value-v1-v1.log",
+      "sha256": "e8c4c3da1324fc4a260fe8c9de07fd32bfcdab08fd711704b1a55043972916b9"
+    },
+    {
+      "path": "docs/performance/pr189/ww-state-value-v1-v2.json",
+      "sha256": "7ee068b36858d2180e1ff09c4bfb2b933c171b738a315c1ad3af9535799b3574"
+    },
+    {
+      "path": "docs/performance/pr189/ww-state-value-v1-v2.log",
+      "sha256": "4d5166d411e503dd2ea2f0d6709ad47eb730647936502f04e877948dde7a5a8f"
+    },
+    {
+      "path": "docs/performance/pr189/ww-state-value-v1-v3.json",
+      "sha256": "87a52b1415a205574e8d5c66d00e96424e1f7d3d4b2091ef04ccfa275bd83039"
+    },
+    {
+      "path": "docs/performance/pr189/ww-state-value-v1-v3.log",
+      "sha256": "1bed7ca0416e0a877106d5e998b48d04bafb866036c500412aff820782e9e93b"
+    },
+    {
+      "path": "docs/performance/pr189/ww-state-value-v1-v4.json",
+      "sha256": "256542f3b5cb625977d8e012ccdd76d519b0076f4237e07e492bda190bd503ae"
+    },
+    {
+      "path": "docs/performance/pr189/ww-state-value-v1-v4.log",
+      "sha256": "015e14b0fda2d124a2e9c54d615f0135129382dad4222c6ccd94cfd005cf0f57"
+    }
+  ]
+}

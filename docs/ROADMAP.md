@@ -1,6 +1,16 @@
 # Roadmap
 
-Aktualny etap: **PR188 — Relative Decision-Making & Match Behaviour Stabilization**.
+Aktualny etap: **PR189 — Ball Contact, Duel Geometry & Deadlock Resolution (etapowane)**.
+Priorytetem jest rzeczywisty replay zastoju PR188 i kontakt przygotowanego podania.
+PR189 naprawia aliasowanie rytmu obserwacji z dotknięciami kontrolnymi oraz podejście
+asekurowanego obrońcy. Zablokowany wolny SW/C ma fizyczny objazd blokujących ciał,
+a końcowa seria 15/15 dochodzi do pełnego czasu bez zwiększenia limitu próby.
+Pełna artykulacja nóg, kontakt goleni/kolana, geometria luk,
+nowe techniki i demonstracja zwodu pozostają otwartymi bramami następnego etapu
+fizyki; nie zostały oznaczone jako wykonane.
+[Dowody, nieukończone bramy i wynik PR189](PR189_BALL_CONTACT_DUEL_GEOMETRY_AND_DEADLOCK_RESOLUTION.md).
+
+Poprzedni etap: **PR188 — Relative Decision-Making & Match Behaviour Stabilization**.
 Negatywne wyniki PR187 i ręczne obserwacje Match Lab nadają stabilizacji pierwszeństwo
 przed generacjami. Względne okazje, koszt czekania, lokalne zaangażowanie obrony,
 ograniczona wiedza rywali, eksperymentalna psychologia, prawdziwy kick-off oraz
@@ -8,8 +18,8 @@ ręczne szybkie/przygotowane wolne są rozliczane w osobnych bramach.
 [Zakres, pomiary i otwarte blokery PR188](PR188_RELATIVE_DECISION_MAKING_AND_MATCH_STABILIZATION.md).
 
 **B domyślne; canonical NOT READY dla summary; confirmation pozostaje zamknięte.**
-Aktualna kolejność: **PR188 stabilizacja → PR189 Generational Renewal & World Strength
-→ PR190 Summary Simulation & PlayStyles → PR191 Career UX → PR192+ World Expansion**.
+Aktualna kolejność: **PR189 kontakt/replay → PR190 dolna część ciała i powierzchnie kontaktu → PR191 Generational Renewal & World Strength
+→ PR192 Summary Simulation & PlayStyles → PR193 Career UX → PR194+ World Expansion**.
 Pełny zakres przesuniętych zobowiązań pozostaje w autorytatywnej tabeli poniżej.
 Numery w starszych opisach są historycznym kontekstem, nie nową deklaracją wykonania.
 
@@ -25,8 +35,8 @@ a skuteczna koordynacja nie jest potwierdzona. Niezależna kohorta pozostaje nie
 Przed niezależnym confirmation należy dokończyć bounded controllers, techniki
 strzału/GK, kontrfaktyczne utracone okna, współpracę i human/browser matrix.
 Pozostałe prerequisite PR187 przechodzą jawnie do PR188+; nie są oznaczone jako wykonane.
-Generacje/siła świata zachowują pełny zakres w PR189, summary/PlayStyles PR190 pozostaje
-zablokowane przez canonical readiness, career UX PR191 i world expansion PR192+ bez usuwania zobowiązań.
+Generacje/siła świata zachowują pełny zakres w PR191, summary/PlayStyles PR192 pozostaje
+zablokowane przez canonical readiness, career UX PR193 i world expansion PR194+ bez usuwania zobowiązań.
 
 Scalony etap: **PR186 — Tactical Cognition, Team Familiarity & Attribute Diagnostics**.
 Izolowane prototypy współpracy, wiedzy i komunikacji, kontrolowane epizody decyzja–
@@ -205,28 +215,39 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   historyczne polityki i aparatury, fizykę, źródła i negatywne dowody. Pełne mecze
   development oraz ocena blockerów poprzedzają jakiekolwiek nowe confirmation.
   Nie uznawać krótkiego epizodu lub zielonego CI za walidację całego futbolu.
-- **PR189 — Generational Renewal & World Strength**. Pełne odłożone zobowiązanie PR188,
+- **PR189 — Ball Contact, Duel Geometry & Deadlock Resolution**. Rzeczywiste stany
+  patologiczne, bezstratny replay, naprawa przygotowanego release i bezpieczne
+  podejście obrońcy. Pełne ciało, dodatkowe powierzchnie, nutmegs/GK, timed/deceptive
+  passing i pozostałe laboratoria są jawnie etapowane, bez twierdzenia o ich ukończeniu.
+- **PR190 — Lower-Body Geometry & Contact Surfaces**. Dokończyć otwarte bramy PR189:
+  zachować naprawę drogi do legalnej pozycji przy wolnym SW/C, replay starego
+  zastoju i negatywny cutoff PR189; nadal nie zwiększać limitów prób.
+  połączone biodra/uda/kolana/golenie/stopy i proporcje ciała, ciągłe zmiany postawy,
+  fizyczne powierzchnie kontaktu i impulsy, kontrola po odbiciu, luki między nogami
+  oraz reakcje GK, pełne laboratoria C/D i timing. Mały zwód dopiero po tych bramach;
+  zachować replay, prawo kontaktu, migracje ewentualnego stanu i koszt CPU.
+- **PR191 — Generational Renewal & World Strength**. Pełne odłożone zobowiązanie PR190/189/188,
   wcześniej dawny PR176; niewykonane i niepomniejszone przez stabilizację:
   20–25 sezonów rozwoju NPC, suma/średnia OVR kadr i najlepszej XI, jakość pozycji,
   rozkład wieku, akademie i ich absolwenci, integracja/blokowanie młodych przez
   dobrych weteranów, aging, retirement, uzupełnienia, trajektorie talentu i pułapy,
   transfery między silnymi/słabymi klubami oraz długofalowa jakość świata.
   Powtórzyć pomiary po istotnej rozbudowie bazy.
-- **PR190 — Summary Simulation & PlayStyles**. Zachowany pełny dawny PR189/177:
+- **PR192 — Summary Simulation & PlayStyles**. Zachowany pełny dawny PR191/190/189/177:
   kalibrować lightweight simulation dopiero przeciw właściwie zweryfikowanemu
   canonical; gole/asysty DM/CM i innych pozycji. Rozwijać ludzkie PlayStyles na
   podstawie właściwie udokumentowanych summary matches, zachowując źródło danych,
   wieloletnie wymagania i progi. Udział/zmiany: starter/substitute, entry/exit,
   realne ID zastępowanego/zastępującego i tylko rzeczywiście modelowany powód.
   Nie wnioskować słabej gry z oceny/minut. Tożsamości/minuty/exactly-once zostają.
-- **PR191 — Career UX Consolidation**. Zachowany pełny dawny PR190/178: zwarte fixture rows,
+- **PR193 — Career UX Consolidation**. Zachowany pełny dawny PR192/191/190/178: zwarte fixture rows,
   zbiorcze sezonowe archive bez dublowania historii; calendar zgodny z career.currentDate,
   rzeczywistymi terminami meczów, zapisanym treningiem, urazami/niedostępnością i życiem.
   Odróżniać saved facts od presentation recurrence; nie wymyślać treningów w pustych dniach.
   Normalny strzał: **klik miejsca w bramce → kontekstowe menu techniki → wybór
   techniki wykonuje strzał**. Usunąć dodatkowe obowiązkowe potwierdzenie i redundantne
   suwaki; zachować keyboard accessibility i accurate substitution records.
-- **PR192+ — World Expansion**. Zachowany pełny dawny PR191+/179+: więcej lig/klubów, puchary,
+- **PR194+ — World Expansion**. Zachowany pełny dawny PR193+/192+/191+/179+: więcej lig/klubów, puchary,
   reprezentacje, transfery, ekonomia i dalsze systemy futbolu.
 
 Wyłącznie całkowite numery PR. Kolejność powyżej zastępuje dawne przypisania.

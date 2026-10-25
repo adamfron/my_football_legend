@@ -1,0 +1,3646 @@
+{
+  "schemaVersion": 1,
+  "classification": "frozen PR188 development input; no independent confirmation",
+  "design": "sw",
+  "policy": "opportunity-driven-v1",
+  "sourceSha256": "62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e",
+  "runnerSha256": "dc5cb3cc4126f67c2ff28b1bbacd97b5598c1daae53a53910dc94a0f1c5468ad",
+  "runnerHashTiming": "process_start",
+  "inputSha256": "840da71e7f32985028c4b680d6f1827bf4f694d4597c7444969c6fb6b1c0175a",
+  "ticks": 225886,
+  "status": "full_time",
+  "seconds": 5647.124999999896,
+  "score": {
+    "home": 3,
+    "away": 0
+  },
+  "maxStationary": 1.0250000000000004,
+  "maxOwnerSeconds": 18.200000000000035,
+  "counts": {
+    "decisions": 11125,
+    "preparations": 5030,
+    "attempts": 6719,
+    "releases": 2268,
+    "passes": 2263,
+    "shots": 5,
+    "readinessTransitions": 314,
+    "challenges": 1025
+  },
+  "reasons": {
+    "not_owner": 57,
+    "executed_without_release": 9
+  },
+  "statistics": {
+    "players": [
+      {
+        "playerId": "geometry:anchor:0",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 0,
+        "passesAttempted": 0,
+        "passesCompleted": 0,
+        "passesReceived": 0,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 0,
+        "tacklesAttempted": 0,
+        "tacklesWon": 0,
+        "interceptions": 0,
+        "possessionWon": 0,
+        "possessionLost": 0,
+        "possessionLossCauses": {
+          "tackle": 0,
+          "interception": 0,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 0,
+        "blocks": 0,
+        "duelsWon": 0,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 277.23977329360287,
+        "sprintDistance": 0,
+        "sprintBursts": 0,
+        "maxSpeed": 5.722508350020462,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:1",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 26,
+        "passesAttempted": 21,
+        "passesCompleted": 15,
+        "passesReceived": 6,
+        "shots": 2,
+        "shotsOnTarget": 2,
+        "goals": 1,
+        "assists": 0,
+        "carries": 12,
+        "tacklesAttempted": 3,
+        "tacklesWon": 2,
+        "interceptions": 4,
+        "possessionWon": 6,
+        "possessionLost": 6,
+        "possessionLossCauses": {
+          "tackle": 0,
+          "interception": 4,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 1,
+          "foul_stoppage": 0,
+          "other": 1
+        },
+        "looseBallRecoveries": 3,
+        "blocks": 0,
+        "duelsWon": 2,
+        "fouls": 1,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 11930.727767594464,
+        "sprintDistance": 8.075628766909256,
+        "sprintBursts": 1,
+        "maxSpeed": 7.351033473079699,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:2",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 47,
+        "passesAttempted": 46,
+        "passesCompleted": 19,
+        "passesReceived": 16,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 47,
+        "tacklesAttempted": 8,
+        "tacklesWon": 4,
+        "interceptions": 6,
+        "possessionWon": 14,
+        "possessionLost": 10,
+        "possessionLossCauses": {
+          "tackle": 0,
+          "interception": 10,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 24,
+        "blocks": 0,
+        "duelsWon": 4,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 8189.202747123294,
+        "sprintDistance": 7.628887365034232,
+        "sprintBursts": 0,
+        "maxSpeed": 8.009512975495127,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:3",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 41,
+        "passesAttempted": 40,
+        "passesCompleted": 16,
+        "passesReceived": 14,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 17,
+        "tacklesAttempted": 10,
+        "tacklesWon": 6,
+        "interceptions": 4,
+        "possessionWon": 15,
+        "possessionLost": 13,
+        "possessionLossCauses": {
+          "tackle": 1,
+          "interception": 11,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 1,
+          "other": 0
+        },
+        "looseBallRecoveries": 20,
+        "blocks": 0,
+        "duelsWon": 6,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 8115.371731174989,
+        "sprintDistance": 31.67647564137634,
+        "sprintBursts": 1,
+        "maxSpeed": 8.713435628967213,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:4",
+        "minutesPlayed": 32.45250000004501,
+        "touches": 6,
+        "passesAttempted": 4,
+        "passesCompleted": 3,
+        "passesReceived": 2,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 3,
+        "tacklesAttempted": 0,
+        "tacklesWon": 0,
+        "interceptions": 1,
+        "possessionWon": 1,
+        "possessionLost": 1,
+        "possessionLossCauses": {
+          "tackle": 0,
+          "interception": 1,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 3,
+        "blocks": 0,
+        "duelsWon": 0,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 3903.7356405421724,
+        "sprintDistance": 0.8520519003513705,
+        "sprintBursts": 0,
+        "maxSpeed": 6.985977006297254,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:5",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 212,
+        "passesAttempted": 185,
+        "passesCompleted": 78,
+        "passesReceived": 56,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 192,
+        "tacklesAttempted": 68,
+        "tacklesWon": 43,
+        "interceptions": 32,
+        "possessionWon": 100,
+        "possessionLost": 82,
+        "possessionLossCauses": {
+          "tackle": 17,
+          "interception": 58,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 1,
+          "failed_control": 1,
+          "loose_ball_claim": 3,
+          "shot": 0,
+          "foul_stoppage": 2,
+          "other": 0
+        },
+        "looseBallRecoveries": 91,
+        "blocks": 0,
+        "duelsWon": 43,
+        "fouls": 5,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 9548.597660735662,
+        "sprintDistance": 67.8655556656766,
+        "sprintBursts": 3,
+        "maxSpeed": 8.706577966431091,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:6",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 318,
+        "passesAttempted": 277,
+        "passesCompleted": 88,
+        "passesReceived": 114,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 1,
+        "carries": 287,
+        "tacklesAttempted": 82,
+        "tacklesWon": 54,
+        "interceptions": 50,
+        "possessionWon": 125,
+        "possessionLost": 144,
+        "possessionLossCauses": {
+          "tackle": 21,
+          "interception": 120,
+          "bad_pass": 1,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 1,
+          "shot": 0,
+          "foul_stoppage": 1,
+          "other": 0
+        },
+        "looseBallRecoveries": 124,
+        "blocks": 0,
+        "duelsWon": 54,
+        "fouls": 7,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 12957.321518982582,
+        "sprintDistance": 136.49586481665824,
+        "sprintBursts": 9,
+        "maxSpeed": 8.558215366702717,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:7",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 307,
+        "passesAttempted": 260,
+        "passesCompleted": 75,
+        "passesReceived": 83,
+        "shots": 1,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 400,
+        "tacklesAttempted": 112,
+        "tacklesWon": 74,
+        "interceptions": 48,
+        "possessionWon": 150,
+        "possessionLost": 163,
+        "possessionLossCauses": {
+          "tackle": 22,
+          "interception": 140,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 1,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 121,
+        "blocks": 0,
+        "duelsWon": 74,
+        "fouls": 7,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 13126.936059080172,
+        "sprintDistance": 448.4852539866291,
+        "sprintBursts": 35,
+        "maxSpeed": 8.002938295486848,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:8",
+        "minutesPlayed": 26.58916666669035,
+        "touches": 23,
+        "passesAttempted": 22,
+        "passesCompleted": 8,
+        "passesReceived": 9,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 42,
+        "tacklesAttempted": 10,
+        "tacklesWon": 8,
+        "interceptions": 5,
+        "possessionWon": 13,
+        "possessionLost": 12,
+        "possessionLossCauses": {
+          "tackle": 1,
+          "interception": 11,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 3,
+        "blocks": 0,
+        "duelsWon": 8,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 4021.0498357494926,
+        "sprintDistance": 18.29996929104511,
+        "sprintBursts": 2,
+        "maxSpeed": 7.755750566983243,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:9",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 83,
+        "passesAttempted": 72,
+        "passesCompleted": 28,
+        "passesReceived": 37,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 168,
+        "tacklesAttempted": 12,
+        "tacklesWon": 9,
+        "interceptions": 17,
+        "possessionWon": 31,
+        "possessionLost": 35,
+        "possessionLossCauses": {
+          "tackle": 4,
+          "interception": 31,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 26,
+        "blocks": 0,
+        "duelsWon": 9,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 13654.588396878433,
+        "sprintDistance": 96.13384051138098,
+        "sprintBursts": 10,
+        "maxSpeed": 7.698912023182485,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:10",
+        "minutesPlayed": 53.94041666669192,
+        "touches": 288,
+        "passesAttempted": 223,
+        "passesCompleted": 82,
+        "passesReceived": 64,
+        "shots": 1,
+        "shotsOnTarget": 1,
+        "goals": 1,
+        "assists": 0,
+        "carries": 639,
+        "tacklesAttempted": 105,
+        "tacklesWon": 72,
+        "interceptions": 77,
+        "possessionWon": 185,
+        "possessionLost": 143,
+        "possessionLossCauses": {
+          "tackle": 34,
+          "interception": 102,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 5,
+          "loose_ball_claim": 1,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 115,
+        "blocks": 0,
+        "duelsWon": 72,
+        "fouls": 9,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 7592.779559658745,
+        "sprintDistance": 512.2076722823815,
+        "sprintBursts": 44,
+        "maxSpeed": 8.079912360656243,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:0",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 9,
+        "passesAttempted": 8,
+        "passesCompleted": 0,
+        "passesReceived": 5,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 203,
+        "tacklesAttempted": 1,
+        "tacklesWon": 0,
+        "interceptions": 0,
+        "possessionWon": 1,
+        "possessionLost": 2,
+        "possessionLossCauses": {
+          "tackle": 0,
+          "interception": 2,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 2,
+        "blocks": 0,
+        "duelsWon": 0,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 1270.6963016339866,
+        "sprintDistance": 0,
+        "sprintBursts": 0,
+        "maxSpeed": 5.242427011632127,
+        "saves": 1,
+        "goalsConceded": 3,
+        "catches": 1,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:1",
+        "minutesPlayed": 39.5491666667375,
+        "touches": 28,
+        "passesAttempted": 22,
+        "passesCompleted": 4,
+        "passesReceived": 1,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 12,
+        "tacklesAttempted": 9,
+        "tacklesWon": 1,
+        "interceptions": 4,
+        "possessionWon": 6,
+        "possessionLost": 6,
+        "possessionLossCauses": {
+          "tackle": 3,
+          "interception": 2,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 1,
+          "other": 0
+        },
+        "looseBallRecoveries": 13,
+        "blocks": 0,
+        "duelsWon": 1,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 3413.9049880184753,
+        "sprintDistance": 1.5685102980127537,
+        "sprintBursts": 0,
+        "maxSpeed": 6.420614278757534,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:2",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 111,
+        "passesAttempted": 86,
+        "passesCompleted": 6,
+        "passesReceived": 1,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 65,
+        "tacklesAttempted": 59,
+        "tacklesWon": 14,
+        "interceptions": 42,
+        "possessionWon": 63,
+        "possessionLost": 52,
+        "possessionLossCauses": {
+          "tackle": 19,
+          "interception": 28,
+          "bad_pass": 1,
+          "pass_out": 0,
+          "heavy_touch": 2,
+          "failed_control": 2,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 80,
+        "blocks": 1,
+        "duelsWon": 14,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 7070.183181464447,
+        "sprintDistance": 33.65284616463112,
+        "sprintBursts": 3,
+        "maxSpeed": 7.693954429970973,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:3",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 88,
+        "passesAttempted": 58,
+        "passesCompleted": 2,
+        "passesReceived": 4,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 84,
+        "tacklesAttempted": 31,
+        "tacklesWon": 4,
+        "interceptions": 31,
+        "possessionWon": 41,
+        "possessionLost": 49,
+        "possessionLossCauses": {
+          "tackle": 24,
+          "interception": 20,
+          "bad_pass": 1,
+          "pass_out": 0,
+          "heavy_touch": 1,
+          "failed_control": 2,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 1,
+          "other": 0
+        },
+        "looseBallRecoveries": 67,
+        "blocks": 0,
+        "duelsWon": 4,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 8019.1274910287075,
+        "sprintDistance": 18.20779028317805,
+        "sprintBursts": 2,
+        "maxSpeed": 7.685807661125011,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:4",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 54,
+        "passesAttempted": 44,
+        "passesCompleted": 0,
+        "passesReceived": 8,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 71,
+        "tacklesAttempted": 18,
+        "tacklesWon": 2,
+        "interceptions": 21,
+        "possessionWon": 25,
+        "possessionLost": 22,
+        "possessionLossCauses": {
+          "tackle": 9,
+          "interception": 13,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 33,
+        "blocks": 0,
+        "duelsWon": 2,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 10741.608789053345,
+        "sprintDistance": 47.39044293646707,
+        "sprintBursts": 4,
+        "maxSpeed": 7.1972083525155695,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:5",
+        "minutesPlayed": 47,
+        "touches": 20,
+        "passesAttempted": 17,
+        "passesCompleted": 0,
+        "passesReceived": 4,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 28,
+        "tacklesAttempted": 14,
+        "tacklesWon": 2,
+        "interceptions": 8,
+        "possessionWon": 11,
+        "possessionLost": 9,
+        "possessionLossCauses": {
+          "tackle": 3,
+          "interception": 5,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 1,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 11,
+        "blocks": 0,
+        "duelsWon": 2,
+        "fouls": 1,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 1,
+        "distanceCovered": 5203.88525388277,
+        "sprintDistance": 48.87237943127174,
+        "sprintBursts": 5,
+        "maxSpeed": 7.366047524828663,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:6",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 194,
+        "passesAttempted": 126,
+        "passesCompleted": 6,
+        "passesReceived": 2,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 134,
+        "tacklesAttempted": 78,
+        "tacklesWon": 19,
+        "interceptions": 92,
+        "possessionWon": 126,
+        "possessionLost": 112,
+        "possessionLossCauses": {
+          "tackle": 54,
+          "interception": 40,
+          "bad_pass": 1,
+          "pass_out": 0,
+          "heavy_touch": 8,
+          "failed_control": 8,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 1,
+          "other": 0
+        },
+        "looseBallRecoveries": 130,
+        "blocks": 0,
+        "duelsWon": 19,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 9077.077230117153,
+        "sprintDistance": 35.96112104069018,
+        "sprintBursts": 3,
+        "maxSpeed": 6.984862521155192,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:7",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 167,
+        "passesAttempted": 104,
+        "passesCompleted": 6,
+        "passesReceived": 1,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 97,
+        "tacklesAttempted": 88,
+        "tacklesWon": 21,
+        "interceptions": 80,
+        "possessionWon": 109,
+        "possessionLost": 101,
+        "possessionLossCauses": {
+          "tackle": 54,
+          "interception": 31,
+          "bad_pass": 3,
+          "pass_out": 0,
+          "heavy_touch": 4,
+          "failed_control": 9,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 106,
+        "blocks": 0,
+        "duelsWon": 21,
+        "fouls": 1,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 9832.661093509214,
+        "sprintDistance": 79.7017284241935,
+        "sprintBursts": 8,
+        "maxSpeed": 7.061735122590987,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:8",
+        "minutesPlayed": 94.11874999999827,
+        "touches": 208,
+        "passesAttempted": 126,
+        "passesCompleted": 4,
+        "passesReceived": 1,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 128,
+        "tacklesAttempted": 77,
+        "tacklesWon": 22,
+        "interceptions": 104,
+        "possessionWon": 134,
+        "possessionLost": 133,
+        "possessionLossCauses": {
+          "tackle": 59,
+          "interception": 50,
+          "bad_pass": 8,
+          "pass_out": 0,
+          "heavy_touch": 9,
+          "failed_control": 6,
+          "loose_ball_claim": 1,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 135,
+        "blocks": 0,
+        "duelsWon": 22,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 10406.066428524344,
+        "sprintDistance": 152.00093849017478,
+        "sprintBursts": 14,
+        "maxSpeed": 6.9727056332174575,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:9",
+        "minutesPlayed": 26.627500000023822,
+        "touches": 43,
+        "passesAttempted": 28,
+        "passesCompleted": 3,
+        "passesReceived": 0,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 30,
+        "tacklesAttempted": 12,
+        "tacklesWon": 3,
+        "interceptions": 22,
+        "possessionWon": 26,
+        "possessionLost": 27,
+        "possessionLossCauses": {
+          "tackle": 12,
+          "interception": 13,
+          "bad_pass": 1,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 1,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 29,
+        "blocks": 0,
+        "duelsWon": 3,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 3432.526015171096,
+        "sprintDistance": 374.7895038792279,
+        "sprintBursts": 37,
+        "maxSpeed": 7.618076743856623,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:10",
+        "minutesPlayed": 59.71208333337958,
+        "touches": 92,
+        "passesAttempted": 56,
+        "passesCompleted": 2,
+        "passesReceived": 2,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 61,
+        "tacklesAttempted": 29,
+        "tacklesWon": 4,
+        "interceptions": 46,
+        "possessionWon": 53,
+        "possessionLost": 58,
+        "possessionLossCauses": {
+          "tackle": 30,
+          "interception": 21,
+          "bad_pass": 3,
+          "pass_out": 0,
+          "heavy_touch": 2,
+          "failed_control": 1,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 55,
+        "blocks": 0,
+        "duelsWon": 4,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 7773.875773137996,
+        "sprintDistance": 855.5416063259302,
+        "sprintBursts": 76,
+        "maxSpeed": 7.750413438862345,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:12",
+        "minutesPlayed": 67.5233333333079,
+        "touches": 116,
+        "passesAttempted": 98,
+        "passesCompleted": 39,
+        "passesReceived": 47,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 232,
+        "tacklesAttempted": 34,
+        "tacklesWon": 25,
+        "interceptions": 16,
+        "possessionWon": 45,
+        "possessionLost": 52,
+        "possessionLossCauses": {
+          "tackle": 5,
+          "interception": 44,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 1,
+          "loose_ball_claim": 1,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 29,
+        "blocks": 0,
+        "duelsWon": 25,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 10049.153344800201,
+        "sprintDistance": 198.86647541067498,
+        "sprintBursts": 18,
+        "maxSpeed": 7.600299533684691,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:12",
+        "minutesPlayed": 67.48416666664109,
+        "touches": 151,
+        "passesAttempted": 96,
+        "passesCompleted": 3,
+        "passesReceived": 3,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 141,
+        "tacklesAttempted": 42,
+        "tacklesWon": 13,
+        "interceptions": 78,
+        "possessionWon": 96,
+        "possessionLost": 78,
+        "possessionLossCauses": {
+          "tackle": 34,
+          "interception": 35,
+          "bad_pass": 7,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 2,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 73,
+        "blocks": 0,
+        "duelsWon": 13,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 8296.46536309682,
+        "sprintDistance": 918.2222630858105,
+        "sprintBursts": 92,
+        "maxSpeed": 7.655498189472945,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:13",
+        "minutesPlayed": 61.659999999953236,
+        "touches": 8,
+        "passesAttempted": 8,
+        "passesCompleted": 6,
+        "passesReceived": 6,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 6,
+        "tacklesAttempted": 2,
+        "tacklesWon": 1,
+        "interceptions": 0,
+        "possessionWon": 1,
+        "possessionLost": 0,
+        "possessionLossCauses": {
+          "tackle": 0,
+          "interception": 0,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 1,
+        "blocks": 0,
+        "duelsWon": 1,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 8074.990298018107,
+        "sprintDistance": 5.436251281456356,
+        "sprintBursts": 0,
+        "maxSpeed": 6.594854416573364,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:13",
+        "minutesPlayed": 54.56249999992742,
+        "touches": 27,
+        "passesAttempted": 22,
+        "passesCompleted": 0,
+        "passesReceived": 2,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 28,
+        "tacklesAttempted": 12,
+        "tacklesWon": 5,
+        "interceptions": 5,
+        "possessionWon": 11,
+        "possessionLost": 14,
+        "possessionLossCauses": {
+          "tackle": 4,
+          "interception": 10,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 17,
+        "blocks": 0,
+        "duelsWon": 5,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 4488.499511569922,
+        "sprintDistance": 23.514081614487004,
+        "sprintBursts": 2,
+        "maxSpeed": 7.6603402615345635,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:14",
+        "minutesPlayed": 47.11874999999827,
+        "touches": 31,
+        "passesAttempted": 20,
+        "passesCompleted": 0,
+        "passesReceived": 4,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 23,
+        "tacklesAttempted": 8,
+        "tacklesWon": 2,
+        "interceptions": 15,
+        "possessionWon": 19,
+        "possessionLost": 18,
+        "possessionLossCauses": {
+          "tackle": 9,
+          "interception": 8,
+          "bad_pass": 1,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 0,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 14,
+        "blocks": 0,
+        "duelsWon": 2,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 5567.361216382875,
+        "sprintDistance": 5.972586991271913,
+        "sprintBursts": 1,
+        "maxSpeed": 6.469591475166508,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:anchor:14",
+        "minutesPlayed": 40.17208333330633,
+        "touches": 185,
+        "passesAttempted": 143,
+        "passesCompleted": 54,
+        "passesReceived": 57,
+        "shots": 1,
+        "shotsOnTarget": 1,
+        "goals": 1,
+        "assists": 0,
+        "carries": 374,
+        "tacklesAttempted": 65,
+        "tacklesWon": 45,
+        "interceptions": 34,
+        "possessionWon": 102,
+        "possessionLost": 84,
+        "possessionLossCauses": {
+          "tackle": 16,
+          "interception": 62,
+          "bad_pass": 0,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 5,
+          "loose_ball_claim": 1,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 65,
+        "blocks": 0,
+        "duelsWon": 45,
+        "fouls": 4,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 6203.592854429925,
+        "sprintDistance": 721.6519638567754,
+        "sprintBursts": 61,
+        "maxSpeed": 8.551354134469205,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      },
+      {
+        "playerId": "geometry:opponent:15",
+        "minutesPlayed": 34.399583333285335,
+        "touches": 89,
+        "passesAttempted": 51,
+        "passesCompleted": 3,
+        "passesReceived": 1,
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "goals": 0,
+        "assists": 0,
+        "carries": 68,
+        "tacklesAttempted": 36,
+        "tacklesWon": 9,
+        "interceptions": 46,
+        "possessionWon": 61,
+        "possessionLost": 50,
+        "possessionLossCauses": {
+          "tackle": 28,
+          "interception": 15,
+          "bad_pass": 3,
+          "pass_out": 0,
+          "heavy_touch": 0,
+          "failed_control": 1,
+          "loose_ball_claim": 0,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "looseBallRecoveries": 55,
+        "blocks": 0,
+        "duelsWon": 9,
+        "fouls": 1,
+        "yellowCards": 0,
+        "redCards": 0,
+        "offsides": 0,
+        "distanceCovered": 4244.46669304408,
+        "sprintDistance": 473.2099152123942,
+        "sprintBursts": 45,
+        "maxSpeed": 7.721781751733931,
+        "saves": 0,
+        "goalsConceded": 0,
+        "catches": 0,
+        "parries": 0
+      }
+    ],
+    "teamAccounting": {
+      "home": {
+        "possessionSeconds": 2811.575000011694,
+        "blockedShots": 1,
+        "offsides": 0,
+        "corners": 1,
+        "freeKicks": 12,
+        "throwIns": 0,
+        "goalKicks": 0,
+        "penalties": 1,
+        "kickOffs": 1,
+        "possessionChanges": 788,
+        "turnoverCauses": {
+          "tackle": 121,
+          "interception": 594,
+          "bad_pass": 1,
+          "pass_out": 0,
+          "heavy_touch": 1,
+          "failed_control": 12,
+          "loose_ball_claim": 50,
+          "shot": 4,
+          "foul_stoppage": 4,
+          "other": 1
+        }
+      },
+      "away": {
+        "possessionSeconds": 2262.2499999898546,
+        "blockedShots": 0,
+        "offsides": 1,
+        "corners": 0,
+        "freeKicks": 37,
+        "throwIns": 0,
+        "goalKicks": 1,
+        "penalties": 0,
+        "kickOffs": 4,
+        "possessionChanges": 782,
+        "turnoverCauses": {
+          "tackle": 342,
+          "interception": 294,
+          "bad_pass": 29,
+          "pass_out": 0,
+          "heavy_touch": 26,
+          "failed_control": 33,
+          "loose_ball_claim": 60,
+          "shot": 0,
+          "foul_stoppage": 3,
+          "other": 0
+        }
+      }
+    },
+    "passingNetwork": [
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 30,
+        "completed": 8
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 21,
+        "completed": 5
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 25,
+        "completed": 6
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 14,
+        "completed": 10
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:8",
+        "attempted": 9,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 70,
+        "completed": 16
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 62,
+        "completed": 20
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:5",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 10,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 13,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 7,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:8",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 8,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:8",
+        "attempted": 17,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 8,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:1",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:4",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:4",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 24,
+        "completed": 5
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 16,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 19,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 8,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:9",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 5,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:1",
+        "receiverId": "geometry:opponent:5",
+        "attempted": 8,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 26,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 8,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 28,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 10,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 10,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:5",
+        "attempted": 3,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 35,
+        "completed": 14
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:1",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 7,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 25,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:3",
+        "attempted": 12,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 7,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 41,
+        "completed": 24
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 10,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 8,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:1",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:9",
+        "attempted": 8,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 34,
+        "completed": 14
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:5",
+        "attempted": 30,
+        "completed": 17
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:9",
+        "attempted": 8,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 42,
+        "completed": 21
+      },
+      {
+        "passerId": "geometry:opponent:9",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 60,
+        "completed": 17
+      },
+      {
+        "passerId": "geometry:opponent:9",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:9",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:2",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:9",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 9,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:5",
+        "receiverId": "geometry:opponent:9",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 24,
+        "completed": 12
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:4",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 15,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:5",
+        "attempted": 7,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 17,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:5",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:9",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:1",
+        "attempted": 11,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 18,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 4,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:4",
+        "receiverId": "geometry:anchor:8",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:9",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 9,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 11,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:5",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 6,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 9,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:9",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:8",
+        "attempted": 7,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:3",
+        "attempted": 12,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:9",
+        "attempted": 8,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 4,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 3,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 7,
+        "completed": 4
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:5",
+        "attempted": 24,
+        "completed": 18
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 6,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 46,
+        "completed": 30
+      },
+      {
+        "passerId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 4,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 7,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:0",
+        "attempted": 3,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:5",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:4",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 2,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:1",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:1",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:1",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:1",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 10,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 7,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:5",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 4,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:3",
+        "attempted": 3,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:3",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:4",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:0",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:5",
+        "attempted": 4,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:5",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:1",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:9",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:0",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:0",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:5",
+        "attempted": 4,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:1",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 6,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:1",
+        "attempted": 6,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:8",
+        "attempted": 2,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 8,
+        "completed": 4
+      },
+      {
+        "passerId": "geometry:opponent:1",
+        "receiverId": "geometry:opponent:9",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 8,
+        "completed": 5
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:5",
+        "attempted": 11,
+        "completed": 8
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:0",
+        "attempted": 4,
+        "completed": 4
+      },
+      {
+        "passerId": "geometry:opponent:0",
+        "receiverId": "geometry:opponent:9",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:9",
+        "receiverId": "geometry:opponent:5",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:3",
+        "attempted": 5,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:2",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:2",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:1",
+        "attempted": 2,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:4",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:5",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:0",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:1",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:1",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 3,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 33,
+        "completed": 9
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 23,
+        "completed": 13
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 24,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:opponent:1",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 12,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:12",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 15,
+        "completed": 9
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 13,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 5,
+        "completed": 4
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:1",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:2",
+        "attempted": 8,
+        "completed": 7
+      },
+      {
+        "passerId": "geometry:anchor:12",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 24,
+        "completed": 6
+      },
+      {
+        "passerId": "geometry:opponent:0",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:1",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 14,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:12",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 9,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 18,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:5",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 16,
+        "completed": 5
+      },
+      {
+        "passerId": "geometry:anchor:12",
+        "receiverId": "geometry:anchor:3",
+        "attempted": 2,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 10,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:2",
+        "attempted": 11,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 8,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:12",
+        "receiverId": "geometry:anchor:5",
+        "attempted": 2,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:12",
+        "receiverId": "geometry:anchor:1",
+        "attempted": 4,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:12",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 13,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 11,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:1",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 8,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:5",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 5,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:13",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 2,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 8,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 9,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:10",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:1",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:1",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:5",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 5,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:10",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 5,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:13",
+        "attempted": 8,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:5",
+        "attempted": 4,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:2",
+        "attempted": 4,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:13",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:2",
+        "attempted": 4,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:13",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:13",
+        "receiverId": "geometry:anchor:10",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:13",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 6,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:13",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:13",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:0",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:13",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:3",
+        "attempted": 5,
+        "completed": 4
+      },
+      {
+        "passerId": "geometry:opponent:10",
+        "receiverId": "geometry:opponent:14",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:13",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:14",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:14",
+        "attempted": 3,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:14",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:6",
+        "receiverId": "geometry:anchor:14",
+        "attempted": 55,
+        "completed": 16
+      },
+      {
+        "passerId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:14",
+        "attempted": 31,
+        "completed": 3
+      },
+      {
+        "passerId": "geometry:anchor:14",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 36,
+        "completed": 12
+      },
+      {
+        "passerId": "geometry:anchor:14",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 32,
+        "completed": 15
+      },
+      {
+        "passerId": "geometry:anchor:14",
+        "receiverId": "geometry:anchor:5",
+        "attempted": 13,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:14",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 26,
+        "completed": 15
+      },
+      {
+        "passerId": "geometry:anchor:14",
+        "receiverId": "geometry:anchor:1",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:14",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:12",
+        "receiverId": "geometry:anchor:14",
+        "attempted": 28,
+        "completed": 14
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:14",
+        "attempted": 2,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:14",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:14",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:12",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:7",
+        "receiverId": "geometry:anchor:14",
+        "attempted": 54,
+        "completed": 11
+      },
+      {
+        "passerId": "geometry:anchor:14",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 26,
+        "completed": 9
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:13",
+        "attempted": 4,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:13",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:13",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:13",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 31,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:15",
+        "receiverId": "geometry:opponent:6",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:15",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 20,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 12,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:13",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:7",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:14",
+        "receiverId": "geometry:opponent:8",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:15",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 13,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:5",
+        "attempted": 7,
+        "completed": 5
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:9",
+        "attempted": 3,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:14",
+        "attempted": 19,
+        "completed": 8
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:14",
+        "attempted": 12,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:14",
+        "receiverId": "geometry:anchor:3",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 7,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 2,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:15",
+        "receiverId": "geometry:opponent:14",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:14",
+        "attempted": 5,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:12",
+        "receiverId": "geometry:opponent:14",
+        "attempted": 4,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:15",
+        "receiverId": "geometry:opponent:7",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:3",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:2",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:14",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 5,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:0",
+        "receiverId": "geometry:opponent:12",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:14",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 7,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:14",
+        "attempted": 2,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:15",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:2",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:8",
+        "receiverId": "geometry:opponent:13",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 4,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:13",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:14",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 9,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:3",
+        "receiverId": "geometry:anchor:1",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:13",
+        "receiverId": "geometry:anchor:7",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:13",
+        "receiverId": "geometry:anchor:14",
+        "attempted": 2,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:0",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:15",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 3,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:15",
+        "receiverId": "geometry:opponent:13",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:9",
+        "receiverId": "geometry:anchor:12",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:14",
+        "receiverId": "geometry:anchor:2",
+        "attempted": 2,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:15",
+        "receiverId": "geometry:opponent:4",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:anchor:1",
+        "receiverId": "geometry:anchor:13",
+        "attempted": 2,
+        "completed": 2
+      },
+      {
+        "passerId": "geometry:opponent:3",
+        "receiverId": "geometry:opponent:13",
+        "attempted": 2,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:6",
+        "receiverId": "geometry:opponent:14",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:13",
+        "receiverId": "geometry:opponent:3",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:anchor:13",
+        "receiverId": "geometry:anchor:6",
+        "attempted": 1,
+        "completed": 1
+      },
+      {
+        "passerId": "geometry:opponent:4",
+        "receiverId": "geometry:opponent:2",
+        "attempted": 1,
+        "completed": 0
+      },
+      {
+        "passerId": "geometry:opponent:0",
+        "receiverId": "geometry:opponent:15",
+        "attempted": 1,
+        "completed": 0
+      }
+    ]
+  },
+  "defence": {
+    "opportunities": 1025,
+    "attempted": 1025,
+    "missed": 37,
+    "beaten": 310,
+    "cleanWins": 464,
+    "looseBalls": 164,
+    "fouls": 50,
+    "yellowCards": 0,
+    "redCards": 0,
+    "secondYellowDismissals": 0,
+    "straightReds": 0,
+    "penalties": 1,
+    "advantageRecalled": 7,
+    "highRiskIntents": 150,
+    "slides": 0,
+    "tacticalIntents": 0,
+    "advantagePlayed": 8,
+    "byPlayer": {
+      "geometry:opponent:4": {
+        "opportunities": 18,
+        "attempted": 18,
+        "missed": 1,
+        "beaten": 9,
+        "cleanWins": 2,
+        "looseBalls": 4,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 1,
+        "advantageRecalled": 0,
+        "highRiskIntents": 1,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:anchor:7": {
+        "opportunities": 112,
+        "attempted": 112,
+        "missed": 2,
+        "beaten": 9,
+        "cleanWins": 74,
+        "looseBalls": 20,
+        "fouls": 7,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 31,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:7": {
+        "opportunities": 88,
+        "attempted": 88,
+        "missed": 2,
+        "beaten": 44,
+        "cleanWins": 21,
+        "looseBalls": 20,
+        "fouls": 1,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 5,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:anchor:10": {
+        "opportunities": 105,
+        "attempted": 105,
+        "missed": 4,
+        "beaten": 7,
+        "cleanWins": 72,
+        "looseBalls": 13,
+        "fouls": 9,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 19,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:1": {
+        "opportunities": 9,
+        "attempted": 9,
+        "missed": 0,
+        "beaten": 7,
+        "cleanWins": 1,
+        "looseBalls": 1,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:anchor:9": {
+        "opportunities": 12,
+        "attempted": 12,
+        "missed": 0,
+        "beaten": 0,
+        "cleanWins": 9,
+        "looseBalls": 3,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 6,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:2": {
+        "opportunities": 59,
+        "attempted": 59,
+        "missed": 0,
+        "beaten": 34,
+        "cleanWins": 14,
+        "looseBalls": 11,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:9": {
+        "opportunities": 12,
+        "attempted": 12,
+        "missed": 1,
+        "beaten": 7,
+        "cleanWins": 3,
+        "looseBalls": 1,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:6": {
+        "opportunities": 78,
+        "attempted": 78,
+        "missed": 2,
+        "beaten": 43,
+        "cleanWins": 19,
+        "looseBalls": 12,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 2,
+        "highRiskIntents": 3,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 2
+      },
+      "geometry:anchor:8": {
+        "opportunities": 10,
+        "attempted": 10,
+        "missed": 0,
+        "beaten": 0,
+        "cleanWins": 8,
+        "looseBalls": 2,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 3,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:10": {
+        "opportunities": 29,
+        "attempted": 29,
+        "missed": 1,
+        "beaten": 21,
+        "cleanWins": 4,
+        "looseBalls": 3,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:anchor:5": {
+        "opportunities": 68,
+        "attempted": 68,
+        "missed": 4,
+        "beaten": 3,
+        "cleanWins": 43,
+        "looseBalls": 13,
+        "fouls": 5,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 2,
+        "highRiskIntents": 10,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 2
+      },
+      "geometry:opponent:8": {
+        "opportunities": 77,
+        "attempted": 77,
+        "missed": 5,
+        "beaten": 39,
+        "cleanWins": 22,
+        "looseBalls": 9,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 4,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:anchor:6": {
+        "opportunities": 82,
+        "attempted": 82,
+        "missed": 2,
+        "beaten": 11,
+        "cleanWins": 54,
+        "looseBalls": 8,
+        "fouls": 7,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 1,
+        "highRiskIntents": 23,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 1
+      },
+      "geometry:opponent:5": {
+        "opportunities": 14,
+        "attempted": 14,
+        "missed": 1,
+        "beaten": 6,
+        "cleanWins": 2,
+        "looseBalls": 4,
+        "fouls": 1,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 1
+      },
+      "geometry:anchor:1": {
+        "opportunities": 3,
+        "attempted": 3,
+        "missed": 0,
+        "beaten": 0,
+        "cleanWins": 2,
+        "looseBalls": 0,
+        "fouls": 1,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 2,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:3": {
+        "opportunities": 31,
+        "attempted": 31,
+        "missed": 0,
+        "beaten": 20,
+        "cleanWins": 4,
+        "looseBalls": 5,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 1,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 1
+      },
+      "geometry:anchor:2": {
+        "opportunities": 8,
+        "attempted": 8,
+        "missed": 0,
+        "beaten": 0,
+        "cleanWins": 4,
+        "looseBalls": 4,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 2,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:12": {
+        "opportunities": 42,
+        "attempted": 42,
+        "missed": 1,
+        "beaten": 21,
+        "cleanWins": 13,
+        "looseBalls": 5,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:anchor:12": {
+        "opportunities": 34,
+        "attempted": 34,
+        "missed": 3,
+        "beaten": 1,
+        "cleanWins": 25,
+        "looseBalls": 3,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 8,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:13": {
+        "opportunities": 12,
+        "attempted": 12,
+        "missed": 2,
+        "beaten": 2,
+        "cleanWins": 5,
+        "looseBalls": 3,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:anchor:3": {
+        "opportunities": 10,
+        "attempted": 10,
+        "missed": 0,
+        "beaten": 1,
+        "cleanWins": 6,
+        "looseBalls": 1,
+        "fouls": 2,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 1,
+        "highRiskIntents": 3,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 1
+      },
+      "geometry:opponent:14": {
+        "opportunities": 8,
+        "attempted": 8,
+        "missed": 0,
+        "beaten": 4,
+        "cleanWins": 2,
+        "looseBalls": 2,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 1,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:anchor:14": {
+        "opportunities": 65,
+        "attempted": 65,
+        "missed": 4,
+        "beaten": 6,
+        "cleanWins": 45,
+        "looseBalls": 6,
+        "fouls": 4,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 25,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:15": {
+        "opportunities": 36,
+        "attempted": 36,
+        "missed": 2,
+        "beaten": 14,
+        "cleanWins": 9,
+        "looseBalls": 10,
+        "fouls": 1,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 4,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:opponent:0": {
+        "opportunities": 1,
+        "attempted": 1,
+        "missed": 0,
+        "beaten": 1,
+        "cleanWins": 0,
+        "looseBalls": 0,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      },
+      "geometry:anchor:13": {
+        "opportunities": 2,
+        "attempted": 2,
+        "missed": 0,
+        "beaten": 0,
+        "cleanWins": 1,
+        "looseBalls": 1,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 0,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 0
+      }
+    },
+    "byTechnique": {
+      "standing": {
+        "opportunities": 875,
+        "attempted": 875,
+        "missed": 36,
+        "beaten": 290,
+        "cleanWins": 381,
+        "looseBalls": 145,
+        "fouls": 23,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 0,
+        "advantageRecalled": 3,
+        "highRiskIntents": 0,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 4
+      },
+      "committed": {
+        "opportunities": 150,
+        "attempted": 150,
+        "missed": 1,
+        "beaten": 20,
+        "cleanWins": 83,
+        "looseBalls": 19,
+        "fouls": 27,
+        "yellowCards": 0,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 1,
+        "advantageRecalled": 4,
+        "highRiskIntents": 150,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 4
+      }
+    }
+  },
+  "contacts": {
+    "physicalContacts": 8026,
+    "failedControls": 39,
+    "heavyTouches": 181,
+    "planRevisions": 6977,
+    "betweenContactSeconds": 2380.8250000042785,
+    "exposedSeconds": 534.3999999997878,
+    "shieldingSeconds": 282.57500000001687,
+    "absoluteTurnRadians": 4624.250792860469
+  },
+  "captures": [],
+  "finalStateSha256": "f595fa85c08fa294a4dcb6ff9591f550b6382784e58ee21d80873b88a900f3fd",
+  "historical": {
+    "maxStationary": 0.9750000000000005,
+    "maxOwnerSeconds": 19.549999999999958,
+    "cpu": {
+      "user": 303250000,
+      "system": 4594000
+    },
+    "wallMs": 289118.77760000003
+  },
+  "cpu": {
+    "user": 305219000,
+    "system": 1125000
+  },
+  "wallMs": 286780.5883,
+  "rssBytes": 472399872,
+  "failure": null
+}

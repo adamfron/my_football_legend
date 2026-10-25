@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "concurrency": 2,
+  "classification": "3 paired development designs, 15 variants; shared host CPU/wall measurements",
+  "results": [
+    {
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "ww",
+      "policy": "contextual-judgment-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "ss",
+      "policy": "hierarchical-intent-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "ss",
+      "policy": "contextual-judgment-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "ss",
+      "policy": "phase-role-hybrid-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "sw",
+      "policy": "opportunity-driven-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "sw",
+      "policy": "hierarchical-intent-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "exitCode": 1
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "exitCode": 0
+    },
+    {
+      "design": "sw",
+      "policy": "phase-role-hybrid-v1",
+      "exitCode": 0
+    }
+  ]
+}

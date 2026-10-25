@@ -1,0 +1,583 @@
+{
+  "schemaVersion": 1,
+  "classification": "new real development captures; 800-tick continuation and observer neutrality; no independent cohort",
+  "rows": [
+    {
+      "path": "ss-contextual-judgment-v1-v1-pathology-0.json.gz",
+      "capturedAt": 1173.9999999998881,
+      "owner": "geometry:opponent:6",
+      "progress": {
+        "after": 0.27500000000100044,
+        "kind": "pass_release",
+        "status": "first_half",
+        "lastChallenge": {
+          "id": "pr187-development-ss-01:challenge:1147.225000:geometry:opponent:6:geometry:anchor:10:committed",
+          "at": 1147.3749999997913,
+          "actorId": "geometry:opponent:6",
+          "team": "away",
+          "opponentId": "geometry:anchor:10",
+          "technique": "committed",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 62.30296505605442,
+            "y": 35.20079789979123
+          },
+          "outcome": "clean_win",
+          "ballFirst": true,
+          "opponentContact": true,
+          "ballDistance": 0.916581141785364,
+          "opponentDistance": 0.9970993765165157,
+          "facingError": 0.05369760113262423,
+          "relativeSpeed": 2.787564340159343,
+          "lateness": 0,
+          "force": 1.811916821103573,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0.17469541008881606
+        }
+      },
+      "status": "first_half",
+      "deterministic": true,
+      "stateHashes": [
+        "80faaecff979f58eaee00b01e852f02fe3d6a1ee75484a8ed27e3b3680bb4388",
+        "80faaecff979f58eaee00b01e852f02fe3d6a1ee75484a8ed27e3b3680bb4388",
+        "80faaecff979f58eaee00b01e852f02fe3d6a1ee75484a8ed27e3b3680bb4388"
+      ],
+      "eventHashes": [
+        "e7e17981b7f7b60acccdbc6c86e4f95f51d304f7884ff81ea84c517f0999b44a",
+        "e7e17981b7f7b60acccdbc6c86e4f95f51d304f7884ff81ea84c517f0999b44a"
+      ]
+    },
+    {
+      "path": "ss-hierarchical-intent-v1-v1-pathology-0.json.gz",
+      "capturedAt": 1123.2749999997036,
+      "owner": "geometry:opponent:5",
+      "progress": {
+        "after": 0.22500000000081855,
+        "kind": "pass_release",
+        "status": "first_half",
+        "lastChallenge": {
+          "id": "pr187-development-ss-01:challenge:1100.100000:geometry:anchor:10:geometry:opponent:5:standing",
+          "at": 1100.0999999996193,
+          "actorId": "geometry:anchor:10",
+          "team": "home",
+          "opponentId": "geometry:opponent:5",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 78.29798358165556,
+            "y": 24.49476304931813
+          },
+          "outcome": "loose_ball",
+          "ballFirst": true,
+          "opponentContact": false,
+          "ballDistance": 0.39481163234372474,
+          "opponentDistance": 1.4115868057220018,
+          "facingError": 1.287302454453929,
+          "relativeSpeed": 2.024381612604702,
+          "lateness": 0.10976109776134457,
+          "force": 0.3036572418907053,
+          "fromBehind": true,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0
+        }
+      },
+      "status": "first_half",
+      "deterministic": true,
+      "stateHashes": [
+        "673f0da00a5419bfb05dcb8546f05fd2c7150cebc405a171351b6a2086b10743",
+        "673f0da00a5419bfb05dcb8546f05fd2c7150cebc405a171351b6a2086b10743",
+        "673f0da00a5419bfb05dcb8546f05fd2c7150cebc405a171351b6a2086b10743"
+      ],
+      "eventHashes": [
+        "6785d756e0666619b1c589192f8143ebd23be81dc7dea26b2e0fbb6d6aef2a62",
+        "6785d756e0666619b1c589192f8143ebd23be81dc7dea26b2e0fbb6d6aef2a62"
+      ]
+    },
+    {
+      "path": "ss-hierarchical-intent-v1-v1-pathology-1.json.gz",
+      "capturedAt": 3247.625000001774,
+      "owner": "geometry:anchor:4",
+      "progress": {
+        "after": 0.12500000000045475,
+        "kind": "pass_release",
+        "status": "second_half",
+        "lastChallenge": {
+          "id": "pr187-development-ss-01:challenge:3223.025000:geometry:anchor:4:geometry:opponent:8:committed",
+          "at": 3223.175000001685,
+          "actorId": "geometry:anchor:4",
+          "team": "home",
+          "opponentId": "geometry:opponent:8",
+          "technique": "committed",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 67.0166061389839,
+            "y": 45.28979293707272
+          },
+          "outcome": "clean_win",
+          "ballFirst": true,
+          "opponentContact": true,
+          "ballDistance": 0.798793192781297,
+          "opponentDistance": 1.2292738659284446,
+          "facingError": 0.13168591809575858,
+          "relativeSpeed": 2.287077890624753,
+          "lateness": 0,
+          "force": 1.4866006289060896,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0.2519519703487276
+        }
+      },
+      "status": "second_half",
+      "deterministic": true,
+      "stateHashes": [
+        "a86a2deca50f1d543a2801a071cc7e5385043db1dc5089a8569e8091143a8e83",
+        "a86a2deca50f1d543a2801a071cc7e5385043db1dc5089a8569e8091143a8e83",
+        "a86a2deca50f1d543a2801a071cc7e5385043db1dc5089a8569e8091143a8e83"
+      ],
+      "eventHashes": [
+        "f3c914b0dbc73c9552b1f3f1c7862da4a999ef1a2028e30d3b2f489e8cc6d1b9",
+        "f3c914b0dbc73c9552b1f3f1c7862da4a999ef1a2028e30d3b2f489e8cc6d1b9"
+      ]
+    },
+    {
+      "path": "ss-state-value-v1-v1-pathology-0.json.gz",
+      "capturedAt": 2472.8750000046134,
+      "owner": "geometry:opponent:10",
+      "progress": {
+        "after": 9.800000000035652,
+        "kind": "ownership_change",
+        "status": "first_half",
+        "lastChallenge": {
+          "id": "pr187-development-ss-01:challenge:2450.825000:geometry:opponent:10:geometry:anchor:4:committed",
+          "at": 2450.9750000045337,
+          "actorId": "geometry:opponent:10",
+          "team": "away",
+          "opponentId": "geometry:anchor:4",
+          "technique": "committed",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 31.281605333787954,
+            "y": 26.379931232034444
+          },
+          "outcome": "clean_win",
+          "ballFirst": true,
+          "opponentContact": true,
+          "ballDistance": 0.4876944892720645,
+          "opponentDistance": 1.021425908962839,
+          "facingError": 0.2754005605995964,
+          "relativeSpeed": 4.287033436212736,
+          "lateness": 0,
+          "force": 2.7865717335382785,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0.04385850299740923
+        }
+      },
+      "status": "first_half",
+      "deterministic": true,
+      "stateHashes": [
+        "ac0e9e662084a9453276e9db223db694305d2b70565c40eace36ae90b423701b",
+        "ac0e9e662084a9453276e9db223db694305d2b70565c40eace36ae90b423701b",
+        "ac0e9e662084a9453276e9db223db694305d2b70565c40eace36ae90b423701b"
+      ],
+      "eventHashes": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ]
+    },
+    {
+      "path": "sw-opportunity-driven-v1-v1-pathology-0.json.gz",
+      "capturedAt": 972.1749999993897,
+      "owner": "geometry:anchor:8",
+      "progress": {
+        "after": 0.1999999999998181,
+        "kind": "pass_release",
+        "status": "first_half",
+        "lastChallenge": {
+          "id": "pr187-development-sw-01:challenge:950.750000:geometry:opponent:10:geometry:anchor:8:standing",
+          "at": 950.7499999994092,
+          "actorId": "geometry:opponent:10",
+          "team": "away",
+          "opponentId": "geometry:anchor:8",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 55.51256927225243,
+            "y": 15.934238208967093
+          },
+          "outcome": "beaten",
+          "ballFirst": true,
+          "opponentContact": false,
+          "ballDistance": 0.9489967745732272,
+          "opponentDistance": 1.4334828597272948,
+          "facingError": 0.03951055490817623,
+          "relativeSpeed": 2.978681646749497,
+          "lateness": 0,
+          "force": 0.44680224701242455,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0.0015130249340700175
+        }
+      },
+      "status": "first_half",
+      "deterministic": true,
+      "stateHashes": [
+        "1f78c7d40d79bcdab099f0e04a9034cc4438ab628fe70deb2c3d79c3b3f620fe",
+        "1f78c7d40d79bcdab099f0e04a9034cc4438ab628fe70deb2c3d79c3b3f620fe",
+        "1f78c7d40d79bcdab099f0e04a9034cc4438ab628fe70deb2c3d79c3b3f620fe"
+      ],
+      "eventHashes": [
+        "959f9efdbc6addbf1dce70ee51a3c623660476d44a918acc6e81f398654d4f03",
+        "959f9efdbc6addbf1dce70ee51a3c623660476d44a918acc6e81f398654d4f03"
+      ]
+    },
+    {
+      "path": "sw-opportunity-driven-v1-v1-pathology-1.json.gz",
+      "capturedAt": 2007.925000002922,
+      "owner": "geometry:opponent:10",
+      "progress": {
+        "after": 0.1000000000003638,
+        "kind": "pass_release",
+        "status": "first_half",
+        "lastChallenge": {
+          "id": "pr187-development-sw-01:challenge:1984.425000:geometry:opponent:10:geometry:anchor:10:standing",
+          "at": 1984.4250000028364,
+          "actorId": "geometry:opponent:10",
+          "team": "away",
+          "opponentId": "geometry:anchor:10",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 61.11338813597971,
+            "y": 33.52245890997211
+          },
+          "outcome": "clean_win",
+          "ballFirst": true,
+          "opponentContact": true,
+          "ballDistance": 0.933974899547594,
+          "opponentDistance": 1.1906335560541392,
+          "facingError": 1.0276452124912083,
+          "relativeSpeed": 1.74990310314998,
+          "lateness": 0.0271096306253939,
+          "force": 0.262485465472497,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0
+        }
+      },
+      "status": "first_half",
+      "deterministic": true,
+      "stateHashes": [
+        "e856c88bdf4c2e412115b8076298948f85fe0d844624fa6e7a770c085eeebebd",
+        "e856c88bdf4c2e412115b8076298948f85fe0d844624fa6e7a770c085eeebebd",
+        "e856c88bdf4c2e412115b8076298948f85fe0d844624fa6e7a770c085eeebebd"
+      ],
+      "eventHashes": [
+        "f01dbafb78813cd080be8f8a5539c676a556b8833e5e81f6a5cd28445cd5f3a2",
+        "f01dbafb78813cd080be8f8a5539c676a556b8833e5e81f6a5cd28445cd5f3a2"
+      ]
+    },
+    {
+      "path": "ww-contextual-judgment-v1-v1-pathology-0.json.gz",
+      "capturedAt": 1366.4250000005882,
+      "owner": "geometry:anchor:8",
+      "progress": {
+        "after": 0.07500000000027285,
+        "kind": "pass_release",
+        "status": "first_half",
+        "lastChallenge": {
+          "id": "pr187-development-ww-01:challenge:1342.450000:geometry:anchor:8:geometry:opponent:10:standing",
+          "at": 1342.450000000501,
+          "actorId": "geometry:anchor:8",
+          "team": "home",
+          "opponentId": "geometry:opponent:10",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 43.70865908039441,
+            "y": 31.23126982522457
+          },
+          "outcome": "clean_win",
+          "ballFirst": true,
+          "opponentContact": true,
+          "ballDistance": 0.44197902208473216,
+          "opponentDistance": 1.236511898510164,
+          "facingError": 0.31099213975469375,
+          "relativeSpeed": 1.2109927970163539,
+          "lateness": 0,
+          "force": 0.18164891955245308,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0.43821375204538526
+        }
+      },
+      "status": "first_half",
+      "deterministic": true,
+      "stateHashes": [
+        "175eaf36db8fee91558dea720156000157f905004a68dff0202f4d2344b03e5b",
+        "175eaf36db8fee91558dea720156000157f905004a68dff0202f4d2344b03e5b",
+        "175eaf36db8fee91558dea720156000157f905004a68dff0202f4d2344b03e5b"
+      ],
+      "eventHashes": [
+        "65a8724e0da5203418ff4e332419572810094954e1109d81e613cb18a11adf37",
+        "65a8724e0da5203418ff4e332419572810094954e1109d81e613cb18a11adf37"
+      ]
+    },
+    {
+      "path": "ww-contextual-judgment-v1-v1-pathology-1.json.gz",
+      "capturedAt": 3170.2500000014925,
+      "owner": "geometry:anchor:5",
+      "progress": {
+        "after": 0.0500000000001819,
+        "kind": "pass_release",
+        "status": "second_half",
+        "lastChallenge": {
+          "id": "pr187-development-ww-01:challenge:3147.750000:geometry:anchor:5:geometry:opponent:6:standing",
+          "at": 3147.7500000014106,
+          "actorId": "geometry:anchor:5",
+          "team": "home",
+          "opponentId": "geometry:opponent:6",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 59.53937079175999,
+            "y": 37.99975551779218
+          },
+          "outcome": "clean_win",
+          "ballFirst": true,
+          "opponentContact": true,
+          "ballDistance": 0.925126206818305,
+          "opponentDistance": 1.3279960556049204,
+          "facingError": 0.1592698310698779,
+          "relativeSpeed": 1.640565678998917,
+          "lateness": 0,
+          "force": 0.24608485184983753,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0.09162817146443558
+        }
+      },
+      "status": "second_half",
+      "deterministic": true,
+      "stateHashes": [
+        "182bbaa9cc8d5cea491f36845f52a8543ed6db916df6e3d226e1b8411d4e8074",
+        "182bbaa9cc8d5cea491f36845f52a8543ed6db916df6e3d226e1b8411d4e8074",
+        "182bbaa9cc8d5cea491f36845f52a8543ed6db916df6e3d226e1b8411d4e8074"
+      ],
+      "eventHashes": [
+        "73c94bc14307effd20542366fc943341d4595bc536ddaca510077ebfb6a519fb",
+        "73c94bc14307effd20542366fc943341d4595bc536ddaca510077ebfb6a519fb"
+      ]
+    },
+    {
+      "path": "ww-hierarchical-intent-v1-final-pathology-0.json.gz",
+      "capturedAt": 3689.1000000035983,
+      "owner": "geometry:opponent:7",
+      "progress": {
+        "after": 0.07500000000027285,
+        "kind": "pass_release",
+        "status": "second_half",
+        "lastChallenge": {
+          "id": "pr187-development-ww-01:challenge:3665.800000:geometry:opponent:7:geometry:anchor:13:standing",
+          "at": 3665.8000000035136,
+          "actorId": "geometry:opponent:7",
+          "team": "away",
+          "opponentId": "geometry:anchor:13",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 23.140003593739088,
+            "y": 50.830307655053865
+          },
+          "outcome": "loose_ball",
+          "ballFirst": true,
+          "opponentContact": true,
+          "ballDistance": 0.9494420605007675,
+          "opponentDistance": 1.3096826333583618,
+          "facingError": 0.014841543492071452,
+          "relativeSpeed": 3.343003194044401,
+          "lateness": 0,
+          "force": 0.5014504791066601,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0.21567007458406806
+        }
+      },
+      "status": "second_half",
+      "deterministic": true,
+      "stateHashes": [
+        "02234166a91deb4a1ffb93bdd429d9df285d1b58639c0cfd9878ff652e6384e9",
+        "02234166a91deb4a1ffb93bdd429d9df285d1b58639c0cfd9878ff652e6384e9",
+        "02234166a91deb4a1ffb93bdd429d9df285d1b58639c0cfd9878ff652e6384e9"
+      ],
+      "eventHashes": [
+        "096a4778a339c607d1f386149307dbada2fe66914e2289b197a077aaea87a3f3",
+        "096a4778a339c607d1f386149307dbada2fe66914e2289b197a077aaea87a3f3"
+      ]
+    },
+    {
+      "path": "ww-hierarchical-intent-v1-v1-pathology-0.json.gz",
+      "capturedAt": 3689.1000000035983,
+      "owner": "geometry:opponent:7",
+      "progress": {
+        "after": 0.07500000000027285,
+        "kind": "pass_release",
+        "status": "second_half",
+        "lastChallenge": {
+          "id": "pr187-development-ww-01:challenge:3665.800000:geometry:opponent:7:geometry:anchor:13:standing",
+          "at": 3665.8000000035136,
+          "actorId": "geometry:opponent:7",
+          "team": "away",
+          "opponentId": "geometry:anchor:13",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 23.140003593739088,
+            "y": 50.830307655053865
+          },
+          "outcome": "loose_ball",
+          "ballFirst": true,
+          "opponentContact": true,
+          "ballDistance": 0.9494420605007675,
+          "opponentDistance": 1.3096826333583618,
+          "facingError": 0.014841543492071452,
+          "relativeSpeed": 3.343003194044401,
+          "lateness": 0,
+          "force": 0.5014504791066601,
+          "fromBehind": false,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0.21567007458406806
+        }
+      },
+      "status": "second_half",
+      "deterministic": true,
+      "stateHashes": [
+        "02234166a91deb4a1ffb93bdd429d9df285d1b58639c0cfd9878ff652e6384e9",
+        "02234166a91deb4a1ffb93bdd429d9df285d1b58639c0cfd9878ff652e6384e9",
+        "02234166a91deb4a1ffb93bdd429d9df285d1b58639c0cfd9878ff652e6384e9"
+      ],
+      "eventHashes": [
+        "096a4778a339c607d1f386149307dbada2fe66914e2289b197a077aaea87a3f3",
+        "096a4778a339c607d1f386149307dbada2fe66914e2289b197a077aaea87a3f3"
+      ]
+    },
+    {
+      "path": "ww-opportunity-driven-v1-final-pathology-0.json.gz",
+      "capturedAt": 2698.200000005433,
+      "owner": "geometry:anchor:6",
+      "progress": {
+        "after": 0.1500000000005457,
+        "kind": "pass_release",
+        "status": "first_half",
+        "lastChallenge": {
+          "id": "pr187-development-ww-01:challenge:2674.025000:geometry:anchor:6:geometry:opponent:7:standing",
+          "at": 2674.025000005345,
+          "actorId": "geometry:anchor:6",
+          "team": "home",
+          "opponentId": "geometry:opponent:7",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 43.48319351965095,
+            "y": 42.19022434252107
+          },
+          "outcome": "loose_ball",
+          "ballFirst": true,
+          "opponentContact": false,
+          "ballDistance": 0.5769030907817102,
+          "opponentDistance": 1.3741499807282491,
+          "facingError": 0.032064154470084816,
+          "relativeSpeed": 2.26761951087784,
+          "lateness": 0,
+          "force": 0.34014292663167595,
+          "fromBehind": true,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0
+        }
+      },
+      "status": "first_half",
+      "deterministic": true,
+      "stateHashes": [
+        "09bbbd64e6adfa252dc04681e744a0fcea947ceedd29c65c6635dbbd026cd584",
+        "09bbbd64e6adfa252dc04681e744a0fcea947ceedd29c65c6635dbbd026cd584",
+        "09bbbd64e6adfa252dc04681e744a0fcea947ceedd29c65c6635dbbd026cd584"
+      ],
+      "eventHashes": [
+        "122566d4612192220ac7d472dc1963a4316576979359e907d47b7aaf9e522f22",
+        "122566d4612192220ac7d472dc1963a4316576979359e907d47b7aaf9e522f22"
+      ]
+    },
+    {
+      "path": "ww-opportunity-driven-v1-v1-pathology-0.json.gz",
+      "capturedAt": 2698.200000005433,
+      "owner": "geometry:anchor:6",
+      "progress": {
+        "after": 0.1500000000005457,
+        "kind": "pass_release",
+        "status": "first_half",
+        "lastChallenge": {
+          "id": "pr187-development-ww-01:challenge:2674.025000:geometry:anchor:6:geometry:opponent:7:standing",
+          "at": 2674.025000005345,
+          "actorId": "geometry:anchor:6",
+          "team": "home",
+          "opponentId": "geometry:opponent:7",
+          "technique": "standing",
+          "source": "autonomous_npc",
+          "position": {
+            "x": 43.48319351965095,
+            "y": 42.19022434252107
+          },
+          "outcome": "loose_ball",
+          "ballFirst": true,
+          "opponentContact": false,
+          "ballDistance": 0.5769030907817102,
+          "opponentDistance": 1.3741499807282491,
+          "facingError": 0.032064154470084816,
+          "relativeSpeed": 2.26761951087784,
+          "lateness": 0,
+          "force": 0.34014292663167595,
+          "fromBehind": true,
+          "ballReachable": true,
+          "bodyOccludes": false,
+          "defenderContactEta": 0,
+          "carrierContactEta": 0
+        }
+      },
+      "status": "first_half",
+      "deterministic": true,
+      "stateHashes": [
+        "09bbbd64e6adfa252dc04681e744a0fcea947ceedd29c65c6635dbbd026cd584",
+        "09bbbd64e6adfa252dc04681e744a0fcea947ceedd29c65c6635dbbd026cd584",
+        "09bbbd64e6adfa252dc04681e744a0fcea947ceedd29c65c6635dbbd026cd584"
+      ],
+      "eventHashes": [
+        "122566d4612192220ac7d472dc1963a4316576979359e907d47b7aaf9e522f22",
+        "122566d4612192220ac7d472dc1963a4316576979359e907d47b7aaf9e522f22"
+      ]
+    }
+  ],
+  "runnerSha256": "dbab2f3d5086b910a4ea04fb9c33aa6c439240aa23aac49eb7d4945cb4b4ff9e"
+}

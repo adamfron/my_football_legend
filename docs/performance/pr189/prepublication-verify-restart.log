@@ -1,0 +1,70 @@
+
+> my_football_legend@0.1.0 verify
+> npm run lint && npm run test && npm run build
+
+
+> my_football_legend@0.1.0 lint
+> eslint .
+
+
+> my_football_legend@0.1.0 test
+> npm run test:main && npm run test:full-career
+
+
+> my_football_legend@0.1.0 test:main
+> npm run test:unit && npm run test:match-integration && npm run test:match-contract
+
+
+> my_football_legend@0.1.0 test:unit
+> npm run generate:world-db && vitest run --maxWorkers=2 --exclude src/core/fullCareerSimulation.test.ts --exclude src/core/careerLifecycle.test.ts --exclude scripts/clubAudit.test.ts --exclude src/core/careerMatchContract.test.ts --exclude src/core/matchSimulation/pr160PenaltyLiveness.test.ts --exclude src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts --exclude src/app/match/backgroundOrchestration.test.tsx
+
+
+> my_football_legend@0.1.0 generate:world-db
+> node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts
+
+world database: 64 clubs, 1824 footballers
+wrote C:\Users\Admin\Documents\Codex\2026-10-25\cze-przejrzyj-prosz-wklejony-prompt-rozplanuj\work\mfl\.generated-public\data\world\pl-2026-v2.json
+(node:38844) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl
+
+
+ Test Files  241 passed (241)
+      Tests  2200 passed (2200)
+   Start at  05:45:04
+   Duration  536.59s (transform 10.85s, setup 0ms, import 91.91s, tests 353.71s, environment 57.30s)
+
+
+> my_football_legend@0.1.0 test:match-integration
+> vitest run src/core/matchSimulation/pr160PenaltyLiveness.test.ts src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts src/app/match/backgroundOrchestration.test.tsx --maxWorkers=1
+
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl
+
+
+ Test Files  3 passed (3)
+      Tests  56 passed (56)
+   Start at  05:54:01
+   Duration  146.03s (transform 3.39s, setup 0ms, import 8.08s, tests 136.97s, environment 583ms)
+
+
+> my_football_legend@0.1.0 test:match-contract
+> vitest run src/core/careerMatchContract.test.ts --maxWorkers=1 --reporter=verbose
+
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl
+
+ ✓ src/core/careerMatchContract.test.ts > PR164 career fixture contract > prepares the fresh real U-17 season without forcing selection and safely records abandonment 180ms
+stdout | src/core/careerMatchContract.test.ts > PR164 career fixture contract > plays a fresh real U-17 fixture with human intent, commits, saves, reloads and advances its calendar
+PR166 U-17 career receipt {
+  score: { home: 3, away: 0 },
+  choices: 10,
+  endedAt: 5640,
+  canonicalResultBytes: 35600,
+  saveBytes: 103355,
+  retained600ResultSaveBytes: 7296653
+}
+
+ ✓ src/core/careerMatchContract.test.ts > PR164 career fixture contract > plays a fresh real U-17 fixture with human intent, commits, saves, reloads and advances its calendar 200161ms
+ ✓ src/core/careerMatchContract.test.ts > PR164 career fixture contract > validates roster/provenance and keeps presentation seed outside football 116ms

@@ -14,7 +14,12 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR185 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR189 complete telemetry reference (PR146 observer contract)', () => {
+  // PR189 makes recurring control respect the same finite motor recovery as
+  // releases. Shared physical trajectories intentionally change. Pristine PR188
+  // old hashes and both new full 2400-tick payloads repeat twice in eight fresh
+  // processes; all 80 fields, schemas and identity assertions remain checked:
+  // docs/performance/pr189/telemetry-reference.json. PR185 receipts are untouched.
   // PR185 changes shared finite surface impulses, spin and support loading. Both pristine
   // PR184 and these complete 2400-tick outputs repeat twice in fresh processes, retaining
   // all schemas/identity assertions: docs/performance/PR185-telemetry-reference.json.
@@ -107,8 +112,8 @@ describe('PR185 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', '2a6a9a7abd3aa81def55965bc0ee1a06b708aa31156a6c1ba90afb964e523739'],
-    ['pr146-flow-reference:b', '5e930dac7d25edda5a141eb87c4678d7a842d8bfe01f542295e8b539138141c0'],
+    ['pr146-flow-reference:a', '9a8ac72218c1641bc9f51eab45f1ee7c42b19f3506b4209efeabfb4d494b497e'],
+    ['pr146-flow-reference:b', '2b5b93ed4e2891e7c17e374d1b6cb20f1cdf79e05f42d9035a43e3bfafdf1a6a'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

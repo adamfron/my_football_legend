@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "a74be9ee846ac4958fd67e42795cf3d86946e937",
+  "fixture": {
+    "anchor": "4-2-3-1",
+    "opponent": "4-3-3",
+    "attributes": 39,
+    "opponentAttributes": 44,
+    "style": "pressing",
+    "seed": "pr187-development-ww-01"
+  },
+  "inputSha256": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+  "previousInputSha256": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+  "ticks": 220801,
+  "status": "full_time",
+  "maxStationary": 1984.7000000028374,
+  "finalStateSha256": "72fc9ddc0d60d14157a24ccfb0af08916658cbaf5ae5bd37b06d428e4dfd14d7",
+  "historicalFinalStateSha256": "67a6a00c920f7a2ee61afacf3d42d899ec21a992bbfdbad1842f2133eb208173",
+  "captures": [
+    {
+      "path": "docs/performance/pr189/baseline-0s.json.gz",
+      "at": 775.024999999569,
+      "stationary": 0,
+      "stateSha256": "51a486d00f8c9e3d861c2aa7960f2de6ac62a1631e9e40060d09acbab6f51335"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-20s.json.gz",
+      "at": 795.2999999995506,
+      "stationary": 20.02499999999993,
+      "stateSha256": "feb9866d08a91157c8037c067b970a65bd8a6134dba1c9f5454fc736e29d2006"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-60s.json.gz",
+      "at": 835.2999999995142,
+      "stationary": 60.02499999999766,
+      "stateSha256": "7826dc6c65e049f08e2ae3ce74b58c3bb3f37e516f8fec7262f9acf2913707b2"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-300s.json.gz",
+      "at": 1075.274999999529,
+      "stationary": 300.000000000001,
+      "stateSha256": "eb348fab6a61bdd5d967db2407e865e59ac031e97c1badb772ede08972f9107f"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-1200s.json.gz",
+      "at": 1975.3000000028032,
+      "stationary": 1200.0249999999828,
+      "stateSha256": "1942e2879c6bf66e3bf588683012c14adec1f71c46ef439badac5ae3ead5e896"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-1984s.json.gz",
+      "at": 2759.2750000056553,
+      "stationary": 1984.000000002835,
+      "stateSha256": "c918f2c368cbe24e6c3c28ad5b1c15b7a23303080250a535366f7e2456650071"
+    }
+  ],
+  "replay": {
+    "ticks": 800,
+    "direct": "ab35d0453625c3c6c575506cf12d6d761ef85914625224ebebf300e516ed38b0",
+    "restored": "ab35d0453625c3c6c575506cf12d6d761ef85914625224ebebf300e516ed38b0",
+    "bare": "ab35d0453625c3c6c575506cf12d6d761ef85914625224ebebf300e516ed38b0",
+    "eventHashes": [
+      "a782c683d64c30983a2a5bc7775edffa6f86b7edf447a4c6860f2976dbfdfcd4",
+      "a782c683d64c30983a2a5bc7775edffa6f86b7edf447a4c6860f2976dbfdfcd4"
+    ],
+    "equal": true
+  },
+  "cpu": {
+    "user": 212282000,
+    "system": 1297000
+  },
+  "wallMs": 202128.6579,
+  "rssBytes": 540504064
+}

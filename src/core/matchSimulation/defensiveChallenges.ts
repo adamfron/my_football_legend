@@ -324,15 +324,29 @@ const projectPressingPlan = (
       0.25;
   const isolatedWing =
     Math.abs(c.opponent.position.y - 34) > 15 && c.covering === 0 && paceExposure > 0.65;
+  // A covered defender facing settled circulation can safely test the ball-side
+  // shoulder. Remaining at a stand-off neither denies the nearby outlets nor
+  // exposes the ball; waiting for another touch has no defensive value here.
+  // This is current geometry/motion, never a duration-triggered tackle command.
+  const coveredProbe =
+    relativeDefence(state) &&
+    c.covering > 0 &&
+    c.opponentDistance < 6 &&
+    !c.danger &&
+    !protectedReceiver &&
+    opportunity.safeOutletCount > 0 &&
+    Math.hypot(c.opponent.velocity.x, c.opponent.velocity.y) < 0.45 &&
+    Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0) < 1;
   const partner = cooperativePress?.secondaryId === c.actor.id;
   const screening =
     (protectedReceiver && !reachableExposure) ||
-    (!selected && !nearGoal && !unstableControl && easyBuildUp) ||
+    (!selected && !nearGoal && !unstableControl && !coveredProbe && easyBuildUp) ||
     (cooperativePress?.primaryId === c.actor.id &&
       !selected &&
       !invited &&
       !unstableControl &&
       !nearGoal &&
+      !coveredProbe &&
       !reachableExposure);
   const intention: PressingPlan['intention'] = locked
     ? 'contain'
@@ -344,6 +358,7 @@ const projectPressingPlan = (
           ? 'emergency'
           : selected ||
               partner ||
+              coveredProbe ||
               reachableExposure ||
               unstableControl ||
               (invited && !easyBuildUp) ||

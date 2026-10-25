@@ -1,5 +1,45 @@
 # My Football Legend — Current Project State
 
+## PR189 — Captured Contact Deadlock Repair (staged)
+
+Odtworzono pełne zamrożone WW/A z PR188: 1 984,7 s bezruchu. Sześć rzeczywistych,
+kompletnych stanów obejmuje początek i kolejne etapy epizodu. Replay stanu i zdarzeń
+oraz neutralność obserwatora są sprawdzane na zamrożonym i zmienionym silniku.
+Przyczyna: oceny polityki co około 0,25 s stale trafiały w przerwę po kontrolnym
+dotknięciu, mimo otwierającego się pomiędzy ocenami okna. Przygotowany zamiar może
+teraz wywołać ponowną walidację przy fizycznym oknie; odzysk sprawności nogi nadal
+obowiązuje i uwzględnia rzeczywisty czas z poprzedniego kontaktu.
+
+Dotknięcia kontrolne respektują ten sam recovery co podanie. Gdy kolejny kontakt
+jest już należny, stopa nie sięga piłki, a kolizja blokuje rzeczywisty krok do niej,
+kontrola kończy się luźną piłką; dalsze przejęcie rozstrzyga zwykła fizyka.
+Pomiar bezruchu używa rzeczywistych pozycji. W końcowym WW/A maksimum wynosi 1,35 s,
+ale celność 25/1915 i tylko jeden strzał nadal falsyfikują gotowość futbolu.
+Po naprawie drogi obrońcy do legalnej pozycji pełna seria kończy **15/15** meczów
+w tym samym limicie 7200 s. SW/C kończy w 6135,5 s. Planner omija wszystkie
+blokujące ciała, również rywali poza murem i przy końcu drogi; rzeczywisty dystans
+9,15 m nadal obowiązuje. Stary cutoff 14/15 i dokładny silnik pozostają w dowodach.
+Poprawa ukończenia nie jest poprawą wszystkich metryk: WW/B ma 11,825 s bezruchu,
+a SS/H zero strzałów. B nie jest zastępowane polityką eksperymentalną.
+
+Asekurowany obrońca eksperymentalnej polityki może podejść do nieruchomego,
+ustabilizowanego rywala z opcją podania. Decyzja zależy od bieżącej geometrii,
+asekuracji i ruchu; nie ma czasu wymuszającego odbiór. Historyczny kontroler B/R3
+pozostaje odrębny, wspólna gotowość kontaktu i droga wznowień mają jednak zmierzone
+skutki także dla B.
+
+To ograniczony etap naprawczy. Pełna artykulacja dolnej części ciała, dodatkowe
+powierzchnie i fizyczne odbicia, leg-gap/GK, fast-versus-prepared oraz zwód są
+**NIEWYKONANE**. Pozostałe zastoje i negatywne wyniki pełnych meczów pozostają
+w [raporcie PR189](PR189_BALL_CONTACT_DUEL_GEOMETRY_AND_DEADLOCK_RESOLUTION.md).
+**Canonical NOT READY; B `state-value-v1` nadal domyślne, 28 atrybutów bez zmian,
+niezależna kohorta confirmation zamknięta.**
+
+Aktualna kolejność: **PR189 kontakt/replay → PR190 geometria ciała i powierzchnie → PR191
+pełne generacje/siła świata → PR192 summary/PlayStyles → PR193 career UX → PR194+
+world expansion**. Pełny zakres generacji, w tym 20–25 sezonów rozwoju i analizy
+siły świata, jest zachowany w roadmapie. Żaden z tych etapów nie jest ukończony.
+
 ## PR188 — Relative Decisions & Match Stabilization (experimental)
 
 Priorytetem jest stabilizacja decyzji i wznowień po negatywnych wynikach PR187.
@@ -23,7 +63,7 @@ Pełne WW falsyfikuje ogólną poprawę liveness: trzy polityki eksperymentalne 
 mają wielominutowe zastoje i bardzo słabą skuteczność podań. Naprawy lokalne oraz
 zielone testy techniczne nie zamykają tych bram; PR pozostaje eksperymentalnym szkicem.
 
-Aktualna kolejność: **PR188 stabilizacja → PR189 pełne generacje/siła świata →
+Historyczna kolejność PR188: **PR188 stabilizacja → PR189 pełne generacje/siła świata →
 PR190 summary/PlayStyles → PR191 career UX → PR192+ world expansion**.
 Generacje zachowują całe 20–25-sezonowe zobowiązanie; niczego nie oznaczono jako
 wykonane. Sekcje historyczne poniżej zachowują numery planów ze swoich okresów.

@@ -6,7 +6,7 @@ import { angleForVector, normalizeAngle } from './playerOrientation';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { tacticalRoleFor } from './tacticalRoles';
 import { playerAttributesSchema, hiddenPlayerProfileSchema } from '../../schemas/domainSchemas';
-import { playerContactGeometry } from './ballContactGeometry';
+import { canReleaseControlledAction } from './decisionReadiness';
 import { deriveMovementCapability, movementCapabilitySchema } from './locomotion';
 import {
   boundedExperimentSchema,
@@ -116,7 +116,6 @@ export const observeBoundedScene = (
         state.onBallPreparation.readyAt > state.time,
     }));
   const ballVisible = state.ball.ownerId === actor.id || sees(state.ball);
-  const feet = playerContactGeometry(actor);
   const last = state.lastGroundContact?.actorId === actor.id ? state.lastGroundContact.at : null;
   const prep = state.onBallPreparation?.actorId === actor.id ? state.onBallPreparation : null;
   const role = tacticalRoleFor(state, actor);
@@ -151,13 +150,7 @@ export const observeBoundedScene = (
         }
       : null,
     visible,
-    contactReady:
-      ballVisible &&
-      state.ball.ownerId === actor.id &&
-      (state.ball.height ?? 0) <= 0.65 &&
-      Math.min(distance(feet.leftFoot, state.ball), distance(feet.rightFoot, state.ball)) <=
-        feet.footReach &&
-      (last === null || state.time - last >= 0.12 - 1e-8),
+    contactReady: ballVisible && canReleaseControlledAction(state, actor),
     readyAt: prep?.readyAt ?? state.ballOwnershipStartedAt ?? state.time,
     gainedAt: prep?.gainedAt ?? state.time,
     lastTouchAt: last,

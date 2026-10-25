@@ -121,6 +121,14 @@ const directionFor = (vector: { x: number; y: number }, fallback: number) => {
 
 /** Metres, pitch x/y and the existing orientation convention: 0 faces positive y. */
 export const playerContactGeometry = playerFootGeometry;
+/** One motor recovery deadline for control and release. A planned control touch
+ * cannot consume the ball before the recovery reported by the previous surface. */
+export const motorContactReadyAt = (state: TacticalMatchState, actorId: string) => {
+  const last = state.lastGroundContact;
+  return last?.actorId === actorId
+    ? last.at + Math.max(0.12, last.surfaceContact?.recoverySeconds ?? 0)
+    : state.time;
+};
 const controlSkill = (actor: MatchPlayerState) => {
   const a = actor.profile.attributes;
   return (
@@ -218,8 +226,8 @@ export const estimateCarrierContactWindow = (
     (0.14 + (1 - skill) * 0.13 + difficulty * (0.16 + (1 - skill) * 0.22)) *
     (1 + (fitness.contactRecovery - 1) * difficulty);
   const earliestContactAt = active
-    ? Math.max(state.time, active.lastContactAt + preparation)
-    : state.time;
+    ? Math.max(state.time, active.lastContactAt + preparation, motorContactReadyAt(state, actor.id))
+    : Math.max(state.time, motorContactReadyAt(state, actor.id));
   return {
     earliestContactAt,
     difficulty,
@@ -437,6 +445,7 @@ export const advanceControlledBall = (
   actor: MatchPlayerState,
   dt: number,
   requiredFoot?: 'left' | 'right',
+  previousBodyPosition?: { x: number; y: number },
 ): { state: TacticalMatchState; looseVelocity?: { x: number; y: number } } => {
   if (
     state.ball.ownerId !== actor.id ||
@@ -534,7 +543,14 @@ export const advanceControlledBall = (
         (1 - (actor.profile.attributes.agility / 100) * 0.65),
   );
   balance = clamp01(balance - bodyContest.balanceDemand * dt * 3.2);
-  if (state.time + 1e-8 >= (activeMove?.nextAt ?? active.nextContact.earliestAt) && reachable) {
+  if (
+    state.time + 1e-8 >=
+      Math.max(
+        activeMove?.nextAt ?? active.nextContact.earliestAt,
+        motorContactReadyAt(state, actor.id),
+      ) &&
+    reachable
+  ) {
     const skill = controlSkill(actor);
     const interval =
       (0.15 + (1 - skill) * 0.14 + window.difficulty * 0.2 + (1 - balance) * 0.16) *
@@ -608,7 +624,7 @@ export const advanceControlledBall = (
             multiContact: {
               ...activeMove,
               phase: surfaceContact.available ? (activeMove.phase === 0 ? 1 : 2) : activeMove.phase,
-              nextAt: state.time + Math.max(0.075, interval * 0.55),
+              nextAt: state.time + Math.max(0.12, interval * 0.55, surfaceContact.recoverySeconds),
               status: surfaceContact.available
                 ? activeMove.phase === 0
                   ? 'active'
@@ -629,7 +645,7 @@ export const advanceControlledBall = (
           },
         },
         actor,
-        state.time + interval,
+        state.time + Math.max(interval, 0.12, surfaceContact.recoverySeconds),
       ),
     };
     telemetry.physicalContacts += Number(surfaceContact.available);
@@ -709,7 +725,19 @@ export const advanceControlledBall = (
     state.ballCarrierIntent.executionMode === 'burst'
       ? 3.2
       : 2.05;
-  if (distance(actor.position, ball) > maximumEnvelope) {
+  // A due follow-up contact has actually missed when the foot cannot reach and
+  // body collision prevents the attempted recovery step. Nominal locomotion
+  // velocity is not evidence of movement. End protected control, then let the
+  // ordinary loose-ball contact/acquisition lifecycle decide who recovers it.
+  const blockedMissedContact =
+    previous !== undefined &&
+    previousBodyPosition !== undefined &&
+    !reachable &&
+    state.time + 1e-8 >=
+      Math.max(active.nextContact.earliestAt, motorContactReadyAt(state, actor.id)) &&
+    distance(previousBodyPosition, actor.position) < 0.00001 &&
+    Math.hypot(actor.velocity.x, actor.velocity.y) > 0.1;
+  if (blockedMissedContact || distance(actor.position, ball) > maximumEnvelope) {
     next.lastGroundContact = contactFact
       ? { ...contactFact, retained: false }
       : {
