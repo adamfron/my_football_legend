@@ -1,0 +1,2632 @@
+{
+  "schemaVersion": 1,
+  "classification": "development only; independent cohort unopened",
+  "ready": false,
+  "complete": true,
+  "baselineMatches": 15,
+  "currentMatches": 15,
+  "rows": [
+    {
+      "design": "ss",
+      "policy": "contextual-judgment-v1",
+      "before": {
+        "path": "docs/performance/pr190/ss-contextual-judgment-v1-baseline-full.json",
+        "passes": {
+          "attempted": 2426,
+          "completed": 1902
+        },
+        "shots": 2,
+        "inPlayMinutes": 88.0637500001004,
+        "passesPerInPlayMinute": 27.54822500742058
+      },
+      "after": {
+        "path": "docs/performance/pr190/ss-contextual-judgment-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+        "passes": {
+          "attempted": 1736,
+          "completed": 1455
+        },
+        "completion": 0.8381336405529954,
+        "shots": 4,
+        "score": {
+          "home": 1,
+          "away": 1
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5640,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 240,
+          "ballInPlaySeconds": 5113.824999982834,
+          "deadBallSeconds": 526.1750000171658,
+          "deadBallByReason": {
+            "period_start": 34.025000000122965,
+            "foul": 322.59999999906665,
+            "substitution": 75.35000000019943,
+            "discipline": 21.924999999962893,
+            "goal": 57.15000000020791,
+            "goal_kick": 15.125000017605998
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 34.025000000122965,
+              "mean": 17.012500000061483,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 33.800000000122964
+            },
+            "foul": {
+              "count": 53,
+              "seconds": 412.19999999920105,
+              "mean": 7.777358490550963,
+              "median": 7.449999999891588,
+              "p90": 11.949999999826105,
+              "maximum": 17.37500000006321
+            },
+            "goal": {
+              "count": 2,
+              "seconds": 57.15000000020791,
+              "mean": 28.575000000103955,
+              "median": 26.85000000009768,
+              "p90": 26.85000000009768,
+              "maximum": 30.30000000011023
+            },
+            "penalty": {
+              "count": 1,
+              "seconds": 7.6750000000279215,
+              "mean": 7.6750000000279215,
+              "median": 7.6750000000279215,
+              "p90": 7.6750000000279215,
+              "maximum": 7.6750000000279215
+            },
+            "goal_kick": {
+              "count": 1,
+              "seconds": 15.125000017605998,
+              "mean": 15.125000017605998,
+              "median": 15.125000017605998,
+              "p90": 15.125000017605998,
+              "maximum": 15.125000017605998
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 20.368315302215006
+        },
+        "passesPerInPlayMinute": 20.368315302215006,
+        "possessionExchangesPerInPlayMinute": 7.0397403118254624,
+        "turnoversPerInPlayMinute": 7.121870615463426,
+        "shotsPerInPlayMinute": 0.04693160207883642,
+        "meanPossessionSequenceSeconds": 8.289041666666657,
+        "finalThirdEntries": 92,
+        "boxEntries": 10,
+        "receptions": {
+          "clean": 884,
+          "directional": 571,
+          "heavy": 23,
+          "failed": 0
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 9,
+            "completed": 9,
+            "firstTouchFailures": 0
+          },
+          "short:clear:moving": {
+            "attempted": 105,
+            "completed": 103,
+            "firstTouchFailures": 0
+          },
+          "short:pressured:moving": {
+            "attempted": 1455,
+            "completed": 1215,
+            "firstTouchFailures": 21
+          },
+          "medium:pressured:moving": {
+            "attempted": 44,
+            "completed": 21,
+            "firstTouchFailures": 1
+          },
+          "short:pressured:static": {
+            "attempted": 83,
+            "completed": 77,
+            "firstTouchFailures": 0
+          },
+          "medium:clear:static": {
+            "attempted": 1,
+            "completed": 1,
+            "firstTouchFailures": 0
+          },
+          "medium:clear:moving": {
+            "attempted": 24,
+            "completed": 21,
+            "firstTouchFailures": 1
+          },
+          "medium:pressured:static": {
+            "attempted": 7,
+            "completed": 5,
+            "firstTouchFailures": 0
+          },
+          "long:pressured:moving": {
+            "attempted": 6,
+            "completed": 2,
+            "firstTouchFailures": 0
+          },
+          "long:pressured:static": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 0
+          },
+          "long:clear:moving": {
+            "attempted": 1,
+            "completed": 1,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "completed": 1455,
+          "deflection": 106,
+          "undetermined": 57,
+          "lane_interception": 88,
+          "first_touch_failure": 23,
+          "landing_race": 7
+        },
+        "cpu": {
+          "user": 345593000,
+          "system": 1906000
+        },
+        "rssBytes": 737918976,
+        "wallMs": 322336.25080000004
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "ss",
+      "policy": "hierarchical-intent-v1",
+      "before": {
+        "path": "docs/performance/pr190/ss-hierarchical-intent-v1-baseline-full.json",
+        "passes": {
+          "attempted": 2272,
+          "completed": 1784
+        },
+        "shots": 0,
+        "inPlayMinutes": 87.67833333333013,
+        "passesPerInPlayMinute": 25.912901324919684
+      },
+      "after": {
+        "path": "docs/performance/pr190/ss-hierarchical-intent-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+        "passes": {
+          "attempted": 1210,
+          "completed": 1002
+        },
+        "completion": 0.828099173553719,
+        "shots": 1,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5520.174999984136,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 120.17499998413587,
+          "ballInPlaySeconds": 5013.14999998448,
+          "deadBallSeconds": 507.0249999996556,
+          "deadBallByReason": {
+            "period_start": 33.500000000121055,
+            "foul": 365.42499999948035,
+            "offside": 18.650000000001405,
+            "discipline": 29.849999999835973,
+            "substitution": 56.750000000206455,
+            "goal_kick": 2.8500000000103682
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 33.500000000121055,
+              "mean": 16.750000000060528,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 33.275000000121054
+            },
+            "foul": {
+              "count": 56,
+              "seconds": 443.1249999994904,
+              "mean": 7.9129464285623285,
+              "median": 7.850000000028558,
+              "p90": 10.999999999839929,
+              "maximum": 16.425000000059754
+            },
+            "offside": {
+              "count": 1,
+              "seconds": 18.650000000001405,
+              "mean": 18.650000000001405,
+              "median": 18.650000000001405,
+              "p90": 18.650000000001405,
+              "maximum": 18.650000000001405
+            },
+            "goal_kick": {
+              "count": 2,
+              "seconds": 11.750000000042746,
+              "mean": 5.875000000021373,
+              "median": 2.8500000000103682,
+              "p90": 2.8500000000103682,
+              "maximum": 8.900000000032378
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 14.481912569985889
+        },
+        "passesPerInPlayMinute": 14.481912569985889,
+        "possessionExchangesPerInPlayMinute": 7.743634241967662,
+        "turnoversPerInPlayMinute": 7.791508333108111,
+        "shotsPerInPlayMinute": 0.011968522785112306,
+        "meanPossessionSequenceSeconds": 7.763021638330757,
+        "finalThirdEntries": 81,
+        "boxEntries": 5,
+        "receptions": {
+          "clean": 573,
+          "directional": 429,
+          "heavy": 17,
+          "failed": 0
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 7,
+            "completed": 7,
+            "firstTouchFailures": 0
+          },
+          "short:pressured:moving": {
+            "attempted": 1076,
+            "completed": 892,
+            "firstTouchFailures": 15
+          },
+          "short:clear:moving": {
+            "attempted": 37,
+            "completed": 37,
+            "firstTouchFailures": 0
+          },
+          "medium:pressured:moving": {
+            "attempted": 16,
+            "completed": 9,
+            "firstTouchFailures": 0
+          },
+          "short:pressured:static": {
+            "attempted": 65,
+            "completed": 52,
+            "firstTouchFailures": 0
+          },
+          "medium:clear:moving": {
+            "attempted": 1,
+            "completed": 1,
+            "firstTouchFailures": 0
+          },
+          "medium:pressured:static": {
+            "attempted": 5,
+            "completed": 3,
+            "firstTouchFailures": 1
+          },
+          "long:clear:moving": {
+            "attempted": 2,
+            "completed": 1,
+            "firstTouchFailures": 1
+          },
+          "long:pressured:static": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "completed": 1002,
+          "lane_interception": 86,
+          "deflection": 74,
+          "undetermined": 25,
+          "landing_race": 6,
+          "first_touch_failure": 17
+        },
+        "cpu": {
+          "user": 340172000,
+          "system": 1625000
+        },
+        "rssBytes": 686927872,
+        "wallMs": 317603.83499999996
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "before": {
+        "path": "docs/performance/pr190/ss-opportunity-driven-v1-baseline-full.json",
+        "passes": {
+          "attempted": 2693,
+          "completed": 1209
+        },
+        "shots": 1,
+        "inPlayMinutes": 84.20916666666946,
+        "passesPerInPlayMinute": 31.979891341994566
+      },
+      "after": {
+        "path": "docs/performance/pr190/ss-opportunity-driven-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "08825410737cfddeff3b3db5c859582ba21750cd610e8a82feeabdb1be99a41e",
+        "passes": {
+          "attempted": 2407,
+          "completed": 925
+        },
+        "completion": 0.3842958039052763,
+        "shots": 0,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5526.02500000568,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 126.02500000568034,
+          "ballInPlaySeconds": 4941.900000006679,
+          "deadBallSeconds": 584.1249999990018,
+          "deadBallByReason": {
+            "period_start": 33.200000000119964,
+            "foul": 386.3249999987854,
+            "discipline": 43.34999999988861,
+            "substitution": 69.82500000025402,
+            "goal_kick": 51.4249999999538
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 33.200000000119964,
+              "mean": 16.600000000059982,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 32.97500000011996
+            },
+            "foul": {
+              "count": 63,
+              "seconds": 499.49999999892805,
+              "mean": 7.928571428554413,
+              "median": 7.325000000026648,
+              "p90": 13.174999999988017,
+              "maximum": 22.42500000008158
+            },
+            "goal_kick": {
+              "count": 3,
+              "seconds": 51.4249999999538,
+              "mean": 17.141666666651265,
+              "median": 18.70000000006803,
+              "p90": 18.70000000006803,
+              "maximum": 19.900000000072396
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 29.223577976042577
+        },
+        "passesPerInPlayMinute": 29.223577976042577,
+        "possessionExchangesPerInPlayMinute": 20.27560250103494,
+        "turnoversPerInPlayMinute": 20.39701329445431,
+        "shotsPerInPlayMinute": 0,
+        "meanPossessionSequenceSeconds": 3.1257934131736587,
+        "finalThirdEntries": 98,
+        "boxEntries": 5,
+        "receptions": {
+          "clean": 574,
+          "directional": 351,
+          "heavy": 160,
+          "failed": 0
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 14,
+            "completed": 14,
+            "firstTouchFailures": 0
+          },
+          "short:clear:moving": {
+            "attempted": 45,
+            "completed": 36,
+            "firstTouchFailures": 5
+          },
+          "short:pressured:moving": {
+            "attempted": 1570,
+            "completed": 651,
+            "firstTouchFailures": 45
+          },
+          "medium:pressured:moving": {
+            "attempted": 524,
+            "completed": 137,
+            "firstTouchFailures": 83
+          },
+          "long:pressured:moving": {
+            "attempted": 43,
+            "completed": 8,
+            "firstTouchFailures": 8
+          },
+          "short:pressured:static": {
+            "attempted": 111,
+            "completed": 41,
+            "firstTouchFailures": 2
+          },
+          "medium:clear:moving": {
+            "attempted": 37,
+            "completed": 17,
+            "firstTouchFailures": 4
+          },
+          "medium:pressured:static": {
+            "attempted": 52,
+            "completed": 13,
+            "firstTouchFailures": 11
+          },
+          "long:pressured:static": {
+            "attempted": 5,
+            "completed": 2,
+            "firstTouchFailures": 2
+          },
+          "medium:clear:static": {
+            "attempted": 2,
+            "completed": 2,
+            "firstTouchFailures": 0
+          },
+          "long:clear:moving": {
+            "attempted": 4,
+            "completed": 4,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "completed": 925,
+          "deflection": 690,
+          "lane_interception": 572,
+          "first_touch_failure": 160,
+          "undetermined": 42,
+          "landing_race": 17,
+          "out_of_play": 1
+        },
+        "cpu": {
+          "user": 348625000,
+          "system": 1500000
+        },
+        "rssBytes": 935059456,
+        "wallMs": 327011.91839999997
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "ss",
+      "policy": "phase-role-hybrid-v1",
+      "before": {
+        "path": "docs/performance/pr190/ss-phase-role-hybrid-v1-baseline-full.json",
+        "passes": {
+          "attempted": 2156,
+          "completed": 1467
+        },
+        "shots": 16,
+        "inPlayMinutes": 76.86458333312005,
+        "passesPerInPlayMinute": 28.04932917747314
+      },
+      "after": {
+        "path": "docs/performance/pr190/ss-phase-role-hybrid-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+        "passes": {
+          "attempted": 2284,
+          "completed": 1497
+        },
+        "completion": 0.6554290718038529,
+        "shots": 15,
+        "score": {
+          "home": 4,
+          "away": 2
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5775.050000006368,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 375.05000000636755,
+          "ballInPlaySeconds": 4849.349999988027,
+          "deadBallSeconds": 925.7000000183403,
+          "deadBallByReason": {
+            "period_start": 32.950000000119054,
+            "goal_kick": 86.97499999981241,
+            "foul": 434.02500001860074,
+            "throw_in": 64.70000000002372,
+            "discipline": 42.024999999835245,
+            "substitution": 100.65000000036616,
+            "goal": 164.374999999583
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 32.950000000119054,
+              "mean": 16.475000000059527,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 32.72500000011905
+            },
+            "goal_kick": {
+              "count": 8,
+              "seconds": 86.97499999981241,
+              "mean": 10.871874999976551,
+              "median": 10.174999999851934,
+              "p90": 15.225000000003462,
+              "maximum": 17.050000000062028
+            },
+            "foul": {
+              "count": 65,
+              "seconds": 576.7000000188021,
+              "mean": 8.872307692596957,
+              "median": 7.9749999998839485,
+              "p90": 13.849999999798456,
+              "maximum": 24.675000000089767
+            },
+            "throw_in": {
+              "count": 8,
+              "seconds": 64.70000000002372,
+              "mean": 8.087500000002965,
+              "median": 7.025000000025557,
+              "p90": 10.475000000038108,
+              "maximum": 10.900000000039654
+            },
+            "goal": {
+              "count": 6,
+              "seconds": 164.374999999583,
+              "mean": 27.395833333263834,
+              "median": 26.87500000009777,
+              "p90": 28.074999999591455,
+              "maximum": 28.4500000001035
+            }
+          },
+          "unclassifiedDeadBallSeconds": 1.1368683772161603e-13,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 28.259457453130494
+        },
+        "passesPerInPlayMinute": 28.259457453130494,
+        "possessionExchangesPerInPlayMinute": 11.642797488351924,
+        "turnoversPerInPlayMinute": 11.70466144950151,
+        "shotsPerInPlayMinute": 0.18559188344875543,
+        "meanPossessionSequenceSeconds": 5.80265674814028,
+        "finalThirdEntries": 171,
+        "boxEntries": 26,
+        "receptions": {
+          "clean": 352,
+          "directional": 772,
+          "heavy": 67,
+          "failed": 1
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 12,
+            "completed": 12,
+            "firstTouchFailures": 0
+          },
+          "short:clear:moving": {
+            "attempted": 121,
+            "completed": 117,
+            "firstTouchFailures": 0
+          },
+          "short:pressured:moving": {
+            "attempted": 1313,
+            "completed": 844,
+            "firstTouchFailures": 30
+          },
+          "medium:pressured:moving": {
+            "attempted": 597,
+            "completed": 356,
+            "firstTouchFailures": 27
+          },
+          "medium:pressured:static": {
+            "attempted": 40,
+            "completed": 27,
+            "firstTouchFailures": 1
+          },
+          "short:pressured:static": {
+            "attempted": 76,
+            "completed": 47,
+            "firstTouchFailures": 3
+          },
+          "long:clear:moving": {
+            "attempted": 14,
+            "completed": 11,
+            "firstTouchFailures": 2
+          },
+          "medium:clear:moving": {
+            "attempted": 89,
+            "completed": 70,
+            "firstTouchFailures": 2
+          },
+          "medium:clear:static": {
+            "attempted": 4,
+            "completed": 4,
+            "firstTouchFailures": 0
+          },
+          "long:pressured:moving": {
+            "attempted": 17,
+            "completed": 9,
+            "firstTouchFailures": 3
+          },
+          "long:pressured:static": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "completed": 1497,
+          "lane_interception": 311,
+          "deflection": 337,
+          "first_touch_failure": 68,
+          "undetermined": 41,
+          "out_of_play": 6,
+          "landing_race": 24
+        },
+        "cpu": {
+          "user": 306406000,
+          "system": 1813000
+        },
+        "rssBytes": 738123776,
+        "wallMs": 281647.0719
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "before": {
+        "path": "docs/performance/pr190/ss-state-value-v1-baseline-full.json",
+        "passes": {
+          "attempted": 2000,
+          "completed": 1234
+        },
+        "shots": 37,
+        "inPlayMinutes": 75.2208333331022,
+        "passesPerInPlayMinute": 26.58837866290782
+      },
+      "after": {
+        "path": "docs/performance/pr190/ss-state-value-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+        "passes": {
+          "attempted": 2317,
+          "completed": 1475
+        },
+        "completion": 0.6365990504963315,
+        "shots": 13,
+        "score": {
+          "home": 2,
+          "away": 2
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5652.550000000046,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 252.55000000004566,
+          "ballInPlaySeconds": 4830.400000006782,
+          "deadBallSeconds": 822.1499999932639,
+          "deadBallByReason": {
+            "period_start": 33.500000000121055,
+            "foul": 378.89999999281304,
+            "goal_kick": 147.62500000019566,
+            "offside": 14.099999999987176,
+            "throw_in": 50.975000000023556,
+            "substitution": 81.35000000029595,
+            "goal": 115.69999999982747
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 33.500000000121055,
+              "mean": 16.750000000060528,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 33.275000000121054
+            },
+            "foul": {
+              "count": 58,
+              "seconds": 442.62499999304487,
+              "mean": 7.631465517121463,
+              "median": 7.050000000025648,
+              "p90": 12.299999999999045,
+              "maximum": 18.875000000068667
+            },
+            "goal_kick": {
+              "count": 15,
+              "seconds": 165.25000000025977,
+              "mean": 11.016666666683985,
+              "median": 12.649999999988495,
+              "p90": 17.250000000062755,
+              "maximum": 17.92500000006521
+            },
+            "offside": {
+              "count": 1,
+              "seconds": 14.099999999987176,
+              "mean": 14.099999999987176,
+              "median": 14.099999999987176,
+              "p90": 14.099999999987176,
+              "maximum": 14.099999999987176
+            },
+            "throw_in": {
+              "count": 6,
+              "seconds": 50.975000000023556,
+              "mean": 8.49583333333726,
+              "median": 8.200000000029831,
+              "p90": 9.47499999987258,
+              "maximum": 10.175000000037016
+            },
+            "goal": {
+              "count": 4,
+              "seconds": 115.69999999982747,
+              "mean": 28.924999999956867,
+              "median": 27.92500000010159,
+              "p90": 29.125000000105956,
+              "maximum": 32.624999999525244
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 28.780225240105338
+        },
+        "passesPerInPlayMinute": 28.780225240105338,
+        "possessionExchangesPerInPlayMinute": 12.806392845295038,
+        "turnoversPerInPlayMinute": 12.843656839995218,
+        "shotsPerInPlayMinute": 0.1614773103674447,
+        "meanPossessionSequenceSeconds": 5.184796314257993,
+        "finalThirdEntries": 183,
+        "boxEntries": 18,
+        "receptions": {
+          "clean": 419,
+          "directional": 728,
+          "heavy": 54,
+          "failed": 0
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 13,
+            "completed": 12,
+            "firstTouchFailures": 0
+          },
+          "short:clear:moving": {
+            "attempted": 106,
+            "completed": 98,
+            "firstTouchFailures": 4
+          },
+          "short:pressured:moving": {
+            "attempted": 1347,
+            "completed": 853,
+            "firstTouchFailures": 22
+          },
+          "medium:pressured:moving": {
+            "attempted": 615,
+            "completed": 355,
+            "firstTouchFailures": 19
+          },
+          "short:pressured:static": {
+            "attempted": 71,
+            "completed": 42,
+            "firstTouchFailures": 1
+          },
+          "medium:pressured:static": {
+            "attempted": 42,
+            "completed": 29,
+            "firstTouchFailures": 0
+          },
+          "long:pressured:moving": {
+            "attempted": 17,
+            "completed": 8,
+            "firstTouchFailures": 3
+          },
+          "medium:clear:moving": {
+            "attempted": 76,
+            "completed": 54,
+            "firstTouchFailures": 2
+          },
+          "long:pressured:static": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 0
+          },
+          "long:clear:moving": {
+            "attempted": 21,
+            "completed": 18,
+            "firstTouchFailures": 2
+          },
+          "long:clear:static": {
+            "attempted": 3,
+            "completed": 1,
+            "firstTouchFailures": 1
+          },
+          "medium:clear:static": {
+            "attempted": 5,
+            "completed": 5,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 1,
+        "causes": {
+          "completed": 1476,
+          "deflection": 370,
+          "lane_interception": 336,
+          "landing_race": 32,
+          "first_touch_failure": 54,
+          "undetermined": 46,
+          "out_of_play": 3
+        },
+        "cpu": {
+          "user": 271468000,
+          "system": 1703000
+        },
+        "rssBytes": 626462720,
+        "wallMs": 246996.555
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "before": {
+        "path": "docs/performance/pr190/sw-contextual-judgment-v1-baseline-full.json",
+        "passes": {
+          "attempted": 1518,
+          "completed": 630
+        },
+        "shots": 44,
+        "inPlayMinutes": 82.73250000003027,
+        "passesPerInPlayMinute": 18.348291179396785
+      },
+      "after": {
+        "path": "docs/performance/pr190/sw-contextual-judgment-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+        "passes": {
+          "attempted": 1349,
+          "completed": 1063
+        },
+        "completion": 0.787991104521868,
+        "shots": 24,
+        "score": {
+          "home": 8,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5760,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 360,
+          "ballInPlaySeconds": 5153.125000001501,
+          "deadBallSeconds": 606.8749999984989,
+          "deadBallByReason": {
+            "period_start": 35.0250000001266,
+            "foul": 157.8749999988427,
+            "goal_kick": 43.62499999972158,
+            "goal": 205.19999999969332,
+            "corner": 76.22499999987485,
+            "substitution": 84.32500000030677,
+            "throw_in": 4.599999999933061
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 35.0250000001266,
+              "mean": 17.5125000000633,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 34.8000000001266
+            },
+            "foul": {
+              "count": 24,
+              "seconds": 190.7249999989622,
+              "mean": 7.9468749999567585,
+              "median": 7.274999999894135,
+              "p90": 10.600000000038563,
+              "maximum": 16.05000000005839
+            },
+            "goal_kick": {
+              "count": 7,
+              "seconds": 53.199999999756415,
+              "mean": 7.599999999965202,
+              "median": 4.275000000015552,
+              "p90": 10.924999999990064,
+              "maximum": 18.124999999736247
+            },
+            "goal": {
+              "count": 8,
+              "seconds": 234.92499999980146,
+              "mean": 29.365624999975182,
+              "median": 28.999999999577994,
+              "p90": 30.32500000011032,
+              "maximum": 31.02500000011287
+            },
+            "corner": {
+              "count": 5,
+              "seconds": 88.39999999991915,
+              "mean": 17.679999999983828,
+              "median": 21.275000000077398,
+              "p90": 21.8250000000794,
+              "maximum": 22.12499999967804
+            },
+            "throw_in": {
+              "count": 1,
+              "seconds": 4.599999999933061,
+              "mean": 4.599999999933061,
+              "median": 4.599999999933061,
+              "p90": 4.599999999933061,
+              "maximum": 4.599999999933061
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 15.70697392358548
+        },
+        "passesPerInPlayMinute": 15.70697392358548,
+        "possessionExchangesPerInPlayMinute": 7.125773195874213,
+        "turnoversPerInPlayMinute": 7.149060036383606,
+        "shotsPerInPlayMinute": 0.27944208611271426,
+        "meanPossessionSequenceSeconds": 8.879493464052244,
+        "finalThirdEntries": 117,
+        "boxEntries": 51,
+        "receptions": {
+          "clean": 881,
+          "directional": 181,
+          "heavy": 23,
+          "failed": 4
+        },
+        "byContext": {
+          "medium:clear:static": {
+            "attempted": 1,
+            "completed": 1,
+            "firstTouchFailures": 0
+          },
+          "short:pressured:moving": {
+            "attempted": 1170,
+            "completed": 939,
+            "firstTouchFailures": 19
+          },
+          "short:clear:moving": {
+            "attempted": 46,
+            "completed": 38,
+            "firstTouchFailures": 0
+          },
+          "medium:pressured:moving": {
+            "attempted": 21,
+            "completed": 8,
+            "firstTouchFailures": 2
+          },
+          "short:pressured:static": {
+            "attempted": 78,
+            "completed": 59,
+            "firstTouchFailures": 1
+          },
+          "medium:pressured:static": {
+            "attempted": 9,
+            "completed": 2,
+            "firstTouchFailures": 1
+          },
+          "medium:clear:moving": {
+            "attempted": 10,
+            "completed": 9,
+            "firstTouchFailures": 1
+          },
+          "short:clear:static": {
+            "attempted": 4,
+            "completed": 4,
+            "firstTouchFailures": 0
+          },
+          "long:clear:moving": {
+            "attempted": 5,
+            "completed": 2,
+            "firstTouchFailures": 3
+          },
+          "long:pressured:moving": {
+            "attempted": 5,
+            "completed": 1,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "completed": 1063,
+          "deflection": 135,
+          "lane_interception": 77,
+          "undetermined": 35,
+          "first_touch_failure": 27,
+          "landing_race": 12
+        },
+        "cpu": {
+          "user": 352110000,
+          "system": 1954000
+        },
+        "rssBytes": 686022656,
+        "wallMs": 326038.1284
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "sw",
+      "policy": "hierarchical-intent-v1",
+      "before": {
+        "path": "docs/performance/pr190/sw-hierarchical-intent-v1-baseline-full.json",
+        "passes": {
+          "attempted": 1331,
+          "completed": 453
+        },
+        "shots": 49,
+        "inPlayMinutes": 83.6733333333815,
+        "passesPerInPlayMinute": 15.907099035924233
+      },
+      "after": {
+        "path": "docs/performance/pr190/sw-hierarchical-intent-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+        "passes": {
+          "attempted": 1155,
+          "completed": 864
+        },
+        "completion": 0.7480519480519481,
+        "shots": 28,
+        "score": {
+          "home": 12,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5880,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 480,
+          "ballInPlaySeconds": 5243.17499999971,
+          "deadBallSeconds": 636.8250000002898,
+          "deadBallByReason": {
+            "period_start": 36.20000000013088,
+            "goal_kick": 41.04999999973759,
+            "foul": 115.9249999998342,
+            "goal": 271.0500000001971,
+            "substitution": 126.40000000045984,
+            "corner": 46.19999999993024
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 36.20000000013088,
+              "mean": 18.10000000006544,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 35.975000000130876
+            },
+            "goal_kick": {
+              "count": 7,
+              "seconds": 49.32499999976769,
+              "mean": 7.046428571395384,
+              "median": 8.249999999879947,
+              "p90": 8.899999999870488,
+              "maximum": 12.750000000046384
+            },
+            "foul": {
+              "count": 21,
+              "seconds": 141.0499999999256,
+              "mean": 6.716666666663124,
+              "median": 6.1750000000224645,
+              "p90": 10.349999999849388,
+              "maximum": 12.65000000004602
+            },
+            "goal": {
+              "count": 12,
+              "seconds": 364.0500000005354,
+              "mean": 30.337500000044617,
+              "median": 30.150000000109685,
+              "p90": 31.42499999997142,
+              "maximum": 33.77500000012287
+            },
+            "corner": {
+              "count": 3,
+              "seconds": 46.19999999993024,
+              "mean": 15.399999999976748,
+              "median": 13.074999999809734,
+              "p90": 13.074999999809734,
+              "maximum": 20.475000000074488
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 13.21718233703888
+        },
+        "passesPerInPlayMinute": 13.21718233703888,
+        "possessionExchangesPerInPlayMinute": 7.186485288017677,
+        "turnoversPerInPlayMinute": 7.209372183839389,
+        "shotsPerInPlayMinute": 0.32041654150397286,
+        "meanPossessionSequenceSeconds": 8.963574840764297,
+        "finalThirdEntries": 101,
+        "boxEntries": 51,
+        "receptions": {
+          "clean": 718,
+          "directional": 146,
+          "heavy": 20,
+          "failed": 1
+        },
+        "byContext": {
+          "medium:clear:static": {
+            "attempted": 1,
+            "completed": 1,
+            "firstTouchFailures": 0
+          },
+          "short:pressured:moving": {
+            "attempted": 1035,
+            "completed": 773,
+            "firstTouchFailures": 17
+          },
+          "short:pressured:static": {
+            "attempted": 70,
+            "completed": 57,
+            "firstTouchFailures": 0
+          },
+          "medium:clear:moving": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 1
+          },
+          "medium:pressured:moving": {
+            "attempted": 13,
+            "completed": 6,
+            "firstTouchFailures": 1
+          },
+          "short:clear:moving": {
+            "attempted": 29,
+            "completed": 26,
+            "firstTouchFailures": 0
+          },
+          "long:clear:moving": {
+            "attempted": 4,
+            "completed": 0,
+            "firstTouchFailures": 2
+          },
+          "long:pressured:moving": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 0
+          },
+          "short:clear:static": {
+            "attempted": 1,
+            "completed": 1,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "completed": 864,
+          "deflection": 124,
+          "first_touch_failure": 21,
+          "landing_race": 13,
+          "lane_interception": 84,
+          "undetermined": 48,
+          "out_of_play": 1
+        },
+        "cpu": {
+          "user": 342922000,
+          "system": 1781000
+        },
+        "rssBytes": 790061056,
+        "wallMs": 321015.0319
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "sw",
+      "policy": "opportunity-driven-v1",
+      "before": {
+        "path": "docs/performance/pr190/sw-opportunity-driven-v1-baseline-full.json",
+        "passes": {
+          "attempted": 2263,
+          "completed": 550
+        },
+        "shots": 5,
+        "inPlayMinutes": 84.5637500000258,
+        "passesPerInPlayMinute": 26.760875670713627
+      },
+      "after": {
+        "path": "docs/performance/pr190/sw-opportunity-driven-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+        "passes": {
+          "attempted": 2329,
+          "completed": 764
+        },
+        "completion": 0.32803778445684845,
+        "shots": 1,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5580.299999983043,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 180.29999998304265,
+          "ballInPlaySeconds": 5111.199999984109,
+          "deadBallSeconds": 469.09999999893364,
+          "deadBallByReason": {
+            "period_start": 35.325000000127694,
+            "foul": 270.84999999958427,
+            "discipline": 29.474999999830743,
+            "substitution": 73.27500000026657,
+            "goal_kick": 37.89999999944848,
+            "corner": 22.274999999675856
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 35.325000000127694,
+              "mean": 17.662500000063847,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 35.10000000012769
+            },
+            "foul": {
+              "count": 42,
+              "seconds": 373.5999999996816,
+              "mean": 8.895238095230514,
+              "median": 7.899999999999551,
+              "p90": 13.375000000048658,
+              "maximum": 17.4000000000633
+            },
+            "goal_kick": {
+              "count": 2,
+              "seconds": 37.89999999944848,
+              "mean": 18.94999999972424,
+              "median": 14.599999999787542,
+              "p90": 14.599999999787542,
+              "maximum": 23.29999999966094
+            },
+            "corner": {
+              "count": 1,
+              "seconds": 22.274999999675856,
+              "mean": 22.274999999675856,
+              "median": 22.274999999675856,
+              "p90": 22.274999999675856,
+              "maximum": 22.274999999675856
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 27.339959305140564
+        },
+        "passesPerInPlayMinute": 27.339959305140564,
+        "possessionExchangesPerInPlayMinute": 18.71184848964966,
+        "turnoversPerInPlayMinute": 18.805759899886297,
+        "shotsPerInPlayMinute": 0.01173892627957946,
+        "meanPossessionSequenceSeconds": 3.3635978670012645,
+        "finalThirdEntries": 111,
+        "boxEntries": 12,
+        "receptions": {
+          "clean": 602,
+          "directional": 161,
+          "heavy": 141,
+          "failed": 56
+        },
+        "byContext": {
+          "medium:clear:static": {
+            "attempted": 1,
+            "completed": 1,
+            "firstTouchFailures": 0
+          },
+          "medium:pressured:moving": {
+            "attempted": 596,
+            "completed": 126,
+            "firstTouchFailures": 96
+          },
+          "short:clear:moving": {
+            "attempted": 24,
+            "completed": 18,
+            "firstTouchFailures": 3
+          },
+          "short:pressured:moving": {
+            "attempted": 1442,
+            "completed": 517,
+            "firstTouchFailures": 62
+          },
+          "short:clear:static": {
+            "attempted": 12,
+            "completed": 12,
+            "firstTouchFailures": 0
+          },
+          "medium:clear:moving": {
+            "attempted": 24,
+            "completed": 13,
+            "firstTouchFailures": 3
+          },
+          "long:pressured:moving": {
+            "attempted": 61,
+            "completed": 15,
+            "firstTouchFailures": 10
+          },
+          "short:pressured:static": {
+            "attempted": 99,
+            "completed": 48,
+            "firstTouchFailures": 9
+          },
+          "medium:pressured:static": {
+            "attempted": 60,
+            "completed": 10,
+            "firstTouchFailures": 11
+          },
+          "long:pressured:static": {
+            "attempted": 4,
+            "completed": 1,
+            "firstTouchFailures": 1
+          },
+          "long:clear:moving": {
+            "attempted": 6,
+            "completed": 3,
+            "firstTouchFailures": 2
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "completed": 764,
+          "deflection": 786,
+          "lane_interception": 509,
+          "first_touch_failure": 197,
+          "undetermined": 49,
+          "landing_race": 24
+        },
+        "cpu": {
+          "user": 322797000,
+          "system": 1562000
+        },
+        "rssBytes": 850505728,
+        "wallMs": 300490.8373
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "sw",
+      "policy": "phase-role-hybrid-v1",
+      "before": {
+        "path": "docs/performance/pr190/sw-phase-role-hybrid-v1-baseline-full.json",
+        "passes": {
+          "attempted": 1547,
+          "completed": 642
+        },
+        "shots": 46,
+        "inPlayMinutes": 76.67458333350032,
+        "passesPerInPlayMinute": 20.176177459892262
+      },
+      "after": {
+        "path": "docs/performance/pr190/sw-phase-role-hybrid-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+        "passes": {
+          "attempted": 1550,
+          "completed": 952
+        },
+        "completion": 0.6141935483870967,
+        "shots": 31,
+        "score": {
+          "home": 17,
+          "away": 1
+        },
+        "time": {
+          "canonicalElapsedSeconds": 6068.199999975506,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 668.1999999755062,
+          "ballInPlaySeconds": 4784.6249999782,
+          "deadBallSeconds": 1283.5749999973061,
+          "deadBallByReason": {
+            "period_start": 34.800000000125785,
+            "throw_in": 92.37499999999945,
+            "foul": 312.84999999949997,
+            "goal": 542.3999999970804,
+            "goal_kick": 218.62500000030025,
+            "substitution": 69.57500000025311,
+            "corner": 12.950000000047112
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 34.800000000125785,
+              "mean": 17.400000000062892,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 34.57500000012578
+            },
+            "throw_in": {
+              "count": 13,
+              "seconds": 111.37500000006857,
+              "mean": 8.567307692312967,
+              "median": 8.350000000030377,
+              "p90": 10.674999999990291,
+              "maximum": 19.00000000006912
+            },
+            "foul": {
+              "count": 45,
+              "seconds": 363.42499999968396,
+              "mean": 8.076111111104089,
+              "median": 7.074999999897045,
+              "p90": 12.525000000045566,
+              "maximum": 18.67500000006794
+            },
+            "goal": {
+              "count": 18,
+              "seconds": 542.3999999970804,
+              "mean": 30.133333333171134,
+              "median": 29.77500000010832,
+              "p90": 32.04999999953361,
+              "maximum": 33.09999999951833
+            },
+            "goal_kick": {
+              "count": 18,
+              "seconds": 218.62500000030025,
+              "mean": 12.145833333350014,
+              "median": 13.95000000005075,
+              "p90": 18.67500000006794,
+              "maximum": 19.64999999998213
+            },
+            "corner": {
+              "count": 1,
+              "seconds": 12.950000000047112,
+              "mean": 12.950000000047112,
+              "median": 12.950000000047112,
+              "p90": 12.950000000047112,
+              "maximum": 12.950000000047112
+            }
+          },
+          "unclassifiedDeadBallSeconds": 2.2737367544323206e-13,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 19.437259973440703
+        },
+        "passesPerInPlayMinute": 19.437259973440703,
+        "possessionExchangesPerInPlayMinute": 9.329884787251537,
+        "turnoversPerInPlayMinute": 9.342424954976337,
+        "shotsPerInPlayMinute": 0.38874519946881403,
+        "meanPossessionSequenceSeconds": 7.639919354838668,
+        "finalThirdEntries": 165,
+        "boxEntries": 48,
+        "receptions": {
+          "clean": 465,
+          "directional": 323,
+          "heavy": 66,
+          "failed": 19
+        },
+        "byContext": {
+          "medium:clear:static": {
+            "attempted": 5,
+            "completed": 4,
+            "firstTouchFailures": 1
+          },
+          "short:pressured:moving": {
+            "attempted": 836,
+            "completed": 503,
+            "firstTouchFailures": 37
+          },
+          "medium:pressured:moving": {
+            "attempted": 441,
+            "completed": 252,
+            "firstTouchFailures": 29
+          },
+          "long:clear:moving": {
+            "attempted": 21,
+            "completed": 17,
+            "firstTouchFailures": 1
+          },
+          "medium:clear:moving": {
+            "attempted": 55,
+            "completed": 36,
+            "firstTouchFailures": 5
+          },
+          "short:pressured:static": {
+            "attempted": 51,
+            "completed": 38,
+            "firstTouchFailures": 1
+          },
+          "long:pressured:moving": {
+            "attempted": 27,
+            "completed": 14,
+            "firstTouchFailures": 4
+          },
+          "long:clear:static": {
+            "attempted": 2,
+            "completed": 2,
+            "firstTouchFailures": 0
+          },
+          "short:clear:static": {
+            "attempted": 7,
+            "completed": 6,
+            "firstTouchFailures": 0
+          },
+          "medium:pressured:static": {
+            "attempted": 22,
+            "completed": 13,
+            "firstTouchFailures": 5
+          },
+          "short:clear:moving": {
+            "attempted": 79,
+            "completed": 65,
+            "firstTouchFailures": 1
+          },
+          "long:pressured:static": {
+            "attempted": 4,
+            "completed": 2,
+            "firstTouchFailures": 1
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "completed": 952,
+          "deflection": 272,
+          "out_of_play": 5,
+          "lane_interception": 181,
+          "first_touch_failure": 85,
+          "undetermined": 39,
+          "landing_race": 16
+        },
+        "cpu": {
+          "user": 318828000,
+          "system": 1375000
+        },
+        "rssBytes": 694562816,
+        "wallMs": 294300.6604
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "before": {
+        "path": "docs/performance/pr190/sw-state-value-v1-baseline-full.json",
+        "passes": {
+          "attempted": 1701,
+          "completed": 702
+        },
+        "shots": 39,
+        "inPlayMinutes": 79.69499999960648,
+        "passesPerInPlayMinute": 21.343873517891954
+      },
+      "after": {
+        "path": "docs/performance/pr190/sw-state-value-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+        "passes": {
+          "attempted": 1801,
+          "completed": 1028
+        },
+        "completion": 0.5707940033314826,
+        "shots": 28,
+        "score": {
+          "home": 13,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5880.225000005812,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 480.22500000581203,
+          "ballInPlaySeconds": 4929.425000008192,
+          "deadBallSeconds": 950.7999999976196,
+          "deadBallByReason": {
+            "period_start": 48.750000000176534,
+            "throw_in": 117.17499999966785,
+            "goal": 358.44999999896845,
+            "foul": 285.7749999987039,
+            "goal_kick": 39.17500000001931,
+            "substitution": 57.97500000021091,
+            "penalty": 13.100000000047658,
+            "corner": 30.399999999825013
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 48.750000000176534,
+              "mean": 24.375000000088267,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 48.52500000017653
+            },
+            "throw_in": {
+              "count": 13,
+              "seconds": 117.17499999966785,
+              "mean": 9.013461538435989,
+              "median": 7.949999999884312,
+              "p90": 11.150000000040563,
+              "maximum": 15.625000000056843
+            },
+            "goal": {
+              "count": 13,
+              "seconds": 358.44999999896845,
+              "mean": 27.573076922997572,
+              "median": 29.724999999972965,
+              "p90": 31.425000000007145,
+              "maximum": 31.62500000011505
+            },
+            "foul": {
+              "count": 47,
+              "seconds": 334.3749999988807,
+              "mean": 7.114361702103845,
+              "median": 6.375000000023192,
+              "p90": 10.79999999984284,
+              "maximum": 17.275000000062846
+            },
+            "goal_kick": {
+              "count": 7,
+              "seconds": 48.550000000053416,
+              "mean": 6.935714285721916,
+              "median": 2.9999999999563443,
+              "p90": 10.975000000039927,
+              "maximum": 17.20000000000391
+            },
+            "penalty": {
+              "count": 1,
+              "seconds": 13.100000000047658,
+              "mean": 13.100000000047658,
+              "median": 13.100000000047658,
+              "p90": 13.100000000047658,
+              "maximum": 13.100000000047658
+            },
+            "corner": {
+              "count": 2,
+              "seconds": 30.399999999825013,
+              "mean": 15.199999999912507,
+              "median": 14.700000000053478,
+              "p90": 14.700000000053478,
+              "maximum": 15.699999999771535
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 21.921420855337168
+        },
+        "passesPerInPlayMinute": 21.921420855337168,
+        "possessionExchangesPerInPlayMinute": 10.881593694986911,
+        "turnoversPerInPlayMinute": 10.881593694986911,
+        "shotsPerInPlayMinute": 0.3408105407825878,
+        "meanPossessionSequenceSeconds": 6.233808724832193,
+        "finalThirdEntries": 189,
+        "boxEntries": 48,
+        "receptions": {
+          "clean": 441,
+          "directional": 369,
+          "heavy": 64,
+          "failed": 35
+        },
+        "byContext": {
+          "medium:clear:static": {
+            "attempted": 8,
+            "completed": 6,
+            "firstTouchFailures": 2
+          },
+          "medium:clear:moving": {
+            "attempted": 41,
+            "completed": 32,
+            "firstTouchFailures": 1
+          },
+          "short:pressured:moving": {
+            "attempted": 990,
+            "completed": 576,
+            "firstTouchFailures": 36
+          },
+          "medium:pressured:moving": {
+            "attempted": 550,
+            "completed": 280,
+            "firstTouchFailures": 44
+          },
+          "short:pressured:static": {
+            "attempted": 49,
+            "completed": 27,
+            "firstTouchFailures": 2
+          },
+          "long:clear:moving": {
+            "attempted": 19,
+            "completed": 12,
+            "firstTouchFailures": 3
+          },
+          "short:clear:moving": {
+            "attempted": 56,
+            "completed": 41,
+            "firstTouchFailures": 1
+          },
+          "long:pressured:moving": {
+            "attempted": 46,
+            "completed": 25,
+            "firstTouchFailures": 6
+          },
+          "long:pressured:static": {
+            "attempted": 6,
+            "completed": 4,
+            "firstTouchFailures": 1
+          },
+          "medium:pressured:static": {
+            "attempted": 26,
+            "completed": 15,
+            "firstTouchFailures": 3
+          },
+          "long:clear:static": {
+            "attempted": 6,
+            "completed": 6,
+            "firstTouchFailures": 0
+          },
+          "short:clear:static": {
+            "attempted": 4,
+            "completed": 4,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "completed": 1028,
+          "deflection": 348,
+          "lane_interception": 259,
+          "undetermined": 45,
+          "first_touch_failure": 99,
+          "landing_race": 19,
+          "out_of_play": 3
+        },
+        "cpu": {
+          "user": 297672000,
+          "system": 1328000
+        },
+        "rssBytes": 593588224,
+        "wallMs": 271250.32690000004
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "ww",
+      "policy": "contextual-judgment-v1",
+      "before": {
+        "path": "docs/performance/pr190/ww-contextual-judgment-v1-baseline-full.json",
+        "passes": {
+          "attempted": 1600,
+          "completed": 10
+        },
+        "shots": 4,
+        "inPlayMinutes": 88.75749999982824,
+        "passesPerInPlayMinute": 18.026645635614976
+      },
+      "after": {
+        "path": "docs/performance/pr190/ww-contextual-judgment-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "aac6ff41c21e986febcaf9b520530edd091353c86be7b728f395f625da046e3c",
+        "passes": {
+          "attempted": 1688,
+          "completed": 1107
+        },
+        "completion": 0.6558056872037915,
+        "shots": 0,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5460.300000005441,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 60.30000000544078,
+          "ballInPlaySeconds": 5316.050000005365,
+          "deadBallSeconds": 144.25000000007515,
+          "deadBallByReason": {
+            "period_start": 37.90000000013706,
+            "foul": 30.799999999908806,
+            "corner": 23.575000000085765,
+            "substitution": 51.97499999994352
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 37.90000000013706,
+              "mean": 18.95000000006853,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 37.67500000013706
+            },
+            "foul": {
+              "count": 10,
+              "seconds": 82.77499999985233,
+              "mean": 8.277499999985233,
+              "median": 6.85000000002492,
+              "p90": 13.49999999980355,
+              "maximum": 16.10000000005857
+            },
+            "corner": {
+              "count": 1,
+              "seconds": 23.575000000085765,
+              "mean": 23.575000000085765,
+              "median": 23.575000000085765,
+              "p90": 23.575000000085765,
+              "maximum": 23.575000000085765
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 19.05173954343879
+        },
+        "passesPerInPlayMinute": 19.05173954343879,
+        "possessionExchangesPerInPlayMinute": 8.780955784831386,
+        "turnoversPerInPlayMinute": 8.803528935949204,
+        "shotsPerInPlayMinute": 0,
+        "meanPossessionSequenceSeconds": 6.822557840616958,
+        "finalThirdEntries": 71,
+        "boxEntries": 5,
+        "receptions": {
+          "clean": 1107,
+          "directional": 0,
+          "heavy": 55,
+          "failed": 25
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 1
+          },
+          "short:pressured:moving": {
+            "attempted": 1516,
+            "completed": 1030,
+            "firstTouchFailures": 51
+          },
+          "short:pressured:static": {
+            "attempted": 85,
+            "completed": 65,
+            "firstTouchFailures": 4
+          },
+          "medium:pressured:moving": {
+            "attempted": 58,
+            "completed": 5,
+            "firstTouchFailures": 17
+          },
+          "medium:pressured:static": {
+            "attempted": 14,
+            "completed": 2,
+            "firstTouchFailures": 4
+          },
+          "short:clear:moving": {
+            "attempted": 5,
+            "completed": 5,
+            "firstTouchFailures": 0
+          },
+          "long:pressured:moving": {
+            "attempted": 6,
+            "completed": 0,
+            "firstTouchFailures": 1
+          },
+          "long:pressured:static": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 0
+          },
+          "long:clear:moving": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 1
+          },
+          "medium:clear:moving": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 1
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "first_touch_failure": 80,
+          "completed": 1107,
+          "deflection": 226,
+          "undetermined": 155,
+          "lane_interception": 101,
+          "landing_race": 19
+        },
+        "cpu": {
+          "user": 320125000,
+          "system": 1203000
+        },
+        "rssBytes": 724836352,
+        "wallMs": 302709.2635
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "before": {
+        "path": "docs/performance/pr190/ww-hierarchical-intent-v1-baseline-full.json",
+        "passes": {
+          "attempted": 1559,
+          "completed": 19
+        },
+        "shots": 5,
+        "inPlayMinutes": 88.736666666669,
+        "passesPerInPlayMinute": 17.568836632733095
+      },
+      "after": {
+        "path": "docs/performance/pr190/ww-hierarchical-intent-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "aac6ff41c21e986febcaf9b520530edd091353c86be7b728f395f625da046e3c",
+        "passes": {
+          "attempted": 1430,
+          "completed": 912
+        },
+        "completion": 0.6377622377622377,
+        "shots": 1,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5520,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 120,
+          "ballInPlaySeconds": 5375.824999999525,
+          "deadBallSeconds": 144.17500000047514,
+          "deadBallByReason": {
+            "period_start": 38.10000000013779,
+            "goal_kick": 13.700000000030741,
+            "foul": 27.950000000072237,
+            "substitution": 43.1000000001568,
+            "corner": 21.32500000007758
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 38.10000000013779,
+              "mean": 19.050000000068895,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 37.87500000013779
+            },
+            "goal_kick": {
+              "count": 2,
+              "seconds": 13.700000000030741,
+              "mean": 6.8500000000153705,
+              "median": 4.19999999999618,
+              "p90": 4.19999999999618,
+              "maximum": 9.50000000003456
+            },
+            "foul": {
+              "count": 6,
+              "seconds": 66.00000000021066,
+              "mean": 11.00000000003511,
+              "median": 7.825000000028467,
+              "p90": 16.500000000060027,
+              "maximum": 21.5500000000784
+            },
+            "throw_in": {
+              "count": 1,
+              "seconds": 5.050000000018372,
+              "mean": 5.050000000018372,
+              "median": 5.050000000018372,
+              "p90": 5.050000000018372,
+              "maximum": 5.050000000018372
+            },
+            "corner": {
+              "count": 1,
+              "seconds": 21.32500000007758,
+              "mean": 21.32500000007758,
+              "median": 21.32500000007758,
+              "p90": 21.32500000007758,
+              "maximum": 21.32500000007758
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 15.960340970922154
+        },
+        "passesPerInPlayMinute": 15.960340970922154,
+        "possessionExchangesPerInPlayMinute": 8.24803634791012,
+        "turnoversPerInPlayMinute": 8.24803634791012,
+        "shotsPerInPlayMinute": 0.011161077602043464,
+        "meanPossessionSequenceSeconds": 7.326048714479021,
+        "finalThirdEntries": 52,
+        "boxEntries": 3,
+        "receptions": {
+          "clean": 912,
+          "directional": 0,
+          "heavy": 36,
+          "failed": 8
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 2,
+            "completed": 1,
+            "firstTouchFailures": 1
+          },
+          "short:pressured:moving": {
+            "attempted": 1347,
+            "completed": 860,
+            "firstTouchFailures": 35
+          },
+          "short:pressured:static": {
+            "attempted": 67,
+            "completed": 45,
+            "firstTouchFailures": 5
+          },
+          "long:clear:moving": {
+            "attempted": 2,
+            "completed": 0,
+            "firstTouchFailures": 1
+          },
+          "short:clear:moving": {
+            "attempted": 5,
+            "completed": 4,
+            "firstTouchFailures": 0
+          },
+          "medium:pressured:static": {
+            "attempted": 4,
+            "completed": 0,
+            "firstTouchFailures": 1
+          },
+          "medium:pressured:moving": {
+            "attempted": 3,
+            "completed": 2,
+            "firstTouchFailures": 1
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "first_touch_failure": 44,
+          "completed": 912,
+          "deflection": 205,
+          "undetermined": 151,
+          "lane_interception": 104,
+          "landing_race": 14
+        },
+        "cpu": {
+          "user": 329172000,
+          "system": 1359000
+        },
+        "rssBytes": 677150720,
+        "wallMs": 310397.7622
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "before": {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-baseline-full.json",
+        "passes": {
+          "attempted": 1915,
+          "completed": 25
+        },
+        "shots": 1,
+        "inPlayMinutes": 88.40500000001722,
+        "passesPerInPlayMinute": 21.661670719977682
+      },
+      "after": {
+        "path": "docs/performance/pr190/ww-opportunity-driven-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "aac6ff41c21e986febcaf9b520530edd091353c86be7b728f395f625da046e3c",
+        "passes": {
+          "attempted": 1800,
+          "completed": 494
+        },
+        "completion": 0.27444444444444444,
+        "shots": 2,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5520,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 120,
+          "ballInPlaySeconds": 5198.175000000283,
+          "deadBallSeconds": 321.8249999997174,
+          "deadBallByReason": {
+            "period_start": 38.225000000138245,
+            "foul": 97.94999999955485,
+            "throw_in": 96.40000000029761,
+            "substitution": 56.599999999987176,
+            "goal_kick": 32.64999999973952
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 38.225000000138245,
+              "mean": 19.112500000069122,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 38.00000000013824
+            },
+            "foul": {
+              "count": 14,
+              "seconds": 112.52499999960787,
+              "mean": 8.03749999997199,
+              "median": 7.099999999896681,
+              "p90": 10.050000000036562,
+              "maximum": 14.575000000053024
+            },
+            "throw_in": {
+              "count": 9,
+              "seconds": 114.22500000036246,
+              "mean": 12.69166666670694,
+              "median": 12.750000000046384,
+              "p90": 16.650000000060572,
+              "maximum": 17.825000000064847
+            },
+            "goal_kick": {
+              "count": 4,
+              "seconds": 56.849999999608826,
+              "mean": 14.212499999902207,
+              "median": 12.024999999825013,
+              "p90": 12.175000000044292,
+              "maximum": 20.849999999696593
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 20.776522529540486
+        },
+        "passesPerInPlayMinute": 20.776522529540486,
+        "possessionExchangesPerInPlayMinute": 14.79750104603939,
+        "turnoversPerInPlayMinute": 14.832128583588624,
+        "shotsPerInPlayMinute": 0.02308502503282276,
+        "meanPossessionSequenceSeconds": 4.183638845553834,
+        "finalThirdEntries": 89,
+        "boxEntries": 14,
+        "receptions": {
+          "clean": 491,
+          "directional": 2,
+          "heavy": 91,
+          "failed": 129
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 3,
+            "completed": 2,
+            "firstTouchFailures": 1
+          },
+          "short:clear:moving": {
+            "attempted": 13,
+            "completed": 10,
+            "firstTouchFailures": 1
+          },
+          "medium:pressured:moving": {
+            "attempted": 445,
+            "completed": 49,
+            "firstTouchFailures": 107
+          },
+          "short:pressured:moving": {
+            "attempted": 1145,
+            "completed": 387,
+            "firstTouchFailures": 72
+          },
+          "long:pressured:moving": {
+            "attempted": 49,
+            "completed": 6,
+            "firstTouchFailures": 17
+          },
+          "medium:pressured:static": {
+            "attempted": 50,
+            "completed": 7,
+            "firstTouchFailures": 13
+          },
+          "short:pressured:static": {
+            "attempted": 77,
+            "completed": 31,
+            "firstTouchFailures": 3
+          },
+          "medium:clear:moving": {
+            "attempted": 6,
+            "completed": 0,
+            "firstTouchFailures": 2
+          },
+          "long:pressured:static": {
+            "attempted": 7,
+            "completed": 1,
+            "firstTouchFailures": 2
+          },
+          "long:clear:moving": {
+            "attempted": 4,
+            "completed": 1,
+            "firstTouchFailures": 2
+          },
+          "medium:clear:static": {
+            "attempted": 1,
+            "completed": 0,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "first_touch_failure": 220,
+          "deflection": 632,
+          "lane_interception": 299,
+          "completed": 494,
+          "landing_race": 30,
+          "undetermined": 123,
+          "out_of_play": 2
+        },
+        "cpu": {
+          "user": 323594000,
+          "system": 1359000
+        },
+        "rssBytes": 736956416,
+        "wallMs": 299705.04850000003
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "before": {
+        "path": "docs/performance/pr190/ww-phase-role-hybrid-v1-baseline-full.json",
+        "passes": {
+          "attempted": 674,
+          "completed": 80
+        },
+        "shots": 9,
+        "inPlayMinutes": 75.86583333346098,
+        "passesPerInPlayMinute": 8.884104614490923
+      },
+      "after": {
+        "path": "docs/performance/pr190/ww-phase-role-hybrid-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "08825410737cfddeff3b3db5c859582ba21750cd610e8a82feeabdb1be99a41e",
+        "passes": {
+          "attempted": 708,
+          "completed": 427
+        },
+        "completion": 0.6031073446327684,
+        "shots": 5,
+        "score": {
+          "home": 1,
+          "away": 1
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5640,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 240,
+          "ballInPlaySeconds": 4460.674999983763,
+          "deadBallSeconds": 1179.3250000162375,
+          "deadBallByReason": {
+            "period_start": 38.12500000013788,
+            "goal_kick": 679.1750000164502,
+            "goal": 32.15000000000731,
+            "throw_in": 234.92499999911234,
+            "substitution": 142.47500000051832,
+            "corner": 23.40000000008513,
+            "foul": 29.07499999992615
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 38.12500000013788,
+              "mean": 19.06250000006894,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 37.90000000013788
+            },
+            "goal_kick": {
+              "count": 46,
+              "seconds": 715.1000000165809,
+              "mean": 15.545652174273497,
+              "median": 16.199999999985266,
+              "p90": 22.07500000008031,
+              "maximum": 25.600000000093132
+            },
+            "goal": {
+              "count": 2,
+              "seconds": 64.12500000012363,
+              "mean": 32.06250000006182,
+              "median": 31.975000000116324,
+              "p90": 31.975000000116324,
+              "maximum": 32.15000000000731
+            },
+            "throw_in": {
+              "count": 25,
+              "seconds": 253.87499999918128,
+              "mean": 10.154999999967252,
+              "median": 8.799999999871943,
+              "p90": 17.025000000061937,
+              "maximum": 18.95000000006894
+            },
+            "foul": {
+              "count": 3,
+              "seconds": 44.72499999998308,
+              "mean": 14.908333333327695,
+              "median": 15.650000000056934,
+              "p90": 15.650000000056934,
+              "maximum": 19.20000000006985
+            },
+            "corner": {
+              "count": 2,
+              "seconds": 63.37500000023056,
+              "mean": 31.68750000011528,
+              "median": 23.40000000008513,
+              "p90": 23.40000000008513,
+              "maximum": 39.97500000014543
+            }
+          },
+          "unclassifiedDeadBallSeconds": 2.2737367544323206e-13,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 9.523222382297439
+        },
+        "passesPerInPlayMinute": 9.523222382297439,
+        "possessionExchangesPerInPlayMinute": 4.600200642296221,
+        "turnoversPerInPlayMinute": 4.600200642296221,
+        "shotsPerInPlayMinute": 0.0672543953552079,
+        "meanPossessionSequenceSeconds": 16.114400584795124,
+        "finalThirdEntries": 102,
+        "boxEntries": 25,
+        "receptions": {
+          "clean": 363,
+          "directional": 3,
+          "heavy": 22,
+          "failed": 23
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 2,
+            "completed": 1,
+            "firstTouchFailures": 1
+          },
+          "short:pressured:moving": {
+            "attempted": 337,
+            "completed": 206,
+            "firstTouchFailures": 11
+          },
+          "medium:pressured:static": {
+            "attempted": 34,
+            "completed": 21,
+            "firstTouchFailures": 0
+          },
+          "short:clear:moving": {
+            "attempted": 35,
+            "completed": 27,
+            "firstTouchFailures": 1
+          },
+          "long:clear:moving": {
+            "attempted": 45,
+            "completed": 28,
+            "firstTouchFailures": 6
+          },
+          "long:pressured:moving": {
+            "attempted": 9,
+            "completed": 3,
+            "firstTouchFailures": 4
+          },
+          "medium:pressured:moving": {
+            "attempted": 183,
+            "completed": 101,
+            "firstTouchFailures": 16
+          },
+          "medium:clear:static": {
+            "attempted": 2,
+            "completed": 1,
+            "firstTouchFailures": 1
+          },
+          "short:pressured:static": {
+            "attempted": 26,
+            "completed": 18,
+            "firstTouchFailures": 2
+          },
+          "long:pressured:static": {
+            "attempted": 6,
+            "completed": 1,
+            "firstTouchFailures": 0
+          },
+          "medium:clear:moving": {
+            "attempted": 23,
+            "completed": 17,
+            "firstTouchFailures": 3
+          },
+          "long:clear:static": {
+            "attempted": 6,
+            "completed": 3,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "first_touch_failure": 45,
+          "completed": 427,
+          "deflection": 142,
+          "lane_interception": 69,
+          "undetermined": 20,
+          "out_of_play": 1,
+          "landing_race": 4
+        },
+        "cpu": {
+          "user": 333828000,
+          "system": 1500000
+        },
+        "rssBytes": 618070016,
+        "wallMs": 309808.3016
+      },
+      "baselineStateMatchesPr189": true
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "before": {
+        "path": "docs/performance/pr190/ww-state-value-v1-baseline-full.json",
+        "passes": {
+          "attempted": 541,
+          "completed": 61
+        },
+        "shots": 11,
+        "inPlayMinutes": 76.95916666668617,
+        "passesPerInPlayMinute": 7.029701898190983
+      },
+      "after": {
+        "path": "docs/performance/pr190/ww-state-value-v1-measured-final.json",
+        "sourceSha256": "b58c9953f7a3453183cd2dde816a4128f649954c57d61a45cb7e0c8e66625f96",
+        "diagnosticSha256": "aac6ff41c21e986febcaf9b520530edd091353c86be7b728f395f625da046e3c",
+        "passes": {
+          "attempted": 668,
+          "completed": 329
+        },
+        "completion": 0.49251497005988026,
+        "shots": 6,
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "time": {
+          "canonicalElapsedSeconds": 5594.5750000000535,
+          "regulationSeconds": 5400,
+          "addedSecondsActuallyPlayed": 194.57500000005348,
+          "ballInPlaySeconds": 4822.725000000007,
+          "deadBallSeconds": 771.850000000047,
+          "deadBallByReason": {
+            "period_start": 38.27500000013843,
+            "goal_kick": 354.79999999999814,
+            "foul": 60.30000000010156,
+            "throw_in": 191.7249999993477,
+            "substitution": 126.75000000046111
+          },
+          "restartDurations": {
+            "period_start": {
+              "count": 2,
+              "seconds": 38.27500000013843,
+              "mean": 19.137500000069213,
+              "median": 0.22499999999999998,
+              "p90": 0.22499999999999998,
+              "maximum": 38.050000000138425
+            },
+            "goal_kick": {
+              "count": 30,
+              "seconds": 448.70000000033974,
+              "mean": 14.956666666677991,
+              "median": 14.75000000005366,
+              "p90": 21.175000000077034,
+              "maximum": 26.500000000096406
+            },
+            "foul": {
+              "count": 7,
+              "seconds": 60.30000000010156,
+              "mean": 8.614285714300223,
+              "median": 8.825000000032105,
+              "p90": 10.600000000038563,
+              "maximum": 11.349999999989677
+            },
+            "throw_in": {
+              "count": 20,
+              "seconds": 209.99999999941417,
+              "mean": 10.499999999970708,
+              "median": 10.350000000037653,
+              "p90": 15.27500000005557,
+              "maximum": 18.275000000066484
+            },
+            "corner": {
+              "count": 1,
+              "seconds": 14.575000000053024,
+              "mean": 14.575000000053024,
+              "median": 14.575000000053024,
+              "p90": 14.575000000053024,
+              "maximum": 14.575000000053024
+            }
+          },
+          "unclassifiedDeadBallSeconds": 0,
+          "humanDecisionPauseSeconds": 0,
+          "passesPerInPlayMinute": 8.310654246302649
+        },
+        "passesPerInPlayMinute": 8.310654246302649,
+        "possessionExchangesPerInPlayMinute": 5.11329175932693,
+        "turnoversPerInPlayMinute": 5.11329175932693,
+        "shotsPerInPlayMinute": 0.07464659502667051,
+        "meanPossessionSequenceSeconds": 13.203710462286972,
+        "finalThirdEntries": 114,
+        "boxEntries": 20,
+        "receptions": {
+          "clean": 276,
+          "directional": 0,
+          "heavy": 28,
+          "failed": 10
+        },
+        "byContext": {
+          "short:clear:static": {
+            "attempted": 3,
+            "completed": 2,
+            "firstTouchFailures": 1
+          },
+          "short:pressured:moving": {
+            "attempted": 398,
+            "completed": 190,
+            "firstTouchFailures": 16
+          },
+          "medium:pressured:moving": {
+            "attempted": 146,
+            "completed": 61,
+            "firstTouchFailures": 12
+          },
+          "short:pressured:static": {
+            "attempted": 19,
+            "completed": 15,
+            "firstTouchFailures": 1
+          },
+          "medium:clear:moving": {
+            "attempted": 18,
+            "completed": 8,
+            "firstTouchFailures": 0
+          },
+          "short:clear:moving": {
+            "attempted": 23,
+            "completed": 20,
+            "firstTouchFailures": 1
+          },
+          "long:clear:moving": {
+            "attempted": 32,
+            "completed": 16,
+            "firstTouchFailures": 6
+          },
+          "medium:pressured:static": {
+            "attempted": 16,
+            "completed": 9,
+            "firstTouchFailures": 1
+          },
+          "long:pressured:moving": {
+            "attempted": 10,
+            "completed": 5,
+            "firstTouchFailures": 0
+          },
+          "long:pressured:static": {
+            "attempted": 1,
+            "completed": 1,
+            "firstTouchFailures": 0
+          },
+          "medium:clear:static": {
+            "attempted": 2,
+            "completed": 2,
+            "firstTouchFailures": 0
+          }
+        },
+        "canonicalSelfReclaims": 0,
+        "causes": {
+          "first_touch_failure": 38,
+          "completed": 329,
+          "deflection": 179,
+          "lane_interception": 89,
+          "landing_race": 7,
+          "undetermined": 26
+        },
+        "cpu": {
+          "user": 310703000,
+          "system": 1468000
+        },
+        "rssBytes": 587403264,
+        "wallMs": 287764.9257
+      },
+      "baselineStateMatchesPr189": true
+    }
+  ],
+  "fullObserverComparisons": [
+    {
+      "design": "ww",
+      "policy": "contextual-judgment-v1",
+      "finalStateSha256": "c3aebadf06d09a0c99042eb9c1f63c7c7776c77f05b252adf33a0a3e2b809b80",
+      "equal": true
+    },
+    {
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "finalStateSha256": "f6cf804805aa91181116387a0a83292c5c9ffaf238f47aa20db765c1080ad8ae",
+      "equal": true
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "finalStateSha256": "d955ae66fef26558a6f3e12c9ba9cf209d31e73b22f0656353313f1aa4b3567f",
+      "equal": true
+    }
+  ],
+  "timeOnlyConfiguration": "reporting-only: same canonical baseline/current executions, no independent clock intervention",
+  "remainingBlockers": [
+    "circulation and chance creation",
+    "excessive effective playing time and sparse natural interruptions",
+    "advanced lower-limb collision surfaces, goalkeeper gaps and timed release choices"
+  ]
+}

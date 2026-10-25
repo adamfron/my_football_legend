@@ -2185,7 +2185,7 @@ export const RunningLab = ({
             aria-label="Zoom kamery"
             type="range"
             min="0"
-            max="1"
+            max="1.5"
             step="0.05"
             value={cameraPreferences.zoom}
             onChange={(event) =>

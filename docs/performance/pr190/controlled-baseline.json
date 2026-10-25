@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 1,
+  "classification": "paired controlled canonical apparatus; no independent confirmation",
+  "engineRoot": "../pr189-baseline",
+  "version": "baseline",
+  "rows": 336,
+  "archive": "docs/performance/pr190/controlled-baseline.json.gz",
+  "archiveSha256": "9544d235dde817289e184c82f1a1666fbe1c01e40d5b6f4f72c6929200a26f98",
+  "groups": [
+    {
+      "passerSkill": 40,
+      "receiverSkill": 40,
+      "situation": "lateral",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 8,
+        "completed": 4
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 40,
+      "situation": "closing_defender",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 8,
+        "unclaimed": 2,
+        "completed": 2
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 40,
+      "situation": "moving_receiver",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 5,
+        "unclaimed": 4,
+        "completed": 3
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 40,
+      "situation": "body_pressure",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 7,
+        "intercepted": 2,
+        "completed": 3
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 40,
+      "situation": "long_line",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 9,
+        "inaccurate": 1,
+        "intercepted": 2
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 40,
+      "situation": "imperfect_reception",
+      "count": 12,
+      "outcomes": {
+        "heavy_touch": 12
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 40,
+      "situation": "second_ball",
+      "count": 12,
+      "outcomes": {
+        "heavy_touch": 12
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 80,
+      "situation": "lateral",
+      "count": 12,
+      "outcomes": {
+        "completed": 12
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 80,
+      "situation": "closing_defender",
+      "count": 12,
+      "outcomes": {
+        "completed": 12
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 80,
+      "situation": "moving_receiver",
+      "count": 12,
+      "outcomes": {
+        "completed": 12
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 80,
+      "situation": "body_pressure",
+      "count": 12,
+      "outcomes": {
+        "completed": 11,
+        "intercepted": 1
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 80,
+      "situation": "long_line",
+      "count": 12,
+      "outcomes": {
+        "unclaimed": 1,
+        "completed": 8,
+        "intercepted": 3
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 80,
+      "situation": "imperfect_reception",
+      "count": 12,
+      "outcomes": {
+        "clean_control": 12
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 80,
+      "situation": "second_ball",
+      "count": 12,
+      "outcomes": {
+        "clean_control": 12
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 80,
+      "situation": "lateral",
+      "count": 12,
+      "outcomes": {
+        "completed": 12
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 80,
+      "situation": "closing_defender",
+      "count": 12,
+      "outcomes": {
+        "completed": 11,
+        "unclaimed": 1
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 80,
+      "situation": "moving_receiver",
+      "count": 12,
+      "outcomes": {
+        "completed": 12
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 80,
+      "situation": "body_pressure",
+      "count": 12,
+      "outcomes": {
+        "completed": 10,
+        "intercepted": 2
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 80,
+      "situation": "long_line",
+      "count": 12,
+      "outcomes": {
+        "completed": 9,
+        "inaccurate": 1,
+        "intercepted": 2
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 80,
+      "situation": "imperfect_reception",
+      "count": 12,
+      "outcomes": {
+        "clean_control": 12
+      }
+    },
+    {
+      "passerSkill": 40,
+      "receiverSkill": 80,
+      "situation": "second_ball",
+      "count": 12,
+      "outcomes": {
+        "clean_control": 12
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 40,
+      "situation": "lateral",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 8,
+        "completed": 4
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 40,
+      "situation": "closing_defender",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 8,
+        "completed": 4
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 40,
+      "situation": "moving_receiver",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 8,
+        "completed": 4
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 40,
+      "situation": "body_pressure",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 6,
+        "intercepted": 2,
+        "completed": 4
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 40,
+      "situation": "long_line",
+      "count": 12,
+      "outcomes": {
+        "technical_error": 12
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 40,
+      "situation": "imperfect_reception",
+      "count": 12,
+      "outcomes": {
+        "heavy_touch": 12
+      }
+    },
+    {
+      "passerSkill": 80,
+      "receiverSkill": 40,
+      "situation": "second_ball",
+      "count": 12,
+      "outcomes": {
+        "heavy_touch": 12
+      }
+    }
+  ]
+}

@@ -219,7 +219,7 @@ export const matchCameraModeSchema = z.enum(['tactical', 'shot_aim', 'goal_repla
 export type MatchCameraMode = z.infer<typeof matchCameraModeSchema>;
 export const matchCameraPreferencesSchema = z.object({
   preset: z.enum(['overview', 'action', 'player_focus', 'overhead']),
-  zoom: z.number().min(0).max(1),
+  zoom: z.number().min(0).max(1.5),
 });
 export type MatchCameraPreferences = z.infer<typeof matchCameraPreferencesSchema>;
 export const DEFAULT_MATCH_CAMERA_PREFERENCES: MatchCameraPreferences = {

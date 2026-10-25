@@ -1,5 +1,14 @@
 # Roadmap
 
+Etap PR190: fizyczne przyjęcie i druga piłka, diagnostyka podania, poprawny pomiar
+efektywnego czasu, bliższy zoom oraz eksperymentalny fundament kończyn i ograniczonej
+podatności ciała. [Raport, wyniki i otwarte bramy PR190](PR190_PASSING_REALISM_EFFECTIVE_PLAYING_TIME_AND_ARTICULATED_CONTACT.md).
+**Canonical nadal NOT READY; B domyślne; confirmation zamknięte.** Pełna geometria
+kolizyjna, GK/leg gaps, taktowanie podań, naturalne przerwy i tworzenie ataków
+pozostają nazwanymi kontynuacjami PR190. Pełny program PR191 generacji i siły świata
+(20–25 sezonów), PR192 summary/PlayStyles, PR193 career UX i PR194+ world expansion
+pozostaje zachowany poniżej; nie zmieniono numerów dalszych zobowiązań.
+
 Aktualny etap: **PR189 — Ball Contact, Duel Geometry & Deadlock Resolution (etapowane)**.
 Priorytetem jest rzeczywisty replay zastoju PR188 i kontakt przygotowanego podania.
 PR189 naprawia aliasowanie rytmu obserwacji z dotknięciami kontrolnymi oraz podejście

@@ -14,7 +14,11 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR189 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR190 complete telemetry reference (PR146 observer contract)', () => {
+  // PR190 replaces attribute-cutoff reception with a finite contact and per-player
+  // acquisition readiness. Eight fresh processes preserve all 80 fields, all 2400
+  // ticks and every schema/identity assertion. Both pristine PR189 hashes and new
+  // repeated payloads: docs/performance/pr190/telemetry-reference-final-v6.json.
   // PR189 makes recurring control respect the same finite motor recovery as
   // releases. Shared physical trajectories intentionally change. Pristine PR188
   // old hashes and both new full 2400-tick payloads repeat twice in eight fresh
@@ -108,12 +112,12 @@ describe('PR189 complete telemetry reference (PR146 observer contract)', () => {
   // The previous PR147 hashes were
   // 2766af2ddef26ddbe30072b38f7904ef8104e8a01562c392314ef5137db34d0d (a) and
   // b2f91e381b5d77e4a5dff30da7d684c56e4026b73e7360f0190a4c2335d13c0e (b). The historical
-  // PR145→146 equivalence evidence remains in docs/performance/PR146-results.json; its old hashes
+  // PR145â†’146 equivalence evidence remains in docs/performance/PR146-results.json; its old hashes
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', '9a8ac72218c1641bc9f51eab45f1ee7c42b19f3506b4209efeabfb4d494b497e'],
-    ['pr146-flow-reference:b', '2b5b93ed4e2891e7c17e374d1b6cb20f1cdf79e05f42d9035a43e3bfafdf1a6a'],
+    ['pr146-flow-reference:a', '77c2f843a9da8990f5272292ecc460771cf379c6d0e76028da7cca6e2df68f91'],
+    ['pr146-flow-reference:b', '766f2c31bd149c2ce22483a4ced19fccfdaa3839d95de73bdc563812c6fd5484'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

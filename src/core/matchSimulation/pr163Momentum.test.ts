@@ -58,6 +58,9 @@ describe('PR163 offensive momentum and contestable reception', () => {
     const f = createOffensiveScenario('failed_control', 'pr163-case-2');
     const tracker = new OffensiveContinuationTracker();
     let state = resolveMatchAction(f.state, f.action);
+    // A poor rating alone no longer forces a failed contact. This negative control
+    // deliberately presents an oblique outside surface to the arriving ball.
+    state.receptionPreparation!.contactSurface = 'outside';
     tracker.observe(f.state, state);
     for (let tick = 0; tick < 160 && !state.lastResolvedPass?.finalResult; tick++) {
       const previous = state;
@@ -123,7 +126,9 @@ describe('PR163 offensive momentum and contestable reception', () => {
       for (let tick = 0; tick < 160 && !state.lastResolvedPass?.finalResult; tick++)
         state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
       expect(state.lastResolvedPass?.passId).toBe(passId);
-      expect(state.lastResolvedPass?.finalResult).toBe('completed');
+      expect(state.lastResolvedPass?.finalResult, JSON.stringify(state.lastReceptionOutcome)).toBe(
+        'completed',
+      );
       expect(state.lastResolvedPass?.actualReceiverId).toBe(f.passerId);
     },
   );

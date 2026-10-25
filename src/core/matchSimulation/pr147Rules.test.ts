@@ -522,6 +522,21 @@ describe('PR147 canonical cards, restarts and advantage', () => {
   });
   it('ends the throw restriction on a heavy physical first touch before actual recovery', () => {
     let state = releasedThrow(60);
+    // Exercise an imperfect real surface, not an absolute skill cutoff.
+    state.receptionPreparation!.contactSurface = 'outside';
+    // Construct a firm late arrival for this rules-only negative control. An
+    // ordinary 60-skill throw reception now remains physically controllable.
+    const receiver = state.players.find(
+      (p) => p.id === state.lastThrowInDiagnostic!.chosenReceiverId,
+    )!;
+    state.ball = {
+      ...state.ball,
+      x: receiver.position.x - 0.65,
+      y: receiver.position.y,
+      height: 0.11,
+      airborne: false,
+      velocity: { x: 16, y: 0, z: 0 },
+    };
     const released = state.lastThrowInDiagnostic!;
     for (let tick = 0; tick < 80 && !state.lastThrowInDiagnostic?.nextContactPlayerId; tick += 1)
       state = stepTacticalMatch(state, 0.025);
@@ -532,7 +547,7 @@ describe('PR147 canonical cards, restarts and advantage', () => {
       nextContactPlayerId: released.chosenReceiverId,
       nextContactAt: state.time,
     });
-    expect(state.lastReceptionOutcome?.kind).toBe('heavy_touch');
+    expect(['heavy_touch', 'failed_control']).toContain(state.lastReceptionOutcome?.kind);
     expect(state.time).toBeLessThan(released.releasedAt + 4);
     expect(state.ball.ownerId).toBeUndefined();
     expect(state.ball.looseSince).toBe(state.time);
@@ -542,9 +557,25 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     expect(state.restart).toBeUndefined();
     expect(state.throwInRestriction).toBeUndefined();
     const contact = state.lastThrowInDiagnostic;
-    for (let tick = 0; tick < 160 && !state.ball.ownerId; tick += 1)
+    // This rules test isolates the same receiver's later legal recovery from the
+    // now much longer real deflection; ordinary opponents may otherwise win it.
+    for (const p of state.players)
+      if (p.id !== released.chosenReceiverId && p.id !== released.throwerId) {
+        p.position = { x: 5, y: 65 };
+        p.target = { ...p.position };
+        p.velocity = { x: 0, y: 0 };
+      }
+    for (let tick = 0; tick < 240 && !state.ball.ownerId; tick += 1)
       state = stepTacticalMatch(state, 0.025);
-    expect(state.ball.ownerId).toBe(released.chosenReceiverId);
+    expect(
+      state.ball.ownerId,
+      JSON.stringify({
+        time: state.time,
+        ball: state.ball,
+        acquisition: state.ballAcquisition,
+        player: state.players.find((p) => p.id === released.chosenReceiverId),
+      }),
+    ).toBe(released.chosenReceiverId);
     expect(state.lastThrowInDiagnostic).toBe(contact);
     const thrower = state.players.find((player) => player.id === released.throwerId)!;
     const pass = resolveMatchAction(

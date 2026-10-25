@@ -2,7 +2,7 @@
   "name": "my_football_legend",
   "version": "0.1.0",
   "private": true,
-  "description": "Narracyjny symulator kariery piłkarza działający w przeglądarce.",
+  "description": "Narracyjny symulator kariery piÄąâ€škarza dziaÄąâ€šajĂ„â€¦cy w przeglĂ„â€¦darce.",
   "type": "module",
   "scripts": {
     "predev": "npm run generate:world-db",
@@ -81,11 +81,18 @@
     "benchmark:pr188:research": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr188Research.mjs",
     "benchmark:pr188:matches": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr188Matches.mjs",
     "benchmark:pr188:replay": "node scripts/replayPr188Baseline.mjs",
-    "benchmark:pr189:replay": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr189Replay.mjs --version=restart --check",
+    "benchmark:pr189:replay": "node scripts/replayPr189Baseline.mjs",
     "benchmark:pr189:check": "node scripts/checkPr189Evidence.mjs",
     "benchmark:pr189:failed-cycle": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr189CycleOne.mjs --version=restart --check",
     "benchmark:pr189:blocked-recovery": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr189CycleOne.mjs --cycle-two --version=restart --check",
-    "benchmark:pr189:restart": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr189Restart.mjs --check"
+    "benchmark:pr189:restart": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr189Restart.mjs --check",
+    "benchmark:pr190:replay": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr190.mjs --check",
+    "benchmark:pr190:matches": "node scripts/runPr190Development.mjs",
+    "benchmark:pr190:lab": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr190Lab.mjs",
+    "benchmark:pr190:check": "node scripts/checkPr190Evidence.mjs",
+    "benchmark:pr190:summary": "node scripts/summarizePr190.mjs",
+    "benchmark:pr190:optimization": "node scripts/verifyPr190Optimization.mjs --check",
+    "benchmark:pr190:arrival": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr190Arrival.mjs --before-root=.benchmark-artifacts/pr190-spin-final"
   },
   "dependencies": {
     "react": "19.2.8",

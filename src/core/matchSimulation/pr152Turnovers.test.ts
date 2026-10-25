@@ -247,7 +247,7 @@ describe('PR152 causal turnover scenarios from canonical physics', () => {
   );
 
   it.each([
-    [55, 4, 'heavy_touch'],
+    [55, 16, 'heavy_touch'],
     [10, 18, 'failed_control'],
   ] as const)(
     '6. credits %s-skill %s m/s failed reception loss to the receiver as %s',
@@ -286,8 +286,22 @@ describe('PR152 causal turnover scenarios from canonical physics', () => {
         run.state.statistics!.players.find((player) => player.playerId === receiver.id)?.touches,
       ).toBe(0);
       const defender = run.state.players.find((player) => player.id === opponent.id)!;
-      defender.position = { ...run.state.ball };
+      // Anticipate the live outgoing ball. Standing on the old contact point is
+      // not enough to acquire a firm deflection after finite preparation.
+      defender.position = { x: run.state.ball.x, y: run.state.ball.y };
       defender.velocity = { x: 0, y: 0 };
+      // The defender has observed this delivery during its flight. Encode that
+      // preparation explicitly; actual foot reach and seeded control still decide.
+      run.state.ballAcquisition = {
+        id: `${run.state.seed}:prepared-recovery`,
+        candidateId: defender.id,
+        startedAt: run.state.time - 0.6,
+        readyAt: run.state.time,
+        ballEpisode: run.state.ballEpisode ?? 0,
+        origin: { x: run.state.ball.x, y: run.state.ball.y },
+        controlQuality: 0.8,
+        incomingSpeed: Math.hypot(run.state.ball.velocity?.x ?? 0, run.state.ball.velocity?.y ?? 0),
+      };
       run.state.players.find((p) => p.id === receiver.id)!.position = { x: 25, y: 34 };
       runUntil(run, (state) => state.possessionTeam === 'away');
       checkLoss(run, cause, receiver.id);

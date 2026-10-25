@@ -43,6 +43,7 @@ export const boundedCandidateSchema = z.object({
       nominalSpeed: z.number().nonnegative(),
     })
     .nullable(),
+  passTravelSeconds: z.number().positive().optional(),
 });
 export type BoundedCandidate = z.infer<typeof boundedCandidateSchema>;
 export const boundedDecisionInputSchema = z.object({
@@ -212,11 +213,23 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
   for (const receiver of s.visible.filter((p) => p.team === s.team)) {
     const metres = distance(s.position, receiver.position);
     if (metres < 2 || metres > 36) continue;
+    // A support pass is prepared and weighted, rather than a universal 18 m/s ray.
+    // Use the canonical planner's bounded ground-time envelope, with uncertainty
+    // still supplied by observed opponent mobility. No hidden opponent skill enters.
+    const leadSeconds =
+      0.32 *
+      (0.65 +
+        ((s.attributes.passing +
+          s.attributes.technique +
+          s.attributes.gameReading +
+          s.attributes.composure) /
+          400) *
+          0.35);
     const target = clampPitchPoint({
-      x: receiver.position.x + receiver.velocity.x * Math.min(0.6, metres / 18),
-      y: receiver.position.y + receiver.velocity.y * Math.min(0.6, metres / 18),
+      x: receiver.position.x + receiver.velocity.x * leadSeconds,
+      y: receiver.position.y + receiver.velocity.y * leadSeconds,
     });
-    const travel = metres / 18,
+    const travel = Math.min(2.2, Math.max(0.72, metres / 9)),
       progress = s.direction * (target.x - s.position.x);
     const lane = Math.min(
       20,
@@ -273,6 +286,7 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
       },
       {
         evidenceIds: [receiver.id, ...foes.map((p) => p.id)],
+        passTravelSeconds: travel,
         closesAt:
           s.at + Math.max(0.12, Math.min(3, closing, relative ? lane / 2 + 0.25 : lane / 2)),
         benefit: (1 - risk) * threat(s, target) - before - risk * 0.04,

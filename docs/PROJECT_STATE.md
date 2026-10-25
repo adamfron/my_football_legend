@@ -1,5 +1,32 @@
 # My Football Legend — Current Project State
 
+## PR190 — Passing, Effective Time & Contact Foundation (staged)
+
+Fizyczny impuls stopy zastępuje absolutny próg wymuszający heavy touch przy
+przeciętnych atrybutach. Nieudane przyjęcie zachowuje rzeczywisty pęd piłki.
+Indywidualne przygotowanie i motor recovery zastępują wspólną 350 ms blokadę
+kontaktu z luźną piłką. Diagnostyka rozróżnia decyzję, release, lot, kontakt,
+kontrolę/stratę i statystyki. Pełny czas martwej piłki jest niezależny od kwalifikacji
+do czasu doliczonego. Zoom Match Lab wynosi 0–1,5.
+
+WW/H osiąga 912/1430 podań, ale nadal tylko jeden strzał i niemal 90 minut faktycznej
+gry. B zmienia liczbę strzałów z 11 do 12 w WW i z 37 do 12 w SS.
+To nie jest dowód gotowości futbolu.
+Zamrożone pary WW/SS/SW, 768 prób jakości drużyn, nieudane iteracje i 26 rzeczywistych
+replayów opisuje [raport PR190](PR190_PASSING_REALISM_EFFECTIVE_PLAYING_TIME_AND_ARTICULATED_CONTACT.md).
+
+Jawna eksperymentalna postawa łączy biodra, kolana, kostki i fizyczne początki stóp
+oraz ogranicza orientacyjne kontakty ciał w tym samym integratorze. Pełna wymiana
+kolizji kończyn, leg-gap/GK i taktyczne fast-versus-prepared pozostają otwartym
+zakresem PR190. Częstość naturalnych przerw, cyrkulacja i tworzenie sytuacji nadal
+blokują readiness. **Canonical NOT READY; B `state-value-v1` domyślne; 28 atrybutów
+bez zmian; niezależna kohorta confirmation nieotwarta.**
+
+PR191 zachowuje pełne 20–25 sezonów Generational Renewal i analizy siły świata.
+PR192 summary/PlayStyles wymaga wiarygodnego canonical. PR193 career UX i PR194+
+world expansion zachowują pełne zobowiązania; pozostały zakres PR190 nie jest
+niejawnie przenoszony ani oznaczany jako wykonany.
+
 ## PR189 — Captured Contact Deadlock Repair (staged)
 
 Odtworzono pełne zamrożone WW/A z PR188: 1 984,7 s bezruchu. Sześć rzeczywistych,

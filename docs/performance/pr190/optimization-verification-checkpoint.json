@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "classification": "immutable optimized verification checkpoint before final quiet local run and final-head CI; final completed results are in the PR body/checks",
+  "recordedAt": "2026-10-25T13:31:34.727240+00:00",
+  "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+  "priorFullLocalVerify": {
+    "path": "verification.json",
+    "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+    "status": "PASS",
+    "tests": 2281
+  },
+  "optimizedEvidence": {
+    "fullDevelopmentMatches": 15,
+    "completeFinalStatesAndPassArchivesIdentical": true,
+    "fullHalfContractIdentical": true,
+    "arrivalCases": 8520,
+    "capturedStates": 26,
+    "observerRepeatAndNeutrality": "PASS",
+    "freshTelemetryProcesses": 8,
+    "telemetryFields": 80,
+    "telemetryGoldenUpdates": false,
+    "overlayReconstructionHash": "PASS"
+  },
+  "optimizedLocalTests": {
+    "unitPassed": 2216,
+    "targetedExistingTestsPassed": 20,
+    "concurrentIntegrationPassed": 55,
+    "concurrentIntegrationFailed": 1,
+    "failureReceipt": "verification-concurrent-optimization-failure.json"
+  },
+  "originalWallBudgetsPreserved": true,
+  "originalFunctionalAssertionsPreserved": true,
+  "ciIsolation": "unit/build/historical, integration, and career run on three separate fresh workers; quality requires every group",
+  "quietLocalRun": "queued after full-match workers finish; final result reported separately",
+  "initialPublishedCiFailure": "ci-initial-failure.json",
+  "finalHeadCi": "pending new commit; reported in PR checks/body",
+  "logs": [
+    {
+      "path": "docs/performance/pr190/arrival-optimization.log.gz",
+      "uncompressedSha256": "f0591c9615bb245ea163ce6aa8dedffa45769ce44a96069e93436d8734ea98cc"
+    },
+    {
+      "path": "docs/performance/pr190/arrival-movement-tests.log.gz",
+      "uncompressedSha256": "99616b30a5d7875ef7b4ecc1cef32a699c3cb04c754cd4622cd8ca9ee8726e7a"
+    },
+    {
+      "path": "docs/performance/pr190/replay-optimized.log.gz",
+      "uncompressedSha256": "5375f48689463d50a62f55948c341f4c9794e739701e64cc8b90b7972d0c5b86"
+    },
+    {
+      "path": "docs/performance/pr190/telemetry-optimized.log.gz",
+      "uncompressedSha256": "ec23d694d1c2c8422678cc3fd2a9fb29f40f0b1b4e2751582d7952aff18c5190"
+    }
+  ]
+}

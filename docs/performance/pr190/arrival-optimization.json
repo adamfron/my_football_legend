@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "classification": "allocation-only optimization; exact structured arrival equality and actual unchanged whole-half contract source",
+  "beforeSourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+  "afterSourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+  "arrivalCases": 8520,
+  "captures": [
+    {
+      "path": "docs/performance/pr189/baseline-0s.json.gz",
+      "captureSha256": "6d432906b5a2ebe8aac03fcbbb35573c34969e9bac6d44eefc13b1a7d2aa7e32"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-1200s.json.gz",
+      "captureSha256": "892818a304a89791d677a05e30038dad6cad332d55c2bf04712641d7eb1faa2b"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-1984s.json.gz",
+      "captureSha256": "82ad049c31e368eed555a6f0dab28ba366288affef19fa521420868a11919320"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-20s.json.gz",
+      "captureSha256": "3f09402342aec21fe7fb595983a8e13d036d3c42eedd944b10a0c446aeb72ab4"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-300s.json.gz",
+      "captureSha256": "c681e8026a8ba5b64952e1331428859cd6c3855c75a2e4e7384b52a9a3d660dd"
+    },
+    {
+      "path": "docs/performance/pr189/baseline-60s.json.gz",
+      "captureSha256": "8a8a60dcee99e179fe06ad5b49746d280ec60810a0b25127dab2390a4972496a"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s-canonical.json.gz",
+      "captureSha256": "10122c1f2490067c48735a2b4a25aded8a335ce4b60b8089b62f9faf655f3a2a"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s-final.json.gz",
+      "captureSha256": "10122c1f2490067c48735a2b4a25aded8a335ce4b60b8089b62f9faf655f3a2a"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s-restart.json.gz",
+      "captureSha256": "10122c1f2490067c48735a2b4a25aded8a335ce4b60b8089b62f9faf655f3a2a"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s-v2.json.gz",
+      "captureSha256": "43e9242b473c5fb9f4913c7c0a9778d8c45ddceff1f2790c4b62e82d7379d1f1"
+    },
+    {
+      "path": "docs/performance/pr189/repaired-after-4s.json.gz",
+      "captureSha256": "43e9242b473c5fb9f4913c7c0a9778d8c45ddceff1f2790c4b62e82d7379d1f1"
+    },
+    {
+      "path": "docs/performance/pr189/restart-repaired-after-4s.json.gz",
+      "captureSha256": "11b734a58c6c1f1e6337f32cf3a621584da9a55125c2f3e14be7290ff26d8312"
+    },
+    {
+      "path": "docs/performance/pr189/ss-contextual-judgment-v1-v1-pathology-0.json.gz",
+      "captureSha256": "2be931e968a343d0cacaedbf7e6673eada1d455035a5f8fe91f7acf9bc0003a4"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v1-pathology-0.json.gz",
+      "captureSha256": "e95f9d6976c331b71dab5df7cc2a7b09ceb55497f0913072b1d88b8831219bed"
+    },
+    {
+      "path": "docs/performance/pr189/ss-hierarchical-intent-v1-v1-pathology-1.json.gz",
+      "captureSha256": "f19044d4e3ccba9ae263556cc10d01ad90ed6b38ce5801a1e484e7e18da511a3"
+    },
+    {
+      "path": "docs/performance/pr189/ss-state-value-v1-v1-pathology-0.json.gz",
+      "captureSha256": "cf4c2ad4643bdacb4a299a9624f879cf03839e07e1337128839c85e74381ce20"
+    },
+    {
+      "path": "docs/performance/pr189/sw-contextual-judgment-v1-cutoff-diagnosis-cutoff.json.gz",
+      "captureSha256": "42de8207409c949fb246cc58258e7ece48bd48bac834c09e92262b74a7f4a15e"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v1-pathology-0.json.gz",
+      "captureSha256": "f56bba80ac8390e67a185002cf449fc67bc55e42ebf44f2277588e89f9826187"
+    },
+    {
+      "path": "docs/performance/pr189/sw-opportunity-driven-v1-v1-pathology-1.json.gz",
+      "captureSha256": "6d27fd408f2d7be20cbd25610b2a1ce55b1e7bd5d91ce819fb60858369ec08a8"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v1-pathology-0.json.gz",
+      "captureSha256": "e27285b52aef05f8626b0a01d7964a30fb310ab2ad0c70024077570dddd1435d"
+    },
+    {
+      "path": "docs/performance/pr189/ww-contextual-judgment-v1-v1-pathology-1.json.gz",
+      "captureSha256": "c65b95f60c4ae0affc72fd72e9a41cb3df160e937972d56e6e25bad7cc918d8a"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-final-pathology-0.json.gz",
+      "captureSha256": "d7830fa1eedf09cea9477495d24a1535c112aa117f0d4bdd9933b0718f2bffc7"
+    },
+    {
+      "path": "docs/performance/pr189/ww-hierarchical-intent-v1-v1-pathology-0.json.gz",
+      "captureSha256": "aa6ac7770ae8270def4e7bc700c883f51dc869d0f0668ffcd13474c2e54bf334"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-final-pathology-0.json.gz",
+      "captureSha256": "44624cff3735af8c6f9bee010719e3e3ada9cf544de57fa836dd7ea0b7f781c6"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-owner-audit-pathology-owner-120s.json.gz",
+      "captureSha256": "fbe70f179d8d8f7cd0948fe6591c91133918bd26151e2499b403f2c07d28d4fd"
+    },
+    {
+      "path": "docs/performance/pr189/ww-opportunity-driven-v1-v1-pathology-0.json.gz",
+      "captureSha256": "fb896b872514dbe8fe844ba59a0a7832ab19bd0eb2e196b98a97a45dd4447734"
+    }
+  ],
+  "timings": [
+    {
+      "name": "before",
+      "calls": 12000,
+      "cpu": {
+        "user": 188000,
+        "system": 0
+      },
+      "wallMs": 161.23979999999983
+    },
+    {
+      "name": "after",
+      "calls": 12000,
+      "cpu": {
+        "user": 203000,
+        "system": 0
+      },
+      "wallMs": 167.14589999999998
+    }
+  ],
+  "halves": [
+    {
+      "inputSha256": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "resultSha256": "bdab058c9816acdfe77005a9f518f5b9f43757fb4ff8566c8e5f79337141371f",
+      "stateSha256": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "sourceSha256": "0420f51f42962d103ceee040f90745db83b868708763677bc712d9016f9890e8",
+      "contractSha256": "10f3432189b412e33927c5579e4430d786681e0725548d046dc310dc6df19877",
+      "status": "half_time",
+      "seconds": 2820.0000000058762,
+      "decisions": 1056,
+      "penaltyExecution": 428.27499999988436,
+      "cpu": {
+        "user": 96344000,
+        "system": 2329000
+      },
+      "wallMs": 87190.1208
+    },
+    {
+      "inputSha256": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "resultSha256": "bdab058c9816acdfe77005a9f518f5b9f43757fb4ff8566c8e5f79337141371f",
+      "stateSha256": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "sourceSha256": "be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad",
+      "contractSha256": "10f3432189b412e33927c5579e4430d786681e0725548d046dc310dc6df19877",
+      "status": "half_time",
+      "seconds": 2820.0000000058762,
+      "decisions": 1056,
+      "penaltyExecution": 428.27499999988436,
+      "cpu": {
+        "user": 87015000,
+        "system": 2515000
+      },
+      "wallMs": 78830.4199
+    }
+  ],
+  "originalWallBudgetsPreserved": true,
+  "footballAndRngUnchanged": true
+}

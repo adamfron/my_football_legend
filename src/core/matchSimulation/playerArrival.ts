@@ -76,22 +76,29 @@ export const estimatePlayerArrivalTime = (
 
     // Fixed analytical micro-steps are intentionally independent of the match tick rate.
     const dt = 0.025;
-    let position = { ...player.position };
-    let velocity = { ...player.velocity };
+    const stepAcceleration = acceleration * dt;
+    // Scalars keep the identical integration order without allocating four temporary
+    // vectors at every prediction micro-step. This is also used by each loose-ball race.
+    let positionX = player.position.x,
+      positionY = player.position.y,
+      velocityX = player.velocity.x,
+      velocityY = player.velocity.y;
     let estimatedTime = 0;
     while (estimatedTime < 10) {
-      const dx = target.x - position.x;
-      const dy = target.y - position.y;
+      const dx = target.x - positionX;
+      const dy = target.y - positionY;
       // The stopping check and integration use the same distance. Avoid a second
       // hypot per micro-step while preserving the exact 0.8 m boundary and tick count.
       const remaining = Math.hypot(dx, dy);
       if (!(remaining > 0.8)) break;
-      const desired = { x: (dx / remaining) * targetSpeed, y: (dy / remaining) * targetSpeed };
-      const change = { x: desired.x - velocity.x, y: desired.y - velocity.y };
-      const changeLength = Math.hypot(change.x, change.y);
-      const scale = changeLength > acceleration * dt ? (acceleration * dt) / changeLength : 1;
-      velocity = { x: velocity.x + change.x * scale, y: velocity.y + change.y * scale };
-      position = { x: position.x + velocity.x * dt, y: position.y + velocity.y * dt };
+      const changeX = (dx / remaining) * targetSpeed - velocityX;
+      const changeY = (dy / remaining) * targetSpeed - velocityY;
+      const changeLength = Math.hypot(changeX, changeY);
+      const scale = changeLength > stepAcceleration ? stepAcceleration / changeLength : 1;
+      velocityX = velocityX + changeX * scale;
+      velocityY = velocityY + changeY * scale;
+      positionX = positionX + velocityX * dt;
+      positionY = positionY + velocityY * dt;
       estimatedTime += dt;
     }
     return playerArrivalEstimateSchema.parse({
