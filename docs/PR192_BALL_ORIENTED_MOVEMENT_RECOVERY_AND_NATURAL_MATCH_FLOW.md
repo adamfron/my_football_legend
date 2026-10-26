@@ -402,10 +402,23 @@ Final local `npm run verify`: **PASS**, with 2,250 unit, 56 integration, four ca
 contract and five full-career tests (**2,315 total**), plus lint, TypeScript and
 production build. The six focused files pass all 67 tests again after packaging.
 All PR186–191 historical/frozen checks and current PR192 evidence checks pass.
-Original time limits and required suites remain unchanged. Vite still warns about
+That original run retained the original limits. The follow-up audit below records
+one explicit, justified legacy budget change. Required suites remain unchanged.
+Vite still warns about
 large chunks and mixed static/dynamic imports; those warnings remain in the log.
 Remote CI must be read from this PR's final commit, separately from these local
 results.
+
+The first CI head failed twice at the legacy native child cap. A matched-source
+control on the actual failing EPYC 7763 host also kills **merged PR191** at the same
+89.5 s limit, with the identical input; the waiting parent uses only 0.305 s CPU.
+The old 90 s legacy budget is inadequate for current canonical physics on supported
+hosted hardware. Only that budget is aligned with B's existing 180 s cap; the child
+margin, every football assertion, 40 Hz ticks, short parity test and other limits
+remain. This is an explicit budget exception, not a claimed speed optimization.
+See [the investigation and retained rejected experiments](PR192_INTEGRATION_TIMEOUT_INVESTIGATION.md).
+Follow-up verification and final-head checks must confirm completion of the same
+full-half contract with that corrected safety budget.
 
 The isolated local cost probe measured 10,000 estimator calls at **18.8 µs CPU/call**
 and 2,000 observation updates at **70.0 µs CPU/call**. Four ABBA runs of 4,000 ticks

@@ -480,7 +480,11 @@ describe('PR160 penalty liveness regression', () => {
     expect(actual.state.status).toBe('half_time');
   }, 10000);
   describe.each([
-    { policy: 'legacy-pr176' as const, budget: 90000 },
+    // Both policies execute today's complete canonical physics, not a frozen PR176
+    // kernel. The original 90 s legacy cap also kills merged PR191 on the same
+    // slower CI host/input. Share B's existing 180 s safety budget; retain every
+    // fixed tick, liveness/penalty assertion and the 500 ms parent margin.
+    { policy: 'legacy-pr176' as const, budget: 180000 },
     { policy: DEFAULT_DECISION_POLICY, budget: 180000 },
   ])('whole-half penalty contract: $policy', ({ policy, budget }) => {
     it(

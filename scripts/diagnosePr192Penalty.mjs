@@ -13,8 +13,13 @@ import { createSingleMatchSession } from '../src/core/singleMatch.ts';
 import { createOpenPlayMatchFixture } from '../src/core/matchSimulation/matchSimulation.ts';
 
 // Matched-host measurement, not a replacement for the integration assertions.
-// Both children execute the original entry and retain its 89.5 s process budget.
+// Default: reproduce the original 89.5 s gate. A longer explicit measurement
+// ceiling never reclassifies an original killed child as a passing test.
 const base = '9ea0e599f72800f4210092df2722e2ee16778ab7';
+const budgetArgument = process.argv.find((arg) => arg.startsWith('--budget-ms='));
+const processBudgetMs = budgetArgument ? Number(budgetArgument.split('=')[1]) : 89500;
+if (!Number.isInteger(processBudgetMs) || processBudgetMs < 1000 || processBudgetMs > 180000)
+  throw new Error('Diagnostic budget must be an integer between 1000 and 180000 ms');
 const scratch = mkdtempSync(join(tmpdir(), 'mfl-pr192-penalty-control-'));
 const archive = join(scratch, 'source.tar');
 execFileSync(
@@ -52,7 +57,7 @@ console.log(
     platform: process.platform,
     cpu: cpus()[0]?.model,
     inputHash: hash(input),
-    processBudgetMs: 89500,
+    processBudgetMs,
   }),
 );
 for (const [kind, root] of [
@@ -69,7 +74,13 @@ for (const [kind, root] of [
       pathToFileURL(join(root, 'scripts/registerTypescriptLoader.mjs')).href,
       join(root, 'scripts/runPenaltyHalfContract.mjs'),
     ],
-    { cwd: root, input: bytes, windowsHide: true, timeout: 89500, maxBuffer: 64 * 1024 * 1024 },
+    {
+      cwd: root,
+      input: bytes,
+      windowsHide: true,
+      timeout: processBudgetMs,
+      maxBuffer: 64 * 1024 * 1024,
+    },
   );
   const value = r.status === 0 ? deserialize(r.stdout) : null;
   console.log(

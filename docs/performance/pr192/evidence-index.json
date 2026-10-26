@@ -1450,15 +1450,19 @@
     },
     {
       "path": "scripts/checkPr192Evidence.mjs",
-      "sha256": "14bb4a678c2ff2cd6e4a3efc96114c01824c733cc247735e466d70663cf064f9"
+      "sha256": "e939dcd64001a60886b15b37349ba8e5d2f259d5e0a2c93dcc3dfcc76d97558b"
     },
     {
       "path": "scripts/diagnosePr192Penalty.mjs",
-      "sha256": "9d175eeb0b61ff1b20e08ec2c9325b0320bc28279f6b15602a85806dec4fa850"
+      "sha256": "7095ee2442df517b90cecb5bd09f9c0f567ff340ab5d6323a7d08fbbf7358143"
     },
     {
       "path": "scripts/packPr192Evidence.mjs",
       "sha256": "47267e83f389c22d593e0e756efd5366876fe528b0c59eb56c4e578dc6e2bd32"
+    },
+    {
+      "path": "scripts/penaltyHalfContract.ts",
+      "sha256": "10f3432189b412e33927c5579e4430d786681e0725548d046dc310dc6df19877"
     },
     {
       "path": "scripts/readPr192Evidence.mjs",
@@ -1467,6 +1471,10 @@
     {
       "path": "scripts/reconstructPr192Human.mjs",
       "sha256": "cb662cd4a1012ae6839bcf1c659a5b9af3aade4be29cc0234fec942a682d03b7"
+    },
+    {
+      "path": "scripts/registerTypescriptLoader.mjs",
+      "sha256": "7d0ab448e432e1fe1bc4ea750029329d11a0609ea8de500076a9394bff35f42f"
     },
     {
       "path": "scripts/repairPr192CaptureReferences.mjs",
@@ -1485,14 +1493,26 @@
       "sha256": "752dad4275039152c8407bfdfcf8e4e3009d53c9398bdae821ff84ddb981e619"
     },
     {
+      "path": "scripts/runPenaltyHalfContract.mjs",
+      "sha256": "796c99126212e9a0d5edcbeecb2f24d79a4192b70c6986c5ee3b9c62ed7e2277"
+    },
+    {
       "path": "scripts/summarizePr192.mjs",
       "sha256": "bf368285d513808f3f16e6b881c5ea22176d0eb87c564bac961c1d04137b9442"
+    },
+    {
+      "path": "scripts/typescriptLoader.mjs",
+      "sha256": "00c8edf3199d0387894be8cac9a5a66a23f77442fa27d1a5e158426cefd361ee"
+    },
+    {
+      "path": "src/core/matchSimulation/pr160PenaltyLiveness.test.ts",
+      "sha256": "f8831ec266ae668971b7b3249f4b622c1db9b52f1b5139d2873ce35fd4cf8524"
     }
   ],
   "artifacts": [
     {
       "path": "docs/performance/pr192/README.md",
-      "sha256": "83278e9a910a12673a99b42b1df602ba35624664bc9e3b21cc3d1e1812bdaf44"
+      "sha256": "1bc56e523df06f2ab8aaa49dacf36d19a6d7b8559500a6bec3768be8d3392481"
     },
     {
       "path": "docs/performance/pr192/cost.json",
@@ -1505,6 +1525,10 @@
     {
       "path": "docs/performance/pr192/development-summary.json.gz",
       "sha256": "206b25a22177392c57868493d3804c630893d9738cc06e323609661b7d90400e"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/budget-correction.json",
+      "sha256": "12322400a4d5f8ad27ef00e9dc8412601761f7b2f31318f677e020242a805232"
     },
     {
       "path": "docs/performance/pr192/integration-timeout/ci-attempt-1.json",
@@ -1523,6 +1547,22 @@
       "sha256": "e6cb44ee60a04dd459067ec60fea36d3f7de7422232cd6612cf223e113fdd1fa"
     },
     {
+      "path": "docs/performance/pr192/integration-timeout/ci-stage-1-integration.json",
+      "sha256": "aa309edfa7b8612e18473002a6aa7bef880bc0ccd1d67ead2cb81a2e559bfa19"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/ci-stage-1-integration.json.gz",
+      "sha256": "784e0f8dfae00cd3ed2b3631ac68955054b570b9a09dbbe5a2c325c0708834dc"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/ci-stage-2-matched-host.json",
+      "sha256": "49568433e295f25621210e2d6e363c7ae42232460ace447f0daf1c090cfef0a6"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/ci-stage-2-matched-host.json.gz",
+      "sha256": "bd5b8535434a71bb0843138c12d322aacca27bfb5070b51d74e2377bb2317281"
+    },
+    {
       "path": "docs/performance/pr192/integration-timeout/investigation-stage-1.json",
       "sha256": "90d423a8d5da5faf4864a01551134c199430da4d3adec6b9c2eeb6d71b88531d"
     },
@@ -1537,6 +1577,10 @@
     {
       "path": "docs/performance/pr192/integration-timeout/linux-matched-stage-1.json",
       "sha256": "92559986bd747550072e8c9f7ac70deb5a2e41c4907bb6c1975fd56663a789da"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/linux-matched-stage-2.json",
+      "sha256": "ea1eca675ea44f1388bbac0bbb41f0ffd39d7c163665a569bacab8c854204bce"
     },
     {
       "path": "docs/performance/pr192/integration-timeout/native-cpu-profile.json.gz",

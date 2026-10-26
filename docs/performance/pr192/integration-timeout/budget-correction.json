@@ -1,0 +1,30 @@
+{
+  "schema": "mfl-pr192-native-budget-correction-v1",
+  "baselineCommit": "9ea0e599f72800f4210092df2722e2ee16778ab7",
+  "failedSourceHead": "04d8de33a060c82dd46caf5222a1e0a23198a3f4",
+  "proof": "linux-matched-stage-2.json",
+  "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+  "reason": "The old legacy cap rejects both merged PR191 and PR192 on the same supported CI CPU, before Vitest starts. A legacy decision policy still executes current canonical physics.",
+  "explicitUserException": "An inadequate limit may be corrected; prefer unchanged limits where possible.",
+  "legacyTestBudgetMsBefore": 90000,
+  "legacyTestBudgetMsAfter": 180000,
+  "defaultBTestBudgetMsUnchanged": 180000,
+  "parentMarginMsUnchanged": 500,
+  "shortExactParityBudgetMsUnchanged": 10000,
+  "ciJobMinutesUnchanged": 30,
+  "canonicalStepSecondsUnchanged": 0.025,
+  "maximumTicksUnchanged": 140000,
+  "gameSourceHashUnchanged": "ff47683eb5389bc29f159fe54c1fa29a497fad93f9a919bb4215407efc3419ff",
+  "assertionsRetained": [
+    "actual penalty award and execution",
+    "full half endpoint",
+    "continued canonical decisions",
+    "no pending restart",
+    "timekeeping endpoint",
+    "native/Vitest exact state equality"
+  ],
+  "temporaryDiagnosticCIOverheadRemoved": true,
+  "outcomesNotForced": true,
+  "priorFailedAttemptsRemainFailures": true,
+  "verificationAuthority": "Follow-up npm run verify and CI checks on the exact final PR head; the original verification receipt remains historical."
+}

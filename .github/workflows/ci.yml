@@ -20,7 +20,7 @@ jobs:
           - group: main
             command: npm run lint && npm run test:unit && npm run build
           - group: integration
-            command: npm run generate:world-db && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/diagnosePr192Penalty.mjs && npm run test:match-integration
+            command: npm run generate:world-db && npm run test:match-integration
           - group: career
             command: npm run generate:world-db && npm run test:match-contract && npm run test:full-career
     env:

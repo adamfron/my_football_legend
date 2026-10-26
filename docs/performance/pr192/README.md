@@ -39,6 +39,11 @@ readiness verdict and limitations.
   actual logs, separate from superseding successful results.
 - `verification.json`: actual technical verification results. CI is reported on
   the PR's final commit; it is not claimed from a local run.
+- `integration-timeout/`: original failed CI logs, same-host PR191/PR192 controls,
+  full compressed CPU profile and rejected bundling/scheduling experiments. The
+  [follow-up report](../../PR192_INTEGRATION_TIMEOUT_INVESTIGATION.md) records the
+  explicit legacy budget correction from 90 s to B's existing 180 s, while retaining
+  the original failed gate and every football assertion.
 - `evidence-index.json`: current runtime/runner hashes and exact artifact bytes.
 
 ## Lossless packaging

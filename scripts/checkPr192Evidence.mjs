@@ -15,8 +15,10 @@ const source = files('src')
   .filter((p) => /\.(ts|tsx)$/.test(p) && !p.includes('.test.'))
   .sort()
   .map((path) => ({ path, sha256: sha(readFileSync(path, 'utf8').replaceAll('\r\n', '\n')) }));
-const runners = files('scripts')
-  .filter((p) => /Pr192|Pr191Baseline/.test(p))
+const runners = [
+  ...files('scripts').filter((p) => /Pr192|Pr191Baseline|PenaltyHalf|TypescriptLoader/i.test(p)),
+  'src/core/matchSimulation/pr160PenaltyLiveness.test.ts',
+]
   .sort()
   .map((path) => ({ path, sha256: sha(readFileSync(path, 'utf8').replaceAll('\r\n', '\n')) }));
 const artifacts = files(root)

@@ -26,6 +26,12 @@ negatywny wynik przepływu: 79,31–89,04 min aktywnej gry i zero strzałów SW/
 Łącznie pozostają 44 pełne zapisy etapów i powtórzeń; sześć różnych stanów z początku
 meczów służy krótkim replayom. Wyniki nie stanowią niezależnego potwierdzenia.
 
+Audyt timeoutu integracji: stary limit 90 s legacy odrzuca także zamrożony PR191
+na tym samym runnerze EPYC 7763 i identycznym wejściu. Budżet tej pełnej połowy
+wyrównano do istniejących 180 s B, z zachowaniem wszystkich kroków 40 Hz i asercji.
+To jawny wyjątek dla nieadekwatnego limitu; kod gry pozostaje niezmieniony.
+[Pomiary, odrzucone hipotezy i zakres korekty](PR192_INTEGRATION_TIMEOUT_INVESTIGATION.md).
+
 [Raport, komplet pomiarów i ograniczenia PR192](PR192_BALL_ORIENTED_MOVEMENT_RECOVERY_AND_NATURAL_MATCH_FLOW.md).
 **B nadal domyślne; 28 atrybutów zachowane; canonical NOT READY; niezależna kohorta zamknięta.**
 Aktualna kolejność: **PR193 pełne generacje/siła świata → PR194 Summary/PlayStyles →
