@@ -1,0 +1,5183 @@
+{
+  "schema": "mfl-pr194-lab-pointer-v1",
+  "sourceHash": "a334a8e3a8b1b46e7b73efdd4035762a4fa227697ac38e85ed7a62239b2d44f7",
+  "protocolHash": "061cbf4a957d993576244319b9f00725584b70b9481c6d70a624202799520898",
+  "archive": {
+    "path": "docs/performance/pr194/laboratory-v4.json.gz",
+    "sha256": "62dff22d9fd6401685db023cff6e8a55318b5a22201178959937ba9d1e3384e3",
+    "originalSha256": "6c7d1bba4e9e976b8cbe3e7e11d141df2d73bcc99de2a208d90a1db0397ffaa3"
+  },
+  "count": 73,
+  "summary": [
+    {
+      "config": {
+        "id": "prior_scan-normal",
+        "seed": "pr194-paired-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "a756a576d567632742697fdad9caf2a41851a9e58c3bdbc79d7cd79363d4cff4",
+      "finalHash": "a5eb753fedab65676c0b541a1f703f21193ce9212a2f090f51cbf24ef0012d5b",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 21,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1406000,
+        "system": 78000
+      },
+      "wallMs": 1035.4937,
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "id": "prior_scan-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "e27784ab1cf8df4e16ddbb9cbb644d92902162068a9faad1cd611091844cb0ec",
+      "finalHash": "3fb822ec0e5490ce208e078df2c30abcf0f8dd464401fbc1403c38ebc0c3cfd3",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 35,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "carry:23",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:27",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:23",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:27",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:23",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:27",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:23",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:27",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:23",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:27",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:10:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:23",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:27",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:10:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:23",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:27",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:10:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:23",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:27",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:10:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:23",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:27",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:10:through",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1860000,
+        "system": 47000
+      },
+      "wallMs": 1580.2539000000006,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "no_scan-normal",
+        "seed": "pr194-paired-development",
+        "condition": "no_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "29b0659ad0d0d312c2d84589e924b4a1b62a0332e833afa5c898edb175ce7687",
+      "finalHash": "44bdff67a52a8aab20061056831d263052587fb7d46a3dcddfc0b57cb9d7e459",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 1500000,
+        "system": 47000
+      },
+      "wallMs": 1293.8512,
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "id": "no_scan-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "no_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "84c7404cdee1b5fb19010e148e07ce498f9008821a8dd977afa8ac653d815852",
+      "finalHash": "188a9791e3ddc20bba52b836c2a220c56105e0461ebffc87b59d0d9077ecc297",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1359000,
+        "system": 16000
+      },
+      "wallMs": 1211.9130999999998,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "active_scan-normal",
+        "seed": "pr194-paired-development",
+        "condition": "active_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "8bce2861566b6b25885892753f7fb728e6f9c16d2ac367c1fc3d7a0637aab750",
+      "finalHash": "d83210880d250af4edf1c1ccdda76764dc2b422b3158bd5ba3676c1297cc408b",
+      "deliveryAt": 10.900000000000013,
+      "receiverContactAt": 12.225000000000032,
+      "receiverActionAt": 12.225000000000032,
+      "scans": 5,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 41,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 1609000,
+        "system": 0
+      },
+      "wallMs": 1371.8917999999994,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "active_scan-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "active_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "c33cae88a0e0f5d22e507d064ca7ae5af7e0f0e3a34abf89a752ffe653964f04",
+      "finalHash": "cdb91453b3627e92c8452346531dde5635c50dbd908511a11b3be860a0b6b897",
+      "deliveryAt": 10.900000000000013,
+      "receiverContactAt": 12.225000000000032,
+      "receiverActionAt": 12.225000000000032,
+      "scans": 5,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 23,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 1422000,
+        "system": 15000
+      },
+      "wallMs": 1281.993699999999,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "stale-normal",
+        "seed": "pr194-paired-development",
+        "condition": "stale",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "df1ce7741cc8812679f45196efb0de818f0cbd56614a59d46553eedb89cd6eae",
+      "finalHash": "103f9dc911a9d7f574f46f1e165aaed655773a269507ece296ecb29f8b02d4f7",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 52,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1578000,
+        "system": 32000
+      },
+      "wallMs": 1313.2095000000008,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "stale-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "stale",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d038e4ab1811923b4cd3554145a58edf3fc6a17cea5b8070b1da90294f341b05",
+      "finalHash": "b6641c9ebfa47f7304ef8c4391159eec60f2ca0dfdd10ad5a852b827b0b35230",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1375000,
+        "system": 31000
+      },
+      "wallMs": 1304.4956999999995,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "moved-normal",
+        "seed": "pr194-paired-development",
+        "condition": "moved",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "ec049dbc5a60ed65c1a6b6aaaeae3b248f0dcffdde274076b4f6b28458c39106",
+      "finalHash": "0cd3bdf137acc7307e30b4214f7b1031cf5bd05200e69571cc7a908bac337174",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 36,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1391000,
+        "system": 15000
+      },
+      "wallMs": 1190.9737999999998,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "moved-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "moved",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "540b4da5a96555f65f010d95162544b33b8826477437c3b1314cf719b919e70f",
+      "finalHash": "60811479bf9aa848260d893cd98dfb26d2340a841a331c13ee868a9e25631df5",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 41,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:37",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:33",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:37",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "actual_reception_differs"
+        }
+      ],
+      "cpu": {
+        "user": 1422000,
+        "system": 0
+      },
+      "wallMs": 1262.6989999999987,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "lane_closed-normal",
+        "seed": "pr194-paired-development",
+        "condition": "lane_closed",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "1ee59628471030b596e411d85052b7fbc7c8435d113b31035120241be971cc9b",
+      "finalHash": "ce1c0efcebbfc297ca13932006f74bdfe723cd56296f35a57d9ba6692b99ee63",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 22,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 734000,
+        "system": 0
+      },
+      "wallMs": 624.8486000000012,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "lane_closed-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "lane_closed",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "321f8f200dcecfb02821046900fe146273a62e9fa14da496e4b0c843bb00b828",
+      "finalHash": "c4a67486614c3a158e67d75d7e7b2f69eefeb02252588200d64fd560ef1955aa",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 657000,
+        "system": 0
+      },
+      "wallMs": 574.6742000000013,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "urgent-normal",
+        "seed": "pr194-paired-development",
+        "condition": "urgent",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2aa5e227dbbd7f41f97d78fd187e8b00b8eb0dcdf12eed454e508917a6c0efa8",
+      "finalHash": "0ed7adf1489218bdf4df1943e7b3fb5914ad308ce970448150f9bcf7968b44e9",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.725000000000025,
+      "receiverActionAt": 11.725000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 18,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 656000,
+        "system": 0
+      },
+      "wallMs": 562.7547999999988,
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "id": "urgent-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "urgent",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "a96a551505fb7f0afd47f05688cae0a110c5cb7ff890f7981f189fb93ead4918",
+      "finalHash": "850f4674624222bca373c6acd2f5a6503f3b98f3bac811f3e062f5fa2247ee90",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        }
+      ],
+      "cpu": {
+        "user": 1235000,
+        "system": 16000
+      },
+      "wallMs": 1133.4314000000013,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "wrong_body-normal",
+        "seed": "pr194-paired-development",
+        "condition": "wrong_body",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d8cc3b2a4ff9319522d7046c8fb489d83ee196b9ef8e35e9b8b142e28c53bf7e",
+      "finalHash": "ffd42cd69910c7cccc8e6aa2c8013b99a128f2246e0c69d015acae24352f2e6c",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 23,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1484000,
+        "system": 0
+      },
+      "wallMs": 1239.1448000000019,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "wrong_body-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "wrong_body",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "b0e44d788d57fa084c94164ff327fba0a14f8584df3d46777b159d73c1baa3e5",
+      "finalHash": "d1b7e25b83e6940981100abea7a027fdd35bbeb4c9bb6c82e887472b9c4e4322",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 23,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1328000,
+        "system": 16000
+      },
+      "wallMs": 1203.0568999999996,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "moving-normal",
+        "seed": "pr194-paired-development",
+        "condition": "moving",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "b65d03939222178cb7c81b105d9eed0015c8301178c8740d3fa66e3b8cc67339",
+      "finalHash": "82338bb69f4bc73735d606785cc215eb45b44606e5bcb3eedca29221fa5d60d2",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 21,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 735000,
+        "system": 15000
+      },
+      "wallMs": 577.2736999999979,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "moving-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "moving",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "ffa53a43d51840a548f3a125d513fa144da4ebe88ed926c11d843d63a4359182",
+      "finalHash": "184474f38a2098faa34fa07b31c120c3e4d925d083c8744cf76628c18e23ffb3",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        }
+      ],
+      "cpu": {
+        "user": 906000,
+        "system": 32000
+      },
+      "wallMs": 780.4196000000011,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "fast-normal",
+        "seed": "pr194-paired-development",
+        "condition": "fast",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "a756a576d567632742697fdad9caf2a41851a9e58c3bdbc79d7cd79363d4cff4",
+      "finalHash": "333f2158a94a2ccb6e07d030718ced8bf6c63e0f1fedf7612f09f86490300ff1",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 10.900000000000013,
+      "receiverActionAt": 10.900000000000013,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 16,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1297000,
+        "system": 15000
+      },
+      "wallMs": 1251.6210000000028,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "fast-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "fast",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "e27784ab1cf8df4e16ddbb9cbb644d92902162068a9faad1cd611091844cb0ec",
+      "finalHash": "fdb080b9600170a2c6af529ce69617d34e9d2b96bf6331453301cc44341935ff",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 10.975000000000014,
+      "receiverActionAt": 10.975000000000014,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 45,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1312000,
+        "system": 16000
+      },
+      "wallMs": 1287.8591000000015,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "far_side-normal",
+        "seed": "pr194-paired-development",
+        "condition": "far_side",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "213d6b7502b6b87168296e8739e627142c8fe90b0eaab88b9fb2ddc75a29c674",
+      "finalHash": "2dc089f96748781579682e82f7e709f46b731fe9dc57329bef86f799869d8f05",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 22,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 781000,
+        "system": 0
+      },
+      "wallMs": 595.0595999999969,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "far_side-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "far_side",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "784cc3895cce1768a8bc3cde117c14051168a746aa94e3d8a7656116a2561920",
+      "finalHash": "e45529e286f57d8c874a0978b59dfcbfc14cf5257bcd3632e9c35e63d7c814f3",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        }
+      ],
+      "cpu": {
+        "user": 1329000,
+        "system": 15000
+      },
+      "wallMs": 1208.2896999999975,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "wide-normal",
+        "seed": "pr194-paired-development",
+        "condition": "wide",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "e3a0800abcbffb5e63d17599db5e65a3ebc285ea63d5767136a7092c9258f048",
+      "finalHash": "c3e21320a969c28948dcf58b32ce1aabfba3cfdbcff629ca74267469f1716042",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.750000000000025,
+      "receiverActionAt": 11.750000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 55,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:19",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:19",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:20",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:16",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:20",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:16",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:17",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:16",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:20",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:16",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:20",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:16",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:20",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:16",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:20",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:16",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:20",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:16",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:20",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:16",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:20",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:16",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:20",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1281000,
+        "system": 16000
+      },
+      "wallMs": 1154.9677999999985,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "wide-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "wide",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "474c1c9afcc97a58ebf0eb60bc05297e1d0c8a604975ebd5b1311d90dd246a16",
+      "finalHash": "f3e7f08828d7c7c7ff16f540aa9574bc1614da40254a7841741e9500a0ad2ea3",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.750000000000025,
+      "receiverActionAt": 11.750000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1265000,
+        "system": 0
+      },
+      "wallMs": 1148.4895000000033,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "patient-normal",
+        "seed": "pr194-paired-development",
+        "condition": "patient",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2b9699a33b59f2033cbaec7f7d1ee92ba7d9a9031e564197aaa6a38797b20feb",
+      "finalHash": "79ec1eb290c3594d6d08b6f7bea9d78ad2bdb28df6b096c3522d2e5e79ef3d0c",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 1266000,
+        "system": 16000
+      },
+      "wallMs": 1201.9743999999992,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "patient-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "patient",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9776a782c8336ae4723bd55dd13d3cf668db5d771c011dd1493817cfde51a773",
+      "finalHash": "d6e866a0f79026381c2a624208a9110ebd5ad45145df7bfc5ab22e63458342df",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1281000,
+        "system": 0
+      },
+      "wallMs": 1154.7886999999973,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "counter-normal",
+        "seed": "pr194-paired-development",
+        "condition": "counter",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "a50fb566a6365cfd7eebc172edddc77a90c64e6ac6b12975f4096459a626b327",
+      "finalHash": "a1fc724e32038c3909a116053220338442755f6e3099ec2e81482f2872e4ca50",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 1532000,
+        "system": 15000
+      },
+      "wallMs": 1379.4756999999954,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "counter-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "counter",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "3248921a832c78f0acabf15672829bbb353347a6dee8fa20dfb3ff1751fa403c",
+      "finalHash": "1d91e61757ae2236bd986d60e22cc5f1703032a9cb2dfa086891da328f10702c",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.750000000000025,
+      "receiverActionAt": 11.750000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:38",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:38",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:38",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1390000,
+        "system": 16000
+      },
+      "wallMs": 1230.0636000000013,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "organised-normal",
+        "seed": "pr194-paired-development",
+        "condition": "organised",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "618b5dcea668440e4326917585ca1a1e839338856cf0f74f78d67953433389a6",
+      "finalHash": "52e1dfac36b8fc4993aa671ffdac25cef42a2c9a4d1654781fbe1c24eb27dab0",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 35,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:38",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:38",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:38",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1281000,
+        "system": 0
+      },
+      "wallMs": 1212.108500000002,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "organised-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "organised",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "57fa699d5ad55daea2981bed4f4e75c9e7f283615a089e478258fa529d0b89a7",
+      "finalHash": "fc8285254f3782fcf6ee6ae9a52518b642449ca69e07c72447505d434bbb368c",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 1297000,
+        "system": 0
+      },
+      "wallMs": 1203.9574999999968,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "repeated_effort-normal",
+        "seed": "pr194-paired-development",
+        "condition": "repeated_effort",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "62963f776ae75264b0c7adddfb6805ded37d812bb1608636c79ed933be49bf69",
+      "finalHash": "70d39f79356d95de3c1a7699bffd078801e1ee6a7f6ef2658532d20eb661878b",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.750000000000025,
+      "receiverActionAt": 11.750000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 1438000,
+        "system": 16000
+      },
+      "wallMs": 1333.0844999999972,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "repeated_effort-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "repeated_effort",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "e2b654754d60e43616d366850da839699d537cba2ad845b5a64f48bc63013393",
+      "finalHash": "2519ccc1707a0f82e2946825f0471d32917beeb2d01ec68c94d2d6c65e956121",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.750000000000025,
+      "receiverActionAt": 11.750000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1328000,
+        "system": 31000
+      },
+      "wallMs": 1260.1579000000056,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "fatigued-normal",
+        "seed": "pr194-paired-development",
+        "condition": "fatigued",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "8c979213d5893219ce6074861314fca3a9433220f4a9f288583294e014e27bfe",
+      "finalHash": "ba5ff31f6bed0fbb0e7ce8a1de78a2cc1fd9412a1847d879f28f188b2c21d6ca",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 1484000,
+        "system": 0
+      },
+      "wallMs": 1272.4072000000015,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "fatigued-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "fatigued",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "e2c6d041c34e578f6cb0e26a2f4167232281fd9a73fe88f53c6cff572ac0859d",
+      "finalHash": "1fef8546ab0d7c206741a31a735969fd191c0ec2be2a622dccb60a3a3765cb05",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1219000,
+        "system": 0
+      },
+      "wallMs": 1104.7474000000002,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "protecting-normal",
+        "seed": "pr194-paired-development",
+        "condition": "protecting",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d4cafec541acea074883d0c0431468cfb3ea1c0b64052df99f8edc70a9548276",
+      "finalHash": "fc519f1926f878965ec3bae3d42bfd1105e34e36d0def253f9aba49d509e153b",
+      "deliveryAt": 4800.149999999998,
+      "receiverContactAt": 4801.7499999999745,
+      "receiverActionAt": 4801.7499999999745,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 39,
+      "used": [
+        "pass:geometry:anchor:9:support",
+        "pass:geometry:anchor:9:support",
+        "pass:geometry:anchor:9:support"
+      ],
+      "invalidated": [
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:32",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1422000,
+        "system": 47000
+      },
+      "wallMs": 1249.4352,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "protecting-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "protecting",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "382fa7235eb6cf3686109434c82fded8601372de34162520ca66d3c61497ca1b",
+      "finalHash": "9f18ccef509f20ff5343a231c87e68791b63a01e8ef4906db4a7b833c1e90a72",
+      "deliveryAt": 4800.149999999998,
+      "receiverContactAt": 4801.7499999999745,
+      "receiverActionAt": 4801.7499999999745,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 35,
+      "used": [
+        "pass:geometry:anchor:9:support",
+        "pass:geometry:anchor:9:support",
+        "pass:geometry:anchor:9:support",
+        "pass:geometry:anchor:9:support",
+        "pass:geometry:anchor:9:support",
+        "pass:geometry:anchor:9:support"
+      ],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:26",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:26",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:26",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:26",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:26",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:26",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:26",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:26",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1312000,
+        "system": 0
+      },
+      "wallMs": 1263.3413999999975,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "chasing-normal",
+        "seed": "pr194-paired-development",
+        "condition": "chasing",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2917b819fb281e7a9358a5381b5c9edadddba9ecc5839d227a9078d93646ee40",
+      "finalHash": "bd5bb64cbb14a1df18eca535834af177343e960ed093a39e2978b152bc912356",
+      "deliveryAt": 4800.149999999998,
+      "receiverContactAt": 4801.7499999999745,
+      "receiverActionAt": 4801.7499999999745,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 36,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 1297000,
+        "system": 15000
+      },
+      "wallMs": 1183.7616999999955,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "chasing-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "chasing",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "5eafdbd81c48dda341e75f481f7ab33c3c5db7a5da66824543b172626f76c806",
+      "finalHash": "f7be2babac93af1664cc463d8ec6cd32d7fcd5e08c4e679941328684a94ccaa9",
+      "deliveryAt": 4800.149999999998,
+      "receiverContactAt": 4801.7499999999745,
+      "receiverActionAt": 4801.7499999999745,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1297000,
+        "system": 16000
+      },
+      "wallMs": 1183.604800000001,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "0133929ea998b6538322dbde787c9562f9d206eb094322b04cdff61d24117f17",
+      "finalHash": "31895d2fb335a35133fa848e10f7b19f724bb400ae96ec969f687cd5fe75defe",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1203000,
+        "system": 0
+      },
+      "wallMs": 1187.7756999999983,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "cf7eb1f7c9cb7a460c44af019e9c7667d65649036fd5d318cdddf3af2d586123",
+      "finalHash": "297cf72edecee29416cf34098fa20b55cd428d6b19c3e249090ff27b60db0859",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 38,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1172000,
+        "system": 0
+      },
+      "wallMs": 1173.5882000000056,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "def1b2a4993f566badddfd191aed75dc670e29d06d746417f07040d293747607",
+      "finalHash": "5a02803f9ac1cc6ed6cb07753d329181e89053291ae641885d1aed5bb88d9fbc",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1235000,
+        "system": 0
+      },
+      "wallMs": 1090.7885000000024,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9b70cfb49fcdda57790438ea1c71a9f39d9b4c31fe79290560123e7b6be28591",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1187000,
+        "system": 0
+      },
+      "wallMs": 1185.2002999999968,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9d0564ad44d11034c7a7aa82dad11131cad9a6fd055c6b8aa092ddfe23f3ad7d",
+      "finalHash": "54caf0b17324cbbcb7ff5b7a6cb0b8b88c26f14b37cc98ce22a7478c5f1b4031",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1250000,
+        "system": 31000
+      },
+      "wallMs": 1187.6243000000031,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "8389e584632be0a733fafa16f4098a55745dbdeacbad8f6448d9f516bf28f646",
+      "finalHash": "006bc3755d26ba75911197e6f8fefc5a3cf77603558cef46de44afee4e420746",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 46,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1375000,
+        "system": 0
+      },
+      "wallMs": 1177.0125999999946,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9775ea0f986326781978eed0c6ddd38376ccea4323b0bc70dfc639250d39e388",
+      "finalHash": "b05749a440ce1a18a05d459252623ac0740079a021e689c0e83480fcd6236f8b",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 844000,
+        "system": 16000
+      },
+      "wallMs": 765.6531000000032,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "4fede12caa87284059bd1dbf72e0977eef246e0eb9c5c9ee3455669e63900bdb",
+      "finalHash": "fd82771561a2ba1e88912c985bbb1450eb014d2ccc1068e80cdb42431b19459a",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1469000,
+        "system": 31000
+      },
+      "wallMs": 1187.7350000000006,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9b70cfb49fcdda57790438ea1c71a9f39d9b4c31fe79290560123e7b6be28591",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1312000,
+        "system": 0
+      },
+      "wallMs": 1191.035100000001,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "f967c9fb83e512f05904c01e05d5ebf0b7eac771666867c62f2222e346be2f59",
+      "finalHash": "3b5d1da9673edff07f1ba421f53bbe49bebf22631d6db32d874d9670a144ab9e",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.600000000000023,
+      "receiverActionAt": 11.600000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        }
+      ],
+      "cpu": {
+        "user": 1359000,
+        "system": 0
+      },
+      "wallMs": 1207.2063999999955,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "8aa9fb58211c074abfb159f6e6b5f9101ac12036905737f53976af4763beb226",
+      "finalHash": "9bdbaf82e61d966c7c8eb929bbae51698eeaad765e09b76b2168665bb2d4baca",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1610000,
+        "system": 31000
+      },
+      "wallMs": 1379.1834000000017,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "55c1142a6757ee3902e2e56f9154d6310cbc92590a0b95c59b9581e14a18b10e",
+      "finalHash": "50f6979efce28fdd42d1044924727c87de6f661540fca10c0469a4679d607a57",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 36,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1390000,
+        "system": 16000
+      },
+      "wallMs": 1240.5011999999988,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "c9042f2600310c6da8b50517aba5ce050f6a11d8c8945fa69f6ac29a987c2ebf",
+      "finalHash": "0ab0b236c9f964c48e96d562514aa8bd513a34da6d043f8a037d0b6a6611ed13",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1032000,
+        "system": 16000
+      },
+      "wallMs": 978.3929999999964,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9b70cfb49fcdda57790438ea1c71a9f39d9b4c31fe79290560123e7b6be28591",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1250000,
+        "system": 0
+      },
+      "wallMs": 1216.202400000002,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2e1e34ff479e060327e69bbf406c04a02bfd0a48c206b8e27d2b84351bc21d2d",
+      "finalHash": "640cd8169881a09a42a9af46292b1b75a814ff47fdfc49b0e9178c6c9e31046b",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 39,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1234000,
+        "system": 0
+      },
+      "wallMs": 1208.7997999999934,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "44a6f98502bf81a404dea0779add3ff42a53ce162c21c5df0642e15537299dda",
+      "finalHash": "4e4e2b171bb30c2def103b08f9be49a4d51cc4a260c29192218a57e7b6d0812c",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1141000,
+        "system": 0
+      },
+      "wallMs": 963.4517999999953,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "a8d3edadc415f8a04a552df2f2f9881ecb4fe7f323bb1868206decc6a7e7d220",
+      "finalHash": "398a32a3d8a037968e483cdce4d56427b8b11adc88616f587746dbbbbc9e0d68",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 35,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:8:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:8:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:8:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1203000,
+        "system": 0
+      },
+      "wallMs": 1124.0374999999913,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9e633222851df8c5b211a9804dd6b00af265f9e2f3593dd085b6aa9d53992724",
+      "finalHash": "4d0d310916bd26b0d69bc056f3b8927b1aab35e78d5ac051937eed30b33f5b8b",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 53,
+      "used": [
+        "pass:geometry:anchor:9:progressive",
+        "pass:geometry:anchor:9:progressive",
+        "pass:geometry:anchor:9:progressive"
+      ],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 1140000,
+        "system": 0
+      },
+      "wallMs": 1132.9300000000076,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9b70cfb49fcdda57790438ea1c71a9f39d9b4c31fe79290560123e7b6be28591",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1375000,
+        "system": 0
+      },
+      "wallMs": 1136.3402999999962,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "0da8c1f20db02e43c812752e3ce09735bd84d4742cc5a7a92c423006891a2771",
+      "finalHash": "3acb8c3f15aceb79e8f7081b930ab2ec27d121db13e8facf14dcc5cb99fb1468",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 38,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1172000,
+        "system": 0
+      },
+      "wallMs": 1137.2167999999947,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "c4f923b53278b1ad77c2be1a2a952f30eda4fb47e63e7feb6df8f2db72ce5a8c",
+      "finalHash": "97cf13334fcd64b5217bc10750073ef94812f6c8dd64f543d791faff1103496f",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1047000,
+        "system": 0
+      },
+      "wallMs": 1053.2694000000047,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "b56577bff4d661bd2937f4234ecc34c44b21c5b11e23fcfadf5eb7b921e6c9b3",
+      "finalHash": "60f22396a114a7cbab50b066a515da802acb393b51681a45e87598a8f760c391",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 49,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1203000,
+        "system": 0
+      },
+      "wallMs": 1185.0562999999966,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "0faa64109b8967c6389664a284872b9ef6ba724d5ae577f3b66c88e850dd5e06",
+      "finalHash": "10ab57acfcf99611684bdf10a90f90dd9889954a74aea2226490032d7af5b21f",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1203000,
+        "system": 31000
+      },
+      "wallMs": 1118.0205000000133,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9b70cfb49fcdda57790438ea1c71a9f39d9b4c31fe79290560123e7b6be28591",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1157000,
+        "system": 15000
+      },
+      "wallMs": 1163.060599999997,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "6801c6fb3334b9e05b9c991206bad94c8a2697c4e575708e8fc797129da67aef",
+      "finalHash": "d8c08d90b87c80ca877768667b4db761b9937d9d56ef82a1d747c4abab3fbabb",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 38,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1172000,
+        "system": 16000
+      },
+      "wallMs": 1125.0948000000062,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "c0566de585418fe2509b58bbfbfba0702aefd646ac454ff9ac8d4a8a772171ed",
+      "finalHash": "5a24c3270b02890d49eae02b3a975f983133577d66725b0daa94aa3a6015ab48",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.725000000000025,
+      "receiverActionAt": 11.725000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 36,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1125000,
+        "system": 31000
+      },
+      "wallMs": 1143.3810000000085,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "ecb4039647f884101ea9797aca43c6806ec02f9246a48cb3883f9713fc94f8aa",
+      "finalHash": "0e19b068f3848afc348ce5f4460bbe46f02b5b9a983db63c823ac69f3d80f0c5",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.725000000000025,
+      "receiverActionAt": 11.725000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 45,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1250000,
+        "system": 16000
+      },
+      "wallMs": 1210.6869000000006,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "1c43cd587a4d5bd06a7d7cf66b85dcefb614295392f1873661dac520cbe93706",
+      "finalHash": "0e22a49bed55546666d86c12a2767b8ce75e968911e25e283484e3f17b70576b",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.725000000000025,
+      "receiverActionAt": 11.725000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 28,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1218000,
+        "system": 0
+      },
+      "wallMs": 1215.2799000000086,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9b70cfb49fcdda57790438ea1c71a9f39d9b4c31fe79290560123e7b6be28591",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1297000,
+        "system": 0
+      },
+      "wallMs": 1252.4581999999937,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "f49117182f75f732f0c431af07f53468ca28b866683ec5664ba4909887cf1612",
+      "finalHash": "89092f13b39b3a32bda72ba4fecde00ff40bc4e0a3ba7583d822bd91aad9483e",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1235000,
+        "system": 16000
+      },
+      "wallMs": 1237.4257999999973,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "96e72eba6a73943e4caf4b8c4d230f49012d65c6e8e7ba914416c12a411b5320",
+      "finalHash": "c05d64e5e879e7efc3acffbf44181f746f7aa95a296f0bdac5934b9898fcb81a",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1406000,
+        "system": 0
+      },
+      "wallMs": 1246.8467000000092,
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9a8959f17de9ca7b147567aeea54beb2ddf4fa3ff97f059f3493443e3a4621d9",
+      "finalHash": "42210418c634a5777ca427f43b419f23cddca6507ec5e2e16aaca775666d2770",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1343000,
+        "system": 31000
+      },
+      "wallMs": 1259.0955000000104,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "519662886b45be614aff63ebe89228b3d9e88ba2646f64d19c072a2a6ca2f599",
+      "finalHash": "c4ec21c33bbf3d50c809acc2058a9edebdf7032f3c58ad299a05c6453ade9057",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1282000,
+        "system": 47000
+      },
+      "wallMs": 1231.4743999999919,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9b70cfb49fcdda57790438ea1c71a9f39d9b4c31fe79290560123e7b6be28591",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1203000,
+        "system": 0
+      },
+      "wallMs": 1276.7592000000004,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "5f3353af8d9e2633e20e43e3bd44d4bcc1ae0b41099605e32098689a978d2da5",
+      "finalHash": "4be9ce89fc73964515f0d4205d1423798b96c9db25161b112180eb2ed0216166",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 1218000,
+        "system": 0
+      },
+      "wallMs": 1195.9697999999917,
+      "observerNeutral": null
+    }
+  ]
+}

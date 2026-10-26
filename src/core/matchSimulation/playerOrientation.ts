@@ -45,6 +45,27 @@ export const deriveOrientationTarget = (
   state: TacticalMatchState,
   player: MatchPlayerState,
 ): number => {
+  if (
+    state.experimentalActivePerception &&
+    !state.ball.ownerId &&
+    !state.restart &&
+    !state.postGoal &&
+    !(state.playerAgencyEnabled !== false && player.id === state.controlledFootballerId)
+  ) {
+    const plan = state.activePerceptionRuntime?.plans[player.id],
+      option = plan?.options[0];
+    const ball = state.activePerceptionRuntime?.memory[player.id]?.ball;
+    if (plan && option && ball && state.time < plan.expiresAt) {
+      const incoming = angleForVector({
+        x: ball.position.x - player.position.x,
+        y: ball.position.y - player.position.y,
+      });
+      return normalizeAngle(
+        incoming +
+          Math.max(-0.8, Math.min(0.8, normalizeAngle(option.requiredFacing - incoming) * 0.5)),
+      );
+    }
+  }
   const movement = {
     x: player.target.x - player.position.x,
     y: player.target.y - player.position.y,

@@ -23,6 +23,7 @@ import { tacticalRoleFor } from './tacticalRoles';
 import { clampPitchPoint, distance } from './matchSpace';
 import { updateOpponentKnowledge } from './opponentKnowledge';
 import { angleForVector } from './playerOrientation';
+import { preparedRecognitionLatency, revalidatePreparedOptions } from './preReceptionPlanning';
 
 export const boundedTraceSchema = z.object({
   candidates: z.array(boundedCandidateSchema).max(48).optional(),
@@ -103,13 +104,22 @@ export const boundedDecisionSignature = (s: BoundedScene) =>
   ]);
 export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: MatchPlayerState) => {
   const runtime = state.boundedRuntime ?? boundedRuntimeSchema.parse({});
-  const perception =
+  const ordinaryPerception =
     0.3 -
     ((actor.profile.attributes.gameReading + actor.profile.attributes.concentration) / 200) * 0.18;
-  if (state.time < (state.ballOwnershipStartedAt ?? state.time) + perception)
+  if (
+    !state.experimentalActivePerception &&
+    state.time < (state.ballOwnershipStartedAt ?? state.time) + ordinaryPerception
+  )
     return { state, action: undefined };
   const scene = observeBoundedScene(state, actor),
     signature = boundedDecisionSignature(scene);
+  const plan = state.experimentalActivePerception
+    ? state.activePerceptionRuntime?.plans[actor.id]
+    : undefined;
+  const perception = preparedRecognitionLatency(scene, plan, ordinaryPerception);
+  if (state.time < (state.ballOwnershipStartedAt ?? state.time) + perception)
+    return { state, action: undefined };
   // Reconsider meaningful bounded evidence sooner than unchanged geometry.
   // Quiet review depends on the player's perception/fatigue and the OWN previous
   // action. Preparation and actual feet remain authoritative, with no universal
@@ -136,6 +146,10 @@ export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: Ma
   )
     return { state, action: undefined };
   const candidates = constructBoundedCandidates(scene);
+  const revalidated =
+    plan && state.time < plan.expiresAt
+      ? revalidatePreparedOptions(scene, plan, candidates)
+      : undefined;
   const decision = runBoundedPolicy(boundedPolicySchema.parse(state.decisionPolicy), {
     scene,
     candidates,
@@ -147,6 +161,14 @@ export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: Ma
   };
   const next = {
     ...state,
+    ...(revalidated && state.activePerceptionRuntime
+      ? {
+          activePerceptionRuntime: {
+            ...state.activePerceptionRuntime,
+            plans: { ...state.activePerceptionRuntime.plans, [actor.id]: revalidated },
+          },
+        }
+      : {}),
     boundedRuntime: {
       ...runtime,
       lastActorId: actor.id,
@@ -180,7 +202,9 @@ export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: Ma
     actorId: actor.id,
     scene: result.scene,
     decision: result.decision,
-    ...(state.experimentalTransitionIntelligence ? { candidates } : {}),
+    ...(state.experimentalTransitionIntelligence || state.experimentalActivePerception
+      ? { candidates }
+      : {}),
     reason: result.decision.reasons.join('|'),
     ...(result.action ? { action: result.action } : {}),
   });

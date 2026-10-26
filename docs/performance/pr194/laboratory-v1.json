@@ -1,0 +1,4713 @@
+{
+  "schema": "mfl-pr194-lab-pointer-v1",
+  "sourceHash": "d866066d5cbd4b51534ff01550bb4a9bed6339ec6f8a37968f121906374fc013",
+  "protocolHash": "061cbf4a957d993576244319b9f00725584b70b9481c6d70a624202799520898",
+  "archive": {
+    "path": "docs/performance/pr194/laboratory-v1.json.gz",
+    "sha256": "009ab539628dfd1b6965fd1c698b6f172566cca44dcaec7c9ad95d921bdbf99f",
+    "originalSha256": "8a7092e2374e26166be00b91d087812bb986e5cbd87aed9ae2e69cff56ebc44b"
+  },
+  "count": 73,
+  "summary": [
+    {
+      "config": {
+        "id": "prior_scan-normal",
+        "seed": "pr194-paired-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "a756a576d567632742697fdad9caf2a41851a9e58c3bdbc79d7cd79363d4cff4",
+      "finalHash": "3da4ee6c021e4cff39b36159e54892dea7a005a24cc8f42ba69eb98897b8e101",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 40,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 1062000,
+        "system": 31000
+      },
+      "wallMs": 777.2195000000002,
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "id": "prior_scan-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "e27784ab1cf8df4e16ddbb9cbb644d92902162068a9faad1cd611091844cb0ec",
+      "finalHash": "65c855535247a1c50db94409391ef33ca060b2552094fb6ce27c51f90958ba93",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 672000,
+        "system": 16000
+      },
+      "wallMs": 549.1174000000001,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "no_scan-normal",
+        "seed": "pr194-paired-development",
+        "condition": "no_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "29b0659ad0d0d312c2d84589e924b4a1b62a0332e833afa5c898edb175ce7687",
+      "finalHash": "ed0c037b312a5daef5821e29367b484e59d72f24298eeeb807e45f470d926f9f",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 656000,
+        "system": 0
+      },
+      "wallMs": 522.9337999999998,
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "id": "no_scan-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "no_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "84c7404cdee1b5fb19010e148e07ce498f9008821a8dd977afa8ac653d815852",
+      "finalHash": "cbede3d6d8d905466f691967d0c7acd7e73d0ade40353a3e9f3994b0e15060c2",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 38,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:35",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:43",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:35",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:43",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:44",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:44",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:44",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:44",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 672000,
+        "system": 0
+      },
+      "wallMs": 530.0718999999999,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "active_scan-normal",
+        "seed": "pr194-paired-development",
+        "condition": "active_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "8bce2861566b6b25885892753f7fb728e6f9c16d2ac367c1fc3d7a0637aab750",
+      "finalHash": "6b33478127fdfb4fdef924ac396fab824dcdd12d7efd53130d4115e04266028c",
+      "deliveryAt": 10.900000000000013,
+      "receiverContactAt": 12.225000000000032,
+      "receiverActionAt": 12.225000000000032,
+      "scans": 4,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 44,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 750000,
+        "system": 16000
+      },
+      "wallMs": 566.5613999999996,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "active_scan-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "active_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "c33cae88a0e0f5d22e507d064ca7ae5af7e0f0e3a34abf89a752ffe653964f04",
+      "finalHash": "a6c5bc12bafe280d55717b9f09a0b60ef2fa71bc136a1d1382f92fee02947f7f",
+      "deliveryAt": 10.900000000000013,
+      "receiverContactAt": 12.225000000000032,
+      "receiverActionAt": 12.225000000000032,
+      "scans": 3,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 23,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 640000,
+        "system": 0
+      },
+      "wallMs": 511.72050000000036,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "stale-normal",
+        "seed": "pr194-paired-development",
+        "condition": "stale",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "df1ce7741cc8812679f45196efb0de818f0cbd56614a59d46553eedb89cd6eae",
+      "finalHash": "26b4105832244f14b1db1acef018d757fed04f137d0748004798dcbe4f2a2a18",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 610000,
+        "system": 0
+      },
+      "wallMs": 533.2759000000005,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "stale-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "stale",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d038e4ab1811923b4cd3554145a58edf3fc6a17cea5b8070b1da90294f341b05",
+      "finalHash": "18e2afdcab99d71ec0505aec3d4edd9f80245d77f99f24531599c4eea548823e",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 656000,
+        "system": 0
+      },
+      "wallMs": 501.27189999999973,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "moved-normal",
+        "seed": "pr194-paired-development",
+        "condition": "moved",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "ec049dbc5a60ed65c1a6b6aaaeae3b248f0dcffdde274076b4f6b28458c39106",
+      "finalHash": "45f909d999287d3d258e8f439c3520b43fbfca92d7e9f66775a62ad5d6747d91",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 641000,
+        "system": 16000
+      },
+      "wallMs": 439.5690000000004,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "moved-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "moved",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "540b4da5a96555f65f010d95162544b33b8826477437c3b1314cf719b919e70f",
+      "finalHash": "82ebe61f1f1df27e58eeb07676f681346dd57842727e910f13f1779070cfb045",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 42,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:8:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:10:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:8:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:10:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 765000,
+        "system": 47000
+      },
+      "wallMs": 586.2053000000005,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "lane_closed-normal",
+        "seed": "pr194-paired-development",
+        "condition": "lane_closed",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "1ee59628471030b596e411d85052b7fbc7c8435d113b31035120241be971cc9b",
+      "finalHash": "b0629a78aa0c1223af32a481e40b63ac20de86715192df3d5a38434c85697acf",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 656000,
+        "system": 31000
+      },
+      "wallMs": 537.7165000000005,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "lane_closed-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "lane_closed",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "321f8f200dcecfb02821046900fe146273a62e9fa14da496e4b0c843bb00b828",
+      "finalHash": "34ab8f559739f7cf0812c51e9a458b90b7d0e7266d14b22e0c354aeaafb9936e",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 344000,
+        "system": 0
+      },
+      "wallMs": 280.03670000000056,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "urgent-normal",
+        "seed": "pr194-paired-development",
+        "condition": "urgent",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2aa5e227dbbd7f41f97d78fd187e8b00b8eb0dcdf12eed454e508917a6c0efa8",
+      "finalHash": "6d38f916ec13747c2b11e21c07d263ecb7461ef277b014d25b620b02343602ce",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.725000000000025,
+      "receiverActionAt": 11.725000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 18,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 328000,
+        "system": 0
+      },
+      "wallMs": 244.27889999999934,
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "id": "urgent-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "urgent",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "a96a551505fb7f0afd47f05688cae0a110c5cb7ff890f7981f189fb93ead4918",
+      "finalHash": "f9881b944bea90815adcf80a47941e2051b35d9c90f1f72b243bb8f99b62d637",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:23",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:27",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:23",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:26",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:22",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:18",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 672000,
+        "system": 31000
+      },
+      "wallMs": 553.7091999999993,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "wrong_body-normal",
+        "seed": "pr194-paired-development",
+        "condition": "wrong_body",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d8cc3b2a4ff9319522d7046c8fb489d83ee196b9ef8e35e9b8b142e28c53bf7e",
+      "finalHash": "38a3be191bb7c39d9f5fa91de471210600e8d3870dca81326358fe9c0e833c8e",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 23,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        }
+      ],
+      "cpu": {
+        "user": 546000,
+        "system": 0
+      },
+      "wallMs": 490.4437000000016,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "wrong_body-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "wrong_body",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "b0e44d788d57fa084c94164ff327fba0a14f8584df3d46777b159d73c1baa3e5",
+      "finalHash": "36442a212b7db6a1d661a6ef31645b063632d0b2ce04ee5f6cff9da726c91167",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 704000,
+        "system": 31000
+      },
+      "wallMs": 501.53740000000107,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "moving-normal",
+        "seed": "pr194-paired-development",
+        "condition": "moving",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "b65d03939222178cb7c81b105d9eed0015c8301178c8740d3fa66e3b8cc67339",
+      "finalHash": "c7ecc19435a88a8e8dc1030118ff19d33eddec0f1dfdbb1027f7f4798ff41a71",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 781000,
+        "system": 47000
+      },
+      "wallMs": 547.7446999999993,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "moving-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "moving",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "ffa53a43d51840a548f3a125d513fa144da4ebe88ed926c11d843d63a4359182",
+      "finalHash": "2711215ca29a77c131cb8043aa27c7a0723b5c20a47b369f53b56d511f321afa",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 640000,
+        "system": 0
+      },
+      "wallMs": 487.65200000000004,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "fast-normal",
+        "seed": "pr194-paired-development",
+        "condition": "fast",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "a756a576d567632742697fdad9caf2a41851a9e58c3bdbc79d7cd79363d4cff4",
+      "finalHash": "239c33a20118e78b16e84f1128c171f381dffcb4578a3e42c54272cdf7f9dea3",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 10.900000000000013,
+      "receiverActionAt": 10.900000000000013,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 32,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:34",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:30",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:38",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 485000,
+        "system": 0
+      },
+      "wallMs": 430.22039999999834,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "fast-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "fast",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "e27784ab1cf8df4e16ddbb9cbb644d92902162068a9faad1cd611091844cb0ec",
+      "finalHash": "c0765a345db0e4ca88904c89c25a33818c8f0bcb9ea5652f813c29847939e394",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 10.975000000000014,
+      "receiverActionAt": 10.975000000000014,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 45,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 484000,
+        "system": 0
+      },
+      "wallMs": 490.1348999999991,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "far_side-normal",
+        "seed": "pr194-paired-development",
+        "condition": "far_side",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "213d6b7502b6b87168296e8739e627142c8fe90b0eaab88b9fb2ddc75a29c674",
+      "finalHash": "b37e4ff5893bd9b161c89e5adca77bd498a70d520f500f323a978dd17ed4849c",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 22,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 313000,
+        "system": 0
+      },
+      "wallMs": 251.0095999999994,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "far_side-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "far_side",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "784cc3895cce1768a8bc3cde117c14051168a746aa94e3d8a7656116a2561920",
+      "finalHash": "c99e804776f7e2a7df3f5f4df92825fff1dd37bf30f2eaee5c1fc118d92b38b9",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.700000000000024,
+      "receiverActionAt": 11.700000000000024,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        }
+      ],
+      "cpu": {
+        "user": 578000,
+        "system": 0
+      },
+      "wallMs": 478.83460000000014,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "wide-normal",
+        "seed": "pr194-paired-development",
+        "condition": "wide",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "e3a0800abcbffb5e63d17599db5e65a3ebc285ea63d5767136a7092c9258f048",
+      "finalHash": "893fa32f1f189259751d32d0cb0545333055bc6a4ef1e4d47db2504018c82882",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.750000000000025,
+      "receiverActionAt": 11.750000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:10",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:6",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:14",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 578000,
+        "system": 0
+      },
+      "wallMs": 445.40740000000005,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "wide-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "wide",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "474c1c9afcc97a58ebf0eb60bc05297e1d0c8a604975ebd5b1311d90dd246a16",
+      "finalHash": "43abfc9e94ab4d842a478566e00f90f6e5cf656b38b4d61da4bf21cf1260897d",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.750000000000025,
+      "receiverActionAt": 11.750000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:61",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:57",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:53",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 578000,
+        "system": 0
+      },
+      "wallMs": 472.5465000000004,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "patient-normal",
+        "seed": "pr194-paired-development",
+        "condition": "patient",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2b9699a33b59f2033cbaec7f7d1ee92ba7d9a9031e564197aaa6a38797b20feb",
+      "finalHash": "6dd70449599a0e97f6dbfaea667f9e82345f2545e0cbe51e6e1b737f9d59e71d",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 578000,
+        "system": 0
+      },
+      "wallMs": 486.1337999999996,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "patient-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "patient",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9776a782c8336ae4723bd55dd13d3cf668db5d771c011dd1493817cfde51a773",
+      "finalHash": "19d30e569158534b40ec460d379898bc3d5dd02a99c4a6cdaf1778930e8b3e97",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 547000,
+        "system": 0
+      },
+      "wallMs": 509.60080000000016,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "counter-normal",
+        "seed": "pr194-paired-development",
+        "condition": "counter",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2b9699a33b59f2033cbaec7f7d1ee92ba7d9a9031e564197aaa6a38797b20feb",
+      "finalHash": "6dd70449599a0e97f6dbfaea667f9e82345f2545e0cbe51e6e1b737f9d59e71d",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 516000,
+        "system": 16000
+      },
+      "wallMs": 467.3695000000007,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "counter-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "counter",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9776a782c8336ae4723bd55dd13d3cf668db5d771c011dd1493817cfde51a773",
+      "finalHash": "19d30e569158534b40ec460d379898bc3d5dd02a99c4a6cdaf1778930e8b3e97",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 515000,
+        "system": 0
+      },
+      "wallMs": 450.51910000000134,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "organised-normal",
+        "seed": "pr194-paired-development",
+        "condition": "organised",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "618b5dcea668440e4326917585ca1a1e839338856cf0f74f78d67953433389a6",
+      "finalHash": "032d830165e70ab861657ea7b1b9052221c6e5020e943c996772142c97c6e158",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:38",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:38",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:38",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 500000,
+        "system": 0
+      },
+      "wallMs": 453.58339999999953,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "organised-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "organised",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "57fa699d5ad55daea2981bed4f4e75c9e7f283615a089e478258fa529d0b89a7",
+      "finalHash": "83297bc28c0ca7816450555a1e4938bc3b815304adfe5df04114fe9edab4feba",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 485000,
+        "system": 0
+      },
+      "wallMs": 460.8686000000016,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "repeated_effort-normal",
+        "seed": "pr194-paired-development",
+        "condition": "repeated_effort",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2eb22eb027a25a279f7d2ac9c477721fa1619e646c78c129acd6478899a2aece",
+      "finalHash": "4c9b5acf5d397963e86c7483c4cf076e71a571d64065b5bc48144a6f94423146",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 453000,
+        "system": 0
+      },
+      "wallMs": 394.83690000000206,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "repeated_effort-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "repeated_effort",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "03876a43e8b36f8716f340ea6954f29b26dd5fe7ee91aaa342e1d7b19e101a85",
+      "finalHash": "6a3bde49854c7d6fd355ab74cd346c47acd00091538ec961e07bce8ca18ac006",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 500000,
+        "system": 0
+      },
+      "wallMs": 462.7589999999982,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "fatigued-normal",
+        "seed": "pr194-paired-development",
+        "condition": "fatigued",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "8c979213d5893219ce6074861314fca3a9433220f4a9f288583294e014e27bfe",
+      "finalHash": "dd76d502252692447d4b12b4688a6a0513db51afb00940f9f62450b91b3bc6af",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 609000,
+        "system": 0
+      },
+      "wallMs": 581.2849999999999,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "fatigued-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "fatigued",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "e2c6d041c34e578f6cb0e26a2f4167232281fd9a73fe88f53c6cff572ac0859d",
+      "finalHash": "427cae5b1c3bebb8e44abe9945dd6e2254d3bd1eed28e877c97e55c0e5f283e4",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.775000000000025,
+      "receiverActionAt": 11.775000000000025,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 531000,
+        "system": 0
+      },
+      "wallMs": 456.25220000000263,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "protecting-normal",
+        "seed": "pr194-paired-development",
+        "condition": "protecting",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d4cafec541acea074883d0c0431468cfb3ea1c0b64052df99f8edc70a9548276",
+      "finalHash": "fb510379755ff2cffba8bf956f5e938152d619ac456db2058da0667f4c19fef4",
+      "deliveryAt": 4800.149999999998,
+      "receiverContactAt": 4801.7499999999745,
+      "receiverActionAt": 4801.7499999999745,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 59,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "carry:40",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:43",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:10:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:43",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:10:through",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 844000,
+        "system": 0
+      },
+      "wallMs": 583.9683999999979,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "protecting-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "protecting",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "382fa7235eb6cf3686109434c82fded8601372de34162520ca66d3c61497ca1b",
+      "finalHash": "a58422217f2a0cf3ecfa3efa36945cba5de1015cf323aeefb80217f7ffc06018",
+      "deliveryAt": 4800.149999999998,
+      "receiverContactAt": 4801.7499999999745,
+      "receiverActionAt": 4801.7499999999745,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 37,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 719000,
+        "system": 0
+      },
+      "wallMs": 565.4549999999981,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "chasing-normal",
+        "seed": "pr194-paired-development",
+        "condition": "chasing",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2917b819fb281e7a9358a5381b5c9edadddba9ecc5839d227a9078d93646ee40",
+      "finalHash": "1c2ceff2df0e8c7f6aba013f096ae58971b25b46dc89ba67b92f9b0e0c787a4a",
+      "deliveryAt": 4800.149999999998,
+      "receiverContactAt": 4801.7499999999745,
+      "receiverActionAt": 4801.7499999999745,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [],
+      "cpu": {
+        "user": 609000,
+        "system": 0
+      },
+      "wallMs": 469.92199999999866,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "chasing-mirror",
+        "seed": "pr194-paired-development",
+        "condition": "chasing",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": true,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "5eafdbd81c48dda341e75f481f7ab33c3c5db7a5da66824543b172626f76c806",
+      "finalHash": "cf65c06902b64eb99c7974e9dff96457e84e060052cdf34940a116a23971a8e5",
+      "deliveryAt": 4800.149999999998,
+      "receiverContactAt": 4801.7499999999745,
+      "receiverActionAt": 4801.7499999999745,
+      "scans": 0,
+      "usefulPriorObservation": false,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 610000,
+        "system": 0
+      },
+      "wallMs": 488.8361999999979,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "0133929ea998b6538322dbde787c9562f9d206eb094322b04cdff61d24117f17",
+      "finalHash": "83bf7693eb5a85535af1e00dfdbb380ae2c700f066f61ac53581d261a11587fc",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 55,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:32",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:32",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:36",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:40",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:41",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:41",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:37",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:41",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:33",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 531000,
+        "system": 0
+      },
+      "wallMs": 485.7904000000017,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "cf7eb1f7c9cb7a460c44af019e9c7667d65649036fd5d318cdddf3af2d586123",
+      "finalHash": "04d345313c18d63f7863fdc02a7b7816140d1e169d9799294e8eca08a3051834",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 453000,
+        "system": 0
+      },
+      "wallMs": 396.5635999999977,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "def1b2a4993f566badddfd191aed75dc670e29d06d746417f07040d293747607",
+      "finalHash": "60b36c05caf4ad6de8b57d9a735d8f80caa5565d228c1f7573d923b7c7d5198d",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 516000,
+        "system": 0
+      },
+      "wallMs": 434.73019999999815,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9e87277ef08d807e67b6c3d7641805d746c41290b7ac1435896209c02b037975",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 562000,
+        "system": 0
+      },
+      "wallMs": 488.53800000000047,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-gameReading-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "gameReading",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9d0564ad44d11034c7a7aa82dad11131cad9a6fd055c6b8aa092ddfe23f3ad7d",
+      "finalHash": "bd65c0bf4d02e07c10c28bffa2497720c22e1cf30c5800b2438c8bb3cf9e5638",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:29",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 516000,
+        "system": 0
+      },
+      "wallMs": 455.0008000000016,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "8389e584632be0a733fafa16f4098a55745dbdeacbad8f6448d9f516bf28f646",
+      "finalHash": "3429905505b9c0d15bea3d05d210063c64d0fbedf27f8e08fa9d599c0297ad9e",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 67,
+      "used": [
+        "pass:geometry:anchor:5:support",
+        "pass:geometry:anchor:5:support",
+        "pass:geometry:anchor:5:support",
+        "pass:geometry:anchor:5:support",
+        "pass:geometry:anchor:5:support",
+        "pass:geometry:anchor:5:support",
+        "pass:geometry:anchor:5:support",
+        "pass:geometry:anchor:5:support",
+        "pass:geometry:anchor:5:support"
+      ],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:35",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:35",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:31",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 578000,
+        "system": 0
+      },
+      "wallMs": 483.54429999999775,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9775ea0f986326781978eed0c6ddd38376ccea4323b0bc70dfc639250d39e388",
+      "finalHash": "77efca28129ab95e4bb6623d8511b3fb1db6a7be2d1c521f48b2d2c4a31ccd30",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 36,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 516000,
+        "system": 0
+      },
+      "wallMs": 443.90290000000095,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "4fede12caa87284059bd1dbf72e0977eef246e0eb9c5c9ee3455669e63900bdb",
+      "finalHash": "386e559de09e1c22faea5f8ae908a3b3bc753172ac2323389f2c57984c125a0c",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.650000000000023,
+      "receiverActionAt": 11.650000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 35,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:30",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "carry:34",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "evidence_no_longer_available"
+        }
+      ],
+      "cpu": {
+        "user": 500000,
+        "system": 15000
+      },
+      "wallMs": 459.77560000000085,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9e87277ef08d807e67b6c3d7641805d746c41290b7ac1435896209c02b037975",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 562000,
+        "system": 0
+      },
+      "wallMs": 470.48539999999775,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-concentration-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "concentration",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "f967c9fb83e512f05904c01e05d5ebf0b7eac771666867c62f2222e346be2f59",
+      "finalHash": "ddf982afaff71c7da9fe22b929aa3667fbe7f031a8ae6d591bca48cd74bfa1e4",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.600000000000023,
+      "receiverActionAt": 11.600000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "evidence_no_longer_available"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "observed_lane_closed"
+        }
+      ],
+      "cpu": {
+        "user": 531000,
+        "system": 0
+      },
+      "wallMs": 482.94810000000143,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "8aa9fb58211c074abfb159f6e6b5f9101ac12036905737f53976af4763beb226",
+      "finalHash": "4b72a7631d32132ec6c5b7e8bd7730f5ee2b293e72945c2dad005ed2c873ca5f",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 563000,
+        "system": 0
+      },
+      "wallMs": 438.1426999999967,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "55c1142a6757ee3902e2e56f9154d6310cbc92590a0b95c59b9581e14a18b10e",
+      "finalHash": "f48f0fae42dff9116537708b9a02e7680d44c54f686de5e89ca87cbcfe69d9c3",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 703000,
+        "system": 0
+      },
+      "wallMs": 539.9039000000012,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "c9042f2600310c6da8b50517aba5ce050f6a11d8c8945fa69f6ac29a987c2ebf",
+      "finalHash": "961dcfbcf769facfeb8da50725f31cbc15e28d0666d5684c6cdad869326bf94c",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:5:through",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        }
+      ],
+      "cpu": {
+        "user": 516000,
+        "system": 16000
+      },
+      "wallMs": 438.33179999999993,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9e87277ef08d807e67b6c3d7641805d746c41290b7ac1435896209c02b037975",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 640000,
+        "system": 47000
+      },
+      "wallMs": 517.8666000000012,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-composure-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "composure",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "2e1e34ff479e060327e69bbf406c04a02bfd0a48c206b8e27d2b84351bc21d2d",
+      "finalHash": "0d4ba07d5cb3134deed768c917da240f8837eed8fcb77c4ca8af64e9d8529ca0",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 35,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 594000,
+        "system": 0
+      },
+      "wallMs": 496.2160999999978,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "44a6f98502bf81a404dea0779add3ff42a53ce162c21c5df0642e15537299dda",
+      "finalHash": "fb45919fe1865522d3c50eb1800328d7f38851829d87ec049977b7c8cdf41336",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 453000,
+        "system": 0
+      },
+      "wallMs": 458.9945000000007,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "a8d3edadc415f8a04a552df2f2f9881ecb4fe7f323bb1868206decc6a7e7d220",
+      "finalHash": "cc5bae97b21682d2c54c29827ddf95fe7c92a09c7fa6d5e74ede8d457415de06",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 45,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:39",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:43",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:47",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:39",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:43",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:47",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:39",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:43",
+          "reason": "actual_reception_differs"
+        },
+        {
+          "id": "carry:47",
+          "reason": "actual_reception_differs"
+        }
+      ],
+      "cpu": {
+        "user": 453000,
+        "system": 0
+      },
+      "wallMs": 461.9431000000004,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9e633222851df8c5b211a9804dd6b00af265f9e2f3593dd085b6aa9d53992724",
+      "finalHash": "e9ae21ad535e092d4badca492fdacccc09eda9a84381e264b5c1940ffc2f56c2",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 37,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:10:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:10:support",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "carry:21",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 500000,
+        "system": 0
+      },
+      "wallMs": 468.51610000000073,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9e87277ef08d807e67b6c3d7641805d746c41290b7ac1435896209c02b037975",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 860000,
+        "system": 0
+      },
+      "wallMs": 588.8300999999992,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-technique-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "technique",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "0da8c1f20db02e43c812752e3ce09735bd84d4742cc5a7a92c423006891a2771",
+      "finalHash": "2533d6d4e951658edc8ded18e1abfaa0dd13386b2fb70398d986fe4847db3728",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 35,
+      "used": [
+        "pass:geometry:anchor:9:support",
+        "pass:geometry:anchor:9:support",
+        "pass:geometry:anchor:9:support"
+      ],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 703000,
+        "system": 16000
+      },
+      "wallMs": 522.4671999999991,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "c4f923b53278b1ad77c2be1a2a952f30eda4fb47e63e7feb6df8f2db72ce5a8c",
+      "finalHash": "2c27b17d809d250ad6d105cf7c4c3d65a4f7f556571c0ac768b2dde3ec9aaeaa",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 37,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 672000,
+        "system": 15000
+      },
+      "wallMs": 516.5198000000019,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "b56577bff4d661bd2937f4234ecc34c44b21c5b11e23fcfadf5eb7b921e6c9b3",
+      "finalHash": "eee2c65fc0fde119dc9cbee9b4a037c456723eb7d0e833524b5cc060c5fba6bd",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 24,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 531000,
+        "system": 0
+      },
+      "wallMs": 471.42259999999806,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "0faa64109b8967c6389664a284872b9ef6ba724d5ae577f3b66c88e850dd5e06",
+      "finalHash": "2e9f49916e4df8723b0e86f9e62a49563d0d32d8f764ec618741777c40a46f6f",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        },
+        {
+          "id": "pass:geometry:anchor:5:support",
+          "reason": "target_moved"
+        }
+      ],
+      "cpu": {
+        "user": 562000,
+        "system": 16000
+      },
+      "wallMs": 477.59950000000026,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9e87277ef08d807e67b6c3d7641805d746c41290b7ac1435896209c02b037975",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 485000,
+        "system": 15000
+      },
+      "wallMs": 468.80470000000423,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-firstTouch-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "firstTouch",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "6801c6fb3334b9e05b9c991206bad94c8a2697c4e575708e8fc797129da67aef",
+      "finalHash": "7380eee90af5a6c35c1720bcaab3d12997192b21b94f3022e8eabcd9af657212",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 36,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "reason": "opportunity_expired"
+        }
+      ],
+      "cpu": {
+        "user": 531000,
+        "system": 0
+      },
+      "wallMs": 488.36449999999604,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "c0566de585418fe2509b58bbfbfba0702aefd646ac454ff9ac8d4a8a772171ed",
+      "finalHash": "722dfb8fe76a622051d053b24502604810609098901d544afdaf1eb578a6e538",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.725000000000025,
+      "receiverActionAt": 11.725000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 641000,
+        "system": 0
+      },
+      "wallMs": 595.3159999999989,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "ecb4039647f884101ea9797aca43c6806ec02f9246a48cb3883f9713fc94f8aa",
+      "finalHash": "f284d8b8536d1f7ac1ff8fb7b6db6ebd4f0e23ff05ae59b2cb66addf0a26a476",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.725000000000025,
+      "receiverActionAt": 11.725000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 640000,
+        "system": 0
+      },
+      "wallMs": 543.4376000000047,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "1c43cd587a4d5bd06a7d7cf66b85dcefb614295392f1873661dac520cbe93706",
+      "finalHash": "e37a87f164f0b2084e8720d61f46a287dd9e6d3f110d8159a6797687fcf28346",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.725000000000025,
+      "receiverActionAt": 11.725000000000025,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 25,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 438000,
+        "system": 0
+      },
+      "wallMs": 400.0141999999978,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9e87277ef08d807e67b6c3d7641805d746c41290b7ac1435896209c02b037975",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 500000,
+        "system": 0
+      },
+      "wallMs": 484.2846999999965,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-agility-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "agility",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "f49117182f75f732f0c431af07f53468ca28b866683ec5664ba4909887cf1612",
+      "finalHash": "eca7a37797e895bd20eaa47900e3e0d7746eac36fffc03b3753c3a7e001ab5f1",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 33,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 531000,
+        "system": 0
+      },
+      "wallMs": 458.2755000000034,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-20",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 20,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "96e72eba6a73943e4caf4b8c4d230f49012d65c6e8e7ba914416c12a411b5320",
+      "finalHash": "c26d43403351000259a04c9b4a2c9ef4d80fd330811e9e6dd9623efefe056a3e",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 531000,
+        "system": 0
+      },
+      "wallMs": 478.88550000000396,
+      "observerNeutral": true
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-40",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 40,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "9a8959f17de9ca7b147567aeea54beb2ddf4fa3ff97f059f3493443e3a4621d9",
+      "finalHash": "70c995c1625d90038d6f8ca450f0c2f2d152c636001614bf64a3f395e3229727",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 516000,
+        "system": 16000
+      },
+      "wallMs": 471.91939999999886,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-60",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 60,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "519662886b45be614aff63ebe89228b3d9e88ba2646f64d19c072a2a6ca2f599",
+      "finalHash": "6c9d4cd83e284ea3c6d07943309877f063d910b45a8861bf9d24d18b833a33ea",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 515000,
+        "system": 0
+      },
+      "wallMs": 464.1435999999958,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-80",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 80,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "d83397ab73c93d7550c73ecbc7c18452272f3c9970abc1b2ffa457af5d63bfbc",
+      "finalHash": "9e87277ef08d807e67b6c3d7641805d746c41290b7ac1435896209c02b037975",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 485000,
+        "system": 0
+      },
+      "wallMs": 446.4991000000009,
+      "observerNeutral": null
+    },
+    {
+      "config": {
+        "id": "attribute-leadership-100",
+        "seed": "pr194-attribute-development",
+        "condition": "prior_scan",
+        "attribute": "leadership",
+        "level": 100,
+        "mirror": false,
+        "seconds": 8,
+        "perception": true,
+        "positions": true,
+        "tempo": true
+      },
+      "initialHash": "5f3353af8d9e2633e20e43e3bd44d4bcc1ae0b41099605e32098689a978d2da5",
+      "finalHash": "1f3aacbc86120bb6316185302bea77e6402176a852abd0750f5f660811d69977",
+      "deliveryAt": 10.150000000000002,
+      "receiverContactAt": 11.625000000000023,
+      "receiverActionAt": 11.625000000000023,
+      "scans": 0,
+      "usefulPriorObservation": true,
+      "preparedBeforeContact": true,
+      "preparedSamples": 50,
+      "used": [],
+      "invalidated": [
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "reason": "latest_observed_lane_or_target_changed"
+        }
+      ],
+      "cpu": {
+        "user": 593000,
+        "system": 0
+      },
+      "wallMs": 488.1224000000002,
+      "observerNeutral": null
+    }
+  ]
+}

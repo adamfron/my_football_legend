@@ -1,6 +1,42 @@
 # My Football Legend — Current Project State
 
-## PR193 — Transition Intelligence, Strategic Clearances & Attacking Opportunity Windows
+## PR194 — Active Perception, Pre-Reception Intelligence & Team Tempo
+
+Rozpoczęty jawnie **MatchEngine Realism Programme** zastępuje ciągłe deklaracje,
+że następny pojedynczy PR zakończy pracę nad meczem. Użytkownik dopuszcza kolejne
+20–30 etapów badawczych. Następne bramki są tematyczne, bez spekulacyjnych numerów.
+**Canonical NOT READY; B domyślne; 28 atrybutów i integracja 40 Hz zachowane;
+niezależna kohorta confirmation pozostaje zamknięta.**
+
+PR194 dodaje osobne przełączniki `experimentalActivePerception`,
+`experimentalReceivingPositions` i `experimentalTeamTempo`. Kierunek uwagi jest
+logiczną reprezentacją, bez nowej animacji szyi. Pamięć zachowuje rzeczywistą
+obserwację, jej czas i rosnącą niepewność, zamiast aktualizować niewidziane pozycje.
+Krótkie przygotowanie korzysta z istniejących bounded candidates; gotowość kontaktu,
+przepisy, zmęczenie i wykonanie nadal rozstrzygają wynik. B/R3 zachowują swoje
+dotychczasowe polityki decyzji; nowy model nie certyfikuje całego AI jako bounded.
+
+Tempo wykorzystuje istniejące instrukcje trenera i wybór wysiłku. Fizyczna zdolność
+pozostaje oddzielona od zamiaru; nie powstaje drugi koszt zmęczenia ani bonus kapitana.
+Pełny kapitan, delivery komunikatów i długie, zmienne fazy zespołowe mają otwarte bramki.
+Panel Match Lab oddziela wiedzę piłkarza od rzeczywistego świata.
+[Raport, wyniki, negatywne próby i otwarte bramki PR194](PR194_ACTIVE_PERCEPTION_PRE_RECEPTION_INTELLIGENCE_AND_TEAM_TEMPO.md).
+Końcowe 15 meczów combined zmienia 22 546 → 18 220 podań oraz 183 → 195 strzałów,
+ale WW/B spada z 22 do 14 strzałów, WW/R3 z 25 do 11, a WW/H pozostaje przy zerze.
+Wzrost sumy nie uzasadnia promocji polityki. Laboratorium ma 73 warunki z kontaktem,
+tylko trzy z pasującą przygotowaną akcją; nie oznacza to 73 udanych ataków.
+
+Generational Renewal & World Strength pozostaje pełnym, niewykonanym milestone:
+20–25 sezonów, akademie/kohorty, starzenie i emerytury, wymiana kadr, trajektorie
+i pułapy talentu, siła klubów w czasie, transfery między silnymi/słabymi klubami,
+jakość najlepszej XI, pozycji i całej kadry. Zachowane są PlayStyles i statystyki,
+Career UX, dobór według roli/dopasowania/formy/zaufania oraz World Expansion.
+Przyszła lekka symulacja ma być destylowana z różnorodnych, zweryfikowanych
+kanonicznych meczów i generować spójne zdarzenia, ID, minuty i skutki fitness.
+Nie jest wdrożona ani trenowana w PR194. Pełne zależności w [roadmapie](ROADMAP.md).
+Wszystkie starsze numerowane sekwencje poniżej są historią, nie bieżącym planem.
+
+## Scalony PR193 — Transition Intelligence, Strategic Clearances & Attacking Opportunity Windows
 
 Eksperymentalna kontynuacja scalonego PR192. Ograniczony model rozdziela dojście
 do miejsca, użyteczny kontakt i przygotowanie akcji; porównuje wygasanie widocznych
@@ -22,7 +58,7 @@ Nie twierdzi, że rysunek jest dowodem kontaktu anatomicznego.
 laboratorium i sparowanych meczów development są rozliczane oddzielnie. Zielone
 testy i CI nie są niezależną walidacją jakości futbolu.
 
-Autorytatywna kolejność: **PR193 przejścia/wybicia → PR194 pełne generacje i siła
+Historyczna kolejność po PR193, zastąpiona obecnym programem: **PR193 przejścia/wybicia → PR194 pełne generacje i siła
 świata → PR195 Summary/PlayStyles → PR196 Career UX → PR197+ World Expansion**.
 Powodem przesunięcia są jawne blokery kreacji i przepływu meczu. Pełne 20–25 sezonów,
 akademie i kohorty, jakość kadr/najlepszej XI/pozycji, starzenie, emerytury,
@@ -34,7 +70,7 @@ kariery i bez trwałego wzmacniania karty po pojedynczym występie.
 
 Pozostałe blokery meczu wymagają następnego jawnego przeglądu priorytetów,
 nie automatycznego odkładania prac kariery bez końca. Starsze sekwencje poniżej
-są historyczne; nie zastępują tej kolejności.
+są historyczne; nie zastępują bieżącego programu PR194.
 
 ## Scalony PR192 — Ball-Oriented Movement, Recovery Intelligence & Natural Match Flow (experimental)
 

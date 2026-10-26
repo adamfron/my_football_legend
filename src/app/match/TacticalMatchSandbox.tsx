@@ -4,6 +4,7 @@ import {
   chooseCurrentFreeKickPositions,
 } from '../../core/matchSimulation/restartLifecycle';
 import { FirstTouchDiagnostics } from './FirstTouchDiagnostics';
+import { PerceptionLaboratoryPanel } from './PerceptionLaboratoryPanel';
 import { TACTICAL_PREFERENCE_DEFAULTS } from '../../core/matchSimulation/tacticalPreferences';
 import {
   PRIMARY_DECISION_POLICIES,
@@ -2248,6 +2249,10 @@ export const RunningLab = ({
       {!careerMode && (
         <details className="presentation-diagnostics">
           <summary>Widok diagnostyczny</summary>
+          <details>
+            <summary>PR194 · Percepcja, przygotowanie i tempo</summary>
+            <PerceptionLaboratoryPanel />
+          </details>
           <details>
             <summary>PR193 · Przejścia, okna podań i wybicia</summary>
             <TransitionLaboratoryPanel />

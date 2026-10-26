@@ -1,12 +1,14 @@
 import { z } from 'zod';
 import { matchActionSchema, type MatchAction } from './matchState';
-import { boundedSceneSchema, type BoundedScene } from './boundedPerception';
+import { boundedSceneSchema, knownBoundedPlayers, type BoundedScene } from './boundedPerception';
 import {
   boundedPolicySchema,
   BOUNDED_RESEARCH_POLICY_IDS,
   type BoundedIntent,
 } from './boundedIntelligenceState';
 import { validateResearchDecision } from './decisionResearchProtocol';
+import { observedPassDelivery } from './observedPassDelivery';
+import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 import { clampPitchPoint, distance, distanceToSegment } from './matchSpace';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { shotPreparationSeconds } from './shotIntent';
@@ -118,7 +120,8 @@ const preparationAt = (s: BoundedScene, a: MatchAction) => {
  * Only three shot trajectory estimates; no rollouts or future physical RNG.
  */
 export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[] => {
-  const s = boundedSceneSchema.parse(raw),
+  const parsed = boundedSceneSchema.parse(raw);
+  const s = { ...parsed, visible: knownBoundedPlayers(parsed) },
     result: BoundedCandidate[] = [];
   if (!s.ball || s.ball.ownerId !== s.observerId) return result;
   const foes = s.visible.filter((p) => p.team !== s.team);
@@ -394,6 +397,7 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
       if (c.action.type === 'pass') {
         const a = c.action;
         const travel = c.passTravelSeconds ?? 1;
+        const windowSpan = startPerformanceSpan('opportunity_windows');
         const window = estimatePassWindow(
           s,
           a.receiverId,
@@ -401,6 +405,7 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
           travel,
           Math.max(0, c.readyAt - s.at),
         );
+        endPerformanceSpan('opportunity_windows', windowSpan);
         if (!window) continue;
         const interference = clamp((0.18 - window.contactMargin) / 0.8);
         const error = clamp(
@@ -431,6 +436,19 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
       }
     }
   }
+  if (s.knowledge)
+    for (const c of result) {
+      const evidence = s.knowledge.filter((k) => c.evidenceIds.includes(k.id));
+      const uncertainty = Math.max(0, ...evidence.map((k) => k.uncertainty));
+      c.confidence = Math.min(c.confidence, ...evidence.map((k) => k.confidence));
+      if (c.action.type === 'pass' || c.action.type === 'carry') {
+        const penalty = Math.min(0.28, uncertainty * 0.045);
+        c.risk = clamp(c.risk + (1 - c.risk) * penalty);
+        c.benefit -= penalty * (before + 0.04);
+      }
+      if (c.action.type === 'pass')
+        c.action = observedPassDelivery(s, c.action, c.passTravelSeconds ?? 1);
+    }
   return boundedCandidateSchema.array().max(48).parse(result);
 };
 
@@ -707,7 +725,7 @@ export const runBoundedPolicy = (
 ): BoundedDecision => {
   // Parse/copy BEFORE invocation. No caller-owned candidate/action can be mutated.
   const input = boundedDecisionInputSchema.parse(raw),
-    s = input.scene,
+    s = { ...input.scene, visible: knownBoundedPlayers(input.scene) },
     known = new Set([s.observerId, ...s.visible.map((p) => p.id)]);
   if (new Set(input.candidates.map((c) => c.id)).size !== input.candidates.length)
     throw Error('Duplicate candidate');
@@ -728,7 +746,7 @@ export const runBoundedPolicy = (
       throw Error('Unobserved receiver');
   }
   const meter = new WorkMeter(),
-    result = mechanisms[boundedPolicySchema.parse(policy)](input, meter);
+    result = mechanisms[boundedPolicySchema.parse(policy)]({ ...input, scene: s }, meter);
   const decision = boundedDecisionSchema.parse({
     ...result,
     policy,

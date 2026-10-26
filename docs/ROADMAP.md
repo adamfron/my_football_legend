@@ -1,18 +1,50 @@
 # Roadmap
 
-Aktualny etap: **PR193 — Transition Intelligence, Strategic Clearances & Attacking Opportunity Windows**.
-Priorytet zmieniono jawnie po negatywnych wynikach PR192: najpierw przyczynowa
-diagnoza okien, ruch po podaniu i racjonalne wybicia, potem rozwój świata.
-Oddzielne eksperymenty `experimentalTransitionIntelligence` i
-`experimentalStrategicClearances` zachowują B oraz dotychczasowe przełączniki.
-[Raport PR193 i bramy akceptacji](PR193_TRANSITION_INTELLIGENCE_STRATEGIC_CLEARANCES_AND_OPPORTUNITY_WINDOWS.md).
-**Canonical NOT READY; confirmation zamknięte; żadna polityka nie jest promowana.**
+Aktualny etap: **PR194 — Active Perception, Pre-Reception Intelligence & Team Tempo**.
+Użytkownik jawnie wybrał dłuższy **MatchEngine Realism Programme**, potencjalnie
+20–30 kolejnych PR, zanim canonical będzie podstawą szybkiej symulacji kariery.
+Liczba etapów nie jest deklaracją gotowości ani harmonogramem wydania.
+PR189–193 są scalone; PR194 jest etapem eksperymentalnym opisanym w
+[raporcie PR194](PR194_ACTIVE_PERCEPTION_PRE_RECEPTION_INTELLIGENCE_AND_TEAM_TEMPO.md).
+**Canonical NOT READY; B domyślne; niezależne confirmation pozostaje zamknięte.**
 
-Obowiązująca kolejność: **PR193 przejścia/wybicia → PR194 Generational Renewal &
-World Strength → PR195 Summary Simulation & PlayStyles → PR196 Career UX
-Consolidation → PR197+ World Expansion**. Pełne niewykonane zobowiązanie generacji
-pozostaje zachowane. Następny przegląd ma jawnie rozstrzygnąć priorytet pozostałych
-blokerów meczu; nie oznacza automatycznego, bezterminowego odkładania kariery.
+Trzy nowe przełączniki opt-in oddzielają percepcję/przygotowanie, pozycję do
+przyjęcia oraz tempo/wysiłek. Wyniki laboratoryjne, pełne mecze development,
+wydajność i niezależna walidacja mają osobne bramki. Zielone CI nie zastępuje
+wiarygodności futbolu. Żaden eksperyment nie jest globalnie promowany.
+
+### Bramki MatchEngine Realism Programme
+
+Następne etapy mają tematy i kryteria dowodowe, bez spekulacyjnych numerów PR:
+
+- Percepcja i przygotowanie: wiek informacji, niepewność, myląca pamięć,
+  rewalidacja, rzeczywisty kontakt i transfer na mecz.
+- Koordynacja, taktyka, obrona i pressing: lokalne informacje, asekuracja,
+  odbieranie komunikatów i prawo trenera/człowieka do decyzji.
+- Geometria kontaktu i pojedynki: rzeczywiste powierzchnie i impulsy, bez
+  gwarantowanych zwodów, przestawiania ciał lub syntetycznych rezultatów.
+- Bramkarze, strzały, główki i gra w powietrzu: wykonanie i prawa gry oraz
+  testy ograniczonych kontrolerów, oddzielone od estymacji szansy.
+- Wysiłek, regeneracja, rytm meczu i wznowienia: rzeczywista praca,
+  zmęczenie, intensywne i spokojne fazy oraz naturalne przerwy.
+- Sprawczość człowieka i animacja zgodna z fizyką: ten sam kanoniczny świat,
+  czytelna interakcja oraz historyczna zgodność zapisów/powtórek.
+- Wydajność i niezależne potwierdzenie: z góry zamrożony protokół,
+  reprezentatywne nowe mecze, determinism i neutralność obserwatorów.
+  Cel inżynierski 10–15 min na pełny mecz 90 min bez pełnego debugowania
+  wymaga jawnej konfiguracji odniesienia; nie wolno redukować kroków 40 Hz.
+
+### Zachowane zobowiązania kariery — niewykonane
+
+Generational Renewal & World Strength, przyszły model destylowany, PlayStyles
+i statystyki historyczne, Career UX, dobór składu według roli/taktyki/formy/
+zaufania oraz World Expansion zachowują pełny zakres opisany poniżej.
+Nie przypisujemy im kolejnych numerów PR przy każdym przesunięciu.
+Summary/distillation pozostaje zablokowane przez walidację canonical.
+Starsze numeracje w całym dokumencie są kontekstem historycznym; obowiązuje
+powyższy program oraz bieżące PR194.
+
+### Historyczne zapisy wcześniejszych etapów
 
 Poprzedni etap: **PR192 — Ball-Oriented Movement, Recovery Intelligence & Natural Match Flow**.
 Odtworzono oba zaobserwowane błędy na niezmienionej karcie Adama Krawczyka; ruch
@@ -188,7 +220,7 @@ Poprzednie scalone etapy pozostają ważne:
 [PR175 — independent reality validation](PR175_MATCH_REALITY_VALIDATION.md).
 Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
 
-## Autorytatywna kolejność PR176–PR197+
+## Zakończone etapy i zachowane zobowiązania programu
 
 - **PR176 — Match Engine Mathematical Audit & Reform Blueprint**. Scalony audyt:
   pełne mathematical/action pipeline, correlated risk, candidate gates, pass flight,
@@ -295,21 +327,31 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   Oddzielne ablacjami eksperymenty, zachowane porażki, sparowane WW/SS/SW,
   pasywna diagnostyka i istniejący Match Lab. Pełne zwody/anatomia pozostają
   zależne od faktycznej geometrii. Brak promocji canonical na podstawie development.
-- **PR194 — Generational Renewal & World Strength**. Pełne odłożone zobowiązanie dawnego PR193/192/191/190/189/188,
+- **PR194 — Active Perception, Pre-Reception Intelligence & Team Tempo**.
+  Eksperymentalne skanowanie, ograniczona pamięć, przygotowanie kandydatów,
+  lokalna pozycja do przyjęcia i tempo poprzez rzeczywisty wybór wysiłku.
+  Otwarte bramki, koszt CPU i negatywne mecze zachowuje raport PR194.
+- **Przyszły milestone — Generational Renewal & World Strength (niewykonany)**. Pełne odłożone zobowiązanie dawnego PR193/192/191/190/189/188,
   wcześniej dawny PR176; niewykonane i niepomniejszone przez stabilizację:
   20–25 sezonów rozwoju NPC, suma/średnia OVR kadr i najlepszej XI, jakość pozycji,
   rozkład wieku, akademie i ich absolwenci, integracja/blokowanie młodych przez
   dobrych weteranów, aging, retirement, uzupełnienia, trajektorie talentu i pułapy,
   transfery między silnymi/słabymi klubami oraz długofalowa jakość świata.
   Powtórzyć pomiary po istotnej rozbudowie bazy.
-- **PR195 — Summary Simulation & PlayStyles**. Zachowany pełny dawny PR194/193/192/191/190/189/177:
-  kalibrować lightweight simulation dopiero przeciw właściwie zweryfikowanemu
-  canonical; gole/asysty DM/CM i innych pozycji. Rozwijać ludzkie PlayStyles na
+- **Przyszły milestone — Distilled Match Simulation, Summary & PlayStyles (zablokowany)**. Zachowany pełny dawny PR194/193/192/191/190/189/177:
+  najpierw walidować canonical, następnie generować z niego różnorodne dane
+  i destylować warunkowy/sekwencyjny model lekkich meczów. Nie budować osobnego,
+  ręcznie zaprojektowanego silnika reguł. PR194 niczego nie trenuje ani nie wdraża.
+  Wynik i zdarzenia muszą być wspólnie spójne: gole/strzelcy/asysty, kartki,
+  zmiany z entry/exit i rzeczywistym powodem, urazy/zawieszenia, uczestnicy/minuty,
+  ID klubów/piłkarzy, wskaźniki występów, wspierane nawyki, fitness oraz ważne momenty.
+  Nie dopisywać historii uzasadniającej wcześniej wylosowany wynik.
+  Zachować gole/asysty DM/CM i innych pozycji. Rozwijać ludzkie PlayStyles na
   podstawie właściwie udokumentowanych summary matches, zachowując źródło danych,
   wieloletnie wymagania i progi. Udział/zmiany: starter/substitute, entry/exit,
   realne ID zastępowanego/zastępującego i tylko rzeczywiście modelowany powód.
   Nie wnioskować słabej gry z oceny/minut. Tożsamości/minuty/exactly-once zostają.
-- **PR196 — Career UX Consolidation**. Zachowany pełny dawny PR195/194/193/192/191/190/178: zwarte fixture rows,
+- **Przyszły milestone — Career UX Consolidation (niewykonany)**. Zachowany pełny dawny PR195/194/193/192/191/190/178: zwarte fixture rows,
   zbiorcze sezonowe archive bez dublowania historii; calendar zgodny z career.currentDate,
   rzeczywistymi terminami meczów, zapisanym treningiem, urazami/niedostępnością i życiem.
   Odróżniać saved facts od presentation recurrence; nie wymyślać treningów w pustych dniach.
@@ -320,12 +362,13 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
   znajomość partnerów/systemu, gotowość fizyczna i psychiczna, preferencje trenera,
   matchup, zaufanie z wielu występów oraz kontuzje/zawieszenia/rotacja. Reputacja
   i wartość nie zastępują jakości w konkretnej roli; pojedynczy występ nie zmienia
-  na stałe atrybutów ani nie gwarantuje pierwszego składu. Zależność PR194/PR196,
-  specyfikacja przyszłości, bez implementacji selekcji kariery w PR193.
-- **PR197+ — World Expansion**. Zachowany pełny dawny PR196+/195+/194+/193+/192+/191+/179+: więcej lig/klubów, puchary,
+  na stałe atrybutów ani nie gwarantuje pierwszego składu. Zależność od długofalowych
+  danych kariery i generacji, specyfikacja przyszłości, bez implementacji selekcji w PR194.
+- **Przyszły milestone — World Expansion (niewykonany)**. Zachowany pełny dawny PR196+/195+/194+/193+/192+/191+/179+: więcej lig/klubów, puchary,
   reprezentacje, transfery, ekonomia i dalsze systemy futbolu.
 
-Wyłącznie całkowite numery PR. Kolejność powyżej zastępuje dawne przypisania.
+Tylko rzeczywiście wybrane zadania dostają numer PR. Powyższe milestone nie mają
+spekulacyjnej numeracji; bieżący numer PR194 jest autorytatywny.
 Historyczne raporty, roadmap tasks i receipts zachowują dawny kontekst i nie są
 przemianowywane na świeże pomiary. PR177/178 nie konsumują zakresu generacji,
 summary, UX lub world expansion. Prerequisite walidacji canonical pozostaje jawny.

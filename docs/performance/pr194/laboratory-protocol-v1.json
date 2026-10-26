@@ -1,0 +1,552 @@
+{
+  "schema": "mfl-pr194-lab-protocol-v1",
+  "classification": "paired controlled development, not independent validation",
+  "conditions": [
+    {
+      "id": "prior_scan-normal",
+      "condition": "prior_scan",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "prior_scan-mirror",
+      "condition": "prior_scan",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "no_scan-normal",
+      "condition": "no_scan",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "no_scan-mirror",
+      "condition": "no_scan",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "active_scan-normal",
+      "condition": "active_scan",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "active_scan-mirror",
+      "condition": "active_scan",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "stale-normal",
+      "condition": "stale",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "stale-mirror",
+      "condition": "stale",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "moved-normal",
+      "condition": "moved",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "moved-mirror",
+      "condition": "moved",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "lane_closed-normal",
+      "condition": "lane_closed",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "lane_closed-mirror",
+      "condition": "lane_closed",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "urgent-normal",
+      "condition": "urgent",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "urgent-mirror",
+      "condition": "urgent",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "wrong_body-normal",
+      "condition": "wrong_body",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "wrong_body-mirror",
+      "condition": "wrong_body",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "moving-normal",
+      "condition": "moving",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "moving-mirror",
+      "condition": "moving",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "fast-normal",
+      "condition": "fast",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "fast-mirror",
+      "condition": "fast",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "far_side-normal",
+      "condition": "far_side",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "far_side-mirror",
+      "condition": "far_side",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "wide-normal",
+      "condition": "wide",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "wide-mirror",
+      "condition": "wide",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "patient-normal",
+      "condition": "patient",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "patient-mirror",
+      "condition": "patient",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "counter-normal",
+      "condition": "counter",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "counter-mirror",
+      "condition": "counter",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "organised-normal",
+      "condition": "organised",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "organised-mirror",
+      "condition": "organised",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "repeated_effort-normal",
+      "condition": "repeated_effort",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "repeated_effort-mirror",
+      "condition": "repeated_effort",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "fatigued-normal",
+      "condition": "fatigued",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "fatigued-mirror",
+      "condition": "fatigued",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "protecting-normal",
+      "condition": "protecting",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "protecting-mirror",
+      "condition": "protecting",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "chasing-normal",
+      "condition": "chasing",
+      "mirror": false,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "chasing-mirror",
+      "condition": "chasing",
+      "mirror": true,
+      "seed": "pr194-paired-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-gameReading-20",
+      "condition": "prior_scan",
+      "attribute": "gameReading",
+      "level": 20,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-gameReading-40",
+      "condition": "prior_scan",
+      "attribute": "gameReading",
+      "level": 40,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-gameReading-60",
+      "condition": "prior_scan",
+      "attribute": "gameReading",
+      "level": 60,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-gameReading-80",
+      "condition": "prior_scan",
+      "attribute": "gameReading",
+      "level": 80,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-gameReading-100",
+      "condition": "prior_scan",
+      "attribute": "gameReading",
+      "level": 100,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-concentration-20",
+      "condition": "prior_scan",
+      "attribute": "concentration",
+      "level": 20,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-concentration-40",
+      "condition": "prior_scan",
+      "attribute": "concentration",
+      "level": 40,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-concentration-60",
+      "condition": "prior_scan",
+      "attribute": "concentration",
+      "level": 60,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-concentration-80",
+      "condition": "prior_scan",
+      "attribute": "concentration",
+      "level": 80,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-concentration-100",
+      "condition": "prior_scan",
+      "attribute": "concentration",
+      "level": 100,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-composure-20",
+      "condition": "prior_scan",
+      "attribute": "composure",
+      "level": 20,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-composure-40",
+      "condition": "prior_scan",
+      "attribute": "composure",
+      "level": 40,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-composure-60",
+      "condition": "prior_scan",
+      "attribute": "composure",
+      "level": 60,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-composure-80",
+      "condition": "prior_scan",
+      "attribute": "composure",
+      "level": 80,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-composure-100",
+      "condition": "prior_scan",
+      "attribute": "composure",
+      "level": 100,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-technique-20",
+      "condition": "prior_scan",
+      "attribute": "technique",
+      "level": 20,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-technique-40",
+      "condition": "prior_scan",
+      "attribute": "technique",
+      "level": 40,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-technique-60",
+      "condition": "prior_scan",
+      "attribute": "technique",
+      "level": 60,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-technique-80",
+      "condition": "prior_scan",
+      "attribute": "technique",
+      "level": 80,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-technique-100",
+      "condition": "prior_scan",
+      "attribute": "technique",
+      "level": 100,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-firstTouch-20",
+      "condition": "prior_scan",
+      "attribute": "firstTouch",
+      "level": 20,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-firstTouch-40",
+      "condition": "prior_scan",
+      "attribute": "firstTouch",
+      "level": 40,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-firstTouch-60",
+      "condition": "prior_scan",
+      "attribute": "firstTouch",
+      "level": 60,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-firstTouch-80",
+      "condition": "prior_scan",
+      "attribute": "firstTouch",
+      "level": 80,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-firstTouch-100",
+      "condition": "prior_scan",
+      "attribute": "firstTouch",
+      "level": 100,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-agility-20",
+      "condition": "prior_scan",
+      "attribute": "agility",
+      "level": 20,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-agility-40",
+      "condition": "prior_scan",
+      "attribute": "agility",
+      "level": 40,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-agility-60",
+      "condition": "prior_scan",
+      "attribute": "agility",
+      "level": 60,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-agility-80",
+      "condition": "prior_scan",
+      "attribute": "agility",
+      "level": 80,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-agility-100",
+      "condition": "prior_scan",
+      "attribute": "agility",
+      "level": 100,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-leadership-20",
+      "condition": "prior_scan",
+      "attribute": "leadership",
+      "level": 20,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-leadership-40",
+      "condition": "prior_scan",
+      "attribute": "leadership",
+      "level": 40,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-leadership-60",
+      "condition": "prior_scan",
+      "attribute": "leadership",
+      "level": 60,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-leadership-80",
+      "condition": "prior_scan",
+      "attribute": "leadership",
+      "level": 80,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    },
+    {
+      "id": "attribute-leadership-100",
+      "condition": "prior_scan",
+      "attribute": "leadership",
+      "level": 100,
+      "seed": "pr194-attribute-development",
+      "seconds": 8
+    }
+  ]
+}

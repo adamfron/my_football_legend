@@ -1,0 +1,1211 @@
+{
+  "schema": "mfl-pr194-receiving-pointer-v1",
+  "archive": {
+    "path": "docs/performance/pr194/receiving-v2.json.gz",
+    "sha256": "e528b3f284561a8342b43cdd54582c49e405471b1c438d1192b8050a908fe73e",
+    "originalSha256": "78267ac3088be5b710363105979917d893fecc29517efee79b734423affae005"
+  },
+  "count": 40,
+  "summary": [
+    {
+      "name": "away_from_mark",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "2f46fd479dce66a089782827755493f66b77d7299ed1b0e9a46d0aeb9980c271",
+      "finalHash": "6b3e7c0bfbbd5e57e5592fb3bc08c5b082faa9f6eb49afd4217623586f7a8989",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 52.372708466495475,
+        "y": 34.415346574150064
+      },
+      "metresMoved": 5.642598938406832,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 7.016118469635042,
+          "laneSpace": 7.016118469635042
+        },
+        "actual": {
+          "markSpace": 10.391104715151554,
+          "laneSpace": 10.391104715151554
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "away_from_mark",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "89d16efc03c7fa1253c9ba00182b4159a4432453c140a18b7220469638c83714",
+      "finalHash": "bd7bc39fd450bf48bd0ad264db9a6720a2602409b7ee4af353a26338512c4163",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 52.2955237004435,
+        "y": 34.79173028874671
+      },
+      "metresMoved": 5.759156770076739,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 6.9883836717483225,
+          "laneSpace": 6.9883836717483225
+        },
+        "actual": {
+          "markSpace": 10.155599739435136,
+          "laneSpace": 9.661183327159506
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "away_from_mark",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "272cebd8dc87a12bd6b252c0a4ac647d3afc75cb646b8d188a45c58b97cfea5d",
+      "finalHash": "94047739573672db40c143941caad23ac707892b607ffd321d2d914bbf802854",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 51.80603192968317,
+        "y": 40.83532162669063
+      },
+      "metresMoved": 9.224254018423874,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 5.674133817308394,
+          "laneSpace": 2.4296993632528174
+        },
+        "actual": {
+          "markSpace": 7.101430842858823,
+          "laneSpace": 7.012019179817514
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "away_from_mark",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "f3c32ebf3fbd08d31ff6454cecd01409cce9bcb944d8b2efa84abda7ffe9c75b",
+      "finalHash": "eebada64c62aa57ebce8fa6baba840445a59a6fe7d79a002c21d634f8e36c673",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 49.81458829709917,
+        "y": 43.127397286579566
+      },
+      "metresMoved": 12.260111988601322,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 5.368414253464503,
+          "laneSpace": 5.368414253464503
+        },
+        "actual": {
+          "markSpace": 3.339199956210763,
+          "laneSpace": 0.5794059634117926
+        }
+      },
+      "receivingJobs": 6
+    },
+    {
+      "name": "behind_press",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "0ea9afbfbfe21df6caca2d40a3331957ac0d0e6b9dc13693e6d31c91433cc4b9",
+      "finalHash": "387f5a9796892f256fdf29f1ac4f1f4f3149efe6b66331aea78570cd75521d35",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 59.626886172107824,
+        "y": 27.1660240541939
+      },
+      "metresMoved": 7.024954508383098,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 4.747132909638233,
+          "laneSpace": 0.02825478059560572
+        },
+        "actual": {
+          "markSpace": 4.066676134932885,
+          "laneSpace": 0.9610441535270177
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "behind_press",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "27c21c6a9f9f98831649d8f36c6d4e9d3df19dff8b9e50ad9df9788c544a8fd6",
+      "finalHash": "64704599bb8d43041baa17c6ceb50f7af56a8ecd7800cad4dc5084c764683690",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 58.866159488937235,
+        "y": 25.615226773052402
+      },
+      "metresMoved": 8.429392286969046,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 4.747132909638233,
+          "laneSpace": 0.02825478059560572
+        },
+        "actual": {
+          "markSpace": 5.667149052245725,
+          "laneSpace": 0.9722323628075683
+        }
+      },
+      "receivingJobs": 4
+    },
+    {
+      "name": "behind_press",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "90adf2b2de70515e5206cde000d5b429f587be0bad32c13a7a138865606e7027",
+      "finalHash": "aafc828cad2d425c54988caa2a508e86e070f829b93fc4340e15ff6a0001c649",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 59.82217526070918,
+        "y": 38.37031537536875
+      },
+      "metresMoved": 4.734974040153234,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 6.100303691864402,
+          "laneSpace": 1.0999725076460507
+        },
+        "actual": {
+          "markSpace": 2.737181825860798,
+          "laneSpace": 0.5929756798607523
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "behind_press",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "3979b4a3b593a833acc752027ab4cc6b9a63be42967dab24d72cb1d020ebe1e4",
+      "finalHash": "0d9277e0b767b2a8d62cd7d555e4caef9143478f003ef2754db0bf7f794724e6",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 56.920469785410134,
+        "y": 41.101194873621786
+      },
+      "metresMoved": 7.18278178127143,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 6.100303691864402,
+          "laneSpace": 1.0999725076460507
+        },
+        "actual": {
+          "markSpace": 5.806460304786095,
+          "laneSpace": 0.6284275313224927
+        }
+      },
+      "receivingJobs": 4
+    },
+    {
+      "name": "support_behind",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "0ea9afbfbfe21df6caca2d40a3331957ac0d0e6b9dc13693e6d31c91433cc4b9",
+      "finalHash": "387f5a9796892f256fdf29f1ac4f1f4f3149efe6b66331aea78570cd75521d35",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 59.626886172107824,
+        "y": 27.1660240541939
+      },
+      "metresMoved": 7.024954508383098,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 4.747132909638233,
+          "laneSpace": 0.02825478059560572
+        },
+        "actual": {
+          "markSpace": 4.066676134932885,
+          "laneSpace": 0.9610441535270177
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "support_behind",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "27c21c6a9f9f98831649d8f36c6d4e9d3df19dff8b9e50ad9df9788c544a8fd6",
+      "finalHash": "64704599bb8d43041baa17c6ceb50f7af56a8ecd7800cad4dc5084c764683690",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 58.866159488937235,
+        "y": 25.615226773052402
+      },
+      "metresMoved": 8.429392286969046,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 4.747132909638233,
+          "laneSpace": 0.02825478059560572
+        },
+        "actual": {
+          "markSpace": 5.667149052245725,
+          "laneSpace": 0.9722323628075683
+        }
+      },
+      "receivingJobs": 4
+    },
+    {
+      "name": "support_behind",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "90adf2b2de70515e5206cde000d5b429f587be0bad32c13a7a138865606e7027",
+      "finalHash": "aafc828cad2d425c54988caa2a508e86e070f829b93fc4340e15ff6a0001c649",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 59.82217526070918,
+        "y": 38.37031537536875
+      },
+      "metresMoved": 4.734974040153234,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 6.100303691864402,
+          "laneSpace": 1.0999725076460507
+        },
+        "actual": {
+          "markSpace": 2.737181825860798,
+          "laneSpace": 0.5929756798607523
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "support_behind",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "3979b4a3b593a833acc752027ab4cc6b9a63be42967dab24d72cb1d020ebe1e4",
+      "finalHash": "0d9277e0b767b2a8d62cd7d555e4caef9143478f003ef2754db0bf7f794724e6",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 56.920469785410134,
+        "y": 41.101194873621786
+      },
+      "metresMoved": 7.18278178127143,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 6.100303691864402,
+          "laneSpace": 1.0999725076460507
+        },
+        "actual": {
+          "markSpace": 5.806460304786095,
+          "laneSpace": 0.6284275313224927
+        }
+      },
+      "receivingJobs": 4
+    },
+    {
+      "name": "between_lines",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "a0693b08e1582e10d254fbfd73aef72078945bb3e432aa4fc1d253127d1483d0",
+      "finalHash": "c301f8023a1f6c9b243790abd51efb6b332a5e43b7154e505b9fac4324477907",
+      "origin": {
+        "x": 64,
+        "y": 34
+      },
+      "final": {
+        "x": 54.242980339363065,
+        "y": 40.46583329911878
+      },
+      "metresMoved": 11.704974707791935,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 1.3072120536460412,
+          "laneSpace": 1.3072120536460412
+        },
+        "actual": {
+          "markSpace": 10.681447661581418,
+          "laneSpace": 10.375097562152432
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "between_lines",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "6636b49bec3051e1216362ccbd1494cc0de7ceb81deec1b751e13c2397a72fff",
+      "finalHash": "db346e5ddb0c31e43dfd209e853d35c738bb77d6da8ee609b84f2a03849798a9",
+      "origin": {
+        "x": 64,
+        "y": 34
+      },
+      "final": {
+        "x": 54.450906191226025,
+        "y": 40.45813838090185
+      },
+      "metresMoved": 11.527911515779563,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 1.2392730909568737,
+          "laneSpace": 1.2392730909568737
+        },
+        "actual": {
+          "markSpace": 10.697224086930051,
+          "laneSpace": 10.697224086930051
+        }
+      },
+      "receivingJobs": 10
+    },
+    {
+      "name": "between_lines",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "b76012e5fca96dbb2ded5215bc69d06d06a0f80e762927116b85606c3d1650dc",
+      "finalHash": "3b5201b5a2d57995309a50cdbce3bb7f649fbbf14ccdd791d3880d10085ae6a7",
+      "origin": {
+        "x": 64,
+        "y": 34
+      },
+      "final": {
+        "x": 54.245978606779815,
+        "y": 30.99091255146337
+      },
+      "metresMoved": 10.207621692262,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 2.0346411428741473,
+          "laneSpace": 2.0346411428741473
+        },
+        "actual": {
+          "markSpace": 6.821869741256146,
+          "laneSpace": 6.821869741256146
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "between_lines",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "8a473c812867b7b96041c6e5e8bfd5697feb4bf7293e568f39f7836bdf8acdf9",
+      "finalHash": "56f47a0d8241fe4984590792ee1b48fa8d1741c0c053b24dc2a2ac46eab18277",
+      "origin": {
+        "x": 64,
+        "y": 34
+      },
+      "final": {
+        "x": 54.455783972445374,
+        "y": 30.63362366827833
+      },
+      "metresMoved": 10.12050142964302,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 2.0740549149827743,
+          "laneSpace": 2.0740549149827743
+        },
+        "actual": {
+          "markSpace": 7.689622463976318,
+          "laneSpace": 7.689622463976318
+        }
+      },
+      "receivingJobs": 7
+    },
+    {
+      "name": "half_turn",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "9c2c29c7c060d460415137eeffdba33d5e9299f1715640c66a93bb5f95978cca",
+      "finalHash": "2c38c505d5b120c24b8a736e3e01ea99ada2116156f910029d7aac049784965a",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 52.373423771969556,
+        "y": 34.414507130406705
+      },
+      "metresMoved": 5.6418238372883724,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 7.016118469635042,
+          "laneSpace": 7.016118469635042
+        },
+        "actual": {
+          "markSpace": 10.40566570482111,
+          "laneSpace": 10.40566570482111
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "half_turn",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "7c2be19a750e8a6dc4a393219cea8d44fee4d379a02f8f415f300d4cecb6768a",
+      "finalHash": "9a9fbfba102e81af0df1a7ae874c5eba0c92144d73b1e93992321d763e5ee508",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 51.28041560040018,
+        "y": 34.57181275231991
+      },
+      "metresMoved": 6.743870129759388,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 6.98838367066395,
+          "laneSpace": 6.98838367066395
+        },
+        "actual": {
+          "markSpace": 9.299156670866342,
+          "laneSpace": 9.127116562065568
+        }
+      },
+      "receivingJobs": 6
+    },
+    {
+      "name": "half_turn",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "5f9b3a45e4baa26cde04e408da86fbfab40cf3bdf030a80cb6dfa93bd1a33c71",
+      "finalHash": "140c60a2ede544f5780042932b2e77c691e09a7a5b2ea30fbcc12ebc0ea0cf2f",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 51.80603141805938,
+        "y": 40.835320003448444
+      },
+      "metresMoved": 9.224253159124043,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 5.674133798968836,
+          "laneSpace": 2.4296993632528174
+        },
+        "actual": {
+          "markSpace": 7.101432460223403,
+          "laneSpace": 7.012018725607317
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "half_turn",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "9d6e287bddb187a0331aaa9b02e78e9e91a74e507f79b5721648328c6f0e0c13",
+      "finalHash": "64ad414e6f1c7b92d878c28962345f35fd5ec5bf7ebb374bbb0911838eb5948c",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 49.814582708725915,
+        "y": 43.1273945580814
+      },
+      "metresMoved": 12.26011368834656,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 5.368414253464503,
+          "laneSpace": 5.368414253464503
+        },
+        "actual": {
+          "markSpace": 3.3392028766438044,
+          "laneSpace": 0.579403840508637
+        }
+      },
+      "receivingJobs": 6
+    },
+    {
+      "name": "width",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:7",
+      "role": "left_winger",
+      "duty": "support",
+      "initialHash": "cca6eb1e16d9e63259409d2c4bf57119f3e0b0add8e17be229fb9b416d7ef776",
+      "finalHash": "942adce81c93a0c6cfa90a3a2a182cec671d0bc7a32dabb1a36a060303c4bba5",
+      "origin": {
+        "x": 58,
+        "y": 12
+      },
+      "final": {
+        "x": 54.698726162945256,
+        "y": 13.509268669367977
+      },
+      "metresMoved": 3.629917473381169,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 5.417193356224127,
+          "laneSpace": 2.4489281694549154
+        },
+        "actual": {
+          "markSpace": 6.573718366442243,
+          "laneSpace": 3.316070394016541
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "width",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:7",
+      "role": "left_winger",
+      "duty": "support",
+      "initialHash": "93d79d7920c16889d13ace36b7fe880a0fd77e063dd54d9165c1aa29ee75250d",
+      "finalHash": "e3d2174a957b5a868de2498acdb9622906df203c9c77e357440d5666bbef8219",
+      "origin": {
+        "x": 58,
+        "y": 12
+      },
+      "final": {
+        "x": 52.80324065917922,
+        "y": 14.029505804386327
+      },
+      "metresMoved": 5.57899645603453,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 3.8480898711187583,
+          "laneSpace": 1.063651586191627
+        },
+        "actual": {
+          "markSpace": 4.151371142356912,
+          "laneSpace": 3.1194653515254744
+        }
+      },
+      "receivingJobs": 8
+    },
+    {
+      "name": "width",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:7",
+      "role": "left_winger",
+      "duty": "support",
+      "initialHash": "e4a261547258df5606ece0c14c1c11dda2fde3668d3e2c580daa2fa640c5630f",
+      "finalHash": "fda2e4696b86d84d4ff99a491b0b756db2b1444a7de406d950cbc45f479b4b8e",
+      "origin": {
+        "x": 58,
+        "y": 56
+      },
+      "final": {
+        "x": 55.61585854794544,
+        "y": 30.61612863661809
+      },
+      "metresMoved": 25.495588948995174,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 8.460870783176308,
+          "laneSpace": 1.3656337479576897
+        },
+        "actual": {
+          "markSpace": 6.959256535335559,
+          "laneSpace": 6.959256535335559
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "width",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:7",
+      "role": "left_winger",
+      "duty": "support",
+      "initialHash": "9ebcf29ac93dcc0ab48368ecba1896bfa6be27e913c0d2ed1f7fd1ee7d9d3fff",
+      "finalHash": "44a7dc3ccbf9b70b8dd7aaa5a497c5c8d8b18814619af762193e7ef8f5752aed",
+      "origin": {
+        "x": 58,
+        "y": 56
+      },
+      "final": {
+        "x": 50.73646750481241,
+        "y": 44.97484718597426
+      },
+      "metresMoved": 13.202761032498683,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 8.455228136113783,
+          "laneSpace": 0.048009152294608455
+        },
+        "actual": {
+          "markSpace": 5.197090571833211,
+          "laneSpace": 0.2935899785466938
+        }
+      },
+      "receivingJobs": 14
+    },
+    {
+      "name": "half_space",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "72e6e89106cf98478894498df0b9daae27a21de333a2b1220da97b4c9bb29a95",
+      "finalHash": "20fa594a4df3a349da72b7b1584c946a17c15f5b8ceb11fd6540052e178362d8",
+      "origin": {
+        "x": 58,
+        "y": 23
+      },
+      "final": {
+        "x": 51.14088192377496,
+        "y": 34.92118538625541
+      },
+      "metresMoved": 13.753623587879181,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 4.479608493478437,
+          "laneSpace": 1.3887157947759459
+        },
+        "actual": {
+          "markSpace": 11.05228733522867,
+          "laneSpace": 11.05228733522867
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "half_space",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "7dac78997d1addbdde10e11662b6198b4109293a8f50d46a334db1709aab32ed",
+      "finalHash": "37dac8df1220d98f6fab4c432ae80ca97d89153108a5671382d9f96f148c8310",
+      "origin": {
+        "x": 58,
+        "y": 23
+      },
+      "final": {
+        "x": 51.151874085060335,
+        "y": 31.88871239483118
+      },
+      "metresMoved": 11.220785916543177,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 4.864177699726811,
+          "laneSpace": 1.0013459155567004
+        },
+        "actual": {
+          "markSpace": 5.642467479667419,
+          "laneSpace": 5.642467479667419
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "half_space",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "f467b68cb046904a08962f04d99962f6ed245f4803375dbe3b1716d6f6bc4387",
+      "finalHash": "6f82e65017e27a0b551d66fceaac7840923f4ad730f5eccb48a0d32451cce2db",
+      "origin": {
+        "x": 58,
+        "y": 45
+      },
+      "final": {
+        "x": 51.22615540650428,
+        "y": 36.9591934093519
+      },
+      "metresMoved": 10.513778635915877,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 2.6351625464393496,
+          "laneSpace": 2.087329830907019
+        },
+        "actual": {
+          "markSpace": 6.1955485511995265,
+          "laneSpace": 5.409350573859708
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "half_space",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "6e5ac8a00d767e374516eafe33550d4c1d263994a0a54c8fe87cbf8b77bba4d8",
+      "finalHash": "4bec83ad59fbedfb931e1f879f3e31e2bc6a04a7ed51b364313f9fa5d17d42fc",
+      "origin": {
+        "x": 58,
+        "y": 45
+      },
+      "final": {
+        "x": 48.316684190963784,
+        "y": 43.553594444895616
+      },
+      "metresMoved": 9.790745328490958,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 3.051101302541338,
+          "laneSpace": 0.4462966277702328
+        },
+        "actual": {
+          "markSpace": 4.147491591881541,
+          "laneSpace": 0.6160422156187294
+        }
+      },
+      "receivingJobs": 6
+    },
+    {
+      "name": "draw_defender",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "229e2ae47186eac995b2921b02373ed24e2af4b0f0b1f4156e2baad817c97518",
+      "finalHash": "26e1a8d3bf769b56b1cc4842aeeaaaaf5c9ba814cd8cccb8b1188e489eda25ca",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 52.34927742843045,
+        "y": 33.279394053969966
+      },
+      "metresMoved": 5.696484750291135,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 8.011642474710893,
+          "laneSpace": 7.748393283171385
+        },
+        "actual": {
+          "markSpace": 7.263779494575632,
+          "laneSpace": 7.263382152471503
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "draw_defender",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "b065674e3e3fc8628c7be5960fc97ce66e992fa0f86b2a2d2366ca72dac1f841",
+      "finalHash": "8d4a6109e20b802a95c2f8f8e985e17bdf52ec2b3338d6015694ff88685f0997",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 52.2955237004435,
+        "y": 34.79173028874671
+      },
+      "metresMoved": 5.759156770076739,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 8.817156980637487,
+          "laneSpace": 8.817156980637487
+        },
+        "actual": {
+          "markSpace": 10.155599739435136,
+          "laneSpace": 9.661183327159506
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "draw_defender",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "f3ce7b22c219b8fc0d33a074ea363756bae9533a24dc47187146303cbad5d500",
+      "finalHash": "4f3ebf67e67627f3b2eddc8fb9bf7099178de99283e538d7fa2b512ad7a29d2c",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 51.9380936195198,
+        "y": 35.42050682848437
+      },
+      "metresMoved": 6.226118262246334,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 5.774163836050627,
+          "laneSpace": 0.591844183632275
+        },
+        "actual": {
+          "markSpace": 2.0083050790383816,
+          "laneSpace": 0.20626488223296496
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "draw_defender",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:6",
+      "role": "central_midfielder",
+      "duty": "support",
+      "initialHash": "68350bde5f7ef7ce0fe5b59df31ae1d7d6b7700f0a5fae0ba940663dded5bcda",
+      "finalHash": "8bfb673ba73a5d59841a8351b89ab2db5f0acf2c04cc0803bcc6ca0a6f016e1e",
+      "origin": {
+        "x": 58,
+        "y": 34
+      },
+      "final": {
+        "x": 51.607652319083684,
+        "y": 41.376851050475196
+      },
+      "metresMoved": 9.761149537560277,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 5.586213312660419,
+          "laneSpace": 5.586213312660419
+        },
+        "actual": {
+          "markSpace": 1.1491160999240269,
+          "laneSpace": 0.1308288674272688
+        }
+      },
+      "receivingJobs": 6
+    },
+    {
+      "name": "third_man",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:7",
+      "role": "left_winger",
+      "duty": "attack",
+      "initialHash": "c9b70ff0d502f2212d654ef06bd9888f1dbee908c0b35f9aa6dfb37f41827c71",
+      "finalHash": "8916d63c750ae9e12f7df5eb3c6ac751e2fc50de549bacbeaae0140b9d222c9f",
+      "origin": {
+        "x": 58,
+        "y": 23
+      },
+      "final": {
+        "x": 62.105838437040184,
+        "y": 18.425351229954384
+      },
+      "metresMoved": 6.146976544640173,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 6.733089628929579,
+          "laneSpace": 0.8530385762435794
+        },
+        "actual": {
+          "markSpace": 0.9723858010732837,
+          "laneSpace": 0.7122740690361105
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "third_man",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:7",
+      "role": "left_winger",
+      "duty": "attack",
+      "initialHash": "54afdfd3439e510841801be2c8e2568bb028d4d86ad3bffef046ad24e05c6112",
+      "finalHash": "eff903ed95ccced68af136d49efcbb1facf9833942f5f668a9ed4813358e7f46",
+      "origin": {
+        "x": 58,
+        "y": 23
+      },
+      "final": {
+        "x": 62.46850182139138,
+        "y": 11.926828679740037
+      },
+      "metresMoved": 11.94079694223153,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 8.606680408726113,
+          "laneSpace": 1.0832968932145133
+        },
+        "actual": {
+          "markSpace": 3.344759917432944,
+          "laneSpace": 0.33659581455509646
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "third_man",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:7",
+      "role": "left_winger",
+      "duty": "attack",
+      "initialHash": "dbd436b6560eb2c42f0676daf683fa09810f42ace766df364bf83cf790a6655e",
+      "finalHash": "c23377f8ecea760ace5ec17ae20df300c6139edaafc403f65d5e9295f347b6b3",
+      "origin": {
+        "x": 58,
+        "y": 45
+      },
+      "final": {
+        "x": 59.7989392768351,
+        "y": 27.561389559270676
+      },
+      "metresMoved": 17.531152746618055,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 7.499464561342119,
+          "laneSpace": 4.209489756171058
+        },
+        "actual": {
+          "markSpace": 3.8670974275567302,
+          "laneSpace": 2.3442302107375643
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "third_man",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:7",
+      "role": "left_winger",
+      "duty": "attack",
+      "initialHash": "4f79edfc4b14c0061828641c059d3d5746a78c073292c2755c625b56acc10c7d",
+      "finalHash": "753f45876d5508737c796a7a17ce25fcb4cd2ff846ed5a7a83cd8e9845effeda",
+      "origin": {
+        "x": 58,
+        "y": 45
+      },
+      "final": {
+        "x": 54.016852708143595,
+        "y": 33.429475407861474
+      },
+      "metresMoved": 12.23693187387694,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 6.543734820443918,
+          "laneSpace": 2.928132196243821
+        },
+        "actual": {
+          "markSpace": 4.2673795112010415,
+          "laneSpace": 4.2673795112010415
+        }
+      },
+      "receivingJobs": 4
+    },
+    {
+      "name": "rest_defence",
+      "mirror": false,
+      "enabled": false,
+      "actorId": "geometry:anchor:2",
+      "role": "center_back",
+      "duty": "defend",
+      "initialHash": "6b4368993a02c59196109066d9e3cd2551f02cec0143a8cb00d76fc8033d32d6",
+      "finalHash": "02f458d94e1e76fc97c50834c1e7072cbc03c323d71d9ba7a2e336a4b5f22e59",
+      "origin": {
+        "x": 40,
+        "y": 34
+      },
+      "final": {
+        "x": 37.62250945618186,
+        "y": 25.935381145465477
+      },
+      "metresMoved": 8.407766561629694,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 15.488027725204269,
+          "laneSpace": 13.527623026276649
+        },
+        "actual": {
+          "markSpace": 14.238068628622454,
+          "laneSpace": 13.142554192161194
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "rest_defence",
+      "mirror": false,
+      "enabled": true,
+      "actorId": "geometry:anchor:2",
+      "role": "center_back",
+      "duty": "defend",
+      "initialHash": "0ae4e0120910d1db89b2081f6544a34c63e97dd9571edd475017aec42f939d57",
+      "finalHash": "a840aa1c466ede54aaaaa829e8c80324ddf8e32603cac0b4841a04e11fc4ae65",
+      "origin": {
+        "x": 40,
+        "y": 34
+      },
+      "final": {
+        "x": 40,
+        "y": 34
+      },
+      "metresMoved": 0,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 16.128271078263563,
+          "laneSpace": 14.170029157658963
+        },
+        "actual": {
+          "markSpace": 16.128271078263563,
+          "laneSpace": 14.170029157658963
+        }
+      },
+      "receivingJobs": 20
+    },
+    {
+      "name": "rest_defence",
+      "mirror": true,
+      "enabled": false,
+      "actorId": "geometry:anchor:2",
+      "role": "center_back",
+      "duty": "defend",
+      "initialHash": "ccc04699dde7b8e76caaef8d52a89e0f3b44a078a95f76d0356262b4af5fdb0a",
+      "finalHash": "682c6d9fc0bf5fdee8385d50e261d8e32e32792698752f704613055148759fa0",
+      "origin": {
+        "x": 40,
+        "y": 34
+      },
+      "final": {
+        "x": 37.757718284380395,
+        "y": 38.996720824155084
+      },
+      "metresMoved": 5.476773346300453,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 9.517486308149902,
+          "laneSpace": 7.346474916775032
+        },
+        "actual": {
+          "markSpace": 14.019704491879342,
+          "laneSpace": 7.346474916775032
+        }
+      },
+      "receivingJobs": 0
+    },
+    {
+      "name": "rest_defence",
+      "mirror": true,
+      "enabled": true,
+      "actorId": "geometry:anchor:2",
+      "role": "center_back",
+      "duty": "defend",
+      "initialHash": "9a73c4eeb48ad68d61fbe042afc08422618f934008c6d97c3680abdf0f483fe8",
+      "finalHash": "e773869fa8167fb26bd45191b9092d3aac41ba2a5c742df595a6a51a2ba3a661",
+      "origin": {
+        "x": 40,
+        "y": 34
+      },
+      "final": {
+        "x": 40,
+        "y": 34
+      },
+      "metresMoved": 0,
+      "sameFinalWorldComparison": {
+        "origin": {
+          "markSpace": 17.855859106020652,
+          "laneSpace": 16.145396947696796
+        },
+        "actual": {
+          "markSpace": 17.855859106020652,
+          "laneSpace": 16.145396947696796
+        }
+      },
+      "receivingJobs": 20
+    }
+  ]
+}

@@ -13,6 +13,13 @@ export const requiresPresentationObservers = (mode: PerformanceObserverMode) =>
   mode !== 'release_minimal';
 
 export const performanceCategorySchema = z.enum([
+  'perception_gathering',
+  'spatial_memory',
+  'pre_reception_candidates',
+  'receiving_positions',
+  'team_tempo',
+  'opportunity_windows',
+  'defensive_attention',
   'canonical_step',
   'decision_candidates',
   'decision_value',

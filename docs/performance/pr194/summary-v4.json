@@ -1,0 +1,1537 @@
+{
+  "schema": "mfl-pr194-summary-v2",
+  "readiness": "NOT READY",
+  "rejectedPilots": [
+    {
+      "schema": "mfl-pr194-interrupted-pilot-v1",
+      "reason": "Receiving protection recycled actor.target into its own movement override and could freeze rest-defence; stop queue,keep completed negative results,repair controller precedence and rerun a new complete version.",
+      "completed": [
+        "ss-contextual-judgment-v1-combined-v2.json",
+        "ss-hierarchical-intent-v1-combined-v2.json",
+        "ss-opportunity-driven-v1-combined-v2.json",
+        "ss-phase-role-hybrid-v1-combined-v2.json",
+        "ss-state-value-v1-combined-v2.json",
+        "sw-opportunity-driven-v1-combined-v2.json",
+        "sw-phase-role-hybrid-v1-combined-v2.json",
+        "sw-state-value-v1-combined-v2.json",
+        "ww-contextual-judgment-v1-combined-v2.json",
+        "ww-hierarchical-intent-v1-combined-v2.json",
+        "ww-opportunity-driven-v1-combined-v2.json",
+        "ww-opportunity-driven-v1-perception-v2.json",
+        "ww-opportunity-driven-v1-positions-v2.json",
+        "ww-opportunity-driven-v1-tempo-v2.json",
+        "ww-phase-role-hybrid-v1-combined-v2.json",
+        "ww-state-value-v1-combined-v2.json"
+      ],
+      "completeMatches": 16,
+      "planned": 27,
+      "notACompleteMatrix": true
+    },
+    {
+      "schema": "mfl-pr194-interrupted-pilot-v1",
+      "reason": "Audit found legacy projectPassReception at execution recomputed a bounded pass target from the unseen current receiver. Preserve completed pilot,freeze the observed release plan and observed target speed,add hidden-motion ray invariance regression,and run a new complete version.",
+      "completed": [
+        "ss-contextual-judgment-v1-combined-v3.json",
+        "ss-hierarchical-intent-v1-combined-v3.json",
+        "ss-opportunity-driven-v1-combined-v3.json",
+        "ss-phase-role-hybrid-v1-combined-v3.json",
+        "ss-state-value-v1-combined-v3.json",
+        "sw-phase-role-hybrid-v1-combined-v3.json",
+        "sw-state-value-v1-combined-v3.json",
+        "ww-contextual-judgment-v1-combined-v3.json",
+        "ww-hierarchical-intent-v1-combined-v3.json",
+        "ww-opportunity-driven-v1-combined-v3.json",
+        "ww-phase-role-hybrid-v1-combined-v3.json",
+        "ww-state-value-v1-combined-v3.json"
+      ],
+      "completeMatches": 12,
+      "planned": 27,
+      "notACompleteMatrix": true
+    }
+  ],
+  "independentConfirmation": "sealed",
+  "stagedDesign": {
+    "combined": 15,
+    "ablations": 9,
+    "baseline": 1,
+    "bareTwins": 2,
+    "scope": "all five policies WW/SS/SW combined; three axes only WW/O,SS/O,SW/H,not a complete five-way matrix"
+  },
+  "totals": {
+    "passes": [
+      22546,
+      18220
+    ],
+    "shots": [
+      183,
+      195
+    ]
+  },
+  "table": [
+    {
+      "design": "ss",
+      "policy": "contextual-judgment-v1",
+      "passes": [
+        1845,
+        1302
+      ],
+      "shots": [
+        3,
+        13
+      ],
+      "activeMinutes": [
+        83.880833333448,
+        84.05791666641547
+      ],
+      "preparedIncomingContacts": 612,
+      "matchedPreparedReleases": 90,
+      "scans": 85215,
+      "invalidations": 8643,
+      "latencyMedian": 0,
+      "wallSeconds": 796.5150601,
+      "cpuSeconds": 828.359,
+      "peakMiB": 574.25390625,
+      "passesPerActiveMinute": 15.48932035952066,
+      "reasons": {
+        "lateral_or_return": 28,
+        "progression": 205,
+        "escape_pressure": 987,
+        "safe_retention": 32,
+        "temporary_lane": 48,
+        "repeated_local_circulation": 1,
+        "switch_play": 2
+      }
+    },
+    {
+      "design": "ss",
+      "policy": "hierarchical-intent-v1",
+      "passes": [
+        1877,
+        1362
+      ],
+      "shots": [
+        3,
+        3
+      ],
+      "activeMinutes": [
+        85.35500000011645,
+        86.1816666666829
+      ],
+      "preparedIncomingContacts": 667,
+      "matchedPreparedReleases": 88,
+      "scans": 86458,
+      "invalidations": 8211,
+      "latencyMedian": 0,
+      "wallSeconds": 800.8779175,
+      "cpuSeconds": 834.219,
+      "peakMiB": 486.58203125,
+      "passesPerActiveMinute": 15.80382525285436,
+      "reasons": {
+        "lateral_or_return": 22,
+        "escape_pressure": 1075,
+        "progression": 174,
+        "safe_retention": 33,
+        "temporary_lane": 55,
+        "switch_play": 3,
+        "repeated_local_circulation": 2
+      }
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "passes": [
+        1943,
+        946
+      ],
+      "shots": [
+        4,
+        5
+      ],
+      "activeMinutes": [
+        81.82625000012617,
+        87.30875000008568
+      ],
+      "preparedIncomingContacts": 435,
+      "matchedPreparedReleases": 78,
+      "scans": 89982,
+      "invalidations": 6302,
+      "latencyMedian": 0,
+      "wallSeconds": 783.6858446,
+      "cpuSeconds": 814.093,
+      "peakMiB": 523.13671875,
+      "passesPerActiveMinute": 10.835111028379993,
+      "reasons": {
+        "lateral_or_return": 19,
+        "temporary_lane": 52,
+        "escape_pressure": 723,
+        "progression": 139,
+        "safe_retention": 12,
+        "switch_play": 1,
+        "repeated_local_circulation": 2
+      }
+    },
+    {
+      "design": "ss",
+      "policy": "phase-role-hybrid-v1",
+      "passes": [
+        2028,
+        2206
+      ],
+      "shots": [
+        16,
+        11
+      ],
+      "activeMinutes": [
+        84.03500000010278,
+        83.50291666646321
+      ],
+      "preparedIncomingContacts": 1636,
+      "matchedPreparedReleases": 117,
+      "scans": 88403,
+      "invalidations": 12407,
+      "latencyMedian": 0,
+      "wallSeconds": 623.0308574,
+      "cpuSeconds": 658.437,
+      "peakMiB": 565.49609375,
+      "passesPerActiveMinute": 26.41823888393569,
+      "reasons": {
+        "lateral_or_return": 1354,
+        "progression": 649,
+        "switch_play": 203,
+        "repeated_local_circulation": 4
+      }
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "passes": [
+        2065,
+        2073
+      ],
+      "shots": [
+        20,
+        10
+      ],
+      "activeMinutes": [
+        83.43041666680482,
+        83.36875000003184
+      ],
+      "preparedIncomingContacts": 1399,
+      "matchedPreparedReleases": 165,
+      "scans": 88514,
+      "invalidations": 12072,
+      "latencyMedian": 0,
+      "wallSeconds": 618.5212199,
+      "cpuSeconds": 656.921,
+      "peakMiB": 543.81640625,
+      "passesPerActiveMinute": 24.865432191309193,
+      "reasons": {
+        "lateral_or_return": 1116,
+        "progression": 847,
+        "switch_play": 110,
+        "repeated_local_circulation": 1
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "passes": [
+        1625,
+        1098
+      ],
+      "shots": [
+        11,
+        45
+      ],
+      "activeMinutes": [
+        80.90833333315813,
+        85.86000000002257
+      ],
+      "preparedIncomingContacts": 464,
+      "matchedPreparedReleases": 64,
+      "scans": 91587,
+      "invalidations": 6777,
+      "latencyMedian": 0,
+      "wallSeconds": 715.3616193,
+      "cpuSeconds": 747.734,
+      "peakMiB": 497.4453125,
+      "passesPerActiveMinute": 12.788259958067918,
+      "reasons": {
+        "lateral_or_return": 19,
+        "progression": 140,
+        "escape_pressure": 886,
+        "temporary_lane": 34,
+        "switch_play": 3,
+        "safe_retention": 16,
+        "repeated_local_circulation": 1
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "hierarchical-intent-v1",
+      "passes": [
+        1620,
+        987
+      ],
+      "shots": [
+        9,
+        16
+      ],
+      "activeMinutes": [
+        85.15041666639239,
+        85.1050000000318
+      ],
+      "preparedIncomingContacts": 435,
+      "matchedPreparedReleases": 69,
+      "scans": 88513,
+      "invalidations": 5710,
+      "latencyMedian": 0,
+      "wallSeconds": 694.6064396,
+      "cpuSeconds": 725.078,
+      "peakMiB": 522.421875,
+      "passesPerActiveMinute": 11.597438458370616,
+      "reasons": {
+        "lateral_or_return": 21,
+        "escape_pressure": 780,
+        "switch_play": 5,
+        "progression": 111,
+        "safe_retention": 40,
+        "temporary_lane": 30,
+        "repeated_local_circulation": 1
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "opportunity-driven-v1",
+      "passes": [
+        1777,
+        1299
+      ],
+      "shots": [
+        6,
+        17
+      ],
+      "activeMinutes": [
+        83.6579166665084,
+        85.29458333333669
+      ],
+      "preparedIncomingContacts": 544,
+      "matchedPreparedReleases": 60,
+      "scans": 83063,
+      "invalidations": 7800,
+      "latencyMedian": 0,
+      "wallSeconds": 701.0435528999999,
+      "cpuSeconds": 730.063,
+      "peakMiB": 580.86328125,
+      "passesPerActiveMinute": 15.229572022451002,
+      "reasons": {
+        "lateral_or_return": 20,
+        "progression": 145,
+        "escape_pressure": 1063,
+        "temporary_lane": 58,
+        "safe_retention": 9,
+        "repeated_local_circulation": 2,
+        "switch_play": 4
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "phase-role-hybrid-v1",
+      "passes": [
+        1314,
+        1606
+      ],
+      "shots": [
+        22,
+        15
+      ],
+      "activeMinutes": [
+        83.64500000010885,
+        84.85458333333109
+      ],
+      "preparedIncomingContacts": 1078,
+      "matchedPreparedReleases": 67,
+      "scans": 87546,
+      "invalidations": 9383,
+      "latencyMedian": 0,
+      "wallSeconds": 624.061559,
+      "cpuSeconds": 661.875,
+      "peakMiB": 558.20703125,
+      "passesPerActiveMinute": 18.92649680090008,
+      "reasons": {
+        "lateral_or_return": 925,
+        "progression": 532,
+        "switch_play": 149,
+        "repeated_local_circulation": 3
+      }
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "passes": [
+        1279,
+        1458
+      ],
+      "shots": [
+        40,
+        28
+      ],
+      "activeMinutes": [
+        82.52041666640042,
+        83.97833333296884
+      ],
+      "preparedIncomingContacts": 1010,
+      "matchedPreparedReleases": 69,
+      "scans": 83476,
+      "invalidations": 7321,
+      "latencyMedian": 0,
+      "wallSeconds": 553.9733409999999,
+      "cpuSeconds": 586.5,
+      "peakMiB": 569.07421875,
+      "passesPerActiveMinute": 17.36162105312475,
+      "reasons": {
+        "lateral_or_return": 783,
+        "switch_play": 151,
+        "progression": 524
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "contextual-judgment-v1",
+      "passes": [
+        1372,
+        947
+      ],
+      "shots": [
+        1,
+        5
+      ],
+      "activeMinutes": [
+        77.37541666675716,
+        84.81333333334238
+      ],
+      "preparedIncomingContacts": 347,
+      "matchedPreparedReleases": 34,
+      "scans": 68525,
+      "invalidations": 4889,
+      "latencyMedian": 0,
+      "wallSeconds": 791.0363592000001,
+      "cpuSeconds": 820.484,
+      "peakMiB": 476.0234375,
+      "passesPerActiveMinute": 11.165697217417453,
+      "reasons": {
+        "lateral_or_return": 9,
+        "escape_pressure": 789,
+        "progression": 121,
+        "temporary_lane": 21,
+        "safe_retention": 5,
+        "switch_play": 2
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "passes": [
+        1404,
+        835
+      ],
+      "shots": [
+        0,
+        0
+      ],
+      "activeMinutes": [
+        83.5254166666675,
+        85.50125000001809
+      ],
+      "preparedIncomingContacts": 336,
+      "matchedPreparedReleases": 30,
+      "scans": 68773,
+      "invalidations": 4172,
+      "latencyMedian": 0,
+      "wallSeconds": 788.2821834,
+      "cpuSeconds": 816.953,
+      "peakMiB": 464.5234375,
+      "passesPerActiveMinute": 9.765939094455618,
+      "reasons": {
+        "lateral_or_return": 11,
+        "escape_pressure": 683,
+        "temporary_lane": 23,
+        "progression": 102,
+        "safe_retention": 13,
+        "switch_play": 3
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "passes": [
+        1512,
+        1055
+      ],
+      "shots": [
+        1,
+        2
+      ],
+      "activeMinutes": [
+        82.02166666642763,
+        87.28166666666826
+      ],
+      "preparedIncomingContacts": 380,
+      "matchedPreparedReleases": 40,
+      "scans": 69587,
+      "invalidations": 5210,
+      "latencyMedian": 0,
+      "wallSeconds": 815.0178484,
+      "cpuSeconds": 845.031,
+      "peakMiB": 468.17578125,
+      "passesPerActiveMinute": 12.087303557447889,
+      "reasons": {
+        "lateral_or_return": 16,
+        "progression": 116,
+        "escape_pressure": 892,
+        "safe_retention": 4,
+        "temporary_lane": 27
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "passes": [
+        477,
+        573
+      ],
+      "shots": [
+        25,
+        11
+      ],
+      "activeMinutes": [
+        82.73875000001226,
+        82.414166666665
+      ],
+      "preparedIncomingContacts": 362,
+      "matchedPreparedReleases": 4,
+      "scans": 71191,
+      "invalidations": 2659,
+      "latencyMedian": 0,
+      "wallSeconds": 677.8609774,
+      "cpuSeconds": 713.937,
+      "peakMiB": 555.4765625,
+      "passesPerActiveMinute": 6.952688150297925,
+      "reasons": {
+        "lateral_or_return": 370,
+        "progression": 191,
+        "switch_play": 12
+      }
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "passes": [
+        408,
+        473
+      ],
+      "shots": [
+        22,
+        14
+      ],
+      "activeMinutes": [
+        81.20166666638458,
+        82.51875000011361
+      ],
+      "preparedIncomingContacts": 263,
+      "matchedPreparedReleases": 5,
+      "scans": 69846,
+      "invalidations": 2108,
+      "latencyMedian": 0,
+      "wallSeconds": 625.8531447,
+      "cpuSeconds": 658.954,
+      "peakMiB": 577.9375,
+      "passesPerActiveMinute": 5.732030599098372,
+      "reasons": {
+        "lateral_or_return": 296,
+        "progression": 166,
+        "switch_play": 11
+      }
+    }
+  ],
+  "ablations": [
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "mode": "perception",
+      "passes": {
+        "attempted": 1651,
+        "completed": 792
+      },
+      "shots": 7,
+      "time": {
+        "canonicalElapsedSeconds": 5587.225000005903,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 187.22500000590298,
+        "ballInPlaySeconds": 4968.800000005587,
+        "deadBallSeconds": 618.4250000003159,
+        "deadBallByReason": {
+          "period_start": 35.075000000126785,
+          "foul": 292.6499999994271,
+          "offside": 62.72500000000181,
+          "throw_in": 31.70000000009668,
+          "substitution": 93.75000000034106,
+          "goal_kick": 55.575000000151704,
+          "discipline": 11.3250000000412,
+          "goal": 27.800000000101136,
+          "penalty": 7.825000000028467
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 35.075000000126785,
+            "mean": 17.537500000063392,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 34.850000000126784
+          },
+          "foul": {
+            "count": 37,
+            "seconds": 369.1999999997056,
+            "mean": 9.978378378370422,
+            "median": 9.999999999990905,
+            "p90": 12.400000000045111,
+            "maximum": 16.275000000059208
+          },
+          "offside": {
+            "count": 5,
+            "seconds": 62.72500000000181,
+            "mean": 12.545000000000362,
+            "median": 14.125000000051386,
+            "p90": 14.72500000005357,
+            "maximum": 15.17500000000345
+          },
+          "throw_in": {
+            "count": 4,
+            "seconds": 31.70000000009668,
+            "mean": 7.92500000002417,
+            "median": 6.000000000021828,
+            "p90": 6.875000000025011,
+            "maximum": 14.72500000005357
+          },
+          "goal_kick": {
+            "count": 6,
+            "seconds": 55.575000000151704,
+            "mean": 9.262500000025284,
+            "median": 11.3250000000412,
+            "p90": 11.85000000004311,
+            "maximum": 14.150000000051477
+          },
+          "goal": {
+            "count": 2,
+            "seconds": 56.32500000020491,
+            "mean": 28.162500000102455,
+            "median": 27.800000000101136,
+            "p90": 27.800000000101136,
+            "maximum": 28.525000000103773
+          },
+          "penalty": {
+            "count": 1,
+            "seconds": 7.825000000028467,
+            "mean": 7.825000000028467,
+            "median": 7.825000000028467,
+            "p90": 7.825000000028467,
+            "maximum": 7.825000000028467
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 19.936403155669097
+      },
+      "baselineParity": null,
+      "cpuSeconds": 624.75,
+      "wallSeconds": 593.9503189000001
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "mode": "positions",
+      "passes": {
+        "attempted": 1895,
+        "completed": 1188
+      },
+      "shots": 3,
+      "time": {
+        "canonicalElapsedSeconds": 5473.57500000005,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 73.57500000004984,
+        "ballInPlaySeconds": 5050.050000000549,
+        "deadBallSeconds": 423.5249999995011,
+        "deadBallByReason": {
+          "period_start": 33.30000000012033,
+          "foul": 191.0249999998241,
+          "throw_in": 57.799999999774855,
+          "substitution": 67.87500000024693,
+          "offside": 29.77500000010832,
+          "goal_kick": 18.774999999789998,
+          "corner": 24.974999999636566
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 33.30000000012033,
+            "mean": 16.650000000060164,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 33.075000000120326
+          },
+          "foul": {
+            "count": 28,
+            "seconds": 237.82499999999436,
+            "mean": 8.493749999999798,
+            "median": 6.599999999993997,
+            "p90": 13.674999999987563,
+            "maximum": 20.675000000075215
+          },
+          "throw_in": {
+            "count": 7,
+            "seconds": 57.799999999774855,
+            "mean": 8.257142857110694,
+            "median": 6.774999999901411,
+            "p90": 12.024999999825013,
+            "maximum": 14.950000000054388
+          },
+          "goal_kick": {
+            "count": 3,
+            "seconds": 39.84999999986667,
+            "mean": 13.283333333288889,
+            "median": 15.299999999777356,
+            "p90": 15.299999999777356,
+            "maximum": 21.07500000007667
+          },
+          "offside": {
+            "count": 2,
+            "seconds": 29.77500000010832,
+            "mean": 14.88750000005416,
+            "median": 13.775000000050113,
+            "p90": 13.775000000050113,
+            "maximum": 16.000000000058208
+          },
+          "corner": {
+            "count": 2,
+            "seconds": 24.974999999636566,
+            "mean": 12.487499999818283,
+            "median": 9.024999999868669,
+            "p90": 9.024999999868669,
+            "maximum": 15.949999999767897
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 22.514628568031533
+      },
+      "baselineParity": null,
+      "cpuSeconds": 622.703,
+      "wallSeconds": 594.1355039
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "mode": "tempo",
+      "passes": {
+        "attempted": 1935,
+        "completed": 1112
+      },
+      "shots": 4,
+      "time": {
+        "canonicalElapsedSeconds": 5640,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 240,
+        "ballInPlaySeconds": 4925.37500000036,
+        "deadBallSeconds": 714.6249999996396,
+        "deadBallByReason": {
+          "period_start": 33.525000000121146,
+          "foul": 226.99999999924322,
+          "discipline": 35.999999999860165,
+          "goal_kick": 130.8749999998281,
+          "throw_in": 87.85000000012815,
+          "substitution": 88.97500000032369,
+          "penalty": 24.600000000089494,
+          "goal": 59.625000000216914,
+          "corner": 7.300000000026557,
+          "offside": 18.874999999802185
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 33.525000000121146,
+            "mean": 16.762500000060573,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 33.300000000121145
+          },
+          "foul": {
+            "count": 39,
+            "seconds": 317.69999999930235,
+            "mean": 8.146153846135958,
+            "median": 8.100000000029468,
+            "p90": 12.549999999817373,
+            "maximum": 20.27500000007376
+          },
+          "goal_kick": {
+            "count": 9,
+            "seconds": 147.84999999988986,
+            "mean": 16.42777777776554,
+            "median": 16.975000000061755,
+            "p90": 18.65000000006785,
+            "maximum": 28.95000000010532
+          },
+          "throw_in": {
+            "count": 9,
+            "seconds": 105.15000000019108,
+            "mean": 11.683333333354565,
+            "median": 11.824999999989245,
+            "p90": 17.07500000006212,
+            "maximum": 17.300000000062937
+          },
+          "penalty": {
+            "count": 2,
+            "seconds": 24.600000000089494,
+            "mean": 12.300000000044747,
+            "median": 11.250000000040927,
+            "p90": 11.250000000040927,
+            "maximum": 13.350000000048567
+          },
+          "goal": {
+            "count": 2,
+            "seconds": 59.625000000216914,
+            "mean": 29.812500000108457,
+            "median": 29.47500000010723,
+            "p90": 29.47500000010723,
+            "maximum": 30.150000000109685
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 7.300000000026557,
+            "mean": 7.300000000026557,
+            "median": 7.300000000026557,
+            "p90": 7.300000000026557,
+            "maximum": 7.300000000026557
+          },
+          "offside": {
+            "count": 2,
+            "seconds": 18.874999999802185,
+            "mean": 9.437499999901092,
+            "median": 4.2250000000153705,
+            "p90": 4.2250000000153705,
+            "maximum": 14.649999999786814
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 23.57180925310083
+      },
+      "baselineParity": null,
+      "cpuSeconds": 641.047,
+      "wallSeconds": 613.591663
+    },
+    {
+      "design": "sw",
+      "policy": "hierarchical-intent-v1",
+      "mode": "perception",
+      "passes": {
+        "attempted": 1207,
+        "completed": 551
+      },
+      "shots": 17,
+      "time": {
+        "canonicalElapsedSeconds": 5700,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 300,
+        "ballInPlaySeconds": 5086.300000001961,
+        "deadBallSeconds": 613.699999998039,
+        "deadBallByReason": {
+          "period_start": 34.850000000125966,
+          "goal_kick": 67.84999999946098,
+          "foul": 134.34999999899753,
+          "offside": 34.874999999731244,
+          "goal": 149.3749999998978,
+          "corner": 54.99999999951433,
+          "substitution": 122.9250000004472,
+          "throw_in": 14.47499999986394
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 34.850000000125966,
+            "mean": 17.425000000062983,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 34.625000000125965
+          },
+          "goal_kick": {
+            "count": 6,
+            "seconds": 67.84999999946098,
+            "mean": 11.308333333243496,
+            "median": 9.349999999991496,
+            "p90": 18.350000000004172,
+            "maximum": 23.999999999650754
+          },
+          "foul": {
+            "count": 19,
+            "seconds": 155.37499999907402,
+            "mean": 8.177631578898632,
+            "median": 8.800000000032014,
+            "p90": 12.225000000044474,
+            "maximum": 14.899999999783176
+          },
+          "offside": {
+            "count": 3,
+            "seconds": 34.874999999731244,
+            "mean": 11.624999999910415,
+            "median": 9.899999999990996,
+            "p90": 9.899999999990996,
+            "maximum": 19.274999999719512
+          },
+          "goal": {
+            "count": 7,
+            "seconds": 212.0500000001258,
+            "mean": 30.292857142875114,
+            "median": 30.675000000111595,
+            "p90": 31.60000000011496,
+            "maximum": 32.000000000116415
+          },
+          "corner": {
+            "count": 4,
+            "seconds": 77.92499999959773,
+            "mean": 19.481249999899433,
+            "median": 17.300000000062937,
+            "p90": 20.774999999697684,
+            "maximum": 22.9250000000834
+          },
+          "penalty": {
+            "count": 1,
+            "seconds": 16.3000000000593,
+            "mean": 16.3000000000593,
+            "median": 16.3000000000593,
+            "p90": 16.3000000000593,
+            "maximum": 16.3000000000593
+          },
+          "throw_in": {
+            "count": 1,
+            "seconds": 14.47499999986394,
+            "mean": 14.47499999986394,
+            "median": 14.47499999986394,
+            "p90": 14.47499999986394,
+            "maximum": 14.47499999986394
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 14.2382478422374
+      },
+      "baselineParity": null,
+      "cpuSeconds": 633.422,
+      "wallSeconds": 601.1063153
+    },
+    {
+      "design": "sw",
+      "policy": "hierarchical-intent-v1",
+      "mode": "positions",
+      "passes": {
+        "attempted": 1541,
+        "completed": 960
+      },
+      "shots": 13,
+      "time": {
+        "canonicalElapsedSeconds": 5640.500000005878,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 240.50000000587806,
+        "ballInPlaySeconds": 5187.350000006878,
+        "deadBallSeconds": 453.1499999989999,
+        "deadBallByReason": {
+          "period_start": 37.27500000013479,
+          "offside": 28.774999999932028,
+          "foul": 83.12499999986501,
+          "discipline": 40.474999999833926,
+          "throw_in": 48.82500000013022,
+          "substitution": 63.75000000023192,
+          "goal_kick": 58.2749999993066,
+          "corner": 63.57499999998845,
+          "goal": 29.074999999576903
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 37.27500000013479,
+            "mean": 18.637500000067394,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.05000000013479
+          },
+          "offside": {
+            "count": 4,
+            "seconds": 44.94999999999087,
+            "mean": 11.237499999997718,
+            "median": 5.774999999999672,
+            "p90": 16.175000000058844,
+            "maximum": 19.574999999982197
+          },
+          "foul": {
+            "count": 13,
+            "seconds": 113.84999999980444,
+            "mean": 8.757692307677264,
+            "median": 8.475000000030832,
+            "p90": 10.075000000036653,
+            "maximum": 14.75000000005366
+          },
+          "goal": {
+            "count": 2,
+            "seconds": 60.07499999954871,
+            "mean": 30.037499999774354,
+            "median": 29.074999999576903,
+            "p90": 29.074999999576903,
+            "maximum": 30.999999999971806
+          },
+          "throw_in": {
+            "count": 3,
+            "seconds": 48.82500000013022,
+            "mean": 16.275000000043406,
+            "median": 16.22500000001162,
+            "p90": 16.22500000001162,
+            "maximum": 23.625000000085947
+          },
+          "goal_kick": {
+            "count": 6,
+            "seconds": 65.24999999933198,
+            "mean": 10.874999999888663,
+            "median": 6.9749999998985,
+            "p90": 14.34999999979118,
+            "maximum": 28.449999999585998
+          },
+          "corner": {
+            "count": 5,
+            "seconds": 82.92500000005884,
+            "mean": 16.585000000011767,
+            "median": 15.350000000055843,
+            "p90": 19.350000000070395,
+            "maximum": 22.025000000080126
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 17.824129854333602
+      },
+      "baselineParity": null,
+      "cpuSeconds": 660.891,
+      "wallSeconds": 631.6645467
+    },
+    {
+      "design": "sw",
+      "policy": "hierarchical-intent-v1",
+      "mode": "tempo",
+      "passes": {
+        "attempted": 1654,
+        "completed": 971
+      },
+      "shots": 13,
+      "time": {
+        "canonicalElapsedSeconds": 5729.950000000109,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 329.95000000010896,
+        "ballInPlaySeconds": 5113.250000000935,
+        "deadBallSeconds": 616.6999999991745,
+        "deadBallByReason": {
+          "period_start": 35.350000000127785,
+          "throw_in": 160.62499999919416,
+          "goal": 118.22499999925842,
+          "foul": 78.69999999995582,
+          "goal_kick": 36.04999999995516,
+          "offside": 8.325000000030286,
+          "substitution": 128.12500000046612,
+          "corner": 51.30000000018663
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 35.350000000127785,
+            "mean": 17.675000000063893,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 35.125000000127784
+          },
+          "throw_in": {
+            "count": 16,
+            "seconds": 160.62499999919416,
+            "mean": 10.039062499949635,
+            "median": 8.300000000030195,
+            "p90": 16.44999999976062,
+            "maximum": 18.325000000066666
+          },
+          "goal": {
+            "count": 6,
+            "seconds": 179.0499999994797,
+            "mean": 29.84166666657995,
+            "median": 29.49999999957072,
+            "p90": 30.02500000010923,
+            "maximum": 30.875000000112323
+          },
+          "foul": {
+            "count": 15,
+            "seconds": 146.00000000020066,
+            "mean": 9.73333333334671,
+            "median": 7.674999999888314,
+            "p90": 15.875000000057753,
+            "maximum": 21.35000000007767
+          },
+          "goal_kick": {
+            "count": 3,
+            "seconds": 36.04999999995516,
+            "mean": 12.016666666651721,
+            "median": 9.67499999985921,
+            "p90": 9.67499999985921,
+            "maximum": 23.275000000084674
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 8.325000000030286,
+            "mean": 8.325000000030286,
+            "median": 8.325000000030286,
+            "p90": 8.325000000030286,
+            "maximum": 8.325000000030286
+          },
+          "corner": {
+            "count": 2,
+            "seconds": 51.30000000018663,
+            "mean": 25.650000000093314,
+            "median": 21.85000000007949,
+            "p90": 21.85000000007949,
+            "maximum": 29.45000000010714
+          }
+        },
+        "unclassifiedDeadBallSeconds": 1.1368683772161603e-13,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 19.40839974575502
+      },
+      "baselineParity": null,
+      "cpuSeconds": 635.829,
+      "wallSeconds": 608.1320277
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "mode": "perception",
+      "passes": {
+        "attempted": 1274,
+        "completed": 403
+      },
+      "shots": 0,
+      "time": {
+        "canonicalElapsedSeconds": 5580,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 180,
+        "ballInPlaySeconds": 5183.650000000442,
+        "deadBallSeconds": 396.349999999558,
+        "deadBallByReason": {
+          "period_start": 38.42500000013897,
+          "foul": 78.5749999998576,
+          "throw_in": 127.24999999942189,
+          "offside": 15.699999999847478,
+          "substitution": 99.7000000003627,
+          "corner": 25.475000000092678,
+          "goal_kick": 11.224999999836655
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 38.42500000013897,
+            "mean": 19.212500000069486,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 38.20000000013897
+          },
+          "foul": {
+            "count": 13,
+            "seconds": 95.37499999991871,
+            "mean": 7.336538461532209,
+            "median": 6.725000000001529,
+            "p90": 8.449999999992315,
+            "maximum": 16.800000000061118
+          },
+          "throw_in": {
+            "count": 14,
+            "seconds": 150.12499999950512,
+            "mean": 10.723214285678937,
+            "median": 10.249999999999417,
+            "p90": 14.299999999791908,
+            "maximum": 15.47499999977481
+          },
+          "offside": {
+            "count": 2,
+            "seconds": 15.699999999847478,
+            "mean": 7.849999999923739,
+            "median": 4.175000000015189,
+            "p90": 4.175000000015189,
+            "maximum": 11.52499999983229
+          },
+          "goal_kick": {
+            "count": 3,
+            "seconds": 71.25000000005502,
+            "mean": 23.750000000018343,
+            "median": 18.350000000066757,
+            "p90": 18.350000000066757,
+            "maximum": 41.67500000015161
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 25.475000000092678,
+            "mean": 25.475000000092678,
+            "median": 25.475000000092678,
+            "p90": 25.475000000092678,
+            "maximum": 25.475000000092678
+          }
+        },
+        "unclassifiedDeadBallSeconds": 5.684341886080802e-14,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 14.746365977639982
+      },
+      "baselineParity": null,
+      "cpuSeconds": 608.828,
+      "wallSeconds": 584.3362271999999
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "mode": "positions",
+      "passes": {
+        "attempted": 1466,
+        "completed": 713
+      },
+      "shots": 1,
+      "time": {
+        "canonicalElapsedSeconds": 5580,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 180,
+        "ballInPlaySeconds": 4922.52500000121,
+        "deadBallSeconds": 657.4749999987902,
+        "deadBallByReason": {
+          "period_start": 40.12500000014516,
+          "goal_kick": 63.44999999962684,
+          "throw_in": 349.6999999989537,
+          "foul": 67.72499999983995,
+          "offside": 20.049999999801003,
+          "substitution": 92.32500000033588,
+          "corner": 24.100000000087675
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 40.12500000014516,
+            "mean": 20.06250000007258,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 39.900000000145155
+          },
+          "goal_kick": {
+            "count": 5,
+            "seconds": 92.64999999973307,
+            "mean": 18.529999999946615,
+            "median": 18.82500000000428,
+            "p90": 29.20000000010623,
+            "maximum": 29.674999999568172
+          },
+          "throw_in": {
+            "count": 31,
+            "seconds": 384.1749999990791,
+            "mean": 12.392741935454165,
+            "median": 12.700000000002888,
+            "p90": 17.775000000064665,
+            "maximum": 22.724999999669308
+          },
+          "foul": {
+            "count": 7,
+            "seconds": 67.72499999983995,
+            "mean": 9.674999999977135,
+            "median": 8.97500000003265,
+            "p90": 12.074999999989018,
+            "maximum": 12.825000000046657
+          },
+          "offside": {
+            "count": 4,
+            "seconds": 48.69999999990523,
+            "mean": 12.174999999976308,
+            "median": 8.95000000003256,
+            "p90": 13.249999999807187,
+            "maximum": 19.700000000071668
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 24.100000000087675,
+            "mean": 24.100000000087675,
+            "median": 24.100000000087675,
+            "p90": 24.100000000087675,
+            "maximum": 24.100000000087675
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 17.86887826877027
+      },
+      "baselineParity": null,
+      "cpuSeconds": 599.859,
+      "wallSeconds": 573.4321351
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "mode": "tempo",
+      "passes": {
+        "attempted": 1501,
+        "completed": 632
+      },
+      "shots": 2,
+      "time": {
+        "canonicalElapsedSeconds": 5521.224999984121,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 121.22499998412059,
+        "ballInPlaySeconds": 4851.724999984655,
+        "deadBallSeconds": 669.4999999994648,
+        "deadBallByReason": {
+          "period_start": 37.950000000137244,
+          "goal_kick": 67.12499999996373,
+          "throw_in": 321.04999999961717,
+          "foul": 92.14999999998497,
+          "substitution": 67.35000000024502,
+          "offside": 13.025000000047385,
+          "corner": 27.500000000100044,
+          "penalty": 11.824999999827924,
+          "goal": 31.52499999954125
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 37.950000000137244,
+            "mean": 18.975000000068622,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.72500000013724
+          },
+          "goal_kick": {
+            "count": 6,
+            "seconds": 67.12499999996373,
+            "mean": 11.187499999993955,
+            "median": 11.6000000000422,
+            "p90": 12.90000000004693,
+            "maximum": 15.200000000003456
+          },
+          "throw_in": {
+            "count": 32,
+            "seconds": 388.3999999998622,
+            "mean": 12.137499999995693,
+            "median": 12.050000000043838,
+            "p90": 15.749999999770807,
+            "maximum": 24.075000000087584
+          },
+          "foul": {
+            "count": 10,
+            "seconds": 92.14999999998497,
+            "mean": 9.214999999998497,
+            "median": 8.125000000029559,
+            "p90": 12.10000000004402,
+            "maximum": 18.15000000006603
+          },
+          "offside": {
+            "count": 2,
+            "seconds": 13.025000000047385,
+            "mean": 6.512500000023692,
+            "median": 5.475000000019918,
+            "p90": 5.475000000019918,
+            "maximum": 7.550000000027467
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 27.500000000100044,
+            "mean": 27.500000000100044,
+            "median": 27.500000000100044,
+            "p90": 27.500000000100044,
+            "maximum": 27.500000000100044
+          },
+          "penalty": {
+            "count": 1,
+            "seconds": 11.824999999827924,
+            "mean": 11.824999999827924,
+            "median": 11.824999999827924,
+            "p90": 11.824999999827924,
+            "maximum": 11.824999999827924
+          },
+          "goal": {
+            "count": 1,
+            "seconds": 31.52499999954125,
+            "mean": 31.52499999954125,
+            "median": 31.52499999954125,
+            "p90": 31.52499999954125,
+            "maximum": 31.52499999954125
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 18.562470049371065
+      },
+      "baselineParity": null,
+      "cpuSeconds": 575.344,
+      "wallSeconds": 551.2067485000001
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "mode": "baseline",
+      "passes": {
+        "attempted": 408,
+        "completed": 240
+      },
+      "shots": 22,
+      "time": {
+        "canonicalElapsedSeconds": 5641.1249999821575,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 241.12499998215753,
+        "ballInPlaySeconds": 4872.099999983075,
+        "deadBallSeconds": 769.0249999990825,
+        "deadBallByReason": {
+          "period_start": 38.10000000013779,
+          "goal": 91.79999999954306,
+          "throw_in": 123.15000000011315,
+          "goal_kick": 239.14999999865879,
+          "corner": 152.42500000028087,
+          "foul": 12.874999999943157,
+          "substitution": 111.52500000040573
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 38.10000000013779,
+            "mean": 19.050000000068895,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.87500000013779
+          },
+          "goal": {
+            "count": 3,
+            "seconds": 91.79999999954306,
+            "mean": 30.599999999847686,
+            "median": 29.3499999995729,
+            "p90": 29.3499999995729,
+            "maximum": 33.4249999999696
+          },
+          "throw_in": {
+            "count": 12,
+            "seconds": 123.15000000011315,
+            "mean": 10.26250000000943,
+            "median": 9.574999999991292,
+            "p90": 13.374999999987836,
+            "maximum": 16.97499999998456
+          },
+          "goal_kick": {
+            "count": 22,
+            "seconds": 257.4749999987255,
+            "mean": 11.703409090851158,
+            "median": 12.849999999813008,
+            "p90": 19.049999999722786,
+            "maximum": 21.824999999682404
+          },
+          "corner": {
+            "count": 11,
+            "seconds": 217.47500000051753,
+            "mean": 19.770454545501593,
+            "median": 15.875000000057753,
+            "p90": 31.925000000116142,
+            "maximum": 35.25000000012824
+          },
+          "foul": {
+            "count": 2,
+            "seconds": 12.874999999943157,
+            "mean": 6.437499999971578,
+            "median": 5.699999999917054,
+            "p90": 5.699999999917054,
+            "maximum": 7.1750000000261025
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 28.15000000010241,
+            "mean": 28.15000000010241,
+            "median": 28.15000000010241,
+            "p90": 28.15000000010241,
+            "maximum": 28.15000000010241
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 5.024527411195386
+      },
+      "baselineParity": true,
+      "cpuSeconds": 437.734,
+      "wallSeconds": 412.805665
+    }
+  ],
+  "observerTwins": [
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "sameState": true,
+      "cpuSeconds": [
+        586.5,
+        545.251
+      ],
+      "wallSeconds": [
+        553.9733409999999,
+        522.8776229
+      ]
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "sameState": true,
+      "cpuSeconds": [
+        845.031,
+        677.5
+      ],
+      "wallSeconds": [
+        815.0178484,
+        660.729659
+      ]
+    }
+  ],
+  "lab": {
+    "conditions": 73,
+    "actualReceiverContacts": 73,
+    "preparedBeforeContact": 73,
+    "mutatingObserverChecks": 4
+  },
+  "profile": [
+    {
+      "mode": "baseline",
+      "offMedianCpuMs": 438,
+      "onMedianCpuMs": 531
+    },
+    {
+      "mode": "perception",
+      "offMedianCpuMs": 438,
+      "onMedianCpuMs": 437
+    },
+    {
+      "mode": "positions",
+      "offMedianCpuMs": 595,
+      "onMedianCpuMs": 547
+    },
+    {
+      "mode": "tempo",
+      "offMedianCpuMs": 453,
+      "onMedianCpuMs": 453
+    },
+    {
+      "mode": "combined",
+      "offMedianCpuMs": 516,
+      "onMedianCpuMs": 609
+    }
+  ],
+  "limits": [
+    "Incoming contact counter includes loose-ball claims; not pure pass receptions.",
+    "Matched releases do not establish causal candidate reuse, particularly for B/R3.",
+    "Immediate accepted carry intention is not a fresh decision latency or another contact.",
+    "No independent validation,complete ablation,global policy superiority or universal checkpoint speed factor."
+  ]
+}

@@ -1,4 +1,5 @@
 import { attacksRight } from './matchSpace';
+import { tempoEffort } from './tempoEffort';
 import { usesStateValue } from './decisionPolicyConfig';
 import { z } from 'zod';
 import { distance, signedForwardDistance } from './matchSpace';
@@ -98,11 +99,10 @@ export const projectLocomotion = (
           ? capability.runSpeed
           : sprint;
   };
-  const result = (intensity: LocomotionIntensity, reason: LocomotionReason) => ({
-    intensity,
-    reason,
-    targetSpeed: speedFor(intensity),
-  });
+  const result = (intensity: LocomotionIntensity, reason: LocomotionReason) => {
+    const effort = tempoEffort(state, player, intensity, reason);
+    return { intensity: effort, reason, targetSpeed: speedFor(effort) };
+  };
   if (state.restart && state.restart.phase !== 'release')
     return result(metres > 12 ? 'run' : metres > 3 ? 'jog' : 'walk', 'restart_setup');
   if (state.postGoal)

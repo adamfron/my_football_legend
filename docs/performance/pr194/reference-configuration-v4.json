@@ -1,0 +1,31 @@
+{
+  "schema": "mfl-pr194-reference-configuration-v1",
+  "capturedAt": "2026-10-26T16:25:31.455Z",
+  "host": {
+    "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+    "logicalCpus": 16,
+    "totalMemoryBytes": 33601875968,
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200",
+    "node": "v24.22.1"
+  },
+  "matrixWorkers": 6,
+  "explicitWorkerNodeFlags": [
+    "--max-semi-space-size=64",
+    "--experimental-transform-types",
+    "--import",
+    "./scripts/registerTypescriptLoader.mjs"
+  ],
+  "canonicalDt": 0.025,
+  "stoppingGuardSeconds": 7200,
+  "nonIsolatedHost": true,
+  "concurrentWork": "local verification and browser inspection",
+  "observerMode": {
+    "normal": "bounded traces,flow telemetry,natural-flow observer,sampled profiler",
+    "bare": "external observers disabled; canonical statistics and one checkpoint capture retained"
+  },
+  "memoryMeasurement": "process peak resident memory,maxRSS in KiB,includes observer allocations",
+  "timingLimit": "Absolute full-match timings and shared-checkpoint probes; no universal extrapolated slowdown or isolated-host claim",
+  "kernelHash": "7bedfbe933f3465079225b8e5b881e6ec40f321213fe6c80cb369bdd7084d617"
+}

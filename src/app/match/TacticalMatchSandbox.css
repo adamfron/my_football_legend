@@ -191,6 +191,25 @@
 .presentation-diagnostics p {
   margin: 0.45rem 0;
 }
+.perception-lab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+  margin: 10px 0;
+}
+.perception-lab-controls > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: auto;
+  margin: 0;
+}
+.perception-lab-controls select,
+.perception-lab-controls input[type='checkbox'] {
+  width: auto;
+  margin: 0;
+}
 .pitch-stage [role='alert'] {
   position: absolute;
   inset: 30% 15%;
