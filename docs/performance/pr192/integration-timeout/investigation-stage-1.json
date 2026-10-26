@@ -1,0 +1,235 @@
+{
+  "schema": "mfl-pr192-timeout-investigation-v1",
+  "oldHead": "336d100fb9cce7bff50d32dc45e818bba48113a6",
+  "runtimeSourceHash": "ff47683eb5389bc29f159fe54c1fa29a497fad93f9a919bb4215407efc3419ff",
+  "artifacts": [
+    {
+      "path": "docs/performance/pr192/integration-timeout/ci-attempt-1.json",
+      "bytes": 62659,
+      "sha256": "9b07d42f15976e4fef622c45e632146d68ff03269eaa9b2ca8945cc7d8a02f3c",
+      "rawSha256": "9b07d42f15976e4fef622c45e632146d68ff03269eaa9b2ca8945cc7d8a02f3c"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/ci-attempt-2.json",
+      "bytes": 62155,
+      "sha256": "069622f3b8fecce6a8a04e813054cc375e45a391241d0d4192d5ae4f5b005baf",
+      "rawSha256": "069622f3b8fecce6a8a04e813054cc375e45a391241d0d4192d5ae4f5b005baf"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/prior-local-abba.json",
+      "bytes": 2585,
+      "sha256": "2d675bb6cc7c6f3e7b5e3fe7edbcd10b963ecc34be5122ebabba095ab5057483",
+      "rawSha256": "2d675bb6cc7c6f3e7b5e3fe7edbcd10b963ecc34be5122ebabba095ab5057483"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-windows-loader.json",
+      "bytes": 6245,
+      "sha256": "3405070dba7da575c8f67ad98cc3c7b90f6edb4c69e3f3d33890817c8a1e4d4a",
+      "rawSha256": "3405070dba7da575c8f67ad98cc3c7b90f6edb4c69e3f3d33890817c8a1e4d4a"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-bundling.json",
+      "bytes": 2260,
+      "sha256": "75b25c195227368fc2160f67245f26ba79a1303933ce3258b361dd747e33573d",
+      "rawSha256": "75b25c195227368fc2160f67245f26ba79a1303933ce3258b361dd747e33573d"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-entry-scheduling.json",
+      "bytes": 1218,
+      "sha256": "3fba74db86fbee1987105dc8bf76632d3364749a602af0c557cea86e2557de3b",
+      "rawSha256": "3fba74db86fbee1987105dc8bf76632d3364749a602af0c557cea86e2557de3b"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/native-profile-receipt.json",
+      "bytes": 365,
+      "sha256": "b6af4e8b9c14eb8da4f2737f827c3a951ec70faa050a8f4f76bdba2011afc379",
+      "rawSha256": "b6af4e8b9c14eb8da4f2737f827c3a951ec70faa050a8f4f76bdba2011afc379"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/native-cpu-profile.json.gz",
+      "bytes": 316490,
+      "sha256": "9b87ba65d4cf997e8c002eb943080235da578651a82e2890ffc46307ad0cd816",
+      "rawSha256": "793cf2db121853f597e0a28bfe5088eb1ec0ca01020306b4715e1781264c3cb3"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-tools/createPr192PenaltyInput.mjs.txt.gz",
+      "bytes": 594,
+      "sha256": "319885770d18c0fb74e50aaf54fb09b219f7386c540ad05e361ac219bddca4b1",
+      "rawSha256": "7d8d9b5939b70edf5fd5f0f85918b54f81f45424a0b842fbe4264c8edd87aab0"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-tools/buildPr192NativeProbe.mjs.txt.gz",
+      "bytes": 313,
+      "sha256": "5b292554f11217ad8e9b46196d4893bbbdf08b5064b4ca08f67a3346d00fd139",
+      "rawSha256": "f9e2823a53cb4ff207cf512e5903292cbda4ef3fdb51a2a4e704b8126b7b6971"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-tools/profilePr192Penalty.mjs.txt.gz",
+      "bytes": 639,
+      "sha256": "e55a3ca558eadd4a119638ba403abf00f11573c0d9ef7174c290a2769c0e49a4",
+      "rawSha256": "99bc1f49f5e69d6e885bf18805d0f09fb72a381138814a8d76d452f6fa562be7"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-tools/comparePr192NativeBundle.mjs.txt.gz",
+      "bytes": 1040,
+      "sha256": "8207251993c28925971523dae75dc0c448bd12dcd3b4bcfcab543333b652c7ae",
+      "rawSha256": "b526cad9832b23d3c00296951a0de70b4bda588b82cce1b302f5b6b57d1f0b14"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-tools/deferPr192Penalty.mjs.txt.gz",
+      "bytes": 181,
+      "sha256": "5beaf01d3a7ed5448ad2671f44aeb6da54dc7c530cd70f9dd289ab8224492b82",
+      "rawSha256": "f7d4aeb4bd3f542fe876f3d122d1168b67ac22dd9dabc1377354c188e21dcba1"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-tools/dynamicPr192Penalty.mjs.txt.gz",
+      "bytes": 186,
+      "sha256": "469d5a6bff0e2b47ffe4068d343a12c5c3610d2c46ad488c7a0854a7c03437c6",
+      "rawSha256": "ade50938f94beec515ad3a8d45e2fa0af0f54cab38aae7bce3042b2ba85f11ee"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-tools/comparePr192EntryScheduling.mjs.txt.gz",
+      "bytes": 767,
+      "sha256": "a66dd1a744224f281f2f88eac90ffdbe5faa47b41faecbcf4aaa890f7b5f0913",
+      "rawSha256": "c308dca9a2550ba9a8f000877ef75360323055b6ad6db32b7d391db23fe93b80"
+    },
+    {
+      "path": "docs/performance/pr192/integration-timeout/rejected-tools/runMeasuredPr192Penalty.mjs.txt.gz",
+      "bytes": 324,
+      "sha256": "8ede8447d1965fe0c98478cfaf8a03257e4957a6de3103300fc659ccbed7fdf1",
+      "rawSha256": "0aad0a0f16c81d506df7490bef48aba3528818af20513b797b106f5d8e5ec99a"
+    }
+  ],
+  "profileTopSelf": [
+    {
+      "name": "estimatePlayerArrivalTime file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/playerArrival.ts:19",
+      "microseconds": 10697065,
+      "percent": 13.491448993249145
+    },
+    {
+      "name": "anonymous file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/matchSimulation.ts:1389",
+      "microseconds": 8431186,
+      "percent": 10.633656603152014
+    },
+    {
+      "name": "integrateBallFlight file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/ballPhysics.ts:139",
+      "microseconds": 3610592,
+      "percent": 4.553783472703346
+    },
+    {
+      "name": "stepTacticalMatchCore file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/matchSimulation.ts:1131",
+      "microseconds": 2851556,
+      "percent": 3.596465229050544
+    },
+    {
+      "name": "observePlayerMatchStats file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/playerMatchStats.ts:217",
+      "microseconds": 2796294,
+      "percent": 3.526767189984227
+    },
+    {
+      "name": "withoutPreviousSprintEpisode file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/matchSimulation.ts:1119",
+      "microseconds": 2357136,
+      "percent": 2.9728883683656515
+    },
+    {
+      "name": "anonymous :1",
+      "microseconds": 2153567,
+      "percent": 2.7161412344455775
+    },
+    {
+      "name": "stepCanonicalMatch file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/matchSimulation.ts:2503",
+      "microseconds": 2030157,
+      "percent": 2.5604929589366527
+    },
+    {
+      "name": "integrateCanonicalMovement file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/canonicalMovement.ts:18",
+      "microseconds": 1994108,
+      "percent": 2.51502691336643
+    },
+    {
+      "name": "distance file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/matchSpace.ts:46",
+      "microseconds": 1920684,
+      "percent": 2.4224224325223545
+    },
+    {
+      "name": "derivePressingOpportunity file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/tacticalPreferences.ts:128",
+      "microseconds": 1830883,
+      "percent": 2.3091628037323297
+    },
+    {
+      "name": "inst._zod.run file:///C:/Users/Admin/Documents/Codex/2026-10-23/cze-przejrzyj-prosz-kolejny-prompt-zaplanuj/work/mfl/node_modules/zod/v4/core/schemas.js:92",
+      "microseconds": 1746721,
+      "percent": 2.203015245484359
+    },
+    {
+      "name": "anonymous file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/tacticalPositioning.ts:591",
+      "microseconds": 1545297,
+      "percent": 1.9489734478495666
+    },
+    {
+      "name": "anonymous file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/tacticalPreferences.ts:153",
+      "microseconds": 1519600,
+      "percent": 1.9165636452747927
+    },
+    {
+      "name": "(garbage collector) :0",
+      "microseconds": 1424642,
+      "percent": 1.7967998583387546
+    },
+    {
+      "name": "advanceMatchFitness file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/matchFitness.ts:75",
+      "microseconds": 1375416,
+      "percent": 1.7347145977423495
+    },
+    {
+      "name": "runChecks file:///C:/Users/Admin/Documents/Codex/2026-10-23/cze-przejrzyj-prosz-kolejny-prompt-zaplanuj/work/mfl/node_modules/zod/v4/core/schemas.js:33",
+      "microseconds": 1331249,
+      "percent": 1.6790098948462902
+    },
+    {
+      "name": "anonymous file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/matchSimulation.ts:1550",
+      "microseconds": 1034141,
+      "percent": 1.3042886579942876
+    },
+    {
+      "name": "projectFutureBallTrajectory file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/ballPhysics.ts:234",
+      "microseconds": 1019884,
+      "percent": 1.286307315607684
+    },
+    {
+      "name": "preparePeriodEnd file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/matchTimekeeping.ts:52",
+      "microseconds": 919569,
+      "percent": 1.1597871247181468
+    },
+    {
+      "name": "projectLocomotion file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/locomotion.ts:45",
+      "microseconds": 874501,
+      "percent": 1.1029460544593654
+    },
+    {
+      "name": "advanceControlledBall file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/ballContactGeometry.ts:277",
+      "microseconds": 679393,
+      "percent": 0.8568701794249654
+    },
+    {
+      "name": "deriveMovementCapability file:///C:/Users/Admin/Documents/Codex/2026-10-25/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj-2/work/mfl/src/core/matchSimulation/locomotion.ts:25",
+      "microseconds": 651281,
+      "percent": 0.8214145087248041
+    },
+    {
+      "name": "anonymous file:///C:/Users/Admin/Documents/Codex/2026-10-23/cze-przejrzyj-prosz-kolejny-prompt-zaplanuj/work/mfl/node_modules/zod/v4/core/schemas.js:966",
+      "microseconds": 590577,
+      "percent": 0.7448528612368066
+    }
+  ],
+  "findings": [
+    "Both original CI attempts hit the unchanged legacy 89.5 s child timeout; 55/56 integration tests pass.",
+    "Local bundling preserves exact full states but does not improve throughput; not selected as a correction.",
+    "Deferred entry and dynamic import do not improve throughput; not selected as a correction.",
+    "The previous local ABBA wrapper is not the exact CI entry, so it cannot establish CI throughput.",
+    "CPU-profile timing includes profiler overhead; it is not an uninstrumented performance acceptance result.",
+    "Matched Linux-host baseline/current diagnostic is required before assigning the remaining cause."
+  ],
+  "confirmation": "sealed",
+  "canonicalReady": false
+}

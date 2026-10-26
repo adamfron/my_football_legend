@@ -61,6 +61,18 @@ export type RendererPresentationOptions = {
 export class TacticalPitchRenderer {
   private readonly renderer: THREE.WebGLRenderer;
   private readonly scene = new THREE.Scene();
+  private readonly laboratoryGeometry = new THREE.BufferGeometry();
+  private readonly laboratoryPositions = new Float32Array(8 * 512 * 6);
+  private readonly laboratoryColors = new Float32Array(8 * 512 * 6);
+  private readonly laboratoryLines = new THREE.LineSegments(
+    this.laboratoryGeometry,
+    new THREE.LineBasicMaterial({
+      vertexColors: true,
+      depthTest: false,
+      transparent: true,
+      opacity: 0.9,
+    }),
+  );
   private readonly tacticalCamera = new THREE.OrthographicCamera();
   private readonly shotCamera = new THREE.PerspectiveCamera(52, 1, 0.1, 180);
   private camera: THREE.Camera = this.tacticalCamera;
@@ -160,6 +172,17 @@ export class TacticalPitchRenderer {
     this.motionGeometry.setDrawRange(0, 0);
     this.motionLines.frustumCulled = false;
     this.scene.add(this.motionLines);
+    this.scene.add(this.laboratoryLines);
+    this.laboratoryGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(this.laboratoryPositions, 3),
+    );
+    this.laboratoryGeometry.setAttribute(
+      'color',
+      new THREE.BufferAttribute(this.laboratoryColors, 3),
+    );
+    this.laboratoryGeometry.setDrawRange(0, 0);
+    this.laboratoryLines.frustumCulled = false;
     this.diagnosticGeometry.setAttribute(
       'position',
       new THREE.BufferAttribute(this.diagnosticPositions, 3),
@@ -725,6 +748,23 @@ export class TacticalPitchRenderer {
       }
     }
     this.renderMotionVectors(frame);
+    let laboratoryCount = 0;
+    for (const line of frame.laboratoryLines ?? []) {
+      const color = new THREE.Color(line.color);
+      for (let i = 1; i < line.points.length; i++)
+        for (const point of [line.points[i - 1]!, line.points[i]!]) {
+          const world = tacticalToWorld(point, Math.max(0.13, point.z ?? 0.13));
+          this.laboratoryPositions.set([world.x, world.y, world.z], laboratoryCount);
+          this.laboratoryColors.set([color.r, color.g, color.b], laboratoryCount);
+          laboratoryCount += 3;
+        }
+    }
+    if (laboratoryCount) {
+      this.laboratoryGeometry.attributes.position!.needsUpdate = true;
+      this.laboratoryGeometry.attributes.color!.needsUpdate = true;
+    }
+    this.laboratoryGeometry.setDrawRange(0, laboratoryCount / 3);
+    this.laboratoryLines.visible = laboratoryCount > 0;
     this.renderDiagnostics(frame, debug);
     this.stadium.setCameraCutaway(this.camera.position.x, this.camera.position.z);
     this.renderer.render(this.scene, this.camera);

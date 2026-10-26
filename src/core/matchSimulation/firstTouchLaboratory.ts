@@ -1,4 +1,10 @@
 import { z } from 'zod';
+import {
+  ballMovementPlanSchema,
+  observeBallMotorState,
+  planBallOrientedMovement,
+  type BallMovementPlan,
+} from './ballOrientedMovement';
 import { footballerProfileSchema } from '../../schemas/domainSchemas';
 import type { FootballerProfile } from '../../types/domain';
 import type { MatchPlayerState } from './matchState';
@@ -59,6 +65,12 @@ export const firstTouchLabConfigSchema = z
     defenderPosition: physicalPointSchema.default({ x: 23, y: 35.2 }),
     defenderReaction: z.number().nonnegative().default(0.25),
     maximumSeconds: z.number().positive().max(20).default(6),
+    movementModel: z.enum(['ball_oriented', 'pr191']).default('ball_oriented'),
+    defenderRating: z.number().min(1).max(100).optional(),
+    defenderVelocity: physicalPointSchema.default({ x: 0, y: 0 }),
+    secondDefenderPosition: physicalPointSchema.optional(),
+    leaveForTeammate: z.boolean().default(false),
+    teammatePosition: physicalPointSchema.optional(),
   })
   .superRefine((c, ctx) => {
     if (c.mode === 'manual' && !c.manualSurface)
@@ -77,6 +89,9 @@ export const firstTouchLabSampleSchema = z.object({
   capacity: z.number(),
   owner: z.string().nullable(),
   defender: physicalPointSchema.nullable(),
+  movement: ballMovementPlanSchema.optional(),
+  secondDefender: physicalPointSchema.optional(),
+  teammate: physicalPointSchema.optional(),
 });
 export const firstTouchLabResultSchema = z.object({
   schema: z.literal('mfl-first-touch-lab-v1'),
@@ -114,6 +129,20 @@ export const firstTouchLabResultSchema = z.object({
     apex: z.number(),
     bounces: z.number(),
     fatigueSpent: z.number(),
+    angles: z.object({
+      convention: z.literal(
+        'radians; +x=0; positive toward +y; target fixed relative to initial player',
+      ),
+      incomingBall: z.number().nullable(),
+      outgoingBall: z.number().nullable(),
+      redirection: z.number().nullable(),
+      playerApproach: z.number().nullable(),
+      desiredPlayer: z.number().nullable(),
+      actualPlayerTurn: z.number().nullable(),
+      intendedTarget: z.number().nullable(),
+      firstDirectionError: z.number().nullable(),
+      subsequentBall: z.number().nullable(),
+    }),
   }),
   status: z.enum(['completed', 'failed', 'incomplete']),
   reason: z.string(),
@@ -215,23 +244,41 @@ export const runFirstTouchLab = (
     ...structuredClone(actor),
     id: actor.id + ':receiver',
     profile: { ...player, id: player.id + ':receiver' },
-    position: { ...c.target },
+    position: { ...(c.teammatePosition ?? c.target) },
     target: { ...c.target },
     velocity: { x: 0, y: 0 },
   };
   const defender = {
     ...structuredClone(actor),
     id: actor.id + ':defender',
-    profile: { ...player, id: player.id + ':defender' },
+    profile: {
+      ...player,
+      id: player.id + ':defender',
+      attributes:
+        c.defenderRating === undefined
+          ? { ...player.attributes }
+          : (Object.fromEntries(
+              Object.keys(player.attributes).map((k) => [k, c.defenderRating]),
+            ) as typeof player.attributes),
+    },
     team: 'away' as const,
     position: { ...c.defenderPosition },
     target: { ...c.defenderPosition },
-    velocity: { x: 0, y: 0 },
+    velocity: { ...c.defenderVelocity },
   };
   state.players = [
     actor,
-    ...(c.objective === 'pass' ? [teammate] : []),
+    ...(c.objective === 'pass' || c.leaveForTeammate || c.teammatePosition ? [teammate] : []),
     ...(c.defender === 'none' ? [] : [defender]),
+    ...(c.secondDefenderPosition
+      ? [
+          {
+            ...structuredClone(defender),
+            id: defender.id + ':second',
+            position: { ...c.secondDefenderPosition },
+          },
+        ]
+      : []),
   ];
   const rng = RandomGenerator.fromSeed(seed + ':launcher'),
     spread = () => c.launcher.dispersion * (rng.float() * 2 - 1);
@@ -261,10 +308,49 @@ export const runFirstTouchLab = (
     apex = ball.position.z;
   let lastChoice = '';
   let firstRequestedVelocity: SurfaceRequest['desiredVelocity'] | null = null;
+  let firstApproach: number | null = null;
+  let movement: BallMovementPlan | undefined;
+  const observations = new Map<string, MatchPlayerState['ballMotorObservation']>();
+  let firstObservationAt = Infinity;
+  const recordSample = () => {
+    const sample = {
+      at: state.time,
+      ball: { ...ball.position },
+      velocity: { ...ball.velocity },
+      spin: { ...(ball.spin ?? zero()) },
+      player: { ...actor.position },
+      playerVelocity: { ...actor.velocity },
+      facing: actor.facingAngle,
+      balance: actor.plantBalance?.balance ?? 1,
+      capacity: actor.fitness?.longTermCapacity ?? 1,
+      owner: state.ball.ownerId ?? null,
+      defender: state.players.find((p) => p.team === 'away')?.position ?? null,
+      ...(movement ? { movement } : {}),
+      ...(c.secondDefenderPosition
+        ? { secondDefender: state.players.find((p) => p.id === defender.id + ':second')!.position }
+        : {}),
+      ...(state.players.some((p) => p.id === teammate.id)
+        ? { teammate: state.players.find((p) => p.id === teammate.id)!.position }
+        : {}),
+    };
+    samples.push(structuredClone(sample));
+    observer?.(structuredClone(sample));
+  };
   for (let tick = 0; tick < Math.ceil(c.maximumSeconds / DT); tick++) {
     state.time = tick * DT;
     if (state.time + 1e-9 < c.launcher.releaseAt) continue;
     released = true;
+    state.ball = {
+      x: ball.position.x,
+      y: ball.position.y,
+      height: ball.position.z,
+      velocity: ball.velocity,
+      spin: ball.spin ?? zero(),
+      lastTouchPlayerId: contacts.at(-1)?.playerId ?? 'lab-launcher',
+      airborne: ball.airborne,
+      bounceCount: ball.bounceCount,
+      travelKind: 'pass',
+    };
     const before = state.players;
     const actorCount = contacts.filter((v) => v.playerId === actor.id).length;
     const seenAt =
@@ -283,7 +369,7 @@ export const runFirstTouchLab = (
         : isDefender
           ? c.defender === 'active' && state.time >= c.launcher.releaseAt + c.defenderReaction
           : true;
-      const target =
+      let target =
         isActor && c.family === 'juggling'
           ? {
               x: ball.position.x - Math.sin(c.facingAngle) * 0.55,
@@ -292,11 +378,41 @@ export const runFirstTouchLab = (
           : isActor && actorCount > 0 && c.family === 'directional'
             ? c.target
             : { x: ball.position.x, y: ball.position.y };
+      let pace = deriveMovementCapability(p).maximumSprintSpeed;
+      if (
+        c.movementModel === 'ball_oriented' &&
+        isActor &&
+        c.family !== 'juggling' &&
+        (actorCount > 0 || c.leaveForTeammate)
+      ) {
+        const objective = c.leaveForTeammate
+          ? 'leave_for_teammate'
+          : c.objective === 'pass' || c.objective === 'shot'
+            ? 'release'
+            : 'retain';
+        if (state.time >= firstObservationAt || c.leaveForTeammate) {
+          const seen = observeBallMotorState(state, {
+            ...p,
+            ballMotorObservation: observations.get(p.id),
+          });
+          observations.set(p.id, seen);
+        }
+        movement = planBallOrientedMovement(
+          p,
+          observations.get(p.id),
+          state.time,
+          c.target,
+          objective,
+          ready.get(p.id) ?? 0,
+        );
+        target = movement.movementTarget;
+        pace = movement.targetSpeed;
+      }
       return active
         ? move(
             p,
             target,
-            deriveMovementCapability(p).maximumSprintSpeed,
+            pace,
             before,
             0,
             isActor && c.family === 'juggling' ? c.facingAngle : undefined,
@@ -315,10 +431,13 @@ export const runFirstTouchLab = (
             ? c.sequence[Math.min(actorCount, c.sequence.length - 1)]!
             : c.surface;
     if (c.family === 'reception' && actorCount > 0 && ball.position.z <= 0.65) surface = 'cushion';
+    const recovering =
+      c.movementModel === 'ball_oriented' && c.family === 'directional' && actorCount > 0;
+    if (recovering) surface = selectObservedSurface(actor, ball, 'settle');
     const foot =
       c.alternateFeet && actorCount % 2 ? (c.foot === 'right' ? 'left' : 'right') : c.foot;
     const desired =
-      c.objective === 'settle'
+      c.objective === 'settle' || recovering
         ? { ...actor.velocity, z: 0 }
         : c.objective === 'juggle'
           ? { ...actor.velocity, z: c.desiredLift || 3 }
@@ -328,7 +447,7 @@ export const runFirstTouchLab = (
               z: c.desiredLift,
             };
     const request = surfaceRequestSchema.parse({
-      objective: c.objective,
+      objective: recovering ? 'settle' : c.objective,
       intendedSurface: surface,
       foot,
       desiredVelocity: desired,
@@ -348,7 +467,8 @@ export const runFirstTouchLab = (
       const own = p.id === actor.id;
       const active = !(
         own &&
-        (!aware ||
+        (c.leaveForTeammate ||
+          !aware ||
           (c.family === 'one_touch' && actorCount > 0) ||
           (c.family === 'juggling' && ball.velocity.z >= 0))
       );
@@ -357,7 +477,7 @@ export const runFirstTouchLab = (
         : surfaceRequestSchema.parse({
             objective: p.team === 'away' ? 'deflect' : 'settle',
             intendedSurface: selectObservedSurface(p, ball, 'settle'),
-            foot: 'right',
+            foot: p.profile.dominantFoot,
             desiredVelocity: { ...p.velocity, z: 0 },
             preparationSeconds: Math.max(0, state.time - c.launcher.releaseAt),
             readyAt: ready.get(p.id) ?? 0,
@@ -388,8 +508,12 @@ export const runFirstTouchLab = (
     const step = advanceSurfaceBall(state, ball, DT, candidates, c.objective === 'shot');
     ball = { ...step.ball, spin: step.ball.spin ?? zero() };
     for (const contact of step.contacts) {
-      if (contact.playerId === actor.id && firstRequestedVelocity === null)
+      if (contact.playerId === actor.id && firstRequestedVelocity === null) {
         firstRequestedVelocity = { ...request.desiredVelocity };
+        const v = before[0]!.velocity;
+        firstApproach = Math.hypot(v.x, v.y) > 0.05 ? Math.atan2(v.y, v.x) : null;
+        firstObservationAt = contact.at + 0.08 + (100 - player.attributes.gameReading) * 0.0014;
+      }
       contacts.push(contact);
       locked.add(contact.playerId);
       ready.set(contact.playerId, contact.at + Math.max(0.12, contact.recoverySeconds));
@@ -461,6 +585,22 @@ export const runFirstTouchLab = (
               : controlledBy === teammate.id
                 ? 'receiver_controlled'
                 : 'defender_controlled';
+          state.ball = controlled.ball;
+          state.players = controlled.players;
+          actor = state.players[0]!;
+          ball = {
+            position: { x: state.ball.x, y: state.ball.y, z: state.ball.height ?? 0.11 },
+            velocity: {
+              x: state.ball.velocity?.x ?? 0,
+              y: state.ball.velocity?.y ?? 0,
+              z: state.ball.velocity?.z ?? 0,
+            },
+            spin: state.ball.spin ?? zero(),
+            airborne: state.ball.airborne ?? false,
+            bounceCount: state.ball.bounceCount ?? 0,
+          };
+          repositioning += distance(before[0]!.position, actor.position);
+          recordSample();
           break;
         }
       }
@@ -475,23 +615,7 @@ export const runFirstTouchLab = (
     }
     apex = Math.max(apex, ball.position.z);
     repositioning += distance(before[0]!.position, actor.position);
-    if (tick % 4 === 0 || step.contacts.length) {
-      const sample = {
-        at: state.time,
-        ball: { ...ball.position },
-        velocity: { ...ball.velocity },
-        spin: { ...(ball.spin ?? zero()) },
-        player: { ...actor.position },
-        playerVelocity: { ...actor.velocity },
-        facing: actor.facingAngle,
-        balance: actor.plantBalance?.balance ?? 1,
-        capacity: actor.fitness?.longTermCapacity ?? 1,
-        owner: state.ball.ownerId ?? null,
-        defender: state.players.find((p) => p.team === 'away')?.position ?? null,
-      };
-      samples.push(structuredClone(sample));
-      observer?.(structuredClone(sample));
-    }
+    if (tick % 4 === 0 || step.contacts.length) recordSample();
     if (goal) break;
     if (
       c.family === 'juggling' &&
@@ -571,6 +695,43 @@ export const runFirstTouchLab = (
       apex,
       bounces: ball.bounceCount,
       fatigueSpent: actor.fitness?.exertionSpent ?? 0,
+      angles: {
+        convention: 'radians; +x=0; positive toward +y; target fixed relative to initial player',
+        incomingBall:
+          first && Math.hypot(first.incomingVelocity.x, first.incomingVelocity.y) > 0.05
+            ? Math.atan2(first.incomingVelocity.y, first.incomingVelocity.x)
+            : null,
+        outgoingBall:
+          realised && Math.hypot(realised.x, realised.y) > 0.05
+            ? Math.atan2(realised.y, realised.x)
+            : null,
+        redirection:
+          first && realised
+            ? Math.abs(
+                Math.atan2(
+                  first.incomingVelocity.x * realised.y - first.incomingVelocity.y * realised.x,
+                  first.incomingVelocity.x * realised.x + first.incomingVelocity.y * realised.y,
+                ),
+              )
+            : null,
+        playerApproach: firstApproach,
+        desiredPlayer: first
+          ? Math.atan2(c.target.y - first.point.y, c.target.x - first.point.x)
+          : null,
+        actualPlayerTurn:
+          firstApproach === null || speed(actor.velocity) < 0.05
+            ? null
+            : Math.atan2(
+                Math.sin(Math.atan2(actor.velocity.y, actor.velocity.x) - firstApproach),
+                Math.cos(Math.atan2(actor.velocity.y, actor.velocity.x) - firstApproach),
+              ),
+        intendedTarget: Math.atan2(c.target.y - c.position.y, c.target.x - c.position.x),
+        firstDirectionError: directionError,
+        subsequentBall:
+          Math.hypot(ball.velocity.x, ball.velocity.y) > 0.05
+            ? Math.atan2(ball.velocity.y, ball.velocity.x)
+            : null,
+      },
     },
     status:
       c.mode !== 'autonomous' &&
@@ -579,7 +740,7 @@ export const runFirstTouchLab = (
         : (
               c.objective === 'shot'
                 ? goal
-                : c.objective === 'pass'
+                : c.objective === 'pass' || c.leaveForTeammate
                   ? controlledBy === teammate.id
                   : c.family === 'juggling'
                     ? reason === 'sequence_completed'

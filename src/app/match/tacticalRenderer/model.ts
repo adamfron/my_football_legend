@@ -125,7 +125,10 @@ export const DEFAULT_KITS: Record<'home' | 'away', KitPresentation> = {
 };
 export const tacticalFrameSchema = z.object({
   players: z.array(tacticalPlayerSchema),
-  technicalArea: z.array(z.object({ player: tacticalPlayerSchema, status: z.enum(['available', 'departed']) })).max(30).optional(),
+  technicalArea: z
+    .array(z.object({ player: tacticalPlayerSchema, status: z.enum(['available', 'departed']) }))
+    .max(30)
+    .optional(),
   ball: tacticalBallSchema,
   timestampMs: z.number().nonnegative(),
   actionEvents: z.array(canonicalActionEventSchema).max(96).optional(),
@@ -155,6 +158,19 @@ export const tacticalFrameSchema = z.object({
   carryTarget: tacticalPointSchema.optional(),
   carryMode: z.enum(['burst', 'controlled', 'tight_dribble', 'evade', 'shield']).optional(),
   showMotionVectors: z.boolean().optional(),
+  /** Detached diagnostic polylines; never consumed by simulation. */
+  laboratoryLines: z
+    .array(
+      z.object({
+        color: z.string(),
+        points: z
+          .array(physicalPointSchema.extend({ z: z.number().optional() }))
+          .min(2)
+          .max(512),
+      }),
+    )
+    .max(8)
+    .optional(),
 });
 export const tacticalSequenceSchema = z.object({
   id: z.string().min(1),

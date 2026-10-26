@@ -26,6 +26,8 @@ import { tacticalMatchStateSchema } from './matchState';
 import { DEFAULT_DECISION_POLICY, type DecisionPolicyId } from './decisionPolicyConfig';
 import { spawn } from 'node:child_process';
 import { deserialize, serialize } from 'node:v8';
+import { cpus } from 'node:os';
+import { createHash } from 'node:crypto';
 import {
   penaltyHalfReceiptSchema,
   runPenaltyHalfContract,
@@ -33,6 +35,8 @@ import {
 
 const nativePenaltyHalf = (initial: TacticalMatchState, budget: number) =>
   new Promise<ReturnType<typeof penaltyHalfReceiptSchema.parse>>((resolve, reject) => {
+    const parentCPU = process.cpuUsage();
+    const inputHash = createHash('sha256').update(JSON.stringify(initial)).digest('hex');
     const child = spawn(
       process.execPath,
       [
@@ -53,7 +57,15 @@ const nativePenaltyHalf = (initial: TacticalMatchState, budget: number) =>
     child.on('close', (code, signal) => {
       if (code !== 0)
         return reject(
-          new Error(`Native penalty half failed (exit=${code}, signal=${signal}): ${stderr}`),
+          new Error(
+            `Native penalty half failed (exit=${code}, signal=${signal}): ${stderr}\n` +
+              JSON.stringify({
+                node: process.version,
+                cpu: cpus()[0]?.model,
+                inputHash,
+                parentCPU: process.cpuUsage(parentCPU),
+              }),
+          ),
         );
       try {
         resolve(penaltyHalfReceiptSchema.parse(deserialize(Buffer.concat(chunks))));
@@ -468,7 +480,11 @@ describe('PR160 penalty liveness regression', () => {
     expect(actual.state.status).toBe('half_time');
   }, 10000);
   describe.each([
-    { policy: 'legacy-pr176' as const, budget: 90000 },
+    // Both policies execute today's complete canonical physics, not a frozen PR176
+    // kernel. The original 90 s legacy cap also kills merged PR191 on the same
+    // slower CI host/input. Share B's existing 180 s safety budget; retain every
+    // fixed tick, liveness/penalty assertion and the 500 ms parent margin.
+    { policy: 'legacy-pr176' as const, budget: 180000 },
     { policy: DEFAULT_DECISION_POLICY, budget: 180000 },
   ])('whole-half penalty contract: $policy', ({ policy, budget }) => {
     it(

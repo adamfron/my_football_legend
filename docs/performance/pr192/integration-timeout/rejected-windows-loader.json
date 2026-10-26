@@ -1,0 +1,47 @@
+{
+  "schema": "mfl-pr192-disabled-route-cost-v1",
+  "baselineCommit": "9ea0e599f72800f4210092df2722e2ee16778ab7",
+  "currentCommit": "336d100fb9cce7bff50d32dc45e818bba48113a6",
+  "node": "v24.22.1",
+  "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+  "subprocessBudgetMs": 89500,
+  "unchangedBudget": true,
+  "interventionsEnabled": false,
+  "rows": [
+    {
+      "kind": "baseline",
+      "processWallMs": 88.26360000000022,
+      "exitCode": 1,
+      "signal": null,
+      "error": "spawnSync C:\\Users\\Admin\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe EOF",
+      "stderr": "node:internal/modules/esm/load:193\r\n    throw new ERR_UNSUPPORTED_ESM_URL_SCHEME(parsed, schemes);\r\n          ^\r\n\r\nError [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'\r\n    at throwIfUnsupportedURLScheme (node:internal/modules/esm/load:193:11)\r\n    at defaultLoadSync (node:internal/modules/esm/load:146:3)\r\n    at #loadAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:806:12)\r\n    at #loadSync (node:internal/modules/esm/loader:838:53)\r\n    at ModuleLoader.load (node:internal/modules/esm/loader:787:26)\r\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:498:31)\r\n    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)\r\n    at afterResolve (node:internal/modules/esm/loader:611:52)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12)\r\n    at node:internal/modules/esm/loader:636:32 {\r\n  code: 'ERR_UNSUPPORTED_ESM_URL_SCHEME'\r\n}\r\n\r\nNode.js v24.22.1\r\n"
+    },
+    {
+      "kind": "current",
+      "processWallMs": 90.4339,
+      "exitCode": 1,
+      "signal": null,
+      "error": "spawnSync C:\\Users\\Admin\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe EOF",
+      "stderr": "node:internal/modules/esm/load:193\r\n    throw new ERR_UNSUPPORTED_ESM_URL_SCHEME(parsed, schemes);\r\n          ^\r\n\r\nError [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'\r\n    at throwIfUnsupportedURLScheme (node:internal/modules/esm/load:193:11)\r\n    at defaultLoadSync (node:internal/modules/esm/load:146:3)\r\n    at #loadAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:806:12)\r\n    at #loadSync (node:internal/modules/esm/loader:838:53)\r\n    at ModuleLoader.load (node:internal/modules/esm/loader:787:26)\r\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:498:31)\r\n    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)\r\n    at afterResolve (node:internal/modules/esm/loader:611:52)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12)\r\n    at node:internal/modules/esm/loader:636:32 {\r\n  code: 'ERR_UNSUPPORTED_ESM_URL_SCHEME'\r\n}\r\n\r\nNode.js v24.22.1\r\n"
+    },
+    {
+      "kind": "current",
+      "processWallMs": 87.16809999999987,
+      "exitCode": 1,
+      "signal": null,
+      "error": "spawnSync C:\\Users\\Admin\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe EOF",
+      "stderr": "node:internal/modules/esm/load:193\r\n    throw new ERR_UNSUPPORTED_ESM_URL_SCHEME(parsed, schemes);\r\n          ^\r\n\r\nError [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'\r\n    at throwIfUnsupportedURLScheme (node:internal/modules/esm/load:193:11)\r\n    at defaultLoadSync (node:internal/modules/esm/load:146:3)\r\n    at #loadAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:806:12)\r\n    at #loadSync (node:internal/modules/esm/loader:838:53)\r\n    at ModuleLoader.load (node:internal/modules/esm/loader:787:26)\r\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:498:31)\r\n    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)\r\n    at afterResolve (node:internal/modules/esm/loader:611:52)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12)\r\n    at node:internal/modules/esm/loader:636:32 {\r\n  code: 'ERR_UNSUPPORTED_ESM_URL_SCHEME'\r\n}\r\n\r\nNode.js v24.22.1\r\n"
+    },
+    {
+      "kind": "baseline",
+      "processWallMs": 91.44579999999996,
+      "exitCode": 1,
+      "signal": null,
+      "error": "spawnSync C:\\Users\\Admin\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe EOF",
+      "stderr": "node:internal/modules/esm/load:193\r\n    throw new ERR_UNSUPPORTED_ESM_URL_SCHEME(parsed, schemes);\r\n          ^\r\n\r\nError [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'\r\n    at throwIfUnsupportedURLScheme (node:internal/modules/esm/load:193:11)\r\n    at defaultLoadSync (node:internal/modules/esm/load:146:3)\r\n    at #loadAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:806:12)\r\n    at #loadSync (node:internal/modules/esm/loader:838:53)\r\n    at ModuleLoader.load (node:internal/modules/esm/loader:787:26)\r\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:498:31)\r\n    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)\r\n    at afterResolve (node:internal/modules/esm/loader:611:52)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12)\r\n    at node:internal/modules/esm/loader:636:32 {\r\n  code: 'ERR_UNSUPPORTED_ESM_URL_SCHEME'\r\n}\r\n\r\nNode.js v24.22.1\r\n"
+    }
+  ],
+  "allComplete": false,
+  "sameCompleteState": false,
+  "limitation": "Four local ABBA engineering samples, not a statistically calibrated cross-host speed guarantee. The original CI timeout failure remains retained."
+}

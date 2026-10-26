@@ -1,0 +1,26 @@
+{
+  "schema": "mfl-pr192-packed-json-v1",
+  "originalSchema": "mfl-pr192-development-match-v1",
+  "receiptArchive": {
+    "path": "docs/performance/pr192/matches/ww-hierarchical-intent-v1-combined-final-v2.json.gz",
+    "sha256": "2d7db77b92ffa261ee6e7576c361093f86d5c057c8f1182f24a754aa38ab9bb9",
+    "uncompressedSha256": "5a5a750fbbf69303dc0951d5086ab484d55b0d1bb2df65ab31f5e340b92a841a"
+  },
+  "design": "ww",
+  "policy": "hierarchical-intent-v1",
+  "mode": "combined",
+  "sourceHash": "ff47683eb5389bc29f159fe54c1fa29a497fad93f9a919bb4215407efc3419ff",
+  "runnerHash": "afcc1dca373845837088f9e2df01e0e6d0e24aa08c53d3f920cd9eacab40ccfa",
+  "inputHash": "47b2b387a53f6186d2b925ebb052e48466b9952ccbd3e88a71359eeaf14ef5bb",
+  "seed": "pr187-development-ww-01",
+  "status": "full_time",
+  "failure": null,
+  "finalHash": "e401b9129a369109a97fe57a72e393f27dc0399d27621eabac815b885fbdbd74",
+  "seconds": 5520,
+  "capture": null,
+  "experiments": {
+    "recovery": true,
+    "naturalPreparation": true,
+    "observed": true
+  }
+}

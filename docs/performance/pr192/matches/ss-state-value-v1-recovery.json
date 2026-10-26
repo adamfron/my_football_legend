@@ -1,0 +1,24 @@
+{
+  "schema": "mfl-pr192-packed-json-v1",
+  "originalSchema": "mfl-pr192-development-match-v1",
+  "receiptArchive": {
+    "path": "docs/performance/pr192/matches/ss-state-value-v1-recovery.json.gz",
+    "sha256": "dfa8fdcf625cc857743e623898f9640f1f775891ebc1a1a6d31eb3c9ed859268",
+    "uncompressedSha256": "17f5be85fc4ea0024f716b2aebe73a71d3f155653d4e2ebad12acef9d9e05fa9"
+  },
+  "design": "ss",
+  "policy": "state-value-v1",
+  "mode": "recovery",
+  "sourceHash": "c0c020af751e72b55de91cdf5d3f994abec62b063ecd3e0413adee410b774b91",
+  "inputHash": "1d4ad1925407ba3e292f96cffa3cbf8d41b8813645f63c38574f2e27c93a531d",
+  "seed": "pr187-development-ss-01",
+  "status": "full_time",
+  "failure": null,
+  "finalHash": "8adcc26371a8f515ba3029d21d89063680bea60214a61b7380678c8675cceb96",
+  "seconds": 5700.74999998129,
+  "capture": {
+    "path": "docs/performance/pr192/matches/capture-ss-recovery.json.gz",
+    "at": 81.62500000000144,
+    "sha256": "ed04388b00c1edf23c07ad97abe340cb1b380893bed50670163ccc497a8a0233"
+  }
+}

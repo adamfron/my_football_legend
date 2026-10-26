@@ -1,0 +1,63 @@
+{
+  "schema": "mfl-pr192-native-format-comparison-v1",
+  "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+  "node": "v24.22.1",
+  "subprocessLimitMs": 89500,
+  "sameInputForEveryRun": true,
+  "rows": [
+    {
+      "kind": "typescript",
+      "elapsedMs": 75861.86610000001,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "fullStateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "at": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436,
+      "stderr": "(node:32212) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "kind": "bundled",
+      "elapsedMs": 75361.6798,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "fullStateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "at": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436,
+      "stderr": ""
+    },
+    {
+      "kind": "bundled",
+      "elapsedMs": 78024.4522,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "fullStateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "at": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436,
+      "stderr": ""
+    },
+    {
+      "kind": "typescript",
+      "elapsedMs": 78061.4111,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "fullStateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "at": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436,
+      "stderr": "(node:36836) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    }
+  ],
+  "equal": true,
+  "limitation": "A local diagnostic; no assertion or budget in the integration contract is removed. Raw failed attempts remain retained."
+}

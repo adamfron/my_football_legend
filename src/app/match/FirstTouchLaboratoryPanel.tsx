@@ -8,6 +8,7 @@ import {
 import { ballSurfaceSchema } from '../../core/matchSimulation/ballSurfaceContact';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
 import type { TacticalFrame } from './tacticalRenderer/model';
+import { projectFirstTouchLabOverlay } from './firstTouchLabOverlay';
 
 const labels: Record<string, string> = {
   ground: 'Zwykłe podanie',
@@ -26,9 +27,9 @@ const labels: Record<string, string> = {
   behind: 'Przyjęcie tyłem',
   weak_foot: 'Słabsza stopa',
   late_preparation: 'Spóźnione przygotowanie',
-  direction_45: 'Zmiana kierunku o 45°',
-  direction_90: 'Zmiana kierunku o 90°',
-  direction_180: 'Zmiana kierunku o 180°',
+  direction_45: 'Cel 45° względem +x (nie obrót zawodnika)',
+  direction_90: 'Cel 90° względem +x (nie obrót zawodnika)',
+  direction_180: 'Cel 180° względem +x (nie obrót zawodnika)',
   continue_run: 'Przyjęcie w biegu',
   pressure: 'Przyjęcie pod presją',
   lifted_thigh: 'Kierunkowy kontakt uda pod presją',
@@ -46,6 +47,11 @@ const labels: Record<string, string> = {
   autonomous_ground: 'Autonomiczne przyjęcie dołem',
   autonomous_aerial: 'Autonomiczne przyjęcie górą',
   manual_ground: 'Ręczny wybór kontaktu',
+  heavy_touch: 'Mocne wypuszczenie i odzyskanie piłki',
+  recovery_front: 'Wyścig — obrońca z przodu',
+  recovery_behind: 'Wyścig — obrońca z tyłu',
+  intentional_leave: 'Świadome przepuszczenie do kolegi',
+  near_touchline: 'Kontrola przy linii bocznej',
 };
 const surfaceLabels: Record<string, string> = {
   inside: 'Wewnętrzna część stopy',
@@ -62,7 +68,42 @@ const surfaceLabels: Record<string, string> = {
   overhead: 'Przewrotka (niedostępna)',
 };
 const modes = { prescribed: 'Zadany', autonomous: 'Autonomiczny', manual: 'Ręczny' } as const;
+const intentionLabels: Record<string, string> = {
+  receive: 'przyjęcie',
+  carry: 'prowadzenie',
+  recover_touch: 'odzyskanie po kontakcie',
+  contest_loose_ball: 'walka o luźną piłkę',
+  release: 'oddanie piłki',
+  leave_for_teammate: 'przepuszczenie do kolegi',
+  transition_to_defence: 'powrót do obrony',
+};
+const reasonLabels: Record<string, string> = {
+  await_local_observation: 'oczekiwanie na obserwację',
+  intentional_non_retention: 'świadome oddanie piłki',
+  step_clear_of_observed_delivery: 'krok poza tor podania',
+  observed_opponent_control: 'zaobserwowana kontrola przeciwnika',
+  no_low_contact_inside_local_horizon: 'brak niskiego kontaktu w zasięgu prognozy',
+  visible_opponent_can_contest: 'przeciwnik może dojść do piłki',
+  next_observed_contact_before_tactical_progress: 'najpierw kolejny kontakt, potem dalszy bieg',
+};
+const angleLabels: Record<string, string> = {
+  incomingBall: 'piłka nadlatująca',
+  outgoingBall: 'piłka po kontakcie',
+  redirection: 'przekierowanie piłki',
+  playerApproach: 'nabieg zawodnika',
+  desiredPlayer: 'docelowy bieg po kontakcie',
+  actualPlayerTurn: 'obrót kierunku ruchu do końca próby',
+  intendedTarget: 'cel od pozycji startowej',
+  firstDirectionError: 'błąd pierwszego kontaktu',
+  subsequentBall: 'ostatni kierunek piłki',
+};
 const length = (v: { x: number; y: number; z: number }) => Math.hypot(v.x, v.y, v.z).toFixed(2);
+const toggleStyle = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '0.4rem',
+  marginRight: '1rem',
+} as const;
 
 /** Read-only trial inspection on the existing pitch renderer. These samples come
  * from execution; animation cues never decide whether a surface made contact. */
@@ -79,11 +120,18 @@ export function FirstTouchLaboratoryPanel({ profiles }: { profiles: FootballerPr
     [result, setResult] = useState<FirstTouchLabResult>(),
     [index, setIndex] = useState(0),
     [playing, setPlaying] = useState(false),
+    [diagnostics, setDiagnostics] = useState(false),
+    [trajectories, setTrajectories] = useState(false),
     [error, setError] = useState<string>();
   const profile = profiles.find((p) => p.id === playerId) ?? profiles[0]!;
   const host = useRef<HTMLDivElement>(null),
     renderer = useRef<TacticalPitchRenderer | undefined>(undefined);
-  const frame = (r: FirstTouchLabResult, i: number): TacticalFrame => {
+  const frame = (
+    r: FirstTouchLabResult,
+    i: number,
+    targets = false,
+    trails = false,
+  ): TacticalFrame => {
     const s = r.samples[i] ?? r.samples[0]!;
     return {
       timestampMs: s.at * 1000,
@@ -99,10 +147,15 @@ export function FirstTouchLaboratoryPanel({ profiles }: { profiles: FootballerPr
           protagonist: true,
         },
         ...(s.defender ? [{ id: 'lab-defender', team: 'away' as const, ...s.defender }] : []),
+        ...(s.secondDefender
+          ? [{ id: 'lab-second-defender', team: 'away' as const, ...s.secondDefender }]
+          : []),
+        ...(s.teammate ? [{ id: 'lab-teammate', team: 'home' as const, ...s.teammate }] : []),
       ],
       ball: { x: s.ball.x, y: s.ball.y, height: s.ball.z, velocity: s.velocity },
       selectedPoint: r.input.config.target,
       showMotionVectors: true,
+      laboratoryLines: projectFirstTouchLabOverlay(r, i, targets, trails),
     };
   };
   useEffect(() => {
@@ -118,8 +171,9 @@ export function FirstTouchLaboratoryPanel({ profiles }: { profiles: FootballerPr
     };
   }, [result]);
   useEffect(() => {
-    if (result?.samples.length) renderer.current?.render(frame(result, index), true);
-  }, [result, index]);
+    if (result?.samples.length)
+      renderer.current?.render(frame(result, index, diagnostics, trajectories), true);
+  }, [result, index, diagnostics, trajectories]);
   useEffect(() => {
     if (result)
       renderer.current?.setCameraPreferences(
@@ -145,8 +199,8 @@ export function FirstTouchLaboratoryPanel({ profiles }: { profiles: FootballerPr
   return (
     <section aria-label="Laboratorium pierwszego kontaktu">
       <p>
-        Próby PR191: zadanie, rzeczywisty kontakt i dalszy lot. Wykorzystują wybranego zawodnika z
-        tego meczu.
+        Próby PR191/192: zadanie, rzeczywisty kontakt i dalszy ruch do piłki. Wykorzystują wybranego
+        zawodnika z tego meczu.
       </p>
       <label>
         Zawodnik{' '}
@@ -275,6 +329,64 @@ export function FirstTouchLaboratoryPanel({ profiles }: { profiles: FootballerPr
           </label>{' '}
           <span>{result.samples[index]?.at.toFixed(3)} s</span>
           <p>
+            <label style={toggleStyle}>
+              <input
+                type="checkbox"
+                style={{ width: 'auto' }}
+                checked={diagnostics}
+                onChange={(e) => setDiagnostics(e.target.checked)}
+              />{' '}
+              Cele i kontakty
+            </label>{' '}
+            <label style={toggleStyle}>
+              <input
+                type="checkbox"
+                style={{ width: 'auto' }}
+                checked={trajectories}
+                onChange={(e) => setTrajectories(e.target.checked)}
+              />{' '}
+              Przebyte trajektorie
+            </label>
+          </p>
+          {diagnostics && (
+            <>
+              <p>
+                Różowy: cel taktyczny i zadany kierunek · zielony: szacowany kontakt · niebieski:
+                cel ruchu i ślad ciała · żółty: rzeczywisty tor piłki · biały: ostatni kontakt ·
+                pomarańczowy: wykonany kierunek.
+              </p>
+              <p>
+                Odstęp od piłki:{' '}
+                {Math.hypot(
+                  (result.samples[index]?.player.x ?? 0) - (result.samples[index]?.ball.x ?? 0),
+                  (result.samples[index]?.player.y ?? 0) - (result.samples[index]?.ball.y ?? 0),
+                ).toFixed(2)}{' '}
+                m. Zamiar:{' '}
+                {intentionLabels[result.samples[index]?.movement?.intention ?? 'receive']}. Powód:{' '}
+                {reasonLabels[result.samples[index]?.movement?.reason ?? 'await_local_observation']}
+                .
+              </p>
+              <p>
+                Szacunki kontaktu: zawodnik{' '}
+                {result.samples[index]?.movement?.contactSeconds?.toFixed(2) ?? '—'} s · przeciwnik{' '}
+                {result.samples[index]?.movement?.opponentSeconds?.toFixed(2) ?? '—'} s · kolega{' '}
+                {result.samples[index]?.movement?.teammateSeconds?.toFixed(2) ?? '—'} s. Obserwacja:{' '}
+                {result.samples[index]?.movement?.observedAt?.toFixed(3) ?? '—'} s. Tory i punkty
+                kontaktu pokazują stan fizyczny; cele i czasy są estymacją.
+              </p>
+              <p>
+                Kąty w stopniach od +x, dodatnie ku +y; cel od pozycji początkowej.{' '}
+                {Object.entries(result.metrics.angles)
+                  .filter(([key]) => key !== 'convention')
+                  .map(
+                    ([key, value]) =>
+                      `${angleLabels[key]}: ${typeof value === 'number' ? ((value * 180) / Math.PI).toFixed(1) : '—'}`,
+                  )
+                  .join(' · ')}
+              </p>
+            </>
+          )}
+          <p>
             Model pokazuje trajektorię i ruch ciała. Dokładny kontakt uda lub klatki potwierdzają
             współrzędne i impuls w tabeli; animacja nie odtwarza jeszcze tych technik.
           </p>
@@ -286,6 +398,7 @@ export function FirstTouchLaboratoryPanel({ profiles }: { profiles: FootballerPr
                 <th>Kontakt</th>
                 <th>Punkt [m]</th>
                 <th>Prędkość przed → po [m/s]</th>
+                <th>Impuls x, y, z [N·s]</th>
                 <th>Odbudowa [s]</th>
               </tr>
             </thead>
@@ -298,6 +411,9 @@ export function FirstTouchLaboratoryPanel({ profiles }: { profiles: FootballerPr
                   <td>{[c.point.x, c.point.y, c.point.z].map((v) => v.toFixed(3)).join(', ')}</td>
                   <td>
                     {length(c.incomingVelocity)} → {length(c.outgoingVelocity)}
+                  </td>
+                  <td>
+                    {[c.impulse.x, c.impulse.y, c.impulse.z].map((v) => v.toFixed(3)).join(', ')}
                   </td>
                   <td>{c.recoverySeconds.toFixed(3)}</td>
                 </tr>

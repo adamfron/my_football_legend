@@ -1,5 +1,44 @@
 # My Football Legend — Current Project State
 
+## PR192 — Ball-Oriented Movement, Recovery Intelligence & Natural Match Flow (experimental)
+
+Oba błędy 45°/90° odtworzono z PR191 na karcie `footballer_pro_9_12` i seedzie
+`pr191-inspection`. To rekonstrukcja konfiguracji, nie odczyt niedostarczonych eksportów.
+Separacje 2,975046/3,416949 m i pierwsze impulsy pasują do obserwacji użytkownika.
+Nowa kontynuacja zachowuje te impulsy i odzyskuje fizyczną kontrolę przy 0,968/0,964 m.
+Kontakt klatką zamiast uda pozostaje jawny; przeciwnicy nadal mogą wygrywać wyścigi.
+
+Match Lab zachowuje istniejący renderer, kamerę i ID. Przełączane nakładki pokazują
+cel taktyczny, cel ruchu, estymowany następny kontakt, prawdziwe tory i ostatni kontakt.
+Kąty piłki, nabiegu i ruchu zawodnika są oddzielne. Dochodzą próby mocnego wypuszczenia,
+przeciwnika z przodu/z tyłu, świadomego przepuszczenia oraz kontroli przy linii.
+
+W pełnym meczu nowe mechanizmy pozostają jawnie opcjonalne:
+`experimentalBallRecovery: true` oraz `experimentalRestartPreparation: true`.
+Drugi wariant dodaje skończone podniesienie piłki przed autem; szybkie wolne nie dostają
+nowego opóźnienia. Aparatura potwierdza rzeczywiste granice, bloki, parady i odbicia,
+ale nie dowodzi realistycznej częstości zdarzeń. Lepsza kontrola może zwiększać czas
+gry: wynik WW/A-only to 82,36 min wobec 79,12 min bazowo. Cyrkulacja, kreacja,
+zmienność fauli i autonomiczny wybór wybić nadal wymagają pracy.
+
+Końcowa zamrożona seria WW/SS/SW × pięć polityk kończy 15/15 meczów, ale zachowuje
+negatywny wynik przepływu: 79,31–89,04 min aktywnej gry i zero strzałów SW/O.
+Łącznie pozostają 44 pełne zapisy etapów i powtórzeń; sześć różnych stanów z początku
+meczów służy krótkim replayom. Wyniki nie stanowią niezależnego potwierdzenia.
+
+Audyt timeoutu integracji: stary limit 90 s legacy odrzuca także zamrożony PR191
+na tym samym runnerze EPYC 7763 i identycznym wejściu. Budżet tej pełnej połowy
+wyrównano do istniejących 180 s B, z zachowaniem wszystkich kroków 40 Hz i asercji.
+To jawny wyjątek dla nieadekwatnego limitu; kod gry pozostaje niezmieniony.
+[Pomiary, odrzucone hipotezy i zakres korekty](PR192_INTEGRATION_TIMEOUT_INVESTIGATION.md).
+
+[Raport, komplet pomiarów i ograniczenia PR192](PR192_BALL_ORIENTED_MOVEMENT_RECOVERY_AND_NATURAL_MATCH_FLOW.md).
+**B nadal domyślne; 28 atrybutów zachowane; canonical NOT READY; niezależna kohorta zamknięta.**
+Aktualna kolejność: **PR193 pełne generacje/siła świata → PR194 Summary/PlayStyles →
+PR195 Career UX → PR196+ World Expansion**. Całe 20–25 sezonów, akademie, starzenie,
+emerytury, transfery i długofalowa siła kadr pozostają niewykonane i niepomniejszone.
+Starsze numeracje poniżej są historią projektu, nie aktualnym planem.
+
 ## PR191 — First Touch, Directional Control & One-Touch Laboratory (experimental)
 
 Fizyczne próby przyjęcia, kierunkowego kontaktu, odegrania/strzału z pierwszej

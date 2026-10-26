@@ -261,6 +261,12 @@ export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatch
   ) {
     const retriever = state.players
       .filter((p) => p.team === restart.restartTeam && !state.discipline?.[p.id]?.sentOff)
+      .filter(
+        (p) =>
+          state.experimentalRestartPreparation !== true ||
+          state.scenario !== 'throw_in' ||
+          p.id === restart.takerId,
+      )
       .sort(
         (a, b) =>
           distance(a.position, state.ball) - distance(b.position, state.ball) ||
@@ -410,7 +416,14 @@ export const advanceRestartPlacement = (
     const x = retriever.position.x + (retrieval.attachedOffset?.x ?? 0);
     const y = retriever.position.y + (retrieval.attachedOffset?.y ?? 0);
     const nearSpot = distance({ x, y }, spot) <= 0.35;
-    const height = Math.max(0, Math.min(0.9, (state.ball.height ?? 0) + (nearSpot ? -1 : 1) * dt));
+    const preparingThrow =
+      state.experimentalRestartPreparation === true && state.scenario === 'throw_in';
+    // Dead-ball handling already follows a real retriever. A throw also needs the
+    // ball lifted from its observed height to the existing 1.9m release envelope.
+    // This finite 1.6m/s hand lift is an engineering assumption, not a target delay.
+    const height = preparingThrow
+      ? Math.min(1.9, (state.ball.height ?? 0) + 1.6 * dt)
+      : Math.max(0, Math.min(0.9, (state.ball.height ?? 0) + (nearSpot ? -1 : 1) * dt));
     next = {
       ...state,
       ball: {
@@ -419,7 +432,10 @@ export const advanceRestartPlacement = (
         y,
         height,
         airborne: false,
-        velocity: { ...retriever.velocity, z: 0 },
+        velocity: {
+          ...retriever.velocity,
+          z: preparingThrow ? (height - (state.ball.height ?? 0)) / dt : 0,
+        },
       },
     };
     // A keeper can fetch the scored ball, but an outfielder owns a long return to midfield.
@@ -454,7 +470,7 @@ export const advanceRestartPlacement = (
     }
     if (
       distance(next.ball, spot) <= 0.15 &&
-      height <= 0.1 &&
+      (preparingThrow ? height >= 1.9 : height <= 0.1) &&
       Math.hypot(retriever.velocity.x, retriever.velocity.y) <= 0.15
     )
       next = {

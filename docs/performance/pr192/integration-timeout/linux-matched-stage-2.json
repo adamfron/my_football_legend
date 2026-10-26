@@ -1,0 +1,50 @@
+{
+  "schema": "mfl-pr192-linux-control-v1",
+  "runId": 40258971762,
+  "jobId": 121367049195,
+  "sourceHead": "04d8de33a060c82dd46caf5222a1e0a23198a3f4",
+  "rows": [
+    {
+      "experiment": "PR192 matched-host native penalty control",
+      "base": "9ea0e599f72800f4210092df2722e2ee16778ab7",
+      "head": "a322d430161a170d1d1cce505cc38ab641119012",
+      "node": "v24.21.0",
+      "platform": "linux",
+      "cpu": "AMD EPYC 7763 64-Core Processor",
+      "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "processBudgetMs": 89500
+    },
+    {
+      "kind": "PR191",
+      "elapsedMs": 89567.77969299999,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "error": "ETIMEDOUT",
+      "stateHash": null,
+      "stderr": ""
+    },
+    {
+      "kind": "PR192",
+      "elapsedMs": 89623.93182700001,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "error": "ETIMEDOUT",
+      "stateHash": null,
+      "stderr": ""
+    },
+    {
+      "classification": "diagnostic complete; child failures above remain failures, not passing integration results",
+      "sourceEntry": "796c99126212e9a0d5edcbeecb2f24d79a4192b70c6986c5ee3b9c62ed7e2277"
+    }
+  ],
+  "failingTestContext": {
+    "node": "v24.21.0",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+    "parentCPU": {
+      "user": 272465,
+      "system": 32294
+    }
+  },
+  "interpretation": "The original 89.5 s cap kills both merged PR191 and PR192 on the actual EPYC 7763 integration host before Vitest starts. The test input hash matches. Parent CPU is approximately 0.3 s during 89.6 s. The old legacy wall-time gate rejects the frozen baseline on supported hardware; completion and assertions must still be verified with the shared existing B budget."
+}

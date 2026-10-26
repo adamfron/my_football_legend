@@ -1,0 +1,24 @@
+{
+  "schema": "mfl-pr192-packed-json-v1",
+  "originalSchema": "mfl-pr192-development-match-v1",
+  "receiptArchive": {
+    "path": "docs/performance/pr192/matches/sw-state-value-v1-recovery.json.gz",
+    "sha256": "28f9fb241bef48871a1aea7eddbff76f79fa3c5260fef809f6b6533bf99c1e8b",
+    "uncompressedSha256": "7a1ddebab90b189ef3851b475c8f1e6f4b52a5d82072a6791da0a9c364b1bde2"
+  },
+  "design": "sw",
+  "policy": "state-value-v1",
+  "mode": "recovery",
+  "sourceHash": "c0c020af751e72b55de91cdf5d3f994abec62b063ecd3e0413adee410b774b91",
+  "inputHash": "7bab568a74ef736db8075901685bfa579aeafc5f494bc2fea9cbc0f751f0c60b",
+  "seed": "pr187-development-sw-01",
+  "status": "full_time",
+  "failure": null,
+  "finalHash": "c50b7c5c0eeb9871c926015c3e0645fc1d8fc1ab780fd452507ee14b3e3120ff",
+  "seconds": 5845.7249999850565,
+  "capture": {
+    "path": "docs/performance/pr192/matches/capture-sw-recovery.json.gz",
+    "at": 34.7249999999991,
+    "sha256": "def7fcc667466c48e09dc3271ef9b3efaa1e760ac3c259ea8e0118587bbfc072"
+  }
+}

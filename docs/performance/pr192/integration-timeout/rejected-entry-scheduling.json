@@ -1,0 +1,32 @@
+{
+  "schema": "mfl-pr192-entry-scheduling-v1",
+  "subprocessLimitMs": 89500,
+  "rows": [
+    {
+      "kind": "setImmediate",
+      "elapsedMs": 86998.1721,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "fullStateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "at": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436,
+      "stderr": "(node:33404) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "kind": "dynamicImport",
+      "elapsedMs": 87022.44619999999,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "fullStateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "at": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436,
+      "stderr": "(node:21980) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    }
+  ]
+}

@@ -221,7 +221,12 @@ describe('PR191 trajectories and football consequences', () => {
     expect(r.contacts[0]!.actualSurface).toBe('chest');
   });
   it('separates directional execution from an actual defender intervention', () => {
-    const r = run('pressure');
+    // Preserve the original failed PR191 apparatus as historical negative evidence.
+    const r = runFirstTouchLab(
+      { ...config('pressure'), movementModel: 'pr191' },
+      profile,
+      'pr191-contract:pressure',
+    );
     expect(r.contacts[0]!.playerId).toBe(profile.id);
     expect(r.metrics.defenderContact).toBe(true);
     expect(r.status).toBe('failed');
