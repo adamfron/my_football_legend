@@ -106,3 +106,15 @@ docs/performance/pr193/**/*.svg binary
 docs/PR193*.md text eol=lf
 scripts/*Pr193* text eol=lf
 scripts/pr193* text eol=lf
+
+# PR195 compact research evidence; historical receipts remain in place.
+docs/match-engine/*.md text eol=lf
+docs/PR195*.md text eol=lf
+docs/performance/pr195/*.json text eol=lf linguist-generated=true
+docs/performance/pr195/*.md text eol=lf
+docs/performance/pr195/*.gz binary linguist-generated=true
+scripts/*Pr195* text eol=lf
+scripts/pr195* text eol=lf
+src/core/matchSimulation/assumptionCalibration.ts text eol=lf
+src/core/matchSimulation/calibrationMetrics.ts text eol=lf
+src/core/matchSimulation/pr195Calibration.test.ts text eol=lf

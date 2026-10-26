@@ -1,0 +1,79 @@
+{
+  "schema": "mfl-pr195-verification-v1",
+  "base": "e828f5a1e41bbec2101c71f42739037702276cce",
+  "verify": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "unit": 2294,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "total": 2359,
+    "note": "Full run includes first five PR195 tests. Two subsequent outcome-attribution tests additionally passed; final-head CI runs all seven."
+  },
+  "focused": {
+    "count": 7,
+    "exitCode": 0
+  },
+  "replay": {
+    "requests": 504,
+    "movementTrials": 30,
+    "captures": 2,
+    "counterfactuals": 8,
+    "exitCode": 0
+  },
+  "lint": {
+    "exitCode": 0
+  },
+  "typescript": {
+    "exitCode": 0
+  },
+  "canonicalSourcesAndLockfileUnchanged": true,
+  "independentConfirmation": "sealed; not run",
+  "ci": "Check final PR head externally; no earlier-head status is implied.",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v24.22.1",
+    "temp": "workspace-owned temporary directory",
+    "timing": "non-isolated development host"
+  },
+  "logs": [
+    {
+      "path": "docs/performance/pr195/pr195-verify.log.gz",
+      "originalSha256": "6d52c3d64197b34aaea6d7a655c9df33a6a26a4f9fe9632bcfc2295337c44b55",
+      "archiveSha256": "e8a4d8977b56254032e81f72833e933605059fe415407744bcae28e92bf5811d",
+      "originalBytes": 7077
+    },
+    {
+      "path": "docs/performance/pr195/pr195-focused-final.log.gz",
+      "originalSha256": "c5e4e8778800b73db45fe3afeb6cc6b4b0903f3d525a4cb964618ef4311dd955",
+      "archiveSha256": "a3c2c0e37e20d0a1b6fd87d70c75b087f24a22344069d6008c7619c0ab66e10d",
+      "originalBytes": 1428
+    },
+    {
+      "path": "docs/performance/pr195/pr195-replay.log.gz",
+      "originalSha256": "fa1370f746035b5b8e09a9f390fbe321cce27a2c77345b8bee81e9e01cd84164",
+      "archiveSha256": "fe01ccf013c95d05ae2ff2984eb0388ef51411a400d519e8619f1cd90532087d",
+      "originalBytes": 15189
+    },
+    {
+      "path": "docs/performance/pr195/pr195-report-check.log.gz",
+      "originalSha256": "c35e5058dbcbe6269a8a47a726672861ee9dd049c9614a8cc8671a35f7ce3a9e",
+      "archiveSha256": "fb0e9614bbeff92fa2615b2083372e9ed1b25e59f22148e57268db7b3349ab89",
+      "originalBytes": 3163
+    },
+    {
+      "path": "docs/performance/pr195/pr195-lint-complete.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archiveSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "originalBytes": 0
+    },
+    {
+      "path": "docs/performance/pr195/pr195-tsc-complete.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archiveSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "originalBytes": 0
+    }
+  ]
+}

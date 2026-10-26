@@ -113,7 +113,10 @@
     "benchmark:pr194:lab": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr194Lab.mjs --version=v4",
     "benchmark:pr194:check": "node scripts/checkPr194Evidence.mjs && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr194Lab.mjs --version=v4 --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr194Receiving.mjs --check",
     "benchmark:pr194:replay": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr194.mjs --check",
-    "benchmark:pr194:development": "node scripts/runPr194Development.mjs --version=v4 --workers=6"
+    "benchmark:pr194:development": "node scripts/runPr194Development.mjs --version=v4 --workers=6",
+    "benchmark:pr195:inventory": "node scripts/pr195SourceInventory.mjs",
+    "benchmark:pr195:record": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr195.mjs",
+    "benchmark:pr195:check": "node scripts/pr195SourceInventory.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr195.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr195.mjs --check"
   },
   "dependencies": {
     "react": "19.2.8",
