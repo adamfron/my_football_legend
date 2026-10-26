@@ -12,6 +12,7 @@ import {
   runBoundedPolicy,
   intentFromDecision,
   boundedDecisionSchema,
+  boundedCandidateSchema,
 } from './boundedDecision';
 import {
   familiaritySchema,
@@ -24,6 +25,7 @@ import { updateOpponentKnowledge } from './opponentKnowledge';
 import { angleForVector } from './playerOrientation';
 
 export const boundedTraceSchema = z.object({
+  candidates: z.array(boundedCandidateSchema).max(48).optional(),
   stage: z.enum(['decision', 'pattern', 'attempt']),
   at: z.number(),
   actorId: z.string(),
@@ -178,6 +180,7 @@ export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: Ma
     actorId: actor.id,
     scene: result.scene,
     decision: result.decision,
+    ...(state.experimentalTransitionIntelligence ? { candidates } : {}),
     reason: result.decision.reasons.join('|'),
     ...(result.action ? { action: result.action } : {}),
   });

@@ -11,6 +11,13 @@ import { clampPitchPoint, distance, distanceToSegment } from './matchSpace';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { shotPreparationSeconds } from './shotIntent';
 import {
+  opportunityWindowSchema,
+  estimatePassWindow,
+  boundedContinuationThreat,
+  boundedPositionThreat,
+  observedOffsideAssessment,
+} from './opportunityWindows';
+import {
   assessRelativeSituation,
   psychologicalContext,
   opponentExpectationSchema,
@@ -20,6 +27,7 @@ import {
 const unit = z.number().min(0).max(1);
 const clamp = (v: number) => Math.max(0, Math.min(1, v));
 export const boundedCandidateSchema = z.object({
+  opportunity: opportunityWindowSchema.optional(),
   id: z.string(),
   action: matchActionSchema,
   provenance: z.literal('bounded-geometry-v1'),
@@ -353,6 +361,76 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
       );
     }
   }
+  if (s.transitionExperiment) {
+    // Add space deliveries only to observed moving teammates. No run/return promise.
+    const passes = result.filter((c) => c.action.type === 'pass');
+    for (const c of passes.slice(0, 10)) {
+      if (c.action.type !== 'pass') continue;
+      const originalAction = c.action;
+      const receiver = s.visible.find((p) => p.id === originalAction.receiverId);
+      if (!receiver || Math.hypot(receiver.velocity.x, receiver.velocity.y) < 0.8) continue;
+      const lead = Math.min(1.4, Math.max(0.5, distance(s.position, receiver.position) / 15));
+      const target = clampPitchPoint({
+        x: receiver.position.x + receiver.velocity.x * lead,
+        y: receiver.position.y + receiver.velocity.y * lead,
+      });
+      if (distance(target, c.action.target) < 1.5 || result.length >= 48) continue;
+      const action: MatchAction = {
+        ...c.action,
+        target,
+        intent: 'through',
+        requestedSpace: target,
+      };
+      result.push({
+        ...c,
+        id: `pass:${receiver.id}:through`,
+        action,
+        readyAt: preparationAt(s, action),
+        progress: s.direction * (target.x - s.position.x),
+        passTravelSeconds: Math.min(1.8, Math.max(0.48, distance(s.position, target) / 13)),
+      });
+    }
+    for (const c of result) {
+      if (c.action.type === 'pass') {
+        const a = c.action;
+        const travel = c.passTravelSeconds ?? 1;
+        const window = estimatePassWindow(
+          s,
+          a.receiverId,
+          a.target,
+          travel,
+          Math.max(0, c.readyAt - s.at),
+        );
+        if (!window) continue;
+        const interference = clamp((0.18 - window.contactMargin) / 0.8);
+        const error = clamp(
+          (1 - s.attributes.passing / 100) * (0.07 + distance(s.position, a.target) / 100),
+        );
+        const offside = observedOffsideAssessment(
+          s,
+          s.visible.find((p) => p.id === a.receiverId)!.position,
+        );
+        const failure = Math.max(interference, offside.risk);
+        const risk = error + (1 - error) * failure;
+        c.legal = offside.uncertain || offside.risk === 0;
+        c.feasible = s.contactReady && c.legal;
+        c.opportunity = window;
+        c.risk = risk;
+        c.closesAt = window.closesAt ?? s.at + 0.2;
+        c.benefit =
+          (1 - risk) * boundedContinuationThreat(s, a.target, a.receiverId) -
+          before -
+          risk * boundedPositionThreat(-s.direction, a.target);
+        // Escape describes a consequence, including a backward support release.
+        c.goal = pressure > 0.5 ? 'escape' : c.progress > 3 ? 'progress' : 'retain';
+      } else if (c.action.type === 'carry') {
+        c.benefit =
+          (1 - c.risk) * boundedContinuationThreat(s, c.action.target) -
+          before -
+          c.risk * boundedPositionThreat(-s.direction, c.action.target);
+      }
+    }
+  }
   return boundedCandidateSchema.array().max(48).parse(result);
 };
 
@@ -421,8 +499,11 @@ const opportunity: PolicyMechanism = ({ scene: s, candidates }, meter) => {
       (s.config.relativeOpportunities || c.confidence >= 0.5)
     );
   });
+  const durable = s.transitionExperiment
+    ? Math.max(holding, ...admitted.filter((c) => c.closesAt - s.at >= 1.2).map((c) => c.benefit))
+    : holding + 0.005;
   const transient = admitted.filter(
-    (c) => c.goal !== 'retain' && c.closesAt - s.at < 1.2 && c.benefit > holding + 0.005,
+    (c) => c.goal !== 'retain' && c.closesAt - s.at < 1.2 && c.benefit > durable,
   );
   const choice = [...(transient.length ? transient : admitted)].sort((a, b) =>
     transient.length

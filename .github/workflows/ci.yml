@@ -40,7 +40,7 @@ jobs:
       - run: npm ci
       - run: ${{ matrix.command }}
       - if: matrix.group == 'main'
-        run: npm run benchmark:pr186:replay && npm run benchmark:pr187:replay && npm run benchmark:pr188:replay && npm run benchmark:pr189:replay && npm run benchmark:pr190:replay && npm run benchmark:pr191:baseline && npm run benchmark:pr192:baseline && npm run benchmark:pr192:check && git diff --exit-code -- docs/performance
+        run: npm run benchmark:pr186:replay && npm run benchmark:pr187:replay && npm run benchmark:pr188:replay && npm run benchmark:pr189:replay && npm run benchmark:pr190:replay && npm run benchmark:pr191:baseline && npm run benchmark:pr192:baseline && npm run benchmark:pr193:baseline && npm run benchmark:pr193:check && npm run benchmark:pr193:replay && git diff --exit-code -- docs/performance
       - if: matrix.group == 'main'
         run: test -f dist/data/world/pl-2026-v2.json
   quality:

@@ -1,0 +1,19 @@
+counterattack:40-40:original:autonomous:0:central 0 in_play 
+contact_race:40-40:original:autonomous:0:central 0 in_play beaten
+crowded:40-40:original:autonomous:0:left 0 in_play loose_ball
+deflection:40-40:original:autonomous:0:central 0 in_play missed
+wing:40-40:original:autonomous:0:central 0 free_kick_far missed
+C:\Users\Admin\Documents\Codex\2026-10-26\cze-przygotuj-prosz-wykonanie-zadania-w\work\mfl-git\src\core\matchSimulation\transitionLaboratory.ts:391
+          if (race.approachAt === null && distance(p.position, s.ball) <= 0.9)
+                                                     ^
+
+TypeError: Cannot read properties of undefined (reading 'position')
+    at <anonymous> (C:\Users\Admin\Documents\Codex\2026-10-26\cze-przygotuj-prosz-wykonanie-zadania-w\work\mfl-git\src\core\matchSimulation\transitionLaboratory.ts:391:54)
+    at withBoundedObserver (C:\Users\Admin\Documents\Codex\2026-10-26\cze-przygotuj-prosz-wykonanie-zadania-w\work\mfl-git\src\core\matchSimulation\boundedIntelligence.ts:59:12)
+    at runTransitionLab (C:\Users\Admin\Documents\Codex\2026-10-26\cze-przygotuj-prosz-wykonanie-zadania-w\work\mfl-git\src\core\matchSimulation\transitionLaboratory.ts:314:3)
+    at file:///C:/Users/Admin/Documents/Codex/2026-10-26/cze-przygotuj-prosz-wykonanie-zadania-w/work/mfl-git/scripts/benchmarkPr193Lab.mjs:41:15
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1

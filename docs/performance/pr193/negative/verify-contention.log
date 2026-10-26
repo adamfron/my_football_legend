@@ -1,0 +1,56 @@
+
+> my_football_legend@0.1.0 verify
+> npm run lint && npm run test && npm run build
+
+
+> my_football_legend@0.1.0 lint
+> eslint .
+
+
+> my_football_legend@0.1.0 test
+> npm run test:main && npm run test:full-career
+
+
+> my_football_legend@0.1.0 test:main
+> npm run test:unit && npm run test:match-integration && npm run test:match-contract
+
+
+> my_football_legend@0.1.0 test:unit
+> npm run generate:world-db && vitest run --maxWorkers=2 --exclude src/core/fullCareerSimulation.test.ts --exclude src/core/careerLifecycle.test.ts --exclude scripts/clubAudit.test.ts --exclude src/core/careerMatchContract.test.ts --exclude src/core/matchSimulation/pr160PenaltyLiveness.test.ts --exclude src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts --exclude src/app/match/backgroundOrchestration.test.tsx
+
+
+> my_football_legend@0.1.0 generate:world-db
+> node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts
+
+world database: 64 clubs, 1824 footballers
+wrote C:\Users\Admin\Documents\Codex\2026-10-26\cze-przygotuj-prosz-wykonanie-zadania-w\work\mfl-git\.generated-public\data\world\pl-2026-v2.json
+(node:38548) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-26/cze-przygotuj-prosz-wykonanie-zadania-w/work/mfl-git
+
+ ❯ scripts/benchmarkReactiveTactics.test.ts (1 test | 1 failed) 5196ms
+     × changes executed build-up/support and real AI recycling across several seeds 5195ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  scripts/benchmarkReactiveTactics.test.ts > PR151 deterministic physical team adaptation benchmark > changes executed build-up/support and real AI recycling across several seeds
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ scripts/benchmarkReactiveTactics.test.ts:6:3
+      4|
+      5| describe('PR151 deterministic physical team adaptation benchmark', () …
+      6|   it('changes executed build-up/support and real AI recycling across s…
+       |   ^
+      7|     const result = runReactiveTacticsBenchmark();
+      8|     for (const seed of result.seeds) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 248 passed (249)
+      Tests  1 failed | 2271 passed (2272)
+   Start at  06:06:31
+   Duration  415.73s (transform 17.64s, setup 0ms, import 166.84s, tests 510.93s, environment 93.76s)
+
+VERIFY_EXIT=1

@@ -1,4 +1,5 @@
 import { enumerateCrossChoices } from './crossOpportunity';
+import { observeTransitionRelease } from './transitionMovement';
 import { attacksRight } from './matchSpace';
 import { usesStateValue } from './decisionPolicyConfig';
 import { rankStateValueActions, enumerateStateValueActions } from './decisionPolicy';
@@ -1095,7 +1096,10 @@ export const resolveMatchAction = (
     return next;
   return emitCanonicalActionEvents(
     state,
-    observeCombinationRelease(state, reconcileControlledBallContact(next)),
+    observeTransitionRelease(
+      state,
+      observeCombinationRelease(state, reconcileControlledBallContact(next)),
+    ),
   );
 };
 

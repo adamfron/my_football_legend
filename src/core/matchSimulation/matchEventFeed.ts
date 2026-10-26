@@ -70,15 +70,20 @@ export const emitMatchEvents = (
   for (const team of ['home', 'away'] as const) {
     if (next.score[team] <= previous.score[team]) continue;
     const shot = next.lastShot?.outcome === 'goal' ? next.lastShot : undefined;
+    const incidental =
+      next.lastIncidentalGoal?.scoringTeam === team &&
+      next.lastIncidentalGoal !== previous.lastIncidentalGoal
+        ? next.lastIncidentalGoal
+        : undefined;
     add({
       id: `${next.seed}:goal:${next.score.home}:${next.score.away}`,
       at: next.time,
       kind: 'goal',
       team,
-      actorId: shot?.shooterId,
+      actorId: incidental ? (incidental.creditedPlayerId ?? undefined) : shot?.shooterId,
       score: { ...next.score },
-      contactId: shot?.shotId,
-      actionEventId: actionRef(shot ? `shot:${shot.shotId}` : undefined),
+      contactId: incidental?.id ?? shot?.shotId,
+      actionEventId: actionRef(!incidental && shot ? `shot:${shot.shotId}` : undefined),
     });
   }
   const foul = next.lastFoul;

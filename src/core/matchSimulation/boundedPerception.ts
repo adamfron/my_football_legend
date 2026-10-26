@@ -16,6 +16,7 @@ import {
 
 const unit = z.number().min(0).max(1);
 export const boundedSceneSchema = z.object({
+  transitionExperiment: z.boolean().optional(),
   observerId: z.string(),
   team: z.enum(['home', 'away']),
   at: z.number(),
@@ -48,6 +49,7 @@ export const boundedSceneSchema = z.object({
         keeper: z.boolean(),
         role: z.string().nullable(),
         preparing: z.boolean(),
+        facing: z.number().optional(),
       }),
     )
     .max(22),
@@ -108,6 +110,7 @@ export const observeBoundedScene = (
       }),
       velocity: { ...p.velocity },
       keeper: p.slot.position === 'goalkeeper',
+      ...(state.experimentalTransitionIntelligence ? { facing: p.facingAngle } : {}),
       role: p.team === actor.team ? tacticalRoleFor(state, p).id : null,
       // A coarse visible body-set cue, never its private chosen action or exact clock.
       preparing:
@@ -120,6 +123,7 @@ export const observeBoundedScene = (
   const prep = state.onBallPreparation?.actorId === actor.id ? state.onBallPreparation : null;
   const role = tacticalRoleFor(state, actor);
   return boundedSceneSchema.parse({
+    ...(state.experimentalTransitionIntelligence ? { transitionExperiment: true } : {}),
     observerId: actor.id,
     team: actor.team,
     at: state.time,

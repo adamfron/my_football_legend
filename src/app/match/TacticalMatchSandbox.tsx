@@ -145,6 +145,7 @@ import type { WorldDatabase } from '../../types/domain';
 import { projectMatchKits } from './tacticalRenderer/kits';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
 import { FirstTouchLaboratoryPanel } from './FirstTouchLaboratoryPanel';
+import { TransitionLaboratoryPanel } from './TransitionLaboratoryPanel';
 import {
   accrueSimulationDebt,
   availableFixedTicks,
@@ -2247,6 +2248,10 @@ export const RunningLab = ({
       {!careerMode && (
         <details className="presentation-diagnostics">
           <summary>Widok diagnostyczny</summary>
+          <details>
+            <summary>PR193 · Przejścia, okna podań i wybicia</summary>
+            <TransitionLaboratoryPanel />
+          </details>
           <details>
             <summary>PR191/192 · Pierwszy kontakt i ruch do piłki</summary>
             {state.players[0] && (

@@ -20,6 +20,8 @@ import { integrateGroundRolling } from './ballPhysics';
 import { derivePressingOpportunity } from './tacticalPreferences';
 import { deriveMovementCapability } from './locomotion';
 import { boundedPolicySchema } from './boundedIntelligenceState';
+import { clearanceIntentionSchema } from './strategicClearance';
+import { executeFootContact } from './footContact';
 const relativeDefensivePolicies = new Set<string>(boundedPolicySchema.options);
 const relativeDefence = (s: TacticalMatchState) =>
   relativeDefensivePolicies.has(s.decisionPolicy ?? '') &&
@@ -28,6 +30,7 @@ const relativeDefence = (s: TacticalMatchState) =>
 export const defensiveTechniqueSchema = z.enum(['standing', 'committed', 'slide', 'tactical']);
 export type DefensiveTechnique = z.infer<typeof defensiveTechniqueSchema>;
 export const defensiveChallengeSchema = z.object({
+  clearance: clearanceIntentionSchema.optional(),
   id: z.string(),
   actorId: z.string(),
   opponentId: z.string(),
@@ -52,6 +55,7 @@ export const defensiveEpisodeSchema = z.object({
 });
 export type DefensiveEpisode = z.infer<typeof defensiveEpisodeSchema>;
 export const challengeDiagnosticSchema = z.object({
+  clearance: clearanceIntentionSchema.optional(),
   id: z.string(),
   at: z.number().nonnegative(),
   actorId: z.string(),
@@ -829,6 +833,7 @@ export const beginDefensiveChallenge = (
   )
     return state;
   const challenge: DefensiveChallenge = {
+    ...(action.clearance ? { clearance: action.clearance } : {}),
     id: `${state.seed}:challenge:${state.time.toFixed(6)}:${action.actorId}:${action.opponentId}:${action.technique}`,
     actorId: action.actorId,
     opponentId: action.opponentId,
@@ -1038,6 +1043,7 @@ const isDefendingPenaltyArea = (team: TeamOrientation, point: { x: number; y: nu
   point.y >= 13.84 && point.y <= 54.16 && (attacksRight(team) ? point.x <= 16.5 : point.x >= 88.5);
 
 export const challengeResolutionSchema = z.object({
+  physicalClearance: z.boolean().optional(),
   state: z.custom<TacticalMatchState>(),
   diagnostic: challengeDiagnosticSchema.optional(),
   looseVelocity: physicalPointSchema.optional(),
@@ -1084,8 +1090,15 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
   const elapsed = state.time - intent.startedAt;
   const reach = intent.technique === 'slide' ? 1.9 : intent.technique === 'committed' ? 1.25 : 0.95;
   const minimumTime =
-    (intent.technique === 'standing' ? 0 : intent.technique === 'slide' ? 0.18 : 0.1) *
-    deriveFitnessPhysicalModifiers(c.actor).contactRecovery;
+    Math.max(
+      intent.technique === 'standing' ? 0 : intent.technique === 'slide' ? 0.18 : 0.1,
+      intent.clearance && intent.clearance.kind !== 'control'
+        ? 0.08 +
+            (1 -
+              (c.actor.profile.attributes.technique + c.actor.profile.attributes.tackling) / 200) *
+              0.12
+        : 0,
+    ) * deriveFitnessPhysicalModifiers(c.actor).contactRecovery;
   const aligned = c.facingError <= Math.PI * (intent.technique === 'tactical' ? 0.68 : 0.5);
   let opponentContact =
     c.opponentDistance <= (intent.technique === 'slide' ? 1.75 : 1.35) && aligned;
@@ -1207,7 +1220,30 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
         outcome = 'loose_ball';
     }
   }
+  // A clearance is a finite surface impulse after the same legal duel adjudication.
+  // The intent neither creates reach nor guarantees that the ball leaves the field.
+  const clearing = intent.clearance && intent.clearance.kind !== 'control';
+  const clearance =
+    clearing && ballFirst && (outcome === 'clean_win' || outcome === 'loose_ball')
+      ? executeFootContact(state, c.actor, {
+          intended: 'inside',
+          desiredVelocity: (() => {
+            const dx = intent.clearance!.target.x - state.ball.x,
+              dy = intent.clearance!.target.y - state.ball.y;
+            const d = Math.max(0.01, Math.hypot(dx, dy));
+            const speed = Math.min(22, Math.sqrt(2 * 3.2 * d) + 1.5);
+            return { x: (dx / d) * speed, y: (dy / d) * speed, z: 0 };
+          })(),
+          preparationSeconds: elapsed,
+          balance: c.actor.plantBalance?.balance ?? 1,
+          pressure: Math.min(1, 1 / Math.max(1, c.opponentDistance)),
+          contactSeconds: 0.06,
+        })
+      : undefined;
+  if (intent.clearance && clearance?.available) outcome = 'loose_ball';
+  else if (clearing && ballFirst && !clearance?.available && outcome !== 'foul') outcome = 'missed';
   const diagnostic: ChallengeDiagnostic = {
+    ...(intent.clearance ? { clearance: intent.clearance } : {}),
     id: intent.id,
     at: state.time,
     actorId: c.actor.id,
@@ -1252,6 +1288,33 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
     },
   };
   delete next.defensiveChallenge;
+  if (clearance?.available) {
+    next.ballEpisode = (state.ballEpisode ?? 0) + 1;
+    next.ball = {
+      x: state.ball.x,
+      y: state.ball.y,
+      height: state.ball.height ?? 0.11,
+      velocity: clearance.outgoingVelocity,
+      spin: clearance.outgoingSpin,
+      airborne: false,
+      looseSince: state.time,
+      lastTouchPlayerId: c.actor.id,
+    };
+    next.lastGroundContact = {
+      actorId: c.actor.id,
+      at: state.time,
+      region: `${clearance.foot}_foot`,
+      intendedRegion: `${clearance.foot}_foot`,
+      point: { x: state.ball.x, y: state.ball.y },
+      incomingVelocity: clearance.incomingVelocity,
+      outgoingVelocity: clearance.outgoingVelocity,
+      quality: clearance.quality,
+      retained: false,
+      executed: true,
+      physicalCount: 1,
+      surfaceContact: clearance,
+    };
+  }
   if (ballFirst && (outcome === 'clean_win' || outcome === 'loose_ball'))
     next.ball = { ...next.ball, lastTouchPlayerId: c.actor.id };
   if (intent.technique === 'committed' || intent.technique === 'slide') {
@@ -1288,6 +1351,7 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
   return {
     state: next,
     diagnostic,
+    ...(clearance?.available ? { physicalClearance: true } : {}),
     ...(outcome === 'loose_ball'
       ? { looseVelocity: { x: (rng.float() - 0.5) * 5, y: (rng.float() - 0.5) * 5 } }
       : {}),

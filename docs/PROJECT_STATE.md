@@ -1,6 +1,42 @@
 # My Football Legend — Current Project State
 
-## PR192 — Ball-Oriented Movement, Recovery Intelligence & Natural Match Flow (experimental)
+## PR193 — Transition Intelligence, Strategic Clearances & Attacking Opportunity Windows
+
+Eksperymentalna kontynuacja scalonego PR192. Ograniczony model rozdziela dojście
+do miejsca, użyteczny kontakt i przygotowanie akcji; porównuje wygasanie widocznych
+korytarzy. Niepełna obserwacja obrony nie staje się dowodem spalonego. Ruch po
+podaniu i trzeciego zawodnika trwa także podczas lotu piłki, a obrona reaguje na
+widoczne prędkości, zagrożenie i asekurację. Wybicie do boku jest intencją
+rozstrzyganą przez rzeczywisty kontakt stopy, tor piłki i ostatni faktyczny dotyk.
+
+`experimentalTransitionIntelligence` i `experimentalStrategicClearances` są osobnymi
+przełącznikami opt-in. Oddzielne `experimentalIncidentalGoals` bada rzeczywiste gole
+po luźnej piłce i samobóje bez tworzenia fikcyjnej intencji strzału; pełna kohorta
+meczowa nie włącza tego eksperymentu. Domyślne B, 28 atrybutów, zapis, sprawczość człowieka,
+zmęczenie, zasady oraz eksperymenty ciała/odzyskania/przygotowania PR190–192 pozostają.
+Nowy panel PR193 korzysta z Match Lab, istniejącego renderera i odtwarzania próbek.
+Nie twierdzi, że rysunek jest dowodem kontaktu anatomicznego.
+
+[Raport PR193, dowody i ograniczenia](PR193_TRANSITION_INTELLIGENCE_STRATEGIC_CLEARANCES_AND_OPPORTUNITY_WINDOWS.md).
+**Canonical NOT READY; B domyślne; niezależna kohorta nadal zamknięta.** Wyniki
+laboratorium i sparowanych meczów development są rozliczane oddzielnie. Zielone
+testy i CI nie są niezależną walidacją jakości futbolu.
+
+Autorytatywna kolejność: **PR193 przejścia/wybicia → PR194 pełne generacje i siła
+świata → PR195 Summary/PlayStyles → PR196 Career UX → PR197+ World Expansion**.
+Powodem przesunięcia są jawne blokery kreacji i przepływu meczu. Pełne 20–25 sezonów,
+akademie i kohorty, jakość kadr/najlepszej XI/pozycji, starzenie, emerytury,
+trajektorie i pułapy talentu, transfery, wymiana pokoleń i stabilność silnych/słabych
+klubów pozostają niewykonane. Przyszły wybór składu uwzględni formę z niepewnością,
+rolę, znajomość systemu/partnerów, zdrowie i psychikę, matchup, trenera i zaufanie
+budowane wieloma występami. PR193 zachowuje tę specyfikację, bez systemu selekcji
+kariery i bez trwałego wzmacniania karty po pojedynczym występie.
+
+Pozostałe blokery meczu wymagają następnego jawnego przeglądu priorytetów,
+nie automatycznego odkładania prac kariery bez końca. Starsze sekwencje poniżej
+są historyczne; nie zastępują tej kolejności.
+
+## Scalony PR192 — Ball-Oriented Movement, Recovery Intelligence & Natural Match Flow (experimental)
 
 Oba błędy 45°/90° odtworzono z PR191 na karcie `footballer_pro_9_12` i seedzie
 `pr191-inspection`. To rekonstrukcja konfiguracji, nie odczyt niedostarczonych eksportów.
@@ -34,7 +70,7 @@ To jawny wyjątek dla nieadekwatnego limitu; kod gry pozostaje niezmieniony.
 
 [Raport, komplet pomiarów i ograniczenia PR192](PR192_BALL_ORIENTED_MOVEMENT_RECOVERY_AND_NATURAL_MATCH_FLOW.md).
 **B nadal domyślne; 28 atrybutów zachowane; canonical NOT READY; niezależna kohorta zamknięta.**
-Aktualna kolejność: **PR193 pełne generacje/siła świata → PR194 Summary/PlayStyles →
+Historyczna kolejność po PR192: **PR193 pełne generacje/siła świata → PR194 Summary/PlayStyles →
 PR195 Career UX → PR196+ World Expansion**. Całe 20–25 sezonów, akademie, starzenie,
 emerytury, transfery i długofalowa siła kadr pozostają niewykonane i niepomniejszone.
 Starsze numeracje poniżej są historią projektu, nie aktualnym planem.
