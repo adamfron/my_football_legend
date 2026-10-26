@@ -7,6 +7,22 @@ concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  penalty_diagnostic:
+    name: matched-host penalty diagnostic
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      NODE_OPTIONS: '--max-semi-space-size=64'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/diagnosePr192Penalty.mjs
   checks:
     name: verify (${{ matrix.group }})
     runs-on: ubuntu-latest
