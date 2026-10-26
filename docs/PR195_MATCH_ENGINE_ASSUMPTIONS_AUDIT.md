@@ -67,7 +67,7 @@ The source map covers all nine selectable policy IDs. Legacy/risk-ablation, B wi
 
 The snapshot retains family membership and same-intent membership separately; neither asserts an identical target/delivery candidate or current admissibility. Full candidate records expose feasibility, legality, confidence, expiry, readiness and benefits. Canonical menu eligibility, policy selection and actual release remain separate. A missing incoming candidate can be a generation limitation while contact is physically possible. A present remote-ball shot family can still be explicitly infeasible and rejected.
 
-The comparative-choice principle remains binding: evaluate a difficult shot/pass/clearance against the **other genuinely available actions**, including hold, not an ideal imagined continuation. No named bicycle-kick success chance, possession bonus or shot quota is introduced. The two captured-state experiments retain hold and the policy selection alongside available pass/shot alternatives. They do not constitute a representative full-match opportunity sample.
+The comparative-choice principle remains binding: evaluate a difficult shot/pass/clearance against the **other genuinely available actions**, including hold, not an ideal imagined continuation. No named bicycle-kick success chance, possession bonus or shot quota is introduced. The two captured-state experiments retain hold and the policy selection. Both recorded bounded lists offer only hold/carry alternatives, so these eight continuations do not demonstrate a captured pass/shot counterfactual. The separate catalogue tests forced pass/shot requests. Wider full-match harvesting, including eliminated attacking alternatives, remains open.
 
 ## 8. Prediction versus execution
 
