@@ -1,0 +1,33 @@
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-26/cze-przygotuj-prosz-wykonanie-zadania-w/work/mfl-git
+
+ ❯ src/core/matchSimulation/pr193Transition.test.ts (17 tests | 1 failed) 3158ms
+     × holds the counterattack carrier until the explicitly prescribed delayed autonomous release 522ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/pr193Transition.test.ts > PR193 observed opportunities and physical consequences > holds the counterattack carrier until the explicitly prescribed delayed autonomous release
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/core/matchSimulation/pr193Transition.test.ts:35:7
+     33|         .filter((s) => s.at < r.initial.time + 0.5)
+     34|         .every((s) => s.action !== 'carry' && s.action !== 'pass'),
+     35|     ).toBe(true);
+       |       ^
+     36|     expect(
+     37|       r.traces.filter((t) => t.released).every((t) => t.at >= r.initia…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 21 passed (22)
+   Start at  06:08:25
+   Duration  11.09s (transform 2.47s, setup 0ms, import 5.80s, tests 3.41s, environment 1.34s)
+

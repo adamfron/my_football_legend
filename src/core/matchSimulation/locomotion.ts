@@ -178,6 +178,24 @@ export const projectLocomotion = (
   }
   const combination = state.combinationIntent;
   if (
+    state.experimentalTransitionIntelligence &&
+    player.transitionMark &&
+    distance(target, player.transitionMark.target) < 1
+  )
+    return result(metres > 4 ? 'sprint' : 'run', 'recovery_run');
+  const transition =
+    state.experimentalTransitionIntelligence &&
+    state.transitionRuntime?.runs.find(
+      (run) =>
+        run.actorId === player.id && state.time >= run.recognisedAt && state.time < run.expiresAt,
+    );
+  if (
+    transition &&
+    distance(target, transition.target) < 1 &&
+    !(state.playerAgencyEnabled !== false && state.controlledFootballerId === player.id)
+  )
+    return result(metres > 5 ? 'sprint' : 'run', 'support_run');
+  if (
     combination?.runnerId === player.id &&
     combination.team === state.possessionTeam &&
     state.time < combination.expiresAt &&

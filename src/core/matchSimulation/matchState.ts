@@ -1,6 +1,9 @@
 import { z } from 'zod';
 import { experimentalBodyContactsSchema } from './ballSurfaceContact';
 import { ballMotorObservationSchema } from './ballOrientedMovement';
+import { transitionRuntimeSchema, transitionMarkSchema } from './opportunityWindows';
+import { clearanceIntentionSchema } from './strategicClearance';
+import { incidentalGoalFactSchema } from './incidentalGoalState';
 import { lowerBodyPoseSchema, type LowerBodyPose } from './lowerBodyGeometry';
 import { boundedExperimentSchema, boundedRuntimeSchema } from './boundedIntelligenceState';
 import { footSurfaceSchema, multiContactMoveSchema } from './footContact';
@@ -167,6 +170,7 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     actorId: z.string(),
     opponentId: z.string(),
     technique: defensiveTechniqueSchema,
+    clearance: clearanceIntentionSchema.optional(),
   }),
   z.object({ type: z.literal('hold'), actorId: z.string() }),
   z.object({
@@ -508,6 +512,7 @@ export const spatialMovementSchema = z.object({
 });
 
 export interface MatchPlayerState {
+  transitionMark?: z.infer<typeof transitionMarkSchema>;
   ballMotorObservation?: z.infer<typeof ballMotorObservationSchema> | undefined;
   lowerBodyPose?: LowerBodyPose | undefined;
   plantBalance?: PlantBalance;
@@ -794,6 +799,11 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  experimentalIncidentalGoals?: boolean;
+  lastIncidentalGoal?: z.infer<typeof incidentalGoalFactSchema>;
+  experimentalTransitionIntelligence?: boolean;
+  experimentalStrategicClearances?: boolean;
+  transitionRuntime?: z.infer<typeof transitionRuntimeSchema>;
   experimentalBodyContacts?: z.infer<typeof experimentalBodyContactsSchema>;
   experimentalBallRecovery?: boolean;
   experimentalRestartPreparation?: boolean;
@@ -1011,6 +1021,11 @@ export const tacticalMatchStateSchema = z
   .object({
     experimentalBodyContacts: experimentalBodyContactsSchema.optional(),
     experimentalBallRecovery: z.boolean().optional(),
+    experimentalIncidentalGoals: z.boolean().optional(),
+    lastIncidentalGoal: incidentalGoalFactSchema.optional(),
+    experimentalTransitionIntelligence: z.boolean().optional(),
+    experimentalStrategicClearances: z.boolean().optional(),
+    transitionRuntime: transitionRuntimeSchema.optional(),
     experimentalRestartPreparation: z.boolean().optional(),
     decisionPolicy: decisionPolicyIdSchema.optional(),
     boundedExperiment: boundedExperimentSchema.optional(),
@@ -1099,6 +1114,7 @@ export const tacticalMatchStateSchema = z
           fitness: matchFitnessSchema.optional(),
           plantBalance: plantBalanceSchema.optional(),
           ballMotorObservation: ballMotorObservationSchema.optional(),
+          transitionMark: transitionMarkSchema.optional(),
           lowerBodyPose: lowerBodyPoseSchema.optional(),
           verticalJump: verticalJumpSchema.optional(),
           injury: matchInjurySchema.optional(),

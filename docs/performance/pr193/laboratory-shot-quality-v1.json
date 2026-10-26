@@ -1,0 +1,5435 @@
+{
+  "schema": "mfl-pr193-shot-audit-v1",
+  "source": [
+    {
+      "path": "src/app/App.tsx",
+      "sha256": "d70858b4da405c899b596e8ee2116f7e0855f64e23157c75a0fc9545da1c41f6"
+    },
+    {
+      "path": "src/app/CareerApp.tsx",
+      "sha256": "9f00f6cd3831c93bc49878ef3cec20ec9a6c572a07c75e48758dac973c975c83"
+    },
+    {
+      "path": "src/app/StartScreen.tsx",
+      "sha256": "589d24f017ae3eb1bf5e0912df3c43004f53c3d33d77bbe60b3edf9e686dc64b"
+    },
+    {
+      "path": "src/app/appearance/AppearanceEditor.tsx",
+      "sha256": "db008c2b4ea608f95846642356712ea88312274ebd10123df6152795c4075a3c"
+    },
+    {
+      "path": "src/app/appearance/PlayerPreview.tsx",
+      "sha256": "049c106f6b6c010ed21853aaba0ad19aea6bc21152d857bd5b0e10c63a71c746"
+    },
+    {
+      "path": "src/app/appearance/ProfileAppearanceEditor.tsx",
+      "sha256": "a404a7ea3040d8355bd5db9d6114d1f09fde52a9574d3e246107040a0fffe936"
+    },
+    {
+      "path": "src/app/appearance/VisualGallery.tsx",
+      "sha256": "80713c911121e007863448b1d0c2149e3c595dc464f62edb161c476b18106acc"
+    },
+    {
+      "path": "src/app/appearance/appearanceDraft.ts",
+      "sha256": "eb942efd7fb5746fd20ddb23608ffe996c56249a426f7698eb1c554f928e85e3"
+    },
+    {
+      "path": "src/app/appearance/galleryExamples.ts",
+      "sha256": "c41411e9d5a2d5759d354ef9bb6037c11c9e2ecf122d673b6e33b6ccd21d02bf"
+    },
+    {
+      "path": "src/app/appearance/previewScene.ts",
+      "sha256": "24141335241677e0ca4ed2b77b6629a9e37d7c3d91387c3ab423f96f12c63d19"
+    },
+    {
+      "path": "src/app/career/CareerCalendar.tsx",
+      "sha256": "eb63b176a35fd3ba2c010343044baf5fbe754f6fe2eaca74276f2d1d0576cad6"
+    },
+    {
+      "path": "src/app/career/CareerView.tsx",
+      "sha256": "f9d0c0a3ece43c720bc6b5209935b2fc5586c350ccddc1e51530caf5613fde79"
+    },
+    {
+      "path": "src/app/career/ClubView.tsx",
+      "sha256": "d0ec79dfd211311f3e8de72a0dc92eb3ab11abbac4ee4786e6d42d0db75f80bd"
+    },
+    {
+      "path": "src/app/career/FinanceView.tsx",
+      "sha256": "f7707c25038b15d0c1634169b57f0a652d2fa88f85a1013952d2be5ccaa65604"
+    },
+    {
+      "path": "src/app/career/HistoryView.tsx",
+      "sha256": "5a5cc68d4e9890ec4389d8346e37bd4fa88e578f850e5ca21798d3c05ae441f9"
+    },
+    {
+      "path": "src/app/career/NewsView.tsx",
+      "sha256": "0c3446af0fc70745a441fb875c03b299a7770d12af12efa2f6895bc100cffe94"
+    },
+    {
+      "path": "src/app/career/SeasonView.tsx",
+      "sha256": "4adc7366065ddb172c3a298190d990e6e4129f1a1f31439c7b8c1f464ec2fa03"
+    },
+    {
+      "path": "src/app/career/SquadPitch.tsx",
+      "sha256": "b59479bff9249f1bf0843757cc9636b7f1b55321f430eb84e433c538daba09ae"
+    },
+    {
+      "path": "src/app/career/WorldBrowser.tsx",
+      "sha256": "457e7f6c6307293d0a1e225d2b50b3c0d2126aeba769632a428518a4d10b1a1d"
+    },
+    {
+      "path": "src/app/career/calendarPresentation.ts",
+      "sha256": "6d89039fe35e5809fae445b6fbc52f933a60bdd6fd72c3354269eac80336c70c"
+    },
+    {
+      "path": "src/app/career/financePresentation.ts",
+      "sha256": "1837c9f3b6f0ae6e520b2a020c1f0abc2a9c7c94c8986066f418bb1872afe21a"
+    },
+    {
+      "path": "src/app/career/formationCoordinates.ts",
+      "sha256": "ebd11d1fe4e4924f3f923d349b116e04ab1e914f6401308511051f23a2906798"
+    },
+    {
+      "path": "src/app/careerCommit.ts",
+      "sha256": "a0c66b61d014c53d677ac3abf64f68aaa33a6c72e2d582dfd6c61fd0544f68c2"
+    },
+    {
+      "path": "src/app/creator/CreatorHeader.tsx",
+      "sha256": "056152d8fcde519d42af215de5bc01ea66bbff0d20a32361abbc214a431bd4d4"
+    },
+    {
+      "path": "src/app/creator/CreatorSteps.tsx",
+      "sha256": "39ad2c0f90b553f7996ad56c3982f27c0de44aa250c38dc32150f632997fbb7a"
+    },
+    {
+      "path": "src/app/creator/PlayerCreator.tsx",
+      "sha256": "f219a746640ece57026f400c522867d711af64c12ba987b667219b5f1f465a25"
+    },
+    {
+      "path": "src/app/devTools.ts",
+      "sha256": "b96b10e97bcee9563c295f793e1b999183b6a6a9faf6bb2c3691cb741100be5b"
+    },
+    {
+      "path": "src/app/match/CareerCanonicalMatch.tsx",
+      "sha256": "d7f46d4349988d6ec86cbe2730b00bf15c92a71a0f8d6a71d1c86f591b4072de"
+    },
+    {
+      "path": "src/app/match/DecisionTargets.tsx",
+      "sha256": "71abf0e734ddf1c19369f23e87874c440556e8e83d94f7617c057093ab060366"
+    },
+    {
+      "path": "src/app/match/FirstTouchDiagnostics.tsx",
+      "sha256": "1c7daf1a76044fdfb22e60a841d8f64dc3cc75b1e82a9a6543c5e3f75204d5cd"
+    },
+    {
+      "path": "src/app/match/FirstTouchLaboratoryPanel.tsx",
+      "sha256": "5252a8cdc6511a34e30675a9d5a38a2ff57008a9e15345d6b8610eea839c0d03"
+    },
+    {
+      "path": "src/app/match/MatchCentre.tsx",
+      "sha256": "07f5b144bb1d30d945cdf4df66f20a39ca53ca3d26f736dfcc39f7be5b1e0588"
+    },
+    {
+      "path": "src/app/match/MatchGame.tsx",
+      "sha256": "210efa531bba22072d8d511c766ab76f0761438667e0394b84f0a3397760a147"
+    },
+    {
+      "path": "src/app/match/MatchOccasion.tsx",
+      "sha256": "86893936150f3e09bb883dbd82abf473b4e4ced3d6ae9c6ff86a2938d8ac1c9a"
+    },
+    {
+      "path": "src/app/match/PlayerFitness.tsx",
+      "sha256": "daf1e522044fa9ff252dd4d894b959250d291b14623c9fbfb14c6c9ab7e3dfc9"
+    },
+    {
+      "path": "src/app/match/ReplayControls.tsx",
+      "sha256": "ad1c48fbada50bb7c5f0c6da92ae749a034baa59f9da440dbf86ee431be9ca08"
+    },
+    {
+      "path": "src/app/match/ShotAimControls.tsx",
+      "sha256": "4933f280890a39fbbe200b438cf2fc1fd2a127a3a5bc7e4b0936fe2353024f0a"
+    },
+    {
+      "path": "src/app/match/TacticalExplanation.tsx",
+      "sha256": "06cbf95b998f9b5305a613b389cd04090694f196d2ae0137e41f490c94254841"
+    },
+    {
+      "path": "src/app/match/TacticalMatchSandbox.tsx",
+      "sha256": "3dabd435edb3e1ffd23d1a797edcc2c308cf2e00dbef9da570471f8816744a72"
+    },
+    {
+      "path": "src/app/match/TransitionLaboratoryPanel.tsx",
+      "sha256": "20114c779f672f5512a175f4030620c85f51604cde3a020162e9f375c04277f2"
+    },
+    {
+      "path": "src/app/match/backgroundPublication.ts",
+      "sha256": "96de89a7e02fc12aa586ebff7e89e655d6303fd825dd6eaf4c9f701a62105522"
+    },
+    {
+      "path": "src/app/match/firstTouchLabOverlay.ts",
+      "sha256": "c45dcf3eeb4ca9191e219db431d3474017d36448b28087bb6b07f2fb3c571c9b"
+    },
+    {
+      "path": "src/app/match/matchBenchmarkReport.ts",
+      "sha256": "a2b0d3fabc78d2c196265120c98fffb08b3ad9a2ee36feebe2d4b30595e3f18d"
+    },
+    {
+      "path": "src/app/match/matchDebugCapture.ts",
+      "sha256": "618ee9874b6edb602c8e2b46edd2375cb3d3e878e5c9a1d5501eac15ea32dcd7"
+    },
+    {
+      "path": "src/app/match/matchEventLabels.ts",
+      "sha256": "7ff292a3630aa8b002e7d7ef222040234cb28865339068ca6e6cf6a5ad3b0a4a"
+    },
+    {
+      "path": "src/app/match/matchLabDiagnostics.ts",
+      "sha256": "93a3b2f0a0d02eb6fc93e7e14f70ec0da3f5e50055f0b1ec494356a237c4f697"
+    },
+    {
+      "path": "src/app/match/matchRuntimeClock.ts",
+      "sha256": "7110967a867d99bf7c2263c96a8817a5c00120d818d65a5b15e1f6009ab245e9"
+    },
+    {
+      "path": "src/app/match/matchTime.ts",
+      "sha256": "a807b2a56a9c2a85efe85a740612c6ffc2641eeb11054236a6823b52fca990fc"
+    },
+    {
+      "path": "src/app/match/replayViewer.ts",
+      "sha256": "85fcb7b0356cf03d0577dc1def2674d7d26135da32a011d3ee64226faac54642"
+    },
+    {
+      "path": "src/app/match/singleMatchScenarioAliases.ts",
+      "sha256": "48f5de910ba9acb3eec3c9acbd9a15a894d9f29759921fef342e773ceda2b305"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/TacticalPitchRenderer.ts",
+      "sha256": "d35951f4f94ada6e3d323a846244ede8a37a7a700812ccc5680bdcb05eb67a5c"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/actionFeedback.ts",
+      "sha256": "80c0455626096b5c0bd6ef300bad00930fa5a55e7efab2ce761f40a41072e684"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/animation.ts",
+      "sha256": "6bf0fb70355dca60f3c1f590b822f645ce4a93a6392732e3d5c9c230b15d9482"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/cameraInteraction.ts",
+      "sha256": "92864b7b0891e125c8668364bce6f6e6d6a52afe1015772a5312f85dee797ebd"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/contextHistory.ts",
+      "sha256": "401c04610e08191d78e8c18eaeb1f2b0c87529dc2b066310ed832a018a05cb9b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/diagnosticOverlay.ts",
+      "sha256": "a9adc6256d80487b55ef9108d3678d1062af0facdd1f184a54f01d266b0fa3df"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/faceModel.ts",
+      "sha256": "7205d1f6292731dec97d1f4494ec08fabcc840eab42bf8b031f58cf433f53378"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/frameProjection.ts",
+      "sha256": "aa346074a47e38c9e915ac4cd9e928dac62ddaa17b9b65ef42b6a93c240e782b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/goalAiming.ts",
+      "sha256": "0c4caabd24f08f9e7fb11b90a3ba461ffde0ee6bddcfbfb530d6d953f7793f8e"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/kits.ts",
+      "sha256": "b07fa66b873f0da3a383660944042c627af6870dba2a43b319aae99a30464181"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/model.ts",
+      "sha256": "44fc92a904d3cde54d4c0ec003f9bd2c44dd59c581387ee569b720c12922f070"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/motionVectors.ts",
+      "sha256": "873fc90be34f66a877c880f556a7ee44afcb28bae9152a30e1495bd2e70e4376"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/playerMarkers.ts",
+      "sha256": "dc53bbe2df0866708fb6481b0301d5907310cd9f4b9852289003375a6cc27a2d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/playerModel.ts",
+      "sha256": "00b7e0301bc2ce222a16ba7922aba1a4380e3230e2ddaab103674a5f83daeb9e"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/replay.ts",
+      "sha256": "64dc7c6ee82f288af91af18067df89524e065ce3d4da437d882cb966db666b65"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/scenarios.ts",
+      "sha256": "f4518b672808da55a86d772e65ece8025869c082b7d9116606cd79ae32b84c88"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/stadium.ts",
+      "sha256": "255aa8ecebf6ad6c8a5b2cc1023ff7183d8946f8972270275b573d4ab69aa30d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/technicalArea.ts",
+      "sha256": "6cc77650ef068871dc49db9f60322e5106796d3aa873701a0d4b29cf8a246c01"
+    },
+    {
+      "path": "src/app/shared/ClubPreview.tsx",
+      "sha256": "36e45972269871495f5bb8b24b15dd134d5894fde9b90d6ad2c3d823c9b5c957"
+    },
+    {
+      "path": "src/app/shared/FootballerHoverCard.tsx",
+      "sha256": "bcadd64f594975bf66f1bf9b6f4a664de3df7e4faf269e4dde8059cf7c5fd3f4"
+    },
+    {
+      "path": "src/app/shared/PlayerCard.tsx",
+      "sha256": "7632724ce60a4808e2a8179ebaa86fe38516a5a49a5481b70177a0b79800afe6"
+    },
+    {
+      "path": "src/components/CareerMatchDetails.tsx",
+      "sha256": "5ffd572b89520753891510ccea9d8a01c0812cca7a62aeac5897f3ed91ad09f0"
+    },
+    {
+      "path": "src/components/ClubCrest.tsx",
+      "sha256": "ce4b70513af17e9c16e6bfe09ca3f297c18a224fe6c932498fdab72658a8066f"
+    },
+    {
+      "path": "src/components/ClubStrengthTooltip.tsx",
+      "sha256": "4daef696420bcd83ce9349b84cb5ef1b001e7c6c7f9f25834a51663851707abd"
+    },
+    {
+      "path": "src/components/CompactFixtureList.tsx",
+      "sha256": "a759382de56aa1f8401f7bdf97ada9dc6e27c9597dc1005b3291f9816a1c9acb"
+    },
+    {
+      "path": "src/components/MatchMomentumChart.tsx",
+      "sha256": "3c223136d743bbf7836410d40d2d66b4015ed488447380ab61947da6ebdd16bd"
+    },
+    {
+      "path": "src/components/MatchParticipationSummary.tsx",
+      "sha256": "f3996314f3ebeaee44fc25e49de21b5059ff008caad5198929d31a78f65496b6"
+    },
+    {
+      "path": "src/components/PersonAvatar.tsx",
+      "sha256": "eacf6905415bd67d5c08fa251ef9aff631070da0328f4e37a981b77ed4e15414"
+    },
+    {
+      "path": "src/components/StarRating.tsx",
+      "sha256": "82eddef17ee6872a8a5a7573e0ea16440c7b4a72f27e37e30a8fabfc304291bb"
+    },
+    {
+      "path": "src/content/archetypes/everyman.ts",
+      "sha256": "e0a8a3e2c668c239baa2115811810e8486fb41c2fa115afd44f9b725ab04a97a"
+    },
+    {
+      "path": "src/content/clubs/sampleClub.ts",
+      "sha256": "5b92f4d46e46c199ae7bcf6a486b5d62e477c90949d06b78b154dced688206f9"
+    },
+    {
+      "path": "src/content/events/sampleMatchEvent.ts",
+      "sha256": "1b06fa9f08b66ddb0d5d2af7c05a60f069824e0ed1e4cb5273c70b3766b2e99c"
+    },
+    {
+      "path": "src/content/names/polishAcademyNames.ts",
+      "sha256": "f3f446347f61b6c241be843362199b8b4533c520750e499fce32f3d7646dbf70"
+    },
+    {
+      "path": "src/content/sampleContent.ts",
+      "sha256": "06f0bc756db30536a8a6aa0e27cb57357f1e5f0abe8bd673ed2d37b036ceced0"
+    },
+    {
+      "path": "src/content/world/polishU17.ts",
+      "sha256": "4e4542733fb829f7cfa5085ba96bb873caa226f65221af0e1e1d34a9eff8d0fb"
+    },
+    {
+      "path": "src/core/age.ts",
+      "sha256": "b5d47ae2b5acfa5a70cc26599c66319bb700ca39037eedcfa618a38bd9d01b8a"
+    },
+    {
+      "path": "src/core/appearanceConsequences.ts",
+      "sha256": "ab066207dd1fef30592531f9c2479562589fe9b18e6768ceb7d4bba45c334928"
+    },
+    {
+      "path": "src/core/attributePresentation.ts",
+      "sha256": "9cbd7cf3f9355677247a6a2b8fef55974b51681e43940c59444c9c7cd3f9bfda"
+    },
+    {
+      "path": "src/core/careerCalendar.ts",
+      "sha256": "171f3f0930a3d95a356b71bbd0b250f4ec8c243ad55ff4bb6d3edf177ee5666c"
+    },
+    {
+      "path": "src/core/careerFitness.ts",
+      "sha256": "ee09c104f7a991988c512d9be697be506c7ee212a816880fd0480606abedf47f"
+    },
+    {
+      "path": "src/core/careerFlow.ts",
+      "sha256": "1e7655f1ca54961cab567b478bdb05accd4a6777d65c1826e225a0e42db060b7"
+    },
+    {
+      "path": "src/core/careerMatchContinuation.ts",
+      "sha256": "e4e01af1df9adc4020714e5b4403860f2601470e76627c306541d7103803e7de"
+    },
+    {
+      "path": "src/core/careerMatchContract.ts",
+      "sha256": "161dea0205976c25cb8d9f42ce30f7b92b455d0dd922364b676a3a0b6eaf3226"
+    },
+    {
+      "path": "src/core/careerMatchDiscipline.ts",
+      "sha256": "1fa32ba34837be9fffc95dbc967b5b2be983861bbeb11d61f1161ecc39633b7d"
+    },
+    {
+      "path": "src/core/careerMatchMilestones.ts",
+      "sha256": "b29867cc52b0af4a445422f9436e6ea047bac91eb81eb4eb66bab2a10e52dfbe"
+    },
+    {
+      "path": "src/core/careerMatchPresentation.ts",
+      "sha256": "edcfaaf70c194470da4ea5961a47c926b514c630189f9ea937250c55b11d0e82"
+    },
+    {
+      "path": "src/core/careerMatchProvenance.ts",
+      "sha256": "99a78788686839e9435899ebd8628edca8b3b370f2ec7a893bdd6bf88b3d68c4"
+    },
+    {
+      "path": "src/core/careerMatchRetention.ts",
+      "sha256": "f8473ad218bd5a3031eed0ddd918c70e89f9fa37396768a0010c4f3c42b92b92"
+    },
+    {
+      "path": "src/core/careerMatchSummary.ts",
+      "sha256": "da5b7dceb4607d91e6be1969b27089b463e2c7a95136561670e3cc794e300258"
+    },
+    {
+      "path": "src/core/careerPresentation.ts",
+      "sha256": "4aa71e9f8030a228be6ff74cf4cf4d21faa0a9b4f62045c3c247eab77297a13c"
+    },
+    {
+      "path": "src/core/careerSeasons.ts",
+      "sha256": "c287cb7adab2f05e26ed37889e252491faac421994bd09f70ed4a49c983a7dce"
+    },
+    {
+      "path": "src/core/careerSimulation.ts",
+      "sha256": "d967e0918dc48f78eb56f74556c0f682ea21c3cbd11bee5c4f0a99f72d55a271"
+    },
+    {
+      "path": "src/core/careerStats.ts",
+      "sha256": "52285130ba33db4c72cb1f9f25823c69443738668011bd13e1d914b8c6442c0f"
+    },
+    {
+      "path": "src/core/careerWeeks.ts",
+      "sha256": "54dbe74a1303eb0248e4a037b8634b821aee625372e2405195619d5e4641c3fc"
+    },
+    {
+      "path": "src/core/characters/avatarGenome.ts",
+      "sha256": "38c388962bb843d8f5b3f96fa96c5d252c4cd846ad19ae53d2fe727cae0fbf1e"
+    },
+    {
+      "path": "src/core/clubObservability.ts",
+      "sha256": "640033824dc376283a72eb693833868919c294bec369d55da5093d76b18cf19c"
+    },
+    {
+      "path": "src/core/clubStrength.ts",
+      "sha256": "78f3be5f826f83506d875f9dd2b8a564f765dd088c543a337710c15b304d35ef"
+    },
+    {
+      "path": "src/core/clubVisualIdentity.ts",
+      "sha256": "5d71844c769e170057ca3c4dbbddd6eb8609c1952f50e24f4c0bacb27a70c4ef"
+    },
+    {
+      "path": "src/core/clubWorld.ts",
+      "sha256": "c9559fd3e7e3665898541c4a9828237a69e0d80c8316f3ab61edc12ca8a29df7"
+    },
+    {
+      "path": "src/core/coachProfiles.ts",
+      "sha256": "3edc3007aecd933e55270ba278f005e42b373af7bd9f09140a89858423a2dde2"
+    },
+    {
+      "path": "src/core/coachTactics.ts",
+      "sha256": "f816a79aeeba53f13fb49cc7f6d9fc69ac35020e17bf4bd979d5edaca39811b6"
+    },
+    {
+      "path": "src/core/competitionStrength.ts",
+      "sha256": "be342600350e71f229aa7e7677326dde3bd789f1dc5f81466b80b5d7d6ae8312"
+    },
+    {
+      "path": "src/core/contractValidity.ts",
+      "sha256": "5cef2a1e8fa0585d8d0ef552e7452b6c8237ae7d9d7903457fa357098cd56f1b"
+    },
+    {
+      "path": "src/core/contracts.ts",
+      "sha256": "36b84fb553ddea0b9033f96906448f28160c78d29967a982e1ef66897e583d76"
+    },
+    {
+      "path": "src/core/development.ts",
+      "sha256": "f86ce765a5f2e1d3d13ead8ebde02755e7081c12e99a73c5a0f9236a0ba6c0ed"
+    },
+    {
+      "path": "src/core/developmentFeedback.ts",
+      "sha256": "3680db867f2c405f9e656217f01d1f08fb2fb15294a57b49ef2a3bd1d5f25702"
+    },
+    {
+      "path": "src/core/events/applyEventResolution.ts",
+      "sha256": "f50ed7c346af894c1c73f3425ef288efbd11f83e178784b50bc63eacfe80685c"
+    },
+    {
+      "path": "src/core/events/decisionAvailability.ts",
+      "sha256": "0a7943dfb5d724d5b4d72df1c1c0fef5071c24ec66eabbeeb21c85f92e6b29e5"
+    },
+    {
+      "path": "src/core/events/eventRegistry.ts",
+      "sha256": "2f6d9cd4cc09dddff985607e8c20022d0f7cfcc736d1ebfbedcc6834e608f14b"
+    },
+    {
+      "path": "src/core/events/instantiateEvent.ts",
+      "sha256": "8304dc76911cd6ec86850a44db13497a50a821a39863a60012544fdb6e6c3e8e"
+    },
+    {
+      "path": "src/core/events/regularSeasonEvents.ts",
+      "sha256": "8611ced12df10145a01e333b84417a07054dac477efae6cedb24378dcb4b83cc"
+    },
+    {
+      "path": "src/core/events/resolveEventChoice.ts",
+      "sha256": "c6d2079be4d076ca6f510747880454a37d7af31b25e6ba630b1c90c6331d8f6f"
+    },
+    {
+      "path": "src/core/events/resolvers/resolverRegistry.ts",
+      "sha256": "b4b9ef8f8cd6a869225feab6e1caaff089eea6ddeaf98c7f2472198fbf8e8037"
+    },
+    {
+      "path": "src/core/fitnessRecovery.ts",
+      "sha256": "d69160910935ea8f9c5f4c5d6cc93d172b54b280f18f1443167898c5b8451076"
+    },
+    {
+      "path": "src/core/footballArchetypes.ts",
+      "sha256": "92f3fdfcbcd111b46b34435a0a67e3f1d4c0651d21ae85dd8d1999d60350b0d6"
+    },
+    {
+      "path": "src/core/footballerWorld.ts",
+      "sha256": "fdd3d042b1c0b1146a01e1cbbe3fbff356bf59d48159f143f3ae10a74f43a511"
+    },
+    {
+      "path": "src/core/goalkeeperAttributes.ts",
+      "sha256": "f47c9bb6e8e6d163e67e88e8ffa788aee3407d880500d01cc81f5b7cea0aa0f0"
+    },
+    {
+      "path": "src/core/goalkeeperPerformance.ts",
+      "sha256": "568f89885059966f5401c6ddc7fac4936a6a9811f87e5ba19782541f7932814b"
+    },
+    {
+      "path": "src/core/history/careerHistory.ts",
+      "sha256": "f2473ad7c7f3987dbdceb97759da1d53a04fa778ec3089ed0d19827d57911c65"
+    },
+    {
+      "path": "src/core/history/careerMemory.ts",
+      "sha256": "871a3de6e51c47c461687659f5bbd24e4177c2ab7db106d31ca7f533116e2155"
+    },
+    {
+      "path": "src/core/history/historyCompaction.ts",
+      "sha256": "44ffa1c28bb8f4b92286731b9c5178cdcf3ef3837dc44df9f91fe9847ec8cca4"
+    },
+    {
+      "path": "src/core/injuryPresentation.ts",
+      "sha256": "1d95da95f1b2578053804a6e1aecd6081781817e2da18be4b6c594515b174fd1"
+    },
+    {
+      "path": "src/core/leagueSeason.ts",
+      "sha256": "ead33b550be6a511bc745d6e658b695ca7f3a20ef4c7fa658711183b84e722a2"
+    },
+    {
+      "path": "src/core/managerLifecycle.ts",
+      "sha256": "1a5e09ca4d4959c523d8cc44db1165de3b9e89bc41b8cb7147aa495aa41f6eb2"
+    },
+    {
+      "path": "src/core/matchBriefing.ts",
+      "sha256": "78ee125e9473097dc1fc9a0cb40fd67d1f8082eb78f2b07d96017c64d893d37a"
+    },
+    {
+      "path": "src/core/matchEngine.ts",
+      "sha256": "302f56f06d8949191aa6ff86af4cf371b36dd56af9c8209314e46128f4889689"
+    },
+    {
+      "path": "src/core/matchFeedback.ts",
+      "sha256": "3e35a6fca0445ae40128bbb1eb256cdd44d474780956382ec81a0ef866438e17"
+    },
+    {
+      "path": "src/core/matchParticipationPresentation.ts",
+      "sha256": "767d7880e86ed6c9d10ced7f36e047d6377773970af22efd249e8fe9270e0d31"
+    },
+    {
+      "path": "src/core/matchSimulation/actionAgency.ts",
+      "sha256": "a952df6514404dbd5930012cbde22773ce3aa55f403dbf9035aa1cd4fb8a822e"
+    },
+    {
+      "path": "src/core/matchSimulation/actionEvents.ts",
+      "sha256": "3a581e1f2b5bcdd5a08b24e0105e2ca4f75a3e4870e97844b1a27a811cb5a6b6"
+    },
+    {
+      "path": "src/core/matchSimulation/actionImpact.ts",
+      "sha256": "9ce8abe4f5034839b4179ef5218f4ea3910a4de737887a22e6de00bf44a4d3aa"
+    },
+    {
+      "path": "src/core/matchSimulation/actionLifecycle.ts",
+      "sha256": "51704a113db2c83b89aaf6571369a6644c5502c353c1f45ec53a61ef04759557"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPlay.ts",
+      "sha256": "4cfd99eefc464009fe771b100ea0b5b87d61bd2f8d693cc0230d37a0eb2255fe"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPositioning.ts",
+      "sha256": "3c50cf101ef66fd6fb6afb7e6a53a819041534182af81e2a62358d22a6a7a1eb"
+    },
+    {
+      "path": "src/core/matchSimulation/agencyCalibration.ts",
+      "sha256": "902f1e7187779f7594193645aeb2f9ae4a3c40bfdc0d71070747ff5a0a73b086"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnel.ts",
+      "sha256": "d7494825f7de770e9b7199252350af3d8d3123ea79d2b82ef4eee531490c47af"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnelAudit.ts",
+      "sha256": "b632c5ad1b61a56fc1f17bd8e3fd73df63bdf36c10f1285920e96a5b34542c85"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingTransition.ts",
+      "sha256": "d817ae2c7f16fd2b77626b9b642625176ce1b9c196f606e646d761025673067b"
+    },
+    {
+      "path": "src/core/matchSimulation/attributeCognitionLab.ts",
+      "sha256": "79cad5a2e7dd8f6e73feee18adf1a4e0240313f88134323edbe92e27f7bdbab6"
+    },
+    {
+      "path": "src/core/matchSimulation/attributeMicroLab.ts",
+      "sha256": "cbc983bc122429c7850bbbb50e2c62a9e7a00809f79919d4098a42be0e10c416"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundBenchmark.ts",
+      "sha256": "5a22047634f11e1c9259ac5932a73687921ce05ba976bf91d1e4c4c762654007"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundPerformance.ts",
+      "sha256": "798cc91042679d3734ff93c16805c4fef0b75f095a86cf2069650f17e51a642b"
+    },
+    {
+      "path": "src/core/matchSimulation/ballAcquisition.ts",
+      "sha256": "9183ec94060559516d19db509945cc64c43db7bed7cb07ead72788c5bbbdbadc"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactGeometry.ts",
+      "sha256": "ec78218d607f19ef38a1416c6f31dc18841a6e0c5e68606f1f4ebfaf9794395a"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactResolution.ts",
+      "sha256": "a931cc91b0176fb215fe676d56bd87776b6c3bfff914dd6514ec890db46b3e02"
+    },
+    {
+      "path": "src/core/matchSimulation/ballFlight.ts",
+      "sha256": "c61f381044945733c48d9c8e410c3bf8f718e34cdb9379fa2a705260e116120e"
+    },
+    {
+      "path": "src/core/matchSimulation/ballOrientedMovement.ts",
+      "sha256": "4771eb8462ef33c40bcb6005d735edeeae67956df141e84c927f713dc357c679"
+    },
+    {
+      "path": "src/core/matchSimulation/ballPhysics.ts",
+      "sha256": "711579f201eda1cefef028a39f0d629f52a4c1bec973f29666f13b2d14f0eae8"
+    },
+    {
+      "path": "src/core/matchSimulation/ballSurfaceContact.ts",
+      "sha256": "e818effd487c534738f5abc079825606525b334b162773f58fe6ce2dc36854d9"
+    },
+    {
+      "path": "src/core/matchSimulation/benchmarkFixtures.ts",
+      "sha256": "c2458d4bc14c19bd0dee504dde27c36a21591407b24d71be200af7a3d4ac7c55"
+    },
+    {
+      "path": "src/core/matchSimulation/bodyMechanics.ts",
+      "sha256": "4eb8545174a1df92ba93033652d241b1d0207a48fedc0a5c744471be4a6bb98e"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedDecision.ts",
+      "sha256": "1d135a97053be5a4ead90f4f75ce3c9026ddc4345b97448fb2f45c5e9378282f"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedIntelligence.ts",
+      "sha256": "2b77a45573255731be7988d48d78e828b0153b5a20abd4bd4f63699975673374"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedIntelligenceState.ts",
+      "sha256": "04fa8653dfed14ab5c80cfc589f0d3465ea963621308d0e3547af0902d0fea96"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedPerception.ts",
+      "sha256": "257ca4954cfce30e4112214721167beb26fdaabc2fc8c4d08d64ec8e97cccb24"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMatchSanity.ts",
+      "sha256": "a4c648f1549db500ad136223cde0ddbadcb714e6d45545bdbcfa4dab6eae7e16"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMovement.ts",
+      "sha256": "f80c2b258f384f00f47510315a9c203ea998e32be43e3ec53933887d7a6728d8"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalPresentation.ts",
+      "sha256": "dc0169f29f474c5717cb4b5f12a08620036ea4960cb5e1826f7ab069ed5b019c"
+    },
+    {
+      "path": "src/core/matchSimulation/carryExecution.ts",
+      "sha256": "7d8058c2ec0b2dfbbeef7abdf2e9674bbd83aa0bc7c246d0e72c58dad27fb2e5"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "sha256": "183e13d5a905e9ce84da5ee0e182fed1361fcdbac0afa6b16af7ce6c6120bb31"
+    },
+    {
+      "path": "src/core/matchSimulation/carryPursuit.ts",
+      "sha256": "9fbe3e8d52ec5d1d679575512d7e76f0049156457d5a388ff72a66001bcbed4e"
+    },
+    {
+      "path": "src/core/matchSimulation/coachIntelligence.ts",
+      "sha256": "3e775a7a3ed4c691fd7f4ff95e0a877e5a101545e061b53fb7d1e72f701cae80"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationPlay.ts",
+      "sha256": "bcf53d2f81fa097f7b66f6f7c3f0010222094005dedd78a8bd81bda353c4f443"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationState.ts",
+      "sha256": "a09d657bf69499a46279fff7be12dda19e1fa5e15c23c89e0fc2c6f8da7785e5"
+    },
+    {
+      "path": "src/core/matchSimulation/contactEvidence.ts",
+      "sha256": "a64b81507736a8dc0dec96af0e5540402cf863940ea482a76f5e8dd0436edab0"
+    },
+    {
+      "path": "src/core/matchSimulation/contactTacticalDiagnostics.ts",
+      "sha256": "365d78486d344c8e8ce2aaee94062d628fa06912851b933d5c7500267f2959af"
+    },
+    {
+      "path": "src/core/matchSimulation/contextualInteractions.ts",
+      "sha256": "eea275620bcf1463f0b65fa3faaed6ffe90e7df46dfda9cfde65912dd3f22329"
+    },
+    {
+      "path": "src/core/matchSimulation/crossOpportunity.ts",
+      "sha256": "879108ef47136a6d32e268cf9c7f816cede3c2bad6eb99047dbf24744e7d0369"
+    },
+    {
+      "path": "src/core/matchSimulation/deadBallEnclosure.ts",
+      "sha256": "75c3e5756e669112d65d9168b6affb6df2c9cece16cd68384f96b2556a21f67c"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionObservation.ts",
+      "sha256": "c41534c352f5991bb65137b7a646ffdb2435c6e0e6891356aa9a7ef80832a4a0"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionOutcome.ts",
+      "sha256": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicy.ts",
+      "sha256": "c7a9168fe98d1389162df6bc2b164d7e1b75e14dc7dd3b144e0a67bdc558b20e"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicyConfig.ts",
+      "sha256": "56c91ab80b0743face9ac992d3411120c3c12d330800392ad0467bf50f9b2526"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionReadiness.ts",
+      "sha256": "1349b979499888f7e86a7213d96a1709bdf5673c23d93c80025fe1ef1a18c1f5"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionResearchProtocol.ts",
+      "sha256": "7ae12349486460fc16034ed8cc9279381b7e28188c971978bdd0680abd8e66e1"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionStateValue.ts",
+      "sha256": "fe6c29e23fd404d07cf942b09fe837d9e12b27580c664cb88298abd697f77ef5"
+    },
+    {
+      "path": "src/core/matchSimulation/defensiveChallenges.ts",
+      "sha256": "8f16ae0c8cac623a4d563363a9c632a209132e2919d6061847b0ccc6a1efcf1a"
+    },
+    {
+      "path": "src/core/matchSimulation/depthThreat.ts",
+      "sha256": "291666a6f16922421e9b2bc9cb536c13986c6e09540336edb2c7e494a60d2f7a"
+    },
+    {
+      "path": "src/core/matchSimulation/dynamicIntervention.ts",
+      "sha256": "2c247e7a347d637566927df147b7f4431d27de92e16551a8966e8cc52badd640"
+    },
+    {
+      "path": "src/core/matchSimulation/effectivePlayingTime.ts",
+      "sha256": "3f0c82fbf4058c85ea6681117f9e71cef6d71355da2c0ca1c4cd73d86977f2db"
+    },
+    {
+      "path": "src/core/matchSimulation/experimentalBodyReception.ts",
+      "sha256": "59b2d96a12324ebb015298c3abab38bb947eb9a61d2ab09c1b10928894a52748"
+    },
+    {
+      "path": "src/core/matchSimulation/extendedPhysicalLab.ts",
+      "sha256": "01f6cd13b9f12824311797d00504b3d659036749b2dd18a22a7e48d3c9412a7c"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTimePassing.ts",
+      "sha256": "953ffeb76c9871ef50544310db1ec1619db2f705204833ffdd300e19be848f5b"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTouch.ts",
+      "sha256": "56889b20a502924427dbb52ba0f46aaba1f3397454cbb391e9b8344c2ab0d798"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTouchLabCatalog.ts",
+      "sha256": "e3dc7fa76c0ec108680ba809d5463e03afa225b2dca25941e058f12a9b8bc411"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTouchLaboratory.ts",
+      "sha256": "2b38e2b332695c8641f477f7140b180a56e2eb921e6b7e7a93b0734f6ed2839d"
+    },
+    {
+      "path": "src/core/matchSimulation/fitnessMicroLab.ts",
+      "sha256": "ba9e131b705c4e35c93e4747e8873a8d1314cb372b676512cdcfb26c739c0f0d"
+    },
+    {
+      "path": "src/core/matchSimulation/footContact.ts",
+      "sha256": "140546cd09121107d34e5850c8c55e9db05ce8b29babcc7fd566da7562a8706f"
+    },
+    {
+      "path": "src/core/matchSimulation/footballContactResearchPlan.ts",
+      "sha256": "33fa84a80fa9b944ccb08996201cde103f911b4722703e593d98d0ccb71d6c6f"
+    },
+    {
+      "path": "src/core/matchSimulation/footballIntelligenceDiagnostics.ts",
+      "sha256": "9e8ce023d5a0cf1593c09890ba681979ba5b255ee197b54c7122e6577b8a6fba"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabAnalysis.ts",
+      "sha256": "9ab51e75602ce4b9588bb3e2ab6280e83a32ee3f9951ccc63c761a259c09b27d"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabCatalog.ts",
+      "sha256": "a408bfaa1399027ee226a66b48a90187462bce1ab15efdbd9229c82e3fb52f87"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabObjects.ts",
+      "sha256": "c68d06769925f3e949983cf2d789019b65e613280e673e16dc2d23e8134b5afc"
+    },
+    {
+      "path": "src/core/matchSimulation/footballPerformanceLab.ts",
+      "sha256": "05ec6d534c8673092fbac2a7e57db43fa44db0dbfc64aee6f792766ef042493a"
+    },
+    {
+      "path": "src/core/matchSimulation/goalCoordinates.ts",
+      "sha256": "b6277c370055ad317b00acdce5cf2d0d5cff3b859b2e32efd2d3e6c5e115c068"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperClaim.ts",
+      "sha256": "4c41e5c2e8e2fdba99f21bd3fe24b20998f1febb55f7fc0136dfb4af0a42b56f"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperDistribution.ts",
+      "sha256": "b5669d56641c5af6f4aa292e09b616df86dee31c6e0d7e61f4f53a769a447a80"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperIntervention.ts",
+      "sha256": "0dbe943e011f145c1c7c779cabea047e0c5be1ad8a2d559f5f62f19a82ef32ac"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperPositioning.ts",
+      "sha256": "99c77bf2a7116147c0dfa5744e2b4c039beabdb519e77d071d7faf98bcf24592"
+    },
+    {
+      "path": "src/core/matchSimulation/identityHistory.ts",
+      "sha256": "a053df52915c1994e2699bb3ec9ad915ebb89aece2c939fa2a41fd052f18272f"
+    },
+    {
+      "path": "src/core/matchSimulation/incidentalGoalState.ts",
+      "sha256": "a8f24569dae34f8dc9a010e7402ef4b95b66f3dccc42f80478eb6d90be8f3122"
+    },
+    {
+      "path": "src/core/matchSimulation/incidentalGoals.ts",
+      "sha256": "b9edebf41d97c4734778d8f827ed6b94245f4ad14eccb2ba6b36bda712d55f38"
+    },
+    {
+      "path": "src/core/matchSimulation/index.ts",
+      "sha256": "fa676786bf995cdb4bfc8be41e602f5a8f89ee41e6efaeead99ce54e8b58a2df"
+    },
+    {
+      "path": "src/core/matchSimulation/injuryStoppage.ts",
+      "sha256": "87ee6f5dbd82616867a781ae649cade58b579b3288c3999b1f5bf0019b7eb5c6"
+    },
+    {
+      "path": "src/core/matchSimulation/locomotion.ts",
+      "sha256": "9bd194e3fcfbe91edafbb6b0c4c29c5994538cefc76978cb408b1f1a13864e39"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallLiveness.ts",
+      "sha256": "6885f539edd5b20bb7e09b8493b9675d3369412ee66926ec51a5da3ebffaaff7"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallPhysics.ts",
+      "sha256": "00df4b39314c094be1a3eed43ccbf7ff0434fdef2cec3471a6e8ae177237efda"
+    },
+    {
+      "path": "src/core/matchSimulation/lowerBodyGeometry.ts",
+      "sha256": "856d7d11b67c94e1adc7b934591dd5f5159f20c8926986fc4d9e01fc8e82a10f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "sha256": "1d51ad234c9b199c9eecbd55cfa05bacf3042dae26c7fdf5c6799eb92cff64d3"
+    },
+    {
+      "path": "src/core/matchSimulation/matchCentreStatistics.ts",
+      "sha256": "1f6c75d9d1483d112ae084b8219765afeab3d623751cb40423993c48dd12c666"
+    },
+    {
+      "path": "src/core/matchSimulation/matchComparison.ts",
+      "sha256": "694a3409c340da0f55ae7283ca97fb4c9bfe15fc008b3778f58101fb47f87e25"
+    },
+    {
+      "path": "src/core/matchSimulation/matchEventFeed.ts",
+      "sha256": "0cdd73ab75d40f51b28d63910418ab3c0c1d5500491f9aaadb391f9ad526ba61"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFitness.ts",
+      "sha256": "a0e827218f33496d1a71129cfb0fa0095381e4f2641077f100b57b702b9201ec"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowCalibration.ts",
+      "sha256": "5f11b0cc7e57afe02c6fec3eb0d9b5cf248df702d77eb5d1dc83bd971afdec31"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowTelemetry.ts",
+      "sha256": "814214b463a92202857204b4dec56f6f7357f5f52f2a73386d00424562391d0e"
+    },
+    {
+      "path": "src/core/matchSimulation/matchGoalkeeper.ts",
+      "sha256": "a03e4270776c986dee6023fde7054421533244039333c17e970749fd834e8d7f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchInjuries.ts",
+      "sha256": "1356eab111fe24a43ffe2cb9c404641d61ba3810362c0a37fb876590db000ebd"
+    },
+    {
+      "path": "src/core/matchSimulation/matchMoment.ts",
+      "sha256": "1ca58980b14b2f238860c7f25bcdb99f3f99a145c5e99c07815e15b9831dfaa7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchParticipants.ts",
+      "sha256": "6f6f5052024e86b4095b8fb59a53284cde5164eea45c312f25c0ab9a502fe89b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchPresentation.ts",
+      "sha256": "2bd57cfedf3f7bc615c46cce94b15fdbcbcc91daa1524a8aa6847590d0c2cebf"
+    },
+    {
+      "path": "src/core/matchSimulation/matchReplay.ts",
+      "sha256": "6d575b2a72892cd8bf1a24c08a342afa67cdebe5d263b1f7cab2d1094ce199c7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchRules.ts",
+      "sha256": "2c6675fd14e2c33917f5948f10b345c82cc95dddaf5e1b42d585ad8a6e15d38a"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSimulation.ts",
+      "sha256": "34b7a637cf39cd7797a1514412f5b86703d64f8e28d1e638139ac8b9d3a70d00"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
+      "sha256": "7f667cf65b51a93bdd0fe07e60b28e7432745968317d76bda07d1925ebe34a71"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSpace.ts",
+      "sha256": "ed0c0bba51b8dd0ff47253d7f1beae3ac4db70168a6625f867dbe6f47eb780e8"
+    },
+    {
+      "path": "src/core/matchSimulation/matchState.ts",
+      "sha256": "46e3ddd3a33735c384455e86a0c7b24566bd03af5bb1f5064be016578342c23b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchTimekeeping.ts",
+      "sha256": "de0b3592d72e33135bd8803532df42bb25bb38ec5c47429397d75dfd7ea2f924"
+    },
+    {
+      "path": "src/core/matchSimulation/movementAuthority.ts",
+      "sha256": "ab9f64fd7679af4656328fff36cf98b9acd1eb886fab480185b26059192976d7"
+    },
+    {
+      "path": "src/core/matchSimulation/naturalMatchFlowDiagnostics.ts",
+      "sha256": "75b8f2ad36859d2cf535204d801692a99a2f68ffb7eea5fa1c4f47f9ea087143"
+    },
+    {
+      "path": "src/core/matchSimulation/offensiveContinuationFunnel.ts",
+      "sha256": "d8ef2c738a2b8a67c3acb9f623f0a601dde20142dd23f5a4b0e967aa5f9ec911"
+    },
+    {
+      "path": "src/core/matchSimulation/offside.ts",
+      "sha256": "82f1da4443c622d66310eb77bb3edb4f5a5c1d6816db39f80e4b432716d15390"
+    },
+    {
+      "path": "src/core/matchSimulation/onBallPreparation.ts",
+      "sha256": "b508090bd482e6da079089e55d70e9562f33febafdb6f3ce43dda5f2bdf22651"
+    },
+    {
+      "path": "src/core/matchSimulation/opponentKnowledge.ts",
+      "sha256": "0a89207ba2b39f2a9127f6ab3a1a3106c3e57ecf19570c521b2829a2ccad47fd"
+    },
+    {
+      "path": "src/core/matchSimulation/opportunityWindows.ts",
+      "sha256": "48d80edf2ef3ef470eab27b875cb00429a91e1d491ed2e01728459a12410a082"
+    },
+    {
+      "path": "src/core/matchSimulation/passClaimResolver.ts",
+      "sha256": "0cc9978c84a342e8ca9a93304644f5e11a8130e2e35b9e1bb4300e8caf85cc6c"
+    },
+    {
+      "path": "src/core/matchSimulation/passClassification.ts",
+      "sha256": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "sha256": "88b8abcfab41a24bbde2a6f9f82f4b27ede92941aefe7b10752a5dab118fa657"
+    },
+    {
+      "path": "src/core/matchSimulation/passExecution.ts",
+      "sha256": "963f3bb5f2f5d9bf3c59f7f8f6d3a2226163c9f4aa3e2c5cf3139ebb0765eff0"
+    },
+    {
+      "path": "src/core/matchSimulation/passLaunchPlan.ts",
+      "sha256": "5dc7f2bcf91d9d3ebd54ffd10c2955bd8a2ecfd31e9e11bc3721ec8673c4d59b"
+    },
+    {
+      "path": "src/core/matchSimulation/passLifecycleDiagnostics.ts",
+      "sha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e"
+    },
+    {
+      "path": "src/core/matchSimulation/passReception.ts",
+      "sha256": "9bd54204a949b07646191538cc2b1d763938ffbc7ca578d5e86d741b9d32a170"
+    },
+    {
+      "path": "src/core/matchSimulation/passingConnectivityDiagnostics.ts",
+      "sha256": "1316512562e76439324226a2a876a34f711188e24c88280b901bb46696120aef"
+    },
+    {
+      "path": "src/core/matchSimulation/pathologicalReplay.ts",
+      "sha256": "b250c7deacd820d624aefbf76145e1a0502d371d6ad06ff924b76fe638dcf2c8"
+    },
+    {
+      "path": "src/core/matchSimulation/performanceProfiling.ts",
+      "sha256": "c0414fbd9adbce1cadc48faf3b7f46965380e4f4b8463d53015c90e4c311ec8e"
+    },
+    {
+      "path": "src/core/matchSimulation/pitchBoundary.ts",
+      "sha256": "9b732b20295e190f6f538979f856c12bac35f994d1fce4de5b4ef8d8f2847c93"
+    },
+    {
+      "path": "src/core/matchSimulation/playerActiveMinutes.ts",
+      "sha256": "06e1ffde7b9bc8eac314b3605c64760bda28bf6f42c18d2fbc5241f8d2e822a8"
+    },
+    {
+      "path": "src/core/matchSimulation/playerAgency.ts",
+      "sha256": "69f239096bbfc9cb9c1ca14e438647032db02d7f925afff9e759a937372a0f05"
+    },
+    {
+      "path": "src/core/matchSimulation/playerArrival.ts",
+      "sha256": "f0e79d3384813ef0420f2e2af8a28a35f4c17c771f43f19508df10f117d2610c"
+    },
+    {
+      "path": "src/core/matchSimulation/playerDecision.ts",
+      "sha256": "8625621b6864a86beb77e4a5f3e669f1e690de8bbf5d4299058db242a3891b32"
+    },
+    {
+      "path": "src/core/matchSimulation/playerMatchStats.ts",
+      "sha256": "289baff7665e59e12f290fc2a04ea0afb7f0fecf33e8a9dc0d84d5dc647e0ff3"
+    },
+    {
+      "path": "src/core/matchSimulation/playerOrientation.ts",
+      "sha256": "6426c3a5814bb3370018b9138cede371ea86e63ac609a5359466e5d483625bb1"
+    },
+    {
+      "path": "src/core/matchSimulation/positioningReference.ts",
+      "sha256": "0e9c67d5966c85eecff720f3ee6d59bd3265956e8e8635a2af3f118b47caad03"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionAgency.ts",
+      "sha256": "18a6ceb5587d25a89237cc0de0828746d8ad6264080e366627e8e738c6f9cfc2"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionEvents.ts",
+      "sha256": "7bd00202c102be5322f8d6ef0b39a6137d7a5d5d00d964e00353404a88789eea"
+    },
+    {
+      "path": "src/core/matchSimulation/postGoalReactions.ts",
+      "sha256": "a2fd16718d96373f7465b615b786b23505b202ca9fe61c89a62946e13891b9bf"
+    },
+    {
+      "path": "src/core/matchSimulation/pr163Fixtures.ts",
+      "sha256": "02dec0f3e501bcf53f746fb5b77ac4f58798a866a1656b3b587d575c72f90312"
+    },
+    {
+      "path": "src/core/matchSimulation/pr173Fixtures.ts",
+      "sha256": "04c2ed101f5799de342bf8c0abb61af28dc0e8ca4e406524496511a7e293dd54"
+    },
+    {
+      "path": "src/core/matchSimulation/presentationWindows.ts",
+      "sha256": "0e0eefc21d3ad219413e4259303cdbd074ec8f3f3158144ce5a131cb7789cece"
+    },
+    {
+      "path": "src/core/matchSimulation/pressingDiagnostics.ts",
+      "sha256": "1a21f31266d2c4646d81a27cca065f5d41755367743a8ff6ba50de423c5b9028"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "sha256": "d6ffb94c98f7eb9ebe7bc60e01978d9c26ccebf784601bff2fec463e52fe2ffc"
+    },
+    {
+      "path": "src/core/matchSimulation/receiverReadiness.ts",
+      "sha256": "5ec483ff5951ea8a9c3c4e8e7d66f94609b34acbf47805275ee25ed55aa4bdd1"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuation.ts",
+      "sha256": "d82b4ca4948871e67b55f2303bb9d65123e042b9b4f4c7410d2e8a51abbb01f7"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuationSchema.ts",
+      "sha256": "85550ed89812f7328980fa2a24a62ff71f72cf0f09e7aef932f6c324ae1cf403"
+    },
+    {
+      "path": "src/core/matchSimulation/relativeDecisionLab.ts",
+      "sha256": "4beab55705205d16315a66ffe056641c74e2e62e64f5e588a1e80e39009c5997"
+    },
+    {
+      "path": "src/core/matchSimulation/restartGeometry.ts",
+      "sha256": "8bb9aff9871f6292833eb8465f59b59235fbe009413017fc7ba0768acd2d768f"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLaws.ts",
+      "sha256": "6f707e8ab681d146e7a9add724189ac640c86b6c2c69ccdfde435f5a79a98df1"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLifecycle.ts",
+      "sha256": "03ffd26d3d883c18a65932b3b1741085e418fb0ae7d11c6b2c3ff133683ada4a"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLiveness.ts",
+      "sha256": "d62e8d4dbc655822e943a658f798e8f533f0c94f848dfad8687b7bbaa3c720dc"
+    },
+    {
+      "path": "src/core/matchSimulation/restartOptions.ts",
+      "sha256": "a7516e2826e804e3bef5be960124c441308471a9389e42a15ab0530273d0bae5"
+    },
+    {
+      "path": "src/core/matchSimulation/restartPhase.ts",
+      "sha256": "25824e9463b21df657c1225832ea898e32b4b0bde4193fbaa7fadd11eb9e4b9b"
+    },
+    {
+      "path": "src/core/matchSimulation/restartScenarios.ts",
+      "sha256": "530b28012106f7b9438fd2d6dd1164b6cee0ac777d637213b49a73593d60a58f"
+    },
+    {
+      "path": "src/core/matchSimulation/roleExperiment.ts",
+      "sha256": "83ec62e97f6d3276f0f1ccd9ca624f50be156a12298012979e41f320c0e64c8c"
+    },
+    {
+      "path": "src/core/matchSimulation/roleTactics.ts",
+      "sha256": "f1acb50cea6f06e00cfeb73f2732b69c17aa9f1a35ee060c5c8808cf20896e8a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingDifficulty.ts",
+      "sha256": "429f7ecd9b6e335a0329e7d908822e92554b581fa52b9b2ec86613882ea3de0a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "sha256": "752796e13ba303b1f18f672dc0e9179d21ed0d6ce5e2795460de3ced6de0ff95"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "sha256": "02114f677aa32ed832fba79a182b923f436720134b85836ce57a08c3f8b2c862"
+    },
+    {
+      "path": "src/core/matchSimulation/shotIntent.ts",
+      "sha256": "b6d7553ba010cbdc078528f738ee60828d509b0013b042b60b287a28305480b0"
+    },
+    {
+      "path": "src/core/matchSimulation/shotParityBenchmark.ts",
+      "sha256": "19130ddaed7c7faa4004c2c180bede7b0677b15db6e6ac0b71ef427490c8eea4"
+    },
+    {
+      "path": "src/core/matchSimulation/shotResolver.ts",
+      "sha256": "7a84eb30dcbe40d85894730bef14527fb72f3bb9bc8709dffde1db8ce9bde3c7"
+    },
+    {
+      "path": "src/core/matchSimulation/spacePassing.ts",
+      "sha256": "36f11dd1e67a16d761644f8e314568ebcbeda8b2c9974e977d70ab9598acb7db"
+    },
+    {
+      "path": "src/core/matchSimulation/stoppageLedger.ts",
+      "sha256": "526ff56e91e8f3e1fac8c7162e47e4a5defbd63d627bf60934467fa5040e8783"
+    },
+    {
+      "path": "src/core/matchSimulation/strategicClearance.ts",
+      "sha256": "30569840e83fc6385d992a7f4ad535cd6955679630a65fdca5bd41c97d840234"
+    },
+    {
+      "path": "src/core/matchSimulation/substitutions.ts",
+      "sha256": "75713c13f4042388df8ea9e78d163cf07fef691c2613bcdcc7cdfe57fe208198"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalActionEvaluator.ts",
+      "sha256": "9acd93a81d4d7ee674f5018f0b4299691537209aef3447d7bf892b017ffebfa2"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalCognition.ts",
+      "sha256": "a2661b893e50db5cfe428ed01c0fa9ae434430a673d8cfe013e72dcd1e1ba9bc"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalCognitionLab.ts",
+      "sha256": "d2092045b28f13b08d03fbbb917cc937a9f10834ad49f9992bac8d130ea8cdf7"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPositioning.ts",
+      "sha256": "46a060add4dbc7a6d79ea755db8690b367418be1644fbf6dff4504255a7c468c"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPreferences.ts",
+      "sha256": "19637eaab139c240caca4db0ff1c9f4a1e50a68af0ff4715073f5ba89afbc891"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalRoles.ts",
+      "sha256": "b72403c152f47a08bfd0a33a67d3119a231d0bb857d50cb45f76ea21dcd8a527"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalSituations.ts",
+      "sha256": "fea7f804d00e26f3d339c9f99309ee880f141b6b93328880c7f55e10853d46d7"
+    },
+    {
+      "path": "src/core/matchSimulation/teamShapeMetrics.ts",
+      "sha256": "53042fec058f8cdb0f35434bc0dc7936709c2243a7b56f7f883de96e7be09a66"
+    },
+    {
+      "path": "src/core/matchSimulation/teamThreatMemory.ts",
+      "sha256": "020becaa376e3763664eddd9aa26e36560fbf4c200fb09eb775fde551bc4dca8"
+    },
+    {
+      "path": "src/core/matchSimulation/throwIn.ts",
+      "sha256": "32590736ab61799e6495677d77ba35c301eab634cddfa6359f71e403e00edd9a"
+    },
+    {
+      "path": "src/core/matchSimulation/transitionDiagnostics.ts",
+      "sha256": "8ec0c8bec0ba80d4ded69314fa93ccca08fad62a2d35c89ec86dc7a184e31c25"
+    },
+    {
+      "path": "src/core/matchSimulation/transitionLaboratory.ts",
+      "sha256": "768d984799b6ea0cbcbe5bbe7bdaa4a46f541a777f32d4a4234234837179b739"
+    },
+    {
+      "path": "src/core/matchSimulation/transitionMovement.ts",
+      "sha256": "0a352cf9e9f98bd4a1b20df11000dfce35afa67e4c376c84cb46dcc4e0ebaaa8"
+    },
+    {
+      "path": "src/core/narrative/careerEvidence.ts",
+      "sha256": "35bed6893444bcdfe4c6d3c40ad74b68066f8a73da12f57ae247c8baa4f5189f"
+    },
+    {
+      "path": "src/core/narrative/careerMilestones.ts",
+      "sha256": "9a5d217fc5f33b33495b83b51890d2d08063ce9bf0cd4ebd469c6ed23e053248"
+    },
+    {
+      "path": "src/core/narrative/careerStories.ts",
+      "sha256": "f97ab69eb48eb2ce3ceec24464d6d79ed5beb6559f815d890ca17c5745c88371"
+    },
+    {
+      "path": "src/core/narrative/factPresentation.ts",
+      "sha256": "fb8c1a363ce49d62d7073db0d4bc374eae428b33354b315f63d4c7182978d320"
+    },
+    {
+      "path": "src/core/narrative/localization.ts",
+      "sha256": "00296594afbac01927e8b684a87fc160eebf6fc7b6acfc24f5cb10eba63bfa65"
+    },
+    {
+      "path": "src/core/narrative/narrativeAudit.ts",
+      "sha256": "41b85180f21df2ab4dd4f7433a3ef72d634755a289d2cceeaee0efb353145bd2"
+    },
+    {
+      "path": "src/core/narrative/narrativeVariants.ts",
+      "sha256": "86e2cbd3a4ca07e421befafb537e33c3594f955b83605d4e6bda71f0a5500b8b"
+    },
+    {
+      "path": "src/core/narrative/playerFacingAudit.ts",
+      "sha256": "2ff711d11d7d3de53ff3bc61b226ec65cb60cdf953cb72355bde3e90bcb2f428"
+    },
+    {
+      "path": "src/core/narrative/repeatedTextAudit.ts",
+      "sha256": "3cbc58cd9601b959e83678ffab8eed949b03e331ad3c3fc102f5b52889f72ad2"
+    },
+    {
+      "path": "src/core/npcCareerIdentity.ts",
+      "sha256": "ca2ffc684165237c14cb11fbd0229dae8dfdf64d37e4996d59656d362d4afcc5"
+    },
+    {
+      "path": "src/core/npcFootballIdentity.ts",
+      "sha256": "c0aee0d4ab61d261928f45652067de75e613c0f90c8648cdd5774adb14fbf065"
+    },
+    {
+      "path": "src/core/npcRetirement.ts",
+      "sha256": "9961fe2ede12957e27bed5245721447b893079661aa3cae430379cd5d82562f7"
+    },
+    {
+      "path": "src/core/npcTransferEconomics.ts",
+      "sha256": "1fb6a65ca12ef7605d7267df5bc94b19cf29e4368755f2f9c4b8525ddf8b9814"
+    },
+    {
+      "path": "src/core/npcTransferMarket.ts",
+      "sha256": "e909718f1a99ddb5901e4f39d40765c496ba2888ed8194cf329f8722b60422a3"
+    },
+    {
+      "path": "src/core/numberPresentation.ts",
+      "sha256": "bd73aefeceeedfa97c7654bc2615007f6083fd24c5ea9066aedcda723f9d5a28"
+    },
+    {
+      "path": "src/core/participationPresentation.ts",
+      "sha256": "e31d4598f7ba1e69169292e696447fd60c63ddd8859a4c9e8cb774564e7f90d0"
+    },
+    {
+      "path": "src/core/people.ts",
+      "sha256": "360a1d86523135b1d0001a215fdb6d6af71ac4bc0a654b572376698110234fd5"
+    },
+    {
+      "path": "src/core/persistence.ts",
+      "sha256": "c365eeee2c63c2b0a4125824c7bfff42f918e6452bee8a2672a10c7df74e00d5"
+    },
+    {
+      "path": "src/core/playStyles.ts",
+      "sha256": "85f7fc287b538c2c6dc68cffad2dd0f6061b7bcd41040a9c5f3fdf2db0b9d3fb"
+    },
+    {
+      "path": "src/core/playerAvailability.ts",
+      "sha256": "dd24658b4d322c915654c3d680cf7ef36a72e8fe6e56977d74e2e599353eb1e9"
+    },
+    {
+      "path": "src/core/playerCreator.ts",
+      "sha256": "c459efb4cb6044b81b967a3f56d4d493e372b0715f9a6e7addb70cce27bff136"
+    },
+    {
+      "path": "src/core/playerEconomy.ts",
+      "sha256": "782df92c9f4c71e517ce1c64088b2824df61e1e5c3e76eadb406e2a9ab9e8de8"
+    },
+    {
+      "path": "src/core/playerOverall.ts",
+      "sha256": "f980eca9dcb35a95152c45a21b9c1d6e04c45490a4b14e7c07eb43583e4f7b52"
+    },
+    {
+      "path": "src/core/playerPreferences.ts",
+      "sha256": "cccee0480ba76c0ad8ba3c4399cb0bfcde0264b33e5e98805658c0c1ebe41b00"
+    },
+    {
+      "path": "src/core/playerProfilePresentation.ts",
+      "sha256": "51c64ca390b53975a029b807c16377dca3e6fe0cd10764a08fa5a0ee396ec97f"
+    },
+    {
+      "path": "src/core/positionCompatibility.ts",
+      "sha256": "714ae0e566e7a3418f4a8a8f9339759b49740e05cb400fee3007b831ed612f09"
+    },
+    {
+      "path": "src/core/positionLearning.ts",
+      "sha256": "2ddbf2d0003b9fa3ee43be2dfb7ae4d46c88129c9cb2b66077a00e2770934726"
+    },
+    {
+      "path": "src/core/positionPresentation.ts",
+      "sha256": "4209b9a09e0096ec695fb7ac36cc2f036f17c2d179fc43e796b52883ec88f341"
+    },
+    {
+      "path": "src/core/proceduralFootballers.ts",
+      "sha256": "a19ade4478e869c39ba0fc8ff073af3cf4036d9451a8aafed448dc85d3e6354e"
+    },
+    {
+      "path": "src/core/professionalClubs.ts",
+      "sha256": "51d9553a8cccf577d0d26889d879641e021789cb6b5eae292e842021088a2635"
+    },
+    {
+      "path": "src/core/professionalOfferPolicy.ts",
+      "sha256": "388fdc69e829682c9ff8bd1346a039f3e25efd674a6b98b2290cab5e9ce77504"
+    },
+    {
+      "path": "src/core/progressionDiagnostics.ts",
+      "sha256": "7fef94c66bad3f2ad1287d6a6d9ab0abf1f6e7c09e102a806256a6ae47d677f6"
+    },
+    {
+      "path": "src/core/radar.ts",
+      "sha256": "64b95305aba36d6663a78e26d7a87ed4dc84dce3c2cae59177d84c73ce528b16"
+    },
+    {
+      "path": "src/core/random/RandomGenerator.ts",
+      "sha256": "485ec207596f679f99608b7d2a0feedff459fa0224e138418a0f4160c0137910"
+    },
+    {
+      "path": "src/core/seasonArchive.ts",
+      "sha256": "9d38d200efdb4f62e29befa8da5c18d226d0e588b152f9fa7a8e0f226b9c33b4"
+    },
+    {
+      "path": "src/core/seasonAudit.ts",
+      "sha256": "5dc6be5093bd99b88e466765c5808ce59ccdcf38432f3919986ec15e77b464a5"
+    },
+    {
+      "path": "src/core/seasonDevelopment.ts",
+      "sha256": "de834d3cc01a2603aa01845d0f85f8be50ac3450a36a3c1c84643146029f8c24"
+    },
+    {
+      "path": "src/core/seasonInjuries.ts",
+      "sha256": "3c014b8a9ddff2f9b831746bb0981cd27eb17ae8a9df716257f5df27a1498540"
+    },
+    {
+      "path": "src/core/seasonParticipation.ts",
+      "sha256": "0797d656e575f4e9e2f6818072aedd07f4f1efeae9a584bdc70cff4377beba28"
+    },
+    {
+      "path": "src/core/seasonProgress.ts",
+      "sha256": "4a0f09c8a9c340ccba661c5426ac3c873b34c7990ff60c4ce1d22da04e1a5c19"
+    },
+    {
+      "path": "src/core/seasonSquadReference.ts",
+      "sha256": "abd21e9ca206633fb60c4bf9c01e134188c372f525fb2803a185ef26b512a663"
+    },
+    {
+      "path": "src/core/seasonTimeline.ts",
+      "sha256": "4b839b3d427d0a28b791c6f65ca5f1840fc3c54556ea9dbad26042830a51b51e"
+    },
+    {
+      "path": "src/core/singleMatch.ts",
+      "sha256": "62497bfca63400741f0f193a0f6085cfa0a2700bae4cb61258f69a29f744deac"
+    },
+    {
+      "path": "src/core/summaryMatchContinuation.ts",
+      "sha256": "b09345be60df09f768187c8feddd808a38e64f982172209a16648668a2a4188d"
+    },
+    {
+      "path": "src/core/visualIdentity.ts",
+      "sha256": "bc32bb64cebaf041a8225756fd7ce85ef062ed48603a60b5ed0320b133ec4414"
+    },
+    {
+      "path": "src/core/worldDatabase.ts",
+      "sha256": "f30e35b042fdc5b2cdc6cf21aedd62ce9130021baf98f23a20548797792442d0"
+    },
+    {
+      "path": "src/core/worldIntegrity.ts",
+      "sha256": "990ff159ddf2f675699a14dae90260bd376856a769576377eeb9f17306611058"
+    },
+    {
+      "path": "src/core/youthGraduation.ts",
+      "sha256": "2851dc63485d63600b78ab4e3f0ea82521b0a1c35b31949f0597963bec0d81a9"
+    },
+    {
+      "path": "src/core/youthIntake.ts",
+      "sha256": "5193ab0614424e2a610f3246780853a9f30c673560310103bf03f496dc08f8bb"
+    },
+    {
+      "path": "src/core/youthTalent.ts",
+      "sha256": "c336c613019f2ada3537f22b7bba61478c8ad51842a42ed477782c77d6df10b0"
+    },
+    {
+      "path": "src/core/youthWorld.ts",
+      "sha256": "decc276ce0ec12a7ae1a9703c0dceedadf528899095433e76e9f9f133a4cd833"
+    },
+    {
+      "path": "src/devtools/randomPreview.ts",
+      "sha256": "9ffa22ca1f1dae6c3682d40d48929ad2e74559616b484bbfdefc515a3b1f1eae"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "c99083c9c9cec9d57be49b55c69ede6536b3458ea17ce8ce739d14a30f1ec377"
+    },
+    {
+      "path": "src/persistence/careerStorage.ts",
+      "sha256": "5753978ad81658cddf1521ab407390d105e201823897d600894209a5e9cf9dbc"
+    },
+    {
+      "path": "src/schemas/domainSchemas.ts",
+      "sha256": "3517b61f8462f1f57b4cefe8ba32b605b16abff8218f0179a5d78f46c8e9239f"
+    },
+    {
+      "path": "src/schemas/validateContent.ts",
+      "sha256": "a368628f2dc3d8ffdb03eca23f41bb6f6c69b8c49bcf9fc2970d4c381180da73"
+    },
+    {
+      "path": "src/types/domain.ts",
+      "sha256": "c447e86ca5fd99d55dde7d8b2a8ac619a2ecabfd5439e6d9a2659bb322c1ad47"
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    }
+  ],
+  "sourceHash": "850a04088d47613aa5ea868307fdc08dc3e9b21bc3656a6165547802683a7df0",
+  "sourceArchive": {
+    "path": "docs/performance/pr193/source-versions/850a04088d47613aa5ea868307fdc08dc3e9b21bc3656a6165547802683a7df0.json.gz",
+    "sha256": "88ede2e13f333dcb5825bec9e05f88d60fcfc4f974fd679f0e0b8d90874583fc",
+    "originalSha256": "32b07d6c4cc1ea80f2ca6cfff5aab0a5ff0aebe13cb6e33270c166e70d036cb5"
+  },
+  "rows": [
+    {
+      "id": "wing:40-40:mirrored:autonomous:0:central",
+      "finalHash": "bbd6d2f14715394577be90d412794e163cd2e3ce9ef13ff59bce740a708d71a6",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:wing:autonomous:central:shot:10:geometry:anchor:5",
+        "shooterId": "geometry:anchor:5",
+        "releasedAt": 12.475000000000035,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 27.64042193936184,
+        "launchVerticalComponent": 15.239235232673614,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 26.8,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.1238444133157053,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.18681941267955532,
+          "horizontalSigma": 1.0061453614654552,
+          "verticalSigma": 1.5143739071891769,
+          "distanceDifficulty": 0.5863212997282193,
+          "angleDifficulty": 0.560218463161042,
+          "pressureDifficulty": 0.6859560605802224,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.1238444133157053,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.9269164927078908,
+          "horizontalSigmaMetres": 3.682492022963566,
+          "verticalSigmaMetres": 3.6950723335415914,
+          "ballMovementDifficulty": 0.05396089263764562,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.12836455349227216,
+          "blockerDifficulty": 0.0453958284326923
+        },
+        "context": "open_play",
+        "distance": 11.743053574321046,
+        "angle": 0.43978153683895804,
+        "pressure": 0.6859560605802224,
+        "blockingDefenders": 0,
+        "baseXg": 0.3952524039731523,
+        "effectiveScoringExpectation": 0.0623571821496506,
+        "shooterExecutionQuality": 0.18681941267955532,
+        "intendedTarget": {
+          "horizontal": -0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": -1.2274087889127334,
+          "vertical": 3.6476580996023897
+        },
+        "error": {
+          "horizontal": -0.6809607014810395,
+          "vertical": 3.26765809960239
+        },
+        "speed": 27.64042193936184,
+        "classification": "over",
+        "outcome": "miss"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 0.1980023341733033,
+          "benefit": -0.1514564916700238,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 89.60290864141602,
+              "y": 8.037173393694683
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.22799999999999998,
+              "playableSeconds": 0.308,
+              "actionSeconds": 0.388
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6087271053547005,
+              "playableSeconds": 1.6087271053547005,
+              "actionSeconds": 1.6887271053547006
+            },
+            "contactMargin": 1.0587271053547005,
+            "laneMargin": 1.0587271053547005,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.0587271053547005
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.0588724394916316
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.0592369110347177
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.0598208112506116
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.0606241513288706
+              },
+              {
+                "delay": 1,
+                "margin": 1.0616466611149349
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.062887789231941
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.0643195660401494
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.064430807442666
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "risk": 0.589137442080912,
+          "benefit": -0.12565729018417993,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 95.67236003558766,
+              "y": 36.899056943226604
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.72,
+            "opensAt": 10,
+            "closesAt": 10.2,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.22799999999999998,
+              "playableSeconds": 0.308,
+              "actionSeconds": 0.388
+            },
+            "defenderId": "geometry:opponent:0",
+            "defender": {
+              "locationSeconds": 1.2217986497596902,
+              "playableSeconds": 1.2217986497596902,
+              "actionSeconds": 1.3017986497596903
+            },
+            "contactMargin": 0.5017986497596902,
+            "laneMargin": 0.5017986497596902,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.5017986497596902
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.0861317007977318
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.0861317007977318
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.0861317007977318
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.11078361870527842
+              },
+              {
+                "delay": 1,
+                "margin": -0.24353768990392388
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.35966534601079214
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.4641873683660591
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.5600137625195907
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:through",
+          "risk": 0.19786996829002457,
+          "benefit": -0.1471231218546309,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 91.89730864141602,
+              "y": 8.037173393694683
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.7375140554665867,
+              "playableSeconds": 0.7375140554665867,
+              "actionSeconds": 0.8175140554665866
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6125389339774407,
+              "playableSeconds": 1.6125389339774407,
+              "actionSeconds": 1.6925389339774408
+            },
+            "contactMargin": 1.1625389339774408,
+            "laneMargin": 1.1625389339774408,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.1625389339774408
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.1639404498773074
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.16438055308514
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.1646499764008318
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.1651340116800897
+              },
+              {
+                "delay": 1,
+                "margin": 1.1658320622766625
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.9938682992022683
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.9938682992022683
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.9938682992022683
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "wing:80-80:original:autonomous:0:central",
+      "finalHash": "f042def6fb43d456d0c22365adf8ced435fbb066778b980a20b22d3df02ddd30",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:wing:autonomous:central:shot:3:geometry:anchor:5",
+        "shooterId": "geometry:anchor:5",
+        "releasedAt": 10.425000000000006,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 32.47478383192793,
+        "launchVerticalComponent": 4.136442273062261,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.002329118925929726,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6414047729594285,
+          "horizontalSigma": 0.35688984157387493,
+          "verticalSigma": 0.5365579762560819,
+          "distanceDifficulty": 0.7353821697021653,
+          "angleDifficulty": 0.029199346519852565,
+          "pressureDifficulty": 0.7013524737323888,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.002329118925929726,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.7621969235197539,
+          "horizontalSigmaMetres": 1.3062168201603823,
+          "verticalSigmaMetres": 1.3092014620648398,
+          "ballMovementDifficulty": 0.02082537066165857,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.16970775535578442,
+          "blockerDifficulty": 0.1658200500745275
+        },
+        "context": "open_play",
+        "distance": 14.07612068164906,
+        "angle": 0.9708006534801474,
+        "pressure": 0.7013524737323888,
+        "blockingDefenders": 1,
+        "baseXg": 0.35642014740726835,
+        "effectiveScoringExpectation": 0.21811586142646872,
+        "shooterExecutionQuality": 0.6414047729594285,
+        "intendedTarget": {
+          "horizontal": 0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": 0.920789304237855,
+          "vertical": 0.3994135497202965
+        },
+        "error": {
+          "horizontal": 0.374341216806161,
+          "vertical": 0.019413549720296495
+        },
+        "speed": 32.47478383192793,
+        "classification": "on_target",
+        "outcome": "block"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 0.06613996286865167,
+          "benefit": -0.13463401164822678,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 89.69250864141603,
+              "y": 60.03717339369469
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6149368834937854,
+              "playableSeconds": 1.6149368834937854,
+              "actionSeconds": 1.6949368834937855
+            },
+            "contactMargin": 1.0649368834937853,
+            "laneMargin": 1.0649368834937853,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.0649368834937853
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.0651328316692674
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.065546806764722
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.066178543586943
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.0670275731109815
+              },
+              {
+                "delay": 1,
+                "margin": 1.0680931416744563
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.069374572756158
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.070496387323258
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.0706539127606935
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "risk": 0.5671279849720587,
+          "benefit": -0.11881058513416967,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 95.80676003558766,
+              "y": 30.899056943226604
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.72,
+            "opensAt": 10,
+            "closesAt": 10.2,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:0",
+            "defender": {
+              "locationSeconds": 1.2180326687225669,
+              "playableSeconds": 1.2180326687225669,
+              "actionSeconds": 1.298032668722567
+            },
+            "contactMargin": 0.4980326687225669,
+            "laneMargin": 0.4980326687225669,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.4980326687225669
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 1,
+                "margin": -0.09650074866994873
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.22151041051364384
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.3323576058932618
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.4329833878418001
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:through",
+          "risk": 0.06610526119812786,
+          "benefit": -0.1298545291873223,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 91.89730864141602,
+              "y": 60.03717339369469
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.6959667215309094,
+              "playableSeconds": 0.6959667215309094,
+              "actionSeconds": 0.7759667215309094
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6187223158752575,
+              "playableSeconds": 1.6187223158752575,
+              "actionSeconds": 1.6987223158752576
+            },
+            "contactMargin": 1.1687223158752575,
+            "laneMargin": 1.1687223158752575,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.1687223158752575
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.1701139468885222
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.1705505006048147
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.170816762199871
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.171295122555564
+              },
+              {
+                "delay": 1,
+                "margin": 1.1719850692576423
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.1728861837622238
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.0658682992022683
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.0658682992022683
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "deflection:80-80:mirrored:autonomous:0:central",
+      "finalHash": "995eba391a2d78a13be9b8a10f151df6458c27cc8426246703beca9c38e43140",
+      "shot": null,
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "risk": 0.41274790904970904,
+          "benefit": 0.03971101498862816,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 93.42382368915473,
+              "y": 50.95701065515168
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.3071137352645534,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 0.5698883580244143,
+              "playableSeconds": 0.8486151527336665,
+              "actionSeconds": 0.9286151527336665
+            },
+            "contactMargin": -0.13172014871474858,
+            "laneMargin": -0.13172014871474858,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.13172014871474858
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.13172014871474858
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.13172014871474858
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.13172014871474858
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.13172014871474858
+              },
+              {
+                "delay": 1,
+                "margin": -0.13172014871474858
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.13172014871474858
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.13172014871474858
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.13172014871474858
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:10:support",
+          "risk": 0.08023158208150923,
+          "benefit": -0.045246333527440875,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:10",
+            "target": {
+              "x": 57.429186742191575,
+              "y": 46.092866824008524
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.5850658503988658,
+              "actionSeconds": 0.6650658503988658
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 2.328672676086334,
+              "playableSeconds": 2.328672676086334,
+              "actionSeconds": 2.408672676086334
+            },
+            "contactMargin": 1.778672676086334,
+            "laneMargin": 1.778672676086334,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.778672676086334
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.778672676086334
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.778672676086334
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.778672676086334
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.778672676086334
+              },
+              {
+                "delay": 1,
+                "margin": 1.778672676086334
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.778672676086334
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.7602645351020896
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.6863952323346978
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "wing:80-80:mirrored:autonomous:0:central",
+      "finalHash": "bcedfeded02737dedd7e13a3cd0f00a6b5ce556bd52587ffa73cd53cf086143e",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:wing:autonomous:central:shot:3:geometry:anchor:5",
+        "shooterId": "geometry:anchor:5",
+        "releasedAt": 10.425000000000006,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 32.47478383192793,
+        "launchVerticalComponent": 4.120882509790916,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.00232861152012661,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6414837498355215,
+          "horizontalSigma": 0.3567483116178063,
+          "verticalSigma": 0.5363280501331464,
+          "distanceDifficulty": 0.7353669207557226,
+          "angleDifficulty": 0.02930743579909012,
+          "pressureDifficulty": 0.7010518158487596,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.00232861152012661,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.7620468394021511,
+          "horizontalSigmaMetres": 1.305698820521171,
+          "verticalSigmaMetres": 1.3086404423248774,
+          "ballMovementDifficulty": 0.020830638704051954,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.16944117341207332,
+          "blockerDifficulty": 0.16625824641283282
+        },
+        "context": "open_play",
+        "distance": 14.075887174268182,
+        "angle": 0.9706925642009099,
+        "pressure": 0.7010518158487596,
+        "blockingDefenders": 1,
+        "baseXg": 0.35648855340643704,
+        "effectiveScoringExpectation": 0.21824555673601811,
+        "shooterExecutionQuality": 0.6414837498355215,
+        "intendedTarget": {
+          "horizontal": -0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": -0.17225532118309328,
+          "vertical": 0.3994052306151539
+        },
+        "error": {
+          "horizontal": 0.37419276624860065,
+          "vertical": 0.019405230615153844
+        },
+        "speed": 32.47478383192793,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 0.06599145695368987,
+          "benefit": -0.1340459551455374,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 89.69250864141603,
+              "y": 8.037173393694683
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6087406394546027,
+              "playableSeconds": 1.6087406394546027,
+              "actionSeconds": 1.6887406394546027
+            },
+            "contactMargin": 1.0587406394546026,
+            "laneMargin": 1.0587406394546026,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.0587406394546026
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.0589350207277326
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.0593486288785254
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.0599816926173016
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.060834160173643
+              },
+              {
+                "delay": 1,
+                "margin": 1.0619056983391237
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.0631956929016573
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.0643257969747884
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.0644851934612891
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "risk": 0.5670330397161258,
+          "benefit": -0.1185189757389794,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 95.80676003558766,
+              "y": 36.899056943226604
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.72,
+            "opensAt": 10,
+            "closesAt": 10.2,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:0",
+            "defender": {
+              "locationSeconds": 1.2085989610139274,
+              "playableSeconds": 1.2085989610139274,
+              "actionSeconds": 1.2885989610139275
+            },
+            "contactMargin": 0.4885989610139274,
+            "laneMargin": 0.4885989610139274,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.4885989610139274
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 1,
+                "margin": -0.09650074866994873
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.22151041051364384
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.3323576058932618
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.4329833878418001
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:through",
+          "risk": 0.06595665609667485,
+          "benefit": -0.12923762309012782,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 91.89730864141602,
+              "y": 8.037173393694683
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.6959667215309094,
+              "playableSeconds": 0.6959667215309094,
+              "actionSeconds": 0.7759667215309094
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6125389339774407,
+              "playableSeconds": 1.6125389339774407,
+              "actionSeconds": 1.6925389339774408
+            },
+            "contactMargin": 1.1625389339774408,
+            "laneMargin": 1.1625389339774408,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.1625389339774408
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.1639404498773074
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.16438055308514
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.1646499764008318
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.1651340116800897
+              },
+              {
+                "delay": 1,
+                "margin": 1.1658320622766625
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.166743270510054
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.0658682992022683
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.0658682992022683
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "wing:80-40:original:autonomous:0:central",
+      "finalHash": "43c07ba05ab9ee6c4c6d48ea5fbf03f5d146d543451bd6c5a5e27629c6723286",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:wing:autonomous:central:shot:3:geometry:anchor:5",
+        "shooterId": "geometry:anchor:5",
+        "releasedAt": 10.425000000000006,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 32.47478383192793,
+        "launchVerticalComponent": 4.139639439673091,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.0035342269335303343,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6397778644614027,
+          "horizontalSigma": 0.3609501530396715,
+          "verticalSigma": 0.5430326395230008,
+          "distanceDifficulty": 0.7385916754104641,
+          "angleDifficulty": 0.03864476473652767,
+          "pressureDifficulty": 0.7075313669785311,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.0035342269335303343,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.7661068164349307,
+          "horizontalSigmaMetres": 1.3210775601251976,
+          "verticalSigmaMetres": 1.3249996404361222,
+          "ballMovementDifficulty": 0.017259742474206658,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.16775200356320963,
+          "blockerDifficulty": 0.1427543007469374
+        },
+        "context": "open_play",
+        "distance": 14.125246383777924,
+        "angle": 0.9613552352634723,
+        "pressure": 0.7075313669785311,
+        "blockingDefenders": 1,
+        "baseXg": 0.3531639931359206,
+        "effectiveScoringExpectation": 0.213663341751053,
+        "shooterExecutionQuality": 0.6397778644614027,
+        "intendedTarget": {
+          "horizontal": 0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": 0.9250481588133043,
+          "vertical": 0.39964781368209906
+        },
+        "error": {
+          "horizontal": 0.37860007138161034,
+          "vertical": 0.019647813682099044
+        },
+        "speed": 32.47478383192793,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 0.06613996286865167,
+          "benefit": -0.13463401164822678,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 89.69250864141603,
+              "y": 60.03717339369469
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6149368834937854,
+              "playableSeconds": 1.6149368834937854,
+              "actionSeconds": 1.6949368834937855
+            },
+            "contactMargin": 1.0649368834937853,
+            "laneMargin": 1.0649368834937853,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.0649368834937853
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.0651328316692674
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.065546806764722
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.066178543586943
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.0670275731109815
+              },
+              {
+                "delay": 1,
+                "margin": 1.0680931416744563
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.069374572756158
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.070496387323258
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.0706539127606935
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "risk": 0.5671279849720587,
+          "benefit": -0.11881058513416967,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 95.80676003558766,
+              "y": 30.899056943226604
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.72,
+            "opensAt": 10,
+            "closesAt": 10.2,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:0",
+            "defender": {
+              "locationSeconds": 1.2180326687225669,
+              "playableSeconds": 1.2180326687225669,
+              "actionSeconds": 1.298032668722567
+            },
+            "contactMargin": 0.4980326687225669,
+            "laneMargin": 0.4980326687225669,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.4980326687225669
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 1,
+                "margin": -0.09650074866994873
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.22151041051364384
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.3323576058932618
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.4329833878418001
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:through",
+          "risk": 0.06610526119812786,
+          "benefit": -0.1298545291873223,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 91.89730864141602,
+              "y": 60.03717339369469
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.6959667215309094,
+              "playableSeconds": 0.6959667215309094,
+              "actionSeconds": 0.7759667215309094
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6187223158752575,
+              "playableSeconds": 1.6187223158752575,
+              "actionSeconds": 1.6987223158752576
+            },
+            "contactMargin": 1.1687223158752575,
+            "laneMargin": 1.1687223158752575,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.1687223158752575
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.1701139468885222
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.1705505006048147
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.170816762199871
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.171295122555564
+              },
+              {
+                "delay": 1,
+                "margin": 1.1719850692576423
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.1728861837622238
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.0658682992022683
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.0658682992022683
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "wing:80-40:mirrored:autonomous:0:central",
+      "finalHash": "140e1a3f012d25c95355805df26aed1add905809f80cd56451e125a8067f951b",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:wing:autonomous:central:shot:3:geometry:anchor:5",
+        "shooterId": "geometry:anchor:5",
+        "releasedAt": 10.425000000000006,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 32.47478383192793,
+        "launchVerticalComponent": 4.12327129487755,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.0035338568380340035,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6399789298586547,
+          "horizontalSigma": 0.360587066901771,
+          "verticalSigma": 0.5424461001395199,
+          "distanceDifficulty": 0.7385771348997497,
+          "angleDifficulty": 0.038703128240888396,
+          "pressureDifficulty": 0.7067659880163065,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.0035338568380340035,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.7655459104220272,
+          "horizontalSigmaMetres": 1.319748664860482,
+          "verticalSigmaMetres": 1.3235684843404285,
+          "ballMovementDifficulty": 0.01726427571432889,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.1675250414292544,
+          "blockerDifficulty": 0.14281392439644924
+        },
+        "context": "open_play",
+        "distance": 14.125023918556533,
+        "angle": 0.9612968717591116,
+        "pressure": 0.7067659880163065,
+        "blockingDefenders": 1,
+        "baseXg": 0.35337079468807403,
+        "effectiveScoringExpectation": 0.21400826787756455,
+        "shooterExecutionQuality": 0.6399789298586547,
+        "intendedTarget": {
+          "horizontal": -0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": -0.16822885655276565,
+          "vertical": 0.3996265917228924
+        },
+        "error": {
+          "horizontal": 0.3782192308789283,
+          "vertical": 0.019626591722892377
+        },
+        "speed": 32.47478383192793,
+        "classification": "on_target",
+        "keeperId": "geometry:opponent:0",
+        "goalkeeperAction": "parry",
+        "outcome": "save"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 0.06599145695368987,
+          "benefit": -0.1340459551455374,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 89.69250864141603,
+              "y": 8.037173393694683
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6087406394546027,
+              "playableSeconds": 1.6087406394546027,
+              "actionSeconds": 1.6887406394546027
+            },
+            "contactMargin": 1.0587406394546026,
+            "laneMargin": 1.0587406394546026,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.0587406394546026
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.0589350207277326
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.0593486288785254
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.0599816926173016
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.060834160173643
+              },
+              {
+                "delay": 1,
+                "margin": 1.0619056983391237
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.0631956929016573
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.0643257969747884
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.0644851934612891
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "risk": 0.5670330397161258,
+          "benefit": -0.1185189757389794,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 95.80676003558766,
+              "y": 36.899056943226604
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.72,
+            "opensAt": 10,
+            "closesAt": 10.2,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:0",
+            "defender": {
+              "locationSeconds": 1.2085989610139274,
+              "playableSeconds": 1.2085989610139274,
+              "actionSeconds": 1.2885989610139275
+            },
+            "contactMargin": 0.4885989610139274,
+            "laneMargin": 0.4885989610139274,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.4885989610139274
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.01413170079773185
+              },
+              {
+                "delay": 1,
+                "margin": -0.09650074866994873
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.22151041051364384
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.3323576058932618
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.4329833878418001
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:through",
+          "risk": 0.06595665609667485,
+          "benefit": -0.12923762309012782,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 91.89730864141602,
+              "y": 8.037173393694683
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.6959667215309094,
+              "playableSeconds": 0.6959667215309094,
+              "actionSeconds": 0.7759667215309094
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.6125389339774407,
+              "playableSeconds": 1.6125389339774407,
+              "actionSeconds": 1.6925389339774408
+            },
+            "contactMargin": 1.1625389339774408,
+            "laneMargin": 1.1625389339774408,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 1.1625389339774408
+              },
+              {
+                "delay": 0.2,
+                "margin": 1.1639404498773074
+              },
+              {
+                "delay": 0.4,
+                "margin": 1.16438055308514
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 1.1646499764008318
+              },
+              {
+                "delay": 0.8,
+                "margin": 1.1651340116800897
+              },
+              {
+                "delay": 1,
+                "margin": 1.1658320622766625
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 1.166743270510054
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 1.0658682992022683
+              },
+              {
+                "delay": 1.6,
+                "margin": 1.0658682992022683
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "wing:80-40:mirrored:autonomous:0:right",
+      "finalHash": "24c7e10ce0e2d131b6117be8ebc5d028c8d693b3ed6a674f0a732df9b40aeb8b",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:wing:autonomous:right:shot:6:geometry:anchor:9",
+        "shooterId": "geometry:anchor:9",
+        "releasedAt": 14.350000000000062,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 26.529751000646502,
+        "launchVerticalComponent": 6.375901289507943,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.03821644865842178,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6463920746628401,
+          "horizontalSigma": 0.343382209119517,
+          "verticalSigma": 0.5150005686871448,
+          "distanceDifficulty": 0.7206190604197376,
+          "angleDifficulty": 0.11758163165874602,
+          "pressureDifficulty": 0.68145867105937,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.03821644865842178,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.748079530023253,
+          "horizontalSigmaMetres": 1.2567788853774322,
+          "verticalSigmaMetres": 1.2566013875966333,
+          "ballMovementDifficulty": 0.037960168435114176,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.14856114808170318,
+          "blockerDifficulty": 0
+        },
+        "context": "open_play",
+        "distance": 13.849595877559794,
+        "angle": 0.882418368341254,
+        "pressure": 0.68145867105937,
+        "blockingDefenders": 0,
+        "baseXg": 0.4272838205361412,
+        "effectiveScoringExpectation": 0.27160360766875435,
+        "shooterExecutionQuality": 0.6463920746628401,
+        "intendedTarget": {
+          "horizontal": 0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": 0.8583921511247927,
+          "vertical": 0.9395033283033135
+        },
+        "error": {
+          "horizontal": 0.31194406369309874,
+          "vertical": 0.5595033283033135
+        },
+        "speed": 26.529751000646502,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 0.02784816456131158,
+          "benefit": 0.05199970611198483,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 89.60689914039784,
+              "y": 7.98249109282624
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.785324700736698,
+            "opensAt": 10,
+            "closesAt": 11.4,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 0.7872464314609982,
+              "playableSeconds": 0.7872464314609982,
+              "actionSeconds": 0.8672464314609981
+            },
+            "contactMargin": 0.5909152562768236,
+            "laneMargin": 0.5909152562768236,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.5909152562768236
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.05119299993896631
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.05119299993896631
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.05119299993896631
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.05119299993896631
+              },
+              {
+                "delay": 1,
+                "margin": 0.05119299993896631
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.05119299993896631
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.018024105835893867
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.10440232245913506
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "clearance:80-40:mirrored:late:0:left",
+      "finalHash": "0ce9e5a7310e104fe39694298ee79b5c211858230739c6bebbce1a9185952d1f",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:clearance:autonomous:left:shot:19:geometry:anchor:7",
+        "shooterId": "geometry:anchor:7",
+        "releasedAt": 16.575000000000053,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 28.51123505951837,
+        "launchVerticalComponent": 4.151227270654717,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.33102504243224334,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6217275854332026,
+          "horizontalSigma": 0.5294719154638805,
+          "verticalSigma": 0.7879126600772899,
+          "distanceDifficulty": 0.9950170401312531,
+          "angleDifficulty": 1,
+          "pressureDifficulty": 0.7580103517753626,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.33102504243224334,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 2.332408760559385,
+          "horizontalSigmaMetres": 1.9378672105978025,
+          "verticalSigmaMetres": 1.9225068905885871,
+          "ballMovementDifficulty": 0.05174243034284181,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.05912100883689608,
+          "blockerDifficulty": 0
+        },
+        "context": "open_play",
+        "distance": 17.928209551387496,
+        "angle": 0,
+        "pressure": 0.7580103517753626,
+        "blockingDefenders": 0,
+        "baseXg": 0.12039139949281097,
+        "effectiveScoringExpectation": 0.047750757928702404,
+        "shooterExecutionQuality": 0.6217275854332026,
+        "intendedTarget": {
+          "horizontal": -0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": -0.11169947536934277,
+          "vertical": 0.2738874006844732
+        },
+        "error": {
+          "horizontal": 0.43474861206235116,
+          "vertical": -0.10611259931552681
+        },
+        "speed": 28.51123505951837,
+        "classification": "on_target",
+        "keeperId": "geometry:opponent:0",
+        "goalkeeperAction": "parry_away",
+        "outcome": "save"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 0.02782963959770245,
+          "benefit": 0.05216240215179979,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 89.66356577686481,
+              "y": 60.01555629267823
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.7837854265906358,
+            "opensAt": 10,
+            "closesAt": 11.4,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 0.6868921614408742,
+              "playableSeconds": 0.6868921614408742,
+              "actionSeconds": 0.7668921614408741
+            },
+            "contactMargin": 0.49094580479321526,
+            "laneMargin": 0.49094580479321526,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.49094580479321526
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.04965372579290406
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.04965372579290406
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.04965372579290406
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.04965372579290406
+              },
+              {
+                "delay": 1,
+                "margin": 0.04965372579290406
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.04965372579290406
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.01956337998195612
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.10594159660519731
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:support",
+          "risk": 1,
+          "benefit": -0.0741547120340461,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 95.90169062182977,
+              "y": 37.03312160300557
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:0",
+            "defender": {
+              "locationSeconds": 1.1841523110888301,
+              "playableSeconds": 1.1841523110888301,
+              "actionSeconds": 1.2641523110888302
+            },
+            "contactMargin": -1.01584768891117,
+            "laneMargin": -1.01584768891117,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -1.01584768891117
+              },
+              {
+                "delay": 0.2,
+                "margin": -1.0342326094496124
+              },
+              {
+                "delay": 0.4,
+                "margin": -1.0516378064891234
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -1.0678766430749862
+              },
+              {
+                "delay": 0.8,
+                "margin": -1.0827413067642768
+              },
+              {
+                "delay": 1,
+                "margin": -1.09600422920813
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -1.1074214414236039
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -1.116738433845644
+              },
+              {
+                "delay": 1.6,
+                "margin": -1.1236989982200785
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "risk": 1,
+          "benefit": -0.07414546863338832,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 99.20889062182978,
+              "y": 37.03312160300557
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.8112395958076815,
+              "playableSeconds": 0.8112395958076815,
+              "actionSeconds": 0.8912395958076814
+            },
+            "defenderId": "geometry:opponent:0",
+            "defender": {
+              "locationSeconds": 1.1053586566891078,
+              "playableSeconds": 1.1053586566891078,
+              "actionSeconds": 1.185358656689108
+            },
+            "contactMargin": -0.6946413433108922,
+            "laneMargin": -0.6946413433108922,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.6946413433108922
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.6870333721595725
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.6769599744078627
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.6646175363800222
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.6502272534869291
+              },
+              {
+                "delay": 1,
+                "margin": -0.6340224523991396
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.6162375166533869
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.5970991142567936
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.5768199284407274
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "counterattack:80-80:original:passive:0:central",
+      "finalHash": "bb4b7dff1e3d27e2ac2b305662d0e7692aaf3f775e2f2c3b1e8bd0b6fb307b87",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:counterattack:autonomous:central:shot:6:geometry:anchor:9",
+        "shooterId": "geometry:anchor:9",
+        "releasedAt": 14.600000000000065,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 26.793416927848014,
+        "launchVerticalComponent": 4.455011253151377,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.09544370651033296,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6592928936164868,
+          "horizontalSigma": 0.39630979643121206,
+          "verticalSigma": 0.5886552052743463,
+          "distanceDifficulty": 0.9171186807100066,
+          "angleDifficulty": 0.4060405741756925,
+          "pressureDifficulty": 0.6297900829674472,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.09544370651033296,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.8938255613861252,
+          "horizontalSigmaMetres": 1.4504938549382362,
+          "verticalSigmaMetres": 1.436318700869405,
+          "ballMovementDifficulty": 0,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.03078712453511756,
+          "blockerDifficulty": 0.1466915885920247
+        },
+        "context": "open_play",
+        "distance": 16.796273461870246,
+        "angle": 0.5939594258243075,
+        "pressure": 0.6297900829674472,
+        "blockingDefenders": 1,
+        "baseXg": 0.2780981672317548,
+        "effectiveScoringExpectation": 0.15418991531614612,
+        "shooterExecutionQuality": 0.6592928936164868,
+        "intendedTarget": {
+          "horizontal": 0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": 1.2120398238295609,
+          "vertical": 0.29515501217049084
+        },
+        "error": {
+          "horizontal": 0.6655917363978668,
+          "vertical": -0.08484498782950917
+        },
+        "speed": 26.793416927848014,
+        "classification": "wide",
+        "outcome": "miss"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:6:support",
+          "risk": 0.02716055937086322,
+          "benefit": 0.052918446671277986,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:6",
+            "target": {
+              "x": 52.178588847510895,
+              "y": 30.932223454653286
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.7605517037193712,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.2667065041975876,
+              "playableSeconds": 1.2667065041975876,
+              "actionSeconds": 1.3467065041975876
+            },
+            "contactMargin": 0.7245517037193712,
+            "laneMargin": 1.0765685782677448,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.7245517037193712
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 1,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.026420002921639374
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 0.8428661567823893,
+          "benefit": -0.029204463866723075,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 61.51187715180665,
+              "y": 10.106931360182353
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:1",
+            "defender": {
+              "locationSeconds": 1.7140588848712108,
+              "playableSeconds": 1.7140588848712108,
+              "actionSeconds": 1.794058884871211
+            },
+            "contactMargin": -0.48594111512878935,
+            "laneMargin": -0.48594111512878935,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.48594111512878935
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.48594111512878935
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.48594111512878935
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.48594111512878935
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.48594111512878935
+              },
+              {
+                "delay": 1,
+                "margin": -0.48594111512878935
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.48594111512878935
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.48594111512878935
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.48594111512878935
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "risk": 0.04494445353048896,
+          "benefit": 0.10212177685353106,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 73.18352792192213,
+              "y": 31.02505782924127
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.5895410858756873,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.0131235916947439,
+              "playableSeconds": 1.0131235916947439,
+              "actionSeconds": 1.093123591694744
+            },
+            "contactMargin": 0.615738320225822,
+            "laneMargin": 0.615738320225822,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.615738320225822
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.615738320225822
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.615738320225822
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.615738320225822
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.615738320225822
+              },
+              {
+                "delay": 1,
+                "margin": 0.5988356279721427
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.45952758837760044
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.335080458825334
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.2215593906358697
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:10:support",
+          "risk": 0.03780248847103102,
+          "benefit": 0.05705173949860439,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:10",
+            "target": {
+              "x": 57.15163821403161,
+              "y": 22.129031352349557
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.3251281095691716,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.5850658503988658,
+              "actionSeconds": 0.6650658503988658
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.3797660537479424,
+              "playableSeconds": 1.3797660537479424,
+              "actionSeconds": 1.4597660537479424
+            },
+            "contactMargin": 0.9400622591703057,
+            "laneMargin": 1.0484840263556494,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 1,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.8853926446712607
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.8115233419038691
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:through",
+          "risk": 0.06313488075430836,
+          "benefit": 0.04660963928864473,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 63.71667715180665,
+              "y": 10.106931360182353
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.6959667215309094,
+              "playableSeconds": 0.6959667215309094,
+              "actionSeconds": 0.7759667215309094
+            },
+            "defenderId": "geometry:opponent:1",
+            "defender": {
+              "locationSeconds": 1.992077401459121,
+              "playableSeconds": 1.992077401459121,
+              "actionSeconds": 2.072077401459121
+            },
+            "contactMargin": 0.1920774014591209,
+            "laneMargin": 0.1920774014591209,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.1920774014591209
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.1920774014591209
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.1920774014591209
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.1920774014591209
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.1920774014591209
+              },
+              {
+                "delay": 1,
+                "margin": 0.1920774014591209
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.1920774014591209
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.1920774014591209
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.1920774014591209
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "risk": 0.05010961587954973,
+          "benefit": 0.12534277531599597,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 75.80802652802379,
+              "y": 31.02505782924127
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.3888313799826824,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.6393604134724475,
+              "playableSeconds": 0.6393604134724475,
+              "actionSeconds": 0.7193604134724475
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.12134499929412,
+              "playableSeconds": 1.12134499929412,
+              "actionSeconds": 1.20134499929412
+            },
+            "contactMargin": 0.7741371542984494,
+            "laneMargin": 0.7741371542984494,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.7741371542984494
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.7741371542984494
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.7741371542984494
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.7741371542984494
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.6546996791849505
+              },
+              {
+                "delay": 1,
+                "margin": 0.6546996791849505
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.6546996791849505
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.6102880928593425
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.44072767225652876
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "counterattack:80-80:original:fatigued:0:central",
+      "finalHash": "e559f6d208689d272972d97daaad8f01bba9518dff22371a546d198954ae88c1",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:counterattack:autonomous:central:shot:6:geometry:anchor:9",
+        "shooterId": "geometry:anchor:9",
+        "releasedAt": 15.950000000000085,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 26.793416927848014,
+        "launchVerticalComponent": 4.328829108503955,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.029615178967748346,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6488471129894102,
+          "horizontalSigma": 0.3952585915025885,
+          "verticalSigma": 0.5901922839175296,
+          "distanceDifficulty": 0.8528948379938126,
+          "angleDifficulty": 0.379737249795024,
+          "pressureDifficulty": 0.6723803206227911,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.029615178967748346,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.8911234684340847,
+          "horizontalSigmaMetres": 1.446646444899474,
+          "verticalSigmaMetres": 1.4400691727587722,
+          "ballMovementDifficulty": 0.0562976901319639,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.016269320572863566,
+          "blockerDifficulty": 0.23280584134521465
+        },
+        "context": "open_play",
+        "distance": 15.848526627013939,
+        "angle": 0.620262750204976,
+        "pressure": 0.6723803206227911,
+        "blockingDefenders": 1,
+        "baseXg": 0.3283546228398271,
+        "effectiveScoringExpectation": 0.18198640524064683,
+        "shooterExecutionQuality": 0.6488471129894102,
+        "intendedTarget": {
+          "horizontal": 0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": 1.2102743531799498,
+          "vertical": 0.29493346750800353
+        },
+        "error": {
+          "horizontal": 0.663826265748256,
+          "vertical": -0.08506653249199646
+        },
+        "speed": 26.793416927848014,
+        "classification": "wide",
+        "outcome": "miss"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:6:support",
+          "risk": 0.02716055937086322,
+          "benefit": 0.05086094476035592,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:6",
+            "target": {
+              "x": 52.178588847510895,
+              "y": 30.932223454653286
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.7605517037193712,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.0861481379346596,
+              "playableSeconds": 1.0861481379346596,
+              "actionSeconds": 1.1661481379346597
+            },
+            "contactMargin": 0.7245517037193712,
+            "laneMargin": 0.8960102120048168,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.7245517037193712
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 1,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.026420002921639374
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.026420002921639374
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 1,
+          "benefit": -0.04309608810631317,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 61.51187715180665,
+              "y": 10.106931360182353
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:1",
+            "defender": {
+              "locationSeconds": 1.3575304980204714,
+              "playableSeconds": 1.3575304980204714,
+              "actionSeconds": 1.4375304980204715
+            },
+            "contactMargin": -0.8424695019795287,
+            "laneMargin": -0.8424695019795287,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.8424695019795287
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.8895190777836892
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.9356800503912452
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.9816763056271205
+              },
+              {
+                "delay": 0.8,
+                "margin": -1.0281193080271136
+              },
+              {
+                "delay": 1,
+                "margin": -1.0747918649951373
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -1.121357906854382
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -1.1673032809895387
+              },
+              {
+                "delay": 1.6,
+                "margin": -1.211846439260518
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "risk": 0.04494445353048896,
+          "benefit": 0.10212177685353106,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 73.18352792192213,
+              "y": 31.02505782924127
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.5895410858756873,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.039456488152359,
+              "playableSeconds": 1.039456488152359,
+              "actionSeconds": 1.119456488152359
+            },
+            "contactMargin": 0.642071216683437,
+            "laneMargin": 0.642071216683437,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.642071216683437
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.6751337223994718
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.7081536912750637
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.7409713767096695
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.7600864065001187
+              },
+              {
+                "delay": 1,
+                "margin": 0.5988356279721427
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.45952758837760044
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.335080458825334
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.2215593906358697
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:10:support",
+          "risk": 0.03780248847103102,
+          "benefit": 0.05705173949860439,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:10",
+            "target": {
+              "x": 57.15163821403161,
+              "y": 22.129031352349557
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.3251281095691716,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.5850658503988658,
+              "actionSeconds": 0.6650658503988658
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.2845912576902765,
+              "playableSeconds": 1.2845912576902765,
+              "actionSeconds": 1.3645912576902766
+            },
+            "contactMargin": 0.9400622591703057,
+            "laneMargin": 0.9533092302979835,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.9400622591703057
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.9364193679860242
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.9340542785050432
+              },
+              {
+                "delay": 1,
+                "margin": 0.933467081744608
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.9347209789502291
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.8853926446712607
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.8115233419038691
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:through",
+          "risk": 0.47647083599924256,
+          "benefit": 0.0044688668844266284,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 63.71667715180665,
+              "y": 10.106931360182353
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.6959667215309094,
+              "playableSeconds": 0.6959667215309094,
+              "actionSeconds": 0.7759667215309094
+            },
+            "defenderId": "geometry:opponent:1",
+            "defender": {
+              "locationSeconds": 1.627047630012971,
+              "playableSeconds": 1.627047630012971,
+              "actionSeconds": 1.707047630012971
+            },
+            "contactMargin": -0.172952369987029,
+            "laneMargin": -0.172952369987029,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.172952369987029
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.22276476038474025
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.27224958800996935
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.32134923022246653
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.3699923917916217
+              },
+              {
+                "delay": 1,
+                "margin": -0.4180900063517261
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.46552965506799215
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.5121678800563219
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.5580602451392331
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "risk": 0.05010961587954973,
+          "benefit": 0.12534277531599597,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 75.80802652802379,
+              "y": 31.02505782924127
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.3888313799826824,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.6393604134724475,
+              "playableSeconds": 0.6393604134724475,
+              "actionSeconds": 0.7193604134724475
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.1475134776973945,
+              "playableSeconds": 1.1475134776973945,
+              "actionSeconds": 1.2275134776973946
+            },
+            "contactMargin": 0.800305632701724,
+            "laneMargin": 0.800305632701724,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.800305632701724
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.8327061834879046
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.864700128956231
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.8962433177916584
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.6546996791849505
+              },
+              {
+                "delay": 1,
+                "margin": 0.6546996791849505
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.6546996791849505
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.6102880928593425
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.44072767225652876
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "counterattack:80-80:original:protecting:0:central",
+      "finalHash": "719354d86652f71958bb03c37b3d685fc8306af2195b590e8ef7c9dbefa135d3",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:counterattack:autonomous:central:shot:14:geometry:anchor:9",
+        "shooterId": "geometry:anchor:9",
+        "releasedAt": 4807.474999999891,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 30.311236335244033,
+        "launchVerticalComponent": 3.014412755583805,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.05878592337771519,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6442864570101242,
+          "horizontalSigma": 0.43361819319985234,
+          "verticalSigma": 0.6506503567579525,
+          "distanceDifficulty": 0.9506031443430494,
+          "angleDifficulty": 0.3126267239199333,
+          "pressureDifficulty": 0.6887207753648992,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.05878592337771519,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.8643422569040622,
+          "horizontalSigmaMetres": 1.5870425871114597,
+          "verticalSigmaMetres": 1.587586870489404,
+          "ballMovementDifficulty": 0.031623148833781874,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.014160017435510874,
+          "blockerDifficulty": 0.01848245546288263
+        },
+        "context": "open_play",
+        "distance": 17.285100233809857,
+        "angle": 0.6873732760800667,
+        "pressure": 0.6887207753648992,
+        "blockingDefenders": 1,
+        "baseXg": 0.2909687699798404,
+        "effectiveScoringExpectation": 0.14535237745360366,
+        "shooterExecutionQuality": 0.6442864570101242,
+        "intendedTarget": {
+          "horizontal": 0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": 0.838714767506304,
+          "vertical": -1.158314894615177
+        },
+        "error": {
+          "horizontal": 0.2922666800746101,
+          "vertical": -1.5383148946151768
+        },
+        "speed": 30.311236335244033,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:6:support",
+          "risk": 0.02669199224541438,
+          "benefit": 0.04995954927621587,
+          "window": {
+            "observedAt": 4800,
+            "receiverId": "geometry:anchor:6",
+            "target": {
+              "x": 52.39999350202028,
+              "y": 31.014770693564788
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.7344550042694571,
+            "opensAt": 4800,
+            "closesAt": 4801.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.100084733674967,
+              "playableSeconds": 1.100084733674967,
+              "actionSeconds": 1.1800847336749671
+            },
+            "contactMargin": 0.6984550042694571,
+            "laneMargin": 0.9164709826076027,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.6984550042694571
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.00032330347172526697
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.00032330347172526697
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.00032330347172526697
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.00032330347172526697
+              },
+              {
+                "delay": 1,
+                "margin": 0.00032330347172526697
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.00032330347172526697
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.00032330347172526697
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.00032330347172526697
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 1,
+          "benefit": -0.04307262644394673,
+          "window": {
+            "observedAt": 4800,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 61.654726319778526,
+              "y": 10.018249740079046
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:1",
+            "defender": {
+              "locationSeconds": 1.3653940736694303,
+              "playableSeconds": 1.3653940736694303,
+              "actionSeconds": 1.4453940736694304
+            },
+            "contactMargin": -0.8346059263305698,
+            "laneMargin": -0.8346059263305698,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.8346059263305698
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.8828641509577133
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.9304282272112461
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.9777131085857904
+              },
+              {
+                "delay": 0.8,
+                "margin": -1.0257353305007326
+              },
+              {
+                "delay": 1,
+                "margin": -1.0744020293009444
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -1.1235033843433329
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -1.1726946005679149
+              },
+              {
+                "delay": 1.6,
+                "margin": -1.2214198500219542
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "risk": 0.045148426395627696,
+          "benefit": 0.10334323275671647,
+          "window": {
+            "observedAt": 4800,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 73.30982546472418,
+              "y": 31.14249042510055
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.6006308032161087,
+            "opensAt": 4800,
+            "closesAt": 4801.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.0616667347552127,
+              "playableSeconds": 1.0616667347552127,
+              "actionSeconds": 1.1416667347552127
+            },
+            "contactMargin": 0.6615090339511855,
+            "laneMargin": 0.6615090339511855,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.6615090339511855
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.6926561241461204
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.7234133603135511
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.7253988316309881
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.7293872352660598
+              },
+              {
+                "delay": 1,
+                "margin": 0.6099253453125641
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.47061730571802185
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.3461701761657554
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.23264910797629113
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:10:support",
+          "risk": 0.03831487684879636,
+          "benefit": 0.057933685159424646,
+          "window": {
+            "observedAt": 4800,
+            "receiverId": "geometry:anchor:10",
+            "target": {
+              "x": 57.44326088493448,
+              "y": 21.855315953027457
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.3527441060117886,
+            "opensAt": 4800,
+            "closesAt": 4801.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.5850658503988658,
+              "actionSeconds": 0.6650658503988658
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.3225046404722316,
+              "playableSeconds": 1.3225046404722316,
+              "actionSeconds": 1.4025046404722317
+            },
+            "contactMargin": 0.9676782556129228,
+            "laneMargin": 0.9843186139692844,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.9676782556129228
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.9676782556129228
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.9676782556129228
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.9676782556129228
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.9676782556129228
+              },
+              {
+                "delay": 1,
+                "margin": 0.9676782556129228
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.9676782556129228
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.9130086411138777
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.8391393383464861
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:through",
+          "risk": 0.4622286792464984,
+          "benefit": 0.004466596139692958,
+          "window": {
+            "observedAt": 4800,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 63.859526319778524,
+              "y": 10.018249740079046
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.6959667215309094,
+              "playableSeconds": 0.6959667215309094,
+              "actionSeconds": 0.7759667215309094
+            },
+            "defenderId": "geometry:opponent:1",
+            "defender": {
+              "locationSeconds": 1.6393266155047639,
+              "playableSeconds": 1.6393266155047639,
+              "actionSeconds": 1.719326615504764
+            },
+            "contactMargin": -0.16067338449523616,
+            "laneMargin": -0.16067338449523616,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.16067338449523616
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.2110850167555125
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.26124108060244255
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.3110967995548448
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.3605967487828394
+              },
+              {
+                "delay": 1,
+                "margin": -0.4096716295885703
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.4582338510556898
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.5061713979908331
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.5534175398709325
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "risk": 0.050373655567162744,
+          "benefit": 0.12687136816746353,
+          "window": {
+            "observedAt": 4800,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 75.96093939244285,
+              "y": 31.14249042510055
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.3989867525831827,
+            "opensAt": 4800,
+            "closesAt": 4801.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.643439964552044,
+              "playableSeconds": 0.643439964552044,
+              "actionSeconds": 0.723439964552044
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.1652105558535693,
+              "playableSeconds": 1.1652105558535693,
+              "actionSeconds": 1.2452105558535693
+            },
+            "contactMargin": 0.8154638677077736,
+            "laneMargin": 0.8154638677077736,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.8154638677077736
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.8465408371487121
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.877351506345926
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.9078353141741337
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.9379506522452986
+              },
+              {
+                "delay": 1,
+                "margin": 0.6648550517854509
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.6648550517854509
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.6266897496294302
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.456055597576112
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    },
+    {
+      "id": "counterattack:80-80:mirrored:organised:0:central",
+      "finalHash": "e07a9efa72fc1e698897e018967b0acdd1e763c09d13a126b6b3f90e8c191324",
+      "shot": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr193:paired:counterattack:autonomous:central:shot:24:geometry:anchor:9",
+        "shooterId": "geometry:anchor:9",
+        "releasedAt": 20.449999999999832,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 25.804365731123838,
+        "launchVerticalComponent": 5.5761753255030975,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.6,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.16271657331080386,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6292144019406456,
+          "horizontalSigma": 0.3878270300827774,
+          "verticalSigma": 0.5774457693153553,
+          "distanceDifficulty": 0.7022665322653066,
+          "angleDifficulty": 0.8136957460704521,
+          "pressureDifficulty": 0.7409498852962042,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.16271657331080386,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 2.1171294768720017,
+          "horizontalSigmaMetres": 1.4194469301029653,
+          "verticalSigmaMetres": 1.408967677129467,
+          "ballMovementDifficulty": 0.017317468792696373,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.15032750543511453,
+          "blockerDifficulty": 0.04339621115670267
+        },
+        "context": "open_play",
+        "distance": 13.566695658353867,
+        "angle": 0.18630425392954786,
+        "pressure": 0.7409498852962042,
+        "blockingDefenders": 2,
+        "baseXg": 0.1142325590447122,
+        "effectiveScoringExpectation": 0.06461160585606686,
+        "shooterExecutionQuality": 0.6292144019406456,
+        "intendedTarget": {
+          "horizontal": 0.5464480874316939,
+          "vertical": 0.38
+        },
+        "actualTarget": {
+          "horizontal": -0.18981313754646723,
+          "vertical": 0.7263450599547555
+        },
+        "error": {
+          "horizontal": -0.7362612249781612,
+          "vertical": 0.3463450599547555
+        },
+        "speed": 25.804365731123838,
+        "classification": "on_target",
+        "keeperId": "geometry:opponent:0",
+        "goalkeeperAction": "parry_away",
+        "outcome": "save"
+      },
+      "initialPassAlternatives": [
+        {
+          "id": "pass:geometry:anchor:6:support",
+          "risk": 0.027036374065566443,
+          "benefit": 0.0003116810136510902,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:6",
+            "target": {
+              "x": 52.178588847510895,
+              "y": 36.93222345465328
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 0.7539216964310307,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:2",
+            "defender": {
+              "locationSeconds": 1.7878590142628414,
+              "playableSeconds": 1.7878590142628414,
+              "actionSeconds": 1.8678590142628415
+            },
+            "contactMargin": 0.7179216964310307,
+            "laneMargin": 1.5993785901550837,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.7179216964310307
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.019789995633298862
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.019789995633298862
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.019789995633298862
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.019789995633298862
+              },
+              {
+                "delay": 1,
+                "margin": 0.019789995633298862
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.019789995633298862
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.019789995633298862
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.019789995633298862
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:support",
+          "risk": 1,
+          "benefit": -0.043084993134347875,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 61.51187715180665,
+              "y": 58.10693136018235
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 2.2,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:1",
+            "defender": {
+              "locationSeconds": 1.45440085060503,
+              "playableSeconds": 1.45440085060503,
+              "actionSeconds": 1.5344008506050302
+            },
+            "contactMargin": -0.7455991493949701,
+            "laneMargin": -0.7455991493949701,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.7455991493949701
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.7455991493949701
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.7455991493949701
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.7455991493949701
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.7455991493949701
+              },
+              {
+                "delay": 1,
+                "margin": -0.7455991493949701
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.7455991493949701
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.7455991493949701
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.7455991493949701
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:progressive",
+          "risk": 1,
+          "benefit": -0.04241045534242628,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 73.18352792192213,
+              "y": 37.02505782924127
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.5907083751227207,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.236,
+              "actionSeconds": 0.316
+            },
+            "defenderId": "geometry:opponent:3",
+            "defender": {
+              "locationSeconds": 0.8679866811192288,
+              "playableSeconds": 0.8679866811192288,
+              "actionSeconds": 0.9479866811192288
+            },
+            "contactMargin": -0.7227216940034918,
+            "laneMargin": -0.7227216940034918,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.7227216940034918
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.7227216940034918
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.7227216940034918
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.7227216940034918
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.7227216940034918
+              },
+              {
+                "delay": 1,
+                "margin": -0.7227216940034918
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.7227216940034918
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.7227216940034918
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.7227216940034918
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:10:support",
+          "risk": 0.03831732874031767,
+          "benefit": 0.006147174270189888,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:10",
+            "target": {
+              "x": 57.15163821403161,
+              "y": 46.12903135234956
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.353671869540369,
+            "opensAt": 10,
+            "closesAt": 11.6,
+            "horizonCensored": true,
+            "receiver": {
+              "locationSeconds": 0.156,
+              "playableSeconds": 0.5850658503988658,
+              "actionSeconds": 0.6650658503988658
+            },
+            "defenderId": "geometry:opponent:1",
+            "defender": {
+              "locationSeconds": 2.533708612663098,
+              "playableSeconds": 2.533708612663098,
+              "actionSeconds": 2.613708612663098
+            },
+            "contactMargin": 0.9686060191415032,
+            "laneMargin": 1.1800367431227288,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": 0.9686060191415032
+              },
+              {
+                "delay": 0.2,
+                "margin": 0.9686060191415032
+              },
+              {
+                "delay": 0.4,
+                "margin": 0.9686060191415032
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": 0.9686060191415032
+              },
+              {
+                "delay": 0.8,
+                "margin": 0.9686060191415032
+              },
+              {
+                "delay": 1,
+                "margin": 0.9686060191415032
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": 0.9686060191415032
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": 0.9139364046424582
+              },
+              {
+                "delay": 1.6,
+                "margin": 0.8400671018750666
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:7:through",
+          "risk": 1,
+          "benefit": -0.04282708875476223,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 63.71667715180665,
+              "y": 58.10693136018235
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.8,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.6959667215309094,
+              "playableSeconds": 0.6959667215309094,
+              "actionSeconds": 0.7759667215309094
+            },
+            "defenderId": "geometry:opponent:1",
+            "defender": {
+              "locationSeconds": 1.1494095492335583,
+              "playableSeconds": 1.1494095492335583,
+              "actionSeconds": 1.2294095492335584
+            },
+            "contactMargin": -0.6505904507664417,
+            "laneMargin": -0.6505904507664417,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.6505904507664417
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.6505904507664417
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.6505904507664417
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.6505904507664417
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.6505904507664417
+              },
+              {
+                "delay": 1,
+                "margin": -0.6505904507664417
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.6505904507664417
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.6505904507664417
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.6505904507664417
+              }
+            ]
+          }
+        },
+        {
+          "id": "pass:geometry:anchor:9:through",
+          "risk": 1,
+          "benefit": -0.042280275112895595,
+          "window": {
+            "observedAt": 10,
+            "receiverId": "geometry:anchor:9",
+            "target": {
+              "x": 75.81082802221667,
+              "y": 37.02505782924127
+            },
+            "preparationSeconds": 0,
+            "travelSeconds": 1.3896842468560817,
+            "opensAt": null,
+            "closesAt": null,
+            "horizonCensored": false,
+            "receiver": {
+              "locationSeconds": 0.6397904471707473,
+              "playableSeconds": 0.6397904471707473,
+              "actionSeconds": 0.7197904471707472
+            },
+            "defenderId": "geometry:opponent:3",
+            "defender": {
+              "locationSeconds": 0.6438741944458688,
+              "playableSeconds": 0.7633640310938922,
+              "actionSeconds": 0.8433640310938921
+            },
+            "contactMargin": -0.6263202157621895,
+            "laneMargin": -0.6263202157621895,
+            "samples": [
+              {
+                "delay": 0,
+                "margin": -0.6263202157621895
+              },
+              {
+                "delay": 0.2,
+                "margin": -0.6263202157621895
+              },
+              {
+                "delay": 0.4,
+                "margin": -0.6263202157621895
+              },
+              {
+                "delay": 0.6000000000000001,
+                "margin": -0.6263202157621895
+              },
+              {
+                "delay": 0.8,
+                "margin": -0.6263202157621895
+              },
+              {
+                "delay": 1,
+                "margin": -0.6263202157621895
+              },
+              {
+                "delay": 1.2000000000000002,
+                "margin": -0.6263202157621895
+              },
+              {
+                "delay": 1.4000000000000001,
+                "margin": -0.6263202157621895
+              },
+              {
+                "delay": 1.6,
+                "margin": -0.6263202157621895
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "Final intentional shot is canonical; pass risk and shot difficulty use different models and cannot be compared as calibrated success probabilities. Any incidental goal is separately recorded."
+    }
+  ]
+}

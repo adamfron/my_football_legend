@@ -1,0 +1,147 @@
+
+> my_football_legend@0.1.0 verify
+> npm run lint && npm run test && npm run build
+
+
+> my_football_legend@0.1.0 lint
+> eslint .
+
+
+> my_football_legend@0.1.0 test
+> npm run test:main && npm run test:full-career
+
+
+> my_football_legend@0.1.0 test:main
+> npm run test:unit && npm run test:match-integration && npm run test:match-contract
+
+
+> my_football_legend@0.1.0 test:unit
+> npm run generate:world-db && vitest run --maxWorkers=2 --exclude src/core/fullCareerSimulation.test.ts --exclude src/core/careerLifecycle.test.ts --exclude scripts/clubAudit.test.ts --exclude src/core/careerMatchContract.test.ts --exclude src/core/matchSimulation/pr160PenaltyLiveness.test.ts --exclude src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts --exclude src/app/match/backgroundOrchestration.test.tsx
+
+
+> my_football_legend@0.1.0 generate:world-db
+> node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts
+
+world database: 64 clubs, 1824 footballers
+wrote C:\Users\Admin\Documents\Codex\2026-10-26\cze-przygotuj-prosz-wykonanie-zadania-w\work\mfl-git\.generated-public\data\world\pl-2026-v2.json
+(node:22848) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-26/cze-przygotuj-prosz-wykonanie-zadania-w/work/mfl-git
+
+
+ Test Files  248 passed (248)
+      Tests  2264 passed (2264)
+   Start at  05:34:08
+   Duration  352.96s (transform 15.91s, setup 0ms, import 140.92s, tests 442.43s, environment 73.93s)
+
+
+> my_football_legend@0.1.0 test:match-integration
+> vitest run src/core/matchSimulation/pr160PenaltyLiveness.test.ts src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts src/app/match/backgroundOrchestration.test.tsx --maxWorkers=1
+
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-26/cze-przygotuj-prosz-wykonanie-zadania-w/work/mfl-git
+
+
+ Test Files  3 passed (3)
+      Tests  56 passed (56)
+   Start at  05:40:02
+   Duration  279.87s (transform 5.25s, setup 0ms, import 11.96s, tests 266.40s, environment 896ms)
+
+
+> my_football_legend@0.1.0 test:match-contract
+> vitest run src/core/careerMatchContract.test.ts --maxWorkers=1 --reporter=verbose
+
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-26/cze-przygotuj-prosz-wykonanie-zadania-w/work/mfl-git
+
+ ✓ src/core/careerMatchContract.test.ts > PR164 career fixture contract > prepares the fresh real U-17 season without forcing selection and safely records abandonment 272ms
+stdout | src/core/careerMatchContract.test.ts > PR164 career fixture contract > plays a fresh real U-17 fixture with human intent, commits, saves, reloads and advances its calendar
+PR166 U-17 career receipt {
+  score: { home: 3, away: 1 },
+  choices: 15,
+  endedAt: 5640,
+  canonicalResultBytes: 38820,
+  saveBytes: 106990,
+  retained600ResultSaveBytes: 7531956
+}
+
+ ✓ src/core/careerMatchContract.test.ts > PR164 career fixture contract > plays a fresh real U-17 fixture with human intent, commits, saves, reloads and advances its calendar 371201ms
+ ✓ src/core/careerMatchContract.test.ts > PR164 career fixture contract > validates roster/provenance and keeps presentation seed outside football 174ms
+stdout | src/core/careerMatchContract.test.ts > PR164 career fixture contract > plays an actual full fixture twice, commits, reloads and rejects duplicates/conflicts
+PR164 canonical bridge receipt {
+  endedAt: 5460,
+  score: { home: 0, away: 0 },
+  bytes: 36497,
+  participants: 27,
+  selected: 9,
+  resolved: 9,
+  substitutions: 5
+}
+
+ ✓ src/core/careerMatchContract.test.ts > PR164 career fixture contract > plays an actual full fixture twice, commits, reloads and rejects duplicates/conflicts 696150ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  05:44:43
+   Duration  1073.19s (transform 2.22s, setup 0ms, import 5.17s, tests 1067.80s, environment 0ms)
+
+
+> my_football_legend@0.1.0 test:full-career
+> node scripts/runFullCareerTests.mjs
+
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-26/cze-przygotuj-prosz-wykonanie-zadania-w/work/mfl-git
+
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  06:02:37
+   Duration  101.45s (transform 474ms, setup 0ms, import 640ms, tests 100.70s, environment 0ms)
+
+
+> my_football_legend@0.1.0 prebuild
+> npm run generate:world-db
+
+
+> my_football_legend@0.1.0 generate:world-db
+> node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts
+
+world database: 64 clubs, 1824 footballers
+wrote C:\Users\Admin\Documents\Codex\2026-10-26\cze-przygotuj-prosz-wykonanie-zadania-w\work\mfl-git\.generated-public\data\world\pl-2026-v2.json
+(node:20032) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+> my_football_legend@0.1.0 build
+> tsc -b && vite build
+
+vite v8.1.5 building client environment for production...
+[2K
+transforming...✓ 425 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.40 kB │ gzip:   0.21 kB
+dist/assets/TacticalMatchSandbox-CzT_nYzd.css   11.45 kB │ gzip:   3.11 kB
+dist/assets/index-BiOHbUIs.css                  37.18 kB │ gzip:   8.95 kB
+dist/assets/previewScene-ldrz1LQM.js             0.59 kB │ gzip:   0.40 kB
+dist/assets/PlayerPreview-6zwS7wGe.js            1.63 kB │ gzip:   0.87 kB
+dist/assets/CareerCanonicalMatch-DPcJDqpK.js     3.23 kB │ gzip:   1.41 kB
+dist/assets/preload-helper-Dakie67w.js           4.75 kB │ gzip:   1.93 kB
+dist/assets/VisualGallery-CJzn9-_Q.js            5.54 kB │ gzip:   2.44 kB
+dist/assets/MatchGame-BlyVw9yy.js                5.90 kB │ gzip:   2.72 kB
+dist/assets/npcCareerIdentity-cIPwvxW9.js       10.38 kB │ gzip:   4.34 kB
+dist/assets/CareerApp-CumhyUfY.js               70.27 kB │ gzip:  22.31 kB
+dist/assets/CareerView-DKD0W_qO.js             106.50 kB │ gzip:  35.85 kB
+dist/assets/index-BYMLoTCW.js                  196.36 kB │ gzip:  62.87 kB
+dist/assets/worldDatabase-Bi_jae_i.js          256.96 kB │ gzip:  80.07 kB
+dist/assets/TacticalMatchSandbox-36cqlkAd.js   598.70 kB │ gzip: 180.40 kB
+dist/assets/model-BS9qQNY1.js                  856.45 kB │ gzip: 236.05 kB
+
+[INEFFECTIVE_DYNAMIC_IMPORT] src/persistence/careerStorage.ts is dynamically imported by src/app/devTools.ts but also statically imported by src/app/App.tsx, src/app/CareerApp.tsx, dynamic import will not move module into another chunk.
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 404ms

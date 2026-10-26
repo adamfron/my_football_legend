@@ -1,0 +1,352 @@
+{
+  "schema": "mfl-pr193-development-dispatch-v1",
+  "version": "final-v2",
+  "workers": 8,
+  "expectedSource": "f98d89b7885b3b218a116b74aa36449f03e0b58861589244d2cd49092ac39ab2",
+  "jobs": [
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "contextual-judgment-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "mode": "transition",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "mode": "clearance",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "mode": "transition",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "mode": "clearance",
+      "observed": true
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ss",
+      "policy": "phase-role-hybrid-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ss",
+      "policy": "hierarchical-intent-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ss",
+      "policy": "contextual-judgment-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "mode": "transition",
+      "observed": true
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "mode": "clearance",
+      "observed": true
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "mode": "transition",
+      "observed": true
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "mode": "clearance",
+      "observed": true
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "sw",
+      "policy": "phase-role-hybrid-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "sw",
+      "policy": "opportunity-driven-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "sw",
+      "policy": "hierarchical-intent-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "mode": "combined",
+      "observed": true
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "mode": "transition",
+      "observed": true
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "mode": "clearance",
+      "observed": true
+    },
+    {
+      "design": "sw",
+      "policy": "opportunity-driven-v1",
+      "mode": "transition",
+      "observed": true
+    },
+    {
+      "design": "sw",
+      "policy": "opportunity-driven-v1",
+      "mode": "clearance",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "mode": "baseline",
+      "observed": true
+    },
+    {
+      "design": "ww",
+      "policy": "state-value-v1",
+      "mode": "combined",
+      "observed": false
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "mode": "combined",
+      "observed": false
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "mode": "combined",
+      "observed": false
+    }
+  ],
+  "results": [
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-clearance-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-contextual-judgment-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-transition-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-transition-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-hierarchical-intent-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-phase-role-hybrid-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-clearance-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-clearance-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-transition-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-phase-role-hybrid-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-contextual-judgment-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-hierarchical-intent-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-clearance-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-transition-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-phase-role-hybrid-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-transition-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-contextual-judgment-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-hierarchical-intent-v1-combined-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-clearance-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-clearance-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-baseline-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-transition-final-v2.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v2-bare.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v2-bare.json",
+      "code": 0,
+      "reused": false
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v2-bare.json",
+      "code": 0,
+      "reused": false
+    }
+  ],
+  "allPassed": true
+}

@@ -1,0 +1,317 @@
+
+> my_football_legend@0.1.0 benchmark:pr186:replay
+> node scripts/replayPr186Baseline.mjs
+
+tactical-patterns: 308 trials
+decision-timing: 96 trials
+learning: 9 trials
+communication: 40 trials
+human-factors: 36 trials
+attribute-contacts: 800 trials
+attribute-keepers: 440 trials
+attribute-overlaps: 160 trials
+attribute-duels: 160 trials
+decision-audit: 36 trials
+observer-neutrality: 1 trials
+{"trials":2086,"wallMs":66359.3849}
+(node:4556) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PR186 frozen-source replay passed at 68487f1c0e16f32b840056550708832ac1a68cdf
+
+> my_football_legend@0.1.0 benchmark:pr187:replay
+> node scripts/replayPr187Baseline.mjs
+
+{
+  replay: true,
+  contrasts: 7,
+  patternTrials: 12,
+  shotTrials: 144,
+  shootingSummary: [
+    {
+      intent: 'driven',
+      trials: 48,
+      releases: 48,
+      resolved: 48,
+      nullOutcomes: 0,
+      predictedMean: 0.1399940201133453,
+      goals: 13,
+      brierMean: 0.1765155603417583,
+      outcomes: [Object]
+    },
+    {
+      intent: 'placed',
+      trials: 48,
+      releases: 48,
+      resolved: 48,
+      nullOutcomes: 0,
+      predictedMean: 0.1575287433012333,
+      goals: 12,
+      brierMean: 0.15930998113592343,
+      outcomes: [Object]
+    },
+    {
+      intent: 'chip',
+      trials: 48,
+      releases: 32,
+      resolved: 32,
+      nullOutcomes: 16,
+      predictedMean: 0.11778450036875712,
+      goals: 21,
+      brierMean: 0.49873325331153895,
+      outcomes: [Object]
+    }
+  ],
+  missedWindows: 2,
+  wallMs: 12469.4521
+}
+(node:35020) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  full: 15,
+  designs: 3,
+  observerReplays: 3,
+  historical: 193,
+  failures: 3
+}
+PR187 frozen-source research and index replay passed at 00fe1b5581ff5f83acb70194f6e78c3829fb4def
+
+> my_football_legend@0.1.0 benchmark:pr188:replay
+> node scripts/replayPr188Baseline.mjs
+
+{"checked":181,"sourceSha256":"ab3b02e29abc0f50ef48dde242ca8520ff0b0d09b093ddc013dc07c16e8a366d"}
+{"baselineReplay":"PASS","ticks":800,"observerNeutral":true}
+(node:26384) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PR188 immutable evidence and captured-state replay PASS at a74be9ee846ac4958fd67e42795cf3d86946e937
+
+> my_football_legend@0.1.0 benchmark:pr189:replay
+> node scripts/replayPr189Baseline.mjs
+
+PR189 six captured states, physical neighbours and observer replay PASS
+{"summaries":[{"seconds":0,"classification":"exact captured baseline state; modified engine continuation","firstReleaseAfter":0.024999999999977263,"passer":"geometry:anchor:5","receiver":"geometry:anchor:2","releaseVelocity":{"x":-10.930205856496075,"y":2.6508090981770436,"z":0},"finalStateSha256":"a0c7ddb2f6ac36ae40573fbbec037987ace100d67b50d36123a9a5b999be6c34","replayStateSha256":"a0c7ddb2f6ac36ae40573fbbec037987ace100d67b50d36123a9a5b999be6c34","bareStateSha256":"a0c7ddb2f6ac36ae40573fbbec037987ace100d67b50d36123a9a5b999be6c34","eventHashes":["fc881db1b80741e1c88abf617c63b8d86faf1c1ccad206ac2b9b7c117a05bbde","fc881db1b80741e1c88abf617c63b8d86faf1c1ccad206ac2b9b7c117a05bbde"],"deterministic":true},{"seconds":20,"classification":"exact captured baseline state; modified engine continuation","firstReleaseAfter":0.1999999999998181,"passer":"geometry:anchor:5","receiver":"geometry:anchor:8","releaseVelocity":{"x":-3.673880586184176,"y":10.634269493436015,"z":0},"finalStateSha256":"e0797baa2a77148c8a1ae42413f53d3a35a37b85b50d01a32fa965238da90b69","replayStateSha256":"e0797baa2a77148c8a1ae42413f53d3a35a37b85b50d01a32fa965238da90b69","bareStateSha256":"e0797baa2a77148c8a1ae42413f53d3a35a37b85b50d01a32fa965238da90b69","eventHashes":["0d60db01b9c1cd289e7a1f89eb6badff1253b3bb66502c11c2782eb71f91e392","0d60db01b9c1cd289e7a1f89eb6badff1253b3bb66502c11c2782eb71f91e392"],"deterministic":true},{"seconds":60,"classification":"exact captured baseline state; modified engine continuation","firstReleaseAfter":0.1999999999998181,"passer":"geometry:anchor:5","receiver":"geometry:anchor:8","releaseVelocity":{"x":-2.076155031257715,"y":11.22512294209955,"z":0},"finalStateSha256":"111fd3f6305eb8f94a4b918a3219d5a3c0c7f3ef4677bc9b7884ef36164d18b4","replayStateSha256":"111fd3f6305eb8f94a4b918a3219d5a3c0c7f3ef4677bc9b7884ef36164d18b4","bareStateSha256":"111fd3f6305eb8f94a4b918a3219d5a3c0c7f3ef4677bc9b7884ef36164d18b4","eventHashes":["04a481867590652cbea40872fffdf67e93a7d7e5bb5657bbc0d722d2ba1e3b89","04a481867590652cbea40872fffdf67e93a7d7e5bb5657bbc0d722d2ba1e3b89"],"deterministic":true},{"seconds":300,"classification":"exact captured baseline state; modified engine continuation","firstReleaseAfter":0.02500000000009095,"passer":"geometry:anchor:5","receiver":"geometry:anchor:8","releaseVelocity":{"x":-3.4188540379111636,"y":10.765856413135731,"z":0},"finalStateSha256":"8c2dcb9d9e8612b8fa40b75964ba73a6d5b1ccc265f8579fc3866170782430f8","replayStateSha256":"8c2dcb9d9e8612b8fa40b75964ba73a6d5b1ccc265f8579fc3866170782430f8","bareStateSha256":"8c2dcb9d9e8612b8fa40b75964ba73a6d5b1ccc265f8579fc3866170782430f8","eventHashes":["a84ae7b30129336392ffd3dfb472bae32d2a33a73f8a28ac4f110f647a330e55","a84ae7b30129336392ffd3dfb472bae32d2a33a73f8a28ac4f110f647a330e55"],"deterministic":true},{"seconds":1200,"classification":"exact captured baseline state; modified engine continuation","firstReleaseAfter":0.2000000000007276,"passer":"geometry:anchor:5","receiver":"geometry:anchor:1","releaseVelocity":{"x":-1.653842003208666,"y":-6.774050933568504,"z":0},"finalStateSha256":"1cfcb95293d7ded3ce0f7c80ce9b6367cd68018e5c8ddbcb182ea50cd67fad3d","replayStateSha256":"1cfcb95293d7ded3ce0f7c80ce9b6367cd68018e5c8ddbcb182ea50cd67fad3d","bareStateSha256":"1cfcb95293d7ded3ce0f7c80ce9b6367cd68018e5c8ddbcb182ea50cd67fad3d","eventHashes":["1a14b01696f10c5de3508e3b23f87cf6c3ea154ab76fe52e95c6e14a6738ead9","1a14b01696f10c5de3508e3b23f87cf6c3ea154ab76fe52e95c6e14a6738ead9"],"deterministic":true},{"seconds":1984,"classification":"exact captured baseline state; modified engine continuation","firstReleaseAfter":0.02500000000009095,"passer":"geometry:anchor:5","receiver":"geometry:anchor:1","releaseVelocity":{"x":-1.6795356314040624,"y":-6.05494088731141,"z":0},"finalStateSha256":"783142d47a517a293f06b233900a8e76e2afcaa9b1aa3c9f8b1db706eed57ab2","replayStateSha256":"783142d47a517a293f06b233900a8e76e2afcaa9b1aa3c9f8b1db706eed57ab2","bareStateSha256":"783142d47a517a293f06b233900a8e76e2afcaa9b1aa3c9f8b1db706eed57ab2","eventHashes":["6e6200d91787d6887a5bfd8fb8360e89b227913fa1778d8e3c4b4b15d9893b3b","6e6200d91787d6887a5bfd8fb8360e89b227913fa1778d8e3c4b4b15d9893b3b"],"deterministic":true}],"defence":[{"covers":0,"exposed":false,"intention":"contain","minBallDistance":2.641145755524864},{"covers":0,"exposed":true,"intention":"contain","minBallDistance":1.7425596032007513},{"covers":1,"exposed":false,"intention":"engage","minBallDistance":0.9125893966999004,"firstChallenge":"clean_win"},{"covers":1,"exposed":true,"intention":"engage","minBallDistance":1.1018610832116016},{"covers":2,"exposed":false,"intention":"engage","minBallDistance":0.8580149015983624,"firstChallenge":"beaten"},{"covers":2,"exposed":true,"intention":"engage","minBallDistance":1.4722936805815703,"firstChallenge":"clean_win"}],"history":{"historicalRawHash":"67a6a00c920f7a2ee61afacf3d42d899ec21a992bbfdbad1842f2133eb208173","diagnosisRawHash":"72fc9ddc0d60d14157a24ccfb0af08916658cbaf5ae5bd37b06d428e4dfd14d7","sameValues":true,"differentKeyOrderOnly":true}}
+(node:24544) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"schemaVersion":1,"failedSourceSha256":"fae76f475c24957884c3c515bb6ac4df40f79cbf35e24beb452801af87ad9b40","ticks":800,"rows":[{"path":"docs/performance/pr189/ss-hierarchical-intent-v1-v1-pathology-0.json.gz","old":{"stateSha256":"ab21273a04b8f99fb725d71b1434d4d033c28a0df3ee94324711e452c8b3da25","eventsSha256":"efd439f629458821afb47b1b2a58d64002283a731a00fcff530be13a9f084ac3","prematureControls":36,"firstRelease":7.300000000026557,"firstOwnershipChange":{"after":7.300000000026557,"ownerId":null},"bodyPathMetres":0},"repeated":{"stateSha256":"ab21273a04b8f99fb725d71b1434d4d033c28a0df3ee94324711e452c8b3da25","eventsSha256":"efd439f629458821afb47b1b2a58d64002283a731a00fcff530be13a9f084ac3","prematureControls":36,"firstRelease":7.300000000026557,"firstOwnershipChange":{"after":7.300000000026557,"ownerId":null},"bodyPathMetres":0},"bareStateSha256":"ab21273a04b8f99fb725d71b1434d4d033c28a0df3ee94324711e452c8b3da25","corrected":{"stateSha256":"673f0da00a5419bfb05dcb8546f05fd2c7150cebc405a171351b6a2086b10743","eventsSha256":"96a95be8727bd4a47b1bdf70b46cd065dd1b4543fc03f1352933df787c8a211a","prematureControls":0,"firstRelease":0.22500000000081855,"firstOwnershipChange":{"after":0.22500000000081855,"ownerId":null},"bodyPathMetres":3.190002878806259},"correctedBareStateSha256":"673f0da00a5419bfb05dcb8546f05fd2c7150cebc405a171351b6a2086b10743"},{"path":"docs/performance/pr189/ss-hierarchical-intent-v1-v1-pathology-1.json.gz","old":{"stateSha256":"77804731a2199ce7f5b32c51ce7ae08b1543ebe6757255b2cce827dcc6e733fc","eventsSha256":"30179c576a50d3138e440fb999e1d2951f8f683ace3355d9f609f8ddac8e490b","prematureControls":44,"firstRelease":8.900000000032378,"firstOwnershipChange":{"after":8.900000000032378,"ownerId":null},"bodyPathMetres":0},"repeated":{"stateSha256":"77804731a2199ce7f5b32c51ce7ae08b1543ebe6757255b2cce827dcc6e733fc","eventsSha256":"30179c576a50d3138e440fb999e1d2951f8f683ace3355d9f609f8ddac8e490b","prematureControls":44,"firstRelease":8.900000000032378,"firstOwnershipChange":{"after":8.900000000032378,"ownerId":null},"bodyPathMetres":0},"bareStateSha256":"77804731a2199ce7f5b32c51ce7ae08b1543ebe6757255b2cce827dcc6e733fc","corrected":{"stateSha256":"a86a2deca50f1d543a2801a071cc7e5385043db1dc5089a8569e8091143a8e83","eventsSha256":"24ff329c288147fde205246b21bedd7ca74e529cb487e0473bff044e70492671","prematureControls":0,"firstRelease":0.12500000000045475,"firstOwnershipChange":{"after":0.12500000000045475,"ownerId":null},"bodyPathMetres":0},"correctedBareStateSha256":"a86a2deca50f1d543a2801a071cc7e5385043db1dc5089a8569e8091143a8e83"}]}
+(node:9324) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"schemaVersion":1,"failedSourceSha256":"ed0a996378811de14a040c163a48ca852ee58cae6776dccf05e5ae6be0c3ee36","ticks":800,"rows":[{"path":"docs/performance/pr189/ww-opportunity-driven-v1-owner-audit-pathology-owner-120s.json.gz","old":{"stateSha256":"e45ea2a73459cbcf6dfe9f5da6b9c057d8b40ea188dc04f0a2191cd8bea6048c","eventsSha256":"5a8c335181a0328f3f447205c5e9fe797eb5f59c60201f694de0851dfdb9e3e4","prematureControls":0,"firstRelease":null,"firstOwnershipChange":null,"bodyPathMetres":0},"repeated":{"stateSha256":"e45ea2a73459cbcf6dfe9f5da6b9c057d8b40ea188dc04f0a2191cd8bea6048c","eventsSha256":"5a8c335181a0328f3f447205c5e9fe797eb5f59c60201f694de0851dfdb9e3e4","prematureControls":0,"firstRelease":null,"firstOwnershipChange":null,"bodyPathMetres":0},"bareStateSha256":"e45ea2a73459cbcf6dfe9f5da6b9c057d8b40ea188dc04f0a2191cd8bea6048c","corrected":{"stateSha256":"fcf1f5a56473cba39d27d5d1f38823c3dd7fda8a00eddd53f79ea3ad72bd93be","eventsSha256":"e8f4d7b79d6fe2001e7ff082e0d6f644f4f6ede504fc280c8a951f9f942ca2e8","prematureControls":0,"firstRelease":1.7000000000061846,"firstOwnershipChange":{"after":0.02500000000009095,"ownerId":null},"bodyPathMetres":1.3852466514912214},"correctedBareStateSha256":"fcf1f5a56473cba39d27d5d1f38823c3dd7fda8a00eddd53f79ea3ad72bd93be"}]}
+(node:32264) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"replay":"PASS","currentSourceSha256":"62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e","oldRelease":null,"correctedRelease":{"at":7201.074999958584,"after":1.0499999999847205,"minimumOpponentDistance":9.284842490911538,"ballSpeed":26.86511246250669,"requiredEndAt":8761.074999979812,"incidentStartedAt":4319.0250000005235},"observerNeutral":true}
+(node:33732) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"sourceSha256":"62dc162b90a9d804ba7c01523176d89782fe2a37f25686ff4234d212132c066e","artifacts":230,"integrity":"PASS"}
+PR189 immutable evidence and every original replay PASS at 1af5b5c130b8707c9febb77b7bbc7cbc36bd0ea1
+
+> my_football_legend@0.1.0 benchmark:pr190:replay
+> node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr190.mjs --check
+
+{"captures":26,"observerNeutral":true}
+(node:28292) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+> my_football_legend@0.1.0 benchmark:pr191:baseline
+> node scripts/replayPr190Baseline.mjs
+
+{"integrity":"PASS","artifacts":250,"sourceSha256":"be9669dd4675d7813fb4c45ee3bb941e7ccba398293233b7702fd8c4691c6bad"}
+{"captures":26,"observerNeutral":true}
+(node:21056) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PR190 frozen source, original captures and 250 artifacts PASS at 251ec9f88f212f7a93d26ebc7491b1176e5a25ef
+
+> my_football_legend@0.1.0 benchmark:pr192:baseline
+> node scripts/replayPr191Baseline.mjs
+
+{"sourceHash":"5ec55a3e677b60fb4ab126feea23ca9c01ddfbaf4a59a9652d3c4e0f6a98ab8e","trials":108,"contacts":287,"completed":["ground","ground","ground","fast_low","fast_low","fast_low","rising","rising","rising","descending_chest","descending_chest","descending_chest","descending_thigh","descending_thigh","descending_thigh","blocked_thigh","blocked_thigh","blocked_thigh","bouncing","bouncing","bouncing","side_spin","side_spin","side_spin","top_spin","top_spin","top_spin","back_spin","back_spin","back_spin","behind","behind","behind","weak_foot","weak_foot","weak_foot","late_preparation","late_preparation","late_preparation","direction_45","direction_45","direction_180","direction_180","direction_180","continue_run","continue_run","continue_run","first_time_pass","first_time_pass","first_time_pass","outside_pass","outside_pass","outside_pass","close_shot","close_shot","close_shot","chest_redirect","chest_redirect","chest_redirect","juggle_2","juggle_2","juggle_2","juggle_5","juggle_5","juggle_5","juggle_10","juggle_10","juggle_10","alternating_juggle","alternating_juggle","alternating_juggle","autonomous_ground","autonomous_ground","autonomous_ground","autonomous_aerial","autonomous_aerial","manual_ground","manual_ground","manual_ground"],"contrasts":180,"output":"docs/performance/pr191/laboratory.json"}
+(node:7388) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"integrity":"PASS","artifacts":48,"sourceHash":"5cf2977733cd46ed752186c83ebe587d565b53066fc221eb2745b88346fc51f0"}
+{"captures":5,"newContacts":2,"observerNeutral":true}
+(node:10000) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+[
+  {
+    id: 'footballer_pro_9_12',
+    error: 0.0015740967806385786,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_pro_0_22',
+    error: 0.3272718896973299,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_pro_39_10',
+    error: 0.6441703492387727,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_u17_pro_42_2026_19',
+    error: 2.136525001459641,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_pro_57_1',
+    error: 2.3953085197797823,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_u17_pro_20_2026_10',
+    error: 2.4345298088135108,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_pro_22_19',
+    error: 3.349691246734235,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_pro_2_14',
+    error: 3.6988316333170745,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_pro_16_5',
+    error: 4.122560011219786,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_pro_22_3',
+    error: 5.801755864319397,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_pro_32_7',
+    error: 6.147793383417003,
+    metrics: [ [Object], [Object] ]
+  },
+  {
+    id: 'footballer_pro_39_1',
+    error: 6.687525810038528,
+    metrics: [ [Object], [Object] ]
+  }
+]
+{"selectedId":"footballer_pro_9_12","match":true,"rows":[{"id":"direction_45","before":2.9750465048787547,"after":0.9676888776058181,"old":"time_limit","now":"controlled"},{"id":"direction_90","before":3.4169485609684958,"after":0.9635991138245387,"old":"time_limit","now":"controlled"},{"id":"lifted_thigh","before":6.346786215489286,"after":0.761467996348155,"old":"defender_controlled","now":"controlled"},{"id":"descending_chest","before":0.2738646895893666,"after":0.46645681927687477,"old":"controlled","now":"controlled"},{"id":"descending_thigh","before":0.3004889746866079,"after":0.46514363008466264,"old":"controlled","now":"controlled"},{"id":"flat_aerial","before":0.49240644027773117,"after":0.46822714424231293,"old":"controlled","now":"controlled"}]}
+(node:36492) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PR191 frozen source and original negative evidence PASS at 9ea0e599f72800f4210092df2722e2ee16778ab7
+
+> my_football_legend@0.1.0 benchmark:pr193:baseline
+> node scripts/replayPr192Baseline.mjs
+
+reconstructed-original direction_45  completed 0.946 controlled
+reconstructed-original direction_90  completed 0.994 controlled
+reconstructed-original lifted_thigh  completed 0.603 controlled
+reconstructed-original descending_chest  completed 0.491 controlled
+reconstructed-original descending_thigh  completed 0.474 controlled
+reconstructed-original flat_aerial  completed 0.558 controlled
+relative-duel duel-40-40-false-front 40 completed 0.705 controlled
+relative-duel duel-40-40-false-behind 40 failed 1.609 defender_controlled
+relative-duel duel-40-40-true-front 40 completed 0.705 controlled
+relative-duel duel-40-40-true-behind 40 failed 1.609 defender_controlled
+relative-duel duel-80-80-false-front 80 completed 0.794 controlled
+relative-duel duel-80-80-false-behind 80 failed 1.994 defender_controlled
+relative-duel duel-80-80-true-front 80 completed 0.794 controlled
+relative-duel duel-80-80-true-behind 80 failed 1.994 defender_controlled
+relative-duel duel-40-80-false-front 80 completed 0.907 controlled
+relative-duel duel-40-80-false-behind 80 failed 1.802 defender_controlled
+relative-duel duel-40-80-true-front 80 completed 0.907 controlled
+relative-duel duel-40-80-true-behind 80 failed 1.802 defender_controlled
+relative-duel duel-80-40-false-front 40 completed 0.797 controlled
+relative-duel duel-80-40-false-behind 40 failed 1.707 defender_controlled
+relative-duel duel-80-40-true-front 40 completed 0.797 controlled
+relative-duel duel-80-40-true-behind 40 failed 1.707 defender_controlled
+adversarial slow-ball  completed 0.335 controlled
+adversarial fast-knock  completed 0.785 controlled
+adversarial spin  completed 0.989 controlled
+adversarial side-bounce  completed 0.902 controlled
+adversarial overshoot  completed 0.864 controlled
+adversarial wrong-approach  completed 0.994 controlled
+adversarial two-defenders  completed 0.927 controlled
+adversarial teammate-opportunity  completed 0.846 controlled
+adversarial leave  completed 4.973 receiver_controlled
+adversarial near-line  completed 0.534 controlled
+release intentional-pass  completed 1.484 receiver_controlled
+{"rows":33,"elapsedMs":2058.7854999999995,"cpu":{"user":1734000,"system":156000},"maxRSS":343804}
+(node:35980) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ground-parallel in_play  0.500
+ground-angled throw_in  0.100
+fast-aerial throw_in  0.050
+inaccurate-cross-field throw_in  0.125
+goal-line-attacker goal_kick  0.075
+goal-line-defender corner  0.075
+loose-recovery-near-line throw_in  0.250
+standing-tackle-near-line in_play  1.000
+clearance-near-line in_play defender 1.000
+shin-deflection-near-line in_play  1.000
+legal-goal home goal_plane 0.175
+post in_play left_post 0.500
+crossbar in_play crossbar 0.500
+outfield-block in_play defender 0.500
+body-deflection in_play defender 0.500
+keeper-save in_play goalkeeper 0.500
+keeper-parry corner goalkeeper 0.425
+keeper-fast-arrival home goal_plane 0.175
+cross-hits-defender in_play defender 0.500
+high-ball-across-area goal_kick  0.175
+(node:28128) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+40:false:front:standing true missed in_play
+40:false:front:slide true clean_win in_play
+40:false:front:carry true  in_play
+40:false:front:pressured_carry true beaten in_play
+40:false:behind:standing true foul in_play
+40:false:behind:slide true foul in_play
+40:false:behind:carry true  in_play
+40:false:behind:pressured_carry true foul in_play
+40:true:front:standing true missed in_play
+40:true:front:slide true clean_win in_play
+40:true:front:carry true  in_play
+40:true:front:pressured_carry true beaten in_play
+40:true:behind:standing true foul in_play
+40:true:behind:slide true foul in_play
+40:true:behind:carry true  in_play
+40:true:behind:pressured_carry true foul in_play
+80:false:front:standing true missed throw_in
+80:false:front:slide true clean_win in_play
+80:false:front:carry true  in_play
+80:false:front:pressured_carry true clean_win throw_in
+80:false:behind:standing true foul in_play
+80:false:behind:slide true foul in_play
+80:false:behind:carry true  in_play
+80:false:behind:pressured_carry true foul in_play
+80:true:front:standing true missed throw_in
+80:true:front:slide true clean_win in_play
+80:true:front:carry true  in_play
+80:true:front:pressured_carry true clean_win throw_in
+80:true:behind:standing true foul in_play
+80:true:behind:slide true foul in_play
+80:true:behind:carry true  in_play
+80:true:behind:pressured_carry true foul in_play
+(node:23332) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ss-state-value-v1-combined-bare.json genuine prefix and observer-neutral replay PASS 
+ss-state-value-v1-combined-final-v2.json genuine prefix and observer-neutral replay PASS 
+ss-state-value-v1-combined-measured.json genuine prefix and observer-neutral replay PASS 
+ss-state-value-v1-combined.json genuine prefix and observer-neutral replay PASS 
+ss-state-value-v1-recovery.json genuine prefix and observer-neutral replay PASS 
+sw-state-value-v1-combined-bare.json genuine prefix and observer-neutral replay PASS 
+sw-state-value-v1-combined-final-v2.json genuine prefix and observer-neutral replay PASS 
+sw-state-value-v1-combined-measured.json genuine prefix and observer-neutral replay PASS 
+sw-state-value-v1-combined.json genuine prefix and observer-neutral replay PASS 
+sw-state-value-v1-recovery.json genuine prefix and observer-neutral replay PASS 
+ww-state-value-v1-combined-bare.json genuine prefix and observer-neutral replay PASS 
+ww-state-value-v1-combined-final-v2.json genuine prefix and observer-neutral replay PASS 
+ww-state-value-v1-combined-measured.json genuine prefix and observer-neutral replay PASS 
+ww-state-value-v1-combined.json genuine prefix and observer-neutral replay PASS 
+ww-state-value-v1-recovery.json genuine prefix and observer-neutral replay PASS 
+(node:25128) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  integrity: 'PASS',
+  artifacts: 200,
+  sourceHash: 'ff47683eb5389bc29f159fe54c1fa29a497fad93f9a919bb4215407efc3419ff'
+}
+Frozen merged PR192 apparatus, hashes and original evidence PASS at 8106f28c68e7bed5368d8140cfe97ede79e9d19e
+HISTORICAL_EXIT=0

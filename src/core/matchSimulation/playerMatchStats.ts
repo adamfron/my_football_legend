@@ -50,6 +50,7 @@ export const playerMatchStatsSchema = z.object({
   shots: z.number().int().nonnegative(),
   shotsOnTarget: z.number().int().nonnegative(),
   goals: z.number().int().nonnegative(),
+  ownGoals: z.number().int().nonnegative().optional(),
   assists: z.number().int().nonnegative(),
   carries: z.number().int().nonnegative(),
   tacklesAttempted: z.number().int().nonnegative(),
@@ -596,6 +597,29 @@ export const observePlayerMatchStats = (
           };
         }
       }
+    }
+    const incidental = next.lastIncidentalGoal;
+    if (incidental && !containsIdentity(result.observedGoalIds ?? [], incidental.id)) {
+      appendIdentity('observedGoalIds', incidental.id);
+      const scorer = incidental.creditedPlayerId
+        ? stats(incidental.creditedPlayerId, incidental.at)
+        : undefined;
+      if (scorer) {
+        scorer.goals++;
+        // Goal-inclusive public statistics (Opta convention) are distinct from
+        // the intentional Shot/MatchAction ledger. No shot identity is invented.
+        scorer.shots++;
+        scorer.shotsOnTarget++;
+      }
+      const own = incidental.ownGoalPlayerId
+        ? stats(incidental.ownGoalPlayerId, incidental.at)
+        : undefined;
+      if (own) own.ownGoals = (own.ownGoals ?? 0) + 1;
+      const keeper = next.players.find(
+        (p) => p.team !== incidental.scoringTeam && isMatchGoalkeeper(p),
+      );
+      const keeperStats = keeper ? stats(keeper.id) : undefined;
+      if (keeperStats) keeperStats.goalsConceded++;
     }
     const shot = next.ball.shot ?? next.lastShot;
     if (shot && !containsIdentity(result.observedShotIds, shot.shotId)) {

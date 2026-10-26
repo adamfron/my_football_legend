@@ -95,3 +95,14 @@ docs/performance/pr191/*.gz binary linguist-generated=true
 docs/performance/pr191/*.png binary linguist-generated=true
 docs/PR191*.md text eol=lf
 scripts/*Pr191* text eol=lf
+
+# PR193 evidence hashes refer to exact bytes, including retained Windows logs.
+docs/performance/pr193/** -text whitespace=cr-at-eol linguist-generated=true
+docs/performance/pr193/**/*.json -diff
+docs/performance/pr193/**/*.log -diff
+docs/performance/pr193/**/*.gz binary
+docs/performance/pr193/**/*.png binary
+docs/performance/pr193/**/*.svg binary
+docs/PR193*.md text eol=lf
+scripts/*Pr193* text eol=lf
+scripts/pr193* text eol=lf

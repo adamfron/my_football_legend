@@ -1,8 +1,16 @@
 import { attacksRight } from './matchSpace';
+import { finishIncidentalGoal } from './incidentalGoals';
 import { advanceExperimentalBodyReception } from './experimentalBodyReception';
 import { advanceLowerBodyPose, constrainCompliantBodyStep } from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
 import { usesBoundedIntelligence } from './boundedIntelligenceState';
+import {
+  advanceTransitionRuns,
+  transitionRunTarget,
+  advanceTransitionDefence,
+} from './transitionMovement';
+import { observeBoundedScene } from './boundedPerception';
+import { evaluateStrategicClearance, clearanceIntentionSchema } from './strategicClearance';
 import {
   advanceBoundedOwnerDecision,
   advanceBoundedPatterns,
@@ -185,9 +193,13 @@ const withoutOffsideSnapshot = (state: TacticalMatchState): TacticalMatchState =
 const applyBoundaryRestart = (
   state: TacticalMatchState,
   crossing: PitchBoundaryCrossing,
-  previous: { x: number; y: number },
+  previous: { x: number; y: number; z?: number },
   segmentSeconds = 0,
 ) => {
+  if (crossing.boundary.startsWith('goal_line')) {
+    const goal = finishIncidentalGoal(state, previous, segmentSeconds);
+    if (goal) return goal;
+  }
   // Crossing a line ends the active delivery even when no player has contacted it. Preserve
   // that failed result before the restart's next release replaces lastPassDiagnostic.
   const unresolvedPass =
@@ -1666,6 +1678,8 @@ const stepTacticalMatchCore = (
   }
   const planningSpan = startPerformanceSpan('tactical_planning');
   state = advanceBoundedPatterns(state);
+  state = advanceTransitionRuns(state);
+  state = advanceTransitionDefence(state);
   state = reconcileCombination(advanceOnBallPreparation(state));
   const semanticKey = tacticalSemanticKey(state);
   const tacticalPlanDue =
@@ -1860,7 +1874,20 @@ const stepTacticalMatchCore = (
       );
       if (recovery.nextContact) movementTarget = recovery.movementTarget;
     }
-    const patternTarget = boundedPatternTarget(state, player);
+    const patternTarget = transitionRunTarget(state, player) ?? boundedPatternTarget(state, player);
+    if (
+      state.experimentalTransitionIntelligence &&
+      player.transitionMark &&
+      !state.restart &&
+      !state.postGoal &&
+      !recoveringOwnTouch &&
+      state.defensiveChallenge?.actorId !== player.id &&
+      state.playerMovementIntent?.actorId !== player.id &&
+      state.receptionPreparation?.actorId !== player.id &&
+      state.ball.ownerId !== player.id &&
+      !(state.playerAgencyEnabled !== false && state.controlledFootballerId === player.id)
+    )
+      movementTarget = player.transitionMark.target;
     if (
       patternTarget &&
       state.playerMovementIntent?.actorId !== player.id &&
@@ -2612,7 +2639,13 @@ const stepTacticalMatchCore = (
         ? findMatchParticipant(state, continuation.shooterId)
         : undefined;
       const attackingTeam = {
-        team: shootingPlayer?.team ?? state.possessionTeam,
+        team:
+          shootingPlayer?.team ??
+          (state.experimentalIncidentalGoals
+            ? velocity.x >= 0 !== Boolean(state.endsSwitched)
+              ? ('home' as const)
+              : ('away' as const)
+            : state.possessionTeam),
         endsSwitched: state.endsSwitched,
       };
       const goalkeeperProjection = continuation
@@ -2976,7 +3009,25 @@ const stepTacticalMatchCore = (
           duelDistance < 3.2 &&
           !hasPendingPlayerDecision(state, challenger.id)
         ) {
-          const selected = chooseNpcDefensiveChallengeAction(state, challenger.id, contactPress);
+          let selected = chooseNpcDefensiveChallengeAction(state, challenger.id, contactPress);
+          if (
+            selected &&
+            selected.technique !== 'tactical' &&
+            state.experimentalStrategicClearances
+          ) {
+            const choice = evaluateStrategicClearance(
+              observeBoundedScene(state, challenger),
+            )?.selected;
+            if (choice?.kind === 'delay') selected = undefined;
+            else if (choice && choice.kind !== 'control')
+              selected = {
+                ...selected,
+                clearance: clearanceIntentionSchema.parse({
+                  kind: choice.kind,
+                  target: choice.target,
+                }),
+              };
+          }
           // Routine contacts use the same physical envelope for every footballer. The exact
           // agency boundary above reserves any currently pending human choice.
           if (
@@ -2996,7 +3047,7 @@ const stepTacticalMatchCore = (
       state = resolution.state;
       if (resolution.diagnostic?.outcome === 'clean_win')
         state = changePossession(state, resolution.diagnostic.actorId, 'tackle');
-      else if (resolution.diagnostic?.outcome === 'loose_ball')
+      else if (resolution.diagnostic?.outcome === 'loose_ball' && !resolution.physicalClearance)
         state = makeLoose(state, resolution.looseVelocity);
       else if (resolution.diagnostic?.outcome === 'foul')
         state = applyChallengeInfringement(state, resolution.diagnostic);

@@ -1,0 +1,2010 @@
+{
+  "schema": "mfl-pr193-integrity-v1",
+  "base": "8106f28c68e7bed5368d8140cfe97ede79e9d19e",
+  "kernel": [
+    {
+      "path": "src/content/archetypes/everyman.ts",
+      "sha256": "e0a8a3e2c668c239baa2115811810e8486fb41c2fa115afd44f9b725ab04a97a"
+    },
+    {
+      "path": "src/content/clubs/sampleClub.ts",
+      "sha256": "5b92f4d46e46c199ae7bcf6a486b5d62e477c90949d06b78b154dced688206f9"
+    },
+    {
+      "path": "src/content/events/sampleMatchEvent.ts",
+      "sha256": "1b06fa9f08b66ddb0d5d2af7c05a60f069824e0ed1e4cb5273c70b3766b2e99c"
+    },
+    {
+      "path": "src/content/sampleContent.ts",
+      "sha256": "06f0bc756db30536a8a6aa0e27cb57357f1e5f0abe8bd673ed2d37b036ceced0"
+    },
+    {
+      "path": "src/content/world/polishU17.ts",
+      "sha256": "4e4542733fb829f7cfa5085ba96bb873caa226f65221af0e1e1d34a9eff8d0fb"
+    },
+    {
+      "path": "src/core/age.ts",
+      "sha256": "b5d47ae2b5acfa5a70cc26599c66319bb700ca39037eedcfa618a38bd9d01b8a"
+    },
+    {
+      "path": "src/core/attributePresentation.ts",
+      "sha256": "9cbd7cf3f9355677247a6a2b8fef55974b51681e43940c59444c9c7cd3f9bfda"
+    },
+    {
+      "path": "src/core/careerCalendar.ts",
+      "sha256": "171f3f0930a3d95a356b71bbd0b250f4ec8c243ad55ff4bb6d3edf177ee5666c"
+    },
+    {
+      "path": "src/core/careerFitness.ts",
+      "sha256": "ee09c104f7a991988c512d9be697be506c7ee212a816880fd0480606abedf47f"
+    },
+    {
+      "path": "src/core/careerMatchDiscipline.ts",
+      "sha256": "1fa32ba34837be9fffc95dbc967b5b2be983861bbeb11d61f1161ecc39633b7d"
+    },
+    {
+      "path": "src/core/careerMatchPresentation.ts",
+      "sha256": "edcfaaf70c194470da4ea5961a47c926b514c630189f9ea937250c55b11d0e82"
+    },
+    {
+      "path": "src/core/careerMatchSummary.ts",
+      "sha256": "da5b7dceb4607d91e6be1969b27089b463e2c7a95136561670e3cc794e300258"
+    },
+    {
+      "path": "src/core/careerWeeks.ts",
+      "sha256": "54dbe74a1303eb0248e4a037b8634b821aee625372e2405195619d5e4641c3fc"
+    },
+    {
+      "path": "src/core/clubStrength.ts",
+      "sha256": "78f3be5f826f83506d875f9dd2b8a564f765dd088c543a337710c15b304d35ef"
+    },
+    {
+      "path": "src/core/clubVisualIdentity.ts",
+      "sha256": "5d71844c769e170057ca3c4dbbddd6eb8609c1952f50e24f4c0bacb27a70c4ef"
+    },
+    {
+      "path": "src/core/coachProfiles.ts",
+      "sha256": "3edc3007aecd933e55270ba278f005e42b373af7bd9f09140a89858423a2dde2"
+    },
+    {
+      "path": "src/core/coachTactics.ts",
+      "sha256": "f816a79aeeba53f13fb49cc7f6d9fc69ac35020e17bf4bd979d5edaca39811b6"
+    },
+    {
+      "path": "src/core/competitionStrength.ts",
+      "sha256": "be342600350e71f229aa7e7677326dde3bd789f1dc5f81466b80b5d7d6ae8312"
+    },
+    {
+      "path": "src/core/contractValidity.ts",
+      "sha256": "5cef2a1e8fa0585d8d0ef552e7452b6c8237ae7d9d7903457fa357098cd56f1b"
+    },
+    {
+      "path": "src/core/development.ts",
+      "sha256": "f86ce765a5f2e1d3d13ead8ebde02755e7081c12e99a73c5a0f9236a0ba6c0ed"
+    },
+    {
+      "path": "src/core/fitnessRecovery.ts",
+      "sha256": "d69160910935ea8f9c5f4c5d6cc93d172b54b280f18f1443167898c5b8451076"
+    },
+    {
+      "path": "src/core/footballArchetypes.ts",
+      "sha256": "92f3fdfcbcd111b46b34435a0a67e3f1d4c0651d21ae85dd8d1999d60350b0d6"
+    },
+    {
+      "path": "src/core/footballerWorld.ts",
+      "sha256": "fdd3d042b1c0b1146a01e1cbbe3fbff356bf59d48159f143f3ae10a74f43a511"
+    },
+    {
+      "path": "src/core/history/careerMemory.ts",
+      "sha256": "871a3de6e51c47c461687659f5bbd24e4177c2ab7db106d31ca7f533116e2155"
+    },
+    {
+      "path": "src/core/leagueSeason.ts",
+      "sha256": "ead33b550be6a511bc745d6e658b695ca7f3a20ef4c7fa658711183b84e722a2"
+    },
+    {
+      "path": "src/core/matchSimulation/actionAgency.ts",
+      "sha256": "a952df6514404dbd5930012cbde22773ce3aa55f403dbf9035aa1cd4fb8a822e"
+    },
+    {
+      "path": "src/core/matchSimulation/actionEvents.ts",
+      "sha256": "3a581e1f2b5bcdd5a08b24e0105e2ca4f75a3e4870e97844b1a27a811cb5a6b6"
+    },
+    {
+      "path": "src/core/matchSimulation/actionImpact.ts",
+      "sha256": "9ce8abe4f5034839b4179ef5218f4ea3910a4de737887a22e6de00bf44a4d3aa"
+    },
+    {
+      "path": "src/core/matchSimulation/actionLifecycle.ts",
+      "sha256": "51704a113db2c83b89aaf6571369a6644c5502c353c1f45ec53a61ef04759557"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPlay.ts",
+      "sha256": "4cfd99eefc464009fe771b100ea0b5b87d61bd2f8d693cc0230d37a0eb2255fe"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPositioning.ts",
+      "sha256": "3c50cf101ef66fd6fb6afb7e6a53a819041534182af81e2a62358d22a6a7a1eb"
+    },
+    {
+      "path": "src/core/matchSimulation/agencyCalibration.ts",
+      "sha256": "902f1e7187779f7594193645aeb2f9ae4a3c40bfdc0d71070747ff5a0a73b086"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingTransition.ts",
+      "sha256": "d817ae2c7f16fd2b77626b9b642625176ce1b9c196f606e646d761025673067b"
+    },
+    {
+      "path": "src/core/matchSimulation/ballAcquisition.ts",
+      "sha256": "9183ec94060559516d19db509945cc64c43db7bed7cb07ead72788c5bbbdbadc"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactGeometry.ts",
+      "sha256": "ec78218d607f19ef38a1416c6f31dc18841a6e0c5e68606f1f4ebfaf9794395a"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactResolution.ts",
+      "sha256": "a931cc91b0176fb215fe676d56bd87776b6c3bfff914dd6514ec890db46b3e02"
+    },
+    {
+      "path": "src/core/matchSimulation/ballFlight.ts",
+      "sha256": "c61f381044945733c48d9c8e410c3bf8f718e34cdb9379fa2a705260e116120e"
+    },
+    {
+      "path": "src/core/matchSimulation/ballOrientedMovement.ts",
+      "sha256": "4771eb8462ef33c40bcb6005d735edeeae67956df141e84c927f713dc357c679"
+    },
+    {
+      "path": "src/core/matchSimulation/ballPhysics.ts",
+      "sha256": "711579f201eda1cefef028a39f0d629f52a4c1bec973f29666f13b2d14f0eae8"
+    },
+    {
+      "path": "src/core/matchSimulation/ballSurfaceContact.ts",
+      "sha256": "e818effd487c534738f5abc079825606525b334b162773f58fe6ce2dc36854d9"
+    },
+    {
+      "path": "src/core/matchSimulation/bodyMechanics.ts",
+      "sha256": "4eb8545174a1df92ba93033652d241b1d0207a48fedc0a5c744471be4a6bb98e"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedDecision.ts",
+      "sha256": "1d135a97053be5a4ead90f4f75ce3c9026ddc4345b97448fb2f45c5e9378282f"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedIntelligence.ts",
+      "sha256": "2b77a45573255731be7988d48d78e828b0153b5a20abd4bd4f63699975673374"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedIntelligenceState.ts",
+      "sha256": "04fa8653dfed14ab5c80cfc589f0d3465ea963621308d0e3547af0902d0fea96"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedPerception.ts",
+      "sha256": "257ca4954cfce30e4112214721167beb26fdaabc2fc8c4d08d64ec8e97cccb24"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMovement.ts",
+      "sha256": "f80c2b258f384f00f47510315a9c203ea998e32be43e3ec53933887d7a6728d8"
+    },
+    {
+      "path": "src/core/matchSimulation/carryExecution.ts",
+      "sha256": "7d8058c2ec0b2dfbbeef7abdf2e9674bbd83aa0bc7c246d0e72c58dad27fb2e5"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "sha256": "183e13d5a905e9ce84da5ee0e182fed1361fcdbac0afa6b16af7ce6c6120bb31"
+    },
+    {
+      "path": "src/core/matchSimulation/carryPursuit.ts",
+      "sha256": "9fbe3e8d52ec5d1d679575512d7e76f0049156457d5a388ff72a66001bcbed4e"
+    },
+    {
+      "path": "src/core/matchSimulation/coachIntelligence.ts",
+      "sha256": "3e775a7a3ed4c691fd7f4ff95e0a877e5a101545e061b53fb7d1e72f701cae80"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationPlay.ts",
+      "sha256": "bcf53d2f81fa097f7b66f6f7c3f0010222094005dedd78a8bd81bda353c4f443"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationState.ts",
+      "sha256": "a09d657bf69499a46279fff7be12dda19e1fa5e15c23c89e0fc2c6f8da7785e5"
+    },
+    {
+      "path": "src/core/matchSimulation/contactEvidence.ts",
+      "sha256": "a64b81507736a8dc0dec96af0e5540402cf863940ea482a76f5e8dd0436edab0"
+    },
+    {
+      "path": "src/core/matchSimulation/contextualInteractions.ts",
+      "sha256": "eea275620bcf1463f0b65fa3faaed6ffe90e7df46dfda9cfde65912dd3f22329"
+    },
+    {
+      "path": "src/core/matchSimulation/crossOpportunity.ts",
+      "sha256": "879108ef47136a6d32e268cf9c7f816cede3c2bad6eb99047dbf24744e7d0369"
+    },
+    {
+      "path": "src/core/matchSimulation/deadBallEnclosure.ts",
+      "sha256": "75c3e5756e669112d65d9168b6affb6df2c9cece16cd68384f96b2556a21f67c"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionObservation.ts",
+      "sha256": "c41534c352f5991bb65137b7a646ffdb2435c6e0e6891356aa9a7ef80832a4a0"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionOutcome.ts",
+      "sha256": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicy.ts",
+      "sha256": "c7a9168fe98d1389162df6bc2b164d7e1b75e14dc7dd3b144e0a67bdc558b20e"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicyConfig.ts",
+      "sha256": "56c91ab80b0743face9ac992d3411120c3c12d330800392ad0467bf50f9b2526"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionReadiness.ts",
+      "sha256": "1349b979499888f7e86a7213d96a1709bdf5673c23d93c80025fe1ef1a18c1f5"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionResearchProtocol.ts",
+      "sha256": "7ae12349486460fc16034ed8cc9279381b7e28188c971978bdd0680abd8e66e1"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionStateValue.ts",
+      "sha256": "fe6c29e23fd404d07cf942b09fe837d9e12b27580c664cb88298abd697f77ef5"
+    },
+    {
+      "path": "src/core/matchSimulation/defensiveChallenges.ts",
+      "sha256": "8f16ae0c8cac623a4d563363a9c632a209132e2919d6061847b0ccc6a1efcf1a"
+    },
+    {
+      "path": "src/core/matchSimulation/depthThreat.ts",
+      "sha256": "291666a6f16922421e9b2bc9cb536c13986c6e09540336edb2c7e494a60d2f7a"
+    },
+    {
+      "path": "src/core/matchSimulation/dynamicIntervention.ts",
+      "sha256": "2c247e7a347d637566927df147b7f4431d27de92e16551a8966e8cc52badd640"
+    },
+    {
+      "path": "src/core/matchSimulation/experimentalBodyReception.ts",
+      "sha256": "59b2d96a12324ebb015298c3abab38bb947eb9a61d2ab09c1b10928894a52748"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTimePassing.ts",
+      "sha256": "953ffeb76c9871ef50544310db1ec1619db2f705204833ffdd300e19be848f5b"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTouch.ts",
+      "sha256": "56889b20a502924427dbb52ba0f46aaba1f3397454cbb391e9b8344c2ab0d798"
+    },
+    {
+      "path": "src/core/matchSimulation/footContact.ts",
+      "sha256": "140546cd09121107d34e5850c8c55e9db05ce8b29babcc7fd566da7562a8706f"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabObjects.ts",
+      "sha256": "c68d06769925f3e949983cf2d789019b65e613280e673e16dc2d23e8134b5afc"
+    },
+    {
+      "path": "src/core/matchSimulation/goalCoordinates.ts",
+      "sha256": "b6277c370055ad317b00acdce5cf2d0d5cff3b859b2e32efd2d3e6c5e115c068"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperClaim.ts",
+      "sha256": "4c41e5c2e8e2fdba99f21bd3fe24b20998f1febb55f7fc0136dfb4af0a42b56f"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperDistribution.ts",
+      "sha256": "b5669d56641c5af6f4aa292e09b616df86dee31c6e0d7e61f4f53a769a447a80"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperIntervention.ts",
+      "sha256": "0dbe943e011f145c1c7c779cabea047e0c5be1ad8a2d559f5f62f19a82ef32ac"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperPositioning.ts",
+      "sha256": "99c77bf2a7116147c0dfa5744e2b4c039beabdb519e77d071d7faf98bcf24592"
+    },
+    {
+      "path": "src/core/matchSimulation/identityHistory.ts",
+      "sha256": "a053df52915c1994e2699bb3ec9ad915ebb89aece2c939fa2a41fd052f18272f"
+    },
+    {
+      "path": "src/core/matchSimulation/incidentalGoalState.ts",
+      "sha256": "a8f24569dae34f8dc9a010e7402ef4b95b66f3dccc42f80478eb6d90be8f3122"
+    },
+    {
+      "path": "src/core/matchSimulation/incidentalGoals.ts",
+      "sha256": "b9edebf41d97c4734778d8f827ed6b94245f4ad14eccb2ba6b36bda712d55f38"
+    },
+    {
+      "path": "src/core/matchSimulation/injuryStoppage.ts",
+      "sha256": "87ee6f5dbd82616867a781ae649cade58b579b3288c3999b1f5bf0019b7eb5c6"
+    },
+    {
+      "path": "src/core/matchSimulation/locomotion.ts",
+      "sha256": "9bd194e3fcfbe91edafbb6b0c4c29c5994538cefc76978cb408b1f1a13864e39"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallLiveness.ts",
+      "sha256": "6885f539edd5b20bb7e09b8493b9675d3369412ee66926ec51a5da3ebffaaff7"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallPhysics.ts",
+      "sha256": "00df4b39314c094be1a3eed43ccbf7ff0434fdef2cec3471a6e8ae177237efda"
+    },
+    {
+      "path": "src/core/matchSimulation/lowerBodyGeometry.ts",
+      "sha256": "856d7d11b67c94e1adc7b934591dd5f5159f20c8926986fc4d9e01fc8e82a10f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "sha256": "1d51ad234c9b199c9eecbd55cfa05bacf3042dae26c7fdf5c6799eb92cff64d3"
+    },
+    {
+      "path": "src/core/matchSimulation/matchEventFeed.ts",
+      "sha256": "0cdd73ab75d40f51b28d63910418ab3c0c1d5500491f9aaadb391f9ad526ba61"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFitness.ts",
+      "sha256": "a0e827218f33496d1a71129cfb0fa0095381e4f2641077f100b57b702b9201ec"
+    },
+    {
+      "path": "src/core/matchSimulation/matchGoalkeeper.ts",
+      "sha256": "a03e4270776c986dee6023fde7054421533244039333c17e970749fd834e8d7f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchInjuries.ts",
+      "sha256": "1356eab111fe24a43ffe2cb9c404641d61ba3810362c0a37fb876590db000ebd"
+    },
+    {
+      "path": "src/core/matchSimulation/matchParticipants.ts",
+      "sha256": "6f6f5052024e86b4095b8fb59a53284cde5164eea45c312f25c0ab9a502fe89b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchRules.ts",
+      "sha256": "2c6675fd14e2c33917f5948f10b345c82cc95dddaf5e1b42d585ad8a6e15d38a"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSimulation.ts",
+      "sha256": "34b7a637cf39cd7797a1514412f5b86703d64f8e28d1e638139ac8b9d3a70d00"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
+      "sha256": "7f667cf65b51a93bdd0fe07e60b28e7432745968317d76bda07d1925ebe34a71"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSpace.ts",
+      "sha256": "ed0c0bba51b8dd0ff47253d7f1beae3ac4db70168a6625f867dbe6f47eb780e8"
+    },
+    {
+      "path": "src/core/matchSimulation/matchState.ts",
+      "sha256": "46e3ddd3a33735c384455e86a0c7b24566bd03af5bb1f5064be016578342c23b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchTimekeeping.ts",
+      "sha256": "de0b3592d72e33135bd8803532df42bb25bb38ec5c47429397d75dfd7ea2f924"
+    },
+    {
+      "path": "src/core/matchSimulation/movementAuthority.ts",
+      "sha256": "ab9f64fd7679af4656328fff36cf98b9acd1eb886fab480185b26059192976d7"
+    },
+    {
+      "path": "src/core/matchSimulation/offside.ts",
+      "sha256": "82f1da4443c622d66310eb77bb3edb4f5a5c1d6816db39f80e4b432716d15390"
+    },
+    {
+      "path": "src/core/matchSimulation/onBallPreparation.ts",
+      "sha256": "b508090bd482e6da079089e55d70e9562f33febafdb6f3ce43dda5f2bdf22651"
+    },
+    {
+      "path": "src/core/matchSimulation/opponentKnowledge.ts",
+      "sha256": "0a89207ba2b39f2a9127f6ab3a1a3106c3e57ecf19570c521b2829a2ccad47fd"
+    },
+    {
+      "path": "src/core/matchSimulation/opportunityWindows.ts",
+      "sha256": "48d80edf2ef3ef470eab27b875cb00429a91e1d491ed2e01728459a12410a082"
+    },
+    {
+      "path": "src/core/matchSimulation/passClaimResolver.ts",
+      "sha256": "0cc9978c84a342e8ca9a93304644f5e11a8130e2e35b9e1bb4300e8caf85cc6c"
+    },
+    {
+      "path": "src/core/matchSimulation/passClassification.ts",
+      "sha256": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "sha256": "88b8abcfab41a24bbde2a6f9f82f4b27ede92941aefe7b10752a5dab118fa657"
+    },
+    {
+      "path": "src/core/matchSimulation/passExecution.ts",
+      "sha256": "963f3bb5f2f5d9bf3c59f7f8f6d3a2226163c9f4aa3e2c5cf3139ebb0765eff0"
+    },
+    {
+      "path": "src/core/matchSimulation/passLaunchPlan.ts",
+      "sha256": "5dc7f2bcf91d9d3ebd54ffd10c2955bd8a2ecfd31e9e11bc3721ec8673c4d59b"
+    },
+    {
+      "path": "src/core/matchSimulation/passReception.ts",
+      "sha256": "9bd54204a949b07646191538cc2b1d763938ffbc7ca578d5e86d741b9d32a170"
+    },
+    {
+      "path": "src/core/matchSimulation/performanceProfiling.ts",
+      "sha256": "c0414fbd9adbce1cadc48faf3b7f46965380e4f4b8463d53015c90e4c311ec8e"
+    },
+    {
+      "path": "src/core/matchSimulation/pitchBoundary.ts",
+      "sha256": "9b732b20295e190f6f538979f856c12bac35f994d1fce4de5b4ef8d8f2847c93"
+    },
+    {
+      "path": "src/core/matchSimulation/playerArrival.ts",
+      "sha256": "f0e79d3384813ef0420f2e2af8a28a35f4c17c771f43f19508df10f117d2610c"
+    },
+    {
+      "path": "src/core/matchSimulation/playerDecision.ts",
+      "sha256": "8625621b6864a86beb77e4a5f3e669f1e690de8bbf5d4299058db242a3891b32"
+    },
+    {
+      "path": "src/core/matchSimulation/playerMatchStats.ts",
+      "sha256": "289baff7665e59e12f290fc2a04ea0afb7f0fecf33e8a9dc0d84d5dc647e0ff3"
+    },
+    {
+      "path": "src/core/matchSimulation/playerOrientation.ts",
+      "sha256": "6426c3a5814bb3370018b9138cede371ea86e63ac609a5359466e5d483625bb1"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionAgency.ts",
+      "sha256": "18a6ceb5587d25a89237cc0de0828746d8ad6264080e366627e8e738c6f9cfc2"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionEvents.ts",
+      "sha256": "7bd00202c102be5322f8d6ef0b39a6137d7a5d5d00d964e00353404a88789eea"
+    },
+    {
+      "path": "src/core/matchSimulation/postGoalReactions.ts",
+      "sha256": "a2fd16718d96373f7465b615b786b23505b202ca9fe61c89a62946e13891b9bf"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "sha256": "d6ffb94c98f7eb9ebe7bc60e01978d9c26ccebf784601bff2fec463e52fe2ffc"
+    },
+    {
+      "path": "src/core/matchSimulation/receiverReadiness.ts",
+      "sha256": "5ec483ff5951ea8a9c3c4e8e7d66f94609b34acbf47805275ee25ed55aa4bdd1"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuation.ts",
+      "sha256": "d82b4ca4948871e67b55f2303bb9d65123e042b9b4f4c7410d2e8a51abbb01f7"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuationSchema.ts",
+      "sha256": "85550ed89812f7328980fa2a24a62ff71f72cf0f09e7aef932f6c324ae1cf403"
+    },
+    {
+      "path": "src/core/matchSimulation/restartGeometry.ts",
+      "sha256": "8bb9aff9871f6292833eb8465f59b59235fbe009413017fc7ba0768acd2d768f"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLaws.ts",
+      "sha256": "6f707e8ab681d146e7a9add724189ac640c86b6c2c69ccdfde435f5a79a98df1"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLifecycle.ts",
+      "sha256": "03ffd26d3d883c18a65932b3b1741085e418fb0ae7d11c6b2c3ff133683ada4a"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLiveness.ts",
+      "sha256": "d62e8d4dbc655822e943a658f798e8f533f0c94f848dfad8687b7bbaa3c720dc"
+    },
+    {
+      "path": "src/core/matchSimulation/restartOptions.ts",
+      "sha256": "a7516e2826e804e3bef5be960124c441308471a9389e42a15ab0530273d0bae5"
+    },
+    {
+      "path": "src/core/matchSimulation/restartPhase.ts",
+      "sha256": "25824e9463b21df657c1225832ea898e32b4b0bde4193fbaa7fadd11eb9e4b9b"
+    },
+    {
+      "path": "src/core/matchSimulation/restartScenarios.ts",
+      "sha256": "530b28012106f7b9438fd2d6dd1164b6cee0ac777d637213b49a73593d60a58f"
+    },
+    {
+      "path": "src/core/matchSimulation/roleTactics.ts",
+      "sha256": "f1acb50cea6f06e00cfeb73f2732b69c17aa9f1a35ee060c5c8808cf20896e8a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingDifficulty.ts",
+      "sha256": "429f7ecd9b6e335a0329e7d908822e92554b581fa52b9b2ec86613882ea3de0a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "sha256": "752796e13ba303b1f18f672dc0e9179d21ed0d6ce5e2795460de3ced6de0ff95"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "sha256": "02114f677aa32ed832fba79a182b923f436720134b85836ce57a08c3f8b2c862"
+    },
+    {
+      "path": "src/core/matchSimulation/shotIntent.ts",
+      "sha256": "b6d7553ba010cbdc078528f738ee60828d509b0013b042b60b287a28305480b0"
+    },
+    {
+      "path": "src/core/matchSimulation/shotResolver.ts",
+      "sha256": "7a84eb30dcbe40d85894730bef14527fb72f3bb9bc8709dffde1db8ce9bde3c7"
+    },
+    {
+      "path": "src/core/matchSimulation/spacePassing.ts",
+      "sha256": "36f11dd1e67a16d761644f8e314568ebcbeda8b2c9974e977d70ab9598acb7db"
+    },
+    {
+      "path": "src/core/matchSimulation/stoppageLedger.ts",
+      "sha256": "526ff56e91e8f3e1fac8c7162e47e4a5defbd63d627bf60934467fa5040e8783"
+    },
+    {
+      "path": "src/core/matchSimulation/strategicClearance.ts",
+      "sha256": "30569840e83fc6385d992a7f4ad535cd6955679630a65fdca5bd41c97d840234"
+    },
+    {
+      "path": "src/core/matchSimulation/substitutions.ts",
+      "sha256": "75713c13f4042388df8ea9e78d163cf07fef691c2613bcdcc7cdfe57fe208198"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalCognition.ts",
+      "sha256": "a2661b893e50db5cfe428ed01c0fa9ae434430a673d8cfe013e72dcd1e1ba9bc"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPositioning.ts",
+      "sha256": "46a060add4dbc7a6d79ea755db8690b367418be1644fbf6dff4504255a7c468c"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPreferences.ts",
+      "sha256": "19637eaab139c240caca4db0ff1c9f4a1e50a68af0ff4715073f5ba89afbc891"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalRoles.ts",
+      "sha256": "b72403c152f47a08bfd0a33a67d3119a231d0bb857d50cb45f76ea21dcd8a527"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalSituations.ts",
+      "sha256": "fea7f804d00e26f3d339c9f99309ee880f141b6b93328880c7f55e10853d46d7"
+    },
+    {
+      "path": "src/core/matchSimulation/teamThreatMemory.ts",
+      "sha256": "020becaa376e3763664eddd9aa26e36560fbf4c200fb09eb775fde551bc4dca8"
+    },
+    {
+      "path": "src/core/matchSimulation/throwIn.ts",
+      "sha256": "32590736ab61799e6495677d77ba35c301eab634cddfa6359f71e403e00edd9a"
+    },
+    {
+      "path": "src/core/matchSimulation/transitionMovement.ts",
+      "sha256": "0a352cf9e9f98bd4a1b20df11000dfce35afa67e4c376c84cb46dcc4e0ebaaa8"
+    },
+    {
+      "path": "src/core/narrative/careerEvidence.ts",
+      "sha256": "35bed6893444bcdfe4c6d3c40ad74b68066f8a73da12f57ae247c8baa4f5189f"
+    },
+    {
+      "path": "src/core/npcFootballIdentity.ts",
+      "sha256": "c0aee0d4ab61d261928f45652067de75e613c0f90c8648cdd5774adb14fbf065"
+    },
+    {
+      "path": "src/core/playStyles.ts",
+      "sha256": "85f7fc287b538c2c6dc68cffad2dd0f6061b7bcd41040a9c5f3fdf2db0b9d3fb"
+    },
+    {
+      "path": "src/core/playerCreator.ts",
+      "sha256": "c459efb4cb6044b81b967a3f56d4d493e372b0715f9a6e7addb70cce27bff136"
+    },
+    {
+      "path": "src/core/playerEconomy.ts",
+      "sha256": "782df92c9f4c71e517ce1c64088b2824df61e1e5c3e76eadb406e2a9ab9e8de8"
+    },
+    {
+      "path": "src/core/playerOverall.ts",
+      "sha256": "f980eca9dcb35a95152c45a21b9c1d6e04c45490a4b14e7c07eb43583e4f7b52"
+    },
+    {
+      "path": "src/core/playerPreferences.ts",
+      "sha256": "cccee0480ba76c0ad8ba3c4399cb0bfcde0264b33e5e98805658c0c1ebe41b00"
+    },
+    {
+      "path": "src/core/playerProfilePresentation.ts",
+      "sha256": "51c64ca390b53975a029b807c16377dca3e6fe0cd10764a08fa5a0ee396ec97f"
+    },
+    {
+      "path": "src/core/positionCompatibility.ts",
+      "sha256": "714ae0e566e7a3418f4a8a8f9339759b49740e05cb400fee3007b831ed612f09"
+    },
+    {
+      "path": "src/core/positionLearning.ts",
+      "sha256": "2ddbf2d0003b9fa3ee43be2dfb7ae4d46c88129c9cb2b66077a00e2770934726"
+    },
+    {
+      "path": "src/core/proceduralFootballers.ts",
+      "sha256": "a19ade4478e869c39ba0fc8ff073af3cf4036d9451a8aafed448dc85d3e6354e"
+    },
+    {
+      "path": "src/core/professionalClubs.ts",
+      "sha256": "51d9553a8cccf577d0d26889d879641e021789cb6b5eae292e842021088a2635"
+    },
+    {
+      "path": "src/core/professionalOfferPolicy.ts",
+      "sha256": "388fdc69e829682c9ff8bd1346a039f3e25efd674a6b98b2290cab5e9ce77504"
+    },
+    {
+      "path": "src/core/radar.ts",
+      "sha256": "64b95305aba36d6663a78e26d7a87ed4dc84dce3c2cae59177d84c73ce528b16"
+    },
+    {
+      "path": "src/core/random/RandomGenerator.ts",
+      "sha256": "485ec207596f679f99608b7d2a0feedff459fa0224e138418a0f4160c0137910"
+    },
+    {
+      "path": "src/core/seasonDevelopment.ts",
+      "sha256": "de834d3cc01a2603aa01845d0f85f8be50ac3450a36a3c1c84643146029f8c24"
+    },
+    {
+      "path": "src/core/seasonParticipation.ts",
+      "sha256": "0797d656e575f4e9e2f6818072aedd07f4f1efeae9a584bdc70cff4377beba28"
+    },
+    {
+      "path": "src/core/singleMatch.ts",
+      "sha256": "62497bfca63400741f0f193a0f6085cfa0a2700bae4cb61258f69a29f744deac"
+    },
+    {
+      "path": "src/core/visualIdentity.ts",
+      "sha256": "bc32bb64cebaf041a8225756fd7ce85ef062ed48603a60b5ed0320b133ec4414"
+    },
+    {
+      "path": "src/core/worldDatabase.ts",
+      "sha256": "f30e35b042fdc5b2cdc6cf21aedd62ce9130021baf98f23a20548797792442d0"
+    },
+    {
+      "path": "src/core/youthTalent.ts",
+      "sha256": "c336c613019f2ada3537f22b7bba61478c8ad51842a42ed477782c77d6df10b0"
+    },
+    {
+      "path": "src/core/youthWorld.ts",
+      "sha256": "decc276ce0ec12a7ae1a9703c0dceedadf528899095433e76e9f9f133a4cd833"
+    },
+    {
+      "path": "src/schemas/domainSchemas.ts",
+      "sha256": "3517b61f8462f1f57b4cefe8ba32b605b16abff8218f0179a5d78f46c8e9239f"
+    },
+    {
+      "path": "src/types/domain.ts",
+      "sha256": "c447e86ca5fd99d55dde7d8b2a8ac619a2ecabfd5439e6d9a2659bb322c1ad47"
+    }
+  ],
+  "kernelHash": "299821d7cb1acff38716dd2039bb910284b8b266a53a517e8d6df06a81ddbbf0",
+  "scenarios": 132,
+  "fullMatches": 31,
+  "selectedCombined": 15,
+  "observerPairs": 3,
+  "baselinePreserved": true,
+  "foulReplayPreserved": true,
+  "independentConfirmation": "sealed",
+  "sourceArchives": [
+    "docs/performance/pr193/source-versions/08954c16661fcbee81ff6f6923ca6fc0da6a4962ad5199abdde9cb29ecbc853a.json.gz",
+    "docs/performance/pr193/source-versions/3856dcf0f38ea966e7df1fbb8fc702f7bb17a9adccc48e1d64de07792dcc3588.json.gz",
+    "docs/performance/pr193/source-versions/6a77aba52c970d2c0b56a3313631cdd4e2233ddf2e376660538627f284eca6c8.json.gz",
+    "docs/performance/pr193/source-versions/6cc3908b545735570f69bba79d91ea763fe6286dfaf9928728e6bd89115f4a6e.json.gz",
+    "docs/performance/pr193/source-versions/7db10516e79e5e004f09239896984ef433320d0cc387233c3a709f86598bdad9.json.gz",
+    "docs/performance/pr193/source-versions/7e5a58c034f1069f212f74a57732df3786b0987958ad77ea3357dbf1c7f7c345.json.gz",
+    "docs/performance/pr193/source-versions/850a04088d47613aa5ea868307fdc08dc3e9b21bc3656a6165547802683a7df0.json.gz",
+    "docs/performance/pr193/source-versions/b76c34b549225013137955035a4c4213c0575aa3ec72540300d384175ebef8f5.json.gz",
+    "docs/performance/pr193/source-versions/bb401aeb91cf705d544e42c88910e0956b815203888a0ad10ebef3fe30e8965d.json.gz",
+    "docs/performance/pr193/source-versions/e88c2e396f397d48e2e210d76079ea542536a686e908b49ee0aae584985a4ca1.json.gz",
+    "docs/performance/pr193/source-versions/ec222ca3d09cb0aa3f315b3c526f38603001a77a5abef0ee16ca3d98f409c78c.json.gz",
+    "docs/performance/pr193/source-versions/f98d89b7885b3b218a116b74aa36449f03e0b58861589244d2cd49092ac39ab2.json.gz"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/performance/pr193/README.md",
+      "sha256": "a0788c46f563fc48d387be54a5f6ed10b47a2602df68fbaf2fac8cc0116975e4"
+    },
+    {
+      "path": "docs/performance/pr193/ablations.csv",
+      "sha256": "fa43ee5b66e40a81d15d9b84f9a8bb4b0212902af90b15751d43c1877031c27d"
+    },
+    {
+      "path": "docs/performance/pr193/cost-prefix-v1.json",
+      "sha256": "9584f4032f5aacd6b3dd3ad871a2e521f82658b842b003fd038d9fc4fd814ceb"
+    },
+    {
+      "path": "docs/performance/pr193/development-run-final-v1.json",
+      "sha256": "9975c3107426eadad89f3dc93dc1c34942729a277bb2acc0f7cb428265d3b6e0"
+    },
+    {
+      "path": "docs/performance/pr193/development-run-final-v2.json",
+      "sha256": "85c6026f941f049d7e8b41865b31cb63ae35a64d58f71a0f6a08c4fdf577c6c4"
+    },
+    {
+      "path": "docs/performance/pr193/figures/match-lab-smoke.png",
+      "sha256": "9c3f6ff18edec427b0a5a291fcaab163206be0d8ebe80b8ea21b4c84d6f5a8c9"
+    },
+    {
+      "path": "docs/performance/pr193/figures/selected-trajectories.png",
+      "sha256": "445ddfafd00ef9ba8d47647dc7a70fcdcde0046082ae01d6224f415447bd01b9"
+    },
+    {
+      "path": "docs/performance/pr193/figures/selected-trajectories.svg",
+      "sha256": "5024d4cc401a3592ffb4a70cff59917f5f2f3cdf5887bbb7f9f59d85db59217d"
+    },
+    {
+      "path": "docs/performance/pr193/foul-audit-v1.json",
+      "sha256": "408d1702dbad75c7b49837c477ece9e1e7ccb0381c8da39d551c454d15ee8644"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-0.json.gz",
+      "sha256": "d16a515dd10e3b061b057905c48570e67f0be9ec8a04ff39ea2b4de4823246eb"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-1.json.gz",
+      "sha256": "3f1f951bcf13ccb35462e37d8feb7818b04e223c43876c612b3ae131a61f74c9"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-10.json.gz",
+      "sha256": "b659c26d7a067e26e324b39f710a5f51a1b71aa7a6864309505b6ea7c55ee7c4"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-11.json.gz",
+      "sha256": "5fef71b4e6bc91e661278d921262f1e59f9d4eed966fd5aca62f109069bc2fb5"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-12.json.gz",
+      "sha256": "9bfdef0d25a8c112cf344e49be919c7a5c7810d5496a0ab7a91a9d5dba73718d"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-13.json.gz",
+      "sha256": "388f6e21d201d5cfa7a42bd63014da341084301495a17d5bffc46b7dc1ce488d"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-14.json.gz",
+      "sha256": "ecb80d6c55ef9c74970e0aa0fc1bbb8ad04f75eea09683a16421f3aa9ccc5739"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-15.json.gz",
+      "sha256": "8c8f740b18165c69f65900b4259bb82f39d277e05e5aa188037c441a777813e3"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-2.json.gz",
+      "sha256": "93c6852f61fcd3e2c3535318da9c2be065f113c017d1678b052b6f939e04869b"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-3.json.gz",
+      "sha256": "3effb8ef4b3671c7f0f72a35a58e665637830aee3a7e05d670a98583ef137453"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-4.json.gz",
+      "sha256": "8955dbb4a32a329de224f25633c9f3df7289c6076d3762c4579c586f1bb74ba0"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-5.json.gz",
+      "sha256": "23b44a7aa2148e8e5f9ff590da3fb8c56c342086042cbc120830bf4420b2706e"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-6.json.gz",
+      "sha256": "597784bb6db77f0e445bf1e76f43f0e0aa372bd90c93f526ed42be7bef3b5fe6"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-7.json.gz",
+      "sha256": "2ea9a1f605cf67c97d87b0a5faed84b912e311d53f832f2394ce1f1803647bdc"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-8.json.gz",
+      "sha256": "c85f6ab3e88a516b973ea500684ecee369fb0cd0cf0f1ff1e4621b2c62ca16a0"
+    },
+    {
+      "path": "docs/performance/pr193/foul-captures/contact-9.json.gz",
+      "sha256": "ed596548211abe1e8c9d55267bb20bb29451c9f5b6e4ce43379451a3ff476749"
+    },
+    {
+      "path": "docs/performance/pr193/frozen-pr192.json",
+      "sha256": "08739e0aa8c3484baed4376a8f8bbf317c9be42749e1a26b034629155dbe22f3"
+    },
+    {
+      "path": "docs/performance/pr193/full-match-table.md",
+      "sha256": "9d55a125b606606d82f356dd999d5a698ffd5fcf4630fea11bb4f898d7baa038"
+    },
+    {
+      "path": "docs/performance/pr193/geometry-limits-v1.json",
+      "sha256": "bb7646c59a7e0548af1ebb58f69fa126218838e02ffcd7640dfb331a6911b765"
+    },
+    {
+      "path": "docs/performance/pr193/incidental-scoring-v1.json",
+      "sha256": "af3934ae81451632e8092e7289a6b81db3adb5f0e9519798f9eb95c8fb635c42"
+    },
+    {
+      "path": "docs/performance/pr193/incidental-scoring-v2.json",
+      "sha256": "a6f55feea535617cd800aeae47cecc45f67d261f0255e783ed940e04885f5e9d"
+    },
+    {
+      "path": "docs/performance/pr193/incidental-scoring-v3.json",
+      "sha256": "85cbb62b7d53f101ba305caab74e158279e6cdb047c6d499dda246aa7b76a31d"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-cycle3.json",
+      "sha256": "492399a2b40e5f01cf47894b24085661e01b141fb73fec175e9a061d934075d2"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-cycle3.json.gz",
+      "sha256": "6eaeeefa052157d4007341b771b2d8478f4ce64d06fafd167e82436945bc1171"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v1.json",
+      "sha256": "c09bae36313e1efaa72dab58f928ad215ffbc5b066cfbf68b7d8405a3dc3fbd1"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v1.json.gz",
+      "sha256": "b903eaf0781db950257eea1b678e54cc34c9e9ea72e46ea9576b57f0b3bcaa36"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v2.json",
+      "sha256": "65adf5ada0c1c078e23f28a2c97301a372290f4d909c86bf732b592ac917b8a0"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v2.json.gz",
+      "sha256": "36d565b1c38f405223b6873e92bbb3a1ec1f7f4c8c3828e552108043258b3a18"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v3.json",
+      "sha256": "8e3ec18e72c6995a26e5a294350c22f8ba0414f8445bc2366086ab036fd83e53"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v3.json.gz",
+      "sha256": "4d0c6a2c9f4f8e4b14e7f7de7798ea8db2a5b6b9980f056a2529759f14b7ff12"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v4.json",
+      "sha256": "9f7753d149a4b53665e59b9e0d0104f8d7983ae02c81c8c99d2cebbbbb29e0aa"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v4.json.gz",
+      "sha256": "a7cbf1ce47fa332dd269d04f54319a84bb182c28311b541a8ec5379d5537d152"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v6.json",
+      "sha256": "c41cd7666537b153af4c743c031157c441d123600ee4a93385b3831f1f44494b"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-final-v6.json.gz",
+      "sha256": "a5639c7052da482178994d88c51a1a7ede545a74e471b747d25326c6e9fc6097"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-index.csv",
+      "sha256": "f31f24b9e0a18f25459550dece089c1d6e340c9d15940202e752fea0db2f1339"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-protocol-v1.json",
+      "sha256": "f3bd94143c45ce8e1e4a52f0dcd0dc025e4dd1a45064bb4cf2d50007ebd7e848"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-protocol-v2.json",
+      "sha256": "e92a4c4f64aaa740bacc77804c05fd018e804601274548d4d2f50d02580603e2"
+    },
+    {
+      "path": "docs/performance/pr193/laboratory-shot-quality-v1.json",
+      "sha256": "4f345f20ef1393147c5a7669d6bbe642b52f5ac5146eff7871e1aa92ef36e822"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-contextual-judgment-v1-combined-final-v1.log",
+      "sha256": "a614db8bb94a72dc52fba8319661c0845324c4a91fc4706faea2c53d8c2aa730"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-contextual-judgment-v1-combined-final-v2.log",
+      "sha256": "a8d6687a9051f43545113bb67e136fc1cce94a43952126cc94d4025efae52a47"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-hierarchical-intent-v1-combined-final-v1.log",
+      "sha256": "0584665c11e8c8ec776214014332701a8e83e353ace7c13a5b52d2857ff4b59a"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-hierarchical-intent-v1-combined-final-v2.log",
+      "sha256": "1beb99143734efffdcc3465c762cffb1df682ecacb8ff2eddf3cfbe82521fa8a"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-opportunity-driven-v1-clearance-final-v1.log",
+      "sha256": "40a68fd21967d27eb3cd9de01c90be0842ae0fda0ff5d722f22708debbfd8a63"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-opportunity-driven-v1-clearance-final-v2.log",
+      "sha256": "b4e1ca8682bd9726732cbfa9dc2173b943146840146945ffdb6d01fd4a25db2d"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-opportunity-driven-v1-combined-final-v1.log",
+      "sha256": "f590d804e1f5e637bc3c57121e48200bf4d42304e8cb9ca9b811ef8acec045ac"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-opportunity-driven-v1-combined-final-v2.log",
+      "sha256": "acba33b2ab2dc37bbe3a166745f524ce09e1a58a55e87d5ee2ea8508a77fb6d1"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-opportunity-driven-v1-transition-final-v1.log",
+      "sha256": "8196dc4aeb381d893543cf529f56e81cb904eb38e42d930a6d3899d109c17f6b"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-opportunity-driven-v1-transition-final-v2.log",
+      "sha256": "295b95044e54ebfab00d37e715f2bd234fb7ddd8f233d28ad1ef8a4bb7c298b7"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-phase-role-hybrid-v1-combined-final-v1.log",
+      "sha256": "cadd7c6a190e5c0fb6a7d268c22f17803d56fb07a1b1ea6a720afdd237ce70a0"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-phase-role-hybrid-v1-combined-final-v2.log",
+      "sha256": "aa3ec29d4368337f4586cd28d39d537f081a8082a50c41312d4d859b6bd9212d"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-state-value-v1-clearance-final-v1.log",
+      "sha256": "b6bd1dc1fa0610337c2783650e1b177bb86998151e7f731e595d99b54de0d85d"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-state-value-v1-clearance-final-v2.log",
+      "sha256": "99dbe8c05d76bb959a4b49afa4648da04757633f3f3ec3aea7fce413d67a29ad"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-state-value-v1-combined-final-v1-bare.log",
+      "sha256": "5aca2dd616d069d8033572bfc795361dbda519499235b5adb1fdf5171cd7aa77"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-state-value-v1-combined-final-v1.log",
+      "sha256": "86fcb27fd1fae0f576e9c539ac0a5223dcc0a7a4cecfaa57da8da027923296cb"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-state-value-v1-combined-final-v2-bare.log",
+      "sha256": "8984da7168a5ff0094764005da42408e0f948a6779361ed393c98652a82636b4"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-state-value-v1-combined-final-v2.log",
+      "sha256": "f5eee3678d72523e7c19a6a717ea32d1b479da911fa57b4464db2726910f41ae"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-state-value-v1-transition-final-v1.log",
+      "sha256": "e3e036b8c7a386d6828163601623c5a52132396a71377209cb9ebf34a0bd7045"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ss-state-value-v1-transition-final-v2.log",
+      "sha256": "a3fea16bacc777e69adeb6f9dc091fdfaec862fb06ce6022e4bc9c6c26644231"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-contextual-judgment-v1-combined-final-v1.log",
+      "sha256": "433e999d28e69ced03296c7fdf5cf5e812144d464cf5566fd60bb85b7c48fab6"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-contextual-judgment-v1-combined-final-v2.log",
+      "sha256": "6b5ca8ab20a0e77a82ffd05f65cf0d23af5d1ae1e6a8b75f4e7b89fcf02e8cae"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-hierarchical-intent-v1-combined-final-v1.log",
+      "sha256": "d0b9bbf5c96968906d07000313a02d813593c414d420c886330f7e87cbb64746"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-hierarchical-intent-v1-combined-final-v2.log",
+      "sha256": "ae9c1d4d5ee8eb152292da5a4d4215356f158759746a3bc869847a175beb07c1"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-opportunity-driven-v1-clearance-final-v1.log",
+      "sha256": "6cc60bad83794050613761619da5c4aad16ad017b7fc011a0fcc8e8db278a1a6"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-opportunity-driven-v1-clearance-final-v2.log",
+      "sha256": "cb237ed383031aa046c6faf270043d14c65cd0047f9f8ce3cc03bd4758a6e990"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-opportunity-driven-v1-combined-final-v1.log",
+      "sha256": "9607a6a049b9eed89b64da73dc54a6c0533864caa9706f94f10a3b360dcd310e"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-opportunity-driven-v1-combined-final-v2.log",
+      "sha256": "275c29e06151ad8f73629ffc63468e6182cf64e3d835e0637722a337a507b900"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-opportunity-driven-v1-transition-final-v1.log",
+      "sha256": "ceace0d662c68f953fd75710b0a37470ddbb15c00b1d7ef2901b1bac63a498ab"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-opportunity-driven-v1-transition-final-v2.log",
+      "sha256": "9b04cf3430356357792df4ce950a879dfb2b9cae5af5fc89b39ad2d31adc2e9a"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-phase-role-hybrid-v1-combined-final-v1.log",
+      "sha256": "c4cdabc4b362ce70c5e569f16ff6daac58331b7f1110a20e4fd1b852daa1727d"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-phase-role-hybrid-v1-combined-final-v2.log",
+      "sha256": "4621e583a62bc45acb422e2ef4be5b6e79f30025a5fbceef75f78495b9b1eab1"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-state-value-v1-clearance-final-v1.log",
+      "sha256": "38b5b0406590a42f2e20e414d1059ded86a5656d0a2ff05d4f286a08e13c49a4"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-state-value-v1-clearance-final-v2.log",
+      "sha256": "7f799d327dcb5d2d454e1886c893cc9eea6ae1f4ff23bb3da212bab8cd827b5e"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-state-value-v1-combined-final-v1-bare.log",
+      "sha256": "db773f362d291d9d0cfd0d1e45d2d580982f9764f66df3487960398a3a24659a"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-state-value-v1-combined-final-v1.log",
+      "sha256": "140192ba8499b44b488b52f4dd11aaca0606e88cd2ae1e337b5cb6c9d5c0b984"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-state-value-v1-combined-final-v2-bare.log",
+      "sha256": "c649a9bc97980b932387a7e12c1bd09e7b2f97076889f9f0b9993bf986ce14bf"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-state-value-v1-combined-final-v2.log",
+      "sha256": "374038f4ff94dc6aa0aa96ac3fdf41c2ac3182e9a51029a4738dcbe35a9c2513"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-state-value-v1-transition-final-v1.log",
+      "sha256": "78882b07ca1a03e461be87fc172ebdac382d532d1dd0945884b2f7ad6de10056"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/sw-state-value-v1-transition-final-v2.log",
+      "sha256": "41c5b819a9e372a1bb0227b90f0b4e25d3eed05ae6d07bb3d4b70cbe2f58c1c0"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-contextual-judgment-v1-combined-final-v1.log",
+      "sha256": "8a774ea134073ab1c7e63131959284549aef656c6ec8788d72d9aa3de6388a6f"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-contextual-judgment-v1-combined-final-v2.log",
+      "sha256": "08c2010bd54b9dd5e4bc29ea2b8e00f1fcd30f5968154e894913013949534f10"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-hierarchical-intent-v1-combined-final-v1.log",
+      "sha256": "792bd300f7f88257b800c7c6f5c0105b89de53679725d0e5f58c7e27c1704986"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-hierarchical-intent-v1-combined-final-v2.log",
+      "sha256": "43815c69673347a1ec76b96599389c8e7f62e4f00cc28e661c948ef999f655d1"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-opportunity-driven-v1-clearance-final-v1.log",
+      "sha256": "bf124d7474af81ce0c6133b310c619914cb49f6013fa0a24d8ee526497e54000"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-opportunity-driven-v1-clearance-final-v2.log",
+      "sha256": "058a9b28842015f7127e14d09802e2ce57dababc713805b60ac7a23f0f5564bd"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-opportunity-driven-v1-combined-final-v1.log",
+      "sha256": "f2e814bfa48a67c92c25b84946373e91bfa0781bebfd6a10dd7fb73b4fc9690b"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-opportunity-driven-v1-combined-final-v2.log",
+      "sha256": "309293cb77ab1fe10c69ef54aa6c3b317c2d87770aa889f599d253f7480c674f"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-opportunity-driven-v1-transition-final-v1.log",
+      "sha256": "d7ccf91a1a92577ea83a445c5e7048910d2d7b9824d57e25b711bfea4c2e2ecd"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-opportunity-driven-v1-transition-final-v2.log",
+      "sha256": "8f9ce6d62bbdf380a88efb22df66ba6c75812be607d21203b45227d51044e16b"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-phase-role-hybrid-v1-combined-final-v1.log",
+      "sha256": "8f3da4946678d47d289461981dbd607cd8a4d28a14edf53c5e3887995bf929b5"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-phase-role-hybrid-v1-combined-final-v2.log",
+      "sha256": "af720dba4ccd6c5c24878b437d5f09cf2fc6fe82ce0a0a6a73ee4c9d7c597bb8"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-baseline-final-v1.log",
+      "sha256": "dbacd093e7c1da8344b3586f48704c0b350337b2ef3c293f6e5752d9ca103d9a"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-baseline-final-v2.log",
+      "sha256": "7b8e1ae68c66db244d5cad6e9dbed08049cedc6978816822f2c5d1c9a63ab0c4"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-clearance-final-v1.log",
+      "sha256": "f17f60d4ba97d46722344bde00a85efa5a7bfe593a86b21886cfd9cdad736b61"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-clearance-final-v2.log",
+      "sha256": "d7e8c6cf133fabeec49e3f27981be9bf4e93bee53322c957f12e06798f984d18"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-combined-final-v1-bare.log",
+      "sha256": "2f90d17a5bd4e3fa344e8ae069b836f7cd3337246127460adbfc79afbb96c939"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-combined-final-v1.log",
+      "sha256": "2f71cd11f126b7758143fbea1be16a4bedae66b5d05013836f640f4b6a2c79bb"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-combined-final-v2-bare.log",
+      "sha256": "b8f66c64e5d286103dccb6ba4b710b4ad8ddf6b07aa2740d4469da77643b2f21"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-combined-final-v2.log",
+      "sha256": "f1741e9b578fefa2741d976876cf5d69ce3f857877b626017e3b3a724cbe9bbd"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-transition-final-v1.log",
+      "sha256": "07c8cb9e53647f8ef5c86b5fcfc495a81ea38ea182875bc5d6f58c417671145a"
+    },
+    {
+      "path": "docs/performance/pr193/match-logs/ww-state-value-v1-transition-final-v2.log",
+      "sha256": "f7a6ed6122a8f80b746b1f1e94b185a084ad26f5ecf6678fa4fa21fb9b6fa276"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-contextual-judgment-v1-combined-final-v1-capture.json.gz",
+      "sha256": "d73767c6c083aa018a55b681d9c8cdfe076de1795539c77fc93812422d348de6"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-contextual-judgment-v1-combined-final-v1.json",
+      "sha256": "e62096f77d1826e23028ce8129e7613706fbb297f70c4b5816dcd732f5862cfa"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-contextual-judgment-v1-combined-final-v1.json.gz",
+      "sha256": "82a6d7cbf289b4fcf882dee0e2675d6b75cbc6efbee02fa92997927b6241a879"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-contextual-judgment-v1-combined-final-v2-capture.json.gz",
+      "sha256": "d73767c6c083aa018a55b681d9c8cdfe076de1795539c77fc93812422d348de6"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-contextual-judgment-v1-combined-final-v2.json",
+      "sha256": "8c03e160c6a640e458abf2213a4791cda96d4ffbca343e8d9765a8e5ce81952a"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-contextual-judgment-v1-combined-final-v2.json.gz",
+      "sha256": "5aad69973935247f91980ebfa4fba39e4befe5677a760497cd277593015989a6"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-hierarchical-intent-v1-combined-final-v1-capture.json.gz",
+      "sha256": "a4b89382866cc03de98381cfbceb24b5965a9776c893e7b1e131bd04a7c04252"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-hierarchical-intent-v1-combined-final-v1.json",
+      "sha256": "a84ddcabaeb03000dd3a231e2093f6bf50e4c519afb9d4de378f509bc8c1df3d"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-hierarchical-intent-v1-combined-final-v1.json.gz",
+      "sha256": "193ff94d3a513bceed652a03195b00265e97d9ce0e317f2162275bd4d10d2f6e"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-hierarchical-intent-v1-combined-final-v2-capture.json.gz",
+      "sha256": "a4b89382866cc03de98381cfbceb24b5965a9776c893e7b1e131bd04a7c04252"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-hierarchical-intent-v1-combined-final-v2.json",
+      "sha256": "0d0b9772a470a34ef86d6149cbcb48cfeb3457a440b9525b7fcd64cd9e5d98af"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-hierarchical-intent-v1-combined-final-v2.json.gz",
+      "sha256": "0d4b18de7d197eff3e5e0049030a2f992145ec91074fdaeb5fb175a652d089bc"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-clearance-final-v1-capture.json.gz",
+      "sha256": "26d1b92c1252029b75b742d9c77f690703eae924debb70d2cabc126657f126f8"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-clearance-final-v1.json",
+      "sha256": "f1d4c5dc350fb804cce518abcaa2e609edfda6509cac790790adbd70a7be13b4"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-clearance-final-v1.json.gz",
+      "sha256": "45dcb94ad70c56d76c84a91db443b54e23f4d39dd6d70037090ace88e86e2ab2"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-clearance-final-v2-capture.json.gz",
+      "sha256": "26d1b92c1252029b75b742d9c77f690703eae924debb70d2cabc126657f126f8"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-clearance-final-v2.json",
+      "sha256": "35e7d44ffb14b74ada4413495a47ae48e9fd3e486cd72ea649fd82630f54cd5f"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-clearance-final-v2.json.gz",
+      "sha256": "19dc6c3e4e28f9d633353c2fbedf4dcf31d828325ff8a74e0de2a0d5ba5ac606"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-combined-final-v1-capture.json.gz",
+      "sha256": "cb486da601559686bd35a19b5dc1dc53d1064c8f372620ee82a484c2016577cb"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-combined-final-v1.json",
+      "sha256": "cf124822e4eb66b38fc0ba48ade4d717f5fcf9eddeb50be8aab7fe8a5e9cc676"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-combined-final-v1.json.gz",
+      "sha256": "6c68725d9482cbe07d32f0df8610ff1bf055d2dbd5a7b995787dac44d6b76ef6"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-combined-final-v2-capture.json.gz",
+      "sha256": "cb486da601559686bd35a19b5dc1dc53d1064c8f372620ee82a484c2016577cb"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-combined-final-v2.json",
+      "sha256": "22354eaf1f7fad75c69b4ebe64e29adf59f226be9359f7a2616c4e583aaa4560"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-combined-final-v2.json.gz",
+      "sha256": "92e5705815ec19d9773163ac2cb917981fdb1212369e81f3f51b147f121149f0"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-transition-final-v1-capture.json.gz",
+      "sha256": "7f5c4411862d7c580c718877e3073c7bc0768c7e5ad27f6d6ced76ef2f89f555"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-transition-final-v1.json",
+      "sha256": "2735200671ba726e9220eb42f754139caa929057afaa4c0a10a7f0a019cdb549"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-transition-final-v1.json.gz",
+      "sha256": "cf9e6ce46764d95063d4344166760a1dfb41fa10d38a1c46249d0956e21d478d"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-transition-final-v2-capture.json.gz",
+      "sha256": "7f5c4411862d7c580c718877e3073c7bc0768c7e5ad27f6d6ced76ef2f89f555"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-transition-final-v2.json",
+      "sha256": "70aaac024a02c7d5d4995689549b1b9703a797c129cafc605313ecc2f7a8e99b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-opportunity-driven-v1-transition-final-v2.json.gz",
+      "sha256": "001f7685fda2fd37493d72ecdc3b6df906ac75953cdc36a2e8682fb45a172a2f"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-phase-role-hybrid-v1-combined-final-v1-capture.json.gz",
+      "sha256": "9d5a3a659f85e4a02cfb361fb26f8d19fb351cc88bd4786dbf19e708b937553b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-phase-role-hybrid-v1-combined-final-v1.json",
+      "sha256": "b4dfc9d0ff5b98e5b29fe3b042b3db942218b2b2d1c94b6ac48541c233ef23e9"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-phase-role-hybrid-v1-combined-final-v1.json.gz",
+      "sha256": "965197f51426a4281d51c9483dc32711507b37fec835db0d7a4105a4d672d789"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-phase-role-hybrid-v1-combined-final-v2-capture.json.gz",
+      "sha256": "9d5a3a659f85e4a02cfb361fb26f8d19fb351cc88bd4786dbf19e708b937553b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-phase-role-hybrid-v1-combined-final-v2.json",
+      "sha256": "bc54302d3fc403a4c72017e2e5dd65e5434924ef8d9cb36f38aa39f6f533678a"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-phase-role-hybrid-v1-combined-final-v2.json.gz",
+      "sha256": "2bd6e5c14edcc2424db8f1d6777a84de9f5a739108df1ff307b686f265e77b1e"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-clearance-final-v1-capture.json.gz",
+      "sha256": "dbad93d6db502be0aa0afd471b3ef5d3a75c22aa2ab3358dd9fdd417b3f652c6"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-clearance-final-v1.json",
+      "sha256": "b6345dde7a997ad967062530df64ffba29bbece769b73e85b019b295e8fa3e0e"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-clearance-final-v1.json.gz",
+      "sha256": "6a219b79e726b879cfb71fbde6d4f63df2681c0f2171d089386f81bfaf6f62f9"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-clearance-final-v2-capture.json.gz",
+      "sha256": "dbad93d6db502be0aa0afd471b3ef5d3a75c22aa2ab3358dd9fdd417b3f652c6"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-clearance-final-v2.json",
+      "sha256": "49e585af4b0977f08ec4b5578fce37d8ab0259800d0a7a322a84684d2d610312"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-clearance-final-v2.json.gz",
+      "sha256": "36730b7ca6d86e54984598a30a43de629504d792a5819ee0cffb661afcf995ad"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v1-bare-capture.json.gz",
+      "sha256": "04e22c52681c70786f039a010ac9452aca5c1452b42da9605ae1cdd1f80ce6f2"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v1-bare.json",
+      "sha256": "5e76fef048fba5c46c3018cd45113f10038fb2bfdf618823b346d21cfe0eebec"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v1-bare.json.gz",
+      "sha256": "fd5e21f3e3df85a5538aac7eca8ca929521621a08263441bfa1722394e708846"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v1-capture.json.gz",
+      "sha256": "04e22c52681c70786f039a010ac9452aca5c1452b42da9605ae1cdd1f80ce6f2"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v1.json",
+      "sha256": "1d12e40ebc016589c33e0c76ca349ceb8c8616fd6a9ec0cd0214af95cd08f808"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v1.json.gz",
+      "sha256": "9b4f1fa05a54a0a33f59614020349b71d37a5103e2b3cfd2d7f5ac76bdfc22c1"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v2-bare-capture.json.gz",
+      "sha256": "04e22c52681c70786f039a010ac9452aca5c1452b42da9605ae1cdd1f80ce6f2"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v2-bare.json",
+      "sha256": "9ace8ac5d038ac197d0194fa348fcb7a684ca4e3326675f4b5a073171d9668bc"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v2-bare.json.gz",
+      "sha256": "aab5b6bb78903f690359c173fbca8014f65b3cd4b97badceee372caa09e3e55a"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v2-capture.json.gz",
+      "sha256": "04e22c52681c70786f039a010ac9452aca5c1452b42da9605ae1cdd1f80ce6f2"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v2.json",
+      "sha256": "aa141cf147ba0c57c62ee0b98060431340aff8e3bcb37cc8a200b6c931b77455"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-combined-final-v2.json.gz",
+      "sha256": "b2f198d300b3a0dff5638579daf8a4171457ffbffe5a201d68ab8e906dd1c5d9"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-transition-final-v1-capture.json.gz",
+      "sha256": "cd42d25a5587e658c6404077be51f9c1599646b944b575ed0954824d1fde7249"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-transition-final-v1.json",
+      "sha256": "1eaadcd7f1236f1cddec756920c519ddc88f006a2c304f51372fd02d84fc312c"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-transition-final-v1.json.gz",
+      "sha256": "1cf1951c3ccb865232910c30d868e595d0d5538577a1fa0a6e1189906a71dfac"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-transition-final-v2-capture.json.gz",
+      "sha256": "cd42d25a5587e658c6404077be51f9c1599646b944b575ed0954824d1fde7249"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-transition-final-v2.json",
+      "sha256": "601e675a670c4c9f340c31327b67f894ed8d6beefba4555ab2469e80b87c68ce"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ss-state-value-v1-transition-final-v2.json.gz",
+      "sha256": "643c4dab7d947f7bedcb411d76c78728e5a38ab9407653e30316c2a42bff4338"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-contextual-judgment-v1-combined-final-v1-capture.json.gz",
+      "sha256": "eea15c421b7e2a0be12afa89897ab3403b924a641acb479710199a8eb51cbf14"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-contextual-judgment-v1-combined-final-v1.json",
+      "sha256": "1eeded1a20beee32d4bff71a9d7855af01ce3c5bcc6c78080cef9258a52659f1"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-contextual-judgment-v1-combined-final-v1.json.gz",
+      "sha256": "ce9ab8670ef816f27c307b0b30df8066eedf2ef5f31f8f4858041b3f3529f28e"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-contextual-judgment-v1-combined-final-v2-capture.json.gz",
+      "sha256": "eea15c421b7e2a0be12afa89897ab3403b924a641acb479710199a8eb51cbf14"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-contextual-judgment-v1-combined-final-v2.json",
+      "sha256": "9cbe4f2365b730f9706868f01d3ac87c7a8520a668822655d45e9fa4a756c2e6"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-contextual-judgment-v1-combined-final-v2.json.gz",
+      "sha256": "41a40b15dea30ad617328a1f11952f5bc123f62ec4bea1f21a657e22c4a36194"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-hierarchical-intent-v1-combined-final-v1-capture.json.gz",
+      "sha256": "f7f20c0959183d3930beff2e767622c5336c9f23d77f9c569c34c9da0edd4390"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-hierarchical-intent-v1-combined-final-v1.json",
+      "sha256": "f3f1380b408cea737a869d0a4eb503a51f4b272d5ed82891e2434c7c6665b992"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-hierarchical-intent-v1-combined-final-v1.json.gz",
+      "sha256": "375c1432e14935cac7131b455b1d9ed7dab4530815bf5220ac951f09ca4d6d42"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-hierarchical-intent-v1-combined-final-v2-capture.json.gz",
+      "sha256": "f7f20c0959183d3930beff2e767622c5336c9f23d77f9c569c34c9da0edd4390"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-hierarchical-intent-v1-combined-final-v2.json",
+      "sha256": "201c91ac0264450d185cf9e2b30f4cdc7dcdd5cf84ba0cead846408736194b09"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-hierarchical-intent-v1-combined-final-v2.json.gz",
+      "sha256": "6401a818988ed6d7682201a435df264a06453c343e7ca868d78decd3a2b1c9f2"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-clearance-final-v1-capture.json.gz",
+      "sha256": "cb3a39e406cd7e25072cb707be009b0d227ef2a21e83fb3a7b640239b00271fd"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-clearance-final-v1.json",
+      "sha256": "53c198e4a40f0bf9753f2333a7f4d833feda2391a15206097a18c45c7273a882"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-clearance-final-v1.json.gz",
+      "sha256": "c2c02ec291972d0655177edebf9df0ded940a4691a254321694bcbe03de705ae"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-clearance-final-v2-capture.json.gz",
+      "sha256": "cb3a39e406cd7e25072cb707be009b0d227ef2a21e83fb3a7b640239b00271fd"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-clearance-final-v2.json",
+      "sha256": "ff0141f4d50930af43bd8b2ed1f83dccff4c06ed80dd49306e84e315893f5446"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-clearance-final-v2.json.gz",
+      "sha256": "2094e96084f91a84756bfe4c5914e16fb3fdc56067d62e041b4bc1784621a196"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-combined-final-v1-capture.json.gz",
+      "sha256": "cf454fdea1ec1dda1f943e0eb687f2a6244723a045c910c88ee2c903acf8ac7b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-combined-final-v1.json",
+      "sha256": "abe36aff18eaf4ed160abe26dd176d6e1f68c8c35cd5154b209fdfdd901f3fd1"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-combined-final-v1.json.gz",
+      "sha256": "0c64acf2d24fe355e40790d1b8e4b1d11ed35067ae1605d492068f5475664ee1"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-combined-final-v2-capture.json.gz",
+      "sha256": "cf454fdea1ec1dda1f943e0eb687f2a6244723a045c910c88ee2c903acf8ac7b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-combined-final-v2.json",
+      "sha256": "1308b8d8455403ab16c708f23e1a36ee5f0b00195b3010b3afa041d168c5c2fb"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-combined-final-v2.json.gz",
+      "sha256": "f9c8892034d6926dee804f3d23ef2ea5bbf6f5c49157a2e190874f4035b01344"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-transition-final-v1-capture.json.gz",
+      "sha256": "a7461606adc8ef3c6ede9d8455b3990c42240b036771caa489ed6e5acbc552da"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-transition-final-v1.json",
+      "sha256": "084cc997aa80984a6a786c4284d842e86190bc24e888eafcea585d3dfc5429c0"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-transition-final-v1.json.gz",
+      "sha256": "1a4030b03f1eeb1c3f935c91177eeba36c872faeef6b166ac553b3ec7041111f"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-transition-final-v2-capture.json.gz",
+      "sha256": "a7461606adc8ef3c6ede9d8455b3990c42240b036771caa489ed6e5acbc552da"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-transition-final-v2.json",
+      "sha256": "a0f83476645653f409a4c498aff1281628b6f083a1eebbe08e16728dc9e753b4"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-opportunity-driven-v1-transition-final-v2.json.gz",
+      "sha256": "a96ff7a601a9de2cd0d78d141ce0f9b9525db5d690b4b0a613bb42c6955963b0"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-phase-role-hybrid-v1-combined-final-v1-capture.json.gz",
+      "sha256": "a156d9ef6f3892f7f6f40ec537e99228d0c1c036713997fec4b44981e8b0f666"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-phase-role-hybrid-v1-combined-final-v1.json",
+      "sha256": "6e3d99c682febede1db536205068c11b8df420b50fd67562e95eb5e9f5eee86b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-phase-role-hybrid-v1-combined-final-v1.json.gz",
+      "sha256": "83672c7a75560a6e0669fca661b52c853a44c75d27fd229bc91189855e985fae"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-phase-role-hybrid-v1-combined-final-v2-capture.json.gz",
+      "sha256": "a156d9ef6f3892f7f6f40ec537e99228d0c1c036713997fec4b44981e8b0f666"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-phase-role-hybrid-v1-combined-final-v2.json",
+      "sha256": "21397c8e8c1d7916701e9d2dbd081979f03cd00e8ff5f64f9971447424472e8c"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-phase-role-hybrid-v1-combined-final-v2.json.gz",
+      "sha256": "6d1d6ff24f939c4a6c0ce7856d8b05fd2e863fd5a2f178082c000fe2f7e88cdf"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-clearance-final-v1-capture.json.gz",
+      "sha256": "03eaf3605ac8ee3acee1616a30a12417f4e7e200a91718619b51a08a7e6e3889"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-clearance-final-v1.json",
+      "sha256": "ae7c1d59c3f0d851a46e870e4529ca1ca214722cd9e40c7ea46f3548ee7e880d"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-clearance-final-v1.json.gz",
+      "sha256": "6db249a25e93ae4089fcf338222be62b0bf68994bb01b9d094b4bec9bbd13522"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-clearance-final-v2-capture.json.gz",
+      "sha256": "03eaf3605ac8ee3acee1616a30a12417f4e7e200a91718619b51a08a7e6e3889"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-clearance-final-v2.json",
+      "sha256": "9a087492b94b14fd0aae1ee991e5565a3669a88ec65be02d63af51e467f6d7c4"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-clearance-final-v2.json.gz",
+      "sha256": "6efb0737fca03fa821258621ce7a92a0c7a5e63e19108d5a9fe3374389b5462b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v1-bare-capture.json.gz",
+      "sha256": "542f894205eb83fc7cf4c276ac18a71471163def32ec5d495508f7c519d30d81"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v1-bare.json",
+      "sha256": "3dd16f5cb091f73d9cb6084a8f5d6a5c961744593aec7d3a4be830464d31f93a"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v1-bare.json.gz",
+      "sha256": "c15847a1f5845fa0e480bed98adf25ea2153b0829cbc6b5201409343a9740c5c"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v1-capture.json.gz",
+      "sha256": "542f894205eb83fc7cf4c276ac18a71471163def32ec5d495508f7c519d30d81"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v1.json",
+      "sha256": "a44096fe141074914b1f58abfb9cf2eca2016aa478c8d877009caf707a1fdf3b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v1.json.gz",
+      "sha256": "6e7d3c3bbd2708f60121153cca1e276be0ff1736d7fa604efca3703ab81d4cb3"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v2-bare-capture.json.gz",
+      "sha256": "542f894205eb83fc7cf4c276ac18a71471163def32ec5d495508f7c519d30d81"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v2-bare.json",
+      "sha256": "f5c7a8f84aa95fd098cfb0f7edc9b58f9e9ef8fdc5d0d6bd161139381628c0d1"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v2-bare.json.gz",
+      "sha256": "541d865dc9dd2c10ba22ea6ade9101e4368d6557bef90ac8ce4075ec198f29b9"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v2-capture.json.gz",
+      "sha256": "542f894205eb83fc7cf4c276ac18a71471163def32ec5d495508f7c519d30d81"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v2.json",
+      "sha256": "c95c64d8e1e128c0874ae077fe8fd099d100b9f764a3dacb504af46f64b1c489"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-combined-final-v2.json.gz",
+      "sha256": "9f8b5739ebe49f2e43c5805da5c907020a95fa3f842bc3444c44eb5d19e1078b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-transition-final-v1-capture.json.gz",
+      "sha256": "63c8716ed0abb2ab4778cb30767423b59a76d4eb7044035f797b98904ade3663"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-transition-final-v1.json",
+      "sha256": "213c2643fa87c7fc442e3c8bd9b9d7e4f01837c267cd16b83247bb037f54bc14"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-transition-final-v1.json.gz",
+      "sha256": "5057e73a70f291dfd45c9f7fc242531e33eec3845e740a0d774a529243d5e659"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-transition-final-v2-capture.json.gz",
+      "sha256": "63c8716ed0abb2ab4778cb30767423b59a76d4eb7044035f797b98904ade3663"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-transition-final-v2.json",
+      "sha256": "c6019bbc119428355233af6eb0208b9a480f7cc14811f2888d02cffa7b11baa4"
+    },
+    {
+      "path": "docs/performance/pr193/matches/sw-state-value-v1-transition-final-v2.json.gz",
+      "sha256": "8784dc3f386063c7fc1f48da5fd59ab480cd293dd3b7eac15ec14cedc59179fe"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-contextual-judgment-v1-combined-final-v1-capture.json.gz",
+      "sha256": "7cfff2e1921cacac16f7075966c7dc68c76cee64104095d7f1e9eed6d0388ab3"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-contextual-judgment-v1-combined-final-v1.json",
+      "sha256": "701be0d742054881049a9e90d7ff469b2bd5c44345f4fd50377bb4884a9a6588"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-contextual-judgment-v1-combined-final-v1.json.gz",
+      "sha256": "231de0dd3682a3d9e330a72ecf2b7aaf4dab1575df74455d6758e0d3ece2d40c"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-contextual-judgment-v1-combined-final-v2-capture.json.gz",
+      "sha256": "7cfff2e1921cacac16f7075966c7dc68c76cee64104095d7f1e9eed6d0388ab3"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-contextual-judgment-v1-combined-final-v2.json",
+      "sha256": "688e40fd95f5c46cc7da39be2a18434b5b93f9ff0bb27ba045656ce2ffad88cf"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-contextual-judgment-v1-combined-final-v2.json.gz",
+      "sha256": "5a05a83a0cae4ab690622ce57bd2a09541804240e2356c0318527bd127194a16"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-hierarchical-intent-v1-combined-final-v1-capture.json.gz",
+      "sha256": "fc8484f4ed66a31beb8387a86630fbe5720f488a6170c56fd8d91139134a165d"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-hierarchical-intent-v1-combined-final-v1.json",
+      "sha256": "4476cd3c6fc821b4ceb524af9a836606dde1f75e61bd09f86d884831c59ba74d"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-hierarchical-intent-v1-combined-final-v1.json.gz",
+      "sha256": "0efacf19c24fa7ffd8a1d322606061ebdfcb648330155e10b6f30e69e7b8a07f"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-hierarchical-intent-v1-combined-final-v2-capture.json.gz",
+      "sha256": "fc8484f4ed66a31beb8387a86630fbe5720f488a6170c56fd8d91139134a165d"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-hierarchical-intent-v1-combined-final-v2.json",
+      "sha256": "6664d028fa4deec710ce3a2d3a6c6f49e4f1ca41e1a5fa4642d087f3c0246735"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-hierarchical-intent-v1-combined-final-v2.json.gz",
+      "sha256": "0d4ba69b14c27946bdb91569d8a8c4a2dccf2f318b2c28ea561955cc62fd79f3"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-clearance-final-v1-capture.json.gz",
+      "sha256": "e48c10af705aba208ce3ed90fffedfbf82818c428345b042ef2d3479e289f1c0"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-clearance-final-v1.json",
+      "sha256": "e05607b39e6a7c0e6dbfe813f9ec55875d824cd8fe23706aa51834bb9c08e452"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-clearance-final-v1.json.gz",
+      "sha256": "1050b52ce0e60764a7499b54b5172818307bc1226bc5bee2dcf86cb43fec14e2"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-clearance-final-v2-capture.json.gz",
+      "sha256": "e48c10af705aba208ce3ed90fffedfbf82818c428345b042ef2d3479e289f1c0"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-clearance-final-v2.json",
+      "sha256": "51de38168905f78a3c269221a6bb0aefbd95f3dfe971bbe645dd7915bd2055fa"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-clearance-final-v2.json.gz",
+      "sha256": "84cec491d6ffc660940f543fee3daafc0481a835d348b4e16f1beda9d0a72aad"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-cycle1-capture.json.gz",
+      "sha256": "90650e77b7846cf8f90b5762ad02131d7edac41643e08e88a1c2bf0af508133f"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-cycle1.json",
+      "sha256": "314a162c2e78f94c4183b785ffde6134771d56465eb0343b0268fce2e991e621"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-cycle1.json.gz",
+      "sha256": "86f9e9c7d3aadbc3230bf24e954337e3f8cede4d5a2a51324afb3a6c4e81a337"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-final-v1-capture.json.gz",
+      "sha256": "e03dc14a96ab1daa4e68604938205a6186f81d363abc0cac0867ab6c50615411"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-final-v1.json",
+      "sha256": "90eeb6278841b18851f897d1bff93320d835e0ab5e8c79364f9a13da44c0ac71"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-final-v1.json.gz",
+      "sha256": "2f89d2db9cf3330de50ac7530fbcb488b7c3cf04caad75631402a5b45ff36c46"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-final-v2-capture.json.gz",
+      "sha256": "e03dc14a96ab1daa4e68604938205a6186f81d363abc0cac0867ab6c50615411"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-final-v2.json",
+      "sha256": "2a502840f0e481948de10ffd2fba6eeeb08961591c6e7f7b7882b3f81c146fff"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-combined-final-v2.json.gz",
+      "sha256": "4d5ac9eab3e36cce7854ccea7b992aae5b06b074e62a1b72a289a69430a6d375"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-transition-final-v1-capture.json.gz",
+      "sha256": "73579bde24f48985fd3a2a31a4c7c398a0487aaddcd3b31468de9ec79ff6e80e"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-transition-final-v1.json",
+      "sha256": "3d07f4b20469b34bfe5205511c573b8c055ffb8dbe041138774d1e97d986585f"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-transition-final-v1.json.gz",
+      "sha256": "ee3682b58b4d050bd4b5b76c53b72af54bbd83d9c739598dc07e29ff4c54aa40"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-transition-final-v2-capture.json.gz",
+      "sha256": "73579bde24f48985fd3a2a31a4c7c398a0487aaddcd3b31468de9ec79ff6e80e"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-transition-final-v2.json",
+      "sha256": "b51d883f868244745b516992c956d0ff85cc557693d7e7d21fc7f7f5484d4983"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-opportunity-driven-v1-transition-final-v2.json.gz",
+      "sha256": "9af2a93d826e4f0e6c4ef69ede6e9688ce5f1134e0a6c56e0afaf632fdfd7d45"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-phase-role-hybrid-v1-combined-final-v1-capture.json.gz",
+      "sha256": "792f86d1f2d7f5973cb6a6dc92d8c1385d63494366412793750c358a5870dcf7"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-phase-role-hybrid-v1-combined-final-v1.json",
+      "sha256": "ae06d7c6dbf4a7b5afceae6f1a9eecb0a335d900ec06cb1193f31db9d51b15b5"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-phase-role-hybrid-v1-combined-final-v1.json.gz",
+      "sha256": "b1404015d479b1808fcb02e2c5e9411376f933c914de40cd77f3764aafa17550"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-phase-role-hybrid-v1-combined-final-v2-capture.json.gz",
+      "sha256": "792f86d1f2d7f5973cb6a6dc92d8c1385d63494366412793750c358a5870dcf7"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-phase-role-hybrid-v1-combined-final-v2.json",
+      "sha256": "190df258a52379d2aa3637d5b3f692fc2b4e8b7d585c5f6f3c3aadb062e4bcbd"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-phase-role-hybrid-v1-combined-final-v2.json.gz",
+      "sha256": "9c776cf19290ac897fe87fde29392738fcf720226ff5356b0ebbfccdc153fe77"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-baseline-final-v1-capture.json.gz",
+      "sha256": "277f33d89467c06f07dacb8b1760c93e315f1ffa17bb26b96c6586b5204a60db"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-baseline-final-v1.json",
+      "sha256": "173929e75478e29b6e8d616a094ebf98978ac756260806f8f6c3ce55da6abd5b"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-baseline-final-v1.json.gz",
+      "sha256": "bd2026bb1bedbef350192cfc4c6bf18937d466d0d8709a304118631841a22d23"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-baseline-final-v2-capture.json.gz",
+      "sha256": "277f33d89467c06f07dacb8b1760c93e315f1ffa17bb26b96c6586b5204a60db"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-baseline-final-v2.json",
+      "sha256": "9ad645ff0dc20359d06751a9c0b432defe014fe2d50a24152116dbc28ff47351"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-baseline-final-v2.json.gz",
+      "sha256": "2b37140290a7e683e197fdb42c21a10dd7016b1adb43ed2f8d690830d42075f9"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-clearance-final-v1-capture.json.gz",
+      "sha256": "e6d66b7425a743169d42e4e0794edda4ff5c3a81882671114a2b77a61e261c52"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-clearance-final-v1.json",
+      "sha256": "bb63b901596b95d9432ce25ea60e7ebcebba115c52cd42708db497f6072044f2"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-clearance-final-v1.json.gz",
+      "sha256": "7d0407138112db9fbb59979820832f10c31c05ef21b2a49482b1bd76c9bab6cb"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-clearance-final-v2-capture.json.gz",
+      "sha256": "e6d66b7425a743169d42e4e0794edda4ff5c3a81882671114a2b77a61e261c52"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-clearance-final-v2.json",
+      "sha256": "fc544792062881e5db48b4c16306069cfd98687f6feb6c9a34428c2ae982649c"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-clearance-final-v2.json.gz",
+      "sha256": "e47958950c7ef0e972ff6b6771d635d64a762e81ff13e755af23e620ad8567b8"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v1-bare-capture.json.gz",
+      "sha256": "42c2bf5ec395fcc4a8c1ef11706c7ab2a934f81bfd478f136f6cc6fb25102f14"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v1-bare.json",
+      "sha256": "c5d0f169eb67a29c11f0999e2433b6d47122c0794dc871bdb686cc1ea637119a"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v1-bare.json.gz",
+      "sha256": "febe592266d9f1872bdf64fc486874eb017f77ecd5911e16c21518c89546b6f2"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v1-capture.json.gz",
+      "sha256": "42c2bf5ec395fcc4a8c1ef11706c7ab2a934f81bfd478f136f6cc6fb25102f14"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v1.json",
+      "sha256": "8663455885e64c5eea600430f5a94ade247d309c432b1f9261995d9ba6d9416e"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v1.json.gz",
+      "sha256": "cc62e020d0e3d1c7ad5afd62c825c0bbda1cf3249710e41ad8a053c896543024"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v2-bare-capture.json.gz",
+      "sha256": "42c2bf5ec395fcc4a8c1ef11706c7ab2a934f81bfd478f136f6cc6fb25102f14"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v2-bare.json",
+      "sha256": "d73b2c9df008551d87a006dc67027ca3b1e372dd87b2203c9b9efd9cde363897"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v2-bare.json.gz",
+      "sha256": "a5d4c9eeabc199e026d0ac1167ac352e9a97fb11db4e0813ea6e5da0f6baa0e6"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v2-capture.json.gz",
+      "sha256": "42c2bf5ec395fcc4a8c1ef11706c7ab2a934f81bfd478f136f6cc6fb25102f14"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v2.json",
+      "sha256": "87c4aa0948b5b48e4757690e6930ca86692ab8396f803668eb7c5dcb1db7d5a5"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v2.json.gz",
+      "sha256": "b2ac370b74d8d4c08f02d2eee4eb08ce2a6fdeb28a2473859699a76bdee9bed6"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-transition-final-v1-capture.json.gz",
+      "sha256": "666a843b66622395d2882ffc85687faf73105ca4c0e0eb39ec195db62d493ddb"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-transition-final-v1.json",
+      "sha256": "c858c2147f877ef2af2a844e59ee93c0b65f4053382db0061f4faf322e4e70d9"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-transition-final-v1.json.gz",
+      "sha256": "cb20b3f4e21363a8fed2f80ed548bb5f01582060375638cfd34556312d258258"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-transition-final-v2-capture.json.gz",
+      "sha256": "666a843b66622395d2882ffc85687faf73105ca4c0e0eb39ec195db62d493ddb"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-transition-final-v2.json",
+      "sha256": "dd339d278f2e0cc6c2c56a7ca897eb17c1ef8ccbd323db8b2f6fbc2cc4f25182"
+    },
+    {
+      "path": "docs/performance/pr193/matches/ww-state-value-v1-transition-final-v2.json.gz",
+      "sha256": "7766dd53b2498496df00d188b1b2d5ec66eaa1aa1a565e93c5c55095a96f3197"
+    },
+    {
+      "path": "docs/performance/pr193/negative/README.md",
+      "sha256": "4a98f0d8e72181dd93ae2534116a533965973a651e5c089c81669ac1a418990d"
+    },
+    {
+      "path": "docs/performance/pr193/negative/counter-delay-regression-failed.log",
+      "sha256": "1244999b4b6358e998b7d571051236b4b2bb896e589655f4355615e839e98cac"
+    },
+    {
+      "path": "docs/performance/pr193/negative/laboratory-cycle1.log",
+      "sha256": "dd4eb2a07dce5dcbba63daf76898da31d2193ff91eb4258d84947382fdce5db2"
+    },
+    {
+      "path": "docs/performance/pr193/negative/laboratory-cycle2.log",
+      "sha256": "4acbe2be1d395d7c7e7466b776ab5d1b4725188c7116209bda2a046222be8ffb"
+    },
+    {
+      "path": "docs/performance/pr193/negative/laboratory-v5-source-drift.log",
+      "sha256": "68360b9d24d761978c8d0ec402149311ffa4d581ff5ea8530f6849b3a303e3fc"
+    },
+    {
+      "path": "docs/performance/pr193/negative/verify-contention.log",
+      "sha256": "12dc819feab7135b33568caf5065523d37a780db99c7028156571b48a1543565"
+    },
+    {
+      "path": "docs/performance/pr193/observer-replay-v1.json",
+      "sha256": "108e01a9b75827c8bd8bb4ed73ce4f62a644efb4b90f7321a4845a74a7aa4582"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/08954c16661fcbee81ff6f6923ca6fc0da6a4962ad5199abdde9cb29ecbc853a.json.gz",
+      "sha256": "8725be963c59ba30171af3e45379a264f4ac591f3e91b13ff88f17ceb0b77469"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/3856dcf0f38ea966e7df1fbb8fc702f7bb17a9adccc48e1d64de07792dcc3588.json.gz",
+      "sha256": "6602ae2cec20bff07f72e9e522bdccc7bb34525dec0169b83aa6c8a868722608"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/6a77aba52c970d2c0b56a3313631cdd4e2233ddf2e376660538627f284eca6c8.json.gz",
+      "sha256": "19350f6a2fd7a6ed04ad438bbb9825c9be69892bbde365dedc639cbdae5876dc"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/6cc3908b545735570f69bba79d91ea763fe6286dfaf9928728e6bd89115f4a6e.json.gz",
+      "sha256": "aa107516cfecf1e0bd47cbca432ea9500d05d1198e6e13033f1411833deecc2c"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/7db10516e79e5e004f09239896984ef433320d0cc387233c3a709f86598bdad9.json.gz",
+      "sha256": "976a719b744552cd253c2f5e1b481779266e9ebab582d9f59e01622e1555a5ad"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/7e5a58c034f1069f212f74a57732df3786b0987958ad77ea3357dbf1c7f7c345.json.gz",
+      "sha256": "04a056360a2ff5b94bb621af5dfdd159cd79e5fedaebc58ee92ae093d870a590"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/850a04088d47613aa5ea868307fdc08dc3e9b21bc3656a6165547802683a7df0.json.gz",
+      "sha256": "88ede2e13f333dcb5825bec9e05f88d60fcfc4f974fd679f0e0b8d90874583fc"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/89cfc0ad24f7325d73017cc905bd25592d06757a8861ca234a30b0aff2893489.json.gz",
+      "sha256": "6c74e80a359e39556f89fe3def1ffba318ec3e8c177131f123d0c37afc8d7b84"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/b76c34b549225013137955035a4c4213c0575aa3ec72540300d384175ebef8f5.json.gz",
+      "sha256": "1c622bffbd8cbc4e356d76325b80787c643dc8504cdaf248d58bdc8f97460dea"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/bb401aeb91cf705d544e42c88910e0956b815203888a0ad10ebef3fe30e8965d.json.gz",
+      "sha256": "3dfb7496b8a330be4e6c877ac039580716f11846a5f68dbb9bcc897b579b85d3"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/d259f26a2368b26b68143327013961cd86cff16e6b0956c7d61dd8985fe509a9.json.gz",
+      "sha256": "13fa56da621d4d9294c156910ad2d262b0f3a222a231b2008fbc8a35031cddb0"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/e88c2e396f397d48e2e210d76079ea542536a686e908b49ee0aae584985a4ca1.json.gz",
+      "sha256": "bbe5c2d3aa3b7151bcb99df691feec50e2c354263038af78a171386164b6f272"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/ec222ca3d09cb0aa3f315b3c526f38603001a77a5abef0ee16ca3d98f409c78c.json.gz",
+      "sha256": "bdc62554d16a5c0d86c163151268c7d88acdee866d65ccac6f3d34ef85f0b876"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/f7209be64dbb21ca1e04423673d3c6ed13a0da38d9a612fc8fd0c10e552a9790.json.gz",
+      "sha256": "f303887dc401c4abcb31b96431dce6441268c49190ab27556d3da947621ac369"
+    },
+    {
+      "path": "docs/performance/pr193/source-versions/f98d89b7885b3b218a116b74aa36449f03e0b58861589244d2cd49092ac39ab2.json.gz",
+      "sha256": "cf3ca9a06aa5fdf4ec9087374d5120c28a30c9526a42aac31141ed48d987f09c"
+    },
+    {
+      "path": "docs/performance/pr193/summary-final-v1.json",
+      "sha256": "62188eea61404809b129647bf7692376a942118fe3ae0ae1acf62e4890b9b3db"
+    },
+    {
+      "path": "docs/performance/pr193/verification-final-v1.json",
+      "sha256": "4691f28f8158e0a22f690032aa26a377aa36fc78822ffd4c854b2772038bca59"
+    },
+    {
+      "path": "docs/performance/pr193/verification/focused-final.log",
+      "sha256": "412a2f359201bec14290c1c0dddb2be4d29f06ad2b46acde1ca6dc8b58bda37f"
+    },
+    {
+      "path": "docs/performance/pr193/verification/historical-replays.log",
+      "sha256": "b2a1ef637beeb428fca740a0bd90c2d31d354439a1f0dc0c0a4e9dd492583415"
+    },
+    {
+      "path": "docs/performance/pr193/verification/reactive-budget-replay.log",
+      "sha256": "62f64ffacf8da8dbd0131241d50b4dc1e72c09bf487a7fc20631e606f15001be"
+    },
+    {
+      "path": "docs/performance/pr193/verification/verify-development-before-incidental.log",
+      "sha256": "849b951bf5d600db9db5196a173cf43863e7c7297b1868780c6a265c8310ad1a"
+    }
+  ]
+}

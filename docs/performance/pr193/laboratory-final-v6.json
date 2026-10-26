@@ -1,0 +1,1333 @@
+{
+  "schema": "mfl-pr193-laboratory-pointer-v1",
+  "protocolHash": "5bcf3add2c6b590f3d903575b512ec7ec6184f97c27bc49703cb43d28ff8a4a9",
+  "sourceHash": "850a04088d47613aa5ea868307fdc08dc3e9b21bc3656a6165547802683a7df0",
+  "archive": {
+    "path": "docs/performance/pr193/laboratory-final-v6.json.gz",
+    "sha256": "a5639c7052da482178994d88c51a1a7ede545a74e471b747d25326c6e9fc6097",
+    "originalSha256": "e951404b905f29da0c77091c18ef425b3244de21b9e10ca2c8f84966a46bdb5b"
+  },
+  "count": 132,
+  "summary": [
+    {
+      "id": "counterattack:40-40:original:autonomous:0:central",
+      "initialHash": "2a4c65c451685bc2602415d1283cd0c5b9ca36d471442912c593080aa31b425b",
+      "finalHash": "48f3e83d72404473550f97b5210830918b8a4a032417999eaa29e9f4c833b06d",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 22,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-40:original:autonomous:0:central",
+      "initialHash": "b9174679d5253a9b3fd7757b224cc7c88d4b21846a1cc4ea70bd010647f5c0a6",
+      "finalHash": "c37557fc74580d5b09a941e37070f60395ce3de6da5a4b14aa8e3ba0bb05b545",
+      "shots": 0,
+      "award": "free_kick_close",
+      "team": "home",
+      "contactCount": 2,
+      "observerNeutral": null
+    },
+    {
+      "id": "crowded:40-40:original:autonomous:0:left",
+      "initialHash": "ba0fe66e0b7f6861c4ed2b3045ffbddbe9224dfd1c317fd554d4a2edc87e4449",
+      "finalHash": "b1fe5de3458c3337b8f1bf399e506a58b46d8a8493cb85ced0192a2e083e1794",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 8,
+      "observerNeutral": null
+    },
+    {
+      "id": "deflection:40-40:original:autonomous:0:central",
+      "initialHash": "81de356b49db6058eb607961888a13c670d9ac0ab879a98778d103f5b92c28a0",
+      "finalHash": "1be276bc3d41832df48d1ceb6bd3209c6a65f9fb86b29dad827e08803331f690",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 19,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-40:original:autonomous:0:central",
+      "initialHash": "a10fca15c6ad3627a549aa2c684db4ca70c7e9e0b0a7850b930853e12f7394c4",
+      "finalHash": "3aa3355f01ad510fc4921745c173d2b9659d47466963099181092ba51dd4aca0",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 5,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-40:original:autonomous:0:left",
+      "initialHash": "c3997c6e9961c361106fc9b77be514ebd4b965be152390ca0cbcfe8f20c44397",
+      "finalHash": "d7922e75f304620e1e74b693a25bce75f6a9b3d4f3e690bb9e67e8441aa6bb3b",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 17,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-40:original:autonomous:0:right",
+      "initialHash": "90e444023eba1008b601bb5ebe41259505ce100f81978429a3dbf0f7ffd79474",
+      "finalHash": "b4d32ab819e81f3ca6f19b6bc6ba03e348747910b37bcb5ed2164c439b7891f1",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 7,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-40:original:control:0:left",
+      "initialHash": "593be1f81736518d33036e72e4442c07f57c05e8077b2a1b8ca7e58e640cbf32",
+      "finalHash": "5c0a28bae9f2113d0ea4aa2e4a3dd553fdbb680fa43e4b41a239b4cf993aba74",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 13,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-40:original:into_play:0:left",
+      "initialHash": "593be1f81736518d33036e72e4442c07f57c05e8077b2a1b8ca7e58e640cbf32",
+      "finalHash": "9e30639d6cbb8cee636a4dbcc292406888bf82874530c2b7848a81c01218f857",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 19,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-40:original:touchline:0:left",
+      "initialHash": "593be1f81736518d33036e72e4442c07f57c05e8077b2a1b8ca7e58e640cbf32",
+      "finalHash": "1429d7004ad22b49d8d10400f6dfada1cc79ae94d8d07fa89ccf07e8297fd971",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-40:original:late:0:left",
+      "initialHash": "593be1f81736518d33036e72e4442c07f57c05e8077b2a1b8ca7e58e640cbf32",
+      "finalHash": "a3be282b0fdd721d35b1517790e59b2678b965163a17cb5cbd6369dec94cb548",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 21,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-40:original:autonomous:0.2:central",
+      "initialHash": "b9174679d5253a9b3fd7757b224cc7c88d4b21846a1cc4ea70bd010647f5c0a6",
+      "finalHash": "c1faeed0b7d42dd7e37f595b6fa7e6f530ef76d3eab7bd47b1b6e22af4375171",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 7,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-40:original:autonomous:0.5:central",
+      "initialHash": "b9174679d5253a9b3fd7757b224cc7c88d4b21846a1cc4ea70bd010647f5c0a6",
+      "finalHash": "3e22faf9d8a54332d7abbec15eb25195f9b0a2cc5b3f36a90c891f3dfd579d38",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 10,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-40:original:autonomous:1:central",
+      "initialHash": "b9174679d5253a9b3fd7757b224cc7c88d4b21846a1cc4ea70bd010647f5c0a6",
+      "finalHash": "63ef56001ba5de208383e57fd573b8430544e209fcc98fb8e021f37cdb6f4d89",
+      "shots": 0,
+      "award": "goal_kick",
+      "team": "away",
+      "contactCount": 4,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:40-40:mirrored:autonomous:0:central",
+      "initialHash": "b4d71a6b01807504ac2a109fe650f710d904022e6620e127cc0a20f84b2c01cf",
+      "finalHash": "fd24b16cccd95bcbba9b0b9ac9a766441e0399ec9c7b64ada8fbe5febe3e6df4",
+      "shots": 0,
+      "award": "corner",
+      "team": "home",
+      "contactCount": 5,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-40:mirrored:autonomous:0:central",
+      "initialHash": "b52a426cc5db7cd1018ae694a9991a3e0e6f3542d9193a59d22dd712fe45aeab",
+      "finalHash": "386baaa0d38b5cc69cf04085c7b63d205c97ebb0f8a7835c95ba86bdb64e7a5c",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 7,
+      "observerNeutral": null
+    },
+    {
+      "id": "crowded:40-40:mirrored:autonomous:0:left",
+      "initialHash": "fcd3396f9e7cbe68a4d36d5f5d78c0ec3220c775158a90ad6400c717bde42fbd",
+      "finalHash": "b4196be1f991ed063de3ab12066be50f05b2c14bfdefe0194d003c81fd9a0c2d",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 15,
+      "observerNeutral": null
+    },
+    {
+      "id": "deflection:40-40:mirrored:autonomous:0:central",
+      "initialHash": "69872fa33eace385cc53394f351a7430e00715c2e9c4cb88831ae0f5c3822ed6",
+      "finalHash": "c036780b47e4f2bc74624c4b349be981f01076b154046849c229ec6b18dd8dd6",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-40:mirrored:autonomous:0:central",
+      "initialHash": "895116f8afbcdd397e5ab0cb8fc4c544f2a9e08b1a6beee8cc65653d069cb39b",
+      "finalHash": "bbd6d2f14715394577be90d412794e163cd2e3ce9ef13ff59bce740a708d71a6",
+      "shots": 1,
+      "award": "goal_kick",
+      "team": "away",
+      "contactCount": 9,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-40:mirrored:autonomous:0:left",
+      "initialHash": "529b5616bb982ec24a9bc3cb7c98f202495fb5a3c6adb18a7c338e9beeef317e",
+      "finalHash": "0d7f7e1b9c0d2ebb60da5e4322fb14db2b69e771cd3498b17527eacc4b823271",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 11,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-40:mirrored:autonomous:0:right",
+      "initialHash": "2dd26c1ca7e29fed69a766b44354618adb0f9b1f58b29814fe44a0bf226dc5c5",
+      "finalHash": "edd7b9ed7f44ce5d645ebc960860faf81fd02dbc13a1edb6076f0a768902a15b",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 6,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-40:mirrored:control:0:left",
+      "initialHash": "95f195e1ad2f55a5d62b2d28964f364887b9b0b1f04db8b03c9267d7a588c095",
+      "finalHash": "569533b12dd0d9ccfeee2b3f5947cfdd243324f5d4854957e842f46b12c360e6",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 17,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-40:mirrored:into_play:0:left",
+      "initialHash": "95f195e1ad2f55a5d62b2d28964f364887b9b0b1f04db8b03c9267d7a588c095",
+      "finalHash": "94cde62b10b3877c29d7cad68a4e11ea19ef5a9c1f019f9669b18b8f7b54f593",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-40:mirrored:touchline:0:left",
+      "initialHash": "95f195e1ad2f55a5d62b2d28964f364887b9b0b1f04db8b03c9267d7a588c095",
+      "finalHash": "d22a57be3efe4b8583253e01805fc55ca564c57c84a6d8ac6e62c3c5e843e9b3",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-40:mirrored:late:0:left",
+      "initialHash": "95f195e1ad2f55a5d62b2d28964f364887b9b0b1f04db8b03c9267d7a588c095",
+      "finalHash": "f5d42753f26a88c85ebd114f5a16277957b6c2fa92721ee096951fb2a53655bc",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 14,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-40:mirrored:autonomous:0.2:central",
+      "initialHash": "b52a426cc5db7cd1018ae694a9991a3e0e6f3542d9193a59d22dd712fe45aeab",
+      "finalHash": "dff36fb69999bbca24acbf17d1ddbc77afb8c30068b39fe195a6c8defba0e3f8",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 8,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-40:mirrored:autonomous:0.5:central",
+      "initialHash": "b52a426cc5db7cd1018ae694a9991a3e0e6f3542d9193a59d22dd712fe45aeab",
+      "finalHash": "2423489cd38bb6360d84197edbc9f6d7ae098d6585b41836c2e2e19e68dd875d",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 8,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-40:mirrored:autonomous:1:central",
+      "initialHash": "b52a426cc5db7cd1018ae694a9991a3e0e6f3542d9193a59d22dd712fe45aeab",
+      "finalHash": "2f7c473280a6d68b1e21360a6044f49b29cc39135ad83e90a86bf0ceb35179c4",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 12,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:autonomous:0:central",
+      "initialHash": "78632b0b21a6ee41c4f7621bf4209c88d72c2eb16d3bc22af21b29e992519772",
+      "finalHash": "ab2fd4dbe5702ae5feded2f0c734c1f66f2745823fbb4c843fc1502ea3f15560",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 29,
+      "observerNeutral": true
+    },
+    {
+      "id": "contact_race:80-80:original:autonomous:0:central",
+      "initialHash": "788e47ac1f9048a0097796c16aadcae690962957bd49ab739a606f8f6bb476f0",
+      "finalHash": "b67b139b8589a7895eb24d9232fe1235c66c1bc1c538994ea6744bdb282801b2",
+      "shots": 0,
+      "award": "free_kick_close",
+      "team": "home",
+      "contactCount": 2,
+      "observerNeutral": true
+    },
+    {
+      "id": "crowded:80-80:original:autonomous:0:left",
+      "initialHash": "04ac5dbbde00d6d71c34ccf93a7924df78c1d4303b1c6819a733f267276bbdf6",
+      "finalHash": "758265c20f7c582d4a4374df8597ca76666571736530cfa4aaff47bd68b415d7",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 17,
+      "observerNeutral": true
+    },
+    {
+      "id": "deflection:80-80:original:autonomous:0:central",
+      "initialHash": "ab149031b8bbaecd291d13cfa925b492f93c3a5cc328de95644daba63c176939",
+      "finalHash": "045968960776f0503c2ef0ec4b9ba4b17a0c6c28d58f10fb7c0e7c993a753e96",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 12,
+      "observerNeutral": true
+    },
+    {
+      "id": "wing:80-80:original:autonomous:0:central",
+      "initialHash": "64104c0d69695a548b49df8614d5f18d96a9116f848738253e14cd5c24e7bfa1",
+      "finalHash": "f042def6fb43d456d0c22365adf8ced435fbb066778b980a20b22d3df02ddd30",
+      "shots": 1,
+      "award": "corner",
+      "team": "home",
+      "contactCount": 2,
+      "observerNeutral": true
+    },
+    {
+      "id": "wing:80-80:original:autonomous:0:left",
+      "initialHash": "9b6e1393986e40d68ba951ae88ce53d9f132476570b3fd91635d6e22c733a5d1",
+      "finalHash": "628b59397adc4b9919a753257be279f39b907a51c7583a489359b50cb864e12a",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 13,
+      "observerNeutral": true
+    },
+    {
+      "id": "wing:80-80:original:autonomous:0:right",
+      "initialHash": "1a35c627d5a94a2faf4ef66165432fdb99323828db9dc0f743a96b8f9e827bfe",
+      "finalHash": "3eb40059b67f09f5c24e56eca5163264a9537c6b899785f2fd0ded1ced826e5f",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 3,
+      "observerNeutral": true
+    },
+    {
+      "id": "clearance:80-80:original:control:0:left",
+      "initialHash": "fd6f41a9a5e52da6f4fb115728b31d73d282cedd92fc2ee7e1a5bb4e79379164",
+      "finalHash": "0cbe07f67794871451416cefa406abb70e04b9c1c597c1fc0027327c61dc568d",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 21,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-80:original:into_play:0:left",
+      "initialHash": "fd6f41a9a5e52da6f4fb115728b31d73d282cedd92fc2ee7e1a5bb4e79379164",
+      "finalHash": "1df763050bead6bab606109e71833cf04bf236901b3846a7b488c6e7bb4c6129",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 23,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-80:original:touchline:0:left",
+      "initialHash": "fd6f41a9a5e52da6f4fb115728b31d73d282cedd92fc2ee7e1a5bb4e79379164",
+      "finalHash": "00a825e2d839d8b80b281d51a1216ff351c5cd10a10135db4f44b925ce2b7593",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 7,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-80:original:late:0:left",
+      "initialHash": "fd6f41a9a5e52da6f4fb115728b31d73d282cedd92fc2ee7e1a5bb4e79379164",
+      "finalHash": "45dce6003b051d33320062f6bb6d2aeca604aeda56a3afd202cf2d708b13febd",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 15,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-80:original:autonomous:0.2:central",
+      "initialHash": "788e47ac1f9048a0097796c16aadcae690962957bd49ab739a606f8f6bb476f0",
+      "finalHash": "666936309002a6cfba734abf27e6752abb82806558a2c4907731e4fc1432b5b7",
+      "shots": 0,
+      "award": "free_kick_close",
+      "team": "home",
+      "contactCount": 3,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-80:original:autonomous:0.5:central",
+      "initialHash": "788e47ac1f9048a0097796c16aadcae690962957bd49ab739a606f8f6bb476f0",
+      "finalHash": "a9c2209386cdcda45a1ca2ca5fc8dbfe02a750425fea5ed099b6fdc0e12a7763",
+      "shots": 0,
+      "award": "free_kick_close",
+      "team": "home",
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-80:original:autonomous:1:central",
+      "initialHash": "788e47ac1f9048a0097796c16aadcae690962957bd49ab739a606f8f6bb476f0",
+      "finalHash": "78e90fa7d8570f2b2a682f19d97b19e67da3ef4d4eae03ae5593dabd5b15fff3",
+      "shots": 0,
+      "award": "goal_kick",
+      "team": "away",
+      "contactCount": 5,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:autonomous:0:central",
+      "initialHash": "98cbefc03449ffe57526f015a0cf6fa7371b3f836e07a5788b432cb65538d2b3",
+      "finalHash": "aab574d5f344281c5db31dea839461fdc4a812d12abb5023334e73e70f08e015",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 30,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-80:mirrored:autonomous:0:central",
+      "initialHash": "bf648fa9b3f235cbc0a25bf08bfedff5fb53bceb3a008f713fd7316cadca575f",
+      "finalHash": "2a9ac5e75b8ca0a41723d4847e97f60c4cabc4e963f452593959eac7e87638e2",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 6,
+      "observerNeutral": null
+    },
+    {
+      "id": "crowded:80-80:mirrored:autonomous:0:left",
+      "initialHash": "f9088de4ee75f08218d6985f07a4c67028f9556f49367b7527ffafc5e5a42024",
+      "finalHash": "4b89d2846d8031f1fa8bc86b20493834ce570daccc4f184d950405fc90ea441f",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 17,
+      "observerNeutral": null
+    },
+    {
+      "id": "deflection:80-80:mirrored:autonomous:0:central",
+      "initialHash": "20145594c0b260d4b34e22b649e7cca8fb85ad85933f5ddfd0ca67a35a9b5ddc",
+      "finalHash": "995eba391a2d78a13be9b8a10f151df6458c27cc8426246703beca9c38e43140",
+      "shots": 1,
+      "award": null,
+      "team": null,
+      "contactCount": 17,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:80-80:mirrored:autonomous:0:central",
+      "initialHash": "aa2cee1b5c0b5e1553158dff1465a5cf7dabec3c463e066862e41b5fdef1541b",
+      "finalHash": "bcedfeded02737dedd7e13a3cd0f00a6b5ce556bd52587ffa73cd53cf086143e",
+      "shots": 1,
+      "award": null,
+      "team": null,
+      "contactCount": 2,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:80-80:mirrored:autonomous:0:left",
+      "initialHash": "0400ab6569412e852d84fbcba1397a5aacb2547a96b1f8e7844753b377fc4f79",
+      "finalHash": "638104bf2ef8de79f3f8826aadbbe80989f158a6097833e454d3969573ab9a9c",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 11,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:80-80:mirrored:autonomous:0:right",
+      "initialHash": "bb6572f585fb00d28f0f0a280f0970b6bf8eda5ab22dabf507958372c58ae251",
+      "finalHash": "5a5334f1905fc17e8bf1c7777e1974af286db8c73163fbf60c933cdd9c815e6e",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 3,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-80:mirrored:control:0:left",
+      "initialHash": "9d8435475fe3ad2f79a596cc15182a76840ec725e638aef8c1f1525bb9c98166",
+      "finalHash": "9ce67c432ad77ed4e74b3eb8192c095989b779d4689e365b0791e2f50eccba01",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 6,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-80:mirrored:into_play:0:left",
+      "initialHash": "9d8435475fe3ad2f79a596cc15182a76840ec725e638aef8c1f1525bb9c98166",
+      "finalHash": "17891c5249cc015f8ed0fa890572617ed7ca2924e3e2efdacca5072ac2980a6d",
+      "shots": 0,
+      "award": "free_kick_wide",
+      "team": "home",
+      "contactCount": 15,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-80:mirrored:touchline:0:left",
+      "initialHash": "9d8435475fe3ad2f79a596cc15182a76840ec725e638aef8c1f1525bb9c98166",
+      "finalHash": "9804ed6f4999169008fecbabf599df0f0c3da66b71397f908d55dd999de936db",
+      "shots": 0,
+      "award": "throw_in",
+      "team": "home",
+      "contactCount": 6,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-80:mirrored:late:0:left",
+      "initialHash": "9d8435475fe3ad2f79a596cc15182a76840ec725e638aef8c1f1525bb9c98166",
+      "finalHash": "0f3d68f955e5451b0ad215b572c0899d948f7efd34cdb7bd0ba4d8dc3bfa71dd",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 21,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-80:mirrored:autonomous:0.2:central",
+      "initialHash": "bf648fa9b3f235cbc0a25bf08bfedff5fb53bceb3a008f713fd7316cadca575f",
+      "finalHash": "e993b7570953cefbb7c45eb5ef7a5a42501ebb8adfe87cd568f14edc3a105b03",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 14,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-80:mirrored:autonomous:0.5:central",
+      "initialHash": "bf648fa9b3f235cbc0a25bf08bfedff5fb53bceb3a008f713fd7316cadca575f",
+      "finalHash": "e2ee10f95def5a2ae015d491c3872a1e46fb425168db62d60b3f5ee3fff7068b",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 15,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-80:mirrored:autonomous:1:central",
+      "initialHash": "bf648fa9b3f235cbc0a25bf08bfedff5fb53bceb3a008f713fd7316cadca575f",
+      "finalHash": "f07f1ee6718aef34610d2795464b0bbb893dee92179d6e62bab7d904ef294cea",
+      "shots": 0,
+      "award": "goal_kick",
+      "team": "away",
+      "contactCount": 5,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:40-80:original:autonomous:0:central",
+      "initialHash": "785b63dcba95b395d60714bdda5dc1445dc2b27afb97f508deaf12a78695b07b",
+      "finalHash": "412c708c35b4cb71354a362ac4628fe6bbaa9b0ad96678d3b6a32aed4755443b",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 21,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-80:original:autonomous:0:central",
+      "initialHash": "c75038de9ed38a84599b9b815cc645d2590c322d3f291ea581428723fc5b3f6a",
+      "finalHash": "9e1b70ac10c4eae06625d8615424c61b95b9a03e267ba6b19e95f3faf17db89e",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "crowded:40-80:original:autonomous:0:left",
+      "initialHash": "5b3d528d4a1e41fb37f0c10134de9f0ffe62e5ad3eaf6f7c5be0af5d8911ff83",
+      "finalHash": "0f8d734aa0250629ba2b1ce955eb0736bac747defa5f5b44ca8e4d30f9a9e45a",
+      "shots": 0,
+      "award": "corner",
+      "team": "home",
+      "contactCount": 4,
+      "observerNeutral": null
+    },
+    {
+      "id": "deflection:40-80:original:autonomous:0:central",
+      "initialHash": "e7710fd457dbfc16822c61afb807716c166f6e4ecf0e849038daa24e7a91d7c5",
+      "finalHash": "86ec620e088f70629283363ca8ec26d244a9bffa3c80415c015c71a2f60059d7",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 14,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-80:original:autonomous:0:central",
+      "initialHash": "11ab0efa3253de57d8cdf46b4f7487f9869e5d58ef168b786d54b28d3de5ed71",
+      "finalHash": "8f6f879731a1c594a89bb7ae248005bbf179dc9c482705022d0afba01643b910",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 12,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-80:original:autonomous:0:left",
+      "initialHash": "67e01238c517891a8fd128f1a33cfcddcecc1ae9a804c2ca94191b64d921f1b3",
+      "finalHash": "2dcd32db7f5e51e6502a39580a4b4ef1fd41961609b3afdba5bf21df90644f78",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 7,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-80:original:autonomous:0:right",
+      "initialHash": "5adbfc8d3bd23b461728dae8dc53748ef3faadb1482521b8b652f409997c6841",
+      "finalHash": "ce7e0b579dd4fe334c2c7bd9bb218650e3f0068740d9dccf496e5f1caf51ac85",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 11,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-80:original:control:0:left",
+      "initialHash": "04ec8421f1e48cfc727c890ef2ac79c3d58094dd58e1f9d0acaad13553e1ad1b",
+      "finalHash": "361d83a0c037918ece325ec759cc4f06430584c18ea35c70f31ba9e9173c04af",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 20,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-80:original:into_play:0:left",
+      "initialHash": "04ec8421f1e48cfc727c890ef2ac79c3d58094dd58e1f9d0acaad13553e1ad1b",
+      "finalHash": "f3cabe0f1abfa9c0e0ef082d8922d61f41e5a508f3f34b79a36f3ca48d91ab32",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-80:original:touchline:0:left",
+      "initialHash": "04ec8421f1e48cfc727c890ef2ac79c3d58094dd58e1f9d0acaad13553e1ad1b",
+      "finalHash": "6a961b1ee420dd0454e09e00a18d6b7782580e39efe3df15c891991a67d630ef",
+      "shots": 0,
+      "award": "throw_in",
+      "team": "home",
+      "contactCount": 2,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-80:original:late:0:left",
+      "initialHash": "04ec8421f1e48cfc727c890ef2ac79c3d58094dd58e1f9d0acaad13553e1ad1b",
+      "finalHash": "b731c01bfe11fc866ee668faf2c37542cd5b9291cc0bb6ffe1b78f2b43f071ad",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 26,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-80:original:autonomous:0.2:central",
+      "initialHash": "c75038de9ed38a84599b9b815cc645d2590c322d3f291ea581428723fc5b3f6a",
+      "finalHash": "d0bfa31de8b80c025d0889d48431f7c8c602cb3929c7465bcfe968130080cda2",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 13,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-80:original:autonomous:0.5:central",
+      "initialHash": "c75038de9ed38a84599b9b815cc645d2590c322d3f291ea581428723fc5b3f6a",
+      "finalHash": "ba8393f25b5f1aaea47cec620a3a1bae86e24795d932434919452f45ddf3488f",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 6,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-80:original:autonomous:1:central",
+      "initialHash": "c75038de9ed38a84599b9b815cc645d2590c322d3f291ea581428723fc5b3f6a",
+      "finalHash": "2373bd87ffc6f91b10338799507f6065b5bfdbaa8e233298dde9253625953e24",
+      "shots": 0,
+      "award": "goal_kick",
+      "team": "away",
+      "contactCount": 4,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:40-80:mirrored:autonomous:0:central",
+      "initialHash": "5a9973ae5a009e66397aba39c4112aa85cefb82b87fc8dc6feb6f4b86c66c62b",
+      "finalHash": "2fa4164f3567488db85aa7b2a697ef317bf195d10eaacaa0a9b7d6ec29921561",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 40,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-80:mirrored:autonomous:0:central",
+      "initialHash": "65c82f2b3caff2a050bad607d5e94f809ffe57cdf63413a0580457f3eb0516f1",
+      "finalHash": "863e2dbabbb7674af70c3c1409a09e8ac0364d619b4e86ddfe8b77d17b4fe09a",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 16,
+      "observerNeutral": null
+    },
+    {
+      "id": "crowded:40-80:mirrored:autonomous:0:left",
+      "initialHash": "6a68e9f76c44c13ed508d65d8ca4639d53075beeeb9198aa7a3018518069aa0a",
+      "finalHash": "92cef0d9ded416610228375a366c29b2cd5a4f7715677c4a7f14c83268adf15c",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 16,
+      "observerNeutral": null
+    },
+    {
+      "id": "deflection:40-80:mirrored:autonomous:0:central",
+      "initialHash": "2d0934b68e1e64c0d5d28ab35f106458d7fdc11275fe3b57f86995e9100a7d77",
+      "finalHash": "f074b1a2fe4b50cde61ba5753a9aca271445c79a831f28fd34509ef86d1b4d67",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 15,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-80:mirrored:autonomous:0:central",
+      "initialHash": "51348b6cb88a8e5272bc22bd43458abb333b3df027f395898892fe47756067b5",
+      "finalHash": "43322331d3cf956352f3ab3972978063bf22def4ad41e89e146e7ae106cab8d7",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 12,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-80:mirrored:autonomous:0:left",
+      "initialHash": "8af238a81e64d972b773ac83f54dd0f7b391099dcb6a077e103b92ddceb353ea",
+      "finalHash": "95dd90051c3676954a94c36bf1d9fe49867d663a7054a3d173954b0a5f7b1481",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 11,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:40-80:mirrored:autonomous:0:right",
+      "initialHash": "9c9f97a68f5e751e47a3ea109d7465764ebfe82ed04a9b9acfd147e10cb9f40c",
+      "finalHash": "3d393248438030b9fd19d4148f221541f204555b752ab3dcb5dcbdc509138537",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 11,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-80:mirrored:control:0:left",
+      "initialHash": "11e0b9d0fcc49b331f71870bc39c0875acae65c298fb5a4d882075ce225f686f",
+      "finalHash": "9fd32e6a370cfc931c4bd9c66b9b8246f703224ff42f1fced188e68ae786ee41",
+      "shots": 0,
+      "award": "throw_in",
+      "team": "home",
+      "contactCount": 9,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-80:mirrored:into_play:0:left",
+      "initialHash": "11e0b9d0fcc49b331f71870bc39c0875acae65c298fb5a4d882075ce225f686f",
+      "finalHash": "89c4e151b5bed60907d9a00c26133aca254fa13518067918a747b9fe9800e2cc",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-80:mirrored:touchline:0:left",
+      "initialHash": "11e0b9d0fcc49b331f71870bc39c0875acae65c298fb5a4d882075ce225f686f",
+      "finalHash": "29efd8f96a5106ef85c1e00e34c6af2a864bb67b7a766f48e90fb3004641f7fa",
+      "shots": 0,
+      "award": "throw_in",
+      "team": "home",
+      "contactCount": 2,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:40-80:mirrored:late:0:left",
+      "initialHash": "11e0b9d0fcc49b331f71870bc39c0875acae65c298fb5a4d882075ce225f686f",
+      "finalHash": "eb53e57ebe9c67ca8feb1882baf516ed39a7e323ad21164b2469e7f10f6a6800",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 12,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-80:mirrored:autonomous:0.2:central",
+      "initialHash": "65c82f2b3caff2a050bad607d5e94f809ffe57cdf63413a0580457f3eb0516f1",
+      "finalHash": "fdeefd86ed59591efb7b969806bc65ac2cac8e20446881f44e6b8e3f99a9cf25",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 10,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-80:mirrored:autonomous:0.5:central",
+      "initialHash": "65c82f2b3caff2a050bad607d5e94f809ffe57cdf63413a0580457f3eb0516f1",
+      "finalHash": "d6972cb5af248ece677349cf6c2676ded53582d055f7dcc5f3cf828ff4eb01a1",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 14,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:40-80:mirrored:autonomous:1:central",
+      "initialHash": "65c82f2b3caff2a050bad607d5e94f809ffe57cdf63413a0580457f3eb0516f1",
+      "finalHash": "d6d715e183c46d2e75d86058dafb9f9be334e636b34177eb7dc267a13770d992",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 10,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-40:original:autonomous:0:central",
+      "initialHash": "2fcbc30676b7c1684e39a79419db004602cacdbf0ea682843dc23ec2397e3dc4",
+      "finalHash": "8ec929fc87bb4d550ea1a3a8ea77aeb89cc0e2dc2c6d199bbc53818b677c7a60",
+      "shots": 0,
+      "award": "penalty",
+      "team": "home",
+      "contactCount": 6,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-40:original:autonomous:0:central",
+      "initialHash": "3fdc0307b6179d2df3503c059868bf408b313f8c81109eab418b1db4e57aa170",
+      "finalHash": "6a34c829da3fe13e2d2c81c201b9291408d66e235a90a411c17565a07bc192d3",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 15,
+      "observerNeutral": null
+    },
+    {
+      "id": "crowded:80-40:original:autonomous:0:left",
+      "initialHash": "73f5ff7d92fe4f65c42c51816cced281872a98a160f550bded3cad2581bffe2b",
+      "finalHash": "848364b667e765f183459b7473a05f7aecf20caa06261495cae04cc6724e8d47",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 11,
+      "observerNeutral": null
+    },
+    {
+      "id": "deflection:80-40:original:autonomous:0:central",
+      "initialHash": "d08fdaa244481cb2adf8dd780ddfccb5b1e4def4798a7e13ddd9ba57b97b6e64",
+      "finalHash": "e231a754417b9ba2242acd73e5d93d4b440fff266f03ca2299e284ebfbe489f0",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 19,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:80-40:original:autonomous:0:central",
+      "initialHash": "46dfb64ffe5866c7aa4316fe31d6123a2d73d27c5d3e3c1599054bdc01574871",
+      "finalHash": "43c07ba05ab9ee6c4c6d48ea5fbf03f5d146d543451bd6c5a5e27629c6723286",
+      "shots": 1,
+      "award": null,
+      "team": null,
+      "contactCount": 2,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:80-40:original:autonomous:0:left",
+      "initialHash": "3fc45a5aa227f267708ee785b23d989512b97f7e2fc769f27e2133e591806b24",
+      "finalHash": "cd222b4c1a24018a26be2623d9b3939c6bd7ed93ee7d093639d8cc2e62ba38dd",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 6,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:80-40:original:autonomous:0:right",
+      "initialHash": "e4d7aa29ee4dc58f7f931580163428e55ced6ddb5ac74478320eb09a258e14df",
+      "finalHash": "eff513b8bd51a2a683deee671772e87d5158006dfcbd634cbcd33c4ca224075a",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 4,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-40:original:control:0:left",
+      "initialHash": "0c3ae0bf4bded401c8821af3de6effe01944fcd5b14c5fcfcf3c42502dbe0884",
+      "finalHash": "e51fa923bd4a2b13a7147fe95cf89fb0d94217f2ef1727a173312a4b3d9046a0",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 20,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-40:original:into_play:0:left",
+      "initialHash": "0c3ae0bf4bded401c8821af3de6effe01944fcd5b14c5fcfcf3c42502dbe0884",
+      "finalHash": "ba324d270b29035e5d64bbeeb4cdc012efb9f866cd5a65073dcacafc2a9917c0",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 29,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-40:original:touchline:0:left",
+      "initialHash": "0c3ae0bf4bded401c8821af3de6effe01944fcd5b14c5fcfcf3c42502dbe0884",
+      "finalHash": "ba324d270b29035e5d64bbeeb4cdc012efb9f866cd5a65073dcacafc2a9917c0",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 29,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-40:original:late:0:left",
+      "initialHash": "0c3ae0bf4bded401c8821af3de6effe01944fcd5b14c5fcfcf3c42502dbe0884",
+      "finalHash": "73f3ee7e15c79fd4941683e70987803c3345aba73274d839365bbc52daa759da",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 4,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-40:original:autonomous:0.2:central",
+      "initialHash": "3fdc0307b6179d2df3503c059868bf408b313f8c81109eab418b1db4e57aa170",
+      "finalHash": "5491b6258d54056e4558691b205f1ec0ce1fdaee311f84dc0c95cea8c340a556",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 10,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-40:original:autonomous:0.5:central",
+      "initialHash": "3fdc0307b6179d2df3503c059868bf408b313f8c81109eab418b1db4e57aa170",
+      "finalHash": "cc7b126c3adc32b7b40e23a9255b3c48304ba3b624c45c3197a79ec00447bb0c",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 10,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-40:original:autonomous:1:central",
+      "initialHash": "3fdc0307b6179d2df3503c059868bf408b313f8c81109eab418b1db4e57aa170",
+      "finalHash": "72b2f994b1ef8bba0e19b1569904d33844e2f8815b2b6bcef632e01f70f54fa5",
+      "shots": 0,
+      "award": "goal_kick",
+      "team": "away",
+      "contactCount": 5,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-40:mirrored:autonomous:0:central",
+      "initialHash": "abf02878152d69553258d17aaa9263ade12765e492e6d158c80dac59ce66ebc3",
+      "finalHash": "c294041ecdd2b576dfb10e71439b925778b47df68b999382e36be0fdeb034c6e",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-40:mirrored:autonomous:0:central",
+      "initialHash": "1732dce6e85c7821e988535e668480f13d2c22b622cdd224d6862bf9280ba22f",
+      "finalHash": "8245b005a49d0b8d0a7ca229552cdd5c8a311f06bb95f7d218e663eac36a1b0c",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 12,
+      "observerNeutral": null
+    },
+    {
+      "id": "crowded:80-40:mirrored:autonomous:0:left",
+      "initialHash": "733def17c492e1136edb140cfe38573a8d7f0beb2e600f0121b96e4725a8b00a",
+      "finalHash": "6f4b0d8d9cf369fe3d1a5017d11127ed60b4bc19ab5cbf457f9f9880fee1adb2",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 15,
+      "observerNeutral": null
+    },
+    {
+      "id": "deflection:80-40:mirrored:autonomous:0:central",
+      "initialHash": "5f7f3858fd7c6df3269a14f2efe6080ee7e1d26a45b5513ef8ff88d072b1fac5",
+      "finalHash": "4de65ec0a21a64a4f53f31f6cce2bb6d2b5887778a4f141a5bcb69ef90a622c0",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 17,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:80-40:mirrored:autonomous:0:central",
+      "initialHash": "7229fdeb1b9d0a9baeeec2e0f3fc418e5935fb7bad529dd45934ed39134007ca",
+      "finalHash": "140e1a3f012d25c95355805df26aed1add905809f80cd56451e125a8067f951b",
+      "shots": 1,
+      "award": "corner",
+      "team": "home",
+      "contactCount": 2,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:80-40:mirrored:autonomous:0:left",
+      "initialHash": "cc9b6b1da3ec097b86eb69299bfd307facfd730e7e9fa8997643d5408f1eea9e",
+      "finalHash": "d4983f32d0b59a6312453e55ce473814ecde30386b117da2cc93ad6ef5102de1",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 6,
+      "observerNeutral": null
+    },
+    {
+      "id": "wing:80-40:mirrored:autonomous:0:right",
+      "initialHash": "361467801dd52586c38a0b30b97a41dd55ea4bdbf13c3697df661e4e2f25e404",
+      "finalHash": "24c7e10ce0e2d131b6117be8ebc5d028c8d693b3ed6a674f0a732df9b40aeb8b",
+      "shots": 1,
+      "award": null,
+      "team": null,
+      "contactCount": 8,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-40:mirrored:control:0:left",
+      "initialHash": "492185a1a0eff5afa610793d5b3d7d0290d94e3690f601754f9631519e903888",
+      "finalHash": "5262b07248ef607efb80beef9f2117cc7208851d2bb4d1097d1cbe90eb8c9ed5",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 34,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-40:mirrored:into_play:0:left",
+      "initialHash": "492185a1a0eff5afa610793d5b3d7d0290d94e3690f601754f9631519e903888",
+      "finalHash": "64b72f51b946cd507d9c076324d31f9d4d8f084bd6aa2e5d3dd5b345204af210",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 13,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-40:mirrored:touchline:0:left",
+      "initialHash": "492185a1a0eff5afa610793d5b3d7d0290d94e3690f601754f9631519e903888",
+      "finalHash": "64b72f51b946cd507d9c076324d31f9d4d8f084bd6aa2e5d3dd5b345204af210",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 13,
+      "observerNeutral": null
+    },
+    {
+      "id": "clearance:80-40:mirrored:late:0:left",
+      "initialHash": "492185a1a0eff5afa610793d5b3d7d0290d94e3690f601754f9631519e903888",
+      "finalHash": "0ce9e5a7310e104fe39694298ee79b5c211858230739c6bebbce1a9185952d1f",
+      "shots": 1,
+      "award": null,
+      "team": null,
+      "contactCount": 23,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-40:mirrored:autonomous:0.2:central",
+      "initialHash": "1732dce6e85c7821e988535e668480f13d2c22b622cdd224d6862bf9280ba22f",
+      "finalHash": "949753da391f43c26bfcb171205afb9323a1276745f98e6a8188ea213a24cf39",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 10,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-40:mirrored:autonomous:0.5:central",
+      "initialHash": "1732dce6e85c7821e988535e668480f13d2c22b622cdd224d6862bf9280ba22f",
+      "finalHash": "ec58ae3b2eb97c32dc6108e821f855e8f90297c765ce2b0c3824faea8aa1e379",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 9,
+      "observerNeutral": null
+    },
+    {
+      "id": "contact_race:80-40:mirrored:autonomous:1:central",
+      "initialHash": "1732dce6e85c7821e988535e668480f13d2c22b622cdd224d6862bf9280ba22f",
+      "finalHash": "c238e2d86cadc603a5d7784c7e8b79c51825b8dbd14664cde6090c4c1295eb1e",
+      "shots": 0,
+      "award": "goal_kick",
+      "team": "away",
+      "contactCount": 5,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:none:0:central",
+      "initialHash": "f4939f8e9b56a8c6b4a9cb339fb9d6a405b299f74b946c640c8c46d085ad0835",
+      "finalHash": "831ad996189fcba2383683794d49dff6039c35dfdfc6d0c006781ebbcf8f2280",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 0,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:passive:0:central",
+      "initialHash": "8e2ed4cf6e4b48da1df020e2b2e0f238c51adefd5d5b8a422a3c1e323ee1dd22",
+      "finalHash": "bb4b7dff1e3d27e2ac2b305662d0e7692aaf3f775e2f2c3b1e8bd0b6fb307b87",
+      "shots": 1,
+      "award": "goal_kick",
+      "team": "away",
+      "contactCount": 16,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:organised:0:central",
+      "initialHash": "20b508fc6f23e92373f2152d8e6934fca1a4bb42b9546e24e197a3bb8e767da0",
+      "finalHash": "7305b3e827e923b8a817eccfa6d5266a63699b0b449e848d6abd90f1ffea6f1c",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 50,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:fatigued:0:central",
+      "initialHash": "d925dc30576a2efab655bc1ceafb86cae2bd167064f8b97663c623ead090efe2",
+      "finalHash": "e559f6d208689d272972d97daaad8f01bba9518dff22371a546d198954ae88c1",
+      "shots": 1,
+      "award": "goal_kick",
+      "team": "away",
+      "contactCount": 18,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:chasing:0:central",
+      "initialHash": "c75aeb595a5ca8c04acc374570090aa0a5e28789f8ca60e3f70aaa43ee000bf1",
+      "finalHash": "ce1eda5156e6943bc41524ccceb2d542d143dd7d40adddb2ecab743e501fa5fb",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 47,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:protecting:0:central",
+      "initialHash": "bd427206bc8bccc68a6546e33c56d40ea3f5dfdf39577fa42cb4b883bc53ee60",
+      "finalHash": "719354d86652f71958bb03c37b3d685fc8306af2195b590e8ef7c9dbefa135d3",
+      "shots": 1,
+      "award": null,
+      "team": null,
+      "contactCount": 17,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:press_escape:0:central",
+      "initialHash": "7c8d551dff8c92dbe752fdc9d1874b180096752f5bbfd9c3764d422e8c1bf344",
+      "finalHash": "28c4e18a646768e3c97d20f919521208cc8950d726acf13b277517ba4f8d0c98",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 31,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:autonomous:0.2:central",
+      "initialHash": "c147d850d6e7d8ae9585963fd58a552188e5f22d22c00ca5a70803d1e6385002",
+      "finalHash": "b2947c07fe1054574d8d322ef81dcc6a64b8938836f10740251fa98d3cf891da",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 36,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:autonomous:0.5:central",
+      "initialHash": "c147d850d6e7d8ae9585963fd58a552188e5f22d22c00ca5a70803d1e6385002",
+      "finalHash": "876a3641f8eddefafa29894cec0580a3ce3930d7a1ccc3879bfb5bb7204c8a28",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 22,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:original:autonomous:1:central",
+      "initialHash": "c147d850d6e7d8ae9585963fd58a552188e5f22d22c00ca5a70803d1e6385002",
+      "finalHash": "a7269aaa110d84db32786ec186613ae4172c3a61ed57bbcc161dc4167edf505a",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 42,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:none:0:central",
+      "initialHash": "1df5bdcc3d0a8c80f4c4ddc30b6891426a91258eb030923fb74db6c92af8fb0b",
+      "finalHash": "980c0b54206175d0b3309349404469768763a2cd6efd918824d9289782ebc038",
+      "shots": 0,
+      "award": "free_kick_far",
+      "team": "away",
+      "contactCount": 0,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:passive:0:central",
+      "initialHash": "30ae31ba58f6c17787a507ecb0630a09be283f5acf34571630d4c1b2883d882e",
+      "finalHash": "7b25edd865542d789a2b05eb9d4d8fadeedea81d01b84405e38acc21a3b1ab8d",
+      "shots": 0,
+      "award": "free_kick_close",
+      "team": "home",
+      "contactCount": 4,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:organised:0:central",
+      "initialHash": "ed5e064788713008867f42cf0def109baa0985a04873a31dbe935fa6771988db",
+      "finalHash": "e07a9efa72fc1e698897e018967b0acdd1e763c09d13a126b6b3f90e8c191324",
+      "shots": 1,
+      "award": null,
+      "team": null,
+      "contactCount": 37,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:fatigued:0:central",
+      "initialHash": "2cfb81d4b153192d81510f4a64b02d217becb86e0543e7fb7c3bd96aad3fdc29",
+      "finalHash": "17410ad7a76e253194f144ce419d98b2bc3d500be27db3b9e073d13a0d90fe48",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 29,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:chasing:0:central",
+      "initialHash": "4cd48073bb7f78dc87ed9c429a82d625cc7d28f20f23910bf22a92bb346f59cb",
+      "finalHash": "642118cfcd93b590abef389f6665b50faf3628320169d64c2cebcfb9b4f4f968",
+      "shots": 0,
+      "award": "throw_in",
+      "team": "away",
+      "contactCount": 16,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:protecting:0:central",
+      "initialHash": "9626509f2813f611474574ed72d757a3c10d425c1021e13adddfa714fd7f2649",
+      "finalHash": "ec4624be2c6cbb31f89c5c308e3a21989c4832e072d78df92565dcb0b42b889b",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 20,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:press_escape:0:central",
+      "initialHash": "3a89f39119159fb41acb3212c0d2e840e8df1a13e0df9679a725eb7e4d5faa52",
+      "finalHash": "436a767ee9c8c037354bcef2ea0b0f573ca69cb202f176d141f2a9571a062764",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 27,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:autonomous:0.2:central",
+      "initialHash": "97323b80159b1be766142fdc52673a93e2dd57a9a221ab5c457e2aa66b33d198",
+      "finalHash": "b37210f85c078eae09e8d34c2c9caa50a003443f208ef2d6c615a1d6d26a5288",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 33,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:autonomous:0.5:central",
+      "initialHash": "97323b80159b1be766142fdc52673a93e2dd57a9a221ab5c457e2aa66b33d198",
+      "finalHash": "8f1c92112ffe8629018201f4984c115f08be4112cc2ed8d4d1dcd7f40b58c917",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 38,
+      "observerNeutral": null
+    },
+    {
+      "id": "counterattack:80-80:mirrored:autonomous:1:central",
+      "initialHash": "97323b80159b1be766142fdc52673a93e2dd57a9a221ab5c457e2aa66b33d198",
+      "finalHash": "11a832e8cc5cd1f7a2eec3d51afc0e5f20258eb2bc538486c89d58dd87ea47c6",
+      "shots": 0,
+      "award": null,
+      "team": null,
+      "contactCount": 31,
+      "observerNeutral": null
+    }
+  ]
+}

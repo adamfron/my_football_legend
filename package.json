@@ -102,7 +102,13 @@
     "benchmark:pr192:lab": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr192Lab.mjs",
     "benchmark:pr192:flow": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr192Flow.mjs",
     "benchmark:pr192:matches": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr192Matches.mjs",
-    "benchmark:pr192:check": "npm run benchmark:pr192:lab -- --check && npm run benchmark:pr192:flow -- --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr192Challenges.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr192.mjs --check && node scripts/checkPr192Evidence.mjs"
+    "benchmark:pr192:check": "npm run benchmark:pr192:lab -- --check && npm run benchmark:pr192:flow -- --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr192Challenges.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr192.mjs --check && node scripts/checkPr192Evidence.mjs",
+    "benchmark:pr193:baseline": "node scripts/replayPr192Baseline.mjs",
+    "benchmark:pr193:lab": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr193Lab.mjs --version=final-v6",
+    "benchmark:pr193:matches": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr193Matches.mjs",
+    "benchmark:pr193:development": "node scripts/runPr193Development.mjs --version=final-v2 --workers=4",
+    "benchmark:pr193:check": "npm run benchmark:pr193:lab -- --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/auditPr193IncidentalScoring.mjs --check && node scripts/checkPr193Evidence.mjs",
+    "benchmark:pr193:replay": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr193.mjs --check"
   },
   "dependencies": {
     "react": "19.2.8",
