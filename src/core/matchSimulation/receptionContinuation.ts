@@ -1,4 +1,5 @@
 import { attacksRight } from './matchSpace';
+import { preparedContinuation } from './preReceptionPlanning';
 import {
   distance,
   signedForwardDistance,
@@ -35,6 +36,7 @@ export const prepareReceptionContinuation = (
     isOffsideOffence(state.offsideSnapshot, receiver.id)
   )
     return preparation;
+  if (state.experimentalActivePerception) return preparedContinuation(state, receiver);
   const velocity = state.ball.velocity ?? { x: 0, y: 0 };
   const speed = Math.hypot(velocity.x, velocity.y);
   const awareness =

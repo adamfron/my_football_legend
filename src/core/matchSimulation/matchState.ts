@@ -1,5 +1,10 @@
 import { z } from 'zod';
 import { experimentalBodyContactsSchema } from './ballSurfaceContact';
+import {
+  activePerceptionRuntimeSchema,
+  activePerceptionConfigSchema,
+  type ActivePerceptionRuntime,
+} from './activePerceptionState';
 import { ballMotorObservationSchema } from './ballOrientedMovement';
 import { transitionRuntimeSchema, transitionMarkSchema } from './opportunityWindows';
 import { clearanceIntentionSchema } from './strategicClearance';
@@ -189,6 +194,7 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     /** Optional explicit execution foot; absent retains canonical inferred choice. */
     foot: z.enum(['left', 'right']).optional(),
     receiverPositionAtSelection: pitchPointSchema.optional(),
+    receiverVelocityAtSelection: physicalPointSchema.optional(),
     actorId: z.string(),
     receiverId: z.string(),
     target: pitchPointSchema,
@@ -799,6 +805,11 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  experimentalActivePerception?: boolean;
+  activePerceptionConfig?: z.infer<typeof activePerceptionConfigSchema>;
+  experimentalReceivingPositions?: boolean;
+  experimentalTeamTempo?: boolean;
+  activePerceptionRuntime?: ActivePerceptionRuntime;
   experimentalIncidentalGoals?: boolean;
   lastIncidentalGoal?: z.infer<typeof incidentalGoalFactSchema>;
   experimentalTransitionIntelligence?: boolean;
@@ -1021,6 +1032,11 @@ export const tacticalMatchStateSchema = z
   .object({
     experimentalBodyContacts: experimentalBodyContactsSchema.optional(),
     experimentalBallRecovery: z.boolean().optional(),
+    experimentalActivePerception: z.boolean().optional(),
+    activePerceptionConfig: activePerceptionConfigSchema.optional(),
+    experimentalReceivingPositions: z.boolean().optional(),
+    experimentalTeamTempo: z.boolean().optional(),
+    activePerceptionRuntime: activePerceptionRuntimeSchema.optional(),
     experimentalIncidentalGoals: z.boolean().optional(),
     lastIncidentalGoal: incidentalGoalFactSchema.optional(),
     experimentalTransitionIntelligence: z.boolean().optional(),

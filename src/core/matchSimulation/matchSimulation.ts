@@ -35,6 +35,10 @@ import {
 } from './decisionReadiness';
 import { authoritativeMovementTarget } from './movementAuthority';
 import { observeBallMotorState, planBallOrientedMovement } from './ballOrientedMovement';
+import { advanceActivePerception } from './activePerception';
+import { advancePreReceptionPlans } from './preReceptionPlanning';
+import { advanceReceivingPositions, receivingPositionTarget } from './receivingPositions';
+import { advanceTeamTempo } from './teamTempo';
 import { deriveCarryPursuit } from './carryPursuit';
 import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
@@ -995,7 +999,34 @@ const resolveRoutineOwnerDecision = (state: TacticalMatchState): TacticalMatchSt
     )
       // Re-evaluation keeps this existing intention. Explicit executions still count.
       state = { ...state, actionCooldown: 0.25 };
-    else state = resolveMatchAction(state, action, 'autonomous_npc');
+    else {
+      const before = state;
+      state = resolveMatchAction(state, action, 'autonomous_npc');
+      const plan = state.experimentalActivePerception
+        ? state.activePerceptionRuntime?.plans[action.actorId]
+        : undefined;
+      const physicallyReleased =
+        action.type === 'pass'
+          ? state.lastPassDiagnostic?.passId !== before.lastPassDiagnostic?.passId
+          : action.type === 'shot' && state.lastShot?.shotId !== before.lastShot?.shotId;
+      const used = plan?.options.find(
+        (option) =>
+          option.kind === action.type &&
+          (action.type !== 'pass' || option.receiverId === action.receiverId) &&
+          !plan.invalidated.some((p) => p.id === option.id),
+      );
+      if (plan && used && physicallyReleased && state.activePerceptionRuntime)
+        state = {
+          ...state,
+          activePerceptionRuntime: {
+            ...state.activePerceptionRuntime,
+            plans: {
+              ...state.activePerceptionRuntime.plans,
+              [action.actorId]: { ...plan, usedId: used.id },
+            },
+          },
+        };
+    }
   }
   return state;
 };
@@ -1677,9 +1708,17 @@ const stepTacticalMatchCore = (
     delete state.keeperIntervention;
   }
   const planningSpan = startPerformanceSpan('tactical_planning');
+  state = advanceActivePerception(state);
+  if (state.activePerceptionRuntime?.lastUpdateAt === state.time) {
+    state = advancePreReceptionPlans(state);
+    state = advanceReceivingPositions(state);
+    state = advanceTeamTempo(state);
+  }
   state = advanceBoundedPatterns(state);
   state = advanceTransitionRuns(state);
+  const attentionSpan = startPerformanceSpan('defensive_attention');
   state = advanceTransitionDefence(state);
+  endPerformanceSpan('defensive_attention', attentionSpan);
   state = reconcileCombination(advanceOnBallPreparation(state));
   const semanticKey = tacticalSemanticKey(state);
   const tacticalPlanDue =
@@ -1874,7 +1913,10 @@ const stepTacticalMatchCore = (
       );
       if (recovery.nextContact) movementTarget = recovery.movementTarget;
     }
-    const patternTarget = transitionRunTarget(state, player) ?? boundedPatternTarget(state, player);
+    const patternTarget =
+      transitionRunTarget(state, player) ??
+      boundedPatternTarget(state, player) ??
+      receivingPositionTarget(state, player);
     if (
       state.experimentalTransitionIntelligence &&
       player.transitionMark &&

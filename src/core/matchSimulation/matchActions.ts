@@ -1577,7 +1577,10 @@ const resolveMatchActionCanonical = (
       goalkeeperDistribution: action.distribution === 'kick' && isMatchGoalkeeper(actor),
       ...(action.foot ? { foot: action.foot } : {}),
       spatial: Boolean(action.requestedSpace) || action.intent === 'through',
-      receiverSpeed: Math.hypot(receiver.velocity.x, receiver.velocity.y),
+      receiverSpeed: Math.hypot(
+        action.receiverVelocityAtSelection?.x ?? receiver.velocity.x,
+        action.receiverVelocityAtSelection?.y ?? receiver.velocity.y,
+      ),
     },
   );
   const episode = `${state.seed}:pass:${state.decisionIndex}:${actor.id}`;

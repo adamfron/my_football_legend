@@ -7,6 +7,7 @@ import { RandomGenerator } from '../random/RandomGenerator';
 import { tacticalRoleFor } from './tacticalRoles';
 import { playerAttributesSchema, hiddenPlayerProfileSchema } from '../../schemas/domainSchemas';
 import { canReleaseControlledAction } from './decisionReadiness';
+import { rememberedGeometry, spatialSightingSchema } from './activePerceptionState';
 import { deriveMovementCapability, movementCapabilitySchema } from './locomotion';
 import {
   boundedExperimentSchema,
@@ -16,6 +17,20 @@ import {
 
 const unit = z.number().min(0).max(1);
 export const boundedSceneSchema = z.object({
+  attention: z.number().optional(),
+  remembered: spatialSightingSchema.array().max(12).optional(),
+  knowledge: z
+    .array(
+      z.object({
+        id: z.string(),
+        observedAt: z.number(),
+        uncertainty: z.number().nonnegative(),
+        confidence: unit,
+        source: z.enum(['current', 'remembered', 'predicted']),
+      }),
+    )
+    .max(22)
+    .optional(),
   transitionExperiment: z.boolean().optional(),
   observerId: z.string(),
   team: z.enum(['home', 'away']),
@@ -73,6 +88,12 @@ export const boundedSceneSchema = z.object({
 });
 export type BoundedScene = z.infer<typeof boundedSceneSchema>;
 
+/** Available knowledge, with original ages in scene.knowledge; never unseen truth. */
+export const knownBoundedPlayers = (s: BoundedScene) => [
+  ...s.visible,
+  ...(s.remembered ?? []).filter((p) => !s.visible.some((v) => v.id === p.id)),
+];
+
 /** The ONLY truth-reading adapter for the new on-ball candidate/policy path.
  * Copies whitelisted fields. No world reference, seed, RNG state, opponent ratings,
  * target/intent, opposition tactics, global pressure or precomputed action values cross it.
@@ -82,7 +103,17 @@ export type BoundedScene = z.infer<typeof boundedSceneSchema>;
 export const observeBoundedScene = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
+  directOnly = false,
 ): BoundedScene => {
+  const active = state.experimentalActivePerception;
+  const memory = active ? state.activePerceptionRuntime?.memory[actor.id] : undefined;
+  const cached = active && !directOnly && memory !== undefined;
+  const known = rememberedGeometry(
+    memory,
+    state.time,
+    actor.profile.attributes.concentration,
+    actor.profile.attributes.gameReading,
+  );
   const rng = RandomGenerator.fromSeed(
     `${state.seed}:pr187:observation:${actor.id}:${Math.floor(state.time * 10 + 1e-6)}`,
   );
@@ -90,39 +121,67 @@ export const observeBoundedScene = (
     const d = distance(actor.position, p);
     return (
       d <= 36 &&
-      (d < 7 ||
+      ((!active && d < 7) ||
         Math.abs(
           normalizeAngle(
             angleForVector({ x: p.x - actor.position.x, y: p.y - actor.position.y }) -
-              actor.facingAngle,
+              (active ? (memory?.gaze ?? actor.facingAngle) : actor.facingAngle),
           ),
-        ) < 1.92)
+        ) < (active ? 1.22 : 1.92))
     );
   };
-  const visible = state.players
-    .filter((p) => p.id !== actor.id && sees(p.position) && !state.discipline?.[p.id]?.sentOff)
-    .map((p) => ({
-      id: p.id,
-      team: p.team,
-      position: clampPitchPoint({
-        x: p.position.x + (rng.float() - 0.5) * 0.3,
-        y: p.position.y + (rng.float() - 0.5) * 0.3,
-      }),
-      velocity: { ...p.velocity },
-      keeper: p.slot.position === 'goalkeeper',
-      ...(state.experimentalTransitionIntelligence ? { facing: p.facingAngle } : {}),
-      role: p.team === actor.team ? tacticalRoleFor(state, p).id : null,
-      // A coarse visible body-set cue, never its private chosen action or exact clock.
-      preparing:
-        p.team === actor.team &&
-        state.onBallPreparation?.actorId === p.id &&
-        state.onBallPreparation.readyAt > state.time,
-    }));
-  const ballVisible = state.ball.ownerId === actor.id || sees(state.ball);
+  const visible = cached
+    ? known.filter((p) => p.source === 'current')
+    : state.players
+        .filter((p) => p.id !== actor.id && sees(p.position) && !state.discipline?.[p.id]?.sentOff)
+        .map((p) => ({
+          id: p.id,
+          team: p.team,
+          position: clampPitchPoint({
+            x: p.position.x + (rng.float() - 0.5) * 0.3,
+            y: p.position.y + (rng.float() - 0.5) * 0.3,
+          }),
+          velocity: { ...p.velocity },
+          keeper: p.slot.position === 'goalkeeper',
+          ...(state.experimentalTransitionIntelligence ? { facing: p.facingAngle } : {}),
+          role: p.team === actor.team ? tacticalRoleFor(state, p).id : null,
+          // A coarse visible body-set cue, never its private chosen action or exact clock.
+          preparing:
+            p.team === actor.team &&
+            state.onBallPreparation?.actorId === p.id &&
+            state.onBallPreparation.readyAt > state.time,
+        }));
+  const ballVisible =
+    state.ball.ownerId === actor.id ||
+    (cached ? memory.ball !== null && state.time - memory.ballSeenAt <= 0.35 : sees(state.ball));
   const last = state.lastGroundContact?.actorId === actor.id ? state.lastGroundContact.at : null;
   const prep = state.onBallPreparation?.actorId === actor.id ? state.onBallPreparation : null;
   const role = tacticalRoleFor(state, actor);
   return boundedSceneSchema.parse({
+    ...(active
+      ? {
+          attention: memory?.gaze ?? actor.facingAngle,
+          remembered:
+            cached && state.activePerceptionConfig?.memory !== false
+              ? known.filter((p) => p.source !== 'current')
+              : [],
+          knowledge: cached
+            ? known.map((p) => ({
+                id: p.id,
+                observedAt: p.observedAt,
+                uncertainty: p.uncertainty,
+                confidence: p.confidence,
+                source: p.source,
+              }))
+            : visible.map((p) => ({
+                id: p.id,
+                observedAt: state.time,
+                uncertainty: 0.15,
+                confidence: 0.9,
+                source: 'current',
+              })),
+        }
+      : {}),
     ...(state.experimentalTransitionIntelligence ? { transitionExperiment: true } : {}),
     observerId: actor.id,
     team: actor.team,
@@ -139,19 +198,21 @@ export const observeBoundedScene = (
     fatigue: 1 - (actor.fitness?.longTermCapacity ?? 1),
     capability: deriveMovementCapability(actor),
     ball: ballVisible
-      ? {
-          position: { x: state.ball.x, y: state.ball.y },
-          height: state.ball.height ?? 0,
-          velocity: {
-            x: state.ball.velocity?.x ?? 0,
-            y: state.ball.velocity?.y ?? 0,
-            z: state.ball.velocity?.z ?? 0,
-          },
-          ownerId:
-            state.ball.ownerId === actor.id || visible.some((p) => p.id === state.ball.ownerId)
-              ? (state.ball.ownerId ?? null)
-              : null,
-        }
+      ? cached && state.ball.ownerId !== actor.id
+        ? memory.ball
+        : {
+            position: { x: state.ball.x, y: state.ball.y },
+            height: state.ball.height ?? 0,
+            velocity: {
+              x: state.ball.velocity?.x ?? 0,
+              y: state.ball.velocity?.y ?? 0,
+              z: state.ball.velocity?.z ?? 0,
+            },
+            ownerId:
+              state.ball.ownerId === actor.id || visible.some((p) => p.id === state.ball.ownerId)
+                ? (state.ball.ownerId ?? null)
+                : null,
+          }
       : null,
     visible,
     contactReady: ballVisible && canReleaseControlledAction(state, actor),

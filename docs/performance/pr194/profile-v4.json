@@ -1,0 +1,5608 @@
+{
+  "schema": "mfl-pr194-profile-v1",
+  "classification": "shared four-second checkpoint; not a full-match extrapolation",
+  "source": [
+    {
+      "path": "src/app/App.tsx",
+      "sha256": "d70858b4da405c899b596e8ee2116f7e0855f64e23157c75a0fc9545da1c41f6"
+    },
+    {
+      "path": "src/app/CareerApp.tsx",
+      "sha256": "9f00f6cd3831c93bc49878ef3cec20ec9a6c572a07c75e48758dac973c975c83"
+    },
+    {
+      "path": "src/app/StartScreen.tsx",
+      "sha256": "589d24f017ae3eb1bf5e0912df3c43004f53c3d33d77bbe60b3edf9e686dc64b"
+    },
+    {
+      "path": "src/app/appearance/AppearanceEditor.tsx",
+      "sha256": "db008c2b4ea608f95846642356712ea88312274ebd10123df6152795c4075a3c"
+    },
+    {
+      "path": "src/app/appearance/PlayerPreview.tsx",
+      "sha256": "049c106f6b6c010ed21853aaba0ad19aea6bc21152d857bd5b0e10c63a71c746"
+    },
+    {
+      "path": "src/app/appearance/ProfileAppearanceEditor.tsx",
+      "sha256": "a404a7ea3040d8355bd5db9d6114d1f09fde52a9574d3e246107040a0fffe936"
+    },
+    {
+      "path": "src/app/appearance/VisualGallery.tsx",
+      "sha256": "80713c911121e007863448b1d0c2149e3c595dc464f62edb161c476b18106acc"
+    },
+    {
+      "path": "src/app/appearance/appearanceDraft.ts",
+      "sha256": "eb942efd7fb5746fd20ddb23608ffe996c56249a426f7698eb1c554f928e85e3"
+    },
+    {
+      "path": "src/app/appearance/galleryExamples.ts",
+      "sha256": "c41411e9d5a2d5759d354ef9bb6037c11c9e2ecf122d673b6e33b6ccd21d02bf"
+    },
+    {
+      "path": "src/app/appearance/previewScene.ts",
+      "sha256": "24141335241677e0ca4ed2b77b6629a9e37d7c3d91387c3ab423f96f12c63d19"
+    },
+    {
+      "path": "src/app/career/CareerCalendar.tsx",
+      "sha256": "eb63b176a35fd3ba2c010343044baf5fbe754f6fe2eaca74276f2d1d0576cad6"
+    },
+    {
+      "path": "src/app/career/CareerView.tsx",
+      "sha256": "f9d0c0a3ece43c720bc6b5209935b2fc5586c350ccddc1e51530caf5613fde79"
+    },
+    {
+      "path": "src/app/career/ClubView.tsx",
+      "sha256": "d0ec79dfd211311f3e8de72a0dc92eb3ab11abbac4ee4786e6d42d0db75f80bd"
+    },
+    {
+      "path": "src/app/career/FinanceView.tsx",
+      "sha256": "f7707c25038b15d0c1634169b57f0a652d2fa88f85a1013952d2be5ccaa65604"
+    },
+    {
+      "path": "src/app/career/HistoryView.tsx",
+      "sha256": "5a5cc68d4e9890ec4389d8346e37bd4fa88e578f850e5ca21798d3c05ae441f9"
+    },
+    {
+      "path": "src/app/career/NewsView.tsx",
+      "sha256": "0c3446af0fc70745a441fb875c03b299a7770d12af12efa2f6895bc100cffe94"
+    },
+    {
+      "path": "src/app/career/SeasonView.tsx",
+      "sha256": "4adc7366065ddb172c3a298190d990e6e4129f1a1f31439c7b8c1f464ec2fa03"
+    },
+    {
+      "path": "src/app/career/SquadPitch.tsx",
+      "sha256": "b59479bff9249f1bf0843757cc9636b7f1b55321f430eb84e433c538daba09ae"
+    },
+    {
+      "path": "src/app/career/WorldBrowser.tsx",
+      "sha256": "457e7f6c6307293d0a1e225d2b50b3c0d2126aeba769632a428518a4d10b1a1d"
+    },
+    {
+      "path": "src/app/career/calendarPresentation.ts",
+      "sha256": "6d89039fe35e5809fae445b6fbc52f933a60bdd6fd72c3354269eac80336c70c"
+    },
+    {
+      "path": "src/app/career/financePresentation.ts",
+      "sha256": "1837c9f3b6f0ae6e520b2a020c1f0abc2a9c7c94c8986066f418bb1872afe21a"
+    },
+    {
+      "path": "src/app/career/formationCoordinates.ts",
+      "sha256": "ebd11d1fe4e4924f3f923d349b116e04ab1e914f6401308511051f23a2906798"
+    },
+    {
+      "path": "src/app/careerCommit.ts",
+      "sha256": "a0c66b61d014c53d677ac3abf64f68aaa33a6c72e2d582dfd6c61fd0544f68c2"
+    },
+    {
+      "path": "src/app/creator/CreatorHeader.tsx",
+      "sha256": "056152d8fcde519d42af215de5bc01ea66bbff0d20a32361abbc214a431bd4d4"
+    },
+    {
+      "path": "src/app/creator/CreatorSteps.tsx",
+      "sha256": "39ad2c0f90b553f7996ad56c3982f27c0de44aa250c38dc32150f632997fbb7a"
+    },
+    {
+      "path": "src/app/creator/PlayerCreator.tsx",
+      "sha256": "f219a746640ece57026f400c522867d711af64c12ba987b667219b5f1f465a25"
+    },
+    {
+      "path": "src/app/devTools.ts",
+      "sha256": "b96b10e97bcee9563c295f793e1b999183b6a6a9faf6bb2c3691cb741100be5b"
+    },
+    {
+      "path": "src/app/match/CareerCanonicalMatch.tsx",
+      "sha256": "d7f46d4349988d6ec86cbe2730b00bf15c92a71a0f8d6a71d1c86f591b4072de"
+    },
+    {
+      "path": "src/app/match/DecisionTargets.tsx",
+      "sha256": "71abf0e734ddf1c19369f23e87874c440556e8e83d94f7617c057093ab060366"
+    },
+    {
+      "path": "src/app/match/FirstTouchDiagnostics.tsx",
+      "sha256": "1c7daf1a76044fdfb22e60a841d8f64dc3cc75b1e82a9a6543c5e3f75204d5cd"
+    },
+    {
+      "path": "src/app/match/FirstTouchLaboratoryPanel.tsx",
+      "sha256": "5252a8cdc6511a34e30675a9d5a38a2ff57008a9e15345d6b8610eea839c0d03"
+    },
+    {
+      "path": "src/app/match/MatchCentre.tsx",
+      "sha256": "07f5b144bb1d30d945cdf4df66f20a39ca53ca3d26f736dfcc39f7be5b1e0588"
+    },
+    {
+      "path": "src/app/match/MatchGame.tsx",
+      "sha256": "210efa531bba22072d8d511c766ab76f0761438667e0394b84f0a3397760a147"
+    },
+    {
+      "path": "src/app/match/MatchOccasion.tsx",
+      "sha256": "86893936150f3e09bb883dbd82abf473b4e4ced3d6ae9c6ff86a2938d8ac1c9a"
+    },
+    {
+      "path": "src/app/match/PerceptionLaboratoryPanel.tsx",
+      "sha256": "a2be9dcc85c123673842c809445400fa65781c00d03ffe7b865bdd31a93d8968"
+    },
+    {
+      "path": "src/app/match/PlayerFitness.tsx",
+      "sha256": "daf1e522044fa9ff252dd4d894b959250d291b14623c9fbfb14c6c9ab7e3dfc9"
+    },
+    {
+      "path": "src/app/match/ReplayControls.tsx",
+      "sha256": "ad1c48fbada50bb7c5f0c6da92ae749a034baa59f9da440dbf86ee431be9ca08"
+    },
+    {
+      "path": "src/app/match/ShotAimControls.tsx",
+      "sha256": "4933f280890a39fbbe200b438cf2fc1fd2a127a3a5bc7e4b0936fe2353024f0a"
+    },
+    {
+      "path": "src/app/match/TacticalExplanation.tsx",
+      "sha256": "06cbf95b998f9b5305a613b389cd04090694f196d2ae0137e41f490c94254841"
+    },
+    {
+      "path": "src/app/match/TacticalMatchSandbox.tsx",
+      "sha256": "7e9bee335501d6663dc3ede4ec157054d1f3293c64b2813ba9bd4eb17e514b09"
+    },
+    {
+      "path": "src/app/match/TransitionLaboratoryPanel.tsx",
+      "sha256": "3daef07996fecfdc551413ac6eb9cbde46afed5eecc8f75a47f44ff41a174b15"
+    },
+    {
+      "path": "src/app/match/backgroundPublication.ts",
+      "sha256": "96de89a7e02fc12aa586ebff7e89e655d6303fd825dd6eaf4c9f701a62105522"
+    },
+    {
+      "path": "src/app/match/firstTouchLabOverlay.ts",
+      "sha256": "c45dcf3eeb4ca9191e219db431d3474017d36448b28087bb6b07f2fb3c571c9b"
+    },
+    {
+      "path": "src/app/match/matchBenchmarkReport.ts",
+      "sha256": "a2b0d3fabc78d2c196265120c98fffb08b3ad9a2ee36feebe2d4b30595e3f18d"
+    },
+    {
+      "path": "src/app/match/matchDebugCapture.ts",
+      "sha256": "618ee9874b6edb602c8e2b46edd2375cb3d3e878e5c9a1d5501eac15ea32dcd7"
+    },
+    {
+      "path": "src/app/match/matchEventLabels.ts",
+      "sha256": "7ff292a3630aa8b002e7d7ef222040234cb28865339068ca6e6cf6a5ad3b0a4a"
+    },
+    {
+      "path": "src/app/match/matchLabDiagnostics.ts",
+      "sha256": "93a3b2f0a0d02eb6fc93e7e14f70ec0da3f5e50055f0b1ec494356a237c4f697"
+    },
+    {
+      "path": "src/app/match/matchRuntimeClock.ts",
+      "sha256": "7110967a867d99bf7c2263c96a8817a5c00120d818d65a5b15e1f6009ab245e9"
+    },
+    {
+      "path": "src/app/match/matchTime.ts",
+      "sha256": "a807b2a56a9c2a85efe85a740612c6ffc2641eeb11054236a6823b52fca990fc"
+    },
+    {
+      "path": "src/app/match/replayViewer.ts",
+      "sha256": "85fcb7b0356cf03d0577dc1def2674d7d26135da32a011d3ee64226faac54642"
+    },
+    {
+      "path": "src/app/match/singleMatchScenarioAliases.ts",
+      "sha256": "48f5de910ba9acb3eec3c9acbd9a15a894d9f29759921fef342e773ceda2b305"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/TacticalPitchRenderer.ts",
+      "sha256": "d35951f4f94ada6e3d323a846244ede8a37a7a700812ccc5680bdcb05eb67a5c"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/actionFeedback.ts",
+      "sha256": "80c0455626096b5c0bd6ef300bad00930fa5a55e7efab2ce761f40a41072e684"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/animation.ts",
+      "sha256": "6bf0fb70355dca60f3c1f590b822f645ce4a93a6392732e3d5c9c230b15d9482"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/cameraInteraction.ts",
+      "sha256": "92864b7b0891e125c8668364bce6f6e6d6a52afe1015772a5312f85dee797ebd"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/contextHistory.ts",
+      "sha256": "401c04610e08191d78e8c18eaeb1f2b0c87529dc2b066310ed832a018a05cb9b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/diagnosticOverlay.ts",
+      "sha256": "a9adc6256d80487b55ef9108d3678d1062af0facdd1f184a54f01d266b0fa3df"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/faceModel.ts",
+      "sha256": "7205d1f6292731dec97d1f4494ec08fabcc840eab42bf8b031f58cf433f53378"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/frameProjection.ts",
+      "sha256": "aa346074a47e38c9e915ac4cd9e928dac62ddaa17b9b65ef42b6a93c240e782b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/goalAiming.ts",
+      "sha256": "0c4caabd24f08f9e7fb11b90a3ba461ffde0ee6bddcfbfb530d6d953f7793f8e"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/kits.ts",
+      "sha256": "b07fa66b873f0da3a383660944042c627af6870dba2a43b319aae99a30464181"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/model.ts",
+      "sha256": "44fc92a904d3cde54d4c0ec003f9bd2c44dd59c581387ee569b720c12922f070"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/motionVectors.ts",
+      "sha256": "873fc90be34f66a877c880f556a7ee44afcb28bae9152a30e1495bd2e70e4376"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/playerMarkers.ts",
+      "sha256": "dc53bbe2df0866708fb6481b0301d5907310cd9f4b9852289003375a6cc27a2d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/playerModel.ts",
+      "sha256": "00b7e0301bc2ce222a16ba7922aba1a4380e3230e2ddaab103674a5f83daeb9e"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/replay.ts",
+      "sha256": "64dc7c6ee82f288af91af18067df89524e065ce3d4da437d882cb966db666b65"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/scenarios.ts",
+      "sha256": "f4518b672808da55a86d772e65ece8025869c082b7d9116606cd79ae32b84c88"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/stadium.ts",
+      "sha256": "255aa8ecebf6ad6c8a5b2cc1023ff7183d8946f8972270275b573d4ab69aa30d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/technicalArea.ts",
+      "sha256": "6cc77650ef068871dc49db9f60322e5106796d3aa873701a0d4b29cf8a246c01"
+    },
+    {
+      "path": "src/app/shared/ClubPreview.tsx",
+      "sha256": "36e45972269871495f5bb8b24b15dd134d5894fde9b90d6ad2c3d823c9b5c957"
+    },
+    {
+      "path": "src/app/shared/FootballerHoverCard.tsx",
+      "sha256": "bcadd64f594975bf66f1bf9b6f4a664de3df7e4faf269e4dde8059cf7c5fd3f4"
+    },
+    {
+      "path": "src/app/shared/PlayerCard.tsx",
+      "sha256": "7632724ce60a4808e2a8179ebaa86fe38516a5a49a5481b70177a0b79800afe6"
+    },
+    {
+      "path": "src/components/CareerMatchDetails.tsx",
+      "sha256": "5ffd572b89520753891510ccea9d8a01c0812cca7a62aeac5897f3ed91ad09f0"
+    },
+    {
+      "path": "src/components/ClubCrest.tsx",
+      "sha256": "ce4b70513af17e9c16e6bfe09ca3f297c18a224fe6c932498fdab72658a8066f"
+    },
+    {
+      "path": "src/components/ClubStrengthTooltip.tsx",
+      "sha256": "4daef696420bcd83ce9349b84cb5ef1b001e7c6c7f9f25834a51663851707abd"
+    },
+    {
+      "path": "src/components/CompactFixtureList.tsx",
+      "sha256": "a759382de56aa1f8401f7bdf97ada9dc6e27c9597dc1005b3291f9816a1c9acb"
+    },
+    {
+      "path": "src/components/MatchMomentumChart.tsx",
+      "sha256": "3c223136d743bbf7836410d40d2d66b4015ed488447380ab61947da6ebdd16bd"
+    },
+    {
+      "path": "src/components/MatchParticipationSummary.tsx",
+      "sha256": "f3996314f3ebeaee44fc25e49de21b5059ff008caad5198929d31a78f65496b6"
+    },
+    {
+      "path": "src/components/PersonAvatar.tsx",
+      "sha256": "eacf6905415bd67d5c08fa251ef9aff631070da0328f4e37a981b77ed4e15414"
+    },
+    {
+      "path": "src/components/StarRating.tsx",
+      "sha256": "82eddef17ee6872a8a5a7573e0ea16440c7b4a72f27e37e30a8fabfc304291bb"
+    },
+    {
+      "path": "src/content/archetypes/everyman.ts",
+      "sha256": "e0a8a3e2c668c239baa2115811810e8486fb41c2fa115afd44f9b725ab04a97a"
+    },
+    {
+      "path": "src/content/clubs/sampleClub.ts",
+      "sha256": "5b92f4d46e46c199ae7bcf6a486b5d62e477c90949d06b78b154dced688206f9"
+    },
+    {
+      "path": "src/content/events/sampleMatchEvent.ts",
+      "sha256": "1b06fa9f08b66ddb0d5d2af7c05a60f069824e0ed1e4cb5273c70b3766b2e99c"
+    },
+    {
+      "path": "src/content/names/polishAcademyNames.ts",
+      "sha256": "f3f446347f61b6c241be843362199b8b4533c520750e499fce32f3d7646dbf70"
+    },
+    {
+      "path": "src/content/sampleContent.ts",
+      "sha256": "06f0bc756db30536a8a6aa0e27cb57357f1e5f0abe8bd673ed2d37b036ceced0"
+    },
+    {
+      "path": "src/content/world/polishU17.ts",
+      "sha256": "4e4542733fb829f7cfa5085ba96bb873caa226f65221af0e1e1d34a9eff8d0fb"
+    },
+    {
+      "path": "src/core/age.ts",
+      "sha256": "b5d47ae2b5acfa5a70cc26599c66319bb700ca39037eedcfa618a38bd9d01b8a"
+    },
+    {
+      "path": "src/core/appearanceConsequences.ts",
+      "sha256": "ab066207dd1fef30592531f9c2479562589fe9b18e6768ceb7d4bba45c334928"
+    },
+    {
+      "path": "src/core/attributePresentation.ts",
+      "sha256": "9cbd7cf3f9355677247a6a2b8fef55974b51681e43940c59444c9c7cd3f9bfda"
+    },
+    {
+      "path": "src/core/careerCalendar.ts",
+      "sha256": "171f3f0930a3d95a356b71bbd0b250f4ec8c243ad55ff4bb6d3edf177ee5666c"
+    },
+    {
+      "path": "src/core/careerFitness.ts",
+      "sha256": "ee09c104f7a991988c512d9be697be506c7ee212a816880fd0480606abedf47f"
+    },
+    {
+      "path": "src/core/careerFlow.ts",
+      "sha256": "1e7655f1ca54961cab567b478bdb05accd4a6777d65c1826e225a0e42db060b7"
+    },
+    {
+      "path": "src/core/careerMatchContinuation.ts",
+      "sha256": "e4e01af1df9adc4020714e5b4403860f2601470e76627c306541d7103803e7de"
+    },
+    {
+      "path": "src/core/careerMatchContract.ts",
+      "sha256": "161dea0205976c25cb8d9f42ce30f7b92b455d0dd922364b676a3a0b6eaf3226"
+    },
+    {
+      "path": "src/core/careerMatchDiscipline.ts",
+      "sha256": "1fa32ba34837be9fffc95dbc967b5b2be983861bbeb11d61f1161ecc39633b7d"
+    },
+    {
+      "path": "src/core/careerMatchMilestones.ts",
+      "sha256": "b29867cc52b0af4a445422f9436e6ea047bac91eb81eb4eb66bab2a10e52dfbe"
+    },
+    {
+      "path": "src/core/careerMatchPresentation.ts",
+      "sha256": "edcfaaf70c194470da4ea5961a47c926b514c630189f9ea937250c55b11d0e82"
+    },
+    {
+      "path": "src/core/careerMatchProvenance.ts",
+      "sha256": "99a78788686839e9435899ebd8628edca8b3b370f2ec7a893bdd6bf88b3d68c4"
+    },
+    {
+      "path": "src/core/careerMatchRetention.ts",
+      "sha256": "f8473ad218bd5a3031eed0ddd918c70e89f9fa37396768a0010c4f3c42b92b92"
+    },
+    {
+      "path": "src/core/careerMatchSummary.ts",
+      "sha256": "da5b7dceb4607d91e6be1969b27089b463e2c7a95136561670e3cc794e300258"
+    },
+    {
+      "path": "src/core/careerPresentation.ts",
+      "sha256": "4aa71e9f8030a228be6ff74cf4cf4d21faa0a9b4f62045c3c247eab77297a13c"
+    },
+    {
+      "path": "src/core/careerSeasons.ts",
+      "sha256": "c287cb7adab2f05e26ed37889e252491faac421994bd09f70ed4a49c983a7dce"
+    },
+    {
+      "path": "src/core/careerSimulation.ts",
+      "sha256": "d967e0918dc48f78eb56f74556c0f682ea21c3cbd11bee5c4f0a99f72d55a271"
+    },
+    {
+      "path": "src/core/careerStats.ts",
+      "sha256": "52285130ba33db4c72cb1f9f25823c69443738668011bd13e1d914b8c6442c0f"
+    },
+    {
+      "path": "src/core/careerWeeks.ts",
+      "sha256": "54dbe74a1303eb0248e4a037b8634b821aee625372e2405195619d5e4641c3fc"
+    },
+    {
+      "path": "src/core/characters/avatarGenome.ts",
+      "sha256": "38c388962bb843d8f5b3f96fa96c5d252c4cd846ad19ae53d2fe727cae0fbf1e"
+    },
+    {
+      "path": "src/core/clubObservability.ts",
+      "sha256": "640033824dc376283a72eb693833868919c294bec369d55da5093d76b18cf19c"
+    },
+    {
+      "path": "src/core/clubStrength.ts",
+      "sha256": "78f3be5f826f83506d875f9dd2b8a564f765dd088c543a337710c15b304d35ef"
+    },
+    {
+      "path": "src/core/clubVisualIdentity.ts",
+      "sha256": "5d71844c769e170057ca3c4dbbddd6eb8609c1952f50e24f4c0bacb27a70c4ef"
+    },
+    {
+      "path": "src/core/clubWorld.ts",
+      "sha256": "c9559fd3e7e3665898541c4a9828237a69e0d80c8316f3ab61edc12ca8a29df7"
+    },
+    {
+      "path": "src/core/coachProfiles.ts",
+      "sha256": "3edc3007aecd933e55270ba278f005e42b373af7bd9f09140a89858423a2dde2"
+    },
+    {
+      "path": "src/core/coachTactics.ts",
+      "sha256": "f816a79aeeba53f13fb49cc7f6d9fc69ac35020e17bf4bd979d5edaca39811b6"
+    },
+    {
+      "path": "src/core/competitionStrength.ts",
+      "sha256": "be342600350e71f229aa7e7677326dde3bd789f1dc5f81466b80b5d7d6ae8312"
+    },
+    {
+      "path": "src/core/contractValidity.ts",
+      "sha256": "5cef2a1e8fa0585d8d0ef552e7452b6c8237ae7d9d7903457fa357098cd56f1b"
+    },
+    {
+      "path": "src/core/contracts.ts",
+      "sha256": "36b84fb553ddea0b9033f96906448f28160c78d29967a982e1ef66897e583d76"
+    },
+    {
+      "path": "src/core/development.ts",
+      "sha256": "f86ce765a5f2e1d3d13ead8ebde02755e7081c12e99a73c5a0f9236a0ba6c0ed"
+    },
+    {
+      "path": "src/core/developmentFeedback.ts",
+      "sha256": "3680db867f2c405f9e656217f01d1f08fb2fb15294a57b49ef2a3bd1d5f25702"
+    },
+    {
+      "path": "src/core/events/applyEventResolution.ts",
+      "sha256": "f50ed7c346af894c1c73f3425ef288efbd11f83e178784b50bc63eacfe80685c"
+    },
+    {
+      "path": "src/core/events/decisionAvailability.ts",
+      "sha256": "0a7943dfb5d724d5b4d72df1c1c0fef5071c24ec66eabbeeb21c85f92e6b29e5"
+    },
+    {
+      "path": "src/core/events/eventRegistry.ts",
+      "sha256": "2f6d9cd4cc09dddff985607e8c20022d0f7cfcc736d1ebfbedcc6834e608f14b"
+    },
+    {
+      "path": "src/core/events/instantiateEvent.ts",
+      "sha256": "8304dc76911cd6ec86850a44db13497a50a821a39863a60012544fdb6e6c3e8e"
+    },
+    {
+      "path": "src/core/events/regularSeasonEvents.ts",
+      "sha256": "8611ced12df10145a01e333b84417a07054dac477efae6cedb24378dcb4b83cc"
+    },
+    {
+      "path": "src/core/events/resolveEventChoice.ts",
+      "sha256": "c6d2079be4d076ca6f510747880454a37d7af31b25e6ba630b1c90c6331d8f6f"
+    },
+    {
+      "path": "src/core/events/resolvers/resolverRegistry.ts",
+      "sha256": "b4b9ef8f8cd6a869225feab6e1caaff089eea6ddeaf98c7f2472198fbf8e8037"
+    },
+    {
+      "path": "src/core/fitnessRecovery.ts",
+      "sha256": "d69160910935ea8f9c5f4c5d6cc93d172b54b280f18f1443167898c5b8451076"
+    },
+    {
+      "path": "src/core/footballArchetypes.ts",
+      "sha256": "92f3fdfcbcd111b46b34435a0a67e3f1d4c0651d21ae85dd8d1999d60350b0d6"
+    },
+    {
+      "path": "src/core/footballerWorld.ts",
+      "sha256": "fdd3d042b1c0b1146a01e1cbbe3fbff356bf59d48159f143f3ae10a74f43a511"
+    },
+    {
+      "path": "src/core/goalkeeperAttributes.ts",
+      "sha256": "f47c9bb6e8e6d163e67e88e8ffa788aee3407d880500d01cc81f5b7cea0aa0f0"
+    },
+    {
+      "path": "src/core/goalkeeperPerformance.ts",
+      "sha256": "568f89885059966f5401c6ddc7fac4936a6a9811f87e5ba19782541f7932814b"
+    },
+    {
+      "path": "src/core/history/careerHistory.ts",
+      "sha256": "f2473ad7c7f3987dbdceb97759da1d53a04fa778ec3089ed0d19827d57911c65"
+    },
+    {
+      "path": "src/core/history/careerMemory.ts",
+      "sha256": "871a3de6e51c47c461687659f5bbd24e4177c2ab7db106d31ca7f533116e2155"
+    },
+    {
+      "path": "src/core/history/historyCompaction.ts",
+      "sha256": "44ffa1c28bb8f4b92286731b9c5178cdcf3ef3837dc44df9f91fe9847ec8cca4"
+    },
+    {
+      "path": "src/core/injuryPresentation.ts",
+      "sha256": "1d95da95f1b2578053804a6e1aecd6081781817e2da18be4b6c594515b174fd1"
+    },
+    {
+      "path": "src/core/leagueSeason.ts",
+      "sha256": "ead33b550be6a511bc745d6e658b695ca7f3a20ef4c7fa658711183b84e722a2"
+    },
+    {
+      "path": "src/core/managerLifecycle.ts",
+      "sha256": "1a5e09ca4d4959c523d8cc44db1165de3b9e89bc41b8cb7147aa495aa41f6eb2"
+    },
+    {
+      "path": "src/core/matchBriefing.ts",
+      "sha256": "78ee125e9473097dc1fc9a0cb40fd67d1f8082eb78f2b07d96017c64d893d37a"
+    },
+    {
+      "path": "src/core/matchEngine.ts",
+      "sha256": "302f56f06d8949191aa6ff86af4cf371b36dd56af9c8209314e46128f4889689"
+    },
+    {
+      "path": "src/core/matchFeedback.ts",
+      "sha256": "3e35a6fca0445ae40128bbb1eb256cdd44d474780956382ec81a0ef866438e17"
+    },
+    {
+      "path": "src/core/matchParticipationPresentation.ts",
+      "sha256": "767d7880e86ed6c9d10ced7f36e047d6377773970af22efd249e8fe9270e0d31"
+    },
+    {
+      "path": "src/core/matchSimulation/actionAgency.ts",
+      "sha256": "a952df6514404dbd5930012cbde22773ce3aa55f403dbf9035aa1cd4fb8a822e"
+    },
+    {
+      "path": "src/core/matchSimulation/actionEvents.ts",
+      "sha256": "3a581e1f2b5bcdd5a08b24e0105e2ca4f75a3e4870e97844b1a27a811cb5a6b6"
+    },
+    {
+      "path": "src/core/matchSimulation/actionImpact.ts",
+      "sha256": "9ce8abe4f5034839b4179ef5218f4ea3910a4de737887a22e6de00bf44a4d3aa"
+    },
+    {
+      "path": "src/core/matchSimulation/actionLifecycle.ts",
+      "sha256": "51704a113db2c83b89aaf6571369a6644c5502c353c1f45ec53a61ef04759557"
+    },
+    {
+      "path": "src/core/matchSimulation/activePerception.ts",
+      "sha256": "60efc4caa3a395f4340ca1cb8ba2f0847fca66c4d8a39e14a9967aefd8e4ecc2"
+    },
+    {
+      "path": "src/core/matchSimulation/activePerceptionState.ts",
+      "sha256": "b14acd9c5bda81e7b19200042c056971f08a218a35350e2b12098c76971542e3"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPlay.ts",
+      "sha256": "4cfd99eefc464009fe771b100ea0b5b87d61bd2f8d693cc0230d37a0eb2255fe"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPositioning.ts",
+      "sha256": "3c50cf101ef66fd6fb6afb7e6a53a819041534182af81e2a62358d22a6a7a1eb"
+    },
+    {
+      "path": "src/core/matchSimulation/agencyCalibration.ts",
+      "sha256": "902f1e7187779f7594193645aeb2f9ae4a3c40bfdc0d71070747ff5a0a73b086"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnel.ts",
+      "sha256": "d7494825f7de770e9b7199252350af3d8d3123ea79d2b82ef4eee531490c47af"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnelAudit.ts",
+      "sha256": "b632c5ad1b61a56fc1f17bd8e3fd73df63bdf36c10f1285920e96a5b34542c85"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingTransition.ts",
+      "sha256": "d817ae2c7f16fd2b77626b9b642625176ce1b9c196f606e646d761025673067b"
+    },
+    {
+      "path": "src/core/matchSimulation/attributeCognitionLab.ts",
+      "sha256": "79cad5a2e7dd8f6e73feee18adf1a4e0240313f88134323edbe92e27f7bdbab6"
+    },
+    {
+      "path": "src/core/matchSimulation/attributeMicroLab.ts",
+      "sha256": "cbc983bc122429c7850bbbb50e2c62a9e7a00809f79919d4098a42be0e10c416"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundBenchmark.ts",
+      "sha256": "5a22047634f11e1c9259ac5932a73687921ce05ba976bf91d1e4c4c762654007"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundPerformance.ts",
+      "sha256": "798cc91042679d3734ff93c16805c4fef0b75f095a86cf2069650f17e51a642b"
+    },
+    {
+      "path": "src/core/matchSimulation/ballAcquisition.ts",
+      "sha256": "9183ec94060559516d19db509945cc64c43db7bed7cb07ead72788c5bbbdbadc"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactGeometry.ts",
+      "sha256": "ec78218d607f19ef38a1416c6f31dc18841a6e0c5e68606f1f4ebfaf9794395a"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactResolution.ts",
+      "sha256": "a931cc91b0176fb215fe676d56bd87776b6c3bfff914dd6514ec890db46b3e02"
+    },
+    {
+      "path": "src/core/matchSimulation/ballFlight.ts",
+      "sha256": "c61f381044945733c48d9c8e410c3bf8f718e34cdb9379fa2a705260e116120e"
+    },
+    {
+      "path": "src/core/matchSimulation/ballOrientedMovement.ts",
+      "sha256": "4771eb8462ef33c40bcb6005d735edeeae67956df141e84c927f713dc357c679"
+    },
+    {
+      "path": "src/core/matchSimulation/ballPhysics.ts",
+      "sha256": "711579f201eda1cefef028a39f0d629f52a4c1bec973f29666f13b2d14f0eae8"
+    },
+    {
+      "path": "src/core/matchSimulation/ballSurfaceContact.ts",
+      "sha256": "e818effd487c534738f5abc079825606525b334b162773f58fe6ce2dc36854d9"
+    },
+    {
+      "path": "src/core/matchSimulation/benchmarkFixtures.ts",
+      "sha256": "c2458d4bc14c19bd0dee504dde27c36a21591407b24d71be200af7a3d4ac7c55"
+    },
+    {
+      "path": "src/core/matchSimulation/bodyMechanics.ts",
+      "sha256": "4eb8545174a1df92ba93033652d241b1d0207a48fedc0a5c744471be4a6bb98e"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedDecision.ts",
+      "sha256": "7db5285d758cbd6d0990636c4de0993c7e785d5f6f363d56d8788682757426f8"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedIntelligence.ts",
+      "sha256": "fe6ab393828adec1d67e4045d8a5557ea8903e4af6b8f5b4948a653ed666c9ec"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedIntelligenceState.ts",
+      "sha256": "04fa8653dfed14ab5c80cfc589f0d3465ea963621308d0e3547af0902d0fea96"
+    },
+    {
+      "path": "src/core/matchSimulation/boundedPerception.ts",
+      "sha256": "420669bd9b53b2fc836de8288a8e8a240bad28b00b6f8d2cb8ffcd65c5eb0cef"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMatchSanity.ts",
+      "sha256": "a4c648f1549db500ad136223cde0ddbadcb714e6d45545bdbcfa4dab6eae7e16"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMovement.ts",
+      "sha256": "f80c2b258f384f00f47510315a9c203ea998e32be43e3ec53933887d7a6728d8"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalPresentation.ts",
+      "sha256": "dc0169f29f474c5717cb4b5f12a08620036ea4960cb5e1826f7ab069ed5b019c"
+    },
+    {
+      "path": "src/core/matchSimulation/carryExecution.ts",
+      "sha256": "7d8058c2ec0b2dfbbeef7abdf2e9674bbd83aa0bc7c246d0e72c58dad27fb2e5"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "sha256": "183e13d5a905e9ce84da5ee0e182fed1361fcdbac0afa6b16af7ce6c6120bb31"
+    },
+    {
+      "path": "src/core/matchSimulation/carryPursuit.ts",
+      "sha256": "9fbe3e8d52ec5d1d679575512d7e76f0049156457d5a388ff72a66001bcbed4e"
+    },
+    {
+      "path": "src/core/matchSimulation/coachIntelligence.ts",
+      "sha256": "3e775a7a3ed4c691fd7f4ff95e0a877e5a101545e061b53fb7d1e72f701cae80"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationPlay.ts",
+      "sha256": "bcf53d2f81fa097f7b66f6f7c3f0010222094005dedd78a8bd81bda353c4f443"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationState.ts",
+      "sha256": "a09d657bf69499a46279fff7be12dda19e1fa5e15c23c89e0fc2c6f8da7785e5"
+    },
+    {
+      "path": "src/core/matchSimulation/contactEvidence.ts",
+      "sha256": "a64b81507736a8dc0dec96af0e5540402cf863940ea482a76f5e8dd0436edab0"
+    },
+    {
+      "path": "src/core/matchSimulation/contactTacticalDiagnostics.ts",
+      "sha256": "365d78486d344c8e8ce2aaee94062d628fa06912851b933d5c7500267f2959af"
+    },
+    {
+      "path": "src/core/matchSimulation/contextualInteractions.ts",
+      "sha256": "eea275620bcf1463f0b65fa3faaed6ffe90e7df46dfda9cfde65912dd3f22329"
+    },
+    {
+      "path": "src/core/matchSimulation/crossOpportunity.ts",
+      "sha256": "879108ef47136a6d32e268cf9c7f816cede3c2bad6eb99047dbf24744e7d0369"
+    },
+    {
+      "path": "src/core/matchSimulation/deadBallEnclosure.ts",
+      "sha256": "75c3e5756e669112d65d9168b6affb6df2c9cece16cd68384f96b2556a21f67c"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionObservation.ts",
+      "sha256": "c41534c352f5991bb65137b7a646ffdb2435c6e0e6891356aa9a7ef80832a4a0"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionOutcome.ts",
+      "sha256": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicy.ts",
+      "sha256": "c7a9168fe98d1389162df6bc2b164d7e1b75e14dc7dd3b144e0a67bdc558b20e"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicyConfig.ts",
+      "sha256": "56c91ab80b0743face9ac992d3411120c3c12d330800392ad0467bf50f9b2526"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionReadiness.ts",
+      "sha256": "1349b979499888f7e86a7213d96a1709bdf5673c23d93c80025fe1ef1a18c1f5"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionResearchProtocol.ts",
+      "sha256": "7ae12349486460fc16034ed8cc9279381b7e28188c971978bdd0680abd8e66e1"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionStateValue.ts",
+      "sha256": "fe6c29e23fd404d07cf942b09fe837d9e12b27580c664cb88298abd697f77ef5"
+    },
+    {
+      "path": "src/core/matchSimulation/defensiveChallenges.ts",
+      "sha256": "8f16ae0c8cac623a4d563363a9c632a209132e2919d6061847b0ccc6a1efcf1a"
+    },
+    {
+      "path": "src/core/matchSimulation/depthThreat.ts",
+      "sha256": "291666a6f16922421e9b2bc9cb536c13986c6e09540336edb2c7e494a60d2f7a"
+    },
+    {
+      "path": "src/core/matchSimulation/dynamicIntervention.ts",
+      "sha256": "2c247e7a347d637566927df147b7f4431d27de92e16551a8966e8cc52badd640"
+    },
+    {
+      "path": "src/core/matchSimulation/effectivePlayingTime.ts",
+      "sha256": "3f0c82fbf4058c85ea6681117f9e71cef6d71355da2c0ca1c4cd73d86977f2db"
+    },
+    {
+      "path": "src/core/matchSimulation/experimentalBodyReception.ts",
+      "sha256": "59b2d96a12324ebb015298c3abab38bb947eb9a61d2ab09c1b10928894a52748"
+    },
+    {
+      "path": "src/core/matchSimulation/extendedPhysicalLab.ts",
+      "sha256": "01f6cd13b9f12824311797d00504b3d659036749b2dd18a22a7e48d3c9412a7c"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTimePassing.ts",
+      "sha256": "953ffeb76c9871ef50544310db1ec1619db2f705204833ffdd300e19be848f5b"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTouch.ts",
+      "sha256": "56889b20a502924427dbb52ba0f46aaba1f3397454cbb391e9b8344c2ab0d798"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTouchLabCatalog.ts",
+      "sha256": "e3dc7fa76c0ec108680ba809d5463e03afa225b2dca25941e058f12a9b8bc411"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTouchLaboratory.ts",
+      "sha256": "2b38e2b332695c8641f477f7140b180a56e2eb921e6b7e7a93b0734f6ed2839d"
+    },
+    {
+      "path": "src/core/matchSimulation/fitnessMicroLab.ts",
+      "sha256": "ba9e131b705c4e35c93e4747e8873a8d1314cb372b676512cdcfb26c739c0f0d"
+    },
+    {
+      "path": "src/core/matchSimulation/footContact.ts",
+      "sha256": "140546cd09121107d34e5850c8c55e9db05ce8b29babcc7fd566da7562a8706f"
+    },
+    {
+      "path": "src/core/matchSimulation/footballContactResearchPlan.ts",
+      "sha256": "33fa84a80fa9b944ccb08996201cde103f911b4722703e593d98d0ccb71d6c6f"
+    },
+    {
+      "path": "src/core/matchSimulation/footballIntelligenceDiagnostics.ts",
+      "sha256": "9e8ce023d5a0cf1593c09890ba681979ba5b255ee197b54c7122e6577b8a6fba"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabAnalysis.ts",
+      "sha256": "9ab51e75602ce4b9588bb3e2ab6280e83a32ee3f9951ccc63c761a259c09b27d"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabCatalog.ts",
+      "sha256": "a408bfaa1399027ee226a66b48a90187462bce1ab15efdbd9229c82e3fb52f87"
+    },
+    {
+      "path": "src/core/matchSimulation/footballLabObjects.ts",
+      "sha256": "c68d06769925f3e949983cf2d789019b65e613280e673e16dc2d23e8134b5afc"
+    },
+    {
+      "path": "src/core/matchSimulation/footballPerformanceLab.ts",
+      "sha256": "05ec6d534c8673092fbac2a7e57db43fa44db0dbfc64aee6f792766ef042493a"
+    },
+    {
+      "path": "src/core/matchSimulation/goalCoordinates.ts",
+      "sha256": "b6277c370055ad317b00acdce5cf2d0d5cff3b859b2e32efd2d3e6c5e115c068"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperClaim.ts",
+      "sha256": "4c41e5c2e8e2fdba99f21bd3fe24b20998f1febb55f7fc0136dfb4af0a42b56f"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperDistribution.ts",
+      "sha256": "b5669d56641c5af6f4aa292e09b616df86dee31c6e0d7e61f4f53a769a447a80"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperIntervention.ts",
+      "sha256": "0dbe943e011f145c1c7c779cabea047e0c5be1ad8a2d559f5f62f19a82ef32ac"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperPositioning.ts",
+      "sha256": "99c77bf2a7116147c0dfa5744e2b4c039beabdb519e77d071d7faf98bcf24592"
+    },
+    {
+      "path": "src/core/matchSimulation/identityHistory.ts",
+      "sha256": "a053df52915c1994e2699bb3ec9ad915ebb89aece2c939fa2a41fd052f18272f"
+    },
+    {
+      "path": "src/core/matchSimulation/incidentalGoalState.ts",
+      "sha256": "a8f24569dae34f8dc9a010e7402ef4b95b66f3dccc42f80478eb6d90be8f3122"
+    },
+    {
+      "path": "src/core/matchSimulation/incidentalGoals.ts",
+      "sha256": "b9edebf41d97c4734778d8f827ed6b94245f4ad14eccb2ba6b36bda712d55f38"
+    },
+    {
+      "path": "src/core/matchSimulation/index.ts",
+      "sha256": "fa676786bf995cdb4bfc8be41e602f5a8f89ee41e6efaeead99ce54e8b58a2df"
+    },
+    {
+      "path": "src/core/matchSimulation/injuryStoppage.ts",
+      "sha256": "87ee6f5dbd82616867a781ae649cade58b579b3288c3999b1f5bf0019b7eb5c6"
+    },
+    {
+      "path": "src/core/matchSimulation/locomotion.ts",
+      "sha256": "0aad8d4aa4171d009c8849d8df2151c13be27b841f533cade67f4f26d3444879"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallLiveness.ts",
+      "sha256": "6885f539edd5b20bb7e09b8493b9675d3369412ee66926ec51a5da3ebffaaff7"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallPhysics.ts",
+      "sha256": "00df4b39314c094be1a3eed43ccbf7ff0434fdef2cec3471a6e8ae177237efda"
+    },
+    {
+      "path": "src/core/matchSimulation/lowerBodyGeometry.ts",
+      "sha256": "856d7d11b67c94e1adc7b934591dd5f5159f20c8926986fc4d9e01fc8e82a10f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "sha256": "e16bbe0eafbe40ac46a846c3dd40c557f70acc31f3cc0357273402bad9c2f138"
+    },
+    {
+      "path": "src/core/matchSimulation/matchCentreStatistics.ts",
+      "sha256": "1f6c75d9d1483d112ae084b8219765afeab3d623751cb40423993c48dd12c666"
+    },
+    {
+      "path": "src/core/matchSimulation/matchComparison.ts",
+      "sha256": "694a3409c340da0f55ae7283ca97fb4c9bfe15fc008b3778f58101fb47f87e25"
+    },
+    {
+      "path": "src/core/matchSimulation/matchEventFeed.ts",
+      "sha256": "0cdd73ab75d40f51b28d63910418ab3c0c1d5500491f9aaadb391f9ad526ba61"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFitness.ts",
+      "sha256": "a0e827218f33496d1a71129cfb0fa0095381e4f2641077f100b57b702b9201ec"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowCalibration.ts",
+      "sha256": "5f11b0cc7e57afe02c6fec3eb0d9b5cf248df702d77eb5d1dc83bd971afdec31"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowTelemetry.ts",
+      "sha256": "814214b463a92202857204b4dec56f6f7357f5f52f2a73386d00424562391d0e"
+    },
+    {
+      "path": "src/core/matchSimulation/matchGoalkeeper.ts",
+      "sha256": "a03e4270776c986dee6023fde7054421533244039333c17e970749fd834e8d7f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchInjuries.ts",
+      "sha256": "1356eab111fe24a43ffe2cb9c404641d61ba3810362c0a37fb876590db000ebd"
+    },
+    {
+      "path": "src/core/matchSimulation/matchMoment.ts",
+      "sha256": "1ca58980b14b2f238860c7f25bcdb99f3f99a145c5e99c07815e15b9831dfaa7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchParticipants.ts",
+      "sha256": "6f6f5052024e86b4095b8fb59a53284cde5164eea45c312f25c0ab9a502fe89b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchPresentation.ts",
+      "sha256": "2bd57cfedf3f7bc615c46cce94b15fdbcbcc91daa1524a8aa6847590d0c2cebf"
+    },
+    {
+      "path": "src/core/matchSimulation/matchReplay.ts",
+      "sha256": "6d575b2a72892cd8bf1a24c08a342afa67cdebe5d263b1f7cab2d1094ce199c7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchRules.ts",
+      "sha256": "2c6675fd14e2c33917f5948f10b345c82cc95dddaf5e1b42d585ad8a6e15d38a"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSimulation.ts",
+      "sha256": "b3cbe0e673472f40d5762ef77973c8ca7a1e5ded07311f971796ae88e189bfb6"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
+      "sha256": "7f667cf65b51a93bdd0fe07e60b28e7432745968317d76bda07d1925ebe34a71"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSpace.ts",
+      "sha256": "ed0c0bba51b8dd0ff47253d7f1beae3ac4db70168a6625f867dbe6f47eb780e8"
+    },
+    {
+      "path": "src/core/matchSimulation/matchState.ts",
+      "sha256": "1bd7d9075fc651f9d7ef1fe1eed9b7f9f1bd4dd374b7816446af4d7af577ebd0"
+    },
+    {
+      "path": "src/core/matchSimulation/matchTimekeeping.ts",
+      "sha256": "de0b3592d72e33135bd8803532df42bb25bb38ec5c47429397d75dfd7ea2f924"
+    },
+    {
+      "path": "src/core/matchSimulation/movementAuthority.ts",
+      "sha256": "ab9f64fd7679af4656328fff36cf98b9acd1eb886fab480185b26059192976d7"
+    },
+    {
+      "path": "src/core/matchSimulation/naturalMatchFlowDiagnostics.ts",
+      "sha256": "75b8f2ad36859d2cf535204d801692a99a2f68ffb7eea5fa1c4f47f9ea087143"
+    },
+    {
+      "path": "src/core/matchSimulation/observedPassDelivery.ts",
+      "sha256": "5dd791fb976d3c97cd6de4124575590591b808e5f7482d91bc6ea43b8a9d4fde"
+    },
+    {
+      "path": "src/core/matchSimulation/offensiveContinuationFunnel.ts",
+      "sha256": "d8ef2c738a2b8a67c3acb9f623f0a601dde20142dd23f5a4b0e967aa5f9ec911"
+    },
+    {
+      "path": "src/core/matchSimulation/offside.ts",
+      "sha256": "82f1da4443c622d66310eb77bb3edb4f5a5c1d6816db39f80e4b432716d15390"
+    },
+    {
+      "path": "src/core/matchSimulation/onBallPreparation.ts",
+      "sha256": "b508090bd482e6da079089e55d70e9562f33febafdb6f3ce43dda5f2bdf22651"
+    },
+    {
+      "path": "src/core/matchSimulation/opponentKnowledge.ts",
+      "sha256": "0a89207ba2b39f2a9127f6ab3a1a3106c3e57ecf19570c521b2829a2ccad47fd"
+    },
+    {
+      "path": "src/core/matchSimulation/opportunityWindows.ts",
+      "sha256": "48d80edf2ef3ef470eab27b875cb00429a91e1d491ed2e01728459a12410a082"
+    },
+    {
+      "path": "src/core/matchSimulation/passClaimResolver.ts",
+      "sha256": "0cc9978c84a342e8ca9a93304644f5e11a8130e2e35b9e1bb4300e8caf85cc6c"
+    },
+    {
+      "path": "src/core/matchSimulation/passClassification.ts",
+      "sha256": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "sha256": "88b8abcfab41a24bbde2a6f9f82f4b27ede92941aefe7b10752a5dab118fa657"
+    },
+    {
+      "path": "src/core/matchSimulation/passExecution.ts",
+      "sha256": "963f3bb5f2f5d9bf3c59f7f8f6d3a2226163c9f4aa3e2c5cf3139ebb0765eff0"
+    },
+    {
+      "path": "src/core/matchSimulation/passLaunchPlan.ts",
+      "sha256": "5dc7f2bcf91d9d3ebd54ffd10c2955bd8a2ecfd31e9e11bc3721ec8673c4d59b"
+    },
+    {
+      "path": "src/core/matchSimulation/passLifecycleDiagnostics.ts",
+      "sha256": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e"
+    },
+    {
+      "path": "src/core/matchSimulation/passReception.ts",
+      "sha256": "9bd54204a949b07646191538cc2b1d763938ffbc7ca578d5e86d741b9d32a170"
+    },
+    {
+      "path": "src/core/matchSimulation/passingConnectivityDiagnostics.ts",
+      "sha256": "1316512562e76439324226a2a876a34f711188e24c88280b901bb46696120aef"
+    },
+    {
+      "path": "src/core/matchSimulation/pathologicalReplay.ts",
+      "sha256": "b250c7deacd820d624aefbf76145e1a0502d371d6ad06ff924b76fe638dcf2c8"
+    },
+    {
+      "path": "src/core/matchSimulation/perceptionDiagnostics.ts",
+      "sha256": "1dd3d8b264fce0eba8c444ef27cd69d1d24deecd79d60bac1d7f086186ae5cc6"
+    },
+    {
+      "path": "src/core/matchSimulation/perceptionLaboratory.ts",
+      "sha256": "b6673745afc8595439b46f82ac357fa69ea7c895e382219362d266c6ba32ae5b"
+    },
+    {
+      "path": "src/core/matchSimulation/performanceProfiling.ts",
+      "sha256": "eebad735825e1ad287abed7e866439726a048391c2494950a712f9f36c8238d1"
+    },
+    {
+      "path": "src/core/matchSimulation/pitchBoundary.ts",
+      "sha256": "9b732b20295e190f6f538979f856c12bac35f994d1fce4de5b4ef8d8f2847c93"
+    },
+    {
+      "path": "src/core/matchSimulation/playerActiveMinutes.ts",
+      "sha256": "06e1ffde7b9bc8eac314b3605c64760bda28bf6f42c18d2fbc5241f8d2e822a8"
+    },
+    {
+      "path": "src/core/matchSimulation/playerAgency.ts",
+      "sha256": "69f239096bbfc9cb9c1ca14e438647032db02d7f925afff9e759a937372a0f05"
+    },
+    {
+      "path": "src/core/matchSimulation/playerArrival.ts",
+      "sha256": "f0e79d3384813ef0420f2e2af8a28a35f4c17c771f43f19508df10f117d2610c"
+    },
+    {
+      "path": "src/core/matchSimulation/playerDecision.ts",
+      "sha256": "8625621b6864a86beb77e4a5f3e669f1e690de8bbf5d4299058db242a3891b32"
+    },
+    {
+      "path": "src/core/matchSimulation/playerMatchStats.ts",
+      "sha256": "289baff7665e59e12f290fc2a04ea0afb7f0fecf33e8a9dc0d84d5dc647e0ff3"
+    },
+    {
+      "path": "src/core/matchSimulation/playerOrientation.ts",
+      "sha256": "bd34ab6e27e4a3d22a4acb45557d9887bedee26ea2b12573aaef5ece271ca4e3"
+    },
+    {
+      "path": "src/core/matchSimulation/positioningReference.ts",
+      "sha256": "0e9c67d5966c85eecff720f3ee6d59bd3265956e8e8635a2af3f118b47caad03"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionAgency.ts",
+      "sha256": "18a6ceb5587d25a89237cc0de0828746d8ad6264080e366627e8e738c6f9cfc2"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionEvents.ts",
+      "sha256": "7bd00202c102be5322f8d6ef0b39a6137d7a5d5d00d964e00353404a88789eea"
+    },
+    {
+      "path": "src/core/matchSimulation/postGoalReactions.ts",
+      "sha256": "a2fd16718d96373f7465b615b786b23505b202ca9fe61c89a62946e13891b9bf"
+    },
+    {
+      "path": "src/core/matchSimulation/pr163Fixtures.ts",
+      "sha256": "02dec0f3e501bcf53f746fb5b77ac4f58798a866a1656b3b587d575c72f90312"
+    },
+    {
+      "path": "src/core/matchSimulation/pr173Fixtures.ts",
+      "sha256": "04c2ed101f5799de342bf8c0abb61af28dc0e8ca4e406524496511a7e293dd54"
+    },
+    {
+      "path": "src/core/matchSimulation/preReceptionPlanning.ts",
+      "sha256": "b72bed8cdbc061749a90b52b287b1463225fdced0b95fec64a71ac6717a9cc98"
+    },
+    {
+      "path": "src/core/matchSimulation/presentationWindows.ts",
+      "sha256": "0e0eefc21d3ad219413e4259303cdbd074ec8f3f3158144ce5a131cb7789cece"
+    },
+    {
+      "path": "src/core/matchSimulation/pressingDiagnostics.ts",
+      "sha256": "1a21f31266d2c4646d81a27cca065f5d41755367743a8ff6ba50de423c5b9028"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "sha256": "d6ffb94c98f7eb9ebe7bc60e01978d9c26ccebf784601bff2fec463e52fe2ffc"
+    },
+    {
+      "path": "src/core/matchSimulation/receiverReadiness.ts",
+      "sha256": "5ec483ff5951ea8a9c3c4e8e7d66f94609b34acbf47805275ee25ed55aa4bdd1"
+    },
+    {
+      "path": "src/core/matchSimulation/receivingPositions.ts",
+      "sha256": "e0b9f0a57ea8e145ff704246d518603dd74dd0b771baf78641870dc9a1ec5479"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuation.ts",
+      "sha256": "10e9923081e0c5c302694f0e62a99b36dd18c8dd3d730f21b745fe2929796258"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuationSchema.ts",
+      "sha256": "85550ed89812f7328980fa2a24a62ff71f72cf0f09e7aef932f6c324ae1cf403"
+    },
+    {
+      "path": "src/core/matchSimulation/relativeDecisionLab.ts",
+      "sha256": "4beab55705205d16315a66ffe056641c74e2e62e64f5e588a1e80e39009c5997"
+    },
+    {
+      "path": "src/core/matchSimulation/restartGeometry.ts",
+      "sha256": "8bb9aff9871f6292833eb8465f59b59235fbe009413017fc7ba0768acd2d768f"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLaws.ts",
+      "sha256": "6f707e8ab681d146e7a9add724189ac640c86b6c2c69ccdfde435f5a79a98df1"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLifecycle.ts",
+      "sha256": "03ffd26d3d883c18a65932b3b1741085e418fb0ae7d11c6b2c3ff133683ada4a"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLiveness.ts",
+      "sha256": "d62e8d4dbc655822e943a658f798e8f533f0c94f848dfad8687b7bbaa3c720dc"
+    },
+    {
+      "path": "src/core/matchSimulation/restartOptions.ts",
+      "sha256": "a7516e2826e804e3bef5be960124c441308471a9389e42a15ab0530273d0bae5"
+    },
+    {
+      "path": "src/core/matchSimulation/restartPhase.ts",
+      "sha256": "25824e9463b21df657c1225832ea898e32b4b0bde4193fbaa7fadd11eb9e4b9b"
+    },
+    {
+      "path": "src/core/matchSimulation/restartScenarios.ts",
+      "sha256": "530b28012106f7b9438fd2d6dd1164b6cee0ac777d637213b49a73593d60a58f"
+    },
+    {
+      "path": "src/core/matchSimulation/roleExperiment.ts",
+      "sha256": "83ec62e97f6d3276f0f1ccd9ca624f50be156a12298012979e41f320c0e64c8c"
+    },
+    {
+      "path": "src/core/matchSimulation/roleTactics.ts",
+      "sha256": "f1acb50cea6f06e00cfeb73f2732b69c17aa9f1a35ee060c5c8808cf20896e8a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingDifficulty.ts",
+      "sha256": "429f7ecd9b6e335a0329e7d908822e92554b581fa52b9b2ec86613882ea3de0a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "sha256": "752796e13ba303b1f18f672dc0e9179d21ed0d6ce5e2795460de3ced6de0ff95"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "sha256": "02114f677aa32ed832fba79a182b923f436720134b85836ce57a08c3f8b2c862"
+    },
+    {
+      "path": "src/core/matchSimulation/shotIntent.ts",
+      "sha256": "b6d7553ba010cbdc078528f738ee60828d509b0013b042b60b287a28305480b0"
+    },
+    {
+      "path": "src/core/matchSimulation/shotParityBenchmark.ts",
+      "sha256": "19130ddaed7c7faa4004c2c180bede7b0677b15db6e6ac0b71ef427490c8eea4"
+    },
+    {
+      "path": "src/core/matchSimulation/shotResolver.ts",
+      "sha256": "7a84eb30dcbe40d85894730bef14527fb72f3bb9bc8709dffde1db8ce9bde3c7"
+    },
+    {
+      "path": "src/core/matchSimulation/spacePassing.ts",
+      "sha256": "36f11dd1e67a16d761644f8e314568ebcbeda8b2c9974e977d70ab9598acb7db"
+    },
+    {
+      "path": "src/core/matchSimulation/stoppageLedger.ts",
+      "sha256": "526ff56e91e8f3e1fac8c7162e47e4a5defbd63d627bf60934467fa5040e8783"
+    },
+    {
+      "path": "src/core/matchSimulation/strategicClearance.ts",
+      "sha256": "30569840e83fc6385d992a7f4ad535cd6955679630a65fdca5bd41c97d840234"
+    },
+    {
+      "path": "src/core/matchSimulation/substitutions.ts",
+      "sha256": "75713c13f4042388df8ea9e78d163cf07fef691c2613bcdcc7cdfe57fe208198"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalActionEvaluator.ts",
+      "sha256": "9acd93a81d4d7ee674f5018f0b4299691537209aef3447d7bf892b017ffebfa2"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalCognition.ts",
+      "sha256": "a2661b893e50db5cfe428ed01c0fa9ae434430a673d8cfe013e72dcd1e1ba9bc"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalCognitionLab.ts",
+      "sha256": "d2092045b28f13b08d03fbbb917cc937a9f10834ad49f9992bac8d130ea8cdf7"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPositioning.ts",
+      "sha256": "46a060add4dbc7a6d79ea755db8690b367418be1644fbf6dff4504255a7c468c"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPreferences.ts",
+      "sha256": "19637eaab139c240caca4db0ff1c9f4a1e50a68af0ff4715073f5ba89afbc891"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalRoles.ts",
+      "sha256": "b72403c152f47a08bfd0a33a67d3119a231d0bb857d50cb45f76ea21dcd8a527"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalSituations.ts",
+      "sha256": "fea7f804d00e26f3d339c9f99309ee880f141b6b93328880c7f55e10853d46d7"
+    },
+    {
+      "path": "src/core/matchSimulation/teamShapeMetrics.ts",
+      "sha256": "53042fec058f8cdb0f35434bc0dc7936709c2243a7b56f7f883de96e7be09a66"
+    },
+    {
+      "path": "src/core/matchSimulation/teamTempo.ts",
+      "sha256": "50a3ea61e89909d8bcaea0e4eaef7f6ca03b77d57757f060f554f4830d762244"
+    },
+    {
+      "path": "src/core/matchSimulation/teamThreatMemory.ts",
+      "sha256": "020becaa376e3763664eddd9aa26e36560fbf4c200fb09eb775fde551bc4dca8"
+    },
+    {
+      "path": "src/core/matchSimulation/tempoEffort.ts",
+      "sha256": "8a2ceca5534d69e2a4031f148523fc5720e0cd7a65428229529f0d6d3fe6594a"
+    },
+    {
+      "path": "src/core/matchSimulation/throwIn.ts",
+      "sha256": "32590736ab61799e6495677d77ba35c301eab634cddfa6359f71e403e00edd9a"
+    },
+    {
+      "path": "src/core/matchSimulation/transitionDiagnostics.ts",
+      "sha256": "8ec0c8bec0ba80d4ded69314fa93ccca08fad62a2d35c89ec86dc7a184e31c25"
+    },
+    {
+      "path": "src/core/matchSimulation/transitionLaboratory.ts",
+      "sha256": "768d984799b6ea0cbcbe5bbe7bdaa4a46f541a777f32d4a4234234837179b739"
+    },
+    {
+      "path": "src/core/matchSimulation/transitionMovement.ts",
+      "sha256": "0a352cf9e9f98bd4a1b20df11000dfce35afa67e4c376c84cb46dcc4e0ebaaa8"
+    },
+    {
+      "path": "src/core/narrative/careerEvidence.ts",
+      "sha256": "35bed6893444bcdfe4c6d3c40ad74b68066f8a73da12f57ae247c8baa4f5189f"
+    },
+    {
+      "path": "src/core/narrative/careerMilestones.ts",
+      "sha256": "9a5d217fc5f33b33495b83b51890d2d08063ce9bf0cd4ebd469c6ed23e053248"
+    },
+    {
+      "path": "src/core/narrative/careerStories.ts",
+      "sha256": "f97ab69eb48eb2ce3ceec24464d6d79ed5beb6559f815d890ca17c5745c88371"
+    },
+    {
+      "path": "src/core/narrative/factPresentation.ts",
+      "sha256": "fb8c1a363ce49d62d7073db0d4bc374eae428b33354b315f63d4c7182978d320"
+    },
+    {
+      "path": "src/core/narrative/localization.ts",
+      "sha256": "00296594afbac01927e8b684a87fc160eebf6fc7b6acfc24f5cb10eba63bfa65"
+    },
+    {
+      "path": "src/core/narrative/narrativeAudit.ts",
+      "sha256": "41b85180f21df2ab4dd4f7433a3ef72d634755a289d2cceeaee0efb353145bd2"
+    },
+    {
+      "path": "src/core/narrative/narrativeVariants.ts",
+      "sha256": "86e2cbd3a4ca07e421befafb537e33c3594f955b83605d4e6bda71f0a5500b8b"
+    },
+    {
+      "path": "src/core/narrative/playerFacingAudit.ts",
+      "sha256": "2ff711d11d7d3de53ff3bc61b226ec65cb60cdf953cb72355bde3e90bcb2f428"
+    },
+    {
+      "path": "src/core/narrative/repeatedTextAudit.ts",
+      "sha256": "3cbc58cd9601b959e83678ffab8eed949b03e331ad3c3fc102f5b52889f72ad2"
+    },
+    {
+      "path": "src/core/npcCareerIdentity.ts",
+      "sha256": "ca2ffc684165237c14cb11fbd0229dae8dfdf64d37e4996d59656d362d4afcc5"
+    },
+    {
+      "path": "src/core/npcFootballIdentity.ts",
+      "sha256": "c0aee0d4ab61d261928f45652067de75e613c0f90c8648cdd5774adb14fbf065"
+    },
+    {
+      "path": "src/core/npcRetirement.ts",
+      "sha256": "9961fe2ede12957e27bed5245721447b893079661aa3cae430379cd5d82562f7"
+    },
+    {
+      "path": "src/core/npcTransferEconomics.ts",
+      "sha256": "1fb6a65ca12ef7605d7267df5bc94b19cf29e4368755f2f9c4b8525ddf8b9814"
+    },
+    {
+      "path": "src/core/npcTransferMarket.ts",
+      "sha256": "e909718f1a99ddb5901e4f39d40765c496ba2888ed8194cf329f8722b60422a3"
+    },
+    {
+      "path": "src/core/numberPresentation.ts",
+      "sha256": "bd73aefeceeedfa97c7654bc2615007f6083fd24c5ea9066aedcda723f9d5a28"
+    },
+    {
+      "path": "src/core/participationPresentation.ts",
+      "sha256": "e31d4598f7ba1e69169292e696447fd60c63ddd8859a4c9e8cb774564e7f90d0"
+    },
+    {
+      "path": "src/core/people.ts",
+      "sha256": "360a1d86523135b1d0001a215fdb6d6af71ac4bc0a654b572376698110234fd5"
+    },
+    {
+      "path": "src/core/persistence.ts",
+      "sha256": "c365eeee2c63c2b0a4125824c7bfff42f918e6452bee8a2672a10c7df74e00d5"
+    },
+    {
+      "path": "src/core/playStyles.ts",
+      "sha256": "85f7fc287b538c2c6dc68cffad2dd0f6061b7bcd41040a9c5f3fdf2db0b9d3fb"
+    },
+    {
+      "path": "src/core/playerAvailability.ts",
+      "sha256": "dd24658b4d322c915654c3d680cf7ef36a72e8fe6e56977d74e2e599353eb1e9"
+    },
+    {
+      "path": "src/core/playerCreator.ts",
+      "sha256": "c459efb4cb6044b81b967a3f56d4d493e372b0715f9a6e7addb70cce27bff136"
+    },
+    {
+      "path": "src/core/playerEconomy.ts",
+      "sha256": "782df92c9f4c71e517ce1c64088b2824df61e1e5c3e76eadb406e2a9ab9e8de8"
+    },
+    {
+      "path": "src/core/playerOverall.ts",
+      "sha256": "f980eca9dcb35a95152c45a21b9c1d6e04c45490a4b14e7c07eb43583e4f7b52"
+    },
+    {
+      "path": "src/core/playerPreferences.ts",
+      "sha256": "cccee0480ba76c0ad8ba3c4399cb0bfcde0264b33e5e98805658c0c1ebe41b00"
+    },
+    {
+      "path": "src/core/playerProfilePresentation.ts",
+      "sha256": "51c64ca390b53975a029b807c16377dca3e6fe0cd10764a08fa5a0ee396ec97f"
+    },
+    {
+      "path": "src/core/positionCompatibility.ts",
+      "sha256": "714ae0e566e7a3418f4a8a8f9339759b49740e05cb400fee3007b831ed612f09"
+    },
+    {
+      "path": "src/core/positionLearning.ts",
+      "sha256": "2ddbf2d0003b9fa3ee43be2dfb7ae4d46c88129c9cb2b66077a00e2770934726"
+    },
+    {
+      "path": "src/core/positionPresentation.ts",
+      "sha256": "4209b9a09e0096ec695fb7ac36cc2f036f17c2d179fc43e796b52883ec88f341"
+    },
+    {
+      "path": "src/core/proceduralFootballers.ts",
+      "sha256": "a19ade4478e869c39ba0fc8ff073af3cf4036d9451a8aafed448dc85d3e6354e"
+    },
+    {
+      "path": "src/core/professionalClubs.ts",
+      "sha256": "51d9553a8cccf577d0d26889d879641e021789cb6b5eae292e842021088a2635"
+    },
+    {
+      "path": "src/core/professionalOfferPolicy.ts",
+      "sha256": "388fdc69e829682c9ff8bd1346a039f3e25efd674a6b98b2290cab5e9ce77504"
+    },
+    {
+      "path": "src/core/progressionDiagnostics.ts",
+      "sha256": "7fef94c66bad3f2ad1287d6a6d9ab0abf1f6e7c09e102a806256a6ae47d677f6"
+    },
+    {
+      "path": "src/core/radar.ts",
+      "sha256": "64b95305aba36d6663a78e26d7a87ed4dc84dce3c2cae59177d84c73ce528b16"
+    },
+    {
+      "path": "src/core/random/RandomGenerator.ts",
+      "sha256": "485ec207596f679f99608b7d2a0feedff459fa0224e138418a0f4160c0137910"
+    },
+    {
+      "path": "src/core/seasonArchive.ts",
+      "sha256": "9d38d200efdb4f62e29befa8da5c18d226d0e588b152f9fa7a8e0f226b9c33b4"
+    },
+    {
+      "path": "src/core/seasonAudit.ts",
+      "sha256": "5dc6be5093bd99b88e466765c5808ce59ccdcf38432f3919986ec15e77b464a5"
+    },
+    {
+      "path": "src/core/seasonDevelopment.ts",
+      "sha256": "de834d3cc01a2603aa01845d0f85f8be50ac3450a36a3c1c84643146029f8c24"
+    },
+    {
+      "path": "src/core/seasonInjuries.ts",
+      "sha256": "3c014b8a9ddff2f9b831746bb0981cd27eb17ae8a9df716257f5df27a1498540"
+    },
+    {
+      "path": "src/core/seasonParticipation.ts",
+      "sha256": "0797d656e575f4e9e2f6818072aedd07f4f1efeae9a584bdc70cff4377beba28"
+    },
+    {
+      "path": "src/core/seasonProgress.ts",
+      "sha256": "4a0f09c8a9c340ccba661c5426ac3c873b34c7990ff60c4ce1d22da04e1a5c19"
+    },
+    {
+      "path": "src/core/seasonSquadReference.ts",
+      "sha256": "abd21e9ca206633fb60c4bf9c01e134188c372f525fb2803a185ef26b512a663"
+    },
+    {
+      "path": "src/core/seasonTimeline.ts",
+      "sha256": "4b839b3d427d0a28b791c6f65ca5f1840fc3c54556ea9dbad26042830a51b51e"
+    },
+    {
+      "path": "src/core/singleMatch.ts",
+      "sha256": "62497bfca63400741f0f193a0f6085cfa0a2700bae4cb61258f69a29f744deac"
+    },
+    {
+      "path": "src/core/summaryMatchContinuation.ts",
+      "sha256": "b09345be60df09f768187c8feddd808a38e64f982172209a16648668a2a4188d"
+    },
+    {
+      "path": "src/core/visualIdentity.ts",
+      "sha256": "bc32bb64cebaf041a8225756fd7ce85ef062ed48603a60b5ed0320b133ec4414"
+    },
+    {
+      "path": "src/core/worldDatabase.ts",
+      "sha256": "f30e35b042fdc5b2cdc6cf21aedd62ce9130021baf98f23a20548797792442d0"
+    },
+    {
+      "path": "src/core/worldIntegrity.ts",
+      "sha256": "990ff159ddf2f675699a14dae90260bd376856a769576377eeb9f17306611058"
+    },
+    {
+      "path": "src/core/youthGraduation.ts",
+      "sha256": "2851dc63485d63600b78ab4e3f0ea82521b0a1c35b31949f0597963bec0d81a9"
+    },
+    {
+      "path": "src/core/youthIntake.ts",
+      "sha256": "5193ab0614424e2a610f3246780853a9f30c673560310103bf03f496dc08f8bb"
+    },
+    {
+      "path": "src/core/youthTalent.ts",
+      "sha256": "c336c613019f2ada3537f22b7bba61478c8ad51842a42ed477782c77d6df10b0"
+    },
+    {
+      "path": "src/core/youthWorld.ts",
+      "sha256": "decc276ce0ec12a7ae1a9703c0dceedadf528899095433e76e9f9f133a4cd833"
+    },
+    {
+      "path": "src/devtools/randomPreview.ts",
+      "sha256": "9ffa22ca1f1dae6c3682d40d48929ad2e74559616b484bbfdefc515a3b1f1eae"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "c99083c9c9cec9d57be49b55c69ede6536b3458ea17ce8ce739d14a30f1ec377"
+    },
+    {
+      "path": "src/persistence/careerStorage.ts",
+      "sha256": "5753978ad81658cddf1521ab407390d105e201823897d600894209a5e9cf9dbc"
+    },
+    {
+      "path": "src/schemas/domainSchemas.ts",
+      "sha256": "3517b61f8462f1f57b4cefe8ba32b605b16abff8218f0179a5d78f46c8e9239f"
+    },
+    {
+      "path": "src/schemas/validateContent.ts",
+      "sha256": "a368628f2dc3d8ffdb03eca23f41bb6f6c69b8c49bcf9fc2970d4c381180da73"
+    },
+    {
+      "path": "src/types/domain.ts",
+      "sha256": "c447e86ca5fd99d55dde7d8b2a8ac619a2ecabfd5439e6d9a2659bb322c1ad47"
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    }
+  ],
+  "sourceHash": "a334a8e3a8b1b46e7b73efdd4035762a4fa227697ac38e85ed7a62239b2d44f7",
+  "kernelHash": "7bedfbe933f3465079225b8e5b881e6ec40f321213fe6c80cb369bdd7084d617",
+  "sourceArchive": {
+    "path": "docs/performance/pr194/source/a334a8e3a8b1b46e7b73efdd4035762a4fa227697ac38e85ed7a62239b2d44f7.json.gz",
+    "sha256": "1df5e3ae24d262552a3d90871599e46cce8bf4fcb7b6df4ff92cee4c5c376671",
+    "originalSha256": "0f0165b6d4e9515a59fecccea343101b9bda42c2f2c0ac698b2ae261c6485e8a"
+  },
+  "checkpoint": {
+    "path": "docs/performance/pr193/matches/ww-state-value-v1-combined-final-v2-capture.json.gz",
+    "sha256": "42c2bf5ec395fcc4a8c1ef11706c7ab2a934f81bfd478f136f6cc6fb25102f14",
+    "stateHash": "f9739a3a29641a21f0996c0436107d334122c17237c4cac955886b53bb0f2f4c"
+  },
+  "host": {
+    "node": "v24.22.1",
+    "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+    "logicalCpus": 16,
+    "platform": "win32"
+  },
+  "rows": [
+    {
+      "repeat": 0,
+      "mode": "baseline",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "f9739a3a29641a21f0996c0436107d334122c17237c4cac955886b53bb0f2f4c",
+      "finalHash": "696873a59bb5dd7565afb817439e8657f884f840294f7b3e21a06c0e02260f9a",
+      "cpu": {
+        "user": 797000,
+        "system": 31000
+      },
+      "wallMs": 540.5161000000003,
+      "rssBefore": 209326080,
+      "rssAfter": 304635904,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "defensive_attention",
+            "sampledMs": 88.37859999999637,
+            "estimatedMs": 88.37859999999637,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 148.3656999999953,
+            "estimatedMs": 148.3656999999953,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 2.47490000002108,
+            "estimatedMs": 2.47490000002108,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 15.240999999997712,
+            "estimatedMs": 15.240999999997712,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 129.056300000002,
+            "estimatedMs": 129.056300000002,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 125.75879999999734,
+            "estimatedMs": 125.75879999999734,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 137.0148000000022,
+            "estimatedMs": 137.0148000000022,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 75.5505000000012,
+            "estimatedMs": 75.5505000000012,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.6050000000045657,
+            "estimatedMs": 2.6050000000045657,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 19.788199999998596,
+            "estimatedMs": 19.788199999998596,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 37.96049999999923,
+            "estimatedMs": 37.96049999999923,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 48.552700000000186,
+            "estimatedMs": 48.552700000000186,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.9143000000040047,
+            "estimatedMs": 1.9143000000040047,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 96.46920000000136,
+            "estimatedMs": 96.46920000000136,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.0917000000004009,
+            "estimatedMs": 0.0917000000004009,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.2614000000003216,
+            "estimatedMs": 0.2614000000003216,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "mode": "baseline",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "f9739a3a29641a21f0996c0436107d334122c17237c4cac955886b53bb0f2f4c",
+      "finalHash": "696873a59bb5dd7565afb817439e8657f884f840294f7b3e21a06c0e02260f9a",
+      "cpu": {
+        "user": 594000,
+        "system": 0
+      },
+      "wallMs": 430.65509999999995,
+      "rssBefore": 305131520,
+      "rssAfter": 307458048,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "defensive_attention",
+            "sampledMs": 67.84640000000263,
+            "estimatedMs": 67.84640000000263,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 110.92080000000306,
+            "estimatedMs": 110.92080000000306,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 2.3104000000007545,
+            "estimatedMs": 2.3104000000007545,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 14.862600000000839,
+            "estimatedMs": 14.862600000000839,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 116.47180000000026,
+            "estimatedMs": 116.47180000000026,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 85.31770000000051,
+            "estimatedMs": 85.31770000000051,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 91.62849999999844,
+            "estimatedMs": 91.62849999999844,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 64.66920000000073,
+            "estimatedMs": 64.66920000000073,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.7622000000005755,
+            "estimatedMs": 2.7622000000005755,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 20.514299999996183,
+            "estimatedMs": 20.514299999996183,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 33.79589999998734,
+            "estimatedMs": 33.79589999998734,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 36.64050000000043,
+            "estimatedMs": 36.64050000000043,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.4699999999984357,
+            "estimatedMs": 1.4699999999984357,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 76.02449999999862,
+            "estimatedMs": 76.02449999999862,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.026499999999487045,
+            "estimatedMs": 0.026499999999487045,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.04470000000037544,
+            "estimatedMs": 0.04470000000037544,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "mode": "perception",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "40a38fadc9ed9fb44b253b7ee4afa473ca30a3aa6cac1ca644ded4d8f5f52e38",
+      "finalHash": "5fd36160054387b7b4eba3f5f990664121827ab7ea35eb2db30864e07b0531a4",
+      "cpu": {
+        "user": 563000,
+        "system": 31000
+      },
+      "wallMs": 417.6612,
+      "rssBefore": 307863552,
+      "rssAfter": 311660544,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 54.63430000000517,
+            "estimatedMs": 54.63430000000517,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 70.13810000000012,
+            "estimatedMs": 70.13810000000012,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 50.91939999999795,
+            "estimatedMs": 50.91939999999795,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 62.20130000000063,
+            "estimatedMs": 62.20130000000063,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 223.4937000000009,
+            "estimatedMs": 223.4937000000009,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 2.7397999999757303,
+            "estimatedMs": 2.7397999999757303,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 4.622099999996863,
+            "estimatedMs": 4.622099999996863,
+            "sampledCalls": 56
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 84.73079999999982,
+            "estimatedMs": 84.73079999999982,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 44.93410000000222,
+            "estimatedMs": 44.93410000000222,
+            "sampledCalls": 49
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 48.68259999999964,
+            "estimatedMs": 48.68259999999964,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 19.831899999999223,
+            "estimatedMs": 19.831899999999223,
+            "sampledCalls": 160
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.2721000000010463,
+            "estimatedMs": 2.2721000000010463,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 18.471299999998337,
+            "estimatedMs": 18.471299999998337,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 18.469999999999345,
+            "estimatedMs": 18.469999999999345,
+            "sampledCalls": 1370
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 13.664600000000519,
+            "estimatedMs": 13.664600000000519,
+            "sampledCalls": 7
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 0.9599000000007436,
+            "estimatedMs": 0.9599000000007436,
+            "sampledCalls": 99
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 34.91660000000002,
+            "estimatedMs": 34.91660000000002,
+            "sampledCalls": 7
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "mode": "perception",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "40a38fadc9ed9fb44b253b7ee4afa473ca30a3aa6cac1ca644ded4d8f5f52e38",
+      "finalHash": "5fd36160054387b7b4eba3f5f990664121827ab7ea35eb2db30864e07b0531a4",
+      "cpu": {
+        "user": 468000,
+        "system": 0
+      },
+      "wallMs": 360.71849999999995,
+      "rssBefore": 311861248,
+      "rssAfter": 311885824,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 44.961600000010094,
+            "estimatedMs": 44.961600000010094,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 56.00899999999592,
+            "estimatedMs": 56.00899999999592,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 44.64020000000255,
+            "estimatedMs": 44.64020000000255,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 52.3324999999968,
+            "estimatedMs": 52.3324999999968,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 189.30509999999458,
+            "estimatedMs": 189.30509999999458,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 2.148700000001554,
+            "estimatedMs": 2.148700000001554,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 4.1470999999987725,
+            "estimatedMs": 4.1470999999987725,
+            "sampledCalls": 56
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 66.11229999999614,
+            "estimatedMs": 66.11229999999614,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 41.59800000000132,
+            "estimatedMs": 41.59800000000132,
+            "sampledCalls": 49
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 44.77229999999645,
+            "estimatedMs": 44.77229999999645,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 20.105100000002494,
+            "estimatedMs": 20.105100000002494,
+            "sampledCalls": 160
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.2588000000005195,
+            "estimatedMs": 2.2588000000005195,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 18.922400000002654,
+            "estimatedMs": 18.922400000002654,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 18.17630000000645,
+            "estimatedMs": 18.17630000000645,
+            "sampledCalls": 1370
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 14.641599999999926,
+            "estimatedMs": 14.641599999999926,
+            "sampledCalls": 7
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 0.6807000000012522,
+            "estimatedMs": 0.6807000000012522,
+            "sampledCalls": 99
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 31.784300000000712,
+            "estimatedMs": 31.784300000000712,
+            "sampledCalls": 7
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "mode": "positions",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "cd6780ce81fbbe78a8afaf17a42a83ccfe4637688e3e6c9285d994a2fcce2cfe",
+      "finalHash": "c2c4da74694156b34d225f525bb69d7cec5d2a9963076530c548c84a5831a385",
+      "cpu": {
+        "user": 656000,
+        "system": 16000
+      },
+      "wallMs": 556.2085999999999,
+      "rssBefore": 312279040,
+      "rssAfter": 314744832,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 48.37409999999636,
+            "estimatedMs": 48.37409999999636,
+            "sampledCalls": 565
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 63.75100000000202,
+            "estimatedMs": 63.75100000000202,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 60.646499999998014,
+            "estimatedMs": 60.646499999998014,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 68.41989999999532,
+            "estimatedMs": 68.41989999999532,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 239.6435999999976,
+            "estimatedMs": 239.6435999999976,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 2.7511999999996988,
+            "estimatedMs": 2.7511999999996988,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 10.765199999998003,
+            "estimatedMs": 10.765199999998003,
+            "sampledCalls": 157
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 107.81589999999505,
+            "estimatedMs": 107.81589999999505,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 87.21610000000328,
+            "estimatedMs": 87.21610000000328,
+            "sampledCalls": 129
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 107.44010000000617,
+            "estimatedMs": 107.44010000000617,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 54.36420000000635,
+            "estimatedMs": 54.36420000000635,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 3.9149999999999636,
+            "estimatedMs": 3.9149999999999636,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 22.46249999999145,
+            "estimatedMs": 22.46249999999145,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 32.365700000023025,
+            "estimatedMs": 32.365700000023025,
+            "sampledCalls": 2799
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 41.91949999999724,
+            "estimatedMs": 41.91949999999724,
+            "sampledCalls": 17
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 2.5489000000079614,
+            "estimatedMs": 2.5489000000079614,
+            "sampledCalls": 294
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 74.74940000000151,
+            "estimatedMs": 74.74940000000151,
+            "sampledCalls": 17
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "mode": "positions",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "cd6780ce81fbbe78a8afaf17a42a83ccfe4637688e3e6c9285d994a2fcce2cfe",
+      "finalHash": "c2c4da74694156b34d225f525bb69d7cec5d2a9963076530c548c84a5831a385",
+      "cpu": {
+        "user": 610000,
+        "system": 16000
+      },
+      "wallMs": 507.84169999999995,
+      "rssBefore": 314982400,
+      "rssAfter": 315494400,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 44.9855000000025,
+            "estimatedMs": 44.9855000000025,
+            "sampledCalls": 565
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 59.01389999999901,
+            "estimatedMs": 59.01389999999901,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 53.268699999999626,
+            "estimatedMs": 53.268699999999626,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 65.9219000000021,
+            "estimatedMs": 65.9219000000021,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 217.25150000000122,
+            "estimatedMs": 217.25150000000122,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 2.2499000000070737,
+            "estimatedMs": 2.2499000000070737,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 9.604899999997542,
+            "estimatedMs": 9.604899999997542,
+            "sampledCalls": 157
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 93.66919999999482,
+            "estimatedMs": 93.66919999999482,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 86.48149999999714,
+            "estimatedMs": 86.48149999999714,
+            "sampledCalls": 129
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 100.72009999999955,
+            "estimatedMs": 100.72009999999955,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 52.396999999999935,
+            "estimatedMs": 52.396999999999935,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.9155999999975393,
+            "estimatedMs": 2.9155999999975393,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 19.67489999999725,
+            "estimatedMs": 19.67489999999725,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 31.355099999986123,
+            "estimatedMs": 31.355099999986123,
+            "sampledCalls": 2799
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 40.73040000000128,
+            "estimatedMs": 40.73040000000128,
+            "sampledCalls": 17
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 2.2267000000019834,
+            "estimatedMs": 2.2267000000019834,
+            "sampledCalls": 294
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 73.62159999999949,
+            "estimatedMs": 73.62159999999949,
+            "sampledCalls": 17
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "mode": "tempo",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "309eab75d959631eb2c6d866dafd77812cf868c6830153de3f701d65424abb2c",
+      "finalHash": "0535a4e6b77464b4cfc510a18b2f81d1d9bd468ae5472b9ac46e902849c2935e",
+      "cpu": {
+        "user": 593000,
+        "system": 15000
+      },
+      "wallMs": 500.4375999999993,
+      "rssBefore": 316030976,
+      "rssAfter": 318849024,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 44.225899999998546,
+            "estimatedMs": 44.225899999998546,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 56.57380000000103,
+            "estimatedMs": 56.57380000000103,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 30.907599999999547,
+            "estimatedMs": 30.907599999999547,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 62.155799999997726,
+            "estimatedMs": 62.155799999997726,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 188.7908000000025,
+            "estimatedMs": 188.7908000000025,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 2.1351999999960753,
+            "estimatedMs": 2.1351999999960753,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 12.619700000000194,
+            "estimatedMs": 12.619700000000194,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 110.68449999999848,
+            "estimatedMs": 110.68449999999848,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 85.10710000000563,
+            "estimatedMs": 85.10710000000563,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 91.54080000000522,
+            "estimatedMs": 91.54080000000522,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 65.01450000000568,
+            "estimatedMs": 65.01450000000568,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.785399999999754,
+            "estimatedMs": 2.785399999999754,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 20.317999999996573,
+            "estimatedMs": 20.317999999996573,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 34.99890000000505,
+            "estimatedMs": 34.99890000000505,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 38.66769999999997,
+            "estimatedMs": 38.66769999999997,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.6158999999988737,
+            "estimatedMs": 1.6158999999988737,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 72.26929999999811,
+            "estimatedMs": 72.26929999999811,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.018299999999726424,
+            "estimatedMs": 0.018299999999726424,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.03980000000046857,
+            "estimatedMs": 0.03980000000046857,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "mode": "tempo",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "309eab75d959631eb2c6d866dafd77812cf868c6830153de3f701d65424abb2c",
+      "finalHash": "0535a4e6b77464b4cfc510a18b2f81d1d9bd468ae5472b9ac46e902849c2935e",
+      "cpu": {
+        "user": 625000,
+        "system": 47000
+      },
+      "wallMs": 480.52880000000005,
+      "rssBefore": 319049728,
+      "rssAfter": 319098880,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 40.72620000000825,
+            "estimatedMs": 40.72620000000825,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 53.59820000000036,
+            "estimatedMs": 53.59820000000036,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 27.3849999999984,
+            "estimatedMs": 27.3849999999984,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 63.19270000000597,
+            "estimatedMs": 63.19270000000597,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 180.0916000000043,
+            "estimatedMs": 180.0916000000043,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.9606000000094355,
+            "estimatedMs": 1.9606000000094355,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 13.4720000000043,
+            "estimatedMs": 13.4720000000043,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 102.90740000000369,
+            "estimatedMs": 102.90740000000369,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 84.60360000000401,
+            "estimatedMs": 84.60360000000401,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 90.49290000000201,
+            "estimatedMs": 90.49290000000201,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 64.9168000000036,
+            "estimatedMs": 64.9168000000036,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.534500000006119,
+            "estimatedMs": 2.534500000006119,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 18.407499999995707,
+            "estimatedMs": 18.407499999995707,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 30.67639999999119,
+            "estimatedMs": 30.67639999999119,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 39.93670000000111,
+            "estimatedMs": 39.93670000000111,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.5947999999980311,
+            "estimatedMs": 1.5947999999980311,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 69.98739999999998,
+            "estimatedMs": 69.98739999999998,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.026499999998122803,
+            "estimatedMs": 0.026499999998122803,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.04159999999956199,
+            "estimatedMs": 0.04159999999956199,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "mode": "combined",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "25fc29447498e5f2c5ea073a1e8817a5e7cc6b6f92d1ad118814ddac7392b1bf",
+      "finalHash": "01fcff79774c3c3b902a7f7f94ab13ce5eeb5e714182201924dc197abdb0d396",
+      "cpu": {
+        "user": 750000,
+        "system": 16000
+      },
+      "wallMs": 553.4061000000002,
+      "rssBefore": 319406080,
+      "rssAfter": 321478656,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 45.74680000000262,
+            "estimatedMs": 45.74680000000262,
+            "sampledCalls": 553
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 57.08640000000105,
+            "estimatedMs": 57.08640000000105,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 71.26339999999709,
+            "estimatedMs": 71.26339999999709,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 47.14440000000377,
+            "estimatedMs": 47.14440000000377,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 28.985900000001493,
+            "estimatedMs": 28.985900000001493,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 53.242300000001705,
+            "estimatedMs": 53.242300000001705,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 299.2111000000068,
+            "estimatedMs": 299.2111000000068,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6932999999953608,
+            "estimatedMs": 1.6932999999953608,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 7.315499999997883,
+            "estimatedMs": 7.315499999997883,
+            "sampledCalls": 128
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 86.74170000000504,
+            "estimatedMs": 86.74170000000504,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 63.199899999998706,
+            "estimatedMs": 63.199899999998706,
+            "sampledCalls": 104
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 85.4197000000022,
+            "estimatedMs": 85.4197000000022,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 40.25560000000678,
+            "estimatedMs": 40.25560000000678,
+            "sampledCalls": 158
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.464300000003277,
+            "estimatedMs": 2.464300000003277,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.806500000000597,
+            "estimatedMs": 17.806500000000597,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 30.50100000000839,
+            "estimatedMs": 30.50100000000839,
+            "sampledCalls": 2573
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 29.497700000000805,
+            "estimatedMs": 29.497700000000805,
+            "sampledCalls": 16
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 2.6689000000051237,
+            "estimatedMs": 2.6689000000051237,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 46.44480000000294,
+            "estimatedMs": 46.44480000000294,
+            "sampledCalls": 16
+          },
+          {
+            "category": "opportunity_windows",
+            "sampledMs": 5.969399999999041,
+            "estimatedMs": 5.969399999999041,
+            "sampledCalls": 50
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.043900000002395245,
+            "estimatedMs": 0.043900000002395245,
+            "sampledCalls": 27
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.0750000000007276,
+            "estimatedMs": 0.0750000000007276,
+            "sampledCalls": 27
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "mode": "combined",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "25fc29447498e5f2c5ea073a1e8817a5e7cc6b6f92d1ad118814ddac7392b1bf",
+      "finalHash": "01fcff79774c3c3b902a7f7f94ab13ce5eeb5e714182201924dc197abdb0d396",
+      "cpu": {
+        "user": 610000,
+        "system": 0
+      },
+      "wallMs": 525.3759,
+      "rssBefore": 321961984,
+      "rssAfter": 322072576,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 45.208400000006804,
+            "estimatedMs": 45.208400000006804,
+            "sampledCalls": 553
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 57.44900000000143,
+            "estimatedMs": 57.44900000000143,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 54.77679999999964,
+            "estimatedMs": 54.77679999999964,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 41.773300000002564,
+            "estimatedMs": 41.773300000002564,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 23.562999999996464,
+            "estimatedMs": 23.562999999996464,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 52.34860000000481,
+            "estimatedMs": 52.34860000000481,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 267.8563000000031,
+            "estimatedMs": 267.8563000000031,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6882000000123298,
+            "estimatedMs": 1.6882000000123298,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 8.23870000000261,
+            "estimatedMs": 8.23870000000261,
+            "sampledCalls": 128
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 85.72620000000097,
+            "estimatedMs": 85.72620000000097,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 66.25300000000152,
+            "estimatedMs": 66.25300000000152,
+            "sampledCalls": 104
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 87.96110000000499,
+            "estimatedMs": 87.96110000000499,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 42.12939999999617,
+            "estimatedMs": 42.12939999999617,
+            "sampledCalls": 158
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.7448000000031243,
+            "estimatedMs": 2.7448000000031243,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.79219999999532,
+            "estimatedMs": 17.79219999999532,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 32.46729999997751,
+            "estimatedMs": 32.46729999997751,
+            "sampledCalls": 2573
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 30.005699999998797,
+            "estimatedMs": 30.005699999998797,
+            "sampledCalls": 16
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.3655000000126165,
+            "estimatedMs": 1.3655000000126165,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 51.72109999999975,
+            "estimatedMs": 51.72109999999975,
+            "sampledCalls": 16
+          },
+          {
+            "category": "opportunity_windows",
+            "sampledMs": 3.2673999999988155,
+            "estimatedMs": 3.2673999999988155,
+            "sampledCalls": 50
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.07010000000082073,
+            "estimatedMs": 0.07010000000082073,
+            "sampledCalls": 27
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.10170000000198343,
+            "estimatedMs": 0.10170000000198343,
+            "sampledCalls": 27
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "baseline",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "f9739a3a29641a21f0996c0436107d334122c17237c4cac955886b53bb0f2f4c",
+      "finalHash": "696873a59bb5dd7565afb817439e8657f884f840294f7b3e21a06c0e02260f9a",
+      "cpu": {
+        "user": 438000,
+        "system": 0
+      },
+      "wallMs": 374.8042999999998,
+      "rssBefore": 322756608,
+      "rssAfter": 324268032,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "defensive_attention",
+            "sampledMs": 61.1359999999986,
+            "estimatedMs": 61.1359999999986,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 97.86219999999321,
+            "estimatedMs": 97.86219999999321,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.729999999995016,
+            "estimatedMs": 1.729999999995016,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 11.837500000003274,
+            "estimatedMs": 11.837500000003274,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 93.48359999999684,
+            "estimatedMs": 93.48359999999684,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 79.50610000000052,
+            "estimatedMs": 79.50610000000052,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 85.28050000000258,
+            "estimatedMs": 85.28050000000258,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 58.508499999998094,
+            "estimatedMs": 58.508499999998094,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.7126000000034765,
+            "estimatedMs": 2.7126000000034765,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 18.869800000001305,
+            "estimatedMs": 18.869800000001305,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.824199999991833,
+            "estimatedMs": 29.824199999991833,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 37.007699999999204,
+            "estimatedMs": 37.007699999999204,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.4829999999965366,
+            "estimatedMs": 1.4829999999965366,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 67.21439999999984,
+            "estimatedMs": 67.21439999999984,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.029399999998531712,
+            "estimatedMs": 0.029399999998531712,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.04250000000047294,
+            "estimatedMs": 0.04250000000047294,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "baseline",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "f9739a3a29641a21f0996c0436107d334122c17237c4cac955886b53bb0f2f4c",
+      "finalHash": "696873a59bb5dd7565afb817439e8657f884f840294f7b3e21a06c0e02260f9a",
+      "cpu": {
+        "user": 516000,
+        "system": 15000
+      },
+      "wallMs": 379.1343999999999,
+      "rssBefore": 324571136,
+      "rssAfter": 331476992,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "defensive_attention",
+            "sampledMs": 59.3302000000067,
+            "estimatedMs": 59.3302000000067,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 94.85120000001007,
+            "estimatedMs": 94.85120000001007,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.8206999999729305,
+            "estimatedMs": 1.8206999999729305,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 12.551799999997456,
+            "estimatedMs": 12.551799999997456,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 94.23679999999786,
+            "estimatedMs": 94.23679999999786,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 81.26289999999426,
+            "estimatedMs": 81.26289999999426,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 86.16710000000512,
+            "estimatedMs": 86.16710000000512,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 64.77819999999338,
+            "estimatedMs": 64.77819999999338,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.7553999999981897,
+            "estimatedMs": 2.7553999999981897,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 18.914499999995314,
+            "estimatedMs": 18.914499999995314,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 30.662399999997433,
+            "estimatedMs": 30.662399999997433,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 38.94100000000071,
+            "estimatedMs": 38.94100000000071,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.6295000000054642,
+            "estimatedMs": 1.6295000000054642,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 73.47830000000067,
+            "estimatedMs": 73.47830000000067,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.026799999998729618,
+            "estimatedMs": 0.026799999998729618,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.040500000000065484,
+            "estimatedMs": 0.040500000000065484,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "perception",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "40a38fadc9ed9fb44b253b7ee4afa473ca30a3aa6cac1ca644ded4d8f5f52e38",
+      "finalHash": "5fd36160054387b7b4eba3f5f990664121827ab7ea35eb2db30864e07b0531a4",
+      "cpu": {
+        "user": 375000,
+        "system": 0
+      },
+      "wallMs": 328.5054,
+      "rssBefore": 332083200,
+      "rssAfter": 320098304,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 43.278499999992164,
+            "estimatedMs": 43.278499999992164,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 54.954099999999926,
+            "estimatedMs": 54.954099999999926,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 39.42960000000312,
+            "estimatedMs": 39.42960000000312,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 49.59620000000541,
+            "estimatedMs": 49.59620000000541,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 176.795100000003,
+            "estimatedMs": 176.795100000003,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.5796999999502077,
+            "estimatedMs": 1.5796999999502077,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 3.1786999999994805,
+            "estimatedMs": 3.1786999999994805,
+            "sampledCalls": 56
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 58.83849999999438,
+            "estimatedMs": 58.83849999999438,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 38.25209999999515,
+            "estimatedMs": 38.25209999999515,
+            "sampledCalls": 49
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 40.65620000000854,
+            "estimatedMs": 40.65620000000854,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 17.732200000005832,
+            "estimatedMs": 17.732200000005832,
+            "sampledCalls": 160
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.511800000000221,
+            "estimatedMs": 2.511800000000221,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 15.731600000005528,
+            "estimatedMs": 15.731600000005528,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 16.691900000058922,
+            "estimatedMs": 16.691900000058922,
+            "sampledCalls": 1370
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 14.660900000001675,
+            "estimatedMs": 14.660900000001675,
+            "sampledCalls": 7
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 0.7690999999995256,
+            "estimatedMs": 0.7690999999995256,
+            "sampledCalls": 99
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 28.637400000000525,
+            "estimatedMs": 28.637400000000525,
+            "sampledCalls": 7
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "perception",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "40a38fadc9ed9fb44b253b7ee4afa473ca30a3aa6cac1ca644ded4d8f5f52e38",
+      "finalHash": "5fd36160054387b7b4eba3f5f990664121827ab7ea35eb2db30864e07b0531a4",
+      "cpu": {
+        "user": 437000,
+        "system": 0
+      },
+      "wallMs": 336.5120000000006,
+      "rssBefore": 320487424,
+      "rssAfter": 320086016,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 45.08519999998862,
+            "estimatedMs": 45.08519999998862,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 55.958699999999226,
+            "estimatedMs": 55.958699999999226,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 42.464399999995294,
+            "estimatedMs": 42.464399999995294,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 47.48899999999958,
+            "estimatedMs": 47.48899999999958,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 180.84380000000237,
+            "estimatedMs": 180.84380000000237,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6627999999127496,
+            "estimatedMs": 1.6627999999127496,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 3.3238000000055763,
+            "estimatedMs": 3.3238000000055763,
+            "sampledCalls": 56
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 59.272300000006,
+            "estimatedMs": 59.272300000006,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 42.73979999999392,
+            "estimatedMs": 42.73979999999392,
+            "sampledCalls": 49
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 45.266200000001845,
+            "estimatedMs": 45.266200000001845,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 17.46440000000075,
+            "estimatedMs": 17.46440000000075,
+            "sampledCalls": 160
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.676900000000387,
+            "estimatedMs": 2.676900000000387,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 16.38260000001719,
+            "estimatedMs": 16.38260000001719,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 17.359399999986636,
+            "estimatedMs": 17.359399999986636,
+            "sampledCalls": 1370
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 14.928099999999176,
+            "estimatedMs": 14.928099999999176,
+            "sampledCalls": 7
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 0.6001999999971304,
+            "estimatedMs": 0.6001999999971304,
+            "sampledCalls": 99
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 31.497300000002724,
+            "estimatedMs": 31.497300000002724,
+            "sampledCalls": 7
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "positions",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "cd6780ce81fbbe78a8afaf17a42a83ccfe4637688e3e6c9285d994a2fcce2cfe",
+      "finalHash": "c2c4da74694156b34d225f525bb69d7cec5d2a9963076530c548c84a5831a385",
+      "cpu": {
+        "user": 563000,
+        "system": 32000
+      },
+      "wallMs": 449.39850000000115,
+      "rssBefore": 320720896,
+      "rssAfter": 321269760,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 44.31260000002658,
+            "estimatedMs": 44.31260000002658,
+            "sampledCalls": 565
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 56.264500000002954,
+            "estimatedMs": 56.264500000002954,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 49.29369999999835,
+            "estimatedMs": 49.29369999999835,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 59.19649999999274,
+            "estimatedMs": 59.19649999999274,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 198.26830000001246,
+            "estimatedMs": 198.26830000001246,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6410999999388878,
+            "estimatedMs": 1.6410999999388878,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 8.338499999978012,
+            "estimatedMs": 8.338499999978012,
+            "sampledCalls": 157
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 78.13260000000446,
+            "estimatedMs": 78.13260000000446,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 78.81149999999798,
+            "estimatedMs": 78.81149999999798,
+            "sampledCalls": 129
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 90.46320000000196,
+            "estimatedMs": 90.46320000000196,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 47.35330000000795,
+            "estimatedMs": 47.35330000000795,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.8487999999888416,
+            "estimatedMs": 2.8487999999888416,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.387699999981123,
+            "estimatedMs": 17.387699999981123,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.20920000010119,
+            "estimatedMs": 29.20920000010119,
+            "sampledCalls": 2799
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 44.18499999999949,
+            "estimatedMs": 44.18499999999949,
+            "sampledCalls": 17
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 2.2485000000015134,
+            "estimatedMs": 2.2485000000015134,
+            "sampledCalls": 294
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 63.36520000000564,
+            "estimatedMs": 63.36520000000564,
+            "sampledCalls": 17
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "positions",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "cd6780ce81fbbe78a8afaf17a42a83ccfe4637688e3e6c9285d994a2fcce2cfe",
+      "finalHash": "c2c4da74694156b34d225f525bb69d7cec5d2a9963076530c548c84a5831a385",
+      "cpu": {
+        "user": 484000,
+        "system": 15000
+      },
+      "wallMs": 444.20360000000073,
+      "rssBefore": 321486848,
+      "rssAfter": 321347584,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 40.872899999993024,
+            "estimatedMs": 40.872899999993024,
+            "sampledCalls": 565
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 51.93650000000707,
+            "estimatedMs": 51.93650000000707,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 50.5643,
+            "estimatedMs": 50.5643,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 58.2898000000132,
+            "estimatedMs": 58.2898000000132,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 196.46099999999933,
+            "estimatedMs": 196.46099999999933,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6608000000524044,
+            "estimatedMs": 1.6608000000524044,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 8.112000000002809,
+            "estimatedMs": 8.112000000002809,
+            "sampledCalls": 157
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 76.97360000000663,
+            "estimatedMs": 76.97360000000663,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 75.81030000000283,
+            "estimatedMs": 75.81030000000283,
+            "sampledCalls": 129
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 87.70699999998396,
+            "estimatedMs": 87.70699999998396,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 48.56680000000051,
+            "estimatedMs": 48.56680000000051,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.271600000005492,
+            "estimatedMs": 2.271600000005492,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 16.634499999989202,
+            "estimatedMs": 16.634499999989202,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.833000000002357,
+            "estimatedMs": 29.833000000002357,
+            "sampledCalls": 2799
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 43.69179999999869,
+            "estimatedMs": 43.69179999999869,
+            "sampledCalls": 17
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 2.06339999996635,
+            "estimatedMs": 2.06339999996635,
+            "sampledCalls": 294
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 61.25019999999495,
+            "estimatedMs": 61.25019999999495,
+            "sampledCalls": 17
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "tempo",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "309eab75d959631eb2c6d866dafd77812cf868c6830153de3f701d65424abb2c",
+      "finalHash": "0535a4e6b77464b4cfc510a18b2f81d1d9bd468ae5472b9ac46e902849c2935e",
+      "cpu": {
+        "user": 453000,
+        "system": 0
+      },
+      "wallMs": 449.6864000000005,
+      "rssBefore": 321548288,
+      "rssAfter": 321892352,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 41.197499999989304,
+            "estimatedMs": 41.197499999989304,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 53.40130000000681,
+            "estimatedMs": 53.40130000000681,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 29.41920000000573,
+            "estimatedMs": 29.41920000000573,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 56.734000000007654,
+            "estimatedMs": 56.734000000007654,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 173.2493999999915,
+            "estimatedMs": 173.2493999999915,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.7031999999944674,
+            "estimatedMs": 1.7031999999944674,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 11.478000000006432,
+            "estimatedMs": 11.478000000006432,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 93.31710000000385,
+            "estimatedMs": 93.31710000000385,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 79.96720000001187,
+            "estimatedMs": 79.96720000001187,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 85.1475999999875,
+            "estimatedMs": 85.1475999999875,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 60.68190000000868,
+            "estimatedMs": 60.68190000000868,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.2413999999989755,
+            "estimatedMs": 2.2413999999989755,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.859000000005835,
+            "estimatedMs": 17.859000000005835,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 30.89760000000024,
+            "estimatedMs": 30.89760000000024,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 39.78299999999399,
+            "estimatedMs": 39.78299999999399,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.6849999999703869,
+            "estimatedMs": 1.6849999999703869,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 64.18259999999646,
+            "estimatedMs": 64.18259999999646,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.040300000002389424,
+            "estimatedMs": 0.040300000002389424,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.04899999999724969,
+            "estimatedMs": 0.04899999999724969,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "tempo",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "309eab75d959631eb2c6d866dafd77812cf868c6830153de3f701d65424abb2c",
+      "finalHash": "0535a4e6b77464b4cfc510a18b2f81d1d9bd468ae5472b9ac46e902849c2935e",
+      "cpu": {
+        "user": 437000,
+        "system": 16000
+      },
+      "wallMs": 433.8071,
+      "rssBefore": 322088960,
+      "rssAfter": 322486272,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 42.39799999999923,
+            "estimatedMs": 42.39799999999923,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 53.82820000000174,
+            "estimatedMs": 53.82820000000174,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 25.294600000001083,
+            "estimatedMs": 25.294600000001083,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 57.57499999999891,
+            "estimatedMs": 57.57499999999891,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 171.57739999999103,
+            "estimatedMs": 171.57739999999103,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6961000000264903,
+            "estimatedMs": 1.6961000000264903,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 12.377399999988484,
+            "estimatedMs": 12.377399999988484,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 92.35399999998845,
+            "estimatedMs": 92.35399999998845,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 70.46399999999812,
+            "estimatedMs": 70.46399999999812,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 75.6144000000022,
+            "estimatedMs": 75.6144000000022,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 58.350699999993594,
+            "estimatedMs": 58.350699999993594,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.228399999992689,
+            "estimatedMs": 2.228399999992689,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.293999999988955,
+            "estimatedMs": 17.293999999988955,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.928000000018073,
+            "estimatedMs": 29.928000000018073,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 36.50710000000436,
+            "estimatedMs": 36.50710000000436,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 2.375499999994645,
+            "estimatedMs": 2.375499999994645,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 59.361900000005335,
+            "estimatedMs": 59.361900000005335,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.04500000000189175,
+            "estimatedMs": 0.04500000000189175,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.05799999999908323,
+            "estimatedMs": 0.05799999999908323,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "combined",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "25fc29447498e5f2c5ea073a1e8817a5e7cc6b6f92d1ad118814ddac7392b1bf",
+      "finalHash": "01fcff79774c3c3b902a7f7f94ab13ce5eeb5e714182201924dc197abdb0d396",
+      "cpu": {
+        "user": 516000,
+        "system": 0
+      },
+      "wallMs": 477.72229999999945,
+      "rssBefore": 322682880,
+      "rssAfter": 322060288,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 39.752900000004956,
+            "estimatedMs": 39.752900000004956,
+            "sampledCalls": 553
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 49.682099999994534,
+            "estimatedMs": 49.682099999994534,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 49.8342999999968,
+            "estimatedMs": 49.8342999999968,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 38.43659999999545,
+            "estimatedMs": 38.43659999999545,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 23.013700000008612,
+            "estimatedMs": 23.013700000008612,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 49.14639999999963,
+            "estimatedMs": 49.14639999999963,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 244.78960000000188,
+            "estimatedMs": 244.78960000000188,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6118999999798689,
+            "estimatedMs": 1.6118999999798689,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 6.778999999994994,
+            "estimatedMs": 6.778999999994994,
+            "sampledCalls": 128
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 78.25300000000243,
+            "estimatedMs": 78.25300000000243,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 58.71829999999136,
+            "estimatedMs": 58.71829999999136,
+            "sampledCalls": 104
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 79.16950000001088,
+            "estimatedMs": 79.16950000001088,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 39.08929999999964,
+            "estimatedMs": 39.08929999999964,
+            "sampledCalls": 158
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.186699999994744,
+            "estimatedMs": 2.186699999994744,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.10280000000057,
+            "estimatedMs": 17.10280000000057,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.66240000000289,
+            "estimatedMs": 29.66240000000289,
+            "sampledCalls": 2573
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 29.779600000001665,
+            "estimatedMs": 29.779600000001665,
+            "sampledCalls": 16
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.4812000000001717,
+            "estimatedMs": 1.4812000000001717,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 44.64440000000286,
+            "estimatedMs": 44.64440000000286,
+            "sampledCalls": 16
+          },
+          {
+            "category": "opportunity_windows",
+            "sampledMs": 2.8024999999961437,
+            "estimatedMs": 2.8024999999961437,
+            "sampledCalls": 50
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.09100000000034925,
+            "estimatedMs": 0.09100000000034925,
+            "sampledCalls": 27
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.10870000000068103,
+            "estimatedMs": 0.10870000000068103,
+            "sampledCalls": 27
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "mode": "combined",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "25fc29447498e5f2c5ea073a1e8817a5e7cc6b6f92d1ad118814ddac7392b1bf",
+      "finalHash": "01fcff79774c3c3b902a7f7f94ab13ce5eeb5e714182201924dc197abdb0d396",
+      "cpu": {
+        "user": 609000,
+        "system": 0
+      },
+      "wallMs": 496.2642999999989,
+      "rssBefore": 322441216,
+      "rssAfter": 323702784,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 46.91570000001593,
+            "estimatedMs": 46.91570000001593,
+            "sampledCalls": 553
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 57.46970000000147,
+            "estimatedMs": 57.46970000000147,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 52.70179999999891,
+            "estimatedMs": 52.70179999999891,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 41.35850000000028,
+            "estimatedMs": 41.35850000000028,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 22.682400000003327,
+            "estimatedMs": 22.682400000003327,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 51.326399999992645,
+            "estimatedMs": 51.326399999992645,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 261.73599999998805,
+            "estimatedMs": 261.73599999998805,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6938000000791362,
+            "estimatedMs": 1.6938000000791362,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 6.879599999989296,
+            "estimatedMs": 6.879599999989296,
+            "sampledCalls": 128
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 78.71849999999176,
+            "estimatedMs": 78.71849999999176,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 58.12290000000394,
+            "estimatedMs": 58.12290000000394,
+            "sampledCalls": 104
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 77.03630000000521,
+            "estimatedMs": 77.03630000000521,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 41.73930000000837,
+            "estimatedMs": 41.73930000000837,
+            "sampledCalls": 158
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.1824999999953434,
+            "estimatedMs": 2.1824999999953434,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.106999999994514,
+            "estimatedMs": 17.106999999994514,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.103500000062922,
+            "estimatedMs": 29.103500000062922,
+            "sampledCalls": 2573
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 30.57589999999982,
+            "estimatedMs": 30.57589999999982,
+            "sampledCalls": 16
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.6362999999964813,
+            "estimatedMs": 1.6362999999964813,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 45.599899999995614,
+            "estimatedMs": 45.599899999995614,
+            "sampledCalls": 16
+          },
+          {
+            "category": "opportunity_windows",
+            "sampledMs": 2.743799999998373,
+            "estimatedMs": 2.743799999998373,
+            "sampledCalls": 50
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.09979999999632128,
+            "estimatedMs": 0.09979999999632128,
+            "sampledCalls": 27
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.11509999999543652,
+            "estimatedMs": 0.11509999999543652,
+            "sampledCalls": 27
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "baseline",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "f9739a3a29641a21f0996c0436107d334122c17237c4cac955886b53bb0f2f4c",
+      "finalHash": "696873a59bb5dd7565afb817439e8657f884f840294f7b3e21a06c0e02260f9a",
+      "cpu": {
+        "user": 391000,
+        "system": 15000
+      },
+      "wallMs": 360.4826000000012,
+      "rssBefore": 323907584,
+      "rssAfter": 322785280,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "defensive_attention",
+            "sampledMs": 63.10010000000693,
+            "estimatedMs": 63.10010000000693,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 96.23729999998795,
+            "estimatedMs": 96.23729999998795,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.724800000043615,
+            "estimatedMs": 1.724800000043615,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 11.665200000012192,
+            "estimatedMs": 11.665200000012192,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 91.20419999999103,
+            "estimatedMs": 91.20419999999103,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 73.84249999999156,
+            "estimatedMs": 73.84249999999156,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 79.4469999999983,
+            "estimatedMs": 79.4469999999983,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 57.84210000001258,
+            "estimatedMs": 57.84210000001258,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.2157999999890308,
+            "estimatedMs": 2.2157999999890308,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.637399999988702,
+            "estimatedMs": 17.637399999988702,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 31.42050000002928,
+            "estimatedMs": 31.42050000002928,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 37.01470000000336,
+            "estimatedMs": 37.01470000000336,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.511000000002241,
+            "estimatedMs": 1.511000000002241,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 61.767500000003565,
+            "estimatedMs": 61.767500000003565,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.03809999999975844,
+            "estimatedMs": 0.03809999999975844,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.049699999997756095,
+            "estimatedMs": 0.049699999997756095,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "baseline",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "f9739a3a29641a21f0996c0436107d334122c17237c4cac955886b53bb0f2f4c",
+      "finalHash": "696873a59bb5dd7565afb817439e8657f884f840294f7b3e21a06c0e02260f9a",
+      "cpu": {
+        "user": 375000,
+        "system": 0
+      },
+      "wallMs": 353.6211000000003,
+      "rssBefore": 323149824,
+      "rssAfter": 321789952,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "defensive_attention",
+            "sampledMs": 62.179700000000594,
+            "estimatedMs": 62.179700000000594,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 93.56240000000435,
+            "estimatedMs": 93.56240000000435,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6769999999505671,
+            "estimatedMs": 1.6769999999505671,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 11.322199999993245,
+            "estimatedMs": 11.322199999993245,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 88.38300000001254,
+            "estimatedMs": 88.38300000001254,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 75.65720000000874,
+            "estimatedMs": 75.65720000000874,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 79.73430000001645,
+            "estimatedMs": 79.73430000001645,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 58.13539999999557,
+            "estimatedMs": 58.13539999999557,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.0887999999868043,
+            "estimatedMs": 2.0887999999868043,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.08969999999499,
+            "estimatedMs": 17.08969999999499,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.6405000000741,
+            "estimatedMs": 29.6405000000741,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 38.695700000000215,
+            "estimatedMs": 38.695700000000215,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.5909999999948923,
+            "estimatedMs": 1.5909999999948923,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 62.63719999999557,
+            "estimatedMs": 62.63719999999557,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.03209999999853608,
+            "estimatedMs": 0.03209999999853608,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.03660000000127184,
+            "estimatedMs": 0.03660000000127184,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "perception",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "40a38fadc9ed9fb44b253b7ee4afa473ca30a3aa6cac1ca644ded4d8f5f52e38",
+      "finalHash": "5fd36160054387b7b4eba3f5f990664121827ab7ea35eb2db30864e07b0531a4",
+      "cpu": {
+        "user": 422000,
+        "system": 16000
+      },
+      "wallMs": 324.58150000000023,
+      "rssBefore": 322236416,
+      "rssAfter": 323178496,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 41.2722000000158,
+            "estimatedMs": 41.2722000000158,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 51.482999999998356,
+            "estimatedMs": 51.482999999998356,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 39.68300000000636,
+            "estimatedMs": 39.68300000000636,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 51.04110000000037,
+            "estimatedMs": 51.04110000000037,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 172.23569999999017,
+            "estimatedMs": 172.23569999999017,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6317999999901076,
+            "estimatedMs": 1.6317999999901076,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 3.297499999993306,
+            "estimatedMs": 3.297499999993306,
+            "sampledCalls": 56
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 58.16750000000866,
+            "estimatedMs": 58.16750000000866,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 39.72239999998965,
+            "estimatedMs": 39.72239999998965,
+            "sampledCalls": 49
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 42.257299999979296,
+            "estimatedMs": 42.257299999979296,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 17.19580000001224,
+            "estimatedMs": 17.19580000001224,
+            "sampledCalls": 160
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 1.9070000000065193,
+            "estimatedMs": 1.9070000000065193,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 18.066499999995358,
+            "estimatedMs": 18.066499999995358,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 18.014500000033877,
+            "estimatedMs": 18.014500000033877,
+            "sampledCalls": 1370
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 15.12250000000131,
+            "estimatedMs": 15.12250000000131,
+            "sampledCalls": 7
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 0.8479999999981374,
+            "estimatedMs": 0.8479999999981374,
+            "sampledCalls": 99
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 29.84809999999925,
+            "estimatedMs": 29.84809999999925,
+            "sampledCalls": 7
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "perception",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "40a38fadc9ed9fb44b253b7ee4afa473ca30a3aa6cac1ca644ded4d8f5f52e38",
+      "finalHash": "5fd36160054387b7b4eba3f5f990664121827ab7ea35eb2db30864e07b0531a4",
+      "cpu": {
+        "user": 343000,
+        "system": 0
+      },
+      "wallMs": 320.54539999999906,
+      "rssBefore": 323612672,
+      "rssAfter": 330743808,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 42.454600000002756,
+            "estimatedMs": 42.454600000002756,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 52.955400000002555,
+            "estimatedMs": 52.955400000002555,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 39.04849999998987,
+            "estimatedMs": 39.04849999998987,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 46.73590000000877,
+            "estimatedMs": 46.73590000000877,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 170.99610000000575,
+            "estimatedMs": 170.99610000000575,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6382000000539847,
+            "estimatedMs": 1.6382000000539847,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 3.2928000000028987,
+            "estimatedMs": 3.2928000000028987,
+            "sampledCalls": 56
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 57.68800000000556,
+            "estimatedMs": 57.68800000000556,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 36.728799999998955,
+            "estimatedMs": 36.728799999998955,
+            "sampledCalls": 49
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 38.97459999998864,
+            "estimatedMs": 38.97459999998864,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 18.24499999998625,
+            "estimatedMs": 18.24499999998625,
+            "sampledCalls": 160
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 1.878099999998085,
+            "estimatedMs": 1.878099999998085,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 18.787200000007942,
+            "estimatedMs": 18.787200000007942,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 18.743900000003123,
+            "estimatedMs": 18.743900000003123,
+            "sampledCalls": 1370
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 15.19289999999819,
+            "estimatedMs": 15.19289999999819,
+            "sampledCalls": 7
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 0.757900000011432,
+            "estimatedMs": 0.757900000011432,
+            "sampledCalls": 99
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 27.614599999997154,
+            "estimatedMs": 27.614599999997154,
+            "sampledCalls": 7
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "positions",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "cd6780ce81fbbe78a8afaf17a42a83ccfe4637688e3e6c9285d994a2fcce2cfe",
+      "finalHash": "c2c4da74694156b34d225f525bb69d7cec5d2a9963076530c548c84a5831a385",
+      "cpu": {
+        "user": 453000,
+        "system": 0
+      },
+      "wallMs": 447.9431000000004,
+      "rssBefore": 330948608,
+      "rssAfter": 324313088,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 41.378300000007584,
+            "estimatedMs": 41.378300000007584,
+            "sampledCalls": 565
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 52.35979999999654,
+            "estimatedMs": 52.35979999999654,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 49.18539999999666,
+            "estimatedMs": 49.18539999999666,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 62.76720000000023,
+            "estimatedMs": 62.76720000000023,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 197.03849999999875,
+            "estimatedMs": 197.03849999999875,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6709000000373635,
+            "estimatedMs": 1.6709000000373635,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 8.056100000010701,
+            "estimatedMs": 8.056100000010701,
+            "sampledCalls": 157
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 80.81340000000455,
+            "estimatedMs": 80.81340000000455,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 76.23109999997723,
+            "estimatedMs": 76.23109999997723,
+            "sampledCalls": 129
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 88.21580000000722,
+            "estimatedMs": 88.21580000000722,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 45.15679999998247,
+            "estimatedMs": 45.15679999998247,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.455499999996391,
+            "estimatedMs": 2.455499999996391,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 18.754799999996976,
+            "estimatedMs": 18.754799999996976,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.864399999971283,
+            "estimatedMs": 29.864399999971283,
+            "sampledCalls": 2799
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 38.41319999999905,
+            "estimatedMs": 38.41319999999905,
+            "sampledCalls": 17
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 2.2942999999777385,
+            "estimatedMs": 2.2942999999777385,
+            "sampledCalls": 294
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 64.1105000000025,
+            "estimatedMs": 64.1105000000025,
+            "sampledCalls": 17
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "positions",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "cd6780ce81fbbe78a8afaf17a42a83ccfe4637688e3e6c9285d994a2fcce2cfe",
+      "finalHash": "c2c4da74694156b34d225f525bb69d7cec5d2a9963076530c548c84a5831a385",
+      "cpu": {
+        "user": 547000,
+        "system": 0
+      },
+      "wallMs": 468.0041000000001,
+      "rssBefore": 324784128,
+      "rssAfter": 328183808,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 42.89159999999356,
+            "estimatedMs": 42.89159999999356,
+            "sampledCalls": 565
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 54.10679999999775,
+            "estimatedMs": 54.10679999999775,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 51.44000000000051,
+            "estimatedMs": 51.44000000000051,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 63.80299999999443,
+            "estimatedMs": 63.80299999999443,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 205.27119999999195,
+            "estimatedMs": 205.27119999999195,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.7544000000525557,
+            "estimatedMs": 1.7544000000525557,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 9.26220000000103,
+            "estimatedMs": 9.26220000000103,
+            "sampledCalls": 157
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 83.76889999998639,
+            "estimatedMs": 83.76889999998639,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 81.67420000000675,
+            "estimatedMs": 81.67420000000675,
+            "sampledCalls": 129
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 91.83559999999125,
+            "estimatedMs": 91.83559999999125,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 51.85570000000189,
+            "estimatedMs": 51.85570000000189,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.355699999998251,
+            "estimatedMs": 2.355699999998251,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.809900000003836,
+            "estimatedMs": 17.809900000003836,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 33.59049999994568,
+            "estimatedMs": 33.59049999994568,
+            "sampledCalls": 2799
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 46.59749999999622,
+            "estimatedMs": 46.59749999999622,
+            "sampledCalls": 17
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.5892999999759923,
+            "estimatedMs": 1.5892999999759923,
+            "sampledCalls": 294
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 65.88140000000021,
+            "estimatedMs": 65.88140000000021,
+            "sampledCalls": 17
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "tempo",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "309eab75d959631eb2c6d866dafd77812cf868c6830153de3f701d65424abb2c",
+      "finalHash": "0535a4e6b77464b4cfc510a18b2f81d1d9bd468ae5472b9ac46e902849c2935e",
+      "cpu": {
+        "user": 437000,
+        "system": 0
+      },
+      "wallMs": 429.64890000000014,
+      "rssBefore": 328540160,
+      "rssAfter": 329449472,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 40.07500000000982,
+            "estimatedMs": 40.07500000000982,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 51.190999999997075,
+            "estimatedMs": 51.190999999997075,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 25.991399999998976,
+            "estimatedMs": 25.991399999998976,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 58.23240000000624,
+            "estimatedMs": 58.23240000000624,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 165.95199999999568,
+            "estimatedMs": 165.95199999999568,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6195999999581545,
+            "estimatedMs": 1.6195999999581545,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 11.476899999994203,
+            "estimatedMs": 11.476899999994203,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 90.43049999998948,
+            "estimatedMs": 90.43049999998948,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 75.46760000000722,
+            "estimatedMs": 75.46760000000722,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 80.02550000000338,
+            "estimatedMs": 80.02550000000338,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 58.79249999999956,
+            "estimatedMs": 58.79249999999956,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.205000000005384,
+            "estimatedMs": 2.205000000005384,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.325999999997293,
+            "estimatedMs": 17.325999999997293,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 30.94479999996838,
+            "estimatedMs": 30.94479999996838,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 38.54139999999461,
+            "estimatedMs": 38.54139999999461,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.5376999999971304,
+            "estimatedMs": 1.5376999999971304,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 63.28100000000086,
+            "estimatedMs": 63.28100000000086,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.043399999996836414,
+            "estimatedMs": 0.043399999996836414,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.04659999999785214,
+            "estimatedMs": 0.04659999999785214,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "tempo",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "309eab75d959631eb2c6d866dafd77812cf868c6830153de3f701d65424abb2c",
+      "finalHash": "0535a4e6b77464b4cfc510a18b2f81d1d9bd468ae5472b9ac46e902849c2935e",
+      "cpu": {
+        "user": 438000,
+        "system": 0
+      },
+      "wallMs": 431.10699999999997,
+      "rssBefore": 329646080,
+      "rssAfter": 330047488,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 40.86539999998604,
+            "estimatedMs": 40.86539999998604,
+            "sampledCalls": 584
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 52.1531999999861,
+            "estimatedMs": 52.1531999999861,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 25.818699999999808,
+            "estimatedMs": 25.818699999999808,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 56.8907999999883,
+            "estimatedMs": 56.8907999999883,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 166.2569999999887,
+            "estimatedMs": 166.2569999999887,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.692300000018804,
+            "estimatedMs": 1.692300000018804,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 10.95959999999286,
+            "estimatedMs": 10.95959999999286,
+            "sampledCalls": 227
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 88.3555999999935,
+            "estimatedMs": 88.3555999999935,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 79.0635000000002,
+            "estimatedMs": 79.0635000000002,
+            "sampledCalls": 147
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 83.75239999999576,
+            "estimatedMs": 83.75239999999576,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 58.35530000000654,
+            "estimatedMs": 58.35530000000654,
+            "sampledCalls": 159
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.280399999992369,
+            "estimatedMs": 2.280399999992369,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 17.288800000014817,
+            "estimatedMs": 17.288800000014817,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.532700000047043,
+            "estimatedMs": 29.532700000047043,
+            "sampledCalls": 2609
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 40.59849999999824,
+            "estimatedMs": 40.59849999999824,
+            "sampledCalls": 19
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.5986999999986438,
+            "estimatedMs": 1.5986999999986438,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 63.80620000000454,
+            "estimatedMs": 63.80620000000454,
+            "sampledCalls": 19
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.04430000000502332,
+            "estimatedMs": 0.04430000000502332,
+            "sampledCalls": 12
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.050000000001091394,
+            "estimatedMs": 0.050000000001091394,
+            "sampledCalls": 12
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "combined",
+      "debug": false,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "25fc29447498e5f2c5ea073a1e8817a5e7cc6b6f92d1ad118814ddac7392b1bf",
+      "finalHash": "01fcff79774c3c3b902a7f7f94ab13ce5eeb5e714182201924dc197abdb0d396",
+      "cpu": {
+        "user": 453000,
+        "system": 0
+      },
+      "wallMs": 455.17329999999856,
+      "rssBefore": 330244096,
+      "rssAfter": 331091968,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 42.05749999998807,
+            "estimatedMs": 42.05749999998807,
+            "sampledCalls": 553
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 51.79429999999593,
+            "estimatedMs": 51.79429999999593,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 46.49960000000465,
+            "estimatedMs": 46.49960000000465,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 37.97290000000248,
+            "estimatedMs": 37.97290000000248,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 21.689900000003036,
+            "estimatedMs": 21.689900000003036,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 48.41990000001897,
+            "estimatedMs": 48.41990000001897,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 238.6847999999991,
+            "estimatedMs": 238.6847999999991,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.523299999998926,
+            "estimatedMs": 1.523299999998926,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 6.373300000001109,
+            "estimatedMs": 6.373300000001109,
+            "sampledCalls": 128
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 75.15560000002006,
+            "estimatedMs": 75.15560000002006,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 57.44630000000325,
+            "estimatedMs": 57.44630000000325,
+            "sampledCalls": 104
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 74.31289999999717,
+            "estimatedMs": 74.31289999999717,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 33.7923000000028,
+            "estimatedMs": 33.7923000000028,
+            "sampledCalls": 158
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.045299999997951,
+            "estimatedMs": 2.045299999997951,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 16.265000000024884,
+            "estimatedMs": 16.265000000024884,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.08839999998054,
+            "estimatedMs": 29.08839999998054,
+            "sampledCalls": 2573
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 27.622400000000198,
+            "estimatedMs": 27.622400000000198,
+            "sampledCalls": 16
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.302800000006755,
+            "estimatedMs": 1.302800000006755,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 42.448200000000725,
+            "estimatedMs": 42.448200000000725,
+            "sampledCalls": 16
+          },
+          {
+            "category": "opportunity_windows",
+            "sampledMs": 2.325199999995675,
+            "estimatedMs": 2.325199999995675,
+            "sampledCalls": 50
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.09269999999924039,
+            "estimatedMs": 0.09269999999924039,
+            "sampledCalls": 27
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.10410000000047148,
+            "estimatedMs": 0.10410000000047148,
+            "sampledCalls": 27
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "mode": "combined",
+      "debug": true,
+      "ticks": 160,
+      "requestedSeconds": 4,
+      "actualSeconds": 3.999999999996362,
+      "initialHash": "25fc29447498e5f2c5ea073a1e8817a5e7cc6b6f92d1ad118814ddac7392b1bf",
+      "finalHash": "01fcff79774c3c3b902a7f7f94ab13ce5eeb5e714182201924dc197abdb0d396",
+      "cpu": {
+        "user": 563000,
+        "system": 0
+      },
+      "wallMs": 473.688900000001,
+      "rssBefore": 331288576,
+      "rssAfter": 334135296,
+      "debugBytes": 0,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 160,
+        "sampledTicks": 160,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 39.784900000031485,
+            "estimatedMs": 39.784900000031485,
+            "sampledCalls": 553
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 50.51100000000406,
+            "estimatedMs": 50.51100000000406,
+            "sampledCalls": 40
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 48.70360000000619,
+            "estimatedMs": 48.70360000000619,
+            "sampledCalls": 40
+          },
+          {
+            "category": "receiving_positions",
+            "sampledMs": 38.17349999999897,
+            "estimatedMs": 38.17349999999897,
+            "sampledCalls": 40
+          },
+          {
+            "category": "team_tempo",
+            "sampledMs": 21.93279999999868,
+            "estimatedMs": 21.93279999999868,
+            "sampledCalls": 40
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 54.82640000000538,
+            "estimatedMs": 54.82640000000538,
+            "sampledCalls": 160
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 248.26459999999315,
+            "estimatedMs": 248.26459999999315,
+            "sampledCalls": 160
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 1.6383999999634398,
+            "estimatedMs": 1.6383999999634398,
+            "sampledCalls": 3520
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 6.58289999999397,
+            "estimatedMs": 6.58289999999397,
+            "sampledCalls": 128
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 78.34140000000843,
+            "estimatedMs": 78.34140000000843,
+            "sampledCalls": 160
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 55.75880000000507,
+            "estimatedMs": 55.75880000000507,
+            "sampledCalls": 104
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 73.91279999999824,
+            "estimatedMs": 73.91279999999824,
+            "sampledCalls": 160
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 37.69269999999233,
+            "estimatedMs": 37.69269999999233,
+            "sampledCalls": 158
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 2.155800000002273,
+            "estimatedMs": 2.155800000002273,
+            "sampledCalls": 160
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 16.928799999999683,
+            "estimatedMs": 16.928799999999683,
+            "sampledCalls": 160
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 29.537200000078883,
+            "estimatedMs": 29.537200000078883,
+            "sampledCalls": 2573
+          },
+          {
+            "category": "decision_candidates",
+            "sampledMs": 26.96089999999822,
+            "estimatedMs": 26.96089999999822,
+            "sampledCalls": 16
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 1.4759999999932916,
+            "estimatedMs": 1.4759999999932916,
+            "sampledCalls": 191
+          },
+          {
+            "category": "decision_value",
+            "sampledMs": 44.417199999999866,
+            "estimatedMs": 44.417199999999866,
+            "sampledCalls": 16
+          },
+          {
+            "category": "opportunity_windows",
+            "sampledMs": 2.379799999998795,
+            "estimatedMs": 2.379799999998795,
+            "sampledCalls": 50
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.11939999999958673,
+            "estimatedMs": 0.11939999999958673,
+            "sampledCalls": 27
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.11470000000736036,
+            "estimatedMs": 0.11470000000736036,
+            "sampledCalls": 27
+          }
+        ]
+      }
+    }
+  ]
+}
