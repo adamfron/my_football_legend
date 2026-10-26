@@ -1,0 +1,49 @@
+{
+  "schema": "mfl-pr192-linux-control-v1",
+  "runId": 40257727400,
+  "jobId": 121363093496,
+  "sourceHead": "94e526ae585200fa900d9b2e4b527109adc9537f",
+  "rows": [
+    {
+      "experiment": "PR192 matched-host native penalty control",
+      "base": "9ea0e599f72800f4210092df2722e2ee16778ab7",
+      "head": "866ec82e2c37c7e8d5690b069e2e926ef237af1b",
+      "node": "v24.21.0",
+      "platform": "linux",
+      "cpu": "AMD EPYC 9V45 96-Core Processor",
+      "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+      "processBudgetMs": 89500
+    },
+    {
+      "kind": "PR191",
+      "elapsedMs": 54097.61022,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "stateHash": "ee541bff934b5d11c45e9839b7fb8ecbd085d7a4d624543a944ebffee250c7ef",
+      "status": "half_time",
+      "at": 2820.1000000058766,
+      "awarded": true,
+      "penaltyExecution": 443.12499999987085,
+      "stderr": "(node:2211) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "kind": "PR192",
+      "elapsedMs": 52866.431137,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "stateHash": "ee541bff934b5d11c45e9839b7fb8ecbd085d7a4d624543a944ebffee250c7ef",
+      "status": "half_time",
+      "at": 2820.1000000058766,
+      "awarded": true,
+      "penaltyExecution": 443.12499999987085,
+      "stderr": "(node:2226) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "classification": "diagnostic complete; child failures above remain failures, not passing integration results",
+      "sourceEntry": "796c99126212e9a0d5edcbeecb2f24d79a4192b70c6986c5ee3b9c62ed7e2277"
+    }
+  ],
+  "interpretation": "PR191 and PR192 complete under the same 89.5 s limit on this one Linux host, with equal full states; not yet the failing integration host."
+}

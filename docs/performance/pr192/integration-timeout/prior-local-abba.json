@@ -1,0 +1,87 @@
+{
+  "schema": "mfl-pr192-disabled-route-cost-v1",
+  "baselineCommit": "9ea0e599f72800f4210092df2722e2ee16778ab7",
+  "currentCommit": "336d100fb9cce7bff50d32dc45e818bba48113a6",
+  "node": "v24.22.1",
+  "inputHash": "5c7afcf2c32a1c2264ab67c9b90f6e0d80ded914dc8c74015ade26a4abe0148d",
+  "subprocessBudgetMs": 89500,
+  "unchangedBudget": true,
+  "interventionsEnabled": false,
+  "rows": [
+    {
+      "kind": "baseline",
+      "processWallMs": 63632.8939,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "runtimeMs": 60938.3268,
+      "cpu": {
+        "user": 69750000,
+        "system": 656000
+      },
+      "rssBytes": 501239808,
+      "stateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "time": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436
+    },
+    {
+      "kind": "current",
+      "processWallMs": 62162.8539,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "runtimeMs": 61024.1328,
+      "cpu": {
+        "user": 70187000,
+        "system": 594000
+      },
+      "rssBytes": 410804224,
+      "stateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "time": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436
+    },
+    {
+      "kind": "current",
+      "processWallMs": 62830.374399999986,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "runtimeMs": 61711.2181,
+      "cpu": {
+        "user": 70797000,
+        "system": 813000
+      },
+      "rssBytes": 400625664,
+      "stateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "time": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436
+    },
+    {
+      "kind": "baseline",
+      "processWallMs": 62016.128400000016,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "runtimeMs": 60860.6027,
+      "cpu": {
+        "user": 70375000,
+        "system": 594000
+      },
+      "rssBytes": 479490048,
+      "stateHash": "b45c31bf2fb597c21215bfc2ca9326cea5f76aa99db40c54d116a4cb0f309000",
+      "status": "half_time",
+      "time": 2820.0000000058762,
+      "awarded": true,
+      "penaltyExecution": 428.27499999988436
+    }
+  ],
+  "allComplete": true,
+  "sameCompleteState": true,
+  "limitation": "Four local ABBA engineering samples, not a statistically calibrated cross-host speed guarantee. The original CI timeout failure remains retained."
+}
