@@ -1,0 +1,5175 @@
+{
+  "schema": "mfl-pr195-summary-v1",
+  "archiveSha256": "8008b9a86a67f0232f2ac0da5d862b93df0f6c744b842db3c1bcda4bddb851e7",
+  "sourceHash": "ce39d2c5ec82d153d55ad0246d24efd14a4cbaabc18b7dec2de617a3a5fa6f0b",
+  "protocolHash": "b2cb6a74c59ab95335cae2e39893eaec95f4d41462a69df3d44c5a793b8dbc6b",
+  "registry": {
+    "count": 133,
+    "classes": {
+      "PROBABILITY_CLAIM": 9,
+      "STRUCTURAL_GATE": 12,
+      "HEURISTIC_UTILITY": 12,
+      "SUBJECTIVE_PRIOR": 3,
+      "TIMING_ASSUMPTION": 12,
+      "EMPIRICAL_PARAMETER": 24,
+      "GEOMETRIC_APPROXIMATION": 14,
+      "UNIMPLEMENTED_CAPABILITY": 12,
+      "TACTICAL_ASSUMPTION": 19,
+      "LAW_OR_DEFINITION": 8,
+      "ENGINEERING_GUARD": 7,
+      "PHYSICAL_CONSTANT": 1
+    },
+    "priorities": {
+      "P0": 44,
+      "P1": 76,
+      "P2": 12,
+      "P3": 1
+    },
+    "statuses": {
+      "LAB_REQUIRED": 103,
+      "REFACTOR_REQUIRED": 4,
+      "LAB_ACTIVE": 14,
+      "BLOCKED": 12
+    }
+  },
+  "inventory": {
+    "files": 319,
+    "source": 179,
+    "tests": 140,
+    "contextCandidates": 3017
+  },
+  "overall": {
+    "trials": 504,
+    "released": 448,
+    "candidate": 392,
+    "receiverTouches": 185,
+    "receiverControls": 179,
+    "defenderTouches": 117,
+    "defenderControls": 40,
+    "defenderProximity": 83,
+    "defenderReachable": 107,
+    "defenderDisruptions": 80,
+    "looseAtHorizon": 152,
+    "exitsBeforeFirstControl": 86,
+    "shotOutcomes": {
+      "miss": 34,
+      "save": 56,
+      "goal": 22,
+      "block": 80,
+      "crossbar": 4
+    },
+    "scores": {
+      "completion": {
+        "count": 249,
+        "meanPrediction": 0.6045683950017431,
+        "observedRate": 0.6666666666666666,
+        "bias": -0.06209827166492354,
+        "brier": 0.18724175228278916,
+        "clippedLogLoss": 0.6462837563769067,
+        "logLossEpsilon": 1e-12,
+        "wilson95": [
+          0.6059737654469254,
+          0.7222951837480741
+        ],
+        "bins": [
+          {
+            "lower": 0,
+            "upper": 0.2,
+            "count": 60,
+            "meanPrediction": 0.06858527823516386,
+            "observedRate": 0.4666666666666667
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 29,
+            "meanPrediction": 0.28931317663171874,
+            "observedRate": 0.1724137931034483
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 16,
+            "meanPrediction": 0.5263626800763755,
+            "observedRate": 0.0625
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 24,
+            "meanPrediction": 0.7431012590103817,
+            "observedRate": 1
+          },
+          {
+            "lower": 0.8,
+            "upper": 1,
+            "count": 120,
+            "meanPrediction": 0.931467487012774,
+            "observedRate": 0.9
+          }
+        ],
+        "auc": 0.7942371897227464,
+        "censoredOrNotApplicable": 3
+      },
+      "retained": {
+        "count": 248,
+        "meanPrediction": 0.47704974152626517,
+        "observedRate": 0.5241935483870968,
+        "bias": -0.04714380686083158,
+        "brier": 0.2359967154065921,
+        "clippedLogLoss": 1.4043740377557719,
+        "logLossEpsilon": 1e-12,
+        "wilson95": [
+          0.46214325069693857,
+          0.5855057744325726
+        ],
+        "bins": [
+          {
+            "lower": 0,
+            "upper": 0.2,
+            "count": 92,
+            "meanPrediction": 0.04097106338542331,
+            "observedRate": 0.33695652173913043
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 18,
+            "meanPrediction": 0.3297889286521195,
+            "observedRate": 0.05555555555555555
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 38,
+            "meanPrediction": 0.482549745263167,
+            "observedRate": 0.5526315789473685
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 20,
+            "meanPrediction": 0.7210154829729473,
+            "observedRate": 0.45
+          },
+          {
+            "lower": 0.8,
+            "upper": 1,
+            "count": 80,
+            "meanPrediction": 0.9480699671482166,
+            "observedRate": 0.85
+          }
+        ],
+        "auc": 0.7738265971316819,
+        "censoredOrNotApplicable": 4
+      },
+      "goal": {
+        "count": 196,
+        "meanPrediction": 0.09720604595802936,
+        "observedRate": 0.11224489795918367,
+        "bias": -0.015038852001154318,
+        "brier": 0.07650383779187042,
+        "clippedLogLoss": 0.3135138557816428,
+        "logLossEpsilon": 1e-12,
+        "wilson95": [
+          0.07530253387333503,
+          0.16409453169562394
+        ],
+        "bins": [
+          {
+            "lower": 0,
+            "upper": 0.2,
+            "count": 160,
+            "meanPrediction": 0.05248972161327846,
+            "observedRate": 0.0625
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 32,
+            "meanPrediction": 0.2708731870557066,
+            "observedRate": 0.25
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 4,
+            "meanPrediction": 0.4965218909666437,
+            "observedRate": 1
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "meanPrediction": null,
+            "observedRate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 1,
+            "count": 0,
+            "meanPrediction": null,
+            "observedRate": null
+          }
+        ],
+        "auc": 0.8051201671891327,
+        "censoredOrNotApplicable": 28
+      }
+    }
+  },
+  "byScenario": {
+    "safe_pass": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 28,
+      "receiverControls": 28,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 10,
+      "exitsBeforeFirstControl": 0,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 28,
+          "meanPrediction": 0.9158030914813234,
+          "observedRate": 1,
+          "bias": -0.08419690851867656,
+          "brier": 0.018646946938807148,
+          "clippedLogLoss": 0.0962642779410143,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.8793566952341543,
+            0.9999999999999998
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.6524668189296713,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 24,
+              "meanPrediction": 0.9596924702399322,
+              "observedRate": 1
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 28,
+          "meanPrediction": 0.7344143709278849,
+          "observedRate": 1,
+          "bias": -0.26558562907211514,
+          "brier": 0.1652342432255285,
+          "clippedLogLoss": 0.5256664128756073,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.8793566952341543,
+            0.9999999999999998
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.07968029083843328,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 8,
+              "meanPrediction": 0.6106101528296588,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 16,
+              "meanPrediction": 0.9599999999993607,
+              "observedRate": 1
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "progressive_pass": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 24,
+      "receiverControls": 24,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 9,
+      "exitsBeforeFirstControl": 0,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 28,
+          "meanPrediction": 0.8477919224349467,
+          "observedRate": 0.8571428571428571,
+          "bias": -0.009350934707910374,
+          "brier": 0.019045907304743866,
+          "clippedLogLoss": 0.11221057365822143,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.685101978364747,
+            0.9430099468025059
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 4,
+              "meanPrediction": 0.3189662075923735,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 24,
+              "meanPrediction": 0.9359295415753756,
+              "observedRate": 1
+            }
+          ],
+          "auc": 1,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 28,
+          "meanPrediction": 0.6970365484500851,
+          "observedRate": 0.8571428571428571,
+          "bias": -0.16010630869277198,
+          "brier": 0.06718948058688456,
+          "clippedLogLoss": 0.21138955105291465,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.685101978364747,
+            0.9430099468025059
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.0023493054472495264,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 8,
+              "meanPrediction": 0.5184562995786616,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 16,
+              "meanPrediction": 0.9599984836365054,
+              "observedRate": 1
+            }
+          ],
+          "auc": 1,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "through_ball": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 16,
+      "receiverControls": 16,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 1,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 11,
+      "exitsBeforeFirstControl": 0,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 25,
+          "meanPrediction": 0.6439043727798345,
+          "observedRate": 0.64,
+          "bias": 0.003904372779834464,
+          "brier": 0.02078339880914124,
+          "clippedLogLoss": 0.12118385736129596,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.44518497748164865,
+            0.7975211922554178
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.034166165322057865,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 5,
+              "meanPrediction": 0.25456267326114185,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.7930018587567587,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 12,
+              "meanPrediction": 0.9596769880729075,
+              "observedRate": 1
+            }
+          ],
+          "auc": 1,
+          "censoredOrNotApplicable": 3
+        },
+        "retained": {
+          "count": 25,
+          "meanPrediction": 0.6120435314460727,
+          "observedRate": 0.36,
+          "bias": 0.2520435314460727,
+          "brier": 0.22801228480724578,
+          "clippedLogLoss": 0.7506807164581626,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.20247880774458224,
+            0.5548150225183514
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 9,
+              "meanPrediction": 0.06810633269443235,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.7930018587567587,
+              "observedRate": 0.25
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 12,
+              "meanPrediction": 0.9596769880729075,
+              "observedRate": 0.6666666666666666
+            }
+          ],
+          "auc": 0.90625,
+          "censoredOrNotApplicable": 3
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "long_pass": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 0,
+      "receiverTouches": 0,
+      "receiverControls": 0,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 10,
+      "exitsBeforeFirstControl": 1,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 28,
+          "meanPrediction": 0.5088737308072635,
+          "observedRate": 0,
+          "bias": 0.5088737308072635,
+          "brier": 0.42650672235492176,
+          "clippedLogLoss": 1.4252438193643375,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            1.3877787807814457e-17,
+            0.12064330476584563
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 12,
+              "meanPrediction": 0.06792093129354125,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.5071165392662469,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 12,
+              "meanPrediction": 0.9504122608346579,
+              "observedRate": 0
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 28,
+          "meanPrediction": 0.3816350782248509,
+          "observedRate": 0,
+          "bias": 0.3816350782248509,
+          "brier": 0.2913551737174707,
+          "clippedLogLoss": 0.7608471937900054,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            1.3877787807814457e-17,
+            0.12064330476584563
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 12,
+              "meanPrediction": 0,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 4,
+              "meanPrediction": 0.23190472574895948,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 8,
+              "meanPrediction": 0.7954276252243303,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 4,
+              "meanPrediction": 0.8486855713763367,
+              "observedRate": 0
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "pressured_receiver": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 24,
+      "receiverControls": 24,
+      "defenderTouches": 4,
+      "defenderControls": 4,
+      "defenderProximity": 0,
+      "defenderReachable": 4,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 9,
+      "exitsBeforeFirstControl": 0,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 28,
+          "meanPrediction": 0.524459405145506,
+          "observedRate": 0.8571428571428571,
+          "bias": -0.33268345199735105,
+          "brier": 0.24669784952846321,
+          "clippedLogLoss": 0.8026990168324436,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.685101978364747,
+            0.9430099468025059
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.053954675483955696,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 8,
+              "meanPrediction": 0.3020611420793631,
+              "observedRate": 0.5
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 16,
+              "meanPrediction": 0.7532847190939651,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.75,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 28,
+          "meanPrediction": 0.2959269580556616,
+          "observedRate": 0.25,
+          "bias": 0.045926958055661604,
+          "brier": 0.35399487138214736,
+          "clippedLogLoss": 4.591544151295624,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.12676494919293316,
+            0.4335567031899896
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 12,
+              "meanPrediction": 0.023359280994169413,
+              "observedRate": 0.5
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 4,
+              "meanPrediction": 0.306425529623851,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 12,
+              "meanPrediction": 0.5649951112610907,
+              "observedRate": 0.08333333333333333
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.17346938775510204,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "moving_defender": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 25,
+      "receiverControls": 22,
+      "defenderTouches": 4,
+      "defenderControls": 3,
+      "defenderProximity": 2,
+      "defenderReachable": 4,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 4,
+      "exitsBeforeFirstControl": 0,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 28,
+          "meanPrediction": 0.8086671185562901,
+          "observedRate": 0.8928571428571429,
+          "bias": -0.08419002430085276,
+          "brier": 0.03902638901694639,
+          "clippedLogLoss": 0.1701966695797963,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.7280414845132785,
+            0.9628816331707
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 4,
+              "meanPrediction": 0.24065743350970048,
+              "observedRate": 0.25
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 24,
+              "meanPrediction": 0.9033353993973886,
+              "observedRate": 1
+            }
+          ],
+          "auc": 0.98,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 27,
+          "meanPrediction": 0.6748065561195473,
+          "observedRate": 0.7407407407407407,
+          "bias": -0.06593418462119338,
+          "brier": 0.15557986530609821,
+          "clippedLogLoss": 0.4712062424079773,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.5532142868544692,
+            0.8682962543809281
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 3,
+              "meanPrediction": 0,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 2,
+              "meanPrediction": 0.3871521149870298,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 6,
+              "meanPrediction": 0.4092305944036047,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 16,
+              "meanPrediction": 0.9368805761770052,
+              "observedRate": 0.875
+            }
+          ],
+          "auc": 0.8,
+          "censoredOrNotApplicable": 1
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "wrong_direction": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 24,
+      "receiverControls": 24,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 8,
+      "exitsBeforeFirstControl": 0,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 28,
+          "meanPrediction": 0.8086671185562901,
+          "observedRate": 0.8571428571428571,
+          "bias": -0.04847573858656695,
+          "brier": 0.020501919981924986,
+          "clippedLogLoss": 0.1291581506422431,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.685101978364747,
+            0.9430099468025059
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 4,
+              "meanPrediction": 0.24065743350970048,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 24,
+              "meanPrediction": 0.9033353993973886,
+              "observedRate": 1
+            }
+          ],
+          "auc": 1,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 28,
+          "meanPrediction": 0.6616636967286729,
+          "observedRate": 0.7142857142857143,
+          "bias": -0.052622017557041434,
+          "brier": 0.14849939539089316,
+          "clippedLogLoss": 0.4443784894587268,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.5294071156670428,
+            0.8474600394333092
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 8,
+              "meanPrediction": 0.41273965449146166,
+              "observedRate": 0.75
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 16,
+              "meanPrediction": 0.9515416420294467,
+              "observedRate": 0.875
+            }
+          ],
+          "auc": 0.9125,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "bad_pass": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 5,
+      "receiverControls": 5,
+      "defenderTouches": 24,
+      "defenderControls": 23,
+      "defenderProximity": 4,
+      "defenderReachable": 24,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 6,
+      "exitsBeforeFirstControl": 0,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 28,
+          "meanPrediction": 0.31639221087814995,
+          "observedRate": 0.17857142857142858,
+          "bias": 0.13782078230672137,
+          "brier": 0.2851887673997671,
+          "clippedLogLoss": 1.1275188453731817,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.07878501945604277,
+            0.35591424789342946
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 12,
+              "meanPrediction": 0.08049915495825413,
+              "observedRate": 0.3333333333333333
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 4,
+              "meanPrediction": 0.37491383023303215,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 12,
+              "meanPrediction": 0.5327780603464186,
+              "observedRate": 0.08333333333333333
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.13478260869565217,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 28,
+          "meanPrediction": 0.19084609426464608,
+          "observedRate": 0.14285714285714285,
+          "bias": 0.04798895140750323,
+          "brier": 0.18445504138896082,
+          "clippedLogLoss": 3.2158916817795276,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.05699005319749392,
+            0.31489802163525293
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 16,
+              "meanPrediction": 0.04269483682828701,
+              "observedRate": 0.1875
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 8,
+              "meanPrediction": 0.376071933034106,
+              "observedRate": 0.125
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.41299944647116194,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.1875,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "stale_receiver": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 20,
+      "receiverControls": 18,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 4,
+      "exitsBeforeFirstControl": 10,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 28,
+          "meanPrediction": 0.07077115342372253,
+          "observedRate": 0.7142857142857143,
+          "bias": -0.6435145608619918,
+          "brier": 0.5909430456239253,
+          "clippedLogLoss": 1.7758178931736677,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.5294071156670428,
+            0.8474600394333092
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.07077115342372253,
+              "observedRate": 0.7142857142857143
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.95,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 28,
+          "meanPrediction": 0.06660120324584631,
+          "observedRate": 0.6428571428571429,
+          "bias": -0.5762559396112966,
+          "brier": 0.525922577786294,
+          "clippedLogLoss": 1.5643959092819397,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.4583030651442781,
+            0.7929417049226233
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.06660120324584631,
+              "observedRate": 0.6428571428571429
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.9888888888888889,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "good_shot": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 0,
+      "receiverControls": 0,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 4,
+      "exitsBeforeFirstControl": 14,
+      "shotOutcomes": {
+        "miss": 8,
+        "save": 20
+      },
+      "scores": {
+        "completion": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.1305845869858827,
+          "observedRate": 0,
+          "bias": 0.1305845869858827,
+          "brier": 0.026153746008646284,
+          "clippedLogLoss": 0.14613162163306379,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            1.3877787807814457e-17,
+            0.12064330476584563
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 16,
+              "meanPrediction": 0.05245212917547313,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 12,
+              "meanPrediction": 0.23476119739976212,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "poor_shot_outlet": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 0,
+      "receiverTouches": 0,
+      "receiverControls": 0,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 3,
+      "exitsBeforeFirstControl": 17,
+      "shotOutcomes": {
+        "miss": 6,
+        "save": 20,
+        "goal": 2
+      },
+      "scores": {
+        "completion": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.00041046874794938893,
+          "observedRate": 0.07142857142857142,
+          "bias": -0.07101810268062203,
+          "brier": 0.07137966652934799,
+          "clippedLogLoss": 0.5700071624241297,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.019812064115305755,
+            0.22645362568399052
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.00041046874794938893,
+              "observedRate": 0.07142857142857142
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.5,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "poor_shot_trapped": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 0,
+      "receiverTouches": 0,
+      "receiverControls": 0,
+      "defenderTouches": 28,
+      "defenderControls": 1,
+      "defenderProximity": 28,
+      "defenderReachable": 28,
+      "defenderDisruptions": 28,
+      "looseAtHorizon": 3,
+      "exitsBeforeFirstControl": 6,
+      "shotOutcomes": {
+        "block": 28
+      },
+      "scores": {
+        "completion": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.00005249134580616109,
+          "observedRate": 0,
+          "bias": 0.00005249134580616109,
+          "brier": 5.088604283301718e-9,
+          "clippedLogLoss": 0.00005249389030284158,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            1.3877787807814457e-17,
+            0.12064330476584563
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.00005249134580616109,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "incoming_difficult": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 0,
+      "receiverTouches": 0,
+      "receiverControls": 0,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 8,
+      "exitsBeforeFirstControl": 10,
+      "shotOutcomes": {
+        "miss": 8,
+        "save": 16,
+        "crossbar": 4
+      },
+      "scores": {
+        "completion": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.1305845869858827,
+          "observedRate": 0,
+          "bias": 0.1305845869858827,
+          "brier": 0.026153746008646284,
+          "clippedLogLoss": 0.14613162163306379,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            1.3877787807814457e-17,
+            0.12064330476584563
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 16,
+              "meanPrediction": 0.05245212917547313,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 12,
+              "meanPrediction": 0.23476119739976212,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "blocked_shot": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 1,
+      "receiverControls": 1,
+      "defenderTouches": 26,
+      "defenderControls": 2,
+      "defenderProximity": 22,
+      "defenderReachable": 20,
+      "defenderDisruptions": 26,
+      "looseAtHorizon": 9,
+      "exitsBeforeFirstControl": 10,
+      "shotOutcomes": {
+        "miss": 2,
+        "block": 26
+      },
+      "scores": {
+        "completion": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.09301732294287295,
+          "observedRate": 0,
+          "bias": 0.09301732294287295,
+          "brier": 0.013280078305506511,
+          "clippedLogLoss": 0.10049569617894484,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            1.3877787807814457e-17,
+            0.12064330476584563
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.09301732294287295,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "keeper_away": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 0,
+      "receiverControls": 0,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 20,
+      "exitsBeforeFirstControl": 8,
+      "shotOutcomes": {
+        "miss": 8,
+        "goal": 20
+      },
+      "scores": {
+        "completion": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.23277554175493823,
+          "observedRate": 0.7142857142857143,
+          "bias": -0.4815101725307761,
+          "brier": 0.38527954429683514,
+          "clippedLogLoss": 1.1312826985330506,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.5294071156670428,
+            0.8474600394333092
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 16,
+              "meanPrediction": 0.09362214731771101,
+              "observedRate": 0.5
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 8,
+              "meanPrediction": 0.3792091560235398,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.4965218909666437,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.8,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "rebound": {
+      "trials": 28,
+      "released": 28,
+      "candidate": 28,
+      "receiverTouches": 1,
+      "receiverControls": 1,
+      "defenderTouches": 26,
+      "defenderControls": 2,
+      "defenderProximity": 22,
+      "defenderReachable": 20,
+      "defenderDisruptions": 26,
+      "looseAtHorizon": 9,
+      "exitsBeforeFirstControl": 10,
+      "shotOutcomes": {
+        "miss": 2,
+        "block": 26
+      },
+      "scores": {
+        "completion": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.09301732294287295,
+          "observedRate": 0,
+          "bias": 0.09301732294287295,
+          "brier": 0.013280078305506511,
+          "clippedLogLoss": 0.10049569617894484,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            1.3877787807814457e-17,
+            0.12064330476584563
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.09301732294287295,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    },
+    "infeasible_contact": {
+      "trials": 28,
+      "released": 0,
+      "candidate": 28,
+      "receiverTouches": 0,
+      "receiverControls": 0,
+      "defenderTouches": 0,
+      "defenderControls": 0,
+      "defenderProximity": 0,
+      "defenderReachable": 0,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 13,
+      "exitsBeforeFirstControl": 0,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 28
+        }
+      }
+    },
+    "safe_hold": {
+      "trials": 28,
+      "released": 0,
+      "candidate": 28,
+      "receiverTouches": 17,
+      "receiverControls": 16,
+      "defenderTouches": 5,
+      "defenderControls": 5,
+      "defenderProximity": 5,
+      "defenderReachable": 6,
+      "defenderDisruptions": 0,
+      "looseAtHorizon": 12,
+      "exitsBeforeFirstControl": 0,
+      "shotOutcomes": {},
+      "scores": {
+        "completion": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 0,
+          "meanPrediction": null,
+          "observedRate": null,
+          "bias": null,
+          "brier": null,
+          "clippedLogLoss": null,
+          "logLossEpsilon": 1e-12,
+          "wilson95": null,
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": null,
+          "censoredOrNotApplicable": 0
+        }
+      }
+    }
+  },
+  "bySkill": {
+    "20:20": {
+      "trials": 72,
+      "released": 64,
+      "candidate": 56,
+      "receiverTouches": 13,
+      "receiverControls": 12,
+      "defenderTouches": 10,
+      "defenderControls": 1,
+      "defenderProximity": 12,
+      "defenderReachable": 10,
+      "defenderDisruptions": 8,
+      "looseAtHorizon": 20,
+      "exitsBeforeFirstControl": 22,
+      "shotOutcomes": {
+        "miss": 12,
+        "save": 6,
+        "block": 8,
+        "goal": 2
+      },
+      "scores": {
+        "completion": {
+          "count": 36,
+          "meanPrediction": 0.17439560755491607,
+          "observedRate": 0.3611111111111111,
+          "bias": -0.18671550355619504,
+          "brier": 0.26108186841842596,
+          "clippedLogLoss": 1.0591484781413065,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.22475592946515371,
+            0.5242492451444196
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 20,
+              "meanPrediction": 0.023362514890559762,
+              "observedRate": 0.4
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 12,
+              "meanPrediction": 0.26676035820392485,
+              "observedRate": 0.08333333333333333
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.6524668189296713,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.5735785953177257,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 35,
+          "meanPrediction": 0.009424095319916963,
+          "observedRate": 0.3142857142857143,
+          "bias": -0.30486161896579733,
+          "brier": 0.2967994587157926,
+          "clippedLogLoss": 5.815640226051836,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.18550844674265818,
+            0.4797976361206918
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 35,
+              "meanPrediction": 0.009424095319916963,
+              "observedRate": 0.3142857142857143
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.5757575757575758,
+          "censoredOrNotApplicable": 1
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.014487746557631687,
+          "observedRate": 0.07142857142857142,
+          "bias": -0.05694082487093974,
+          "brier": 0.06680262984294574,
+          "clippedLogLoss": 0.25214788282160855,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.019812064115305755,
+            0.22645362568399052
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.014487746557631687,
+              "observedRate": 0.07142857142857142
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.9615384615384616,
+          "censoredOrNotApplicable": 4
+        }
+      }
+    },
+    "40:40": {
+      "trials": 72,
+      "released": 64,
+      "candidate": 56,
+      "receiverTouches": 26,
+      "receiverControls": 25,
+      "defenderTouches": 16,
+      "defenderControls": 4,
+      "defenderProximity": 8,
+      "defenderReachable": 13,
+      "defenderDisruptions": 12,
+      "looseAtHorizon": 19,
+      "exitsBeforeFirstControl": 16,
+      "shotOutcomes": {
+        "miss": 8,
+        "save": 6,
+        "block": 12,
+        "goal": 2
+      },
+      "scores": {
+        "completion": {
+          "count": 35,
+          "meanPrediction": 0.48080420560665943,
+          "observedRate": 0.6285714285714286,
+          "bias": -0.14776722296476913,
+          "brier": 0.12783689351513183,
+          "clippedLogLoss": 0.45191311701317227,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.4633693684359532,
+            0.7683418049663429
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 12,
+              "meanPrediction": 0.08620216025564346,
+              "observedRate": 0.16666666666666666
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 7,
+              "meanPrediction": 0.28170465544298257,
+              "observedRate": 0.5714285714285714
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 16,
+              "meanPrediction": 0.8638617928165289,
+              "observedRate": 1
+            }
+          ],
+          "auc": 0.916083916083916,
+          "censoredOrNotApplicable": 1
+        },
+        "retained": {
+          "count": 35,
+          "meanPrediction": 0.2409109590085832,
+          "observedRate": 0.5428571428571428,
+          "bias": -0.30194618384855965,
+          "brier": 0.20456128248427058,
+          "clippedLogLoss": 0.6492835533692058,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.3818972506848375,
+            0.6953398071159278
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 19,
+              "meanPrediction": 0.03230002735449657,
+              "observedRate": 0.15789473684210525
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 12,
+              "meanPrediction": 0.447978536187195,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.6106101528296588,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.9555921052631579,
+          "censoredOrNotApplicable": 1
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.03248320979442833,
+          "observedRate": 0.07142857142857142,
+          "bias": -0.0389453616341431,
+          "brier": 0.0619884327119918,
+          "clippedLogLoss": 0.2098969620924631,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.019812064115305755,
+            0.22645362568399052
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.03248320979442833,
+              "observedRate": 0.07142857142857142
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.9615384615384616,
+          "censoredOrNotApplicable": 4
+        }
+      }
+    },
+    "60:60": {
+      "trials": 72,
+      "released": 64,
+      "candidate": 56,
+      "receiverTouches": 31,
+      "receiverControls": 31,
+      "defenderTouches": 17,
+      "defenderControls": 8,
+      "defenderProximity": 9,
+      "defenderReachable": 13,
+      "defenderDisruptions": 12,
+      "looseAtHorizon": 29,
+      "exitsBeforeFirstControl": 9,
+      "shotOutcomes": {
+        "miss": 6,
+        "save": 6,
+        "goal": 4,
+        "block": 12
+      },
+      "scores": {
+        "completion": {
+          "count": 36,
+          "meanPrediction": 0.694074121754123,
+          "observedRate": 0.7777777777777778,
+          "bias": -0.08370365602365482,
+          "brier": 0.15385062614736925,
+          "clippedLogLoss": 0.4883981031698428,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.6191529705388181,
+            0.8828366802420353
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.09158022292475804,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 4,
+              "meanPrediction": 0.37491383023303215,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.5071165392662469,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 8,
+              "meanPrediction": 0.7308582171530391,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 16,
+              "meanPrediction": 0.952835017264248,
+              "observedRate": 1
+            }
+          ],
+          "auc": 0.8571428571428571,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 36,
+          "meanPrediction": 0.598238895073962,
+          "observedRate": 0.4722222222222222,
+          "bias": 0.12601667285173979,
+          "brier": 0.26240623748218356,
+          "clippedLogLoss": 0.8119371751147223,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.31986041515179053,
+            0.629940619770124
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 8,
+              "meanPrediction": 0.12600666141416894,
+              "observedRate": 0.5
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 8,
+              "meanPrediction": 0.2691651276864052,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.7930018587567587,
+              "observedRate": 0.25
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 16,
+              "meanPrediction": 0.9502011546769382,
+              "observedRate": 0.75
+            }
+          ],
+          "auc": 0.7476780185758514,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.07674227726867357,
+          "observedRate": 0.14285714285714285,
+          "bias": -0.06611486558846928,
+          "brier": 0.12593123212666574,
+          "clippedLogLoss": 0.7579322846242815,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.05699005319749392,
+            0.31489802163525293
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.07674227726867357,
+              "observedRate": 0.14285714285714285
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.5833333333333334,
+          "censoredOrNotApplicable": 4
+        }
+      }
+    },
+    "80:80": {
+      "trials": 72,
+      "released": 64,
+      "candidate": 56,
+      "receiverTouches": 32,
+      "receiverControls": 31,
+      "defenderTouches": 16,
+      "defenderControls": 4,
+      "defenderProximity": 12,
+      "defenderReachable": 17,
+      "defenderDisruptions": 12,
+      "looseAtHorizon": 27,
+      "exitsBeforeFirstControl": 8,
+      "shotOutcomes": {
+        "save": 10,
+        "block": 12,
+        "crossbar": 2,
+        "goal": 4
+      },
+      "scores": {
+        "completion": {
+          "count": 36,
+          "meanPrediction": 0.7916844384800675,
+          "observedRate": 0.7777777777777778,
+          "bias": 0.013906660702289741,
+          "brier": 0.22277953157747568,
+          "clippedLogLoss": 0.6906862400094448,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.6191529705388181,
+            0.8828366802420353
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.10960434085690572,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.5191674657934163,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.7722214539468875,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 24,
+              "meanPrediction": 0.9540277809539001,
+              "observedRate": 0.8333333333333334
+            }
+          ],
+          "auc": 0.7857142857142857,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 36,
+          "meanPrediction": 0.7334700720821468,
+          "observedRate": 0.6111111111111112,
+          "bias": 0.1223589609710356,
+          "brier": 0.26075370030487904,
+          "clippedLogLoss": 0.7671385325676731,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.44864459096605147,
+            0.75215126934629
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.10960434085690572,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 4,
+              "meanPrediction": 0.376071933034106,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.5559994468417592,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.7951222644330366,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 20,
+              "meanPrediction": 0.9528865327147035,
+              "observedRate": 0.9
+            }
+          ],
+          "auc": 0.7597402597402597,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.1583179174561691,
+          "observedRate": 0.14285714285714285,
+          "bias": 0.015460774599026256,
+          "brier": 0.07453246800518087,
+          "clippedLogLoss": 0.25387441101300273,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.05699005319749392,
+            0.31489802163525293
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 16,
+              "meanPrediction": 0.07591324469217128,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 12,
+              "meanPrediction": 0.26819081447483295,
+              "observedRate": 0.3333333333333333
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 1,
+          "censoredOrNotApplicable": 4
+        }
+      }
+    },
+    "100:100": {
+      "trials": 72,
+      "released": 64,
+      "candidate": 56,
+      "receiverTouches": 32,
+      "receiverControls": 32,
+      "defenderTouches": 16,
+      "defenderControls": 6,
+      "defenderProximity": 12,
+      "defenderReachable": 16,
+      "defenderDisruptions": 12,
+      "looseAtHorizon": 22,
+      "exitsBeforeFirstControl": 6,
+      "shotOutcomes": {
+        "save": 12,
+        "block": 12,
+        "goal": 4
+      },
+      "scores": {
+        "completion": {
+          "count": 36,
+          "meanPrediction": 0.8032660366139966,
+          "observedRate": 0.7777777777777778,
+          "bias": 0.025488258836218858,
+          "brier": 0.23047404161864632,
+          "clippedLogLoss": 0.7400705386213383,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.6191529705388181,
+            0.8828366802420353
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.10997721628304388,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.559999249452423,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.7999813929327668,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 24,
+              "meanPrediction": 0.9599060784762887,
+              "observedRate": 0.8333333333333334
+            }
+          ],
+          "auc": 0.7857142857142857,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 36,
+          "meanPrediction": 0.7404328501325588,
+          "observedRate": 0.6944444444444444,
+          "bias": 0.04598840568811435,
+          "brier": 0.2118592141843034,
+          "clippedLogLoss": 0.595966184504441,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.5314372714948966,
+            0.8199554840517008
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.10997721628304388,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 8,
+              "meanPrediction": 0.4979929432854579,
+              "observedRate": 0.125
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.7957329860156243,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 20,
+              "meanPrediction": 0.9524399124646891,
+              "observedRate": 1
+            }
+          ],
+          "auc": 0.82,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.20761004337870487,
+          "observedRate": 0.14285714285714285,
+          "bias": 0.06475290052156202,
+          "brier": 0.06975120113913598,
+          "clippedLogLoss": 0.25697407681467904,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.05699005319749392,
+            0.31489802163525293
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 16,
+              "meanPrediction": 0.0997269507719089,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 8,
+              "meanPrediction": 0.27892030479832736,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.4965218909666437,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 1,
+          "censoredOrNotApplicable": 4
+        }
+      }
+    },
+    "40:80": {
+      "trials": 72,
+      "released": 64,
+      "candidate": 56,
+      "receiverTouches": 20,
+      "receiverControls": 17,
+      "defenderTouches": 24,
+      "defenderControls": 12,
+      "defenderProximity": 12,
+      "defenderReachable": 20,
+      "defenderDisruptions": 12,
+      "looseAtHorizon": 18,
+      "exitsBeforeFirstControl": 15,
+      "shotOutcomes": {
+        "miss": 8,
+        "save": 6,
+        "block": 12,
+        "goal": 2
+      },
+      "scores": {
+        "completion": {
+          "count": 34,
+          "meanPrediction": 0.48439807616025504,
+          "observedRate": 0.5294117647058824,
+          "bias": -0.04501368854562732,
+          "brier": 0.08254069312336941,
+          "clippedLogLoss": 0.354655679387393,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.3673671298006892,
+            0.6854849552491152
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 12,
+              "meanPrediction": 0.07753133246203836,
+              "observedRate": 0.16666666666666666
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 6,
+              "meanPrediction": 0.286228319139956,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 16,
+              "meanPrediction": 0.8638617928165289,
+              "observedRate": 1
+            }
+          ],
+          "auc": 0.8958333333333334,
+          "censoredOrNotApplicable": 2
+        },
+        "retained": {
+          "count": 34,
+          "meanPrediction": 0.2425573734780769,
+          "observedRate": 0.38235294117647056,
+          "bias": -0.13979556769839366,
+          "brier": 0.13356720037867764,
+          "clippedLogLoss": 0.42540990383573585,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.23900183324508897,
+            0.549589826555693
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 18,
+              "meanPrediction": 0.02783317179031352,
+              "observedRate": 0.05555555555555555
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 2,
+              "meanPrediction": 0.3871521149870298,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 10,
+              "meanPrediction": 0.4529208764736275,
+              "observedRate": 0.8
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.6106101528296588,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.9468864468864469,
+          "censoredOrNotApplicable": 2
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.03248320979442833,
+          "observedRate": 0.07142857142857142,
+          "bias": -0.0389453616341431,
+          "brier": 0.0619884327119918,
+          "clippedLogLoss": 0.2098969620924631,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.019812064115305755,
+            0.22645362568399052
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 28,
+              "meanPrediction": 0.03248320979442833,
+              "observedRate": 0.07142857142857142
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 0.9615384615384616,
+          "censoredOrNotApplicable": 4
+        }
+      }
+    },
+    "80:40": {
+      "trials": 72,
+      "released": 64,
+      "candidate": 56,
+      "receiverTouches": 31,
+      "receiverControls": 31,
+      "defenderTouches": 18,
+      "defenderControls": 5,
+      "defenderProximity": 18,
+      "defenderReachable": 18,
+      "defenderDisruptions": 12,
+      "looseAtHorizon": 17,
+      "exitsBeforeFirstControl": 10,
+      "shotOutcomes": {
+        "save": 10,
+        "block": 12,
+        "crossbar": 2,
+        "goal": 4
+      },
+      "scores": {
+        "completion": {
+          "count": 36,
+          "meanPrediction": 0.7932422558677845,
+          "observedRate": 0.8055555555555556,
+          "bias": -0.012313299687771062,
+          "brier": 0.22466175110448136,
+          "clippedLogLoss": 0.7175133940363274,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.6497195700482261,
+            0.9024690458107127
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.10960434085690572,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.5191674657934163,
+              "observedRate": 0.25
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 4,
+              "meanPrediction": 0.7722214539468875,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 24,
+              "meanPrediction": 0.9563645070354756,
+              "observedRate": 0.8333333333333334
+            }
+          ],
+          "auc": 0.5985221674876847,
+          "censoredOrNotApplicable": 0
+        },
+        "retained": {
+          "count": 36,
+          "meanPrediction": 0.7417375798991542,
+          "observedRate": 0.6388888888888888,
+          "bias": 0.10284869101026539,
+          "brier": 0.2771551443052329,
+          "clippedLogLoss": 0.8124162287375988,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.4757507548555804,
+            0.7752440705348462
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 4,
+              "meanPrediction": 0.10960434085690572,
+              "observedRate": 1
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 4,
+              "meanPrediction": 0.376071933034106,
+              "observedRate": 0.25
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 4,
+              "meanPrediction": 0.5559994468417592,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 24,
+              "meanPrediction": 0.938993749726603,
+              "observedRate": 0.75
+            }
+          ],
+          "auc": 0.7274247491638796,
+          "censoredOrNotApplicable": 0
+        },
+        "goal": {
+          "count": 28,
+          "meanPrediction": 0.1583179174561691,
+          "observedRate": 0.14285714285714285,
+          "bias": 0.015460774599026256,
+          "brier": 0.07453246800518087,
+          "clippedLogLoss": 0.25387441101300273,
+          "logLossEpsilon": 1e-12,
+          "wilson95": [
+            0.05699005319749392,
+            0.31489802163525293
+          ],
+          "bins": [
+            {
+              "lower": 0,
+              "upper": 0.2,
+              "count": 16,
+              "meanPrediction": 0.07591324469217128,
+              "observedRate": 0
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.4,
+              "count": 12,
+              "meanPrediction": 0.26819081447483295,
+              "observedRate": 0.3333333333333333
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.6,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.8,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 1,
+              "count": 0,
+              "meanPrediction": null,
+              "observedRate": null
+            }
+          ],
+          "auc": 1,
+          "censoredOrNotApplicable": 4
+        }
+      }
+    }
+  },
+  "defenderArrivals": [
+    {
+      "skill": 20,
+      "direction": "toward",
+      "mirror": false,
+      "estimated": 1.1999999999999997,
+      "bounded": 1.2068623481781375,
+      "observed": 1.6500000000000001,
+      "inputHash": "15fe2926f8ae5a4f7f0ef9ac3835333f72b898d4aaca5fdfdb4c84afb8cc69a7",
+      "finalHash": "8780fedfdb559a2f63e17a381a2065a2411943335eb1927260bd7161709a29cf"
+    },
+    {
+      "skill": 20,
+      "direction": "toward",
+      "mirror": true,
+      "estimated": 1.1999999999999997,
+      "bounded": 1.2068623481781375,
+      "observed": 1.6500000000000001,
+      "inputHash": "0835ddb5f172e9ef5a85dddcf72b2b9e11d84a0f28750d2f5855da19e8030402",
+      "finalHash": "e849cbbaa086fabf7324c6443b0747fdb03366ed2898c3037f5ea3168f5d0ae5"
+    },
+    {
+      "skill": 20,
+      "direction": "away",
+      "mirror": false,
+      "estimated": 3.049999999999993,
+      "bounded": 1.942085020242915,
+      "observed": 3.5,
+      "inputHash": "0dca0a266f965ae6eb982120ae7b56c8ab179e2976f605be1acb1697c4391193",
+      "finalHash": "67bd9e24faf9d66fe1d4415846db35082a997af278e6f3cab136b2e74bf72b5e"
+    },
+    {
+      "skill": 20,
+      "direction": "away",
+      "mirror": true,
+      "estimated": 3.049999999999993,
+      "bounded": 1.942085020242915,
+      "observed": 3.5,
+      "inputHash": "fb2b61e0a6b302998ca0b2a02b2c852e81968fa1047feaaba8657d66ee5256bf",
+      "finalHash": "a50ba17d9bcc2396c0c8c8921d4469cb5993a69deb004c9f6a39d2755b5ebbe5"
+    },
+    {
+      "skill": 20,
+      "direction": "transverse",
+      "mirror": false,
+      "estimated": 2.3749999999999956,
+      "bounded": 1.8612375426837109,
+      "observed": 2.6,
+      "inputHash": "493a3c06dba06bb903d09a686e8b844e0e2eadbfedf72771c3bc65abc0663238",
+      "finalHash": "837239e831d10bae5b90dc2ea887c71b6d29a5a512797e798b46bb9b9ad804e6"
+    },
+    {
+      "skill": 20,
+      "direction": "transverse",
+      "mirror": true,
+      "estimated": 2.3749999999999956,
+      "bounded": 1.8612375426837109,
+      "observed": 2.6,
+      "inputHash": "0cc12fbd0b2837e2b89cd09e4271e30cb86b7aa7c0326ea41600bc222efe5dbe",
+      "finalHash": "c903b04188d11974ed4abd28c09623d300b9b32145482ec34ec3d51e65d5e910"
+    },
+    {
+      "skill": 40,
+      "direction": "toward",
+      "mirror": false,
+      "estimated": 1.125,
+      "bounded": 1.2068623481781375,
+      "observed": 1.5250000000000001,
+      "inputHash": "e6bfb517b95824c5083c729e5dcf219473898a226e7280ec2b38baf7ca1c923f",
+      "finalHash": "42ae0ce8ebcb9c809998dfe649bb50126eb6fce7a16e42c18ad29ecbd9e9a2e2"
+    },
+    {
+      "skill": 40,
+      "direction": "toward",
+      "mirror": true,
+      "estimated": 1.125,
+      "bounded": 1.2068623481781375,
+      "observed": 1.5250000000000001,
+      "inputHash": "80f75fee8e8e8527506bbfe255c63d9b6b834e7fb7bef9fa440a718bc9e6d79b",
+      "finalHash": "9af8deff6ae69d86546b19ef1779917565784050fe2d8b7c3095b795bc3d4a14"
+    },
+    {
+      "skill": 40,
+      "direction": "away",
+      "mirror": false,
+      "estimated": 2.574999999999995,
+      "bounded": 1.942085020242915,
+      "observed": 3,
+      "inputHash": "28e9740dcfc21732d9a85ec1f563b66acef8602c69f800d154f9000bd222bc46",
+      "finalHash": "c931d7347c77d9137af9c3074684331def29acbe4285ec12c991daa623f505b9"
+    },
+    {
+      "skill": 40,
+      "direction": "away",
+      "mirror": true,
+      "estimated": 2.574999999999995,
+      "bounded": 1.942085020242915,
+      "observed": 3,
+      "inputHash": "79ad6c7c4fd7b9eb864e68e6b67ccda60bb48caa9b4d1b36fc12c10ece0e7125",
+      "finalHash": "0c64cea467b675d15c7e2ac29a8bc0d00aa065fe9333d04d5922af98e23a3811"
+    },
+    {
+      "skill": 40,
+      "direction": "transverse",
+      "mirror": false,
+      "estimated": 1.999999999999997,
+      "bounded": 1.8612375426837109,
+      "observed": 2.25,
+      "inputHash": "3c7697033089d72ced1031c292fa6febca28486bd21aed1c4fec4ba8ae1b2dfa",
+      "finalHash": "c876e0a4e3298b3548ef90be21bfc4f32545052d28771087d72ca09c521bf73f"
+    },
+    {
+      "skill": 40,
+      "direction": "transverse",
+      "mirror": true,
+      "estimated": 1.999999999999997,
+      "bounded": 1.8612375426837109,
+      "observed": 2.25,
+      "inputHash": "edb3a37b99dca97d255647a1eb0c9da0e06ccf18ed9d6efe5432c100da8b7e5b",
+      "finalHash": "e32483eaa430af81a5b6ada4cda761c6aa5ba064ee09aa6039fe53d7efb60233"
+    },
+    {
+      "skill": 60,
+      "direction": "toward",
+      "mirror": false,
+      "estimated": 1.0500000000000003,
+      "bounded": 1.2068623481781375,
+      "observed": 1.425,
+      "inputHash": "4469fab4237cc4a8c31f13e9a7fd319811aec5aef45c2c690e868aed98c753c4",
+      "finalHash": "7b1fbe0f085622560832ee3b76972c512808a45dbe148424124e7d590ab147ae"
+    },
+    {
+      "skill": 60,
+      "direction": "toward",
+      "mirror": true,
+      "estimated": 1.0500000000000003,
+      "bounded": 1.2068623481781375,
+      "observed": 1.425,
+      "inputHash": "db8e40c46c90e3dce6e15b5181868d48fab325bcf6bb25fd7fd47a943d885727",
+      "finalHash": "8b75b66d469d9faad6d00177853a47d9d828f387196db7cdf33c97fd43660e30"
+    },
+    {
+      "skill": 60,
+      "direction": "away",
+      "mirror": false,
+      "estimated": 2.274999999999996,
+      "bounded": 1.942085020242915,
+      "observed": 2.6500000000000004,
+      "inputHash": "e44a8bcea8ce5fe540c2b9b0e9cca4ea0a7935371f725de5ac5686c4e7b9fd19",
+      "finalHash": "73dae760f1783eb24d0d02e898a2d526752fa72549a51ffdb1c3fd8d87e20711"
+    },
+    {
+      "skill": 60,
+      "direction": "away",
+      "mirror": true,
+      "estimated": 2.274999999999996,
+      "bounded": 1.942085020242915,
+      "observed": 2.6500000000000004,
+      "inputHash": "1a1bd844c1ad060cfdfe294e1609d3d0aabb96445efad34c767b35e5f04559aa",
+      "finalHash": "ecb30fd1bffe779a47f3712d75292720c3e40be7f3dfd34a5846d6e9a9378acb"
+    },
+    {
+      "skill": 60,
+      "direction": "transverse",
+      "mirror": false,
+      "estimated": 1.7749999999999977,
+      "bounded": 1.8612375426837109,
+      "observed": 2.025,
+      "inputHash": "fc5b3514969db78cb5c336627a3060c7cf4aa729480fc63c8de2796808c4f945",
+      "finalHash": "4f797f1172f78b0906f217ebda759bd26ab1929c5314f13e5f4ee28a3d907435"
+    },
+    {
+      "skill": 60,
+      "direction": "transverse",
+      "mirror": true,
+      "estimated": 1.7749999999999977,
+      "bounded": 1.8612375426837109,
+      "observed": 2.025,
+      "inputHash": "befb8028825ff22372deeffb6a0bc82292c168efd352e7c6ee957f3ed00dc809",
+      "finalHash": "5b337fe6594a0ed4d1030848a6b6209b9800cb23649ea5fda031851ad6c14e47"
+    },
+    {
+      "skill": 80,
+      "direction": "toward",
+      "mirror": false,
+      "estimated": 1.0000000000000004,
+      "bounded": 1.2068623481781375,
+      "observed": 1.35,
+      "inputHash": "cd9ff36cb04196993fef54ed44e50c6c4d739928cb3a57833a44693026af6cc6",
+      "finalHash": "597a87430fc36bb769304cd0883530d7f5b91e8e5179f1676e2c5b6d5f769dd7"
+    },
+    {
+      "skill": 80,
+      "direction": "toward",
+      "mirror": true,
+      "estimated": 1.0000000000000004,
+      "bounded": 1.2068623481781375,
+      "observed": 1.35,
+      "inputHash": "bce1739cec8ff850f2ec8cf1184a0440c4d32511c710be399f5ca454be1dc53e",
+      "finalHash": "220b27db55b330ca7e3a41d63d08d0fbeebfb1378f97cc0f0db88d336510fd16"
+    },
+    {
+      "skill": 80,
+      "direction": "away",
+      "mirror": false,
+      "estimated": 2.024999999999997,
+      "bounded": 1.942085020242915,
+      "observed": 2.375,
+      "inputHash": "eb4869ec6356b6a91ffa0b0330dda4a5eb825fb5f64ff9989051e8be557cf847",
+      "finalHash": "dac6d548b6aed2cfe845f2544acb66769c773dbe515f93afb08e8c3fbf24eecf"
+    },
+    {
+      "skill": 80,
+      "direction": "away",
+      "mirror": true,
+      "estimated": 2.024999999999997,
+      "bounded": 1.942085020242915,
+      "observed": 2.375,
+      "inputHash": "418c28126339e66f0c9c1903877f18e24a2693a06fcbc373299811b0e137b0ea",
+      "finalHash": "e8e12bba8af426de6e3d1c55e86ffec0d625837779d494faad6b74454587bc48"
+    },
+    {
+      "skill": 80,
+      "direction": "transverse",
+      "mirror": false,
+      "estimated": 1.5999999999999983,
+      "bounded": 1.8612375426837109,
+      "observed": 1.85,
+      "inputHash": "16c7df460f2757436faf37362c9d13897098f2ff1e835c4abf676552a2e8c571",
+      "finalHash": "98cbe59b07d6c03c11b4323625d53d60631e5ead53969f3b3faca1561bfd6658"
+    },
+    {
+      "skill": 80,
+      "direction": "transverse",
+      "mirror": true,
+      "estimated": 1.5999999999999983,
+      "bounded": 1.8612375426837109,
+      "observed": 1.85,
+      "inputHash": "7b1cde988366b11627bedf05fda0c6d101da2275f7e34d56938e8f8bdb9ad908",
+      "finalHash": "71456663bbe8919e1aae9e61ef803371b4de22a6a0737e19ffd290f6b908c9b4"
+    },
+    {
+      "skill": 100,
+      "direction": "toward",
+      "mirror": false,
+      "estimated": 0.9500000000000005,
+      "bounded": 1.2068623481781375,
+      "observed": 1.2750000000000001,
+      "inputHash": "9021ac985d38fc1cfac5e0a2ec9f11b5e5c70b6193af7ce6bcea24a7c923859e",
+      "finalHash": "5793d9c489f92df41ed88cfab67a9d806f4c226f20bd03ac421ea32f7b77653a"
+    },
+    {
+      "skill": 100,
+      "direction": "toward",
+      "mirror": true,
+      "estimated": 0.9500000000000005,
+      "bounded": 1.2068623481781375,
+      "observed": 1.2750000000000001,
+      "inputHash": "1d3891cd5905f9619689651922fe741057092e3d68cf7c5d6c80f9b10020b8d4",
+      "finalHash": "45c6cb611855e9efc1c40236d335602d0060c34f721d730ce531254a879d3213"
+    },
+    {
+      "skill": 100,
+      "direction": "away",
+      "mirror": false,
+      "estimated": 1.8499999999999974,
+      "bounded": 1.942085020242915,
+      "observed": 2.1750000000000003,
+      "inputHash": "807d1d716284600c3e271cbd1cdd4e01dfb21f8b1a29ce9c49b0e6f3da1bbac0",
+      "finalHash": "7d34cd0cb65cd600fcb469701e4354a276e98d97be2abe4c457bffb6e8bbcd56"
+    },
+    {
+      "skill": 100,
+      "direction": "away",
+      "mirror": true,
+      "estimated": 1.8499999999999974,
+      "bounded": 1.942085020242915,
+      "observed": 2.1750000000000003,
+      "inputHash": "dc5c37b5b72d7b0120d53f64b98aa837248c549d1ef1f95c03c5fd18c9c00d20",
+      "finalHash": "adee680eb9319df46313838e73a5310cf2a892a64da40b1baebce36d36b47ca3"
+    },
+    {
+      "skill": 100,
+      "direction": "transverse",
+      "mirror": false,
+      "estimated": 1.4499999999999988,
+      "bounded": 1.8612375426837109,
+      "observed": 1.7000000000000002,
+      "inputHash": "5c928f9140f2374662ca2e2126d43ecb74cc78ff03134502670549236014f833",
+      "finalHash": "ddf9b50eae18aaf3c32339d238e32f885fec20964e75ae5a2599f716ab22c9a4"
+    },
+    {
+      "skill": 100,
+      "direction": "transverse",
+      "mirror": true,
+      "estimated": 1.4499999999999988,
+      "bounded": 1.8612375426837109,
+      "observed": 1.7000000000000002,
+      "inputHash": "ed7c2010d3df53b14fbe30eb5fc32eaf1dc7aeb64c54ecb5981e59b5c636fa66",
+      "finalHash": "d836b0ca2311038a23bbf13179022bcf72e7b9ffa8ea29cfb4fec4adfba81e09"
+    }
+  ],
+  "captures": [
+    {
+      "name": "safe_pass",
+      "status": "captured_canonical_tick",
+      "inputHash": "ac8cf0f3f7a860ec34b9e7977158dbb94927b1396a893f8974fd4ecf373483f9",
+      "selectedAction": {
+        "type": "carry",
+        "actorId": "geometry:anchor:5",
+        "target": {
+          "x": 52.46405367697741,
+          "y": 33.943939141719824
+        },
+        "movementMode": "carry"
+      },
+      "trials": [
+        {
+          "candidateId": "carry:34",
+          "isPolicySelection": true,
+          "selection": "forced_experiment",
+          "inputHash": "30c7f84369687297ec448614ac8bbb85d711e3efe658c94118d27e6d6adbb513",
+          "finalHash": "ac73de23cf497c43e10adaac28a4d6807a24bea56bf330c803f5b84b1ee7281a",
+          "summary": {
+            "released": false,
+            "candidateExists": true,
+            "candidateSameIntentExists": true,
+            "contactPossibleAtRequest": null,
+            "receiverProximityAt": null,
+            "receiverTouchAt": null,
+            "receiverControlAt": null,
+            "defenderTouchAt": null,
+            "defenderControlAt": null,
+            "defenderProximityAt": null,
+            "defenderReachableAt": null,
+            "defenderDisruptionAt": null,
+            "fixedTargetArrivalAt": null,
+            "predictedFixedTargetArrival": 2.274999999999996,
+            "boundedFixedTargetArrival": 2.7043582836155267,
+            "predictedCompletion": null,
+            "predictedRetained": null,
+            "completion": null,
+            "retained": null,
+            "predictedGoal": null,
+            "shotId": null,
+            "shotOutcome": null,
+            "goal": null,
+            "goalkeeperAction": null,
+            "looseAtHorizon": true,
+            "exitAt": null,
+            "restart": null,
+            "attackingCorner": false,
+            "attackingSecondBall": false,
+            "observationSeconds": 3.0000000000000426
+          }
+        },
+        {
+          "candidateId": "hold",
+          "isPolicySelection": false,
+          "selection": "forced_experiment",
+          "inputHash": "30c7f84369687297ec448614ac8bbb85d711e3efe658c94118d27e6d6adbb513",
+          "finalHash": "9275bfef65898d54c3c1f1a52e2c587f85450bcc374b9aac27eec48c2832b896",
+          "summary": {
+            "released": false,
+            "candidateExists": true,
+            "candidateSameIntentExists": true,
+            "contactPossibleAtRequest": null,
+            "receiverProximityAt": null,
+            "receiverTouchAt": null,
+            "receiverControlAt": null,
+            "defenderTouchAt": null,
+            "defenderControlAt": null,
+            "defenderProximityAt": null,
+            "defenderReachableAt": null,
+            "defenderDisruptionAt": null,
+            "fixedTargetArrivalAt": null,
+            "predictedFixedTargetArrival": 2.7499999999999942,
+            "boundedFixedTargetArrival": 3.2351308601828697,
+            "predictedCompletion": null,
+            "predictedRetained": null,
+            "completion": null,
+            "retained": null,
+            "predictedGoal": null,
+            "shotId": null,
+            "shotOutcome": null,
+            "goal": null,
+            "goalkeeperAction": null,
+            "looseAtHorizon": true,
+            "exitAt": null,
+            "restart": null,
+            "attackingCorner": false,
+            "attackingSecondBall": false,
+            "observationSeconds": 3.0000000000000426
+          }
+        },
+        {
+          "candidateId": "carry:30",
+          "isPolicySelection": false,
+          "selection": "forced_experiment",
+          "inputHash": "30c7f84369687297ec448614ac8bbb85d711e3efe658c94118d27e6d6adbb513",
+          "finalHash": "c56bd5e7224a5f0410040730389660f6cf9e11d992e805c667fbbd2560280080",
+          "summary": {
+            "released": false,
+            "candidateExists": true,
+            "candidateSameIntentExists": true,
+            "contactPossibleAtRequest": null,
+            "receiverProximityAt": null,
+            "receiverTouchAt": null,
+            "receiverControlAt": null,
+            "defenderTouchAt": null,
+            "defenderControlAt": null,
+            "defenderProximityAt": null,
+            "defenderReachableAt": null,
+            "defenderDisruptionAt": null,
+            "fixedTargetArrivalAt": null,
+            "predictedFixedTargetArrival": 2.4499999999999953,
+            "boundedFixedTargetArrival": 2.908950639683356,
+            "predictedCompletion": null,
+            "predictedRetained": null,
+            "completion": null,
+            "retained": null,
+            "predictedGoal": null,
+            "shotId": null,
+            "shotOutcome": null,
+            "goal": null,
+            "goalkeeperAction": null,
+            "looseAtHorizon": true,
+            "exitAt": null,
+            "restart": null,
+            "attackingCorner": false,
+            "attackingSecondBall": false,
+            "observationSeconds": 3.0000000000000426
+          }
+        },
+        {
+          "candidateId": "carry:38",
+          "isPolicySelection": false,
+          "selection": "forced_experiment",
+          "inputHash": "30c7f84369687297ec448614ac8bbb85d711e3efe658c94118d27e6d6adbb513",
+          "finalHash": "1c2af58b3545acb2fda3d40e5879979fd892ed98b5b50a42a4be303200c4d9e8",
+          "summary": {
+            "released": false,
+            "candidateExists": true,
+            "candidateSameIntentExists": true,
+            "contactPossibleAtRequest": null,
+            "receiverProximityAt": null,
+            "receiverTouchAt": null,
+            "receiverControlAt": null,
+            "defenderTouchAt": null,
+            "defenderControlAt": null,
+            "defenderProximityAt": null,
+            "defenderReachableAt": null,
+            "defenderDisruptionAt": null,
+            "fixedTargetArrivalAt": null,
+            "predictedFixedTargetArrival": 2.224999999999996,
+            "boundedFixedTargetArrival": 2.621637813885456,
+            "predictedCompletion": null,
+            "predictedRetained": null,
+            "completion": null,
+            "retained": null,
+            "predictedGoal": null,
+            "shotId": null,
+            "shotOutcome": null,
+            "goal": null,
+            "goalkeeperAction": null,
+            "looseAtHorizon": true,
+            "exitAt": null,
+            "restart": null,
+            "attackingCorner": false,
+            "attackingSecondBall": false,
+            "observationSeconds": 3.0000000000000426
+          }
+        }
+      ]
+    },
+    {
+      "name": "moving_defender",
+      "status": "captured_canonical_tick",
+      "inputHash": "1fbd5e8e420e13e417af593853af16056d99bcc9d5c9e8302e4807c26ab54ae4",
+      "selectedAction": {
+        "type": "carry",
+        "actorId": "geometry:anchor:6",
+        "target": {
+          "x": 64.26049673593971,
+          "y": 34.64587152315556
+        },
+        "movementMode": "carry"
+      },
+      "trials": [
+        {
+          "candidateId": "carry:35",
+          "isPolicySelection": true,
+          "selection": "forced_experiment",
+          "inputHash": "0d7dafa94033c37371218ded03e55b9cf3ac4147084ef115a1978030f14588f1",
+          "finalHash": "f1d805cd8cf1cf5c7b3b7a211d07a219176dc57089d4017be5ce8eba3039d291",
+          "summary": {
+            "released": false,
+            "candidateExists": true,
+            "candidateSameIntentExists": true,
+            "contactPossibleAtRequest": null,
+            "receiverProximityAt": 12.000000000000028,
+            "receiverTouchAt": 12.10000000000003,
+            "receiverControlAt": 12.000000000000028,
+            "defenderTouchAt": null,
+            "defenderControlAt": null,
+            "defenderProximityAt": null,
+            "defenderReachableAt": null,
+            "defenderDisruptionAt": null,
+            "fixedTargetArrivalAt": null,
+            "predictedFixedTargetArrival": 1.5499999999999985,
+            "boundedFixedTargetArrival": 1.8338517247894408,
+            "predictedCompletion": null,
+            "predictedRetained": null,
+            "completion": null,
+            "retained": null,
+            "predictedGoal": null,
+            "shotId": null,
+            "shotOutcome": null,
+            "goal": null,
+            "goalkeeperAction": null,
+            "looseAtHorizon": false,
+            "exitAt": null,
+            "restart": null,
+            "attackingCorner": false,
+            "attackingSecondBall": false,
+            "observationSeconds": 3.0000000000000426
+          }
+        },
+        {
+          "candidateId": "hold",
+          "isPolicySelection": false,
+          "selection": "forced_experiment",
+          "inputHash": "0d7dafa94033c37371218ded03e55b9cf3ac4147084ef115a1978030f14588f1",
+          "finalHash": "bd92b0a924dc635a06d8195723f1cf074448c426f4277982c584e376c6e9486c",
+          "summary": {
+            "released": false,
+            "candidateExists": true,
+            "candidateSameIntentExists": true,
+            "contactPossibleAtRequest": null,
+            "receiverProximityAt": 12.000000000000028,
+            "receiverTouchAt": 12.07500000000003,
+            "receiverControlAt": 12.000000000000028,
+            "defenderTouchAt": null,
+            "defenderControlAt": null,
+            "defenderProximityAt": 13.300000000000047,
+            "defenderReachableAt": 13.250000000000046,
+            "defenderDisruptionAt": null,
+            "fixedTargetArrivalAt": 13.300000000000047,
+            "predictedFixedTargetArrival": 0.9250000000000005,
+            "boundedFixedTargetArrival": 1.1286383580137809,
+            "predictedCompletion": null,
+            "predictedRetained": null,
+            "completion": null,
+            "retained": null,
+            "predictedGoal": null,
+            "shotId": null,
+            "shotOutcome": null,
+            "goal": null,
+            "goalkeeperAction": null,
+            "looseAtHorizon": false,
+            "exitAt": 13.350000000000048,
+            "restart": "free_kick_far",
+            "attackingCorner": false,
+            "attackingSecondBall": false,
+            "observationSeconds": 3.0000000000000426
+          }
+        },
+        {
+          "candidateId": "carry:27",
+          "isPolicySelection": false,
+          "selection": "forced_experiment",
+          "inputHash": "0d7dafa94033c37371218ded03e55b9cf3ac4147084ef115a1978030f14588f1",
+          "finalHash": "9ef668a710ef892e42f7118a388b086434306513170104f46f887aa96db373d0",
+          "summary": {
+            "released": false,
+            "candidateExists": true,
+            "candidateSameIntentExists": true,
+            "contactPossibleAtRequest": null,
+            "receiverProximityAt": 12.000000000000028,
+            "receiverTouchAt": 12.12500000000003,
+            "receiverControlAt": 12.000000000000028,
+            "defenderTouchAt": null,
+            "defenderControlAt": null,
+            "defenderProximityAt": null,
+            "defenderReachableAt": null,
+            "defenderDisruptionAt": null,
+            "fixedTargetArrivalAt": null,
+            "predictedFixedTargetArrival": 1.7499999999999978,
+            "boundedFixedTargetArrival": 2.072363200859848,
+            "predictedCompletion": null,
+            "predictedRetained": null,
+            "completion": null,
+            "retained": null,
+            "predictedGoal": null,
+            "shotId": null,
+            "shotOutcome": null,
+            "goal": null,
+            "goalkeeperAction": null,
+            "looseAtHorizon": false,
+            "exitAt": null,
+            "restart": null,
+            "attackingCorner": false,
+            "attackingSecondBall": false,
+            "observationSeconds": 3.0000000000000426
+          }
+        },
+        {
+          "candidateId": "carry:31",
+          "isPolicySelection": false,
+          "selection": "forced_experiment",
+          "inputHash": "0d7dafa94033c37371218ded03e55b9cf3ac4147084ef115a1978030f14588f1",
+          "finalHash": "46f16bca965006674749d9860ba28ed0c9417299ee2d636e76fb4d2a18be6514",
+          "summary": {
+            "released": false,
+            "candidateExists": true,
+            "candidateSameIntentExists": true,
+            "contactPossibleAtRequest": null,
+            "receiverProximityAt": 12.000000000000028,
+            "receiverTouchAt": 12.12500000000003,
+            "receiverControlAt": 12.000000000000028,
+            "defenderTouchAt": null,
+            "defenderControlAt": null,
+            "defenderProximityAt": null,
+            "defenderReachableAt": null,
+            "defenderDisruptionAt": null,
+            "fixedTargetArrivalAt": null,
+            "predictedFixedTargetArrival": 1.5499999999999985,
+            "boundedFixedTargetArrival": 1.8549504464710718,
+            "predictedCompletion": null,
+            "predictedRetained": null,
+            "completion": null,
+            "retained": null,
+            "predictedGoal": null,
+            "shotId": null,
+            "shotOutcome": null,
+            "goal": null,
+            "goalkeeperAction": null,
+            "looseAtHorizon": false,
+            "exitAt": null,
+            "restart": null,
+            "attackingCorner": false,
+            "attackingSecondBall": false,
+            "observationSeconds": 3.0000000000000426
+          }
+        }
+      ]
+    }
+  ],
+  "performance": {
+    "wallMs": 176812.861,
+    "cpu": {
+      "user": 189031000,
+      "system": 3547000
+    },
+    "peakRss": 820840,
+    "classification": "concurrent development host; not a full-match speed benchmark"
+  }
+}

@@ -1,10 +1,10 @@
 # Roadmap
 
-Aktualny etap: **PR194 — Active Perception, Pre-Reception Intelligence & Team Tempo**.
+Aktualny etap: **PR195 — MatchEngine Assumptions Audit, Calibration Registry & Realism Programme**.
 Użytkownik jawnie wybrał dłuższy **MatchEngine Realism Programme**, potencjalnie
 20–30 kolejnych PR, zanim canonical będzie podstawą szybkiej symulacji kariery.
 Liczba etapów nie jest deklaracją gotowości ani harmonogramem wydania.
-PR189–193 są scalone; PR194 jest etapem eksperymentalnym opisanym w
+PR189–194 są scalone. Zachowany eksperyment PR194 jest opisany w
 [raporcie PR194](PR194_ACTIVE_PERCEPTION_PRE_RECEPTION_INTELLIGENCE_AND_TEAM_TEMPO.md).
 **Canonical NOT READY; B domyślne; niezależne confirmation pozostaje zamknięte.**
 
@@ -12,6 +12,20 @@ Trzy nowe przełączniki opt-in oddzielają percepcję/przygotowanie, pozycję d
 przyjęcia oraz tempo/wysiłek. Wyniki laboratoryjne, pełne mecze development,
 wydajność i niezależna walidacja mają osobne bramki. Zielone CI nie zastępuje
 wiarygodności futbolu. Żaden eksperyment nie jest globalnie promowany.
+
+### Trwały rejestr i program badań PR195
+
+Każdy kolejny PR MatchEngine zaczyna od [ASSUMPTIONS_REGISTER](match-engine/ASSUMPTIONS_REGISTER.md): wskazuje ID, zamraża źródła i hipotezy, mierzy bazę, sprawdza zmianę parami i aktualizuje statusy wraz z dowodami oraz commitem. [Plan kalibracji](match-engine/CALIBRATION_PLAN.md), [zależności](match-engine/MECHANISM_DEPENDENCIES.md), [przegląd źródeł](match-engine/SOURCE_AUDIT.md) oraz [raport PR195](PR195_MATCH_ENGINE_ASSUMPTIONS_AUDIT.md) zastępują ponowne odkrywanie tych samych założeń.
+
+Nie zamykamy pozycji przez samą zmianę kodu ani zielone testy. Najpierw mierzymy lokalne przewidywania i rzeczywiste kontakty, potem naprawiamy porównanie dostępnych działań, a dopiero później rozkłady pełnego meczu. Brak kwot podań, strzałów, strat i wznowień; B pozostaje domyślne, fizyka 40 Hz i 28 atrybutów pozostają autorytatywne.
+
+### MFL 1.0 i warunkowa wizja MFL 2.0
+
+Priorytetem jest darmowe MFL 1.0 w przeglądarce, po osiągnięciu odpowiedniej jakości. Jeżeli gra odniesie przynajmniej umiarkowany sukces, możliwe MFL 2.0 może rozwinąć te podstawy w bardziej zaawansowaną graficznie grę desktopową, potencjalnie na Steam, za niewielką symboliczną cenę. To warunkowa wizja, bez obietnicy daty, architektury, platformy, ceny lub wyniku biznesowego. PR195 nie wdraża desktop shell, Steam, płatności ani nowego silnika 3D.
+
+Zachowujemy podział canonical simulation, danych kariery/świata, zdarzeń meczu, zapisu, UI/renderowania oraz diagnostyki/replay. Przyszła prezentacja ma korzystać z tego samego autorytatywnego modelu stanu i zdarzeń. Logika futbolu nie otrzymuje zależności przeglądarkowych.
+
+Lekki model warunkowy/sekwencyjny pozostaje przyszłym destylatem zweryfikowanych pełnych meczów canonical: wyniki, gole/asysty/kartki, zmiany i ich przyczyny, minuty, istotne zdarzenia, fitness i rozwój ćwiczonych działań muszą tworzyć spójne rekordy i narracje. Nie trenujemy go w PR195. Cel 10–15 min na pełny mecz bez pełnego debugowania pozostaje celem inżynierskim, bez osłabiania fizyki. Zakres 20–25 sezonów, generacji, siły świata i wszystkich poniższych zobowiązań kariery zostaje zachowany.
 
 ### Bramki MatchEngine Realism Programme
 
@@ -42,7 +56,7 @@ zaufania oraz World Expansion zachowują pełny zakres opisany poniżej.
 Nie przypisujemy im kolejnych numerów PR przy każdym przesunięciu.
 Summary/distillation pozostaje zablokowane przez walidację canonical.
 Starsze numeracje w całym dokumencie są kontekstem historycznym; obowiązuje
-powyższy program oraz bieżące PR194.
+powyższy program oraz bieżące PR195.
 
 ### Historyczne zapisy wcześniejszych etapów
 

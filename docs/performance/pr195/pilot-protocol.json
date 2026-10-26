@@ -1,0 +1,71 @@
+{
+  "schema": "mfl-pr195-pilot-protocol-v1",
+  "classification": "controlled development; not independent validation or real-football calibration",
+  "scenarios": [
+    "safe_pass",
+    "progressive_pass",
+    "through_ball",
+    "long_pass",
+    "pressured_receiver",
+    "moving_defender",
+    "wrong_direction",
+    "bad_pass",
+    "stale_receiver",
+    "good_shot",
+    "poor_shot_outlet",
+    "poor_shot_trapped",
+    "incoming_difficult",
+    "blocked_shot",
+    "keeper_away",
+    "rebound",
+    "infeasible_contact",
+    "safe_hold"
+  ],
+  "matchups": [
+    [
+      20,
+      20
+    ],
+    [
+      40,
+      40
+    ],
+    [
+      60,
+      60
+    ],
+    [
+      80,
+      80
+    ],
+    [
+      100,
+      100
+    ],
+    [
+      40,
+      80
+    ],
+    [
+      80,
+      40
+    ]
+  ],
+  "seeds": [
+    "pr195-development-0",
+    "pr195-development-1"
+  ],
+  "mirrors": [
+    false,
+    true
+  ],
+  "seconds": 6,
+  "events": {
+    "completion": "intended receiver physically touches original pass episode before opponent control/restart; not delivery proximity",
+    "retained": "receiver controls original episode AND own team owns the ball one second later; endpoint censored if unavailable",
+    "shot": "goal from requested released shotId before episode outcome, not a later team goal",
+    "defensive": "separate fixed-target 0.8m proximity, finite-foot access, executed disruption, defender control; no inference of contact from ETA"
+  },
+  "information": "bounded scene retained; legacy forecasts explicitly privileged; hidden opponent ratings never passed into bounded scene",
+  "selection": "one experimentally requested action, possibly rejected, followed by autonomous canonical 40Hz football"
+}
