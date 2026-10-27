@@ -168,6 +168,8 @@ Aggregate shots change **81 → 97**, while SW/B regresses **22 → 17** and WW/
 
 Canonical pass/shot/score totals cover whole matches. Direct touch, receiver control, retention and delivery counts use explicit non-restart-release denominators. In the full-match table control/retention may follow an intervening deflection; those columns are not nested under direct touch. The family ablation table instead uses explicitly direct-path control/retention. Through/progressive events, territory entries, native run starts, receiving-job/moving-job instances, bounded candidate/rejection/preparation traces, actual second-ball/keeper/restart/turnover witnesses and CPU/RSS are retained in raw rows. Full-world missing-candidate denominators remain unavailable; they are not replaced with zero. Receiving-job observation instances are not unique deliberate runs.
 
+The full-match turnover/cover ledger uses the **home-team perspective**; those loss counts and threat proxies are not both-team totals. Pass/reception/shot counts cover both teams. The compact summary retains three turnover examples per match and aggregate proxy values; the complete physical loss chronology remains in its compressed match receipt. These proxies are not calibrated counterattack or scoring probabilities.
+
 No seed is replaced to improve a score. Interrupted v1 match prefixes belong to the rejected receiver prototype and are not counted as completed comparisons. The final cohort uses the same declared v2 seeds; observer-only reruns preserve exact physical final hashes. Policy-specific regressions and unrealistic score/circulation patterns prevent promotion even when an aggregate improves.
 
 ## 21. Performance and memory

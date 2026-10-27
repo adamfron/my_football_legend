@@ -337,7 +337,18 @@ for (const [design, policy] of designs)
       goalkeeperRebounds: row.disruption.goalkeeperRebounds,
       restarts: row.disruption.restarts,
       turnovers: row.disruption.turnovers.length,
-      turnoverWitnesses: row.disruption.turnovers,
+      turnoverWitnesses: row.disruption.turnovers.slice(0, 3),
+      turnoverWitnessQualification:
+        'First three home-team loss witnesses only; complete chronology is in the bound compressed match receipt.',
+      turnoverThreatProxy: {
+        mean: row.disruption.turnovers.length
+          ? row.disruption.turnovers.reduce((n, t) => n + t.threatProxy, 0) /
+            row.disruption.turnovers.length
+          : null,
+        maximum: row.disruption.turnovers.length
+          ? Math.max(...row.disruption.turnovers.map((t) => t.threatProxy))
+          : null,
+      },
       opportunityCounts: row.opportunityCounts,
       autonomousRunStarts: {
         overlap: row.football.overlapRunsStarted,
