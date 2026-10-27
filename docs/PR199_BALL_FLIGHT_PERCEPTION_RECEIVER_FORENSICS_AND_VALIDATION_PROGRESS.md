@@ -421,7 +421,7 @@ Each profile contains 240 API calls/category, including ordinary cadence skips i
 
 No existing match/player persistence schema or optional field changes. The belief has its own Zod schema and is not stored in old saves. Source archives reconstruct each version before read-only comparison. Historical PR195–198 receipts, rejected controllers and failed PR199 apparatus remain intact. Strict PR197 report comparison exposed Windows CRLF/LF checkout drift; `.gitattributes` now fixes generated PR197 report/template line endings. No historical expected content is changed.
 
-Local recorded verification: **PENDING**. [Actual commands, exits and compressed logs](performance/pr199/verification.json) retain initial failures and successful retries separately.
+Local recorded verification: **PASS**. [Actual commands, exits and compressed logs](performance/pr199/verification.json) retain initial failures and successful retries separately.
 
 Supported commands: `benchmark:pr195:check`, `benchmark:pr196:historical`, `benchmark:pr196:check`, `benchmark:pr196:replay`, `benchmark:pr197:check`, `benchmark:pr197:replay`, `benchmark:pr197:source-replay`, `benchmark:pr198:check`, `benchmark:pr198:replay`, `benchmark:pr198:source-replay`, `benchmark:pr199:check`, `benchmark:pr199:replay`, `benchmark:realism:check` and `verify`. Read-only generated checks reject source/receipt/registry/output drift. CI runs exact PR199 source groups and includes them in required quality. Final-head CI is checked on the actual pull-request head; it is not invented as a self-referential source receipt.
 

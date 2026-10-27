@@ -1,6 +1,6 @@
 {
   "schema": "pr199-verification-v1",
-  "status": "PENDING",
+  "status": "PASS",
   "runtimeSource": {
     "base": "aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b",
     "fingerprint": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
@@ -126,14 +126,52 @@
       "logSha256": "8a958777a6e6b2cdd92424a1f476738edda066505d6f67761ca482621443c537"
     },
     {
-      "command": "npm run verify",
-      "startedAt": "2026-10-27T18:29:17.706Z",
-      "endedAt": "2026-10-27T18:55:12.138Z",
+      "command": "npm run benchmark:pr199:check",
+      "startedAt": "2026-10-27T19:38:58.230Z",
+      "endedAt": "2026-10-27T19:39:30.901Z",
       "code": 0,
       "signal": null,
-      "log": "docs/performance/pr199/verification/verify.log.gz",
-      "sha256": "d0546e8cc7309203a7ab1268961a90f96f8548a9ff5e730b6ec4e98cdd2169f1",
-      "logSha256": "a19edeaa91b4b859ff07b2a45fbfdda8abcfb8e8d20e38fffa455259a75ca41c"
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-pr199-check.log.gz",
+      "sha256": "830128d483c436a050eda771e6840ab9789c60260a496a42b4f4f9ae3effe21c",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "5ee351eb2a6984ec2c1dccb8aace89152a9c0aab7731d2adc12578f7f91d81f5"
+    },
+    {
+      "command": "npm run benchmark:pr199:replay",
+      "startedAt": "2026-10-27T19:39:30.993Z",
+      "endedAt": "2026-10-27T19:56:19.668Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-pr199-replay.log.gz",
+      "sha256": "fdcc1cba2bc1da13324a5e13eeaa4141d375d09a6768070a6c83ff3fdaa1b9c5",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "82d72c6d1ad0aa15e66c38c07e19d6d2f301ee66b6398a64a091cb3d01153953"
+    },
+    {
+      "command": "npm run benchmark:realism:check",
+      "startedAt": "2026-10-27T19:56:19.785Z",
+      "endedAt": "2026-10-27T19:56:24.461Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-realism-check.log.gz",
+      "sha256": "1f424cfe5e242ff259debdb3ee4f0b0a66da5dd05503635fe341f3611327f64c",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "42fa486b31b58f820b5d7b8bfb1d840658acd2837a9e9763e054c44f0412cea0"
+    },
+    {
+      "command": "npm run verify",
+      "startedAt": "2026-10-27T19:38:37.483Z",
+      "endedAt": "2026-10-27T20:00:07.287Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final/verify.log.gz",
+      "sha256": "a5bd78b3e898839d96c7eaf1513ec7b3089ca3533cd0a4c9907fb2a35e9ed119",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "3c2b7182ace224655c7e215674047cb0efcbc06ecd86f805f1bd3d88578091f7"
     }
   ],
   "records": [
@@ -258,6 +296,54 @@
       "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
       "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
       "logSha256": "7bc0dd8bd4d2d6809061acbfce1b7e46b69a9476cbbc77087f4bd65c0ee12dcb"
+    },
+    {
+      "command": "npm run verify",
+      "startedAt": "2026-10-27T19:38:37.483Z",
+      "endedAt": "2026-10-27T20:00:07.287Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final/verify.log.gz",
+      "sha256": "a5bd78b3e898839d96c7eaf1513ec7b3089ca3533cd0a4c9907fb2a35e9ed119",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "3c2b7182ace224655c7e215674047cb0efcbc06ecd86f805f1bd3d88578091f7"
+    },
+    {
+      "command": "npm run benchmark:pr199:check",
+      "startedAt": "2026-10-27T19:38:58.230Z",
+      "endedAt": "2026-10-27T19:39:30.901Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-pr199-check.log.gz",
+      "sha256": "830128d483c436a050eda771e6840ab9789c60260a496a42b4f4f9ae3effe21c",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "5ee351eb2a6984ec2c1dccb8aace89152a9c0aab7731d2adc12578f7f91d81f5"
+    },
+    {
+      "command": "npm run benchmark:pr199:replay",
+      "startedAt": "2026-10-27T19:39:30.993Z",
+      "endedAt": "2026-10-27T19:56:19.668Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-pr199-replay.log.gz",
+      "sha256": "fdcc1cba2bc1da13324a5e13eeaa4141d375d09a6768070a6c83ff3fdaa1b9c5",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "82d72c6d1ad0aa15e66c38c07e19d6d2f301ee66b6398a64a091cb3d01153953"
+    },
+    {
+      "command": "npm run benchmark:realism:check",
+      "startedAt": "2026-10-27T19:56:19.785Z",
+      "endedAt": "2026-10-27T19:56:24.461Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-realism-check.log.gz",
+      "sha256": "1f424cfe5e242ff259debdb3ee4f0b0a66da5dd05503635fe341f3611327f64c",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "42fa486b31b58f820b5d7b8bfb1d840658acd2837a9e9763e054c44f0412cea0"
     }
   ],
   "notes": [
