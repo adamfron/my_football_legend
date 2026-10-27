@@ -1,5 +1,13 @@
 # Roadmap
 
+### Synchronizacja odbiorcy i okazje PR198
+
+Aktualny etap: [PR198](PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md). Na tych samych 180 wypuszczonych piłkach wyizolowano regresję antycypacji odbiorcy. Nowa synchronizacja ma spójny lokalny punkt/czas i ograniczone prognozy istniejącej integracji ciała, lecz 149/113/108 touch/control/retention pozostaje gorsze od 154/123/116 w PR197 combined. Nieudane próby i utracone kontakty nie są usuwane. Osobny, ograniczony repertuar loftowanego podania zwiększa dostępność kandydatów i daje pięć autonomicznych wypuszczeń w 280 przypadkach, bez dowodu kompletnego zamierzonego łańcucha rozpoznania okazji.
+
+Kolejny PR199 powinien najpierw wyjaśnić osiem utraconych i trzy zyskane kontakty: oddzielić wybór przestrzennego celu, czas, orientację/prędkość i przerwy obserwacji. Następnie potrzebne są świadkowie rzeczywistych decyzji o wbiegnięciu i menu wszystkich polityk, szersze warunki incoming oraz drugi kontakt. Diagnostyka rzeczywistych odbić, wybić, drugich piłek i rajdów obrońców poprzedza kalibrację wspólnej wartości dalszego stanu; nie zastępuje jej premią za atak lub nieprzewidywalność.
+
+**Canonical NOT READY; B domyślne; confirmation zamknięte; 135 otwartych ID, bez COMPLETE.** TACT-013 łączy inicjatywę z roli defensywnej z istniejącymi DRIB-002/003 i TACT-006. Osobno pozostają kalibracja roli/asekuracji oraz brak odrębnego loftowanego wybicia awaryjnego. Dalsze kariery, wymiana generacji i destylacja lekkiej symulacji nadal zależą od wiarygodnego canonical. Poniższe starsze sekwencje zachowują charakter historyczny.
+
 ### Fizyczne podanie i antycypacja PR197
 
 [Raport PR197](PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md) oddziela trzy opt-in: symetryczny dostęp do incoming control, wysokość/czas przecięcia lotu i cel odbiorcy z lokalnej obserwacji. Pomiar v3 oddziela pierwotną piłkę od dalszej kontroli po główce/first-time. Zamrożone PR195/196 i 134 ID pozostają zachowane. Siedem pełnych par daje 64→67 strzałów i mieszane skutki; autonomiczna sekwencja diagonalnego lobu pozostaje niewywołana. **Canonical NOT READY; B domyślne; confirmation zamknięte.**
@@ -7,7 +15,7 @@
 PR198 powinien zacząć od PASS-004/006/009: na identycznej piłce zmierzyć cel, zegar przygotowania, hamowanie/obrót i rzeczywisty kontakt. PASS-010/TACT-002/004 wymagają lokalizacji pierwszej brakującej fazy biegu/kandydata; PASS-001 potrzebuje szerszych geometrii i poprawnych kontraktów, zanim powstanie kalibracja. Bez globalnego strojenia strzałów/utility/staminy/GK/wznowień. Dalsze kariery, 20–25 sezonów, wymiana generacji, siła klubów i destylacja lekkiej symulacji nadal zależą od wiarygodnego canonical.
 
 
-Aktualny etap: **PR197 — Passing Reality: Flight, Interception & Receiver Anticipation**.
+Poprzedni etap: **PR197 — Passing Reality: Flight, Interception & Receiver Anticipation**.
 Użytkownik jawnie wybrał dłuższy **MatchEngine Realism Programme**, potencjalnie
 20–30 kolejnych PR, zanim canonical będzie podstawą szybkiej symulacji kariery.
 Liczba etapów nie jest deklaracją gotowości ani harmonogramem wydania.

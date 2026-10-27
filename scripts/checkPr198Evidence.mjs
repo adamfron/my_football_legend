@@ -174,6 +174,14 @@ assert(
     summary.independentConfirmation === 'sealed',
   'Readiness boundaries',
 );
+const verification = read(folder + 'verification.json');
+assert(
+  verification.status === 'PASS' &&
+    verification.exactSource.length === Object.keys(catalogue).length,
+  'Final local verification/source coverage',
+);
+for (const log of verification.logs)
+  assert(hash(readFileSync(log.path)) === log.sha256, 'Verification log bytes: ' + log.path);
 console.log(
   'PR198 integrity PASS: 134 preserved IDs + TACT-013; identical actual balls; isolated experiments; negatives; real rebounds; seven complete pairs; bounded information',
 );

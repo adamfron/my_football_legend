@@ -1,0 +1,71 @@
+{
+  "result": {
+    "schema": "pr198-profile-v1",
+    "source": {
+      "base": "fb8e38fce3087a0713a26cfafb5cde6f1e6c0097",
+      "fingerprint": "091b625c30468a67b644c0695aaf3b5acf75dcf7cfb215d0a70e5ce319bc2260",
+      "path": "docs/performance/pr198/source/091b625c30468a67b644c0695aaf3b5acf75dcf7cfb215d0a70e5ce319bc2260.json.gz"
+    },
+    "mode": "concurrent-1",
+    "cases": 12,
+    "outputs": [
+      {
+        "model": "legacy",
+        "calls": 240,
+        "outputHash": "48b958724fff8659af3c856253bad851f73882cc9bd1fc7cc34fef7426f76d2e",
+        "maximumProbes": null
+      },
+      {
+        "model": "synchronized",
+        "calls": 240,
+        "outputHash": "c0be5f54c44b5f758519cd0de12a892c1dfcce1efa74f0a1f1810e0005db0d76",
+        "maximumProbes": 2
+      }
+    ],
+    "bounds": {
+      "localSamples": 25,
+      "bodyProbes": 3,
+      "maximumBodyStepsPerProbe": 96,
+      "planningHz": 10,
+      "canonicalHz": 40
+    }
+  },
+  "costs": {
+    "rows": [
+      {
+        "model": "legacy",
+        "calls": 240,
+        "wallMilliseconds": 4.8700999999999794,
+        "cpu": {
+          "user": 0,
+          "system": 0
+        },
+        "outputHash": "48b958724fff8659af3c856253bad851f73882cc9bd1fc7cc34fef7426f76d2e",
+        "maximumProbes": null,
+        "costQualification": "One profile process in serial mode; two identical processes in concurrent modes. Other development jobs may compete on the host. No full-match speed ratio inferred."
+      },
+      {
+        "model": "synchronized",
+        "calls": 240,
+        "wallMilliseconds": 32.33280000000002,
+        "cpu": {
+          "user": 63000,
+          "system": 0
+        },
+        "outputHash": "c0be5f54c44b5f758519cd0de12a892c1dfcce1efa74f0a1f1810e0005db0d76",
+        "maximumProbes": 2,
+        "costQualification": "One profile process in serial mode; two identical processes in concurrent modes. Other development jobs may compete on the host. No full-match speed ratio inferred."
+      }
+    ],
+    "maxRSSKiB": 228468,
+    "memory": {
+      "rss": 233168896,
+      "heapTotal": 118960128,
+      "heapUsed": 55226400,
+      "external": 31508902,
+      "arrayBuffers": 276763
+    },
+    "node": "v24.22.1",
+    "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "
+  }
+}

@@ -164,6 +164,8 @@ Seven preselected WW/SS/SW pairs cover B, R3, O, H and J, including WW/O, WW/H, 
 
 {{MATCH_STAGES}}
 
+Aggregate shots change **81 → 97**, while SW/B regresses **22 → 17** and WW/R3 **15 → 14**. Box entries regress SW/J **93 → 74**, SW/B **34 → 28** and WW/R3 **40 → 35**. SS/B receiver controls fall **1259 → 1240** despite shots increasing **7 → 22**. WW/O remains **0 → 0** shots. SW/J's **13–0 → 10–0** and SW/B's **8–0 → 9–0** remain unrealistic mismatch results. These are dependent single-pair development observations, not stable policy effect estimates.
+
 Canonical pass/shot/score totals cover whole matches. Direct touch, receiver control, retention and delivery counts use explicit non-restart-release denominators. In the full-match table control/retention may follow an intervening deflection; those columns are not nested under direct touch. The family ablation table instead uses explicitly direct-path control/retention. Through/progressive events, territory entries, native run starts, receiving-job/moving-job instances, bounded candidate/rejection/preparation traces, actual second-ball/keeper/restart/turnover witnesses and CPU/RSS are retained in raw rows. Full-world missing-candidate denominators remain unavailable; they are not replaced with zero. Receiving-job observation instances are not unique deliberate runs.
 
 No seed is replaced to improve a score. Interrupted v1 match prefixes belong to the rejected receiver prototype and are not counted as completed comparisons. The final cohort uses the same declared v2 seeds; observer-only reruns preserve exact physical final hashes. Policy-specific regressions and unrealistic score/circulation patterns prevent promotion even when an aggregate improves.
@@ -173,6 +175,8 @@ No seed is replaced to improve a score. Interrupted v1 match prefixes belong to 
 {{PERFORMANCE}}
 
 Profiles use twelve actual locally observed receiver frames and 240 calls/model/process. The two 25-sample local passes, at most three body probes and at most 96 canonical movement steps/probe remain bounded. S is more expensive than the legacy forecast. Serial means one measured profile process; concurrent means two identical profile processes. Other development work competes on the host. CPU, wall and peak RSS are reported separately; CPU zero can be below clock granularity, not free work.
+
+The observed-loft shortlist is capped at two proposed kicks. Each uses the existing four-iteration, at-most-five-second own-launch routine, not a match rollout for every speculative teammate. Full-match CPU includes that cost together with changed football and research observers; an isolated loft-generation speed effect is not claimed.
 
 Per-match wall/CPU/RSS and coordinator concurrency receipts are separate. No noisy wall-time ratio proves a speed improvement, no 10–15 minute no-debug target is claimed, and canonical 40 Hz is unchanged.
 

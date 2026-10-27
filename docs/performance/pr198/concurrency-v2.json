@@ -1,0 +1,124 @@
+{
+  "schema": "pr198-concurrent-run-v1",
+  "workers": 3,
+  "wallSeconds": 3001.451,
+  "results": [
+    {
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "model": "baseline",
+      "id": "ww-hierarchical-intent-v1-baseline-v2",
+      "code": 0,
+      "wallSeconds": 649.694
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "model": "baseline",
+      "id": "ww-opportunity-driven-v1-baseline-v2",
+      "code": 0,
+      "wallSeconds": 649.843
+    },
+    {
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "model": "corrected",
+      "id": "ww-opportunity-driven-v1-corrected-v2",
+      "code": 0,
+      "wallSeconds": 651.263
+    },
+    {
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "model": "corrected",
+      "id": "ww-hierarchical-intent-v1-corrected-v2",
+      "code": 0,
+      "wallSeconds": 706.265
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "model": "baseline",
+      "id": "ss-opportunity-driven-v1-baseline-v2",
+      "code": 0,
+      "wallSeconds": 716.45
+    },
+    {
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "model": "corrected",
+      "id": "ss-opportunity-driven-v1-corrected-v2",
+      "code": 0,
+      "wallSeconds": 772.636
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "model": "baseline",
+      "id": "sw-state-value-v1-baseline-v2",
+      "code": 0,
+      "wallSeconds": 595.421
+    },
+    {
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "model": "baseline",
+      "id": "sw-contextual-judgment-v1-baseline-v2",
+      "code": 0,
+      "wallSeconds": 729.99
+    },
+    {
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "model": "corrected",
+      "id": "sw-contextual-judgment-v1-corrected-v2",
+      "code": 0,
+      "wallSeconds": 754.199
+    },
+    {
+      "design": "sw",
+      "policy": "state-value-v1",
+      "model": "corrected",
+      "id": "sw-state-value-v1-corrected-v2",
+      "code": 0,
+      "wallSeconds": 489.55
+    },
+    {
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "model": "baseline",
+      "id": "ww-phase-role-hybrid-v1-baseline-v2",
+      "code": 0,
+      "wallSeconds": 554.923
+    },
+    {
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "model": "corrected",
+      "id": "ww-phase-role-hybrid-v1-corrected-v2",
+      "code": 0,
+      "wallSeconds": 544.455
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "model": "baseline",
+      "id": "ss-state-value-v1-baseline-v2",
+      "code": 0,
+      "wallSeconds": 443.844
+    },
+    {
+      "design": "ss",
+      "policy": "state-value-v1",
+      "model": "corrected",
+      "id": "ss-state-value-v1-corrected-v2",
+      "code": 0,
+      "wallSeconds": 360.522
+    }
+  ],
+  "coordinatorSource": {
+    "path": "docs/performance/pr198/verification/v1/coordinator-source.mjs.gz",
+    "sha256": "86bd0044d84f3d33b64d39a90335b0b17ce17803606254fbc0fcc947b3309daf"
+  },
+  "qualification": "Three workers in this coordinator, plus separately recorded research/observer/test processes on the host. Coordinator wall, child CPU and per-process peak RSS are different measures. No serial full-match speed claim."
+}

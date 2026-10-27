@@ -1,5 +1,27 @@
 # Mechanism dependencies
 
+## PR198 scoped paths and unresolved value
+
+[PR198](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md) separates observed contact point/time from release-time engineering diagnostics and from the motor body's offset destination. PASS-004/009 → local observed flight/absolute meeting → own canonical turning/braking/plant projection → finite contact → PASS-006/007 → original-delivery-v3 MEAS-011/012. The separate synchronisation experiment has worse aggregate reception and remains opt-in; representation consistency does not close calibration.
+
+Bounded observation TACT-009 → observed moving receiver TACT-002/004 → native-range PASS-010/DEC-003 repertoire → height-aware local window → existing value/admission → motor preparation → actual launch. The small loft extension repairs absent alternatives, not all opportunity recognition. B/R3 full-world menus and bounded O/H/J remain distinct, and the full deliberate causal chain is unproven.
+
+```mermaid
+flowchart LR
+  O[Actual local ball observation] --> P[Point + absolute contact time + incoming velocity]
+  P --> B[Bounded own-body projection: turn / brake / plant]
+  B --> M[Ordinary canonical movement]
+  M --> C[Actual finite contact / control / loss]
+  V[Observed moving teammate] --> L[At most two native-range loft alternatives]
+  L --> A[Existing risk / value / preparation]
+  A --> C
+  C --> R[Research-only disruption / second-ball ledger]
+  R -.-> F[Future calibrated consequence P and V]
+  ROLE[Role + cover: TACT-013 / TACT-006] -.-> F
+```
+
+Solid arrows are present consumers; dashed arrows remain modelling objectives. The ledger does not feed the acting policy. SHOT-006/007 and GK-003 cover original-shot keeper rebounds; DEC-008/DRIB-009 cover actual second balls; DEF-010/PASS-012/TACT-006 cover clearance territory and restart value; TACT-003 covers measured displacement/organisation. TACT-013 adds the previously implicit role/initiative comparison. Existing on-ball defender carries are physically available; off-ball role protection is not a universal carry prohibition. A separate emergency lofted-clearance repertoire and calibrated role/cover value remain future work.
+
 ## PR197 scoped paths
 
 The [PR197 report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md) and [summary](../performance/pr197/summary.json) add three independent experiments. The privileged flight→height/access→B/R3 lane-evaluation path never enters O/H/J's bounded observation. The observed ball→local motor target→ordinary movement→finite reception path preserves information age. Symmetric incoming control validates physical access before ownership. A separate v3 measurement observer ends delivery lineage at genuine incoming header/first-time release; it grants no physical contact.
