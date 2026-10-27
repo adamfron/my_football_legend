@@ -1,0 +1,148 @@
+{
+  "schema": "pr197-verification-v1",
+  "status": "PASS — local verify, frozen/current replay, eleven exact-source laboratories and fourteen full physical-equivalence replays",
+  "recordedAt": "2026-10-27T07:13:34.487Z",
+  "source": {
+    "base": "81e0457a0fc344cdedaa18d035121cb7fe51bcc2",
+    "fingerprint": "1123b7ca2a220622bd619b1eb7b24f6495cd1964cc97c10025777188fa05a435",
+    "path": "docs/performance/pr197/source/1123b7ca2a220622bd619b1eb7b24f6495cd1964cc97c10025777188fa05a435.json.gz"
+  },
+  "testStagePassedCounts": [
+    2327,
+    56,
+    4,
+    5
+  ],
+  "totalTestsPassed": 2392,
+  "logs": [
+    {
+      "command": "npm run verify",
+      "status": "PASS",
+      "path": "docs/performance/pr197/verification/1.log.gz",
+      "uncompressedSha256": "e9799532a653d1c503f77c92d0efc83ef6c9122538355c3b02887c384b7fcb56",
+      "sha256": "385c7e357526fc4c50fd209f6e8aca251b3f98cc4d3288d7eb599a0afb9fab49"
+    },
+    {
+      "command": "npm run benchmark:pr195:check; benchmark:pr196:historical; benchmark:pr196:check; benchmark:pr196:replay",
+      "status": "PASS",
+      "path": "docs/performance/pr197/verification/2.log.gz",
+      "uncompressedSha256": "0b5d274e2bbcb68476002300f30048f6384b98b5af2323c34637ee92b4f0627d",
+      "sha256": "c8861ca646527b131438d86e5baa76e5391f6e87cb8af5e353815351ccbbce72"
+    },
+    {
+      "command": "Unchanged seven exact-source PR197 experiments",
+      "status": "PASS",
+      "path": "docs/performance/pr197/verification/3.log.gz",
+      "uncompressedSha256": "36d244d5afd4b54c721554c7d729ee295896e6d9abe2425d36212e2f8feb48b7",
+      "sha256": "ad99429cfec31b8977846f0833bdc913f66cdb8b9dc013254e731ff9888ce20a"
+    },
+    {
+      "command": "Updated four exact-source PR197 experiments",
+      "status": "PASS",
+      "path": "docs/performance/pr197/verification/4.log.gz",
+      "uncompressedSha256": "56840c160d5e5729ad29cde0476efa737e28d29dc206a72687ec5e84dbc7fced",
+      "sha256": "09a3f5ac9c96fc122986bbb09ededa45ffd77e5f6b8d71aca10fb53609b74758"
+    },
+    {
+      "command": "Final PR197 evidence integrity and selected saved-state replay",
+      "status": "PASS",
+      "path": "docs/performance/pr197/verification/5.log.gz",
+      "uncompressedSha256": "787a0cc354fc267804bbac79cdaf37806877c567e0dddd74e73feea63a4a3ef0",
+      "sha256": "84ebbf678ad0e3654e7faace19dce67cf3ec5a9e331cdd9f6ce4c7739c7cde1e"
+    },
+    {
+      "command": "Current-kernel baseline complete match replays",
+      "status": "PASS",
+      "path": "docs/performance/pr197/verification/6.log.gz",
+      "uncompressedSha256": "19231d49cb0665b14ff5577cd1001093ff6a2826586e33a762bbe1df62534613",
+      "sha256": "801e4eebfde2809b3ca6827e37a14a5b5d0643340e44ec332fb170377b86b2f9"
+    },
+    {
+      "command": "Current-kernel corrected complete match replays",
+      "status": "PASS",
+      "path": "docs/performance/pr197/verification/7.log.gz",
+      "uncompressedSha256": "aa1ef9110c765d125b9d471b389a9019f0a160d139cbaefc09bcaaf8da796b9e",
+      "sha256": "758790dca9da45333446c0daafb8c217240dafaee2f547d0e127911b8c3cbed8"
+    }
+  ],
+  "fullReplays": [
+    {
+      "path": "docs/performance/pr197/lineage/ss-opportunity-driven-v1-corrected-v3-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "6cdd20b01693612dccf5d19597cb18ba46be29d5ebec4285bb8dc3e0cb1be97e"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/ss-state-value-v1-baseline-v1-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "546417e92e715e67f1c7d6017c8f4dde1202dd90f8e56d2619d5bbfd8444acd4"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/ss-state-value-v1-corrected-v3-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "44990524e778ccebf2e5536b4625a396ddfeafcacf180b6598c89bbc2468337b"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/sw-contextual-judgment-v1-baseline-v1-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "a67a40942b4139239cd33961b54fc5c152b17e08c13f22c6382bab37155a4541"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/sw-contextual-judgment-v1-corrected-v3-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "22ba8b3688083c177a2426c22af6d563324d808a4b813975b517faec4c992d47"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/sw-state-value-v1-baseline-v1-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "1547d620205c332558a00a401efaacd0a239dfd9817c24f3391f0dc3bae05905"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/ww-hierarchical-intent-v1-baseline-v1-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "27f9784f06f4d2bd22bbb8acf180d51b11f6a0fb628ced2233854469319cc301"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/ww-hierarchical-intent-v1-corrected-v3-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "09f4c666d54f7bd2798ab4e4a451fe9e59e3bba32f2415f213e11d136e49591e"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/ww-phase-role-hybrid-v1-baseline-v1-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "dcdc32bbe9cffd6247f45d10cd75e5ac1899dc1f5fa7f40c3470d79837f0fa52"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/ss-opportunity-driven-v1-baseline-v2-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "8a684aa9b5d07b6bec9a8d95012c751bc5bdb746f23b79aef3cfdbabf264e5f7"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/sw-state-value-v1-corrected-v3-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "7acfee6105ad6e95a7d2783017fe05872a8ff2c3707d688420bcfd6ce4750986"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/ww-opportunity-driven-v1-baseline-v2-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "97a10f2a4c6d2f8579fb2a699bb2000fa318fc9f54bd2b6be615154379670cf4"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/ww-opportunity-driven-v1-corrected-v3-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "823656f0e35274d1ff2223eaaf2657590ccf87195b660ddb864fea7df0dbc465"
+    },
+    {
+      "path": "docs/performance/pr197/lineage/ww-phase-role-hybrid-v1-corrected-v3-lineage-v1.json.gz",
+      "equivalent": true,
+      "hash": "e8e5536c7b59f5bb43fc5d9448872c35e782df1c0221933f9dcfb8dac2a83a83"
+    }
+  ],
+  "testSourceNormalization": "UTF-8 with LF newlines",
+  "testSources": {
+    "src/core/matchSimulation/pr197PassingReality.test.ts": "599aa0ed81a31d45cfd4fec277077949f6a2d30e9426f42fe49bc334f94a9f75",
+    "src/core/matchSimulation/pr197OutcomeLineage.test.ts": "ed881bb99de6dd536bd41f4e437f0bc69a6441eef2a3f8977e8cf4498f6870db"
+  },
+  "finalHeadCI": "Reported on the PR for its exact final head after commit; not inferred from prior checks.",
+  "canonicalReadiness": "NOT READY",
+  "independentConfirmation": "sealed"
+}

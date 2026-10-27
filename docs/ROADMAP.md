@@ -1,10 +1,17 @@
 # Roadmap
 
-Aktualny etap: **PR196 — Canonical Outcome Semantics, Defensive Reach & Match-State Calibration**.
+### Fizyczne podanie i antycypacja PR197
+
+[Raport PR197](PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md) oddziela trzy opt-in: symetryczny dostęp do incoming control, wysokość/czas przecięcia lotu i cel odbiorcy z lokalnej obserwacji. Pomiar v3 oddziela pierwotną piłkę od dalszej kontroli po główce/first-time. Zamrożone PR195/196 i 134 ID pozostają zachowane. Siedem pełnych par daje 64→67 strzałów i mieszane skutki; autonomiczna sekwencja diagonalnego lobu pozostaje niewywołana. **Canonical NOT READY; B domyślne; confirmation zamknięte.**
+
+PR198 powinien zacząć od PASS-004/006/009: na identycznej piłce zmierzyć cel, zegar przygotowania, hamowanie/obrót i rzeczywisty kontakt. PASS-010/TACT-002/004 wymagają lokalizacji pierwszej brakującej fazy biegu/kandydata; PASS-001 potrzebuje szerszych geometrii i poprawnych kontraktów, zanim powstanie kalibracja. Bez globalnego strojenia strzałów/utility/staminy/GK/wznowień. Dalsze kariery, 20–25 sezonów, wymiana generacji, siła klubów i destylacja lekkiej symulacji nadal zależą od wiarygodnego canonical.
+
+
+Aktualny etap: **PR197 — Passing Reality: Flight, Interception & Receiver Anticipation**.
 Użytkownik jawnie wybrał dłuższy **MatchEngine Realism Programme**, potencjalnie
 20–30 kolejnych PR, zanim canonical będzie podstawą szybkiej symulacji kariery.
 Liczba etapów nie jest deklaracją gotowości ani harmonogramem wydania.
-PR189–194 są scalone. Zachowany eksperyment PR194 jest opisany w
+PR189–196 są scalone. Zachowany eksperyment PR194 jest opisany w
 [raporcie PR194](PR194_ACTIVE_PERCEPTION_PRE_RECEPTION_INTELLIGENCE_AND_TEAM_TEMPO.md).
 **Canonical NOT READY; B domyślne; niezależne confirmation pozostaje zamknięte.**
 

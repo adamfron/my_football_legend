@@ -1,5 +1,14 @@
 # My Football Legend — Current Project State
 
+## PR197 — Passing Reality: Flight, Interception & Receiver Anticipation
+
+Dokładne 28 długich podań ujawniło asymetrię: przeciwnik mógł otrzymać posiadanie wysoko nad stopą przez ścieżkę incoming control, mimo że odbiorca z drużyny podlegał kontroli dostępu. Osobny opt-in stosuje tę samą bramkę obu stronom. Dwa kolejne przełączniki oddzielają prognozę przecięcia lotu z wysokością i antycypację odbiorcy z lokalnej obserwacji. Fizyczny model lotu i rozkład błędów nie są dostrajane. Pomiar v3 kończy pierwotne podanie przy rzeczywistej główce/nowym kontakcie first-time; stare dowody zostają zachowane.
+
+[Raport PR197](PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md) obejmuje 1100 żądań rodzin podań, 3840 prób wykonania, 120 prób gotowości, 110 autonomicznych przebiegów oraz siedem pełnych par development. Strzały 64→67 ukrywają regresje polityk; pełny autonomiczny diagonalny lob nie został wywołany. Poprawa licznika nie oznacza lepszego futbolu. Wszystkie 14 meczów podlega pełnemu odtworzeniu z niezmienionym fizycznym stanem końcowym.
+
+**Canonical NOT READY; B domyślne; trzy eksperymenty osobno opt-in; experimentalCanonicalArrival osobno; confirmation zamknięte.** Rejestr zachowuje 134 ID, bez COMPLETE. Kolejny zakres: zmienione cele odbiorcy, przygotowanie ciała/czas kontaktu i pierwsza brakująca faza autonomicznego biegu/kandydata. Zachowane są 40 Hz, 28 atrybutów i wszystkie zobowiązania kariery/świata poniżej.
+
+
 ## PR196 — Canonical Outcome Semantics, Defensive Reach & Match-State Calibration
 
 Pierwsza naprawa fundamentu programu PR195 dodaje wersjonowaną diagnostykę rzeczywistych podań i strzałów oraz opcjonalną prognozę ETA opartą na istniejącej integracji ciała. Kontakt, przyjęcie, kontrola, utrzymanie po sekundzie, odrzucenie i cenzorowanie mają osobne definicje. Dawne dowody PR195 pozostają niezmienione; MEAS-012 ujawnia różnicę między wskazanym obrońcą a całą drużyną przeciwną.

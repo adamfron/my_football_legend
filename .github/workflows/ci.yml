@@ -47,6 +47,8 @@ jobs:
         run: npm run benchmark:pr195:check && git diff --exit-code -- docs/performance/pr195 docs/match-engine
       - if: matrix.group == 'main'
         run: npm run benchmark:pr196:check && npm run benchmark:pr196:replay && git diff --exit-code -- docs/performance/pr196 docs/match-engine
+      - if: matrix.group == 'main'
+        run: npm run benchmark:pr197:check && npm run benchmark:pr197:replay && git diff --exit-code -- docs/performance/pr197 docs/match-engine
   quality:
     # Preserve the existing required check and fail it if either group fails,
     # times out or is cancelled, including failures before tests can start.

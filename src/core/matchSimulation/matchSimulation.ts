@@ -10,6 +10,7 @@ import {
   advanceTransitionDefence,
 } from './transitionMovement';
 import { observeBoundedScene } from './boundedPerception';
+import { observeReceptionBall } from './ballOrientedMovement';
 import { evaluateStrategicClearance, clearanceIntentionSchema } from './strategicClearance';
 import {
   advanceBoundedOwnerDecision,
@@ -36,7 +37,7 @@ import {
 import { authoritativeMovementTarget } from './movementAuthority';
 import { observeBallMotorState, planBallOrientedMovement } from './ballOrientedMovement';
 import { advanceActivePerception } from './activePerception';
-import { advancePreReceptionPlans } from './preReceptionPlanning';
+import { advancePreReceptionPlans, preparedContinuation } from './preReceptionPlanning';
 import { advanceReceivingPositions, receivingPositionTarget } from './receivingPositions';
 import { advanceTeamTempo } from './teamTempo';
 import { deriveCarryPursuit } from './carryPursuit';
@@ -157,7 +158,11 @@ import {
 import { advanceOnBallPreparation, deriveOnBallPreparation } from './onBallPreparation';
 import { toPitchPoint } from './matchSpace';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
-import { resolveReceptionOutcome, projectLiveReceptionTarget } from './passReception';
+import {
+  resolveReceptionOutcome,
+  projectLiveReceptionTarget,
+  receptionMovementContactTarget,
+} from './passReception';
 import { prepareReceptionContinuation } from './receptionContinuation';
 import { advanceBallAcquisition } from './ballAcquisition';
 import { deriveCarryExecution, hasReachedCarryDecisionWaypoint } from './carryExecution';
@@ -565,7 +570,7 @@ const changePossession = (
   const receivingActor = state.players.find((p) => p.id === ownerId);
   if (
     receivingActor &&
-    receivingActor.team === state.possessionTeam &&
+    (receivingActor.team === state.possessionTeam || state.experimentalDefensiveReception) &&
     !isMatchGoalkeeper(receivingActor) &&
     state.ball.travelKind
   ) {
@@ -1727,8 +1732,21 @@ const stepTacticalMatchCore = (
     state.time - state.planningSchedule.lastTacticalPlanAt >= 0.1 - FIXED_MATCH_DT / 2;
   if (tacticalPlanDue) state.planningSchedule = { lastTacticalPlanAt: state.time, semanticKey };
   if (tacticalPlanDue && state.receptionPreparation) {
-    const receiver = state.players.find((p) => p.id === state.receptionPreparation!.actorId);
+    let receiver = state.players.find((p) => p.id === state.receptionPreparation!.actorId);
+    if (receiver && state.experimentalReceiverAnticipation) {
+      receiver = { ...receiver, ballMotorObservation: observeReceptionBall(state, receiver) };
+      const observedReceiver = receiver;
+      state.players = state.players.map((p) =>
+        p.id === observedReceiver.id ? observedReceiver : p,
+      );
+    }
     const point = receiver && projectLiveReceptionTarget(state, receiver);
+    if (receiver && state.experimentalReceiverAnticipation) {
+      state.receptionPreparation = {
+        ...preparedContinuation(state, receiver)!,
+        observedContactPoint: point,
+      };
+    }
     if (point && receiver) {
       // Routine hidden reception uses the same physical anticipation as an NPC.
       // Important incoming choices and an explicit human intention retain agency.
@@ -1736,12 +1754,9 @@ const stepTacticalMatchCore = (
         state.playerAgencyEnabled !== false &&
         state.controlledFootballerId === receiver.id &&
         !projectIncomingPlayerInvolvement(state, receiver.id).important;
-      state.receptionPreparation = prepareReceptionContinuation(
-        state,
-        receiver,
-        point,
-        routineHuman,
-      )!;
+      state.receptionPreparation = state.experimentalReceiverAnticipation
+        ? preparedContinuation(state, receiver)!
+        : prepareReceptionContinuation(state, receiver, point, routineHuman)!;
       state.receptionPreparation = { ...state.receptionPreparation!, expectedContactPoint: point };
     }
   }
@@ -1775,7 +1790,10 @@ const stepTacticalMatchCore = (
       (!isHumanControlled(state, player.id) || state.ballCarrierIntent?.humanSelected === true);
     if (recoveringOwnTouch)
       player = { ...player, ballMotorObservation: observeBallMotorState(state, player) };
-    else if (player.ballMotorObservation) {
+    else if (
+      player.ballMotorObservation &&
+      !(state.experimentalReceiverAnticipation && state.receptionPreparation?.actorId === player.id)
+    ) {
       const { ballMotorObservation: _oldObservation, ...withoutObservation } = player;
       void _oldObservation;
       player = withoutObservation;
@@ -1805,13 +1823,15 @@ const stepTacticalMatchCore = (
       player = { ...player, target: state.defensiveChallenge.target };
       movementTarget = player.target;
     }
+    const receptionContactTarget = receptionMovementContactTarget(state, player);
     if (
       state.receptionPreparation?.actorId === player.id &&
+      receptionContactTarget &&
       player.spatialMovement?.kind !== 'aerial_challenge' &&
       state.time >= state.receptionPreparation.awarenessAt
     ) {
       const preparation = state.receptionPreparation;
-      const contactTarget = preparation.runOn?.target ?? preparation.expectedContactPoint;
+      const contactTarget = receptionContactTarget;
       // Meet the forecast ball, then preserve momentum at actual reception. Advancing a runner's
       // target three metres past the meeting point each tick made reachable lead balls miss him.
       // A prepared directional contact can overlap acceleration. The meeting remains on
@@ -1947,10 +1967,16 @@ const stepTacticalMatchCore = (
       state.ball.ownerId === player.id &&
       state.ballCarrierIntent?.actorId !== player.id &&
       state.playerMovementIntent?.actorId !== player.id;
-    const desiredFacingAngle = preparing
-      ? (state.onBallPreparation?.micro?.orientationTarget ??
-        deriveOrientationTarget(state, player))
-      : deriveOrientationTarget(state, player);
+    const observedIncoming =
+      state.experimentalReceiverAnticipation && state.receptionPreparation?.actorId === player.id
+        ? player.ballMotorObservation?.ball
+        : undefined;
+    const desiredFacingAngle = observedIncoming
+      ? angleForVector({ x: -observedIncoming.velocity.x, y: -observedIncoming.velocity.y })
+      : preparing
+        ? (state.onBallPreparation?.micro?.orientationTarget ??
+          deriveOrientationTarget(state, player))
+        : deriveOrientationTarget(state, player);
     const recovery = player.challengeRecovery;
     const balance =
       recovery && state.time < recovery.until

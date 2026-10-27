@@ -13,6 +13,7 @@ import { deriveMovementCapability } from './locomotion';
 import { derivePassDifficulty } from './passExecution';
 import { resolveReceptionOutcome } from './passReception';
 import { angleForVector, integrateFacing } from './playerOrientation';
+import { forecastPassInterventions, passInterventionSchema } from './passInterception';
 
 export const passDecisionQualitySchema = z.object({
   expectedCompletion: z.number().min(0).max(1),
@@ -32,6 +33,7 @@ export const passDecisionQualitySchema = z.object({
   expectedReceptionQuality: z.number().min(0).max(1).optional(),
   expectedRetainedPossession: z.number().min(0).max(1).optional(),
   receiverAdjustmentCost: z.number().nonnegative().optional(),
+  interventions: passInterventionSchema.array().optional(),
 });
 export type PassDecisionQuality = z.infer<typeof passDecisionQualitySchema>;
 const clamp = (n: number) => Math.max(0, Math.min(1, n));
@@ -100,16 +102,28 @@ export const evaluatePassDecision = (
   const dx = target.x - origin.x,
     dy = target.y - origin.y;
   const squared = Math.max(0.001, dx * dx + dy * dy);
-  const laneOccupation = opponents.filter((p) => {
-    const fraction = ((p.position.x - origin.x) * dx + (p.position.y - origin.y) * dy) / squared;
-    if (fraction <= 0.07 || fraction >= 0.94) return false;
-    const point = { x: origin.x + dx * fraction, y: origin.y + dy * fraction };
-    return (
-      distanceToSegment(p.position, origin, target) < (delivery === 'lofted' ? 1 : 2.1) &&
-      estimatePlayerArrivalTime(state, p, point, 'intercept').estimatedTime <
-        plan.predictedArrivalTime * fraction + 0.18
-    );
-  }).length;
+  const interventions =
+    state.experimentalHeightAwarePassing && delivery === 'lofted'
+      ? forecastPassInterventions(state, passer, plan)
+      : undefined;
+  const laneOccupation = interventions
+    ? interventions.filter(
+        (p) =>
+          p.reachableMargin !== null &&
+          p.reachableMargin < 0.18 &&
+          (p.contactAt ?? Infinity) < plan.predictedArrivalTime * 0.94,
+      ).length
+    : opponents.filter((p) => {
+        const fraction =
+          ((p.position.x - origin.x) * dx + (p.position.y - origin.y) * dy) / squared;
+        if (fraction <= 0.07 || fraction >= 0.94) return false;
+        const point = { x: origin.x + dx * fraction, y: origin.y + dy * fraction };
+        return (
+          distanceToSegment(p.position, origin, target) < (delivery === 'lofted' ? 1 : 2.1) &&
+          estimatePlayerArrivalTime(state, p, point, 'intercept').estimatedTime <
+            plan.predictedArrivalTime * fraction + 0.18
+        );
+      }).length;
   const boundaryMargin = Math.min(target.x, 105 - target.x, target.y, 68 - target.y);
   const boundaryTravel =
     Math.min(
@@ -229,6 +243,7 @@ export const evaluatePassDecision = (
     expectedReceptionQuality,
     expectedRetainedPossession,
     receiverAdjustmentCost,
+    ...(interventions ? { interventions } : {}),
     utilityAdjustment:
       -(1 - (targetPredictedOutOfPlay ? 0 : expectedRetainedPossession)) *
         (38 + read * 38) *

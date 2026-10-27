@@ -21,8 +21,10 @@ import {
 import { readDevelopmentInput } from './pr193Evidence.mjs';
 import { attacksRight } from '../src/core/matchSimulation/matchSpace.ts';
 import { hash, receipt, retainSource } from './pr196Evidence.mjs';
+import { sourceIdentity as pr197Source } from './pr197Evidence.mjs';
 
 const args = new Map(process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')));
+const pr197 = args.get('program') === 'pr197';
 const design = args.get('design') ?? 'ww',
   policy = args.get('policy') ?? 'state-value-v1',
   corrected = args.get('model') === 'corrected',
@@ -31,7 +33,7 @@ const design = args.get('design') ?? 'ww',
 if (!/^[a-z0-9-]+$/.test(version) || !Number.isFinite(limit) || limit < 10 || limit > 7200)
   throw Error('Invalid run');
 const full = limit === 7200,
-  output = `docs/performance/pr196/${full ? 'matches' : 'harvest'}/${design}-${policy}-${corrected ? 'corrected' : 'baseline'}-${version}.json.gz`;
+  output = `docs/performance/${pr197 ? 'pr197' : 'pr196'}/${full ? 'matches' : 'harvest'}/${design}-${policy}-${corrected ? 'corrected' : 'baseline'}-${version}.json.gz`;
 const { input, path } = readDevelopmentInput(design, policy);
 let s = globalThis.structuredClone(input);
 Object.assign(s, {
@@ -42,10 +44,18 @@ Object.assign(s, {
   experimentalActivePerception: true,
   experimentalReceivingPositions: true,
   experimentalTeamTempo: true,
-  experimentalCanonicalArrival: corrected,
+  experimentalCanonicalArrival: pr197 ? false : corrected,
+  ...(pr197 && corrected
+    ? {
+        experimentalDefensiveReception: true,
+        experimentalHeightAwarePassing: true,
+        experimentalReceiverAnticipation: true,
+      }
+    : {}),
+  ...(pr197 && args.has('seed') ? { seed: args.get('seed') } : {}),
 });
 const initialHash = hash(s),
-  sourceArchive = retainSource(),
+  sourceArchive = pr197 ? pr197Source() : retainSource(),
   started = performance.now(),
   cpu = process.cpuUsage();
 let ticks = 0,
@@ -150,7 +160,18 @@ try {
             }
           }
         }
+        if (pr197 && ticks === 800) {
+          const capturePath = output.replace('.json.gz', '-prefix.json.gz');
+          receipt(capturePath, { state: s, inputHash: hash(s) });
+          captures.push({
+            path: capturePath,
+            at: s.time,
+            nextTick: null,
+            reasons: ['fixed 800th canonical tick; no outcome selection'],
+          });
+        }
         if (
+          !pr197 &&
           captures.length < 12 &&
           s.ball.ownerId &&
           !s.restart &&
@@ -231,7 +252,7 @@ try {
 active.forEach(finish);
 const players = s.statistics?.players ?? [];
 receipt(output, {
-  schema: 'pr196-development-match-v1',
+  schema: pr197 ? 'pr197-development-match-v1' : 'pr196-development-match-v1',
   classification: 'paired development; independent confirmation sealed',
   design,
   policy,
@@ -241,7 +262,7 @@ receipt(output, {
   limit,
   sourceArchive,
   inputPath: path,
-  seed: input.seed,
+  seed: pr197 ? s.seed : input.seed,
   initialHash,
   originalInputHash: hash(input),
   flags: {
@@ -252,7 +273,14 @@ receipt(output, {
     perception: true,
     receivingPositions: true,
     tempo: true,
-    canonicalArrival: corrected,
+    canonicalArrival: pr197 ? false : corrected,
+    ...(pr197
+      ? {
+          defensiveReception: corrected,
+          heightAwarePassing: corrected,
+          receiverAnticipation: corrected,
+        }
+      : {}),
   },
   ticks,
   seconds: s.time,

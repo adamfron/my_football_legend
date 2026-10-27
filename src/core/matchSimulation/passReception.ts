@@ -17,6 +17,7 @@ import { receptionContinuationSchema, runOnReceptionSchema } from './receptionCo
 import { assessFirstTouch, firstTouchAssessmentSchema } from './firstTouch';
 import { executeFootContact, footContactExecutionSchema, footSurfaceSchema } from './footContact';
 import { deriveGroundControlImpulse } from './ballContactGeometry';
+import { planBallOrientedMovement } from './ballOrientedMovement';
 
 /** An aware receiver meets the actual flight, including execution error. The release-time
  * desired point remains diagnostic evidence; this only supplies a normal locomotion target.
@@ -33,6 +34,19 @@ export const projectLiveReceptionTarget = (
   )
     return undefined;
   if (state.scenario === 'throw_in') return undefined;
+  if (state.experimentalReceiverAnticipation) {
+    const plan = planBallOrientedMovement(
+      receiver,
+      receiver.ballMotorObservation,
+      state.time,
+      receiver.target,
+      'receive',
+      state.receptionPreparation.awarenessAt,
+    );
+    return plan.nextContact && plan.contactSeconds !== null && plan.contactSeconds <= 2.5
+      ? clampPitchPoint(plan.movementTarget)
+      : undefined;
+  }
   const desired =
     state.lastPassDiagnostic?.intendedReceiverId === receiver.id
       ? state.lastPassDiagnostic.predictedReceptionPoint
@@ -112,6 +126,7 @@ export const receptionPreparationSchema = z.object({
   releasedAt: z.number().nonnegative(),
   awarenessAt: z.number().nonnegative(),
   expectedContactPoint: pitchPointSchema,
+  observedContactPoint: pitchPointSchema.optional(),
   expectedArrivalTime: z.number().nonnegative(),
   movement: z.enum(['wait', 'meet_ball', 'run_onto_ball']),
   ballEpisode: z.string(),
@@ -120,6 +135,19 @@ export const receptionPreparationSchema = z.object({
   runOn: runOnReceptionSchema.optional(),
 });
 export type ReceptionPreparation = z.infer<typeof receptionPreparationSchema>;
+
+/** A local forecast that found no contact cannot borrow the release-time engineering point. */
+export const receptionMovementContactTarget = (
+  state: TacticalMatchState,
+  receiver: MatchPlayerState,
+): PitchPoint | undefined => {
+  const prep = state.receptionPreparation;
+  if (prep?.actorId !== receiver.id) return undefined;
+  if (!state.experimentalReceiverAnticipation)
+    return prep.runOn?.target ?? prep.expectedContactPoint;
+  const observed = receiver.ballMotorObservation;
+  return observed?.ball && state.time - observed.at <= 0.5 ? prep.observedContactPoint : undefined;
+};
 
 export const receptionQualityEvidenceSchema = z.object({
   score: z.number().min(0).max(1),

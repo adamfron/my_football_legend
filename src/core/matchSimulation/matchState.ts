@@ -805,6 +805,9 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  experimentalDefensiveReception?: boolean;
+  experimentalHeightAwarePassing?: boolean;
+  experimentalReceiverAnticipation?: boolean;
   experimentalCanonicalArrival?: boolean | undefined;
   experimentalActivePerception?: boolean;
   activePerceptionConfig?: z.infer<typeof activePerceptionConfigSchema>;
@@ -1034,6 +1037,9 @@ export const tacticalMatchStateSchema = z
     experimentalBodyContacts: experimentalBodyContactsSchema.optional(),
     experimentalBallRecovery: z.boolean().optional(),
     experimentalCanonicalArrival: z.boolean().optional(),
+    experimentalDefensiveReception: z.boolean().optional(),
+    experimentalHeightAwarePassing: z.boolean().optional(),
+    experimentalReceiverAnticipation: z.boolean().optional(),
     experimentalActivePerception: z.boolean().optional(),
     activePerceptionConfig: activePerceptionConfigSchema.optional(),
     experimentalReceivingPositions: z.boolean().optional(),
