@@ -12,7 +12,7 @@ import { RandomGenerator } from '../random/RandomGenerator';
 import { canParticipatePhysically } from './matchInjuries';
 import { enumerateCombinationPasses } from './combinationPlay';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
-import { estimatePlayerArrivalTime } from './playerArrival';
+import { estimatePlayerArrivalTime, withArrivalForecastCache } from './playerArrival';
 import { roleReceivingTargets } from './roleTactics';
 
 /** At most 48 meaningfully different actions. Feasibility is independent of legacy utility gates. */
@@ -127,7 +127,7 @@ export const enumerateStateValueActions = (
   return actions.slice(0, config.maxCandidates);
 };
 
-export const rankStateValueActions = (
+const rankStateValueActionsCore = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
   supplied?: MatchAction[],
@@ -163,3 +163,12 @@ export const rankStateValueActions = (
   endPerformanceSpan('decision_value', valuation);
   return ranked;
 };
+
+export const rankStateValueActions = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  supplied?: MatchAction[],
+): RankedAiAction[] =>
+  state.experimentalCanonicalArrival
+    ? withArrivalForecastCache(() => rankStateValueActionsCore(state, actor, supplied))
+    : rankStateValueActionsCore(state, actor, supplied);

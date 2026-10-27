@@ -27,6 +27,8 @@ export const carryRaceArrival = (
   target: PitchPoint,
 ) => {
   const arrival = estimatePlayerArrivalTime(state, player, target, 'intercept');
+  // Finite-body projection already integrates orientation; do not charge it twice.
+  if (state.experimentalCanonicalArrival) return arrival.estimatedTime;
   const angle = Math.abs(
     normalizeAngle(
       angleForVector({ x: target.x - player.position.x, y: target.y - player.position.y }) -

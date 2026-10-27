@@ -1,0 +1,308 @@
+{
+  "schema": "pr196-choice-cause-v1",
+  "sourceArchive": {
+    "path": "docs/performance/pr196/source/4f06659b7e23ac0aa5d39aadd8c69625eda7681ca49cda36e2555e7e0e5f8aec.json.gz",
+    "sha256": "0b75641d4546808a84831d8cf6d783dd9a8ef21441ffde6903d6fcb5462a322e",
+    "sourceHash": "4f06659b7e23ac0aa5d39aadd8c69625eda7681ca49cda36e2555e7e0e5f8aec"
+  },
+  "rows": [
+    {
+      "capture": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "models": [
+        {
+          "corrected": false,
+          "inputHash": "cca72975d855e2bc2952bb0f4044f179fcbcdd95ef77e0278758681dd5004b3a",
+          "choices": [
+            {
+              "action": {
+                "type": "carry",
+                "actorId": "geometry:opponent:1",
+                "target": {
+                  "x": 85.71802800416542,
+                  "y": 58.394630895288465
+                }
+              },
+              "score": -0.004235543823948956,
+              "stateValue": {
+                "value": -0.0054864228769753946,
+                "before": 0.006314588297073177,
+                "effort": 0,
+                "branches": [
+                  {
+                    "kind": "controlled",
+                    "probability": 0.8661999608568512,
+                    "elapsed": 0.4,
+                    "reward": 0,
+                    "value": 0.004984102591950984
+                  },
+                  {
+                    "kind": "contested",
+                    "probability": 0.040140011742944626,
+                    "elapsed": 0.9,
+                    "reward": 0,
+                    "value": -0.017577956826761186
+                  },
+                  {
+                    "kind": "opponent",
+                    "probability": 0.09366002740020413,
+                    "elapsed": 0.4,
+                    "reward": 0,
+                    "value": -0.029726758052221587
+                  },
+                  {
+                    "kind": "restart",
+                    "probability": 0,
+                    "elapsed": 2.4,
+                    "reward": 0,
+                    "value": -0.007431689513055397
+                  },
+                  {
+                    "kind": "goal",
+                    "probability": 0,
+                    "elapsed": 0.4,
+                    "reward": 1,
+                    "value": 0
+                  }
+                ],
+                "reasons": [
+                  "carry",
+                  "controlled-metres:0.00"
+                ]
+              },
+              "carry": {
+                "target": {
+                  "x": 90.71802800416542,
+                  "y": 53.394630895288465
+                },
+                "freeDistance": 0,
+                "carrierEta": 0,
+                "defenderEta": 99,
+                "recoveryMargin": 99,
+                "crossingAccess": 0,
+                "support": 0,
+                "turnCost": 0.6126753187320835
+              }
+            },
+            {
+              "action": {
+                "type": "carry",
+                "actorId": "geometry:opponent:1",
+                "target": {
+                  "x": 84.71802800416542,
+                  "y": 53.394630895288465
+                }
+              },
+              "score": -0.0052090948098515045,
+              "stateValue": {
+                "value": -0.0054864228769753946,
+                "before": 0.006314588297073177,
+                "effort": 0,
+                "branches": [
+                  {
+                    "kind": "controlled",
+                    "probability": 0.8661999608568512,
+                    "elapsed": 0.4,
+                    "reward": 0,
+                    "value": 0.004984102591950984
+                  },
+                  {
+                    "kind": "contested",
+                    "probability": 0.040140011742944626,
+                    "elapsed": 0.9,
+                    "reward": 0,
+                    "value": -0.017577956826761186
+                  },
+                  {
+                    "kind": "opponent",
+                    "probability": 0.09366002740020413,
+                    "elapsed": 0.4,
+                    "reward": 0,
+                    "value": -0.029726758052221587
+                  },
+                  {
+                    "kind": "restart",
+                    "probability": 0,
+                    "elapsed": 2.4,
+                    "reward": 0,
+                    "value": -0.007431689513055397
+                  },
+                  {
+                    "kind": "goal",
+                    "probability": 0,
+                    "elapsed": 0.4,
+                    "reward": 1,
+                    "value": 0
+                  }
+                ],
+                "reasons": [
+                  "carry",
+                  "controlled-metres:0.00"
+                ]
+              },
+              "carry": {
+                "target": {
+                  "x": 90.71802800416542,
+                  "y": 53.394630895288465
+                },
+                "freeDistance": 0,
+                "carrierEta": 0,
+                "defenderEta": 99,
+                "recoveryMargin": 99,
+                "crossingAccess": 0,
+                "support": 0,
+                "turnCost": 0.8626753187320835
+              }
+            }
+          ]
+        },
+        {
+          "corrected": true,
+          "inputHash": "bd51b92c2817d3bd6bdbfd0c8703614f61c09df1e01b7aed163243f27134fc23",
+          "choices": [
+            {
+              "action": {
+                "type": "carry",
+                "actorId": "geometry:opponent:1",
+                "target": {
+                  "x": 85.71802800416542,
+                  "y": 58.394630895288465
+                }
+              },
+              "score": -0.008191820823700428,
+              "stateValue": {
+                "value": -0.009442699876726865,
+                "before": 0.006314588297073177,
+                "effort": 0.00011688395984164791,
+                "branches": [
+                  {
+                    "kind": "controlled",
+                    "probability": 0.8078094179187599,
+                    "elapsed": 1.425,
+                    "reward": 0,
+                    "value": 0.0035607750997347512
+                  },
+                  {
+                    "kind": "contested",
+                    "probability": 0.05765717462437202,
+                    "elapsed": 1.925,
+                    "reward": 0,
+                    "value": -0.02291223559132936
+                  },
+                  {
+                    "kind": "opponent",
+                    "probability": 0.13453340745686804,
+                    "elapsed": 1.425,
+                    "reward": 0,
+                    "value": -0.037166933655748496
+                  },
+                  {
+                    "kind": "restart",
+                    "probability": 0,
+                    "elapsed": 3.425,
+                    "reward": 0,
+                    "value": -0.009291733413937124
+                  },
+                  {
+                    "kind": "goal",
+                    "probability": 0,
+                    "elapsed": 1.425,
+                    "reward": 1,
+                    "value": 0
+                  }
+                ],
+                "reasons": [
+                  "carry",
+                  "controlled-metres:3.54"
+                ]
+              },
+              "carry": {
+                "target": {
+                  "x": 88.21802800416542,
+                  "y": 55.894630895288465
+                },
+                "freeDistance": 3.5355339059327378,
+                "carrierEta": 1.425,
+                "defenderEta": 1.6500000000000001,
+                "recoveryMargin": 0.2250000000000001,
+                "crossingAccess": 0,
+                "support": 0,
+                "turnCost": 0.6126753187320835
+              }
+            },
+            {
+              "action": {
+                "type": "carry",
+                "actorId": "geometry:opponent:1",
+                "target": {
+                  "x": 84.71802800416542,
+                  "y": 53.394630895288465
+                }
+              },
+              "score": -0.0052090948098515045,
+              "stateValue": {
+                "value": -0.0054864228769753946,
+                "before": 0.006314588297073177,
+                "effort": 0,
+                "branches": [
+                  {
+                    "kind": "controlled",
+                    "probability": 0.8661999608568512,
+                    "elapsed": 0.4,
+                    "reward": 0,
+                    "value": 0.004984102591950984
+                  },
+                  {
+                    "kind": "contested",
+                    "probability": 0.040140011742944626,
+                    "elapsed": 0.9,
+                    "reward": 0,
+                    "value": -0.017577956826761186
+                  },
+                  {
+                    "kind": "opponent",
+                    "probability": 0.09366002740020413,
+                    "elapsed": 0.4,
+                    "reward": 0,
+                    "value": -0.029726758052221587
+                  },
+                  {
+                    "kind": "restart",
+                    "probability": 0,
+                    "elapsed": 2.4,
+                    "reward": 0,
+                    "value": -0.007431689513055397
+                  },
+                  {
+                    "kind": "goal",
+                    "probability": 0,
+                    "elapsed": 0.4,
+                    "reward": 1,
+                    "value": 0
+                  }
+                ],
+                "reasons": [
+                  "carry",
+                  "controlled-metres:0.00"
+                ]
+              },
+              "carry": {
+                "target": {
+                  "x": 90.71802800416542,
+                  "y": 53.394630895288465
+                },
+                "freeDistance": 0,
+                "carrierEta": 0,
+                "defenderEta": 99,
+                "recoveryMargin": 99,
+                "crossingAccess": 0,
+                "support": 0,
+                "turnCost": 0.8626753187320835
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

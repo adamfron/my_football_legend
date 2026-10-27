@@ -1,6 +1,6 @@
 # Roadmap
 
-Aktualny etap: **PR195 — MatchEngine Assumptions Audit, Calibration Registry & Realism Programme**.
+Aktualny etap: **PR196 — Canonical Outcome Semantics, Defensive Reach & Match-State Calibration**.
 Użytkownik jawnie wybrał dłuższy **MatchEngine Realism Programme**, potencjalnie
 20–30 kolejnych PR, zanim canonical będzie podstawą szybkiej symulacji kariery.
 Liczba etapów nie jest deklaracją gotowości ani harmonogramem wydania.
@@ -12,6 +12,12 @@ Trzy nowe przełączniki opt-in oddzielają percepcję/przygotowanie, pozycję d
 przyjęcia oraz tempo/wysiłek. Wyniki laboratoryjne, pełne mecze development,
 wydajność i niezależna walidacja mają osobne bramki. Zielone CI nie zastępuje
 wiarygodności futbolu. Żaden eksperyment nie jest globalnie promowany.
+
+### Naprawa fundamentu i wyniki development PR196
+
+[Raport PR196](PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md) i [dowody](performance/pr196/summary.json) rozdzielają dostarczenie piłki, kontakt, kontrolę, utrzymanie i cenzorowanie. Opcjonalny `experimentalCanonicalArrival` współdzieli istniejącą integrację ciała; na 240 odłożonych geometriach development błąd ETA maleje 0,306 → 0,004 s. To zgodność z silnikiem, bez niezależnej walidacji futbolu.
+
+Siedem pełnych par meczów daje mieszany transfer: strzały 75 → 67, WW/B 14 → 9 i SW/B 28 → 18, przy WW/H 0 → 5. Brak globalnej promocji: **canonical NOT READY, B domyślne, nowa prognoza opt-in, confirmation zamknięte**. Rejestr zachowuje 133 historyczne ID i dodaje MEAS-012 dla atrybucji całej obrony; żadna pozycja nie jest COMPLETE. Następny zakres wynika z PASS-001/006/007 i MEAS-011/012: lineage kontaktów, rozrzut długiego podania, antycypacja odbiorcy oraz kontrakty dotknięcia/kontroli/utrzymania.
 
 ### Trwały rejestr i program badań PR195
 
