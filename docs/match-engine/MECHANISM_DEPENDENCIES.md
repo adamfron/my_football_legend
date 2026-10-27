@@ -1,5 +1,11 @@
 # Mechanism dependencies
 
+## PR197 scoped paths
+
+The [PR197 report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md) and [summary](../performance/pr197/summary.json) add three independent experiments. The privileged flight→height/access→B/R3 lane-evaluation path never enters O/H/J's bounded observation. The observed ball→local motor target→ordinary movement→finite reception path preserves information age. Symmetric incoming control validates physical access before ownership. A separate v3 measurement observer ends delivery lineage at genuine incoming header/first-time release; it grants no physical contact.
+
+PASS-005/PHYS-002 → actual launch/flight → PASS-003/DEF-003/004 → actual intervention → PASS-004/009 receiver body preparation → PASS-006/007 control/retention → MEAS-011/012 attribution → PASS-001 calibration. PASS-010/TACT-009 constrain candidate/information admission separately. T/M consequences are hypotheses tested by seven full development pairs; mixed policy regressions prevent promotion. Experimental canonical arrival is independent. Free-kick run variants depend on REST-004/009/012 and TACT-002/004; they remain deferred.
+
 Solid arrows below trace calls or data consumption in current source. Dashed arrows are plausible football consequences requiring experiments; they are not established effect sizes. This distinction matters because PR192's improved recovery increased active time, and PR193/194 aggregate attacking changes concealed policy regressions.
 
 ```mermaid

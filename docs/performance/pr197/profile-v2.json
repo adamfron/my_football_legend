@@ -1,0 +1,260 @@
+{
+  "source": {
+    "base": "81e0457a0fc344cdedaa18d035121cb7fe51bcc2",
+    "fingerprint": "22d18a55023f3ee0fa70331bb60e60b2ab7d6b452847b630741a1942f5145654",
+    "path": "docs/performance/pr197/source/22d18a55023f3ee0fa70331bb60e60b2ab7d6b452847b630741a1942f5145654.json.gz"
+  },
+  "serial": {
+    "rows": [
+      {
+        "kind": "pass_forecast",
+        "canonical": false,
+        "model": "baseline",
+        "calls": 120,
+        "milliseconds": 33.080600000000004,
+        "cpu": {
+          "user": 31000,
+          "system": 0
+        },
+        "outputHash": "1719d17d10f3ea7f7a588d5c1faa886690e335e446961195babb0ae954183450"
+      },
+      {
+        "kind": "pass_forecast",
+        "canonical": false,
+        "model": "height",
+        "calls": 120,
+        "milliseconds": 39.842299999999796,
+        "cpu": {
+          "user": 16000,
+          "system": 16000
+        },
+        "outputHash": "49f17555467454c285ed0aa8e55ceebb4b149827ca9d5f9303587913c0daa185"
+      },
+      {
+        "kind": "pass_forecast",
+        "canonical": true,
+        "model": "baseline",
+        "calls": 120,
+        "milliseconds": 41.127700000000004,
+        "cpu": {
+          "user": 94000,
+          "system": 15000
+        },
+        "outputHash": "f5aac8e263e5259f968c7e31518964737451e22f9fe1279a00089df21417f744"
+      },
+      {
+        "kind": "pass_forecast",
+        "canonical": true,
+        "model": "height",
+        "calls": 120,
+        "milliseconds": 129.3186999999998,
+        "cpu": {
+          "user": 156000,
+          "system": 0
+        },
+        "outputHash": "474d9cb97542c516aa9e8f56d0d0201063421423be2b547b4e0d0d486caa7bf1"
+      },
+      {
+        "kind": "receiver_forecast",
+        "model": "baseline",
+        "calls": 1200,
+        "milliseconds": 13.068899999999985,
+        "cpu": {
+          "user": 0,
+          "system": 0
+        },
+        "outputHash": "86f0c91d5f9d981f76bcefa7fb3f4025d7eb14382c4b4fc28c4ed68bb78c5e2d"
+      },
+      {
+        "kind": "receiver_forecast",
+        "model": "receiver",
+        "calls": 1200,
+        "milliseconds": 8.548900000000003,
+        "cpu": {
+          "user": 15000,
+          "system": 0
+        },
+        "outputHash": "23e894c4b66c4c6788640b761c133c1fc24483b9452e0d031635f8ef22aa250c"
+      }
+    ],
+    "memory": {
+      "rss": 223985664,
+      "heapTotal": 132960256,
+      "heapUsed": 88874528,
+      "external": 13161803,
+      "arrayBuffers": 276763
+    },
+    "maxRSSKiB": 219928
+  },
+  "concurrent": [
+    {
+      "rows": [
+        {
+          "kind": "pass_forecast",
+          "canonical": false,
+          "model": "baseline",
+          "calls": 120,
+          "milliseconds": 39.280100000000175,
+          "cpu": {
+            "user": 63000,
+            "system": 32000
+          },
+          "outputHash": "1719d17d10f3ea7f7a588d5c1faa886690e335e446961195babb0ae954183450"
+        },
+        {
+          "kind": "pass_forecast",
+          "canonical": false,
+          "model": "height",
+          "calls": 120,
+          "milliseconds": 43.21169999999984,
+          "cpu": {
+            "user": 31000,
+            "system": 15000
+          },
+          "outputHash": "49f17555467454c285ed0aa8e55ceebb4b149827ca9d5f9303587913c0daa185"
+        },
+        {
+          "kind": "pass_forecast",
+          "canonical": true,
+          "model": "baseline",
+          "calls": 120,
+          "milliseconds": 46.81569999999988,
+          "cpu": {
+            "user": 109000,
+            "system": 31000
+          },
+          "outputHash": "f5aac8e263e5259f968c7e31518964737451e22f9fe1279a00089df21417f744"
+        },
+        {
+          "kind": "pass_forecast",
+          "canonical": true,
+          "model": "height",
+          "calls": 120,
+          "milliseconds": 134.6300000000001,
+          "cpu": {
+            "user": 141000,
+            "system": 32000
+          },
+          "outputHash": "474d9cb97542c516aa9e8f56d0d0201063421423be2b547b4e0d0d486caa7bf1"
+        },
+        {
+          "kind": "receiver_forecast",
+          "model": "baseline",
+          "calls": 1200,
+          "milliseconds": 14.887699999999995,
+          "cpu": {
+            "user": 15000,
+            "system": 0
+          },
+          "outputHash": "86f0c91d5f9d981f76bcefa7fb3f4025d7eb14382c4b4fc28c4ed68bb78c5e2d"
+        },
+        {
+          "kind": "receiver_forecast",
+          "model": "receiver",
+          "calls": 1200,
+          "milliseconds": 11.251400000000103,
+          "cpu": {
+            "user": 16000,
+            "system": 15000
+          },
+          "outputHash": "23e894c4b66c4c6788640b761c133c1fc24483b9452e0d031635f8ef22aa250c"
+        }
+      ],
+      "memory": {
+        "rss": 243679232,
+        "heapTotal": 200069120,
+        "heapUsed": 116316216,
+        "external": 13030715,
+        "arrayBuffers": 145675
+      },
+      "maxRSSKiB": 237968
+    },
+    {
+      "rows": [
+        {
+          "kind": "pass_forecast",
+          "canonical": false,
+          "model": "baseline",
+          "calls": 120,
+          "milliseconds": 37.231899999999996,
+          "cpu": {
+            "user": 63000,
+            "system": 0
+          },
+          "outputHash": "1719d17d10f3ea7f7a588d5c1faa886690e335e446961195babb0ae954183450"
+        },
+        {
+          "kind": "pass_forecast",
+          "canonical": false,
+          "model": "height",
+          "calls": 120,
+          "milliseconds": 54.36169999999993,
+          "cpu": {
+            "user": 78000,
+            "system": 0
+          },
+          "outputHash": "49f17555467454c285ed0aa8e55ceebb4b149827ca9d5f9303587913c0daa185"
+        },
+        {
+          "kind": "pass_forecast",
+          "canonical": true,
+          "model": "baseline",
+          "calls": 120,
+          "milliseconds": 43.87129999999979,
+          "cpu": {
+            "user": 31000,
+            "system": 0
+          },
+          "outputHash": "f5aac8e263e5259f968c7e31518964737451e22f9fe1279a00089df21417f744"
+        },
+        {
+          "kind": "pass_forecast",
+          "canonical": true,
+          "model": "height",
+          "calls": 120,
+          "milliseconds": 133.55410000000006,
+          "cpu": {
+            "user": 172000,
+            "system": 31000
+          },
+          "outputHash": "474d9cb97542c516aa9e8f56d0d0201063421423be2b547b4e0d0d486caa7bf1"
+        },
+        {
+          "kind": "receiver_forecast",
+          "model": "baseline",
+          "calls": 1200,
+          "milliseconds": 12.9371000000001,
+          "cpu": {
+            "user": 15000,
+            "system": 0
+          },
+          "outputHash": "86f0c91d5f9d981f76bcefa7fb3f4025d7eb14382c4b4fc28c4ed68bb78c5e2d"
+        },
+        {
+          "kind": "receiver_forecast",
+          "model": "receiver",
+          "calls": 1200,
+          "milliseconds": 9.707499999999982,
+          "cpu": {
+            "user": 32000,
+            "system": 0
+          },
+          "outputHash": "23e894c4b66c4c6788640b761c133c1fc24483b9452e0d031635f8ef22aa250c"
+        }
+      ],
+      "memory": {
+        "rss": 288182272,
+        "heapTotal": 197447680,
+        "heapUsed": 99546152,
+        "external": 13161787,
+        "arrayBuffers": 276747
+      },
+      "maxRSSKiB": 283000
+    }
+  ],
+  "concurrentWallMilliseconds": 1650.5091,
+  "node": "v24.22.1",
+  "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+  "logicalCpus": 16,
+  "qualification": "Serial means one measurement process; other development matches may run on the host. Concurrent means two identical workers. No no-debug 90-minute target claim."
+}

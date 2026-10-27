@@ -20,7 +20,7 @@ import {
   tacticalObservationSchema,
 } from './tacticalCognition';
 import { tacticalRoleFor } from './tacticalRoles';
-import { clampPitchPoint, distance } from './matchSpace';
+import { clampPitchPoint, distance, toPitchPointIfInPlay } from './matchSpace';
 import { updateOpponentKnowledge } from './opponentKnowledge';
 import { angleForVector } from './playerOrientation';
 import { preparedRecognitionLatency, revalidatePreparedOptions } from './preReceptionPlanning';
@@ -375,7 +375,9 @@ export const advanceBoundedPatterns = (state: TacticalMatchState): TacticalMatch
       at: state.time,
       position: scene.position,
       direction: scene.direction,
-      ball: scene.ball?.position ?? null,
+      // A remembered physical sighting may lie beyond the line. It is not an in-play
+      // tactical coordinate and must not be clamped into a fabricated opportunity.
+      ball: scene.ball ? (toPitchPointIfInPlay(scene.ball.position) ?? null) : null,
       ownerId: source.id,
       visible: scene.visible
         .filter(

@@ -91,6 +91,24 @@ export const observeBallMotorState = (
   };
 };
 
+/** Reception uses the existing local motor observation. A remembered sighting keeps its
+ * real timestamp; unobserved spin is unknown rather than refreshed from authoritative state. */
+export const observeReceptionBall = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+): BallMotorObservation => {
+  const observation = observeBallMotorState(state, actor);
+  if (observation === actor.ballMotorObservation) return observation;
+  const memory = state.experimentalActivePerception
+    ? state.activePerceptionRuntime?.memory[actor.id]
+    : undefined;
+  return {
+    ...observation,
+    at: memory?.ball && observation.ball ? memory.ballSeenAt : observation.at,
+    ball: observation.ball ? { ...observation.ball, spin: { x: 0, y: 0, z: 0 } } : null,
+  };
+};
+
 /** Analytical reach time includes adverse momentum, turning and finite acceleration.
  * Other bodies use a conservative common movement envelope, never private attributes. */
 const arrival = (

@@ -9,10 +9,17 @@ const nullableTime = z.number().nullable();
 export const outcomeContactSchema = z.object({
   actorId: z.string(),
   at: z.number(),
-  source: z.enum(['ground', 'flight', 'last_touch']),
+  source: z.enum(['ground', 'flight', 'last_touch', 'release']),
   disruption: z.boolean(),
 });
 export const outcomeSampleSchema = z.object({
+  releaseContact: z
+    .object({
+      actorId: z.string(),
+      at: z.number(),
+      kind: z.enum(['header', 'first_time_pass', 'first_time_shot']),
+    })
+    .optional(),
   at: z.number(),
   passId: z.string().nullable(),
   shotId: z.string().nullable(),
@@ -28,7 +35,7 @@ export const outcomeSampleSchema = z.object({
 });
 export type OutcomeSample = z.infer<typeof outcomeSampleSchema>;
 export const outcomeContractSchema = z.object({
-  version: z.enum(['original-delivery-v1', 'original-delivery-v2']),
+  version: z.enum(['original-delivery-v1', 'original-delivery-v2', 'original-delivery-v3']),
   actorId: z.string(),
   receiverId: z.string().nullable(),
   teamIds: z.string().array(),
@@ -98,6 +105,7 @@ export const canonicalOutcomeSchema = z.object({
 export const sampleCanonicalOutcome = (
   before: TacticalMatchState,
   after: TacticalMatchState,
+  version: OutcomeContract['version'] = 'original-delivery-v2',
 ): OutcomeSample => {
   const contacts: OutcomeSample['contacts'] = [];
   const g = after.lastGroundContact;
@@ -131,8 +139,43 @@ export const sampleCanonicalOutcome = (
       source: 'last_touch',
       disruption: false,
     });
+  const action = after.currentAction;
+  const kind =
+    version === 'original-delivery-v3' && after.decisionIndex !== before.decisionIndex && action
+      ? action.type === 'header'
+        ? ('header' as const)
+        : !before.ball.ownerId && action.type === 'pass' && action.firstTime
+          ? ('first_time_pass' as const)
+          : !before.ball.ownerId &&
+              action.type === 'shot' &&
+              (action.contact ?? 'settled') !== 'settled'
+            ? ('first_time_shot' as const)
+            : undefined
+      : undefined;
+  const releaseContact =
+    kind && action ? { actorId: action.actorId, at: after.time, kind } : undefined;
+  if (releaseContact) {
+    const existing = contacts.find(
+      (c) => c.actorId === releaseContact.actorId && Math.abs(c.at - releaseContact.at) < 1e-8,
+    );
+    const witness = {
+      actorId: releaseContact.actorId,
+      at: releaseContact.at,
+      source: 'release' as const,
+      disruption:
+        Math.hypot(
+          (after.ball.velocity?.x ?? 0) - (before.ball.velocity?.x ?? 0),
+          (after.ball.velocity?.y ?? 0) - (before.ball.velocity?.y ?? 0),
+          (after.ball.velocity?.z ?? 0) - (before.ball.velocity?.z ?? 0),
+        ) > 0.5,
+    };
+    if (!existing) contacts.push(witness);
+    else if (existing.source === 'last_touch') Object.assign(existing, witness);
+  }
+  if (version === 'original-delivery-v3') contacts.sort((a, b) => a.at - b.at);
   const shotId = after.ball.shot?.shotId ?? after.lastShot?.shotId ?? null;
   return outcomeSampleSchema.parse({
+    ...(releaseContact ? { releaseContact } : {}),
     at: after.time,
     passId: after.lastPassDiagnostic?.passId ?? null,
     shotId,
@@ -175,10 +218,12 @@ export const interpretCanonicalOutcome = (raw: OutcomeContract, samples: Outcome
   for (const s of episode) {
     if (terminal !== 'horizon') break;
     // A new release can occur between observations. Do not credit its contact to the old ball action.
-    if (
+    const replaced =
       (c.passId && s.passId !== c.passId) ||
-      (s.shotId && s.shotId !== c.shotId && s.shotId !== c.previousShotId)
-    ) {
+      (s.shotId && s.shotId !== c.shotId && s.shotId !== c.previousShotId);
+    // Version 3 credits the actual incoming contact of a first-time redirect, then ends
+    // the old delivery. Historical v1/v2 intentionally retain their frozen ordering.
+    if (replaced && (c.version !== 'original-delivery-v3' || !s.releaseContact)) {
       terminal = 'new_action';
       terminalAt = s.at;
       break;
@@ -201,6 +246,15 @@ export const interpretCanonicalOutcome = (raw: OutcomeContract, samples: Outcome
         }
       }
     }
+    if (
+      c.version === 'original-delivery-v3' &&
+      s.releaseContact &&
+      s.releaseContact.at > c.releasedAt! + 1e-8
+    ) {
+      terminal = 'new_action';
+      terminalAt = s.releaseContact.at;
+      break;
+    }
     if (c.shotId && s.shotId === c.shotId && s.shotOutcome) {
       terminal = 'shot_terminal';
       terminalAt = s.at;
@@ -209,7 +263,7 @@ export const interpretCanonicalOutcome = (raw: OutcomeContract, samples: Outcome
       if (c.opponentIds.includes(s.ownerId)) defensiveControlAt = s.at;
       terminal = 'control';
       terminalAt = s.at;
-    } else if (s.restart && !(c.version === 'original-delivery-v2' && s.restartReleased)) {
+    } else if (s.restart && !(c.version !== 'original-delivery-v1' && s.restartReleased)) {
       terminal = 'restart';
       terminalAt = s.at;
       if (['throw_in', 'corner', 'goal_kick'].includes(s.restart)) outOfPlayAt = s.at;
@@ -229,7 +283,7 @@ export const interpretCanonicalOutcome = (raw: OutcomeContract, samples: Outcome
         : retention
           ? c.teamIds.includes(retention.ownerId ?? '') &&
             (!retention.restart ||
-              (c.version === 'original-delivery-v2' && retention.restartReleased))
+              (c.version !== 'original-delivery-v1' && retention.restartReleased))
           : null;
   const lost =
     receiverControlAt !== null &&
@@ -238,7 +292,7 @@ export const interpretCanonicalOutcome = (raw: OutcomeContract, samples: Outcome
         s.at >= receiverControlAt! &&
         s.at <= receiverControlAt! + 1 &&
         ((s.ownerId && c.opponentIds.includes(s.ownerId)) ||
-          (s.restart && !(c.version === 'original-delivery-v2' && s.restartReleased))),
+          (s.restart && !(c.version !== 'original-delivery-v1' && s.restartReleased))),
     );
   return canonicalOutcomeSchema.parse({
     contract: c,
@@ -269,7 +323,7 @@ export const interpretCanonicalOutcome = (raw: OutcomeContract, samples: Outcome
     looseAtHorizon:
       !samples.at(-1)?.ownerId &&
       (!samples.at(-1)?.restart ||
-        (c.version === 'original-delivery-v2' && samples.at(-1)?.restartReleased)),
+        (c.version !== 'original-delivery-v1' && samples.at(-1)?.restartReleased)),
     originalShotOutcome: c.shotId
       ? (samples.find((s) => s.shotId === c.shotId && s.shotOutcome)?.shotOutcome ?? null)
       : null,
@@ -281,6 +335,7 @@ export const runCanonicalOutcomeTrial = (
   action: MatchAction,
   seconds = 8,
   observer?: (sample: OutcomeSample) => void,
+  version: OutcomeContract['version'] = 'original-delivery-v2',
 ) => {
   if (!(seconds > 0 && seconds <= 12)) throw Error('Invalid outcome horizon');
   const actor = initial.players.find((p) => p.id === action.actorId);
@@ -297,7 +352,7 @@ export const runCanonicalOutcomeTrial = (
       ? (s.ball.shot?.shotId ?? null)
       : null;
   const contract = outcomeContractSchema.parse({
-    version: 'original-delivery-v2',
+    version,
     actorId: actor.id,
     receiverId: action.type === 'pass' ? action.receiverId : null,
     teamIds: initial.players.filter((p) => p.team === actor.team).map((p) => p.id),
@@ -311,12 +366,12 @@ export const runCanonicalOutcomeTrial = (
     information: 'privileged_engineering_observer',
     conditionalOnRelease: true,
   });
-  const samples = [sampleCanonicalOutcome(initial, s)];
+  const samples = [sampleCanonicalOutcome(initial, s, version)];
   const bodies: z.infer<typeof outcomeBodySampleSchema>[] = [];
   for (let tick = 0; tick < Math.round(seconds / 0.025); tick++) {
     const before = s;
     s = step(s, 0.025);
-    const sample = sampleCanonicalOutcome(before, s);
+    const sample = sampleCanonicalOutcome(before, s, version);
     samples.push(sample);
     if (tick % 10 === 0 || sample.contacts.length) {
       const selected = s.players

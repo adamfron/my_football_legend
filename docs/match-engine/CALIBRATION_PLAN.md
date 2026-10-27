@@ -1,5 +1,13 @@
 # MatchEngine calibration plan
 
+## PR197 development gate
+
+[PR197](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md) freezes the exact PR196 source/registry and repeats all28 original long requests before changing mechanisms. Same-release branches separate execution from awareness/first-touch/facing/motion. Launch, height-aware interception, finite-surface readiness, family probability claims, autonomous run stages and candidate admission have separate denominators. Remote/high-contact rejections are ineligible, not failed completion. Engineering forecasts do not supply subjective bounded knowledge.
+
+New receipts use original-delivery-v3: real incoming header/first-time release ends the original episode after its genuine contact; later redelivered control cannot rescue it. Frozen v1/v2 records remain. Fourteen whole matches are replayed with identical final physical hashes and release lists before replacing measurement summaries. Source archives plus exact-source laboratory reconstruction preserve immutable reproducibility.
+
+Next: freeze observed meeting-target/timing/body-preparation regressions on identical releases; locate the first missing autonomous run/candidate stage; expand held-out geometries and clustered uncertainty before fitting direct-touch/control/retention claims. Seven match pairs do not isolate three switches; run ablations before any promotion. No global launch, range, action-value, shot, stamina, GK or restart tuning. I/F evidence is scoped; E/T/M/C remain open. B default, canonical NOT READY, independent confirmation sealed.
+
 Canonical football is **NOT READY**. This programme can require another 20–30 or more PRs. A green test, a better aggregate shot count, a highlight, or a commercial game's balance cannot close a realism gate. Real football is the external reality reference; EA Sports FC/FIFA and Football Manager may supply usability, visual or tactical feedback, with no claim that their internal physics is authoritative.
 
 ## Event and information contract
@@ -74,22 +82,22 @@ Current rules reviewed on 2026-10-26: [IFAB Law 5, injuries](https://www.theifab
 
 This is a dependency order, not one PR per category or a promise to finish by a date. Each bundle may need multiple research/repair/confirmation PRs.
 
-| Order | Scope / IDs | Complexity | Exit before downstream tuning |
-|---|---|---|---|
-| 1 | Measurement and event semantics: MEAS-005/006/007/011, PASS-006/007, DEF-003/004 | medium | unambiguous contact/control/retention/rejection/censoring with original-episode witnesses |
-| 2 | Candidate map and comparative values: DEC-001–012, SHOT-007/008 | high | every policy stage and genuine alternatives, including justified hold, are explainable |
-| 3 | Locomotion/defensive prediction: DEF-001/002/005, FIT-001/002, PHYS-002 | high | measured reach and ETA error separated from tactical target choice |
-| 4 | Passing families and execution: PASS-001–010, DRIB-005/006 | high | stratified predicted touch/retention matches canonical mechanisms within preregistered bounds |
-| 5 | Shot technique and consequence values: DEC-013, SHOT-001–012 | high | supported contact plus action-specific outcomes compared against feasible continuation |
-| 6 | Carries/feints/second balls: DRIB-001–010, DEF-004/009 | high | contact/recovery distributions and meaningful defender interactions |
-| 7 | Keeper/aerial geometry and distribution: GK-001–007/010 | high | timing and contacts demonstrated before tactical expansion |
-| 8 | Injury/referee legal priorities: CONTACT-006/012/014/015 | medium/high | current-rule handling and medical priority explicit; old replay edition retained |
-| 9 | Restarts and containment: REST-001–013, FIT-008 | high | quick/prepared/retrieval/cover consequences physically measured |
-| 10 | Pain/falls/fair play: CONTACT-001–005/007–011/013 | high | separate function/recovery/medical states and voluntary lawful choices |
-| 11 | Bounded team risk/context/communication: TACT-001–010, GK-008/009 | high | no hidden-information advantage; competition prerequisites implemented |
-| 12 | Effort/fatigue/recovery: FIT-003–010, TACT-011 | high | local workloads transfer over a match and later congested fixtures |
-| 13 | Natural flow, multi-policy development and serial performance: TACT-012, REST-014, MEAS-008–010 | high | no quotas/delays; declared no-debug full-match benchmark and honest policy-specific regressions |
-| 14 | Frozen independent multi-policy confirmation and human/graphical playtesting | high | fresh protected evidence, football plausibility and enjoyment assessed separately |
+| Order | Scope / IDs                                                                                     | Complexity  | Exit before downstream tuning                                                                   |
+| ----- | ----------------------------------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------- |
+| 1     | Measurement and event semantics: MEAS-005/006/007/011, PASS-006/007, DEF-003/004                | medium      | unambiguous contact/control/retention/rejection/censoring with original-episode witnesses       |
+| 2     | Candidate map and comparative values: DEC-001–012, SHOT-007/008                                 | high        | every policy stage and genuine alternatives, including justified hold, are explainable          |
+| 3     | Locomotion/defensive prediction: DEF-001/002/005, FIT-001/002, PHYS-002                         | high        | measured reach and ETA error separated from tactical target choice                              |
+| 4     | Passing families and execution: PASS-001–010, DRIB-005/006                                      | high        | stratified predicted touch/retention matches canonical mechanisms within preregistered bounds   |
+| 5     | Shot technique and consequence values: DEC-013, SHOT-001–012                                    | high        | supported contact plus action-specific outcomes compared against feasible continuation          |
+| 6     | Carries/feints/second balls: DRIB-001–010, DEF-004/009                                          | high        | contact/recovery distributions and meaningful defender interactions                             |
+| 7     | Keeper/aerial geometry and distribution: GK-001–007/010                                         | high        | timing and contacts demonstrated before tactical expansion                                      |
+| 8     | Injury/referee legal priorities: CONTACT-006/012/014/015                                        | medium/high | current-rule handling and medical priority explicit; old replay edition retained                |
+| 9     | Restarts and containment: REST-001–013, FIT-008                                                 | high        | quick/prepared/retrieval/cover consequences physically measured                                 |
+| 10    | Pain/falls/fair play: CONTACT-001–005/007–011/013                                               | high        | separate function/recovery/medical states and voluntary lawful choices                          |
+| 11    | Bounded team risk/context/communication: TACT-001–010, GK-008/009                               | high        | no hidden-information advantage; competition prerequisites implemented                          |
+| 12    | Effort/fatigue/recovery: FIT-003–010, TACT-011                                                  | high        | local workloads transfer over a match and later congested fixtures                              |
+| 13    | Natural flow, multi-policy development and serial performance: TACT-012, REST-014, MEAS-008–010 | high        | no quotas/delays; declared no-debug full-match benchmark and honest policy-specific regressions |
+| 14    | Frozen independent multi-policy confirmation and human/graphical playtesting                    | high        | fresh protected evidence, football plausibility and enjoyment assessed separately               |
 
 The next focused bundle should start with PASS-001/006, DEF-001/002/003, DEC-003/013 and MEAS-011, selecting a smaller causal subset before editing behaviour. Unrelated entries remain open. Full-match distributions follow local calibration; distilled/summary simulation follows credible canonical football.
 
