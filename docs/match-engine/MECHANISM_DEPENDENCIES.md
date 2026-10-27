@@ -1,5 +1,15 @@
 # Mechanism dependencies
 
+## PR199 temporal information boundary
+
+[PR199](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md) audits the currently present paths: canonical ball → bounded snapshot with exact velocity → motor observation → receiver estimate; canonical shot → engineering keeper projection → native movement/contact; and general cached ball → fresh adapter timestamp/hidden spin. Reception-specific timestamps and zero-spin handling are verified separately. Native broad tactical positioning/facing is not certified bounded.
+
+The new laboratory-only path is actual offered 3D visibility + attention → noisy positions/finite optical interval → inferred velocity and preparation prior → aged uncertain trajectory belief → bounded existing body projection/committed objective → ordinary 40Hz movement → finite contact/control/continuation. No live application imports the new belief. Prediction, motor intention and physical outcome retain separate contracts.
+
+TACT-009 covers temporal perception/occlusion/inferred velocity/memory without a duplicate issue. PASS-004/009 connect it to body preparation and competing clocks; PASS-006/MEAS-011/012 preserve actual original outcomes; GK-002 exposes hidden release/reaction and inherited tactical consumers; GK-001 coverage remains only partly investigated; MEAS-001/003 separate cognitive, physical and technical sensitivity. I/F/E/T/M/C requirements are unchanged.
+
+Next dependency: isolate the first demonstrable motor/sensory defect across fresh development geometries, then bound every acting consumer before paired live-match trials. Neither early desperate contact nor later attractive facing is awarded artificial value. Historical failed controllers and goalkeeper apparatus remain evidence.
+
 ## PR198 scoped paths and unresolved value
 
 [PR198](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md) separates observed contact point/time from release-time engineering diagnostics and from the motor body's offset destination. PASS-004/009 → local observed flight/absolute meeting → own canonical turning/braking/plant projection → finite contact → PASS-006/007 → original-delivery-v3 MEAS-011/012. The separate synchronisation experiment has worse aggregate reception and remains opt-in; representation consistency does not close calibration.

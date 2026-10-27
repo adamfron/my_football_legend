@@ -1,5 +1,15 @@
 # MatchEngine calibration plan
 
+## PR199 evidence gate
+
+[PR199](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md) freezes merged PR198, all 135 identities, every historical receipt and the exact 180-ball R/S baselines. All 11 changed receptions retain 40Hz traces and separate spatial/time, facing/speed/braking, cadence, commitment and clock ablations. Do not fit a touch quota: motor interventions and fresh-observation controls interact, and a clean representation does not imply control or retention.
+
+The isolated Ball Flight Perception & Occlusion Lab separates position/optical displacement, inferred velocity, prior preparation cues, remembered belief and growing uncertainty. Offered, attended and actually acquired exposure are distinct at 25ms; no universal two-observation or 200ms-success rule is introduced. Same-launch ground/aerial/spin/bounce/deflection trials and independent cognitive/motor/technical sweeps precede any live sensory adapter.
+
+Goalkeeper v1 misses/blocks and v2 inherited tactical leaks are retained. V3/v4 isolate inferred movement and actual-sighting reaction while preserving genuine canonical contacts. Cylinder screens, trunk opening, primitive preparation priors and uncalibrated uncertainty remain explicit approximations. Broader tactical consumers must be bounded before a live promotion; candidate accuracy cannot certify anatomy or saves.
+
+[REALISM_PROGRESS](REALISM_PROGRESS.md) is generated from the original register and an explicit per-ID evidence mapping, with read-only uniqueness/reference/hash/status/checkbox checks. Investigation, diagnosis, scoped correction, development and I/F/E/T/M/C closure remain different. B default, 40Hz, 28 attributes, NOT READY and sealed confirmation remain. No live consumer changes, so observer neutrality and historical replay replace unnecessary new full-match combinations.
+
 ## PR198 development gate
 
 [PR198](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md) freezes the exact merged PR197 source, all 134 stable IDs and immutable earlier evidence. 180 actual released balls and 40 rejected requests exactly reproduce their original inputs; the full D/H/R factorial isolates post-release effects. The new receiver synchronisation remains a separate opt-in dependent on receiver anticipation. Its final 149/113/108 direct touch/control/retention does not surpass 154/123/116 for PR197 combined, and the rejected 129/102/91 prototype remains frozen. No contact-count optimisation or promotion follows from representation consistency.

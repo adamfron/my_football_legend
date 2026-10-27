@@ -1,0 +1,354 @@
+{
+  "schema": "pr199-verification-v1",
+  "status": "PASS",
+  "runtimeSource": {
+    "base": "aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b",
+    "fingerprint": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+    "path": "docs/performance/pr199/source/ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48.json.gz"
+  },
+  "required": [
+    "npm run benchmark:pr195:check",
+    "npm run benchmark:pr196:historical",
+    "npm run benchmark:pr196:check",
+    "npm run benchmark:pr196:replay",
+    "npm run benchmark:pr197:check",
+    "npm run benchmark:pr197:replay",
+    "npm run benchmark:pr197:source-replay",
+    "npm run benchmark:pr198:check",
+    "npm run benchmark:pr198:replay",
+    "npm run benchmark:pr198:source-replay",
+    "npm run benchmark:pr199:check",
+    "npm run benchmark:pr199:replay",
+    "npm run benchmark:realism:check",
+    "npm run verify"
+  ],
+  "latest": [
+    {
+      "command": "npm run benchmark:pr195:check",
+      "startedAt": "2026-10-27T18:14:38.699Z",
+      "endedAt": "2026-10-27T18:20:48.390Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr195-check.log.gz",
+      "sha256": "e8e27af4e00804ee03ec61ce05cca17431ee94017d9c80f17a61406c16943332",
+      "logSha256": "dfa56b3e3973be3d29090d5030f4e4098271e20b6d953cf1ed6098235d0b2ccc"
+    },
+    {
+      "command": "npm run benchmark:pr196:historical",
+      "startedAt": "2026-10-27T18:20:48.392Z",
+      "endedAt": "2026-10-27T18:24:25.632Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr196-historical.log.gz",
+      "sha256": "8e38c7dfd629799ca889391d9ecec0a63dc64deb9ee82a13f63a37d94afee1d7",
+      "logSha256": "a22171444fa1fca4d82c33d324c975435428f7c85436b86586d6959baa717298"
+    },
+    {
+      "command": "npm run benchmark:pr196:check",
+      "startedAt": "2026-10-27T18:24:25.633Z",
+      "endedAt": "2026-10-27T18:27:53.581Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr196-check.log.gz",
+      "sha256": "e5a1ff45a26f54d1067e69df7d2658114bfda10fb92b6a63d1459ef3226f9935",
+      "logSha256": "2762e3280ca67a49f31a257f7be88cf4f39016421256f8cc6e8c5335a7abc18b"
+    },
+    {
+      "command": "npm run benchmark:pr196:replay",
+      "startedAt": "2026-10-27T18:27:53.581Z",
+      "endedAt": "2026-10-27T18:28:20.755Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr196-replay.log.gz",
+      "sha256": "446ef6dd6ab36c43dd11791532c4b272e1e4f1e7ec05656e853b29641802a8dc",
+      "logSha256": "b30ed05db30baa639d15459f442eca37fba5b9d95241f53d72caa8e8f0962ee9"
+    },
+    {
+      "command": "npm run benchmark:pr197:check",
+      "startedAt": "2026-10-27T19:38:06.925Z",
+      "endedAt": "2026-10-27T19:38:09.992Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/repair/benchmark-pr197-check.log.gz",
+      "sha256": "026eb863f2f2231b8b6f43912f0d00783411e5a14da97d063d6c0ffa88f36b1e",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "7bc0dd8bd4d2d6809061acbfce1b7e46b69a9476cbbc77087f4bd65c0ee12dcb"
+    },
+    {
+      "command": "npm run benchmark:pr197:replay",
+      "startedAt": "2026-10-27T18:28:57.997Z",
+      "endedAt": "2026-10-27T18:29:00.655Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr197-replay.log.gz",
+      "sha256": "b91820b9cb7cace307f60f32747bc92edf20e43629df1b8b7303a8317158805d",
+      "logSha256": "87b37d80965ece6f2eaa7494ac3649fb178c57731d3dc17814a767189a218142"
+    },
+    {
+      "command": "npm run benchmark:pr197:source-replay",
+      "startedAt": "2026-10-27T18:29:00.655Z",
+      "endedAt": "2026-10-27T18:42:36.961Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr197-source-replay.log.gz",
+      "sha256": "45eff0e3c3e91ffcb419bffbba4fec36a9c81a67eab8e0ecc2f4f5f006ed4a49",
+      "logSha256": "6dac8c7657cb28882faf331e8ec8ebde82d9336521b2d5458fd22229fe30ab3e"
+    },
+    {
+      "command": "npm run benchmark:pr198:check",
+      "startedAt": "2026-10-27T18:42:36.962Z",
+      "endedAt": "2026-10-27T18:42:42.560Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr198-check.log.gz",
+      "sha256": "70fe1ee1bfcc548c163abaed30f55b5c907d1e007534dcc252dcb7cf89c3beda",
+      "logSha256": "43966838c17205a7ac6bda2c529d0272979b7674dc1ea551c671c31ef7055492"
+    },
+    {
+      "command": "npm run benchmark:pr198:replay",
+      "startedAt": "2026-10-27T18:42:42.560Z",
+      "endedAt": "2026-10-27T18:42:45.379Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr198-replay.log.gz",
+      "sha256": "08b30299eda4402037ecb36ceb84f1092a47735461397de09a7fe84ba5d42da4",
+      "logSha256": "a2736d138a6edbcfcb53665ee4e91d5cab575dd3fe1d35e09a8c6ff2158d17e3"
+    },
+    {
+      "command": "npm run benchmark:pr198:source-replay",
+      "startedAt": "2026-10-27T18:42:45.380Z",
+      "endedAt": "2026-10-27T19:01:25.215Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr198-source-replay.log.gz",
+      "sha256": "96d89ec4a52d27b79fd504e13bc1e8c44ccee5c73bfe3257c721899e8e6b73ee",
+      "logSha256": "8a958777a6e6b2cdd92424a1f476738edda066505d6f67761ca482621443c537"
+    },
+    {
+      "command": "npm run benchmark:pr199:check",
+      "startedAt": "2026-10-27T19:38:58.230Z",
+      "endedAt": "2026-10-27T19:39:30.901Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-pr199-check.log.gz",
+      "sha256": "830128d483c436a050eda771e6840ab9789c60260a496a42b4f4f9ae3effe21c",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "5ee351eb2a6984ec2c1dccb8aace89152a9c0aab7731d2adc12578f7f91d81f5"
+    },
+    {
+      "command": "npm run benchmark:pr199:replay",
+      "startedAt": "2026-10-27T19:39:30.993Z",
+      "endedAt": "2026-10-27T19:56:19.668Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-pr199-replay.log.gz",
+      "sha256": "fdcc1cba2bc1da13324a5e13eeaa4141d375d09a6768070a6c83ff3fdaa1b9c5",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "82d72c6d1ad0aa15e66c38c07e19d6d2f301ee66b6398a64a091cb3d01153953"
+    },
+    {
+      "command": "npm run benchmark:realism:check",
+      "startedAt": "2026-10-27T19:56:19.785Z",
+      "endedAt": "2026-10-27T19:56:24.461Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-realism-check.log.gz",
+      "sha256": "1f424cfe5e242ff259debdb3ee4f0b0a66da5dd05503635fe341f3611327f64c",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "42fa486b31b58f820b5d7b8bfb1d840658acd2837a9e9763e054c44f0412cea0"
+    },
+    {
+      "command": "npm run verify",
+      "startedAt": "2026-10-27T19:38:37.483Z",
+      "endedAt": "2026-10-27T20:00:07.287Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final/verify.log.gz",
+      "sha256": "a5bd78b3e898839d96c7eaf1513ec7b3089ca3533cd0a4c9907fb2a35e9ed119",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "3c2b7182ace224655c7e215674047cb0efcbc06ecd86f805f1bd3d88578091f7"
+    }
+  ],
+  "records": [
+    {
+      "command": "npm run benchmark:pr195:check",
+      "startedAt": "2026-10-27T18:14:38.699Z",
+      "endedAt": "2026-10-27T18:20:48.390Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr195-check.log.gz",
+      "sha256": "e8e27af4e00804ee03ec61ce05cca17431ee94017d9c80f17a61406c16943332",
+      "logSha256": "dfa56b3e3973be3d29090d5030f4e4098271e20b6d953cf1ed6098235d0b2ccc"
+    },
+    {
+      "command": "npm run benchmark:pr196:historical",
+      "startedAt": "2026-10-27T18:20:48.392Z",
+      "endedAt": "2026-10-27T18:24:25.632Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr196-historical.log.gz",
+      "sha256": "8e38c7dfd629799ca889391d9ecec0a63dc64deb9ee82a13f63a37d94afee1d7",
+      "logSha256": "a22171444fa1fca4d82c33d324c975435428f7c85436b86586d6959baa717298"
+    },
+    {
+      "command": "npm run benchmark:pr196:check",
+      "startedAt": "2026-10-27T18:24:25.633Z",
+      "endedAt": "2026-10-27T18:27:53.581Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr196-check.log.gz",
+      "sha256": "e5a1ff45a26f54d1067e69df7d2658114bfda10fb92b6a63d1459ef3226f9935",
+      "logSha256": "2762e3280ca67a49f31a257f7be88cf4f39016421256f8cc6e8c5335a7abc18b"
+    },
+    {
+      "command": "npm run benchmark:pr196:replay",
+      "startedAt": "2026-10-27T18:27:53.581Z",
+      "endedAt": "2026-10-27T18:28:20.755Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr196-replay.log.gz",
+      "sha256": "446ef6dd6ab36c43dd11791532c4b272e1e4f1e7ec05656e853b29641802a8dc",
+      "logSha256": "b30ed05db30baa639d15459f442eca37fba5b9d95241f53d72caa8e8f0962ee9"
+    },
+    {
+      "command": "npm run benchmark:pr197:check",
+      "startedAt": "2026-10-27T18:28:20.756Z",
+      "endedAt": "2026-10-27T18:28:57.996Z",
+      "code": 1,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr197-check.log.gz",
+      "sha256": "8e240e7e4914aaee24e141ce63ebd5ab2bb3796ffffb415e305f429b82b272c1",
+      "logSha256": "8b6303910d0aec49d40842d443d81ab3104740e6b114cdab8f6317ce00b5217f"
+    },
+    {
+      "command": "npm run benchmark:pr197:replay",
+      "startedAt": "2026-10-27T18:28:57.997Z",
+      "endedAt": "2026-10-27T18:29:00.655Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr197-replay.log.gz",
+      "sha256": "b91820b9cb7cace307f60f32747bc92edf20e43629df1b8b7303a8317158805d",
+      "logSha256": "87b37d80965ece6f2eaa7494ac3649fb178c57731d3dc17814a767189a218142"
+    },
+    {
+      "command": "npm run benchmark:pr197:source-replay",
+      "startedAt": "2026-10-27T18:29:00.655Z",
+      "endedAt": "2026-10-27T18:42:36.961Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr197-source-replay.log.gz",
+      "sha256": "45eff0e3c3e91ffcb419bffbba4fec36a9c81a67eab8e0ecc2f4f5f006ed4a49",
+      "logSha256": "6dac8c7657cb28882faf331e8ec8ebde82d9336521b2d5458fd22229fe30ab3e"
+    },
+    {
+      "command": "npm run verify",
+      "startedAt": "2026-10-27T18:29:17.706Z",
+      "endedAt": "2026-10-27T18:55:12.138Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/verify.log.gz",
+      "sha256": "d0546e8cc7309203a7ab1268961a90f96f8548a9ff5e730b6ec4e98cdd2169f1",
+      "logSha256": "a19edeaa91b4b859ff07b2a45fbfdda8abcfb8e8d20e38fffa455259a75ca41c"
+    },
+    {
+      "command": "npm run benchmark:pr198:check",
+      "startedAt": "2026-10-27T18:42:36.962Z",
+      "endedAt": "2026-10-27T18:42:42.560Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr198-check.log.gz",
+      "sha256": "70fe1ee1bfcc548c163abaed30f55b5c907d1e007534dcc252dcb7cf89c3beda",
+      "logSha256": "43966838c17205a7ac6bda2c529d0272979b7674dc1ea551c671c31ef7055492"
+    },
+    {
+      "command": "npm run benchmark:pr198:replay",
+      "startedAt": "2026-10-27T18:42:42.560Z",
+      "endedAt": "2026-10-27T18:42:45.379Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr198-replay.log.gz",
+      "sha256": "08b30299eda4402037ecb36ceb84f1092a47735461397de09a7fe84ba5d42da4",
+      "logSha256": "a2736d138a6edbcfcb53665ee4e91d5cab575dd3fe1d35e09a8c6ff2158d17e3"
+    },
+    {
+      "command": "npm run benchmark:pr198:source-replay",
+      "startedAt": "2026-10-27T18:42:45.380Z",
+      "endedAt": "2026-10-27T19:01:25.215Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/benchmark-pr198-source-replay.log.gz",
+      "sha256": "96d89ec4a52d27b79fd504e13bc1e8c44ccee5c73bfe3257c721899e8e6b73ee",
+      "logSha256": "8a958777a6e6b2cdd92424a1f476738edda066505d6f67761ca482621443c537"
+    },
+    {
+      "command": "npm run benchmark:pr197:check",
+      "startedAt": "2026-10-27T19:38:06.925Z",
+      "endedAt": "2026-10-27T19:38:09.992Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/repair/benchmark-pr197-check.log.gz",
+      "sha256": "026eb863f2f2231b8b6f43912f0d00783411e5a14da97d063d6c0ffa88f36b1e",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "7bc0dd8bd4d2d6809061acbfce1b7e46b69a9476cbbc77087f4bd65c0ee12dcb"
+    },
+    {
+      "command": "npm run verify",
+      "startedAt": "2026-10-27T19:38:37.483Z",
+      "endedAt": "2026-10-27T20:00:07.287Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final/verify.log.gz",
+      "sha256": "a5bd78b3e898839d96c7eaf1513ec7b3089ca3533cd0a4c9907fb2a35e9ed119",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "3c2b7182ace224655c7e215674047cb0efcbc06ecd86f805f1bd3d88578091f7"
+    },
+    {
+      "command": "npm run benchmark:pr199:check",
+      "startedAt": "2026-10-27T19:38:58.230Z",
+      "endedAt": "2026-10-27T19:39:30.901Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-pr199-check.log.gz",
+      "sha256": "830128d483c436a050eda771e6840ab9789c60260a496a42b4f4f9ae3effe21c",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "5ee351eb2a6984ec2c1dccb8aace89152a9c0aab7731d2adc12578f7f91d81f5"
+    },
+    {
+      "command": "npm run benchmark:pr199:replay",
+      "startedAt": "2026-10-27T19:39:30.993Z",
+      "endedAt": "2026-10-27T19:56:19.668Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-pr199-replay.log.gz",
+      "sha256": "fdcc1cba2bc1da13324a5e13eeaa4141d375d09a6768070a6c83ff3fdaa1b9c5",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "82d72c6d1ad0aa15e66c38c07e19d6d2f301ee66b6398a64a091cb3d01153953"
+    },
+    {
+      "command": "npm run benchmark:realism:check",
+      "startedAt": "2026-10-27T19:56:19.785Z",
+      "endedAt": "2026-10-27T19:56:24.461Z",
+      "code": 0,
+      "signal": null,
+      "log": "docs/performance/pr199/verification/final-pr199/benchmark-realism-check.log.gz",
+      "sha256": "1f424cfe5e242ff259debdb3ee4f0b0a66da5dd05503635fe341f3611327f64c",
+      "sourceBefore": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "sourceAfter": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+      "logSha256": "42fa486b31b58f820b5d7b8bfb1d840658acd2837a9e9763e054c44f0412cea0"
+    }
+  ],
+  "notes": [
+    "Initial PR197 report comparison failed because Windows checkout mixed CRLF template/report with LF generated tables. Stable .gitattributes and exact LF checkout repair preserve historical expected content; successful retry retained.",
+    "Earlier verify is preliminary. Final verification records bind runtime source before/after; final-head CI is checked separately on the PR head.",
+    "Stored source replay logs compare exact archived experiments, including rejected laboratory apparatus; preservation is distinct from validating those models."
+  ]
+}

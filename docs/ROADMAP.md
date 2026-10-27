@@ -1,5 +1,13 @@
 # Roadmap
 
+### Percepcja, regresja odbiorcy i postęp PR199
+
+Aktualny etap: [PR199](PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md). Dokładna analiza 11 zmienionych kontaktów wskazuje współdziałanie przygotowania ruchowego i obserwacji. Laboratoria rozdzielają dowody wzrokowe, estymację, pamięć, ruch i realne przyjęcie/interwencję bramkarza. Wszystkie nieudane kohorty są zachowane; brak promocji modelu do normalnej gry.
+
+PR200 powinien wyizolować pierwszy przyczynowo potwierdzony defekt na szerszych geometriach development oraz zamknąć boczne dopływy pełnego stanu do działających kontrolerów. Dopiero poprawka konsumenta rozgrywki wymaga nowych pełnych porównań meczów. Bez globalnego strojenia utility/strzałów/anatomii bramkarza.
+
+[Postęp programu](match-engine/REALISM_PROGRESS.md) jest liczony z rejestru i jawnych dowodów, bez utożsamiania źródłowej poprawki z ukończonym problemem. **135 stabilnych ID; zero COMPLETE; canonical NOT READY; B domyślne; 40 Hz, 28 atrybutów i zamknięte confirmation zachowane.** Poniższe etapy historyczne oraz pełne zobowiązania kariery, generacji i świata pozostają.
+
 ### Synchronizacja odbiorcy i okazje PR198
 
 Aktualny etap: [PR198](PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md). Na tych samych 180 wypuszczonych piłkach wyizolowano regresję antycypacji odbiorcy. Nowa synchronizacja ma spójny lokalny punkt/czas i ograniczone prognozy istniejącej integracji ciała, lecz 149/113/108 touch/control/retention pozostaje gorsze od 154/123/116 w PR197 combined. Nieudane próby i utracone kontakty nie są usuwane. Osobny, ograniczony repertuar loftowanego podania zwiększa dostępność kandydatów i daje pięć autonomicznych wypuszczeń w 280 przypadkach, bez dowodu kompletnego zamierzonego łańcucha rozpoznania okazji.

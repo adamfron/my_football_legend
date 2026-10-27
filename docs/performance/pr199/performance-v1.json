@@ -1,0 +1,100 @@
+{
+  "result": {
+    "schema": "pr199-performance-v1",
+    "source": {
+      "base": "aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b",
+      "fingerprint": "04911756d72ed0bf514fa5c9cd4b751a89f084fd68d0a0de210ef54cd51c454a",
+      "path": "docs/performance/pr199/source/04911756d72ed0bf514fa5c9cd4b751a89f084fd68d0a0de210ef54cd51c454a.json.gz"
+    },
+    "rows": [
+      {
+        "category": "observation_acquisition",
+        "calls": 240,
+        "lastHash": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+      },
+      {
+        "category": "trajectory_inference",
+        "calls": 240,
+        "lastHash": "28da9838df3c2cd866db0babff548281927de13b8cc5e76f1523d76c0eeaae48"
+      },
+      {
+        "category": "memory_update",
+        "calls": 240,
+        "lastHash": "868a377fe61f1f85611bc75ef7a5065de855f91a2ffb0c0c03f1deb58f40b61f"
+      },
+      {
+        "category": "receiver_motor_planning",
+        "calls": 240,
+        "lastHash": "d135e26f79cd86a63fbe7d63188a84cebab65141e91d488fb6b235701cc7701a"
+      },
+      {
+        "category": "logging",
+        "calls": 240,
+        "lastHash": "264236caba478ed96f3ae76150bc63f099fcea142eb3aa8acb22086a7b402836"
+      }
+    ],
+    "bounds": {
+      "canonicalStep": 0.025,
+      "beliefMaximumHorizon": 4,
+      "ballPredictionStep": 0.1,
+      "motorCandidateProbes": 3,
+      "motorStepsPerProbe": 96,
+      "liveConsumersAdded": 0,
+      "fullMatchCPU": "Not rerun: diagnostic-only source has no new live imports; native observer equivalence and historical replays required",
+      "goalkeeperCosts": "Per-episode costs included in goalkeeper cohort; belief path bounds its existing projection to 2.4s"
+    }
+  },
+  "costs": {
+    "execution": "single profile process; other development processes may compete on host",
+    "categories": [
+      {
+        "category": "observation_acquisition",
+        "milliseconds": 20.38229999999976,
+        "cpu": {
+          "user": 94000,
+          "system": 15000
+        }
+      },
+      {
+        "category": "trajectory_inference",
+        "milliseconds": 1.0018999999997504,
+        "cpu": {
+          "user": 0,
+          "system": 0
+        }
+      },
+      {
+        "category": "memory_update",
+        "milliseconds": 1.9582000000000335,
+        "cpu": {
+          "user": 0,
+          "system": 0
+        }
+      },
+      {
+        "category": "receiver_motor_planning",
+        "milliseconds": 32.27029999999968,
+        "cpu": {
+          "user": 63000,
+          "system": 16000
+        }
+      },
+      {
+        "category": "logging",
+        "milliseconds": 1.315599999999904,
+        "cpu": {
+          "user": 0,
+          "system": 0
+        }
+      }
+    ],
+    "memory": {
+      "rss": 219086848,
+      "heapTotal": 209768448,
+      "heapUsed": 105089768,
+      "external": 31388740,
+      "arrayBuffers": 145675
+    },
+    "maxRSSKiB": 262952
+  }
+}

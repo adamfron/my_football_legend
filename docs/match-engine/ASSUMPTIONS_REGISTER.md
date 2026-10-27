@@ -377,6 +377,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
 - **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
+- **PR199 development update:** Exact PR198 R/S baselines and every eight lost/three gained contact are reproduced. Spatial/time, facing, speed/braking, commitment, observation freshness and authority/continuation clocks are separately ablated. Facing/speed and finite observation cadence interact; no uniquely justified live correction is promoted.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### PASS-005 — Calibrate execution error distributions by passing, technique, foot, pressure, distance, orientation and incoming ball state.
 
@@ -430,6 +432,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
 - **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
+- **PR199 development update:** 216 visibility and 448 one-factor physical continuations retain every eligible attempt, actual direct touch, original-delivery control and one-second possession. Better inferred coordinates or more touches do not establish control/retention; missing estimates remain explicit.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### PASS-007 — Distinguish an interception, uncontrolled deflection, clearance and genuinely retained possession.
 
@@ -506,6 +510,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
 - **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
+- **PR199 development update:** The old release-time authority/continuation clocks remain real source dependencies but changing either alone does not restore contacts in the 11-case regression subset. Earlier braking is harmful there. Lab-only belief commitment retains evidence age rather than manufacturing fresh sightings.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### PASS-010 — Audit fixed restrictions on progressive, spatial and combination passes.
 
@@ -1296,9 +1302,12 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
+- **PR199 development update:** Controlled goalkeeper screens retain position, projection, actual physical arrival/contact and save consequences. The logistic shot-coverage utility is not recalibrated. Cylinder screens and a declared trunk opening are approximations; independent coverage/positioning calibration remains required.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 ### GK-002 — Calibrate reaction and physical arrival estimates.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Goalkeepers and aerial football.
 - **Classification / priority / severity:** `TIMING_ASSUMPTION`; **P0**; foundational, multiple downstream decisions/outcomes.
 - **Implementation:** [`goalkeeperIntervention.projectGoalkeeperIntervention`](../../src/core/matchSimulation/goalkeeperIntervention.ts#L66); [`playerArrival.estimatePlayerArrivalTime`](../../src/core/matchSimulation/playerArrival.ts#L24).
@@ -1314,6 +1323,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** keeper reaction/acceleration trajectories and actual timed contact runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+
+- **PR199 development update:** Native projection reacts to unseen canonical shot state; v2 also exposes inherited full-world tactical target/facing movement. Versioned v3/v4 laboratory motor inputs consume only shared belief and an actual-sighting reaction clock. Original miss/block-heavy and confounded cohorts remain frozen. Real catch/parry/contact geometry stays authoritative; no live keeper repair or anatomy overhaul.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### GK-003 — Audit catch, parry, punch, deflection and failed intervention outcomes.
 
@@ -1491,6 +1503,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
 - **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
+- **PR199 development update:** Receiver physical movement, attention gaps and competing commitments are measured separately from intentional off-ball opportunity recognition. The historical five autonomous loft releases remain execution-stage observations, not five proven deliberate cooperative runs.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### TACT-002 — Audit running into free space rather than merely moving closer to the ball.
 
@@ -1560,6 +1574,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
 - **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
+- **PR199 development update:** No utility or opportunity ranking is changed. PR198 candidate presence/releases and the unproven complete run-to-reception chain remain frozen. Physical reception improvement cannot retrospectively establish initial intention.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### TACT-005 — Audit whether defensive recovery and marking are unrealistically efficient.
 
@@ -1667,6 +1683,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
 - **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
+- **PR199 development update:** Temporal ball perception, observed versus inferred velocity, spin provenance, 3D occlusion and trajectory-memory uncertainty are explicitly within this existing ID. Deterministic audit confirms exact snapshot velocity and general cached timestamp/hidden-spin leakage; reception-specific time/zero-spin safeguards are verified. A schema-validated position/optical-interval belief is laboratory-only. Native broader tactical/GK paths remain unbounded; no new duplicate ID.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### TACT-010 — Audit contextual objectives derived from match score, competition rules and time remaining.
 
@@ -2479,7 +2497,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 ### MEAS-001 — Audit the influence of all 28 permanent attributes on real execution.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Measurement, attributes and performance.
 - **Classification / priority / severity:** `EMPIRICAL_PARAMETER`; **P1**; major plausible match impact.
 - **Implementation:** [`attributeMicroLab.runAttributeMicroLab`](../../src/core/matchSimulation/attributeMicroLab.ts#L66); [`footballPerformanceLab.runFootballSkillTrial`](../../src/core/matchSimulation/footballPerformanceLab.ts#L293).
@@ -2495,6 +2513,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** reuse PR184–186 inventory and isolated attribute contrasts runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+
+- **PR199 development update:** Independent reading/concentration levels 20/40/60/80/100 affect acquisition/inference in the isolated lab; agility/firstTouch/composure and actual goalkeeper attributes are varied separately in physical continuations. A measured subset is not validation of all 28 permanent attributes or a guaranteed elite success rate.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### MEAS-002 — Identify duplicated or effectively unused attribute contributions.
 
@@ -2517,7 +2538,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 ### MEAS-003 — Identify attributes influencing selection but not the corresponding physical execution.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Measurement, attributes and performance.
 - **Classification / priority / severity:** `STRUCTURAL_GATE`; **P1**; major plausible match impact.
 - **Implementation:** [`boundedDecision.constructBoundedCandidates`](../../src/core/matchSimulation/boundedDecision.ts#L122); [`passExecution.derivePassDifficulty`](../../src/core/matchSimulation/passExecution.ts#L52).
@@ -2533,6 +2554,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** fixed-action versus autonomous skill contrasts runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+
+- **PR199 development update:** Sensory inference, canonical movement and technical control have separate observations and denominators. First-touch-only and motor-only branches share the original physical launch. No generic skill multiplier, named-player exception or probability target is fitted.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### MEAS-004 — Identify attributes influencing outcomes through unjustified direct bonuses.
 
@@ -2610,6 +2634,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Status rationale / blockers:** PR195 starts the named diagnostic family; sample size and transfer remain open.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
+- **PR199 development update:** PR199 adds explicit offered/attended/acquired exposure and missing-estimate denominators. A conditional forecast MAE is not a reception success rate; all eligible attempts remain counted.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 ### MEAS-008 — Profile physics, decision-making, perception, movement and logging separately.
 
 - [ ] LAB_REQUIRED
@@ -2628,6 +2655,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** serial fixed-source profiling plus observer-off controls runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+
+- **PR199 development update:** Every PR199 receipt links its normalized source archive and frozen PR198 base. Read-only source replay and hostile-observer checks are separate from statistical/football confirmation.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### MEAS-009 — Establish a repeatable full-match benchmark without full diagnostic recording.
 
@@ -2648,6 +2678,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
+- **PR199 development update:** No new live belief consumer or hot-loop work is installed. Bounded sensor/inference/memory/motor/logging profiles and canonical-continuation costs are development measurements, not a whole-match speed claim.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 ### MEAS-010 — Verify that faster simulation does not alter physical integration or decision correctness.
 
 - [ ] LAB_REQUIRED
@@ -2666,6 +2699,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** exact paired final-state/contact/event hashes across execution modes runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+
+- **PR199 development update:** Machine progress accounting separates source audit, actual experiment, diagnosis, scoped source correction, development evidence, independent confirmation and original COMPLETE. Missing classifications remain NOT_ASSESSED; no closure gate is weakened.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### MEAS-011 — Original action episode attribution, rejection and censoring in calibration measurements.
 
@@ -2696,6 +2732,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
 - **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
+- **PR199 development update:** Original-delivery-v3 attribution remains unchanged. Full 40Hz forensic traces and separate physical outcomes retain launch identity and terminate the original episode before unrelated later actions. Observer neutrality and exact-source replays preserve physical hashes.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 ### MEAS-012 — A designated defender is not the entire opposition in action attribution.
 
@@ -2718,6 +2756,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR198 development update (historical PR197 status: LAB_ACTIVE):** All opposing canonical contacts/control remain observed. The research ledger distinguishes actual finite deflections from ordinary owned carry touches and retains ownership through loose intervals before attributing a turnover. Observer-only full replays protect physical neutrality.
 - **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
 - **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
+- **PR199 development update:** All-opponent witnesses remain intact, including teammate/defender interventions in stressor cases. A missed intended-receiver contact and an actual other-player control are distinct; no selected-player absence becomes a team-wide claim.
+- **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
 
 ## Shared physical response
