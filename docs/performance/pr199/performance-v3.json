@@ -1,0 +1,113 @@
+{
+  "result": {
+    "schema": "pr199-performance-v1",
+    "source": {
+      "base": "aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b",
+      "fingerprint": "aaa924428c4ae3d96fe292f6d4e4f93b3cefa7868c68369ce0276637cc477c7a",
+      "path": "docs/performance/pr199/source/aaa924428c4ae3d96fe292f6d4e4f93b3cefa7868c68369ce0276637cc477c7a.json.gz"
+    },
+    "rows": [
+      {
+        "category": "observation_acquisition",
+        "calls": 240,
+        "lastHash": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+      },
+      {
+        "category": "trajectory_inference",
+        "calls": 240,
+        "lastHash": "61b71d9f9a835259f15dc1cbcdd8ecd3dcc3867603b56402ae6f6851c8b835cd"
+      },
+      {
+        "category": "memory_update",
+        "calls": 240,
+        "lastHash": "0fa63a290f1b8476d3e0649b6b3121eeae754acbde87bdb12ef3d9adef3c9db0"
+      },
+      {
+        "category": "receiver_motor_planning",
+        "calls": 240,
+        "lastHash": "d135e26f79cd86a63fbe7d63188a84cebab65141e91d488fb6b235701cc7701a"
+      },
+      {
+        "category": "goalkeeper_observation_reaction_projection",
+        "calls": 240,
+        "lastHash": "778b02414555e21ef9e38622dd0a540e5982f744a9625a6bed4bf42bc5b6d0c7"
+      },
+      {
+        "category": "logging",
+        "calls": 240,
+        "lastHash": "3301cdf9cf07ab7bcc07b5239525fb58a6cacdb8a449c7661d151c4e48a1c9d6"
+      }
+    ],
+    "bounds": {
+      "canonicalStep": 0.025,
+      "beliefMaximumHorizon": 4,
+      "ballPredictionStep": 0.1,
+      "motorCandidateProbes": 3,
+      "motorStepsPerProbe": 96,
+      "liveConsumersAdded": 0,
+      "fullMatchCPU": "Not rerun: diagnostic-only source has no new live imports; native observer equivalence and historical replays required",
+      "goalkeeperCosts": "Per-episode costs included in goalkeeper cohort; belief path bounds its existing projection to 2.4s"
+    }
+  },
+  "costs": {
+    "execution": "single profile process; other development processes may compete on host",
+    "categories": [
+      {
+        "category": "observation_acquisition",
+        "milliseconds": 0.9014999999999418,
+        "cpu": {
+          "user": 16000,
+          "system": 0
+        }
+      },
+      {
+        "category": "trajectory_inference",
+        "milliseconds": 0.20449999999982538,
+        "cpu": {
+          "user": 15000,
+          "system": 0
+        }
+      },
+      {
+        "category": "memory_update",
+        "milliseconds": 0.7908999999999651,
+        "cpu": {
+          "user": 0,
+          "system": 0
+        }
+      },
+      {
+        "category": "receiver_motor_planning",
+        "milliseconds": 14.744200000000092,
+        "cpu": {
+          "user": 0,
+          "system": 15000
+        }
+      },
+      {
+        "category": "goalkeeper_observation_reaction_projection",
+        "milliseconds": 5.275100000000066,
+        "cpu": {
+          "user": 0,
+          "system": 0
+        }
+      },
+      {
+        "category": "logging",
+        "milliseconds": 0.5078000000000884,
+        "cpu": {
+          "user": 0,
+          "system": 0
+        }
+      }
+    ],
+    "memory": {
+      "rss": 278437888,
+      "heapTotal": 198758400,
+      "heapUsed": 100632472,
+      "external": 64657984,
+      "arrayBuffers": 211219
+    },
+    "maxRSSKiB": 299716
+  }
+}

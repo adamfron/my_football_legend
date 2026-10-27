@@ -126,3 +126,19 @@ docs/performance/pr198/** -text linguist-generated=true
 docs/PR198*.md text eol=lf
 scripts/*Pr198* text eol=lf
 scripts/pr198* text eol=lf
+
+# Generated report comparisons require stable line endings on Windows too.
+docs/PR197*.md text eol=lf
+scripts/*Pr197* text eol=lf
+scripts/pr197* text eol=lf
+
+# PR199 source-bound evidence and generated progress are additive.
+docs/performance/pr199/** -text linguist-generated=true
+docs/performance/pr199/**/*.json -diff
+docs/performance/pr199/**/*.gz binary
+docs/PR199*.md text eol=lf
+scripts/*Pr199* text eol=lf
+scripts/pr199* text eol=lf
+scripts/realismProgress* text eol=lf
+docs/match-engine/REALISM_*.json text eol=lf
+src/core/matchSimulation/ballFlightBelief*.ts text eol=lf

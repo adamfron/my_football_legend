@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+## PR199 — Percepcja lotu piłki, regresja odbiorcy i mierzalny postęp
+
+[Raport PR199](PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md) odtwarza dokładne 180 wypuszczonych piłek i wszystkie osiem utraconych oraz trzy zyskane kontakty. Rozdziela wpływ celu, czasu, orientacji, prędkości, hamowania i obserwacji. Lepsza prognoza nie gwarantuje kontroli ani utrzymania; nie ma podstaw do promocji nowego sterowania.
+
+Odizolowane laboratorium porównuje widoczność wczesną, przy wierzchołku, późną i przerywaną, wskazówki przed kopnięciem, pamięć, spin, odbicia i atrybuty. Osobne próby bramkarza zachowują rzeczywiste kontakty i ujawnione boczne dopływy wiedzy. Nowy model nie ma konsumenta w normalnej rozgrywce.
+
+[Automatyczny raport postępu](match-engine/REALISM_PROGRESS.md) rozróżnia audyt, eksperyment, diagnozę, poprawkę, development, confirmation i COMPLETE. Zachowane wszystkie 135 ID oraz dowody PR195–198. **Canonical NOT READY; B domyślne; 40 Hz i 28 atrybutów bez zmian; confirmation zamknięte; zero COMPLETE.** Wszystkie poniższe zobowiązania kariery i świata pozostają aktualne.
+
 ## PR198 — Synchronizacja odbiorcy, autonomiczne okazje i rzeczywiste dalsze skutki
 
 [Raport PR198](PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md) odtwarza dokładne 180 wypuszczonych piłek PR197 i rozdziela wszystkie osiem kombinacji jego trzech przełączników. W tym eksperymencie po wypuszczeniu regresja wiąże się z antycypacją odbiorcy: touch/control/retention 160/128/107 → 154/123/116. Nowa, osobna synchronizacja łączy lokalny punkt i czas z planem ruchu oraz fizycznym obrotem i hamowaniem. Usuwa konkretne niespójności reprezentacji, ale końcowe 149/113/108 pozostaje regresją; wariant nie jest promowany. Nieudana pierwsza próba 129/102/91 pozostaje w dowodach.
