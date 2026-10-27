@@ -146,11 +146,13 @@ The first sampled stratum changes ${s.counterfactual.decisionChanges} of ${s.cou
 
 ${changed}
 
+The single changed choice is a carry direction in SW/R3, not a newly selected progressive pass. At the identical state, the old winner's score changes from -0.004236 to -0.008192; the alternative remains -0.005209. The corrected body race projects 3.536 m of controlled travel for the former winner (carrier 1.425 s, defender 1.650 s), versus zero in the old forecast. That changes its elapsed/effort and continuation valuation enough to reverse the ranking. Both exact rankings and the carry/state-value decomposition are replayed in [decision-cause-v1.json](performance/pr196/decision-cause-v1.json). This exposes downstream utility semantics; increased physical opportunity does not imply increased heuristic value or a better selected action.
+
 Both successful declined progressive passes and actual defensive wins occur. These findings reject a blanket conclusion that cautious football is always wrong or that a more aggressive selection is automatically better.
 
 ## 18. Full-match development results
 
-Seven exact-input pairs retain the same seed/policy/experimental PR194 flags, differing only in arrival model. Every row is a complete full_time receipt. Separate policy results are required; pooled shots cannot hide a WW/Hierarchical regression. Whole-match pass statistics retain canonical definitions; receiver contacts/control additionally use the versioned original-action observer.
+Seven exact-input pairs retain the same seed/policy/experimental PR194 flags, differing only in arrival model. Every row is a complete full_time receipt. Separate policy results are required; pooled shots cannot hide policy-specific regressions. Whole-match pass statistics retain canonical definitions; receiver contacts/control additionally use the versioned original-action observer.
 
 Total shots fall **75 → 67**. WW/B falls **14 → 9**, SW/B **28 → 18** and SS/Opportunity **5 → 3**. WW/Hierarchical improves **0 → 5**, and SW/Hierarchical **16 → 20**. These are single paired development fixtures per configuration, not stable population effect estimates. The mixed transfer supports retaining the optional gate, not promoting the correction globally.
 
@@ -175,6 +177,8 @@ The arrival microprofile records 600 calls/model on the same host; wall ${f(prof
 The optional forecast reuses a private projection state/body and memoizes only inside one pure ranking transaction. No cache survives a physical tick or changed world view. Exact checks preserve all 360 movement rows, 90 B/R3 rankings, 45 physical ticks and 71 saved full-match prefix states from the earlier unoptimized runs. Baselines ran under heavier host concurrency than the final cohort; elapsed wall ratios are confounded, and CPU totals also depend on the changed football trajectory. Only the matched ranking experiment isolates the implementation optimization; no universal full-match speedup is claimed.
 
 Saved-state, repeated execution, bare canonical continuation, mutating sample/decision observers and hidden-rating regressions protect neutrality. \`benchmark:pr196:replay\` checks current canonical continuations from every policy/design with both arrival flags and reproduces original sampled branches. Raw verification logs and exact commands are retained in [verification.json](performance/pr196/verification.json).
+
+Snapshot inputHash records the live pre-schema object, while the serialized snapshot is schema-parsed and has a different field order. [Snapshot integrity](performance/pr196/snapshot-integrity-v1.json) replays the first capture of all 29 runs, checks both live and parsed hashes, validates every snapshot and seals its serialized bytes. Later raw hashes remain provenance rather than being incorrectly compared with a schema-reordered JSON serialization.
 
 ## 21. Updated registry statuses
 

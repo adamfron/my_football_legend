@@ -74,7 +74,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: REFACTOR_REQUIRED):** Native sampled candidate menus and thresholds are retained. Present-but-unadmitted, absent from bounded menu, full-world diagnostic alternative and rejected physical request remain separate; generation thresholds are not rewritten.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### DEC-004 — Determine whether failure to attack arises from missing candidates, inaccurate predictions, incorrect valuation or actual physical limitations.
 
@@ -96,7 +96,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_REQUIRED):** 118 states from 15 autonomous 600-second WW/SS/SW development prefixes; 266 unique one-action continuations from 45 selected states. Actual next-tick traces and snapshot policy inspection are labelled separately.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### DEC-005 — Audit incompatible scoring scales between passes, carries, shots, crosses, holds and clearances.
 
@@ -291,7 +291,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_ACTIVE):** 336 ground/aerial requests compare old and corrected ETA consumers on the same physical outcomes; unfitted completion claims retain their limits and can worsen in individual strata. No probability multiplier or success roll changed.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### PASS-002 — Revisit historical long-pass experiments where subjective predictions differed from observed results.
 
@@ -389,7 +389,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_ACTIVE):** Direct touch, deflected touch, receiver ownership, one-second team endpoint and uninterrupted retention are distinct. Original PR195 long inputs still give zero direct receiver touches; reception capacity alone does not rescue the frozen original delivery.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### PASS-007 — Distinguish an interception, uncontrolled deflection, clearance and genuinely retained possession.
 
@@ -411,7 +411,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_ACTIVE):** All opposing contact/control witnesses are now observed, including other defenders; disruption without control remains separate. Named-defender-only evidence must not be generalized to an entire opposition.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### PASS-008 — Audit ground, lofted, through, lead, cross-field and first-time deliveries independently.
 
@@ -760,7 +760,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_ACTIVE):** The common subjective envelope is audited and measured separately; it is NOT replaced using hidden opponent attributes. B/R3 remain historical full-world consumers; bounded O/H/J scenes and choices retain hidden-rating invariance.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### DEF-002 — Calibrate predicted interception arrival times against actual arrivals.
 
@@ -782,7 +782,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_ACTIVE):** 360 prescribed-body trials: held-out development MAE 0.305625 -> 0.003958 seconds. Opt-in projector reuses canonical turning, plant balance, directional speed and braking; actual bodies/contacts are unchanged.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### DEF-003 — Distinguish arriving near the ball from making a useful physical contact.
 
@@ -804,7 +804,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_ACTIVE):** 0.8m positional arrival, sampled finite-foot access, real ground/body contact and possession are not interchangeable. Ground/aerial traces retain ball height, motion, finite-foot access and contact witnesses; no interception is granted from ETA.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### DEF-004 — Distinguish touching, disrupting, controlling and clearing the ball.
 
@@ -826,7 +826,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_ACTIVE):** Bad-pass and two-defender controls still produce genuine defensive success. Contacts, trajectory disruption and ownership are recorded separately; useful-clearance and second-ball tactical value remain uncalibrated.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### DEF-005 — Audit defensive body orientation, turning, braking, acceleration and momentum.
 
@@ -848,7 +848,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_REQUIRED):** Twelve initial movement/orientation conditions at abilities 20–100, three distances and mirrors isolate momentum and body orientation. The predictor freezes fitness and assumes a prescribed target; real tactical reorientation and recovery lifecycle remain separate gates.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### DEF-006 — Audit pressing engagement, reaction delays and over-aggressive challenges.
 
@@ -1638,7 +1638,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_REQUIRED):** The forecast now reuses existing finite body integration in an opt-in branch; no movement capability/fitness/turn constant is changed. Actual lab movement integrates fitness and sprint episodes; short-forecast residual error and CPU cost are reported.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### FIT-003 — Audit the physical costs of repeated sprinting.
 
@@ -2559,7 +2559,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
 
 - **PR196 development update (historical PR195 status: LAB_ACTIVE):** Versioned original-delivery-v2 contract including live released-restart context, canonical contact deltas, original pass/shot identities, any-player interruption, explicit rejected/absent/unresolved states, separate endpoint/continuous retention, saved-state and mutating-observer regressions. Historical apparatus is preserved.
-- **PR196 evidence / layers / status:** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
 
 ### MEAS-012 — A designated defender is not the entire opposition in action attribution.
 
@@ -2574,7 +2574,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Dependencies / affected policies:** MEAS-011, PASS-001/006/007, DEF-003/004; all calibration consumers.
 - **Proposed laboratory / acceptance:** all-player contact attribution with substitutions, simultaneous within-tick events, body surfaces and independent replay; do not infer team-wide absence from a selected actor.
 - **Status rationale / remaining gates:** scoped discovery measured; simultaneous sub-tick ordering and full opportunity denominators remain open.
-- **Closure PR / commit / evidence:** PR196 source manifests and report; OPEN.
+- **Closure PR / commit / evidence:** PR196 implementation 1318e396e7cea7c821da16f9a1360ff772c85d63, source manifests and report; OPEN.
 
 ## Shared physical response
 

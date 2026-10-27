@@ -1,0 +1,707 @@
+{
+  "schema": "pr196-verification-v1",
+  "implementationCommit": "1318e396e7cea7c821da16f9a1360ff772c85d63",
+  "sourceManifest": {
+    "package-lock.json": "ddd9197351338b130d6273db89c9882b40d94bd698e032e4f0b27eee2db3f05c",
+    "scripts/benchmarkPr196Counterfactuals.mjs": "9c41680f0f17b6aceafbdb43cad5d9a1b548a85f78475b065275fe8471c0bb82",
+    "scripts/benchmarkPr196DecisionCause.mjs": "d301278e0ac4d7a260b494f680e6061e31f1a2b81b175066bdc0d2b0c76abed6",
+    "scripts/benchmarkPr196LongPass.mjs": "1cde9f0a010974f3eab8a58639ebde2997a517744113a8ffa3a5c1d30102f3a9",
+    "scripts/benchmarkPr196Matches.mjs": "c6c37a8ab1745519eb262d24e758b551d121c038667826cde0cd2b0ebb721c1e",
+    "scripts/benchmarkPr196Memoization.mjs": "941081c2912656fa6705ec608c14bab0711c84f50551e344c283aad06426f2ee",
+    "scripts/benchmarkPr196Movement.mjs": "93bd1b826f416b32f998d2d4eddb062979b8efe85eb8a68ce78f1660412b0709",
+    "scripts/benchmarkPr196Passes.mjs": "28a5152859abb881316ec4012fdee0ef2720c118ac421ea26284bf3a9b26885d",
+    "scripts/benchmarkPr196ReleaseStates.mjs": "af6b8aeff52e5e176d164b9a9471146eb637fa6f94947affcbdb707ac66dbc58",
+    "scripts/benchmarkPr196RestartOutcomes.mjs": "40f3f851db0a4c4312bd1415acba13c8291709c6a31ad7d81836ca1c588394de",
+    "scripts/checkPr196Allocation.mjs": "ea4defecd336a732c17ff71848d87af837e09892cbe5cbd0be63c0830fe7a41d",
+    "scripts/checkPr196Evidence.mjs": "5127c5b5e4b6cdd2406efa498a72b55f5150b36ee3c91273fda70b9ca0859dba",
+    "scripts/checkPr196Snapshots.mjs": "62575b7af31af29212a81cbbd0236d2e43a500ecf703262d191851c7e001a95c",
+    "scripts/freezePr196Baseline.mjs": "0e744523017bf0ae25413c702d233a1817b781872852fe83490849e7603c5be9",
+    "scripts/pr196Evidence.mjs": "ffb139297595e33b6d9ccf022823daa7e363cc7aa809771e62e656672958bc71",
+    "scripts/pr196FullMatchOutcomes.mjs": "2eaada0d2f3f9bcff2d6fc86ac73d19fd415e3b81b757af436a1457bc810827c",
+    "scripts/profilePr196Arrival.mjs": "d34deff4ef3d833f0ce36cb9e2fcd73f49b0ff94cf82b61da2498515dcd9ac94",
+    "scripts/registerTypescriptLoader.mjs": "7d0ab448e432e1fe1bc4ea750029329d11a0609ea8de500076a9394bff35f42f",
+    "scripts/replayPr196.mjs": "7d30e8bda89338e597fd3d02487f782100dcecc8f8f71f196f5c3a9e322187c7",
+    "scripts/reportPr196.mjs": "7be1da6f43ab14f4da6187e9d5e2b837a8b49dab88d22bb41191d8ffd3210c68",
+    "scripts/runPr196Development.mjs": "af2640012d9f895826cb1ce7ab67fad6d11c9a37b185582fc57cc1836835ea05",
+    "scripts/summarizePr196.mjs": "2b5376d500dacb4073d07f3e6790eeffa9c935590ec369ac8a01b750630235e1",
+    "scripts/updatePr196Register.mjs": "fc517a69eff9d0647298a515d32089b154a556ad920f55dc8ebf0fd19aa5ac2e",
+    "src/core/age.ts": "b5d47ae2b5acfa5a70cc26599c66319bb700ca39037eedcfa618a38bd9d01b8a",
+    "src/core/appearanceConsequences.ts": "ab066207dd1fef30592531f9c2479562589fe9b18e6768ceb7d4bba45c334928",
+    "src/core/attributePresentation.ts": "9cbd7cf3f9355677247a6a2b8fef55974b51681e43940c59444c9c7cd3f9bfda",
+    "src/core/career/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/core/careerCalendar.ts": "171f3f0930a3d95a356b71bbd0b250f4ec8c243ad55ff4bb6d3edf177ee5666c",
+    "src/core/careerFitness.ts": "ee09c104f7a991988c512d9be697be506c7ee212a816880fd0480606abedf47f",
+    "src/core/careerFlow.ts": "1e7655f1ca54961cab567b478bdb05accd4a6777d65c1826e225a0e42db060b7",
+    "src/core/careerMatchContinuation.ts": "e4e01af1df9adc4020714e5b4403860f2601470e76627c306541d7103803e7de",
+    "src/core/careerMatchContract.ts": "161dea0205976c25cb8d9f42ce30f7b92b455d0dd922364b676a3a0b6eaf3226",
+    "src/core/careerMatchDiscipline.ts": "1fa32ba34837be9fffc95dbc967b5b2be983861bbeb11d61f1161ecc39633b7d",
+    "src/core/careerMatchMilestones.ts": "b29867cc52b0af4a445422f9436e6ea047bac91eb81eb4eb66bab2a10e52dfbe",
+    "src/core/careerMatchPresentation.ts": "edcfaaf70c194470da4ea5961a47c926b514c630189f9ea937250c55b11d0e82",
+    "src/core/careerMatchProvenance.ts": "99a78788686839e9435899ebd8628edca8b3b370f2ec7a893bdd6bf88b3d68c4",
+    "src/core/careerMatchRetention.ts": "f8473ad218bd5a3031eed0ddd918c70e89f9fa37396768a0010c4f3c42b92b92",
+    "src/core/careerMatchSummary.ts": "da5b7dceb4607d91e6be1969b27089b463e2c7a95136561670e3cc794e300258",
+    "src/core/careerPresentation.ts": "4aa71e9f8030a228be6ff74cf4cf4d21faa0a9b4f62045c3c247eab77297a13c",
+    "src/core/careerSeasons.ts": "c287cb7adab2f05e26ed37889e252491faac421994bd09f70ed4a49c983a7dce",
+    "src/core/careerSimulation.ts": "d967e0918dc48f78eb56f74556c0f682ea21c3cbd11bee5c4f0a99f72d55a271",
+    "src/core/careerStats.ts": "52285130ba33db4c72cb1f9f25823c69443738668011bd13e1d914b8c6442c0f",
+    "src/core/careerWeeks.ts": "54dbe74a1303eb0248e4a037b8634b821aee625372e2405195619d5e4641c3fc",
+    "src/core/characters/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/core/characters/avatarGenome.ts": "38c388962bb843d8f5b3f96fa96c5d252c4cd846ad19ae53d2fe727cae0fbf1e",
+    "src/core/clubObservability.ts": "640033824dc376283a72eb693833868919c294bec369d55da5093d76b18cf19c",
+    "src/core/clubStrength.ts": "78f3be5f826f83506d875f9dd2b8a564f765dd088c543a337710c15b304d35ef",
+    "src/core/clubVisualIdentity.ts": "5d71844c769e170057ca3c4dbbddd6eb8609c1952f50e24f4c0bacb27a70c4ef",
+    "src/core/clubWorld.ts": "c9559fd3e7e3665898541c4a9828237a69e0d80c8316f3ab61edc12ca8a29df7",
+    "src/core/clubs/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/core/coachProfiles.ts": "3edc3007aecd933e55270ba278f005e42b373af7bd9f09140a89858423a2dde2",
+    "src/core/coachTactics.ts": "f816a79aeeba53f13fb49cc7f6d9fc69ac35020e17bf4bd979d5edaca39811b6",
+    "src/core/competitionStrength.ts": "be342600350e71f229aa7e7677326dde3bd789f1dc5f81466b80b5d7d6ae8312",
+    "src/core/contractValidity.ts": "5cef2a1e8fa0585d8d0ef552e7452b6c8237ae7d9d7903457fa357098cd56f1b",
+    "src/core/contracts.ts": "36b84fb553ddea0b9033f96906448f28160c78d29967a982e1ef66897e583d76",
+    "src/core/development.ts": "f86ce765a5f2e1d3d13ead8ebde02755e7081c12e99a73c5a0f9236a0ba6c0ed",
+    "src/core/developmentFeedback.ts": "3680db867f2c405f9e656217f01d1f08fb2fb15294a57b49ef2a3bd1d5f25702",
+    "src/core/events/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/core/events/applyEventResolution.ts": "f50ed7c346af894c1c73f3425ef288efbd11f83e178784b50bc63eacfe80685c",
+    "src/core/events/decisionAvailability.ts": "0a7943dfb5d724d5b4d72df1c1c0fef5071c24ec66eabbeeb21c85f92e6b29e5",
+    "src/core/events/eventRegistry.ts": "2f6d9cd4cc09dddff985607e8c20022d0f7cfcc736d1ebfbedcc6834e608f14b",
+    "src/core/events/instantiateEvent.ts": "8304dc76911cd6ec86850a44db13497a50a821a39863a60012544fdb6e6c3e8e",
+    "src/core/events/regularSeasonEvents.ts": "8611ced12df10145a01e333b84417a07054dac477efae6cedb24378dcb4b83cc",
+    "src/core/events/resolveEventChoice.ts": "c6d2079be4d076ca6f510747880454a37d7af31b25e6ba630b1c90c6331d8f6f",
+    "src/core/events/resolvers/resolverRegistry.ts": "b4b9ef8f8cd6a869225feab6e1caaff089eea6ddeaf98c7f2472198fbf8e8037",
+    "src/core/fitnessRecovery.ts": "d69160910935ea8f9c5f4c5d6cc93d172b54b280f18f1443167898c5b8451076",
+    "src/core/footballArchetypes.ts": "92f3fdfcbcd111b46b34435a0a67e3f1d4c0651d21ae85dd8d1999d60350b0d6",
+    "src/core/footballerWorld.ts": "fdd3d042b1c0b1146a01e1cbbe3fbff356bf59d48159f143f3ae10a74f43a511",
+    "src/core/goalkeeperAttributes.ts": "f47c9bb6e8e6d163e67e88e8ffa788aee3407d880500d01cc81f5b7cea0aa0f0",
+    "src/core/goalkeeperPerformance.ts": "568f89885059966f5401c6ddc7fac4936a6a9811f87e5ba19782541f7932814b",
+    "src/core/history/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/core/history/careerHistory.ts": "f2473ad7c7f3987dbdceb97759da1d53a04fa778ec3089ed0d19827d57911c65",
+    "src/core/history/careerMemory.ts": "871a3de6e51c47c461687659f5bbd24e4177c2ab7db106d31ca7f533116e2155",
+    "src/core/history/historyCompaction.ts": "44ffa1c28bb8f4b92286731b9c5178cdcf3ef3837dc44df9f91fe9847ec8cca4",
+    "src/core/injuryPresentation.ts": "1d95da95f1b2578053804a6e1aecd6081781817e2da18be4b6c594515b174fd1",
+    "src/core/leagueSeason.ts": "ead33b550be6a511bc745d6e658b695ca7f3a20ef4c7fa658711183b84e722a2",
+    "src/core/managerLifecycle.ts": "1a5e09ca4d4959c523d8cc44db1165de3b9e89bc41b8cb7147aa495aa41f6eb2",
+    "src/core/matchBriefing.ts": "78ee125e9473097dc1fc9a0cb40fd67d1f8082eb78f2b07d96017c64d893d37a",
+    "src/core/matchEngine.ts": "302f56f06d8949191aa6ff86af4cf371b36dd56af9c8209314e46128f4889689",
+    "src/core/matchFeedback.ts": "3e35a6fca0445ae40128bbb1eb256cdd44d474780956382ec81a0ef866438e17",
+    "src/core/matchParticipationPresentation.ts": "767d7880e86ed6c9d10ced7f36e047d6377773970af22efd249e8fe9270e0d31",
+    "src/core/matchSimulation/actionAgency.ts": "a952df6514404dbd5930012cbde22773ce3aa55f403dbf9035aa1cd4fb8a822e",
+    "src/core/matchSimulation/actionEvents.ts": "3a581e1f2b5bcdd5a08b24e0105e2ca4f75a3e4870e97844b1a27a811cb5a6b6",
+    "src/core/matchSimulation/actionImpact.ts": "9ce8abe4f5034839b4179ef5218f4ea3910a4de737887a22e6de00bf44a4d3aa",
+    "src/core/matchSimulation/actionLifecycle.ts": "51704a113db2c83b89aaf6571369a6644c5502c353c1f45ec53a61ef04759557",
+    "src/core/matchSimulation/activePerception.ts": "60efc4caa3a395f4340ca1cb8ba2f0847fca66c4d8a39e14a9967aefd8e4ecc2",
+    "src/core/matchSimulation/activePerceptionState.ts": "b14acd9c5bda81e7b19200042c056971f08a218a35350e2b12098c76971542e3",
+    "src/core/matchSimulation/aerialPlay.ts": "4cfd99eefc464009fe771b100ea0b5b87d61bd2f8d693cc0230d37a0eb2255fe",
+    "src/core/matchSimulation/aerialPositioning.ts": "3c50cf101ef66fd6fb6afb7e6a53a819041534182af81e2a62358d22a6a7a1eb",
+    "src/core/matchSimulation/agencyCalibration.ts": "902f1e7187779f7594193645aeb2f9ae4a3c40bfdc0d71070747ff5a0a73b086",
+    "src/core/matchSimulation/assumptionCalibration.ts": "fc1f1b62ba6d0aa5622639f38664e6cadccefc113f4e94af1db9fd7618e510c1",
+    "src/core/matchSimulation/attackingFunnel.ts": "d7494825f7de770e9b7199252350af3d8d3123ea79d2b82ef4eee531490c47af",
+    "src/core/matchSimulation/attackingFunnelAudit.ts": "b632c5ad1b61a56fc1f17bd8e3fd73df63bdf36c10f1285920e96a5b34542c85",
+    "src/core/matchSimulation/attackingTransition.ts": "d817ae2c7f16fd2b77626b9b642625176ce1b9c196f606e646d761025673067b",
+    "src/core/matchSimulation/attributeCognitionLab.ts": "79cad5a2e7dd8f6e73feee18adf1a4e0240313f88134323edbe92e27f7bdbab6",
+    "src/core/matchSimulation/attributeMicroLab.ts": "cbc983bc122429c7850bbbb50e2c62a9e7a00809f79919d4098a42be0e10c416",
+    "src/core/matchSimulation/backgroundBenchmark.ts": "5a22047634f11e1c9259ac5932a73687921ce05ba976bf91d1e4c4c762654007",
+    "src/core/matchSimulation/backgroundPerformance.ts": "798cc91042679d3734ff93c16805c4fef0b75f095a86cf2069650f17e51a642b",
+    "src/core/matchSimulation/ballAcquisition.ts": "9183ec94060559516d19db509945cc64c43db7bed7cb07ead72788c5bbbdbadc",
+    "src/core/matchSimulation/ballContactGeometry.ts": "ec78218d607f19ef38a1416c6f31dc18841a6e0c5e68606f1f4ebfaf9794395a",
+    "src/core/matchSimulation/ballContactResolution.ts": "a931cc91b0176fb215fe676d56bd87776b6c3bfff914dd6514ec890db46b3e02",
+    "src/core/matchSimulation/ballFlight.ts": "c61f381044945733c48d9c8e410c3bf8f718e34cdb9379fa2a705260e116120e",
+    "src/core/matchSimulation/ballOrientedMovement.ts": "4771eb8462ef33c40bcb6005d735edeeae67956df141e84c927f713dc357c679",
+    "src/core/matchSimulation/ballPhysics.ts": "711579f201eda1cefef028a39f0d629f52a4c1bec973f29666f13b2d14f0eae8",
+    "src/core/matchSimulation/ballSurfaceContact.ts": "e818effd487c534738f5abc079825606525b334b162773f58fe6ce2dc36854d9",
+    "src/core/matchSimulation/benchmarkFixtures.ts": "c2458d4bc14c19bd0dee504dde27c36a21591407b24d71be200af7a3d4ac7c55",
+    "src/core/matchSimulation/bodyMechanics.ts": "4eb8545174a1df92ba93033652d241b1d0207a48fedc0a5c744471be4a6bb98e",
+    "src/core/matchSimulation/boundedDecision.ts": "7db5285d758cbd6d0990636c4de0993c7e785d5f6f363d56d8788682757426f8",
+    "src/core/matchSimulation/boundedIntelligence.ts": "fe6ab393828adec1d67e4045d8a5557ea8903e4af6b8f5b4948a653ed666c9ec",
+    "src/core/matchSimulation/boundedIntelligenceState.ts": "04fa8653dfed14ab5c80cfc589f0d3465ea963621308d0e3547af0902d0fea96",
+    "src/core/matchSimulation/boundedPerception.ts": "420669bd9b53b2fc836de8288a8e8a240bad28b00b6f8d2cb8ffcd65c5eb0cef",
+    "src/core/matchSimulation/calibrationMetrics.ts": "fe1d3d5b1b02bcf0845b64e66c52d2b3a2146ed50c4d03f8d209c0c761d43585",
+    "src/core/matchSimulation/canonicalMatchSanity.ts": "a4c648f1549db500ad136223cde0ddbadcb714e6d45545bdbcfa4dab6eae7e16",
+    "src/core/matchSimulation/canonicalMovement.ts": "f80c2b258f384f00f47510315a9c203ea998e32be43e3ec53933887d7a6728d8",
+    "src/core/matchSimulation/canonicalOutcome.ts": "81758eefc4a5359e5095c1051a8ba219f42674b9c3cabd86915720797776310e",
+    "src/core/matchSimulation/canonicalPresentation.ts": "dc0169f29f474c5717cb4b5f12a08620036ea4960cb5e1826f7ab069ed5b019c",
+    "src/core/matchSimulation/carryExecution.ts": "7d8058c2ec0b2dfbbeef7abdf2e9674bbd83aa0bc7c246d0e72c58dad27fb2e5",
+    "src/core/matchSimulation/carryOpportunity.ts": "00c9377345dbeb035de9067ea7389f7199a2feaa6cf05909cea5cb495a1860c8",
+    "src/core/matchSimulation/carryPursuit.ts": "9fbe3e8d52ec5d1d679575512d7e76f0049156457d5a388ff72a66001bcbed4e",
+    "src/core/matchSimulation/coachIntelligence.ts": "3e775a7a3ed4c691fd7f4ff95e0a877e5a101545e061b53fb7d1e72f701cae80",
+    "src/core/matchSimulation/combinationPlay.ts": "bcf53d2f81fa097f7b66f6f7c3f0010222094005dedd78a8bd81bda353c4f443",
+    "src/core/matchSimulation/combinationState.ts": "a09d657bf69499a46279fff7be12dda19e1fa5e15c23c89e0fc2c6f8da7785e5",
+    "src/core/matchSimulation/contactEvidence.ts": "a64b81507736a8dc0dec96af0e5540402cf863940ea482a76f5e8dd0436edab0",
+    "src/core/matchSimulation/contactTacticalDiagnostics.ts": "365d78486d344c8e8ce2aaee94062d628fa06912851b933d5c7500267f2959af",
+    "src/core/matchSimulation/contextualInteractions.ts": "eea275620bcf1463f0b65fa3faaed6ffe90e7df46dfda9cfde65912dd3f22329",
+    "src/core/matchSimulation/crossOpportunity.ts": "879108ef47136a6d32e268cf9c7f816cede3c2bad6eb99047dbf24744e7d0369",
+    "src/core/matchSimulation/deadBallEnclosure.ts": "75c3e5756e669112d65d9168b6affb6df2c9cece16cd68384f96b2556a21f67c",
+    "src/core/matchSimulation/decisionObservation.ts": "c41534c352f5991bb65137b7a646ffdb2435c6e0e6891356aa9a7ef80832a4a0",
+    "src/core/matchSimulation/decisionOutcome.ts": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba",
+    "src/core/matchSimulation/decisionPolicy.ts": "8e6d289b441996d0cd20499540b7da82e2c6ff1af501bc809685c41682bd0014",
+    "src/core/matchSimulation/decisionPolicyConfig.ts": "56c91ab80b0743face9ac992d3411120c3c12d330800392ad0467bf50f9b2526",
+    "src/core/matchSimulation/decisionReadiness.ts": "1349b979499888f7e86a7213d96a1709bdf5673c23d93c80025fe1ef1a18c1f5",
+    "src/core/matchSimulation/decisionResearchProtocol.ts": "7ae12349486460fc16034ed8cc9279381b7e28188c971978bdd0680abd8e66e1",
+    "src/core/matchSimulation/decisionStateValue.ts": "fe6c29e23fd404d07cf942b09fe837d9e12b27580c664cb88298abd697f77ef5",
+    "src/core/matchSimulation/defensiveChallenges.ts": "8f16ae0c8cac623a4d563363a9c632a209132e2919d6061847b0ccc6a1efcf1a",
+    "src/core/matchSimulation/depthThreat.ts": "291666a6f16922421e9b2bc9cb536c13986c6e09540336edb2c7e494a60d2f7a",
+    "src/core/matchSimulation/dynamicIntervention.ts": "2c247e7a347d637566927df147b7f4431d27de92e16551a8966e8cc52badd640",
+    "src/core/matchSimulation/effectivePlayingTime.ts": "3f0c82fbf4058c85ea6681117f9e71cef6d71355da2c0ca1c4cd73d86977f2db",
+    "src/core/matchSimulation/experimentalBodyReception.ts": "59b2d96a12324ebb015298c3abab38bb947eb9a61d2ab09c1b10928894a52748",
+    "src/core/matchSimulation/extendedPhysicalLab.ts": "01f6cd13b9f12824311797d00504b3d659036749b2dd18a22a7e48d3c9412a7c",
+    "src/core/matchSimulation/firstTimePassing.ts": "953ffeb76c9871ef50544310db1ec1619db2f705204833ffdd300e19be848f5b",
+    "src/core/matchSimulation/firstTouch.ts": "56889b20a502924427dbb52ba0f46aaba1f3397454cbb391e9b8344c2ab0d798",
+    "src/core/matchSimulation/firstTouchLabCatalog.ts": "e3dc7fa76c0ec108680ba809d5463e03afa225b2dca25941e058f12a9b8bc411",
+    "src/core/matchSimulation/firstTouchLaboratory.ts": "2b38e2b332695c8641f477f7140b180a56e2eb921e6b7e7a93b0734f6ed2839d",
+    "src/core/matchSimulation/fitnessMicroLab.ts": "ba9e131b705c4e35c93e4747e8873a8d1314cb372b676512cdcfb26c739c0f0d",
+    "src/core/matchSimulation/footContact.ts": "140546cd09121107d34e5850c8c55e9db05ce8b29babcc7fd566da7562a8706f",
+    "src/core/matchSimulation/footballContactResearchPlan.ts": "33fa84a80fa9b944ccb08996201cde103f911b4722703e593d98d0ccb71d6c6f",
+    "src/core/matchSimulation/footballIntelligenceDiagnostics.ts": "9e8ce023d5a0cf1593c09890ba681979ba5b255ee197b54c7122e6577b8a6fba",
+    "src/core/matchSimulation/footballLabAnalysis.ts": "9ab51e75602ce4b9588bb3e2ab6280e83a32ee3f9951ccc63c761a259c09b27d",
+    "src/core/matchSimulation/footballLabCatalog.ts": "a408bfaa1399027ee226a66b48a90187462bce1ab15efdbd9229c82e3fb52f87",
+    "src/core/matchSimulation/footballLabObjects.ts": "c68d06769925f3e949983cf2d789019b65e613280e673e16dc2d23e8134b5afc",
+    "src/core/matchSimulation/footballPerformanceLab.ts": "05ec6d534c8673092fbac2a7e57db43fa44db0dbfc64aee6f792766ef042493a",
+    "src/core/matchSimulation/goalCoordinates.ts": "b6277c370055ad317b00acdce5cf2d0d5cff3b859b2e32efd2d3e6c5e115c068",
+    "src/core/matchSimulation/goalkeeperClaim.ts": "4c41e5c2e8e2fdba99f21bd3fe24b20998f1febb55f7fc0136dfb4af0a42b56f",
+    "src/core/matchSimulation/goalkeeperDistribution.ts": "b5669d56641c5af6f4aa292e09b616df86dee31c6e0d7e61f4f53a769a447a80",
+    "src/core/matchSimulation/goalkeeperIntervention.ts": "0dbe943e011f145c1c7c779cabea047e0c5be1ad8a2d559f5f62f19a82ef32ac",
+    "src/core/matchSimulation/goalkeeperPositioning.ts": "99c77bf2a7116147c0dfa5744e2b4c039beabdb519e77d071d7faf98bcf24592",
+    "src/core/matchSimulation/identityHistory.ts": "a053df52915c1994e2699bb3ec9ad915ebb89aece2c939fa2a41fd052f18272f",
+    "src/core/matchSimulation/incidentalGoalState.ts": "a8f24569dae34f8dc9a010e7402ef4b95b66f3dccc42f80478eb6d90be8f3122",
+    "src/core/matchSimulation/incidentalGoals.ts": "b9edebf41d97c4734778d8f827ed6b94245f4ad14eccb2ba6b36bda712d55f38",
+    "src/core/matchSimulation/index.ts": "fa676786bf995cdb4bfc8be41e602f5a8f89ee41e6efaeead99ce54e8b58a2df",
+    "src/core/matchSimulation/injuryStoppage.ts": "87ee6f5dbd82616867a781ae649cade58b579b3288c3999b1f5bf0019b7eb5c6",
+    "src/core/matchSimulation/locomotion.ts": "0aad8d4aa4171d009c8849d8df2151c13be27b841f533cade67f4f26d3444879",
+    "src/core/matchSimulation/looseBallLiveness.ts": "6885f539edd5b20bb7e09b8493b9675d3369412ee66926ec51a5da3ebffaaff7",
+    "src/core/matchSimulation/looseBallPhysics.ts": "00df4b39314c094be1a3eed43ccbf7ff0434fdef2cec3471a6e8ae177237efda",
+    "src/core/matchSimulation/lowerBodyGeometry.ts": "856d7d11b67c94e1adc7b934591dd5f5159f20c8926986fc4d9e01fc8e82a10f",
+    "src/core/matchSimulation/matchActions.ts": "e16bbe0eafbe40ac46a846c3dd40c557f70acc31f3cc0357273402bad9c2f138",
+    "src/core/matchSimulation/matchCentreStatistics.ts": "1f6c75d9d1483d112ae084b8219765afeab3d623751cb40423993c48dd12c666",
+    "src/core/matchSimulation/matchComparison.ts": "694a3409c340da0f55ae7283ca97fb4c9bfe15fc008b3778f58101fb47f87e25",
+    "src/core/matchSimulation/matchEventFeed.ts": "0cdd73ab75d40f51b28d63910418ab3c0c1d5500491f9aaadb391f9ad526ba61",
+    "src/core/matchSimulation/matchFitness.ts": "a0e827218f33496d1a71129cfb0fa0095381e4f2641077f100b57b702b9201ec",
+    "src/core/matchSimulation/matchFlowCalibration.ts": "5f11b0cc7e57afe02c6fec3eb0d9b5cf248df702d77eb5d1dc83bd971afdec31",
+    "src/core/matchSimulation/matchFlowTelemetry.ts": "814214b463a92202857204b4dec56f6f7357f5f52f2a73386d00424562391d0e",
+    "src/core/matchSimulation/matchGoalkeeper.ts": "a03e4270776c986dee6023fde7054421533244039333c17e970749fd834e8d7f",
+    "src/core/matchSimulation/matchInjuries.ts": "1356eab111fe24a43ffe2cb9c404641d61ba3810362c0a37fb876590db000ebd",
+    "src/core/matchSimulation/matchMoment.ts": "1ca58980b14b2f238860c7f25bcdb99f3f99a145c5e99c07815e15b9831dfaa7",
+    "src/core/matchSimulation/matchParticipants.ts": "6f6f5052024e86b4095b8fb59a53284cde5164eea45c312f25c0ab9a502fe89b",
+    "src/core/matchSimulation/matchPresentation.ts": "2bd57cfedf3f7bc615c46cce94b15fdbcbcc91daa1524a8aa6847590d0c2cebf",
+    "src/core/matchSimulation/matchReplay.ts": "6d575b2a72892cd8bf1a24c08a342afa67cdebe5d263b1f7cab2d1094ce199c7",
+    "src/core/matchSimulation/matchRules.ts": "2c6675fd14e2c33917f5948f10b345c82cc95dddaf5e1b42d585ad8a6e15d38a",
+    "src/core/matchSimulation/matchSimulation.ts": "b3cbe0e673472f40d5762ef77973c8ca7a1e5ded07311f971796ae88e189bfb6",
+    "src/core/matchSimulation/matchSituationEvaluator.ts": "7f667cf65b51a93bdd0fe07e60b28e7432745968317d76bda07d1925ebe34a71",
+    "src/core/matchSimulation/matchSpace.ts": "ed0c0bba51b8dd0ff47253d7f1beae3ac4db70168a6625f867dbe6f47eb780e8",
+    "src/core/matchSimulation/matchState.ts": "9aaa1c514db1b107d554992423d55921f1d55ea2115c490e3886a3068ee8bc1b",
+    "src/core/matchSimulation/matchTimekeeping.ts": "de0b3592d72e33135bd8803532df42bb25bb38ec5c47429397d75dfd7ea2f924",
+    "src/core/matchSimulation/movementAuthority.ts": "ab9f64fd7679af4656328fff36cf98b9acd1eb886fab480185b26059192976d7",
+    "src/core/matchSimulation/naturalMatchFlowDiagnostics.ts": "75b8f2ad36859d2cf535204d801692a99a2f68ffb7eea5fa1c4f47f9ea087143",
+    "src/core/matchSimulation/observedPassDelivery.ts": "5dd791fb976d3c97cd6de4124575590591b808e5f7482d91bc6ea43b8a9d4fde",
+    "src/core/matchSimulation/offensiveContinuationFunnel.ts": "d8ef2c738a2b8a67c3acb9f623f0a601dde20142dd23f5a4b0e967aa5f9ec911",
+    "src/core/matchSimulation/offside.ts": "82f1da4443c622d66310eb77bb3edb4f5a5c1d6816db39f80e4b432716d15390",
+    "src/core/matchSimulation/onBallPreparation.ts": "b508090bd482e6da079089e55d70e9562f33febafdb6f3ce43dda5f2bdf22651",
+    "src/core/matchSimulation/opponentKnowledge.ts": "0a89207ba2b39f2a9127f6ab3a1a3106c3e57ecf19570c521b2829a2ccad47fd",
+    "src/core/matchSimulation/opportunityWindows.ts": "48d80edf2ef3ef470eab27b875cb00429a91e1d491ed2e01728459a12410a082",
+    "src/core/matchSimulation/passClaimResolver.ts": "0cc9978c84a342e8ca9a93304644f5e11a8130e2e35b9e1bb4300e8caf85cc6c",
+    "src/core/matchSimulation/passClassification.ts": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0",
+    "src/core/matchSimulation/passDecision.ts": "88b8abcfab41a24bbde2a6f9f82f4b27ede92941aefe7b10752a5dab118fa657",
+    "src/core/matchSimulation/passExecution.ts": "963f3bb5f2f5d9bf3c59f7f8f6d3a2226163c9f4aa3e2c5cf3139ebb0765eff0",
+    "src/core/matchSimulation/passLaunchPlan.ts": "5dc7f2bcf91d9d3ebd54ffd10c2955bd8a2ecfd31e9e11bc3721ec8673c4d59b",
+    "src/core/matchSimulation/passLifecycleDiagnostics.ts": "2b97aad0c3413bac4fdfd023e2cd520f00569547638764a01d4f2a8bc12b218e",
+    "src/core/matchSimulation/passReception.ts": "9bd54204a949b07646191538cc2b1d763938ffbc7ca578d5e86d741b9d32a170",
+    "src/core/matchSimulation/passingConnectivityDiagnostics.ts": "1316512562e76439324226a2a876a34f711188e24c88280b901bb46696120aef",
+    "src/core/matchSimulation/pathologicalReplay.ts": "b250c7deacd820d624aefbf76145e1a0502d371d6ad06ff924b76fe638dcf2c8",
+    "src/core/matchSimulation/perceptionDiagnostics.ts": "1dd3d8b264fce0eba8c444ef27cd69d1d24deecd79d60bac1d7f086186ae5cc6",
+    "src/core/matchSimulation/perceptionLaboratory.ts": "b6673745afc8595439b46f82ac357fa69ea7c895e382219362d266c6ba32ae5b",
+    "src/core/matchSimulation/performanceProfiling.ts": "eebad735825e1ad287abed7e866439726a048391c2494950a712f9f36c8238d1",
+    "src/core/matchSimulation/pitchBoundary.ts": "9b732b20295e190f6f538979f856c12bac35f994d1fce4de5b4ef8d8f2847c93",
+    "src/core/matchSimulation/playerActiveMinutes.ts": "06e1ffde7b9bc8eac314b3605c64760bda28bf6f42c18d2fbc5241f8d2e822a8",
+    "src/core/matchSimulation/playerAgency.ts": "69f239096bbfc9cb9c1ca14e438647032db02d7f925afff9e759a937372a0f05",
+    "src/core/matchSimulation/playerArrival.ts": "91fe757c2dc24219a66f1f3805ada1720d33684a977c9d4967f65569de06dcb7",
+    "src/core/matchSimulation/playerDecision.ts": "8625621b6864a86beb77e4a5f3e669f1e690de8bbf5d4299058db242a3891b32",
+    "src/core/matchSimulation/playerMatchStats.ts": "289baff7665e59e12f290fc2a04ea0afb7f0fecf33e8a9dc0d84d5dc647e0ff3",
+    "src/core/matchSimulation/playerOrientation.ts": "bd34ab6e27e4a3d22a4acb45557d9887bedee26ea2b12573aaef5ece271ca4e3",
+    "src/core/matchSimulation/positioningReference.ts": "0e9c67d5966c85eecff720f3ee6d59bd3265956e8e8635a2af3f118b47caad03",
+    "src/core/matchSimulation/possessionAgency.ts": "18a6ceb5587d25a89237cc0de0828746d8ad6264080e366627e8e738c6f9cfc2",
+    "src/core/matchSimulation/possessionEvents.ts": "7bd00202c102be5322f8d6ef0b39a6137d7a5d5d00d964e00353404a88789eea",
+    "src/core/matchSimulation/postGoalReactions.ts": "a2fd16718d96373f7465b615b786b23505b202ca9fe61c89a62946e13891b9bf",
+    "src/core/matchSimulation/pr163Fixtures.ts": "02dec0f3e501bcf53f746fb5b77ac4f58798a866a1656b3b587d575c72f90312",
+    "src/core/matchSimulation/pr173Fixtures.ts": "04c2ed101f5799de342bf8c0abb61af28dc0e8ca4e406524496511a7e293dd54",
+    "src/core/matchSimulation/preReceptionPlanning.ts": "b72bed8cdbc061749a90b52b287b1463225fdced0b95fec64a71ac6717a9cc98",
+    "src/core/matchSimulation/presentationWindows.ts": "0e0eefc21d3ad219413e4259303cdbd074ec8f3f3158144ce5a131cb7789cece",
+    "src/core/matchSimulation/pressingDiagnostics.ts": "1a21f31266d2c4646d81a27cca065f5d41755367743a8ff6ba50de423c5b9028",
+    "src/core/matchSimulation/reachableSpace.ts": "d6ffb94c98f7eb9ebe7bc60e01978d9c26ccebf784601bff2fec463e52fe2ffc",
+    "src/core/matchSimulation/receiverReadiness.ts": "5ec483ff5951ea8a9c3c4e8e7d66f94609b34acbf47805275ee25ed55aa4bdd1",
+    "src/core/matchSimulation/receivingPositions.ts": "e0b9f0a57ea8e145ff704246d518603dd74dd0b771baf78641870dc9a1ec5479",
+    "src/core/matchSimulation/receptionContinuation.ts": "10e9923081e0c5c302694f0e62a99b36dd18c8dd3d730f21b745fe2929796258",
+    "src/core/matchSimulation/receptionContinuationSchema.ts": "85550ed89812f7328980fa2a24a62ff71f72cf0f09e7aef932f6c324ae1cf403",
+    "src/core/matchSimulation/relativeDecisionLab.ts": "4beab55705205d16315a66ffe056641c74e2e62e64f5e588a1e80e39009c5997",
+    "src/core/matchSimulation/restartGeometry.ts": "8bb9aff9871f6292833eb8465f59b59235fbe009413017fc7ba0768acd2d768f",
+    "src/core/matchSimulation/restartLaws.ts": "6f707e8ab681d146e7a9add724189ac640c86b6c2c69ccdfde435f5a79a98df1",
+    "src/core/matchSimulation/restartLifecycle.ts": "03ffd26d3d883c18a65932b3b1741085e418fb0ae7d11c6b2c3ff133683ada4a",
+    "src/core/matchSimulation/restartLiveness.ts": "d62e8d4dbc655822e943a658f798e8f533f0c94f848dfad8687b7bbaa3c720dc",
+    "src/core/matchSimulation/restartOptions.ts": "a7516e2826e804e3bef5be960124c441308471a9389e42a15ab0530273d0bae5",
+    "src/core/matchSimulation/restartPhase.ts": "25824e9463b21df657c1225832ea898e32b4b0bde4193fbaa7fadd11eb9e4b9b",
+    "src/core/matchSimulation/restartScenarios.ts": "530b28012106f7b9438fd2d6dd1164b6cee0ac777d637213b49a73593d60a58f",
+    "src/core/matchSimulation/roleExperiment.ts": "83ec62e97f6d3276f0f1ccd9ca624f50be156a12298012979e41f320c0e64c8c",
+    "src/core/matchSimulation/roleTactics.ts": "f1acb50cea6f06e00cfeb73f2732b69c17aa9f1a35ee060c5c8808cf20896e8a",
+    "src/core/matchSimulation/shootingDifficulty.ts": "429f7ecd9b6e335a0329e7d908822e92554b581fa52b9b2ec86613882ea3de0a",
+    "src/core/matchSimulation/shootingOpportunity.ts": "752796e13ba303b1f18f672dc0e9179d21ed0d6ce5e2795460de3ced6de0ff95",
+    "src/core/matchSimulation/shootingOptions.ts": "02114f677aa32ed832fba79a182b923f436720134b85836ce57a08c3f8b2c862",
+    "src/core/matchSimulation/shotIntent.ts": "b6d7553ba010cbdc078528f738ee60828d509b0013b042b60b287a28305480b0",
+    "src/core/matchSimulation/shotParityBenchmark.ts": "19130ddaed7c7faa4004c2c180bede7b0677b15db6e6ac0b71ef427490c8eea4",
+    "src/core/matchSimulation/shotResolver.ts": "7a84eb30dcbe40d85894730bef14527fb72f3bb9bc8709dffde1db8ce9bde3c7",
+    "src/core/matchSimulation/spacePassing.ts": "36f11dd1e67a16d761644f8e314568ebcbeda8b2c9974e977d70ab9598acb7db",
+    "src/core/matchSimulation/stoppageLedger.ts": "526ff56e91e8f3e1fac8c7162e47e4a5defbd63d627bf60934467fa5040e8783",
+    "src/core/matchSimulation/strategicClearance.ts": "30569840e83fc6385d992a7f4ad535cd6955679630a65fdca5bd41c97d840234",
+    "src/core/matchSimulation/substitutions.ts": "75713c13f4042388df8ea9e78d163cf07fef691c2613bcdcc7cdfe57fe208198",
+    "src/core/matchSimulation/tacticalActionEvaluator.ts": "9acd93a81d4d7ee674f5018f0b4299691537209aef3447d7bf892b017ffebfa2",
+    "src/core/matchSimulation/tacticalCognition.ts": "a2661b893e50db5cfe428ed01c0fa9ae434430a673d8cfe013e72dcd1e1ba9bc",
+    "src/core/matchSimulation/tacticalCognitionLab.ts": "d2092045b28f13b08d03fbbb917cc937a9f10834ad49f9992bac8d130ea8cdf7",
+    "src/core/matchSimulation/tacticalPositioning.ts": "46a060add4dbc7a6d79ea755db8690b367418be1644fbf6dff4504255a7c468c",
+    "src/core/matchSimulation/tacticalPreferences.ts": "19637eaab139c240caca4db0ff1c9f4a1e50a68af0ff4715073f5ba89afbc891",
+    "src/core/matchSimulation/tacticalRoles.ts": "b72403c152f47a08bfd0a33a67d3119a231d0bb857d50cb45f76ea21dcd8a527",
+    "src/core/matchSimulation/tacticalSituations.ts": "fea7f804d00e26f3d339c9f99309ee880f141b6b93328880c7f55e10853d46d7",
+    "src/core/matchSimulation/teamShapeMetrics.ts": "53042fec058f8cdb0f35434bc0dc7936709c2243a7b56f7f883de96e7be09a66",
+    "src/core/matchSimulation/teamTempo.ts": "50a3ea61e89909d8bcaea0e4eaef7f6ca03b77d57757f060f554f4830d762244",
+    "src/core/matchSimulation/teamThreatMemory.ts": "020becaa376e3763664eddd9aa26e36560fbf4c200fb09eb775fde551bc4dca8",
+    "src/core/matchSimulation/tempoEffort.ts": "8a2ceca5534d69e2a4031f148523fc5720e0cd7a65428229529f0d6d3fe6594a",
+    "src/core/matchSimulation/throwIn.ts": "32590736ab61799e6495677d77ba35c301eab634cddfa6359f71e403e00edd9a",
+    "src/core/matchSimulation/transitionDiagnostics.ts": "8ec0c8bec0ba80d4ded69314fa93ccca08fad62a2d35c89ec86dc7a184e31c25",
+    "src/core/matchSimulation/transitionLaboratory.ts": "768d984799b6ea0cbcbe5bbe7bdaa4a46f541a777f32d4a4234234837179b739",
+    "src/core/matchSimulation/transitionMovement.ts": "0a352cf9e9f98bd4a1b20df11000dfce35afa67e4c376c84cb46dcc4e0ebaaa8",
+    "src/core/narrative/careerEvidence.ts": "35bed6893444bcdfe4c6d3c40ad74b68066f8a73da12f57ae247c8baa4f5189f",
+    "src/core/narrative/careerMilestones.ts": "9a5d217fc5f33b33495b83b51890d2d08063ce9bf0cd4ebd469c6ed23e053248",
+    "src/core/narrative/careerStories.ts": "f97ab69eb48eb2ce3ceec24464d6d79ed5beb6559f815d890ca17c5745c88371",
+    "src/core/narrative/factPresentation.ts": "fb8c1a363ce49d62d7073db0d4bc374eae428b33354b315f63d4c7182978d320",
+    "src/core/narrative/localization.ts": "00296594afbac01927e8b684a87fc160eebf6fc7b6acfc24f5cb10eba63bfa65",
+    "src/core/narrative/narrativeAudit.ts": "41b85180f21df2ab4dd4f7433a3ef72d634755a289d2cceeaee0efb353145bd2",
+    "src/core/narrative/narrativeVariants.ts": "86e2cbd3a4ca07e421befafb537e33c3594f955b83605d4e6bda71f0a5500b8b",
+    "src/core/narrative/playerFacingAudit.ts": "2ff711d11d7d3de53ff3bc61b226ec65cb60cdf953cb72355bde3e90bcb2f428",
+    "src/core/narrative/repeatedTextAudit.ts": "3cbc58cd9601b959e83678ffab8eed949b03e331ad3c3fc102f5b52889f72ad2",
+    "src/core/npcCareerIdentity.ts": "ca2ffc684165237c14cb11fbd0229dae8dfdf64d37e4996d59656d362d4afcc5",
+    "src/core/npcFootballIdentity.ts": "c0aee0d4ab61d261928f45652067de75e613c0f90c8648cdd5774adb14fbf065",
+    "src/core/npcRetirement.ts": "9961fe2ede12957e27bed5245721447b893079661aa3cae430379cd5d82562f7",
+    "src/core/npcTransferEconomics.ts": "1fb6a65ca12ef7605d7267df5bc94b19cf29e4368755f2f9c4b8525ddf8b9814",
+    "src/core/npcTransferMarket.ts": "e909718f1a99ddb5901e4f39d40765c496ba2888ed8194cf329f8722b60422a3",
+    "src/core/numberPresentation.ts": "bd73aefeceeedfa97c7654bc2615007f6083fd24c5ea9066aedcda723f9d5a28",
+    "src/core/participationPresentation.ts": "e31d4598f7ba1e69169292e696447fd60c63ddd8859a4c9e8cb774564e7f90d0",
+    "src/core/people.ts": "360a1d86523135b1d0001a215fdb6d6af71ac4bc0a654b572376698110234fd5",
+    "src/core/persistence.ts": "c365eeee2c63c2b0a4125824c7bfff42f918e6452bee8a2672a10c7df74e00d5",
+    "src/core/playStyles.ts": "85f7fc287b538c2c6dc68cffad2dd0f6061b7bcd41040a9c5f3fdf2db0b9d3fb",
+    "src/core/playerAvailability.ts": "dd24658b4d322c915654c3d680cf7ef36a72e8fe6e56977d74e2e599353eb1e9",
+    "src/core/playerCreator.ts": "c459efb4cb6044b81b967a3f56d4d493e372b0715f9a6e7addb70cce27bff136",
+    "src/core/playerEconomy.ts": "782df92c9f4c71e517ce1c64088b2824df61e1e5c3e76eadb406e2a9ab9e8de8",
+    "src/core/playerOverall.ts": "f980eca9dcb35a95152c45a21b9c1d6e04c45490a4b14e7c07eb43583e4f7b52",
+    "src/core/playerPreferences.ts": "cccee0480ba76c0ad8ba3c4399cb0bfcde0264b33e5e98805658c0c1ebe41b00",
+    "src/core/playerProfilePresentation.ts": "51c64ca390b53975a029b807c16377dca3e6fe0cd10764a08fa5a0ee396ec97f",
+    "src/core/positionCompatibility.ts": "714ae0e566e7a3418f4a8a8f9339759b49740e05cb400fee3007b831ed612f09",
+    "src/core/positionLearning.ts": "2ddbf2d0003b9fa3ee43be2dfb7ae4d46c88129c9cb2b66077a00e2770934726",
+    "src/core/positionPresentation.ts": "4209b9a09e0096ec695fb7ac36cc2f036f17c2d179fc43e796b52883ec88f341",
+    "src/core/proceduralFootballers.ts": "a19ade4478e869c39ba0fc8ff073af3cf4036d9451a8aafed448dc85d3e6354e",
+    "src/core/professionalClubs.ts": "51d9553a8cccf577d0d26889d879641e021789cb6b5eae292e842021088a2635",
+    "src/core/professionalOfferPolicy.ts": "388fdc69e829682c9ff8bd1346a039f3e25efd674a6b98b2290cab5e9ce77504",
+    "src/core/progressionDiagnostics.ts": "7fef94c66bad3f2ad1287d6a6d9ab0abf1f6e7c09e102a806256a6ae47d677f6",
+    "src/core/radar.ts": "64b95305aba36d6663a78e26d7a87ed4dc84dce3c2cae59177d84c73ce528b16",
+    "src/core/random/RandomGenerator.ts": "485ec207596f679f99608b7d2a0feedff459fa0224e138418a0f4160c0137910",
+    "src/core/seasonArchive.ts": "9d38d200efdb4f62e29befa8da5c18d226d0e588b152f9fa7a8e0f226b9c33b4",
+    "src/core/seasonAudit.ts": "5dc6be5093bd99b88e466765c5808ce59ccdcf38432f3919986ec15e77b464a5",
+    "src/core/seasonDevelopment.ts": "de834d3cc01a2603aa01845d0f85f8be50ac3450a36a3c1c84643146029f8c24",
+    "src/core/seasonInjuries.ts": "3c014b8a9ddff2f9b831746bb0981cd27eb17ae8a9df716257f5df27a1498540",
+    "src/core/seasonParticipation.ts": "0797d656e575f4e9e2f6818072aedd07f4f1efeae9a584bdc70cff4377beba28",
+    "src/core/seasonProgress.ts": "4a0f09c8a9c340ccba661c5426ac3c873b34c7990ff60c4ce1d22da04e1a5c19",
+    "src/core/seasonSquadReference.ts": "abd21e9ca206633fb60c4bf9c01e134188c372f525fb2803a185ef26b512a663",
+    "src/core/seasonTimeline.ts": "4b839b3d427d0a28b791c6f65ca5f1840fc3c54556ea9dbad26042830a51b51e",
+    "src/core/singleMatch.ts": "62497bfca63400741f0f193a0f6085cfa0a2700bae4cb61258f69a29f744deac",
+    "src/core/summaryMatchContinuation.ts": "b09345be60df09f768187c8feddd808a38e64f982172209a16648668a2a4188d",
+    "src/core/visualIdentity.ts": "bc32bb64cebaf041a8225756fd7ce85ef062ed48603a60b5ed0320b133ec4414",
+    "src/core/worldDatabase.ts": "f30e35b042fdc5b2cdc6cf21aedd62ce9130021baf98f23a20548797792442d0",
+    "src/core/worldIntegrity.ts": "990ff159ddf2f675699a14dae90260bd376856a769576377eeb9f17306611058",
+    "src/core/youthGraduation.ts": "2851dc63485d63600b78ab4e3f0ea82521b0a1c35b31949f0597963bec0d81a9",
+    "src/core/youthIntake.ts": "5193ab0614424e2a610f3246780853a9f30c673560310103bf03f496dc08f8bb",
+    "src/core/youthTalent.ts": "c336c613019f2ada3537f22b7bba61478c8ad51842a42ed477782c77d6df10b0",
+    "src/core/youthWorld.ts": "decc276ce0ec12a7ae1a9703c0dceedadf528899095433e76e9f9f133a4cd833",
+    "src/schemas/domainSchemas.ts": "3517b61f8462f1f57b4cefe8ba32b605b16abff8218f0179a5d78f46c8e9239f",
+    "src/schemas/validateContent.ts": "a368628f2dc3d8ffdb03eca23f41bb6f6c69b8c49bcf9fc2970d4c381180da73",
+    "src/types/domain.ts": "c447e86ca5fd99d55dde7d8b2a8ac619a2ecabfd5439e6d9a2659bb322c1ad47"
+  },
+  "status": "PASS",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "env": {
+        "NODE_OPTIONS": "--max-semi-space-size=64"
+      },
+      "status": "PASS",
+      "log": "verification-logs/pr196-verify-clean.log.gz"
+    },
+    {
+      "command": "npm run benchmark:pr195:check",
+      "status": "PASS",
+      "log": "verification-logs/pr196-pr195-frozen-final.log.gz"
+    },
+    {
+      "command": "npm run benchmark:pr196:historical",
+      "status": "PASS",
+      "log": "verification-logs/pr196-historical-final.log.gz"
+    },
+    {
+      "command": "npm run benchmark:pr196:check",
+      "status": "PASS",
+      "log": "verification-logs/pr196-check-final.log.gz"
+    },
+    {
+      "command": "npm run benchmark:pr196:replay",
+      "status": "PASS",
+      "log": "verification-logs/pr196-replay-final.log.gz"
+    },
+    {
+      "command": "node node_modules/eslint/bin/eslint.js scripts",
+      "status": "PASS",
+      "context": "rerun after final diagnostic checker additions; full verify lint also passed"
+    },
+    {
+      "command": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr196DecisionCause.mjs --check",
+      "status": "PASS",
+      "log": "verification-logs/pr196-choice-cause-check.log.gz",
+      "context": "Also added to the final npm benchmark:pr196:check chain and CI"
+    }
+  ],
+  "priorAttempts": "Earlier source/incomplete-fixture, apparatus and strict-timeout failures are preserved in the log archive. Concurrent simulations were stopped before the final verify; no test or timeout was relaxed.",
+  "finalHeadCI": "Check the exact PR head on GitHub; no earlier successful run is a substitute. The PR body records the final checked run URL.",
+  "logs": [
+    {
+      "path": "docs/performance/pr196/verification-logs/baseline-pr195-check.log.gz",
+      "uncompressedSha256": "c7bc7972b90974de612e9b6d3a7dde2414d93cef37416075eb4a477b6a768c13",
+      "bytes": 16013
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/baseline-verify.log.gz",
+      "uncompressedSha256": "9d28134163d7b7787ab31dfeaaca34cbac5160055690fb097caea73833dc7c64",
+      "bytes": 4984
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/frozen-pr195-check.log.gz",
+      "uncompressedSha256": "7ca013bc3a8dbcf3827f9c48f56ab4fbbb836e7a603cde90d2348cab217f05a0",
+      "bytes": 18781
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/frozen-pr195-verify-complete.log.gz",
+      "uncompressedSha256": "579ece1e981a82a9e34970299b3e0eec8d86c3454eb3fc4f847af6ba3a200dd1",
+      "bytes": 13516
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/frozen-pr195-verify.log.gz",
+      "uncompressedSha256": "4c05c98e1b3622346a708d1afec787cd7bb8741aa9b0dc0e1a037a99bc318259",
+      "bytes": 48984
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-allocation-proof.log.gz",
+      "uncompressedSha256": "5f38411bf0730dc3a6f7b59c714fc2737808a7f31124c9c375a02657486cc6c0",
+      "bytes": 275
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-check-final.log.gz",
+      "uncompressedSha256": "a23fba1a1d58b0faae2ab996b01cfd55c195321d8b73a035b990f8e98c8ea6d8",
+      "bytes": 74225
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-choice-cause-check.log.gz",
+      "uncompressedSha256": "489c5c24fd2576e463028e1f25fcf79a283e74cea19dc30dba65821651662e1a",
+      "bytes": 222
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-counterfactuals-v2.log.gz",
+      "uncompressedSha256": "e03291cbae899a36e87a035e56b3d911c9ab78fe992ddfa6240e7df191692910",
+      "bytes": 2558
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-counterfactuals.log.gz",
+      "uncompressedSha256": "9e86cfd29e8f1bf9c5523ea296b3e437a93fa47658eee212f30c86f582258603",
+      "bytes": 630
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-development-expanded.log.gz",
+      "uncompressedSha256": "7a8a8ef5c0437a12e0622a26f0bb749134fa79f3840d7015a51d29502a825037",
+      "bytes": 678
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-development-retry.log.gz",
+      "uncompressedSha256": "a79e77172aa486ba8c558b3940f5173c54066f5aacd5ce9fa1254d7cd6f7f8d9",
+      "bytes": 248
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-development.log.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-eslint-final.log.gz",
+      "uncompressedSha256": "b5222d685b4645f9d67dfa291f67a866822cdabab13d0dff8c17fcf88266cb00",
+      "bytes": 1458
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-eslint-final2.log.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-eslint-final3.log.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-evidence-final.log.gz",
+      "uncompressedSha256": "b346a89ed0e6eb49ca9d2d8f6aacfdee8cdb89c789a0ed0bd334b8537f7c43da",
+      "bytes": 103
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-final-matches.log.gz",
+      "uncompressedSha256": "b20cb19dea355809d97afbe2801f351a2e6381df6eebbfedf0707e313b347450",
+      "bytes": 450
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-focused-final.log.gz",
+      "uncompressedSha256": "5a53ceee35dbcbabe3478b60c167d877e760636afb26053986af62bf657f6b2c",
+      "bytes": 1248
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-focused-final2.log.gz",
+      "uncompressedSha256": "6df743b8fbd7353f908d75af21855a280a0beee4a3537314deea4ef5443ac4a0",
+      "bytes": 298
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-focused-v5.log.gz",
+      "uncompressedSha256": "a77d01d3111db8ad36cf91e870feade9ce98e17bc3cb8ed0a3fe75c436495ee0",
+      "bytes": 297
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-focused.log.gz",
+      "uncompressedSha256": "88b60c6656a7fc423424cf47fd81fc89f7de6db21835105ab2ab1e66338a2d5c",
+      "bytes": 1292
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-focused2.log.gz",
+      "uncompressedSha256": "e9509119c06664ecdddbcba0a660396d7048377584fdf0116de5c7ff3efeedd2",
+      "bytes": 1292
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-focused3.log.gz",
+      "uncompressedSha256": "b801af24e8a9597fde90e83642f2165ffbea772156bdf54afcf73d06c87a044f",
+      "bytes": 296
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format-final.log.gz",
+      "uncompressedSha256": "f3c74d4f03cac028c460743d2d7533a35ed6d1d18fb3ecfea0449f957988304d",
+      "bytes": 675
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format-final2.log.gz",
+      "uncompressedSha256": "14499e4c57c5f3075b5b85f4c6adb435723da15de8050cb4e58d9211c989374f",
+      "bytes": 646
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format-final3.log.gz",
+      "uncompressedSha256": "37604e4f0745c98b5c131930aaa3fe9522c3c14065548d64ee85b762647ca8a5",
+      "bytes": 767
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format-memo.log.gz",
+      "uncompressedSha256": "ddef62a619cde96650c64de3e413d773ff4de455f7f1c8fcac4d36183af83f00",
+      "bytes": 194
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format-resumed.log.gz",
+      "uncompressedSha256": "ed9c98c34a4e315b698fa19ebefe4a9f92b7f5141f3bcb9e5af07e393bf680ed",
+      "bytes": 165
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format-runners.log.gz",
+      "uncompressedSha256": "cb46c2df7be82192b436b7ed0a26d56963cb7a5fe371d0e2d94d72a9ba6a56a8",
+      "bytes": 168
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format-summary.log.gz",
+      "uncompressedSha256": "26375f68d446477f76e19e3549d56b072cdaf4e92acbcab0ddf2bef70bdf0fd3",
+      "bytes": 84
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format-text.log.gz",
+      "uncompressedSha256": "1366fcd09ec3dc50370cb0910feab0529c0938e0341610cdb1533ffaec58284e",
+      "bytes": 132
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format-v5.log.gz",
+      "uncompressedSha256": "69792092631032ae740b15fa7709cdad735b917c881217bcfd6f6475ad6d4637",
+      "bytes": 882
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-format.log.gz",
+      "uncompressedSha256": "57bd07e27ab7cece74be8894c69d05ebbc0033fb5e6916b210b9c6b6cf7ef7e5",
+      "bytes": 470
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-harvest.log.gz",
+      "uncompressedSha256": "cb40d21ac3880070bebb164052b5eac93fc9d14c447844938c95a482768531f5",
+      "bytes": 927
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-historical-final.log.gz",
+      "uncompressedSha256": "1cca00f0aeb0aa4339bdf84dcec22e648bf5d286f09bc827c2eaf1a9a66f2b45",
+      "bytes": 8213
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-implementation-commit.log.gz",
+      "uncompressedSha256": "a67849cecd5da31d866b252795acddc0fba650ebc0efb7126b26c08ae5448868",
+      "bytes": 46553
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-lint-final-head.log.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-long-pass.log.gz",
+      "uncompressedSha256": "4afadbd0cb6be82f6c986136b48677b431274034f13a4059e26f9bc3253ca105",
+      "bytes": 266
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-match-smoke.log.gz",
+      "uncompressedSha256": "289a37f08961fea53051ec490ee7b9feb206b65a38a0ff18a6f81452b09a5692",
+      "bytes": 561
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-match-smoke2.log.gz",
+      "uncompressedSha256": "fe58a3e63543024bc4d2657a489fad8ee26e55f3ede55de75140b6d16d5071c1",
+      "bytes": 354
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-memoization.log.gz",
+      "uncompressedSha256": "aa07d66d55ef9f13a002ffe7d0aec4e86fb4cf87cc586b2289253a0e7a3eb9a8",
+      "bytes": 249
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-movement-v2.log.gz",
+      "uncompressedSha256": "7d96a46650da38bc80399c66b7f74f299aa742d0dfd2c157ef8a34db52cb11a0",
+      "bytes": 981
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-movement.log.gz",
+      "uncompressedSha256": "fd8753862932d07f0ca418634e2e92253d4162245d5a61095ec2d8a66c7c0643",
+      "bytes": 958
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-outcome-test.log.gz",
+      "uncompressedSha256": "235b7162c11f3ab0957eb636f676e02ce3cf69c7a1ea33dee3f88c80adcba9b6",
+      "bytes": 295
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-passes-v2.log.gz",
+      "uncompressedSha256": "9775c7db6b58d5b19c702b92dac2b1c746864dffe29b972401e4159f958ef616",
+      "bytes": 70522
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-passes.log.gz",
+      "uncompressedSha256": "f1fcec1c931626570b3acd1adcad44c9fb0067abc87cb1ac956979678814dabf",
+      "bytes": 70702
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-pr195-frozen-final.log.gz",
+      "uncompressedSha256": "b072b4d50610692205dbeacc017277296a40f31758989870b70537025e3987af",
+      "bytes": 18633
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-profile-final.log.gz",
+      "uncompressedSha256": "f98d35aef8708e4bf7e35f55523a4b536ed9dc26f28c2e2befa125aaef0ecd14",
+      "bytes": 647
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-profile.log.gz",
+      "uncompressedSha256": "5c3bfe006577c8153d701f43d2a15e6f83e03fbdb67af82c1bf642d73691a9b9",
+      "bytes": 645
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-record-final.log.gz",
+      "uncompressedSha256": "c22f0e61c14af8a6632b83dfa724fee89504a0e4d517af486edfcbfe031f5a49",
+      "bytes": 72189
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-record-v4.log.gz",
+      "uncompressedSha256": "782452677b27a66f74b6b2325d7036b39e29b4cd2c23eeacf7e8561f97eabae7",
+      "bytes": 72188
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-record-v5.log.gz",
+      "uncompressedSha256": "d0005ef3f2e45f5cd8367749a3739400b205b588fff03a30633ec7cbe21f9a0e",
+      "bytes": 72954
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-release-states.log.gz",
+      "uncompressedSha256": "986c57e08d4d0c591b82af72f3b0939d9dd25df3b0923ccdb77de6076f1ba016",
+      "bytes": 2151
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-replay-final.log.gz",
+      "uncompressedSha256": "1c4206a48947210a6ad7a2b6c1d56bfca30cc6cea89064b3c3bde5040254356b",
+      "bytes": 463
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-replay-record.log.gz",
+      "uncompressedSha256": "160e31491f547a69ffeb0a328b28ea08911a965e1a8778d5ce5ca5ff3eb77398",
+      "bytes": 264
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-snapshots-record.log.gz",
+      "uncompressedSha256": "061e4b1261cb61c6d523753add3e0d0cbfd8cce2041d16715630a8c1b822a608",
+      "bytes": 237
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-tsc-final-head.log.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-tsc-final.log.gz",
+      "uncompressedSha256": "2d07f3e4f47cc5e6f69392d5a9bf739d5ab9097272e99e35f361c850bf822b5c",
+      "bytes": 1558
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-tsc-final2.log.gz",
+      "uncompressedSha256": "22201819513ec85f1239ca681fc3436f8f5232c6119473e8c61f62b5adc25dea",
+      "bytes": 1558
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-tsc-final3.log.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-tsc-v5.log.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-tsc.log.gz",
+      "uncompressedSha256": "8d59a41cb90bb26303861a572695e780852e4fac554debe86bd54b25426b518b",
+      "bytes": 811
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-tsc2.log.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-verify-clean.log.gz",
+      "uncompressedSha256": "2978e2c6d69abde8777a9c026fe29e28de9f7635816f3809b9fac6435d21c1d1",
+      "bytes": 7149
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-ww-b-baseline-v2.log.gz",
+      "uncompressedSha256": "639fc975ed04b5a93a0bab69ad7d0902c372044a665df3ac4162a2279028c17b",
+      "bytes": 526
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-ww-b-corrected-v2.log.gz",
+      "uncompressedSha256": "ee921ccb5409d2a22050633238f5fac43389387f34d090eef380afd30a474689",
+      "bytes": 72
+    },
+    {
+      "path": "docs/performance/pr196/verification-logs/pr196-ww-o-baseline-v2.log.gz",
+      "uncompressedSha256": "7a1c5d4052783e2fef53139b3866058c7d72ef196279507a55eb6675d0c9327e",
+      "bytes": 567
+    }
+  ]
+}
