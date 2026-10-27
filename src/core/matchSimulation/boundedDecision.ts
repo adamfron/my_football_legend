@@ -8,6 +8,7 @@ import {
 } from './boundedIntelligenceState';
 import { validateResearchDecision } from './decisionResearchProtocol';
 import { observedPassDelivery } from './observedPassDelivery';
+import { observedLoftedCandidates } from './observedLoftedPass';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 import { clampPitchPoint, distance, distanceToSegment } from './matchSpace';
 import { angleForVector, normalizeAngle } from './playerOrientation';
@@ -449,6 +450,8 @@ export const constructBoundedCandidates = (raw: BoundedScene): BoundedCandidate[
       if (c.action.type === 'pass')
         c.action = observedPassDelivery(s, c.action, c.passTravelSeconds ?? 1);
     }
+  if (s.observedLoftedExperiment && result.length < 48)
+    result.push(...observedLoftedCandidates(s, result).slice(0, 48 - result.length));
   return boundedCandidateSchema.array().max(48).parse(result);
 };
 

@@ -32,6 +32,7 @@ export const boundedSceneSchema = z.object({
     .max(22)
     .optional(),
   transitionExperiment: z.boolean().optional(),
+  observedLoftedExperiment: z.boolean().optional(),
   observerId: z.string(),
   team: z.enum(['home', 'away']),
   at: z.number(),
@@ -183,6 +184,7 @@ export const observeBoundedScene = (
         }
       : {}),
     ...(state.experimentalTransitionIntelligence ? { transitionExperiment: true } : {}),
+    ...(state.experimentalObservedLoftedPasses ? { observedLoftedExperiment: true } : {}),
     observerId: actor.id,
     team: actor.team,
     at: state.time,

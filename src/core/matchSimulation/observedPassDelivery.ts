@@ -2,7 +2,7 @@ import type { BoundedScene } from './boundedPerception';
 import { knownBoundedPlayers } from './boundedPerception';
 import type { MatchAction } from './matchState';
 import { passLaunchPlanSchema } from './passLaunchPlan';
-import { BALL_PHYSICS, deriveLaunchVelocity } from './ballPhysics';
+import { BALL_PHYSICS, deriveLaunchVelocity, deriveAerialLaunchPlan } from './ballPhysics';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { distance } from './matchSpace';
 
@@ -27,7 +27,15 @@ export const observedPassDelivery = (
     30,
     Math.max(3.2, metres / time + BALL_PHYSICS.rollingDeceleration * time * 0.5),
   );
-  const velocity = deriveLaunchVelocity(origin, action.target, speed, 0);
+  const loft =
+    s.observedLoftedExperiment && action.delivery === 'lofted'
+      ? deriveAerialLaunchPlan(origin, action.target, 'pass', {
+          releaseHeight: Math.max(0.11, s.ball.height),
+          maximumSpeed: 30,
+          ability: (s.attributes.passing + s.attributes.technique) / 2,
+        })
+      : undefined;
+  const velocity = loft?.velocity ?? deriveLaunchVelocity(origin, action.target, speed, 0);
   const incoming = angleForVector({
     x: origin.x - receiver.position.x,
     y: origin.y - receiver.position.y,
@@ -47,10 +55,12 @@ export const observedPassDelivery = (
     deliveryPlan: passLaunchPlanSchema.parse({
       target: action.target,
       velocity,
-      speed,
-      elevation: 0,
-      predictedArrivalTime: time,
-      predictedArrivalSpeed: Math.max(0, speed - BALL_PHYSICS.rollingDeceleration * time),
+      speed: loft?.speed ?? speed,
+      elevation: loft?.elevation ?? 0,
+      predictedArrivalTime: loft?.predictedFlightTime ?? time,
+      predictedArrivalSpeed: loft
+        ? Math.hypot(velocity.x, velocity.y)
+        : Math.max(0, speed - BALL_PHYSICS.rollingDeceleration * time),
       receiverReadiness: {
         contactPoint: action.target,
         awareAt: 0.3,
@@ -58,7 +68,7 @@ export const observedPassDelivery = (
         earliestUsefulContactTime: readyAt + 0.12,
         preferredArrivalSpeed: 5.5,
         maximumComfortableArrivalSpeed: 10,
-        preparationMargin: time - readyAt,
+        preparationMargin: (loft?.predictedFlightTime ?? time) - readyAt,
         movementTime,
         orientationTime,
       },

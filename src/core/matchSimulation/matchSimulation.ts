@@ -3,6 +3,7 @@ import { finishIncidentalGoal } from './incidentalGoals';
 import { advanceExperimentalBodyReception } from './experimentalBodyReception';
 import { advanceLowerBodyPose, constrainCompliantBodyStep } from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
+import { planSynchronizedReception, receptionPlanFacing } from './receiverSynchronisation';
 import { usesBoundedIntelligence } from './boundedIntelligenceState';
 import {
   advanceTransitionRuns,
@@ -1740,11 +1741,29 @@ const stepTacticalMatchCore = (
         p.id === observedReceiver.id ? observedReceiver : p,
       );
     }
-    const point = receiver && projectLiveReceptionTarget(state, receiver);
+    const synchronized =
+      state.experimentalReceiverAnticipation && state.experimentalReceiverSynchronisation;
+    const meetingPlan =
+      receiver && synchronized
+        ? planSynchronizedReception(
+            receiver,
+            receiver.ballMotorObservation,
+            state.time,
+            Math.max(
+              state.receptionPreparation.awarenessAt,
+              motorContactReadyAt(state, receiver.id),
+            ),
+            state.receptionPreparation.meetingPlan,
+          )
+        : undefined;
+    const point = synchronized
+      ? (meetingPlan?.contactPoint ?? undefined)
+      : receiver && projectLiveReceptionTarget(state, receiver);
     if (receiver && state.experimentalReceiverAnticipation) {
       state.receptionPreparation = {
         ...preparedContinuation(state, receiver)!,
         observedContactPoint: point,
+        ...(synchronized ? { meetingPlan } : {}),
       };
     }
     if (point && receiver) {
@@ -1839,25 +1858,27 @@ const stepTacticalMatchCore = (
       const continuation = preparation.continuation;
       const remaining = distance(player.position, contactTarget);
       const target =
-        !preparation.runOn &&
-        continuation &&
-        remaining < 2.5 &&
-        state.time < continuation.expiresAt &&
-        (state.ball.height ?? 0) <= 0.65 &&
-        preparation.expectedArrivalTime - state.time <= 0.35
-          ? clampPitchPoint({
-              x:
-                contactTarget.x +
-                ((continuation.target.x - contactTarget.x) /
-                  Math.max(1, distance(contactTarget, continuation.target))) *
-                  2,
-              y:
-                contactTarget.y +
-                ((continuation.target.y - contactTarget.y) /
-                  Math.max(1, distance(contactTarget, continuation.target))) *
-                  2,
-            })
-          : contactTarget;
+        preparation.meetingPlan && state.experimentalReceiverSynchronisation
+          ? receptionContactTarget
+          : !preparation.runOn &&
+              continuation &&
+              remaining < 2.5 &&
+              state.time < continuation.expiresAt &&
+              (state.ball.height ?? 0) <= 0.65 &&
+              preparation.expectedArrivalTime - state.time <= 0.35
+            ? clampPitchPoint({
+                x:
+                  contactTarget.x +
+                  ((continuation.target.x - contactTarget.x) /
+                    Math.max(1, distance(contactTarget, continuation.target))) *
+                    2,
+                y:
+                  contactTarget.y +
+                  ((continuation.target.y - contactTarget.y) /
+                    Math.max(1, distance(contactTarget, continuation.target))) *
+                    2,
+              })
+            : contactTarget;
       player = { ...player, target };
     }
     if (state.receptionPreparation?.actorId === player.id) movementTarget = player.target;
@@ -1971,12 +1992,27 @@ const stepTacticalMatchCore = (
       state.experimentalReceiverAnticipation && state.receptionPreparation?.actorId === player.id
         ? player.ballMotorObservation?.ball
         : undefined;
-    const desiredFacingAngle = observedIncoming
-      ? angleForVector({ x: -observedIncoming.velocity.x, y: -observedIncoming.velocity.y })
-      : preparing
-        ? (state.onBallPreparation?.micro?.orientationTarget ??
-          deriveOrientationTarget(state, player))
-        : deriveOrientationTarget(state, player);
+    const meeting =
+      state.experimentalReceiverSynchronisation &&
+      state.experimentalReceiverAnticipation &&
+      state.receptionPreparation?.actorId === player.id &&
+      receptionContactTarget
+        ? state.receptionPreparation.meetingPlan
+        : undefined;
+    const desiredFacingAngle =
+      meeting?.incomingVelocity && meeting.contactAt !== null
+        ? receptionPlanFacing(
+            player,
+            movementTarget,
+            meeting.incomingVelocity,
+            meeting.contactAt - state.time,
+          )
+        : observedIncoming
+          ? angleForVector({ x: -observedIncoming.velocity.x, y: -observedIncoming.velocity.y })
+          : preparing
+            ? (state.onBallPreparation?.micro?.orientationTarget ??
+              deriveOrientationTarget(state, player))
+            : deriveOrientationTarget(state, player);
     const recovery = player.challengeRecovery;
     const balance =
       recovery && state.time < recovery.until

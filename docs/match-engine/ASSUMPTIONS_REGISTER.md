@@ -75,6 +75,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 - **PR196 development update (historical PR195 status: REFACTOR_REQUIRED):** Native sampled candidate menus and thresholds are retained. Present-but-unadmitted, absent from bounded menu, full-world diagnostic alternative and rejected physical request remain separate; generation thresholds are not rewritten.
 - **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR198 development update (historical PR197 status: REFACTOR_REQUIRED):** An absent bounded lofted repertoire is demonstrated without changing 36m/68m global ranges. The new two-option shortlist uses only a whitelisted observed scene and the actor own proposed launch, never an unseen opponent future. Full-world 0.2s menu samples are not exhaustive decision denominators.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### DEC-004 — Determine whether failure to attack arises from missing candidates, inaccurate predictions, incorrect valuation or actual physical limitations.
 
@@ -97,6 +101,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 - **PR196 development update (historical PR195 status: LAB_REQUIRED):** 118 states from 15 autonomous 600-second WW/SS/SW development prefixes; 266 unique one-action continuations from 45 selected states. Actual next-tick traces and snapshot policy inspection are labelled separately.
 - **PR196 evidence / layers / status (implementation 1318e396e7cea7c821da16f9a1360ff772c85d63):** [PR196 report](../PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md), [versioned summary](../performance/pr196/summary.json), original source archives and paired receipts. I/F: scoped contracts and canonical experiments; E: development diagnostics only; T/M: seven paired matches reported per policy, no global promotion; C: sealed/unrun. OPEN, no COMPLETE claim.
+- **PR198 development update (historical PR197 status: LAB_ACTIVE):** The first causal attempt closes at the passer first release or opposing ownership; later autonomous actions cannot complete it. Candidate absence, unreadiness, lower valuation, preparation and release have distinct evidence. Full causal success remains unproven.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### DEC-005 — Audit incompatible scoring scales between passes, carries, shots, crosses, holds and clearances.
 
@@ -157,7 +165,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 ### DEC-008 — Audit estimates of contested or recoverable loose-ball outcomes.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Decision architecture and risk.
 - **Classification / priority / severity:** `PROBABILITY_CLAIM`; **P0**; foundational, multiple downstream decisions/outcomes.
 - **Implementation:** [`decisionStateValue.evaluateStateValueAction`](../../src/core/matchSimulation/decisionStateValue.ts#L206); [`strategicClearance.evaluateStrategicClearance`](../../src/core/matchSimulation/strategicClearance.ts#L28).
@@ -173,6 +181,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** A/B classify touch, disruption, control and recovery runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Actual loose-ball episodes, nearest-two-per-team engineering arrival estimates and the first genuinely controllable next action are separate. Future second-ball consequence probabilities and value remain uncalibrated; independent second-contact scheduling is not faked.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### DEC-009 — Audit outdated hard rejection gates, especially those preventing weak players from even attempting feasible actions.
 
@@ -361,6 +373,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR197 evidence / implementation:** [report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md), [long-pass-combined-v5.json.gz](../performance/pr197/long-pass-combined-v5.json.gz), [passReception.ts](../../src/core/matchSimulation/passReception.ts); normalized source archives identify exact experiment code, and the PR commit identifies this revision. No closure commit.
 - **PR197 remaining discrepancy / negative findings:** Meeting position and original preparation clock can disagree; broad family receiver touch/control regressions remain.
 - **PR197 layers / match consequences / current status:** I: scoped regressions and reproducible contracts; F: actual canonical contact/flight evidence, incomplete anatomy; E: development only, uncalibrated; T: fifteen-state winners unchanged and full autonomous loft not elicited; M: seven paired complete matches, aggregate shots 64→67 with WW/O and WW/H shot harm and SS/B excessive circulation; C: sealed/unrun. **LAB_ACTIVE; OPEN, no COMPLETE.**
+- **PR198 development update (historical PR197 status: LAB_ACTIVE):** A local spatial objective previously retained a release-time clock, and the old motor forecast could return a contact after its sampled horizon. The independent synchronisation experiment carries point/time/incoming velocity and bounds canonical body probes; 149/180 direct touches remain below PR197 combined 154/180. The shared 13-contact subset has point/time MAE 2.557→0.278m and 0.493→0.058s, conditional on actual contact; authority expiry and release-time awareness remain source-level synchronisation questions.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### PASS-005 — Calibrate execution error distributions by passing, technique, foot, pressure, distance, orientation and incoming ball state.
 
@@ -410,6 +426,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR197 evidence / implementation:** [report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md), [families-v5.json.gz](../performance/pr197/families-v5.json.gz), [canonicalOutcome.ts](../../src/core/matchSimulation/canonicalOutcome.ts); normalized source archives identify exact experiment code, and the PR commit identifies this revision. No closure commit.
 - **PR197 remaining discrepancy / negative findings:** Finite-surface readiness is laboratory-only; receiver control can worsen, and the quality map is uncalibrated.
 - **PR197 layers / match consequences / current status:** I: scoped regressions and reproducible contracts; F: actual canonical contact/flight evidence, incomplete anatomy; E: development only, uncalibrated; T: fifteen-state winners unchanged and full autonomous loft not elicited; M: seven paired complete matches, aggregate shots 64→67 with WW/O and WW/H shot harm and SS/B excessive circulation; C: sealed/unrun. **LAB_ACTIVE; OPEN, no COMPLETE.**
+- **PR198 development update (historical PR197 status: LAB_ACTIVE):** Same-release direct-path control is 123/180 for PR197 combined and 113/180 for the final synchronisation experiment; retention is 116/180 versus 108/180. Touch, finite foot access, control and later possession remain distinct. No contact radius or cushioning bonus changes.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### PASS-007 — Distinguish an interception, uncontrolled deflection, clearance and genuinely retained possession.
 
@@ -482,6 +502,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR197 evidence / implementation:** [report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md), [autonomous-v5.json.gz](../performance/pr197/autonomous-v5.json.gz), [ballOrientedMovement.ts](../../src/core/matchSimulation/ballOrientedMovement.ts); normalized source archives identify exact experiment code, and the PR commit identifies this revision. No closure commit.
 - **PR197 remaining discrepancy / negative findings:** Full autonomous diagonal loft sequence is NOT ELICITED; revised objective timing/body preparation remains open.
 - **PR197 layers / match consequences / current status:** I: scoped regressions and reproducible contracts; F: actual canonical contact/flight evidence, incomplete anatomy; E: development only, uncalibrated; T: fifteen-state winners unchanged and full autonomous loft not elicited; M: seven paired complete matches, aggregate shots 64→67 with WW/O and WW/H shot harm and SS/B excessive circulation; C: sealed/unrun. **LAB_ACTIVE; OPEN, no COMPLETE.**
+- **PR198 development update (historical PR197 status: LAB_ACTIVE):** Observed absolute contact time is coupled to the local motor objective. A rejected prototype postponed meetings and skipped earlier feasible samples; its 129/180 touches remain frozen. The corrected commitment retains an attainable absolute clock when a new observation agrees. Preparation and actual release remain separate gates.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### PASS-010 — Audit fixed restrictions on progressive, spatial and combination passes.
 
@@ -505,10 +529,14 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR197 evidence / implementation:** [report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md), [candidate-boundaries-v2.json.gz](../performance/pr197/candidate-boundaries-v2.json.gz), [boundedIntelligence.ts](../../src/core/matchSimulation/boundedIntelligence.ts); normalized source archives identify exact experiment code, and the PR commit identifies this revision. No closure commit.
 - **PR197 remaining discrepancy / negative findings:** Separate information admission from candidate omission; full policy/menu redesign is not implemented.
 - **PR197 layers / match consequences / current status:** I: scoped regressions and reproducible contracts; F: actual canonical contact/flight evidence, incomplete anatomy; E: development only, uncalibrated; T: fifteen-state winners unchanged and full autonomous loft not elicited; M: seven paired complete matches, aggregate shots 64→67 with WW/O and WW/H shot harm and SS/B excessive circulation; C: sealed/unrun. **REFACTOR_REQUIRED; OPEN, no COMPLETE.**
+- **PR198 development update (historical PR197 status: REFACTOR_REQUIRED):** Native bounded menus contain no lofted through delivery in 168 dynamic cases. A separate experiment adds at most two observed moving-receiver loft alternatives within the existing 36m scope; no global range or ability threshold is raised. Generation is not admission, selection or successful execution.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### PASS-011 — Test the value of backward passes that relieve pressure and create future possibilities.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Passing and receiving.
 - **Classification / priority / severity:** `HEURISTIC_UTILITY`; **P1**; major plausible match impact.
 - **Implementation:** [`opportunityWindows.boundedContinuationThreat`](../../src/core/matchSimulation/opportunityWindows.ts#L195); [`roleTactics.forecastWaiting`](../../src/core/matchSimulation/roleTactics.ts#L284).
@@ -524,10 +552,14 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** pressure-release versus recycling pairs with next-action outcomes runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Pressured short versus flank/diagonal alternatives retain actual control, loss location, legal restart and opponent continuation. A completed short pass is not automatically safer; no speculative value is fitted.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### PASS-012 — Test the consequences of a pass that is technically incomplete but produces advantageous territory or an attacking restart.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Passing and receiving.
 - **Classification / priority / severity:** `HEURISTIC_UTILITY`; **P1**; major plausible match impact.
 - **Implementation:** [`decisionStateValue.evaluateStateValueAction`](../../src/core/matchSimulation/decisionStateValue.ts#L206); [`pitchBoundary.findPitchBoundaryCrossing`](../../src/core/matchSimulation/pitchBoundary.ts#L37).
@@ -543,6 +575,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** failed delivery to territory/restart followed by autonomous play runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Incomplete diagonal/clearance routes are represented by actual territory/restart/ownership witnesses, rather than one interchangeable loss label. Comparable territorial versus possession state value remains open under DEC-005/008 and DEF-010.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ## Shooting and improvised finishing
 
@@ -659,6 +695,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** C shotId-scoped terminal and subsequent-possession taxonomy runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** PR195 starts the named diagnostic family; sample size and transfer remain open.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_ACTIVE):** 64 preregistered original shot requests contain two real unowned keeper rebounds. Catch/parry, loose-ball contest, later control, corner and original-shot outcome are distinct. Other phase rebounds are not credited to an earlier hold or unrelated shot.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### SHOT-007 — Rework comparisons of shooting and retaining possession into comparable future-state consequences.
 
@@ -678,6 +718,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** C poor shot with/without actual safe outlet runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** PR195 starts the named diagnostic family; sample size and transfer remain open.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_ACTIVE):** The paired shot/hold/pass ledger measures actual next states and opponent shot witnesses. Existing positional threat is explicitly an unfitted proxy, not calibrated V; no common action-value or shooting rewrite occurs.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### SHOT-008 — Test difficult shots when not attempting the ball means almost certain loss of the attack.
 
@@ -972,7 +1016,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 ### DEF-010 — Audit strategic clearance decisions and their actual consequences.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Defensive ability and pressing.
 - **Classification / priority / severity:** `HEURISTIC_UTILITY`; **P1**; major plausible match impact.
 - **Implementation:** [`strategicClearance.evaluateStrategicClearance`](../../src/core/matchSimulation/strategicClearance.ts#L28).
@@ -988,6 +1032,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** clearance risk and autonomous restart/counterattack consequences runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Control/short/long/touchline challenge intentions use the existing finite ground impulse and legal duel. A distant target does not guarantee territory, an exit or a throw-in. A distinct emergency lofted-clearance motor repertoire remains missing; no synthetic continuation is added.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### DEF-011 — Audit the distinction between a successful defensive intervention and successful ball recovery.
 
@@ -1050,7 +1098,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 ### DRIB-002 — Audit the limited route samples and available carry directions.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Carries, dribbling and physical contacts.
 - **Classification / priority / severity:** `STRUCTURAL_GATE`; **P1**; major plausible match impact.
 - **Implementation:** [`carryOpportunity.enumerateCarryChoices`](../../src/core/matchSimulation/carryOpportunity.ts#L156); [`carryExecution.deriveCarryExecution`](../../src/core/matchSimulation/carryExecution.ts#L56).
@@ -1066,10 +1114,14 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** angular sweep and route coverage including negative controls runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Existing carry directions are inspected for real centre-backs in open, challenged, exposed and counterattack fixtures. Their on-ball menus already admit a carry; the off-ball protect-role rule is not a universal physical prohibition.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### DRIB-003 — Calibrate the probability of retaining control after a directional touch.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Carries, dribbling and physical contacts.
 - **Classification / priority / severity:** `PROBABILITY_CLAIM`; **P1**; major plausible match impact.
 - **Implementation:** [`firstTouch.assessFirstTouch`](../../src/core/matchSimulation/firstTouch.ts#L38); [`receptionContinuation.prepareReceptionContinuation`](../../src/core/matchSimulation/receptionContinuation.ts#L22).
@@ -1085,6 +1137,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** PR191 directional recovery protocols, then autonomous retention reliability runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Defender-carry requests retain actual canonical contacts, turnovers through loose intervals, opponent threat proxies and counterattack exposure. No defender dribbling or first-touch success bonus is added.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### DRIB-004 — Audit the effect of pressure, shielding, agility, balance and reaction.
 
@@ -1415,7 +1471,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 ### TACT-001 — Audit receiving-position selection and off-ball support.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Tactical movement and team intelligence.
 - **Classification / priority / severity:** `TACTICAL_ASSUMPTION`; **P1**; major plausible match impact.
 - **Implementation:** [`receivingPositions.evaluateReceivingPosition`](../../src/core/matchSimulation/receivingPositions.ts#L9); [`tacticalPositioning.deriveBuildUpSupport`](../../src/core/matchSimulation/tacticalPositioning.ts#L616).
@@ -1431,10 +1487,14 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** reuse PR194 40 receiving phases, add useful continuation measurements runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Standing wide-receiver scenarios retain receiving-position jobs separately from ordinary structural target changes. Local contact plans do not borrow the release-time engineering point when no prepared meeting exists. Tactical value of alternative positions remains uncalibrated.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### TACT-002 — Audit running into free space rather than merely moving closer to the ball.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Tactical movement and team intelligence.
 - **Classification / priority / severity:** `TACTICAL_ASSUMPTION`; **P1**; major plausible match impact.
 - **Implementation:** [`tacticalPositioning.seekSpace`](../../src/core/matchSimulation/tacticalPositioning.ts#L796); [`reachableSpace.predictReachableRun`](../../src/core/matchSimulation/reachableSpace.ts#L21).
@@ -1450,10 +1510,14 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** free-space alternatives with actual arrivals and next release runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** The autonomous laboratory distinguishes a receiving-position adjustment, a transition run and ordinary structural movement; no initial runner motion or target is prescribed. Five lofted releases do not establish the full deliberate run-recognition chain.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### TACT-003 — Audit third-man movement, supporting runs and defender displacement.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Tactical movement and team intelligence.
 - **Classification / priority / severity:** `TACTICAL_ASSUMPTION`; **P1**; major plausible match impact.
 - **Implementation:** [`transitionMovement.advanceTransitionRuns`](../../src/core/matchSimulation/transitionMovement.ts#L149); [`combinationPlay.observeCombinationRelease`](../../src/core/matchSimulation/combinationPlay.ts#L116).
@@ -1469,10 +1533,14 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** PR193 phases with defender displacement and retained rest defence runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Dedicated disruption rows retain defender displacement, reorientation and line spread for paired alternatives. A changed shape after an action is descriptive; no causal label, disruption bonus or calibrated shape value is inferred.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### TACT-004 — Audit whether players correctly recognise and exploit temporary opportunities.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Tactical movement and team intelligence.
 - **Classification / priority / severity:** `TIMING_ASSUMPTION`; **P1**; major plausible match impact.
 - **Implementation:** [`activePerception.advanceActivePerception`](../../src/core/matchSimulation/activePerception.ts#L90); [`opportunityWindows.estimatePassWindow`](../../src/core/matchSimulation/opportunityWindows.ts#L127).
@@ -1488,6 +1556,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** delayed/stale scene and actual time-sensitive release runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Two 280-case dynamic cohorts show candidate-stage improvement (sampled 55→152, 55→176 with actual decision witnesses) and five autonomous lofted releases, while recognition of the intended opportunity chain remains mostly absent. Timestamped native menus, actual decisions, preparation and first release are separate witnesses.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### TACT-005 — Audit whether defensive recovery and marking are unrealistically efficient.
 
@@ -1510,7 +1582,7 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 ### TACT-006 — Audit territorial value, rest defence and vulnerability to counterattacks.
 
-- [ ] LAB_REQUIRED
+- [ ] LAB_ACTIVE
 - **Category / subsystem:** Tactical movement and team intelligence.
 - **Classification / priority / severity:** `HEURISTIC_UTILITY`; **P1**; major plausible match impact.
 - **Implementation:** [`decisionStateValue.turnoverStateValue`](../../src/core/matchSimulation/decisionStateValue.ts#L115); [`teamShapeMetrics.deriveTeamShapeMetrics`](../../src/core/matchSimulation/teamShapeMetrics.ts#L93).
@@ -1526,6 +1598,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **Acceptance conditions:** same attack with varied cover, observe actual opponent progression runs reproducibly with positive and negative controls, exact source/input/seed/episode identity, rejection/censor counts and skill/geometry strata; intended effect and regressions are measured against the frozen rule. Required I/F/E/T/M/C layers must each have explicit evidence or a justified remaining gate. No completion based on aggregate event targets.
 - **Status rationale / blockers:** source-audited; item-specific laboratory still required.
 - **Closure PR / commit / evidence:** none; **OPEN**. Related historical PRs are not closure evidence for this item.
+- **PR198 development update (historical PR197 status: LAB_REQUIRED):** Cover behind the ball, central cover, turnover location and opponent subsequent shot witnesses are retained. Defender advancement risk is mapped here and in dedicated TACT-013, with no claim of calibrated rest-defence or territory value.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### TACT-007 — Audit tactical preferences and team tempo.
 
@@ -1587,6 +1663,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR197 evidence / implementation:** [report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md), [candidates-v3.json.gz](../performance/pr197/candidates-v3.json.gz), [ballOrientedMovement.ts](../../src/core/matchSimulation/ballOrientedMovement.ts); normalized source archives identify exact experiment code, and the PR commit identifies this revision. No closure commit.
 - **PR197 remaining discrepancy / negative findings:** Existing formation/off-ball/aerial controllers are not certified fully bounded; memory uncertainty needs separate calibration.
 - **PR197 layers / match consequences / current status:** I: scoped regressions and reproducible contracts; F: actual canonical contact/flight evidence, incomplete anatomy; E: development only, uncalibrated; T: fifteen-state winners unchanged and full autonomous loft not elicited; M: seven paired complete matches, aggregate shots 64→67 with WW/O and WW/H shot harm and SS/B excessive circulation; C: sealed/unrun. **LAB_ACTIVE; OPEN, no COMPLETE.**
+- **PR198 development update (historical PR197 status: LAB_ACTIVE):** Observed loft candidates require a recent sufficiently reliable moving teammate and remain within native range. The receiver forecast consumes own body plus actual local observation and unknown spin remains zero; hidden destination or opponent ratings are not supplied.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### TACT-010 — Audit contextual objectives derived from match score, competition rules and time remaining.
 
@@ -2612,6 +2692,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR197 evidence / implementation:** [report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md), [summary.json](../performance/pr197/summary.json), [canonicalOutcome.ts](../../src/core/matchSimulation/canonicalOutcome.ts); normalized source archives identify exact experiment code, and the PR commit identifies this revision. No closure commit.
 - **PR197 remaining discrepancy / negative findings:** The apparatus is not an independently calibrated football model; unresolved/censored and rejected requests remain explicit.
 - **PR197 layers / match consequences / current status:** I: scoped regressions and reproducible contracts; F: actual canonical contact/flight evidence, incomplete anatomy; E: development only, uncalibrated; T: fifteen-state winners unchanged and full autonomous loft not elicited; M: seven paired complete matches, aggregate shots 64→67 with WW/O and WW/H shot harm and SS/B excessive circulation; C: sealed/unrun. **LAB_ACTIVE; OPEN, no COMPLETE.**
+- **PR198 development update (historical PR197 status: LAB_ACTIVE):** Original-delivery-v3 is reused unchanged. Frozen 180 actual launched balls retain exact PR197 inputs, launched-ball hashes, actor/receiver/seed and episode lineage; later football cannot rescue a failed original reception. Rebound consequences are labelled by original shot ID.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ### MEAS-012 — A designated defender is not the entire opposition in action attribution.
 
@@ -2631,6 +2715,10 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR197 evidence / implementation:** [report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md), [long-pass-baseline-v6.json.gz](../performance/pr197/long-pass-baseline-v6.json.gz), [canonicalOutcome.ts](../../src/core/matchSimulation/canonicalOutcome.ts); normalized source archives identify exact experiment code, and the PR commit identifies this revision. No closure commit.
 - **PR197 remaining discrepancy / negative findings:** Legacy fallback last-touch evidence and simultaneous-contact anatomy retain limitations; do not infer all-opponent absence from one defender.
 - **PR197 layers / match consequences / current status:** I: scoped regressions and reproducible contracts; F: actual canonical contact/flight evidence, incomplete anatomy; E: development only, uncalibrated; T: fifteen-state winners unchanged and full autonomous loft not elicited; M: seven paired complete matches, aggregate shots 64→67 with WW/O and WW/H shot harm and SS/B excessive circulation; C: sealed/unrun. **LAB_ACTIVE; OPEN, no COMPLETE.**
+- **PR198 development update (historical PR197 status: LAB_ACTIVE):** All opposing canonical contacts/control remain observed. The research ledger distinguishes actual finite deflections from ordinary owned carry touches and retains ownership through loose intervals before attributing a turnover. Observer-only full replays protect physical neutrality.
+- **PR198 evidence / implementation:** [25-section report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md), [compact source-bound evidence](../performance/pr198/summary.json); implementation revision [53ceb55a](https://github.com/adamfron/my_football_legend/commit/53ceb55a187ed48de76d5892afd6b1ca86f39736), archived runtime fingerprints identify every experiment. No closure commit.
+- **PR198 validation layers:** I: scoped contracts and exact-source deterministic reproduction; F: existing finite movement/contact/flight, incomplete anatomy; E: development only, no real-football calibration; T: paired choices and failures, full intended opportunity chain unproven; M: seven policy-specific complete development pairs, regressions retained and no promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
 
 ## Shared physical response
 
@@ -2675,3 +2763,20 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR197 evidence / implementation:** [report](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md), [launch-v1.json.gz](../performance/pr197/launch-v1.json.gz), [ballPhysics.ts](../../src/core/matchSimulation/ballPhysics.ts); normalized source archives identify exact experiment code, and the PR commit identifies this revision. No closure commit.
 - **PR197 remaining discrepancy / negative findings:** Integrator self-consistency is not real-football physical calibration; anatomical contact/rebound parameters remain open.
 - **PR197 layers / match consequences / current status:** I: scoped regressions and reproducible contracts; F: actual canonical contact/flight evidence, incomplete anatomy; E: development only, uncalibrated; T: fifteen-state winners unchanged and full autonomous loft not elicited; M: seven paired complete matches, aggregate shots 64→67 with WW/O and WW/H shot harm and SS/B excessive circulation; C: sealed/unrun. **CALIBRATION_REQUIRED; OPEN, no COMPLETE.**
+
+## Dynamic initiative and cover
+
+### TACT-013 — Dynamic attacking initiative from nominal defensive positions and cover-aware advancement.
+
+- [ ] LAB_ACTIVE
+- **Category / subsystem:** Tactical initiative and on-ball carry choice.
+- **Classification / priority / severity:** `TACTICAL_ASSUMPTION`; **P1**; forward opportunity and exposed counterattack consequences.
+- **Implementation:** [receivingPositions.ts](../../src/core/matchSimulation/receivingPositions.ts), [boundedDecision.ts](../../src/core/matchSimulation/boundedDecision.ts), [matchActions.ts](../../src/core/matchSimulation/matchActions.ts), [disruptionLedger.ts](../../src/core/matchSimulation/disruptionLedger.ts).
+- **Current rule / discovery:** off-ball receiving jobs protect defend duties and centre-backs; native on-ball menus already contain ordinary carries. This is a positional tendency and value/information question, not a universal physical prohibition. No player identity or defender bonus is introduced.
+- **Origin / provenance:** PR198 source audit; existing TACT-003 covers shape displacement, TACT-006 covers territory/cover, DRIB-002/003 cover routes/control. This dedicated item records the previously implicit role/initiative comparison without duplicating their physical calibration.
+- **Existing evidence:** [paired defender-carry laboratory](../performance/pr198/disruption-v3.json.gz), native bounded/full-world menus, actual actor paths, challenges, loose intervals, losses and cover.
+- **Validation layers:** I: witnessed menu/role contracts; F: ordinary carry/duel physics with positive and negative continuations; E: uncalibrated; T: opportunity/cover-aware role choice not validated; M: only shared experimental development pairs, no isolated role-calibration claim; C: sealed/unrun.
+- **Dependencies / affected policies:** TACT-001/003/006/009/010, DRIB-002/003, DEC-003/005/007/008, DEF-010; all on-ball policies.
+- **Proposed laboratory / acceptance:** paired identical states with open corridor, good challenge, teammate cover and exposed counterattack; vary own technique/reading/composure, observed pressure, coach role, risk tolerance and match context. Require measured useful progress and retained dangerous failures, comparable alternatives, full-match transfer and all six evidence layers before closure.
+- **Status rationale / remaining gates:** diagnoses existing capability and role/value limits; no general tactical liberalisation or new utility bonus. Independent state value and role-aware calibration remain future work.
+- **Closure PR / commit / evidence:** PR198 archived source fingerprints and [report](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md); no closure commit. **OPEN.**

@@ -1,5 +1,17 @@
 # MatchEngine calibration plan
 
+## PR198 development gate
+
+[PR198](../PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md) freezes the exact merged PR197 source, all 134 stable IDs and immutable earlier evidence. 180 actual released balls and 40 rejected requests exactly reproduce their original inputs; the full D/H/R factorial isolates post-release effects. The new receiver synchronisation remains a separate opt-in dependent on receiver anticipation. Its final 149/113/108 direct touch/control/retention does not surpass 154/123/116 for PR197 combined, and the rejected 129/102/91 prototype remains frozen. No contact-count optimisation or promotion follows from representation consistency.
+
+Next receiver work must begin with the eight lost and three gained paired touches, separating spatial shortlist, absolute time, facing/speed and observation gaps. Measure real finite readiness and control as well as touch, retain difficult contacts in denominators, and extend controlled incoming-state and genuine second-contact apparatus. Local meeting forecasts have no engineering fallback. Candidate-body forecasts remain bounded and reuse the canonical integrator; anatomical/fitness/collision and external calibration gates stay open.
+
+The observed-loft experiment changes only a small native-range delivery repertoire. Two 280-case standing-runner cohorts retain observation, deliberate versus structural motion, candidate/admission/preparation and the first real passer release. Five lofted releases are not five complete recognised run sequences. Native decision witnesses and sampled full-world menus have different denominators. Extend full-world decision-time witnesses before asserting exhaustive candidate absence.
+
+The disruption ledger is a privileged research observer, never actor knowledge or utility. Paired hold/pass/shot/carry/clearance trials retain actual canonical contact, ownership, loose intervals, keeper rebound, restarts, cover and opponent shot consequences. Descriptive shape change and an existing positional threat proxy are not causal disruption credit or calibrated V. Keep P, R and V comparable only after evidence supports them; do not invent rare outcomes or reward uncertainty. TACT-013 records role-aware defensive initiative without duplicating TACT-003/006, DEC-008, SHOT-006 or DEF-010.
+
+Seven complete policy-specific development pairs test shared S/loft transfer, not separate full-match component effects. Unfavourable results and computational costs remain; B is default, 40 Hz/28 attributes and historical replays remain, canonical NOT READY and independent confirmation sealed. I/F are scoped; E/T/M/C remain open. Source-bound read-only reconstruction, saved-state/hostile-observer parity and three complete observer-only physical-equivalence replays protect the evidence.
+
 ## PR197 development gate
 
 [PR197](../PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md) freezes the exact PR196 source/registry and repeats all28 original long requests before changing mechanisms. Same-release branches separate execution from awareness/first-touch/facing/motion. Launch, height-aware interception, finite-surface readiness, family probability claims, autonomous run stages and candidate admission have separate denominators. Remote/high-contact rejections are ineligible, not failed completion. Engineering forecasts do not supply subjective bounded knowledge.

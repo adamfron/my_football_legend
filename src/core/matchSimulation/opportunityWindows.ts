@@ -130,6 +130,7 @@ export const estimatePassWindow = (
   target: { x: number; y: number },
   travelSeconds: number,
   preparationSeconds: number,
+  loft?: { verticalSpeed: number; releaseHeight: number },
 ): OpportunityWindow | undefined => {
   const receiver = s.visible.find((p) => p.id === receiverId && p.team === s.team);
   if (!receiver || !s.ball) return;
@@ -143,6 +144,13 @@ export const estimatePassWindow = (
     for (const p of foes) {
       const body = shifted(p, delay);
       for (const f of [0.25, 0.5, 0.75, 1]) {
+        // A proposed loft is not a ground ray. This approximate common aerial
+        // envelope is uncertainty, never a scheduled jump or awarded interception.
+        const time = travelSeconds * f;
+        const height = loft
+          ? loft.releaseHeight + loft.verticalSpeed * time - (9.81 * time * time) / 2
+          : 0;
+        if (loft && height > 1.9) continue;
         const contact = estimateUsefulContact(body, {
           x: s.ball!.position.x + (target.x - s.ball!.position.x) * f,
           y: s.ball!.position.y + (target.y - s.ball!.position.y) * f,

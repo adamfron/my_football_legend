@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+## PR198 — Synchronizacja odbiorcy, autonomiczne okazje i rzeczywiste dalsze skutki
+
+[Raport PR198](PR198_RECEIVER_SYNCHRONISATION_AUTONOMOUS_OPPORTUNITIES_AND_EMERGENT_DISRUPTION.md) odtwarza dokładne 180 wypuszczonych piłek PR197 i rozdziela wszystkie osiem kombinacji jego trzech przełączników. W tym eksperymencie po wypuszczeniu regresja wiąże się z antycypacją odbiorcy: touch/control/retention 160/128/107 → 154/123/116. Nowa, osobna synchronizacja łączy lokalny punkt i czas z planem ruchu oraz fizycznym obrotem i hamowaniem. Usuwa konkretne niespójności reprezentacji, ale końcowe 149/113/108 pozostaje regresją; wariant nie jest promowany. Nieudana pierwsza próba 129/102/91 pozostaje w dowodach.
+
+Osobny eksperyment dodaje najwyżej dwa loftowane warianty do obserwowanego wbiegającego partnera w dotychczasowym zasięgu bounded. W dwóch kohortach po 280 scenariuszy liczba przypadków z loftowanym kandydatem rośnie 55 → 152 w próbkach menu i 55 → 176 po uwzględnieniu świadków decyzji, a autonomicznych wypuszczeń 0 → 5. Pełny łańcuch świadomego rozpoznania okazji przez biegacza i podającego pozostaje nieudowodniony. Diagnostyka odróżnia rzeczywiste odbicia, parowanie/złapanie, drugie piłki, straty, terytorium, ustawienie obrony i legalne wznowienia; nie powstaje bonus za chaos ani globalne strojenie strzałów.
+
+Zachowane jest 134 historycznych ID; TACT-013 dodaje inicjatywę zawodnika z pozycji defensywnej i ryzyko asekuracji bez duplikowania istniejących tematów. **135 otwartych ID, zero COMPLETE; canonical NOT READY; B domyślne; nowe przełączniki opt-in, canonical arrival osobno; confirmation zamknięte.** Pełne porównania polityk, wyniki negatywne, koszt i dokładne odtworzenie źródeł są w raporcie. Zachowane są 40 Hz, 28 atrybutów, zapisy/replay i wszystkie poniższe zobowiązania kariery/świata.
+
 ## PR197 — Passing Reality: Flight, Interception & Receiver Anticipation
 
 Dokładne 28 długich podań ujawniło asymetrię: przeciwnik mógł otrzymać posiadanie wysoko nad stopą przez ścieżkę incoming control, mimo że odbiorca z drużyny podlegał kontroli dostępu. Osobny opt-in stosuje tę samą bramkę obu stronom. Dwa kolejne przełączniki oddzielają prognozę przecięcia lotu z wysokością i antycypację odbiorcy z lokalnej obserwacji. Fizyczny model lotu i rozkład błędów nie są dostrajane. Pomiar v3 kończy pierwotne podanie przy rzeczywistej główce/nowym kontakcie first-time; stare dowody zostają zachowane.
