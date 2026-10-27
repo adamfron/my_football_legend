@@ -20,7 +20,12 @@ assert(
 );
 const registry = readFileSync('docs/match-engine/ASSUMPTIONS_REGISTER.md', 'utf8');
 const ids = [...registry.matchAll(/^### ([A-Z]+-\d+)/gm)].map((m) => m[1]);
-assert(hash(ids) === hash(frozen.registry.map((r) => r.id)), 'Stable registry IDs changed');
+const historicalIds = new Set(frozen.registry.map((r) => r.id));
+assert(new Set(ids).size === ids.length, 'Duplicate registry IDs');
+assert(
+  hash(ids.filter((id) => historicalIds.has(id))) === hash(frozen.registry.map((r) => r.id)),
+  'Stable historical registry IDs changed',
+);
 assert(!registry.includes('- [x] COMPLETE'), 'No independent completion claim');
 for (const file of readdirSync('docs/performance/pr197/source')) {
   if (!file.endsWith('.json.gz')) throw Error('Unexpected source artifact ' + file);

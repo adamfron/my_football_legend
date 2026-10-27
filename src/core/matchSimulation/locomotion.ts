@@ -157,10 +157,23 @@ export const projectLocomotion = (
     state.receptionPreparation?.actorId === player.id &&
     state.time >= state.receptionPreparation.awarenessAt
   ) {
-    const urgent = state.receptionPreparation.expectedArrivalTime - state.time;
-    if (usesStateValue(state) && state.receptionPreparation.movement === 'run_onto_ball')
-      return result(metres > 7 ? 'sprint' : metres > 1.5 ? 'run' : 'jog', 'receive_pass');
-    return result(metres < 2.5 ? 'jog' : urgent < 0.65 ? 'sprint' : 'run', 'receive_pass');
+    if (state.experimentalReceiverAnticipation && state.experimentalReceiverSynchronisation) {
+      const plan = state.receptionPreparation.meetingPlan;
+      if (
+        plan?.status === 'contact_planned' &&
+        plan.observedAt !== null &&
+        state.time - plan.observedAt <= 0.5 &&
+        plan.contactAt !== null &&
+        state.time <= plan.contactAt + 0.1
+      )
+        return { intensity: 'sprint', reason: 'receive_pass', targetSpeed: plan.targetSpeed };
+      // No credible local contact: ordinary tactical movement continues below.
+    } else {
+      const urgent = state.receptionPreparation.expectedArrivalTime - state.time;
+      if (usesStateValue(state) && state.receptionPreparation.movement === 'run_onto_ball')
+        return result(metres > 7 ? 'sprint' : metres > 1.5 ? 'run' : 'jog', 'receive_pass');
+      return result(metres < 2.5 ? 'jog' : urgent < 0.65 ? 'sprint' : 'run', 'receive_pass');
+    }
   }
   const movement =
     state.playerMovementIntent?.actorId === player.id ? state.playerMovementIntent : undefined;

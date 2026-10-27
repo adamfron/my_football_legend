@@ -118,3 +118,11 @@ scripts/pr195* text eol=lf
 src/core/matchSimulation/assumptionCalibration.ts text eol=lf
 src/core/matchSimulation/calibrationMetrics.ts text eol=lf
 src/core/matchSimulation/pr195Calibration.test.ts text eol=lf
+
+# Exact research receipt bytes must survive Windows checkouts.
+docs/performance/pr196/*.json text eol=lf linguist-generated=true
+docs/performance/pr197/*.json text eol=lf linguist-generated=true
+docs/performance/pr198/** -text linguist-generated=true
+docs/PR198*.md text eol=lf
+scripts/*Pr198* text eol=lf
+scripts/pr198* text eol=lf

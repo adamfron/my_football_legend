@@ -146,7 +146,10 @@ const arrival = (
 
 /** Deliberately approximate 100ms local model. No call to the authoritative flight
  * integrator, collision solver, RNG or full-match rollout is permitted here. */
-const forecastStep = (ball: NonNullable<BallMotorObservation['ball']>, dt: number) => {
+export const forecastObservedBallStep = (
+  ball: NonNullable<BallMotorObservation['ball']>,
+  dt: number,
+) => {
   const p = ball.position,
     v = ball.velocity;
   if (p.z <= 0.12 && Math.abs(v.z) < BALL_PHYSICS.settleVerticalSpeed) {
@@ -239,7 +242,7 @@ export const planBallOrientedMovement = (
     };
   let ball = structuredClone(observation.ball);
   const age = Math.max(0, now - observation.at);
-  if (age > 0) ball = forecastStep(ball, age);
+  if (age > 0) ball = forecastObservedBallStep(ball, age);
   const fitness = deriveFitnessPhysicalModifiers(actor);
   const acceleration = Math.max(
     0.5,
@@ -248,7 +251,7 @@ export const planBallOrientedMovement = (
   let candidate: { point: { x: number; y: number }; seconds: number; eta: number } | undefined;
   for (let i = 0; i <= 24; i++) {
     const seconds = i * 0.1;
-    if (i > 0) ball = forecastStep(ball, 0.1);
+    if (i > 0) ball = forecastObservedBallStep(ball, 0.1);
     if (
       ball.position.x < -0.11 ||
       ball.position.x > 105.11 ||

@@ -18,6 +18,7 @@ import { assessFirstTouch, firstTouchAssessmentSchema } from './firstTouch';
 import { executeFootContact, footContactExecutionSchema, footSurfaceSchema } from './footContact';
 import { deriveGroundControlImpulse } from './ballContactGeometry';
 import { planBallOrientedMovement } from './ballOrientedMovement';
+import { receiverMeetingPlanSchema } from './receiverSynchronisation';
 
 /** An aware receiver meets the actual flight, including execution error. The release-time
  * desired point remains diagnostic evidence; this only supplies a normal locomotion target.
@@ -120,6 +121,7 @@ export const passReceptionProjectionSchema = z.object({
 export type PassReceptionProjection = z.infer<typeof passReceptionProjectionSchema>;
 
 export const receptionPreparationSchema = z.object({
+  meetingPlan: receiverMeetingPlanSchema.optional(),
   contactSurface: footSurfaceSchema.optional(),
   actorId: z.string(),
   sourceActorId: z.string(),
@@ -143,6 +145,16 @@ export const receptionMovementContactTarget = (
 ): PitchPoint | undefined => {
   const prep = state.receptionPreparation;
   if (prep?.actorId !== receiver.id) return undefined;
+  if (state.experimentalReceiverAnticipation && state.experimentalReceiverSynchronisation) {
+    const plan = prep.meetingPlan;
+    return plan?.status === 'contact_planned' &&
+      plan.observedAt !== null &&
+      state.time - plan.observedAt <= 0.5 &&
+      plan.contactAt !== null &&
+      state.time <= plan.contactAt + 0.1
+      ? (plan.movementTarget ?? undefined)
+      : undefined;
+  }
   if (!state.experimentalReceiverAnticipation)
     return prep.runOn?.target ?? prep.expectedContactPoint;
   const observed = receiver.ballMotorObservation;

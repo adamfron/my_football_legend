@@ -129,7 +129,12 @@
     "benchmark:pr197:families": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr197Families.mjs --version=v5 --check",
     "benchmark:pr197:long": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr197LongPass.mjs --version=baseline-v6 --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr197LongPass.mjs --version=defence-v4 --defence --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr197LongPass.mjs --version=combined-v5 --defence --height --receiver --check",
     "benchmark:pr197:source-replay": "node scripts/replayPr197Experiment.mjs",
-    "benchmark:pr197:lineage": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr197Matches.mjs"
+    "benchmark:pr197:lineage": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr197Matches.mjs",
+    "benchmark:pr198:freeze": "node scripts/freezePr198Baseline.mjs --check",
+    "benchmark:pr198:check": "node scripts/freezePr198Baseline.mjs --check && node scripts/checkPr198Evidence.mjs && node scripts/summarizePr198.mjs --check && node scripts/reportPr198.mjs --check",
+    "benchmark:pr198:replay": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/replayPr198.mjs --check",
+    "benchmark:pr198:source-replay": "node scripts/replayPr198Experiment.mjs",
+    "benchmark:pr198:matches": "node scripts/runPr198Development.mjs"
   },
   "dependencies": {
     "react": "19.2.8",

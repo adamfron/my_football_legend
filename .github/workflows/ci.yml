@@ -49,10 +49,31 @@ jobs:
         run: npm run benchmark:pr196:check && npm run benchmark:pr196:replay && git diff --exit-code -- docs/performance/pr196 docs/match-engine
       - if: matrix.group == 'main'
         run: npm run benchmark:pr197:check && npm run benchmark:pr197:replay && git diff --exit-code -- docs/performance/pr197 docs/match-engine
+      - if: matrix.group == 'main'
+        run: npm run benchmark:pr198:check && npm run benchmark:pr198:replay && git diff --exit-code -- docs/performance docs/match-engine
+  pr198-source:
+    name: PR198 source (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [receptions, opportunities, disruption]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run benchmark:pr198:source-replay -- --case=${{ matrix.group }}
+      - run: git diff --exit-code -- docs/performance docs/match-engine
   quality:
     # Preserve the existing required check and fail it if either group fails,
     # times out or is cancelled, including failures before tests can start.
-    needs: checks
+    needs: [checks, pr198-source]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -60,4 +81,5 @@ jobs:
       - name: Require every verification group
         env:
           VERIFY_RESULT: ${{ needs.checks.result }}
-        run: test "$VERIFY_RESULT" = success
+          PR198_RESULT: ${{ needs.pr198-source.result }}
+        run: test "$VERIFY_RESULT" = success && test "$PR198_RESULT" = success
