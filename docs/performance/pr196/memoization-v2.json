@@ -1,0 +1,647 @@
+{
+  "schema": "pr196-scoped-arrival-memoization-v2",
+  "referenceDigest": "ded148f1a400917303881af23cba923a5d042f9c551b1b8ce87dafc43a17de30",
+  "sourceArchive": {
+    "path": "docs/performance/pr196/source/75803aa92a41ace6d325c7e0bbc1ad78fe0b2159f93befb1289716631d803667.json.gz",
+    "sha256": "d17f165ded512dda36ca670a8d5f7eada6bfc9cc2ef5aef3017bab428ffb561d",
+    "sourceHash": "75803aa92a41ace6d325c7e0bbc1ad78fe0b2159f93befb1289716631d803667"
+  },
+  "rows": [
+    {
+      "capture": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "7b7a7c6174b6b73f2cd1d3fe43b4707cef6d1dc3382c894ca02cffa8d7b13184",
+      "rankingHash": "9204c9bc72bf6f84e244f4588cd6377d7b1654fb446f64bad1c9211ce0660396",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "f0ec0213d2df4aa38cd7dc74f6c2f5ce37bf34e441a7e12ebaef96e247285f67",
+      "rankingHash": "fb39c4d575e02d65093c294983a5ae8d15c0f697fd05e6bd544b31f127daa419",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "f4b34f00b56868e9132f1bcbd654a3b79c3e1b835a8bc4ab37074f94ead1e88d",
+      "rankingHash": "ea7eac642a609aa3e65d5eebc7da11ac64ba896a2630291f6b94b93c419db939",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "26bc17d7af3be9d74282a29fdb9d1369af200af68a7d0344de8c80e5791fd46f",
+      "rankingHash": "a621ea1217201d5fd911c1a435fc48d6271615177a010c45596deee65c56789e",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "5ced8cb3a9ef43a0856674be0c16bb00ce134114b6a99625683549a03078b755",
+      "rankingHash": "87e7fc43a924e323ac54ef4f936cc21a21d21c6dd370f831c941d4916340c445",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "8456ef97bd651a3e7661fded23493eb6f994721337b16535dd14a3c8995f09ac",
+      "rankingHash": "68a6779edecccae01f71df1714524713dd68176fd569f132eadae9a5569a9e68",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "c93641cb4804eca0027320d72d123579c2ac57904757e8ad4f34a40b34b4bb9b",
+      "rankingHash": "28c6130abe7956c59ab3e86728ebecd445851cc5a3fe7244b405a2c7d9c1083b",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "7ce047219057fcf77fab9ce1b78b532acf6a37e697ee98f24ef63f7a9e109741",
+      "rankingHash": "e2c751d386828fa91996e6233ffdbf21fd1b630e8016bd429e5711be438c9a9a",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "78ef3155b13e981d47087394019355b4237e140a6e0f920ced12369f70810989",
+      "rankingHash": "f3b1ae0c23ac3007c6ed874904c255455b7f5092c2376ac8b76fb8171954d59c",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "a9d9bc659c26ff2105dcc1480171c5a3afcc757285b0b028e1d9727f0c0153d7",
+      "rankingHash": "52dfe3741db9e8011c124c8eef184b2b012b46ba30d3bd0ed00e16c62945e2fe",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "d0812c6e741286b12ecd7a7d7577ce072e658b00a81e2958da714fd168d607e7",
+      "rankingHash": "9352823050c3b6f0df335bd040aa66fb2dda5e74b77f2fb6d8925d37675c5db5",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "38f48df5f33bba558ae24f46efd2fe0ea5bef25e6097bc1995a745dae1fbcb44",
+      "rankingHash": "ae979ae950f6c7b8e8d9ae364aa65f5e9c0914ad9bd8e2ca5be21c97a0045713",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "500c8e6777ef8688cbcd9b6f52aaa9830895a5fd3ffdbc1a238ed71f8d3492dc",
+      "rankingHash": "6ae49de04390b3fcaa6b6834fb04e4c08d3de027338f2f1e3faa1beced85b626",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "cbb80b0046db8ca318df654610fc3dc05788a0efa941862640975f672f915dba",
+      "rankingHash": "55bb5a6345c09558045143c0a81d840bc1ba7b60bd1d993a721942f442a78ce5",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "818ed2f5941bf2dd340557ef8f9f95ca8882b955207b17c2a4bc8b243e664560",
+      "rankingHash": "ce91ada52de16fe55fc4a7526935a57f9d256129cd03fe8eab9d5f1368c73106",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "0d8e8dae6684f391770cdeb4151a42ed15b012d7b0ead9d828a9156aa2ee3a51",
+      "rankingHash": "49264dc5689ec3cfd5ece8252bd893c7e09f1372564249a1b0e9df23149457fd",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "84362a273807a7a7dae3c1e8787dcba36e196c5658e57ffee850520042969982",
+      "rankingHash": "8ed9e5e387fd336c4241c6c465a96ae6a348bdae3ee386a35918c1af81229177",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "71a8ec0bb2ce9dbfa1ab8fc35821b05366ad60067952f7681c0202911ffedfdd",
+      "rankingHash": "178a28601413823fb43490bd6fef13ca5ea0009cfe957df3247dcffa8a7887f6",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "00e03de2ffec02e006a1f0caca1af29c8de29ed862e0e8eedc44fbfa2a0b3c72",
+      "rankingHash": "d568479b617d527f45e87e272652e1ab1d9a32b6fd54802ececa3c0f65a21d90",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "0b06432d4a4f477b9944d7b8ee2f1289cbaaebcbb63ca59db7e0c2de5ba97a99",
+      "rankingHash": "89d146467b65b2c9cd5fdad85c2770190690c5e39b0571dc6632b1c1a9177842",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "eced4e0c1492158b4d9ce70af913e4fb0d0b24a0c4963286944141ebcb3d504e",
+      "rankingHash": "9d8072b7f47e6947c741abf6c930eef0b88c34c83af9e2f831edc6530fe0391e",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "1854372e033ffc9559183353829cc15f5e3f75d5101194bc9ed8dfc63acaec35",
+      "rankingHash": "9636095836dcbf444106d57a449340253adca2e2c506936a0c6180c3f366e27a",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "df2d9c7fe0955afc7d6f61591a068a9fca3bc8e933115bf251adb6fd80d2f8f9",
+      "rankingHash": "60e3795a9013801c99f74d83e06d3b8ff618d9da2cd1bcf2ad83f29279848a31",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "ab980c3fdb17bb77f9ca3b3c930ce0bf3eb86cec16b8fa0431ae3d2246de1985",
+      "rankingHash": "8189b6212c253933b849664d4b0d7cd310a2b6afd9acd447fb0dd8449ad8b502",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "811ef9e61ec98741935f23777512e78b9f9e40a726f4cf93f1ced94ec387046f",
+      "rankingHash": "58c5b8c8d536a778003bd827fa9a0d0d0f8ebb9c1094a43c8994b185d99f102d",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "035a7fa45c241c83132e4b4573e1bf0bcd52f29fbe0be37283d03e635ecf0c49",
+      "rankingHash": "e3db1c73f7075d77421d7414a583e52257f839eb1de90d95a84f38642880a1ea",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-0.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "adf490179eb0aaee58ae3af5460800b6ce2a17e5b43ec853e895942f4eabca9b",
+      "rankingHash": "5c79de0bb8ee774bc1fa2eef2ffd6a2d325f2b9bd5b65eb5f2bb163ac8c47d11",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-0.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "c7555eb03597c7efd7cdfa85cb003c74d37214d983c6ff5feddbb1a2cef1884f",
+      "rankingHash": "8e42040f8333e023250741257a890c2217d1c461503e199bb749e1201cdd0588",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-6.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "9687cad33a91b69474e0b5f2d22f571808fd89b6e37e7cdfe550bbb91adf6462",
+      "rankingHash": "aa7e9be066513674231ad2dce787da8d32083f841d14b8808f3af608e16259aa",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-6.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "8740e23685ffef74f152505e20058289332b264e488f41449db5e3dedcf2a263",
+      "rankingHash": "86858ca2286ff42bd8817d5c70e3463a62d39cb989fab5e109d710937d1370d5",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-3.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "f31832fd178d50ad731eb871161a5c8bd7e6361d008257f649b49fe08e131a73",
+      "rankingHash": "85eb9e72ce5c82dd4bcfe60efdddc91050ed015f9f70ba609d6a0922711670a8",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-3.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "3068eaeee2ac8f1d66a9ab889d474266e2c85d734ac323d16052811fbc8ba04e",
+      "rankingHash": "a2843cea0160dd039d9ce48a3d203c582d6099d2caf064539b3dc8ea41e59104",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "ef48ce884230cd2197ef197b55b6dd56116682ab8b4fd9a8c6ca4dfa7f97f3d9",
+      "rankingHash": "026224a584c425bee37767471b76e199bf466ad7c00a1300343f54b9530e38a1",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "d0eebd5faaee7472e73cc46e4aa37da5063598cffb702e6f4317987aeaaa9930",
+      "rankingHash": "464bc474de6bde0ca61b1fb2bc15b0f97742651a0ef6b98e7f26081795754f49",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "51c1644fc9885f345473d8e8886c5d0b2ef47245a790f09a8c206a77a1d363a9",
+      "rankingHash": "3f524e1667ac1f83547e50e548bbb45f5c19ead7d223401307b5d8860a8bed3c",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "9c8e8b11706404c17d548aee3828d45b0cb44427816e29817566c47909165b99",
+      "rankingHash": "1d41689585413f88262f082cec5b8d944eb2f8c2c9d271353dd46bd111044121",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "bb58d325d3c9283d9b3e45ee4b08cd76de101114bc446a3ddc1a3e94181c8023",
+      "rankingHash": "2975ba319d457493af44df70e91ff665f85d808bbeec2c744ee995b4d26864c2",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "8a722dbdd68b3ff1295acc44d2b2397df8b26e2eca1d9c541dd80f65da7015c5",
+      "rankingHash": "2975ba319d457493af44df70e91ff665f85d808bbeec2c744ee995b4d26864c2",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "55690a8796c97abae79556ba458c28f436e46d9c538983ae3786909bb4b2aa42",
+      "rankingHash": "f0062deabb1bd284ff990512d4c766bcbeb8c8f39efbeeaa2ee124827e44f36e",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "a0ac54b9840dfbbdd63f225e027f71e0334e1fa6645f63aa3e4026f40f444a3d",
+      "rankingHash": "f28eff278862fa8d7f09ac91122a90c923e2ef8854687fda22640458125b73fb",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-6.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "fd2608d120642ee879392fdbfe9eaad872024860769664b08c29c4ca11f03723",
+      "rankingHash": "038f1b3589032f474b09657d77bf9895fc4eecb02b5667bd7fe759a41dfd0270",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-6.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "d7e683711aa92ac10e74e52e672335a6c51aa90254ed6690a4b3145692d09236",
+      "rankingHash": "b2427bf48e5d8a70d9a01aa8bd4390ce4be54197acd575557d582b633e1f75df",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-3.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "e81c097f5b572f9b9538bea1ae7d66d72c15a10c3d6339b9ab839426576aeadd",
+      "rankingHash": "855c9199f5808f60015b1ce76365faf98c7fa58bf137765fb9109626e90db223",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-3.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "789d2abe1fb6d46a2eb7bf2994d309073c673b31bdc78f1676c3bfb96b8a3b5a",
+      "rankingHash": "11de33be507973f942a96aab7c21154c0b3870eca164923bd26220cda5038bb3",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "ef48ce884230cd2197ef197b55b6dd56116682ab8b4fd9a8c6ca4dfa7f97f3d9",
+      "rankingHash": "026224a584c425bee37767471b76e199bf466ad7c00a1300343f54b9530e38a1",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "d0eebd5faaee7472e73cc46e4aa37da5063598cffb702e6f4317987aeaaa9930",
+      "rankingHash": "464bc474de6bde0ca61b1fb2bc15b0f97742651a0ef6b98e7f26081795754f49",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "fc52b8e1b1afec5c9e965a0d5647a1f29560e4435e347ed72ae421741e981d80",
+      "rankingHash": "6afd55e884a42c0746d11165323904182082aa40113eff371201017681ec4837",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "fd3a7e09bc9299e1bda66fbf5e230369fe249129ddd06019cd4e6e2b697dadd0",
+      "rankingHash": "6e8a7291c84032af7a6723770eaed5af49c589f28194613eec2a137f8eb227ff",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-3.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "38f1200e8f606275bcb63f78e4100401df78324e96a38ed803d9e1bdf30ff12b",
+      "rankingHash": "079eefc95e809827d4062b534254924768cc90c8057bd016822307cf8fcc5274",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-3.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "0803a73549866697fc4484e24e76154c1d4dab96a75a050a9d2693b4064da7eb",
+      "rankingHash": "e515611126cdae908dcf7124ef6b28b2fc94fa4d3fc335000ebacfd164f94091",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "9971bd28b1d53204cd3bf3ca1133df9f37cfce0a2dd3706ca02ce9ee90648460",
+      "rankingHash": "1432ffa7d1ddd3136b4b11d30dfa85fcd7efd5eccc3b3f10063449a6e657252b",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "2117373b5f44b201b00dcd91c4fd23e4f5357738615edf43ca402c5c84b9c8ff",
+      "rankingHash": "e6de8fd53821c8df763af9d21b7f7ba607985439595c0bb7d577b46e260e843f",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "a6cede62ef6fb6a94cb9e9ffc2e7c5e361a99cebbd0bf301cb41eb3e99402cac",
+      "rankingHash": "538185b9c036011442313f366490c7cbdad75bbcea8826c1d0aa245764b8794b",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "bd51b92c2817d3bd6bdbfd0c8703614f61c09df1e01b7aed163243f27134fc23",
+      "rankingHash": "bc90adfa8eb1892d0d09611293acde8e01641ea6fd443dc2afbfa4f2f4b088a9",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-3.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "51b502bd8a696bc060c8c10ed867927af5e39e1f19f67a5c4cd25fa4f9bc7947",
+      "rankingHash": "ac538ca75d7be86b3762becbb02442cfea84a273d6772602516ae81b595adc65",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-3.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "4d42528e216dfb7db545cbebf6dfd34cfb5f2ef209fd297da4e1528317b25bb1",
+      "rankingHash": "e5e7bb29fd6a3ac14deccf8be360accd669e26104c4d445696a338d96ed538ec",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "5f5906a71bc227405eb3bbe6170a3d6b344038e65dfb1b2cc5e62553571d5cef",
+      "rankingHash": "186f482d140423eb74783d6f9994e859197cc5173c7c00ee5a39c9b9f5fcd542",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "4aa65a564eda866efd7b0500166a8c62b6e02609a4915bde7bb55563284b5377",
+      "rankingHash": "e9233b4fb9fb09fceb0d1f15ee346edb39ebec1221109f1d326b0008ba31381a",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "734788cd42140cb9fbbf4d48be9b28d70356ff5b1a61725ba7e9da60cb9673be",
+      "rankingHash": "ce98bb5dbc0e0604eb3881ed270f2263e1c78613a27e29b2089a840d1340b606",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "19f04c5549575c6d2d36e136fcef9c4a6facb7a3921f75a6481c7266a673d585",
+      "rankingHash": "c5af72f02921133161fbbbb624a6de9d32c7321929f56adfb79e6c3c6ed44422",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "3783b8f8fb26b7e52671c601ac464aa3111c85f8d3b77537644958313e2418f4",
+      "rankingHash": "538fe1acd32f6abe28070a94085ef30644e18ca778964cfc5adbe6bc7834ed13",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "2f1150f118570c871922188379776aab7feeb10e73d7fc9d171158c8d58fd56d",
+      "rankingHash": "1070aca254689d0d2fa827255646611526fd4ffbb03fa97597248f6032d2b23b",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "1fdf98e25b0df23955390194a8b8b5bfc4b2d1449f2f429625a2442150710439",
+      "rankingHash": "5f2f709e935cdc59ad96ae59a4208d410d6fa2623b71b72982c22962b1931f5d",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "e00dcc79bf055e6d452eb3b0247ad86bbb295996ff8741b8d8c3aba2356e7be9",
+      "rankingHash": "c1219da4a4cfbaeb49eb00ecf4afe026af48dea4fedf1152297339d3a6448e08",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "702113c045e4f5d1e3c2a4744ea6873e010e94941c654a0fb45d1f654d0d1de0",
+      "rankingHash": "6f8daaf9c510a9b3465584aec4328939956e13aab61bd9aac9e0ad8256e6c26d",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "90055e8e45d20270a1cee7d9853a255d2a96e4ffd0ac4d3fb98867a29d1d076c",
+      "rankingHash": "bd2d5b85964ac9b7d7e6184f5c3012acdf612bfc429ac708379337da0c3c50d3",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "fd245a30d9ac85e33ced9adbb7705b3dd6bf7d2f8169facbe4f28bdb4ad68879",
+      "rankingHash": "6d50e51d173f3fc50036d09b1877d3ac386b64cf7622bf2bcb413a5837285ff9",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "d0c987291a9df176474d129b8b10234813647e67dbfe47668db9ecee4952aadc",
+      "rankingHash": "49617ff12c2fff1cdc37850d7c99868212fce591e2fac49b9f04a5287ecffb7b",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "8d4dba600ddc3fd2673b4f5a7348953d16890114f8fddc89c0d329b42fcd0334",
+      "rankingHash": "dd79546c216c733ce60e5a807cd9c8849e0fecfaeb0dbde26e134f501ea6e166",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "d32c61245dbd9667e522429b7931d45868cf8a1539490e00da0ec170c8bd9b36",
+      "rankingHash": "887477a8cdd9a7b0ee37bf0e0b83c57f8ad75b8b5b064fed639dd750d8271cea",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "a5f06d1a528492de49a0d03dc24a14292647aaea0e3ac56f3e2507bb58ffa3c4",
+      "rankingHash": "34b2165ed47f31816304d757d932d366233d5f8e861a1aca1a8a7afddaefc4f7",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "5f9c74b15a3e927afc38c80bc6dca310189b36c30ab5859edb11bc6f030dc393",
+      "rankingHash": "42e400c4a6d996c9b75db4a565a2999ea3a2498d8c9fdda07568434baaa59de6",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "465e640f4f5e4072704e924a6e09edc78d7378e858e105b94fe2dae631f3be02",
+      "rankingHash": "ea0f126f9b88466e5fc27f420f803d7376bb8c41f4fe9146ff0c0ad6ef05dd51",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "38b0016acf3f078dbe2f634b5373b59f0922cebbbf9e137360abbc0a66a7f320",
+      "rankingHash": "d97530f0334ba8b6545b311b6d823688a67ed7cd572ed7365291d45a52d2c1ce",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "1fdf98e25b0df23955390194a8b8b5bfc4b2d1449f2f429625a2442150710439",
+      "rankingHash": "5f2f709e935cdc59ad96ae59a4208d410d6fa2623b71b72982c22962b1931f5d",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "e00dcc79bf055e6d452eb3b0247ad86bbb295996ff8741b8d8c3aba2356e7be9",
+      "rankingHash": "c1219da4a4cfbaeb49eb00ecf4afe026af48dea4fedf1152297339d3a6448e08",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "dfa92abd1673f161f255edd24e4799135303c64cf172497b3d2c1f5e65d0fc65",
+      "rankingHash": "ec87e15d299c8d2e08e82b43ee318090ac0780398124e4aaf0dfc9d7ce3cec25",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "97cfc055cae6d401f478a846fa52fc04face17b09e74e8e25089b05126f4336f",
+      "rankingHash": "63e7dac2602927b7b59ce12ef52b2a2bb38fc10072d551e51406329abd737bb9",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "f76b2d5ce83b04bce64df825e0494ee001cd7fd36a2a5efc56cab516f4713862",
+      "rankingHash": "a353b6194c5ca15c705ee257fb04780c71130a307558c219b30f7d8fa99d6863",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "5a1b7c8d6d7f443613b52ae25c84c56024840135515aa10569d706c18ca11133",
+      "rankingHash": "1b5d654dc39f82cd0c3ab1a57a0289879ca879fa6eec204cd6c2bd301972ea82",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "c93b5cb6602cc7e717c7b4f1d6cc9eb6dee25f33778d8565bcfdf31c55681e3d",
+      "rankingHash": "4ef80565cc196b64da5c8aec578b40dc184ef49b0d995035f8baa49cdc9ebcd9",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "4d5e7ef5ef2480081a3cc1cb9f75c21a4c3a821d29eb666d2ab4a862817962ee",
+      "rankingHash": "86e3c4ceee4c3ffa54042cea7d289d2f30d326107bcbf4b022c6796baeba0e33",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "a5d259b32f32bb057ed238f23cc176f7f5d4dd3ea1577eecb79a1ea15c96f6a1",
+      "rankingHash": "31a0ed469c0e41707c59a7fa67c9f563b9ec95781f94212be8fdbc1701ec48c0",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "92dd923afcfecc7097eadb903274a3b7c557eef09767445c2f967eba5a406983",
+      "rankingHash": "7f5954d76e569bddfb6ed8a15b954fd07751704d8343753400d94064757c61ab",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-2.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "e2df507cc15013b067c0390244a89df60defea3b78437ee5777e7113c45b70e0",
+      "rankingHash": "c710eceaa9af08d2635fe9aab42f0fb5dc6d7088c8b17b2e2b0335b9541cbefa",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-2.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "6be03fcde37b972ab18f09b13fc8f93b8a11854caf65bf1bce81300e5a1e2c0f",
+      "rankingHash": "54d4980062ec470d977065d2447b5a85d63226cea8134baf4ea935949d3358bb",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-1.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "4024c65266d7ab2f9ac9ac32af466f6ab8e5cb99daa2ab322f519b7d2ecdca7d",
+      "rankingHash": "795ba8ab7f739fb2129071c4ec6d9bc29cf361be8882d30a827f05b7913505b8",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-1.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "b20aa1e948097886e335d32e32767c3d3554b11d46047a153c6f3ad0b21a00e4",
+      "rankingHash": "bf44a83263da14673197a2939e39a27b88f9a6cff1abe0d294b3a09461fb5df8",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-7.json.gz",
+      "policy": "state-value-v1",
+      "inputHash": "424c81d82d8f61503c815e74bd4d0cb959aff66dc9b5f135201eca7a3d4870a9",
+      "rankingHash": "6976f83225124b0355c455de918c898487a4fc50ea9cda268cab07b7f7249795",
+      "exact": true
+    },
+    {
+      "capture": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-7.json.gz",
+      "policy": "phase-role-hybrid-v1",
+      "inputHash": "36460e1b8f0012e77d718663586a6e181b64acded5eff79d2d45269dc47b8a8b",
+      "rankingHash": "07b0719e5473c49a6849d0c468bfdd361816a6b1c0757cd7fb4ee06bab831e27",
+      "exact": true
+    }
+  ],
+  "ticks": {
+    "cases": 45,
+    "exactStateEquality": true,
+    "inputNeutral": true
+  },
+  "contract": "Per-pure-ranking transaction only, keyed by identical state and player identities plus exact target/intent; no cache crosses a physical tick or ranking. Forecast equations and outputs unchanged."
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "pr196-arrival-profile-v1",
+  "sourceArchive": {
+    "path": "docs/performance/pr196/source/d85affffaba06f5aaf6b15f8b7f8c71463061054d141505320b0f6b6401a56d3.json.gz",
+    "sha256": "3b273cbc14d3675c3a9406b37f995d48274dde8f5a648785ab57fd07b5c109ee",
+    "sourceHash": "d85affffaba06f5aaf6b15f8b7f8c71463061054d141505320b0f6b6401a56d3"
+  },
+  "classification": "concurrent-host microprofile, not serial full-match speed or an independent football experiment",
+  "rows": [
+    {
+      "corrected": false,
+      "calls": 600,
+      "signature": "93351a62385dfb0baed1cf1155ad453c48005e2b63b886a974d2925f116867a8",
+      "wallMs": 168.6836000000003,
+      "cpu": {
+        "user": 63000,
+        "system": 0
+      },
+      "maxRSSKiB": 225724
+    },
+    {
+      "corrected": true,
+      "calls": 600,
+      "signature": "f3d056b05e047d9dbf3acedda00d1d171c76493702ec68f68058a66309b16088",
+      "wallMs": 371.0756000000001,
+      "cpu": {
+        "user": 172000,
+        "system": 47000
+      },
+      "maxRSSKiB": 291568
+    }
+  ]
+}

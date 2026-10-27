@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+## PR196 — Canonical Outcome Semantics, Defensive Reach & Match-State Calibration
+
+Pierwsza naprawa fundamentu programu PR195 dodaje wersjonowaną diagnostykę rzeczywistych podań i strzałów oraz opcjonalną prognozę ETA opartą na istniejącej integracji ciała. Kontakt, przyjęcie, kontrola, utrzymanie po sekundzie, odrzucenie i cenzorowanie mają osobne definicje. Dawne dowody PR195 pozostają niezmienione; MEAS-012 ujawnia różnicę między wskazanym obrońcą a całą drużyną przeciwną.
+
+360 prób ruchu, 336 żądań podań, 28 pierwotnych długich podań, 15 autonomicznych przebiegów development, 118 zapisanych stanów oraz siedem pełnych par meczów tworzą [raport PR196](PR196_CANONICAL_OUTCOME_SEMANTICS_DEFENSIVE_REACH_AND_MATCH_STATE_CALIBRATION.md). Błąd ETA na odłożonych geometriach development maleje 0,306 → 0,004 s, ale pełne mecze mają regresje i poprawy zależne od polityki; łączna liczba strzałów maleje 75 → 67. Nie jest to niezależna kalibracja fizjologii ani dowód ogólnej poprawy futbolu.
+
+**Canonical NOT READY; B pozostaje domyślne; experimentalCanonicalArrival opt-in; confirmation zamknięte.** Zachowane są 40 Hz, 28 atrybutów, zapisy/replay i wszystkie zobowiązania kariery oraz świata poniżej. Żadne założenie rejestru nie jest COMPLETE. Kolejny mały zakres: atrybucja całej obrony i lineage, wykonanie długiego podania/antycypacja odbiorcy oraz jawne prognozy touch/control/retention.
+
 ## PR194 — Active Perception, Pre-Reception Intelligence & Team Tempo
 
 Rozpoczęty jawnie **MatchEngine Realism Programme** zastępuje ciągłe deklaracje,

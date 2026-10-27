@@ -1,0 +1,1655 @@
+{
+  "schema": "pr196-snapshot-integrity-v1",
+  "method": "Replay first live snapshot of all 29 runs, then compare its raw hash and schema-parsed state. Check schema/metadata and seal serialized bytes for every capture. Later raw pre-schema hashes remain provenance; they are not reconstructed by parsing a saved snapshot.",
+  "rows": [
+    {
+      "run": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2.json.gz",
+      "firstRawStateHash": "a9b1d3cc4636fdce2fa5d1b2da74c55cd334e217124bff7a0d7eb03ab8809489",
+      "firstParsedStateHash": "cc65fc32a225eb4f86b14965fd63701af96ea42e44e91c35d0c485a5b04a4315",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2-capture-0.json.gz",
+          "sha256": "0800cf39e5aca7303c8cf3ddc513b0a33439173143ebc8288e0a37f7c17112e0",
+          "parsedStateHash": "cc65fc32a225eb4f86b14965fd63701af96ea42e44e91c35d0c485a5b04a4315",
+          "rawStateHash": "a9b1d3cc4636fdce2fa5d1b2da74c55cd334e217124bff7a0d7eb03ab8809489"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2-capture-1.json.gz",
+          "sha256": "b5bc2735cc54410693dcd3a5adcc6ed3438732a495907d05513b50443f51fbd3",
+          "parsedStateHash": "533fbd15511d7b25f04587205e6075aa05edef733383e49b1756fd47c64d1bfb",
+          "rawStateHash": "b2b38b348ded84cafb168175d2961537132762ef6f694d67e1ba84906798382c"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2-capture-2.json.gz",
+          "sha256": "d7189f1ca68cdc22e4ad959fd9023b2f41e7260895fb0b73f785fd3b835e8a6e",
+          "parsedStateHash": "33072e94b430f11d449994b535d91172bb1e4850a295d98fa141f09d76f6e489",
+          "rawStateHash": "01ea4da3e350176bea3ad50eca61adc36383ddb61f381caa1f730fdd718c87da"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2-capture-3.json.gz",
+          "sha256": "83f03687a3a7298e839ed8326b4ba3a1c7f3749ed82535de3bc1d340fb325a80",
+          "parsedStateHash": "5624c27ff1687dd41d52e76920a96456d4af85245142ae4150c7c5b6b0f5152a",
+          "rawStateHash": "9512aff172ceedc5af3d69a15546f8ad6f39179a94aca63ad975304a17656cf1"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2-capture-4.json.gz",
+          "sha256": "44742fa57188979f94a7db385274de838951899b9a040b9035cb62b660a4e25d",
+          "parsedStateHash": "a3ebf4bbdafc8ab9ce128af09dc4022260eb128e0a54dc4a956badff981c9ad7",
+          "rawStateHash": "b83a7687587af4b5d0d78675a5ad2f7b0d8f571e35311ca2466cd32bb564945c"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2-capture-5.json.gz",
+          "sha256": "2a6b127e931e130f7657f149f96d65ce757594ad5da5e65bb0883604519b18c5",
+          "parsedStateHash": "96b25a8f10be4f6db1cbd7c704d229b6f9faf7b4b3056e2c9f514d52bd9f2153",
+          "rawStateHash": "ac2f2f2038773f715f9b311ec3d41223ebf45060899029b31676155e75bc4e5c"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2-capture-6.json.gz",
+          "sha256": "29ce7a903843602c694f29e734cc2a2f607917dba3207a813bdaf5cea7591580",
+          "parsedStateHash": "1288d1077dbb9b178023fb8108ab176cc93f35c37bea9a9bb6fc211345236b48",
+          "rawStateHash": "09cc0d0dc70594ee9a9ae622adc2f479a366a635abf3efce4a0d625d36db65cf"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2-capture-7.json.gz",
+          "sha256": "cb702694be5334a69f39a4b950608d9e4a099bd09e23756f6ee3ebef8c733c3a",
+          "parsedStateHash": "2d4275f06dbdf4ab1af3cc2580137df410ad7291a38fe2108b6378a16c8e6f1e",
+          "rawStateHash": "0692188778551a4628af100d253529f9b710c3d220ca0878a4b0bf1d510acfb5"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-baseline-v2-capture-8.json.gz",
+          "sha256": "da0e4c9e345d37faa6ea62fbb2b2aa211bb8c18f85e161be5c6b0fcba9054cf6",
+          "parsedStateHash": "27b197ce02fa36208f17893dc55d2ab0e43107673690f7e87cf439bc9734c36e",
+          "rawStateHash": "48814c1cecf77f7954c3566f0b1957d34ce3ba53e3c034ea5a67da8c0d2e6c69"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1.json.gz",
+      "firstRawStateHash": "314afdc372dcfb344bce6510553bcd1f0129e7b0aabbcd6514e919f1ab8e38e9",
+      "firstParsedStateHash": "a50ed620be92be67237ac422d3343d08e74461d673d68b740a9f063e1b03c026",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1-capture-0.json.gz",
+          "sha256": "55fe5e87c84683ae6f81d1ca45f684a686d8677f6369dfd7cfccd28d2b2f8ec8",
+          "parsedStateHash": "a50ed620be92be67237ac422d3343d08e74461d673d68b740a9f063e1b03c026",
+          "rawStateHash": "314afdc372dcfb344bce6510553bcd1f0129e7b0aabbcd6514e919f1ab8e38e9"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1-capture-1.json.gz",
+          "sha256": "36fd772d3c31641ce9e80ee0c25234b965f6a056b9e4de2affd14ab7efa02937",
+          "parsedStateHash": "3dcdff19d35bfa0efa8a4e2700caf7491619947b7977a5c911a5393aa92138d7",
+          "rawStateHash": "29af516155446a26ad1e45472e7c94e1b37c6979de245b224ef823ea51faba6e"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1-capture-2.json.gz",
+          "sha256": "98263a49dce2af312b84410c4d0519aab8c6afb9b9b002ddf3d336475ab60e53",
+          "parsedStateHash": "062a8a02baa2d653890672fb905d712b390b5d6c8c013ad3c5bcdd6d60eef50c",
+          "rawStateHash": "734ddf7c76c7390007782c43b81a7bce3bf2fa6915ff452211ac76b54d0e334e"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1-capture-3.json.gz",
+          "sha256": "854ac61fdcc88444fe8ada314c9dfdac4917b78314d917ae40f6e7698bb37823",
+          "parsedStateHash": "b95fbd85a5cf0f7ef1036dc8b2479d4160146e2ab46ab53a92a6c49b8ac7bfde",
+          "rawStateHash": "69c7e2cb50b6795dc60baad7df4ca7701a7a1c5e4b4969fd31e115080d6bfc96"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1-capture-4.json.gz",
+          "sha256": "be244118a1e1ff31780fb623bf8a49c8320fbe8360ccd53c9d7c76b3b33f4476",
+          "parsedStateHash": "99358260ffb5b5f31e2b5ca68d4e2908ce484af4e4f6a697e1ed3fec70bfef04",
+          "rawStateHash": "dc6c9eea5ec0e6ffe9ed05a0a8bea050b424c67008184214ee452a60ca2e7a2f"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1-capture-5.json.gz",
+          "sha256": "414ce0e3848bb460ad10f61ce4ade83806c4b8af3125a25898b8e8562b1c5d63",
+          "parsedStateHash": "c1f942ad0e0b19d4ba018b51a3839892ef2f141eb70dc71334984834184475c6",
+          "rawStateHash": "4fcef57408c7fc73c7f690bfc488a1f856727119296dbd222dc9987bfaccf5e4"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1-capture-6.json.gz",
+          "sha256": "486b1ba7e0e4e7e5996ff36c5d7845ec2a7bb6577cbbaff4da8c1f9d0e4d4aba",
+          "parsedStateHash": "4899964438cc75ec24656ef7e5488fd04d4871a9cda7a79f027c53737ce4c528",
+          "rawStateHash": "4b7bc1bed4153c198e3dff95c030e6262bc1f2abeedd9311435034e139f5540a"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1-capture-7.json.gz",
+          "sha256": "18fd20ed9935091b5b1a4bc85e56cd985f6d0990b368752c5dc9997f917f4fc1",
+          "parsedStateHash": "f87aae6da7c6ebdc853ecac58503accbd153048d56c60c480b9df9a2ed3d7024",
+          "rawStateHash": "6b0f12ea6df49abfdf333d749856e02d2d9b7741f2274310bf18dc294f95a03b"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-state-value-v1-corrected-final-v1-capture-8.json.gz",
+          "sha256": "5b817aee2255b1986818590ca0344c4066efe929b9fa28aa0c6eeda31dd6ddaa",
+          "parsedStateHash": "ecb568bd994f8e7efca4204129324facebcc99fe6dabd444b24c009245e38a01",
+          "rawStateHash": "93974608dd658faf1b42636031ba5b77f5ccf82da7cb9cc84816f4a14bc02301"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2.json.gz",
+      "firstRawStateHash": "7e9e1e44e75759dfd25cc62d60369d11c54f6a1bd1961a49333405fcc69b021f",
+      "firstParsedStateHash": "188be984ff6cf821d98854b389f6894507d872287e942bfcbf36316ddd56ed3c",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2-capture-0.json.gz",
+          "sha256": "fb4739369c583a1a138e55cb4c731b44aec530450dad1942b86728ff7684ce6a",
+          "parsedStateHash": "188be984ff6cf821d98854b389f6894507d872287e942bfcbf36316ddd56ed3c",
+          "rawStateHash": "7e9e1e44e75759dfd25cc62d60369d11c54f6a1bd1961a49333405fcc69b021f"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2-capture-1.json.gz",
+          "sha256": "81320b3bbd0e7ba755ca5553e6058e142be965cb0f5ba925372701d591c1139b",
+          "parsedStateHash": "cb7f236b59a23e982024f95697e0dd1f47225eb04dd1a763e638974a33727b05",
+          "rawStateHash": "9beaa45e7d61bff04742f00838adec50ca0a15a8cc7c891994523766593bae7f"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2-capture-2.json.gz",
+          "sha256": "89e816b5d7f7595242f4d45f842021b7e29cb1a8eadf40fc07e40d75cfc79fe6",
+          "parsedStateHash": "b93b07bf13373088135dc4a7e2dab405e63b950495ae434a82f4d9a18acc4b28",
+          "rawStateHash": "e99560cb71736f412640694c45c15f9b6c193f8e4a4712e262bd49b1cfcf4d2a"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2-capture-3.json.gz",
+          "sha256": "3d1062429604d1b0df636cac1f8302765e945a0242b55daf16b8c03a55583bec",
+          "parsedStateHash": "a67867b60fde40076fdf8ba7deefb18362112cb2bac79b7ec989093936912a3a",
+          "rawStateHash": "22dac39828885f74b8f6b16b3e41f7ecfee59623742bf5f559ef8c4978e65ca4"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2-capture-4.json.gz",
+          "sha256": "ed2420e288dc1105cf3ff80c544d2987228e69dd7759d2c1a9f0f36e391bba03",
+          "parsedStateHash": "6ccfa77219265790191cb145976dc8af0cbb7ab09bc8ef3fe87c4f51307b89be",
+          "rawStateHash": "a82ff5337c28d394d9069c4a22af5a78498733bee8ab008351dc491424a7ecbf"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2-capture-5.json.gz",
+          "sha256": "35ed5d1c1aa48dfa14c74b2671cf4e545f0b4cc91e4ed30bf05e46944802174d",
+          "parsedStateHash": "b7c542b70af4a2e918ac6ef70c43969eb4610cb44336aa8a451a94371295f5b3",
+          "rawStateHash": "3bf98fb203fb7896e73804175602fc025f8870bb9502113e6f606d188737ecfe"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2-capture-6.json.gz",
+          "sha256": "a1863284747769a67e957da9ee24936dc422c3773b5ca83610660ca2369efcc0",
+          "parsedStateHash": "611073e3bf79a4dced13782cd84f75f907e1037168bdd65cd3107447ade38832",
+          "rawStateHash": "97da23ec08a4e7e6d13467e093b4f3da72be6ab6287b285d1f60a80de57266a9"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2-capture-7.json.gz",
+          "sha256": "edcba0dbe41ffdeb636675700156f5f84c4250a9ff8f7dbe017306d71a3e0885",
+          "parsedStateHash": "2a92395a77a4762589bf6dcc7f9ed3c55ef6a03f6dac43ef8e9f306dbaa4cced",
+          "rawStateHash": "7bbe29e45f23b1775dc8241aafce20c4c92f14cc7c99bae93ddb27fb1f2ba1df"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-baseline-v2-capture-8.json.gz",
+          "sha256": "1b56a43477ca20189a36a09729ee8f5b6ba54637c994c987f1dc44cb1662294a",
+          "parsedStateHash": "ef12828113f81859310e84de3089bb840c0fbf27c395bfa828d0abf93016d84d",
+          "rawStateHash": "af0da516eb06366b1f0c3ebe36b9f39dce7833535a4e788f04b37c0fccd09a02"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1.json.gz",
+      "firstRawStateHash": "232650ac6173a204a1d108e782f9761324d377137fb6c6133624c2d28e53d517",
+      "firstParsedStateHash": "3b28b9d89c883ff375e10e73887f87fcd980b215aa267ce3866d84f660bb92fd",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1-capture-0.json.gz",
+          "sha256": "d47eed8702e6b00b5950ed27414308662423ebe72c4a60c6cd901c4ada64a27e",
+          "parsedStateHash": "3b28b9d89c883ff375e10e73887f87fcd980b215aa267ce3866d84f660bb92fd",
+          "rawStateHash": "232650ac6173a204a1d108e782f9761324d377137fb6c6133624c2d28e53d517"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1-capture-1.json.gz",
+          "sha256": "9b2b54b65ee4f77a7b94bc03ec8acc1826ada6374733411a8265c85bbf348a82",
+          "parsedStateHash": "1ed25596eb50ab46b42f23fda7ef2b747ccd1dc07a549e7f91a5daafb1d15263",
+          "rawStateHash": "6dffbac3383ab42574df0781f5ef6720392a4a33e72f52b1fada10f2587c6eb1"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1-capture-2.json.gz",
+          "sha256": "6eccea442bc28c6790ded6e66a68de3d957d599f0516a28c36a01020c7d82163",
+          "parsedStateHash": "1e856577097680afe186a3f94d87c368aa2b0e7edb13eb356dbf2140d9ac367a",
+          "rawStateHash": "c6fad5929d94be046f6fe033b24dc1b749b06ede0c5144f49a9641c751d86cf6"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1-capture-3.json.gz",
+          "sha256": "d6d39123717594b6e691857ca623c1c84d5dd049be8c6ed781e3aafa266256af",
+          "parsedStateHash": "6550dcc7cb7684c101191c937579a430eea9b2317ef13ead544fae1e0f91f613",
+          "rawStateHash": "7acd67765e1d375cfc97b785fc0df00d73938aed9a7968c79eeae1453b6ae7b4"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1-capture-4.json.gz",
+          "sha256": "5d731fd7f6fc13c8c3f9b069a05742880bc29392c72a032d0877b911eb2b8a1a",
+          "parsedStateHash": "73f399c8c89e93877bcab0f89ddcd61193a30445dd0d2b97c56618f5aab38883",
+          "rawStateHash": "e184ba731144c1f6b55cd5385f342fded2d696e38ff4b36efb3af2845fb26ef1"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1-capture-5.json.gz",
+          "sha256": "19222b78c024de95493ad1c3a274dea11dbabc19a490972e2337faf85434b94f",
+          "parsedStateHash": "3354f3b6ddc996c16389d128a14240377e702fdbb27b6db26552306cbde67770",
+          "rawStateHash": "c783c6d6aca09539edcd95c8c9549fca375632b0ad2697e9dcd6653c0f5b9683"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1-capture-6.json.gz",
+          "sha256": "9d2197df901e88bb3950ff095eea5ea2eefa7939ac0c6f4954296f9588e0e58f",
+          "parsedStateHash": "a53cd386d6ce042af6ebbc437f2407025f7b4ee07a7a0afa79aeaeee82dfb1d4",
+          "rawStateHash": "f08c5a3966eb5781b08fa0b0c20337ce4cab4da275061cdf1c567b58211c40be"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1-capture-7.json.gz",
+          "sha256": "74c73dae1de4ee894b57304163319270d6261a577aad40bea3d40fe0615c10b4",
+          "parsedStateHash": "d56ab0e763c59972912196eb2324edf08669705de9dc08641227f80492a0954f",
+          "rawStateHash": "072538b42b2bf0c2b13bd056ddfe979aa02f4b3b671ce805a177ed782c8ab688"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-opportunity-driven-v1-corrected-final-v1-capture-8.json.gz",
+          "sha256": "76dcf722923f09532bd9a1ef85a0da817695899a2e64d9a11eef0b32b6c42df4",
+          "parsedStateHash": "1bc7c5a7bdc9cee298948c51a68225732a36827562428823abfb7d427ea42948",
+          "rawStateHash": "02b1c3a9458e60f1c42512a9e13d0b294bb2737e53217127d8b8116cab6b78c2"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "b8f13f3c826ea2f0f75425dbca3a75370b1cb0a52ab0bbd9b7eeca14bfd48392",
+      "firstParsedStateHash": "5a73c153fa5c01bcf382765300a0e8f991a503d0f67b3211263aef8f432b5d6e",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "885ca7a43a9478c65e734603ad878c3b415ed147fbd30101c34f8e7270b5d6ca",
+          "parsedStateHash": "5a73c153fa5c01bcf382765300a0e8f991a503d0f67b3211263aef8f432b5d6e",
+          "rawStateHash": "b8f13f3c826ea2f0f75425dbca3a75370b1cb0a52ab0bbd9b7eeca14bfd48392"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "82128c4bc6088cb2504adb023fff1258ad9fa9d4adb94137dfb14aeeebbf28b8",
+          "parsedStateHash": "a0b52af9b7028cb5418cf9dc0d9d09773f83eca8cef2c65da43f4e000a9cdfcb",
+          "rawStateHash": "2ebe45a55d2208608eb7fb5df8d12ed3262eab76c5cc2a0643d594754e321848"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "22b083cfa89e92f7b63e65f600254373c849b517512bb5530fff550907d5631d",
+          "parsedStateHash": "22691dfa938874d14c2a0c31cb35d083dace53e4c73207283d95664696dc7986",
+          "rawStateHash": "4f1428932dd612189f21962a67cfbf71f8dc7e7ce3d28573096eee0a89d33d6e"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "bfab55225368bc01f8fe74940f061bd511837fbdaa6ef96c3950610f3cee488c",
+          "parsedStateHash": "429936ff67932553d36a847258ae45effe66b489f6915a100d7478f22c083e13",
+          "rawStateHash": "ee8be47663e4ecef93e815a48fc7e4093c7003aa55633d910b3593418ce895dc"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "f0ed3a4d78ef95bb186458b26190d69ee40eef85bfccec8cb0df5e8369d9fcbb",
+          "parsedStateHash": "1289c684ecf77a86465a2b2d340f5461ddad46890482aed7677a419e5da239b3",
+          "rawStateHash": "0eae42efad32d13f895f6b9eab0933e5f4c48c3bf88cb3a52785e5ba2a565370"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "71dfd9b357bd16504ed07f54e56e98b8e0f9ac0744395907b8f4e2ceb40573ac",
+          "parsedStateHash": "ca410b3d0e9130f3cd35907bdbdfabcbbadb97d58368ff12944e6384c4cd7970",
+          "rawStateHash": "179414820a0eec6dd2a3f5299801ed3252c8af857c3f5a847a30706d4cbc09f6"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "6add914a0b546a146376cd306aa954de66489128a271054f8560d2e9e12e08a4",
+          "parsedStateHash": "c921db12b67896ffd09a00ec7d43d73a8f74b64dc5a3f65b135473dcccc40e1e",
+          "rawStateHash": "15cac574cb24ab41b441ac784f07ff12a4ee15dfc2fe2b05d9ea5a0ce6d72169"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "47c766d8620de59d4523f37c044605e1c31d84e50af3a2c80a4cfdbc3a160aad",
+          "parsedStateHash": "a05998850bed30414ee1ed92531eda36e9250107e4fb4c5651402210f7cd53f3",
+          "rawStateHash": "bc09e3bc01769483d111376f4df455a7f0bbc35b27b45e819acfd2b8bae48cbe"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-baseline-v1-capture-8.json.gz",
+          "sha256": "f8d6694359ac4382a4acf75e263ae3c8ca7b888720df1d41f008715dacd8c1ca",
+          "parsedStateHash": "e8cfac60ea1607b6e2e174b3313b3585911c85bfcab3d13e8b3c8bccde9caa4d",
+          "rawStateHash": "5400e562d6ab99c4c7973459433f9a8cfec41ebeee7399a5337dc9fb8f093ae1"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1.json.gz",
+      "firstRawStateHash": "86ad68e103e55e450bf9dd9eab4199cf72d7a250c2dfffcb73b4d5a9ce02e4ee",
+      "firstParsedStateHash": "5beb7ca1b7dab8dafc531c75f53d8a70fca7e4c99d59b27562b079cb13f255e8",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1-capture-0.json.gz",
+          "sha256": "e245457e2a155cae9e4d08f1620e8cdb7818fb15218fabb028b483bb8702b7ca",
+          "parsedStateHash": "5beb7ca1b7dab8dafc531c75f53d8a70fca7e4c99d59b27562b079cb13f255e8",
+          "rawStateHash": "86ad68e103e55e450bf9dd9eab4199cf72d7a250c2dfffcb73b4d5a9ce02e4ee"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1-capture-1.json.gz",
+          "sha256": "8e25679fe3ef1178c2344b7cb72ed41552e18aadfedb74835c564b9ead5a6e69",
+          "parsedStateHash": "1b5b8aea61f39bec781ad2c7e9e8db20342dfd04f74db1d1c1fb7cc3edbaf177",
+          "rawStateHash": "ae16857f8b0275357c3d646a2a900069177baa9a2c1e0d5708552ad4c2a737d8"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1-capture-2.json.gz",
+          "sha256": "c76ded8924550856c087ab3429d386b3a8581426686e0f4db2be959651f5809c",
+          "parsedStateHash": "2a334579491b35e084d50b3362766970b1f18bb0991e620715360924c0aad01a",
+          "rawStateHash": "ae3069afc65ab194c5ce98211cdb0eae8f6387205f37728e7f3e6e7afb6b73f7"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1-capture-3.json.gz",
+          "sha256": "2206dbdb75ccd6843a559ca814388657c73fea5400d19ae8fda2b4b996e29eb3",
+          "parsedStateHash": "90846cd554f2523edf687f58d61b026a3e6813c5d0e6ee39e21555a2e1960282",
+          "rawStateHash": "efde564474b1ff6b0f5dfa1b67f9672312a89e50119f1c7083cc2cf74a706ba4"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1-capture-4.json.gz",
+          "sha256": "464bec778286029504fd5fb04d908f634b34b6b3b7736c91cc6498fcb3fcdc2e",
+          "parsedStateHash": "93a94d258417f8b6b291bf984fb7832b2505672ebd561020df4f559e10f812f3",
+          "rawStateHash": "e3e1aeb5f6d1cb63bfb7976cf771d4ad6b8cdbabd10279308eccffa7cee301a1"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1-capture-5.json.gz",
+          "sha256": "d7643e681cd2064aa50a2dcddf9922829ab9ba1d836ab36633e94fe25cd70f04",
+          "parsedStateHash": "0722851cb4bc6c29b11772233100ffb0842efafab18b1174a3ae24134fdccbcf",
+          "rawStateHash": "bf19d30ded33f92c9880761fcacd3a1fb73f3d51f7d63f7f84ccc15fc5a2984d"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1-capture-6.json.gz",
+          "sha256": "ac220839b690ca12d5095c0cc3b20e703376cdad058e1640c083fa7a34d97a82",
+          "parsedStateHash": "f270420fcf3b82a1234e57400199b6d68275c368494799b74c4fb5989948de24",
+          "rawStateHash": "89edaa61f8e95357c460c848c75fa9e4b435b64cb3a04951a7e3d7560f1ee7bc"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1-capture-7.json.gz",
+          "sha256": "2b60270b99b17156483a4a10706a86530cf9bfa31b580b78b6ae0e631f061d0a",
+          "parsedStateHash": "4bbc01ba49f39ede8428e9387754e0198bf9cccb13b4e29fba1ba4432376e693",
+          "rawStateHash": "4467014363dbd9d863f6bf6d589b2ae12193196942de0ce5b8db7f7485bb3c79"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ww-hierarchical-intent-v1-corrected-final-v1-capture-8.json.gz",
+          "sha256": "41f50f878bc885d9e34c79e5fbc7f71585f1fcf02a2d9de705285e9d887675e3",
+          "parsedStateHash": "aad8eee3eba879b21b0a35f1e909f451726704dd08ff81b0a08eb9705ca382fe",
+          "rawStateHash": "8e970b9e403124d7d5e378f7a3cc254be2d3cd022308d0b598fb736d0f061073"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/ss-state-value-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "0f260305ba5e75bb589806332a8468a9a8d41a103b303e5cae5ba85ebf713baa",
+      "firstParsedStateHash": "ad4790722331879fda061eca3f19b8a0578fea921c01444c99c6376acbe295f7",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "30f5f862fdf60912ff68ca4e67ab4802becbdda614421d7b7535f348ef59d0f2",
+          "parsedStateHash": "ad4790722331879fda061eca3f19b8a0578fea921c01444c99c6376acbe295f7",
+          "rawStateHash": "0f260305ba5e75bb589806332a8468a9a8d41a103b303e5cae5ba85ebf713baa"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "841f50b3c621f2716b85576c9fb6d40f3a6949a6632d20dda4ad089b2042dc9a",
+          "parsedStateHash": "0c129e8499a41f00823e6e9ced5b4f5c7e10c233b20403af4542411ab7f8e297",
+          "rawStateHash": "afef33edf72311736f6ec5876784015d548bb6f43125fce00b69fcea889645f8"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "1c6ecf915403e65d31ed24902406f3740c3772da055d26773eee5d6e9279c86b",
+          "parsedStateHash": "3b1dd9d5c9d3cf513883d0fd794801aec17ec84e45303ff75b78ec54757056f5",
+          "rawStateHash": "76570a17d2d256bdb3757946e4ab2512137a6c022a25de9fa8bcf81c96cef8b0"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "0dc9437492ffac7b399bafb3d065147a8c2ce1e53f0049c600edb15eca28bce2",
+          "parsedStateHash": "215dbe515b739a1674060671202adfa3bb13e85a59e3e79fb32db68ee9c4c5ef",
+          "rawStateHash": "6485a0651a96ff1ee6c0427c2df7d32b6e9539c56ef8d372e92270d23a537ac9"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "5c94d1ff5a40aac2299c931dde9185618ddee905f975db8b1fbf6a6191aa6d39",
+          "parsedStateHash": "34a6d462efa63cf024a21301e9b24b4642e809ecbe55d9d175dfc790ebb96067",
+          "rawStateHash": "3709fcd9bf647381f74283430ae312197bb8cbcc0d5d397464934e910665d3b2"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "d500a05806a522f2dee3ff899d0b5c7fad71b69e30277dc8764c822fff00b22a",
+          "parsedStateHash": "3efc037e37555516b161a78e64e7f0cb216cc56bd6dbac936d132dbd8cbde9a7",
+          "rawStateHash": "903731519417fb2631859be24f3ab073c09daa40d3c6a7008256e4dd13f40a8f"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "752b28289c3c5eb0c1aa0fce9250f2a07d5195ad79b896cd5f3693126298fb31",
+          "parsedStateHash": "878e4cadcea4195d5074bd9fe7d0ffaa4bc5d5197d747be0ff5c8faacc3e77e1",
+          "rawStateHash": "c7fff690b540f9d47af9e4735fe2c96b0565b6c2dabf82fd2d8b3a080cf6ca8c"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "bb1260356770ce32b077a3e006a02ac62bb2cb1d52bcd9420d760ef1cb7beb1e",
+          "parsedStateHash": "ba0fe8a30d0b8ad5d63eb9a434bcb20d3d14a0fcd44334d4159aa127d0507637",
+          "rawStateHash": "ccfc9023037f82ab1191cf9dbf07be0555bb4db2b4e5c2504a28fd4573b4d4c0"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/ss-state-value-v1-corrected-final-v1.json.gz",
+      "firstRawStateHash": "83d317b74b679f6ebe6aa0328ab662184a4e7d6eb5166601bd616461d5450d29",
+      "firstParsedStateHash": "445151982c832970a6854c2b1fd177ad3f4976f120e7130496e3ce1cbca83f4c",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-corrected-final-v1-capture-0.json.gz",
+          "sha256": "6b7a1628465f045f71df536785da90b512c2715f4c6a577c58a98d7fe844cec8",
+          "parsedStateHash": "445151982c832970a6854c2b1fd177ad3f4976f120e7130496e3ce1cbca83f4c",
+          "rawStateHash": "83d317b74b679f6ebe6aa0328ab662184a4e7d6eb5166601bd616461d5450d29"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-corrected-final-v1-capture-1.json.gz",
+          "sha256": "0644e4980cc70c504d81bed4e0239bb582c6c1c9ff5e5fcbf565bbdce7f4a76b",
+          "parsedStateHash": "de570e7faf5ae3a463af0339df82f2825f5f17ecad11bb7b4a3d66d354faf9c7",
+          "rawStateHash": "3487d98a016ee2bdeba8b17839ca6aba6a160fcc43db50ea77d908ffb5b89671"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-corrected-final-v1-capture-2.json.gz",
+          "sha256": "170a4246c7936795fad284c158b4ae0d74713d454b547853d3607eaf99bf8365",
+          "parsedStateHash": "b48951be3b0afee30b13de0d63594de4ff61aa37e729c649dad91beaf062f818",
+          "rawStateHash": "f86208fa26d7c8f62a472d4515426c0ae7188885941fc9eea13c1b5f3c0fbd5b"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-corrected-final-v1-capture-3.json.gz",
+          "sha256": "bf2ae83274ff961e5a4c6af9d8ed6ff242cae35c2b6c6ef669f7e2b7db13dd80",
+          "parsedStateHash": "d3ebcf3f4ff6a5f2a3145b89d80648e2d131d570f3d2ced18894c41f2a408744",
+          "rawStateHash": "71795fc2c176fec036e7b4dcf4e3bee9778640f6c965370bb19b544230738c62"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-corrected-final-v1-capture-4.json.gz",
+          "sha256": "1c0ddebf856325ebf687955a2d4093a068f267ec553be61d28a7b3194c51357f",
+          "parsedStateHash": "1cae3facde8f419e7c1acf19c48f4c0fb950a37a3a4531cf8643e319b9e199fd",
+          "rawStateHash": "4980359c6f7846932bab29f866ed29c4c994ed5feee659200c70ce077b9369a8"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-corrected-final-v1-capture-5.json.gz",
+          "sha256": "3b0c62330897acc46dc6e95e8b2ce0d5a22d91489ff70db48e59132d5b7cff5f",
+          "parsedStateHash": "58672ab79b37381852e77ff2e47b23e4ae5a9605504fe1867c68b0caca4a74e2",
+          "rawStateHash": "49fcaa099b2c58c7c0859fb762e8b0e81ef564391add9de9d8dbf4906c18759b"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-corrected-final-v1-capture-6.json.gz",
+          "sha256": "0080a23e7488f8ba3f02962a2e0468512e2cec572f1e616896c4d70632efe0f3",
+          "parsedStateHash": "5369894c7884dcaa486a9483c3012f0c2fd18adb6f0350539e16876003b26599",
+          "rawStateHash": "8d9b0e937dd385a59ede69668e7913498dc81933a18eff27e18f73822aca7426"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-state-value-v1-corrected-final-v1-capture-7.json.gz",
+          "sha256": "3b780c3f5728df6b97087c47d82e1032f03df938e7d8a6b8af6999690b9042fd",
+          "parsedStateHash": "af11d013d20eb84b947da53fa5802ae67a4913542bb19828dd5f59fcf9f3dfff",
+          "rawStateHash": "06b9618487c402fce9431cb40d6bb87ec6195410220c48d280b46eea6cac1ae9"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "1582f60c2a95a315a103b35f17efc3a36e3bacaba5e8d50a01828a94d927646b",
+      "firstParsedStateHash": "6d6a4b738c06f46ced50352705f833db7629984df206110d2fa8752d57540cd1",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "cf0add8d7a4e0cbb2a6871441d7d239460efe9db257f7e36bed63c129c10d415",
+          "parsedStateHash": "6d6a4b738c06f46ced50352705f833db7629984df206110d2fa8752d57540cd1",
+          "rawStateHash": "1582f60c2a95a315a103b35f17efc3a36e3bacaba5e8d50a01828a94d927646b"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "aefa3ef18f1ddb1aeb2db82d2cde99e9e556b99516792107d1051cedbe01a5eb",
+          "parsedStateHash": "69a26ade1674856f19580369d9c811f9655e5c706d93ed4ef4b7f80a3cb6c327",
+          "rawStateHash": "c7ae38bff2f08f9d592c462502fb952af06e171dcb6fe1e865b377b8de157f2d"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "5a7c40c3050845054c026669437e2a78704603a37fdf1bce7aa8f96a97d10d7c",
+          "parsedStateHash": "b672581ec9f76e7b10838ba2c7ca604d55bcaeeada31aaed7cb8bd8e7841281a",
+          "rawStateHash": "e2a8e4cca3f911d698a7cfc445f23c35e26e7ecbae4cf224a332c6c22af70308"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "6e5ef54ff54c7c08291b5e1ccca85793c7a8f03f5aada06a292d00286b4e2d31",
+          "parsedStateHash": "07c7dbe4ab1b468cf9bf52b534c0e2ae98557d2701fd12815da41803cb3ae6a8",
+          "rawStateHash": "e9d52102ae9baffd9bd7aa04a9c151a79b72bdbc4e8d8ff90735fbbc9e65847c"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "1f65113814b0165c7af766bfcfdb9ad5297efec0a5eec3b471a4bfbc6fdda74d",
+          "parsedStateHash": "5698f9911e560dcaf4069c053271b204bf957aa73d8e85e87e027554ff994c2b",
+          "rawStateHash": "07d2ae4ae3cf08372f8b3449b5e0cdc78e59425f38b24f37f01638f8ee5d2f7f"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "2f11aa4c3c40f96f1ffd7cace6de77ab75619582639c47bf4319e5aa015988c6",
+          "parsedStateHash": "7be1e8e7448259c3e1e4d1da328069b14df76f903af4a19858a04005b8d79707",
+          "rawStateHash": "6df002a2221a12000e3a468a7948153f7fc338c55f4fa961e5875be4972e10e0"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "e7a87445ed995499e77fd88f3419b0d1f9b546ca3cc5669bd02aab67e2631e8c",
+          "parsedStateHash": "b73f811960c1e48af2989fd31809e5ed2fd5f48504644b03f530598c56c68964",
+          "rawStateHash": "3c31c478548d93e90ee32c4b1654db294f21b9a97afffc07adf0c562a0388bed"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "b79c5ac9e4f099c57c75bb81036863d82b4cc754f5f1f0b8b287e92943052394",
+          "parsedStateHash": "691b09cb34d172855fd606bc32ade2a85c192ae67f31a123ed551f2c9982c7ee",
+          "rawStateHash": "3ac9209dda86d26d743612c3b343af5005546194c2e2f4eb472b32d785c60012"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-baseline-v1-capture-8.json.gz",
+          "sha256": "e46eac2bb713da881cb67d0a36ef6bf6abc9a0322699fc275c9268f9d4bae09b",
+          "parsedStateHash": "42c4c2d19a6898698d10e942389a9729a1becc1a5b01c752ee04febdf60b398a",
+          "rawStateHash": "c435758a84000ade2009bc4ee506988596dc1507fa71d9d34d0c040c56d530db"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1.json.gz",
+      "firstRawStateHash": "b1522ec5122fa43182036e6471357c6f39886d1e9aa297a88d511d4de02f387a",
+      "firstParsedStateHash": "c9977439edaacc623fe076acfb73d6e5f9418f4ddc517f7443f67b3ee4b93df8",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1-capture-0.json.gz",
+          "sha256": "ff4c91cddfc5c86f1927b8f2674aefcbd66c822eabc868475e71c73ad410c261",
+          "parsedStateHash": "c9977439edaacc623fe076acfb73d6e5f9418f4ddc517f7443f67b3ee4b93df8",
+          "rawStateHash": "b1522ec5122fa43182036e6471357c6f39886d1e9aa297a88d511d4de02f387a"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1-capture-1.json.gz",
+          "sha256": "707f915754997764f354bc9454cf85e4290b604c09a21364dd8d1064aa0129cf",
+          "parsedStateHash": "b5d2ca736dcf0405a40c15a60e50471a1a6a5b86591fa264ce6bd540e5e66fcf",
+          "rawStateHash": "79e1ac7f0e6bffc765d689597364c0db791f08eb03a79c32234aaec19ed05896"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1-capture-2.json.gz",
+          "sha256": "6cbddd47048c380562d1c10ca1b8484a9d95478de9323fedc05d5c2c28b73515",
+          "parsedStateHash": "9c494cbfe64ac31da9132a31a9152226626729647f1a2d6dcd45c7fe8ea4510e",
+          "rawStateHash": "43985909c4bbcee114404934a638e1e8b9426f5f2f615648195637e51357fd18"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1-capture-3.json.gz",
+          "sha256": "30e9d07ac5fa074bf397e85d2e6700f2a207a6fff38047deefe6ddb4560dcc0e",
+          "parsedStateHash": "1ba814e143093bb05e177e720fb2a2087eef783a9be0c9251391971d901d318e",
+          "rawStateHash": "f5e90d4b164df845ef5a82a39f80d5127f237250b02cb7ee6b26638e5194b09e"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1-capture-4.json.gz",
+          "sha256": "ab92a819c51f807af5dba708c4e44850362c88e3d2d04911387c6cd144d9264b",
+          "parsedStateHash": "233fd666e389eaa2886dce35f7f8cfce794568ced8284366e54374c323e874aa",
+          "rawStateHash": "900da9f40f1b3b9bf965e88e3f35a6b6a958657e8e83ac52b4a8477c45ecbb88"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1-capture-5.json.gz",
+          "sha256": "8236172f777e617df3bd347551dd180e0f4e029213e2e5ecc8b140c84427b7e2",
+          "parsedStateHash": "dc0900e82a0a89cc10b847cdef9b025a5252a0c71ff107d0080325c5bc057be8",
+          "rawStateHash": "bbf341b98a62ec25b29e7a733c7ac4061e067a081d1ea12e724aabdbad521e24"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1-capture-6.json.gz",
+          "sha256": "a50b7cadd54df68dff31de86409e071f2cff92b2755340ec526871bf70b4fc8f",
+          "parsedStateHash": "d7eb32db39aacfcb784c370e7b9c99f572f307d2fd5599f0dbbe3d16cbf6c49c",
+          "rawStateHash": "e324c13a57ee72051c901cbba8a45e30f47e946b51358e879300bc13f1754141"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1-capture-7.json.gz",
+          "sha256": "11431a1ffaedb359fa464e8f46fd9f01163154fe3864c2fa38414eecd63825d8",
+          "parsedStateHash": "1faae03e5db2262570f562aeff47dad66c08cdfd0eade7075d1eef6355e51aee",
+          "rawStateHash": "6d6db15e6fa99ebdc9ed9cbeab0f3feec296749e262bec6354e3ca4fe72922fd"
+        },
+        {
+          "path": "docs/performance/pr196/matches/ss-opportunity-driven-v1-corrected-final-v1-capture-8.json.gz",
+          "sha256": "131ca9b557108d780cbe425bb85b03ad56e4a856647a7c91407638f983953d65",
+          "parsedStateHash": "35ce966d0949e5b63893edb7783d88c38ba24aedb34e03eb152ad3809a8fbe52",
+          "rawStateHash": "d9e9563a1955d0d659d2a01bf5a1c7efb962bbd5914aeb4bc60a22f740578c7f"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "17c1794e939fcb8263448d85821c38a916c6576f7cef79366d9d11a849f6737e",
+      "firstParsedStateHash": "ffdb2f6dad15b6e4c32c50af9a6b7d4a2953eb32a2b31cd66ccf5b6fee22f944",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "1e7ee82130c93cdec5a6361a972ece601dd30255c72ee0b101f83f9aeee8d730",
+          "parsedStateHash": "ffdb2f6dad15b6e4c32c50af9a6b7d4a2953eb32a2b31cd66ccf5b6fee22f944",
+          "rawStateHash": "17c1794e939fcb8263448d85821c38a916c6576f7cef79366d9d11a849f6737e"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "6d8613a7334d45e8ccfe3beec96f8d4e33f7d3f16d0f4cdec112f6d13b9fc8d5",
+          "parsedStateHash": "be55efc3b7ed98c32f167c40a0146f098867086f77ab107eae66bd63cc5b2f3a",
+          "rawStateHash": "ab65b918b7c7a05fa9b2519757bbe823ecbafef852832b5d0483099ab86ca757"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "85b11df2be7d883b96d0e981dc9f77a89e97f682ddb6a6517a43790e1333e5dc",
+          "parsedStateHash": "96c8fbae56f0ca6d0d1ae52a01bc365e303953451c01e7795dadf17a5b563fbd",
+          "rawStateHash": "413d13a1f37da3f96ff93f9cf6a9d033393a9c7721a7e94d977a2e4d022451ad"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "4724d1ba2a67fcd8b4c11668fcbd7a8ff702f4f2c1606ef557e999d2d6f8a2f0",
+          "parsedStateHash": "5b00f6798bd4ed71171e4b79122bcc4898847b10257ca4059d4265b288cec056",
+          "rawStateHash": "68895dc40588ba0ab035aeaf396fd0d5cb07d3318eb55021b64b55e401504c98"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "d7cb5504712a0074c2249af3461052ba8befb0101d6189e37b1ca7f2ee5d202e",
+          "parsedStateHash": "beb03763eae851832692334932ff019c30af7e52873de11d79bd96f43de21ca5",
+          "rawStateHash": "6d53937ca40b36de322a8fb9203a797ed892fec974751b361cbb2288fc2f772b"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "6e6568c56c9c50830e749306591e4639cda7b23a5fa807f72436d4b51052999f",
+          "parsedStateHash": "9c9449dc736ecfbd565285c38c7f876a6288e787acb59158be535d4bbd6f2dc1",
+          "rawStateHash": "7b45c06374cdc78b78085e11f1e2f770c3e09554659decb15ced0fd96a2f2e9c"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "7748593333679d449d9af7e278334ca4da08af3b60c3e343d92c575724a61677",
+          "parsedStateHash": "335503fccb5d65b50bd9f4f6239014eeaadd475dafb9766a2b5711acb32b1008",
+          "rawStateHash": "3f9573c250257c0d70ce534cfd7101af2acde472939c8a65141b6aecd6f152bf"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "1cdbc4326c956009e6b54eb8c369a13160d4cb35d81ad64f9349405fab485765",
+          "parsedStateHash": "b4ec2e4d01b875439a1349a0e5b43686e502cf46a5223581076a4015ddacfdd1",
+          "rawStateHash": "cc9c96f52df4af6a666092147713c7fe4a1233c83b394a947963bbbd33a0c0c1"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-baseline-v1-capture-8.json.gz",
+          "sha256": "881cd49a7e1e7e25d04a802830ec3e2c8d2b22e90ea64229df860e5baea0d4b2",
+          "parsedStateHash": "296a74f9f434eb71c243286beacb682385fdadfaf23eeb19ff29fa02f5f7bb3e",
+          "rawStateHash": "5215eb735b74cf8204c30d3b408d5e55c1f7ededb952cc3847c869461385190a"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1.json.gz",
+      "firstRawStateHash": "5c3a26df597e2211b0a3441cba9e70034e33230c9496e62a27a89c2e572cb646",
+      "firstParsedStateHash": "73ed41a103d209c2f53a675c17f4c73a9feb02c6abb78cc3cf7b4c895faaea48",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1-capture-0.json.gz",
+          "sha256": "866cea57099ce9e792145e38a095bdf9f1e79758e8cc71307ed7381d6a40e98c",
+          "parsedStateHash": "73ed41a103d209c2f53a675c17f4c73a9feb02c6abb78cc3cf7b4c895faaea48",
+          "rawStateHash": "5c3a26df597e2211b0a3441cba9e70034e33230c9496e62a27a89c2e572cb646"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1-capture-1.json.gz",
+          "sha256": "348fe90853cba5e63f975d0a6d3f901d0b01db68853f44ea9fbc49e858ac3f37",
+          "parsedStateHash": "8785ce6530f634ca60394bc810506f9ef1cb420a06cc7c5f2f052a1bd251abca",
+          "rawStateHash": "c5213467103bd50331001eba2089db794f7b74df17fa418d3197da27e9eaee81"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1-capture-2.json.gz",
+          "sha256": "80681baa9939c09a112b2b4da0aa66156589117608cd8eecd3f52fb6e938571d",
+          "parsedStateHash": "c7c0f6b51e91cfb6403fc9fd1bd8160d2a797529a66f43b72a3e96f13904b9c5",
+          "rawStateHash": "3611acf575e0a8a77d8c2abef5dc9390cc10cd65b8872902cbd48996391f3802"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1-capture-3.json.gz",
+          "sha256": "df4736e12cc9dd67e13ce3daa24316778e1d86caeff80efc29bba9918ea72a55",
+          "parsedStateHash": "26da2423ea60497b7c0379428cfa6b658617252720ee3f11517ec88ff737d37d",
+          "rawStateHash": "366f27a5cd7c376160e6edb409aad08784140fb0e6b889b9ebbe109399fa95b9"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1-capture-4.json.gz",
+          "sha256": "d5e1b97906eb18fe21a187e41fefd6003e88e51368ab13cd7789d90d340cc264",
+          "parsedStateHash": "efb750d38952b96ee6c386f39cc801082d4eb1ea363865db7b734ee8bc622efd",
+          "rawStateHash": "c810238a9a33d2c7861edf7ca315d60673e1a74c6d7f28b832aea744ff44eac8"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1-capture-5.json.gz",
+          "sha256": "dc6b7b752fde45d435ba39fcfff6ff82cf4d99ddd6e9cd92ab1d09bd0da8c9b7",
+          "parsedStateHash": "927e7b6c0e71da28be57265590b423d5cfdaf8e5305ebd91e20e86425c2eed05",
+          "rawStateHash": "ff27cd0733c2fe9fac93f9de08f083ae7cf00f852cddaf1bf8764ffdeda50cb9"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1-capture-6.json.gz",
+          "sha256": "3d751dafbd1cd10580e8b3ad76631ad821159de8806db8efb1fa7a77e2234c6a",
+          "parsedStateHash": "cbdeb89fa7bf65bfdf1ebe87a37fa46ad8893009e667d883808aa5b8bcf6fa93",
+          "rawStateHash": "bae0a7155ccc17bde754061f2fa61d40fc81ef74920763528ee5a0afbbd33e74"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1-capture-7.json.gz",
+          "sha256": "1f7a142b755aa7d5ef6525a1c67d69ac26d29633d313a87277795fcdfbfc005f",
+          "parsedStateHash": "e9ec5339d7ec8b68afba14e699513f1244bc7ed321e7a2aa5dd9f70e69450fed",
+          "rawStateHash": "746b3824924f00a481a2ff5060cfbdd9003c1b0b4de5e49a8f3a3caec6c1d465"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-state-value-v1-corrected-final-v1-capture-8.json.gz",
+          "sha256": "daed6455af2df4337789cd77f1cd27fbf59f9fd5cb5068d8b6da6a15847d1239",
+          "parsedStateHash": "a39bb2b7e0f84983bcc558152a93918315a1875d11cc1e38cdaa7a0d8e698de7",
+          "rawStateHash": "3e6257db6b8e8c52198b4e085fb3527752645b545a39d5e3142059239f5f3486"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "6910d23cb293b3f72d5bcc9c2c44bbaf2b8f48ea3e30fb0e0905875984c189d0",
+      "firstParsedStateHash": "76d0fa5672c502afa41c0ee9050abb611247a6a6cf419d6077a2b5525248e1f7",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "85f607368f77b3867b39f2c381c8be5531272555bade84ca197891ead259450c",
+          "parsedStateHash": "76d0fa5672c502afa41c0ee9050abb611247a6a6cf419d6077a2b5525248e1f7",
+          "rawStateHash": "6910d23cb293b3f72d5bcc9c2c44bbaf2b8f48ea3e30fb0e0905875984c189d0"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "f3da8a203d400771fe535bcac9c48d4eef9afb60e878cf13862e62ef8e098bf8",
+          "parsedStateHash": "037fd7159c4293772db47c7c517e6796dcef5ccfff7be54ad38e571ae3500f88",
+          "rawStateHash": "36eae209f76d7b9a35db716368cbca24166066656381dc39345f4a4add5e1e23"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "cfdcd9e0f710d3e12512e53781b6436c275730521583308dd85af4e199f77d3c",
+          "parsedStateHash": "6cf85c9e460627067c2c143b5a55b790e18843d0b9378b5118c3dada871b002a",
+          "rawStateHash": "8b5b8008ae3342e42ad15508b019fb2d547f2a3cae48346de69bfeb8c4159bb5"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "b033befa63644aad551a90bc9cdc1285ce3b0b94e95226577b37255c761965fc",
+          "parsedStateHash": "c4741522bb3a574327795e283bdb3d263ef97bf835b96b97f815e67ad7549eb1",
+          "rawStateHash": "6517668bc7b8d81f18425accd305bcef81be7e985e019639412a6549ed1d502d"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "b4278e8d7bfd9f17d71fcf64d86369a1ec2adb9b40ccc408aba3ff8698ad0569",
+          "parsedStateHash": "f96aaec54fe6e61453b633f2b36c150a10d1de921a2ecad0b32780273f7b3194",
+          "rawStateHash": "1d62cded4c3dda659f7727c91c521a21505fd9399af520436794d9c26bdf5407"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "eadca1d95f6f0dec40f392b3b892a46e8065b7532b7ae295c25f383ca3063336",
+          "parsedStateHash": "2ab0ed344e6e7ff9f23bb66777fb20a27997e3327b3325b780f5b83f6e157c3d",
+          "rawStateHash": "2c7db0d645beb9e0a5ad9b695014fd008d7907562d5923b01f15dcab36c3aabd"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "b66fc61e267996327a9cc188878acc70c4c07f80466d6d8b3f7e0b870bbaa2f7",
+          "parsedStateHash": "8c6c32cd5f1297ac616337b95081cbd270bf27b5931c8e3d7b4dffdf4fed898e",
+          "rawStateHash": "14b8199c82b22f6085fe4bf7fdcd2b6fb28d2bbf8be9bc369198da87dab9ffb3"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "a615f5b1d7ff5f37739be96820abf5f91e048296c2f8c8343f44a308440f43d8",
+          "parsedStateHash": "fca5a4cb9264abe49d2241fd65432f9e97a101aaad61d0f4ed9421e57273cb2c",
+          "rawStateHash": "3a7a952e88591e862cfc9255e758746e7bbf6584dae2243243871453708f83dc"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1.json.gz",
+      "firstRawStateHash": "2761b5626540bbec318179d5cfe7f0ef5096270a07866c32348ed27f20117ca5",
+      "firstParsedStateHash": "5c40a5e41ada7114e286d51bad366d86cc4c6532538192de79f7adf9be16cdec",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1-capture-0.json.gz",
+          "sha256": "f7e2255fdfa197aac9f06f11bc556e6593d5218225e60ad30e18a7bd7233a4b5",
+          "parsedStateHash": "5c40a5e41ada7114e286d51bad366d86cc4c6532538192de79f7adf9be16cdec",
+          "rawStateHash": "2761b5626540bbec318179d5cfe7f0ef5096270a07866c32348ed27f20117ca5"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1-capture-1.json.gz",
+          "sha256": "bce323e9e4adb748db7977a8f721ea5ac70807b4e8f19f702c94619861236021",
+          "parsedStateHash": "95c7da2a1c210c34486bcc135f79f9a8b058384e402dafab39089c6c99ff2437",
+          "rawStateHash": "fbbdfe061700046d798911dd39252a794ecea6891ee34f14c5ebc22a853f18a7"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1-capture-2.json.gz",
+          "sha256": "9a74a8582154232d821b3b32de4f85d509b8e5585402afcfa5fc193d4fe752a1",
+          "parsedStateHash": "f8d5d519e6b33445d741d26b5e0d5d2d4fa91fef96137fe2cdc1b94d489c2e56",
+          "rawStateHash": "19e079f964367f345996fe7f0aaea4b7d40f8543be710b87890c12970c401f70"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1-capture-3.json.gz",
+          "sha256": "d467f70c05ae8382ac096f4dca187a039ad25baa9825fed762041293ac7a4e67",
+          "parsedStateHash": "5f22aa301f5510e9c2d9ad2a337b06082ecaded1b158112b345c2264609ca96b",
+          "rawStateHash": "4da1bed9551b3f350aee7343f841c74f82e1cd4df78b0fce25e756b94b2f0b8d"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1-capture-4.json.gz",
+          "sha256": "3d2cdeb8fef89c1df139d46a93679f6cf23ee9e5604aca0ef4a3633c75bf9aef",
+          "parsedStateHash": "658e6e95b23fb5fce5f02fe5377036017af9a52b145a20e91df0ac18b9c416a8",
+          "rawStateHash": "6b5d4777ae54fc5b4772016841f46207b3da8c412642fa44d7aef2d0258768cc"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1-capture-5.json.gz",
+          "sha256": "9f83795b86c1a0bb93373c43c2f0d49e11490942ae3a00acd04eebc0a02ac6b5",
+          "parsedStateHash": "58c0e164121883c7e19a3f2fbfa8ce296c55db07f024dc5698ebaea7cc0cfb26",
+          "rawStateHash": "e14929597f7a70e9c200e137bb7ef02bb3489e33085f30262285819e60d10165"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1-capture-6.json.gz",
+          "sha256": "caa0317e566e1849228df65bef3ab1558df6220f9c774fe04b431fd702d0ff4d",
+          "parsedStateHash": "863929636534bac6865db23240d63b379033224b757e776dc7e5879417d71d85",
+          "rawStateHash": "971c668bdc6fec6c2f1bb9a998c40c2d5c157e12d58d7ebe7a5a0d00914db036"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1-capture-7.json.gz",
+          "sha256": "fae0ff2415fa7b810ad761dc34fb007095436f148ab85ed91fc9a2c70ae7f8a7",
+          "parsedStateHash": "a73a5173d59dd73c957ac515a6c97dfc33baf7583315e459b83be174b3e26874",
+          "rawStateHash": "3a4a9d3f33d489c88dc450ade828ec99998e0ab357d36693afe4d3232f2effca"
+        },
+        {
+          "path": "docs/performance/pr196/matches/sw-hierarchical-intent-v1-corrected-final-v1-capture-8.json.gz",
+          "sha256": "1d17a058b88812bc71c4bad2e9c44426a9899ecbc559400ed058976c8364f534",
+          "parsedStateHash": "8348ec25eb2b4119c76825d5a248abbc61931b078f7e756ca4407f0e5857285b",
+          "rawStateHash": "b6822b8bf62388ace8a324bf3e2427d02396437f24c9cb9e1b4c15e6cf50f902"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "9a44ded7dab82c288e290bb511383e40991ad474650d097cbbe2009e6ce549b4",
+      "firstParsedStateHash": "3313295935069945d0d0906dfb7471953295eb4087da9e08efffa9763dfe2e21",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "780ba9c9b1182d3737f65688d1545304cf7f64e2529cb34f8bb0831d5973cf8e",
+          "parsedStateHash": "3313295935069945d0d0906dfb7471953295eb4087da9e08efffa9763dfe2e21",
+          "rawStateHash": "9a44ded7dab82c288e290bb511383e40991ad474650d097cbbe2009e6ce549b4"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "8a88f776f5d1eeea25358798c8dafc9e5c1ac5b6d9437367f2b565bea95e978e",
+          "parsedStateHash": "3c64c7c34250d520b3e60fa5745748697e418cc35e4ce685f52fdd46b848b21b",
+          "rawStateHash": "9994e5538197de185b0352ef637e08d57f1a80cad80dbd3b893fcb3e10a62cc1"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "ac4df23b4d51c151529a6fad658552d82abfe7829feb2b018377ccd839d201ce",
+          "parsedStateHash": "22534578896cd6913fdeef3a7f721d54ac37aaaaecf3163a4557043e8940e11a",
+          "rawStateHash": "85e0343ce8883070bf99094f09083d013d5e2046208d076360501f9c40f91869"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "36cb66fd32606b858faf6d1ef44770a12c4952d752287a588ccc44d3dc34c9cb",
+          "parsedStateHash": "6db7fb99021e43e30fbafa5f1ee9a844a44cd401862959d4ef369cfe72125351",
+          "rawStateHash": "7a63d0ee20d3889e36c3cbde036143502368d370af56e1468bf8deaebe70e854"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "c4860b9f9874075ba6b9c6d4ca4e64c72b18b03e89618dbcd63d1cbe9df43866",
+          "parsedStateHash": "a876ffc73f0762c9b7ee8052d6bd38ce1d5738581e71804d7c8d70dc8ec76de3",
+          "rawStateHash": "ed390cfd14cac1c5eee0d2fff030c0ddace76e690a3f8016f01b96201cc3ebf4"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "a1335a1788df9a3049558ac12a8c6a8b63dd3e70765d81d966200d618c69e3c9",
+          "parsedStateHash": "38706e27aefa037bd71745d3dbcf77185a0c0ef74c34e2e9b93e709be2aa241d",
+          "rawStateHash": "dfa4c41a6c28d4bcdabccf57e71891b031bc0979e725128c3447eb4496150445"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "3466c9837008add01bafca639d79622f073b78436bef7a0689554f6df70e16d9",
+          "parsedStateHash": "cd7496c541e3839947c4f64a1e55f89a8ee41a08d6efd0833e613d9b4b76434a",
+          "rawStateHash": "2a82ec97656cfcf3d22baf8f5f6b3e260f5c52808870037da32d3dfc5fdabd87"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-contextual-judgment-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "e04fedfd5fd4b8409b543ecd0b709acbe8334c1c02f61f8229a688b9c5ccc7e1",
+          "parsedStateHash": "18f558dcba266262daf8844a0e0435fd942fbb0938476ff91ae3a4ea5f8863b5",
+          "rawStateHash": "23230dc99b09266ad20380900ce52a7244fabb2ed65a5cb4254b83989fda29a2"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "4d85212264f504644fca71cf7355d740a9d2a77115386337764dee94e068a911",
+      "firstParsedStateHash": "6be90837fae4c8b0128175dfa85f115c18dbfe9e20eeb68fe8debe8fb5f1c36b",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "0823c21e8e25db063bb41bf7564de3452fc97405370f91e0fcc55b304349bcc0",
+          "parsedStateHash": "6be90837fae4c8b0128175dfa85f115c18dbfe9e20eeb68fe8debe8fb5f1c36b",
+          "rawStateHash": "4d85212264f504644fca71cf7355d740a9d2a77115386337764dee94e068a911"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "baa7f2ebefe5603c8a8dfcbf4df902341678e1e7d7ab53cc372c1f8f684c3437",
+          "parsedStateHash": "87ce8ad9e1f10ad0dede78bc1f18e2ae4e2bc834d31ee7e50291cdbc63c4a8e6",
+          "rawStateHash": "53fa2038c78187ba03a0193ca50a147cbd0991a0499a1d0a97afbadde558c0d8"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "ad1a0543a1327e9dac676673d9a97f237f98040fac6736c49cca1c4d5ec5a811",
+          "parsedStateHash": "2ae3f91de72f469334ef7b9387fd12add0c765c4c75488e7cc11b6a78731b5e7",
+          "rawStateHash": "7e53d4546490502de86b1b13a1e5fae40504b484ed2d5e113f852ad6aed5769e"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "eec2197b5a2f189649648d5358df097d427edde3bd3d83099797785d41678cf8",
+          "parsedStateHash": "ff13a13ebcc9062bc8c98494f12d392f5a9d4d9fe9b1d45e2e1460144c438e07",
+          "rawStateHash": "30c2a3691ad3b7d9606377884c55b3dc2a53c83f08af7d8e8216e6d9d048e589"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "ffc32aa46fd05f3429edd4754bb8c87853aa026fddde26f48aed4ffbcc311c34",
+          "parsedStateHash": "04ce5fe921bbf2fe183c3cbf0de6b74ab5d1d4564126eeacf6084e2d46c5a6b9",
+          "rawStateHash": "acc187180cdbdb7f1268b6f57ea336a7858570e61e46ecf6284ef9f6bd2c39fa"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "a8f206b6d1a3b9c43ed79c5ca768e9264097706172969eedf4f5f269891f777c",
+          "parsedStateHash": "cb3cfe5a1828e2dda1131a0d1c8123bb7f7da555243060939bdd43c0c83bf880",
+          "rawStateHash": "7bf70246632e718bf0440d7967a074f11ba1210393047bea86b7bf65a539dd24"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "f4e7109ee71f6e9be357c3b9806cd6e5704ffdaef125e4a44309ac448bbeeffe",
+          "parsedStateHash": "a2bc5556dc06e6cc8685fe369f1d59f33af113fd223f13db1dc54025b904bc6b",
+          "rawStateHash": "2bee1487046122a62463e7fc895e1fe6aeb8761fcb25308bbeba949342153828"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-hierarchical-intent-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "f71da6715bb784846a1519a50b3fe5ab2b2d98ea91ca81a4308501c66f39d88c",
+          "parsedStateHash": "f3e3a2162dfa03851313c912d64e87bcefe1d839c2145ed64b97c796aecb066c",
+          "rawStateHash": "2ac580c06d365628510c422f33a2a8133cefd4a8c6e87c772283364ca2724425"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "1582f60c2a95a315a103b35f17efc3a36e3bacaba5e8d50a01828a94d927646b",
+      "firstParsedStateHash": "6d6a4b738c06f46ced50352705f833db7629984df206110d2fa8752d57540cd1",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "cf0add8d7a4e0cbb2a6871441d7d239460efe9db257f7e36bed63c129c10d415",
+          "parsedStateHash": "6d6a4b738c06f46ced50352705f833db7629984df206110d2fa8752d57540cd1",
+          "rawStateHash": "1582f60c2a95a315a103b35f17efc3a36e3bacaba5e8d50a01828a94d927646b"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "aefa3ef18f1ddb1aeb2db82d2cde99e9e556b99516792107d1051cedbe01a5eb",
+          "parsedStateHash": "69a26ade1674856f19580369d9c811f9655e5c706d93ed4ef4b7f80a3cb6c327",
+          "rawStateHash": "c7ae38bff2f08f9d592c462502fb952af06e171dcb6fe1e865b377b8de157f2d"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "5a7c40c3050845054c026669437e2a78704603a37fdf1bce7aa8f96a97d10d7c",
+          "parsedStateHash": "b672581ec9f76e7b10838ba2c7ca604d55bcaeeada31aaed7cb8bd8e7841281a",
+          "rawStateHash": "e2a8e4cca3f911d698a7cfc445f23c35e26e7ecbae4cf224a332c6c22af70308"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "6e5ef54ff54c7c08291b5e1ccca85793c7a8f03f5aada06a292d00286b4e2d31",
+          "parsedStateHash": "07c7dbe4ab1b468cf9bf52b534c0e2ae98557d2701fd12815da41803cb3ae6a8",
+          "rawStateHash": "e9d52102ae9baffd9bd7aa04a9c151a79b72bdbc4e8d8ff90735fbbc9e65847c"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "1f65113814b0165c7af766bfcfdb9ad5297efec0a5eec3b471a4bfbc6fdda74d",
+          "parsedStateHash": "5698f9911e560dcaf4069c053271b204bf957aa73d8e85e87e027554ff994c2b",
+          "rawStateHash": "07d2ae4ae3cf08372f8b3449b5e0cdc78e59425f38b24f37f01638f8ee5d2f7f"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "2f11aa4c3c40f96f1ffd7cace6de77ab75619582639c47bf4319e5aa015988c6",
+          "parsedStateHash": "7be1e8e7448259c3e1e4d1da328069b14df76f903af4a19858a04005b8d79707",
+          "rawStateHash": "6df002a2221a12000e3a468a7948153f7fc338c55f4fa961e5875be4972e10e0"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "e7a87445ed995499e77fd88f3419b0d1f9b546ca3cc5669bd02aab67e2631e8c",
+          "parsedStateHash": "b73f811960c1e48af2989fd31809e5ed2fd5f48504644b03f530598c56c68964",
+          "rawStateHash": "3c31c478548d93e90ee32c4b1654db294f21b9a97afffc07adf0c562a0388bed"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "b79c5ac9e4f099c57c75bb81036863d82b4cc754f5f1f0b8b287e92943052394",
+          "parsedStateHash": "691b09cb34d172855fd606bc32ade2a85c192ae67f31a123ed551f2c9982c7ee",
+          "rawStateHash": "3ac9209dda86d26d743612c3b343af5005546194c2e2f4eb472b32d785c60012"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "ab5a170b3352bc048945cdd63021d33e24892abdff3df10cabd0e61f35972af5",
+      "firstParsedStateHash": "749655d830f49eadfb6157e6ac42b65e68103d4739f9182e219cdea2f5d271bf",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "e37148249251599469d7ebcf1354fbb93b6aa62dead3263dba0960d5623f8f86",
+          "parsedStateHash": "749655d830f49eadfb6157e6ac42b65e68103d4739f9182e219cdea2f5d271bf",
+          "rawStateHash": "ab5a170b3352bc048945cdd63021d33e24892abdff3df10cabd0e61f35972af5"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "f5b5945c7d3e0bdbd9073f42253a3b25f83009846e6a4e58dfe944174adbf345",
+          "parsedStateHash": "13dd52523a172db2425e3388e9fa279bc51ea0f57cb3cd45e9caf73281a45bda",
+          "rawStateHash": "866dd7e714e3226909cd7c08094874207f87986c4896efe75f27f77f09323477"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "879a9e5386534d28387eb84c6cc26604f941419763361c01157aa6473a9f6545",
+          "parsedStateHash": "dc941c637f514d5e4948bee3ce20cb9d04f3d4d7b038c780339b8b5467e3c29e",
+          "rawStateHash": "ede6924b22ab31c74535241646ebf709f1e46cdfd5837c66fb3568f9acb659f8"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "07bab5dd3ae3bcb6659e5af3288d510b12a34c622052c53832b999f8d39f2323",
+          "parsedStateHash": "e06b5644644fd0917b519ef6d1fb7acd72921595bff6138990d1fadaf6b22c00",
+          "rawStateHash": "ef71f69d57dd5e73ec2cd79604f555a25223477fced51213c756af2a0af7a8ca"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "ea22b7989a5e1807442c42fbdae38d180755d8602e626a9fe0a0b1df2c8b2260",
+          "parsedStateHash": "e4f5775cb669de3f86ae70d965d11c6f0cdbb5303981d9029a279196f782ec23",
+          "rawStateHash": "ffcbc899f0f8bd4c502244172881a723892bd1aae0bcd0d89344aebf72e0964e"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "4e170f6bc4ab654b30244df0e495cd8f8a582925d8db058b8a9a5b19e71fcd1f",
+          "parsedStateHash": "5ec896d8dd8268b0f17002f12add915125275ed5febf1b9b95e1b84e075dad12",
+          "rawStateHash": "2f9864d2dc74dfb309e67e4b5bff83a637dabdb03b7596b87067054a426a0972"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "f3bd8059bf500b298a01856f4e1b248ef2a5281c5fbd920ddd577f83f74b984f",
+          "parsedStateHash": "c3676b82ad32ac3c27f09d2c77a27dd71b7452b9a029b91ac9698d21ee9637a1",
+          "rawStateHash": "120709f5619ca1382c6fd0531fe3a05e3a53ae94557a3d1a40a9a7df3ba7abbb"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "640bec4814e84fcdb9edbae2dc0d9a8eb916c91bc4069e6078cb17a3e26c5b64",
+          "parsedStateHash": "219aff2f419ef87a0032e777c91d49c4358563b46f8d43ea5082fd9e8b5fa13d",
+          "rawStateHash": "329069ea5b42ab4bfa1f959f524f2394f295f97c1d31007513b519e7b07724b6"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "0f260305ba5e75bb589806332a8468a9a8d41a103b303e5cae5ba85ebf713baa",
+      "firstParsedStateHash": "ad4790722331879fda061eca3f19b8a0578fea921c01444c99c6376acbe295f7",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "30f5f862fdf60912ff68ca4e67ab4802becbdda614421d7b7535f348ef59d0f2",
+          "parsedStateHash": "ad4790722331879fda061eca3f19b8a0578fea921c01444c99c6376acbe295f7",
+          "rawStateHash": "0f260305ba5e75bb589806332a8468a9a8d41a103b303e5cae5ba85ebf713baa"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "841f50b3c621f2716b85576c9fb6d40f3a6949a6632d20dda4ad089b2042dc9a",
+          "parsedStateHash": "0c129e8499a41f00823e6e9ced5b4f5c7e10c233b20403af4542411ab7f8e297",
+          "rawStateHash": "afef33edf72311736f6ec5876784015d548bb6f43125fce00b69fcea889645f8"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "1c6ecf915403e65d31ed24902406f3740c3772da055d26773eee5d6e9279c86b",
+          "parsedStateHash": "3b1dd9d5c9d3cf513883d0fd794801aec17ec84e45303ff75b78ec54757056f5",
+          "rawStateHash": "76570a17d2d256bdb3757946e4ab2512137a6c022a25de9fa8bcf81c96cef8b0"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "0dc9437492ffac7b399bafb3d065147a8c2ce1e53f0049c600edb15eca28bce2",
+          "parsedStateHash": "215dbe515b739a1674060671202adfa3bb13e85a59e3e79fb32db68ee9c4c5ef",
+          "rawStateHash": "6485a0651a96ff1ee6c0427c2df7d32b6e9539c56ef8d372e92270d23a537ac9"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "5c94d1ff5a40aac2299c931dde9185618ddee905f975db8b1fbf6a6191aa6d39",
+          "parsedStateHash": "34a6d462efa63cf024a21301e9b24b4642e809ecbe55d9d175dfc790ebb96067",
+          "rawStateHash": "3709fcd9bf647381f74283430ae312197bb8cbcc0d5d397464934e910665d3b2"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "d500a05806a522f2dee3ff899d0b5c7fad71b69e30277dc8764c822fff00b22a",
+          "parsedStateHash": "3efc037e37555516b161a78e64e7f0cb216cc56bd6dbac936d132dbd8cbde9a7",
+          "rawStateHash": "903731519417fb2631859be24f3ab073c09daa40d3c6a7008256e4dd13f40a8f"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ss-state-value-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "752b28289c3c5eb0c1aa0fce9250f2a07d5195ad79b896cd5f3693126298fb31",
+          "parsedStateHash": "878e4cadcea4195d5074bd9fe7d0ffaa4bc5d5197d747be0ff5c8faacc3e77e1",
+          "rawStateHash": "c7fff690b540f9d47af9e4735fe2c96b0565b6c2dabf82fd2d8b3a080cf6ca8c"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "f9ceeffa1f1bc414f170636c26955ad51799a33f80944f7789bc9ed87ad59af8",
+      "firstParsedStateHash": "d97f74a9fdcdd9d20f654012a6ce523863118c08ea49a6f9b03f8f07b01d5609",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "fbcd2d1ad3ebc640d283e3cc38dd6897f4504a8a3541c865613ed03049a20275",
+          "parsedStateHash": "d97f74a9fdcdd9d20f654012a6ce523863118c08ea49a6f9b03f8f07b01d5609",
+          "rawStateHash": "f9ceeffa1f1bc414f170636c26955ad51799a33f80944f7789bc9ed87ad59af8"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "11b48bad8e4d601a74e47050838eede93f42fca1d958bc20d6f3c19b07ed36e2",
+          "parsedStateHash": "3144a369d4f2650d41b96efc95c5de983de172b451126233a91b591e3abd752d",
+          "rawStateHash": "c7b343f741e6eab1aaa6275509b58351d07061c658682fecbc1d89413ccc9377"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "95ead01420e35cf2f0c099f52187c21c1c52756d8bf765bf35b2ad4a178c4ee5",
+          "parsedStateHash": "e3cc2bb3bb83742ceb4cf2293b7af0c815a116821518373be852221c6c6f8c38",
+          "rawStateHash": "e71dc5cfda63bdd8be9ff98b48644dff3aed306834f3269f0809169025d557e2"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "9fc4304ef4862bb684f6fdd6639fe5f5a78c1c8513516dee192a897acd78da5b",
+          "parsedStateHash": "9c41cb995352d17e93b484353e86af8c38ebf15105398616956e9c7cf9950a5e",
+          "rawStateHash": "751a08e12537bb5b3bef75184053a9409e90f9547cf3cbe88082382d2a4c2e24"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "3294f64c51bc7413f1757caacc74e93958fa7fceaf5d8851614aa3292f7c26ac",
+          "parsedStateHash": "302cff2b4429c13c046ca34b9dc10be244d96a147e26e31ec18c0dfbfd5029e0",
+          "rawStateHash": "9c9b6237fc46f3c8d1aea534e15e6b5e0fc7c06ba005fd99ef295b0f75ad12cc"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "55ea06f523d5bba968d1106fcca3172e4ab3b197a3e9e19d18c0d831fabe880b",
+          "parsedStateHash": "42b51aed74e4fee146ae727dacdd833960a80bcc0c9664285c80f136ad4fc15f",
+          "rawStateHash": "165a2a4eea90078110e8399fb65c77e416dbf4c962a66523bfac13be2286e171"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "e5f2d6f5992fc1b7527dd7942229a352bdd0b0006673a5a0f362718fb876164a",
+          "parsedStateHash": "593c416545c0be6e3a31657f37a71f203515fef8c42c48c47cbd972b494e1e83",
+          "rawStateHash": "24dc7337dad9d3cdc5925bfc72e65d8e4d77c226a627092a733eed7dca869bb4"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-contextual-judgment-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "b35ff9fe38af4dc847d04deb45cd1d349ce10357d8815a34cc5177aa2d8d83b3",
+          "parsedStateHash": "bfc3ab857936607aec952735ed6a3119a8693e768165d9c3d4ab231ae92de333",
+          "rawStateHash": "77476ac333da4505555cb374a364b61a233f91bf8cd278ca89853678d09cd743"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "6910d23cb293b3f72d5bcc9c2c44bbaf2b8f48ea3e30fb0e0905875984c189d0",
+      "firstParsedStateHash": "76d0fa5672c502afa41c0ee9050abb611247a6a6cf419d6077a2b5525248e1f7",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "85f607368f77b3867b39f2c381c8be5531272555bade84ca197891ead259450c",
+          "parsedStateHash": "76d0fa5672c502afa41c0ee9050abb611247a6a6cf419d6077a2b5525248e1f7",
+          "rawStateHash": "6910d23cb293b3f72d5bcc9c2c44bbaf2b8f48ea3e30fb0e0905875984c189d0"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "f3da8a203d400771fe535bcac9c48d4eef9afb60e878cf13862e62ef8e098bf8",
+          "parsedStateHash": "037fd7159c4293772db47c7c517e6796dcef5ccfff7be54ad38e571ae3500f88",
+          "rawStateHash": "36eae209f76d7b9a35db716368cbca24166066656381dc39345f4a4add5e1e23"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "cfdcd9e0f710d3e12512e53781b6436c275730521583308dd85af4e199f77d3c",
+          "parsedStateHash": "6cf85c9e460627067c2c143b5a55b790e18843d0b9378b5118c3dada871b002a",
+          "rawStateHash": "8b5b8008ae3342e42ad15508b019fb2d547f2a3cae48346de69bfeb8c4159bb5"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "b033befa63644aad551a90bc9cdc1285ce3b0b94e95226577b37255c761965fc",
+          "parsedStateHash": "c4741522bb3a574327795e283bdb3d263ef97bf835b96b97f815e67ad7549eb1",
+          "rawStateHash": "6517668bc7b8d81f18425accd305bcef81be7e985e019639412a6549ed1d502d"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "b4278e8d7bfd9f17d71fcf64d86369a1ec2adb9b40ccc408aba3ff8698ad0569",
+          "parsedStateHash": "f96aaec54fe6e61453b633f2b36c150a10d1de921a2ecad0b32780273f7b3194",
+          "rawStateHash": "1d62cded4c3dda659f7727c91c521a21505fd9399af520436794d9c26bdf5407"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "eadca1d95f6f0dec40f392b3b892a46e8065b7532b7ae295c25f383ca3063336",
+          "parsedStateHash": "2ab0ed344e6e7ff9f23bb66777fb20a27997e3327b3325b780f5b83f6e157c3d",
+          "rawStateHash": "2c7db0d645beb9e0a5ad9b695014fd008d7907562d5923b01f15dcab36c3aabd"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-hierarchical-intent-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "b66fc61e267996327a9cc188878acc70c4c07f80466d6d8b3f7e0b870bbaa2f7",
+          "parsedStateHash": "8c6c32cd5f1297ac616337b95081cbd270bf27b5931c8e3d7b4dffdf4fed898e",
+          "rawStateHash": "14b8199c82b22f6085fe4bf7fdcd2b6fb28d2bbf8be9bc369198da87dab9ffb3"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "36d3305f78c74a8481bc6b9344ce2814fa88e8d3a57143d760fbd2254ec2dd6d",
+      "firstParsedStateHash": "14bc9ca6631fa90e9517889057a291aaf5d7d9c7213616fb0b406b3dc0d3e6c5",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "ab5f669fd843a1bb5b04b3e13ee1884115e342c8cc288477c5bb08815cdd97a4",
+          "parsedStateHash": "14bc9ca6631fa90e9517889057a291aaf5d7d9c7213616fb0b406b3dc0d3e6c5",
+          "rawStateHash": "36d3305f78c74a8481bc6b9344ce2814fa88e8d3a57143d760fbd2254ec2dd6d"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "dca749695eb4ee2e814eee552beee8f543d21012d439a067ca4a0dc72df0e3f0",
+          "parsedStateHash": "da612e6fd202edd0816dc10b288510acef8456af2e3a82532004c37bbfacb5f6",
+          "rawStateHash": "2ee681f7d5f457557ad2d98a591b4a2df06d5f526f2738f5736dc9629f327804"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "c74adc628aabaf3d8ccee4ff98ef475cb831d27613c9cbebe69dccd099f24313",
+          "parsedStateHash": "504eb0746bd237caafa9ca6a3547d81c73203db58e7728fe83386b54dab97de3",
+          "rawStateHash": "a54d66a97680103bf7a00e4ded50714f1d4c0b37657f5742df4376975661890c"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "f13a734e4c6a8a5f4014521cd37215d7fb9d38d7daa729ab0ba36e10dea49ff8",
+          "parsedStateHash": "40e5099060a3b16d2a4ed4e7c42b969c366795a64c5ca1dd5ed3857ba47a5414",
+          "rawStateHash": "e5d54b27dd16be06cfe2174863ec6944e20ffe2ffd9866bf9dc8453e432bdea4"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "c5ac61ec390f49f2fdbeea6418feff371be7662a0b154dfac30222bc73ea925e",
+          "parsedStateHash": "2e880a2c31e8845843d2fe84fe0ac9b45227e82a97e71ef23dbc8b5f148c7d1f",
+          "rawStateHash": "8cab64f99e4171d93ee612a75b612f85c2ba5674ab53e99e235044fe603db27f"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "da97cfb3f86637036074b28239ed333c03a02ff4711c525f6a9f5a803576e1ca",
+          "parsedStateHash": "ab7dc9ff4714134e304a0188f53d4ab1c33ec1dfc4935e03bda8424e422b186b",
+          "rawStateHash": "5a0ded7ef7e3d416127a84e2b3c58059be58da1bc761d48732e91d835a5a9fde"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "e7156b5cf986dbd5db0835d2cf9b9d6f2726af2527b6086c3d80c7ba12132955",
+          "parsedStateHash": "1b4da76df712b69de86feb64b7647146fbbf10fb7e1ffc4f6ec16e11a34b80b2",
+          "rawStateHash": "2e7c17072f88322552f829ffbb551c894d148370ff855523c20bb31cdf1700c3"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "d38fda7834cdb82133a1252e9dcee3e71ebbbd3f3a636b5c2d5da3797d22470d",
+          "parsedStateHash": "7609026e1ced09200f5aec6a384e792e4399d1f8d5a2ed7f1b941d138bd1fe87",
+          "rawStateHash": "9b14f3e914aa4e7ceeb9bafbbc729606c0e93b030abe09e28747ddade74696c8"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "9106a0a1750f9081ab13d686bf94a27c967061050dfe5ce669c49d3cf2483f6f",
+      "firstParsedStateHash": "79070f17999e452efd72ea4558f2691c15fe036008f8d0183f05d934bcefb895",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "6659dc7f187a3b309fda8f4f9153b058315b3f0a9d7da05ca6907b453e49f80b",
+          "parsedStateHash": "79070f17999e452efd72ea4558f2691c15fe036008f8d0183f05d934bcefb895",
+          "rawStateHash": "9106a0a1750f9081ab13d686bf94a27c967061050dfe5ce669c49d3cf2483f6f"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "654bd411ef61b71432342c4e1ff3abff9dbecc67043cfe723b4b349e0dd1d417",
+          "parsedStateHash": "d2048f98c8a4aea38c46f61c4158a633ff7e099722573296174d6fc0534fe38d",
+          "rawStateHash": "c2a67b03a383019f2a8da8134f8bbe6dc068f3bf2f2c2eac654a1e4518e21d1b"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "094de6cf27a5a28586c8d7f1d2f2807a0223fc9ef757c6ef0f369a802356ce64",
+          "parsedStateHash": "96ca4cca2dc73b08e80446a0ef2843abb966361b116368307f76c749de2579bf",
+          "rawStateHash": "0fe64eacd4c5d4667445e3737e44b87e1722378900441f155c77d0b06f75c300"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "9dc8f83da1dda2e1b8a2cdfa387b5981329ca47825926c7b8f43132e9fd8ea47",
+          "parsedStateHash": "69072cab583dc0c099b955f2104403080b8025e30082dc426c84c8b60108bf1e",
+          "rawStateHash": "3605893fe91dc3604b9e24ec3536c33cb8ef4eb295bf109c997b00764fe46ed5"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "49e3e02fa8af9dce134662075bc0a003da826db1eb278a95b570fc79ac4d89d9",
+          "parsedStateHash": "39d108639010d752b34088c07cb85d68320ac64434ba8e917848d7233bd3c15f",
+          "rawStateHash": "7ae9f39dc6b4e84802abdc23b42bb6d297ea61cd6d988aa6a5d1f619ea1fa417"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "7aeed58c52f19e451661a19db40717fc7fa8acd902c3c922e435fdcdab411fef",
+          "parsedStateHash": "032cc563ad6b53a0cfa5082e7eb2cebb2b19b9445c0bfb554a500264bf4ec9fb",
+          "rawStateHash": "5666c0211765635f89949b27b31f7947f6072c947c5f65952b2901da40a2f805"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "c284777dab144da0cd64798f64024f1582bb3940a1c66fc626efbac5d1c85c68",
+          "parsedStateHash": "f9cd0166d71c97e30aeb24dba5ddc99cb49cbd9244e5cf52256b17762e89ece6",
+          "rawStateHash": "43e02b6a7f522f1851175ebebe05aaeff635e012ba5552c4bd6af63156ff3a1f"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "e42c2578a541d96fe91e16d962d4c22be79267af21a53fcea9a809c755022e62",
+          "parsedStateHash": "cca72975d855e2bc2952bb0f4044f179fcbcdd95ef77e0278758681dd5004b3a",
+          "rawStateHash": "88f4bf6b10e0217430bffd9ec487aaa86a2f78cecc944915b215e16b8823394f"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "17c1794e939fcb8263448d85821c38a916c6576f7cef79366d9d11a849f6737e",
+      "firstParsedStateHash": "ffdb2f6dad15b6e4c32c50af9a6b7d4a2953eb32a2b31cd66ccf5b6fee22f944",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "1e7ee82130c93cdec5a6361a972ece601dd30255c72ee0b101f83f9aeee8d730",
+          "parsedStateHash": "ffdb2f6dad15b6e4c32c50af9a6b7d4a2953eb32a2b31cd66ccf5b6fee22f944",
+          "rawStateHash": "17c1794e939fcb8263448d85821c38a916c6576f7cef79366d9d11a849f6737e"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "6d8613a7334d45e8ccfe3beec96f8d4e33f7d3f16d0f4cdec112f6d13b9fc8d5",
+          "parsedStateHash": "be55efc3b7ed98c32f167c40a0146f098867086f77ab107eae66bd63cc5b2f3a",
+          "rawStateHash": "ab65b918b7c7a05fa9b2519757bbe823ecbafef852832b5d0483099ab86ca757"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "85b11df2be7d883b96d0e981dc9f77a89e97f682ddb6a6517a43790e1333e5dc",
+          "parsedStateHash": "96c8fbae56f0ca6d0d1ae52a01bc365e303953451c01e7795dadf17a5b563fbd",
+          "rawStateHash": "413d13a1f37da3f96ff93f9cf6a9d033393a9c7721a7e94d977a2e4d022451ad"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "4724d1ba2a67fcd8b4c11668fcbd7a8ff702f4f2c1606ef557e999d2d6f8a2f0",
+          "parsedStateHash": "5b00f6798bd4ed71171e4b79122bcc4898847b10257ca4059d4265b288cec056",
+          "rawStateHash": "68895dc40588ba0ab035aeaf396fd0d5cb07d3318eb55021b64b55e401504c98"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "d7cb5504712a0074c2249af3461052ba8befb0101d6189e37b1ca7f2ee5d202e",
+          "parsedStateHash": "beb03763eae851832692334932ff019c30af7e52873de11d79bd96f43de21ca5",
+          "rawStateHash": "6d53937ca40b36de322a8fb9203a797ed892fec974751b361cbb2288fc2f772b"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "6e6568c56c9c50830e749306591e4639cda7b23a5fa807f72436d4b51052999f",
+          "parsedStateHash": "9c9449dc736ecfbd565285c38c7f876a6288e787acb59158be535d4bbd6f2dc1",
+          "rawStateHash": "7b45c06374cdc78b78085e11f1e2f770c3e09554659decb15ced0fd96a2f2e9c"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "7748593333679d449d9af7e278334ca4da08af3b60c3e343d92c575724a61677",
+          "parsedStateHash": "335503fccb5d65b50bd9f4f6239014eeaadd475dafb9766a2b5711acb32b1008",
+          "rawStateHash": "3f9573c250257c0d70ce534cfd7101af2acde472939c8a65141b6aecd6f152bf"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/sw-state-value-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "1cdbc4326c956009e6b54eb8c369a13160d4cb35d81ad64f9349405fab485765",
+          "parsedStateHash": "b4ec2e4d01b875439a1349a0e5b43686e502cf46a5223581076a4015ddacfdd1",
+          "rawStateHash": "cc9c96f52df4af6a666092147713c7fe4a1233c83b394a947963bbbd33a0c0c1"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "84bf9ecc7587607e2733ec35744aa0547dfda3b2d90483f85b809387248bfa7d",
+      "firstParsedStateHash": "9baaafbc69cdbc42abdb11860848a2965b47f9511820f25bf02733e0bae6a1b1",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "40b85f918d2ceb6ed848b63f9281cf55c541382c750c33effcbad8b8630f58b7",
+          "parsedStateHash": "9baaafbc69cdbc42abdb11860848a2965b47f9511820f25bf02733e0bae6a1b1",
+          "rawStateHash": "84bf9ecc7587607e2733ec35744aa0547dfda3b2d90483f85b809387248bfa7d"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "a8d21269a12c44265086313a4f0ae4f55f10b3c37aef3d28c7b4bf74ff1f9058",
+          "parsedStateHash": "e55d54fb7cdacf510402d4922c23a4feab766157c5badb778de5f2d756e96488",
+          "rawStateHash": "49b72013d6a0d0ed9ae6b5fbcd65b2f90f80dfa7315ac696a9e90b699cfb4900"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "0bc7e94db91832659568cc2c71ad00f2886107e50874b82308e8b05c6f8196d2",
+          "parsedStateHash": "7e9c9b24b855812ed91fa64c482f1bf2ed484e43ce7fb1cc88a3d3dedc6f7edc",
+          "rawStateHash": "f11fdfb905de23dc9228c4dfbcc05fbf7f00b7f83ca768c2215146416a580484"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "3aeef4e80332814d48aa6f92e1fdb1212b94c89176c405b171bc707f8a8b377a",
+          "parsedStateHash": "2ba4250efef7942e3ea7d794c644ab5373c76ba337794526011e6dc6af8461f9",
+          "rawStateHash": "d39b025c0a66cb7c158ec66565fa7861ff6d1bb7cef0ea37729410ca5b012c39"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "9e6642ad9e648a03a042d2caf78096d091871c063838e84351f3686fb0bdce9f",
+          "parsedStateHash": "0797a9fcdc8e6797bebde259cc2f0fd78eb1b05447d293c9e560f0d61039181f",
+          "rawStateHash": "458fb45c6b880480cdcc0cec89dd84051fb7fa9e9e52c2a6fd014366fd7029ad"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "4aab3c7762f487e383ddafce0488607f43dd4170f9e8694d38c6bf699d6ce134",
+          "parsedStateHash": "82d6f5b3ea675762002cb7722d4ffeb6f603ab3e4ab3db47fe27db045b606f32",
+          "rawStateHash": "b73ba5a34c9cd892d51e39afdcdde73c09aff11a9e590158201a7893adb73904"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "2d6f97246a58851c9c2eace1696053b8b8abe6ccc939d9fc6b28d1afae206bf0",
+          "parsedStateHash": "1c7793907ae6ff176aee2cb01c3263c972724a6a326b396b0a7db7ba5994f71d",
+          "rawStateHash": "f70021b31e6986ce20af18ec1324344891bb68cbae77839da7777416f61d3c67"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-contextual-judgment-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "3b40f9b8befd9f581593312f7a74044e582547f5122dadd3f40f9e731cf34e5a",
+          "parsedStateHash": "6a9708e991b3076fc380222b93da68d9d416179cdf952a9a08bf061a048d5e68",
+          "rawStateHash": "f13c640aacc97273aa2d11e4e7cb8e33b6f5eae5e27657f6a01cf705ff381880"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "b8f13f3c826ea2f0f75425dbca3a75370b1cb0a52ab0bbd9b7eeca14bfd48392",
+      "firstParsedStateHash": "5a73c153fa5c01bcf382765300a0e8f991a503d0f67b3211263aef8f432b5d6e",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "885ca7a43a9478c65e734603ad878c3b415ed147fbd30101c34f8e7270b5d6ca",
+          "parsedStateHash": "5a73c153fa5c01bcf382765300a0e8f991a503d0f67b3211263aef8f432b5d6e",
+          "rawStateHash": "b8f13f3c826ea2f0f75425dbca3a75370b1cb0a52ab0bbd9b7eeca14bfd48392"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "82128c4bc6088cb2504adb023fff1258ad9fa9d4adb94137dfb14aeeebbf28b8",
+          "parsedStateHash": "a0b52af9b7028cb5418cf9dc0d9d09773f83eca8cef2c65da43f4e000a9cdfcb",
+          "rawStateHash": "2ebe45a55d2208608eb7fb5df8d12ed3262eab76c5cc2a0643d594754e321848"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "22b083cfa89e92f7b63e65f600254373c849b517512bb5530fff550907d5631d",
+          "parsedStateHash": "22691dfa938874d14c2a0c31cb35d083dace53e4c73207283d95664696dc7986",
+          "rawStateHash": "4f1428932dd612189f21962a67cfbf71f8dc7e7ce3d28573096eee0a89d33d6e"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "bfab55225368bc01f8fe74940f061bd511837fbdaa6ef96c3950610f3cee488c",
+          "parsedStateHash": "429936ff67932553d36a847258ae45effe66b489f6915a100d7478f22c083e13",
+          "rawStateHash": "ee8be47663e4ecef93e815a48fc7e4093c7003aa55633d910b3593418ce895dc"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "f0ed3a4d78ef95bb186458b26190d69ee40eef85bfccec8cb0df5e8369d9fcbb",
+          "parsedStateHash": "1289c684ecf77a86465a2b2d340f5461ddad46890482aed7677a419e5da239b3",
+          "rawStateHash": "0eae42efad32d13f895f6b9eab0933e5f4c48c3bf88cb3a52785e5ba2a565370"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "71dfd9b357bd16504ed07f54e56e98b8e0f9ac0744395907b8f4e2ceb40573ac",
+          "parsedStateHash": "ca410b3d0e9130f3cd35907bdbdfabcbbadb97d58368ff12944e6384c4cd7970",
+          "rawStateHash": "179414820a0eec6dd2a3f5299801ed3252c8af857c3f5a847a30706d4cbc09f6"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "6add914a0b546a146376cd306aa954de66489128a271054f8560d2e9e12e08a4",
+          "parsedStateHash": "c921db12b67896ffd09a00ec7d43d73a8f74b64dc5a3f65b135473dcccc40e1e",
+          "rawStateHash": "15cac574cb24ab41b441ac784f07ff12a4ee15dfc2fe2b05d9ea5a0ce6d72169"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-hierarchical-intent-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "47c766d8620de59d4523f37c044605e1c31d84e50af3a2c80a4cfdbc3a160aad",
+          "parsedStateHash": "a05998850bed30414ee1ed92531eda36e9250107e4fb4c5651402210f7cd53f3",
+          "rawStateHash": "bc09e3bc01769483d111376f4df455a7f0bbc35b27b45e819acfd2b8bae48cbe"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "7e9e1e44e75759dfd25cc62d60369d11c54f6a1bd1961a49333405fcc69b021f",
+      "firstParsedStateHash": "188be984ff6cf821d98854b389f6894507d872287e942bfcbf36316ddd56ed3c",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "fb4739369c583a1a138e55cb4c731b44aec530450dad1942b86728ff7684ce6a",
+          "parsedStateHash": "188be984ff6cf821d98854b389f6894507d872287e942bfcbf36316ddd56ed3c",
+          "rawStateHash": "7e9e1e44e75759dfd25cc62d60369d11c54f6a1bd1961a49333405fcc69b021f"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "81320b3bbd0e7ba755ca5553e6058e142be965cb0f5ba925372701d591c1139b",
+          "parsedStateHash": "cb7f236b59a23e982024f95697e0dd1f47225eb04dd1a763e638974a33727b05",
+          "rawStateHash": "9beaa45e7d61bff04742f00838adec50ca0a15a8cc7c891994523766593bae7f"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "89e816b5d7f7595242f4d45f842021b7e29cb1a8eadf40fc07e40d75cfc79fe6",
+          "parsedStateHash": "b93b07bf13373088135dc4a7e2dab405e63b950495ae434a82f4d9a18acc4b28",
+          "rawStateHash": "e99560cb71736f412640694c45c15f9b6c193f8e4a4712e262bd49b1cfcf4d2a"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "3d1062429604d1b0df636cac1f8302765e945a0242b55daf16b8c03a55583bec",
+          "parsedStateHash": "a67867b60fde40076fdf8ba7deefb18362112cb2bac79b7ec989093936912a3a",
+          "rawStateHash": "22dac39828885f74b8f6b16b3e41f7ecfee59623742bf5f559ef8c4978e65ca4"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "ed2420e288dc1105cf3ff80c544d2987228e69dd7759d2c1a9f0f36e391bba03",
+          "parsedStateHash": "6ccfa77219265790191cb145976dc8af0cbb7ab09bc8ef3fe87c4f51307b89be",
+          "rawStateHash": "a82ff5337c28d394d9069c4a22af5a78498733bee8ab008351dc491424a7ecbf"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "35ed5d1c1aa48dfa14c74b2671cf4e545f0b4cc91e4ed30bf05e46944802174d",
+          "parsedStateHash": "b7c542b70af4a2e918ac6ef70c43969eb4610cb44336aa8a451a94371295f5b3",
+          "rawStateHash": "3bf98fb203fb7896e73804175602fc025f8870bb9502113e6f606d188737ecfe"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "a1863284747769a67e957da9ee24936dc422c3773b5ca83610660ca2369efcc0",
+          "parsedStateHash": "611073e3bf79a4dced13782cd84f75f907e1037168bdd65cd3107447ade38832",
+          "rawStateHash": "97da23ec08a4e7e6d13467e093b4f3da72be6ab6287b285d1f60a80de57266a9"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-opportunity-driven-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "edcba0dbe41ffdeb636675700156f5f84c4250a9ff8f7dbe017306d71a3e0885",
+          "parsedStateHash": "2a92395a77a4762589bf6dcc7f9ed3c55ef6a03f6dac43ef8e9f306dbaa4cced",
+          "rawStateHash": "7bbe29e45f23b1775dc8241aafce20c4c92f14cc7c99bae93ddb27fb1f2ba1df"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "fa3d9eb824afa9094cc85822f6bf82374a9aae1fedd0ee6a69ea2bc20bfca8d8",
+      "firstParsedStateHash": "37e1d6d86c1d50b3d8aa5345b315e6b9cf25c94e61978ab33e6d52956712d1ef",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "8429e629488217f8479708620bae7e0179ec69104551bb85a4219d0f316fabf8",
+          "parsedStateHash": "37e1d6d86c1d50b3d8aa5345b315e6b9cf25c94e61978ab33e6d52956712d1ef",
+          "rawStateHash": "fa3d9eb824afa9094cc85822f6bf82374a9aae1fedd0ee6a69ea2bc20bfca8d8"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "2f55d69ed11bcffb7f15f11018f0628c1ed74c823dab22db56aa7fcdc824c0cf",
+          "parsedStateHash": "83d428d77d39da63ae8125a3bd3d450f06d4b1db83bb8ebe7949cc8fcf8290e6",
+          "rawStateHash": "543f65131f5d70624af6aef2673387a251727007c56f8cb303bcaa7c5b9e23a6"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "23860ea49990ebd26c61feb7cf9f5684824b4340cfc453022e4aba94b4b4eb99",
+          "parsedStateHash": "d801e9768839a659a80d69727662acef10884f8637827185d802aebd9456e8c1",
+          "rawStateHash": "67303b0b354bcaf2c16021a913d913619a3dce2020169e94262eada28873e6d8"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "4099591d6e9d0bfc00b57cb2712f9907290fdc09413bcd69b6955564e03d574b",
+          "parsedStateHash": "e5a2d12afce71a7ddafa3e58263f359f8978c83d39cbbc7013650943d4d99b81",
+          "rawStateHash": "6a5fcc2fa0e8e30e69997f70c7fa981596c72f413a330fe5a349dc0a05ada540"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "1bd8b90d768b66f4307135a008022345cc6051385d03c7fe7c4aaa22e203c9aa",
+          "parsedStateHash": "f20a8b9612b4b73bfaedaf4d33cccfc45aa79bc24579f5d48db7f55cbf04f4ab",
+          "rawStateHash": "0de0535618c1b5d840d5453153402d9e186fd392d9034eff95114f511966e854"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "112b7ab22f944389277b48d95d473c8b60df33042fc4c3a606562f86de2a9458",
+          "parsedStateHash": "336be59aff063bee69b347fb1052157e9412880f885f3c33e38f65b74cec09a6",
+          "rawStateHash": "36c0b1677abfa9bcef2f5ab01e6704eaa190549756091e38eb305e0d0a1b7dae"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "32aa0f2f664b354c61d9ad5119d77b902f778349795a612bb22a9d5346d8a028",
+          "parsedStateHash": "cd97ea49c3f4dfb3a62cb3efd933b23b238607e6d3e104cf8c3f1535935f11de",
+          "rawStateHash": "ecc1590ba82cfd3b50b54c89b9036bbad955f2962afb7d60dee2a4c77117a765"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-phase-role-hybrid-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "89d38ff748029ab30ddcd841bf5460179df307be226c9b7eb2e030ab48b6d402",
+          "parsedStateHash": "1a8e42a3cd4cdc4dd801e3d68b436e38e6fcabb68170d83d971cdd0a40c8f472",
+          "rawStateHash": "938b7a70f9d291790ba9be7eae2ed32c8e5ba801b08c33230400576a1fee5e19"
+        }
+      ]
+    },
+    {
+      "run": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1.json.gz",
+      "firstRawStateHash": "a9b1d3cc4636fdce2fa5d1b2da74c55cd334e217124bff7a0d7eb03ab8809489",
+      "firstParsedStateHash": "cc65fc32a225eb4f86b14965fd63701af96ea42e44e91c35d0c485a5b04a4315",
+      "snapshots": [
+        {
+          "path": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-0.json.gz",
+          "sha256": "0800cf39e5aca7303c8cf3ddc513b0a33439173143ebc8288e0a37f7c17112e0",
+          "parsedStateHash": "cc65fc32a225eb4f86b14965fd63701af96ea42e44e91c35d0c485a5b04a4315",
+          "rawStateHash": "a9b1d3cc4636fdce2fa5d1b2da74c55cd334e217124bff7a0d7eb03ab8809489"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-1.json.gz",
+          "sha256": "b5bc2735cc54410693dcd3a5adcc6ed3438732a495907d05513b50443f51fbd3",
+          "parsedStateHash": "533fbd15511d7b25f04587205e6075aa05edef733383e49b1756fd47c64d1bfb",
+          "rawStateHash": "b2b38b348ded84cafb168175d2961537132762ef6f694d67e1ba84906798382c"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-2.json.gz",
+          "sha256": "d7189f1ca68cdc22e4ad959fd9023b2f41e7260895fb0b73f785fd3b835e8a6e",
+          "parsedStateHash": "33072e94b430f11d449994b535d91172bb1e4850a295d98fa141f09d76f6e489",
+          "rawStateHash": "01ea4da3e350176bea3ad50eca61adc36383ddb61f381caa1f730fdd718c87da"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-3.json.gz",
+          "sha256": "83f03687a3a7298e839ed8326b4ba3a1c7f3749ed82535de3bc1d340fb325a80",
+          "parsedStateHash": "5624c27ff1687dd41d52e76920a96456d4af85245142ae4150c7c5b6b0f5152a",
+          "rawStateHash": "9512aff172ceedc5af3d69a15546f8ad6f39179a94aca63ad975304a17656cf1"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-4.json.gz",
+          "sha256": "44742fa57188979f94a7db385274de838951899b9a040b9035cb62b660a4e25d",
+          "parsedStateHash": "a3ebf4bbdafc8ab9ce128af09dc4022260eb128e0a54dc4a956badff981c9ad7",
+          "rawStateHash": "b83a7687587af4b5d0d78675a5ad2f7b0d8f571e35311ca2466cd32bb564945c"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-5.json.gz",
+          "sha256": "2a6b127e931e130f7657f149f96d65ce757594ad5da5e65bb0883604519b18c5",
+          "parsedStateHash": "96b25a8f10be4f6db1cbd7c704d229b6f9faf7b4b3056e2c9f514d52bd9f2153",
+          "rawStateHash": "ac2f2f2038773f715f9b311ec3d41223ebf45060899029b31676155e75bc4e5c"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-6.json.gz",
+          "sha256": "29ce7a903843602c694f29e734cc2a2f607917dba3207a813bdaf5cea7591580",
+          "parsedStateHash": "1288d1077dbb9b178023fb8108ab176cc93f35c37bea9a9bb6fc211345236b48",
+          "rawStateHash": "09cc0d0dc70594ee9a9ae622adc2f479a366a635abf3efce4a0d625d36db65cf"
+        },
+        {
+          "path": "docs/performance/pr196/harvest/ww-state-value-v1-baseline-v1-capture-7.json.gz",
+          "sha256": "cb702694be5334a69f39a4b950608d9e4a099bd09e23756f6ee3ebef8c733c3a",
+          "parsedStateHash": "2d4275f06dbdf4ab1af3cc2580137df410ad7291a38fe2108b6378a16c8e6f1e",
+          "rawStateHash": "0692188778551a4628af100d253529f9b710c3d220ca0878a4b0bf1d510acfb5"
+        }
+      ]
+    }
+  ]
+}
