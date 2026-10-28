@@ -47,7 +47,8 @@ export type FlightSighting = z.infer<typeof flightSightingSchema>;
 export type KickerCue = z.infer<typeof kickerCueSchema>;
 export type FlightBelief = z.infer<typeof flightBeliefSchema>;
 
-/** Research hypothesis only: no live match imports this module. The available body
+/** Research origin (PR199); PR200's independently gated sensory adapter also uses it.
+ * The available body
  * orientation/preparation supplies a broad expectation, not the intended action or error. */
 export const beliefFromKicker = (cue: KickerCue): FlightBelief => ({
   lastObservation: null,

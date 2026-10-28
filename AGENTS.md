@@ -11,3 +11,9 @@
 - PR nie może być opisany jako gotowy, jeżeli verify nie przeszło.
 - Nowe typy danych muszą mieć schematy walidacyjne.
 - Językiem produktu jest polski, a językiem kodu angielski.
+
+## Ciągłość integracji MatchEngine od PR200
+
+- Każdy istotny PR MatchEngine opisuje: research change, local result, integration effect, promotion decision i next dependency.
+- Utrzymuj wykonywalny profil z `docs/match-engine/INTEGRATION_ARCHITECTURE.md`; jawnie określ zmianę albo pozostawienie kandydata bez zmian.
+- Oddziel wybór mechanizmów od polityki, wyniki lokalne od pełnych meczów i lifecycle od I/F/E/T/M/C. Zachowuj wyniki negatywne oraz źródłowe replaye.

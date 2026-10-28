@@ -4,6 +4,8 @@ Authoritative, persistent checklist. Base: merged PR194 `e828f5a1e41bbec2101c71f
 
 ## Reading and updating
 
+PR200 continuity: [integration report](../PR200_MATCH_ENGINE_INTEGRATION_CANDIDATE_RECEIVER_MOTOR_AND_BOUNDED_PERCEPTION.md), [architecture](INTEGRATION_ARCHITECTURE.md) and [evidence-backed integration dimensions](INTEGRATION_EVIDENCE.json) address PASS-003/004/006/009/010, DEF-003/004, GK-002, TACT-004/009 and MEAS-001/003/011/012. All 135 identities and original I/F/E/T/M/C gates remain. The new bounded live pathway is implemented but physically regresses; the candidate is NOT_READY_FOR_PROMOTION and the receiver motor replacement is withheld. Integration presence is not COMPLETE, empirical calibration or canonical promotion. Independent confirmation stays sealed.
+
 Each item separates implementation correctness (I), physical feasibility (F), empirical calibration (E), tactical validity (T), full-match transfer (M), and independent confirmation (C). A related test is partial I/F evidence only. `partial` never means the entire item passed. No item is closed by a source edit or a green CI run.
 
 At each subsequent MatchEngine PR: read this register; name exact IDs; freeze source/evidence and hypotheses; run baseline laboratories; make scoped changes; repeat paired development tests; record regressions/uncertainty; update statuses and link the PR plus commit and reproducible closure evidence; leave other items open. Never delete or renumber retired items: retain their history and replacement IDs.
@@ -1327,6 +1329,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR199 development update:** Native projection reacts to unseen canonical shot state; v2 also exposes inherited full-world tactical target/facing movement. Versioned v3/v4 laboratory motor inputs consume only shared belief and an actual-sighting reaction clock. Original miss/block-heavy and confounded cohorts remain frozen. Real catch/parry/contact geometry stays authoritative; no live keeper repair or anatomy overhaul.
 - **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
+
+- **PR200 development update:** The independently gated live sensory/motor/keeper route implements the scoped information-boundary correction demonstrated by [seven source-bound interventions](../performance/pr200/information-boundary-final-v1.json.gz). This is one shared source repair, not two independent fixes. Physical reception and difficult saves regress; development/integration calibration remains partial, canonical NOT READY and independent confirmation sealed. Historical dimension scopes remain in REALISM_EVIDENCE scopeHistory and merged PR199.
+
 ### GK-003 — Audit catch, parry, punch, deflection and failed intervention outcomes.
 
 - [ ] LAB_REQUIRED
@@ -1685,6 +1690,9 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 - **PR199 development update:** Temporal ball perception, observed versus inferred velocity, spin provenance, 3D occlusion and trajectory-memory uncertainty are explicitly within this existing ID. Deterministic audit confirms exact snapshot velocity and general cached timestamp/hidden-spin leakage; reception-specific time/zero-spin safeguards are verified. A schema-validated position/optical-interval belief is laboratory-only. Native broader tactical/GK paths remain unbounded; no new duplicate ID.
 - **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
+
+- **PR200 development update:** The independently gated live sensory/motor/keeper route implements the scoped information-boundary correction demonstrated by [seven source-bound interventions](../performance/pr200/information-boundary-final-v1.json.gz). This is one shared source repair, not two independent fixes. Physical reception and difficult saves regress; development/integration calibration remains partial, canonical NOT READY and independent confirmation sealed. Historical dimension scopes remain in REALISM_EVIDENCE scopeHistory and merged PR199.
 
 ### TACT-010 — Audit contextual objectives derived from match score, competition rules and time remaining.
 

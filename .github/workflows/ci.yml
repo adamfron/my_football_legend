@@ -53,6 +53,8 @@ jobs:
         run: npm run benchmark:pr198:check && npm run benchmark:pr198:replay && git diff --exit-code -- docs/performance docs/match-engine
       - if: matrix.group == 'main'
         run: npm run benchmark:pr199:check && npm run benchmark:realism:check && git diff --exit-code -- docs/performance docs/match-engine
+      - if: matrix.group == 'main'
+        run: npm run benchmark:pr200:check && git diff --exit-code -- docs/performance docs/match-engine
   pr198-source:
     name: PR198 source (${{ matrix.group }})
     runs-on: ubuntu-latest
@@ -91,10 +93,49 @@ jobs:
       - run: npm ci
       - run: npm run benchmark:pr199:source-replay -- --case=${{ matrix.group }}
       - run: git diff --exit-code -- docs/performance docs/match-engine
+  pr200-source:
+    name: PR200 local (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [frozen, changed, fresh, keepers, keepers-v2, diagnosis, smoke, frozen-final, fresh-final, diagnosis-final, keepers-v3, information]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run benchmark:pr200:source-replay -- --case=${{ matrix.group }}
+      - run: git diff --exit-code -- docs/performance docs/match-engine
+  pr200-matches:
+    name: PR200 complete matches (${{ matrix.fixture }}, ${{ matrix.cohort }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        fixture: [ww-opportunity-driven-v1, ww-hierarchical-intent-v1, ss-opportunity-driven-v1, sw-state-value-v1, sw-contextual-judgment-v1, ww-phase-role-hybrid-v1, ss-state-value-v1]
+        cohort: [current, historical]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run benchmark:pr200:source-replay -- --case=matches-${{ matrix.fixture }} --cohort=${{ matrix.cohort }}
+      - run: git diff --exit-code -- docs/performance docs/match-engine
   quality:
     # Preserve the existing required check and fail it if either group fails,
     # times out or is cancelled, including failures before tests can start.
-    needs: [checks, pr198-source, pr199-source]
+    needs: [checks, pr198-source, pr199-source, pr200-source, pr200-matches]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -104,4 +145,6 @@ jobs:
           VERIFY_RESULT: ${{ needs.checks.result }}
           PR198_RESULT: ${{ needs.pr198-source.result }}
           PR199_RESULT: ${{ needs.pr199-source.result }}
-        run: test "$VERIFY_RESULT" = success && test "$PR198_RESULT" = success && test "$PR199_RESULT" = success
+          PR200_RESULT: ${{ needs.pr200-source.result }}
+          PR200_MATCHES_RESULT: ${{ needs.pr200-matches.result }}
+        run: test "$VERIFY_RESULT" = success && test "$PR198_RESULT" = success && test "$PR199_RESULT" = success && test "$PR200_RESULT" = success && test "$PR200_MATCHES_RESULT" = success

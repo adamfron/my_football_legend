@@ -1,5 +1,13 @@
 # Mechanism dependencies
 
+## PR200 live integration boundary
+
+Current executable graph and source-backed inventory: [integration architecture](INTEGRATION_ARCHITECTURE.md), [candidate decisions](INTEGRATION_CANDIDATES.md), [PR200 report](../PR200_MATCH_ENGINE_INTEGRATION_CANDIDATE_RECEIVER_MOTOR_AND_BOUNDED_PERCEPTION.md) and [exact current consumers](../performance/pr200/inventory.json).
+
+TACT-009 sensory acquisition → timestamped uncertain motion inference → PASS-004/009 observed receiver preparation and GK-002 final movement/action boundary → shared canonical movement/contact → PASS-006/007 original delivery control/retention. Physical truth remains with execution and privileged comparison. Active memory cannot relabel a prediction as a sighting. Keeper tactical/role/aerial targets, facing/effort and active save reach cannot bypass the experiment's gate. B/R3 full-world ranking and broader outfield tactics remain separate information scopes.
+
+PASS-003/DEF-003/004 symmetric reception is a scoped integration test candidate; height-aware engineering ranking and bounded loft repertoire have different acting policy interfaces. S requires receiver anticipation and is rejected with the unvalidated live belief route. The whole combination executes but fails development promotion: bounded receiver performance falls and policy-specific match harms remain. Primary next dependency is acquisition/cadence versus preparation, not a universal speed or facing multiplier. MEAS-001/003/011/012 keep information, motor intent, actual contact and attribution separate. The sections below retain historical PR196–199 claims in their original scope.
+
 ## PR199 temporal information boundary
 
 [PR199](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md) audits the currently present paths: canonical ball → bounded snapshot with exact velocity → motor observation → receiver estimate; canonical shot → engineering keeper projection → native movement/contact; and general cached ball → fresh adapter timestamp/hidden spin. Reception-specific timestamps and zero-spin handling are verified separately. Native broad tactical positioning/facing is not certified bounded.

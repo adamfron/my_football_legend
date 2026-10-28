@@ -1,0 +1,35 @@
+[
+  {
+    "command": "npm run benchmark:pr199:check",
+    "startedAt": "2026-10-27T23:09:29.718Z",
+    "endedAt": "2026-10-27T23:10:27.511Z",
+    "code": 0,
+    "signal": null,
+    "log": "benchmark-pr199-check.log.gz",
+    "sha256": "5370d5cbd7d232ad75f567570b73aea3a5c53fbc139d5eb26756494bcc856ff3",
+    "sourceBefore": "c64a85d952158290ad18bedf677a8d3fa12fafd1707be11ab1164f00a4c36726",
+    "sourceAfter": "c64a85d952158290ad18bedf677a8d3fa12fafd1707be11ab1164f00a4c36726"
+  },
+  {
+    "command": "npm run benchmark:pr199:replay",
+    "startedAt": "2026-10-27T23:10:27.659Z",
+    "endedAt": "2026-10-27T23:58:30.299Z",
+    "code": 0,
+    "signal": null,
+    "log": "benchmark-pr199-replay.log.gz",
+    "sha256": "46d806943724d6860d6064185bf032e807e56af8801ffa11acc0bc33a9f8126f",
+    "sourceBefore": "c64a85d952158290ad18bedf677a8d3fa12fafd1707be11ab1164f00a4c36726",
+    "sourceAfter": "3ef8aa79401dfbd40187a94dd1965f59b6fa84f5f728862c87ba0fc1d8cd5870"
+  },
+  {
+    "command": "npm run benchmark:realism:check",
+    "startedAt": "2026-10-27T23:58:30.510Z",
+    "endedAt": "2026-10-27T23:58:47.930Z",
+    "code": 0,
+    "signal": null,
+    "log": "benchmark-realism-check.log.gz",
+    "sha256": "1f424cfe5e242ff259debdb3ee4f0b0a66da5dd05503635fe341f3611327f64c",
+    "sourceBefore": "3ef8aa79401dfbd40187a94dd1965f59b6fa84f5f728862c87ba0fc1d8cd5870",
+    "sourceAfter": "cd115ba8fa0a2b8c9dbdae516588a2fe3251c7fd83cfa7ab799e354d96711673"
+  }
+]

@@ -1,5 +1,13 @@
 # Roadmap
 
+### Utrzymywany kandydat integracji PR200
+
+Aktualny etap: [PR200](PR200_MATCH_ENGINE_INTEGRATION_CANDIDATE_RECEIVER_MOTOR_AND_BOUNDED_PERCEPTION.md). Wykonywalny `realism-candidate-v0` łączy mechanizmy w tym samym silniku, rozdziela polityki i wykrywa niezgodne konfiguracje. [Architektura integracji](match-engine/INTEGRATION_ARCHITECTURE.md) wymaga od następnych PR jawnego wyniku lokalnego, wpływu na kandydata, decyzji o promocji i następnej zależności.
+
+Kandydat pozostaje **NOT_READY_FOR_PROMOTION**. PR201 powinien najpierw rozdzielić skutki rzeczywistego nabywania obserwacji i przygotowania ruchowego: świeża informacja diagnostyczna przywraca kontakty, sam większy wysiłek ich nie odzyskuje. Potrzebne są fizyczne porównania wczesnego i późniejszego kontaktu, świeże geometrie oraz ponowna macierz pełnych meczów. Bez globalnych bonusów podań, strzałów, kontroli czy bramkarza.
+
+**B domyślne, canonical NOT READY, confirmation zamknięte, 135 ID bez COMPLETE, 40 Hz i 28 atrybutów zachowane.** Pełne wcześniejsze zobowiązania kariery, generacji, świata i przyszłego modelu destylowanego pozostają aktualne. Starsze sekcje poniżej mają charakter historyczny.
+
 ### Percepcja, regresja odbiorcy i postęp PR199
 
 Aktualny etap: [PR199](PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md). Dokładna analiza 11 zmienionych kontaktów wskazuje współdziałanie przygotowania ruchowego i obserwacji. Laboratoria rozdzielają dowody wzrokowe, estymację, pamięć, ruch i realne przyjęcie/interwencję bramkarza. Wszystkie nieudane kohorty są zachowane; brak promocji modelu do normalnej gry.

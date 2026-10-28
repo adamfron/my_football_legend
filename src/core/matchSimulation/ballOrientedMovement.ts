@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { observedMotorBall } from './liveBallFlight';
 import { physicalPointSchema } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { observeBoundedScene } from './boundedPerception';
@@ -60,6 +61,7 @@ export const observeBallMotorState = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
 ): BallMotorObservation => {
+  if (state.experimentalBoundedBallFlightBelief) return observedMotorBall(state, actor);
   if (actor.ballMotorObservation && state.time < actor.ballMotorObservation.nextAt)
     return actor.ballMotorObservation;
   const scene = observeBoundedScene(state, actor);
@@ -97,6 +99,7 @@ export const observeReceptionBall = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
 ): BallMotorObservation => {
+  if (state.experimentalBoundedBallFlightBelief) return observedMotorBall(state, actor);
   const observation = observeBallMotorState(state, actor);
   if (observation === actor.ballMotorObservation) return observation;
   const memory = state.experimentalActivePerception

@@ -36,6 +36,8 @@ export * from './playerArrival';
 export * from './playerMatchStats';
 export * from './contactEvidence';
 export * from './goalkeeperIntervention';
+export * from './integrationProfile';
+export * from './liveBallFlight';
 export * from './passLaunchPlan';
 export * from './receiverReadiness';
 export * from './carryExecution';

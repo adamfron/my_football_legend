@@ -9,12 +9,12 @@ Registered: **135**. Historical PR196–198 explicit development-update union: *
 | SOURCE_AUDITED | 135 | 0 | 0 | 0 | 0 |
 | EXPERIMENT_INVESTIGATED | 38 | 1 | 0 | 0 | 96 |
 | ROOT_CAUSE_IDENTIFIED | 12 | 0 | 0 | 0 | 123 |
-| FIX_IMPLEMENTED | 10 | 2 | 0 | 0 | 123 |
+| FIX_IMPLEMENTED | 12 | 0 | 0 | 0 | 123 |
 | DEVELOPMENT_VALIDATED | 8 | 4 | 0 | 0 | 123 |
 | INDEPENDENT_VALIDATED | 0 | 0 | 0 | 0 | 135 |
 | COMPLETE | 0 | 0 | 0 | 0 | 135 |
 
-Registry-blocked items: **12**. Awaiting first linked item-specific laboratory: **96** (not a claim that older uncatalogued work never occurred). Distinct scoped source corrections: **7**. Issue counts can share one correction; they are not counts of independent repairs.
+Registry-blocked items: **12**. Awaiting first linked item-specific laboratory: **96** (not a claim that older uncatalogued work never occurred). Distinct scoped source corrections: **8**. Issue counts can share one correction; they are not counts of independent repairs.
 
 Supported means only the stated evidence scope. Local development validation does not establish E/T/M/C. No completion percentage is inferred.
 
@@ -24,7 +24,7 @@ Supported means only the stated evidence scope. Local development validation doe
 | Decision architecture and risk. | 13 | 3 | 1 | 1 | 1 | 0 |
 | Defensive ability and pressing. | 12 | 6 | 2 | 2 | 2 | 0 |
 | Fitness and physical effort. | 10 | 1 | 1 | 1 | 1 | 0 |
-| Goalkeepers and aerial football. | 10 | 1 | 1 | 0 | 0 | 0 |
+| Goalkeepers and aerial football. | 10 | 1 | 1 | 1 | 0 | 0 |
 | Measurement, attributes and performance. | 12 | 4 | 2 | 2 | 2 | 0 |
 | Pain, falls, injuries, referee and fair play. | 15 | 0 | 0 | 0 | 0 | 0 |
 | Passing and receiving. | 12 | 11 | 4 | 4 | 2 | 0 |
@@ -32,11 +32,11 @@ Supported means only the stated evidence scope. Local development validation doe
 | Shared physical response. | 2 | 1 | 0 | 0 | 0 | 0 |
 | Shooting and improvised finishing. | 12 | 2 | 0 | 0 | 0 | 0 |
 | Tactical initiative and on-ball carry choice. | 1 | 1 | 0 | 0 | 0 | 0 |
-| Tactical movement and team intelligence. | 12 | 6 | 1 | 0 | 0 | 0 |
+| Tactical movement and team intelligence. | 12 | 6 | 1 | 1 | 0 | 0 |
 
 | Priority | Total | Investigated | Diagnosed | Scoped correction | Development validated | COMPLETE |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| P0 | 45 | 18 | 9 | 7 | 7 | 0 |
+| P0 | 45 | 18 | 9 | 9 | 7 | 0 |
 | P1 | 77 | 20 | 3 | 3 | 1 | 0 |
 | P2 | 12 | 0 | 0 | 0 | 0 | 0 |
 | P3 | 1 | 0 | 0 | 0 | 0 | 0 |
@@ -51,6 +51,8 @@ PR198 (23): DEC-003, DEC-004, DEC-008, DEF-010, DRIB-002, DRIB-003, MEAS-011, ME
 
 PR199 (16): GK-001, GK-002, MEAS-001, MEAS-003, MEAS-007, MEAS-008, MEAS-009, MEAS-010, MEAS-011, MEAS-012, PASS-004, PASS-006, PASS-009, TACT-001, TACT-004, TACT-009.
 
+PR200 (2): GK-002, TACT-009.
+
 Investigated union (38): DEC-003, DEC-004, DEC-008, PASS-001, PASS-003, PASS-004, PASS-005, PASS-006, PASS-007, PASS-008, PASS-009, PASS-010, PASS-011, PASS-012, SHOT-006, SHOT-007, DEF-001, DEF-002, DEF-003, DEF-004, DEF-005, DEF-010, DRIB-002, DRIB-003, GK-002, TACT-001, TACT-002, TACT-003, TACT-004, TACT-006, TACT-009, FIT-002, MEAS-001, MEAS-003, MEAS-011, MEAS-012, PHYS-002, TACT-013.
 
 New IDs in PR199: none; temporal observation/velocity/memory is explicitly covered by TACT-009 with PASS-004/009 and GK-002 .
@@ -60,7 +62,8 @@ New IDs in PR199: none; temporal observation/velocity/memory is explicitly cover
 - PASS-004: PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case.
 - PASS-006: PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case.
 - PASS-009: PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case.
-- GK-002: PR199 laboratory bounded perception can lose native physical saves; full-view/occlusion apparatus limitations and misses retained.
+- GK-002: PR199 laboratory bounded perception can lose native physical saves; full-view/occlusion apparatus limitations and misses retained.; PR200 live bounded pathway loses real receptions and some difficult saves; executable combined candidate is NOT_READY_FOR_PROMOTION.
+- TACT-009: PR200 live bounded pathway loses real receptions and some difficult saves; executable combined candidate is NOT_READY_FOR_PROMOTION.
 
 - Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.
 - No external calibration of optical noise, derivative correction, uncertainty, cue priors or memory commitment; no live consumer promotion.
@@ -132,7 +135,7 @@ S = source, X = experiment, R = root cause, F = scoped fix, D = development, I =
 | [DRIB-009](ASSUMPTIONS_REGISTER.md#drib-009--audit-unexpected-touches-heavy-touches-recovery-and-second-ball-races) | LAB_REQUIRED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
 | [DRIB-010](ASSUMPTIONS_REGISTER.md#drib-010--test-player-and-ball-behaviour-near-touchlines-and-goal-lines) | LAB_REQUIRED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
 | [GK-001](ASSUMPTIONS_REGISTER.md#gk-001--calibrate-goalkeeper-positioning-and-shot-coverage) | LAB_REQUIRED | SUPPORTED | PARTIAL | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
-| [GK-002](ASSUMPTIONS_REGISTER.md#gk-002--calibrate-reaction-and-physical-arrival-estimates) | LAB_ACTIVE | SUPPORTED | SUPPORTED | SUPPORTED | PARTIAL | PARTIAL | NOT_ASSESSED | NOT_ASSESSED |
+| [GK-002](ASSUMPTIONS_REGISTER.md#gk-002--calibrate-reaction-and-physical-arrival-estimates) | LAB_ACTIVE | SUPPORTED | SUPPORTED | SUPPORTED | SUPPORTED | PARTIAL | NOT_ASSESSED | NOT_ASSESSED |
 | [GK-003](ASSUMPTIONS_REGISTER.md#gk-003--audit-catch-parry-punch-deflection-and-failed-intervention-outcomes) | LAB_REQUIRED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
 | [GK-004](ASSUMPTIONS_REGISTER.md#gk-004--audit-goalkeeper-choice-to-leave-the-goal-during-open-play) | LAB_REQUIRED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
 | [GK-005](ASSUMPTIONS_REGISTER.md#gk-005--audit-aerial-reach-jumping-heading-and-goalkeeper-body-geometry) | LAB_REQUIRED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
@@ -149,7 +152,7 @@ S = source, X = experiment, R = root cause, F = scoped fix, D = development, I =
 | [TACT-006](ASSUMPTIONS_REGISTER.md#tact-006--audit-territorial-value-rest-defence-and-vulnerability-to-counterattacks) | LAB_ACTIVE | SUPPORTED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
 | [TACT-007](ASSUMPTIONS_REGISTER.md#tact-007--audit-tactical-preferences-and-team-tempo) | LAB_REQUIRED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
 | [TACT-008](ASSUMPTIONS_REGISTER.md#tact-008--audit-coach-instructions-captain-communication-and-leadership-effects) | BLOCKED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
-| [TACT-009](ASSUMPTIONS_REGISTER.md#tact-009--verify-perception-memory-and-opponent-capability-beliefs-remain-bounded) | LAB_ACTIVE | SUPPORTED | SUPPORTED | SUPPORTED | PARTIAL | PARTIAL | NOT_ASSESSED | NOT_ASSESSED |
+| [TACT-009](ASSUMPTIONS_REGISTER.md#tact-009--verify-perception-memory-and-opponent-capability-beliefs-remain-bounded) | LAB_ACTIVE | SUPPORTED | SUPPORTED | SUPPORTED | SUPPORTED | PARTIAL | NOT_ASSESSED | NOT_ASSESSED |
 | [TACT-010](ASSUMPTIONS_REGISTER.md#tact-010--audit-contextual-objectives-derived-from-match-score-competition-rules-and-time-remaining) | BLOCKED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
 | [TACT-011](ASSUMPTIONS_REGISTER.md#tact-011--audit-whether-a-team-can-rationally-conserve-effort-and-then-accelerate) | LAB_REQUIRED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
 | [TACT-012](ASSUMPTIONS_REGISTER.md#tact-012--investigate-persistent-low-shothigh-pass-behaviour-across-different-policies) | LAB_REQUIRED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
@@ -209,3 +212,17 @@ S = source, X = experiment, R = root cause, F = scoped fix, D = development, I =
 | [TACT-013](ASSUMPTIONS_REGISTER.md#tact-013--dynamic-attacking-initiative-from-nominal-defensive-positions-and-cover-aware-advancement) | LAB_ACTIVE | SUPPORTED | SUPPORTED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED | NOT_ASSESSED |
 
 Read-only verification: `npm run benchmark:realism:check`. Regeneration after reviewed mapping changes: `npm run benchmark:realism:generate`. Neither command changes the original registry or closure contract.
+
+## Integration progress (PR200)
+
+Implementation lifecycle is separate from I/F/E/T/M/C and the historical issue/fix counts. Each mechanism is counted once; shared issue IDs and flags do not become independent repairs. **realism-candidate-v0: NOT_READY_FOR_PROMOTION**.
+
+| Dimension | Supported | Partial | Failed | Blocked | Not assessed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| LIVE_CONSUMER_PRESENT | 16 | 0 | 0 | 0 | 0 |
+| INTEGRATION_CANDIDATE | 5 | 0 | 0 | 0 | 11 |
+| COMPATIBILITY_VALIDATED | 1 | 2 | 2 | 0 | 11 |
+| FULL_MATCH_TRANSFER_SUPPORTED | 0 | 0 | 0 | 1 | 15 |
+| CANONICAL_PROMOTED | 0 | 0 | 0 | 0 | 16 |
+
+Evidence, exact source identities, registry IDs, demonstrated scope and regressions: [integration mapping](INTEGRATION_EVIDENCE.json). Selection in an executable failing candidate does not imply compatibility, match transfer, calibration or canonical promotion.

@@ -137,11 +137,21 @@
     "benchmark:pr198:matches": "node scripts/runPr198Development.mjs",
     "benchmark:pr199:verification": "node scripts/runPr199Verification.mjs",
     "benchmark:pr199:freeze": "node scripts/freezePr199Baseline.mjs --check",
-    "benchmark:pr199:check": "node scripts/freezePr199Baseline.mjs --check && node scripts/checkPr199Evidence.mjs && node scripts/summarizePr199.mjs --check && node scripts/reportPr199.mjs --check && node scripts/realismProgress.mjs --check",
+    "benchmark:pr199:check": "node scripts/replayPr199Baseline.mjs",
     "benchmark:pr199:replay": "node scripts/replayPr199Experiment.mjs",
     "benchmark:pr199:source-replay": "node scripts/replayPr199Experiment.mjs",
     "benchmark:realism:check": "node scripts/realismProgress.mjs --check",
-    "benchmark:realism:generate": "node scripts/realismProgress.mjs"
+    "benchmark:realism:generate": "node scripts/realismProgress.mjs",
+    "benchmark:pr200:freeze": "node scripts/freezePr200Baseline.mjs --check",
+    "benchmark:pr200:inventory": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/pr200Inventory.mjs",
+    "benchmark:pr200:matches": "node scripts/runPr200Development.mjs",
+    "benchmark:pr200:local": "node --experimental-transform-types --import ./scripts/registerPr199Lab.mjs scripts/benchmarkPr200Local.mjs",
+    "benchmark:pr200:keepers": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr200Goalkeepers.mjs",
+    "benchmark:pr200:information": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr200Information.mjs",
+    "benchmark:pr200:source-replay": "node scripts/replayPr200Experiment.mjs",
+    "benchmark:pr200:check": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr200Evidence.mjs && node scripts/freezePr200Baseline.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/pr200Inventory.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr200.mjs --check && node scripts/realismProgress.mjs --check",
+    "benchmark:pr200:report": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr200.mjs && node scripts/realismProgress.mjs",
+    "benchmark:pr200:verification": "node scripts/runPr200Verification.mjs"
   },
   "dependencies": {
     "react": "19.2.8",
