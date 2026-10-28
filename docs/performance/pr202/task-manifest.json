@@ -3,6 +3,37 @@
   "base": "5b6bbf6778017ac415964dd48dfe30b850f2f352",
   "originalWorkflowSha256": "fb9fc2abcf3f893bf865f6d2c790c8e15e1ccdd5b56466ee9fc87b6bae502e8f",
   "packageScriptsSha256": "9e7aa1ac1fabda9c5f2bcee6bd1096cbd7cb6aabb824c96b61412df659ad4409",
+  "gate": {
+    "name": "quality",
+    "timeoutMinutes": 30,
+    "os": "ubuntu-latest",
+    "originalNeeds": [
+      "checks",
+      "historical-checks",
+      "pr198-source",
+      "pr199-source",
+      "pr200-source",
+      "pr200-matches",
+      "pr200-platform"
+    ],
+    "proposedNeeds": [
+      "checks",
+      "historical-checks",
+      "historical-source",
+      "pr200-matches",
+      "pr200-platform"
+    ],
+    "requireEveryResult": "success",
+    "originalCommand": "test \"$VERIFY_RESULT\" = success && test \"$HISTORICAL_RESULT\" = success && test \"$PR198_RESULT\" = success && test \"$PR199_RESULT\" = success && test \"$PR200_RESULT\" = success && test \"$PR200_MATCHES_RESULT\" = success && test \"$PR200_PLATFORM_RESULT\" = success",
+    "proposedProgram": "process.exit([\"VERIFY_RESULT\",\"HISTORICAL_RESULT\",\"SOURCE_RESULT\",\"PR200_MATCHES_RESULT\",\"PR200_PLATFORM_RESULT\"].every(k=>process.env[k]===\"success\")?0:1)",
+    "rejectedResults": [
+      "failure",
+      "cancelled",
+      "skipped",
+      "timed_out",
+      "missing"
+    ]
+  },
   "tasks": [
     {
       "id": "checks:main/1",

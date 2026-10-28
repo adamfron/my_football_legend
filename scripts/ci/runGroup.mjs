@@ -7,7 +7,15 @@ import { resolve, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { performance } from 'node:perf_hooks';
 import { setTimeout, clearTimeout } from 'node:timers';
-import { digest, json, validateManifest, checkEvidence } from './manifest.mjs';
+import { arch, cpus, release, totalmem } from 'node:os';
+import {
+  digest,
+  json,
+  validateManifest,
+  checkEvidence,
+  nodeResourceSchema,
+  groupExecutionSchema,
+} from './manifest.mjs';
 import { pr201Context } from './replayPr201Check.mjs';
 
 export function stopTree(child) {
@@ -77,6 +85,7 @@ async function main() {
   const group = m[layout].find((g) => g.id === args.get('group'));
   assert.ok(group, 'Unknown or empty CI group');
   const selected = group.tasks.map((id) => m.tasks.find((t) => t.id === id));
+  assert.ok(['win32', 'linux'].includes(process.platform), 'Unsupported replay platform');
   const os = process.platform === 'win32' ? 'windows-2025' : 'ubuntu-latest';
   const platformParity = args.has('platform-parity') && group.id.startsWith('source-');
   if (!platformParity) assert.equal(selected[0].os, os, 'Wrong platform for task');
@@ -103,13 +112,23 @@ async function main() {
     platform: process.platform,
     platformParity,
     runnerOS: process.env.RUNNER_OS ?? null,
+    host: {
+      arch: arch(),
+      release: release(),
+      cpuModel: cpus()[0]?.model ?? null,
+      cpuCount: cpus().length,
+      totalMemoryBytes: totalmem(),
+    },
     manifestSha256: digest(readFileSync('docs/performance/pr202/task-manifest.json')),
     startedAt: new Date().toISOString(),
     status: 'running',
     tasks: [],
   };
   const save = () =>
-    writeFileSync(join(output, 'group.json'), JSON.stringify(report, null, 2) + '\n');
+    writeFileSync(
+      join(output, 'group.json'),
+      JSON.stringify(groupExecutionSchema.parse(report), null, 2) + '\n',
+    );
   save();
   const start = performance.now();
   for (const task of selected) {
@@ -165,7 +184,7 @@ async function main() {
       entry.wallSeconds = (performance.now() - taskStart) / 1000;
       const samples = readdirSync(resources)
         .filter((n) => n.endsWith('.json'))
-        .map((n) => json(join(resources, n)));
+        .map((n) => nodeResourceSchema.parse(json(join(resources, n))));
       entry.nodeProcesses = samples.length;
       entry.maxNodeProcessRSSKiB = samples.length
         ? Math.max(...samples.map((s) => s.peakRSSKiB))

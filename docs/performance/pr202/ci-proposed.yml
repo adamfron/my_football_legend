@@ -39,8 +39,14 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run ci:manifest
-      - run: npm run ci:contracts
+      - if: matrix.group == 'main'
+        run: npm run ci:manifest
+      - if: matrix.group == 'main'
+        run: npm run ci:contracts
+      - if: matrix.group == 'main'
+        run: node scripts/ci/renderWorkflow.mjs --check
+      - if: matrix.group == 'main'
+        run: node scripts/ci/corruptReplay.mjs
       - run: npm run ci:group -- --group=checks:${{ matrix.group }}
       - uses: actions/upload-artifact@v4
         if: always()

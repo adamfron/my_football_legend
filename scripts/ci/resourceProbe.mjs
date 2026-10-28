@@ -9,7 +9,7 @@ process.once('exit', (exitCode) => {
   if (!process.env.MFL_CI_RESOURCES) return;
   const usage = process.resourceUsage();
   writeFileSync(
-    join(process.env.MFL_CI_RESOURCES, `${process.pid}.json`),
+    join(process.env.MFL_CI_RESOURCES, `${process.pid}-${started}.json`),
     JSON.stringify({
       pid: process.pid,
       parentPid: process.ppid,

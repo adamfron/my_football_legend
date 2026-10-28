@@ -17,6 +17,7 @@ test('packing loses, duplicates or crosses no platform/budget case', () => {
     (m) => m.proposed[0].tasks.push(m.proposed[0].tasks[0]),
     (m) => (m.tasks[0].os = 'other-platform'),
     (m) => (m.proposed[0].measuredPayloadSeconds = 2701),
+    (m) => m.gate.proposedNeeds.pop(),
   ]) {
     const m = globalThis.structuredClone(manifest);
     mutate(m);

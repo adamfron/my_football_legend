@@ -1,0 +1,4529 @@
+{
+  "total_count": 43,
+  "jobs": [
+    {
+      "id": 123153384993,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOGIQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153384993",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153384993",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:07:06Z",
+      "name": "PR198 source (disruption)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:00:59Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:59Z",
+          "completed_at": "2026-10-28T23:01:28Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:28Z",
+          "completed_at": "2026-10-28T23:01:31Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:31Z",
+          "completed_at": "2026-10-28T23:01:37Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr198:source-replay -- --case=disruption",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:37Z",
+          "completed_at": "2026-10-28T23:07:02Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:07:02Z",
+          "completed_at": "2026-10-28T23:07:02Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:07:02Z",
+          "completed_at": "2026-10-28T23:07:02Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:07:02Z",
+          "completed_at": "2026-10-28T23:07:02Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:07:02Z",
+          "completed_at": "2026-10-28T23:07:02Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153384993",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001506,
+      "runner_name": "GitHub Actions 1000001506",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385199,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOG7w",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385199",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385199",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:06:52Z",
+      "name": "PR200 local (frozen)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:57Z",
+          "completed_at": "2026-10-28T23:00:58Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:01:23Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:23Z",
+          "completed_at": "2026-10-28T23:01:24Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:24Z",
+          "completed_at": "2026-10-28T23:01:29Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=frozen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:29Z",
+          "completed_at": "2026-10-28T23:06:49Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:06:49Z",
+          "completed_at": "2026-10-28T23:06:50Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:06:50Z",
+          "completed_at": "2026-10-28T23:06:50Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:06:50Z",
+          "completed_at": "2026-10-28T23:06:50Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:06:50Z",
+          "completed_at": "2026-10-28T23:06:50Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385199",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001505,
+      "runner_name": "GitHub Actions 1000001505",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385211,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOG-w",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385211",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385211",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:07:35Z",
+      "name": "PR200 local (frozen-final)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:00:59Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:59Z",
+          "completed_at": "2026-10-28T23:02:01Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:02:01Z",
+          "completed_at": "2026-10-28T23:02:06Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:02:06Z",
+          "completed_at": "2026-10-28T23:02:11Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=frozen-final",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:02:11Z",
+          "completed_at": "2026-10-28T23:07:31Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:07:31Z",
+          "completed_at": "2026-10-28T23:07:32Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:07:32Z",
+          "completed_at": "2026-10-28T23:07:32Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:07:32Z",
+          "completed_at": "2026-10-28T23:07:32Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:07:32Z",
+          "completed_at": "2026-10-28T23:07:32Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385211",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001507,
+      "runner_name": "GitHub Actions 1000001507",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385213,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOG_Q",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385213",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385213",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:02:15Z",
+      "name": "Historical checks (passing)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:00:59Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:59Z",
+          "completed_at": "2026-10-28T23:01:48Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:48Z",
+          "completed_at": "2026-10-28T23:01:50Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:50Z",
+          "completed_at": "2026-10-28T23:01:57Z"
+        },
+        {
+          "name": "Run npm run generate:world-db",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:57Z",
+          "completed_at": "2026-10-28T23:01:58Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr197:check && npm run benchmark:pr197:replay && npm run benchmark:pr198:check && npm run benchmark:pr198:replay",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:01:58Z",
+          "completed_at": "2026-10-28T23:02:12Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:02:12Z",
+          "completed_at": "2026-10-28T23:02:12Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:02:12Z",
+          "completed_at": "2026-10-28T23:02:12Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-28T23:02:12Z",
+          "completed_at": "2026-10-28T23:02:12Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:02:12Z",
+          "completed_at": "2026-10-28T23:02:12Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385213",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001503,
+      "runner_name": "GitHub Actions 1000001503",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385251,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHIw",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385251",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385251",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:07:38Z",
+      "completed_at": "2026-10-28T23:39:41Z",
+      "name": "PR200 complete matches (sw-contextual-judgment-v1, current)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:07:39Z",
+          "completed_at": "2026-10-28T23:07:40Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:07:40Z",
+          "completed_at": "2026-10-28T23:08:12Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:08:12Z",
+          "completed_at": "2026-10-28T23:08:21Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:08:21Z",
+          "completed_at": "2026-10-28T23:08:41Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-sw-contextual-judgment-v1 --cohort=current",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:08:41Z",
+          "completed_at": "2026-10-28T23:20:57Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-sw-contextual-judgment-v1-realism-candidate-v1-v1,match-sw-contextual-judgment-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:20:57Z",
+          "completed_at": "2026-10-28T23:33:40Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-sw-contextual-judgment-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:33:40Z",
+          "completed_at": "2026-10-28T23:39:37Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:39:37Z",
+          "completed_at": "2026-10-28T23:39:37Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:39:37Z",
+          "completed_at": "2026-10-28T23:39:37Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:39:37Z",
+          "completed_at": "2026-10-28T23:39:40Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:39:40Z",
+          "completed_at": "2026-10-28T23:39:40Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385251",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001519,
+      "runner_name": "GitHub Actions 1000001519",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385260,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHLA",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385260",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385260",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:01:46Z",
+      "name": "PR200 local (information)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:57Z",
+          "completed_at": "2026-10-28T23:00:58Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:01:32Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:32Z",
+          "completed_at": "2026-10-28T23:01:35Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:35Z",
+          "completed_at": "2026-10-28T23:01:40Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=information",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:40Z",
+          "completed_at": "2026-10-28T23:01:43Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:01:43Z",
+          "completed_at": "2026-10-28T23:01:44Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:01:44Z",
+          "completed_at": "2026-10-28T23:01:44Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:01:44Z",
+          "completed_at": "2026-10-28T23:01:44Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:01:44Z",
+          "completed_at": "2026-10-28T23:01:44Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385260",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001500,
+      "runner_name": "GitHub Actions 1000001500",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385264,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHMA",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385264",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385264",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:03:52Z",
+      "name": "PR200 local (fresh)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:57Z",
+          "completed_at": "2026-10-28T23:00:58Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:01:25Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:25Z",
+          "completed_at": "2026-10-28T23:01:28Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:28Z",
+          "completed_at": "2026-10-28T23:01:33Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=fresh",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:33Z",
+          "completed_at": "2026-10-28T23:03:49Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:03:49Z",
+          "completed_at": "2026-10-28T23:03:50Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:03:50Z",
+          "completed_at": "2026-10-28T23:03:50Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:03:50Z",
+          "completed_at": "2026-10-28T23:03:50Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:03:51Z",
+          "completed_at": "2026-10-28T23:03:51Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385264",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001499,
+      "runner_name": "GitHub Actions 1000001499",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385281,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHQQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385281",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385281",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:03:58Z",
+      "name": "PR199 source (forensics)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:00:58Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:01:27Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:27Z",
+          "completed_at": "2026-10-28T23:01:30Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:30Z",
+          "completed_at": "2026-10-28T23:01:33Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr199:source-replay -- --case=forensics",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:33Z",
+          "completed_at": "2026-10-28T23:03:55Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:03:55Z",
+          "completed_at": "2026-10-28T23:03:55Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:03:55Z",
+          "completed_at": "2026-10-28T23:03:55Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:03:55Z",
+          "completed_at": "2026-10-28T23:03:56Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:03:56Z",
+          "completed_at": "2026-10-28T23:03:56Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385281",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001501,
+      "runner_name": "GitHub Actions 1000001501",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385285,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHRQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385285",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385285",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:01:43Z",
+      "name": "PR200 local (keepers-v3)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:00:59Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:59Z",
+          "completed_at": "2026-10-28T23:01:25Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:25Z",
+          "completed_at": "2026-10-28T23:01:28Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:28Z",
+          "completed_at": "2026-10-28T23:01:33Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=keepers-v3",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:33Z",
+          "completed_at": "2026-10-28T23:01:39Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:01:39Z",
+          "completed_at": "2026-10-28T23:01:40Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:01:40Z",
+          "completed_at": "2026-10-28T23:01:40Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:01:40Z",
+          "completed_at": "2026-10-28T23:01:40Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:01:40Z",
+          "completed_at": "2026-10-28T23:01:40Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385285",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001502,
+      "runner_name": "GitHub Actions 1000001502",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385293,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHTQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385293",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385293",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:02:18Z",
+      "completed_at": "2026-10-28T23:30:20Z",
+      "name": "PR200 complete matches (ww-hierarchical-intent-v1, current)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:02:18Z",
+          "completed_at": "2026-10-28T23:02:19Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:02:19Z",
+          "completed_at": "2026-10-28T23:02:50Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:02:50Z",
+          "completed_at": "2026-10-28T23:02:58Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:02:58Z",
+          "completed_at": "2026-10-28T23:03:10Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ww-hierarchical-intent-v1 --cohort=current",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:03:10Z",
+          "completed_at": "2026-10-28T23:14:06Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ww-hierarchical-intent-v1-realism-candidate-v1-v1,match-ww-hierarchical-intent-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:14:06Z",
+          "completed_at": "2026-10-28T23:25:06Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ww-hierarchical-intent-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:25:06Z",
+          "completed_at": "2026-10-28T23:30:16Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:30:16Z",
+          "completed_at": "2026-10-28T23:30:16Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:30:16Z",
+          "completed_at": "2026-10-28T23:30:16Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:30:16Z",
+          "completed_at": "2026-10-28T23:30:19Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:30:19Z",
+          "completed_at": "2026-10-28T23:30:19Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385293",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001513,
+      "runner_name": "GitHub Actions 1000001513",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385299,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHUw",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385299",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385299",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:01:49Z",
+      "completed_at": "2026-10-28T23:13:28Z",
+      "name": "Historical checks (foundations)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:01:50Z",
+          "completed_at": "2026-10-28T23:01:51Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:01:51Z",
+          "completed_at": "2026-10-28T23:02:29Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:02:29Z",
+          "completed_at": "2026-10-28T23:02:32Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:02:32Z",
+          "completed_at": "2026-10-28T23:02:39Z"
+        },
+        {
+          "name": "Run npm run generate:world-db",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:02:39Z",
+          "completed_at": "2026-10-28T23:02:40Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr186:replay && npm run benchmark:pr187:replay && npm run benchmark:pr188:replay && npm run benchmark:pr189:replay && npm run benchmark:pr190:replay && npm run benchmark:pr191:baseline && npm run benchmark:pr192:baseline && npm run benchmark:pr193:baseline && npm run benchmark:pr194:baseline && npm run benchmark:pr193:replay && npm run benchmark:pr196:historical",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:02:40Z",
+          "completed_at": "2026-10-28T23:13:17Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:13:17Z",
+          "completed_at": "2026-10-28T23:13:24Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:13:24Z",
+          "completed_at": "2026-10-28T23:13:25Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-28T23:13:25Z",
+          "completed_at": "2026-10-28T23:13:25Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:13:25Z",
+          "completed_at": "2026-10-28T23:13:25Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385299",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001512,
+      "runner_name": "GitHub Actions 1000001512",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385307,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHWw",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385307",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385307",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:12:37Z",
+      "name": "PR198 source (receptions)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:00:59Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:59Z",
+          "completed_at": "2026-10-28T23:01:38Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:38Z",
+          "completed_at": "2026-10-28T23:01:41Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:41Z",
+          "completed_at": "2026-10-28T23:01:47Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr198:source-replay -- --case=receptions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:47Z",
+          "completed_at": "2026-10-28T23:12:33Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:12:33Z",
+          "completed_at": "2026-10-28T23:12:34Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:12:34Z",
+          "completed_at": "2026-10-28T23:12:34Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:12:34Z",
+          "completed_at": "2026-10-28T23:12:34Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:12:34Z",
+          "completed_at": "2026-10-28T23:12:34Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385307",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001504,
+      "runner_name": "GitHub Actions 1000001504",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385326,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHbg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385326",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385326",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:30:30Z",
+      "name": "PR200 complete matches (sw-contextual-judgment-v1, historical)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:58Z",
+          "completed_at": "2026-10-28T23:00:59Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:59Z",
+          "completed_at": "2026-10-28T23:01:36Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:36Z",
+          "completed_at": "2026-10-28T23:01:46Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:46Z",
+          "completed_at": "2026-10-28T23:02:00Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-sw-contextual-judgment-v1 --cohort=historical",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:02:00Z",
+          "completed_at": "2026-10-28T23:30:25Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-sw-contextual-judgment-v1-realism-candidate-v1-v1,match-sw-contextual-judgment-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:30:25Z",
+          "completed_at": "2026-10-28T23:30:25Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-sw-contextual-judgment-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-28T23:30:25Z",
+          "completed_at": "2026-10-28T23:30:25Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:30:25Z",
+          "completed_at": "2026-10-28T23:30:26Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:30:26Z",
+          "completed_at": "2026-10-28T23:30:26Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:30:26Z",
+          "completed_at": "2026-10-28T23:30:29Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:30:29Z",
+          "completed_at": "2026-10-28T23:30:29Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385326",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001510,
+      "runner_name": "GitHub Actions 1000001510",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385334,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHdg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385334",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385334",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:00:57Z",
+      "completed_at": "2026-10-28T23:23:08Z",
+      "name": "PR200 complete matches (ww-opportunity-driven-v1, historical)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:01:00Z",
+          "completed_at": "2026-10-28T23:01:02Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:01:02Z",
+          "completed_at": "2026-10-28T23:01:33Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:33Z",
+          "completed_at": "2026-10-28T23:01:47Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:47Z",
+          "completed_at": "2026-10-28T23:01:59Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ww-opportunity-driven-v1 --cohort=historical",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:59Z",
+          "completed_at": "2026-10-28T23:23:03Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ww-opportunity-driven-v1-realism-candidate-v1-v1,match-ww-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:23:03Z",
+          "completed_at": "2026-10-28T23:23:03Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ww-opportunity-driven-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-28T23:23:03Z",
+          "completed_at": "2026-10-28T23:23:03Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:23:03Z",
+          "completed_at": "2026-10-28T23:23:04Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:23:04Z",
+          "completed_at": "2026-10-28T23:23:04Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:23:04Z",
+          "completed_at": "2026-10-28T23:23:06Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:23:06Z",
+          "completed_at": "2026-10-28T23:23:06Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385334",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001508,
+      "runner_name": "GitHub Actions 1000001508",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385339,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHew",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385339",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385339",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:01:00Z",
+      "completed_at": "2026-10-28T23:23:09Z",
+      "name": "PR200 complete matches (ww-opportunity-driven-v1, current)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:01:01Z",
+          "completed_at": "2026-10-28T23:01:02Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:01:02Z",
+          "completed_at": "2026-10-28T23:01:35Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:35Z",
+          "completed_at": "2026-10-28T23:01:53Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:53Z",
+          "completed_at": "2026-10-28T23:02:08Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ww-opportunity-driven-v1 --cohort=current",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:02:08Z",
+          "completed_at": "2026-10-28T23:10:32Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ww-opportunity-driven-v1-realism-candidate-v1-v1,match-ww-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:10:32Z",
+          "completed_at": "2026-10-28T23:19:03Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ww-opportunity-driven-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:19:03Z",
+          "completed_at": "2026-10-28T23:23:04Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:23:04Z",
+          "completed_at": "2026-10-28T23:23:04Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:23:04Z",
+          "completed_at": "2026-10-28T23:23:05Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:23:05Z",
+          "completed_at": "2026-10-28T23:23:07Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:23:07Z",
+          "completed_at": "2026-10-28T23:23:08Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385339",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001509,
+      "runner_name": "GitHub Actions 1000001509",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385350,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHhg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385350",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385350",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:03:54Z",
+      "completed_at": "2026-10-28T23:28:34Z",
+      "name": "PR200 complete matches (sw-state-value-v1, current)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:03:56Z",
+          "completed_at": "2026-10-28T23:03:57Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:03:57Z",
+          "completed_at": "2026-10-28T23:04:31Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:04:31Z",
+          "completed_at": "2026-10-28T23:04:39Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:04:39Z",
+          "completed_at": "2026-10-28T23:04:49Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-sw-state-value-v1 --cohort=current",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:04:49Z",
+          "completed_at": "2026-10-28T23:14:15Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-sw-state-value-v1-realism-candidate-v1-v1,match-sw-state-value-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:14:15Z",
+          "completed_at": "2026-10-28T23:23:50Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-sw-state-value-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:23:50Z",
+          "completed_at": "2026-10-28T23:28:29Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:28:29Z",
+          "completed_at": "2026-10-28T23:28:30Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:28:30Z",
+          "completed_at": "2026-10-28T23:28:30Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:28:30Z",
+          "completed_at": "2026-10-28T23:28:32Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:28:32Z",
+          "completed_at": "2026-10-28T23:28:33Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385350",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001514,
+      "runner_name": "GitHub Actions 1000001514",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385368,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHmA",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385368",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385368",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:06:55Z",
+      "completed_at": "2026-10-28T23:07:41Z",
+      "name": "PR200 local (keepers)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:06:56Z",
+          "completed_at": "2026-10-28T23:06:56Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:06:56Z",
+          "completed_at": "2026-10-28T23:07:23Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:07:23Z",
+          "completed_at": "2026-10-28T23:07:25Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:07:25Z",
+          "completed_at": "2026-10-28T23:07:31Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=keepers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:07:31Z",
+          "completed_at": "2026-10-28T23:07:38Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:07:38Z",
+          "completed_at": "2026-10-28T23:07:38Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:07:38Z",
+          "completed_at": "2026-10-28T23:07:38Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:07:38Z",
+          "completed_at": "2026-10-28T23:07:39Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:07:39Z",
+          "completed_at": "2026-10-28T23:07:39Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385368",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001516,
+      "runner_name": "GitHub Actions 1000001516",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385383,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHpw",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385383",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385383",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:07:08Z",
+      "completed_at": "2026-10-28T23:15:08Z",
+      "name": "PR200 platform (windows-2025)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:07:10Z",
+          "completed_at": "2026-10-28T23:07:11Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:07:11Z",
+          "completed_at": "2026-10-28T23:07:48Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:07:48Z",
+          "completed_at": "2026-10-28T23:07:57Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:07:57Z",
+          "completed_at": "2026-10-28T23:08:08Z"
+        },
+        {
+          "name": "Run node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/probePr200Platform.mjs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:08:08Z",
+          "completed_at": "2026-10-28T23:08:20Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:08:20Z",
+          "completed_at": "2026-10-28T23:15:03Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:15:03Z",
+          "completed_at": "2026-10-28T23:15:04Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:15:04Z",
+          "completed_at": "2026-10-28T23:15:05Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-28T23:15:05Z",
+          "completed_at": "2026-10-28T23:15:07Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:15:07Z",
+          "completed_at": "2026-10-28T23:15:07Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385383",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001517,
+      "runner_name": "GitHub Actions 1000001517",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385394,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHsg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385394",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385394",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:07:20Z",
+      "completed_at": "2026-10-28T23:08:05Z",
+      "name": "PR200 local (smoke)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:07:21Z",
+          "completed_at": "2026-10-28T23:07:22Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:07:22Z",
+          "completed_at": "2026-10-28T23:07:50Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:07:50Z",
+          "completed_at": "2026-10-28T23:07:52Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:07:52Z",
+          "completed_at": "2026-10-28T23:07:55Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=smoke",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:07:55Z",
+          "completed_at": "2026-10-28T23:08:02Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:08:02Z",
+          "completed_at": "2026-10-28T23:08:02Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:08:02Z",
+          "completed_at": "2026-10-28T23:08:02Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:08:02Z",
+          "completed_at": "2026-10-28T23:08:03Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:08:03Z",
+          "completed_at": "2026-10-28T23:08:03Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385394",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001518,
+      "runner_name": "GitHub Actions 1000001518",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385420,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHzA",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385420",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385420",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:04:01Z",
+      "completed_at": "2026-10-28T23:29:14Z",
+      "name": "PR200 complete matches (ww-phase-role-hybrid-v1, current)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:04:02Z",
+          "completed_at": "2026-10-28T23:04:03Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:04:03Z",
+          "completed_at": "2026-10-28T23:04:37Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:04:37Z",
+          "completed_at": "2026-10-28T23:04:52Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:04:52Z",
+          "completed_at": "2026-10-28T23:05:04Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ww-phase-role-hybrid-v1 --cohort=current",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:05:04Z",
+          "completed_at": "2026-10-28T23:15:08Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ww-phase-role-hybrid-v1-realism-candidate-v1-v1,match-ww-phase-role-hybrid-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:15:08Z",
+          "completed_at": "2026-10-28T23:24:44Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ww-phase-role-hybrid-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:24:44Z",
+          "completed_at": "2026-10-28T23:29:09Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:29:09Z",
+          "completed_at": "2026-10-28T23:29:10Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:29:10Z",
+          "completed_at": "2026-10-28T23:29:10Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:29:10Z",
+          "completed_at": "2026-10-28T23:29:12Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:29:12Z",
+          "completed_at": "2026-10-28T23:29:12Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385420",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001515,
+      "runner_name": "GitHub Actions 1000001515",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385422,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOHzg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385422",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385422",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:13:22Z",
+      "completed_at": "2026-10-28T23:14:53Z",
+      "name": "Historical checks (perception)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:13:23Z",
+          "completed_at": "2026-10-28T23:13:23Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:13:23Z",
+          "completed_at": "2026-10-28T23:13:51Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:13:51Z",
+          "completed_at": "2026-10-28T23:13:53Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:13:53Z",
+          "completed_at": "2026-10-28T23:13:57Z"
+        },
+        {
+          "name": "Run npm run generate:world-db",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:13:57Z",
+          "completed_at": "2026-10-28T23:13:57Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr199:check && npm run benchmark:realism:check && npm run benchmark:pr200:check && npm run ci:pr201-check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:13:57Z",
+          "completed_at": "2026-10-28T23:14:50Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:14:50Z",
+          "completed_at": "2026-10-28T23:14:51Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:14:51Z",
+          "completed_at": "2026-10-28T23:14:51Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-28T23:14:51Z",
+          "completed_at": "2026-10-28T23:14:51Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:14:51Z",
+          "completed_at": "2026-10-28T23:14:51Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385422",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001527,
+      "runner_name": "GitHub Actions 1000001527",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385445,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOH5Q",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385445",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385445",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:13:45Z",
+      "completed_at": "2026-10-28T23:41:35Z",
+      "name": "PR200 complete matches (ww-hierarchical-intent-v1, historical)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:13:46Z",
+          "completed_at": "2026-10-28T23:13:47Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:13:47Z",
+          "completed_at": "2026-10-28T23:14:28Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:14:28Z",
+          "completed_at": "2026-10-28T23:14:38Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:14:38Z",
+          "completed_at": "2026-10-28T23:14:49Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ww-hierarchical-intent-v1 --cohort=historical",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:14:49Z",
+          "completed_at": "2026-10-28T23:41:30Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ww-hierarchical-intent-v1-realism-candidate-v1-v1,match-ww-hierarchical-intent-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:41:30Z",
+          "completed_at": "2026-10-28T23:41:30Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ww-hierarchical-intent-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-28T23:41:30Z",
+          "completed_at": "2026-10-28T23:41:30Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:41:30Z",
+          "completed_at": "2026-10-28T23:41:31Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:41:31Z",
+          "completed_at": "2026-10-28T23:41:31Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:41:31Z",
+          "completed_at": "2026-10-28T23:41:33Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:41:33Z",
+          "completed_at": "2026-10-28T23:41:33Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385445",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001529,
+      "runner_name": "GitHub Actions 1000001529",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385449,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOH6Q",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385449",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385449",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:16:20Z",
+      "completed_at": "2026-10-28T23:17:07Z",
+      "name": "PR200 local (keepers-v2)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:16:21Z",
+          "completed_at": "2026-10-28T23:16:22Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:16:22Z",
+          "completed_at": "2026-10-28T23:16:48Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:16:48Z",
+          "completed_at": "2026-10-28T23:16:50Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:16:50Z",
+          "completed_at": "2026-10-28T23:16:58Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=keepers-v2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:16:58Z",
+          "completed_at": "2026-10-28T23:17:04Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:17:04Z",
+          "completed_at": "2026-10-28T23:17:05Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:17:05Z",
+          "completed_at": "2026-10-28T23:17:05Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:17:05Z",
+          "completed_at": "2026-10-28T23:17:05Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:17:05Z",
+          "completed_at": "2026-10-28T23:17:05Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385449",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001533,
+      "runner_name": "GitHub Actions 1000001533",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385463,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOH9w",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385463",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385463",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:09:33Z",
+      "completed_at": "2026-10-28T23:21:46Z",
+      "name": "verify (main)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:09:34Z",
+          "completed_at": "2026-10-28T23:09:35Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:09:35Z",
+          "completed_at": "2026-10-28T23:10:01Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:10:01Z",
+          "completed_at": "2026-10-28T23:10:03Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:10:03Z",
+          "completed_at": "2026-10-28T23:10:08Z"
+        },
+        {
+          "name": "Run npm run lint && npm run test:unit && npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:10:08Z",
+          "completed_at": "2026-10-28T23:21:43Z"
+        },
+        {
+          "name": "Run test -f dist/data/world/pl-2026-v2.json",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:21:43Z",
+          "completed_at": "2026-10-28T23:21:43Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:21:43Z",
+          "completed_at": "2026-10-28T23:21:43Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:21:43Z",
+          "completed_at": "2026-10-28T23:21:44Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:21:44Z",
+          "completed_at": "2026-10-28T23:21:44Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385463",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001523,
+      "runner_name": "GitHub Actions 1000001523",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385464,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOH-A",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385464",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385464",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:07:43Z",
+      "completed_at": "2026-10-28T23:09:31Z",
+      "name": "PR200 local (fresh-final)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:07:44Z",
+          "completed_at": "2026-10-28T23:07:44Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:07:44Z",
+          "completed_at": "2026-10-28T23:08:09Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:08:09Z",
+          "completed_at": "2026-10-28T23:08:11Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:08:11Z",
+          "completed_at": "2026-10-28T23:08:14Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=fresh-final",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:08:14Z",
+          "completed_at": "2026-10-28T23:09:28Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:09:28Z",
+          "completed_at": "2026-10-28T23:09:29Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:09:29Z",
+          "completed_at": "2026-10-28T23:09:29Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:09:29Z",
+          "completed_at": "2026-10-28T23:09:29Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:09:29Z",
+          "completed_at": "2026-10-28T23:09:29Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385464",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001520,
+      "runner_name": "GitHub Actions 1000001520",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385474,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIAg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385474",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385474",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:01:46Z",
+      "completed_at": "2026-10-28T23:07:17Z",
+      "name": "Historical checks (assumptions)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:01:46Z",
+          "completed_at": "2026-10-28T23:01:47Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:01:47Z",
+          "completed_at": "2026-10-28T23:02:13Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:02:13Z",
+          "completed_at": "2026-10-28T23:02:16Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:02:16Z",
+          "completed_at": "2026-10-28T23:02:19Z"
+        },
+        {
+          "name": "Run npm run generate:world-db",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:02:19Z",
+          "completed_at": "2026-10-28T23:02:20Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr195:check && npm run benchmark:pr196:check && npm run benchmark:pr196:replay",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:02:20Z",
+          "completed_at": "2026-10-28T23:07:09Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:07:09Z",
+          "completed_at": "2026-10-28T23:07:15Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:07:15Z",
+          "completed_at": "2026-10-28T23:07:16Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-28T23:07:16Z",
+          "completed_at": "2026-10-28T23:07:16Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:07:16Z",
+          "completed_at": "2026-10-28T23:07:16Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385474",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001511,
+      "runner_name": "GitHub Actions 1000001511",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385485,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIDQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385485",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385485",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:12:25Z",
+      "completed_at": "2026-10-28T23:42:45Z",
+      "name": "verify (career)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:12:26Z",
+          "completed_at": "2026-10-28T23:12:26Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:12:26Z",
+          "completed_at": "2026-10-28T23:13:30Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:13:30Z",
+          "completed_at": "2026-10-28T23:13:32Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:13:32Z",
+          "completed_at": "2026-10-28T23:13:37Z"
+        },
+        {
+          "name": "Run npm run verify",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "number": 5,
+          "started_at": "2026-10-28T23:13:37Z",
+          "completed_at": "2026-10-28T23:42:42Z"
+        },
+        {
+          "name": "Run test -f dist/data/world/pl-2026-v2.json",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:42:42Z",
+          "completed_at": "2026-10-28T23:42:42Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-10-28T23:42:42Z",
+          "completed_at": "2026-10-28T23:42:42Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:42:42Z",
+          "completed_at": "2026-10-28T23:42:42Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:42:42Z",
+          "completed_at": "2026-10-28T23:42:42Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385485",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001525,
+      "runner_name": "GitHub Actions 1000001525",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385491,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIEw",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385491",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385491",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:12:40Z",
+      "completed_at": "2026-10-28T23:31:38Z",
+      "name": "PR200 complete matches (ss-opportunity-driven-v1, current)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:12:40Z",
+          "completed_at": "2026-10-28T23:12:41Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:12:41Z",
+          "completed_at": "2026-10-28T23:15:42Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:15:42Z",
+          "completed_at": "2026-10-28T23:15:49Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:15:49Z",
+          "completed_at": "2026-10-28T23:15:56Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ss-opportunity-driven-v1 --cohort=current",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:15:56Z",
+          "completed_at": "2026-10-28T23:22:07Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ss-opportunity-driven-v1-realism-candidate-v1-v1,match-ss-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:22:07Z",
+          "completed_at": "2026-10-28T23:28:19Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ss-opportunity-driven-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:28:19Z",
+          "completed_at": "2026-10-28T23:31:34Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:31:34Z",
+          "completed_at": "2026-10-28T23:31:34Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:31:34Z",
+          "completed_at": "2026-10-28T23:31:35Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:31:35Z",
+          "completed_at": "2026-10-28T23:31:36Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:31:36Z",
+          "completed_at": "2026-10-28T23:31:36Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385491",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001526,
+      "runner_name": "GitHub Actions 1000001526",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385505,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIIQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385505",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385505",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:15:11Z",
+      "completed_at": "2026-10-28T23:45:32Z",
+      "name": "PR200 complete matches (ww-phase-role-hybrid-v1, historical)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:15:12Z",
+          "completed_at": "2026-10-28T23:15:13Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:15:13Z",
+          "completed_at": "2026-10-28T23:15:52Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:15:52Z",
+          "completed_at": "2026-10-28T23:16:02Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:16:02Z",
+          "completed_at": "2026-10-28T23:16:12Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ww-phase-role-hybrid-v1 --cohort=historical",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:16:12Z",
+          "completed_at": "2026-10-28T23:45:27Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ww-phase-role-hybrid-v1-realism-candidate-v1-v1,match-ww-phase-role-hybrid-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:45:27Z",
+          "completed_at": "2026-10-28T23:45:27Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ww-phase-role-hybrid-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-28T23:45:27Z",
+          "completed_at": "2026-10-28T23:45:28Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:45:28Z",
+          "completed_at": "2026-10-28T23:45:28Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:45:28Z",
+          "completed_at": "2026-10-28T23:45:28Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:45:28Z",
+          "completed_at": "2026-10-28T23:45:30Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:45:30Z",
+          "completed_at": "2026-10-28T23:45:30Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385505",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001531,
+      "runner_name": "GitHub Actions 1000001531",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385514,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIKg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385514",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385514",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:15:19Z",
+      "completed_at": "2026-10-28T23:16:18Z",
+      "name": "PR200 local (changed)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:15:20Z",
+          "completed_at": "2026-10-28T23:15:20Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:15:20Z",
+          "completed_at": "2026-10-28T23:15:46Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:15:46Z",
+          "completed_at": "2026-10-28T23:15:49Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:15:49Z",
+          "completed_at": "2026-10-28T23:15:54Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=changed",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:15:54Z",
+          "completed_at": "2026-10-28T23:16:16Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:16:16Z",
+          "completed_at": "2026-10-28T23:16:16Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:16:16Z",
+          "completed_at": "2026-10-28T23:16:16Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:16:16Z",
+          "completed_at": "2026-10-28T23:16:16Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:16:16Z",
+          "completed_at": "2026-10-28T23:16:16Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385514",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001532,
+      "runner_name": "GitHub Actions 1000001532",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385549,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOITQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385549",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385549",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:13:30Z",
+      "completed_at": "2026-10-28T23:21:26Z",
+      "name": "PR198 source (opportunities)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:13:31Z",
+          "completed_at": "2026-10-28T23:13:32Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:13:32Z",
+          "completed_at": "2026-10-28T23:13:57Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:13:57Z",
+          "completed_at": "2026-10-28T23:14:01Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:14:01Z",
+          "completed_at": "2026-10-28T23:14:08Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr198:source-replay -- --case=opportunities",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:14:08Z",
+          "completed_at": "2026-10-28T23:21:24Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:21:24Z",
+          "completed_at": "2026-10-28T23:21:24Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:21:24Z",
+          "completed_at": "2026-10-28T23:21:25Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:21:25Z",
+          "completed_at": "2026-10-28T23:21:25Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:21:25Z",
+          "completed_at": "2026-10-28T23:21:25Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385549",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001528,
+      "runner_name": "GitHub Actions 1000001528",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385550,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOITg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385550",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385550",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:08:08Z",
+      "completed_at": "2026-10-28T23:13:19Z",
+      "name": "PR199 source (receivers)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:08:09Z",
+          "completed_at": "2026-10-28T23:08:09Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:08:09Z",
+          "completed_at": "2026-10-28T23:08:35Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:08:35Z",
+          "completed_at": "2026-10-28T23:08:37Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:08:37Z",
+          "completed_at": "2026-10-28T23:08:45Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr199:source-replay -- --case=receivers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:08:45Z",
+          "completed_at": "2026-10-28T23:13:17Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:13:17Z",
+          "completed_at": "2026-10-28T23:13:17Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:13:17Z",
+          "completed_at": "2026-10-28T23:13:17Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:13:17Z",
+          "completed_at": "2026-10-28T23:13:17Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:13:17Z",
+          "completed_at": "2026-10-28T23:13:17Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385550",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001521,
+      "runner_name": "GitHub Actions 1000001521",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385556,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIVA",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385556",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385556",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:14:56Z",
+      "completed_at": "2026-10-28T23:40:08Z",
+      "name": "PR200 complete matches (sw-state-value-v1, historical)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:14:57Z",
+          "completed_at": "2026-10-28T23:14:57Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:14:57Z",
+          "completed_at": "2026-10-28T23:15:28Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:15:28Z",
+          "completed_at": "2026-10-28T23:15:35Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:15:35Z",
+          "completed_at": "2026-10-28T23:15:47Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-sw-state-value-v1 --cohort=historical",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:15:47Z",
+          "completed_at": "2026-10-28T23:40:03Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-sw-state-value-v1-realism-candidate-v1-v1,match-sw-state-value-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:40:03Z",
+          "completed_at": "2026-10-28T23:40:03Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-sw-state-value-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-28T23:40:03Z",
+          "completed_at": "2026-10-28T23:40:03Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:40:03Z",
+          "completed_at": "2026-10-28T23:40:03Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:40:03Z",
+          "completed_at": "2026-10-28T23:40:04Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:40:04Z",
+          "completed_at": "2026-10-28T23:40:06Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:40:06Z",
+          "completed_at": "2026-10-28T23:40:06Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385556",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001530,
+      "runner_name": "GitHub Actions 1000001530",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385563,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIWw",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385563",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385563",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:19:14Z",
+      "completed_at": "2026-10-28T23:43:36Z",
+      "name": "PR200 complete matches (ss-state-value-v1, current)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:19:15Z",
+          "completed_at": "2026-10-28T23:19:16Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:19:16Z",
+          "completed_at": "2026-10-28T23:19:53Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:19:53Z",
+          "completed_at": "2026-10-28T23:20:01Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:20:01Z",
+          "completed_at": "2026-10-28T23:20:15Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ss-state-value-v1 --cohort=current",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:20:15Z",
+          "completed_at": "2026-10-28T23:29:35Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ss-state-value-v1-realism-candidate-v1-v1,match-ss-state-value-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:29:35Z",
+          "completed_at": "2026-10-28T23:39:12Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ss-state-value-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:39:12Z",
+          "completed_at": "2026-10-28T23:43:31Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:43:31Z",
+          "completed_at": "2026-10-28T23:43:32Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:43:32Z",
+          "completed_at": "2026-10-28T23:43:32Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:43:32Z",
+          "completed_at": "2026-10-28T23:43:35Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:43:35Z",
+          "completed_at": "2026-10-28T23:43:35Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385563",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001539,
+      "runner_name": "GitHub Actions 1000001539",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385592,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIeA",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385592",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385592",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:17:13Z",
+      "completed_at": "2026-10-28T23:42:47Z",
+      "name": "PR200 complete matches (ss-state-value-v1, historical)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:17:14Z",
+          "completed_at": "2026-10-28T23:17:15Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:17:15Z",
+          "completed_at": "2026-10-28T23:17:54Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:17:54Z",
+          "completed_at": "2026-10-28T23:18:03Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:18:03Z",
+          "completed_at": "2026-10-28T23:18:14Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ss-state-value-v1 --cohort=historical",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:18:14Z",
+          "completed_at": "2026-10-28T23:42:41Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ss-state-value-v1-realism-candidate-v1-v1,match-ss-state-value-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:42:41Z",
+          "completed_at": "2026-10-28T23:42:41Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ss-state-value-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-28T23:42:41Z",
+          "completed_at": "2026-10-28T23:42:41Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:42:41Z",
+          "completed_at": "2026-10-28T23:42:42Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:42:42Z",
+          "completed_at": "2026-10-28T23:42:42Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:42:42Z",
+          "completed_at": "2026-10-28T23:42:44Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:42:44Z",
+          "completed_at": "2026-10-28T23:42:45Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385592",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001535,
+      "runner_name": "GitHub Actions 1000001535",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385601,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIgQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385601",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385601",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:18:25Z",
+      "completed_at": "2026-10-28T23:47:02Z",
+      "name": "PR200 complete matches (ss-opportunity-driven-v1, historical)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:18:26Z",
+          "completed_at": "2026-10-28T23:18:27Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:18:27Z",
+          "completed_at": "2026-10-28T23:19:01Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:19:01Z",
+          "completed_at": "2026-10-28T23:19:11Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:19:11Z",
+          "completed_at": "2026-10-28T23:19:23Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=matches-ss-opportunity-driven-v1 --cohort=historical",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:19:23Z",
+          "completed_at": "2026-10-28T23:46:56Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --case=match-ss-opportunity-driven-v1-realism-candidate-v1-v1,match-ss-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:46:56Z",
+          "completed_at": "2026-10-28T23:46:56Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-ss-opportunity-driven-v1-canonical-pr199-v1",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-28T23:46:56Z",
+          "completed_at": "2026-10-28T23:46:56Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:46:56Z",
+          "completed_at": "2026-10-28T23:46:58Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:46:58Z",
+          "completed_at": "2026-10-28T23:46:58Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:46:58Z",
+          "completed_at": "2026-10-28T23:47:00Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:47:00Z",
+          "completed_at": "2026-10-28T23:47:00Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385601",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001537,
+      "runner_name": "GitHub Actions 1000001537",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385602,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIgg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385602",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385602",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:17:10Z",
+      "completed_at": "2026-10-28T23:25:42Z",
+      "name": "PR199 source (attributes)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:17:11Z",
+          "completed_at": "2026-10-28T23:17:11Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:17:11Z",
+          "completed_at": "2026-10-28T23:17:39Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:17:39Z",
+          "completed_at": "2026-10-28T23:17:40Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:17:40Z",
+          "completed_at": "2026-10-28T23:17:45Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr199:source-replay -- --case=attributes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:17:45Z",
+          "completed_at": "2026-10-28T23:25:39Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:25:39Z",
+          "completed_at": "2026-10-28T23:25:40Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:25:40Z",
+          "completed_at": "2026-10-28T23:25:40Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:25:40Z",
+          "completed_at": "2026-10-28T23:25:40Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:25:40Z",
+          "completed_at": "2026-10-28T23:25:40Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385602",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001534,
+      "runner_name": "GitHub Actions 1000001534",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385632,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIoA",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385632",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385632",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:17:42Z",
+      "completed_at": "2026-10-28T23:18:46Z",
+      "name": "PR200 local (diagnosis)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:17:42Z",
+          "completed_at": "2026-10-28T23:17:43Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:17:43Z",
+          "completed_at": "2026-10-28T23:18:08Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:18:08Z",
+          "completed_at": "2026-10-28T23:18:16Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:18:16Z",
+          "completed_at": "2026-10-28T23:18:22Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=diagnosis",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:18:22Z",
+          "completed_at": "2026-10-28T23:18:44Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:18:44Z",
+          "completed_at": "2026-10-28T23:18:45Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:18:45Z",
+          "completed_at": "2026-10-28T23:18:45Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:18:45Z",
+          "completed_at": "2026-10-28T23:18:45Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:18:45Z",
+          "completed_at": "2026-10-28T23:18:45Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385632",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001536,
+      "runner_name": "GitHub Actions 1000001536",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385641,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOIqQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385641",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385641",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:10:58Z",
+      "completed_at": "2026-10-28T23:13:42Z",
+      "name": "verify (integration)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:10:59Z",
+          "completed_at": "2026-10-28T23:11:00Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:11:00Z",
+          "completed_at": "2026-10-28T23:11:22Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:11:22Z",
+          "completed_at": "2026-10-28T23:11:23Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:11:23Z",
+          "completed_at": "2026-10-28T23:11:27Z"
+        },
+        {
+          "name": "Run npm run generate:world-db && npm run test:match-integration",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:11:27Z",
+          "completed_at": "2026-10-28T23:13:39Z"
+        },
+        {
+          "name": "Run test -f dist/data/world/pl-2026-v2.json",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:13:39Z",
+          "completed_at": "2026-10-28T23:13:39Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:13:39Z",
+          "completed_at": "2026-10-28T23:13:39Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:13:39Z",
+          "completed_at": "2026-10-28T23:13:40Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:13:40Z",
+          "completed_at": "2026-10-28T23:13:40Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385641",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001524,
+      "runner_name": "GitHub Actions 1000001524",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385692,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOI3A",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385692",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385692",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:09:29Z",
+      "completed_at": "2026-10-28T23:10:56Z",
+      "name": "PR199 source (diagnostics)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:09:30Z",
+          "completed_at": "2026-10-28T23:09:30Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:09:30Z",
+          "completed_at": "2026-10-28T23:09:58Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:09:58Z",
+          "completed_at": "2026-10-28T23:10:00Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:10:00Z",
+          "completed_at": "2026-10-28T23:10:03Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr199:source-replay -- --case=diagnostics",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:10:03Z",
+          "completed_at": "2026-10-28T23:10:54Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:10:54Z",
+          "completed_at": "2026-10-28T23:10:54Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:10:54Z",
+          "completed_at": "2026-10-28T23:10:54Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:10:54Z",
+          "completed_at": "2026-10-28T23:10:54Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:10:54Z",
+          "completed_at": "2026-10-28T23:10:54Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385692",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001522,
+      "runner_name": "GitHub Actions 1000001522",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153385693,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOI3Q",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153385693",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153385693",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:18:49Z",
+      "completed_at": "2026-10-28T23:19:51Z",
+      "name": "PR200 local (diagnosis-final)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:18:50Z",
+          "completed_at": "2026-10-28T23:18:50Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:18:50Z",
+          "completed_at": "2026-10-28T23:19:17Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:19:17Z",
+          "completed_at": "2026-10-28T23:19:21Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:19:21Z",
+          "completed_at": "2026-10-28T23:19:27Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr200:source-replay -- --case=diagnosis-final",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:19:27Z",
+          "completed_at": "2026-10-28T23:19:48Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:19:48Z",
+          "completed_at": "2026-10-28T23:19:49Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-28T23:19:49Z",
+          "completed_at": "2026-10-28T23:19:49Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-28T23:19:49Z",
+          "completed_at": "2026-10-28T23:19:49Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:19:49Z",
+          "completed_at": "2026-10-28T23:19:49Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153385693",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001538,
+      "runner_name": "GitHub Actions 1000001538",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153386624,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIOMgA",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153386624",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123153386624",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:54Z",
+      "started_at": "2026-10-28T23:19:53Z",
+      "completed_at": "2026-10-28T23:20:31Z",
+      "name": "PR200 platform (ubuntu-latest)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:19:54Z",
+          "completed_at": "2026-10-28T23:19:54Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:19:54Z",
+          "completed_at": "2026-10-28T23:20:18Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:20:18Z",
+          "completed_at": "2026-10-28T23:20:20Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:20:20Z",
+          "completed_at": "2026-10-28T23:20:23Z"
+        },
+        {
+          "name": "Run node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/probePr200Platform.mjs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:20:23Z",
+          "completed_at": "2026-10-28T23:20:28Z"
+        },
+        {
+          "name": "Run npm run benchmark:pr201:source-replay",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-28T23:20:28Z",
+          "completed_at": "2026-10-28T23:20:28Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- docs/performance docs/match-engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:20:28Z",
+          "completed_at": "2026-10-28T23:20:29Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-28T23:20:29Z",
+          "completed_at": "2026-10-28T23:20:29Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-28T23:20:29Z",
+          "completed_at": "2026-10-28T23:20:29Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:20:29Z",
+          "completed_at": "2026-10-28T23:20:29Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153386624",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001540,
+      "runner_name": "GitHub Actions 1000001540",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123171604424,
+      "run_id": 40784091751,
+      "workflow_name": "CI",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091751",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrZmHyA",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123171604424",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091751/job/123171604424",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-10-28T23:47:02Z",
+      "started_at": "2026-10-28T23:47:06Z",
+      "completed_at": "2026-10-28T23:47:09Z",
+      "name": "quality",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:47:07Z",
+          "completed_at": "2026-10-28T23:47:07Z"
+        },
+        {
+          "name": "Require every verification group",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 2,
+          "started_at": "2026-10-28T23:47:07Z",
+          "completed_at": "2026-10-28T23:47:07Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:47:07Z",
+          "completed_at": "2026-10-28T23:47:07Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123171604424",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001541,
+      "runner_name": "GitHub Actions 1000001541",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

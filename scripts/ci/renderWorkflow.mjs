@@ -6,6 +6,7 @@ const original = readFileSync('docs/performance/pr202/ci-pr201.yml', 'utf8').rep
   '\r\n',
   '\n',
 );
+const rollback = original.replace('&& npm run benchmark:pr201:check', '&& npm run ci:pr201-check');
 let workflow = original.replace(
   / {2}pr198-source:[\s\S]*?(?= {2}pr200-matches:)/,
   `  historical-source:
@@ -30,8 +31,14 @@ let workflow = original.replace(
 );
 workflow = workflow.replace(
   / {6}- run: \$\{\{ matrix.command \}\}/,
-  `      - run: npm run ci:manifest
-      - run: npm run ci:contracts
+  `      - if: matrix.group == 'main'
+        run: npm run ci:manifest
+      - if: matrix.group == 'main'
+        run: npm run ci:contracts
+      - if: matrix.group == 'main'
+        run: node scripts/ci/renderWorkflow.mjs --check
+      - if: matrix.group == 'main'
+        run: node scripts/ci/corruptReplay.mjs
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(
@@ -103,10 +110,14 @@ for (const family of families) {
 const target = process.argv.includes('--activate')
   ? '.github/workflows/ci.yml'
   : 'docs/performance/pr202/ci-proposed.yml';
-if (process.argv.includes('--check'))
+if (process.argv.includes('--rollback')) writeFileSync('.github/workflows/ci.yml', rollback);
+else if (process.argv.includes('--check'))
   assert.equal(
     readFileSync('.github/workflows/ci.yml', 'utf8'),
     workflow,
     'CI workflow differs from checked plan',
   );
-else writeFileSync(target, workflow);
+else {
+  writeFileSync(target, workflow);
+  writeFileSync('docs/performance/pr202/ci-rollback.yml', rollback);
+}

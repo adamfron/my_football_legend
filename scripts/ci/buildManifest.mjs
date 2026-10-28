@@ -6,7 +6,17 @@ import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { catalogue as c198, groups as g198 } from '../pr198Catalogue.mjs';
 import { catalogue as c199, groups as g199 } from '../pr199Catalogue.mjs';
-import { digest, json, validateManifest } from './manifest.mjs';
+import {
+  digest,
+  json,
+  validateManifest,
+  manifestSchema,
+  equivalenceSchema,
+  nodeResourceSchema,
+  groupExecutionSchema,
+} from './manifest.mjs';
+import { z } from 'zod';
+import { qualityProgram } from './quality.mjs';
 const ROOT = 'docs/performance/pr202';
 const BASE = '5b6bbf6778017ac415964dd48dfe30b850f2f352';
 const git = (args) =>
@@ -284,6 +294,26 @@ const m = validateManifest({
   base: '5b6bbf6778017ac415964dd48dfe30b850f2f352',
   originalWorkflowSha256: digest(workflow),
   packageScriptsSha256: hash(json('package.json').scripts),
+  gate: {
+    name: 'quality',
+    os: 'ubuntu-latest',
+    timeoutMinutes: 30,
+    originalNeeds: workflow
+      .split('  quality:\n')[1]
+      .match(/needs: \[([^\]]+)\]/)[1]
+      .split(', '),
+    proposedNeeds: [
+      'checks',
+      'historical-checks',
+      'historical-source',
+      'pr200-matches',
+      'pr200-platform',
+    ],
+    requireEveryResult: 'success',
+    originalCommand: workflow.split('  quality:\n')[1].match(/run: (.+)/)[1],
+    proposedProgram: qualityProgram,
+    rejectedResults: ['failure', 'cancelled', 'skipped', 'timed_out', 'missing'],
+  },
   tasks,
   original,
   proposed,
@@ -303,10 +333,43 @@ assert.equal(
     .filter((c) => /^(pr200:match-|pr201:match-|pr201:final-main:)/.test(c.id)).length,
   63,
 );
-const output = JSON.stringify(m, null, 2) + '\n';
-if (process.argv.includes('--check'))
-  assert.equal(readFileSync(`${ROOT}/task-manifest.json`, 'utf8'), output, 'Regenerate manifest');
-else writeFileSync(`${ROOT}/task-manifest.json`, output);
+const canonical = (list) => [...list].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+const oldDefinitions = hash(canonical(frozen.tasks));
+const newDefinitions = hash(
+  canonical(m.proposed.flatMap((g) => g.tasks.map((id) => m.tasks.find((t) => t.id === id)))),
+);
+assert.equal(oldDefinitions, newDefinitions, 'Task definitions differ after scheduling');
+const proof = equivalenceSchema.parse({
+  schema: 'pr202-ci-equivalence-v1',
+  base: BASE,
+  originalTaskDefinitionsSha256: oldDefinitions,
+  proposedTaskDefinitionsSha256: newDefinitions,
+  frozenInventorySha256: digest(readFileSync(`${ROOT}/task-manifest-pr201.json`)),
+  originalCommands: m.tasks.length,
+  explicitCases: m.tasks.flatMap((t) => t.cases).length,
+  fullMatchExecutions: 63,
+  beforeJobs: 43,
+  afterJobs: 28,
+  taskMultiplicityEqual: true,
+  platformsAndEditionsEqual: true,
+  receiptAndArchiveBytesEqual: true,
+  originalTimeoutsEqual: true,
+  currentRuntimeAndHistoricalEvidenceUnchanged: true,
+  historicalCheckerContext: 'merged-pr201-private-index-and-work-tree',
+});
+for (const [name, value] of Object.entries({
+  'task-manifest.json': m,
+  'coverage-equivalence.json': proof,
+  'task-manifest.schema.json': z.toJSONSchema(manifestSchema),
+  'coverage-equivalence.schema.json': z.toJSONSchema(equivalenceSchema),
+  'node-resource.schema.json': z.toJSONSchema(nodeResourceSchema),
+  'group-execution.schema.json': z.toJSONSchema(groupExecutionSchema),
+})) {
+  const output = JSON.stringify(value, null, 2) + '\n';
+  if (process.argv.includes('--check'))
+    assert.equal(readFileSync(`${ROOT}/${name}`, 'utf8'), output, `Regenerate ${name}`);
+  else writeFileSync(`${ROOT}/${name}`, output);
+}
 console.log(
   `CI manifest: ${tasks.length} commands, ${m.tasks.flatMap((t) => t.cases).length} explicit cases; 43 -> 28 jobs; 63 complete matches preserved`,
 );

@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "pr202-group-execution-v1"
+    },
+    "layout": {
+      "type": "string",
+      "enum": [
+        "original",
+        "proposed"
+      ]
+    },
+    "group": {
+      "type": "string"
+    },
+    "head": {
+      "type": "string"
+    },
+    "actionsHead": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "runId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "runAttempt": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "node": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "platformParity": {
+      "type": "boolean"
+    },
+    "runnerOS": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "host": {
+      "type": "object",
+      "properties": {
+        "arch": {
+          "type": "string"
+        },
+        "release": {
+          "type": "string"
+        },
+        "cpuModel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cpuCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "totalMemoryBytes": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "arch",
+        "release",
+        "cpuModel",
+        "cpuCount",
+        "totalMemoryBytes"
+      ],
+      "additionalProperties": false
+    },
+    "manifestSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "completedAt": {
+      "type": "string"
+    },
+    "wallSeconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "success",
+        "failure"
+      ]
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "command": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "running",
+              "success",
+              "failure"
+            ]
+          },
+          "startedAt": {
+            "type": "string"
+          },
+          "completedAt": {
+            "type": "string"
+          },
+          "exitCode": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "signal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "timedOut": {
+            "type": "boolean"
+          },
+          "cancelled": {
+            "type": "boolean"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          },
+          "wallSeconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "nodeProcesses": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "maxNodeProcessRSSKiB": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sumNodeCPUMicros": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "command",
+          "status",
+          "startedAt"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "layout",
+    "group",
+    "head",
+    "actionsHead",
+    "runId",
+    "runAttempt",
+    "node",
+    "platform",
+    "platformParity",
+    "runnerOS",
+    "manifestSha256",
+    "startedAt",
+    "status",
+    "tasks"
+  ],
+  "additionalProperties": false
+}

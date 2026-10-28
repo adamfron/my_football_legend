@@ -1,0 +1,84 @@
+{
+  "baselineRun": 40733773018,
+  "head": "2312964b7b8291ad6da52ea2f1859a1f8ea857f5",
+  "method": "Sum successful payload steps for all nine fixture replays, plus observed worst Windows checkout 1188s and 90s setup/upload reserve. These are conservative budget predictions, not executed nine-replay combined jobs.",
+  "fixtures": [
+    {
+      "fixture": "ww-opportunity-driven-v1",
+      "payload": 2967,
+      "withWorstCheckoutAndReserve": 4245,
+      "limit": 2700,
+      "jobs": [
+        123005924356,
+        123005871367
+      ],
+      "decision": "retain split"
+    },
+    {
+      "fixture": "ww-hierarchical-intent-v1",
+      "payload": 3213,
+      "withWorstCheckoutAndReserve": 4491,
+      "limit": 2700,
+      "jobs": [
+        123005871812,
+        123005950391
+      ],
+      "decision": "retain split"
+    },
+    {
+      "fixture": "ss-opportunity-driven-v1",
+      "payload": 3325,
+      "withWorstCheckoutAndReserve": 4603,
+      "limit": 2700,
+      "jobs": [
+        123005941109,
+        123005871887
+      ],
+      "decision": "retain split"
+    },
+    {
+      "fixture": "sw-state-value-v1",
+      "payload": 2767,
+      "withWorstCheckoutAndReserve": 4045,
+      "limit": 2700,
+      "jobs": [
+        123005872976,
+        123005872048
+      ],
+      "decision": "retain split"
+    },
+    {
+      "fixture": "sw-contextual-judgment-v1",
+      "payload": 2934,
+      "withWorstCheckoutAndReserve": 4212,
+      "limit": 2700,
+      "jobs": [
+        123005872167,
+        123005872869
+      ],
+      "decision": "retain split"
+    },
+    {
+      "fixture": "ww-phase-role-hybrid-v1",
+      "payload": 3129,
+      "withWorstCheckoutAndReserve": 4407,
+      "limit": 2700,
+      "jobs": [
+        123005872916,
+        123005872412
+      ],
+      "decision": "retain split"
+    },
+    {
+      "fixture": "ss-state-value-v1",
+      "payload": 2518,
+      "withWorstCheckoutAndReserve": 3796,
+      "limit": 2700,
+      "jobs": [
+        123005873656,
+        123005874838
+      ],
+      "decision": "retain split"
+    }
+  ]
+}
