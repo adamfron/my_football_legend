@@ -1,0 +1,10 @@
+{
+  "head": "9166dd28b718d373d195a1579ddec1cc4e3f2814",
+  "run": 40615363583,
+  "job": 122576481062,
+  "originalPR199Check": "PASS with materialized receipts/private index on Linux",
+  "PR200EvidenceCheck": "PASS: 42 matches; immutable historical evidence",
+  "failure": "Inventory source drift",
+  "diagnosis": "Source-reference arrays inherited filesystem enumeration order, which differs between Windows and POSIX for names such as football*/footContact and passing*/passInterception. Manifest hashes already sort paths; the inventory now sorts its source paths explicitly as well.",
+  "scope": "Cold inventory generation only; runtime and original match receipts unchanged."
+}

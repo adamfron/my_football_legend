@@ -5,6 +5,7 @@ import { hash, read, normalized, options } from './pr199Evidence.mjs';
 import console from 'node:console';
 import { pathToFileURL } from 'node:url';
 import process from 'node:process';
+import { generateIntegrationProgress, renderIntegrationProgress } from './integrationProgress.mjs';
 export const dimensions = [
   'SOURCE_AUDITED',
   'EXPERIMENT_INVESTIGATED',
@@ -41,6 +42,15 @@ export const progressMappingSchema = z.object({
       dimensions: z.object(Object.fromEntries(dimensions.map((d) => [d, dimension]))),
       regressions: z.string().array(),
       blockers: z.string().array(),
+      scopeHistory: z
+        .array(
+          z.object({
+            pr: z.number().int(),
+            source: z.string(),
+            dimensions: z.object(Object.fromEntries(dimensions.map((d) => [d, dimension]))),
+          }),
+        )
+        .optional(),
     }),
   ),
   evidence: z.array(
@@ -83,7 +93,9 @@ export const parseRegistry = (text) =>
         checked: status[1] === 'x',
         developmentUpdates: [
           ...new Set(
-            [...block.matchAll(/PR(196|197|198|199) development update/g)].map((m) => Number(m[1])),
+            [...block.matchAll(/PR(196|197|198|199|200) development update/g)].map((m) =>
+              Number(m[1]),
+            ),
           ),
         ],
         sourceAuditable:
@@ -188,7 +200,7 @@ export const generateProgress = (registry, mapping, frozen) => {
       .filter((r) => byId.get(r.id).dimensions[dimension].status === 'SUPPORTED')
       .map((r) => r.id);
   const explicitUpdates = Object.fromEntries(
-    [196, 197, 198, 199].map((pr) => [
+    [196, 197, 198, 199, 200].map((pr) => [
       pr,
       registry.filter((r) => r.developmentUpdates.includes(pr)).map((r) => r.id),
     ]),
@@ -204,9 +216,12 @@ export const generateProgress = (registry, mapping, frozen) => {
     197: old197.filter((id) => !old196.includes(id)),
     198: frozen.registry.map((r) => r.id).filter((id) => !old197.includes(id)),
     199: registry.map((r) => r.id).filter((id) => !frozen.registry.some((r) => r.id === id)),
+    200: registry
+      .map((r) => r.id)
+      .filter((id) => !read('docs/performance/pr200/frozen-pr199.json').ids.includes(id)),
   };
   const updated = Object.fromEntries(
-    [196, 197, 198, 199].map((pr) => [
+    [196, 197, 198, 199, 200].map((pr) => [
       pr,
       [...new Set([...explicitUpdates[pr], ...introducedByPR[pr]])].sort(),
     ]),
@@ -305,6 +320,7 @@ export const renderProgress = (report) => {
       )}) | ${r.status} | ${dimensions.map((d) => r.dimensions[d].status).join(' | ')} |\n`;
   md +=
     '\nRead-only verification: `npm run benchmark:realism:check`. Regeneration after reviewed mapping changes: `npm run benchmark:realism:generate`. Neither command changes the original registry or closure contract.\n';
+  if (report.integration) md += renderIntegrationProgress(report.integration);
   return md;
 };
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
@@ -316,8 +332,13 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
     mapping,
     frozen.registry.map((r) => r.id),
   );
-  const report = generateProgress(registry, mapping, frozen),
-    md = renderProgress(report),
+  const report = generateProgress(registry, mapping, frozen);
+  if (existsSync('docs/match-engine/INTEGRATION_EVIDENCE.json'))
+    report.integration = generateIntegrationProgress(
+      read('docs/match-engine/INTEGRATION_EVIDENCE.json'),
+      registry,
+    );
+  const md = renderProgress(report),
     json = JSON.stringify(report, null, 2) + '\n';
   if (options.has('check')) {
     if (

@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { integrationSelectionSchema, integrationStateErrors } from './integrationProfile';
+import { liveBallFlightRuntimeSchema, type LiveBallFlightRuntime } from './liveBallFlight';
 import { experimentalBodyContactsSchema } from './ballSurfaceContact';
 import {
   activePerceptionRuntimeSchema,
@@ -806,6 +808,9 @@ export const passDiagnosticSchema = z.object({
 
 export interface TacticalMatchState {
   experimentalDefensiveReception?: boolean;
+  integrationProfile?: z.infer<typeof integrationSelectionSchema>;
+  experimentalBoundedBallFlightBelief?: boolean;
+  liveBallFlightRuntime?: LiveBallFlightRuntime;
   experimentalHeightAwarePassing?: boolean;
   experimentalReceiverAnticipation?: boolean;
   experimentalReceiverSynchronisation?: boolean;
@@ -1040,6 +1045,9 @@ export const tacticalMatchStateSchema = z
     experimentalBallRecovery: z.boolean().optional(),
     experimentalCanonicalArrival: z.boolean().optional(),
     experimentalDefensiveReception: z.boolean().optional(),
+    integrationProfile: integrationSelectionSchema.optional(),
+    experimentalBoundedBallFlightBelief: z.boolean().optional(),
+    liveBallFlightRuntime: liveBallFlightRuntimeSchema.optional(),
     experimentalHeightAwarePassing: z.boolean().optional(),
     experimentalReceiverAnticipation: z.boolean().optional(),
     experimentalReceiverSynchronisation: z.boolean().optional(),
@@ -1292,4 +1300,8 @@ export const tacticalMatchStateSchema = z
     goalCompletionUntil: z.number().nonnegative().optional(),
     pendingKickoffTeam: teamSideSchema.optional(),
   })
-  .passthrough();
+  .passthrough()
+  .superRefine((state, ctx) => {
+    for (const message of integrationStateErrors(state as unknown as TacticalMatchState))
+      ctx.addIssue({ code: 'custom', message, path: ['integrationProfile'] });
+  });

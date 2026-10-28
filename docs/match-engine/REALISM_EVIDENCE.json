@@ -2893,30 +2893,34 @@
           "status": "SUPPORTED",
           "evidence": [
             "keepers199",
-            "keeper-isolation199"
+            "keeper-isolation199",
+            "live-information200"
           ],
-          "limitation": "Research-only visual/motor hypotheses, primitive cue/occluder geometry and limited development shots; no live repair, empirical calibration or independent confirmation."
+          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
         },
         "ROOT_CAUSE_IDENTIFIED": {
           "status": "SUPPORTED",
           "evidence": [
-            "perception-leaks199"
+            "perception-leaks199",
+            "live-information200"
           ],
-          "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
         },
         "FIX_IMPLEMENTED": {
-          "status": "PARTIAL",
+          "status": "SUPPORTED",
           "evidence": [
-            "perception-leaks199"
+            "perception-leaks199",
+            "live-information200"
           ],
-          "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+          "limitation": "Scoped source correction only for the separately gated live route. Optical/anticipation calibration, reception losses, difficult saves, broad tactical cognition and whole-match transfer remain open; legacy consumers are intentionally unchanged."
         },
         "DEVELOPMENT_VALIDATED": {
           "status": "PARTIAL",
           "evidence": [
-            "perception-leaks199"
+            "perception-leaks199",
+            "live-information200"
           ],
-          "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
         },
         "INDEPENDENT_VALIDATED": {
           "status": "NOT_ASSESSED",
@@ -2930,11 +2934,66 @@
         }
       },
       "regressions": [
-        "PR199 laboratory bounded perception can lose native physical saves; full-view/occlusion apparatus limitations and misses retained."
+        "PR199 laboratory bounded perception can lose native physical saves; full-view/occlusion apparatus limitations and misses retained.",
+        "PR200 live bounded pathway loses real receptions and some difficult saves; executable combined candidate is NOT_READY_FOR_PROMOTION."
       ],
       "blockers": [
         "No external calibration of optical noise, derivative correction, uncertainty, cue priors or memory commitment; no live consumer promotion.",
         "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+      ],
+      "scopeHistory": [
+        {
+          "pr": 199,
+          "source": "97ea53b1a6d3098105586668678a2270cd589f2f",
+          "dimensions": {
+            "SOURCE_AUDITED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "source-register"
+              ],
+              "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
+            },
+            "EXPERIMENT_INVESTIGATED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "keepers199",
+                "keeper-isolation199"
+              ],
+              "limitation": "Research-only visual/motor hypotheses, primitive cue/occluder geometry and limited development shots; no live repair, empirical calibration or independent confirmation."
+            },
+            "ROOT_CAUSE_IDENTIFIED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "perception-leaks199"
+              ],
+              "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+            },
+            "FIX_IMPLEMENTED": {
+              "status": "PARTIAL",
+              "evidence": [
+                "perception-leaks199"
+              ],
+              "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+            },
+            "DEVELOPMENT_VALIDATED": {
+              "status": "PARTIAL",
+              "evidence": [
+                "perception-leaks199"
+              ],
+              "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+            },
+            "INDEPENDENT_VALIDATED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Independent confirmation remains sealed and unrun."
+            },
+            "COMPLETE": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Original I/F/E/T/M/C closure requirements remain open; original checkbox is authoritative."
+            }
+          }
+        }
       ]
     },
     {
@@ -3700,30 +3759,34 @@
           "evidence": [
             "candidates197",
             "opportunities198",
-            "sensory199"
+            "sensory199",
+            "live-information200"
           ],
-          "limitation": "Research-only inference hypotheses and geometry; subset of 28 attributes, not empirical football calibration."
+          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
         },
         "ROOT_CAUSE_IDENTIFIED": {
           "status": "SUPPORTED",
           "evidence": [
-            "perception-leaks199"
+            "perception-leaks199",
+            "live-information200"
           ],
-          "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
         },
         "FIX_IMPLEMENTED": {
-          "status": "PARTIAL",
+          "status": "SUPPORTED",
           "evidence": [
-            "perception-leaks199"
+            "perception-leaks199",
+            "live-information200"
           ],
-          "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+          "limitation": "Scoped source correction only for the separately gated live route. Optical/anticipation calibration, reception losses, difficult saves, broad tactical cognition and whole-match transfer remain open; legacy consumers are intentionally unchanged."
         },
         "DEVELOPMENT_VALIDATED": {
           "status": "PARTIAL",
           "evidence": [
-            "perception-leaks199"
+            "perception-leaks199",
+            "live-information200"
           ],
-          "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
         },
         "INDEPENDENT_VALIDATED": {
           "status": "NOT_ASSESSED",
@@ -3736,10 +3799,67 @@
           "limitation": "Original I/F/E/T/M/C closure requirements remain open; original checkbox is authoritative."
         }
       },
-      "regressions": [],
+      "regressions": [
+        "PR200 live bounded pathway loses real receptions and some difficult saves; executable combined candidate is NOT_READY_FOR_PROMOTION."
+      ],
       "blockers": [
         "No external calibration of optical noise, derivative correction, uncertainty, cue priors or memory commitment; no live consumer promotion.",
         "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+      ],
+      "scopeHistory": [
+        {
+          "pr": 199,
+          "source": "97ea53b1a6d3098105586668678a2270cd589f2f",
+          "dimensions": {
+            "SOURCE_AUDITED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "source-register"
+              ],
+              "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
+            },
+            "EXPERIMENT_INVESTIGATED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "candidates197",
+                "opportunities198",
+                "sensory199"
+              ],
+              "limitation": "Research-only inference hypotheses and geometry; subset of 28 attributes, not empirical football calibration."
+            },
+            "ROOT_CAUSE_IDENTIFIED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "perception-leaks199"
+              ],
+              "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+            },
+            "FIX_IMPLEMENTED": {
+              "status": "PARTIAL",
+              "evidence": [
+                "perception-leaks199"
+              ],
+              "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+            },
+            "DEVELOPMENT_VALIDATED": {
+              "status": "PARTIAL",
+              "evidence": [
+                "perception-leaks199"
+              ],
+              "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+            },
+            "INDEPENDENT_VALIDATED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Independent confirmation remains sealed and unrun."
+            },
+            "COMPLETE": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Original I/F/E/T/M/C closure requirements remain open; original checkbox is authoritative."
+            }
+          }
+        }
       ]
     },
     {
@@ -6990,6 +7110,22 @@
       "experiment": "Seven deterministic information-boundary interventions",
       "result": "Exact instantaneous velocity, general hidden/cached spin and general cached retimestamping are demonstrated; the keeper controller changes with unseen canonical shot velocity. Reception-specific stale timestamp and zero-spin protections are verified.",
       "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+    },
+    {
+      "key": "live-information200",
+      "ids": [
+        "TACT-009",
+        "GK-002"
+      ],
+      "pr": 200,
+      "receipt": "docs/performance/pr200/information-boundary-final-v1.json.gz",
+      "sha256": "b9ed0acec76c9d7a53f2231d6fc21ea43587b19ac25b4137931682893cf42a75",
+      "sourceFingerprint": "e7a30ee450f4b931af4027ffeb482bbf83c39ef237fce93c4e96a839d6f85539",
+      "sourceArchive": "docs/performance/pr200/source/e7a30ee450f4b931af4027ffeb482bbf83c39ef237fce93c4e96a839d6f85539.json.gz",
+      "experiment": "Seven deterministic interventions on live optical, motor, active-memory and keeper consumers",
+      "result": "Hidden velocity/spin/target and unseen deflection do not update subjective input; cached timestamps remain genuine; actual keeper motion and save permission obey the gated contract.",
+      "limitation": "Scoped source correction only for the separately gated live route. Optical/anticipation calibration, reception losses, difficult saves, broad tactical cognition and whole-match transfer remain open; legacy consumers are intentionally unchanged.",
+      "correctionId": "bounded-live-information200"
     }
   ]
 }

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { observedFlight } from './liveBallFlight';
 import { opponentMemorySchema } from './opponentKnowledge';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { attacksRight, clampPitchPoint, distance, physicalPointSchema } from './matchSpace';
@@ -53,6 +54,9 @@ export const boundedSceneSchema = z.object({
       height: z.number(),
       velocity: z.object({ x: z.number(), y: z.number(), z: z.number() }),
       ownerId: z.string().nullable(),
+      observedAt: z.number().nonnegative().optional(),
+      motionEvidenceAt: z.number().nonnegative().nullable().optional(),
+      uncertainty: z.number().nonnegative().optional(),
     })
     .nullable(),
   visible: z
@@ -107,6 +111,9 @@ export const observeBoundedScene = (
   directOnly = false,
 ): BoundedScene => {
   const active = state.experimentalActivePerception;
+  const flight = state.experimentalBoundedBallFlightBelief
+    ? observedFlight(state, actor)
+    : undefined;
   const memory = active ? state.activePerceptionRuntime?.memory[actor.id] : undefined;
   const cached = active && !directOnly && memory !== undefined;
   const known = rememberedGeometry(
@@ -199,25 +206,42 @@ export const observeBoundedScene = (
     confidence: (actor.profile.attributes.composure + actor.profile.attributes.determination) / 200,
     fatigue: 1 - (actor.fitness?.longTermCapacity ?? 1),
     capability: deriveMovementCapability(actor),
-    ball: ballVisible
-      ? cached && state.ball.ownerId !== actor.id
-        ? memory.ball
-        : {
-            position: { x: state.ball.x, y: state.ball.y },
-            height: state.ball.height ?? 0,
-            velocity: {
-              x: state.ball.velocity?.x ?? 0,
-              y: state.ball.velocity?.y ?? 0,
-              z: state.ball.velocity?.z ?? 0,
-            },
-            ownerId:
-              state.ball.ownerId === actor.id || visible.some((p) => p.id === state.ball.ownerId)
-                ? (state.ball.ownerId ?? null)
-                : null,
+    ball: state.experimentalBoundedBallFlightBelief
+      ? flight &&
+        (!directOnly ||
+          state.liveBallFlightRuntime?.sensors[actor.id]?.belief?.evidenceAt === state.time)
+        ? {
+            position: { x: flight.position.x, y: flight.position.y },
+            height: flight.position.z,
+            velocity: { ...flight.velocity },
+            ownerId: state.ball.ownerId === actor.id ? actor.id : null,
+            observedAt: state.liveBallFlightRuntime?.sensors[actor.id]?.belief?.lastObservation?.at,
+            motionEvidenceAt:
+              state.liveBallFlightRuntime?.sensors[actor.id]?.belief?.motionEvidenceAt ?? null,
+            uncertainty: flight.uncertainty,
           }
-      : null,
+        : null
+      : ballVisible
+        ? cached && state.ball.ownerId !== actor.id
+          ? memory.ball
+          : {
+              position: { x: state.ball.x, y: state.ball.y },
+              height: state.ball.height ?? 0,
+              velocity: {
+                x: state.ball.velocity?.x ?? 0,
+                y: state.ball.velocity?.y ?? 0,
+                z: state.ball.velocity?.z ?? 0,
+              },
+              ownerId:
+                state.ball.ownerId === actor.id || visible.some((p) => p.id === state.ball.ownerId)
+                  ? (state.ball.ownerId ?? null)
+                  : null,
+            }
+        : null,
     visible,
-    contactReady: ballVisible && canReleaseControlledAction(state, actor),
+    contactReady:
+      (state.experimentalBoundedBallFlightBelief ? Boolean(flight) : ballVisible) &&
+      canReleaseControlledAction(state, actor),
     readyAt: prep?.readyAt ?? state.ballOwnershipStartedAt ?? state.time,
     gainedAt: prep?.gainedAt ?? state.time,
     lastTouchAt: last,

@@ -1,0 +1,764 @@
+{
+  "schema": "mfl-integration-evidence-v0",
+  "profile": "realism-candidate-v0",
+  "decision": "NOT_READY_FOR_PROMOTION",
+  "records": [
+    {
+      "mechanism": "experimentalCanonicalArrival",
+      "ids": [
+        "DEF-002",
+        "FIT-002"
+      ],
+      "sourceLocation": "src/core/matchSimulation/carryOpportunity.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Held-out positional ETA MAE 0.306→0.004s",
+      "knownRegressions": [
+        "Seven full-match pairs have policy-specific harms"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalDefensiveReception",
+      "ids": [
+        "PASS-003",
+        "DEF-003",
+        "DEF-004"
+      ],
+      "sourceLocation": "src/core/matchSimulation/matchSimulation.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Original long-pass opposing high ownership asymmetry causally reproduced",
+      "knownRegressions": [
+        "Broader delivery families need calibration; guard does not guarantee contact"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Selected for this explicitly failing executable development combination; selection is not endorsement."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "frozen"
+          ],
+          "limitation": "Scoped same-release compatibility with observed receiver preparation and bounded route; no general calibration claim."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalHeightAwarePassing",
+      "ids": [
+        "PASS-003",
+        "PASS-001"
+      ],
+      "sourceLocation": "src/core/matchSimulation/passDecision.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Distinguishes lofted overflight from low interception windows",
+      "knownRegressions": [
+        "Approximate height/reach forecast; aggregate gains do not certify policy transfer"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Selected for this explicitly failing executable development combination; selection is not endorsement."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "PARTIAL",
+          "evidence": [
+            "inventory",
+            "frozen"
+          ],
+          "limitation": "Different policy-specific acting interfaces: height-aware engineering ranking is inactive in O/H/J; its release diagnostic may still execute. Combined matches do not identify a common acting height mechanism."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalReceiverAnticipation",
+      "ids": [
+        "PASS-004",
+        "PASS-009"
+      ],
+      "sourceLocation": "src/core/matchSimulation/liveBallFlight.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Local information can redirect normal movement toward actual flight",
+      "knownRegressions": [
+        "Frozen 180 R:154/123/116 versus baseline160/128/107"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Selected for this explicitly failing executable development combination; selection is not endorsement."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "FAILED",
+          "evidence": [
+            "frozen",
+            "fresh"
+          ],
+          "limitation": "Live-compatible execution exists, but bounded information plus its motor preparation loses real contacts."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalReceiverSynchronisation",
+      "ids": [
+        "PASS-004",
+        "PASS-006",
+        "PASS-009"
+      ],
+      "sourceLocation": "src/core/matchSimulation/liveBallFlight.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Improves conditional point/time agreement",
+      "knownRegressions": [
+        "Frozen S149/113/108; eight lost and three gained direct contacts"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalObservedLoftedPasses",
+      "ids": [
+        "DEC-003",
+        "PASS-010",
+        "TACT-004"
+      ],
+      "sourceLocation": "src/core/matchSimulation/boundedPerception.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Observed loft repertoire produces five autonomous releases in 280 cases",
+      "knownRegressions": [
+        "Full deliberate run-to-controlled-reception chain unproven"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Selected for this explicitly failing executable development combination; selection is not endorsement."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "PARTIAL",
+          "evidence": [
+            "inventory",
+            "frozen"
+          ],
+          "limitation": "Different policy-specific acting interfaces: height-aware engineering ranking is inactive in O/H/J; its release diagnostic may still execute. Combined matches do not identify a common acting height mechanism."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalBoundedBallFlightBelief",
+      "ids": [
+        "TACT-009",
+        "PASS-004",
+        "GK-002"
+      ],
+      "sourceLocation": "src/core/matchSimulation/ballOrientedMovement.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "One live sensory adapter with separate sighting/motion clocks and canonical execution",
+      "knownRegressions": [
+        "Uncalibrated optics/occlusion, motion and motor cadence; no global bounded-AI certification"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Selected for this explicitly failing executable development combination; selection is not endorsement."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "FAILED",
+          "evidence": [
+            "frozen",
+            "fresh",
+            "keepers"
+          ],
+          "limitation": "Information contracts are tested; receiver and difficult-keeper physical regressions prevent compatibility approval."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "BLOCKED",
+          "evidence": [
+            "frozen",
+            "fresh"
+          ],
+          "limitation": "Severe local loss blocks promotion. Whole-profile full-match contrasts are linked in the summary, but do not isolate this component or support policy-independent transfer."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalActivePerception",
+      "ids": [
+        "TACT-009"
+      ],
+      "sourceLocation": "src/core/matchSimulation/activePerception.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Timestamped spatial memory and controlled attention",
+      "knownRegressions": [
+        "Existing legacy ball velocity contract is privileged when PR200 route is disabled"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalReceivingPositions",
+      "ids": [
+        "TACT-002",
+        "TACT-004"
+      ],
+      "sourceLocation": "src/core/matchSimulation/activePerception.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Off-ball receiving proposals exist",
+      "knownRegressions": [
+        "Proposal/job instances do not prove deliberate runs"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalTeamTempo",
+      "ids": [
+        "TACT-011",
+        "FIT-002"
+      ],
+      "sourceLocation": "src/core/matchSimulation/activePerception.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Existing coach instructions influence effort choice",
+      "knownRegressions": [
+        "No calibrated team rhythm/communication model"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalTransitionIntelligence",
+      "ids": [
+        "TACT-004",
+        "DEF-001"
+      ],
+      "sourceLocation": "src/core/matchSimulation/boundedIntelligence.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Observed transition movement and defensive tracking",
+      "knownRegressions": [
+        "Mixed full-match effects and uncertain downstream value"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalStrategicClearances",
+      "ids": [
+        "DEF-010",
+        "PASS-012"
+      ],
+      "sourceLocation": "src/core/matchSimulation/matchSimulation.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Real legal finite-contact ground clearance",
+      "knownRegressions": [
+        "No universal territorial/restart value calibration"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalIncidentalGoals",
+      "ids": [
+        "SHOT-006",
+        "MEAS-011"
+      ],
+      "sourceLocation": "src/core/matchSimulation/incidentalGoals.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Physical goal crossing and attribution separated from shot intent",
+      "knownRegressions": [
+        "Not enabled in historical PR193/194 development cohorts"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalBodyContacts",
+      "ids": [
+        "DRIB-005",
+        "PHYS-002"
+      ],
+      "sourceLocation": "src/core/matchSimulation/ballContactGeometry.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Anatomical experimental contacts remain physically gated",
+      "knownRegressions": [
+        "Not validated as a full finishing/keeper anatomy model"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalBallRecovery",
+      "ids": [
+        "DRIB-009",
+        "PASS-006"
+      ],
+      "sourceLocation": "src/core/matchSimulation/matchSimulation.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Own loose touch recovered by finite ordinary movement",
+      "knownRegressions": [
+        "Whole-match liveness and progression remain uncalibrated"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    },
+    {
+      "mechanism": "experimentalRestartPreparation",
+      "ids": [
+        "REST-004",
+        "REST-012"
+      ],
+      "sourceLocation": "src/core/matchSimulation/restartLaws.ts",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0",
+      "profile": "realism-candidate-v0",
+      "behaviour": "Physical retrieval and preparation remain available",
+      "knownRegressions": [
+        "No global restart duration calibration"
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "inventory"
+          ],
+          "limitation": "Source-backed acting entry/consumer exists; this does not certify every policy or empirical calibration."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "No promotion or isolated positive whole-match transfer is established."
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "key": "inventory",
+      "path": "docs/performance/pr200/inventory.json",
+      "sha256": "4618b72653bf2c83327d953912988d53af9fda0ba40eabefc837739b6c86c362",
+      "sourceFingerprint": "ae47eb1fdef3168e9ae2c729b201ffbfea39a2977684f21496c6586fabff97c0"
+    },
+    {
+      "key": "frozen",
+      "path": "docs/performance/pr200/local-frozen-final-v1.json.gz",
+      "sha256": "2ab7e6434cb2c19459dc756de37cd66117cce9c5eb1c5c598be3814ce6b0d6af",
+      "sourceFingerprint": "68d4cfb6b3014490bb9e2f76bbedeeaed24f925430fcadb357467fb5a408ebde"
+    },
+    {
+      "key": "changed",
+      "path": "docs/performance/pr200/local-changed-v1.json.gz",
+      "sha256": "c7f872cdbed385d09dbe1fdd46ce4b9cd9cf0fbec0d136e8d4f09b1b135de391",
+      "sourceFingerprint": "2a0e656f8423dc5c92fd5b043b0ca86583f21b408a4b3dc6b878bddd0aad95d0"
+    },
+    {
+      "key": "fresh",
+      "path": "docs/performance/pr200/local-fresh-final-v1.json.gz",
+      "sha256": "e7b265ce2a93eb73fcfc3a2d4266fe4c07b41c19195020f41313dd6fa9dbc17c",
+      "sourceFingerprint": "cd115ba8fa0a2b8c9dbdae516588a2fe3251c7fd83cfa7ab799e354d96711673"
+    },
+    {
+      "key": "keepers",
+      "path": "docs/performance/pr200/goalkeepers-v3.json.gz",
+      "sha256": "b320df0dcd86135496de281211f0486b2540c13a20c1b3d7f804e8b58ac29190",
+      "sourceFingerprint": "cd115ba8fa0a2b8c9dbdae516588a2fe3251c7fd83cfa7ab799e354d96711673"
+    },
+    {
+      "key": "diagnosis",
+      "path": "docs/performance/pr200/local-bounded-diagnosis-final-v1.json.gz",
+      "sha256": "4e6fa1f79112bcf9d15b13c1eb920c54ef97facaf47f12466b79c57e6ac3c08b",
+      "sourceFingerprint": "cd115ba8fa0a2b8c9dbdae516588a2fe3251c7fd83cfa7ab799e354d96711673"
+    }
+  ]
+}

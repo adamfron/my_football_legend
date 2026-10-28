@@ -141,4 +141,15 @@ scripts/*Pr199* text eol=lf
 scripts/pr199* text eol=lf
 scripts/realismProgress* text eol=lf
 docs/match-engine/REALISM_*.json text eol=lf
+docs/performance/pr200/** -text linguist-generated=true
+docs/performance/pr200/**/*.gz binary
+docs/performance/pr200/**/*.json -diff
+docs/PR200*.md text eol=lf
+docs/match-engine/INTEGRATION_*.md text eol=lf
+docs/match-engine/INTEGRATION_*.json text eol=lf
+scripts/*Pr200* text eol=lf
+scripts/pr200* text eol=lf
+scripts/integrationProgress* text eol=lf
+src/core/matchSimulation/integration*.ts text eol=lf
+src/core/matchSimulation/liveBallFlight.ts text eol=lf
 src/core/matchSimulation/ballFlightBelief*.ts text eol=lf

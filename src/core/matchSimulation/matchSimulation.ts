@@ -4,6 +4,12 @@ import { advanceExperimentalBodyReception } from './experimentalBodyReception';
 import { advanceLowerBodyPose, constrainCompliantBodyStep } from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
 import { planSynchronizedReception, receptionPlanFacing } from './receiverSynchronisation';
+import {
+  advanceLiveBallFlight,
+  boundedKeeperCommand,
+  boundedMovementTarget,
+  observedFlight,
+} from './liveBallFlight';
 import { usesBoundedIntelligence } from './boundedIntelligenceState';
 import {
   advanceTransitionRuns,
@@ -141,7 +147,7 @@ import {
   projectPlayerDecisionOpportunity,
   projectIncomingPlayerInvolvement,
 } from './playerDecision';
-import { projectLocomotion, projectSprintEpisode } from './locomotion';
+import { deriveMovementCapability, projectLocomotion, projectSprintEpisode } from './locomotion';
 import { derivePressingPlan } from './defensiveChallenges';
 import { deriveOrientationTarget, normalizeAngle, angleForVector } from './playerOrientation';
 import { integrateBallFlight } from './ballPhysics';
@@ -1674,7 +1680,10 @@ const stepTacticalMatchCore = (
           : team.phase,
     };
   }
-  if (state.ball.shot) {
+  state = advanceLiveBallFlight(state);
+  if (state.experimentalBoundedBallFlightBelief) {
+    delete state.keeperIntervention;
+  } else if (state.ball.shot) {
     const projection = projectGoalkeeperIntervention(state);
     if (projection) {
       state.keeperIntervention = {
@@ -1982,7 +1991,36 @@ const stepTacticalMatchCore = (
       movementTarget = patternTarget;
       player = { ...player, target: patternTarget };
     }
-    const locomotion = projectLocomotion(state, player, movementTarget, cooperativePress ?? null);
+    // Final acting boundary: tactical/role/aerial/authority proposals cannot reintroduce
+    // hidden ball geometry after the bounded sensory interface has withheld it.
+    const boundedMotor =
+      state.experimentalBoundedBallFlightBelief &&
+      !state.restart &&
+      !state.postGoal &&
+      state.playerMovementIntent?.actorId !== player.id &&
+      !(state.playerAgencyEnabled !== false && state.controlledFootballerId === player.id) &&
+      ((isMatchGoalkeeper(player) && state.ball.ownerId !== player.id) ||
+        (state.receptionPreparation?.actorId === player.id && state.ball.ownerId !== player.id));
+    const keeperCommand =
+      boundedMotor && isMatchGoalkeeper(player) ? boundedKeeperCommand(state, player) : undefined;
+    if (boundedMotor) {
+      movementTarget = boundedMovementTarget(
+        state,
+        player,
+        receptionMovementContactTarget(state, player),
+        keeperCommand?.target,
+      );
+      player = { ...player, target: movementTarget };
+    }
+    const locomotion = boundedMotor
+      ? {
+          intensity: 'run' as const,
+          reason: 'receive_pass' as const,
+          targetSpeed: keeperCommand
+            ? 3.6 + player.profile.attributes.agility * 0.035
+            : deriveMovementCapability(player).runSpeed,
+        }
+      : projectLocomotion(state, player, movementTarget, cooperativePress ?? null);
     const preparing =
       state.onBallPreparation?.actorId === player.id &&
       state.ball.ownerId === player.id &&
@@ -1999,20 +2037,29 @@ const stepTacticalMatchCore = (
       receptionContactTarget
         ? state.receptionPreparation.meetingPlan
         : undefined;
-    const desiredFacingAngle =
-      meeting?.incomingVelocity && meeting.contactAt !== null
-        ? receptionPlanFacing(
-            player,
-            movementTarget,
-            meeting.incomingVelocity,
-            meeting.contactAt - state.time,
-          )
-        : observedIncoming
-          ? angleForVector({ x: -observedIncoming.velocity.x, y: -observedIncoming.velocity.y })
-          : preparing
-            ? (state.onBallPreparation?.micro?.orientationTarget ??
-              deriveOrientationTarget(state, player))
-            : deriveOrientationTarget(state, player);
+    const boundedFlight = boundedMotor ? observedFlight(state, player) : undefined;
+    const desiredFacingAngle = keeperCommand
+      ? keeperCommand.facing
+      : boundedMotor && !observedIncoming
+        ? boundedFlight
+          ? angleForVector({
+              x: boundedFlight.position.x - player.position.x,
+              y: boundedFlight.position.y - player.position.y,
+            })
+          : player.facingAngle
+        : meeting?.incomingVelocity && meeting.contactAt !== null
+          ? receptionPlanFacing(
+              player,
+              movementTarget,
+              meeting.incomingVelocity,
+              meeting.contactAt - state.time,
+            )
+          : observedIncoming
+            ? angleForVector({ x: -observedIncoming.velocity.x, y: -observedIncoming.velocity.y })
+            : preparing
+              ? (state.onBallPreparation?.micro?.orientationTarget ??
+                deriveOrientationTarget(state, player))
+              : deriveOrientationTarget(state, player);
     const recovery = player.challengeRecovery;
     const balance =
       recovery && state.time < recovery.until
@@ -2506,7 +2553,12 @@ const stepTacticalMatchCore = (
             centre: { ...defendingKeeper.position, z: GOALKEEPER_PHYSICS.contactCentreHeight },
             radius: GOALKEEPER_PHYSICS.passiveBodyRadiusMetres,
           });
-        if (keeperProjection?.reachable && keeperProjection.reactionRemaining === 0) {
+        if (
+          keeperProjection?.reachable &&
+          keeperProjection.reactionRemaining === 0 &&
+          (!state.experimentalBoundedBallFlightBelief ||
+            boundedKeeperCommand(state, keeperProjection.keeper).reactive)
+        ) {
           candidates.push({
             kind: 'goalkeeper' as const,
             playerId: keeperProjection.keeper.id,

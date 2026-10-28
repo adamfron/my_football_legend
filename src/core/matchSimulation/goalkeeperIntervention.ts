@@ -8,6 +8,7 @@ import { BALL_RADIUS, GOAL_HEIGHT } from './ballFlight';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { deriveMovementCapability } from './locomotion';
+import { boundedKeeperCommand } from './liveBallFlight';
 
 /** Reaction seconds, metre contact envelope, and canonical locomotion acceleration limits. */
 export const GOALKEEPER_PHYSICS = {
@@ -158,6 +159,11 @@ export const resolveGoalkeeperContact = (
   projection: GoalkeeperProjection,
   impactSpeed: number,
 ): GoalkeeperSaveOutcome => {
+  if (
+    state.experimentalBoundedBallFlightBelief &&
+    !boundedKeeperCommand(state, projection.keeper).reactive
+  )
+    return 'failed_save';
   if (!projection.reachable || projection.reactionRemaining > 0) return 'failed_save';
   const a = projection.keeper.profile.attributes;
   const difficulty = Math.min(

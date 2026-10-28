@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+## PR200 — Wykonywalny kandydat integracji MatchEngine
+
+[Raport PR200](PR200_MATCH_ENGINE_INTEGRATION_CANDIDATE_RECEIVER_MOTOR_AND_BOUNDED_PERCEPTION.md) wprowadza wersjonowany profil `realism-candidate-v0`, osobny wybór polityki, walidację zależności i rzeczywiste porównania pełnych meczów. Nowa, osobno włączana percepcja łączy sensory, przekonanie i wskazanych konsumentów ruchu odbiorcy/bramkarza; nie przekazuje ukrytej prędkości ani spinu. Zachowuje prawdziwe czasy obserwacji i bramkuje aktywną obronę.
+
+To **nieudany kandydat eksperymentalny — NOT_READY_FOR_PROMOTION**. Ograniczona informacja obniża realne przyjęcia; trudne interwencje bramkarza i konkretne polityki mają regresje. Uniwersalna poprawka orientacji odbiorcy pozostaje wstrzymana po pełnych 180 i świeżych 90 piłkach. Nie promujemy efektownego wyniku ani samej obecności kodu. [Architektura](match-engine/INTEGRATION_ARCHITECTURE.md), [decyzje](match-engine/INTEGRATION_CANDIDATES.md) i [postęp](match-engine/REALISM_PROGRESS.md) rozdzielają eksperyment, konsumenta live, integrację i promocję.
+
+**135 stabilnych ID, zero COMPLETE; canonical NOT READY; B domyślne; 40 Hz, 28 atrybutów, stare zapisy i historyczne dowody PR195–199 zachowane; confirmation zamknięte.** Poniższe wcześniejsze etapy pozostają historią i zachowują zobowiązania kariery/świata.
+
 ## PR199 — Percepcja lotu piłki, regresja odbiorcy i mierzalny postęp
 
 [Raport PR199](PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md) odtwarza dokładne 180 wypuszczonych piłek i wszystkie osiem utraconych oraz trzy zyskane kontakty. Rozdziela wpływ celu, czasu, orientacji, prędkości, hamowania i obserwacji. Lepsza prognoza nie gwarantuje kontroli ani utrzymania; nie ma podstaw do promocji nowego sterowania.
