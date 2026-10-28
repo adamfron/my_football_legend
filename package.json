@@ -156,7 +156,10 @@
     "benchmark:pr201:matches": "node scripts/runPr201Development.mjs",
     "benchmark:pr201:check": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr201Evidence.mjs && node scripts/summarizePr201.mjs --check",
     "benchmark:pr201:source-replay": "node scripts/replayPr201Experiment.mjs",
-    "benchmark:pr201:report": "node scripts/summarizePr201.mjs && node scripts/realismProgress.mjs"
+    "benchmark:pr201:report": "node scripts/summarizePr201.mjs && node scripts/realismProgress.mjs",
+    "ci:manifest": "node scripts/ci/buildManifest.mjs --check",
+    "ci:group": "node scripts/ci/runGroup.mjs",
+    "ci:contracts": "node --test scripts/ci/contracts.test.mjs"
   },
   "dependencies": {
     "react": "19.2.8",
