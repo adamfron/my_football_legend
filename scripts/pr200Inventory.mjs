@@ -6,9 +6,9 @@ import { files } from './pr199Evidence.mjs';
 import { INTEGRATION_MECHANISMS } from '../src/core/matchSimulation/integrationMechanisms.ts';
 import { resolveIntegrationProfile } from '../src/core/matchSimulation/integrationProfile.ts';
 import { ROOT, hash, write, identity } from './pr200Evidence.mjs';
-const paths = files('src/core/matchSimulation').filter(
-  (p) => p.endsWith('.ts') && !p.includes('.test.'),
-);
+const paths = files('src/core/matchSimulation')
+  .filter((p) => p.endsWith('.ts') && !p.includes('.test.'))
+  .sort();
 const source = Object.fromEntries(
   paths.map((p) => [p, readFileSync(p, 'utf8').replaceAll('\r\n', '\n')]),
 );
