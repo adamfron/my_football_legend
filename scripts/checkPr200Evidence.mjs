@@ -83,6 +83,10 @@ for (const n of locals) {
 const finalRuntime = read(
   read(`${ROOT}/information-boundary-final-v1.json.gz`).result.source.path,
 ).manifest;
+const platformProbe = read(`${ROOT}/platform-probe-win32-v2.json.gz`);
+verifySource(platformProbe.source);
+assert.equal(platformProbe.platform, 'win32');
+assert.equal(platformProbe.node, 'v24.22.1');
 for (const [p, d] of Object.entries(finalRuntime).filter(([p]) => p.startsWith('src/')))
   assert.equal(
     hash(readFileSync(p, 'utf8').replaceAll('\r\n', '\n')),

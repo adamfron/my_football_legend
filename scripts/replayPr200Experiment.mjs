@@ -162,12 +162,59 @@ for (const key of selected) {
     for (const [p, digest] of Object.entries(archive.manifest))
       if (hash(readFileSync(join(scratch, p), 'utf8').replaceAll('\r\n', '\n')) !== digest)
         throw Error('Source reconstruction drift');
+    if (args.has('diagnose') && script === 'benchmarkPr200Matches.mjs') {
+      const harness = join(scratch, 'scripts', script);
+      const original = readFileSync(harness, 'utf8');
+      const marker =
+        /if\s*\(\s*hash\(actual\)\s*!==\s*hash\(old\)\s*\)\s*throw Error\('PR200 full deterministic replay drift'\);/;
+      if (!marker.test(original)) throw Error('Unknown diagnostic harness');
+      writeFileSync(
+        harness,
+        original.replace(
+          marker,
+          `if (hash(actual) !== hash(old)) {
+        console.error('PR200 DIAGNOSTIC ONLY: exact source checked before adding failure reporting');
+        for (const key of new Set([...Object.keys(actual), ...Object.keys(old)]))
+          if (hash(actual[key] ?? null) !== hash(old[key] ?? null))
+            console.error('DRIFT', key, JSON.stringify({ actual: actual[key], expected: old[key] }).slice(0, 10000));
+        throw Error('PR200 full deterministic replay drift');
+      }`,
+        ),
+      );
+    }
     for (const name of ['node_modules', 'docs', '.git'])
       symlinkSync(
         resolve(name),
         join(scratch, name),
         process.platform === 'win32' ? 'junction' : 'dir',
       );
+    if (args.has('preflight') && script === 'benchmarkPr200Matches.mjs') {
+      execFileSync(
+        process.execPath,
+        [
+          '--experimental-transform-types',
+          '--import',
+          './scripts/registerTypescriptLoader.mjs',
+          '--input-type=module',
+          '-e',
+          `
+        import {read,hash} from './scripts/pr200Evidence.mjs';
+        import {readDevelopmentInput} from './scripts/pr193Evidence.mjs';
+        import {withIntegrationProfile,resolveIntegrationProfile} from './src/core/matchSimulation/integrationProfile.ts';
+        const saved=read(${JSON.stringify(path)}).result;
+        const {input,path:inputPath}=readDevelopmentInput(saved.design,saved.policy);
+        const initial=withIntegrationProfile(structuredClone(input),saved.profile,saved.policy);
+        initial.seed=saved.seed;
+        const manifest=resolveIntegrationProfile(saved.profile,saved.policy);
+        console.log('DIAGNOSTIC initial',hash(initial),saved.initialHash,'input',hash(input),saved.originalInputHash,inputPath===saved.inputPath);
+        for(const key of new Set([...Object.keys(manifest),...Object.keys(saved.manifest)]))
+          if(hash(manifest[key]??null)!==hash(saved.manifest[key]??null)) console.log('DIAGNOSTIC MANIFEST',key,JSON.stringify({actual:manifest[key],expected:saved.manifest[key]}));
+      `,
+        ],
+        { cwd: scratch, stdio: 'inherit', windowsHide: true },
+      );
+      continue;
+    }
     const lab = rest.includes('lab');
     execFileSync(
       process.execPath,

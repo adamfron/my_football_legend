@@ -74,6 +74,10 @@ Receipts refuse overwrite. Each source archive records the normalized manifest a
 
 Final PR200 local cases, the live information proof and v3 candidate matches replay against current source by default, comparing every recorded physical result and final-state hash. This additionally verifies the deferred schema initialization correction. Add `--historical-source` to reconstruct their archived implementation instead. Earlier variants always retain exact archived replay. `benchmark:pr200:check` binds the final runtime to the information-proof manifest; regenerating an inventory cannot silently waive runtime drift.
 
+Exact long-match receipts are currently bound to their measured Windows / Node24.22.1 environment. The first Linux CI attempt differed even for canonical SW/B; these failures are retained and no historical expectation or physical result is changed. Full-match receipt checks therefore use the recorded environment. Existing Linux verify/replay groups remain, and a Windows/Linux checkpoint probe asserts repetition within each environment and explicitly reports differences between them. Portable bit-identical long continuations remain unresolved; do not claim cross-platform determinism from a green platform-specific replay.
+
+For investigation only, `--preflight` compares initial identities/configuration without running the full match, and `--diagnose` adds field-level failure output after archive verification. Diagnostic mode preserves the result comparison and still fails on drift; it is not an unmodified exact-source replay or a replacement for the normal verification command.
+
 ## Promotion, rollback and retirement
 
 Per-mechanism decisions are ACCEPT_FOR_CANDIDATE, RETAIN_EXPERIMENTAL, REJECT_CURRENT_VARIANT, NEEDS_REPAIR or BLOCKED_BY_DEPENDENCY. Whole-profile decisions separately distinguish INTEGRATION_CANDIDATE, DEVELOPMENT_VALIDATED_CANDIDATE, NOT_READY_FOR_PROMOTION and READY_FOR_INDEPENDENT_CONFIRMATION. A local repair does not promote the whole profile. A failing profile does not invalidate every component.

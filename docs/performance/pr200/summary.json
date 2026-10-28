@@ -2,6 +2,13 @@
   "schema": "pr200-summary-v0",
   "baseline": "97ea53b1a6d3098105586668678a2270cd589f2f",
   "sourceFingerprint": "ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48",
+  "replayEnvironment": {
+    "platform": "win32",
+    "node": "v24.22.1",
+    "crossPlatformIdentity": "NOT_VALIDATED",
+    "negativeCI": "docs/performance/pr200/verification/ci-linux-v1.json",
+    "checkpointProbe": "docs/performance/pr200/platform-probe-win32-v2.json.gz"
+  },
   "profile": {
     "id": "realism-candidate-v0",
     "version": 0,
@@ -1055,7 +1062,7 @@
   "receipts": [
     {
       "path": "docs/performance/pr200/inventory.json",
-      "sha256": "37fc29ed61b8404638aa6151f302fdb491121d2df0896486e3006ba98941f01a"
+      "sha256": "9e6c28035cdacade6cb5ccfb184fb1d69c2377a3a8e2a6b86bd4b78d56bb92a3"
     },
     {
       "path": "docs/performance/pr200/local-frozen-final-v1.json.gz",

@@ -1,0 +1,22 @@
+{
+  "schema": "pr200-portability-investigation-v1",
+  "previousCIHead": "1093c7e3b67f638c067a9629ccbe6d59100b60da",
+  "platform": "win32",
+  "node": "v24.22.1",
+  "diagnosticMode": "Archived source bytes verified, then failure-only logging added; original full result hash assertion retained.",
+  "commands": [
+    {
+      "command": "node scripts/replayPr200Experiment.mjs --case=match-sw-state-value-v1-canonical-pr199-v1 --diagnose",
+      "code": 0,
+      "seconds": 5923.8500000001595,
+      "finalHash": "7248a7b405571c055285577cfe3cbec8c1c7462ce65db10506b75a19b33b52f2"
+    },
+    {
+      "command": "node scripts/replayPr200Experiment.mjs --case=match-ss-opportunity-driven-v1-historical-pr198-s-v1 --diagnose",
+      "code": 0,
+      "seconds": 5596.650000000061,
+      "finalHash": "9671be6c6847b0d840011362161252a501a21fde3012898283f769a7f12b0d7a"
+    }
+  ],
+  "limitation": "These Windows repetitions do not identify the numerical cause of the Linux mismatch or certify cross-platform identity. Normal full source replay remains the CI gate."
+}

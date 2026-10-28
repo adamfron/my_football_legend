@@ -37,4 +37,6 @@ The complete frozen receiver set reproduces R154/123/116 and S149/113/108. Incom
 
 No component receives a success bonus for making more highlights, increasing completion or creating a larger score. The next dependency is sensory acquisition/cadence versus motor effort/preparation, with real early/later contacts and physical continuation tested independently. Full-world policy/tactical information remains separately registered work.
 
+The first Linux CI attempt also exposed long-match hash drift against Windows receipts, including canonical SW/B. Exact receipt replay uses the recorded Windows/Node environment; a two-platform checkpoint probe retains the portability boundary. Cross-platform bit identity is an additional open measurement dependency, not a reason to replace or round the original outcomes.
+
 Future changes must preserve the executable profile, explicit dependencies and negative controls; rerun relevant local and policy-specific full matches; record the per-mechanism and whole-profile decisions; and regenerate progress without weakening original I/F/E/T/M/C or opening independent confirmation prematurely.

@@ -40,21 +40,38 @@ jobs:
       - run: npm ci
       - run: ${{ matrix.command }}
       - if: matrix.group == 'main'
-        run: npm run benchmark:pr186:replay && npm run benchmark:pr187:replay && npm run benchmark:pr188:replay && npm run benchmark:pr189:replay && npm run benchmark:pr190:replay && npm run benchmark:pr191:baseline && npm run benchmark:pr192:baseline && npm run benchmark:pr193:baseline && npm run benchmark:pr194:baseline && npm run benchmark:pr193:replay && npm run benchmark:pr196:historical && git diff --exit-code -- docs/performance
-      - if: matrix.group == 'main'
         run: test -f dist/data/world/pl-2026-v2.json
-      - if: matrix.group == 'main'
-        run: npm run benchmark:pr195:check && git diff --exit-code -- docs/performance/pr195 docs/match-engine
-      - if: matrix.group == 'main'
-        run: npm run benchmark:pr196:check && npm run benchmark:pr196:replay && git diff --exit-code -- docs/performance/pr196 docs/match-engine
-      - if: matrix.group == 'main'
-        run: npm run benchmark:pr197:check && npm run benchmark:pr197:replay && git diff --exit-code -- docs/performance/pr197 docs/match-engine
-      - if: matrix.group == 'main'
-        run: npm run benchmark:pr198:check && npm run benchmark:pr198:replay && git diff --exit-code -- docs/performance docs/match-engine
-      - if: matrix.group == 'main'
-        run: npm run benchmark:pr199:check && npm run benchmark:realism:check && git diff --exit-code -- docs/performance docs/match-engine
-      - if: matrix.group == 'main'
-        run: npm run benchmark:pr200:check && git diff --exit-code -- docs/performance docs/match-engine
+  historical-checks:
+    name: Historical checks (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: foundations
+            command: npm run benchmark:pr186:replay && npm run benchmark:pr187:replay && npm run benchmark:pr188:replay && npm run benchmark:pr189:replay && npm run benchmark:pr190:replay && npm run benchmark:pr191:baseline && npm run benchmark:pr192:baseline && npm run benchmark:pr193:baseline && npm run benchmark:pr194:baseline && npm run benchmark:pr193:replay && npm run benchmark:pr196:historical
+          - group: assumptions
+            command: npm run benchmark:pr195:check && npm run benchmark:pr196:check && npm run benchmark:pr196:replay
+          - group: passing
+            command: npm run benchmark:pr197:check && npm run benchmark:pr197:replay && npm run benchmark:pr198:check && npm run benchmark:pr198:replay
+          - group: perception
+            command: npm run benchmark:pr199:check && npm run benchmark:realism:check && npm run benchmark:pr200:check
+    env:
+      VITEST_MAX_WORKERS: '1'
+      NODE_OPTIONS: '--max-semi-space-size=64'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run generate:world-db
+      - run: ${{ matrix.command }}
+      - run: git diff --exit-code -- docs/performance docs/match-engine
   pr198-source:
     name: PR198 source (${{ matrix.group }})
     runs-on: ubuntu-latest
@@ -114,7 +131,9 @@ jobs:
       - run: git diff --exit-code -- docs/performance docs/match-engine
   pr200-matches:
     name: PR200 complete matches (${{ matrix.fixture }}, ${{ matrix.cohort }})
-    runs-on: ubuntu-latest
+    # These exact long-match receipts were measured on Windows / Node 24.22.1.
+    # Keep their full hashes; Linux remains covered by verify and platform probes.
+    runs-on: windows-2025
     timeout-minutes: 45
     strategy:
       fail-fast: false
@@ -127,15 +146,34 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 24.22.1
           cache: npm
       - run: npm ci
       - run: npm run benchmark:pr200:source-replay -- --case=matches-${{ matrix.fixture }} --cohort=${{ matrix.cohort }}
       - run: git diff --exit-code -- docs/performance docs/match-engine
+  pr200-platform:
+    name: PR200 platform (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2025]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.22.1
+          cache: npm
+      - run: npm ci
+      - run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/probePr200Platform.mjs
+      - run: git diff --exit-code -- docs/performance docs/match-engine
   quality:
     # Preserve the existing required check and fail it if either group fails,
     # times out or is cancelled, including failures before tests can start.
-    needs: [checks, pr198-source, pr199-source, pr200-source, pr200-matches]
+    needs: [checks, historical-checks, pr198-source, pr199-source, pr200-source, pr200-matches, pr200-platform]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -143,8 +181,10 @@ jobs:
       - name: Require every verification group
         env:
           VERIFY_RESULT: ${{ needs.checks.result }}
+          HISTORICAL_RESULT: ${{ needs.historical-checks.result }}
           PR198_RESULT: ${{ needs.pr198-source.result }}
           PR199_RESULT: ${{ needs.pr199-source.result }}
           PR200_RESULT: ${{ needs.pr200-source.result }}
           PR200_MATCHES_RESULT: ${{ needs.pr200-matches.result }}
-        run: test "$VERIFY_RESULT" = success && test "$PR198_RESULT" = success && test "$PR199_RESULT" = success && test "$PR200_RESULT" = success && test "$PR200_MATCHES_RESULT" = success
+          PR200_PLATFORM_RESULT: ${{ needs.pr200-platform.result }}
+        run: test "$VERIFY_RESULT" = success && test "$HISTORICAL_RESULT" = success && test "$PR198_RESULT" = success && test "$PR199_RESULT" = success && test "$PR200_RESULT" = success && test "$PR200_MATCHES_RESULT" = success && test "$PR200_PLATFORM_RESULT" = success
