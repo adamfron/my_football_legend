@@ -43,6 +43,31 @@ export const integrationMechanismSchema = z.object({
   persistence: z.string(),
 });
 export type IntegrationMechanism = z.infer<typeof integrationMechanismSchema>;
+export const BOUNDED_RECEIVER_RECOVERY_MECHANISM = integrationMechanismSchema.parse({
+  flag: 'boundedReceiverRecovery',
+  ids: ['PASS-004', 'PASS-009', 'TACT-009'],
+  entry: 'liveBallFlight.boundedMovementTarget',
+  consumer: 'final bounded receiver movement authority in canonical MatchEngine',
+  policies: 'all',
+  dependencies: ['experimentalBoundedBallFlightBelief', 'experimentalReceiverAnticipation'],
+  origin: 201,
+  lifecycle: 'INTEGRATION_CANDIDATE',
+  promotion: 'RETAIN_EXPERIMENTAL',
+  physicalExecution: true,
+  observation: false,
+  generation: false,
+  utility: false,
+  reason:
+    'Missing local interception evidence must not redirect the receiver to a remote formation anchor',
+  positive: 'Frozen 180 direct contact/control/retention 100/73/73 to 124/97/96',
+  negative:
+    'Seven paired local retention losses across frozen and fresh development; full profile remains NOT_READY_FOR_PROMOTION',
+  evidence: 'docs/performance/pr201/receivers-frozen-v1.json.gz',
+  performance:
+    'Constant-time choice of existing local movement target; no new forecast or sensing work',
+  persistence:
+    'Optional boundedReceiverRecovery=hold-local-v1; historical profiles leave the field absent',
+});
 const item = (
   flag: string,
   ids: string[],

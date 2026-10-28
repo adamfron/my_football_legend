@@ -1,0 +1,114 @@
+{
+  "schema": "pr201-verification-v1",
+  "base": "df6d93df39d1bebfa5d395e29620224670520971",
+  "sourceAtRecord": {
+    "base": "df6d93df39d1bebfa5d395e29620224670520971",
+    "fingerprint": "d6c731d6b25040af8cc7ed4c5c471e4c22c167f5f939a056edb2f4511c0fd362",
+    "path": "docs/performance/pr201/source/d6c731d6b25040af8cc7ed4c5c471e4c22c167f5f939a056edb2f4511c0fd362.json.gz"
+  },
+  "runtimeProof": {
+    "base": "df6d93df39d1bebfa5d395e29620224670520971",
+    "fingerprint": "16762e4051324c0ee101a4c4aa55d425e3a7370fdfa2b7e93d110ce48fc26ec8",
+    "path": "docs/performance/pr201/source/16762e4051324c0ee101a4c4aa55d425e3a7370fdfa2b7e93d110ce48fc26ec8.json.gz"
+  },
+  "node": "v24.22.1",
+  "platform": "win32",
+  "commands": [
+    {
+      "key": "baseline",
+      "command": "node scripts/replayPr200Experiment.mjs --case=frozen-final,fresh-final,diagnosis-final,keepers-v3,information",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedAt": "2026-10-28T15:47:44.298Z",
+      "lastOutputAt": "2026-10-28T15:53:33.125Z",
+      "log": "docs/performance/pr201/verification/baseline-v1.log.gz",
+      "sha256": "a5ba60294e2a525a8118edbe1bae17a5cb5b0bc762cbd00687ad8be6994a7717",
+      "uncompressedSha256": "8740a0f2e588ad11883a37222dca24271d7038c819a4ae141a858f3883c7462b"
+    },
+    {
+      "key": "verify",
+      "command": "npm run verify",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedAt": "2026-10-28T16:10:01.615Z",
+      "lastOutputAt": "2026-10-28T16:37:07.778Z",
+      "log": "docs/performance/pr201/verification/verify-v1.log.gz",
+      "sha256": "727d40279e96f0310ca8ca9f0a0a42eb55d82460a8d05414b12e5da40bda6bf9",
+      "uncompressedSha256": "30e71743f854ef897f4bd3405cb9fd776b3fae6b9bb5025dd509d79ebaca5cec"
+    },
+    {
+      "key": "historical",
+      "command": "npm run benchmark:pr200:check",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedAt": "2026-10-28T16:12:15.077Z",
+      "lastOutputAt": "2026-10-28T16:12:52.254Z",
+      "log": "docs/performance/pr201/verification/historical-v1.log.gz",
+      "sha256": "c63be13c05dc70096d7fcdea3fdec424e620c054d014ea0cbf556d4bb3cb05bf",
+      "uncompressedSha256": "4e42e7ea4a047f466b5f9ec4b09419343f9b87e20ee999c6412b7bd4af08e5cc"
+    },
+    {
+      "key": "local-source",
+      "command": "node scripts/replayPr201Experiment.mjs",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedAt": "2026-10-28T16:12:52.771Z",
+      "lastOutputAt": "2026-10-28T16:20:28.270Z",
+      "log": "docs/performance/pr201/verification/local-source-v1.log.gz",
+      "sha256": "9fe036c8288419c4afb9c29fcaf6c14d838d01f74ee11418f9941482326ac21d",
+      "uncompressedSha256": "df08ad2a21f310afec04c8a0f65df0398ee2d732a9a83a2be2944ab9a78a5492"
+    },
+    {
+      "key": "current-harness-equivalence",
+      "command": "Four direct Node invocations of benchmarkPr200/Pr201Information and Goalkeepers with --check against original receipts",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedAt": "2026-10-28T16:40:32.230Z",
+      "lastOutputAt": "2026-10-28T16:40:42.697Z",
+      "log": "docs/performance/pr201/verification/current-harness-equivalence-v1.log.gz",
+      "sha256": "655867402aee5f067f312a9e1a2ac50ec7ea4562c979b0c4aff5af74701ca7f4",
+      "uncompressedSha256": "0ea0cad86ac8cd9cff5136cced38e09d5182039a11bea97f7d7cf225195a3c25"
+    },
+    {
+      "key": "observer-failure",
+      "command": "Node benchmarkPr201Receivers.mjs --mode=fresh201 before receiver-absence guard",
+      "exitCode": 1,
+      "result": "FAILED_APPARATUS_OR_PREREQUISITE",
+      "startedAt": "2026-10-28T15:56:32.574Z",
+      "lastOutputAt": "2026-10-28T15:56:45.233Z",
+      "log": "docs/performance/pr201/verification/observer-failure-v1.log.gz",
+      "sha256": "25a95917febbd43de488024ac7f7f0fff6c4a0793e6fd66fec1bd180e637b6be",
+      "uncompressedSha256": "a2e55387ebeda24f9189c50fa43f52cb08e4fbcce63654ff550b6e84e4032062"
+    },
+    {
+      "key": "historical-wrapper-failure",
+      "command": "npm run benchmark:pr200:check before exporting referenced historical reports",
+      "exitCode": 1,
+      "result": "FAILED_APPARATUS_OR_PREREQUISITE",
+      "startedAt": "2026-10-28T16:10:35.678Z",
+      "lastOutputAt": "2026-10-28T16:11:07.283Z",
+      "log": "docs/performance/pr201/verification/historical-wrapper-failure-v1.log.gz",
+      "sha256": "05287b0c3b5190452b79d922e7a80658502e73c9958a6f62a2575c4afa6d9314",
+      "uncompressedSha256": "d971deaf6f9851b969e50aa47e647961e4f79a66e37435dc71e016ca7c91f79f"
+    },
+    {
+      "key": "standalone-typecheck-prerequisite",
+      "command": "tsc -b before generate:world-db; generated JSON missing",
+      "exitCode": null,
+      "result": "FAILED_APPARATUS_OR_PREREQUISITE",
+      "startedAt": "2026-10-28T15:55:35.708Z",
+      "lastOutputAt": "2026-10-28T15:55:55.315Z",
+      "log": "docs/performance/pr201/verification/standalone-typecheck-prerequisite-v1.log.gz",
+      "sha256": "eeface3f3cd0eec8b5f4031c5f1c4b1fb9125925c5727bc82d6e23479f00a74b",
+      "uncompressedSha256": "b164d637de72cc8c13d1f0f42cf8e0db6cfdf3c805a1dc2727375644f5c0319c"
+    }
+  ],
+  "tests": {
+    "unit": 2388,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "total": 2453
+  },
+  "scope": "Full verify passed with unchanged runtime source. Documentation and measurement tooling were edited during the run; final lint and current harness equality check those edits. Exact pushed-head CI remains separately required."
+}

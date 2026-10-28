@@ -1,0 +1,322 @@
+{
+  "schema": "pr201-final-verification-v1",
+  "base": "df6d93df39d1bebfa5d395e29620224670520971",
+  "sourceAtRecord": {
+    "base": "df6d93df39d1bebfa5d395e29620224670520971",
+    "fingerprint": "c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de",
+    "path": "docs/performance/pr201/source/c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de.json.gz"
+  },
+  "commands": [
+    {
+      "key": "pilot-matrix",
+      "command": "node scripts/runPr201Development.mjs --pilot --workers=2 --version=v1",
+      "exitCode": 0,
+      "log": "docs/performance/pr201/verification/pilot-matrix-final-v1.log.gz",
+      "sha256": "2c0731891cc0aa47b20165aeefc2c58ec618b8d5c3fa0b93b67b2002f5dce47a",
+      "uncompressedSha256": "0badf72cb239772456f620fd21d721ed88735c7f6042f81390e6cb5586bceb51",
+      "lastOutputAt": "2026-10-28T16:29:50.210Z"
+    },
+    {
+      "key": "remaining-matrix",
+      "command": "node scripts/runPr201Development.mjs --remaining --workers=2 --version=v1",
+      "exitCode": 0,
+      "log": "docs/performance/pr201/verification/remaining-matrix-final-v1.log.gz",
+      "sha256": "45b1d610255c6f8a44d9e6657e98affed26a33920fd43d2b9d1ab0779f55c8dc",
+      "uncompressedSha256": "556b3bf1b2e8946f9bbcdd3912ffd86646ee2c19a8298ba89a01519d813372ca",
+      "lastOutputAt": "2026-10-28T16:54:18.684Z"
+    },
+    {
+      "key": "final-main-baseline",
+      "command": "node scripts/runPr201Development.mjs --baseline-runtime --workers=4 --version=v1",
+      "exitCode": 0,
+      "log": "docs/performance/pr201/verification/final-main-baseline-final-v1.log.gz",
+      "sha256": "e12f6a76e514a9804c64e16ef43ff14f90f0f69dd28190152f7b39aad070ff2f",
+      "uncompressedSha256": "9451c55324f56f0d3d52aa53bc0a9c27ed9f62972d242732c799bd9126e697c2",
+      "lastOutputAt": "2026-10-28T17:12:33.810Z"
+    },
+    {
+      "key": "final-lint",
+      "command": "npm run lint",
+      "exitCode": 0,
+      "log": "docs/performance/pr201/verification/final-lint-final-v1.log.gz",
+      "sha256": "daf88501805204d9de1253e49ec86c1cba402b3f4df6da80d408203b13082aa0",
+      "uncompressedSha256": "39e781f2eb1b5c98f68c8ee435a6f0b564b9da640d92873269a45f1107e557b5",
+      "lastOutputAt": "2026-10-28T17:07:37.016Z"
+    },
+    {
+      "key": "final-evidence-progress",
+      "command": "npm run benchmark:pr201:check followed by npm run benchmark:realism:check",
+      "exitCode": 0,
+      "log": "docs/performance/pr201/verification/final-evidence-progress-final-v1.log.gz",
+      "sha256": "e3edb81b6ccec5cba2d02e999d7c4d2e00378ef74505546fb5b9511b48cf719f",
+      "uncompressedSha256": "2e400d43876326a4d1f79c3a910fd78a5536e7184923c4872d9b61bccf4c471f",
+      "lastOutputAt": "2026-10-28T17:13:19.559Z"
+    },
+    {
+      "key": "baseline-edition-mismatch",
+      "command": "npm run benchmark:pr201:check before final-main canonical reference verification",
+      "exitCode": 1,
+      "log": "docs/performance/pr201/verification/baseline-edition-mismatch-final-v1.log.gz",
+      "sha256": "0673ae63840af6d78e123e696335ce435d1dca8140bcaf5191c343910822064a",
+      "uncompressedSha256": "9ecd0dff5cbf28911c61d85fb08d8ab0d75f3c1d3c126a5f5b69a6c2480d3721",
+      "lastOutputAt": "2026-10-28T16:56:30.751Z"
+    },
+    {
+      "key": "baseline-prerequisite",
+      "command": "checkPr201Evidence.mjs while three final-main reference runs were still pending; missing proof rejected",
+      "exitCode": 1,
+      "log": "docs/performance/pr201/verification/baseline-prerequisite-final-v1.log.gz",
+      "sha256": "0336dc6fccdd98e64c793414ef38ed0eec3acaa5a9c23cfd44598ae447eb289d",
+      "uncompressedSha256": "61447d78cc4938e04068f77414a24a4d20a788047962a2dfe6b7c8fd742df5db",
+      "lastOutputAt": "2026-10-28T17:10:15.512Z"
+    }
+  ],
+  "matchLogs": [
+    {
+      "case": "ss-opportunity-driven-v1-canonical-pr199-v1-baseline-final",
+      "log": "docs/performance/pr201/verification/match-ss-opportunity-driven-v1-canonical-pr199-v1-baseline-final-final-v1.log.gz",
+      "sha256": "d45375e4a0803969c693fd59a680ac0298cb92c75fb064240ee81f109b44c8c7",
+      "uncompressedSha256": "93823d1e2cb13831e25432676c533b6c1c98f8ff70d452b7ace8fcc67ac10748",
+      "lastOutputAt": "2026-10-28T17:07:55.661Z"
+    },
+    {
+      "case": "ss-opportunity-driven-v1-canonical-pr199-v1",
+      "log": "docs/performance/pr201/verification/match-ss-opportunity-driven-v1-canonical-pr199-v1-final-v1.log.gz",
+      "sha256": "09d6ff00a3e44702a599526ed3052981ab4ca423c488cc59e99854f5a27df2ea",
+      "uncompressedSha256": "33087fdd8b62b805b31608006586c82c785d5a443232b09b755a61f2918c2941",
+      "lastOutputAt": "2026-10-28T16:31:48.349Z"
+    },
+    {
+      "case": "ss-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ss-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1-final-v1.log.gz",
+      "sha256": "cc621e56fcf3abad4fb8defbd1a49195f35a8cbe4a1d57f82d42835badcbacf2",
+      "uncompressedSha256": "bdbd446a291304375c584c31913bd204df35448cd259e763a9e3c1c2e89f9a21",
+      "lastOutputAt": "2026-10-28T16:37:05.668Z"
+    },
+    {
+      "case": "ss-opportunity-driven-v1-realism-candidate-v0-v1",
+      "log": "docs/performance/pr201/verification/match-ss-opportunity-driven-v1-realism-candidate-v0-v1-final-v1.log.gz",
+      "sha256": "35bf3e1e15c71282818124492bf38da2d0707b10fc0856ec8fc7ba33f0828aad",
+      "uncompressedSha256": "f0ece2fc239ed6cfaa0348951319e5d182c078b3839c46a00bebbe22c839da5f",
+      "lastOutputAt": "2026-10-28T16:32:14.366Z"
+    },
+    {
+      "case": "ss-opportunity-driven-v1-realism-candidate-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ss-opportunity-driven-v1-realism-candidate-v1-v1-final-v1.log.gz",
+      "sha256": "3bd2e717e6bf7467139bba74b407a404d805ee9f4a00994d1d038c3736718896",
+      "uncompressedSha256": "7649bc2cbfcf6710f1068f8e236fffb680df7ac36a40a2a4e44cac415ea8f369",
+      "lastOutputAt": "2026-10-28T16:36:28.890Z"
+    },
+    {
+      "case": "ss-state-value-v1-canonical-pr199-v1-baseline-final",
+      "log": "docs/performance/pr201/verification/match-ss-state-value-v1-canonical-pr199-v1-baseline-final-final-v1.log.gz",
+      "sha256": "36816d0ab2f2dfccf513f5b8dbb4c5d14b66637b0ec49800b84c209974ea1010",
+      "uncompressedSha256": "a0ada90e9f2e7ef1cbb2705d774766c71fdf2cedc7c19949d47fcec74bd8ccc5",
+      "lastOutputAt": "2026-10-28T17:11:55.875Z"
+    },
+    {
+      "case": "ss-state-value-v1-canonical-pr199-v1",
+      "log": "docs/performance/pr201/verification/match-ss-state-value-v1-canonical-pr199-v1-final-v1.log.gz",
+      "sha256": "d56546f9370b19a727a5aeaeae9c7b1971b561a63fa2595328e4b7750d8590f6",
+      "uncompressedSha256": "795500f909fade5f37bf2000d53ad07ae40e8518143db609ab6dc3072af2036b",
+      "lastOutputAt": "2026-10-28T16:24:09.081Z"
+    },
+    {
+      "case": "ss-state-value-v1-realism-candidate-no-recovery-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ss-state-value-v1-realism-candidate-no-recovery-v1-v1-final-v1.log.gz",
+      "sha256": "e2b4421c92db2f725defef9359b08b5ac8c80c70b0be2b705d9f193640bc54d9",
+      "uncompressedSha256": "2a0969987bd4826e83ddc59dc9cff6405de5507f338ba303fb5e71dab46de7c7",
+      "lastOutputAt": "2026-10-28T16:29:50.116Z"
+    },
+    {
+      "case": "ss-state-value-v1-realism-candidate-v0-v1",
+      "log": "docs/performance/pr201/verification/match-ss-state-value-v1-realism-candidate-v0-v1-final-v1.log.gz",
+      "sha256": "a015c2eae17154b14a73239eda4301aed11735a361c943fc83564da6e505046a",
+      "uncompressedSha256": "3e9593730f42576b73a774ec60280aaba7aa177c141770f9020a937da9121696",
+      "lastOutputAt": "2026-10-28T16:25:01.821Z"
+    },
+    {
+      "case": "ss-state-value-v1-realism-candidate-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ss-state-value-v1-realism-candidate-v1-v1-final-v1.log.gz",
+      "sha256": "c1dc29792248d122cec8ea074ebb1550d047cd77bc5b84eece942446a7d14cb5",
+      "uncompressedSha256": "25dce7441a528076da5f64fe1c35a62e637174e2346ad8948f7d8e08bf32e655",
+      "lastOutputAt": "2026-10-28T16:29:02.802Z"
+    },
+    {
+      "case": "sw-contextual-judgment-v1-canonical-pr199-v1-baseline-final",
+      "log": "docs/performance/pr201/verification/match-sw-contextual-judgment-v1-canonical-pr199-v1-baseline-final-final-v1.log.gz",
+      "sha256": "319fd41b503d437cfb087a837f443d302ef2ad4e7ab48ed2eb5148cdbe6bfb70",
+      "uncompressedSha256": "05cf2896a015cfba6bed4fbf3bcf1bb2e3c858b1cb4e25645bc63f82f3aba9f4",
+      "lastOutputAt": "2026-10-28T17:12:06.899Z"
+    },
+    {
+      "case": "sw-contextual-judgment-v1-canonical-pr199-v1",
+      "log": "docs/performance/pr201/verification/match-sw-contextual-judgment-v1-canonical-pr199-v1-final-v1.log.gz",
+      "sha256": "6120bf0cf49d5252349351bfa279501366edab98ffa95f60746d0d1f39e5f5a0",
+      "uncompressedSha256": "37455676a3b506498c690a5f194e4f9fcfcd57f6dd166fb4f7f1202797e30018",
+      "lastOutputAt": "2026-10-28T16:13:00.416Z"
+    },
+    {
+      "case": "sw-contextual-judgment-v1-realism-candidate-no-recovery-v1-v1",
+      "log": "docs/performance/pr201/verification/match-sw-contextual-judgment-v1-realism-candidate-no-recovery-v1-v1-final-v1.log.gz",
+      "sha256": "a56ff23632654978e34e13efec4213a806db8affc1870c96546dc0e5dd7d67ce",
+      "uncompressedSha256": "79a2d36904960e6f9232f10e3f6ca373720ab7f71acf6feb206cd9ded55a9faf",
+      "lastOutputAt": "2026-10-28T16:20:05.518Z"
+    },
+    {
+      "case": "sw-contextual-judgment-v1-realism-candidate-v0-v1",
+      "log": "docs/performance/pr201/verification/match-sw-contextual-judgment-v1-realism-candidate-v0-v1-final-v1.log.gz",
+      "sha256": "bc8519c9b5c4c5b2e8e1e4b95dcf6b75c75d984ee0d7b408b6691fa2cfe1eb38",
+      "uncompressedSha256": "d8cd28004cdc59beb401850fd18553d6c01d230ef73d9a55661e28079b2c8b4a",
+      "lastOutputAt": "2026-10-28T16:13:29.584Z"
+    },
+    {
+      "case": "sw-contextual-judgment-v1-realism-candidate-v1-v1",
+      "log": "docs/performance/pr201/verification/match-sw-contextual-judgment-v1-realism-candidate-v1-v1-final-v1.log.gz",
+      "sha256": "b554c3f4c665dc715c0494f723faae776ec0efe140450e47f1e3d3523e95da78",
+      "uncompressedSha256": "364336a064c47f715953682c1da8a38dcf2776f09c5fa187ea2e84e4fd8a2324",
+      "lastOutputAt": "2026-10-28T16:19:25.698Z"
+    },
+    {
+      "case": "sw-state-value-v1-canonical-pr199-v1-baseline-final",
+      "log": "docs/performance/pr201/verification/match-sw-state-value-v1-canonical-pr199-v1-baseline-final-final-v1.log.gz",
+      "sha256": "3bc6019d84da767bbcdc30cef3986db5862176fcb83bfb04b13e07e7d6f13dd8",
+      "uncompressedSha256": "ab48fd818e1012444808033b893bc9899469d46ccdb172c2612bd71f8ad7da29",
+      "lastOutputAt": "2026-10-28T17:07:05.960Z"
+    },
+    {
+      "case": "sw-state-value-v1-canonical-pr199-v1",
+      "log": "docs/performance/pr201/verification/match-sw-state-value-v1-canonical-pr199-v1-final-v1.log.gz",
+      "sha256": "9817ea31504c47bbe8f1d4f2e8124fc47c2ae0682d00b3c66b800f48349dcdf5",
+      "uncompressedSha256": "7299d13f5ff67848b94bbeaf7e9952f4bf21790c76d646286f2db542a0b110c7",
+      "lastOutputAt": "2026-10-28T16:40:36.262Z"
+    },
+    {
+      "case": "sw-state-value-v1-realism-candidate-no-recovery-v1-v1",
+      "log": "docs/performance/pr201/verification/match-sw-state-value-v1-realism-candidate-no-recovery-v1-v1-final-v1.log.gz",
+      "sha256": "80216267821ba1e894b2cc5084c71006290920a62634b07bb9ea0af951229b09",
+      "uncompressedSha256": "36c4270d71a7bd99a3a52e87dedd676f6cec86097d151fd3028b9b82e0ca7ef6",
+      "lastOutputAt": "2026-10-28T16:44:57.811Z"
+    },
+    {
+      "case": "sw-state-value-v1-realism-candidate-v0-v1",
+      "log": "docs/performance/pr201/verification/match-sw-state-value-v1-realism-candidate-v0-v1-final-v1.log.gz",
+      "sha256": "5f199816ff270e3a8bc902f8a245a3862c42bd8d425c02346602396ef3b09d44",
+      "uncompressedSha256": "780feebfb2912ebd5f63807f8e0a5e1ffc31f1408e63698ba7df73c04345cb6e",
+      "lastOutputAt": "2026-10-28T16:41:06.845Z"
+    },
+    {
+      "case": "sw-state-value-v1-realism-candidate-v1-v1",
+      "log": "docs/performance/pr201/verification/match-sw-state-value-v1-realism-candidate-v1-v1-final-v1.log.gz",
+      "sha256": "15b76a2ca3a8042f2f761f888ddc28559725ccbdd7050ac405240658a467623c",
+      "uncompressedSha256": "e68c8d6ae3ac7c2d62d7276e6fd1ffd4eff30ec9c7b2e2d254bf46d6707ccd21",
+      "lastOutputAt": "2026-10-28T16:44:48.784Z"
+    },
+    {
+      "case": "ww-hierarchical-intent-v1-canonical-pr199-v1-baseline-final",
+      "log": "docs/performance/pr201/verification/match-ww-hierarchical-intent-v1-canonical-pr199-v1-baseline-final-final-v1.log.gz",
+      "sha256": "9ab50d2e6c456293e3772290c391171fceda268b372ce45f7c3a34f8ac1fc66c",
+      "uncompressedSha256": "0d04dd5934bd46c0447ef59f5d31ebb30854e4eeacc383c2f0f01e5d0d108c46",
+      "lastOutputAt": "2026-10-28T17:07:55.539Z"
+    },
+    {
+      "case": "ww-hierarchical-intent-v1-canonical-pr199-v1",
+      "log": "docs/performance/pr201/verification/match-ww-hierarchical-intent-v1-canonical-pr199-v1-final-v1.log.gz",
+      "sha256": "30daa1b957bbf865a20e8a059d4d2167bfc52da2372d617570a8f3dbd9937903",
+      "uncompressedSha256": "133c79032a54ad46287ce5ce8d53a5dfa6bed7ccf11a98e536c4dc3cf0fad9be",
+      "lastOutputAt": "2026-10-28T16:20:51.074Z"
+    },
+    {
+      "case": "ww-hierarchical-intent-v1-realism-candidate-no-recovery-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ww-hierarchical-intent-v1-realism-candidate-no-recovery-v1-v1-final-v1.log.gz",
+      "sha256": "f2051dcab990df572bd038ccd56ecc0d444f6b719570e4e623845dac1f5dcd34",
+      "uncompressedSha256": "9bd79b7192d59bd7f1b1482a931c457b50e78ef837514194148ff2c760f6c9b0",
+      "lastOutputAt": "2026-10-28T16:26:54.537Z"
+    },
+    {
+      "case": "ww-hierarchical-intent-v1-realism-candidate-v0-v1",
+      "log": "docs/performance/pr201/verification/match-ww-hierarchical-intent-v1-realism-candidate-v0-v1-final-v1.log.gz",
+      "sha256": "85d398a26593616406b57919657c0b409eeadd7511734da201b030fb1db742cd",
+      "uncompressedSha256": "189b1b9d56524ba5d4a666026803f74a7b16d9e955d59737ec4ce48b0540063a",
+      "lastOutputAt": "2026-10-28T16:21:03.837Z"
+    },
+    {
+      "case": "ww-hierarchical-intent-v1-realism-candidate-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ww-hierarchical-intent-v1-realism-candidate-v1-v1-final-v1.log.gz",
+      "sha256": "db5f2301b3969aa35015ce32b7be3ab5debd8af78da24f0ab6b3f9f43476050c",
+      "uncompressedSha256": "4e5e4fd5d6dacdc1dbea544bd40458684d49e39023db7a14a020234bb6d9ea9d",
+      "lastOutputAt": "2026-10-28T16:26:37.132Z"
+    },
+    {
+      "case": "ww-opportunity-driven-v1-canonical-pr199-v1-baseline-final",
+      "log": "docs/performance/pr201/verification/match-ww-opportunity-driven-v1-canonical-pr199-v1-baseline-final-final-v1.log.gz",
+      "sha256": "60eedceb1083cd1f0b989641589d4ec13c3c28f34c2d7d2b840ce96cb45c1ac7",
+      "uncompressedSha256": "17dfcc3322ddb5cfa541e2807c3696d1fdb14a72e30137522b1449b2dcf34349",
+      "lastOutputAt": "2026-10-28T17:07:46.889Z"
+    },
+    {
+      "case": "ww-opportunity-driven-v1-canonical-pr199-v1",
+      "log": "docs/performance/pr201/verification/match-ww-opportunity-driven-v1-canonical-pr199-v1-final-v1.log.gz",
+      "sha256": "f11ba926acd9940f1d3afe05cdcc7c356ec5d8984bd7d04914f94c5bcb36e24a",
+      "uncompressedSha256": "85033d34fc13797c636dfbb12130d73b983f48a6db4c56fb826860063f7d3df7",
+      "lastOutputAt": "2026-10-28T16:03:13.809Z"
+    },
+    {
+      "case": "ww-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ww-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1-final-v1.log.gz",
+      "sha256": "7e26c6f84060521f4d21314252bcc1205d0858c5dc3b4f9b18b3791514544504",
+      "uncompressedSha256": "7c024d4326103a93adfb668133959e109c88c7224d7ba27375fe3979ea5bcde5",
+      "lastOutputAt": "2026-10-28T16:07:55.289Z"
+    },
+    {
+      "case": "ww-opportunity-driven-v1-realism-candidate-v0-v1",
+      "log": "docs/performance/pr201/verification/match-ww-opportunity-driven-v1-realism-candidate-v0-v1-final-v1.log.gz",
+      "sha256": "330366d67e7a780dfb07531a2317b971568b248c0920f59f4bf9d0ca7e996b4d",
+      "uncompressedSha256": "01c0e8076bbc250297fa039030dcd2fdb31bb80c1a351756819903ed3e07b449",
+      "lastOutputAt": "2026-10-28T16:03:19.056Z"
+    },
+    {
+      "case": "ww-opportunity-driven-v1-realism-candidate-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ww-opportunity-driven-v1-realism-candidate-v1-v1-final-v1.log.gz",
+      "sha256": "4671d86eb0a848b8efcd35771fe2e77628f2027a49404bca274b8ff7cf7c0b04",
+      "uncompressedSha256": "fefa2423c9ed9d57435a7cfebfa50be03acc87a8c511fa3010864131ffdfe638",
+      "lastOutputAt": "2026-10-28T16:07:49.028Z"
+    },
+    {
+      "case": "ww-phase-role-hybrid-v1-canonical-pr199-v1-baseline-final",
+      "log": "docs/performance/pr201/verification/match-ww-phase-role-hybrid-v1-canonical-pr199-v1-baseline-final-final-v1.log.gz",
+      "sha256": "dc752be509c6645e317fb827a0c5cf88e2cc103e531c0e0a872b3177f35a8c9a",
+      "uncompressedSha256": "bcb752a46e2bd75e4495dc3832882b8d36711ab97ca8cc54e500cd522b379385",
+      "lastOutputAt": "2026-10-28T17:12:33.625Z"
+    },
+    {
+      "case": "ww-phase-role-hybrid-v1-canonical-pr199-v1",
+      "log": "docs/performance/pr201/verification/match-ww-phase-role-hybrid-v1-canonical-pr199-v1-final-v1.log.gz",
+      "sha256": "c702a90c8d1da71b81479d28e0cf6a08d92a5e742a8c5fd61d65a642a609423e",
+      "uncompressedSha256": "c35c1e887e633b197f1df905c2627f9068babe93e5968ad23fc0203d0ee15133",
+      "lastOutputAt": "2026-10-28T16:49:19.991Z"
+    },
+    {
+      "case": "ww-phase-role-hybrid-v1-realism-candidate-no-recovery-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ww-phase-role-hybrid-v1-realism-candidate-no-recovery-v1-v1-final-v1.log.gz",
+      "sha256": "12e9a577341a0fa7dafefd79823058b643f3711ebcfaea04148593b4ecc43b0b",
+      "uncompressedSha256": "4aa46b0bbda4eda5a24eae3ec726e4e15b693b252de23b2dfa20d6c0c29eb47b",
+      "lastOutputAt": "2026-10-28T16:54:18.599Z"
+    },
+    {
+      "case": "ww-phase-role-hybrid-v1-realism-candidate-v0-v1",
+      "log": "docs/performance/pr201/verification/match-ww-phase-role-hybrid-v1-realism-candidate-v0-v1-final-v1.log.gz",
+      "sha256": "d5c2a3f5608c5facf11bb02ccab90a5576f8b25af51a7828c59f0e5813086e49",
+      "uncompressedSha256": "a05ed31379ccced41df50991b528895b6babc77936091d2bf39b0a5d615c9116",
+      "lastOutputAt": "2026-10-28T16:49:44.355Z"
+    },
+    {
+      "case": "ww-phase-role-hybrid-v1-realism-candidate-v1-v1",
+      "log": "docs/performance/pr201/verification/match-ww-phase-role-hybrid-v1-realism-candidate-v1-v1-final-v1.log.gz",
+      "sha256": "4939d3387a6272654b9934adfb16543c7c6c4a9637ebaac52a07c19d04feef05",
+      "uncompressedSha256": "00dd65f6758caae031168c1552dce3a3053f89d26eed716570febeb710e42b84",
+      "lastOutputAt": "2026-10-28T16:54:05.098Z"
+    }
+  ],
+  "qualification": "Final logs supplement immutable core-v1 verification. Source-bound primary receipts record each measured implementation. All 28 primary matches and seven final-merged-PR200 full-state verifications passed. The earlier strict canonical mismatch is preserved; original intermediate-edition receipts and hashes remain independently required. Exact pushed-head CI is a separate gate."
+}

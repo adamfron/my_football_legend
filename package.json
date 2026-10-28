@@ -149,9 +149,14 @@
     "benchmark:pr200:keepers": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr200Goalkeepers.mjs",
     "benchmark:pr200:information": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr200Information.mjs",
     "benchmark:pr200:source-replay": "node scripts/replayPr200Experiment.mjs",
-    "benchmark:pr200:check": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr200Evidence.mjs && node scripts/freezePr200Baseline.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/pr200Inventory.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr200.mjs --check && node scripts/realismProgress.mjs --check",
+    "benchmark:pr200:check": "node scripts/replayPr200Baseline.mjs",
     "benchmark:pr200:report": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr200.mjs && node scripts/realismProgress.mjs",
-    "benchmark:pr200:verification": "node scripts/runPr200Verification.mjs"
+    "benchmark:pr200:verification": "node scripts/runPr200Verification.mjs",
+    "benchmark:pr201:local": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerPr199Lab.mjs scripts/benchmarkPr201Receivers.mjs",
+    "benchmark:pr201:matches": "node scripts/runPr201Development.mjs",
+    "benchmark:pr201:check": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr201Evidence.mjs && node scripts/summarizePr201.mjs --check",
+    "benchmark:pr201:source-replay": "node scripts/replayPr201Experiment.mjs",
+    "benchmark:pr201:report": "node scripts/summarizePr201.mjs && node scripts/realismProgress.mjs"
   },
   "dependencies": {
     "react": "19.2.8",

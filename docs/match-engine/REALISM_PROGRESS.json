@@ -1,7 +1,7 @@
 {
   "schema": "mfl-realism-progress-v1",
-  "registryHash": "8ad3d47194b6ed6ab744cba786e59200a0f39db0c9e7137b10588646d796583c",
-  "mappingHash": "ae2107f2fc7dd7f52c6834654a665a1da277ea430c6af2a13a93da329d3f6927",
+  "registryHash": "2019873ce8fb45522a44b2a0000e8e5b07e8338e5853e3422811458df1309f7f",
+  "mappingHash": "e91e9895e8ff8b93db826fe2da51252ebb99ca90bd9455e956dcc610b2b2d524",
   "baseline": "aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b",
   "definitions": {
     "supported": "Evidence supports the explicitly stated scope; it does not close the whole issue.",
@@ -41,8 +41,8 @@
       "BLOCKED": 0
     },
     "DEVELOPMENT_VALIDATED": {
-      "NOT_ASSESSED": 123,
-      "PARTIAL": 4,
+      "NOT_ASSESSED": 122,
+      "PARTIAL": 5,
       "SUPPORTED": 8,
       "FAILED": 0,
       "BLOCKED": 0
@@ -227,6 +227,13 @@
     "200": [
       "GK-002",
       "TACT-009"
+    ],
+    "201": [
+      "GK-002",
+      "PASS-004",
+      "PASS-006",
+      "PASS-009",
+      "TACT-009"
     ]
   },
   "explicitDevelopmentUpdates": {
@@ -306,6 +313,13 @@
     "200": [
       "GK-002",
       "TACT-009"
+    ],
+    "201": [
+      "PASS-004",
+      "PASS-006",
+      "PASS-009",
+      "GK-002",
+      "TACT-009"
     ]
   },
   "introducedByPR": {
@@ -317,7 +331,8 @@
       "TACT-013"
     ],
     "199": [],
-    "200": []
+    "200": [],
+    "201": []
   },
   "newlyAdded": [],
   "blockedIds": [
@@ -436,6 +451,7 @@
     "observed-loft-repertoire198",
     "height-aware-passing197",
     "receiver-synchronisation198",
+    "pr201-local-receiver-fallback",
     "canonical-arrival196",
     "symmetric-incoming197",
     "bounded-live-information200",
@@ -853,8 +869,8 @@
           "BLOCKED": 0
         },
         "DEVELOPMENT_VALIDATED": {
-          "NOT_ASSESSED": 8,
-          "PARTIAL": 2,
+          "NOT_ASSESSED": 7,
+          "PARTIAL": 3,
           "SUPPORTED": 2,
           "FAILED": 0,
           "BLOCKED": 0
@@ -1179,8 +1195,8 @@
           "BLOCKED": 0
         },
         "DEVELOPMENT_VALIDATED": {
-          "NOT_ASSESSED": 36,
-          "PARTIAL": 2,
+          "NOT_ASSESSED": 35,
+          "PARTIAL": 3,
           "SUPPORTED": 7,
           "FAILED": 0,
           "BLOCKED": 0
@@ -1368,19 +1384,22 @@
     {
       "id": "PASS-004",
       "evidence": [
-        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case."
+        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case.",
+        "PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only."
       ]
     },
     {
       "id": "PASS-006",
       "evidence": [
-        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case."
+        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case.",
+        "PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only."
       ]
     },
     {
       "id": "PASS-009",
       "evidence": [
-        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case."
+        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case.",
+        "PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only."
       ]
     },
     {
@@ -1393,7 +1412,8 @@
     {
       "id": "TACT-009",
       "evidence": [
-        "PR200 live bounded pathway loses real receptions and some difficult saves; executable combined candidate is NOT_READY_FOR_PROMOTION."
+        "PR200 live bounded pathway loses real receptions and some difficult saves; executable combined candidate is NOT_READY_FOR_PROMOTION.",
+        "PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only."
       ]
     }
   ],
@@ -2299,7 +2319,8 @@
       "developmentUpdates": [
         197,
         198,
-        199
+        199,
+        201
       ],
       "sourceAuditable": true,
       "dimensions": {
@@ -2315,30 +2336,35 @@
           "evidence": [
             "long197",
             "forensics199",
-            "receivers199"
+            "receivers199",
+            "pr201-recovery",
+            "pr201-fresh"
           ],
-          "limitation": "M is laboratory-only and has mixed outcomes; it is not a gameplay repair or completed receiver calibration."
+          "limitation": "M is laboratory-only and has mixed outcomes; it is not a gameplay repair or completed receiver calibration. PR201 scope: only inappropriate formation fallback without a local reception plan; historical scopes remain preserved."
         },
         "ROOT_CAUSE_IDENTIFIED": {
           "status": "SUPPORTED",
           "evidence": [
-            "meeting-correction"
+            "meeting-correction",
+            "pr201-recovery"
           ],
-          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL. PR201 scope: only inappropriate formation fallback without a local reception plan; historical scopes remain preserved."
         },
         "FIX_IMPLEMENTED": {
           "status": "SUPPORTED",
           "evidence": [
-            "meeting-correction"
+            "meeting-correction",
+            "pr201-recovery"
           ],
-          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL. PR201 scope: only inappropriate formation fallback without a local reception plan; historical scopes remain preserved."
         },
         "DEVELOPMENT_VALIDATED": {
           "status": "PARTIAL",
           "evidence": [
-            "meeting-correction"
+            "meeting-correction",
+            "pr201-fresh"
           ],
-          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL. PR201 paired physical outcomes improve but short pressured/weak first-time losses remain, with full-match and empirical gates open."
         },
         "INDEPENDENT_VALIDATED": {
           "status": "NOT_ASSESSED",
@@ -2352,11 +2378,67 @@
         }
       },
       "regressions": [
-        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case."
+        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case.",
+        "PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only."
       ],
       "blockers": [
         "No external calibration of optical noise, derivative correction, uncertainty, cue priors or memory commitment; no live consumer promotion.",
         "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+      ],
+      "scopeHistory": [
+        {
+          "pr": 200,
+          "source": "PR200 scope retained before PR201 local receiver recovery",
+          "dimensions": {
+            "SOURCE_AUDITED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "source-register"
+              ],
+              "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
+            },
+            "EXPERIMENT_INVESTIGATED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "long197",
+                "forensics199",
+                "receivers199"
+              ],
+              "limitation": "M is laboratory-only and has mixed outcomes; it is not a gameplay repair or completed receiver calibration."
+            },
+            "ROOT_CAUSE_IDENTIFIED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "meeting-correction"
+              ],
+              "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+            },
+            "FIX_IMPLEMENTED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "meeting-correction"
+              ],
+              "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+            },
+            "DEVELOPMENT_VALIDATED": {
+              "status": "PARTIAL",
+              "evidence": [
+                "meeting-correction"
+              ],
+              "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+            },
+            "INDEPENDENT_VALIDATED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Independent confirmation remains sealed and unrun."
+            },
+            "COMPLETE": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Original I/F/E/T/M/C closure requirements remain open; original checkbox is authoritative."
+            }
+          }
+        }
       ]
     },
     {
@@ -2427,7 +2509,8 @@
         196,
         197,
         198,
-        199
+        199,
+        201
       ],
       "sourceAuditable": true,
       "dimensions": {
@@ -2444,7 +2527,8 @@
             "passes196",
             "families197",
             "forensics199",
-            "receivers199"
+            "receivers199",
+            "pr201-fresh"
           ],
           "limitation": "M is laboratory-only and has mixed outcomes; it is not a gameplay repair or completed receiver calibration."
         },
@@ -2459,9 +2543,11 @@
           "limitation": "No reviewed item-specific classification for this dimension; absence is not failure or success."
         },
         "DEVELOPMENT_VALIDATED": {
-          "status": "NOT_ASSESSED",
-          "evidence": [],
-          "limitation": "No reviewed item-specific classification for this dimension; absence is not failure or success."
+          "status": "PARTIAL",
+          "evidence": [
+            "pr201-fresh"
+          ],
+          "limitation": "No reviewed item-specific classification for this dimension; absence is not failure or success. PR201 paired physical outcomes improve but short pressured/weak first-time losses remain, with full-match and empirical gates open."
         },
         "INDEPENDENT_VALIDATED": {
           "status": "NOT_ASSESSED",
@@ -2475,10 +2561,61 @@
         }
       },
       "regressions": [
-        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case."
+        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case.",
+        "PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only."
       ],
       "blockers": [
         "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+      ],
+      "scopeHistory": [
+        {
+          "pr": 200,
+          "source": "PR200 scope retained before PR201 local receiver recovery",
+          "dimensions": {
+            "SOURCE_AUDITED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "source-register"
+              ],
+              "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
+            },
+            "EXPERIMENT_INVESTIGATED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "passes196",
+                "families197",
+                "forensics199",
+                "receivers199"
+              ],
+              "limitation": "M is laboratory-only and has mixed outcomes; it is not a gameplay repair or completed receiver calibration."
+            },
+            "ROOT_CAUSE_IDENTIFIED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "No reviewed item-specific classification for this dimension; absence is not failure or success."
+            },
+            "FIX_IMPLEMENTED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "No reviewed item-specific classification for this dimension; absence is not failure or success."
+            },
+            "DEVELOPMENT_VALIDATED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "No reviewed item-specific classification for this dimension; absence is not failure or success."
+            },
+            "INDEPENDENT_VALIDATED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Independent confirmation remains sealed and unrun."
+            },
+            "COMPLETE": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Original I/F/E/T/M/C closure requirements remain open; original checkbox is authoritative."
+            }
+          }
+        }
       ]
     },
     {
@@ -2607,7 +2744,8 @@
       "developmentUpdates": [
         197,
         198,
-        199
+        199,
+        201
       ],
       "sourceAuditable": true,
       "dimensions": {
@@ -2623,30 +2761,35 @@
           "evidence": [
             "long197",
             "forensics199",
-            "receivers199"
+            "receivers199",
+            "pr201-recovery",
+            "pr201-fresh"
           ],
-          "limitation": "M is laboratory-only and has mixed outcomes; it is not a gameplay repair or completed receiver calibration."
+          "limitation": "M is laboratory-only and has mixed outcomes; it is not a gameplay repair or completed receiver calibration. PR201 scope: only inappropriate formation fallback without a local reception plan; historical scopes remain preserved."
         },
         "ROOT_CAUSE_IDENTIFIED": {
           "status": "SUPPORTED",
           "evidence": [
-            "meeting-correction"
+            "meeting-correction",
+            "pr201-recovery"
           ],
-          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL. PR201 scope: only inappropriate formation fallback without a local reception plan; historical scopes remain preserved."
         },
         "FIX_IMPLEMENTED": {
           "status": "SUPPORTED",
           "evidence": [
-            "meeting-correction"
+            "meeting-correction",
+            "pr201-recovery"
           ],
-          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL. PR201 scope: only inappropriate formation fallback without a local reception plan; historical scopes remain preserved."
         },
         "DEVELOPMENT_VALIDATED": {
           "status": "PARTIAL",
           "evidence": [
-            "meeting-correction"
+            "meeting-correction",
+            "pr201-fresh"
           ],
-          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+          "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL. PR201 paired physical outcomes improve but short pressured/weak first-time losses remain, with full-match and empirical gates open."
         },
         "INDEPENDENT_VALIDATED": {
           "status": "NOT_ASSESSED",
@@ -2660,11 +2803,67 @@
         }
       },
       "regressions": [
-        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case."
+        "PR198: same 180 releases 154/123/116 → 149/113/108; eight lost and three gained direct touches; PR199 forensics retain every case.",
+        "PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only."
       ],
       "blockers": [
         "No external calibration of optical noise, derivative correction, uncertainty, cue priors or memory commitment; no live consumer promotion.",
         "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+      ],
+      "scopeHistory": [
+        {
+          "pr": 200,
+          "source": "PR200 scope retained before PR201 local receiver recovery",
+          "dimensions": {
+            "SOURCE_AUDITED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "source-register"
+              ],
+              "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
+            },
+            "EXPERIMENT_INVESTIGATED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "long197",
+                "forensics199",
+                "receivers199"
+              ],
+              "limitation": "M is laboratory-only and has mixed outcomes; it is not a gameplay repair or completed receiver calibration."
+            },
+            "ROOT_CAUSE_IDENTIFIED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "meeting-correction"
+              ],
+              "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+            },
+            "FIX_IMPLEMENTED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "meeting-correction"
+              ],
+              "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+            },
+            "DEVELOPMENT_VALIDATED": {
+              "status": "PARTIAL",
+              "evidence": [
+                "meeting-correction"
+              ],
+              "limitation": "Representation consistency improves only on a conditional contact subset; actual reception regresses and development validation remains PARTIAL."
+            },
+            "INDEPENDENT_VALIDATED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Independent confirmation remains sealed and unrun."
+            },
+            "COMPLETE": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Original I/F/E/T/M/C closure requirements remain open; original checkbox is authoritative."
+            }
+          }
+        }
       ]
     },
     {
@@ -4773,7 +4972,8 @@
       "checked": false,
       "developmentUpdates": [
         199,
-        200
+        200,
+        201
       ],
       "sourceAuditable": true,
       "dimensions": {
@@ -4789,7 +4989,8 @@
           "evidence": [
             "keepers199",
             "keeper-isolation199",
-            "live-information200"
+            "live-information200",
+            "pr201-keeper-control"
           ],
           "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
         },
@@ -4876,6 +5077,62 @@
                 "perception-leaks199"
               ],
               "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+            },
+            "INDEPENDENT_VALIDATED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Independent confirmation remains sealed and unrun."
+            },
+            "COMPLETE": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Original I/F/E/T/M/C closure requirements remain open; original checkbox is authoritative."
+            }
+          }
+        },
+        {
+          "pr": 200,
+          "source": "PR200 scope retained before PR201 local receiver recovery",
+          "dimensions": {
+            "SOURCE_AUDITED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "source-register"
+              ],
+              "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
+            },
+            "EXPERIMENT_INVESTIGATED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "keepers199",
+                "keeper-isolation199",
+                "live-information200"
+              ],
+              "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
+            },
+            "ROOT_CAUSE_IDENTIFIED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "perception-leaks199",
+                "live-information200"
+              ],
+              "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
+            },
+            "FIX_IMPLEMENTED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "perception-leaks199",
+                "live-information200"
+              ],
+              "limitation": "Scoped source correction only for the separately gated live route. Optical/anticipation calibration, reception losses, difficult saves, broad tactical cognition and whole-match transfer remain open; legacy consumers are intentionally unchanged."
+            },
+            "DEVELOPMENT_VALIDATED": {
+              "status": "PARTIAL",
+              "evidence": [
+                "perception-leaks199",
+                "live-information200"
+              ],
+              "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
             },
             "INDEPENDENT_VALIDATED": {
               "status": "NOT_ASSESSED",
@@ -5774,7 +6031,8 @@
         197,
         198,
         199,
-        200
+        200,
+        201
       ],
       "sourceAuditable": true,
       "dimensions": {
@@ -5791,33 +6049,39 @@
             "candidates197",
             "opportunities198",
             "sensory199",
-            "live-information200"
+            "live-information200",
+            "pr201-recovery",
+            "pr201-fresh",
+            "pr201-keeper-control"
           ],
-          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
+          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion. PR201 scope: only inappropriate formation fallback without a local reception plan; historical scopes remain preserved."
         },
         "ROOT_CAUSE_IDENTIFIED": {
           "status": "SUPPORTED",
           "evidence": [
             "perception-leaks199",
-            "live-information200"
+            "live-information200",
+            "pr201-recovery"
           ],
-          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
+          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion. PR201 scope: only inappropriate formation fallback without a local reception plan; historical scopes remain preserved."
         },
         "FIX_IMPLEMENTED": {
           "status": "SUPPORTED",
           "evidence": [
             "perception-leaks199",
-            "live-information200"
+            "live-information200",
+            "pr201-recovery"
           ],
-          "limitation": "Scoped source correction only for the separately gated live route. Optical/anticipation calibration, reception losses, difficult saves, broad tactical cognition and whole-match transfer remain open; legacy consumers are intentionally unchanged."
+          "limitation": "Scoped source correction only for the separately gated live route. Optical/anticipation calibration, reception losses, difficult saves, broad tactical cognition and whole-match transfer remain open; legacy consumers are intentionally unchanged. PR201 scope: only inappropriate formation fallback without a local reception plan; historical scopes remain preserved."
         },
         "DEVELOPMENT_VALIDATED": {
           "status": "PARTIAL",
           "evidence": [
             "perception-leaks199",
-            "live-information200"
+            "live-information200",
+            "pr201-fresh"
           ],
-          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
+          "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion. PR201 paired physical outcomes improve but short pressured/weak first-time losses remain, with full-match and empirical gates open."
         },
         "INDEPENDENT_VALIDATED": {
           "status": "NOT_ASSESSED",
@@ -5831,7 +6095,8 @@
         }
       },
       "regressions": [
-        "PR200 live bounded pathway loses real receptions and some difficult saves; executable combined candidate is NOT_READY_FOR_PROMOTION."
+        "PR200 live bounded pathway loses real receptions and some difficult saves; executable combined candidate is NOT_READY_FOR_PROMOTION.",
+        "PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only."
       ],
       "blockers": [
         "No external calibration of optical noise, derivative correction, uncertainty, cue priors or memory commitment; no live consumer promotion.",
@@ -5878,6 +6143,63 @@
                 "perception-leaks199"
               ],
               "limitation": "Native consumers remain unchanged. Laboratory-only inference/reaction adapters do not count as a live scoped correction."
+            },
+            "INDEPENDENT_VALIDATED": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Independent confirmation remains sealed and unrun."
+            },
+            "COMPLETE": {
+              "status": "NOT_ASSESSED",
+              "evidence": [],
+              "limitation": "Original I/F/E/T/M/C closure requirements remain open; original checkbox is authoritative."
+            }
+          }
+        },
+        {
+          "pr": 200,
+          "source": "PR200 scope retained before PR201 local receiver recovery",
+          "dimensions": {
+            "SOURCE_AUDITED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "source-register"
+              ],
+              "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
+            },
+            "EXPERIMENT_INVESTIGATED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "candidates197",
+                "opportunities198",
+                "sensory199",
+                "live-information200"
+              ],
+              "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
+            },
+            "ROOT_CAUSE_IDENTIFIED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "perception-leaks199",
+                "live-information200"
+              ],
+              "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
+            },
+            "FIX_IMPLEMENTED": {
+              "status": "SUPPORTED",
+              "evidence": [
+                "perception-leaks199",
+                "live-information200"
+              ],
+              "limitation": "Scoped source correction only for the separately gated live route. Optical/anticipation calibration, reception losses, difficult saves, broad tactical cognition and whole-match transfer remain open; legacy consumers are intentionally unchanged."
+            },
+            "DEVELOPMENT_VALIDATED": {
+              "status": "PARTIAL",
+              "evidence": [
+                "perception-leaks199",
+                "live-information200"
+              ],
+              "limitation": "Historical PR199 scope is retained in scopeHistory. Live information isolation now executes, but physical reception/difficult-save regressions prevent general development validation or canonical promotion."
             },
             "INDEPENDENT_VALIDATED": {
               "status": "NOT_ASSESSED",
@@ -9581,6 +9903,58 @@
       "result": "Hidden velocity/spin/target and unseen deflection do not update subjective input; cached timestamps remain genuine; actual keeper motion and save permission obey the gated contract.",
       "limitation": "Scoped source correction only for the separately gated live route. Optical/anticipation calibration, reception losses, difficult saves, broad tactical cognition and whole-match transfer remain open; legacy consumers are intentionally unchanged.",
       "correctionId": "bounded-live-information200"
+    },
+    {
+      "key": "pr201-recovery",
+      "ids": [
+        "PASS-004",
+        "PASS-009",
+        "TACT-009"
+      ],
+      "pr": 201,
+      "receipt": "docs/performance/pr201/receivers-frozen-v1.json.gz",
+      "sha256": "4f26f1c663f577e63c7ab04f5dd2de873e2138f41fea4793dc4f098f2cba39d2",
+      "sourceFingerprint": "ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32",
+      "sourceArchive": "docs/performance/pr201/source/ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32.json.gz",
+      "commit": "df6d93df39d1bebfa5d395e29620224670520971 + archived PR201 source",
+      "experiment": "receivers-frozen-v1.json.gz",
+      "result": "Same 180 actual balls: bounded100/73/73 to recovery124/97/96; censor1/1; 27 retention gains and4 losses. One local authority fallback repair.",
+      "limitation": "Dependent development trials; no empirical calibration, broad tactical transfer, independent confirmation or COMPLETE. Direct contact/control/retention and censoring remain separate.",
+      "correctionId": "pr201-local-receiver-fallback"
+    },
+    {
+      "key": "pr201-fresh",
+      "ids": [
+        "PASS-004",
+        "PASS-009",
+        "TACT-009",
+        "PASS-006"
+      ],
+      "pr": 201,
+      "receipt": "docs/performance/pr201/receivers-fresh201-v1.json.gz",
+      "sha256": "10341f1cb648f1b7658eeb88b63be7d79019ab2d7367d2aeb4b34a0a0aab189f",
+      "sourceFingerprint": "92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428",
+      "sourceArchive": "docs/performance/pr201/source/92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428.json.gz",
+      "commit": "df6d93df39d1bebfa5d395e29620224670520971 + archived PR201 source",
+      "experiment": "receivers-fresh201-v1.json.gz",
+      "result": "New90 development geometries26/22/21 to35/32/31; censor7/3; 11 retention gains and1 loss.",
+      "limitation": "Dependent development trials; no empirical calibration, broad tactical transfer, independent confirmation or COMPLETE. Direct contact/control/retention and censoring remain separate."
+    },
+    {
+      "key": "pr201-keeper-control",
+      "ids": [
+        "GK-002",
+        "TACT-009"
+      ],
+      "pr": 201,
+      "receipt": "docs/performance/pr201/goalkeepers-v1.json.gz",
+      "sha256": "249083b7d20d023fd03219c0c5454def6159165f1848e06d317b0a8a9d89e639",
+      "sourceFingerprint": "904a450279df67e5175603b1268c31fcd8c6962f7361c7fda785ef77ff4f11bc",
+      "sourceArchive": "docs/performance/pr201/source/904a450279df67e5175603b1268c31fcd8c6962f7361c7fda785ef77ff4f11bc.json.gz",
+      "commit": "df6d93df39d1bebfa5d395e29620224670520971 + archived PR201 source",
+      "experiment": "goalkeepers-v1.json.gz",
+      "result": "42/42 full state hashes equal after removing only the recovery selection field; active/passive/contact outcome witnesses preserved.",
+      "limitation": "Dependent development trials; no empirical calibration, broad tactical transfer, independent confirmation or COMPLETE. Direct contact/control/retention and censoring remain separate."
     }
   ],
   "integration": {
@@ -10391,5 +10765,136 @@
       }
     ],
     "mappingHash": "4656da07f53aab232f9b2406c84690eddeea1d96e336fdb3609f58e13c2b924d"
+  },
+  "receiverRecoveryIntegration": {
+    "profile": "realism-candidate-v1",
+    "decision": "NOT_READY_FOR_PROMOTION",
+    "mechanisms": 1,
+    "supportedCounts": {
+      "LIVE_CONSUMER_PRESENT": 1,
+      "INTEGRATION_CANDIDATE": 1,
+      "COMPATIBILITY_VALIDATED": 1,
+      "FULL_MATCH_TRANSFER_SUPPORTED": 0,
+      "CANONICAL_PROMOTED": 0
+    },
+    "dimensions": {
+      "LIVE_CONSUMER_PRESENT": {
+        "SUPPORTED": 1,
+        "PARTIAL": 0,
+        "FAILED": 0,
+        "BLOCKED": 0,
+        "NOT_ASSESSED": 0
+      },
+      "INTEGRATION_CANDIDATE": {
+        "SUPPORTED": 1,
+        "PARTIAL": 0,
+        "FAILED": 0,
+        "BLOCKED": 0,
+        "NOT_ASSESSED": 0
+      },
+      "COMPATIBILITY_VALIDATED": {
+        "SUPPORTED": 1,
+        "PARTIAL": 0,
+        "FAILED": 0,
+        "BLOCKED": 0,
+        "NOT_ASSESSED": 0
+      },
+      "FULL_MATCH_TRANSFER_SUPPORTED": {
+        "SUPPORTED": 0,
+        "PARTIAL": 1,
+        "FAILED": 0,
+        "BLOCKED": 0,
+        "NOT_ASSESSED": 0
+      },
+      "CANONICAL_PROMOTED": {
+        "SUPPORTED": 0,
+        "PARTIAL": 0,
+        "FAILED": 0,
+        "BLOCKED": 0,
+        "NOT_ASSESSED": 1
+      }
+    },
+    "records": [
+      {
+        "mechanism": "boundedReceiverRecovery",
+        "ids": [
+          "PASS-004",
+          "PASS-009",
+          "TACT-009"
+        ],
+        "sourceLocation": "src/core/matchSimulation/liveBallFlight.ts",
+        "sourceFingerprint": "16762e4051324c0ee101a4c4aa55d425e3a7370fdfa2b7e93d110ce48fc26ec8",
+        "profile": "realism-candidate-v1",
+        "behaviour": "Use own position as the fallback when no legal local reception target exists; canonical finite braking and contact remain authoritative.",
+        "knownRegressions": [
+          "Seven local paired retention losses; remaining low-information contacts unresolved.",
+          "Whole matches still include zero-shot policies, extreme scores and reduced WW/H box penetration; candidate menus are unavailable in these profiles."
+        ],
+        "dimensions": {
+          "LIVE_CONSUMER_PRESENT": {
+            "status": "SUPPORTED",
+            "evidence": [
+              "pr201-recovery"
+            ],
+            "limitation": "Final motor target in the existing canonical MatchEngine; no independent movement controller."
+          },
+          "INTEGRATION_CANDIDATE": {
+            "status": "SUPPORTED",
+            "evidence": [
+              "pr201-recovery"
+            ],
+            "limitation": "Versioned opt-in only; inherited PR200 component evidence stays in its original mapping."
+          },
+          "COMPATIBILITY_VALIDATED": {
+            "status": "SUPPORTED",
+            "evidence": [
+              "pr201-recovery",
+              "pr201-fresh",
+              "pr201-keeper-control"
+            ],
+            "limitation": "Scoped local physical comparisons and keeper parity, not empirical calibration or every tactical controller."
+          },
+          "FULL_MATCH_TRANSFER_SUPPORTED": {
+            "status": "PARTIAL",
+            "evidence": [
+              "pr201-complete-matches"
+            ],
+            "limitation": "All seven four-arm development configurations improve strict direct control and retention. SS/O and WW/H have zero shots, SW/J remains12:0 and SW/B9:0; dependent single seeds do not certify attacking quality or calibration."
+          },
+          "CANONICAL_PROMOTED": {
+            "status": "NOT_ASSESSED",
+            "evidence": [],
+            "limitation": "Canonical NOT READY; B default; independent confirmation sealed."
+          }
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "key": "pr201-recovery",
+        "path": "docs/performance/pr201/receivers-frozen-v1.json.gz",
+        "sha256": "4f26f1c663f577e63c7ab04f5dd2de873e2138f41fea4793dc4f098f2cba39d2",
+        "sourceFingerprint": "ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32"
+      },
+      {
+        "key": "pr201-fresh",
+        "path": "docs/performance/pr201/receivers-fresh201-v1.json.gz",
+        "sha256": "10341f1cb648f1b7658eeb88b63be7d79019ab2d7367d2aeb4b34a0a0aab189f",
+        "sourceFingerprint": "92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428"
+      },
+      {
+        "key": "pr201-keeper-control",
+        "path": "docs/performance/pr201/goalkeepers-v1.json.gz",
+        "sha256": "249083b7d20d023fd03219c0c5454def6159165f1848e06d317b0a8a9d89e639",
+        "sourceFingerprint": "904a450279df67e5175603b1268c31fcd8c6962f7361c7fda785ef77ff4f11bc"
+      },
+      {
+        "key": "pr201-complete-matches",
+        "path": "docs/performance/pr201/summary.json",
+        "sha256": "9b08a4dbd79fe147280c76435ba75284f9bf0f883ad24f88b4f5be166cb8913e",
+        "sourceFingerprint": "c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de"
+      }
+    ],
+    "mappingHash": "91da907a6857d5fdffd04f4c7e26ead9630666981979fb996e5db33279daf97d"
   }
 }

@@ -7,6 +7,7 @@ import {
 import type { TacticalMatchState } from './matchState';
 import {
   INTEGRATION_MECHANISMS,
+  BOUNDED_RECEIVER_RECOVERY_MECHANISM,
   wholeProfilePromotionDecisionSchema,
 } from './integrationMechanisms';
 import { boundedExperimentSchema } from './boundedIntelligenceState';
@@ -42,8 +43,11 @@ export const integrationProfileIdSchema = z.enum([
   'realism-candidate-no-defence-v0',
   'realism-candidate-no-height-v0',
   'realism-candidate-no-loft-v0',
+  'realism-candidate-v1',
+  'realism-candidate-no-recovery-v1',
 ]);
 export type IntegrationProfileId = z.infer<typeof integrationProfileIdSchema>;
+export const boundedReceiverRecoverySchema = z.literal('hold-local-v1');
 export const integrationSelectionSchema = z
   .object({
     id: integrationProfileIdSchema,
@@ -87,6 +91,8 @@ const settings: Record<IntegrationProfileId, IntegrationFeatures> = {
   'realism-candidate-no-defence-v0': { ...candidate, experimentalDefensiveReception: false },
   'realism-candidate-no-height-v0': { ...candidate, experimentalHeightAwarePassing: false },
   'realism-candidate-no-loft-v0': { ...candidate, experimentalObservedLoftedPasses: false },
+  'realism-candidate-v1': candidate,
+  'realism-candidate-no-recovery-v1': candidate,
 };
 // Configuration switches are fixed by the profile. Briefing/knowledge/coach data
 // remain fixture inputs, bound by each run's initial-state hash.
@@ -128,6 +134,9 @@ export const resolveIntegrationProfile = (
   integrationProfileIdSchema.parse(id);
   decisionPolicyIdSchema.parse(policy);
   const features = validateIntegrationFeatures({ ...settings[id] });
+  const pr201 = id.endsWith('-v1');
+  const recovery = id === 'realism-candidate-v1' ? ('hold-local-v1' as const) : undefined;
+  const implementation = pr201 ? 'pr201-receiver-recovery-v1' : 'pr200-integration-v0-final';
   const boundedPolicy = [
     'opportunity-driven-v1',
     'hierarchical-intent-v1',
@@ -145,28 +154,42 @@ export const resolveIntegrationProfile = (
     version: 0 as const,
     policy,
     features,
-    implementation: 'pr200-integration-v0-final',
+    implementation,
+    ...(recovery ? { receiverRecovery: recovery } : {}),
     fingerprint: checksum(
       JSON.stringify({
-        implementation: 'pr200-integration-v0-final',
+        implementation,
         id,
         version: 0,
         policy,
         features,
         auxiliarySettings,
+        ...(recovery ? { receiverRecovery: recovery } : {}),
       }),
     ),
     auxiliarySettings: structuredClone(auxiliarySettings),
     inactive,
-    mechanisms: INTEGRATION_MECHANISMS.map((m) => ({
-      ...m,
-      selected: features[m.flag as keyof IntegrationFeatures],
-      activeForPolicy: features[m.flag as keyof IntegrationFeatures] && !inactive.includes(m.flag),
-      lifecycle:
-        id.startsWith('realism-candidate') && features[m.flag as keyof IntegrationFeatures]
-          ? 'INTEGRATION_CANDIDATE'
-          : m.lifecycle,
-    })),
+    mechanisms: [
+      ...INTEGRATION_MECHANISMS.map((m) => ({
+        ...m,
+        selected: features[m.flag as keyof IntegrationFeatures],
+        activeForPolicy:
+          features[m.flag as keyof IntegrationFeatures] && !inactive.includes(m.flag),
+        lifecycle:
+          id.startsWith('realism-candidate') && features[m.flag as keyof IntegrationFeatures]
+            ? 'INTEGRATION_CANDIDATE'
+            : m.lifecycle,
+      })),
+      ...(pr201
+        ? [
+            {
+              ...BOUNDED_RECEIVER_RECOVERY_MECHANISM,
+              selected: Boolean(recovery),
+              activeForPolicy: Boolean(recovery),
+            },
+          ]
+        : []),
+    ],
     dependencies: [
       'single canonical 40Hz executor',
       ...(features.experimentalBoundedBallFlightBelief
@@ -224,6 +247,11 @@ export const withIntegrationProfile = (
   delete next.liveBallFlightRuntime;
   delete next.activePerceptionRuntime;
   delete next.keeperIntervention;
+  if ('receiverRecovery' in resolved) {
+    (next as TacticalMatchState).boundedReceiverRecovery = resolved.receiverRecovery;
+  } else {
+    delete (next as TacticalMatchState).boundedReceiverRecovery;
+  }
   if (next.receptionPreparation) {
     next.receptionPreparation = { ...next.receptionPreparation };
     delete next.receptionPreparation.meetingPlan;
@@ -233,6 +261,8 @@ export const withIntegrationProfile = (
 };
 
 export const integrationStateErrors = (state: TacticalMatchState) => {
+  if (state.boundedReceiverRecovery && !state.experimentalBoundedBallFlightBelief)
+    return ['Receiver recovery requires bounded ball-flight belief'];
   if (
     state.experimentalBoundedBallFlightBelief &&
     (!state.experimentalReceiverAnticipation || state.experimentalReceiverSynchronisation)
@@ -244,6 +274,9 @@ export const integrationStateErrors = (state: TacticalMatchState) => {
     state.integrationProfile.policy,
   );
   return [
+    ...(state.boundedReceiverRecovery !== expected.receiverRecovery
+      ? ['Receiver recovery differs from saved profile']
+      : []),
     ...(state.decisionAblation !== auxiliarySettings.decisionAblation
       ? ['Undeclared decision ablation']
       : []),

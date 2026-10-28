@@ -1,5 +1,11 @@
 # MatchEngine calibration plan
 
+## PR201 development gate
+
+[PR201](../PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) reproduces the complete PR200 baseline before changing runtime code, distinguishes null position-only/clock interventions from a causal motor fallback, and retains one separately versioned local correction. On180+90+90 paired balls, direct control and retention improve; seven paired strict-retention losses and all censoring remain. The next gate is lawful acquisition/search, body preparation and useful continuation under short/adverse-facing pressure, using actual alternative contacts rather than theoretical reach.
+
+Keeper42/42 complete-state parity after removing the selection field is a regression control, not new save-rate calibration. Attribute sweeps separate existing sensory/cognitive/technical/motor mechanisms without demanding monotonic wins per trial. Source-bound full matches and recovery-off ablation must remain separate from local laboratory totals. V0, historical failures, all135 IDs and original I/F/E/T/M/C gates remain. Canonical NOT READY, B default and independent confirmation sealed. [PR202 CI proposal](../PR202_LEAN_CI_AND_HISTORICAL_EVIDENCE_PRESERVATION_PROPOSAL.md) changes scheduling only after unchanged-assertion coverage and full-hash parity.
+
 ## PR199 evidence gate
 
 [PR199](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md) freezes merged PR198, all 135 identities, every historical receipt and the exact 180-ball R/S baselines. All 11 changed receptions retain 40Hz traces and separate spatial/time, facing/speed/braking, cadence, commitment and clock ablations. Do not fit a touch quota: motor interventions and fresh-observation controls interact, and a clean representation does not imply control or retention.

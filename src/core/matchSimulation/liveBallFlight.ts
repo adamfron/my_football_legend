@@ -119,8 +119,21 @@ export const boundedMovementTarget = (
   keeper: { x: number; y: number } | undefined,
 ) => {
   const episode = state.ballEpisode ?? 0;
+  // A missing local intercept is not evidence that the receiver should abandon
+  // this location for a formation anchor. Brake locally until a legal observed
+  // plan exists. Canonical inertia, turning and finite contact remain unchanged.
+  const awaitingReception =
+    state.boundedReceiverRecovery === 'hold-local-v1' &&
+    state.receptionPreparation?.actorId === actor.id &&
+    !state.ball.ownerId &&
+    !reception;
   const proposals: MovementProposal[] = [
-    { authority: 'shape', target: actor.neutralAnchor, validUntil: state.time + 0.1, episode },
+    {
+      authority: 'shape',
+      target: awaitingReception ? actor.position : actor.neutralAnchor,
+      validUntil: state.time + 0.1,
+      episode,
+    },
   ];
   const add = (
     authority: MovementProposal['authority'],

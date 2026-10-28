@@ -6,9 +6,19 @@ import { resolveMatchAction } from '../src/core/matchSimulation/matchActions.ts'
 import { stepTacticalMatchAfterDecisionProbe as step } from '../src/core/matchSimulation/matchSimulation.ts';
 import { playerContactGeometry } from '../src/core/matchSimulation/ballContactGeometry.ts';
 import { sampleCanonicalOutcome } from '../src/core/matchSimulation/canonicalOutcome.ts';
-import { ROOT, hash, read, write, identity } from './pr200Evidence.mjs';
+import {
+  ROOT as PR200_ROOT,
+  hash,
+  read,
+  write,
+  identity as pr200Identity,
+} from './pr200Evidence.mjs';
 import { createFlightCatalogue } from './pr199FlightLab.mjs';
 const args = new Map(process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')));
+const pr201 = args.has('pr201');
+const { ROOT, identity } = pr201
+  ? await import('./pr201Evidence.mjs')
+  : { ROOT: PR200_ROOT, identity: pr200Identity };
 const version = args.get('version') ?? 'v2';
 if (!/^v[0-9]+$/.test(version)) throw Error('Invalid keeper evidence version');
 const source = identity(),
@@ -106,11 +116,12 @@ for (const sample of [0, 1])
         ])
           keeper.profile.attributes[key] = ability;
       if (!initial.ball.shot) throw Error('Keeper lab requires actual release');
-      for (const bounded of [false, true]) {
+      for (const bounded of pr201 ? [false, true, 'recovery'] : [false, true]) {
         let s = globalThis.structuredClone(initial);
         if (bounded) {
           s.experimentalBoundedBallFlightBelief = true;
           s.experimentalReceiverAnticipation = true;
+          if (bounded === 'recovery') s.boundedReceiverRecovery = 'hold-local-v1';
         }
         const begin = s.time,
           contacts = [];
@@ -120,7 +131,17 @@ for (const sample of [0, 1])
         for (let tick = 0; tick < 160; tick++) {
           const before = s;
           s = step(s, 0.025);
-          contacts.push(...sampleCanonicalOutcome(before, s, 'original-delivery-v3').contacts);
+          const witnesses = sampleCanonicalOutcome(before, s, 'original-delivery-v3').contacts;
+          contacts.push(
+            ...(pr201
+              ? witnesses.map((c) => ({
+                  ...c,
+                  keeperAction: s.lastShot?.goalkeeperAction ?? null,
+                  nativeContact:
+                    s.lastBallContact?.playerId === keeper.id ? s.lastBallContact : null,
+                }))
+              : witnesses),
+          );
           const k = s.players.find((p) => p.id === keeper.id),
             belief = s.liveBallFlightRuntime?.sensors[keeper.id]?.belief;
           if (belief?.lastObservation && firstSight === null)
@@ -152,6 +173,9 @@ for (const sample of [0, 1])
           initialHash: hash(initial),
           launchHash: hash(initial.ball),
           finalHash: hash(s),
+          ...(pr201
+            ? { withoutRecoveryHash: hash({ ...s, boundedReceiverRecovery: undefined }) }
+            : {}),
           firstSight,
           firstMotion,
           firstMovement,
@@ -167,10 +191,10 @@ const summary = Object.fromEntries(
   scenarios.map((scene) => [
     scene,
     Object.fromEntries(
-      [false, true].map((b) => {
+      (pr201 ? [false, true, 'recovery'] : [false, true]).map((b) => {
         const list = rows.filter((r) => r.scenario === scene && r.bounded === b);
         return [
-          b ? 'bounded' : 'legacy',
+          b === 'recovery' ? 'recovery' : b ? 'bounded' : 'legacy',
           {
             attempts: list.length,
             contacts: list.filter((r) => r.keeperContact).length,
@@ -185,7 +209,7 @@ const summary = Object.fromEntries(
   ]),
 );
 const result = {
-  schema: 'pr200-live-keeper-v1',
+  schema: pr201 ? 'pr201-live-keeper-v1' : 'pr200-live-keeper-v1',
   source,
   rows,
   summary,
@@ -210,4 +234,4 @@ if (args.has('check')) {
       peakRSSKiB: process.resourceUsage().maxRSS,
     },
   });
-console.log('PR200 keeper live', summary);
+console.log(pr201 ? 'PR201 keeper live' : 'PR200 keeper live', summary);

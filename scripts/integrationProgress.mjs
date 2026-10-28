@@ -17,7 +17,7 @@ const stage = z.object({
 });
 export const integrationProgressSchema = z.object({
   schema: z.literal('mfl-integration-evidence-v0'),
-  profile: z.literal('realism-candidate-v0'),
+  profile: z.enum(['realism-candidate-v0', 'realism-candidate-v1']),
   decision: z.literal('NOT_READY_FOR_PROMOTION'),
   records: z.array(
     z.object({
@@ -106,14 +106,13 @@ export const generateIntegrationProgress = (mapping, registry) => {
 };
 export const renderIntegrationProgress = (i) => {
   let md =
-    '\n## Integration progress (PR200)\n\nImplementation lifecycle is separate from I/F/E/T/M/C and the historical issue/fix counts. Each mechanism is counted once; shared issue IDs and flags do not become independent repairs. **' +
+    `\n## Integration progress (${i.profile})\n\nImplementation lifecycle is separate from I/F/E/T/M/C and the historical issue/fix counts. Each mechanism is counted once; shared issue IDs and flags do not become independent repairs. **` +
     i.profile +
     ': ' +
     i.decision +
     '**.\n\n| Dimension | Supported | Partial | Failed | Blocked | Not assessed |\n| --- | ---: | ---: | ---: | ---: | ---: |\n';
   for (const [d, c] of Object.entries(i.dimensions))
     md += `| ${d} | ${c.SUPPORTED} | ${c.PARTIAL} | ${c.FAILED} | ${c.BLOCKED} | ${c.NOT_ASSESSED} |\n`;
-  md +=
-    '\nEvidence, exact source identities, registry IDs, demonstrated scope and regressions: [integration mapping](INTEGRATION_EVIDENCE.json). Selection in an executable failing candidate does not imply compatibility, match transfer, calibration or canonical promotion.\n';
+  md += `\nEvidence, exact source identities, registry IDs, demonstrated scope and regressions: [integration mapping](${i.profile === 'realism-candidate-v1' ? 'INTEGRATION_EVIDENCE_PR201.json' : 'INTEGRATION_EVIDENCE.json'}). Selection in an executable failing candidate does not imply compatibility, match transfer, calibration or canonical promotion.\n`;
   return md;
 };

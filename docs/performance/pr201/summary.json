@@ -1,0 +1,5178 @@
+{
+  "schema": "pr201-summary-v1",
+  "base": "df6d93df39d1bebfa5d395e29620224670520971",
+  "source": {
+    "base": "df6d93df39d1bebfa5d395e29620224670520971",
+    "fingerprint": "c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de",
+    "path": "docs/performance/pr201/source/c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de.json.gz"
+  },
+  "locals": {
+    "frozen": {
+      "path": "docs/performance/pr201/receivers-frozen-v1.json.gz",
+      "sha256": "4f26f1c663f577e63c7ab04f5dd2de873e2138f41fea4793dc4f098f2cba39d2",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32",
+        "path": "docs/performance/pr201/source/ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32.json.gz"
+      },
+      "summary": {
+        "bounded": {
+          "trials": 180,
+          "touch": 100,
+          "control": 73,
+          "retained": 73,
+          "allReceiverControl": 74,
+          "deflectedReceiverTouch": 1,
+          "uninterruptedRetention": 73,
+          "censored": 1,
+          "defensiveControl": 59,
+          "nextDecisionOpportunity": 74,
+          "nextAction": 74,
+          "nextPasses": 0,
+          "nextPassDirectControl": 0,
+          "nextPassCensored": 0
+        },
+        "recovery": {
+          "trials": 180,
+          "touch": 124,
+          "control": 97,
+          "retained": 96,
+          "allReceiverControl": 102,
+          "deflectedReceiverTouch": 5,
+          "uninterruptedRetention": 101,
+          "censored": 1,
+          "defensiveControl": 39,
+          "nextDecisionOpportunity": 100,
+          "nextAction": 101,
+          "nextPasses": 0,
+          "nextPassDirectControl": 0,
+          "nextPassCensored": 0
+        }
+      },
+      "paired": {
+        "directTouch": {
+          "gained": 29,
+          "lost": 5
+        },
+        "directControl": {
+          "gained": 27,
+          "lost": 3
+        },
+        "directRetained": {
+          "gained": 27,
+          "lost": 4
+        }
+      },
+      "costs": {
+        "wallSeconds": 76.41114280000001,
+        "cpu": {
+          "user": 94875000,
+          "system": 1047000
+        },
+        "peakRSSKiB": 453108,
+        "node": "v24.22.1",
+        "platform": "win32",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "
+      }
+    },
+    "fresh200": {
+      "path": "docs/performance/pr201/receivers-fresh200-v1.json.gz",
+      "sha256": "5cb13f11bbc3d466fe33c05725af6da091195f695866dc0987e29f94a9fd3787",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32",
+        "path": "docs/performance/pr201/source/ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32.json.gz"
+      },
+      "summary": {
+        "bounded": {
+          "trials": 90,
+          "touch": 27,
+          "control": 22,
+          "retained": 20,
+          "allReceiverControl": 22,
+          "deflectedReceiverTouch": 0,
+          "uninterruptedRetention": 20,
+          "censored": 4,
+          "defensiveControl": 24,
+          "nextDecisionOpportunity": 21,
+          "nextAction": 21,
+          "nextPasses": 1,
+          "nextPassDirectControl": 1,
+          "nextPassCensored": 0
+        },
+        "recovery": {
+          "trials": 90,
+          "touch": 36,
+          "control": 32,
+          "retained": 28,
+          "allReceiverControl": 32,
+          "deflectedReceiverTouch": 0,
+          "uninterruptedRetention": 28,
+          "censored": 4,
+          "defensiveControl": 18,
+          "nextDecisionOpportunity": 32,
+          "nextAction": 31,
+          "nextPasses": 1,
+          "nextPassDirectControl": 1,
+          "nextPassCensored": 0
+        }
+      },
+      "paired": {
+        "directTouch": {
+          "gained": 9,
+          "lost": 0
+        },
+        "directControl": {
+          "gained": 10,
+          "lost": 0
+        },
+        "directRetained": {
+          "gained": 10,
+          "lost": 2
+        }
+      },
+      "costs": {
+        "wallSeconds": 35.1475703,
+        "cpu": {
+          "user": 45719000,
+          "system": 485000
+        },
+        "peakRSSKiB": 454304,
+        "node": "v24.22.1",
+        "platform": "win32",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "
+      }
+    },
+    "fresh201": {
+      "path": "docs/performance/pr201/receivers-fresh201-v1.json.gz",
+      "sha256": "10341f1cb648f1b7658eeb88b63be7d79019ab2d7367d2aeb4b34a0a0aab189f",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428",
+        "path": "docs/performance/pr201/source/92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428.json.gz"
+      },
+      "summary": {
+        "bounded": {
+          "trials": 90,
+          "touch": 26,
+          "control": 22,
+          "retained": 21,
+          "allReceiverControl": 22,
+          "deflectedReceiverTouch": 0,
+          "uninterruptedRetention": 21,
+          "censored": 7,
+          "defensiveControl": 27,
+          "nextDecisionOpportunity": 22,
+          "nextAction": 22,
+          "nextPasses": 0,
+          "nextPassDirectControl": 0,
+          "nextPassCensored": 0
+        },
+        "recovery": {
+          "trials": 90,
+          "touch": 35,
+          "control": 32,
+          "retained": 31,
+          "allReceiverControl": 35,
+          "deflectedReceiverTouch": 3,
+          "uninterruptedRetention": 34,
+          "censored": 3,
+          "defensiveControl": 24,
+          "nextDecisionOpportunity": 35,
+          "nextAction": 35,
+          "nextPasses": 1,
+          "nextPassDirectControl": 1,
+          "nextPassCensored": 0
+        }
+      },
+      "paired": {
+        "directTouch": {
+          "gained": 11,
+          "lost": 2
+        },
+        "directControl": {
+          "gained": 11,
+          "lost": 1
+        },
+        "directRetained": {
+          "gained": 11,
+          "lost": 1
+        }
+      },
+      "costs": {
+        "wallSeconds": 37.8697751,
+        "cpu": {
+          "user": 48610000,
+          "system": 766000
+        },
+        "peakRSSKiB": 524844,
+        "node": "v24.22.1",
+        "platform": "win32",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "
+      }
+    }
+  },
+  "matches": [
+    {
+      "path": "docs/performance/pr201/matches/ss-opportunity-driven-v1-canonical-pr199-v1.json.gz",
+      "sha256": "98f7cb9754651629c49411b434f63f04eace3bbab0e7b27ebb0c551f7cdd6e49",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c",
+        "path": "docs/performance/pr201/source/09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c.json.gz"
+      },
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "profile": "canonical-pr199",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-e4568ab1",
+      "inputPath": "docs/performance/PR188-match-dev-ss-opportunity-driven-v1-full-observed-final-v1.json",
+      "originalInputHash": "3d7bfe27f3b43b944e34eb6c0ea93aa9c204573a9fb443d4bb544b1fab417161",
+      "initialHash": "f71c014e31d24412742e7554cc80f8958151bb8269316490f9713973de8e2024",
+      "finalHash": "66dc030ac2fbd6cd39c17ba8a43029c5326e214dfb97c16cee2ae8cd20cb721f",
+      "seed": "pr200-development-ss-opportunity-driven-v1",
+      "status": "full_time",
+      "seconds": 5591.800000000043,
+      "ticks": 223673,
+      "passes": {
+        "attempted": 2394,
+        "completed": 880
+      },
+      "receptions": {
+        "trials": 2394,
+        "directTouch": 797,
+        "directControl": 797,
+        "directRetained": 299,
+        "allControl": 834,
+        "allRetained": 312,
+        "deflectedTouch": 37,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 0,
+        "onTarget": 0,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "releases": {
+        "long": 71,
+        "through": 0,
+        "progressive10m": 573,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 101,
+        "finalThirdPossessionSeconds": 695.2249999970178,
+        "boxEntries": 5,
+        "boxTouches": 0,
+        "backwardPasses": 620,
+        "lateralPasses": 812,
+        "progressivePasses": 962,
+        "threatFlow": {
+          "progressiveReceptions": 223,
+          "resultingFinalThirdEntries": 44,
+          "resultingBoxEntries": 0,
+          "resultingShots": 0
+        },
+        "carries": 4019
+      },
+      "possession": {
+        "bothTeamChanges": 1709,
+        "bothTeamTurnoverCauses": {
+          "tackle": 470,
+          "interception": 1013,
+          "bad_pass": 15,
+          "pass_out": 0,
+          "heavy_touch": 87,
+          "failed_control": 29,
+          "loose_ball_claim": 94,
+          "shot": 0,
+          "foul_stoppage": 21,
+          "other": 4
+        },
+        "homeTurnovers": 855,
+        "looseEpisodes": 1071
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5591.800000000043,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 191.80000000004293,
+        "ballInPlaySeconds": 4849.550000000602,
+        "deadBallSeconds": 742.249999999441,
+        "deadBallByReason": {
+          "period_start": 33.30000000012033,
+          "foul": 485.49999999894663,
+          "substitution": 78.30000000028485,
+          "goal_kick": 83.72500000030459,
+          "discipline": 61.42499999978463
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 33.30000000012033,
+            "mean": 16.650000000060164,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 33.075000000120326
+          },
+          "foul": {
+            "count": 71,
+            "seconds": 625.2249999990161,
+            "mean": 8.8059859154791,
+            "median": 9.150000000033288,
+            "p90": 13.350000000048567,
+            "maximum": 16.150000000058753
+          },
+          "goal_kick": {
+            "count": 4,
+            "seconds": 83.72500000030459,
+            "mean": 20.931250000076147,
+            "median": 19.100000000069485,
+            "p90": 23.525000000085583,
+            "maximum": 29.45000000010714
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 29.619243022544808
+      },
+      "decisionTraces": {
+        "decisions": 11197,
+        "attempts": 7747,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 333.39,
+        "wallSeconds": 309.53059609999997,
+        "peakRSSMiB": 490.4609375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "04f318a0572e3961ae573a1b6dc7a6453bc75b6e17100cfe8a8f0de9a0716129"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ss-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1.json.gz",
+      "sha256": "fc9e12eb06e68b6f8c6e421692d5c537c06493dd735a9a4dd403cecabeb56ef9",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "a25fd46b6eb8525cfa413aaccfe5cb848f64461d3dcaa2b558b5b160704f3332",
+        "path": "docs/performance/pr201/source/a25fd46b6eb8525cfa413aaccfe5cb848f64461d3dcaa2b558b5b160704f3332.json.gz"
+      },
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "profile": "realism-candidate-no-recovery-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-0a93dd83",
+      "inputPath": "docs/performance/PR188-match-dev-ss-opportunity-driven-v1-full-observed-final-v1.json",
+      "originalInputHash": "3d7bfe27f3b43b944e34eb6c0ea93aa9c204573a9fb443d4bb544b1fab417161",
+      "initialHash": "0c288a684e50f0e4a25f249c0a351df86d68f31ff353b1645a49eef26b5a8a69",
+      "finalHash": "efa13ff1e906d4d9913fbb7ea82e499e25722c24fd1a891597ccf286152b5f11",
+      "seed": "pr200-development-ss-opportunity-driven-v1",
+      "status": "full_time",
+      "seconds": 5580,
+      "ticks": 223201,
+      "passes": {
+        "attempted": 2464,
+        "completed": 995
+      },
+      "receptions": {
+        "trials": 2464,
+        "directTouch": 862,
+        "directControl": 861,
+        "directRetained": 317,
+        "allControl": 895,
+        "allRetained": 331,
+        "deflectedTouch": 36,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 0,
+        "onTarget": 0,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "releases": {
+        "long": 59,
+        "through": 0,
+        "progressive10m": 539,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 97,
+        "finalThirdPossessionSeconds": 621.6999999991003,
+        "boxEntries": 5,
+        "boxTouches": 2,
+        "backwardPasses": 660,
+        "lateralPasses": 835,
+        "progressivePasses": 969,
+        "threatFlow": {
+          "progressiveReceptions": 202,
+          "resultingFinalThirdEntries": 44,
+          "resultingBoxEntries": 0,
+          "resultingShots": 0
+        },
+        "carries": 4153
+      },
+      "possession": {
+        "bothTeamChanges": 1664,
+        "bothTeamTurnoverCauses": {
+          "tackle": 439,
+          "interception": 995,
+          "bad_pass": 21,
+          "pass_out": 0,
+          "heavy_touch": 71,
+          "failed_control": 36,
+          "loose_ball_claim": 102,
+          "shot": 0,
+          "foul_stoppage": 19,
+          "other": 1
+        },
+        "homeTurnovers": 833,
+        "looseEpisodes": 1087
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5580,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 180,
+        "ballInPlaySeconds": 4914.725000000287,
+        "deadBallSeconds": 665.274999999713,
+        "deadBallByReason": {
+          "period_start": 33.32500000012042,
+          "foul": 485.12499999941497,
+          "substitution": 88.27500000032114,
+          "goal_kick": 17.175000000062482,
+          "discipline": 41.374999999794
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 33.32500000012042,
+            "mean": 16.66250000006021,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 33.10000000012042
+          },
+          "foul": {
+            "count": 75,
+            "seconds": 614.7749999995301,
+            "mean": 8.196999999993734,
+            "median": 8.299999999879219,
+            "p90": 12.574999999988563,
+            "maximum": 22.025000000080126
+          },
+          "goal_kick": {
+            "count": 1,
+            "seconds": 17.175000000062482,
+            "mean": 17.175000000062482,
+            "median": 17.175000000062482,
+            "p90": 17.175000000062482,
+            "maximum": 17.175000000062482
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 30.08103200077143
+      },
+      "decisionTraces": {
+        "decisions": 11519,
+        "attempts": 8122,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 311.328,
+        "wallSeconds": 289.7365672,
+        "peakRSSMiB": 494.80859375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "4377ecdd73d74ca08f7ab3f72d428cc52a5a6d26619fc6474bd4716a3dcb0454"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ss-opportunity-driven-v1-realism-candidate-v0-v1.json.gz",
+      "sha256": "b2a042be601bf473ea9e48565e4de06fab56a05f9ea0c361b37b6d23efe5b152",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c",
+        "path": "docs/performance/pr201/source/09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c.json.gz"
+      },
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "profile": "realism-candidate-v0",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-42df0f66",
+      "inputPath": "docs/performance/PR188-match-dev-ss-opportunity-driven-v1-full-observed-final-v1.json",
+      "originalInputHash": "3d7bfe27f3b43b944e34eb6c0ea93aa9c204573a9fb443d4bb544b1fab417161",
+      "initialHash": "a38407448ce0c43c80b5e5ce9812f76bf5098501473395b2a18db188af87ddc0",
+      "finalHash": "bb61bdfd7f4af703f68a38a7121222833623be93aa241ca02a72feb08c07ead6",
+      "seed": "pr200-development-ss-opportunity-driven-v1",
+      "status": "full_time",
+      "seconds": 5580,
+      "ticks": 223201,
+      "passes": {
+        "attempted": 2464,
+        "completed": 995
+      },
+      "receptions": {
+        "trials": 2464,
+        "directTouch": 862,
+        "directControl": 861,
+        "directRetained": 317,
+        "allControl": 895,
+        "allRetained": 331,
+        "deflectedTouch": 36,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 0,
+        "onTarget": 0,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "releases": {
+        "long": 59,
+        "through": 0,
+        "progressive10m": 539,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 97,
+        "finalThirdPossessionSeconds": 621.6999999991003,
+        "boxEntries": 5,
+        "boxTouches": 2,
+        "backwardPasses": 660,
+        "lateralPasses": 835,
+        "progressivePasses": 969,
+        "threatFlow": {
+          "progressiveReceptions": 202,
+          "resultingFinalThirdEntries": 44,
+          "resultingBoxEntries": 0,
+          "resultingShots": 0
+        },
+        "carries": 4153
+      },
+      "possession": {
+        "bothTeamChanges": 1664,
+        "bothTeamTurnoverCauses": {
+          "tackle": 439,
+          "interception": 995,
+          "bad_pass": 21,
+          "pass_out": 0,
+          "heavy_touch": 71,
+          "failed_control": 36,
+          "loose_ball_claim": 102,
+          "shot": 0,
+          "foul_stoppage": 19,
+          "other": 1
+        },
+        "homeTurnovers": 833,
+        "looseEpisodes": 1087
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5580,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 180,
+        "ballInPlaySeconds": 4914.725000000287,
+        "deadBallSeconds": 665.274999999713,
+        "deadBallByReason": {
+          "period_start": 33.32500000012042,
+          "foul": 485.12499999941497,
+          "substitution": 88.27500000032114,
+          "goal_kick": 17.175000000062482,
+          "discipline": 41.374999999794
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 33.32500000012042,
+            "mean": 16.66250000006021,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 33.10000000012042
+          },
+          "foul": {
+            "count": 75,
+            "seconds": 614.7749999995301,
+            "mean": 8.196999999993734,
+            "median": 8.299999999879219,
+            "p90": 12.574999999988563,
+            "maximum": 22.025000000080126
+          },
+          "goal_kick": {
+            "count": 1,
+            "seconds": 17.175000000062482,
+            "mean": 17.175000000062482,
+            "median": 17.175000000062482,
+            "p90": 17.175000000062482,
+            "maximum": 17.175000000062482
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 30.08103200077143
+      },
+      "decisionTraces": {
+        "decisions": 11519,
+        "attempts": 8122,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 339.999,
+        "wallSeconds": 318.1257479,
+        "peakRSSMiB": 477.3046875,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "4377ecdd73d74ca08f7ab3f72d428cc52a5a6d26619fc6474bd4716a3dcb0454"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ss-opportunity-driven-v1-realism-candidate-v1-v1.json.gz",
+      "sha256": "03f6b594d111363a5e789baf1e25708e42084fd8b4aa2daf3f11b45d5976a1b9",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "a25fd46b6eb8525cfa413aaccfe5cb848f64461d3dcaa2b558b5b160704f3332",
+        "path": "docs/performance/pr201/source/a25fd46b6eb8525cfa413aaccfe5cb848f64461d3dcaa2b558b5b160704f3332.json.gz"
+      },
+      "design": "ss",
+      "policy": "opportunity-driven-v1",
+      "profile": "realism-candidate-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-f3b6df18",
+      "inputPath": "docs/performance/PR188-match-dev-ss-opportunity-driven-v1-full-observed-final-v1.json",
+      "originalInputHash": "3d7bfe27f3b43b944e34eb6c0ea93aa9c204573a9fb443d4bb544b1fab417161",
+      "initialHash": "de0ecad5169242e2516e9595ed0a29279484ab45d05b4e43f0f07026a14d20c6",
+      "finalHash": "9a303884572442eb7bb861d9055ddd10160594f05af1f287779f9ab555cd8103",
+      "seed": "pr200-development-ss-opportunity-driven-v1",
+      "status": "full_time",
+      "seconds": 5580,
+      "ticks": 223201,
+      "passes": {
+        "attempted": 2638,
+        "completed": 1128
+      },
+      "receptions": {
+        "trials": 2638,
+        "directTouch": 955,
+        "directControl": 953,
+        "directRetained": 334,
+        "allControl": 988,
+        "allRetained": 353,
+        "deflectedTouch": 35,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 0,
+        "onTarget": 0,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "releases": {
+        "long": 36,
+        "through": 0,
+        "progressive10m": 398,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 76,
+        "finalThirdPossessionSeconds": 448.5499999998313,
+        "boxEntries": 4,
+        "boxTouches": 3,
+        "backwardPasses": 756,
+        "lateralPasses": 1021,
+        "progressivePasses": 861,
+        "threatFlow": {
+          "progressiveReceptions": 169,
+          "resultingFinalThirdEntries": 25,
+          "resultingBoxEntries": 0,
+          "resultingShots": 0
+        },
+        "carries": 4029
+      },
+      "possession": {
+        "bothTeamChanges": 1718,
+        "bothTeamTurnoverCauses": {
+          "tackle": 465,
+          "interception": 1042,
+          "bad_pass": 10,
+          "pass_out": 1,
+          "heavy_touch": 79,
+          "failed_control": 31,
+          "loose_ball_claim": 94,
+          "shot": 0,
+          "foul_stoppage": 20,
+          "other": 1
+        },
+        "homeTurnovers": 860,
+        "looseEpisodes": 1055
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5580,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 180,
+        "ballInPlaySeconds": 4877.9500000003245,
+        "deadBallSeconds": 702.0499999996755,
+        "deadBallByReason": {
+          "period_start": 33.15000000011978,
+          "foul": 495.94999999920293,
+          "discipline": 54.050000000154,
+          "substitution": 70.75000000025739,
+          "goal_kick": 29.275000000106502,
+          "offside": 6.025000000021919,
+          "throw_in": 12.849999999813008
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 33.15000000011978,
+            "mean": 16.57500000005989,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 32.92500000011978
+          },
+          "foul": {
+            "count": 84,
+            "seconds": 620.7499999996144,
+            "mean": 7.3898809523763616,
+            "median": 7.1500000000260115,
+            "p90": 11.200000000040745,
+            "maximum": 28.924999999973693
+          },
+          "goal_kick": {
+            "count": 1,
+            "seconds": 29.275000000106502,
+            "mean": 29.275000000106502,
+            "median": 29.275000000106502,
+            "p90": 29.275000000106502,
+            "maximum": 29.275000000106502
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 6.025000000021919,
+            "mean": 6.025000000021919,
+            "median": 6.025000000021919,
+            "p90": 6.025000000021919,
+            "maximum": 6.025000000021919
+          },
+          "throw_in": {
+            "count": 1,
+            "seconds": 12.849999999813008,
+            "mean": 12.849999999813008,
+            "median": 12.849999999813008,
+            "p90": 12.849999999813008,
+            "maximum": 12.849999999813008
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 32.44805707315357
+      },
+      "decisionTraces": {
+        "decisions": 11656,
+        "attempts": 8314,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 300.672,
+        "wallSeconds": 278.9880246,
+        "peakRSSMiB": 497.69921875,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "ce410e615df3a4daafe3f35d41f455c2c09d598908f891b0a2c41a0a708806e4"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ss-state-value-v1-canonical-pr199-v1.json.gz",
+      "sha256": "ba178f6f0f285cca9d56a337c46a4c904155dc4a726b1f34f13ae5b343e2057e",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2",
+        "path": "docs/performance/pr201/source/7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2.json.gz"
+      },
+      "design": "ss",
+      "policy": "state-value-v1",
+      "profile": "canonical-pr199",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-38bfe1f6",
+      "inputPath": "docs/performance/PR188-match-dev-ss-state-value-v1-full-observed-final-v1.json",
+      "originalInputHash": "1d4ad1925407ba3e292f96cffa3cbf8d41b8813645f63c38574f2e27c93a531d",
+      "initialHash": "dea65313dda1ee4882ef6ee10f11f247c018bde8c4d3cd5d15119516b26f2919",
+      "finalHash": "ceec828cd61b044e675cfb827b20142ecdfd04266f018d4efbd4ee7b014b3000",
+      "seed": "pr200-development-ss-state-value-v1",
+      "status": "full_time",
+      "seconds": 5671.074999987598,
+      "ticks": 226843,
+      "passes": {
+        "attempted": 2247,
+        "completed": 1376
+      },
+      "receptions": {
+        "trials": 2247,
+        "directTouch": 1198,
+        "directControl": 1029,
+        "directRetained": 455,
+        "allControl": 1035,
+        "allRetained": 459,
+        "deflectedTouch": 6,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 10,
+        "onTarget": 5,
+        "blocked": 2,
+        "saves": 1,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 4,
+        "away": 0
+      },
+      "releases": {
+        "long": 36,
+        "through": 324,
+        "progressive10m": 700,
+        "lofted": 111
+      },
+      "progression": {
+        "finalThirdEntries": 165,
+        "finalThirdPossessionSeconds": 674.6749999983022,
+        "boxEntries": 16,
+        "boxTouches": 4,
+        "backwardPasses": 424,
+        "lateralPasses": 604,
+        "progressivePasses": 1219,
+        "threatFlow": {
+          "progressiveReceptions": 535,
+          "resultingFinalThirdEntries": 40,
+          "resultingBoxEntries": 0,
+          "resultingShots": 10
+        },
+        "carries": 8930
+      },
+      "possession": {
+        "bothTeamChanges": 1047,
+        "bothTeamTurnoverCauses": {
+          "tackle": 233,
+          "interception": 583,
+          "bad_pass": 12,
+          "pass_out": 2,
+          "heavy_touch": 17,
+          "failed_control": 122,
+          "loose_ball_claim": 58,
+          "shot": 9,
+          "foul_stoppage": 12,
+          "other": 6
+        },
+        "homeTurnovers": 521,
+        "looseEpisodes": 776
+      },
+      "goalkeeper": {
+        "catches": 1,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5671.074999987598,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 271.07499998759795,
+        "ballInPlaySeconds": 4540.54999999046,
+        "deadBallSeconds": 1130.5249999971384,
+        "deadBallByReason": {
+          "period_start": 33.55000000012124,
+          "foul": 664.4999999982019,
+          "goal_kick": 181.17499999904925,
+          "substitution": 103.0500000003749,
+          "throw_in": 6.6750000000242835,
+          "offside": 7.37500000002683,
+          "penalty": 13.900000000050568,
+          "goal": 87.59999999976526,
+          "discipline": 32.69999999952415
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 33.55000000012124,
+            "mean": 16.77500000006062,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 33.325000000121236
+          },
+          "foul": {
+            "count": 81,
+            "seconds": 749.1499999980906,
+            "mean": 9.248765432075192,
+            "median": 8.199999999992542,
+            "p90": 15.27500000005557,
+            "maximum": 24.074999999649663
+          },
+          "goal_kick": {
+            "count": 14,
+            "seconds": 190.82499999890882,
+            "mean": 13.630357142779202,
+            "median": 13.875000000050477,
+            "p90": 21.12499999969259,
+            "maximum": 28.149999999590364
+          },
+          "throw_in": {
+            "count": 2,
+            "seconds": 19.17500000006976,
+            "mean": 9.58750000003488,
+            "median": 6.6750000000242835,
+            "p90": 6.6750000000242835,
+            "maximum": 12.500000000045475
+          },
+          "goal": {
+            "count": 4,
+            "seconds": 116.54999999987058,
+            "mean": 29.137499999967645,
+            "median": 28.95000000010532,
+            "p90": 29.625000000107775,
+            "maximum": 30.424999999557258
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 7.37500000002683,
+            "mean": 7.37500000002683,
+            "median": 7.37500000002683,
+            "p90": 7.37500000002683,
+            "maximum": 7.37500000002683
+          },
+          "penalty": {
+            "count": 1,
+            "seconds": 13.900000000050568,
+            "mean": 13.900000000050568,
+            "median": 13.900000000050568,
+            "p90": 13.900000000050568,
+            "maximum": 13.900000000050568
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 29.69243814081626
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 309.593,
+        "wallSeconds": 281.55670119999996,
+        "peakRSSMiB": 621.10546875,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "a96f6584930af9a5c83ad93e5f0c51c34946873448f7faa8e7dbebb241f3f41b"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ss-state-value-v1-realism-candidate-no-recovery-v1-v1.json.gz",
+      "sha256": "96730f2b531f73665ffe146b4d04f348f05299456fcfbfe422402e1899a24e2d",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c",
+        "path": "docs/performance/pr201/source/09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c.json.gz"
+      },
+      "design": "ss",
+      "policy": "state-value-v1",
+      "profile": "realism-candidate-no-recovery-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-572e1ce8",
+      "inputPath": "docs/performance/PR188-match-dev-ss-state-value-v1-full-observed-final-v1.json",
+      "originalInputHash": "1d4ad1925407ba3e292f96cffa3cbf8d41b8813645f63c38574f2e27c93a531d",
+      "initialHash": "3f0d07469400ad69cf1fdb6e3c21dc5d86081fb9f9ca8697867d3d45a76889bc",
+      "finalHash": "1984b29938bbf3ee6121d458bec85ac32ae439fcfff5264a970039561efa7640",
+      "seed": "pr200-development-ss-state-value-v1",
+      "status": "full_time",
+      "seconds": 5712.2999999809035,
+      "ticks": 228492,
+      "passes": {
+        "attempted": 2356,
+        "completed": 1408
+      },
+      "receptions": {
+        "trials": 2356,
+        "directTouch": 1138,
+        "directControl": 972,
+        "directRetained": 347,
+        "allControl": 980,
+        "allRetained": 351,
+        "deflectedTouch": 10,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 8,
+        "onTarget": 4,
+        "blocked": 1,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 2,
+        "away": 2
+      },
+      "releases": {
+        "long": 40,
+        "through": 330,
+        "progressive10m": 727,
+        "lofted": 113
+      },
+      "progression": {
+        "finalThirdEntries": 142,
+        "finalThirdPossessionSeconds": 440.7999999988912,
+        "boxEntries": 16,
+        "boxTouches": 10,
+        "backwardPasses": 428,
+        "lateralPasses": 652,
+        "progressivePasses": 1276,
+        "threatFlow": {
+          "progressiveReceptions": 481,
+          "resultingFinalThirdEntries": 18,
+          "resultingBoxEntries": 0,
+          "resultingShots": 8
+        },
+        "carries": 8514
+      },
+      "possession": {
+        "bothTeamChanges": 1134,
+        "bothTeamTurnoverCauses": {
+          "tackle": 230,
+          "interception": 619,
+          "bad_pass": 60,
+          "pass_out": 10,
+          "heavy_touch": 23,
+          "failed_control": 117,
+          "loose_ball_claim": 55,
+          "shot": 7,
+          "foul_stoppage": 12,
+          "other": 5
+        },
+        "homeTurnovers": 558,
+        "looseEpisodes": 843
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5712.2999999809035,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 312.2999999809035,
+        "ballInPlaySeconds": 4882.974999982563,
+        "deadBallSeconds": 829.3249999983407,
+        "deadBallByReason": {
+          "period_start": 32.975000000119145,
+          "goal": 114.87499999965435,
+          "foul": 332.29999999881403,
+          "throw_in": 106.47499999961326,
+          "goal_kick": 93.97500000016225,
+          "substitution": 73.82500000026857,
+          "discipline": 32.77499999992733,
+          "corner": 21.700000000078944,
+          "offside": 20.424999999702777
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 32.975000000119145,
+            "mean": 16.487500000059573,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 32.750000000119144
+          },
+          "goal": {
+            "count": 4,
+            "seconds": 114.87499999965435,
+            "mean": 28.718749999913587,
+            "median": 27.850000000101318,
+            "p90": 30.274999999998283,
+            "maximum": 30.99999999954889
+          },
+          "foul": {
+            "count": 50,
+            "seconds": 419.949999998941,
+            "mean": 8.39899999997882,
+            "median": 7.074999999993565,
+            "p90": 17.37500000006321,
+            "maximum": 26.62500000009686
+          },
+          "throw_in": {
+            "count": 13,
+            "seconds": 106.47499999961326,
+            "mean": 8.190384615354866,
+            "median": 7.350000000026739,
+            "p90": 9.950000000036198,
+            "maximum": 13.62499999980173
+          },
+          "goal_kick": {
+            "count": 10,
+            "seconds": 112.9250000002312,
+            "mean": 11.29250000002312,
+            "median": 11.57500000004211,
+            "p90": 18.574999999983106,
+            "maximum": 18.95000000006894
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 21.700000000078944,
+            "mean": 21.700000000078944,
+            "median": 21.700000000078944,
+            "p90": 21.700000000078944,
+            "maximum": 21.700000000078944
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 20.424999999702777,
+            "mean": 20.424999999702777,
+            "median": 20.424999999702777,
+            "p90": 20.424999999702777,
+            "maximum": 20.424999999702777
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 28.949564558594872
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 312.421,
+        "wallSeconds": 286.6502917,
+        "peakRSSMiB": 613.59375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "c57ed5c9fe04ed9db316c885e3f2f1a4bfb6ee2336423f81ae52a394ab1b9c22"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ss-state-value-v1-realism-candidate-v0-v1.json.gz",
+      "sha256": "0b9a39bdab8253f20646f987dacdd655639aed21ba12fd822bbc159d600447bf",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2",
+        "path": "docs/performance/pr201/source/7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2.json.gz"
+      },
+      "design": "ss",
+      "policy": "state-value-v1",
+      "profile": "realism-candidate-v0",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-800d7b57",
+      "inputPath": "docs/performance/PR188-match-dev-ss-state-value-v1-full-observed-final-v1.json",
+      "originalInputHash": "1d4ad1925407ba3e292f96cffa3cbf8d41b8813645f63c38574f2e27c93a531d",
+      "initialHash": "c59db67211531a5dd3814a120bf94984096afcd3426cc8b3bcdc622a933edd75",
+      "finalHash": "3bbbf3f412dd6432e403fe395399c83c4a551474d5a1c4c63df12c0ff0197c3c",
+      "seed": "pr200-development-ss-state-value-v1",
+      "status": "full_time",
+      "seconds": 5712.2999999809035,
+      "ticks": 228492,
+      "passes": {
+        "attempted": 2356,
+        "completed": 1408
+      },
+      "receptions": {
+        "trials": 2356,
+        "directTouch": 1138,
+        "directControl": 972,
+        "directRetained": 347,
+        "allControl": 980,
+        "allRetained": 351,
+        "deflectedTouch": 10,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 8,
+        "onTarget": 4,
+        "blocked": 1,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 2,
+        "away": 2
+      },
+      "releases": {
+        "long": 40,
+        "through": 330,
+        "progressive10m": 727,
+        "lofted": 113
+      },
+      "progression": {
+        "finalThirdEntries": 142,
+        "finalThirdPossessionSeconds": 440.7999999988912,
+        "boxEntries": 16,
+        "boxTouches": 10,
+        "backwardPasses": 428,
+        "lateralPasses": 652,
+        "progressivePasses": 1276,
+        "threatFlow": {
+          "progressiveReceptions": 481,
+          "resultingFinalThirdEntries": 18,
+          "resultingBoxEntries": 0,
+          "resultingShots": 8
+        },
+        "carries": 8514
+      },
+      "possession": {
+        "bothTeamChanges": 1134,
+        "bothTeamTurnoverCauses": {
+          "tackle": 230,
+          "interception": 619,
+          "bad_pass": 60,
+          "pass_out": 10,
+          "heavy_touch": 23,
+          "failed_control": 117,
+          "loose_ball_claim": 55,
+          "shot": 7,
+          "foul_stoppage": 12,
+          "other": 5
+        },
+        "homeTurnovers": 558,
+        "looseEpisodes": 843
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5712.2999999809035,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 312.2999999809035,
+        "ballInPlaySeconds": 4882.974999982563,
+        "deadBallSeconds": 829.3249999983407,
+        "deadBallByReason": {
+          "period_start": 32.975000000119145,
+          "goal": 114.87499999965435,
+          "foul": 332.29999999881403,
+          "throw_in": 106.47499999961326,
+          "goal_kick": 93.97500000016225,
+          "substitution": 73.82500000026857,
+          "discipline": 32.77499999992733,
+          "corner": 21.700000000078944,
+          "offside": 20.424999999702777
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 32.975000000119145,
+            "mean": 16.487500000059573,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 32.750000000119144
+          },
+          "goal": {
+            "count": 4,
+            "seconds": 114.87499999965435,
+            "mean": 28.718749999913587,
+            "median": 27.850000000101318,
+            "p90": 30.274999999998283,
+            "maximum": 30.99999999954889
+          },
+          "foul": {
+            "count": 50,
+            "seconds": 419.949999998941,
+            "mean": 8.39899999997882,
+            "median": 7.074999999993565,
+            "p90": 17.37500000006321,
+            "maximum": 26.62500000009686
+          },
+          "throw_in": {
+            "count": 13,
+            "seconds": 106.47499999961326,
+            "mean": 8.190384615354866,
+            "median": 7.350000000026739,
+            "p90": 9.950000000036198,
+            "maximum": 13.62499999980173
+          },
+          "goal_kick": {
+            "count": 10,
+            "seconds": 112.9250000002312,
+            "mean": 11.29250000002312,
+            "median": 11.57500000004211,
+            "p90": 18.574999999983106,
+            "maximum": 18.95000000006894
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 21.700000000078944,
+            "mean": 21.700000000078944,
+            "median": 21.700000000078944,
+            "p90": 21.700000000078944,
+            "maximum": 21.700000000078944
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 20.424999999702777,
+            "mean": 20.424999999702777,
+            "median": 20.424999999702777,
+            "p90": 20.424999999702777,
+            "maximum": 20.424999999702777
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 28.949564558594872
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 321.485,
+        "wallSeconds": 294.5612562,
+        "peakRSSMiB": 552.2109375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "c57ed5c9fe04ed9db316c885e3f2f1a4bfb6ee2336423f81ae52a394ab1b9c22"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ss-state-value-v1-realism-candidate-v1-v1.json.gz",
+      "sha256": "99ee5dc974e2e2968fab103576e9132efba3b52f8b33d1eced730894c1ffd350",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c",
+        "path": "docs/performance/pr201/source/09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c.json.gz"
+      },
+      "design": "ss",
+      "policy": "state-value-v1",
+      "profile": "realism-candidate-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-2d2162c9",
+      "inputPath": "docs/performance/PR188-match-dev-ss-state-value-v1-full-observed-final-v1.json",
+      "originalInputHash": "1d4ad1925407ba3e292f96cffa3cbf8d41b8813645f63c38574f2e27c93a531d",
+      "initialHash": "08f4be6f2b33b21c6a38b1f79cf2ade1c8d1804b6cd3185612cef748b2b51cde",
+      "finalHash": "21cc574f20b4d654b3b9bb107f289ef74be7dfedd97a4796c3a14e830809254a",
+      "seed": "pr200-development-ss-state-value-v1",
+      "status": "full_time",
+      "seconds": 5648.675000005907,
+      "ticks": 225948,
+      "passes": {
+        "attempted": 2438,
+        "completed": 1553
+      },
+      "receptions": {
+        "trials": 2438,
+        "directTouch": 1302,
+        "directControl": 1123,
+        "directRetained": 433,
+        "allControl": 1134,
+        "allRetained": 434,
+        "deflectedTouch": 11,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 10,
+        "onTarget": 4,
+        "blocked": 1,
+        "saves": 2,
+        "failedSaves": 1
+      },
+      "score": {
+        "home": 3,
+        "away": 0
+      },
+      "releases": {
+        "long": 44,
+        "through": 321,
+        "progressive10m": 735,
+        "lofted": 90
+      },
+      "progression": {
+        "finalThirdEntries": 164,
+        "finalThirdPossessionSeconds": 562.7999999975136,
+        "boxEntries": 20,
+        "boxTouches": 6,
+        "backwardPasses": 496,
+        "lateralPasses": 730,
+        "progressivePasses": 1212,
+        "threatFlow": {
+          "progressiveReceptions": 488,
+          "resultingFinalThirdEntries": 30,
+          "resultingBoxEntries": 0,
+          "resultingShots": 9
+        },
+        "carries": 9136
+      },
+      "possession": {
+        "bothTeamChanges": 1107,
+        "bothTeamTurnoverCauses": {
+          "tackle": 232,
+          "interception": 609,
+          "bad_pass": 45,
+          "pass_out": 5,
+          "heavy_touch": 20,
+          "failed_control": 122,
+          "loose_ball_claim": 53,
+          "shot": 7,
+          "foul_stoppage": 15,
+          "other": 5
+        },
+        "homeTurnovers": 551,
+        "looseEpisodes": 764
+      },
+      "goalkeeper": {
+        "catches": 2,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5648.675000005907,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 248.67500000590735,
+        "ballInPlaySeconds": 4762.975000009226,
+        "deadBallSeconds": 885.6999999966815,
+        "deadBallByReason": {
+          "period_start": 33.250000000120146,
+          "foul": 449.3249999983294,
+          "throw_in": 69.6999999998016,
+          "goal_kick": 144.19999999904155,
+          "substitution": 70.80000000025757,
+          "goal": 86.4499999992513,
+          "offside": 18.97500000006903,
+          "discipline": 12.999999999810825
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 33.250000000120146,
+            "mean": 16.625000000060073,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 33.025000000120144
+          },
+          "foul": {
+            "count": 56,
+            "seconds": 533.1249999983978,
+            "mean": 9.520089285685675,
+            "median": 8.074999999992656,
+            "p90": 17.799999999740976,
+            "maximum": 24.575000000089403
+          },
+          "throw_in": {
+            "count": 8,
+            "seconds": 69.6999999998016,
+            "mean": 8.7124999999752,
+            "median": 7.999999999883585,
+            "p90": 10.374999999849024,
+            "maximum": 11.674999999989382
+          },
+          "goal_kick": {
+            "count": 13,
+            "seconds": 144.19999999904155,
+            "mean": 11.092307692233966,
+            "median": 13.350000000048567,
+            "p90": 15.92499999976826,
+            "maximum": 22.24999999967622
+          },
+          "goal": {
+            "count": 3,
+            "seconds": 86.4499999992513,
+            "mean": 28.816666666417103,
+            "median": 28.224999999589272,
+            "p90": 28.224999999589272,
+            "maximum": 30.22499999956017
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 18.97500000006903,
+            "mean": 18.97500000006903,
+            "median": 18.97500000006903,
+            "p90": 18.97500000006903,
+            "maximum": 18.97500000006903
+          }
+        },
+        "unclassifiedDeadBallSeconds": 1.1368683772161603e-13,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 30.71189750097715
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 320.875,
+        "wallSeconds": 291.9073481,
+        "peakRSSMiB": 553.2890625,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "7df8aff046fe1628ea501c31ccf5c41426bedad7cc660e6e0d11acc06dd41235"
+    },
+    {
+      "path": "docs/performance/pr201/matches/sw-contextual-judgment-v1-canonical-pr199-v1.json.gz",
+      "sha256": "b096acb89b421d6a5dc6d60fbee13e8c3893a64a534831fc3f01dae74b0a4f6c",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "16762e4051324c0ee101a4c4aa55d425e3a7370fdfa2b7e93d110ce48fc26ec8",
+        "path": "docs/performance/pr201/source/16762e4051324c0ee101a4c4aa55d425e3a7370fdfa2b7e93d110ce48fc26ec8.json.gz"
+      },
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "profile": "canonical-pr199",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-a41f5e1d",
+      "inputPath": "docs/performance/PR188-match-dev-sw-contextual-judgment-v1-full-observed-final-v1.json",
+      "originalInputHash": "e1c070b59dd267819644d6e8560ddfc1348c6895c78287b65bc5949bf84963e0",
+      "initialHash": "e32a1892afb7793959e3b21efeb6e2fe484eed2543278ddacc9b7017e4e47cbb",
+      "finalHash": "576925a8f962fb493048313bedfc6e03b30e49ec38ddc0ee693555c06206f08c",
+      "seed": "pr200-development-sw-contextual-judgment-v1",
+      "status": "full_time",
+      "seconds": 5708.000000000029,
+      "ticks": 228321,
+      "passes": {
+        "attempted": 1279,
+        "completed": 1016
+      },
+      "receptions": {
+        "trials": 1279,
+        "directTouch": 959,
+        "directControl": 954,
+        "directRetained": 479,
+        "allControl": 963,
+        "allRetained": 485,
+        "deflectedTouch": 9,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 31,
+        "onTarget": 18,
+        "blocked": 6,
+        "saves": 11,
+        "failedSaves": 2
+      },
+      "score": {
+        "home": 7,
+        "away": 0
+      },
+      "releases": {
+        "long": 10,
+        "through": 0,
+        "progressive10m": 56,
+        "lofted": 3
+      },
+      "progression": {
+        "finalThirdEntries": 105,
+        "finalThirdPossessionSeconds": 1536.124999997682,
+        "boxEntries": 39,
+        "boxTouches": 71,
+        "backwardPasses": 299,
+        "lateralPasses": 733,
+        "progressivePasses": 247,
+        "threatFlow": {
+          "progressiveReceptions": 88,
+          "resultingFinalThirdEntries": 29,
+          "resultingBoxEntries": 0,
+          "resultingShots": 31
+        },
+        "carries": 9834
+      },
+      "possession": {
+        "bothTeamChanges": 594,
+        "bothTeamTurnoverCauses": {
+          "tackle": 320,
+          "interception": 128,
+          "bad_pass": 10,
+          "pass_out": 0,
+          "heavy_touch": 11,
+          "failed_control": 16,
+          "loose_ball_claim": 85,
+          "shot": 19,
+          "foul_stoppage": 3,
+          "other": 4
+        },
+        "homeTurnovers": 293,
+        "looseEpisodes": 361
+      },
+      "goalkeeper": {
+        "catches": 3,
+        "parries": 8,
+        "rebounds": 8
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5708.000000000029,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 308.0000000000291,
+        "ballInPlaySeconds": 5088.875000000849,
+        "deadBallSeconds": 619.1249999991807,
+        "deadBallByReason": {
+          "period_start": 35.67500000012897,
+          "foul": 154.67499999943675,
+          "goal": 181.92499999985694,
+          "substitution": 81.4750000002964,
+          "corner": 111.92499999956362,
+          "goal_kick": 43.724999999862575,
+          "offside": 9.72500000003538
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 35.67500000012897,
+            "mean": 17.837500000064484,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 35.450000000128966
+          },
+          "foul": {
+            "count": 22,
+            "seconds": 167.74999999948432,
+            "mean": 7.62499999997656,
+            "median": 7.049999999999603,
+            "p90": 10.700000000038926,
+            "maximum": 13.474999999803913
+          },
+          "goal": {
+            "count": 7,
+            "seconds": 213.274999999971,
+            "mean": 30.467857142853,
+            "median": 30.475000000110867,
+            "p90": 31.35000000011405,
+            "maximum": 32.02499999997087
+          },
+          "goal_kick": {
+            "count": 10,
+            "seconds": 68.2249999999517,
+            "mean": 6.822499999995171,
+            "median": 3.8250000000139153,
+            "p90": 12.675000000046111,
+            "maximum": 16.500000000060027
+          },
+          "corner": {
+            "count": 6,
+            "seconds": 111.92499999956362,
+            "mean": 18.654166666593937,
+            "median": 18.12500000006594,
+            "p90": 22.025000000080126,
+            "maximum": 27.199999999604188
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 9.72500000003538,
+            "mean": 9.72500000003538,
+            "median": 9.72500000003538,
+            "p90": 9.72500000003538,
+            "maximum": 9.72500000003538
+          },
+          "throw_in": {
+            "count": 1,
+            "seconds": 12.550000000045657,
+            "mean": 12.550000000045657,
+            "median": 12.550000000045657,
+            "p90": 12.550000000045657,
+            "maximum": 12.550000000045657
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 15.07995382083215
+      },
+      "decisionTraces": {
+        "decisions": 14400,
+        "attempts": 12926,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 334.578,
+        "wallSeconds": 309.91484149999997,
+        "peakRSSMiB": 496.68359375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "c9a55bd063c7ec02c6dda3fc2269820d1af0181d4673d363944233ec61f8d6d1"
+    },
+    {
+      "path": "docs/performance/pr201/matches/sw-contextual-judgment-v1-realism-candidate-no-recovery-v1-v1.json.gz",
+      "sha256": "b2c48ca9a5aad804fd4651d6157c3d6a926d6a1975a808bfe9eddf7702ed7e02",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "0a6a321990594a25ef3e733d6a5f9d8293261b825ec22c9d0e9e3639e11db43b",
+        "path": "docs/performance/pr201/source/0a6a321990594a25ef3e733d6a5f9d8293261b825ec22c9d0e9e3639e11db43b.json.gz"
+      },
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "profile": "realism-candidate-no-recovery-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-f3286bb9",
+      "inputPath": "docs/performance/PR188-match-dev-sw-contextual-judgment-v1-full-observed-final-v1.json",
+      "originalInputHash": "e1c070b59dd267819644d6e8560ddfc1348c6895c78287b65bc5949bf84963e0",
+      "initialHash": "03ff0eb324c5523f80265455a2d188e3eee1dfb74504e98c25aba87cabe22c70",
+      "finalHash": "ce3b1e727c98510174492a3f88062d8303193e823ef725e9614b1b42c2d5e5e3",
+      "seed": "pr200-development-sw-contextual-judgment-v1",
+      "status": "full_time",
+      "seconds": 5849.100000000106,
+      "ticks": 233965,
+      "passes": {
+        "attempted": 1243,
+        "completed": 887
+      },
+      "receptions": {
+        "trials": 1243,
+        "directTouch": 858,
+        "directControl": 855,
+        "directRetained": 446,
+        "allControl": 860,
+        "allRetained": 449,
+        "deflectedTouch": 5,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 54,
+        "onTarget": 26,
+        "blocked": 9,
+        "saves": 14,
+        "failedSaves": 2
+      },
+      "score": {
+        "home": 12,
+        "away": 0
+      },
+      "releases": {
+        "long": 12,
+        "through": 0,
+        "progressive10m": 37,
+        "lofted": 4
+      },
+      "progression": {
+        "finalThirdEntries": 98,
+        "finalThirdPossessionSeconds": 1898.625000012244,
+        "boxEntries": 76,
+        "boxTouches": 125,
+        "backwardPasses": 282,
+        "lateralPasses": 749,
+        "progressivePasses": 212,
+        "threatFlow": {
+          "progressiveReceptions": 57,
+          "resultingFinalThirdEntries": 7,
+          "resultingBoxEntries": 0,
+          "resultingShots": 54
+        },
+        "carries": 10123
+      },
+      "possession": {
+        "bothTeamChanges": 635,
+        "bothTeamTurnoverCauses": {
+          "tackle": 313,
+          "interception": 150,
+          "bad_pass": 38,
+          "pass_out": 2,
+          "heavy_touch": 4,
+          "failed_control": 10,
+          "loose_ball_claim": 81,
+          "shot": 34,
+          "foul_stoppage": 0,
+          "other": 4
+        },
+        "homeTurnovers": 311,
+        "looseEpisodes": 439
+      },
+      "goalkeeper": {
+        "catches": 3,
+        "parries": 11,
+        "rebounds": 11
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5849.100000000106,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 449.10000000010587,
+        "ballInPlaySeconds": 5164.349999999753,
+        "deadBallSeconds": 684.7500000003527,
+        "deadBallByReason": {
+          "period_start": 35.100000000126876,
+          "goal_kick": 48.82499999986044,
+          "foul": 101.42499999965676,
+          "goal": 269.4999999998722,
+          "corner": 99.4500000003618,
+          "throw_in": 16.000000000058208,
+          "substitution": 114.45000000041637
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 35.100000000126876,
+            "mean": 17.550000000063438,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 34.875000000126875
+          },
+          "goal_kick": {
+            "count": 13,
+            "seconds": 56.22499999988736,
+            "mean": 4.324999999991335,
+            "median": 2.950000000010732,
+            "p90": 7.400000000026921,
+            "maximum": 8.825000000032105
+          },
+          "foul": {
+            "count": 16,
+            "seconds": 121.02499999972807,
+            "mean": 7.564062499983004,
+            "median": 6.699999999902502,
+            "p90": 11.100000000040382,
+            "maximum": 13.174999999808279
+          },
+          "goal": {
+            "count": 12,
+            "seconds": 356.95000000019036,
+            "mean": 29.745833333349196,
+            "median": 29.45000000010714,
+            "p90": 31.07500000011305,
+            "maximum": 31.975000000116324
+          },
+          "corner": {
+            "count": 6,
+            "seconds": 99.4500000003618,
+            "mean": 16.5750000000603,
+            "median": 14.550000000052933,
+            "p90": 21.675000000078853,
+            "maximum": 22.525000000081945
+          },
+          "throw_in": {
+            "count": 2,
+            "seconds": 16.000000000058208,
+            "mean": 8.000000000029104,
+            "median": 5.2000000000189175,
+            "p90": 5.2000000000189175,
+            "maximum": 10.80000000003929
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 14.441314008540003
+      },
+      "decisionTraces": {
+        "decisions": 14322,
+        "attempts": 13053,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 419.422,
+        "wallSeconds": 394.29568049999995,
+        "peakRSSMiB": 489.58203125,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "4d1c7dac5202a7ddc1beeec0db5e3da5321d6273dbe549def9dc93e58fb89e46"
+    },
+    {
+      "path": "docs/performance/pr201/matches/sw-contextual-judgment-v1-realism-candidate-v0-v1.json.gz",
+      "sha256": "2c78c1e8c5970c62efe59df02199f92b83dfde57b69de48c48d52974906b3fc1",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "16762e4051324c0ee101a4c4aa55d425e3a7370fdfa2b7e93d110ce48fc26ec8",
+        "path": "docs/performance/pr201/source/16762e4051324c0ee101a4c4aa55d425e3a7370fdfa2b7e93d110ce48fc26ec8.json.gz"
+      },
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "profile": "realism-candidate-v0",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-241f7012",
+      "inputPath": "docs/performance/PR188-match-dev-sw-contextual-judgment-v1-full-observed-final-v1.json",
+      "originalInputHash": "e1c070b59dd267819644d6e8560ddfc1348c6895c78287b65bc5949bf84963e0",
+      "initialHash": "85d464f7def569a45918afee39031bb9fa5c9b080059b0f8439189ad4db19581",
+      "finalHash": "614fa3d0a6ffae5016f5275907eb94f6f78f3e48a0f78d6a9782bda9ef45c335",
+      "seed": "pr200-development-sw-contextual-judgment-v1",
+      "status": "full_time",
+      "seconds": 5849.100000000106,
+      "ticks": 233965,
+      "passes": {
+        "attempted": 1243,
+        "completed": 887
+      },
+      "receptions": {
+        "trials": 1243,
+        "directTouch": 858,
+        "directControl": 855,
+        "directRetained": 446,
+        "allControl": 860,
+        "allRetained": 449,
+        "deflectedTouch": 5,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 54,
+        "onTarget": 26,
+        "blocked": 9,
+        "saves": 14,
+        "failedSaves": 2
+      },
+      "score": {
+        "home": 12,
+        "away": 0
+      },
+      "releases": {
+        "long": 12,
+        "through": 0,
+        "progressive10m": 37,
+        "lofted": 4
+      },
+      "progression": {
+        "finalThirdEntries": 98,
+        "finalThirdPossessionSeconds": 1898.625000012244,
+        "boxEntries": 76,
+        "boxTouches": 125,
+        "backwardPasses": 282,
+        "lateralPasses": 749,
+        "progressivePasses": 212,
+        "threatFlow": {
+          "progressiveReceptions": 57,
+          "resultingFinalThirdEntries": 7,
+          "resultingBoxEntries": 0,
+          "resultingShots": 54
+        },
+        "carries": 10123
+      },
+      "possession": {
+        "bothTeamChanges": 635,
+        "bothTeamTurnoverCauses": {
+          "tackle": 313,
+          "interception": 150,
+          "bad_pass": 38,
+          "pass_out": 2,
+          "heavy_touch": 4,
+          "failed_control": 10,
+          "loose_ball_claim": 81,
+          "shot": 34,
+          "foul_stoppage": 0,
+          "other": 4
+        },
+        "homeTurnovers": 311,
+        "looseEpisodes": 439
+      },
+      "goalkeeper": {
+        "catches": 3,
+        "parries": 11,
+        "rebounds": 11
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5849.100000000106,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 449.10000000010587,
+        "ballInPlaySeconds": 5164.349999999753,
+        "deadBallSeconds": 684.7500000003527,
+        "deadBallByReason": {
+          "period_start": 35.100000000126876,
+          "goal_kick": 48.82499999986044,
+          "foul": 101.42499999965676,
+          "goal": 269.4999999998722,
+          "corner": 99.4500000003618,
+          "throw_in": 16.000000000058208,
+          "substitution": 114.45000000041637
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 35.100000000126876,
+            "mean": 17.550000000063438,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 34.875000000126875
+          },
+          "goal_kick": {
+            "count": 13,
+            "seconds": 56.22499999988736,
+            "mean": 4.324999999991335,
+            "median": 2.950000000010732,
+            "p90": 7.400000000026921,
+            "maximum": 8.825000000032105
+          },
+          "foul": {
+            "count": 16,
+            "seconds": 121.02499999972807,
+            "mean": 7.564062499983004,
+            "median": 6.699999999902502,
+            "p90": 11.100000000040382,
+            "maximum": 13.174999999808279
+          },
+          "goal": {
+            "count": 12,
+            "seconds": 356.95000000019036,
+            "mean": 29.745833333349196,
+            "median": 29.45000000010714,
+            "p90": 31.07500000011305,
+            "maximum": 31.975000000116324
+          },
+          "corner": {
+            "count": 6,
+            "seconds": 99.4500000003618,
+            "mean": 16.5750000000603,
+            "median": 14.550000000052933,
+            "p90": 21.675000000078853,
+            "maximum": 22.525000000081945
+          },
+          "throw_in": {
+            "count": 2,
+            "seconds": 16.000000000058208,
+            "mean": 8.000000000029104,
+            "median": 5.2000000000189175,
+            "p90": 5.2000000000189175,
+            "maximum": 10.80000000003929
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 14.441314008540003
+      },
+      "decisionTraces": {
+        "decisions": 14322,
+        "attempts": 13053,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 354.047,
+        "wallSeconds": 332.8730833,
+        "peakRSSMiB": 506.78125,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "4d1c7dac5202a7ddc1beeec0db5e3da5321d6273dbe549def9dc93e58fb89e46"
+    },
+    {
+      "path": "docs/performance/pr201/matches/sw-contextual-judgment-v1-realism-candidate-v1-v1.json.gz",
+      "sha256": "567c26973c8f5dc7884475db14193030a36f10290f3e2df01230e8c23aa6c550",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "0a6a321990594a25ef3e733d6a5f9d8293261b825ec22c9d0e9e3639e11db43b",
+        "path": "docs/performance/pr201/source/0a6a321990594a25ef3e733d6a5f9d8293261b825ec22c9d0e9e3639e11db43b.json.gz"
+      },
+      "design": "sw",
+      "policy": "contextual-judgment-v1",
+      "profile": "realism-candidate-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-99aeb38a",
+      "inputPath": "docs/performance/PR188-match-dev-sw-contextual-judgment-v1-full-observed-final-v1.json",
+      "originalInputHash": "e1c070b59dd267819644d6e8560ddfc1348c6895c78287b65bc5949bf84963e0",
+      "initialHash": "16062812532d444f8e365188679437337f3de7a7467e7119e94a34b152bd662d",
+      "finalHash": "c24c52f57d92dd1f46070b404b9f1b29cd84c51c8ce8ab07dacd83f9a26fd445",
+      "seed": "pr200-development-sw-contextual-judgment-v1",
+      "status": "full_time",
+      "seconds": 5879.024999999698,
+      "ticks": 235162,
+      "passes": {
+        "attempted": 1517,
+        "completed": 1276
+      },
+      "receptions": {
+        "trials": 1517,
+        "directTouch": 1205,
+        "directControl": 1201,
+        "directRetained": 574,
+        "allControl": 1214,
+        "allRetained": 578,
+        "deflectedTouch": 15,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 30,
+        "onTarget": 19,
+        "blocked": 7,
+        "saves": 9,
+        "failedSaves": 1
+      },
+      "score": {
+        "home": 12,
+        "away": 0
+      },
+      "releases": {
+        "long": 7,
+        "through": 0,
+        "progressive10m": 40,
+        "lofted": 1
+      },
+      "progression": {
+        "finalThirdEntries": 93,
+        "finalThirdPossessionSeconds": 1535.3249999920815,
+        "boxEntries": 62,
+        "boxTouches": 78,
+        "backwardPasses": 330,
+        "lateralPasses": 945,
+        "progressivePasses": 242,
+        "threatFlow": {
+          "progressiveReceptions": 74,
+          "resultingFinalThirdEntries": 12,
+          "resultingBoxEntries": 0,
+          "resultingShots": 30
+        },
+        "carries": 9723
+      },
+      "possession": {
+        "bothTeamChanges": 580,
+        "bothTeamTurnoverCauses": {
+          "tackle": 323,
+          "interception": 136,
+          "bad_pass": 6,
+          "pass_out": 0,
+          "heavy_touch": 8,
+          "failed_control": 12,
+          "loose_ball_claim": 67,
+          "shot": 21,
+          "foul_stoppage": 2,
+          "other": 7
+        },
+        "homeTurnovers": 288,
+        "looseEpisodes": 307
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 9,
+        "rebounds": 9
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5879.024999999698,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 479.0249999996977,
+        "ballInPlaySeconds": 5058.725000000846,
+        "deadBallSeconds": 820.2999999988515,
+        "deadBallByReason": {
+          "period_start": 35.15000000012706,
+          "foul": 169.0499999994123,
+          "penalty": 11.824999999989245,
+          "goal": 298.8749999991916,
+          "goal_kick": 88.94999999965216,
+          "corner": 106.47500000007904,
+          "substitution": 100.67500000036625,
+          "offside": 9.300000000033833
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 35.15000000012706,
+            "mean": 17.57500000006353,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 34.925000000127056
+          },
+          "foul": {
+            "count": 25,
+            "seconds": 184.42499999946824,
+            "mean": 7.37699999997873,
+            "median": 6.64999999990323,
+            "p90": 10.299999999850115,
+            "maximum": 15.375000000055934
+          },
+          "penalty": {
+            "count": 1,
+            "seconds": 11.824999999989245,
+            "mean": 11.824999999989245,
+            "median": 11.824999999989245,
+            "p90": 11.824999999989245,
+            "maximum": 11.824999999989245
+          },
+          "goal": {
+            "count": 12,
+            "seconds": 360.3249999994151,
+            "mean": 30.027083333284594,
+            "median": 29.899999999564898,
+            "p90": 31.525000000114687,
+            "maximum": 32.15000000011696
+          },
+          "goal_kick": {
+            "count": 9,
+            "seconds": 88.94999999965216,
+            "mean": 9.883333333294685,
+            "median": 9.175000000033378,
+            "p90": 11.500000000041837,
+            "maximum": 28.149999999590364
+          },
+          "corner": {
+            "count": 7,
+            "seconds": 130.3250000001658,
+            "mean": 18.61785714288083,
+            "median": 18.250000000066393,
+            "p90": 21.975000000079945,
+            "maximum": 23.850000000086766
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 9.300000000033833,
+            "mean": 9.300000000033833,
+            "median": 9.300000000033833,
+            "p90": 9.300000000033833,
+            "maximum": 9.300000000033833
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 17.992676020140408
+      },
+      "decisionTraces": {
+        "decisions": 14846,
+        "attempts": 13260,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 408.374,
+        "wallSeconds": 383.4813771,
+        "peakRSSMiB": 498.16015625,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "c440a802a1e6138e07731f216f56df931c21a1314918c7939726bba3d660b943"
+    },
+    {
+      "path": "docs/performance/pr201/matches/sw-state-value-v1-canonical-pr199-v1.json.gz",
+      "sha256": "44df641e5b1d901cb3b35ea2315fce0d9a2f303e782ab1beaed75a9534ce3986",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "ae4a6354646f8edcea672619fa8faca49199f4f431a7d06d6df62524294c1599",
+        "path": "docs/performance/pr201/source/ae4a6354646f8edcea672619fa8faca49199f4f431a7d06d6df62524294c1599.json.gz"
+      },
+      "design": "sw",
+      "policy": "state-value-v1",
+      "profile": "canonical-pr199",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-38bfe1f6",
+      "inputPath": "docs/performance/PR188-match-dev-sw-state-value-v1-full-observed-final-v1.json",
+      "originalInputHash": "7bab568a74ef736db8075901685bfa579aeafc5f494bc2fea9cbc0f751f0c60b",
+      "initialHash": "b05c0c99554988a29a602ab6ec6649b1238c7c968eee948297d54d29e50fed2e",
+      "finalHash": "af5a9bc2d0209367805f20ff3af1256dc78863e2e01ccebaad4b71e9a3270ab9",
+      "seed": "pr200-development-sw-state-value-v1",
+      "status": "full_time",
+      "seconds": 5923.8500000001595,
+      "ticks": 236955,
+      "passes": {
+        "attempted": 1762,
+        "completed": 989
+      },
+      "receptions": {
+        "trials": 1762,
+        "directTouch": 895,
+        "directControl": 794,
+        "directRetained": 471,
+        "allControl": 816,
+        "allRetained": 481,
+        "deflectedTouch": 23,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 26,
+        "onTarget": 16,
+        "blocked": 1,
+        "saves": 3,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 13,
+        "away": 0
+      },
+      "releases": {
+        "long": 71,
+        "through": 252,
+        "progressive10m": 512,
+        "lofted": 131
+      },
+      "progression": {
+        "finalThirdEntries": 189,
+        "finalThirdPossessionSeconds": 912.19999999826,
+        "boxEntries": 40,
+        "boxTouches": 24,
+        "backwardPasses": 361,
+        "lateralPasses": 479,
+        "progressivePasses": 922,
+        "threatFlow": {
+          "progressiveReceptions": 353,
+          "resultingFinalThirdEntries": 57,
+          "resultingBoxEntries": 0,
+          "resultingShots": 26
+        },
+        "carries": 9529
+      },
+      "possession": {
+        "bothTeamChanges": 897,
+        "bothTeamTurnoverCauses": {
+          "tackle": 267,
+          "interception": 443,
+          "bad_pass": 7,
+          "pass_out": 4,
+          "heavy_touch": 26,
+          "failed_control": 78,
+          "loose_ball_claim": 43,
+          "shot": 22,
+          "foul_stoppage": 1,
+          "other": 7
+        },
+        "homeTurnovers": 439,
+        "looseEpisodes": 705
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 3,
+        "rebounds": 3
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5923.8500000001595,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 523.8500000001595,
+        "ballInPlaySeconds": 4823.225000002092,
+        "deadBallSeconds": 1100.6249999980669,
+        "deadBallByReason": {
+          "period_start": 35.100000000126876,
+          "goal_kick": 194.5999999989947,
+          "goal": 339.22499999969995,
+          "foul": 271.6249999987714,
+          "throw_in": 116.15000000001658,
+          "corner": 14.574999999986744,
+          "substitution": 126.12500000045884,
+          "discipline": 3.2250000000117325
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 35.100000000126876,
+            "mean": 17.550000000063438,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 34.875000000126875
+          },
+          "goal_kick": {
+            "count": 23,
+            "seconds": 241.64999999916586,
+            "mean": 10.506521739094168,
+            "median": 11.875000000043201,
+            "p90": 18.249999999998963,
+            "maximum": 22.825000000083037
+          },
+          "goal": {
+            "count": 13,
+            "seconds": 398.07499999991404,
+            "mean": 30.621153846147234,
+            "median": 30.749999999972033,
+            "p90": 31.99999999953434,
+            "maximum": 32.500000000118234
+          },
+          "foul": {
+            "count": 37,
+            "seconds": 282.0999999988095,
+            "mean": 7.624324324292148,
+            "median": 6.699999999993906,
+            "p90": 11.899999999989177,
+            "maximum": 18.750000000068212
+          },
+          "throw_in": {
+            "count": 12,
+            "seconds": 129.12500000006378,
+            "mean": 10.760416666671981,
+            "median": 11.999999999825377,
+            "p90": 13.075000000047567,
+            "maximum": 13.825000000050295
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 14.574999999986744,
+            "mean": 14.574999999986744,
+            "median": 14.574999999986744,
+            "p90": 14.574999999986744,
+            "maximum": 14.574999999986744
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 21.918944274827346
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 267.359,
+        "wallSeconds": 245.8994206,
+        "peakRSSMiB": 623.90625,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "7bceb443ed1a6171c23f4a4a763686c1de0ed6fdee65837bb4ddc7d7d0506172"
+    },
+    {
+      "path": "docs/performance/pr201/matches/sw-state-value-v1-realism-candidate-no-recovery-v1-v1.json.gz",
+      "sha256": "e45bd846e6ae882e80db3c00a36428bbf03044c8b2ccfe675d1d21719e496052",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "d6c731d6b25040af8cc7ed4c5c471e4c22c167f5f939a056edb2f4511c0fd362",
+        "path": "docs/performance/pr201/source/d6c731d6b25040af8cc7ed4c5c471e4c22c167f5f939a056edb2f4511c0fd362.json.gz"
+      },
+      "design": "sw",
+      "policy": "state-value-v1",
+      "profile": "realism-candidate-no-recovery-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-572e1ce8",
+      "inputPath": "docs/performance/PR188-match-dev-sw-state-value-v1-full-observed-final-v1.json",
+      "originalInputHash": "7bab568a74ef736db8075901685bfa579aeafc5f494bc2fea9cbc0f751f0c60b",
+      "initialHash": "4ca551052b8a1708d67a45d5ed627bb8d24f97c32e084fae3ca0aaa3dd8e5bc3",
+      "finalHash": "6bc828b2b681ce5849042e2620071c766fa1605be64aa200bdfc210f3a7b204b",
+      "seed": "pr200-development-sw-state-value-v1",
+      "status": "full_time",
+      "seconds": 5700,
+      "ticks": 228001,
+      "passes": {
+        "attempted": 1561,
+        "completed": 738
+      },
+      "receptions": {
+        "trials": 1561,
+        "directTouch": 630,
+        "directControl": 541,
+        "directRetained": 302,
+        "allControl": 563,
+        "allRetained": 311,
+        "deflectedTouch": 24,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 15,
+        "onTarget": 7,
+        "blocked": 3,
+        "saves": 2,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 6,
+        "away": 0
+      },
+      "releases": {
+        "long": 86,
+        "through": 238,
+        "progressive10m": 433,
+        "lofted": 97
+      },
+      "progression": {
+        "finalThirdEntries": 142,
+        "finalThirdPossessionSeconds": 800.9749999922017,
+        "boxEntries": 29,
+        "boxTouches": 20,
+        "backwardPasses": 295,
+        "lateralPasses": 442,
+        "progressivePasses": 824,
+        "threatFlow": {
+          "progressiveReceptions": 219,
+          "resultingFinalThirdEntries": 17,
+          "resultingBoxEntries": 0,
+          "resultingShots": 15
+        },
+        "carries": 8167
+      },
+      "possession": {
+        "bothTeamChanges": 930,
+        "bothTeamTurnoverCauses": {
+          "tackle": 264,
+          "interception": 435,
+          "bad_pass": 47,
+          "pass_out": 27,
+          "heavy_touch": 21,
+          "failed_control": 57,
+          "loose_ball_claim": 50,
+          "shot": 13,
+          "foul_stoppage": 3,
+          "other": 15
+        },
+        "homeTurnovers": 454,
+        "looseEpisodes": 720
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 2,
+        "rebounds": 2
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5700,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 300,
+        "ballInPlaySeconds": 4506.32500000137,
+        "deadBallSeconds": 1193.6749999986293,
+        "deadBallByReason": {
+          "period_start": 35.47500000012824,
+          "foul": 189.59999999923212,
+          "goal_kick": 275.1749999999165,
+          "throw_in": 368.44999999893605,
+          "corner": 33.60000000006494,
+          "offside": 14.375000000022169,
+          "goal": 177.49999999996737,
+          "substitution": 99.50000000036198
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 35.47500000012824,
+            "mean": 17.73750000006412,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 35.25000000012824
+          },
+          "foul": {
+            "count": 29,
+            "seconds": 209.89999999930598,
+            "mean": 7.237931034458827,
+            "median": 6.8999999999937245,
+            "p90": 10.424999999848296,
+            "maximum": 17.149999999750435
+          },
+          "goal_kick": {
+            "count": 25,
+            "seconds": 312.700000000053,
+            "mean": 12.50800000000212,
+            "median": 14.374999999986926,
+            "p90": 18.77500000000427,
+            "maximum": 22.025000000080126
+          },
+          "throw_in": {
+            "count": 36,
+            "seconds": 410.12499999908766,
+            "mean": 11.39236111108577,
+            "median": 11.275000000041018,
+            "p90": 13.875000000050477,
+            "maximum": 21.000000000076398
+          },
+          "corner": {
+            "count": 2,
+            "seconds": 33.60000000006494,
+            "mean": 16.80000000003247,
+            "median": 12.59999999998854,
+            "p90": 12.59999999998854,
+            "maximum": 21.000000000076398
+          },
+          "offside": {
+            "count": 2,
+            "seconds": 14.375000000022169,
+            "mean": 7.1875000000110845,
+            "median": 6.624999999993975,
+            "p90": 6.624999999993975,
+            "maximum": 7.750000000028194
+          },
+          "goal": {
+            "count": 6,
+            "seconds": 177.49999999996737,
+            "mean": 29.583333333327896,
+            "median": 29.324999999573265,
+            "p90": 30.77500000011196,
+            "maximum": 31.87499999997101
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 20.78412009785613
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 251.376,
+        "wallSeconds": 229.5335978,
+        "peakRSSMiB": 498.98046875,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "16e9f0ed12a66ee03ac9829f90064bc8bf50caa5faaf1460ed9ff593d67c5acc"
+    },
+    {
+      "path": "docs/performance/pr201/matches/sw-state-value-v1-realism-candidate-v0-v1.json.gz",
+      "sha256": "367363e73f3139ee87c7d2b80155ed057218cb624ea3cd617e9d468831d0db00",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "ae4a6354646f8edcea672619fa8faca49199f4f431a7d06d6df62524294c1599",
+        "path": "docs/performance/pr201/source/ae4a6354646f8edcea672619fa8faca49199f4f431a7d06d6df62524294c1599.json.gz"
+      },
+      "design": "sw",
+      "policy": "state-value-v1",
+      "profile": "realism-candidate-v0",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-800d7b57",
+      "inputPath": "docs/performance/PR188-match-dev-sw-state-value-v1-full-observed-final-v1.json",
+      "originalInputHash": "7bab568a74ef736db8075901685bfa579aeafc5f494bc2fea9cbc0f751f0c60b",
+      "initialHash": "74927f23e60005d28245e74834a465ee72ee8ae7a982f39d8bc00a694030d6a9",
+      "finalHash": "51a52605f7ad3d64c8dfa4028fa82d16b43e5cea690cf47d39001f6898b7e691",
+      "seed": "pr200-development-sw-state-value-v1",
+      "status": "full_time",
+      "seconds": 5700,
+      "ticks": 228001,
+      "passes": {
+        "attempted": 1561,
+        "completed": 738
+      },
+      "receptions": {
+        "trials": 1561,
+        "directTouch": 630,
+        "directControl": 541,
+        "directRetained": 302,
+        "allControl": 563,
+        "allRetained": 311,
+        "deflectedTouch": 24,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 15,
+        "onTarget": 7,
+        "blocked": 3,
+        "saves": 2,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 6,
+        "away": 0
+      },
+      "releases": {
+        "long": 86,
+        "through": 238,
+        "progressive10m": 433,
+        "lofted": 97
+      },
+      "progression": {
+        "finalThirdEntries": 142,
+        "finalThirdPossessionSeconds": 800.9749999922017,
+        "boxEntries": 29,
+        "boxTouches": 20,
+        "backwardPasses": 295,
+        "lateralPasses": 442,
+        "progressivePasses": 824,
+        "threatFlow": {
+          "progressiveReceptions": 219,
+          "resultingFinalThirdEntries": 17,
+          "resultingBoxEntries": 0,
+          "resultingShots": 15
+        },
+        "carries": 8167
+      },
+      "possession": {
+        "bothTeamChanges": 930,
+        "bothTeamTurnoverCauses": {
+          "tackle": 264,
+          "interception": 435,
+          "bad_pass": 47,
+          "pass_out": 27,
+          "heavy_touch": 21,
+          "failed_control": 57,
+          "loose_ball_claim": 50,
+          "shot": 13,
+          "foul_stoppage": 3,
+          "other": 15
+        },
+        "homeTurnovers": 454,
+        "looseEpisodes": 720
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 2,
+        "rebounds": 2
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5700,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 300,
+        "ballInPlaySeconds": 4506.32500000137,
+        "deadBallSeconds": 1193.6749999986293,
+        "deadBallByReason": {
+          "period_start": 35.47500000012824,
+          "foul": 189.59999999923212,
+          "goal_kick": 275.1749999999165,
+          "throw_in": 368.44999999893605,
+          "corner": 33.60000000006494,
+          "offside": 14.375000000022169,
+          "goal": 177.49999999996737,
+          "substitution": 99.50000000036198
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 35.47500000012824,
+            "mean": 17.73750000006412,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 35.25000000012824
+          },
+          "foul": {
+            "count": 29,
+            "seconds": 209.89999999930598,
+            "mean": 7.237931034458827,
+            "median": 6.8999999999937245,
+            "p90": 10.424999999848296,
+            "maximum": 17.149999999750435
+          },
+          "goal_kick": {
+            "count": 25,
+            "seconds": 312.700000000053,
+            "mean": 12.50800000000212,
+            "median": 14.374999999986926,
+            "p90": 18.77500000000427,
+            "maximum": 22.025000000080126
+          },
+          "throw_in": {
+            "count": 36,
+            "seconds": 410.12499999908766,
+            "mean": 11.39236111108577,
+            "median": 11.275000000041018,
+            "p90": 13.875000000050477,
+            "maximum": 21.000000000076398
+          },
+          "corner": {
+            "count": 2,
+            "seconds": 33.60000000006494,
+            "mean": 16.80000000003247,
+            "median": 12.59999999998854,
+            "p90": 12.59999999998854,
+            "maximum": 21.000000000076398
+          },
+          "offside": {
+            "count": 2,
+            "seconds": 14.375000000022169,
+            "mean": 7.1875000000110845,
+            "median": 6.624999999993975,
+            "p90": 6.624999999993975,
+            "maximum": 7.750000000028194
+          },
+          "goal": {
+            "count": 6,
+            "seconds": 177.49999999996737,
+            "mean": 29.583333333327896,
+            "median": 29.324999999573265,
+            "p90": 30.77500000011196,
+            "maximum": 31.87499999997101
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 20.78412009785613
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 261.766,
+        "wallSeconds": 239.601155,
+        "peakRSSMiB": 496.2890625,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "16e9f0ed12a66ee03ac9829f90064bc8bf50caa5faaf1460ed9ff593d67c5acc"
+    },
+    {
+      "path": "docs/performance/pr201/matches/sw-state-value-v1-realism-candidate-v1-v1.json.gz",
+      "sha256": "d844097a77922b029ca9a456790c20a9d15945ff4b45701531ecc993c0243107",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "d6c731d6b25040af8cc7ed4c5c471e4c22c167f5f939a056edb2f4511c0fd362",
+        "path": "docs/performance/pr201/source/d6c731d6b25040af8cc7ed4c5c471e4c22c167f5f939a056edb2f4511c0fd362.json.gz"
+      },
+      "design": "sw",
+      "policy": "state-value-v1",
+      "profile": "realism-candidate-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-2d2162c9",
+      "inputPath": "docs/performance/PR188-match-dev-sw-state-value-v1-full-observed-final-v1.json",
+      "originalInputHash": "7bab568a74ef736db8075901685bfa579aeafc5f494bc2fea9cbc0f751f0c60b",
+      "initialHash": "812ee2e5a5d4fb8480136e3939630b54987a824a53ac5ef16604715f1727df32",
+      "finalHash": "5648b88586ccb1d9784a693f7ac40d93c46744cb9ece07bf29f68a4e134566ba",
+      "seed": "pr200-development-sw-state-value-v1",
+      "status": "full_time",
+      "seconds": 5822.07500000632,
+      "ticks": 232884,
+      "passes": {
+        "attempted": 1707,
+        "completed": 942
+      },
+      "receptions": {
+        "trials": 1707,
+        "directTouch": 864,
+        "directControl": 776,
+        "directRetained": 432,
+        "allControl": 805,
+        "allRetained": 446,
+        "deflectedTouch": 30,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 33,
+        "onTarget": 18,
+        "blocked": 6,
+        "saves": 11,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 9,
+        "away": 0
+      },
+      "releases": {
+        "long": 72,
+        "through": 228,
+        "progressive10m": 450,
+        "lofted": 120
+      },
+      "progression": {
+        "finalThirdEntries": 205,
+        "finalThirdPossessionSeconds": 1126.0249999966443,
+        "boxEntries": 44,
+        "boxTouches": 41,
+        "backwardPasses": 362,
+        "lateralPasses": 504,
+        "progressivePasses": 841,
+        "threatFlow": {
+          "progressiveReceptions": 277,
+          "resultingFinalThirdEntries": 38,
+          "resultingBoxEntries": 1,
+          "resultingShots": 33
+        },
+        "carries": 9332
+      },
+      "possession": {
+        "bothTeamChanges": 881,
+        "bothTeamTurnoverCauses": {
+          "tackle": 263,
+          "interception": 423,
+          "bad_pass": 28,
+          "pass_out": 13,
+          "heavy_touch": 25,
+          "failed_control": 50,
+          "loose_ball_claim": 40,
+          "shot": 27,
+          "foul_stoppage": 6,
+          "other": 6
+        },
+        "homeTurnovers": 429,
+        "looseEpisodes": 681
+      },
+      "goalkeeper": {
+        "catches": 3,
+        "parries": 9,
+        "rebounds": 9
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5822.07500000632,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 422.0750000063199,
+        "ballInPlaySeconds": 4801.875000008328,
+        "deadBallSeconds": 1020.1999999979915,
+        "deadBallByReason": {
+          "period_start": 44.300000000160345,
+          "goal": 266.7500000003244,
+          "goal_kick": 118.22499999963841,
+          "foul": 247.1499999990281,
+          "offside": 21.224999999980696,
+          "throw_in": 145.59999999936997,
+          "substitution": 103.37500000037608,
+          "corner": 64.82499999924084,
+          "discipline": 8.74999999987267
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 44.300000000160345,
+            "mean": 22.150000000080173,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 44.075000000160344
+          },
+          "goal": {
+            "count": 9,
+            "seconds": 266.7500000003244,
+            "mean": 29.638888888924935,
+            "median": 29.650000000107866,
+            "p90": 31.225000000113596,
+            "maximum": 31.450000000114414
+          },
+          "goal_kick": {
+            "count": 18,
+            "seconds": 178.92499999985924,
+            "mean": 9.940277777769957,
+            "median": 11.500000000041837,
+            "p90": 17.07500000006212,
+            "maximum": 26.05000000009477
+          },
+          "foul": {
+            "count": 41,
+            "seconds": 298.574999999056,
+            "mean": 7.282317073147707,
+            "median": 6.8999999999937245,
+            "p90": 11.07500000004029,
+            "maximum": 16.750000000060936
+          },
+          "offside": {
+            "count": 1,
+            "seconds": 21.224999999980696,
+            "mean": 21.224999999980696,
+            "median": 21.224999999980696,
+            "p90": 21.224999999980696,
+            "maximum": 21.224999999980696
+          },
+          "throw_in": {
+            "count": 13,
+            "seconds": 145.59999999936997,
+            "mean": 11.199999999951537,
+            "median": 11.12499999983811,
+            "p90": 13.849999999798456,
+            "maximum": 14.175000000051568
+          },
+          "corner": {
+            "count": 4,
+            "seconds": 64.82499999924084,
+            "mean": 16.20624999981021,
+            "median": 14.699999999786087,
+            "p90": 16.19999999976426,
+            "maximum": 23.799999999653664
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 21.329168293598308
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 275.844,
+        "wallSeconds": 250.8988987,
+        "peakRSSMiB": 554.4375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "d02ecd5cdc26b695d181f86bfb50ba4bfd9ff46edf461935c5a4cf490c05d310"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-hierarchical-intent-v1-canonical-pr199-v1.json.gz",
+      "sha256": "8a7eab47531ae7018be969ca2d002f65059e3636f261e2639404a99bd37bc010",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2",
+        "path": "docs/performance/pr201/source/7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2.json.gz"
+      },
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "profile": "canonical-pr199",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-a3dfaa6d",
+      "inputPath": "docs/performance/PR188-match-dev-ww-hierarchical-intent-v1-full-observed-final-v1.json",
+      "originalInputHash": "47b2b387a53f6186d2b925ebb052e48466b9952ccbd3e88a71359eeaf14ef5bb",
+      "initialHash": "c1dca2591024fcd0ffa3e1d1128208e0aadec655c515acb6119f8f8e6925395d",
+      "finalHash": "6aacc70b2ce71e2f2a77710e9f422af2b580f307941a8d4a24bd239c2216a4c2",
+      "seed": "pr200-development-ww-hierarchical-intent-v1",
+      "status": "full_time",
+      "seconds": 5580,
+      "ticks": 223201,
+      "passes": {
+        "attempted": 1335,
+        "completed": 891
+      },
+      "receptions": {
+        "trials": 1335,
+        "directTouch": 926,
+        "directControl": 917,
+        "directRetained": 594,
+        "allControl": 931,
+        "allRetained": 606,
+        "deflectedTouch": 17,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 2,
+        "onTarget": 1,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "releases": {
+        "long": 4,
+        "through": 0,
+        "progressive10m": 33,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 68,
+        "finalThirdPossessionSeconds": 606.5750000002654,
+        "boxEntries": 17,
+        "boxTouches": 8,
+        "backwardPasses": 351,
+        "lateralPasses": 776,
+        "progressivePasses": 208,
+        "threatFlow": {
+          "progressiveReceptions": 33,
+          "resultingFinalThirdEntries": 5,
+          "resultingBoxEntries": 0,
+          "resultingShots": 2
+        },
+        "carries": 7615
+      },
+      "possession": {
+        "bothTeamChanges": 647,
+        "bothTeamTurnoverCauses": {
+          "tackle": 327,
+          "interception": 194,
+          "bad_pass": 37,
+          "pass_out": 0,
+          "heavy_touch": 18,
+          "failed_control": 12,
+          "loose_ball_claim": 58,
+          "shot": 2,
+          "foul_stoppage": 1,
+          "other": 0
+        },
+        "homeTurnovers": 323,
+        "looseEpisodes": 457
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5580,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 180,
+        "ballInPlaySeconds": 5407.925000000303,
+        "deadBallSeconds": 172.07499999969727,
+        "deadBallByReason": {
+          "period_start": 38.200000000138154,
+          "foul": 51.6750000000186,
+          "substitution": 82.19999999954052
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 38.200000000138154,
+            "mean": 19.100000000069077,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.97500000013815
+          },
+          "foul": {
+            "count": 9,
+            "seconds": 93.82499999994457,
+            "mean": 10.42499999999384,
+            "median": 10.950000000039836,
+            "p90": 14.125000000051386,
+            "maximum": 15.52500000005648
+          },
+          "goal_kick": {
+            "count": 1,
+            "seconds": 10.850000000039472,
+            "mean": 10.850000000039472,
+            "median": 10.850000000039472,
+            "p90": 10.850000000039472,
+            "maximum": 10.850000000039472
+          },
+          "goal": {
+            "count": 1,
+            "seconds": 29.199999999575084,
+            "mean": 29.199999999575084,
+            "median": 29.199999999575084,
+            "p90": 29.199999999575084,
+            "maximum": 29.199999999575084
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 14.81159594483938
+      },
+      "decisionTraces": {
+        "decisions": 13689,
+        "attempts": 11964,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 394.406,
+        "wallSeconds": 371.29793459999996,
+        "peakRSSMiB": 607.16015625,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "9abbea92d7e44dbfd596141f895333189706e0d5703b61aae2d48b126040e580"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-hierarchical-intent-v1-realism-candidate-no-recovery-v1-v1.json.gz",
+      "sha256": "a9d3e5be081619e313739af2ea64189d3d21b57cf75bba39bb1949eb8e199714",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2",
+        "path": "docs/performance/pr201/source/7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2.json.gz"
+      },
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "profile": "realism-candidate-no-recovery-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-1003244d",
+      "inputPath": "docs/performance/PR188-match-dev-ww-hierarchical-intent-v1-full-observed-final-v1.json",
+      "originalInputHash": "47b2b387a53f6186d2b925ebb052e48466b9952ccbd3e88a71359eeaf14ef5bb",
+      "initialHash": "f532d6c259bcd0073a4ed0ea6d9071229428fe191183f7ec46f206863f4ffda0",
+      "finalHash": "7c49ae49ad392ca0015a894bf81bc786e741dd8d6b28bb5d86144c8dfb01bdd3",
+      "seed": "pr200-development-ww-hierarchical-intent-v1",
+      "status": "full_time",
+      "seconds": 5580,
+      "ticks": 223201,
+      "passes": {
+        "attempted": 1400,
+        "completed": 870
+      },
+      "receptions": {
+        "trials": 1400,
+        "directTouch": 908,
+        "directControl": 895,
+        "directRetained": 535,
+        "allControl": 912,
+        "allRetained": 545,
+        "deflectedTouch": 17,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 1,
+        "onTarget": 1,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "releases": {
+        "long": 1,
+        "through": 0,
+        "progressive10m": 37,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 67,
+        "finalThirdPossessionSeconds": 532.2999999997018,
+        "boxEntries": 9,
+        "boxTouches": 7,
+        "backwardPasses": 394,
+        "lateralPasses": 808,
+        "progressivePasses": 198,
+        "threatFlow": {
+          "progressiveReceptions": 23,
+          "resultingFinalThirdEntries": 3,
+          "resultingBoxEntries": 0,
+          "resultingShots": 1
+        },
+        "carries": 7572
+      },
+      "possession": {
+        "bothTeamChanges": 682,
+        "bothTeamTurnoverCauses": {
+          "tackle": 345,
+          "interception": 173,
+          "bad_pass": 73,
+          "pass_out": 0,
+          "heavy_touch": 16,
+          "failed_control": 6,
+          "loose_ball_claim": 68,
+          "shot": 1,
+          "foul_stoppage": 1,
+          "other": 2
+        },
+        "homeTurnovers": 341,
+        "looseEpisodes": 552
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5580,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 180,
+        "ballInPlaySeconds": 5342.524999999894,
+        "deadBallSeconds": 237.47500000010615,
+        "deadBallByReason": {
+          "period_start": 40.8250000001477,
+          "foul": 80.74999999985934,
+          "substitution": 65.40000000000498,
+          "corner": 13.350000000048567,
+          "throw_in": 6.599999999934425,
+          "goal": 30.55000000011114
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 40.8250000001477,
+            "mean": 20.41250000007385,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 40.6000000001477
+          },
+          "foul": {
+            "count": 17,
+            "seconds": 146.14999999986432,
+            "mean": 8.597058823521431,
+            "median": 8.100000000029468,
+            "p90": 14.425000000052478,
+            "maximum": 15.575000000056662
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 13.350000000048567,
+            "mean": 13.350000000048567,
+            "median": 13.350000000048567,
+            "p90": 13.350000000048567,
+            "maximum": 13.350000000048567
+          },
+          "throw_in": {
+            "count": 2,
+            "seconds": 6.599999999934425,
+            "mean": 3.2999999999672127,
+            "median": 1.6750000000060936,
+            "p90": 1.6750000000060936,
+            "maximum": 4.924999999928332
+          },
+          "goal": {
+            "count": 1,
+            "seconds": 30.55000000011114,
+            "mean": 30.55000000011114,
+            "median": 30.55000000011114,
+            "p90": 30.55000000011114,
+            "maximum": 30.55000000011114
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 15.722902560119355
+      },
+      "decisionTraces": {
+        "decisions": 13157,
+        "attempts": 11414,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 372.767,
+        "wallSeconds": 349.09732,
+        "peakRSSMiB": 497.08203125,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "a9f8df5c2a524902bd2013eacc583d0037e6bb6b12fe6c72db02f8b2d3affc57"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-hierarchical-intent-v1-realism-candidate-v0-v1.json.gz",
+      "sha256": "fcb011d3db88aba7b76cbbd8795fc7910d58ed1bc63478e7286660f5d0e1f385",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2",
+        "path": "docs/performance/pr201/source/7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2.json.gz"
+      },
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "profile": "realism-candidate-v0",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-10f154aa",
+      "inputPath": "docs/performance/PR188-match-dev-ww-hierarchical-intent-v1-full-observed-final-v1.json",
+      "originalInputHash": "47b2b387a53f6186d2b925ebb052e48466b9952ccbd3e88a71359eeaf14ef5bb",
+      "initialHash": "78b9cf0eacdb2bbf40b99cdf441fcccebe88072123cd0485748cded5363baf76",
+      "finalHash": "9a9bb07be59da6ee711a38eb0e03f423f425b67aba8a5b679eddbecf1d30bb5c",
+      "seed": "pr200-development-ww-hierarchical-intent-v1",
+      "status": "full_time",
+      "seconds": 5580,
+      "ticks": 223201,
+      "passes": {
+        "attempted": 1400,
+        "completed": 870
+      },
+      "receptions": {
+        "trials": 1400,
+        "directTouch": 908,
+        "directControl": 895,
+        "directRetained": 535,
+        "allControl": 912,
+        "allRetained": 545,
+        "deflectedTouch": 17,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 1,
+        "onTarget": 1,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "releases": {
+        "long": 1,
+        "through": 0,
+        "progressive10m": 37,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 67,
+        "finalThirdPossessionSeconds": 532.2999999997018,
+        "boxEntries": 9,
+        "boxTouches": 7,
+        "backwardPasses": 394,
+        "lateralPasses": 808,
+        "progressivePasses": 198,
+        "threatFlow": {
+          "progressiveReceptions": 23,
+          "resultingFinalThirdEntries": 3,
+          "resultingBoxEntries": 0,
+          "resultingShots": 1
+        },
+        "carries": 7572
+      },
+      "possession": {
+        "bothTeamChanges": 682,
+        "bothTeamTurnoverCauses": {
+          "tackle": 345,
+          "interception": 173,
+          "bad_pass": 73,
+          "pass_out": 0,
+          "heavy_touch": 16,
+          "failed_control": 6,
+          "loose_ball_claim": 68,
+          "shot": 1,
+          "foul_stoppage": 1,
+          "other": 2
+        },
+        "homeTurnovers": 341,
+        "looseEpisodes": 552
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5580,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 180,
+        "ballInPlaySeconds": 5342.524999999894,
+        "deadBallSeconds": 237.47500000010615,
+        "deadBallByReason": {
+          "period_start": 40.8250000001477,
+          "foul": 80.74999999985934,
+          "substitution": 65.40000000000498,
+          "corner": 13.350000000048567,
+          "throw_in": 6.599999999934425,
+          "goal": 30.55000000011114
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 40.8250000001477,
+            "mean": 20.41250000007385,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 40.6000000001477
+          },
+          "foul": {
+            "count": 17,
+            "seconds": 146.14999999986432,
+            "mean": 8.597058823521431,
+            "median": 8.100000000029468,
+            "p90": 14.425000000052478,
+            "maximum": 15.575000000056662
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 13.350000000048567,
+            "mean": 13.350000000048567,
+            "median": 13.350000000048567,
+            "p90": 13.350000000048567,
+            "maximum": 13.350000000048567
+          },
+          "throw_in": {
+            "count": 2,
+            "seconds": 6.599999999934425,
+            "mean": 3.2999999999672127,
+            "median": 1.6750000000060936,
+            "p90": 1.6750000000060936,
+            "maximum": 4.924999999928332
+          },
+          "goal": {
+            "count": 1,
+            "seconds": 30.55000000011114,
+            "mean": 30.55000000011114,
+            "median": 30.55000000011114,
+            "p90": 30.55000000011114,
+            "maximum": 30.55000000011114
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 15.722902560119355
+      },
+      "decisionTraces": {
+        "decisions": 13157,
+        "attempts": 11414,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 407.485,
+        "wallSeconds": 384.05629569999996,
+        "peakRSSMiB": 590.1875,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "a9f8df5c2a524902bd2013eacc583d0037e6bb6b12fe6c72db02f8b2d3affc57"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-hierarchical-intent-v1-realism-candidate-v1-v1.json.gz",
+      "sha256": "62ee362579e285b03b59fb14a1930bb04e4d3fac41d8e155efbf905cc469dc8d",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2",
+        "path": "docs/performance/pr201/source/7a03850c802e1514005b365fb4023808e8702ab061371ad3e260f9ec182785a2.json.gz"
+      },
+      "design": "ww",
+      "policy": "hierarchical-intent-v1",
+      "profile": "realism-candidate-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-6c06a5c6",
+      "inputPath": "docs/performance/PR188-match-dev-ww-hierarchical-intent-v1-full-observed-final-v1.json",
+      "originalInputHash": "47b2b387a53f6186d2b925ebb052e48466b9952ccbd3e88a71359eeaf14ef5bb",
+      "initialHash": "fdf04b9e0b1a8bc60a0115d9b06f0c6403cd5203c68daa116cf1c621f29e47b0",
+      "finalHash": "5e8af1af159378b975cc6a1fc91f4fe4ea3667b333245a48c71107c585625194",
+      "seed": "pr200-development-ww-hierarchical-intent-v1",
+      "status": "full_time",
+      "seconds": 5520.399999984133,
+      "ticks": 220816,
+      "passes": {
+        "attempted": 1566,
+        "completed": 1182
+      },
+      "receptions": {
+        "trials": 1566,
+        "directTouch": 1149,
+        "directControl": 1144,
+        "directRetained": 698,
+        "allControl": 1171,
+        "allRetained": 712,
+        "deflectedTouch": 28,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 0,
+        "onTarget": 0,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "releases": {
+        "long": 3,
+        "through": 0,
+        "progressive10m": 33,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 78,
+        "finalThirdPossessionSeconds": 424.4749999985931,
+        "boxEntries": 3,
+        "boxTouches": 0,
+        "backwardPasses": 372,
+        "lateralPasses": 973,
+        "progressivePasses": 221,
+        "threatFlow": {
+          "progressiveReceptions": 42,
+          "resultingFinalThirdEntries": 11,
+          "resultingBoxEntries": 0,
+          "resultingShots": 0
+        },
+        "carries": 7766
+      },
+      "possession": {
+        "bothTeamChanges": 716,
+        "bothTeamTurnoverCauses": {
+          "tackle": 404,
+          "interception": 190,
+          "bad_pass": 32,
+          "pass_out": 0,
+          "heavy_touch": 9,
+          "failed_control": 5,
+          "loose_ball_claim": 78,
+          "shot": 0,
+          "foul_stoppage": 0,
+          "other": 0
+        },
+        "homeTurnovers": 358,
+        "looseEpisodes": 412
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5520.399999984133,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 120.39999998413259,
+        "ballInPlaySeconds": 5349.074999984113,
+        "deadBallSeconds": 171.32500000002005,
+        "deadBallByReason": {
+          "period_start": 37.2500000001347,
+          "foul": 73.8499999998318,
+          "substitution": 60.22500000005357
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 37.2500000001347,
+            "mean": 18.62500000006735,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.025000000134696
+          },
+          "foul": {
+            "count": 16,
+            "seconds": 134.07499999988536,
+            "mean": 8.379687499992835,
+            "median": 6.85000000002492,
+            "p90": 15.050000000054752,
+            "maximum": 16.900000000061482
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 17.56565387478752
+      },
+      "decisionTraces": {
+        "decisions": 13958,
+        "attempts": 12010,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 364.298,
+        "wallSeconds": 344.41116999999997,
+        "peakRSSMiB": 499.80859375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "8c4a2a9659b1fcc612f63495ce95e7a77d3d638c6ae2a6350dcdea7972c9a32c"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-opportunity-driven-v1-canonical-pr199-v1.json.gz",
+      "sha256": "e8534f02d328ff15cae6ef56eec19ca395c13483998bd340e11466ad3a84055e",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "9366aa1db870a33993a71851b6ae28ea3a65932f111fcac51fd1227ea20c94fd",
+        "path": "docs/performance/pr201/source/9366aa1db870a33993a71851b6ae28ea3a65932f111fcac51fd1227ea20c94fd.json.gz"
+      },
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "profile": "canonical-pr199",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-e4568ab1",
+      "inputPath": "docs/performance/PR188-match-dev-ww-opportunity-driven-v1-full-observed-final-v1.json",
+      "originalInputHash": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+      "initialHash": "556937695cc1f1af73fae57c299c696f49dd81d67bb181fa551a0b5677d15e0e",
+      "finalHash": "8911d224bf1454e0b7952b4761f208c4f77f8a793b9aa7af840ff30a72488bc5",
+      "seed": "pr200-development-ww-opportunity-driven-v1",
+      "status": "full_time",
+      "seconds": 5640,
+      "ticks": 225601,
+      "passes": {
+        "attempted": 1763,
+        "completed": 467
+      },
+      "receptions": {
+        "trials": 1763,
+        "directTouch": 537,
+        "directControl": 495,
+        "directRetained": 230,
+        "allControl": 585,
+        "allRetained": 274,
+        "deflectedTouch": 93,
+        "censored": 2
+      },
+      "shots": {
+        "attempted": 4,
+        "onTarget": 3,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 2,
+        "away": 1
+      },
+      "releases": {
+        "long": 79,
+        "through": 0,
+        "progressive10m": 405,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 95,
+        "finalThirdPossessionSeconds": 627.9249999935196,
+        "boxEntries": 17,
+        "boxTouches": 24,
+        "backwardPasses": 457,
+        "lateralPasses": 595,
+        "progressivePasses": 711,
+        "threatFlow": {
+          "progressiveReceptions": 60,
+          "resultingFinalThirdEntries": 4,
+          "resultingBoxEntries": 0,
+          "resultingShots": 4
+        },
+        "carries": 3760
+      },
+      "possession": {
+        "bothTeamChanges": 1246,
+        "bothTeamTurnoverCauses": {
+          "tackle": 329,
+          "interception": 654,
+          "bad_pass": 64,
+          "pass_out": 11,
+          "heavy_touch": 41,
+          "failed_control": 72,
+          "loose_ball_claim": 70,
+          "shot": 4,
+          "foul_stoppage": 1,
+          "other": 3
+        },
+        "homeTurnovers": 621,
+        "looseEpisodes": 1089
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5640,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 240,
+        "ballInPlaySeconds": 5170.450000001017,
+        "deadBallSeconds": 469.54999999898337,
+        "deadBallByReason": {
+          "period_start": 38.80000000014034,
+          "foul": 55.949999999947835,
+          "goal_kick": 11.124999999998323,
+          "throw_in": 173.2499999990772,
+          "goal": 96.0249999997518,
+          "substitution": 71.29999999998381,
+          "corner": 23.100000000084037
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 38.80000000014034,
+            "mean": 19.40000000007017,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 38.575000000140335
+          },
+          "foul": {
+            "count": 8,
+            "seconds": 71.7750000000054,
+            "mean": 8.971875000000676,
+            "median": 6.9749999998985,
+            "p90": 11.775000000002677,
+            "maximum": 15.825000000057571
+          },
+          "goal_kick": {
+            "count": 3,
+            "seconds": 35.47500000008691,
+            "mean": 11.82500000002897,
+            "median": 11.124999999998323,
+            "p90": 11.124999999998323,
+            "maximum": 15.00000000005457
+          },
+          "throw_in": {
+            "count": 16,
+            "seconds": 204.37499999891486,
+            "mean": 12.773437499932179,
+            "median": 12.249999999821739,
+            "p90": 15.149999999779538,
+            "maximum": 15.975000000058117
+          },
+          "goal": {
+            "count": 3,
+            "seconds": 96.0249999997518,
+            "mean": 32.0083333332506,
+            "median": 32.025000000116506,
+            "p90": 32.025000000116506,
+            "maximum": 32.84999999952197
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 23.100000000084037,
+            "mean": 23.100000000084037,
+            "median": 23.100000000084037,
+            "p90": 23.100000000084037,
+            "maximum": 23.100000000084037
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 20.45856743609922
+      },
+      "decisionTraces": {
+        "decisions": 11539,
+        "attempts": 6702,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 282.843,
+        "wallSeconds": 262.2440302,
+        "peakRSSMiB": 461.12109375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "a9ac965f79aed2cf81588de2af1d5b57bc2f48733cee27b251c010ab4d291444"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1.json.gz",
+      "sha256": "c74b5e0d9ef2e887539f94913a06e381dfa51235157afa57a10b642c5da381d5",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "9cb43071031e6951fa65a0857b8ab3f0186d1b8ba0d729961a561e290bce6464",
+        "path": "docs/performance/pr201/source/9cb43071031e6951fa65a0857b8ab3f0186d1b8ba0d729961a561e290bce6464.json.gz"
+      },
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "profile": "realism-candidate-no-recovery-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-0a93dd83",
+      "inputPath": "docs/performance/PR188-match-dev-ww-opportunity-driven-v1-full-observed-final-v1.json",
+      "originalInputHash": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+      "initialHash": "2d528956d7572926893cc61171f4160b1e31245703898cf5af3cf32e3b491b32",
+      "finalHash": "2bc97e5cab43f8fc2f5ad6436bd8aeec7283ef87b04879512c29f97d977604bc",
+      "seed": "pr200-development-ww-opportunity-driven-v1",
+      "status": "full_time",
+      "seconds": 5520,
+      "ticks": 220801,
+      "passes": {
+        "attempted": 1810,
+        "completed": 517
+      },
+      "receptions": {
+        "trials": 1810,
+        "directTouch": 543,
+        "directControl": 516,
+        "directRetained": 193,
+        "allControl": 593,
+        "allRetained": 240,
+        "deflectedTouch": 82,
+        "censored": 3
+      },
+      "shots": {
+        "attempted": 1,
+        "onTarget": 0,
+        "blocked": 1,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "releases": {
+        "long": 75,
+        "through": 0,
+        "progressive10m": 449,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 106,
+        "finalThirdPossessionSeconds": 614.9999999989118,
+        "boxEntries": 13,
+        "boxTouches": 10,
+        "backwardPasses": 447,
+        "lateralPasses": 641,
+        "progressivePasses": 722,
+        "threatFlow": {
+          "progressiveReceptions": 56,
+          "resultingFinalThirdEntries": 8,
+          "resultingBoxEntries": 0,
+          "resultingShots": 1
+        },
+        "carries": 3465
+      },
+      "possession": {
+        "bothTeamChanges": 1257,
+        "bothTeamTurnoverCauses": {
+          "tackle": 328,
+          "interception": 628,
+          "bad_pass": 92,
+          "pass_out": 11,
+          "heavy_touch": 40,
+          "failed_control": 90,
+          "loose_ball_claim": 68,
+          "shot": 1,
+          "foul_stoppage": 1,
+          "other": 0
+        },
+        "homeTurnovers": 623,
+        "looseEpisodes": 1078
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5520,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 120,
+        "ballInPlaySeconds": 5096.100000000063,
+        "deadBallSeconds": 423.8999999999372,
+        "deadBallByReason": {
+          "period_start": 37.40000000013524,
+          "throw_in": 185.84999999928317,
+          "goal_kick": 24.30000000003008,
+          "corner": 52.70000000019172,
+          "foul": 46.17500000001519,
+          "substitution": 77.47500000028185
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 37.40000000013524,
+            "mean": 18.70000000006762,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.17500000013524
+          },
+          "throw_in": {
+            "count": 17,
+            "seconds": 221.1249999994115,
+            "mean": 13.007352941141853,
+            "median": 13.074999999988108,
+            "p90": 16.274999999763168,
+            "maximum": 18.300000000066575
+          },
+          "goal_kick": {
+            "count": 2,
+            "seconds": 24.30000000003008,
+            "mean": 12.15000000001504,
+            "median": 11.475000000041746,
+            "p90": 11.475000000041746,
+            "maximum": 12.824999999988336
+          },
+          "corner": {
+            "count": 2,
+            "seconds": 52.70000000019172,
+            "mean": 26.35000000009586,
+            "median": 26.150000000095133,
+            "p90": 26.150000000095133,
+            "maximum": 26.55000000009659
+          },
+          "foul": {
+            "count": 9,
+            "seconds": 88.37500000016871,
+            "mean": 9.81944444446319,
+            "median": 10.675000000038835,
+            "p90": 13.000000000047294,
+            "maximum": 18.525000000067394
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 21.310413845881882
+      },
+      "decisionTraces": {
+        "decisions": 11404,
+        "attempts": 6421,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 294.765,
+        "wallSeconds": 274.7818823,
+        "peakRSSMiB": 470.91015625,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "b6c2581f461de5b6c3ac1e7adfb4e9c1d2c794c0716b9f3e4e41a9985067eca6"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-opportunity-driven-v1-realism-candidate-v0-v1.json.gz",
+      "sha256": "61900035853a427e06e055feef918f51234202f235cca5b0852f1def2ebf7d26",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "9366aa1db870a33993a71851b6ae28ea3a65932f111fcac51fd1227ea20c94fd",
+        "path": "docs/performance/pr201/source/9366aa1db870a33993a71851b6ae28ea3a65932f111fcac51fd1227ea20c94fd.json.gz"
+      },
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "profile": "realism-candidate-v0",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-42df0f66",
+      "inputPath": "docs/performance/PR188-match-dev-ww-opportunity-driven-v1-full-observed-final-v1.json",
+      "originalInputHash": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+      "initialHash": "c77560a01251ba91e906fa8d41d44e9057069faf4e032e9288d2fd5c5e854022",
+      "finalHash": "174417eb54c5a1f545b0fd793d3c75b01f4ce60cf53fb7409d2cdf569fbd6398",
+      "seed": "pr200-development-ww-opportunity-driven-v1",
+      "status": "full_time",
+      "seconds": 5520,
+      "ticks": 220801,
+      "passes": {
+        "attempted": 1810,
+        "completed": 517
+      },
+      "receptions": {
+        "trials": 1810,
+        "directTouch": 543,
+        "directControl": 516,
+        "directRetained": 193,
+        "allControl": 593,
+        "allRetained": 240,
+        "deflectedTouch": 82,
+        "censored": 3
+      },
+      "shots": {
+        "attempted": 1,
+        "onTarget": 0,
+        "blocked": 1,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "releases": {
+        "long": 75,
+        "through": 0,
+        "progressive10m": 449,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 106,
+        "finalThirdPossessionSeconds": 614.9999999989118,
+        "boxEntries": 13,
+        "boxTouches": 10,
+        "backwardPasses": 447,
+        "lateralPasses": 641,
+        "progressivePasses": 722,
+        "threatFlow": {
+          "progressiveReceptions": 56,
+          "resultingFinalThirdEntries": 8,
+          "resultingBoxEntries": 0,
+          "resultingShots": 1
+        },
+        "carries": 3465
+      },
+      "possession": {
+        "bothTeamChanges": 1257,
+        "bothTeamTurnoverCauses": {
+          "tackle": 328,
+          "interception": 628,
+          "bad_pass": 92,
+          "pass_out": 11,
+          "heavy_touch": 40,
+          "failed_control": 90,
+          "loose_ball_claim": 68,
+          "shot": 1,
+          "foul_stoppage": 1,
+          "other": 0
+        },
+        "homeTurnovers": 623,
+        "looseEpisodes": 1078
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5520,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 120,
+        "ballInPlaySeconds": 5096.100000000063,
+        "deadBallSeconds": 423.8999999999372,
+        "deadBallByReason": {
+          "period_start": 37.40000000013524,
+          "throw_in": 185.84999999928317,
+          "goal_kick": 24.30000000003008,
+          "corner": 52.70000000019172,
+          "foul": 46.17500000001519,
+          "substitution": 77.47500000028185
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 37.40000000013524,
+            "mean": 18.70000000006762,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.17500000013524
+          },
+          "throw_in": {
+            "count": 17,
+            "seconds": 221.1249999994115,
+            "mean": 13.007352941141853,
+            "median": 13.074999999988108,
+            "p90": 16.274999999763168,
+            "maximum": 18.300000000066575
+          },
+          "goal_kick": {
+            "count": 2,
+            "seconds": 24.30000000003008,
+            "mean": 12.15000000001504,
+            "median": 11.475000000041746,
+            "p90": 11.475000000041746,
+            "maximum": 12.824999999988336
+          },
+          "corner": {
+            "count": 2,
+            "seconds": 52.70000000019172,
+            "mean": 26.35000000009586,
+            "median": 26.150000000095133,
+            "p90": 26.150000000095133,
+            "maximum": 26.55000000009659
+          },
+          "foul": {
+            "count": 9,
+            "seconds": 88.37500000016871,
+            "mean": 9.81944444446319,
+            "median": 10.675000000038835,
+            "p90": 13.000000000047294,
+            "maximum": 18.525000000067394
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 21.310413845881882
+      },
+      "decisionTraces": {
+        "decisions": 11404,
+        "attempts": 6421,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 286.218,
+        "wallSeconds": 267.4514589,
+        "peakRSSMiB": 502.98046875,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "b6c2581f461de5b6c3ac1e7adfb4e9c1d2c794c0716b9f3e4e41a9985067eca6"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-opportunity-driven-v1-realism-candidate-v1-v1.json.gz",
+      "sha256": "071560651cd304325b0e9023abc881982be56833d5f82c2fe97eb26769ebdd3f",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "9cb43071031e6951fa65a0857b8ab3f0186d1b8ba0d729961a561e290bce6464",
+        "path": "docs/performance/pr201/source/9cb43071031e6951fa65a0857b8ab3f0186d1b8ba0d729961a561e290bce6464.json.gz"
+      },
+      "design": "ww",
+      "policy": "opportunity-driven-v1",
+      "profile": "realism-candidate-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-f3b6df18",
+      "inputPath": "docs/performance/PR188-match-dev-ww-opportunity-driven-v1-full-observed-final-v1.json",
+      "originalInputHash": "a3c827a958bccbd7edbfed74528564333db86b6a1d41bdb16134aac1123a510f",
+      "initialHash": "4032d2a9eefba8e9f2e785a014cb1073d9e7082b1774917da37b7a92f5b36122",
+      "finalHash": "042e183b0eb81e315274fcc97449b2853d3308caf3875b2f50278e622ca7a75c",
+      "seed": "pr200-development-ww-opportunity-driven-v1",
+      "status": "full_time",
+      "seconds": 5580,
+      "ticks": 223201,
+      "passes": {
+        "attempted": 1901,
+        "completed": 582
+      },
+      "receptions": {
+        "trials": 1901,
+        "directTouch": 608,
+        "directControl": 576,
+        "directRetained": 241,
+        "allControl": 693,
+        "allRetained": 297,
+        "deflectedTouch": 119,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 1,
+        "onTarget": 0,
+        "blocked": 1,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "releases": {
+        "long": 70,
+        "through": 0,
+        "progressive10m": 431,
+        "lofted": 0
+      },
+      "progression": {
+        "finalThirdEntries": 89,
+        "finalThirdPossessionSeconds": 652.2000000172698,
+        "boxEntries": 14,
+        "boxTouches": 12,
+        "backwardPasses": 471,
+        "lateralPasses": 692,
+        "progressivePasses": 738,
+        "threatFlow": {
+          "progressiveReceptions": 53,
+          "resultingFinalThirdEntries": 6,
+          "resultingBoxEntries": 0,
+          "resultingShots": 1
+        },
+        "carries": 3379
+      },
+      "possession": {
+        "bothTeamChanges": 1270,
+        "bothTeamTurnoverCauses": {
+          "tackle": 331,
+          "interception": 687,
+          "bad_pass": 54,
+          "pass_out": 10,
+          "heavy_touch": 38,
+          "failed_control": 65,
+          "loose_ball_claim": 81,
+          "shot": 1,
+          "foul_stoppage": 2,
+          "other": 3
+        },
+        "homeTurnovers": 632,
+        "looseEpisodes": 1065
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5580,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 180,
+        "ballInPlaySeconds": 5089.524999999581,
+        "deadBallSeconds": 490.4750000004185,
+        "deadBallByReason": {
+          "period_start": 37.700000000136335,
+          "throw_in": 138.8500000000477,
+          "corner": 95.12500000033936,
+          "substitution": 51.55000000018754,
+          "foul": 119.12499999986903,
+          "goal": 29.625000000107775,
+          "goal_kick": 18.49999999973079
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 37.700000000136335,
+            "mean": 18.850000000068167,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.47500000013633
+          },
+          "throw_in": {
+            "count": 14,
+            "seconds": 141.0000000000555,
+            "mean": 10.071428571432536,
+            "median": 11.250000000040927,
+            "p90": 12.59999999998854,
+            "maximum": 13.825000000050295
+          },
+          "corner": {
+            "count": 4,
+            "seconds": 95.12500000033936,
+            "mean": 23.78125000008484,
+            "median": 23.07500000007724,
+            "p90": 25.25000000009186,
+            "maximum": 27.025000000098316
+          },
+          "foul": {
+            "count": 16,
+            "seconds": 168.52500000004875,
+            "mean": 10.532812500003047,
+            "median": 11.650000000042382,
+            "p90": 15.325000000055752,
+            "maximum": 17.025000000061937
+          },
+          "goal": {
+            "count": 1,
+            "seconds": 29.625000000107775,
+            "mean": 29.625000000107775,
+            "median": 29.625000000107775,
+            "p90": 29.625000000107775,
+            "maximum": 29.625000000107775
+          },
+          "goal_kick": {
+            "count": 1,
+            "seconds": 18.49999999973079,
+            "mean": 18.49999999973079,
+            "median": 18.49999999973079,
+            "p90": 18.49999999973079,
+            "maximum": 18.49999999973079
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 22.41073577593378
+      },
+      "decisionTraces": {
+        "decisions": 11667,
+        "attempts": 6511,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 294,
+        "wallSeconds": 273.73971370000004,
+        "peakRSSMiB": 460.6484375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "f9f8d33db22331a12ac0694c7deba6e378687741c4970f06bf0cdd22b45a8f09"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-phase-role-hybrid-v1-canonical-pr199-v1.json.gz",
+      "sha256": "c8908ce48a77a40d5f211a7991e48d99116dce2d6af9487410574e94f005e7f3",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "4326d14684cf4b58befcb96907b283e48d95fc6637f194182fbcacb6341a5b6c",
+        "path": "docs/performance/pr201/source/4326d14684cf4b58befcb96907b283e48d95fc6637f194182fbcacb6341a5b6c.json.gz"
+      },
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "profile": "canonical-pr199",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-31c675f4",
+      "inputPath": "docs/performance/PR188-match-dev-ww-phase-role-hybrid-v1-full-observed-final-v1.json",
+      "originalInputHash": "9258467dd0f5500403ef82c07d9788719e0281439288d6af16ee9a150293a83b",
+      "initialHash": "a8b023309f542ccce08588a663ed2156d21c7cf9c23e1ae61243633392b9d3af",
+      "finalHash": "cb954fd361b89b8ec393a6d4df7575ab81be8a140dd6595001414e8d94b53640",
+      "seed": "pr200-development-ww-phase-role-hybrid-v1",
+      "status": "full_time",
+      "seconds": 5589.9250000056945,
+      "ticks": 223598,
+      "passes": {
+        "attempted": 700,
+        "completed": 374
+      },
+      "receptions": {
+        "trials": 700,
+        "directTouch": 355,
+        "directControl": 306,
+        "directRetained": 285,
+        "allControl": 319,
+        "allRetained": 296,
+        "deflectedTouch": 14,
+        "censored": 0
+      },
+      "shots": {
+        "attempted": 8,
+        "onTarget": 2,
+        "blocked": 0,
+        "saves": 0,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 2
+      },
+      "releases": {
+        "long": 58,
+        "through": 8,
+        "progressive10m": 206,
+        "lofted": 20
+      },
+      "progression": {
+        "finalThirdEntries": 114,
+        "finalThirdPossessionSeconds": 827.4000000153121,
+        "boxEntries": 29,
+        "boxTouches": 13,
+        "backwardPasses": 172,
+        "lateralPasses": 141,
+        "progressivePasses": 387,
+        "threatFlow": {
+          "progressiveReceptions": 154,
+          "resultingFinalThirdEntries": 8,
+          "resultingBoxEntries": 0,
+          "resultingShots": 8
+        },
+        "carries": 9470
+      },
+      "possession": {
+        "bothTeamChanges": 354,
+        "bothTeamTurnoverCauses": {
+          "tackle": 59,
+          "interception": 168,
+          "bad_pass": 6,
+          "pass_out": 3,
+          "heavy_touch": 10,
+          "failed_control": 38,
+          "loose_ball_claim": 31,
+          "shot": 8,
+          "foul_stoppage": 0,
+          "other": 31
+        },
+        "homeTurnovers": 164,
+        "looseEpisodes": 415
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 0,
+        "rebounds": 0
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5589.9250000056945,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 189.92500000569453,
+        "ballInPlaySeconds": 4589.875000007601,
+        "deadBallSeconds": 1000.0499999980939,
+        "deadBallByReason": {
+          "period_start": 38.525000000139336,
+          "foul": 55.89999999978642,
+          "goal_kick": 520.6749999990453,
+          "throw_in": 202.29999999901815,
+          "corner": 15.475000000056298,
+          "substitution": 108.95000000039636,
+          "goal": 58.22499999965203
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 38.525000000139336,
+            "mean": 19.262500000069668,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 38.300000000139335
+          },
+          "foul": {
+            "count": 5,
+            "seconds": 55.89999999978642,
+            "mean": 11.179999999957284,
+            "median": 8.475000000030832,
+            "p90": 15.950000000058026,
+            "maximum": 22.12499999967804
+          },
+          "goal_kick": {
+            "count": 41,
+            "seconds": 620.3249999994079,
+            "mean": 15.129878048766045,
+            "median": 15.750000000057298,
+            "p90": 22.6500000000824,
+            "maximum": 25.875000000094133
+          },
+          "throw_in": {
+            "count": 20,
+            "seconds": 211.599999999052,
+            "mean": 10.5799999999526,
+            "median": 10.349999999849388,
+            "p90": 14.474999999986835,
+            "maximum": 17.299999999748252
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 15.475000000056298,
+            "mean": 15.475000000056298,
+            "median": 15.475000000056298,
+            "p90": 15.475000000056298,
+            "maximum": 15.475000000056298
+          },
+          "goal": {
+            "count": 2,
+            "seconds": 58.22499999965203,
+            "mean": 29.112499999826014,
+            "median": 27.450000000099863,
+            "p90": 27.450000000099863,
+            "maximum": 30.774999999552165
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 9.150575996063171
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 292.172,
+        "wallSeconds": 269.8323495,
+        "peakRSSMiB": 488.1796875,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "2ddc3c53cd060b703668d20f486762f8f81ad51260684a9a15417da04735f797"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-phase-role-hybrid-v1-realism-candidate-no-recovery-v1-v1.json.gz",
+      "sha256": "f8a9149ae296ab1696069f8523f1315965d47e28c4f34ba8f5561cdf3b2b2b6d",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "4326d14684cf4b58befcb96907b283e48d95fc6637f194182fbcacb6341a5b6c",
+        "path": "docs/performance/pr201/source/4326d14684cf4b58befcb96907b283e48d95fc6637f194182fbcacb6341a5b6c.json.gz"
+      },
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "profile": "realism-candidate-no-recovery-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-1ad58e3e",
+      "inputPath": "docs/performance/PR188-match-dev-ww-phase-role-hybrid-v1-full-observed-final-v1.json",
+      "originalInputHash": "9258467dd0f5500403ef82c07d9788719e0281439288d6af16ee9a150293a83b",
+      "initialHash": "39776c233d9f765d434d7d7d44c2127d193a8730ab5644b7cb79d121b71bed21",
+      "finalHash": "477f57c00e05ba32c8b27ad8d37e433b228e938cd320b9e5305bd0d7de7bfaf6",
+      "seed": "pr200-development-ww-phase-role-hybrid-v1",
+      "status": "full_time",
+      "seconds": 5662.174999981851,
+      "ticks": 226487,
+      "passes": {
+        "attempted": 704,
+        "completed": 322
+      },
+      "receptions": {
+        "trials": 704,
+        "directTouch": 307,
+        "directControl": 264,
+        "directRetained": 242,
+        "allControl": 280,
+        "allRetained": 256,
+        "deflectedTouch": 16,
+        "censored": 2
+      },
+      "shots": {
+        "attempted": 16,
+        "onTarget": 5,
+        "blocked": 0,
+        "saves": 3,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "releases": {
+        "long": 54,
+        "through": 0,
+        "progressive10m": 198,
+        "lofted": 8
+      },
+      "progression": {
+        "finalThirdEntries": 112,
+        "finalThirdPossessionSeconds": 902.4999999976947,
+        "boxEntries": 26,
+        "boxTouches": 15,
+        "backwardPasses": 214,
+        "lateralPasses": 133,
+        "progressivePasses": 357,
+        "threatFlow": {
+          "progressiveReceptions": 106,
+          "resultingFinalThirdEntries": 2,
+          "resultingBoxEntries": 0,
+          "resultingShots": 16
+        },
+        "carries": 9138
+      },
+      "possession": {
+        "bothTeamChanges": 391,
+        "bothTeamTurnoverCauses": {
+          "tackle": 58,
+          "interception": 194,
+          "bad_pass": 29,
+          "pass_out": 3,
+          "heavy_touch": 5,
+          "failed_control": 32,
+          "loose_ball_claim": 24,
+          "shot": 14,
+          "foul_stoppage": 0,
+          "other": 32
+        },
+        "homeTurnovers": 176,
+        "looseEpisodes": 474
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 3,
+        "rebounds": 3
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5662.174999981851,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 262.1749999818512,
+        "ballInPlaySeconds": 4593.549999983025,
+        "deadBallSeconds": 1068.6249999988258,
+        "deadBallByReason": {
+          "period_start": 37.675000000136244,
+          "goal_kick": 619.4749999988526,
+          "throw_in": 203.4999999998034,
+          "substitution": 123.22500000044829,
+          "penalty": 11.525000000041928,
+          "goal": 59.274999999668125,
+          "foul": 13.949999999875217
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 37.675000000136244,
+            "mean": 18.837500000068122,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.45000000013624
+          },
+          "goal_kick": {
+            "count": 50,
+            "seconds": 710.8249999991849,
+            "mean": 14.216499999983698,
+            "median": 14.474999999986835,
+            "p90": 19.375000000070486,
+            "maximum": 30.05000000010932
+          },
+          "throw_in": {
+            "count": 21,
+            "seconds": 217.99999999985616,
+            "mean": 10.380952380945532,
+            "median": 10.274999999850479,
+            "p90": 14.50000000005275,
+            "maximum": 15.950000000058026
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 17.37500000006321,
+            "mean": 17.37500000006321,
+            "median": 17.37500000006321,
+            "p90": 17.37500000006321,
+            "maximum": 17.37500000006321
+          },
+          "penalty": {
+            "count": 1,
+            "seconds": 11.525000000041928,
+            "mean": 11.525000000041928,
+            "median": 11.525000000041928,
+            "p90": 11.525000000041928,
+            "maximum": 11.525000000041928
+          },
+          "goal": {
+            "count": 2,
+            "seconds": 59.274999999668125,
+            "mean": 29.637499999834063,
+            "median": 29.175000000106138,
+            "p90": 29.175000000106138,
+            "maximum": 30.099999999561987
+          },
+          "foul": {
+            "count": 3,
+            "seconds": 13.949999999875217,
+            "mean": 4.649999999958406,
+            "median": 2.875000000010459,
+            "p90": 2.875000000010459,
+            "maximum": 9.649999999859574
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 9.195502389253647
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 297.078,
+        "wallSeconds": 272.9324054,
+        "peakRSSMiB": 484.09765625,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "ca7bda7b4399873caf09024306303be24b69cefef38040204f6bc39c06001469"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-phase-role-hybrid-v1-realism-candidate-v0-v1.json.gz",
+      "sha256": "759506d7696e385011bf90bd4f36be24aa25c277fbf268a385dfafc8e0e1e3a2",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "4326d14684cf4b58befcb96907b283e48d95fc6637f194182fbcacb6341a5b6c",
+        "path": "docs/performance/pr201/source/4326d14684cf4b58befcb96907b283e48d95fc6637f194182fbcacb6341a5b6c.json.gz"
+      },
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "profile": "realism-candidate-v0",
+      "implementation": "pr200-integration-v0-final",
+      "configurationFingerprint": "ip0-4501c485",
+      "inputPath": "docs/performance/PR188-match-dev-ww-phase-role-hybrid-v1-full-observed-final-v1.json",
+      "originalInputHash": "9258467dd0f5500403ef82c07d9788719e0281439288d6af16ee9a150293a83b",
+      "initialHash": "dbe8d45ba51f43bae71922fab8a7bf1b1e369ba0453b8336eec06116435cc48c",
+      "finalHash": "467ef0ae96f2427462b388620a7bf8c542aebe0a12b904600d190fa3d28afcf6",
+      "seed": "pr200-development-ww-phase-role-hybrid-v1",
+      "status": "full_time",
+      "seconds": 5662.174999981851,
+      "ticks": 226487,
+      "passes": {
+        "attempted": 704,
+        "completed": 322
+      },
+      "receptions": {
+        "trials": 704,
+        "directTouch": 307,
+        "directControl": 264,
+        "directRetained": 242,
+        "allControl": 280,
+        "allRetained": 256,
+        "deflectedTouch": 16,
+        "censored": 2
+      },
+      "shots": {
+        "attempted": 16,
+        "onTarget": 5,
+        "blocked": 0,
+        "saves": 3,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "releases": {
+        "long": 54,
+        "through": 0,
+        "progressive10m": 198,
+        "lofted": 8
+      },
+      "progression": {
+        "finalThirdEntries": 112,
+        "finalThirdPossessionSeconds": 902.4999999976947,
+        "boxEntries": 26,
+        "boxTouches": 15,
+        "backwardPasses": 214,
+        "lateralPasses": 133,
+        "progressivePasses": 357,
+        "threatFlow": {
+          "progressiveReceptions": 106,
+          "resultingFinalThirdEntries": 2,
+          "resultingBoxEntries": 0,
+          "resultingShots": 16
+        },
+        "carries": 9138
+      },
+      "possession": {
+        "bothTeamChanges": 391,
+        "bothTeamTurnoverCauses": {
+          "tackle": 58,
+          "interception": 194,
+          "bad_pass": 29,
+          "pass_out": 3,
+          "heavy_touch": 5,
+          "failed_control": 32,
+          "loose_ball_claim": 24,
+          "shot": 14,
+          "foul_stoppage": 0,
+          "other": 32
+        },
+        "homeTurnovers": 176,
+        "looseEpisodes": 474
+      },
+      "goalkeeper": {
+        "catches": 0,
+        "parries": 3,
+        "rebounds": 3
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5662.174999981851,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 262.1749999818512,
+        "ballInPlaySeconds": 4593.549999983025,
+        "deadBallSeconds": 1068.6249999988258,
+        "deadBallByReason": {
+          "period_start": 37.675000000136244,
+          "goal_kick": 619.4749999988526,
+          "throw_in": 203.4999999998034,
+          "substitution": 123.22500000044829,
+          "penalty": 11.525000000041928,
+          "goal": 59.274999999668125,
+          "foul": 13.949999999875217
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 37.675000000136244,
+            "mean": 18.837500000068122,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.45000000013624
+          },
+          "goal_kick": {
+            "count": 50,
+            "seconds": 710.8249999991849,
+            "mean": 14.216499999983698,
+            "median": 14.474999999986835,
+            "p90": 19.375000000070486,
+            "maximum": 30.05000000010932
+          },
+          "throw_in": {
+            "count": 21,
+            "seconds": 217.99999999985616,
+            "mean": 10.380952380945532,
+            "median": 10.274999999850479,
+            "p90": 14.50000000005275,
+            "maximum": 15.950000000058026
+          },
+          "corner": {
+            "count": 1,
+            "seconds": 17.37500000006321,
+            "mean": 17.37500000006321,
+            "median": 17.37500000006321,
+            "p90": 17.37500000006321,
+            "maximum": 17.37500000006321
+          },
+          "penalty": {
+            "count": 1,
+            "seconds": 11.525000000041928,
+            "mean": 11.525000000041928,
+            "median": 11.525000000041928,
+            "p90": 11.525000000041928,
+            "maximum": 11.525000000041928
+          },
+          "goal": {
+            "count": 2,
+            "seconds": 59.274999999668125,
+            "mean": 29.637499999834063,
+            "median": 29.175000000106138,
+            "p90": 29.175000000106138,
+            "maximum": 30.099999999561987
+          },
+          "foul": {
+            "count": 3,
+            "seconds": 13.949999999875217,
+            "mean": 4.649999999958406,
+            "median": 2.875000000010459,
+            "p90": 2.875000000010459,
+            "maximum": 9.649999999859574
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 9.195502389253647
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 309.626,
+        "wallSeconds": 285.16420789999995,
+        "peakRSSMiB": 482.0390625,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "ca7bda7b4399873caf09024306303be24b69cefef38040204f6bc39c06001469"
+    },
+    {
+      "path": "docs/performance/pr201/matches/ww-phase-role-hybrid-v1-realism-candidate-v1-v1.json.gz",
+      "sha256": "fd12004333b6c3c59acd007f41f022f98b18a7171537faf84a0a8d7e5698c22a",
+      "source": {
+        "base": "df6d93df39d1bebfa5d395e29620224670520971",
+        "fingerprint": "4326d14684cf4b58befcb96907b283e48d95fc6637f194182fbcacb6341a5b6c",
+        "path": "docs/performance/pr201/source/4326d14684cf4b58befcb96907b283e48d95fc6637f194182fbcacb6341a5b6c.json.gz"
+      },
+      "design": "ww",
+      "policy": "phase-role-hybrid-v1",
+      "profile": "realism-candidate-v1",
+      "implementation": "pr201-receiver-recovery-v1",
+      "configurationFingerprint": "ip0-39a781c3",
+      "inputPath": "docs/performance/PR188-match-dev-ww-phase-role-hybrid-v1-full-observed-final-v1.json",
+      "originalInputHash": "9258467dd0f5500403ef82c07d9788719e0281439288d6af16ee9a150293a83b",
+      "initialHash": "c232020622fdef2ddd67c616debd321b1c9ff2c9bfba5b4cc32dcfa542cba555",
+      "finalHash": "373566532cb2cf71a5d391e8c2d00a3cbba8a364c429d71db65668c67b53a97c",
+      "seed": "pr200-development-ww-phase-role-hybrid-v1",
+      "status": "full_time",
+      "seconds": 5671.424999981498,
+      "ticks": 226857,
+      "passes": {
+        "attempted": 710,
+        "completed": 371
+      },
+      "receptions": {
+        "trials": 710,
+        "directTouch": 352,
+        "directControl": 323,
+        "directRetained": 299,
+        "allControl": 344,
+        "allRetained": 315,
+        "deflectedTouch": 22,
+        "censored": 1
+      },
+      "shots": {
+        "attempted": 16,
+        "onTarget": 6,
+        "blocked": 1,
+        "saves": 3,
+        "failedSaves": 0
+      },
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "releases": {
+        "long": 49,
+        "through": 1,
+        "progressive10m": 185,
+        "lofted": 12
+      },
+      "progression": {
+        "finalThirdEntries": 102,
+        "finalThirdPossessionSeconds": 981.3499999970348,
+        "boxEntries": 33,
+        "boxTouches": 19,
+        "backwardPasses": 238,
+        "lateralPasses": 138,
+        "progressivePasses": 334,
+        "threatFlow": {
+          "progressiveReceptions": 108,
+          "resultingFinalThirdEntries": 5,
+          "resultingBoxEntries": 0,
+          "resultingShots": 16
+        },
+        "carries": 9271
+      },
+      "possession": {
+        "bothTeamChanges": 363,
+        "bothTeamTurnoverCauses": {
+          "tackle": 69,
+          "interception": 172,
+          "bad_pass": 6,
+          "pass_out": 6,
+          "heavy_touch": 6,
+          "failed_control": 35,
+          "loose_ball_claim": 21,
+          "shot": 15,
+          "foul_stoppage": 1,
+          "other": 32
+        },
+        "homeTurnovers": 159,
+        "looseEpisodes": 409
+      },
+      "goalkeeper": {
+        "catches": 1,
+        "parries": 2,
+        "rebounds": 2
+      },
+      "playingTime": {
+        "canonicalElapsedSeconds": 5671.424999981498,
+        "regulationSeconds": 5400,
+        "addedSecondsActuallyPlayed": 271.42499998149833,
+        "ballInPlaySeconds": 4564.949999983209,
+        "deadBallSeconds": 1106.4749999982894,
+        "deadBallByReason": {
+          "period_start": 37.700000000136335,
+          "goal_kick": 560.6749999990511,
+          "throw_in": 189.49999999926342,
+          "foul": 58.72499999990396,
+          "goal": 89.97500000019238,
+          "substitution": 75.1500000002734,
+          "corner": 94.74999999946886
+        },
+        "restartDurations": {
+          "period_start": {
+            "count": 2,
+            "seconds": 37.700000000136335,
+            "mean": 18.850000000068167,
+            "median": 0.22499999999999998,
+            "p90": 0.22499999999999998,
+            "maximum": 37.47500000013633
+          },
+          "goal_kick": {
+            "count": 45,
+            "seconds": 635.8249999993245,
+            "mean": 14.129444444429433,
+            "median": 14.87499999978354,
+            "p90": 20.30000000007385,
+            "maximum": 23.600000000085856
+          },
+          "throw_in": {
+            "count": 20,
+            "seconds": 189.49999999926342,
+            "mean": 9.47499999996317,
+            "median": 9.099999999867578,
+            "p90": 13.350000000048567,
+            "maximum": 15.27500000005557
+          },
+          "foul": {
+            "count": 6,
+            "seconds": 58.72499999990396,
+            "mean": 9.787499999983993,
+            "median": 6.949999999993679,
+            "p90": 13.074999999988108,
+            "maximum": 20.77500000007558
+          },
+          "goal": {
+            "count": 3,
+            "seconds": 89.97500000019238,
+            "mean": 29.991666666730794,
+            "median": 29.77500000010832,
+            "p90": 29.77500000010832,
+            "maximum": 30.52500000011105
+          },
+          "corner": {
+            "count": 5,
+            "seconds": 94.74999999946886,
+            "mean": 18.94999999989377,
+            "median": 21.725000000079035,
+            "p90": 21.874999999681677,
+            "maximum": 24.875000000090495
+          }
+        },
+        "unclassifiedDeadBallSeconds": 0,
+        "humanDecisionPauseSeconds": 0,
+        "passesPerInPlayMinute": 9.331975158579327
+      },
+      "decisionTraces": {
+        "decisions": 0,
+        "attempts": 0,
+        "menuCoverage": "unavailable; selected profiles disable active perception and transition intelligence",
+        "candidates": null,
+        "rejections": null
+      },
+      "costs": {
+        "cpuSeconds": 307.203,
+        "wallSeconds": 283.7568126,
+        "peakRSSMiB": 500.49609375,
+        "node": "v24.22.1",
+        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "scope": "concurrent development host; compact observers"
+      },
+      "physicalLedgerHash": "f9aab1bce40ed97be7b78b77d007c5b4fd0b6fe2cf01b4c7d6f8ddf8b795e7ca"
+    }
+  ],
+  "comparisons": [
+    {
+      "fixture": "ss/opportunity-driven-v1",
+      "arms": {
+        "canonical-pr199": "docs/performance/pr201/matches/ss-opportunity-driven-v1-canonical-pr199-v1.json.gz",
+        "realism-candidate-v0": "docs/performance/pr201/matches/ss-opportunity-driven-v1-realism-candidate-v0-v1.json.gz",
+        "realism-candidate-v1": "docs/performance/pr201/matches/ss-opportunity-driven-v1-realism-candidate-v1-v1.json.gz",
+        "realism-candidate-no-recovery-v1": "docs/performance/pr201/matches/ss-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1.json.gz"
+      },
+      "completedPassDelta": 133,
+      "directControlDelta": 92,
+      "directRetentionDelta": 17,
+      "shotDelta": 0,
+      "cpuRatio": 0.884332012741214,
+      "recoveryOffLedgerEqualsPR200": true
+    },
+    {
+      "fixture": "ss/state-value-v1",
+      "arms": {
+        "canonical-pr199": "docs/performance/pr201/matches/ss-state-value-v1-canonical-pr199-v1.json.gz",
+        "realism-candidate-v0": "docs/performance/pr201/matches/ss-state-value-v1-realism-candidate-v0-v1.json.gz",
+        "realism-candidate-v1": "docs/performance/pr201/matches/ss-state-value-v1-realism-candidate-v1-v1.json.gz",
+        "realism-candidate-no-recovery-v1": "docs/performance/pr201/matches/ss-state-value-v1-realism-candidate-no-recovery-v1-v1.json.gz"
+      },
+      "completedPassDelta": 145,
+      "directControlDelta": 151,
+      "directRetentionDelta": 86,
+      "shotDelta": 2,
+      "cpuRatio": 0.9981025553291755,
+      "recoveryOffLedgerEqualsPR200": true
+    },
+    {
+      "fixture": "sw/contextual-judgment-v1",
+      "arms": {
+        "canonical-pr199": "docs/performance/pr201/matches/sw-contextual-judgment-v1-canonical-pr199-v1.json.gz",
+        "realism-candidate-v0": "docs/performance/pr201/matches/sw-contextual-judgment-v1-realism-candidate-v0-v1.json.gz",
+        "realism-candidate-v1": "docs/performance/pr201/matches/sw-contextual-judgment-v1-realism-candidate-v1-v1.json.gz",
+        "realism-candidate-no-recovery-v1": "docs/performance/pr201/matches/sw-contextual-judgment-v1-realism-candidate-no-recovery-v1-v1.json.gz"
+      },
+      "completedPassDelta": 389,
+      "directControlDelta": 346,
+      "directRetentionDelta": 128,
+      "shotDelta": -24,
+      "cpuRatio": 1.1534457289568898,
+      "recoveryOffLedgerEqualsPR200": true
+    },
+    {
+      "fixture": "sw/state-value-v1",
+      "arms": {
+        "canonical-pr199": "docs/performance/pr201/matches/sw-state-value-v1-canonical-pr199-v1.json.gz",
+        "realism-candidate-v0": "docs/performance/pr201/matches/sw-state-value-v1-realism-candidate-v0-v1.json.gz",
+        "realism-candidate-v1": "docs/performance/pr201/matches/sw-state-value-v1-realism-candidate-v1-v1.json.gz",
+        "realism-candidate-no-recovery-v1": "docs/performance/pr201/matches/sw-state-value-v1-realism-candidate-no-recovery-v1-v1.json.gz"
+      },
+      "completedPassDelta": 204,
+      "directControlDelta": 235,
+      "directRetentionDelta": 130,
+      "shotDelta": 18,
+      "cpuRatio": 1.0537808577126135,
+      "recoveryOffLedgerEqualsPR200": true
+    },
+    {
+      "fixture": "ww/hierarchical-intent-v1",
+      "arms": {
+        "canonical-pr199": "docs/performance/pr201/matches/ww-hierarchical-intent-v1-canonical-pr199-v1.json.gz",
+        "realism-candidate-v0": "docs/performance/pr201/matches/ww-hierarchical-intent-v1-realism-candidate-v0-v1.json.gz",
+        "realism-candidate-v1": "docs/performance/pr201/matches/ww-hierarchical-intent-v1-realism-candidate-v1-v1.json.gz",
+        "realism-candidate-no-recovery-v1": "docs/performance/pr201/matches/ww-hierarchical-intent-v1-realism-candidate-no-recovery-v1-v1.json.gz"
+      },
+      "completedPassDelta": 312,
+      "directControlDelta": 249,
+      "directRetentionDelta": 163,
+      "shotDelta": -1,
+      "cpuRatio": 0.8940157306403916,
+      "recoveryOffLedgerEqualsPR200": true
+    },
+    {
+      "fixture": "ww/opportunity-driven-v1",
+      "arms": {
+        "canonical-pr199": "docs/performance/pr201/matches/ww-opportunity-driven-v1-canonical-pr199-v1.json.gz",
+        "realism-candidate-v0": "docs/performance/pr201/matches/ww-opportunity-driven-v1-realism-candidate-v0-v1.json.gz",
+        "realism-candidate-v1": "docs/performance/pr201/matches/ww-opportunity-driven-v1-realism-candidate-v1-v1.json.gz",
+        "realism-candidate-no-recovery-v1": "docs/performance/pr201/matches/ww-opportunity-driven-v1-realism-candidate-no-recovery-v1-v1.json.gz"
+      },
+      "completedPassDelta": 65,
+      "directControlDelta": 60,
+      "directRetentionDelta": 48,
+      "shotDelta": 0,
+      "cpuRatio": 1.027189065677211,
+      "recoveryOffLedgerEqualsPR200": true
+    },
+    {
+      "fixture": "ww/phase-role-hybrid-v1",
+      "arms": {
+        "canonical-pr199": "docs/performance/pr201/matches/ww-phase-role-hybrid-v1-canonical-pr199-v1.json.gz",
+        "realism-candidate-v0": "docs/performance/pr201/matches/ww-phase-role-hybrid-v1-realism-candidate-v0-v1.json.gz",
+        "realism-candidate-v1": "docs/performance/pr201/matches/ww-phase-role-hybrid-v1-realism-candidate-v1-v1.json.gz",
+        "realism-candidate-no-recovery-v1": "docs/performance/pr201/matches/ww-phase-role-hybrid-v1-realism-candidate-no-recovery-v1-v1.json.gz"
+      },
+      "completedPassDelta": 49,
+      "directControlDelta": 59,
+      "directRetentionDelta": 57,
+      "shotDelta": 0,
+      "cpuRatio": 0.9921744297959474,
+      "recoveryOffLedgerEqualsPR200": true
+    }
+  ],
+  "decision": "NOT_READY_FOR_PROMOTION",
+  "mechanismDecision": "RETAIN_EXPERIMENTAL",
+  "canonical": "NOT READY",
+  "independentConfirmation": "sealed",
+  "limitations": [
+    "One dependent development seed per configuration, not independent match populations",
+    "Whole-match costs include different event/stoppage histories and concurrent host load",
+    "Raw control/retention are not necessarily nested under direct touch; strict direct counts remain separate",
+    "Candidate menus unavailable in these profiles; inherited zero counters do not show absence",
+    "Disruption turnovers use home perspective; football possession-change counters cover both teams"
+  ]
+}

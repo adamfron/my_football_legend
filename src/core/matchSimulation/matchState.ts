@@ -1,5 +1,9 @@
 import { z } from 'zod';
-import { integrationSelectionSchema, integrationStateErrors } from './integrationProfile';
+import {
+  boundedReceiverRecoverySchema,
+  integrationSelectionSchema,
+  integrationStateErrors,
+} from './integrationProfile';
 import { liveBallFlightRuntimeSchema, type LiveBallFlightRuntime } from './liveBallFlight';
 import { experimentalBodyContactsSchema } from './ballSurfaceContact';
 import {
@@ -807,6 +811,7 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  boundedReceiverRecovery?: z.infer<typeof boundedReceiverRecoverySchema>;
   experimentalDefensiveReception?: boolean;
   integrationProfile?: z.infer<typeof integrationSelectionSchema>;
   experimentalBoundedBallFlightBelief?: boolean;
@@ -1041,6 +1046,7 @@ export interface TacticalMatchState {
 // are already validated by the canonical world database schema.
 export const tacticalMatchStateSchema = z
   .object({
+    boundedReceiverRecovery: boundedReceiverRecoverySchema.optional(),
     experimentalBodyContacts: experimentalBodyContactsSchema.optional(),
     experimentalBallRecovery: z.boolean().optional(),
     experimentalCanonicalArrival: z.boolean().optional(),
