@@ -22,7 +22,9 @@ jobs:
           - group: integration
             command: npm run generate:world-db && npm run test:match-integration
           - group: career
-            command: npm run generate:world-db && npm run test:match-contract && npm run test:full-career
+            # Temporary rollout proof: execute the literal full verify on Linux.
+            # Final scheduling restores this worker's original bounded command.
+            command: npm run verify
     env:
       # Simulation parity tests keep their original time limits on a shared CPU.
       VITEST_MAX_WORKERS: '1'
