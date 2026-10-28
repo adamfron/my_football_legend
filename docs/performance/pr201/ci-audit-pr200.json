@@ -1,0 +1,155 @@
+{
+  "runId": 40615970630,
+  "head": "27fc1a0cf3a2900df2415048e11c64983985b521",
+  "note": "Four sampled logs, not an exhaustive billing or critical-path measurement. 32 of 43 job metadata returned by connector first page.",
+  "rows": [
+    {
+      "name": "Historical checks (passing)",
+      "jobId": 122578847780,
+      "wallSeconds": 48.781,
+      "stages": [
+        {
+          "at": "2026-10-28T01:37:06.6178191Z",
+          "line": "2026-10-28T01:37:06.6178191Z ##[group]Run actions/checkout@v4"
+        },
+        {
+          "at": "2026-10-28T01:37:31.9724459Z",
+          "line": "2026-10-28T01:37:31.9724459Z ##[group]Run actions/setup-node@v4"
+        },
+        {
+          "at": "2026-10-28T01:37:33.4096797Z",
+          "line": "2026-10-28T01:37:33.4096797Z ##[group]Run npm ci"
+        },
+        {
+          "at": "2026-10-28T01:37:38.4387368Z",
+          "line": "2026-10-28T01:37:38.4387368Z added 245 packages, and audited 246 packages in 5s"
+        },
+        {
+          "at": "2026-10-28T01:37:38.5425201Z",
+          "line": "2026-10-28T01:37:38.5425201Z ##[group]Run npm run generate:world-db"
+        },
+        {
+          "at": "2026-10-28T01:37:39.5695879Z",
+          "line": "2026-10-28T01:37:39.5695879Z ##[group]Run npm run benchmark:pr197:check && npm run benchmark:pr197:replay && npm run benchmark:pr198:check && npm run benchmark:pr198:replay"
+        },
+        {
+          "at": "2026-10-28T01:37:53.3873434Z",
+          "line": "2026-10-28T01:37:53.3873434Z ##[group]Run git diff --exit-code -- docs/performance docs/match-engine"
+        }
+      ]
+    },
+    {
+      "name": "PR200 complete matches (sw-state-value-v1, current)",
+      "jobId": 122578848074,
+      "wallSeconds": 668.623,
+      "stages": [
+        {
+          "at": "2026-10-28T01:37:07.6970269Z",
+          "line": "2026-10-28T01:37:07.6970269Z ##[group]Run actions/checkout@v4"
+        },
+        {
+          "at": "2026-10-28T01:37:46.2541256Z",
+          "line": "2026-10-28T01:37:46.2541256Z ##[group]Run actions/setup-node@v4"
+        },
+        {
+          "at": "2026-10-28T01:38:11.6164390Z",
+          "line": "2026-10-28T01:38:11.6164390Z ##[group]Run npm ci"
+        },
+        {
+          "at": "2026-10-28T01:38:21.4606922Z",
+          "line": "2026-10-28T01:38:21.4606922Z added 243 packages, and audited 244 packages in 8s"
+        },
+        {
+          "at": "2026-10-28T01:38:23.8153706Z",
+          "line": "2026-10-28T01:38:23.8153706Z ##[group]Run npm run benchmark:pr200:source-replay -- --case=matches-sw-state-value-v1 --cohort=current"
+        },
+        {
+          "at": "2026-10-28T01:43:26.7618539Z",
+          "line": "2026-10-28T01:43:26.7618539Z PR200 exact-source replay PASS match-sw-state-value-v1-canonical-pr199-v1"
+        },
+        {
+          "at": "2026-10-28T01:48:12.1735242Z",
+          "line": "2026-10-28T01:48:12.1735242Z PR200 current-source physical equivalence PASS match-sw-state-value-v1-realism-candidate-v0-v3"
+        },
+        {
+          "at": "2026-10-28T01:48:12.2770296Z",
+          "line": "2026-10-28T01:48:12.2770296Z ##[group]Run git diff --exit-code -- docs/performance docs/match-engine"
+        }
+      ]
+    },
+    {
+      "name": "verify (main)",
+      "jobId": 122578848192,
+      "wallSeconds": 545.56,
+      "stages": [
+        {
+          "at": "2026-10-28T01:44:12.3293672Z",
+          "line": "2026-10-28T01:44:12.3293672Z ##[group]Run actions/checkout@v4"
+        },
+        {
+          "at": "2026-10-28T01:44:40.4430237Z",
+          "line": "2026-10-28T01:44:40.4430237Z ##[group]Run actions/setup-node@v4"
+        },
+        {
+          "at": "2026-10-28T01:44:42.9063300Z",
+          "line": "2026-10-28T01:44:42.9063300Z ##[group]Run npm ci"
+        },
+        {
+          "at": "2026-10-28T01:44:46.5105974Z",
+          "line": "2026-10-28T01:44:46.5105974Z added 245 packages, and audited 246 packages in 4s"
+        },
+        {
+          "at": "2026-10-28T01:44:46.6265581Z",
+          "line": "2026-10-28T01:44:46.6265581Z ##[group]Run npm run lint && npm run test:unit && npm run build"
+        },
+        {
+          "at": "2026-10-28T01:53:01.5932724Z",
+          "line": "2026-10-28T01:53:01.5932724Z \u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m262 passed\u001b[39m\u001b[22m\u001b[90m (262)\u001b[39m"
+        },
+        {
+          "at": "2026-10-28T01:53:01.5949133Z",
+          "line": "2026-10-28T01:53:01.5949133Z \u001b[2m   Duration \u001b[22m 476.03s\u001b[2m (transform 6.45s, setup 0ms, import 93.63s, tests 313.74s, environment 42.64s)\u001b[22m"
+        },
+        {
+          "at": "2026-10-28T01:53:16.8342055Z",
+          "line": "2026-10-28T01:53:16.8342055Z ##[group]Run test -f dist/data/world/pl-2026-v2.json"
+        }
+      ]
+    },
+    {
+      "name": "PR200 local (frozen-final)",
+      "jobId": 122578848228,
+      "wallSeconds": 188.454,
+      "stages": [
+        {
+          "at": "2026-10-28T01:37:06.3379979Z",
+          "line": "2026-10-28T01:37:06.3379979Z ##[group]Run actions/checkout@v4"
+        },
+        {
+          "at": "2026-10-28T01:37:29.7007334Z",
+          "line": "2026-10-28T01:37:29.7007334Z ##[group]Run actions/setup-node@v4"
+        },
+        {
+          "at": "2026-10-28T01:37:31.3602859Z",
+          "line": "2026-10-28T01:37:31.3602859Z ##[group]Run npm ci"
+        },
+        {
+          "at": "2026-10-28T01:37:34.0896052Z",
+          "line": "2026-10-28T01:37:34.0896052Z added 245 packages, and audited 246 packages in 3s"
+        },
+        {
+          "at": "2026-10-28T01:37:34.1705460Z",
+          "line": "2026-10-28T01:37:34.1705460Z ##[group]Run npm run benchmark:pr200:source-replay -- --case=frozen-final"
+        },
+        {
+          "at": "2026-10-28T01:40:13.5065755Z",
+          "line": "2026-10-28T01:40:13.5065755Z PR200 current-source physical equivalence PASS frozen-final"
+        },
+        {
+          "at": "2026-10-28T01:40:13.5421298Z",
+          "line": "2026-10-28T01:40:13.5421298Z ##[group]Run git diff --exit-code -- docs/performance docs/match-engine"
+        }
+      ]
+    }
+  ]
+}

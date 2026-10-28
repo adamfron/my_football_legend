@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+## PR201 — Ograniczona percepcja i odzyskanie przyjęć
+
+[Raport PR201](PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) wskazuje konkretny błąd autorytetu ruchu: brak lokalnego celu przyjęcia wysyłał odbiorcę do odległej kotwicy formacji. Wersjonowane `hold-local-v1` zleca fizyczne hamowanie w aktualnym miejscu, dopóki legalny cel lub wyższy autorytet nie dostarczy zamiaru. Jedna obserwacja nadal nie ujawnia prędkości. Badane reakcje na samą pozycję i odświeżanie zegara ruchu nie odzyskały żadnego z11 wybranych kontaktów; nie są wdrożone jako domniemana naprawa.
+
+Na tych samych180 piłkach bezpośredni kontakt/kontrola/utrzymanie rosną100/73/73→124/97/96; na90 świeżych PR20027/22/20→36/32/28; na90 nowych development26/22/21→35/32/31. Cenzorowanie jest osobne. Zachowano siedem sparowanych strat utrzymania, rzeczywiste dalsze decyzje oraz42/42 identycznych fizycznych kontynuacji bramkarza. Pełne mecze i koszty są rozliczone osobno w raporcie; lepsze lokalne przyjęcia nie certyfikują wyniku meczu.
+
+`realism-candidate-v1` i jego izolowana ablacja mają osobną tożsamość; `realism-candidate-v0` zachowuje historyczne znaczenie. **RETAIN_EXPERIMENTAL; cały kandydat NOT_READY_FOR_PROMOTION; canonical NOT READY; B domyślne; confirmation zamknięte;135 ID i zero COMPLETE.** Zachowane są40 Hz,28 atrybutów, stare zapisy, sprawczość człowieka i wszystkie wcześniejsze zobowiązania kariery/świata. [Propozycja PR202](PR202_LEAN_CI_AND_HISTORICAL_EVIDENCE_PRESERVATION_PROPOSAL.md) dotyczy mierzonego grupowania CI; PR201 nie zwiększa liczby43 kontroli. Poniższe etapy są historią.
+
 ## PR200 — Wykonywalny kandydat integracji MatchEngine
 
 [Raport PR200](PR200_MATCH_ENGINE_INTEGRATION_CANDIDATE_RECEIVER_MOTOR_AND_BOUNDED_PERCEPTION.md) wprowadza wersjonowany profil `realism-candidate-v0`, osobny wybór polityki, walidację zależności i rzeczywiste porównania pełnych meczów. Nowa, osobno włączana percepcja łączy sensory, przekonanie i wskazanych konsumentów ruchu odbiorcy/bramkarza; nie przekazuje ukrytej prędkości ani spinu. Zachowuje prawdziwe czasy obserwacji i bramkuje aktywną obronę.

@@ -1,0 +1,16 @@
+{
+  "schema": "pr201-final-main-baseline-v1",
+  "base": "df6d93df39d1bebfa5d395e29620224670520971",
+  "source": {
+    "base": "df6d93df39d1bebfa5d395e29620224670520971",
+    "fingerprint": "6be9ab10daae4be9affffe1e5460e872ed875bfdb80637ffd5203eefc5715c67",
+    "path": "docs/performance/pr201/source/6be9ab10daae4be9affffe1e5460e872ed875bfdb80637ffd5203eefc5715c67.json.gz"
+  },
+  "comparison": "docs/performance/pr201/matches/ss-state-value-v1-canonical-pr199-v1.json.gz",
+  "initialHash": "dea65313dda1ee4882ef6ee10f11f247c018bde8c4d3cd5d15119516b26f2919",
+  "finalHash": "ceec828cd61b044e675cfb827b20142ecdfd04266f018d4efbd4ee7b014b3000",
+  "wallSeconds": 239.9072282,
+  "node": "v24.22.1",
+  "platform": "win32",
+  "qualification": "All src runtime bytes are merged PR200; archived measurement harness unchanged. The complete result and final-state hash must equal the PR201 canonical record. Intermediate PR200 v1 metadata receipts remain independently reproduced without modification."
+}

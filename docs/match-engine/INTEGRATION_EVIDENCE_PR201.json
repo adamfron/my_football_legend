@@ -1,0 +1,86 @@
+{
+  "schema": "mfl-integration-evidence-v0",
+  "profile": "realism-candidate-v1",
+  "decision": "NOT_READY_FOR_PROMOTION",
+  "records": [
+    {
+      "mechanism": "boundedReceiverRecovery",
+      "ids": [
+        "PASS-004",
+        "PASS-009",
+        "TACT-009"
+      ],
+      "sourceLocation": "src/core/matchSimulation/liveBallFlight.ts",
+      "sourceFingerprint": "16762e4051324c0ee101a4c4aa55d425e3a7370fdfa2b7e93d110ce48fc26ec8",
+      "profile": "realism-candidate-v1",
+      "behaviour": "Use own position as the fallback when no legal local reception target exists; canonical finite braking and contact remain authoritative.",
+      "knownRegressions": [
+        "Seven local paired retention losses; remaining low-information contacts unresolved.",
+        "Whole matches still include zero-shot policies, extreme scores and reduced WW/H box penetration; candidate menus are unavailable in these profiles."
+      ],
+      "dimensions": {
+        "LIVE_CONSUMER_PRESENT": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "pr201-recovery"
+          ],
+          "limitation": "Final motor target in the existing canonical MatchEngine; no independent movement controller."
+        },
+        "INTEGRATION_CANDIDATE": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "pr201-recovery"
+          ],
+          "limitation": "Versioned opt-in only; inherited PR200 component evidence stays in its original mapping."
+        },
+        "COMPATIBILITY_VALIDATED": {
+          "status": "SUPPORTED",
+          "evidence": [
+            "pr201-recovery",
+            "pr201-fresh",
+            "pr201-keeper-control"
+          ],
+          "limitation": "Scoped local physical comparisons and keeper parity, not empirical calibration or every tactical controller."
+        },
+        "FULL_MATCH_TRANSFER_SUPPORTED": {
+          "status": "PARTIAL",
+          "evidence": [
+            "pr201-complete-matches"
+          ],
+          "limitation": "All seven four-arm development configurations improve strict direct control and retention. SS/O and WW/H have zero shots, SW/J remains12:0 and SW/B9:0; dependent single seeds do not certify attacking quality or calibration."
+        },
+        "CANONICAL_PROMOTED": {
+          "status": "NOT_ASSESSED",
+          "evidence": [],
+          "limitation": "Canonical NOT READY; B default; independent confirmation sealed."
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "key": "pr201-recovery",
+      "path": "docs/performance/pr201/receivers-frozen-v1.json.gz",
+      "sha256": "4f26f1c663f577e63c7ab04f5dd2de873e2138f41fea4793dc4f098f2cba39d2",
+      "sourceFingerprint": "ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32"
+    },
+    {
+      "key": "pr201-fresh",
+      "path": "docs/performance/pr201/receivers-fresh201-v1.json.gz",
+      "sha256": "10341f1cb648f1b7658eeb88b63be7d79019ab2d7367d2aeb4b34a0a0aab189f",
+      "sourceFingerprint": "92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428"
+    },
+    {
+      "key": "pr201-keeper-control",
+      "path": "docs/performance/pr201/goalkeepers-v1.json.gz",
+      "sha256": "249083b7d20d023fd03219c0c5454def6159165f1848e06d317b0a8a9d89e639",
+      "sourceFingerprint": "904a450279df67e5175603b1268c31fcd8c6962f7361c7fda785ef77ff4f11bc"
+    },
+    {
+      "key": "pr201-complete-matches",
+      "path": "docs/performance/pr201/summary.json",
+      "sha256": "9b08a4dbd79fe147280c76435ba75284f9bf0f883ad24f88b4f5be166cb8913e",
+      "sourceFingerprint": "c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de"
+    }
+  ]
+}

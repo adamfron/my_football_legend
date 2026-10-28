@@ -382,6 +382,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 - **PR199 development update:** Exact PR198 R/S baselines and every eight lost/three gained contact are reproduced. Spatial/time, facing, speed/braking, commitment, observation freshness and authority/continuation clocks are separately ablated. Facing/speed and finite observation cadence interact; no uniquely justified live correction is promoted.
 - **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
 
+- **PR201 development update:** [Bounded receiver recovery](../PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) isolates an inappropriate formation-anchor fallback, keeps position-only and motor-clock null results, and measures real paired control/retention. The versioned opt-in preserves PR200; keeper physical parity is42/42. Local losses remain; canonical NOT READY, confirmation sealed and all original I/F/E/T/M/C gates open.
+
 ### PASS-005 — Calibrate execution error distributions by passing, technique, foot, pressure, distance, orientation and incoming ball state.
 
 - [ ] CALIBRATION_REQUIRED
@@ -436,6 +438,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 - **PR199 development update:** 216 visibility and 448 one-factor physical continuations retain every eligible attempt, actual direct touch, original-delivery control and one-second possession. Better inferred coordinates or more touches do not establish control/retention; missing estimates remain explicit.
 - **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
+- **PR201 development update:** [Bounded receiver recovery](../PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) isolates an inappropriate formation-anchor fallback, keeps position-only and motor-clock null results, and measures real paired control/retention. The versioned opt-in preserves PR200; keeper physical parity is42/42. Local losses remain; canonical NOT READY, confirmation sealed and all original I/F/E/T/M/C gates open.
 
 ### PASS-007 — Distinguish an interception, uncontrolled deflection, clearance and genuinely retained possession.
 
@@ -514,6 +518,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 - **PR199 development update:** The old release-time authority/continuation clocks remain real source dependencies but changing either alone does not restore contacts in the 11-case regression subset. Earlier braking is harmful there. Lab-only belief commitment retains evidence age rather than manufacturing fresh sightings.
 - **PR199 evidence / layers:** [26-section report](../PR199_BALL_FLIGHT_PERCEPTION_RECEIVER_FORENSICS_AND_VALIDATION_PROGRESS.md), [source-bound receipts and summary](../performance/pr199/summary.json), [explicit evidence mapping](REALISM_EVIDENCE.json) and [machine progress](REALISM_PROGRESS.md). Exact merged base aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b; each receipt names its archived implementation fingerprint. I/F: scoped diagnostics/contracts, incomplete calibration; E/T/M: open, laboratory-only changes and no live promotion; C: sealed/unrun. **OPEN; no COMPLETE.**
+
+- **PR201 development update:** [Bounded receiver recovery](../PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) isolates an inappropriate formation-anchor fallback, keeps position-only and motor-clock null results, and measures real paired control/retention. The versioned opt-in preserves PR200; keeper physical parity is42/42. Local losses remain; canonical NOT READY, confirmation sealed and all original I/F/E/T/M/C gates open.
 
 ### PASS-010 — Audit fixed restrictions on progressive, spatial and combination passes.
 
@@ -1332,6 +1338,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 - **PR200 development update:** The independently gated live sensory/motor/keeper route implements the scoped information-boundary correction demonstrated by [seven source-bound interventions](../performance/pr200/information-boundary-final-v1.json.gz). This is one shared source repair, not two independent fixes. Physical reception and difficult saves regress; development/integration calibration remains partial, canonical NOT READY and independent confirmation sealed. Historical dimension scopes remain in REALISM_EVIDENCE scopeHistory and merged PR199.
 
+- **PR201 development update:** [Bounded receiver recovery](../PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) isolates an inappropriate formation-anchor fallback, keeps position-only and motor-clock null results, and measures real paired control/retention. The versioned opt-in preserves PR200; keeper physical parity is42/42. Local losses remain; canonical NOT READY, confirmation sealed and all original I/F/E/T/M/C gates open.
+
 ### GK-003 — Audit catch, parry, punch, deflection and failed intervention outcomes.
 
 - [ ] LAB_REQUIRED
@@ -1693,6 +1701,8 @@ Priority: P0 shared foundation/invalid decision risk; P1 major match consequence
 
 
 - **PR200 development update:** The independently gated live sensory/motor/keeper route implements the scoped information-boundary correction demonstrated by [seven source-bound interventions](../performance/pr200/information-boundary-final-v1.json.gz). This is one shared source repair, not two independent fixes. Physical reception and difficult saves regress; development/integration calibration remains partial, canonical NOT READY and independent confirmation sealed. Historical dimension scopes remain in REALISM_EVIDENCE scopeHistory and merged PR199.
+
+- **PR201 development update:** [Bounded receiver recovery](../PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) isolates an inappropriate formation-anchor fallback, keeps position-only and motor-clock null results, and measures real paired control/retention. The versioned opt-in preserves PR200; keeper physical parity is42/42. Local losses remain; canonical NOT READY, confirmation sealed and all original I/F/E/T/M/C gates open.
 
 ### TACT-010 — Audit contextual objectives derived from match score, competition rules and time remaining.
 

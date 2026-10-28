@@ -46,7 +46,10 @@ describe('PR200 executable integration contracts', () => {
   it('resolves every profile deterministically and reports policy-specific inactive consumers', () => {
     const profiles = integrationProfileIdSchema.options.map((id) => resolveIntegrationProfile(id));
     expect(new Set(profiles.map((p) => p.fingerprint)).size).toBe(profiles.length);
-    expect(new Set(profiles.map((p) => JSON.stringify(p.features))).size).toBe(profiles.length);
+    const historicalProfiles = profiles.filter((p) => !p.id.endsWith('-v1'));
+    expect(new Set(historicalProfiles.map((p) => JSON.stringify(p.features))).size).toBe(
+      historicalProfiles.length,
+    );
     for (const p of profiles) expect(resolveIntegrationProfile(p.id)).toEqual(p);
     expect(resolveIntegrationProfile('realism-candidate-v0').inactive).toContain(
       'experimentalObservedLoftedPasses',

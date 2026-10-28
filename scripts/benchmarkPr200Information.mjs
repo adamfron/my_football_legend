@@ -2,7 +2,13 @@ import assert from 'node:assert/strict';
 import console from 'node:console';
 import process from 'node:process';
 import { performance } from 'node:perf_hooks';
-import { read, hash, identity, write, ROOT } from './pr200Evidence.mjs';
+import {
+  read,
+  hash,
+  identity as pr200Identity,
+  write,
+  ROOT as PR200_ROOT,
+} from './pr200Evidence.mjs';
 import { withIntegrationProfile } from '../src/core/matchSimulation/integrationProfile.ts';
 import {
   advanceLiveBallFlight,
@@ -13,12 +19,19 @@ import { advanceActivePerception } from '../src/core/matchSimulation/activePerce
 import { stepTacticalMatchAfterDecisionProbe as step } from '../src/core/matchSimulation/matchSimulation.ts';
 import { resolveGoalkeeperContact } from '../src/core/matchSimulation/goalkeeperIntervention.ts';
 const args = new Map(process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')));
+const pr201 = args.has('pr201');
+const { ROOT, identity } = pr201
+  ? await import('./pr201Evidence.mjs')
+  : { ROOT: PR200_ROOT, identity: pr200Identity };
 const source = identity(),
   started = performance.now(),
   cpu = process.cpuUsage();
 const frozen = read('docs/performance/pr198/releases-v1.json.gz').result.rows[0].state;
 const setup = () => {
-  const s = withIntegrationProfile(globalThis.structuredClone(frozen), 'realism-candidate-v0');
+  const s = withIntegrationProfile(
+    globalThis.structuredClone(frozen),
+    pr201 ? 'realism-candidate-v1' : 'realism-candidate-v0',
+  );
   s.players = [s.players[0]];
   const p = s.players[0];
   p.position = { x: 50, y: 34 };
@@ -88,7 +101,10 @@ rows.push({
   actualSightingAt: seen,
   memorySeenAt: active.activePerceptionRuntime.memory[id].ballSeenAt,
 });
-const x = withIntegrationProfile(globalThis.structuredClone(frozen), 'realism-candidate-v0');
+const x = withIntegrationProfile(
+  globalThis.structuredClone(frozen),
+  pr201 ? 'realism-candidate-v1' : 'realism-candidate-v0',
+);
 x.ball = { ...x.ball, x: 52, y: 4, height: 2.5, velocity: { x: 1, y: 0, z: 0 } };
 const y = globalThis.structuredClone(x);
 y.ball = {
@@ -147,7 +163,7 @@ rows.push({
   actualPermittedAction: action,
 });
 const result = {
-  schema: 'pr200-information-boundary-v1',
+  schema: pr201 ? 'pr201-information-boundary-v1' : 'pr200-information-boundary-v1',
   source,
   rows,
   scope:
@@ -160,12 +176,19 @@ if (args.has('check')) {
   void _new;
   assert.equal(hash(actual), hash(old));
 } else
-  write(`${ROOT}/information-boundary-final-v1.json.gz`, {
-    result,
-    costs: {
-      wallSeconds: (performance.now() - started) / 1000,
-      cpu: process.cpuUsage(cpu),
-      peakRSSKiB: process.resourceUsage().maxRSS,
+  write(
+    `${ROOT}/information-boundary-${pr201 ? (args.get('version') ?? 'final-v1') : 'final-v1'}.json.gz`,
+    {
+      result,
+      costs: {
+        wallSeconds: (performance.now() - started) / 1000,
+        cpu: process.cpuUsage(cpu),
+        peakRSSKiB: process.resourceUsage().maxRSS,
+      },
     },
-  });
-console.log('PR200 live information contract PASS', rows.length, 'source-bound interventions');
+  );
+console.log(
+  pr201 ? 'PR201 live information contract PASS' : 'PR200 live information contract PASS',
+  rows.length,
+  'source-bound interventions',
+);

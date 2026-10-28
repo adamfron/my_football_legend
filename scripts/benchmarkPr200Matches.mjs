@@ -27,11 +27,21 @@ import {
 } from '../src/core/matchSimulation/disruptionLedger.ts';
 import { attacksRight } from '../src/core/matchSimulation/matchSpace.ts';
 import { readDevelopmentInput } from './pr193Evidence.mjs';
-import { ROOT, hash, read, write, identity } from './pr200Evidence.mjs';
+import {
+  ROOT as PR200_ROOT,
+  hash,
+  read,
+  write,
+  identity as pr200Identity,
+} from './pr200Evidence.mjs';
 const args = new Map(process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')));
+const pr201 = args.has('pr201');
+const { ROOT, identity } = pr201
+  ? await import('./pr201Evidence.mjs')
+  : { ROOT: PR200_ROOT, identity: pr200Identity };
 const design = args.get('design') ?? 'ww',
   policy = args.get('policy') ?? 'state-value-v1';
-const profile = args.get('profile') ?? 'realism-candidate-v0',
+const profile = args.get('profile') ?? (pr201 ? 'realism-candidate-v1' : 'realism-candidate-v0'),
   version = args.get('version') ?? 'v1';
 const limit = Number(args.get('seconds') ?? 7200);
 if (!/^[a-z0-9-]+$/.test(version) || !Number.isFinite(limit) || limit < 1 || limit > 7200)
@@ -137,7 +147,8 @@ try {
             }
           }
         }
-        if (ticks % 40000 === 0) console.log('PR200', design, policy, profile, s.time.toFixed(1));
+        if (ticks % 40000 === 0)
+          console.log(pr201 ? 'PR201' : 'PR200', design, policy, profile, s.time.toFixed(1));
       }
     },
   );
@@ -147,7 +158,7 @@ try {
 active.forEach(finish);
 const players = s.statistics?.players ?? [];
 const result = {
-  schema: 'pr200-development-match-v1',
+  schema: pr201 ? 'pr201-development-match-v1' : 'pr200-development-match-v1',
   source,
   manifest,
   design,
@@ -174,8 +185,9 @@ const result = {
   football,
   disruption,
   passOutcomes,
-  candidateAvailabilityLimit:
-    'Complete decision-menu denominators only for bounded O/H/J. Full-world candidate availability is unmeasured, not zero.',
+  candidateAvailabilityLimit: pr201
+    ? 'Decision/attempt traces are measured. Candidate menus are omitted with active perception and transition intelligence disabled; inherited zero candidate/rejection counters are unavailable, not measured absence. Full-world menus are also unmeasured.'
+    : 'Complete decision-menu denominators only for bounded O/H/J. Full-world candidate availability is unmeasured, not zero.',
   classification: 'development only; independent confirmation sealed',
 };
 if (args.has('check')) {
@@ -199,5 +211,13 @@ if (args.has('check')) {
       },
     },
   );
-console.log('PR200 match completed', design, policy, profile, s.status, s.time, result.finalHash);
+console.log(
+  pr201 ? 'PR201 match completed' : 'PR200 match completed',
+  design,
+  policy,
+  profile,
+  s.status,
+  s.time,
+  result.finalHash,
+);
 if (failure || (limit === 7200 && s.status !== 'full_time')) process.exitCode = 1;

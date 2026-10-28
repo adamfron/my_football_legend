@@ -93,7 +93,7 @@ export const parseRegistry = (text) =>
         checked: status[1] === 'x',
         developmentUpdates: [
           ...new Set(
-            [...block.matchAll(/PR(196|197|198|199|200) development update/g)].map((m) =>
+            [...block.matchAll(/PR(196|197|198|199|200|201) development update/g)].map((m) =>
               Number(m[1]),
             ),
           ),
@@ -200,7 +200,7 @@ export const generateProgress = (registry, mapping, frozen) => {
       .filter((r) => byId.get(r.id).dimensions[dimension].status === 'SUPPORTED')
       .map((r) => r.id);
   const explicitUpdates = Object.fromEntries(
-    [196, 197, 198, 199, 200].map((pr) => [
+    [196, 197, 198, 199, 200, 201].map((pr) => [
       pr,
       registry.filter((r) => r.developmentUpdates.includes(pr)).map((r) => r.id),
     ]),
@@ -219,9 +219,12 @@ export const generateProgress = (registry, mapping, frozen) => {
     200: registry
       .map((r) => r.id)
       .filter((id) => !read('docs/performance/pr200/frozen-pr199.json').ids.includes(id)),
+    201: registry
+      .map((r) => r.id)
+      .filter((id) => !read('docs/performance/pr201/frozen-pr200.json').ids.includes(id)),
   };
   const updated = Object.fromEntries(
-    [196, 197, 198, 199, 200].map((pr) => [
+    [196, 197, 198, 199, 200, 201].map((pr) => [
       pr,
       [...new Set([...explicitUpdates[pr], ...introducedByPR[pr]])].sort(),
     ]),
@@ -321,6 +324,8 @@ export const renderProgress = (report) => {
   md +=
     '\nRead-only verification: `npm run benchmark:realism:check`. Regeneration after reviewed mapping changes: `npm run benchmark:realism:generate`. Neither command changes the original registry or closure contract.\n';
   if (report.integration) md += renderIntegrationProgress(report.integration);
+  if (report.receiverRecoveryIntegration)
+    md += renderIntegrationProgress(report.receiverRecoveryIntegration);
   return md;
 };
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
@@ -336,6 +341,11 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   if (existsSync('docs/match-engine/INTEGRATION_EVIDENCE.json'))
     report.integration = generateIntegrationProgress(
       read('docs/match-engine/INTEGRATION_EVIDENCE.json'),
+      registry,
+    );
+  if (existsSync('docs/match-engine/INTEGRATION_EVIDENCE_PR201.json'))
+    report.receiverRecoveryIntegration = generateIntegrationProgress(
+      read('docs/match-engine/INTEGRATION_EVIDENCE_PR201.json'),
       registry,
     );
   const md = renderProgress(report),

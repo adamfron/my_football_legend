@@ -1,5 +1,13 @@
 # Roadmap
 
+### PR201 i kolejne bramki jakości
+
+Bieżący zakres: [PR201 — bounded receiver recovery](PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md). Wąska, osobno wersjonowana poprawka lokalnego celu ruchu poprawia fizyczną kontrolę i utrzymanie na180+90+90 piłkach, zachowując straty i historyczny PR200. Nadal **RETAIN_EXPERIMENTAL / NOT_READY_FOR_PROMOTION**, canonical NOT READY, B domyślne, confirmation zamknięte i135 ID bez COMPLETE.
+
+Najbliższa zależność futbolowa: legalne uzyskanie informacji, orientacja/poszukiwanie piłki i przygotowanie krótkiego, niewidocznego lub presowanego przyjęcia. Trzeba porównać rzeczywisty pierwszy kontakt i następną dostępną decyzję; samo czekanie nie rozwiązuje słabych first-time ani wszystkich kontaktów pod presją. [PR202 — Lean CI & Historical Evidence Preservation](PR202_LEAN_CI_AND_HISTORICAL_EVIDENCE_PRESERVATION_PROPOSAL.md) jest konkretną propozycją infrastrukturalną, bez przebudowy workflow w PR201.
+
+Przejścia: wiarygodna interakcja z piłką i dalsza akcja → współpraca bez piłki, asekuracja i pressing → spójne mecze wielu polityk oraz jawny koszt → pełna grywalna kariera i prezentacja. Każdy zakres może wymagać kilku napraw; nie przypisujemy jednego PR do każdego problemu ani nie planujemy mechanicznej sekwencji numerów. MFL1.0 ma domknąć grywalną karierę. Warunkowe modele MFL2.0 nie są jej obowiązkową bramką. Wszystkie wcześniejsze zobowiązania generacji,20–25 sezonów, świata i sprawczości gracza pozostają; starsze sekcje poniżej są historią.
+
 ### Utrzymywany kandydat integracji PR200
 
 Aktualny etap: [PR200](PR200_MATCH_ENGINE_INTEGRATION_CANDIDATE_RECEIVER_MOTOR_AND_BOUNDED_PERCEPTION.md). Wykonywalny `realism-candidate-v0` łączy mechanizmy w tym samym silniku, rozdziela polityki i wykrywa niezgodne konfiguracje. [Architektura integracji](match-engine/INTEGRATION_ARCHITECTURE.md) wymaga od następnych PR jawnego wyniku lokalnego, wpływu na kandydata, decyzji o promocji i następnej zależności.

@@ -56,7 +56,7 @@ jobs:
           - group: passing
             command: npm run benchmark:pr197:check && npm run benchmark:pr197:replay && npm run benchmark:pr198:check && npm run benchmark:pr198:replay
           - group: perception
-            command: npm run benchmark:pr199:check && npm run benchmark:realism:check && npm run benchmark:pr200:check
+            command: npm run benchmark:pr199:check && npm run benchmark:realism:check && npm run benchmark:pr200:check && npm run benchmark:pr201:check
     env:
       VITEST_MAX_WORKERS: '1'
       NODE_OPTIONS: '--max-semi-space-size=64'
@@ -150,6 +150,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run benchmark:pr200:source-replay -- --case=matches-${{ matrix.fixture }} --cohort=${{ matrix.cohort }}
+      - if: matrix.cohort == 'current'
+        run: npm run benchmark:pr201:source-replay -- --case=match-${{ matrix.fixture }}-realism-candidate-v1-v1,match-${{ matrix.fixture }}-realism-candidate-no-recovery-v1-v1
+      - if: matrix.cohort == 'current'
+        run: npm run benchmark:pr201:source-replay -- --baseline-runtime --case=match-${{ matrix.fixture }}-canonical-pr199-v1
       - run: git diff --exit-code -- docs/performance docs/match-engine
   pr200-platform:
     name: PR200 platform (${{ matrix.os }})
@@ -169,6 +173,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/probePr200Platform.mjs
+      - if: matrix.os == 'windows-2025'
+        run: npm run benchmark:pr201:source-replay
       - run: git diff --exit-code -- docs/performance docs/match-engine
   quality:
     # Preserve the existing required check and fail it if either group fails,

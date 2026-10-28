@@ -1,5 +1,13 @@
 # MatchEngine integration candidates
 
+## realism-candidate-v1 — PR201 experimental successor
+
+Implementation `pr201-receiver-recovery-v1`, configuration schema edition0. It inherits the explicit PR200 feature/auxiliary selection and adds optional `boundedReceiverRecovery: hold-local-v1`. `realism-candidate-no-recovery-v1` disables exactly that behaviour while retaining the successor identity. Old v0 checksums, absent saved fields and physical behaviour remain unchanged.
+
+The acting change is a local fallback in the existing movement-authority consumer: no reception intercept means brake at the body's own position, preserving higher authorities. Frozen180 direct touch/control/retention100/73/73→124/97/96, PR200 fresh90 27/22/20→36/32/28 and new90 26/22/21→35/32/31. Seven strict-retention losses remain. Keeper42/42 full-state physical parity and information controls pass. The [PR201 report](../PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) separates these local effects from all policy-specific complete-match results and CPU/RSS.
+
+Decision **RETAIN_EXPERIMENTAL**; whole profile **NOT_READY_FOR_PROMOTION**. This is not a new default or independent validation. B,40Hz,28 attributes, canonical NOT READY and sealed confirmation remain. The [successor evidence](INTEGRATION_EVIDENCE_PR201.json) records the one changed mechanism; inherited component evidence retains its original PR200 scope below and in its historical mapping.
+
 ## realism-candidate-v0
 
 Version **0**, implementation `pr200-integration-v0-final`. Whole-profile decision: **NOT_READY_FOR_PROMOTION**. Canonical **NOT READY**. Independent confirmation **sealed**. B remains default and every policy is a separate selectable dimension.
