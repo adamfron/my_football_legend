@@ -1,0 +1,1264 @@
+﻿2026-10-28T22:37:52.6007484Z Current runner version: '2.338.0'
+2026-10-28T22:37:52.6033336Z ##[group]Runner Image Provisioner
+2026-10-28T22:37:52.6034400Z Hosted Compute Agent
+2026-10-28T22:37:52.6035042Z Version: 20261021.618
+2026-10-28T22:37:52.6036017Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-28T22:37:52.6036926Z Build Date: 2026-10-21T00:45:21Z
+2026-10-28T22:37:52.6037658Z Worker ID: {5e19ad68-dc6e-49f9-8fa8-ee88cc9c941c}
+2026-10-28T22:37:52.6038498Z Region: northcentralus
+2026-10-28T22:37:52.6039133Z Cloud: Azure
+2026-10-28T22:37:52.6039716Z ##[endgroup]
+2026-10-28T22:37:52.6041332Z ##[group]Operating System
+2026-10-28T22:37:52.6042017Z Ubuntu
+2026-10-28T22:37:52.6042674Z 24.04.5
+2026-10-28T22:37:52.6043273Z LTS
+2026-10-28T22:37:52.6043845Z ##[endgroup]
+2026-10-28T22:37:52.6044550Z ##[group]Runner Image
+2026-10-28T22:37:52.6045207Z Image: ubuntu-24.04
+2026-10-28T22:37:52.6046059Z Version: 20261025.353.1
+2026-10-28T22:37:52.6047419Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-28T22:37:52.6049078Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+2026-10-28T22:37:52.6050110Z ##[endgroup]
+2026-10-28T22:37:52.6051425Z ##[group]GITHUB_TOKEN Permissions
+2026-10-28T22:37:52.6053435Z Contents: read
+2026-10-28T22:37:52.6054152Z Metadata: read
+2026-10-28T22:37:52.6054788Z Packages: read
+2026-10-28T22:37:52.6055601Z ##[endgroup]
+2026-10-28T22:37:52.6057789Z Secret source: Actions
+2026-10-28T22:37:52.6058807Z Cache mode: write
+2026-10-28T22:37:52.6059614Z Prepare workflow directory
+2026-10-28T22:37:52.6577880Z Prepare all required actions
+2026-10-28T22:37:52.6645414Z Getting action download info
+2026-10-28T22:37:52.8886282Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-28T22:37:52.9704257Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-28T22:37:53.1655081Z Complete job name: Historical checks (perception)
+2026-10-28T22:37:53.2469884Z ##[group]Run actions/checkout@v4
+2026-10-28T22:37:53.2470710Z with:
+2026-10-28T22:37:53.2471138Z   fetch-depth: 0
+2026-10-28T22:37:53.2471619Z   repository: adamfron/my_football_legend
+2026-10-28T22:37:53.2475830Z   token: ***
+2026-10-28T22:37:53.2476276Z   ssh-strict: true
+2026-10-28T22:37:53.2476722Z   ssh-user: git
+2026-10-28T22:37:53.2477169Z   persist-credentials: true
+2026-10-28T22:37:53.2477658Z   clean: true
+2026-10-28T22:37:53.2478105Z   sparse-checkout-cone-mode: true
+2026-10-28T22:37:53.2478630Z   fetch-tags: false
+2026-10-28T22:37:53.2479082Z   show-progress: true
+2026-10-28T22:37:53.2479532Z   lfs: false
+2026-10-28T22:37:53.2479951Z   submodules: false
+2026-10-28T22:37:53.2480407Z   set-safe-directory: true
+2026-10-28T22:37:53.2480923Z   allow-unsafe-pr-checkout: false
+2026-10-28T22:37:53.2481612Z env:
+2026-10-28T22:37:53.2482020Z   VITEST_MAX_WORKERS: 1
+2026-10-28T22:37:53.2482531Z   NODE_OPTIONS: --max-semi-space-size=64
+2026-10-28T22:37:53.2483076Z ##[endgroup]
+2026-10-28T22:37:53.4605959Z Syncing repository: adamfron/my_football_legend
+2026-10-28T22:37:53.4608862Z ##[group]Getting Git version info
+2026-10-28T22:37:53.4609777Z Working directory is '/home/runner/work/my_football_legend/my_football_legend'
+2026-10-28T22:37:53.4611406Z [command]/usr/bin/git version
+2026-10-28T22:37:53.4666879Z git version 2.56.0
+2026-10-28T22:37:53.4673939Z ##[endgroup]
+2026-10-28T22:37:53.4690714Z Temporarily overriding HOME='/home/runner/work/_temp/204a386c-cb64-4860-acf6-3644d7c28c5f' before making global git config changes
+2026-10-28T22:37:53.4693154Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-28T22:37:53.4696521Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/my_football_legend/my_football_legend
+2026-10-28T22:37:53.4747424Z Deleting the contents of '/home/runner/work/my_football_legend/my_football_legend'
+2026-10-28T22:37:53.4752856Z ##[group]Initializing the repository
+2026-10-28T22:37:53.4757696Z [command]/usr/bin/git init /home/runner/work/my_football_legend/my_football_legend
+2026-10-28T22:37:53.4843265Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-28T22:37:53.4845150Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-28T22:37:53.4847472Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-28T22:37:53.4849158Z hint: call:
+2026-10-28T22:37:53.4850414Z hint:
+2026-10-28T22:37:53.4851440Z hint: 	git config --global init.defaultBranch <name>
+2026-10-28T22:37:53.4852558Z hint:
+2026-10-28T22:37:53.4853593Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-28T22:37:53.4855226Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-28T22:37:53.4856732Z hint:
+2026-10-28T22:37:53.4857468Z hint: 	git branch -m <name>
+2026-10-28T22:37:53.4858304Z hint:
+2026-10-28T22:37:53.4859464Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-28T22:37:53.4861438Z Initialized empty Git repository in /home/runner/work/my_football_legend/my_football_legend/.git/
+2026-10-28T22:37:53.4864770Z [command]/usr/bin/git remote add origin https://github.com/adamfron/my_football_legend
+2026-10-28T22:37:53.4914342Z ##[endgroup]
+2026-10-28T22:37:53.4916357Z ##[group]Disabling automatic garbage collection
+2026-10-28T22:37:53.4919175Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-28T22:37:53.4956577Z ##[endgroup]
+2026-10-28T22:37:53.4957922Z ##[group]Setting up auth
+2026-10-28T22:37:53.4965062Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-28T22:37:53.5007592Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-28T22:37:53.5383439Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-28T22:37:53.5431367Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-28T22:37:53.5717371Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-28T22:37:53.5766239Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-28T22:37:53.6035834Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-28T22:37:53.6103319Z ##[endgroup]
+2026-10-28T22:37:53.6116424Z ##[group]Fetching the repository
+2026-10-28T22:37:53.6119486Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +6d8c2f906e676f919c80c63360ce79c6e64bb962:refs/remotes/pull/202/merge
+2026-10-28T22:38:15.7715732Z From https://github.com/adamfron/my_football_legend
+2026-10-28T22:38:15.7717016Z  * [new branch]      codex/add-aerial-play-features-and-mechanics -> origin/codex/add-aerial-play-features-and-mechanics
+2026-10-28T22:38:15.7718496Z  * [new branch]      codex/add-animated-single-match-sandbox  -> origin/codex/add-animated-single-match-sandbox
+2026-10-28T22:38:15.7719758Z  * [new branch]      codex/add-attacking-intent-layer         -> origin/codex/add-attacking-intent-layer
+2026-10-28T22:38:15.7721089Z  * [new branch]      codex/add-boundary-restart-and-aerial-mechanics -> origin/codex/add-boundary-restart-and-aerial-mechanics
+2026-10-28T22:38:15.7722583Z  * [new branch]      codex/add-dev-single-match-lab-functionality -> origin/codex/add-dev-single-match-lab-functionality
+2026-10-28T22:38:15.7723665Z  * [new branch]      codex/add-goalkeeper-agency-and-shot-aiming -> origin/codex/add-goalkeeper-agency-and-shot-aiming
+2026-10-28T22:38:15.7724678Z  * [new branch]      codex/add-lead-passing-and-contextual-interaction-polish -> origin/codex/add-lead-passing-and-contextual-interaction-polish
+2026-10-28T22:38:15.7726290Z  * [new branch]      codex/add-match-and-career-feedback-layer -> origin/codex/add-match-and-career-feedback-layer
+2026-10-28T22:38:15.7727380Z  * [new branch]      codex/add-match-interaction-completeness-and-tempo-calibration -> origin/codex/add-match-interaction-completeness-and-tempo-calibration
+2026-10-28T22:38:15.7728544Z  * [new branch]      codex/add-match-interaction-loop-v1      -> origin/codex/add-match-interaction-loop-v1
+2026-10-28T22:38:15.7729640Z  * [new branch]      codex/add-match-periods-and-player-performance-stats -> origin/codex/add-match-periods-and-player-performance-stats
+2026-10-28T22:38:15.7730613Z  * [new branch]      codex/add-npc-transfer-economics-and-budgets -> origin/codex/add-npc-transfer-economics-and-budgets
+2026-10-28T22:38:15.7731586Z  * [new branch]      codex/add-observability-and-cleanup-for-club-strength -> origin/codex/add-observability-and-cleanup-for-club-strength
+2026-10-28T22:38:15.7732974Z  * [new branch]      codex/add-performance-benchmarks-for-background-simulation -> origin/codex/add-performance-benchmarks-for-background-simulation
+2026-10-28T22:38:15.7734268Z  * [new branch]      codex/add-possession-rhythm-and-decision-system -> origin/codex/add-possession-rhythm-and-decision-system
+2026-10-28T22:38:15.7735168Z  * [new branch]      codex/add-real-squad-selection-logic     -> origin/codex/add-real-squad-selection-logic
+2026-10-28T22:38:15.7736469Z  * [new branch]      codex/add-realistic-restart-geometry-and-lifecycle -> origin/codex/add-realistic-restart-geometry-and-lifecycle
+2026-10-28T22:38:15.7737454Z  * [new branch]      codex/add-receiver-aware-passing-mechanism -> origin/codex/add-receiver-aware-passing-mechanism
+2026-10-28T22:38:15.7738341Z  * [new branch]      codex/add-seasonal-npc-development-system -> origin/codex/add-seasonal-npc-development-system
+2026-10-28T22:38:15.7739586Z  * [new branch]      codex/add-squad-hierarchy-foundations-and-npc-contracts -> origin/codex/add-squad-hierarchy-foundations-and-npc-contracts
+2026-10-28T22:38:15.7740534Z  * [new branch]      codex/add-tactical-situation-playbook-v1 -> origin/codex/add-tactical-situation-playbook-v1
+2026-10-28T22:38:15.7741474Z  * [new branch]      codex/add-target-first-contextual-interactions -> origin/codex/add-target-first-contextual-interactions
+2026-10-28T22:38:15.7742954Z  * [new branch]      codex/add-u-17-graduation-and-first-contract-pipeline -> origin/codex/add-u-17-graduation-and-first-contract-pipeline
+2026-10-28T22:38:15.7744575Z  * [new branch]      codex/audit-and-calibrate-youth-quality-generation -> origin/codex/audit-and-calibrate-youth-quality-generation
+2026-10-28T22:38:15.7746325Z  * [new branch]      codex/audyt-i-refaktoryzacja-systemu-wynagrodzen -> origin/codex/audyt-i-refaktoryzacja-systemu-wynagrodzen
+2026-10-28T22:38:15.7748172Z  * [new branch]      codex/build-persistent-league-pyramid-and-player-development -> origin/codex/build-persistent-league-pyramid-and-player-development
+2026-10-28T22:38:15.7749604Z  * [new branch]      codex/build-persistent-polish-u-17-world-data -> origin/codex/build-persistent-polish-u-17-world-data
+2026-10-28T22:38:15.7750765Z  * [new branch]      codex/build-reusable-career-week-loop-and-varied-academy-progressi -> origin/codex/build-reusable-career-week-loop-and-varied-academy-progressi
+2026-10-28T22:38:15.7752387Z  * [new branch]      codex/calibracja-archetypow-graczy-i-ekonomii-miesiecznej -> origin/codex/calibracja-archetypow-graczy-i-ekonomii-miesiecznej
+2026-10-28T22:38:15.7753479Z  * [new branch]      codex/calibrar-przepyw-meczu-i-diagnostyke-xg -> origin/codex/calibrar-przepyw-meczu-i-diagnostyke-xg
+2026-10-28T22:38:15.7754412Z  * [new branch]      codex/calibrar-role-relationships-w-grze-otwartej -> origin/codex/calibrar-role-relationships-w-grze-otwartej
+2026-10-28T22:38:15.7755584Z  * [new branch]      codex/calibrate-match-flow-and-carry-mechanics -> origin/codex/calibrate-match-flow-and-carry-mechanics
+2026-10-28T22:38:15.7756971Z  * [new branch]      codex/calibrate-possession-rhythm-and-camera-controls -> origin/codex/calibrate-possession-rhythm-and-camera-controls
+2026-10-28T22:38:15.7757945Z  * [new branch]      codex/compact-career-save-data-structure -> origin/codex/compact-career-save-data-structure
+2026-10-28T22:38:15.7758993Z  * [new branch]      codex/consolidate-career-world-model-and-architecture-cleanup -> origin/codex/consolidate-career-world-model-and-architecture-cleanup
+2026-10-28T22:38:15.7760151Z  * [new branch]      codex/decompose-application-ui-into-maintainable-screens -> origin/codex/decompose-application-ui-into-maintainable-screens
+2026-10-28T22:38:15.7761129Z  * [new branch]      codex/diagnose-long-career-save-failure  -> origin/codex/diagnose-long-career-save-failure
+2026-10-28T22:38:15.7761982Z  * [new branch]      codex/dodaj-empiryczny-benchmark-pozycyjny -> origin/codex/dodaj-empiryczny-benchmark-pozycyjny
+2026-10-28T22:38:15.7762895Z  * [new branch]      codex/dodaj-logike-przewidywania-granic-piki -> origin/codex/dodaj-logike-przewidywania-granic-piki
+2026-10-28T22:38:15.7764048Z  * [new branch]      codex/dodaj-mechanizm-zgaszania-bedow-w-meczach -> origin/codex/dodaj-mechanizm-zgaszania-bedow-w-meczach
+2026-10-28T22:38:15.7765027Z  * [new branch]      codex/dopracowanie-prezentacji-narracji-i-klubu -> origin/codex/dopracowanie-prezentacji-narracji-i-klubu
+2026-10-28T22:38:15.7766215Z  * [new branch]      codex/enhance-season-timeline-with-match-context -> origin/codex/enhance-season-timeline-with-match-context
+2026-10-28T22:38:15.7767225Z  * [new branch]      codex/expand-positional-versatility-communication -> origin/codex/expand-positional-versatility-communication
+2026-10-28T22:38:15.7768243Z  * [new branch]      codex/finish-player-model-2.0-integration-and-ux -> origin/codex/finish-player-model-2.0-integration-and-ux
+2026-10-28T22:38:15.7769117Z  * [new branch]      codex/fix-career-phase-progression       -> origin/codex/fix-career-phase-progression
+2026-10-28T22:38:15.7770283Z  * [new branch]      codex/fix-cold-resume-world-hydration-and-add-coachprofile -> origin/codex/fix-cold-resume-world-hydration-and-add-coachprofile
+2026-10-28T22:38:15.7771441Z  * [new branch]      codex/fix-contract-transition-and-add-npc-transfer-market -> origin/codex/fix-contract-transition-and-add-npc-transfer-market
+2026-10-28T22:38:15.7772504Z  * [new branch]      codex/fix-generated-squad-balance-and-role-realism -> origin/codex/fix-generated-squad-balance-and-role-realism
+2026-10-28T22:38:15.7773525Z  * [new branch]      codex/fix-goalkeeper-participation-and-match-events -> origin/codex/fix-goalkeeper-participation-and-match-events
+2026-10-28T22:38:15.7774596Z  * [new branch]      codex/fix-interaction-regressions-and-calibrate-crossing -> origin/codex/fix-interaction-regressions-and-calibrate-crossing
+2026-10-28T22:38:15.7775910Z  * [new branch]      codex/fix-interception-reachability-and-player-handoff -> origin/codex/fix-interception-reachability-and-player-handoff
+2026-10-28T22:38:15.7777116Z  * [new branch]      codex/fix-match-debug-schema-regression-and-update-loose-ball-dyna -> origin/codex/fix-match-debug-schema-regression-and-update-loose-ball-dyna
+2026-10-28T22:38:15.7778400Z  * [new branch]      codex/fix-match-progression-softlocks-and-improve-summary -> origin/codex/fix-match-progression-softlocks-and-improve-summary
+2026-10-28T22:38:15.7779466Z  * [new branch]      codex/fix-multi-season-state-and-presentation -> origin/codex/fix-multi-season-state-and-presentation
+2026-10-28T22:38:15.7780379Z  * [new branch]      codex/fix-multiple-season-clock-regressions -> origin/codex/fix-multiple-season-clock-regressions
+2026-10-28T22:38:15.7781346Z  * [new branch]      codex/fix-playback-and-ui-regressions-in-careerflow -> origin/codex/fix-playback-and-ui-regressions-in-careerflow
+2026-10-28T22:38:15.7782235Z  * [new branch]      codex/fix-player-decision-deadlock       -> origin/codex/fix-player-decision-deadlock
+2026-10-28T22:38:15.7783123Z  * [new branch]      codex/fix-player-position-model-migration-issues -> origin/codex/fix-player-position-model-migration-issues
+2026-10-28T22:38:15.7784352Z  * [new branch]      codex/fix-positional-squad-management-issues -> origin/codex/fix-positional-squad-management-issues
+2026-10-28T22:38:15.7785229Z  * [new branch]      codex/fix-react-and-three.js-dom-ownership -> origin/codex/fix-react-and-three.js-dom-ownership
+2026-10-28T22:38:15.7786390Z  * [new branch]      codex/fix-season-chronology-and-injury-history -> origin/codex/fix-season-chronology-and-injury-history
+2026-10-28T22:38:15.7787349Z  * [new branch]      codex/fix-season-end-offer-acceptance-regression -> origin/codex/fix-season-end-offer-acceptance-regression
+2026-10-28T22:38:15.7788281Z  * [new branch]      codex/fix-season-snapshots-and-contract-flow -> origin/codex/fix-season-snapshots-and-contract-flow
+2026-10-28T22:38:15.7789398Z  * [new branch]      codex/fix-second-season-progression-and-simplify-academy-onboardin -> origin/codex/fix-second-season-progression-and-simplify-academy-onboardin
+2026-10-28T22:38:15.7790489Z  * [new branch]      codex/fix-single-match-lab-accessibility -> origin/codex/fix-single-match-lab-accessibility
+2026-10-28T22:38:15.7791753Z  * [new branch]      codex/fix-squad-position-integrity-and-presentation -> origin/codex/fix-squad-position-integrity-and-presentation
+2026-10-28T22:38:15.7792719Z  * [new branch]      codex/fix-static-world-loading-on-github-pages -> origin/codex/fix-static-world-loading-on-github-pages
+2026-10-28T22:38:15.7793556Z  * [new branch]      codex/fix-tactical-camera-tracking       -> origin/codex/fix-tactical-camera-tracking
+2026-10-28T22:38:15.7794370Z  * [new branch]      codex/fix-world-delta-save-explosion-issue -> origin/codex/fix-world-delta-save-explosion-issue
+2026-10-28T22:38:15.7795576Z  * [new branch]      codex/fix-world-lifecycle-and-persistence-issues -> origin/codex/fix-world-lifecycle-and-persistence-issues
+2026-10-28T22:38:15.7796855Z  * [new branch]      codex/generate-worlddatabase-as-build-artifact -> origin/codex/generate-worlddatabase-as-build-artifact
+2026-10-28T22:38:15.7797843Z  * [new branch]      codex/harden-background-presentation-architecture -> origin/codex/harden-background-presentation-architecture
+2026-10-28T22:38:15.7798788Z  * [new branch]      codex/hardening-spatial-and-offside-mechanics -> origin/codex/hardening-spatial-and-offside-mechanics
+2026-10-28T22:38:15.7799723Z  * [new branch]      codex/implement-academy-graduation-and-contracts -> origin/codex/implement-academy-graduation-and-contracts
+2026-10-28T22:38:15.7800730Z  * [new branch]      codex/implement-august-planning-and-economy-foundation -> origin/codex/implement-august-planning-and-economy-foundation
+2026-10-28T22:38:15.7801991Z  * [new branch]      codex/implement-canonical-club-strength-presentation -> origin/codex/implement-canonical-club-strength-presentation
+2026-10-28T22:38:15.7803139Z  * [new branch]      codex/implement-contextual-player-decision-engine -> origin/codex/implement-contextual-player-decision-engine
+2026-10-28T22:38:15.7804076Z  * [new branch]      codex/implement-first-academy-narrative-arc -> origin/codex/implement-first-academy-narrative-arc
+2026-10-28T22:38:15.7805047Z  * [new branch]      codex/implement-league-pyramid-and-retirement-features -> origin/codex/implement-league-pyramid-and-retirement-features
+2026-10-28T22:38:15.7806352Z  * [new branch]      codex/implement-match-moment-evaluator-v1 -> origin/codex/implement-match-moment-evaluator-v1
+2026-10-28T22:38:15.7807650Z  * [new branch]      codex/implement-player-interaction-improvements -> origin/codex/implement-player-interaction-improvements
+2026-10-28T22:38:15.7808714Z  * [new branch]      codex/implement-player-model-updates-with-new-attributes -> origin/codex/implement-player-model-updates-with-new-attributes
+2026-10-28T22:38:15.7809737Z  * [new branch]      codex/implement-professional-career-lifecycle -> origin/codex/implement-professional-career-lifecycle
+2026-10-28T22:38:15.7810649Z  * [new branch]      codex/implement-tactical-simulation-core-v1 -> origin/codex/implement-tactical-simulation-core-v1
+2026-10-28T22:38:15.7811735Z  * [new branch]      codex/implement-world-lifecycle-persistence-2.0 -> origin/codex/implement-world-lifecycle-persistence-2.0
+2026-10-28T22:38:15.7812624Z  * [new branch]      codex/implement-world-state-persistence-2.0 -> origin/codex/implement-world-state-persistence-2.0
+2026-10-28T22:38:15.7813523Z  * [new branch]      codex/implementacja-drugiego-tygodnia-akademii -> origin/codex/implementacja-drugiego-tygodnia-akademii
+2026-10-28T22:38:15.7814478Z  * [new branch]      codex/implementacja-pierwszego-kreatora-zawodnika -> origin/codex/implementacja-pierwszego-kreatora-zawodnika
+2026-10-28T22:38:15.7815630Z  * [new branch]      codex/implementowac-sciezki-po-decyzji-akademii -> origin/codex/implementowac-sciezki-po-decyzji-akademii
+2026-10-28T22:38:15.7816588Z  * [new branch]      codex/implementuj-symulacje-sezonu-i-fast-forward -> origin/codex/implementuj-symulacje-sezonu-i-fast-forward
+2026-10-28T22:38:15.7817499Z  * [new branch]      codex/implementuj-szanse-na-skad-i-mecze -> origin/codex/implementuj-szanse-na-skad-i-mecze
+2026-10-28T22:38:15.7818381Z  * [new branch]      codex/improve-career-pacing-and-match-feedback -> origin/codex/improve-career-pacing-and-match-feedback
+2026-10-28T22:38:15.7819658Z  * [new branch]      codex/improve-final-third-occupation-and-interaction-integrity -> origin/codex/improve-final-third-occupation-and-interaction-integrity
+2026-10-28T22:38:15.7820729Z  * [new branch]      codex/improve-shot-and-goalkeeping-mechanics -> origin/codex/improve-shot-and-goalkeeping-mechanics
+2026-10-28T22:38:15.7821773Z  * [new branch]      codex/improve-transfer-market-realism-and-club-infrastructure -> origin/codex/improve-transfer-market-realism-and-club-infrastructure
+2026-10-28T22:38:15.7822815Z  * [new branch]      codex/introduce-40-hz-ball-flight-simulation -> origin/codex/introduce-40-hz-ball-flight-simulation
+2026-10-28T22:38:15.7823883Z  * [new branch]      codex/introduce-birth-date-derived-age-system -> origin/codex/introduce-birth-date-derived-age-system
+2026-10-28T22:38:15.7824936Z  * [new branch]      codex/make-fixtures-authoritative-and-add-goalkeeper-model -> origin/codex/make-fixtures-authoritative-and-add-goalkeeper-model
+2026-10-28T22:38:15.7826187Z  * [new branch]      codex/make-season-participation-authoritative -> origin/codex/make-season-participation-authoritative
+2026-10-28T22:38:15.7827107Z  * [new branch]      codex/move-browser-career-storage-to-indexeddb -> origin/codex/move-browser-career-storage-to-indexeddb
+2026-10-28T22:38:15.7827976Z  * [new branch]      codex/move-football-world-to-static-data -> origin/codex/move-football-world-to-static-data
+2026-10-28T22:38:15.7828856Z  * [new branch]      codex/move-football-world-to-static-data-qwzumb -> origin/codex/move-football-world-to-static-data-qwzumb
+2026-10-28T22:38:15.7829747Z  * [new branch]      codex/participation-statistics-discipline -> origin/codex/participation-statistics-discipline
+2026-10-28T22:38:15.7830784Z  * [new branch]      codex/polish-career-ui-and-fix-match-progression-regressions -> origin/codex/polish-career-ui-and-fix-match-progression-regressions
+2026-10-28T22:38:15.7831807Z  * [new branch]      codex/popraw-ux-narzedzia-match-debug-export -> origin/codex/popraw-ux-narzedzia-match-debug-export
+2026-10-28T22:38:15.7832788Z  * [new branch]      codex/poprawic-niezawodnosc-i-architekture-debugowania -> origin/codex/poprawic-niezawodnosc-i-architekture-debugowania
+2026-10-28T22:38:15.7928770Z  * [new branch]      codex/pr141-match-presentation-camera    -> origin/codex/pr141-match-presentation-camera
+2026-10-28T22:38:15.7930165Z  * [new branch]      codex/pr142-match-animation              -> origin/codex/pr142-match-animation
+2026-10-28T22:38:15.7931393Z  * [new branch]      codex/pr143-interactive-context          -> origin/codex/pr143-interactive-context
+2026-10-28T22:38:15.7932650Z  * [new branch]      codex/pr144-shooting-final-third         -> origin/codex/pr144-shooting-final-third
+2026-10-28T22:38:15.7934010Z  * [new branch]      codex/pr145-match-behaviour-calibration  -> origin/codex/pr145-match-behaviour-calibration
+2026-10-28T22:38:15.7956516Z  * [new branch]      codex/pr146-background-performance       -> origin/codex/pr146-background-performance
+2026-10-28T22:38:15.7957988Z  * [new branch]      codex/pr147-rules-discipline-feedback    -> origin/codex/pr147-rules-discipline-feedback
+2026-10-28T22:38:15.7959338Z  * [new branch]      codex/pr148-defensive-realism-cadence    -> origin/codex/pr148-defensive-realism-cadence
+2026-10-28T22:38:15.7960660Z  * [new branch]      codex/pr149-match-readability-centre     -> origin/codex/pr149-match-readability-centre
+2026-10-28T22:38:15.7961952Z  * [new branch]      codex/pr150-continuous-intent-space      -> origin/codex/pr150-continuous-intent-space
+2026-10-28T22:38:15.7963222Z  * [new branch]      codex/pr151-cadence-reactive-tactics     -> origin/codex/pr151-cadence-reactive-tactics
+2026-10-28T22:38:15.7964561Z  * [new branch]      codex/pr152-canonical-participation      -> origin/codex/pr152-canonical-participation
+2026-10-28T22:38:15.7966189Z  * [new branch]      codex/pr154-situational-football-intelligence -> origin/codex/pr154-situational-football-intelligence
+2026-10-28T22:38:15.7967601Z  * [new branch]      codex/pr155-player-agency-possession     -> origin/codex/pr155-player-agency-possession
+2026-10-28T22:38:15.7968931Z  * [new branch]      codex/pr156-agency-passing-connectivity  -> origin/codex/pr156-agency-passing-connectivity
+2026-10-28T22:38:15.7970253Z  * [new branch]      codex/pr157-dynamic-pressing-shooting    -> origin/codex/pr157-dynamic-pressing-shooting
+2026-10-28T22:38:15.7971511Z  * [new branch]      codex/pr158-ball-contact-pressing        -> origin/codex/pr158-ball-contact-pressing
+2026-10-28T22:38:15.7972809Z  * [new branch]      codex/pr159-dead-ball-restart-continuity -> origin/codex/pr159-dead-ball-restart-continuity
+2026-10-28T22:38:15.7974649Z  * [new branch]      codex/pr160-fatigue-injuries-substitutions-added-time -> origin/codex/pr160-fatigue-injuries-substitutions-added-time
+2026-10-28T22:38:15.7976521Z  * [new branch]      codex/pr161-match-presentation-replay-stadium -> origin/codex/pr161-match-presentation-replay-stadium
+2026-10-28T22:38:15.7977922Z  * [new branch]      codex/pr162-integrated-match-realism     -> origin/codex/pr162-integrated-match-realism
+2026-10-28T22:38:15.7979149Z  * [new branch]      codex/pr163-offensive-momentum           -> origin/codex/pr163-offensive-momentum
+2026-10-28T22:38:15.7980470Z  * [new branch]      codex/pr164-startup-storage-match-contracts -> origin/codex/pr164-startup-storage-match-contracts
+2026-10-28T22:38:15.7981867Z  * [new branch]      codex/pr165-visual-dna-character-creator -> origin/codex/pr165-visual-dna-character-creator
+2026-10-28T22:38:15.7983179Z  * [new branch]      codex/pr166-career-match-playstyles      -> origin/codex/pr166-career-match-playstyles
+2026-10-28T22:38:15.7984585Z  * [new branch]      codex/pr167-npc-development-match-flexibility -> origin/codex/pr167-npc-development-match-flexibility
+2026-10-28T22:38:15.7986123Z  * [new branch]      codex/pr168-coaches-tactical-career      -> origin/codex/pr168-coaches-tactical-career
+2026-10-28T22:38:15.7987332Z  * [new branch]      codex/pr169-career-stories-news          -> origin/codex/pr169-career-stories-news
+2026-10-28T22:38:15.7988577Z  * [new branch]      codex/pr170-match-atmosphere-career-ui   -> origin/codex/pr170-match-atmosphere-career-ui
+2026-10-28T22:38:15.7989957Z  * [new branch]      codex/pr171-match-reality-diagnostic-audit -> origin/codex/pr171-match-reality-diagnostic-audit
+2026-10-28T22:38:15.7991370Z  * [new branch]      codex/pr172-evidence-based-match-realism -> origin/codex/pr172-evidence-based-match-realism
+2026-10-28T22:38:15.7992702Z  * [new branch]      codex/pr173-dynamic-football-actions     -> origin/codex/pr173-dynamic-football-actions
+2026-10-28T22:38:15.7993930Z  * [new branch]      codex/pr174-combination-play             -> origin/codex/pr174-combination-play
+2026-10-28T22:38:15.7995039Z  * [new branch]      codex/pr175-match-reality                -> origin/codex/pr175-match-reality
+2026-10-28T22:38:15.7996566Z  * [new branch]      codex/pr176-match-engine-audit           -> origin/codex/pr176-match-engine-audit
+2026-10-28T22:38:15.7997641Z  * [new branch]      codex/pr177-state-value-reform           -> origin/codex/pr177-state-value-reform
+2026-10-28T22:38:15.7998809Z  * [new branch]      codex/pr178-contact-physics-validation   -> origin/codex/pr178-contact-physics-validation
+2026-10-28T22:38:15.7999992Z  * [new branch]      codex/pr179-role-driven-football         -> origin/codex/pr179-role-driven-football
+2026-10-28T22:38:15.8001118Z  * [new branch]      codex/pr180-football-tempo               -> origin/codex/pr180-football-tempo
+2026-10-28T22:38:15.8002344Z  * [new branch]      codex/pr181-attacking-depth-wing-aerial  -> origin/codex/pr181-attacking-depth-wing-aerial
+2026-10-28T22:38:15.8003771Z  * [new branch]      codex/pr182-tactical-intelligence-validation -> origin/codex/pr182-tactical-intelligence-validation
+2026-10-28T22:38:15.8005151Z  * [new branch]      codex/pr183-match-realism-stabilization  -> origin/codex/pr183-match-realism-stabilization
+2026-10-28T22:38:15.8006564Z  * [new branch]      codex/pr184-football-performance-lab     -> origin/codex/pr184-football-performance-lab
+2026-10-28T22:38:15.8007780Z  * [new branch]      codex/pr185-extended-physical-testing    -> origin/codex/pr185-extended-physical-testing
+2026-10-28T22:38:15.8008873Z  * [new branch]      codex/pr186-tactical-cognition           -> origin/codex/pr186-tactical-cognition
+2026-10-28T22:38:15.8010170Z  * [new branch]      codex/pr187-bounded-football-intelligence -> origin/codex/pr187-bounded-football-intelligence
+2026-10-28T22:38:15.8011600Z  * [new branch]      codex/pr188-relative-decision-stabilization -> origin/codex/pr188-relative-decision-stabilization
+2026-10-28T22:38:15.8012940Z  * [new branch]      codex/pr189-ball-contact-deadlocks       -> origin/codex/pr189-ball-contact-deadlocks
+2026-10-28T22:38:15.8014333Z  * [new branch]      codex/pr190-passing-realism              -> origin/codex/pr190-passing-realism
+2026-10-28T22:38:15.8015556Z  * [new branch]      codex/pr191-first-touch-lab              -> origin/codex/pr191-first-touch-lab
+2026-10-28T22:38:15.8016667Z  * [new branch]      codex/pr192-ball-oriented-recovery       -> origin/codex/pr192-ball-oriented-recovery
+2026-10-28T22:38:15.8017900Z  * [new branch]      codex/pr193-transition-intelligence      -> origin/codex/pr193-transition-intelligence
+2026-10-28T22:38:15.8019134Z  * [new branch]      codex/pr194-active-perception            -> origin/codex/pr194-active-perception
+2026-10-28T22:38:15.8020442Z  * [new branch]      codex/pr195-assumptions-calibration      -> origin/codex/pr195-assumptions-calibration
+2026-10-28T22:38:15.8021822Z  * [new branch]      codex/pr196-outcome-defensive-calibration -> origin/codex/pr196-outcome-defensive-calibration
+2026-10-28T22:38:15.8023129Z  * [new branch]      codex/pr197-passing-reality              -> origin/codex/pr197-passing-reality
+2026-10-28T22:38:15.8024495Z  * [new branch]      codex/pr198-receiver-synchronisation     -> origin/codex/pr198-receiver-synchronisation
+2026-10-28T22:38:15.8025923Z  * [new branch]      codex/pr199-ball-flight-perception       -> origin/codex/pr199-ball-flight-perception
+2026-10-28T22:38:15.8027193Z  * [new branch]      codex/pr200-match-engine-integration     -> origin/codex/pr200-match-engine-integration
+2026-10-28T22:38:15.8028641Z  * [new branch]      codex/pr201-bounded-perception-receiver-recovery -> origin/codex/pr201-bounded-perception-receiver-recovery
+2026-10-28T22:38:15.8029918Z  * [new branch]      codex/pr202-lean-ci                      -> origin/codex/pr202-lean-ci
+2026-10-28T22:38:15.8031185Z  * [new branch]      codex/prepare-branch-for-pr137-implementation -> origin/codex/prepare-branch-for-pr137-implementation
+2026-10-28T22:38:15.8032677Z  * [new branch]      codex/prepare-pr134-for-possession-contests -> origin/codex/prepare-pr134-for-possession-contests
+2026-10-28T22:38:15.8034359Z  * [new branch]      codex/prepare-pr135-for-goalkeeping-updates -> origin/codex/prepare-pr135-for-goalkeeping-updates
+2026-10-28T22:38:15.8035893Z  * [new branch]      codex/prepare-pr140-for-fast-simulation-path -> origin/codex/prepare-pr140-for-fast-simulation-path
+2026-10-28T22:38:15.8037611Z  * [new branch]      codex/przygotuj-fundament-repozytorium-projektu-my_football_legend -> origin/codex/przygotuj-fundament-repozytorium-projektu-my_football_legend
+2026-10-28T22:38:15.8039292Z  * [new branch]      codex/redesign-clubview-with-squad-previews -> origin/codex/redesign-clubview-with-squad-previews
+2026-10-28T22:38:15.8040858Z  * [new branch]      codex/refactor-body-orientation-and-ball-physics -> origin/codex/refactor-body-orientation-and-ball-physics
+2026-10-28T22:38:15.8042465Z  * [new branch]      codex/refactor-match-engine-for-unified-physics -> origin/codex/refactor-match-engine-for-unified-physics
+2026-10-28T22:38:15.8044071Z  * [new branch]      codex/refactor-match-time-and-restart-ownership -> origin/codex/refactor-match-time-and-restart-ownership
+2026-10-28T22:38:15.8045835Z  * [new branch]      codex/refactor-squad-management-and-market-logic -> origin/codex/refactor-squad-management-and-market-logic
+2026-10-28T22:38:15.8047584Z  * [new branch]      codex/refactor-squad-management-and-market-logic-6dra2s -> origin/codex/refactor-squad-management-and-market-logic-6dra2s
+2026-10-28T22:38:15.8049197Z  * [new branch]      codex/refine-club-identity-and-career-ui -> origin/codex/refine-club-identity-and-career-ui
+2026-10-28T22:38:15.8050525Z  * [new branch]      codex/remove-prototype-career-flow       -> origin/codex/remove-prototype-career-flow
+2026-10-28T22:38:15.8051800Z  * [new branch]      codex/replace-off-ball-prompt-spam       -> origin/codex/replace-off-ball-prompt-spam
+2026-10-28T22:38:15.8053205Z  * [new branch]      codex/restore-season-participation-invariant -> origin/codex/restore-season-participation-invariant
+2026-10-28T22:38:15.8055017Z  * [new branch]      codex/stabilize-career-progression-and-fix-bugs -> origin/codex/stabilize-career-progression-and-fix-bugs
+2026-10-28T22:38:15.8056878Z  * [new branch]      codex/stabilize-match-state-and-career-transitions -> origin/codex/stabilize-match-state-and-career-transitions
+2026-10-28T22:38:15.8058707Z  * [new branch]      codex/stabilize-season-simulation-and-player-availability -> origin/codex/stabilize-season-simulation-and-player-availability
+2026-10-28T22:38:15.8060481Z  * [new branch]      codex/stabilizuj-interfejs-uzytkownika-kariery -> origin/codex/stabilizuj-interfejs-uzytkownika-kariery
+2026-10-28T22:38:15.8062061Z  * [new branch]      codex/stabilizuj-posiadanie-i-kalibruj-relacje -> origin/codex/stabilizuj-posiadanie-i-kalibruj-relacje
+2026-10-28T22:38:15.8063502Z  * [new branch]      codex/ulepsz-kreator-zawodnika-w-ux      -> origin/codex/ulepsz-kreator-zawodnika-w-ux
+2026-10-28T22:38:15.8065076Z  * [new branch]      codex/unify-career-calendar-and-simplify-academy-start -> origin/codex/unify-career-calendar-and-simplify-academy-start
+2026-10-28T22:38:15.8067156Z  * [new branch]      codex/unify-career-fixture-history-and-simplify-vistula-nova -> origin/codex/unify-career-fixture-history-and-simplify-vistula-nova
+2026-10-28T22:38:15.8068972Z  * [new branch]      codex/unify-club-strength-simulation-and-features -> origin/codex/unify-club-strength-simulation-and-features
+2026-10-28T22:38:15.8070476Z  * [new branch]      codex/update-tactical-positioning-model  -> origin/codex/update-tactical-positioning-model
+2026-10-28T22:38:15.8072200Z  * [new branch]      codex/uprosc-tabele-ofert-kontraktow-na-zakonczenie-sezonu -> origin/codex/uprosc-tabele-ofert-kontraktow-na-zakonczenie-sezonu
+2026-10-28T22:38:15.8073939Z  * [new branch]      codex/wire-season-one-to-persistent-u-17-world -> origin/codex/wire-season-one-to-persistent-u-17-world
+2026-10-28T22:38:15.8075726Z  * [new branch]      codex/wprowadz-dynamiczny-kalendarz-i-os-czasu-sezonu -> origin/codex/wprowadz-dynamiczny-kalendarz-i-os-czasu-sezonu
+2026-10-28T22:38:15.8077688Z  * [new branch]      codex/wprowadz-interfejs-kariery-w-jednym-widoku -> origin/codex/wprowadz-interfejs-kariery-w-jednym-widoku
+2026-10-28T22:38:15.8079091Z  * [new branch]      codex/wprowadz-model-gracza-2.0          -> origin/codex/wprowadz-model-gracza-2.0
+2026-10-28T22:38:15.8080632Z  * [new branch]      codex/wprowadz-trwae-skady-klubowe-i-oparty-na-formacji -> origin/codex/wprowadz-trwae-skady-klubowe-i-oparty-na-formacji
+2026-10-28T22:38:15.8082570Z  * [new branch]      codex/wzmocnic-przechwytywanie-awarii-i-inicjalizacje-renderera -> origin/codex/wzmocnic-przechwytywanie-awarii-i-inicjalizacje-renderera
+2026-10-28T22:38:15.8084453Z  * [new branch]      codex/wzmocnij-kontekst-decyzji-i-atrybucje-wynikow -> origin/codex/wzmocnij-kontekst-decyzji-i-atrybucje-wynikow
+2026-10-28T22:38:15.8086323Z  * [new branch]      codex/wzmocnij-przepyw-meczu-i-stabilnosc-silnika -> origin/codex/wzmocnij-przepyw-meczu-i-stabilnosc-silnika
+2026-10-28T22:38:15.8087930Z  * [new branch]      codex/zagwarantuj-mozliwosc-interakcji-graczy -> origin/codex/zagwarantuj-mozliwosc-interakcji-graczy
+2026-10-28T22:38:15.8089082Z  * [new branch]      main                                     -> origin/main
+2026-10-28T22:38:15.8090060Z  * [new branch]      match-engine-legacy-pr176                -> origin/match-engine-legacy-pr176
+2026-10-28T22:38:15.8091033Z  * [new ref]         6d8c2f906e676f919c80c63360ce79c6e64bb962 -> pull/202/merge
+2026-10-28T22:38:15.8093055Z ##[endgroup]
+2026-10-28T22:38:15.8093759Z ##[group]Determining the checkout info
+2026-10-28T22:38:15.8094508Z ##[endgroup]
+2026-10-28T22:38:15.8095080Z [command]/usr/bin/git sparse-checkout disable
+2026-10-28T22:38:15.8096532Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-28T22:38:15.8098090Z ##[group]Checking out the ref
+2026-10-28T22:38:15.8098789Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/202/merge
+2026-10-28T22:38:16.9526093Z Updating files:  20% (1130/5638)
+2026-10-28T22:38:17.1272725Z Updating files:  21% (1184/5638)
+2026-10-28T22:38:17.1694385Z Updating files:  22% (1241/5638)
+2026-10-28T22:38:17.2071427Z Updating files:  23% (1297/5638)
+2026-10-28T22:38:17.2353112Z Updating files:  24% (1354/5638)
+2026-10-28T22:38:17.2501278Z Updating files:  25% (1410/5638)
+2026-10-28T22:38:17.2918914Z Updating files:  26% (1466/5638)
+2026-10-28T22:38:17.3399649Z Updating files:  27% (1523/5638)
+2026-10-28T22:38:17.3642435Z Updating files:  28% (1579/5638)
+2026-10-28T22:38:17.3675940Z Updating files:  29% (1636/5638)
+2026-10-28T22:38:17.4174396Z Updating files:  30% (1692/5638)
+2026-10-28T22:38:17.4587517Z Updating files:  31% (1748/5638)
+2026-10-28T22:38:17.4607598Z Updating files:  32% (1805/5638)
+2026-10-28T22:38:17.4766200Z Updating files:  33% (1861/5638)
+2026-10-28T22:38:17.4836612Z Updating files:  34% (1917/5638)
+2026-10-28T22:38:17.4928769Z Updating files:  35% (1974/5638)
+2026-10-28T22:38:17.5005672Z Updating files:  36% (2030/5638)
+2026-10-28T22:38:17.5101002Z Updating files:  37% (2087/5638)
+2026-10-28T22:38:17.6020678Z Updating files:  38% (2143/5638)
+2026-10-28T22:38:17.8102858Z Updating files:  39% (2199/5638)
+2026-10-28T22:38:18.2644314Z Updating files:  39% (2219/5638)
+2026-10-28T22:38:18.7796878Z Updating files:  40% (2256/5638)
+2026-10-28T22:38:18.8273057Z Updating files:  41% (2312/5638)
+2026-10-28T22:38:19.2628233Z Updating files:  41% (2340/5638)
+2026-10-28T22:38:19.4505189Z Updating files:  42% (2368/5638)
+2026-10-28T22:38:19.4558540Z Updating files:  43% (2425/5638)
+2026-10-28T22:38:19.4607243Z Updating files:  44% (2481/5638)
+2026-10-28T22:38:19.4635417Z Updating files:  45% (2538/5638)
+2026-10-28T22:38:19.4671414Z Updating files:  46% (2594/5638)
+2026-10-28T22:38:19.6527937Z Updating files:  47% (2650/5638)
+2026-10-28T22:38:19.6548466Z Updating files:  48% (2707/5638)
+2026-10-28T22:38:19.6709474Z Updating files:  49% (2763/5638)
+2026-10-28T22:38:19.6852869Z Updating files:  50% (2819/5638)
+2026-10-28T22:38:19.6989508Z Updating files:  51% (2876/5638)
+2026-10-28T22:38:19.7174543Z Updating files:  52% (2932/5638)
+2026-10-28T22:38:19.8319823Z Updating files:  53% (2989/5638)
+2026-10-28T22:38:19.9642027Z Updating files:  53% (2994/5638)
+2026-10-28T22:38:19.9809868Z Updating files:  54% (3045/5638)
+2026-10-28T22:38:20.0004076Z Updating files:  55% (3101/5638)
+2026-10-28T22:38:20.0184218Z Updating files:  56% (3158/5638)
+2026-10-28T22:38:20.0686567Z Updating files:  57% (3214/5638)
+2026-10-28T22:38:20.0820453Z Updating files:  58% (3271/5638)
+2026-10-28T22:38:20.0903746Z Updating files:  59% (3327/5638)
+2026-10-28T22:38:20.1034398Z Updating files:  60% (3383/5638)
+2026-10-28T22:38:20.1173406Z Updating files:  61% (3440/5638)
+2026-10-28T22:38:20.1271308Z Updating files:  62% (3496/5638)
+2026-10-28T22:38:20.1367339Z Updating files:  63% (3552/5638)
+2026-10-28T22:38:20.2774340Z Updating files:  64% (3609/5638)
+2026-10-28T22:38:20.2961287Z Updating files:  65% (3665/5638)
+2026-10-28T22:38:20.2979009Z Updating files:  66% (3722/5638)
+2026-10-28T22:38:20.3447040Z Updating files:  67% (3778/5638)
+2026-10-28T22:38:20.3699768Z Updating files:  68% (3834/5638)
+2026-10-28T22:38:20.4084315Z Updating files:  69% (3891/5638)
+2026-10-28T22:38:20.4512930Z Updating files:  70% (3947/5638)
+2026-10-28T22:38:20.5206017Z Updating files:  71% (4003/5638)
+2026-10-28T22:38:20.8051592Z Updating files:  72% (4060/5638)
+2026-10-28T22:38:20.8263740Z Updating files:  72% (4073/5638)
+2026-10-28T22:38:20.8859976Z Updating files:  73% (4116/5638)
+2026-10-28T22:38:20.9038224Z Updating files:  74% (4173/5638)
+2026-10-28T22:38:20.9064783Z Updating files:  75% (4229/5638)
+2026-10-28T22:38:20.9589992Z Updating files:  76% (4285/5638)
+2026-10-28T22:38:20.9615515Z Updating files:  77% (4342/5638)
+2026-10-28T22:38:20.9672128Z Updating files:  78% (4398/5638)
+2026-10-28T22:38:20.9710870Z Updating files:  79% (4455/5638)
+2026-10-28T22:38:20.9747651Z Updating files:  80% (4511/5638)
+2026-10-28T22:38:20.9791007Z Updating files:  81% (4567/5638)
+2026-10-28T22:38:20.9828284Z Updating files:  82% (4624/5638)
+2026-10-28T22:38:20.9862395Z Updating files:  83% (4680/5638)
+2026-10-28T22:38:20.9901476Z Updating files:  84% (4736/5638)
+2026-10-28T22:38:20.9934759Z Updating files:  85% (4793/5638)
+2026-10-28T22:38:20.9974949Z Updating files:  86% (4849/5638)
+2026-10-28T22:38:21.0017581Z Updating files:  87% (4906/5638)
+2026-10-28T22:38:21.0057152Z Updating files:  88% (4962/5638)
+2026-10-28T22:38:21.0102621Z Updating files:  89% (5018/5638)
+2026-10-28T22:38:21.0141938Z Updating files:  90% (5075/5638)
+2026-10-28T22:38:21.0174995Z Updating files:  91% (5131/5638)
+2026-10-28T22:38:21.0233340Z Updating files:  92% (5187/5638)
+2026-10-28T22:38:21.0280359Z Updating files:  93% (5244/5638)
+2026-10-28T22:38:21.0335762Z Updating files:  94% (5300/5638)
+2026-10-28T22:38:21.0384777Z Updating files:  95% (5357/5638)
+2026-10-28T22:38:21.0433846Z Updating files:  96% (5413/5638)
+2026-10-28T22:38:21.0485883Z Updating files:  97% (5469/5638)
+2026-10-28T22:38:21.0525467Z Updating files:  98% (5526/5638)
+2026-10-28T22:38:21.0564976Z Updating files:  99% (5582/5638)
+2026-10-28T22:38:21.0565921Z Updating files: 100% (5638/5638)
+2026-10-28T22:38:21.0566364Z Updating files: 100% (5638/5638), done.
+2026-10-28T22:38:21.0625552Z Note: switching to 'refs/remotes/pull/202/merge'.
+2026-10-28T22:38:21.0625940Z 
+2026-10-28T22:38:21.0626249Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-28T22:38:21.0626989Z changes and commit them, and you can discard any commits you make in this
+2026-10-28T22:38:21.0627665Z state without impacting any branches by switching back to a branch.
+2026-10-28T22:38:21.0628081Z 
+2026-10-28T22:38:21.0628366Z If you want to create a new branch to retain commits you create, you may
+2026-10-28T22:38:21.0629048Z do so (now or later) by using -c with the switch command. Example:
+2026-10-28T22:38:21.0629438Z 
+2026-10-28T22:38:21.0629602Z   git switch -c <new-branch-name>
+2026-10-28T22:38:21.0629875Z 
+2026-10-28T22:38:21.0630022Z Or undo this operation with:
+2026-10-28T22:38:21.0630266Z 
+2026-10-28T22:38:21.0630392Z   git switch -
+2026-10-28T22:38:21.0630908Z 
+2026-10-28T22:38:21.0631243Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-28T22:38:21.0631720Z 
+2026-10-28T22:38:21.0632256Z HEAD is now at 6d8c2f9 Merge 2341420e7f0a59a5f2e0fd913a748d9ff4c002a6 into 5b6bbf6778017ac415964dd48dfe30b850f2f352
+2026-10-28T22:38:21.0970578Z ##[endgroup]
+2026-10-28T22:38:21.1030056Z [command]/usr/bin/git log -1 --format=%H
+2026-10-28T22:38:21.1067130Z 6d8c2f906e676f919c80c63360ce79c6e64bb962
+2026-10-28T22:38:21.1351258Z ##[group]Run actions/setup-node@v4
+2026-10-28T22:38:21.1351541Z with:
+2026-10-28T22:38:21.1351748Z   node-version: 24
+2026-10-28T22:38:21.1351962Z   cache: npm
+2026-10-28T22:38:21.1352176Z   always-auth: false
+2026-10-28T22:38:21.1352400Z   check-latest: false
+2026-10-28T22:38:21.1354991Z   token: ***
+2026-10-28T22:38:21.1355203Z env:
+2026-10-28T22:38:21.1355677Z   VITEST_MAX_WORKERS: 1
+2026-10-28T22:38:21.1355942Z   NODE_OPTIONS: --max-semi-space-size=64
+2026-10-28T22:38:21.1356223Z ##[endgroup]
+2026-10-28T22:38:21.2844761Z (node:2333) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-28T22:38:21.2846171Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-28T22:38:21.2854542Z Found in cache @ /opt/hostedtoolcache/node/24.22.1/x64
+2026-10-28T22:38:21.2855199Z ##[group]Environment details
+2026-10-28T22:38:21.6554312Z node: v24.22.1
+2026-10-28T22:38:21.6554702Z npm: 11.19.1
+2026-10-28T22:38:21.6555144Z yarn: 1.22.22
+2026-10-28T22:38:21.6556851Z ##[endgroup]
+2026-10-28T22:38:21.6576415Z [command]/opt/hostedtoolcache/node/24.22.1/x64/bin/npm config get cache
+2026-10-28T22:38:21.7673688Z /home/runner/.npm
+2026-10-28T22:38:21.8965856Z Cache hit for: node-cache-Linux-x64-npm-3ccfa5c2f9c23f621a3997353c2a21b8295d499a1a7d3c6c09b0789c97f92220
+2026-10-28T22:38:21.9072962Z (node:2333) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T22:38:22.5748889Z Received 54608004 of 54608004 (100.0%), 93.0 MBs/sec
+2026-10-28T22:38:22.5749500Z Cache Size: ~52 MB (54608004 B)
+2026-10-28T22:38:22.5777565Z [command]/usr/bin/tar -xf /home/runner/work/_temp/600e9ad3-00c0-4c31-8545-17c7d150e0df/cache.tzst -P -C /home/runner/work/my_football_legend/my_football_legend --use-compress-program unzstd
+2026-10-28T22:38:22.7892998Z Cache restored successfully
+2026-10-28T22:38:22.7922310Z Cache restored from key: node-cache-Linux-x64-npm-3ccfa5c2f9c23f621a3997353c2a21b8295d499a1a7d3c6c09b0789c97f92220
+2026-10-28T22:38:22.8609805Z ##[group]Run npm ci
+2026-10-28T22:38:22.8610122Z [36;1mnpm ci[0m
+2026-10-28T22:38:22.9065066Z shell: /usr/bin/bash -e {0}
+2026-10-28T22:38:22.9067509Z env:
+2026-10-28T22:38:22.9067751Z   VITEST_MAX_WORKERS: 1
+2026-10-28T22:38:22.9068034Z   NODE_OPTIONS: --max-semi-space-size=64
+2026-10-28T22:38:22.9068332Z ##[endgroup]
+2026-10-28T22:38:26.5233249Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+2026-10-28T22:38:28.9177619Z 
+2026-10-28T22:38:28.9178547Z added 245 packages, and audited 246 packages in 6s
+2026-10-28T22:38:28.9179108Z 
+2026-10-28T22:38:28.9179557Z 67 packages are looking for funding
+2026-10-28T22:38:28.9180098Z   run `npm fund` for details
+2026-10-28T22:38:28.9379881Z 
+2026-10-28T22:38:28.9380657Z 8 vulnerabilities (2 moderate, 6 high)
+2026-10-28T22:38:28.9381126Z 
+2026-10-28T22:38:28.9381684Z To address issues that do not require attention, run:
+2026-10-28T22:38:28.9382233Z   npm audit fix
+2026-10-28T22:38:28.9382630Z 
+2026-10-28T22:38:28.9382824Z To address all issues, run:
+2026-10-28T22:38:28.9383311Z   npm audit fix --force
+2026-10-28T22:38:28.9383607Z 
+2026-10-28T22:38:28.9383907Z Run `npm audit` for details.
+2026-10-28T22:38:29.0228568Z ##[group]Run npm run generate:world-db
+2026-10-28T22:38:29.0228925Z [36;1mnpm run generate:world-db[0m
+2026-10-28T22:38:29.0251413Z shell: /usr/bin/bash -e {0}
+2026-10-28T22:38:29.0251856Z env:
+2026-10-28T22:38:29.0252066Z   VITEST_MAX_WORKERS: 1
+2026-10-28T22:38:29.0252336Z   NODE_OPTIONS: --max-semi-space-size=64
+2026-10-28T22:38:29.0252622Z ##[endgroup]
+2026-10-28T22:38:29.1283943Z 
+2026-10-28T22:38:29.1284671Z > my_football_legend@0.1.0 generate:world-db
+2026-10-28T22:38:29.1286218Z > node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts
+2026-10-28T22:38:29.1287034Z 
+2026-10-28T22:38:30.1251954Z world database: 64 clubs, 1824 footballers
+2026-10-28T22:38:30.1253681Z wrote /home/runner/work/my_football_legend/my_football_legend/.generated-public/data/world/pl-2026-v2.json
+2026-10-28T22:38:30.1259256Z (node:2408) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+2026-10-28T22:38:30.1260907Z (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-28T22:38:30.1649564Z ##[group]Run npm run benchmark:pr199:check && npm run benchmark:realism:check && npm run benchmark:pr200:check && npm run benchmark:pr201:check
+2026-10-28T22:38:30.1650527Z [36;1mnpm run benchmark:pr199:check && npm run benchmark:realism:check && npm run benchmark:pr200:check && npm run benchmark:pr201:check[0m
+2026-10-28T22:38:30.1672450Z shell: /usr/bin/bash -e {0}
+2026-10-28T22:38:30.1672718Z env:
+2026-10-28T22:38:30.1672939Z   VITEST_MAX_WORKERS: 1
+2026-10-28T22:38:30.1673203Z   NODE_OPTIONS: --max-semi-space-size=64
+2026-10-28T22:38:30.1673493Z ##[endgroup]
+2026-10-28T22:38:30.2704727Z 
+2026-10-28T22:38:30.2705982Z > my_football_legend@0.1.0 benchmark:pr199:check
+2026-10-28T22:38:30.2706717Z > node scripts/replayPr199Baseline.mjs
+2026-10-28T22:38:30.2707042Z 
+2026-10-28T22:38:30.7206344Z 
+2026-10-28T22:38:30.7207246Z > my_football_legend@0.1.0 benchmark:pr199:check
+2026-10-28T22:38:30.7209403Z > node scripts/freezePr199Baseline.mjs --check && node scripts/checkPr199Evidence.mjs && node scripts/summarizePr199.mjs --check && node scripts/reportPr199.mjs --check && node scripts/realismProgress.mjs --check
+2026-10-28T22:38:30.7210906Z 
+2026-10-28T22:38:30.9067182Z PR199 frozen 135 IDs; 11 changed contacts; bc638ebb8ec3e7715fee7317e3a58c6544fd005c4193fcc82a8297f322e893c9
+2026-10-28T22:38:48.7680350Z PR199 evidence PASS: 28 receipts; 135 IDs; native runtime unchanged; observer neutrality; no live belief consumer
+2026-10-28T22:39:06.8506554Z PR199 summary 1720 perception; 664 receiving; {
+2026-10-28T22:39:06.8506982Z   SOURCE_AUDITED: 135,
+2026-10-28T22:39:06.8507289Z   EXPERIMENT_INVESTIGATED: 38,
+2026-10-28T22:39:06.8509673Z   ROOT_CAUSE_IDENTIFIED: 12,
+2026-10-28T22:39:06.8510148Z   FIX_IMPLEMENTED: 10,
+2026-10-28T22:39:06.8510507Z   DEVELOPMENT_VALIDATED: 8,
+2026-10-28T22:39:06.8510882Z   INDEPENDENT_VALIDATED: 0,
+2026-10-28T22:39:06.8511223Z   COMPLETE: 0
+2026-10-28T22:39:06.8511581Z }
+2026-10-28T22:39:07.0335873Z PR199 report generated/checked 46830 characters; 26 sections
+2026-10-28T22:39:14.9595664Z Realism progress PASS 135 {
+2026-10-28T22:39:14.9596052Z   SOURCE_AUDITED: 135,
+2026-10-28T22:39:14.9598400Z   EXPERIMENT_INVESTIGATED: 38,
+2026-10-28T22:39:14.9598812Z   ROOT_CAUSE_IDENTIFIED: 12,
+2026-10-28T22:39:14.9599176Z   FIX_IMPLEMENTED: 10,
+2026-10-28T22:39:14.9599519Z   DEVELOPMENT_VALIDATED: 8,
+2026-10-28T22:39:14.9599896Z   INDEPENDENT_VALIDATED: 0,
+2026-10-28T22:39:14.9600262Z   COMPLETE: 0
+2026-10-28T22:39:14.9600567Z }
+2026-10-28T22:39:15.1257126Z PR199 immutable merged-source expectations PASS 97ea53b1a6d3098105586668678a2270cd589f2f
+2026-10-28T22:39:15.3900624Z 
+2026-10-28T22:39:15.3901405Z > my_football_legend@0.1.0 benchmark:realism:check
+2026-10-28T22:39:15.3901994Z > node scripts/realismProgress.mjs --check
+2026-10-28T22:39:15.3902226Z 
+2026-10-28T22:39:23.8466940Z Realism progress PASS 135 {
+2026-10-28T22:39:23.8467333Z   SOURCE_AUDITED: 135,
+2026-10-28T22:39:23.8467634Z   EXPERIMENT_INVESTIGATED: 38,
+2026-10-28T22:39:23.8467918Z   ROOT_CAUSE_IDENTIFIED: 12,
+2026-10-28T22:39:23.8468223Z   FIX_IMPLEMENTED: 12,
+2026-10-28T22:39:23.8468468Z   DEVELOPMENT_VALIDATED: 8,
+2026-10-28T22:39:23.8469098Z   INDEPENDENT_VALIDATED: 0,
+2026-10-28T22:39:23.8469351Z   COMPLETE: 0
+2026-10-28T22:39:23.8469570Z }
+2026-10-28T22:39:24.1161582Z 
+2026-10-28T22:39:24.1162283Z > my_football_legend@0.1.0 benchmark:pr200:check
+2026-10-28T22:39:24.1162762Z > node scripts/replayPr200Baseline.mjs
+2026-10-28T22:39:24.1162968Z 
+2026-10-28T22:39:24.5514805Z 
+2026-10-28T22:39:24.5515812Z > my_football_legend@0.1.0 benchmark:pr200:check
+2026-10-28T22:39:24.5520152Z > node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr200Evidence.mjs && node scripts/freezePr200Baseline.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/pr200Inventory.mjs --check && node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr200.mjs --check && node scripts/realismProgress.mjs --check
+2026-10-28T22:39:24.5522909Z 
+2026-10-28T22:39:29.5133853Z PR200 evidence PASS 42 complete matches; 20 exact source versions; historical evidence immutable; NOT READY
+2026-10-28T22:39:29.5146121Z (node:2671) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+2026-10-28T22:39:29.5149033Z (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-28T22:39:29.7605821Z PR200 frozen merged PR199: 97ea53b1a6d3098105586668678a2270cd589f2f ffe8a3c89f1eb1731837c6cf528001bb315e946f371e0e1f960147ec89617b48 135
+2026-10-28T22:39:30.8837839Z PR200 inventoried 16 live optional fields; 16 mechanisms
+2026-10-28T22:39:30.8844219Z (node:2713) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+2026-10-28T22:39:30.8845547Z (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-28T22:39:35.7158980Z PR200 report 42 matches; 1460 receiver continuations; NOT READY
+2026-10-28T22:39:35.7171812Z (node:2721) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+2026-10-28T22:39:35.7172912Z (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-28T22:39:44.2895881Z Realism progress PASS 135 {
+2026-10-28T22:39:44.2896364Z   SOURCE_AUDITED: 135,
+2026-10-28T22:39:44.2896738Z   EXPERIMENT_INVESTIGATED: 38,
+2026-10-28T22:39:44.2897039Z   ROOT_CAUSE_IDENTIFIED: 12,
+2026-10-28T22:39:44.2897300Z   FIX_IMPLEMENTED: 12,
+2026-10-28T22:39:44.2897539Z   DEVELOPMENT_VALIDATED: 8,
+2026-10-28T22:39:44.2897809Z   INDEPENDENT_VALIDATED: 0,
+2026-10-28T22:39:44.2898052Z   COMPLETE: 0
+2026-10-28T22:39:44.2898269Z }
+2026-10-28T22:39:44.4594868Z PR200 immutable merged-source expectations PASS df6d93df39d1bebfa5d395e29620224670520971
+2026-10-28T22:39:44.6329905Z 
+2026-10-28T22:39:44.6330740Z > my_football_legend@0.1.0 benchmark:pr201:check
+2026-10-28T22:39:44.6332442Z > node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr201Evidence.mjs && node scripts/summarizePr201.mjs --check
+2026-10-28T22:39:44.6333528Z 
+2026-10-28T22:39:47.2330837Z PR201 evidence PASS: immutable history, same-ball physical comparisons, 28 complete matches, bounded information, measured costs; canonical NOT READY
+2026-10-28T22:39:47.2346746Z (node:2752) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+2026-10-28T22:39:47.2347693Z (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-28T22:39:49.5796166Z node:internal/modules/run_main:107
+2026-10-28T22:39:49.5797046Z     triggerUncaughtException(
+2026-10-28T22:39:49.5797781Z     ^
+2026-10-28T22:39:49.5798004Z 
+2026-10-28T22:39:49.5798382Z AssertionError [ERR_ASSERTION]: Generated summary drift
+2026-10-28T22:39:49.5798969Z + actual - expected
+2026-10-28T22:39:49.5799182Z 
+2026-10-28T22:39:49.5799324Z   '{\n' +
+2026-10-28T22:39:49.5799701Z     '  "schema": "pr201-summary-v1",\n' +
+2026-10-28T22:39:49.5800350Z     '  "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5800885Z     '  "source": {\n' +
+2026-10-28T22:39:49.5801710Z     '    "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5802706Z +   '    "fingerprint": "c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de",\n' +
+2026-10-28T22:39:49.5804123Z +   '    "path": "docs/performance/pr201/source/c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de.json.gz"\n' +
+2026-10-28T22:39:49.5805679Z -   '    "fingerprint": "edb843901a41a2f073b644a573f1c0d3d970590d88dce4436fb81ee2582e6b48",\n' +
+2026-10-28T22:39:49.5807086Z -   '    "path": "docs/performance/pr201/source/edb843901a41a2f073b644a573f1c0d3d970590d88dce4436fb81ee2582e6b48.json.gz"\n' +
+2026-10-28T22:39:49.5807965Z     '  },\n' +
+2026-10-28T22:39:49.5808293Z     '  "locals": {\n' +
+2026-10-28T22:39:49.5808659Z     '    "frozen": {\n' +
+2026-10-28T22:39:49.5809264Z     '      "path": "docs/performance/pr201/receivers-frozen-v1.json.gz",\n' +
+2026-10-28T22:39:49.5810449Z     '      "sha256": "4f26f1c663f577e63c7ab04f5dd2de873e2138f41fea4793dc4f098f2cba39d2",\n' +
+2026-10-28T22:39:49.5811015Z 
+2026-10-28T22:39:49.5811580Z     at file:///home/runner/work/my_football_legend/my_football_legend/scripts/summarizePr201.mjs:225:10
+2026-10-28T22:39:49.5812232Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-28T22:39:49.5812676Z     at async node:internal/modules/esm/loader:647:26
+2026-10-28T22:39:49.5813194Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+2026-10-28T22:39:49.5813648Z   generatedMessage: false,
+2026-10-28T22:39:49.5813907Z   code: 'ERR_ASSERTION',
+2026-10-28T22:39:49.5814154Z   actual: '{\n' +
+2026-10-28T22:39:49.5814425Z     '  "schema": "pr201-summary-v1",\n' +
+2026-10-28T22:39:49.5814811Z     '  "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5815163Z     '  "source": {\n' +
+2026-10-28T22:39:49.5815701Z     '    "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5816252Z     '    "fingerprint": "c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de",\n' +
+2026-10-28T22:39:49.5817063Z     '    "path": "docs/performance/pr201/source/c131a07cf4a49e75fef1f8da5876124dec5395ef0f942e26f0b2218a2c80e9de.json.gz"\n' +
+2026-10-28T22:39:49.5817672Z     '  },\n' +
+2026-10-28T22:39:49.5817899Z     '  "locals": {\n' +
+2026-10-28T22:39:49.5818237Z     '    "frozen": {\n' +
+2026-10-28T22:39:49.5818630Z     '      "path": "docs/performance/pr201/receivers-frozen-v1.json.gz",\n' +
+2026-10-28T22:39:49.5819219Z     '      "sha256": "4f26f1c663f577e63c7ab04f5dd2de873e2138f41fea4793dc4f098f2cba39d2",\n' +
+2026-10-28T22:39:49.5819663Z     '      "source": {\n' +
+2026-10-28T22:39:49.5820022Z     '        "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5820580Z     '        "fingerprint": "ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32",\n' +
+2026-10-28T22:39:49.5821385Z     '        "path": "docs/performance/pr201/source/ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32.json.gz"\n' +
+2026-10-28T22:39:49.5821943Z     '      },\n' +
+2026-10-28T22:39:49.5822170Z     '      "summary": {\n' +
+2026-10-28T22:39:49.5822450Z     '        "bounded": {\n' +
+2026-10-28T22:39:49.5822728Z     '          "trials": 180,\n' +
+2026-10-28T22:39:49.5823004Z     '          "touch": 100,\n' +
+2026-10-28T22:39:49.5823297Z     '          "control": 73,\n' +
+2026-10-28T22:39:49.5823596Z     '          "retained": 73,\n' +
+2026-10-28T22:39:49.5823911Z     '          "allReceiverControl": 74,\n' +
+2026-10-28T22:39:49.5824260Z     '          "deflectedReceiverTouch": 1,\n' +
+2026-10-28T22:39:49.5824610Z     '          "uninterruptedRetention": 73,\n' +
+2026-10-28T22:39:49.5824940Z     '          "censored": 1,\n' +
+2026-10-28T22:39:49.5825392Z     '          "defensiveControl": 59,\n' +
+2026-10-28T22:39:49.5825757Z     '          "nextDecisionOpportunity": 74,\n' +
+2026-10-28T22:39:49.5826091Z     '          "nextAction": 74,\n' +
+2026-10-28T22:39:49.5826394Z     '          "nextPasses": 0,\n' +
+2026-10-28T22:39:49.5826877Z     '          "nextPassDirectControl": 0,\n' +
+2026-10-28T22:39:49.5827214Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.5827501Z     '        },\n' +
+2026-10-28T22:39:49.5827749Z     '        "recovery": {\n' +
+2026-10-28T22:39:49.5828030Z     '          "trials": 180,\n' +
+2026-10-28T22:39:49.5828311Z     '          "touch": 124,\n' +
+2026-10-28T22:39:49.5828594Z     '          "control": 97,\n' +
+2026-10-28T22:39:49.5828871Z     '          "retained": 96,\n' +
+2026-10-28T22:39:49.5829176Z     '          "allReceiverControl": 102,\n' +
+2026-10-28T22:39:49.5829526Z     '          "deflectedReceiverTouch": 5,\n' +
+2026-10-28T22:39:49.5829871Z     '          "uninterruptedRetention": 101,\n' +
+2026-10-28T22:39:49.5830184Z     '          "censored": 1,\n' +
+2026-10-28T22:39:49.5830481Z     '          "defensiveControl": 39,\n' +
+2026-10-28T22:39:49.5830938Z     '          "nextDecisionOpportunity": 100,\n' +
+2026-10-28T22:39:49.5831275Z     '          "nextAction": 101,\n' +
+2026-10-28T22:39:49.5831594Z     '          "nextPasses": 0,\n' +
+2026-10-28T22:39:49.5831905Z     '          "nextPassDirectControl": 0,\n' +
+2026-10-28T22:39:49.5832231Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.5832510Z     '        }\n' +
+2026-10-28T22:39:49.5832719Z     '      },\n' +
+2026-10-28T22:39:49.5832943Z     '      "paired": {\n' +
+2026-10-28T22:39:49.5833214Z     '        "directTouch": {\n' +
+2026-10-28T22:39:49.5833499Z     '          "gained": 29,\n' +
+2026-10-28T22:39:49.5833756Z     '          "lost": 5\n' +
+2026-10-28T22:39:49.5833999Z     '        },\n' +
+2026-10-28T22:39:49.5834251Z     '        "directControl": {\n' +
+2026-10-28T22:39:49.5834536Z     '          "gained": 27,\n' +
+2026-10-28T22:39:49.5834791Z     '          "lost": 3\n' +
+2026-10-28T22:39:49.5835045Z     '        },\n' +
+2026-10-28T22:39:49.5835520Z     '        "directRetained": {\n' +
+2026-10-28T22:39:49.5835884Z     '          "gained": 27,\n' +
+2026-10-28T22:39:49.5836150Z     '          "lost": 4\n' +
+2026-10-28T22:39:49.5836397Z     '        }\n' +
+2026-10-28T22:39:49.5836612Z     '      },\n' +
+2026-10-28T22:39:49.5836825Z     '      "costs": {\n' +
+2026-10-28T22:39:49.5837126Z     '        "wallSeconds": 76.41114280000001,\n' +
+2026-10-28T22:39:49.5837422Z     '        "cpu": {\n' +
+2026-10-28T22:39:49.5837677Z     '          "user": 94875000,\n' +
+2026-10-28T22:39:49.5837969Z     '          "system": 1047000\n' +
+2026-10-28T22:39:49.5838223Z     '        },\n' +
+2026-10-28T22:39:49.5838497Z     '        "peakRSSKiB": 453108,\n' +
+2026-10-28T22:39:49.5838807Z     '        "node": "v24.22.1",\n' +
+2026-10-28T22:39:49.5839091Z     '        "platform": "win32",\n' +
+2026-10-28T22:39:49.5839486Z     '        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "\n' +
+2026-10-28T22:39:49.5839858Z     '      }\n' +
+2026-10-28T22:39:49.5840072Z     '    },\n' +
+2026-10-28T22:39:49.5840294Z     '    "fresh200": {\n' +
+2026-10-28T22:39:49.5840703Z     '      "path": "docs/performance/pr201/receivers-fresh200-v1.json.gz",\n' +
+2026-10-28T22:39:49.5841305Z     '      "sha256": "5cb13f11bbc3d466fe33c05725af6da091195f695866dc0987e29f94a9fd3787",\n' +
+2026-10-28T22:39:49.5841739Z     '      "source": {\n' +
+2026-10-28T22:39:49.5842081Z     '        "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5842644Z     '        "fingerprint": "ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32",\n' +
+2026-10-28T22:39:49.5843439Z     '        "path": "docs/performance/pr201/source/ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32.json.gz"\n' +
+2026-10-28T22:39:49.5844009Z     '      },\n' +
+2026-10-28T22:39:49.5844238Z     '      "summary": {\n' +
+2026-10-28T22:39:49.5844510Z     '        "bounded": {\n' +
+2026-10-28T22:39:49.5844793Z     '          "trials": 90,\n' +
+2026-10-28T22:39:49.5845071Z     '          "touch": 27,\n' +
+2026-10-28T22:39:49.5845576Z     '          "control": 22,\n' +
+2026-10-28T22:39:49.5845951Z     '          "retained": 20,\n' +
+2026-10-28T22:39:49.5846411Z     '          "allReceiverControl": 22,\n' +
+2026-10-28T22:39:49.5846754Z     '          "deflectedReceiverTouch": 0,\n' +
+2026-10-28T22:39:49.5847147Z     '          "uninterruptedRetention": 20,\n' +
+2026-10-28T22:39:49.5847466Z     '          "censored": 4,\n' +
+2026-10-28T22:39:49.5847773Z     '          "defensiveControl": 24,\n' +
+2026-10-28T22:39:49.5848109Z     '          "nextDecisionOpportunity": 21,\n' +
+2026-10-28T22:39:49.5848447Z     '          "nextAction": 21,\n' +
+2026-10-28T22:39:49.5848739Z     '          "nextPasses": 1,\n' +
+2026-10-28T22:39:49.5849056Z     '          "nextPassDirectControl": 1,\n' +
+2026-10-28T22:39:49.5849389Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.5849664Z     '        },\n' +
+2026-10-28T22:39:49.5849907Z     '        "recovery": {\n' +
+2026-10-28T22:39:49.5850190Z     '          "trials": 90,\n' +
+2026-10-28T22:39:49.5850642Z     '          "touch": 36,\n' +
+2026-10-28T22:39:49.5850918Z     '          "control": 32,\n' +
+2026-10-28T22:39:49.5851205Z     '          "retained": 28,\n' +
+2026-10-28T22:39:49.5851504Z     '          "allReceiverControl": 32,\n' +
+2026-10-28T22:39:49.5851837Z     '          "deflectedReceiverTouch": 0,\n' +
+2026-10-28T22:39:49.5852179Z     '          "uninterruptedRetention": 28,\n' +
+2026-10-28T22:39:49.5852490Z     '          "censored": 4,\n' +
+2026-10-28T22:39:49.5852778Z     '          "defensiveControl": 18,\n' +
+2026-10-28T22:39:49.5853110Z     '          "nextDecisionOpportunity": 32,\n' +
+2026-10-28T22:39:49.5853435Z     '          "nextAction": 31,\n' +
+2026-10-28T22:39:49.5853727Z     '          "nextPasses": 1,\n' +
+2026-10-28T22:39:49.5854036Z     '          "nextPassDirectControl": 1,\n' +
+2026-10-28T22:39:49.5854351Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.5854623Z     '        }\n' +
+2026-10-28T22:39:49.5854838Z     '      },\n' +
+2026-10-28T22:39:49.5855073Z     '      "paired": {\n' +
+2026-10-28T22:39:49.5855528Z     '        "directTouch": {\n' +
+2026-10-28T22:39:49.5855817Z     '          "gained": 9,\n' +
+2026-10-28T22:39:49.5856080Z     '          "lost": 0\n' +
+2026-10-28T22:39:49.5856325Z     '        },\n' +
+2026-10-28T22:39:49.5856570Z     '        "directControl": {\n' +
+2026-10-28T22:39:49.5856863Z     '          "gained": 10,\n' +
+2026-10-28T22:39:49.5857114Z     '          "lost": 0\n' +
+2026-10-28T22:39:49.5857352Z     '        },\n' +
+2026-10-28T22:39:49.5857606Z     '        "directRetained": {\n' +
+2026-10-28T22:39:49.5857889Z     '          "gained": 10,\n' +
+2026-10-28T22:39:49.5858134Z     '          "lost": 2\n' +
+2026-10-28T22:39:49.5858366Z     '        }\n' +
+2026-10-28T22:39:49.5858581Z     '      },\n' +
+2026-10-28T22:39:49.5858798Z     '      "costs": {\n' +
+2026-10-28T22:39:49.5859078Z     '        "wallSeconds": 35.1475703,\n' +
+2026-10-28T22:39:49.5859366Z     '        "cpu": {\n' +
+2026-10-28T22:39:49.5859625Z     '          "user": 45719000,\n' +
+2026-10-28T22:39:49.5859904Z     '          "system": 485000\n' +
+2026-10-28T22:39:49.5860167Z     '        },\n' +
+2026-10-28T22:39:49.5860419Z     '        "peakRSSKiB": 454304,\n' +
+2026-10-28T22:39:49.5860706Z     '        "node": "v24.22.1",\n' +
+2026-10-28T22:39:49.5861015Z     '        "platform": "win32",\n' +
+2026-10-28T22:39:49.5861413Z     '        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "\n' +
+2026-10-28T22:39:49.5861779Z     '      }\n' +
+2026-10-28T22:39:49.5861996Z     '    },\n' +
+2026-10-28T22:39:49.5862230Z     '    "fresh201": {\n' +
+2026-10-28T22:39:49.5862628Z     '      "path": "docs/performance/pr201/receivers-fresh201-v1.json.gz",\n' +
+2026-10-28T22:39:49.5863220Z     '      "sha256": "10341f1cb648f1b7658eeb88b63be7d79019ab2d7367d2aeb4b34a0a0aab189f",\n' +
+2026-10-28T22:39:49.5863664Z     '      "source": {\n' +
+2026-10-28T22:39:49.5864002Z     '        "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5864570Z     '        "fingerprint": "92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428",\n' +
+2026-10-28T22:39:49.5865734Z     '        "path": "docs/performance/pr201/source/92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428.json.gz"\n' +
+2026-10-28T22:39:49.5866305Z     '      },\n' +
+2026-10-28T22:39:49.5866539Z     '      "summary": {\n' +
+2026-10-28T22:39:49.5866812Z     '        "bounded": {\n' +
+2026-10-28T22:39:49.5867093Z     '          "trials": 90,\n' +
+2026-10-28T22:39:49.5867413Z     '          "touch": 26,\n' +
+2026-10-28T22:39:49.5867694Z     '          "control": 22,\n' +
+2026-10-28T22:39:49.5867975Z     '          "retained": 21,\n' +
+2026-10-28T22:39:49.5868288Z     '          "allReceiverControl": 22,\n' +
+2026-10-28T22:39:49.5868637Z     '          "deflectedReceiverTouch": 0,\n' +
+2026-10-28T22:39:49.5868982Z     '          "uninterruptedRetention": 21,\n' +
+2026-10-28T22:39:49.5869299Z     '          "censored": 7,\n' +
+2026-10-28T22:39:49.5869595Z     '          "defensiveControl": 27,\n' +
+2026-10-28T22:39:49.5870055Z     '          "nextDecisionOpportunity": 22,\n' +
+2026-10-28T22:39:49.5870397Z     '          "nextAction": 22,\n' +
+2026-10-28T22:39:49.5870696Z     '          "nextPasses": 0,\n' +
+2026-10-28T22:39:49.5871006Z     '          "nextPassDirectControl": 0,\n' +
+2026-10-28T22:39:49.5871328Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.5871605Z     '        },\n' +
+2026-10-28T22:39:49.5871852Z     '        "recovery": {\n' +
+2026-10-28T22:39:49.5872124Z     '          "trials": 90,\n' +
+2026-10-28T22:39:49.5872403Z     '          "touch": 35,\n' +
+2026-10-28T22:39:49.5872671Z     '          "control": 32,\n' +
+2026-10-28T22:39:49.5872951Z     '          "retained": 31,\n' +
+2026-10-28T22:39:49.5873244Z     '          "allReceiverControl": 35,\n' +
+2026-10-28T22:39:49.5873583Z     '          "deflectedReceiverTouch": 3,\n' +
+2026-10-28T22:39:49.5873921Z     '          "uninterruptedRetention": 34,\n' +
+2026-10-28T22:39:49.5874232Z     '          "censored": 3,\n' +
+2026-10-28T22:39:49.5874530Z     '          "defensiveControl": 24,\n' +
+2026-10-28T22:39:49.5874859Z     '          "nextDecisionOpportunity": 35,\n' +
+2026-10-28T22:39:49.5875173Z     '          "nextAction": 35,\n' +
+2026-10-28T22:39:49.5875690Z     '          "nextPasses": 1,\n' +
+2026-10-28T22:39:49.5876005Z     '          "nextPassDirectControl": 1,\n' +
+2026-10-28T22:39:49.5876328Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.5876599Z     '        }\n' +
+2026-10-28T22:39:49.5876813Z     '      },\n' +
+2026-10-28T22:39:49.5877032Z     '      "paired": {\n' +
+2026-10-28T22:39:49.5877304Z     '        "directTouch": {\n' +
+2026-10-28T22:39:49.5877574Z     '          "gained": 11,\n' +
+2026-10-28T22:39:49.5877828Z     '          "lost": 2\n' +
+2026-10-28T22:39:49.5878078Z     '        },\n' +
+2026-10-28T22:39:49.5878328Z     '        "directControl": {\n' +
+2026-10-28T22:39:49.5878608Z     '          "gained": 11,\n' +
+2026-10-28T22:39:49.5878851Z     '          "lost": 1\n' +
+2026-10-28T22:39:49.5879099Z     '        },\n' +
+2026-10-28T22:39:49.5879343Z     '        "directRetained": {\n' +
+2026-10-28T22:39:49.5879625Z     '          "gained": 11,\n' +
+2026-10-28T22:39:49.5879878Z     '          "lost": 1\n' +
+2026-10-28T22:39:49.5880110Z     '        }\n' +
+2026-10-28T22:39:49.5880315Z     '      },\n' +
+2026-10-28T22:39:49.5880534Z     '      "costs": {\n' +
+2026-10-28T22:39:49.5880812Z     '        "wallSeconds": 37.8697751,\n' +
+2026-10-28T22:39:49.5881090Z     '        "cpu": {\n' +
+2026-10-28T22:39:49.5881345Z     '          "user": 48610000,\n' +
+2026-10-28T22:39:49.5881623Z     '          "system": 766000\n' +
+2026-10-28T22:39:49.5881875Z     '        },\n' +
+2026-10-28T22:39:49.5882124Z     '        "peakRSSKiB": 524844,\n' +
+2026-10-28T22:39:49.5882421Z     '        "node": "v24.22.1",\n' +
+2026-10-28T22:39:49.5882704Z     '        "platform": "win32",\n' +
+2026-10-28T22:39:49.5883092Z     '        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "\n' +
+2026-10-28T22:39:49.5883466Z     '      }\n' +
+2026-10-28T22:39:49.5883691Z     '    }\n' +
+2026-10-28T22:39:49.5884050Z     '  },\n' +
+2026-10-28T22:39:49.5884273Z     '  "matches": [\n' +
+2026-10-28T22:39:49.5884506Z     '    {\n' +
+2026-10-28T22:39:49.5885024Z     '      "path": "docs/performance/pr201/matches/ss-opportunity-driven-v1-canonical-pr199-v1.json.gz",\n' +
+2026-10-28T22:39:49.5885938Z     '      "sha256": "98f7cb9754651629c49411b434f63f04eace3bbab0e7b27ebb0c551f7cdd6e49",\n' +
+2026-10-28T22:39:49.5886386Z     '      "source": {\n' +
+2026-10-28T22:39:49.5886738Z     '        "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5887307Z     '        "fingerprint": "09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c",\n' +
+2026-10-28T22:39:49.5888103Z     '        "path": "docs/performance/pr201/source/09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c.json.gz"\n' +
+2026-10-28T22:39:49.5888654Z     '      },\n' +
+2026-10-28T22:39:49.5888903Z     '      "design": "ss",\n' +
+2026-10-28T22:39:49.5889338Z     '      "policy": "opportunity-driven-v1",\n' +
+2026-10-28T22:39:49.5889714Z     '      "profile": "canonical-pr199",\n' +
+2026-10-28T22:39:49.5890112Z     '      "implementation": "pr200-integration-v0-final",\n' +
+2026-10-28T22:39:49.5890533Z     '      "configurationFingerprint": "ip0-e4568ab1",\n' +
+2026-10-28T22:39:49.5891198Z     '      "inputPath": "docs/performance/PR188-match-dev-ss-opportunity-driven-v1-full-observed-final-v1.json",\n' +
+2026-10-28T22:39:49.5892009Z     '      "originalInputHash": "3d7bfe27f3b43b944e34eb6c0ea93aa9c204573a9fb443d4bb544b1fab417161",\n' +
+2026-10-28T22:39:49.5892691Z     '      "initialHash": "f71c014e31d24412742e7554cc80f8958151bb8269316490f9713973de8e2024",\n' +
+2026-10-28T22:39:49.5893340Z     '      "finalHash": "66dc030ac2fbd6cd39c17ba8a43029c5326e214dfb97c16cee2ae8cd20cb721f",\n' +
+2026-10-28T22:39:49.5893930Z     '      "seed": "pr200-development-ss-opportunity-driven-v1",\n' +
+2026-10-28T22:39:49.5894320Z     '      "status": "full_time",\n' +
+2026-10-28T22:39:49.5894654Z     '      "seconds": 5591.800000000043,\n' +
+2026-10-28T22:39:49.5894957Z     '      "ticks": 223673,\n' +
+2026-10-28T22:39:49.5895220Z     '      "passes": {\n' +
+2026-10-28T22:39:49.5895689Z     '        "attempted": 2394,\n' +
+2026-10-28T22:39:49.5895993Z     '        "completed": 880\n' +
+2026-10-28T22:39:49.5896251Z     '      },\n' +
+2026-10-28T22:39:49.5896514Z     '      "receptions": {\n' +
+2026-10-28T22:39:49.5896797Z     '        "trials": 2394,\n' +
+2026-10-28T22:39:49.5897088Z     '        "directTouch": 797,\n' +
+2026-10-28T22:39:49.5897386Z     '        "directControl": 797,\n' +
+2026-10-28T22:39:49.5897697Z     '        "directRetained": 299,\n' +
+2026-10-28T22:39:49.5897995Z     '        "allControl": 834,\n' +
+2026-10-28T22:39:49.5898275Z     '        "allRetained": 312,\n' +
+2026-10-28T22:39:49.5898570Z     '        "deflectedTouch": 37,\n' +
+2026-10-28T22:39:49.5898852Z     '        "censored": 0\n' +
+2026-10-28T22:39:49.5899098Z     '      },\n' +
+2026-10-28T22:39:49.5899323Z     '      "shots": {\n' +
+2026-10-28T22:39:49.5899592Z     '        "attempted": 0,\n' +
+2026-10-28T22:39:49.5899868Z     '        "onTarget": 0,\n' +
+2026-10-28T22:39:49.5900139Z     '        "blocked": 0,\n' +
+2026-10-28T22:39:49.5900392Z     '        "saves": 0,\n' +
+2026-10-28T22:39:49.5900665Z     '        "failedSaves": 0\n' +
+2026-10-28T22:39:49.5900913Z     '      },\n' +
+2026-10-28T22:39:49.5901133Z     '      "score": {\n' +
+2026-10-28T22:39:49.5901425Z     '        "home": 0,\n' +
+2026-10-28T22:39:49.5901679Z     '        "away": 0\n' +
+2026-10-28T22:39:49.5901924Z     '      },\n' +
+2026-10-28T22:39:49.5902140Z     '      "releases": {\n' +
+2026-10-28T22:39:49.5902380Z     '        "long": 71,\n' +
+2026-10-28T22:39:49.5902659Z     '        "through": 0,\n' +
+2026-10-28T22:39:49.5902944Z     '        "progressive10m": 573,\n' +
+2026-10-28T22:39:49.5903232Z     '        "lofted": 0\n' +
+2026-10-28T22:39:49.5903474Z     '      },\n' +
+2026-10-28T22:39:49.5903722Z     '      "progression": {\n' +
+2026-10-28T22:39:49.5904018Z     '        "finalThirdEntries": 101,\n' +
+2026-10-28T22:39:49.5904554Z     '        "finalThirdPossessionSeconds": 695.2249999970178,\n' +
+2026-10-28T22:39:49.5904927Z     '        "boxEntries": 5,\n' +
+2026-10-28T22:39:49.5905205Z     '        "boxTouches": 0,\n' +
+2026-10-28T22:39:49.5905665Z     '        "backwardPasses": 620,\n' +
+2026-10-28T22:39:49.5905970Z     '        "lateralPasses": 812,\n' +
+2026-10-28T22:39:49.5906276Z     '        "progressivePasses": 962,\n' +
+2026-10-28T22:39:49.5906570Z     '        "threatFlow": {\n' +
+2026-10-28T22:39:49.5906883Z     '          "progressiveReceptions": 223,\n' +
+2026-10-28T22:39:49.5907250Z     '          "resultingFinalThirdEntries": 44,\n' +
+2026-10-28T22:39:49.5907599Z     '          "resultingBoxEntries": 0,\n' +
+2026-10-28T22:39:49.5907920Z     '          "resultingShots": 0\n' +
+2026-10-28T22:39:49.5908183Z     '        },\n' +
+2026-10-28T22:39:49.5908426Z     '        "carries": 4019\n' +
+2026-10-28T22:39:49.5908799Z     '      },\n' +
+2026-10-28T22:39:49.5909041Z     '      "possession": {\n' +
+2026-10-28T22:39:49.5909332Z     '        "bothTeamChanges": 1709,\n' +
+2026-10-28T22:39:49.5909653Z     '        "bothTeamTurnoverCauses": {\n' +
+2026-10-28T22:39:49.5909962Z     '          "tackle": 470,\n' +
+2026-10-28T22:39:49.5910247Z     '          "interception": 1013,\n' +
+2026-10-28T22:39:49.5910550Z     '          "bad_pass": 15,\n' +
+2026-10-28T22:39:49.5910862Z     '          "pass_out": 0,\n' +
+2026-10-28T22:39:49.5911142Z     '          "heavy_touch": 87,\n' +
+2026-10-28T22:39:49.5911436Z     '          "failed_control": 29,\n' +
+2026-10-28T22:39:49.5911766Z     '          "loose_ball_claim": 94,\n' +
+2026-10-28T22:39:49.5912059Z     '          "shot": 0,\n' +
+2026-10-28T22:39:49.5912330Z     '          "foul_stoppage": 21,\n' +
+2026-10-28T22:39:49.5912623Z     '          "other": 4\n' +
+2026-10-28T22:39:49.5912857Z     '        },\n' +
+2026-10-28T22:39:49.5913109Z     '        "homeTurnovers": 855,\n' +
+2026-10-28T22:39:49.5913411Z     '        "looseEpisodes": 1071\n' +
+2026-10-28T22:39:49.5913672Z     '      },\n' +
+2026-10-28T22:39:49.5913903Z     '      "goalkeeper": {\n' +
+2026-10-28T22:39:49.5914167Z     '        "catches": 0,\n' +
+2026-10-28T22:39:49.5914431Z     '        "parries": 0,\n' +
+2026-10-28T22:39:49.5914687Z     '        "rebounds": 0\n' +
+2026-10-28T22:39:49.5914917Z     '      },\n' +
+2026-10-28T22:39:49.5915159Z     '      "playingTime": {\n' +
+2026-10-28T22:39:49.5915693Z     '        "canonicalElapsedSeconds": 5591.800000000043,\n' +
+2026-10-28T22:39:49.5916059Z     '        "regulationSeconds": 5400,\n' +
+2026-10-28T22:39:49.5916443Z     '        "addedSecondsActuallyPlayed": 191.80000000004293,\n' +
+2026-10-28T22:39:49.5916842Z     '        "ballInPlaySeconds": 4849.550000000602,\n' +
+2026-10-28T22:39:49.5917205Z     '        "deadBallSeconds": 742.249999999441,\n' +
+2026-10-28T22:39:49.5917530Z     '        "deadBallByReason": {\n' +
+2026-10-28T22:39:49.5917848Z     '          "period_start": 33.30000000012033,\n' +
+2026-10-28T22:39:49.5918170Z     '          "foul": 485.49999999894663,\n' +
+2026-10-28T22:39:49.5918509Z     '          "substitution": 78.30000000028485,\n' +
+2026-10-28T22:39:49.5918833Z     '          "goal_kick": 83.72500000030459,\n' +
+2026-10-28T22:39:49.5919157Z     '          "discipline": 61.42499999978463\n' +
+2026-10-28T22:39:49.5919440Z     '        },\n' +
+2026-10-28T22:39:49.5919693Z     '        "restartDurations": {\n' +
+2026-10-28T22:39:49.5919986Z     '          "period_start": {\n' +
+2026-10-28T22:39:49.5920277Z     '            "count": 2,\n' +
+2026-10-28T22:39:49.5920567Z     '            "seconds": 33.30000000012033,\n' +
+2026-10-28T22:39:49.5920867Z     '  '... 165010 more characters,
+2026-10-28T22:39:49.5921141Z   expected: '{\n' +
+2026-10-28T22:39:49.5921407Z     '  "schema": "pr201-summary-v1",\n' +
+2026-10-28T22:39:49.5921778Z     '  "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5922110Z     '  "source": {\n' +
+2026-10-28T22:39:49.5922442Z     '    "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5923145Z     '    "fingerprint": "edb843901a41a2f073b644a573f1c0d3d970590d88dce4436fb81ee2582e6b48",\n' +
+2026-10-28T22:39:49.5923948Z     '    "path": "docs/performance/pr201/source/edb843901a41a2f073b644a573f1c0d3d970590d88dce4436fb81ee2582e6b48.json.gz"\n' +
+2026-10-28T22:39:49.5924496Z     '  },\n' +
+2026-10-28T22:39:49.5924716Z     '  "locals": {\n' +
+2026-10-28T22:39:49.5924947Z     '    "frozen": {\n' +
+2026-10-28T22:39:49.5925561Z     '      "path": "docs/performance/pr201/receivers-frozen-v1.json.gz",\n' +
+2026-10-28T22:39:49.5926176Z     '      "sha256": "4f26f1c663f577e63c7ab04f5dd2de873e2138f41fea4793dc4f098f2cba39d2",\n' +
+2026-10-28T22:39:49.5926617Z     '      "source": {\n' +
+2026-10-28T22:39:49.5926969Z     '        "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.5927650Z     '        "fingerprint": "ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32",\n' +
+2026-10-28T22:39:49.5928463Z     '        "path": "docs/performance/pr201/source/ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32.json.gz"\n' +
+2026-10-28T22:39:49.5929018Z     '      },\n' +
+2026-10-28T22:39:49.5929240Z     '      "summary": {\n' +
+2026-10-28T22:39:49.5929512Z     '        "bounded": {\n' +
+2026-10-28T22:39:49.5929783Z     '          "trials": 180,\n' +
+2026-10-28T22:39:49.5930061Z     '          "touch": 100,\n' +
+2026-10-28T22:39:49.5930334Z     '          "control": 73,\n' +
+2026-10-28T22:39:49.5930620Z     '          "retained": 73,\n' +
+2026-10-28T22:39:49.5930929Z     '          "allReceiverControl": 74,\n' +
+2026-10-28T22:39:49.5931264Z     '          "deflectedReceiverTouch": 1,\n' +
+2026-10-28T22:39:49.5931613Z     '          "uninterruptedRetention": 73,\n' +
+2026-10-28T22:39:49.5931930Z     '          "censored": 1,\n' +
+2026-10-28T22:39:49.5932216Z     '          "defensiveControl": 59,\n' +
+2026-10-28T22:39:49.5932557Z     '          "nextDecisionOpportunity": 74,\n' +
+2026-10-28T22:39:49.5932885Z     '          "nextAction": 74,\n' +
+2026-10-28T22:39:49.5933177Z     '          "nextPasses": 0,\n' +
+2026-10-28T22:39:49.5933494Z     '          "nextPassDirectControl": 0,\n' +
+2026-10-28T22:39:49.5933817Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.5934088Z     '        },\n' +
+2026-10-28T22:39:49.5934335Z     '        "recovery": {\n' +
+2026-10-28T22:39:49.5934604Z     '          "trials": 180,\n' +
+2026-10-28T22:39:49.5934875Z     '          "touch": 124,\n' +
+2026-10-28T22:39:49.5935150Z     '          "control": 97,\n' +
+2026-10-28T22:39:49.5935680Z     '          "retained": 96,\n' +
+2026-10-28T22:39:49.5936010Z     '          "allReceiverControl": 102,\n' +
+2026-10-28T22:39:49.5936355Z     '          "deflectedReceiverTouch": 5,\n' +
+2026-10-28T22:39:49.5936697Z     '          "uninterruptedRetention": 101,\n' +
+2026-10-28T22:39:49.5937012Z     '          "censored": 1,\n' +
+2026-10-28T22:39:49.5937308Z     '          "defensiveControl": 39,\n' +
+2026-10-28T22:39:49.5937651Z     '          "nextDecisionOpportunity": 100,\n' +
+2026-10-28T22:39:49.5937986Z     '          "nextAction": 101,\n' +
+2026-10-28T22:39:49.5938278Z     '          "nextPasses": 0,\n' +
+2026-10-28T22:39:49.5938591Z     '          "nextPassDirectControl": 0,\n' +
+2026-10-28T22:39:49.5938948Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.5939217Z     '        }\n' +
+2026-10-28T22:39:49.5939438Z     '      },\n' +
+2026-10-28T22:39:49.5939659Z     '      "paired": {\n' +
+2026-10-28T22:39:49.5939925Z     '        "directTouch": {\n' +
+2026-10-28T22:39:49.5940202Z     '          "gained": 29,\n' +
+2026-10-28T22:39:49.5940458Z     '          "lost": 5\n' +
+2026-10-28T22:39:49.5940765Z     '        },\n' +
+2026-10-28T22:39:49.5941281Z     '        "directControl": {\n' +
+2026-10-28T22:39:49.5941744Z     '          "gained": 27,\n' +
+2026-10-28T22:39:49.5942281Z     '          "lost": 3\n' +
+2026-10-28T22:39:49.5942658Z     '        },\n' +
+2026-10-28T22:39:49.5943083Z     '        "directRetained": {\n' +
+2026-10-28T22:39:49.5943742Z     '          "gained": 27,\n' +
+2026-10-28T22:39:49.5944174Z     '          "lost": 4\n' +
+2026-10-28T22:39:49.5944622Z     '        }\n' +
+2026-10-28T22:39:49.5945028Z     '      },\n' +
+2026-10-28T22:39:49.5945595Z     '      "costs": {\n' +
+2026-10-28T22:39:49.5946026Z     '        "wallSeconds": 76.41114280000001,\n' +
+2026-10-28T22:39:49.5946587Z     '        "cpu": {\n' +
+2026-10-28T22:39:49.5947038Z     '          "user": 94875000,\n' +
+2026-10-28T22:39:49.6006997Z     '          "system": 1047000\n' +
+2026-10-28T22:39:49.6007466Z     '        },\n' +
+2026-10-28T22:39:49.6007839Z     '        "peakRSSKiB": 453108,\n' +
+2026-10-28T22:39:49.6008265Z     '        "node": "v24.22.1",\n' +
+2026-10-28T22:39:49.6008725Z     '        "platform": "win32",\n' +
+2026-10-28T22:39:49.6009264Z     '        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "\n' +
+2026-10-28T22:39:49.6009750Z     '      }\n' +
+2026-10-28T22:39:49.6010347Z     '    },\n' +
+2026-10-28T22:39:49.6010631Z     '    "fresh200": {\n' +
+2026-10-28T22:39:49.6011196Z     '      "path": "docs/performance/pr201/receivers-fresh200-v1.json.gz",\n' +
+2026-10-28T22:39:49.6012090Z     '      "sha256": "5cb13f11bbc3d466fe33c05725af6da091195f695866dc0987e29f94a9fd3787",\n' +
+2026-10-28T22:39:49.6012758Z     '      "source": {\n' +
+2026-10-28T22:39:49.6013277Z     '        "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.6014162Z     '        "fingerprint": "ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32",\n' +
+2026-10-28T22:39:49.6015734Z     '        "path": "docs/performance/pr201/source/ca7e12290df5b7f19973e86b63263e3806808c65482c4c71d9ba158fc9801e32.json.gz"\n' +
+2026-10-28T22:39:49.6016698Z     '      },\n' +
+2026-10-28T22:39:49.6017056Z     '      "summary": {\n' +
+2026-10-28T22:39:49.6017501Z     '        "bounded": {\n' +
+2026-10-28T22:39:49.6017929Z     '          "trials": 90,\n' +
+2026-10-28T22:39:49.6018300Z     '          "touch": 27,\n' +
+2026-10-28T22:39:49.6018574Z     '          "control": 22,\n' +
+2026-10-28T22:39:49.6018869Z     '          "retained": 20,\n' +
+2026-10-28T22:39:49.6019189Z     '          "allReceiverControl": 22,\n' +
+2026-10-28T22:39:49.6019542Z     '          "deflectedReceiverTouch": 0,\n' +
+2026-10-28T22:39:49.6019914Z     '          "uninterruptedRetention": 20,\n' +
+2026-10-28T22:39:49.6020259Z     '          "censored": 4,\n' +
+2026-10-28T22:39:49.6020558Z     '          "defensiveControl": 24,\n' +
+2026-10-28T22:39:49.6020897Z     '          "nextDecisionOpportunity": 21,\n' +
+2026-10-28T22:39:49.6021228Z     '          "nextAction": 21,\n' +
+2026-10-28T22:39:49.6021524Z     '          "nextPasses": 1,\n' +
+2026-10-28T22:39:49.6021830Z     '          "nextPassDirectControl": 1,\n' +
+2026-10-28T22:39:49.6022162Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.6022435Z     '        },\n' +
+2026-10-28T22:39:49.6022677Z     '        "recovery": {\n' +
+2026-10-28T22:39:49.6022958Z     '          "trials": 90,\n' +
+2026-10-28T22:39:49.6023237Z     '          "touch": 36,\n' +
+2026-10-28T22:39:49.6023507Z     '          "control": 32,\n' +
+2026-10-28T22:39:49.6023781Z     '          "retained": 28,\n' +
+2026-10-28T22:39:49.6024082Z     '          "allReceiverControl": 32,\n' +
+2026-10-28T22:39:49.6024411Z     '          "deflectedReceiverTouch": 0,\n' +
+2026-10-28T22:39:49.6024749Z     '          "uninterruptedRetention": 28,\n' +
+2026-10-28T22:39:49.6025067Z     '          "censored": 4,\n' +
+2026-10-28T22:39:49.6025572Z     '          "defensiveControl": 18,\n' +
+2026-10-28T22:39:49.6025902Z     '          "nextDecisionOpportunity": 32,\n' +
+2026-10-28T22:39:49.6026226Z     '          "nextAction": 31,\n' +
+2026-10-28T22:39:49.6026512Z     '          "nextPasses": 1,\n' +
+2026-10-28T22:39:49.6026809Z     '          "nextPassDirectControl": 1,\n' +
+2026-10-28T22:39:49.6027131Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.6027396Z     '        }\n' +
+2026-10-28T22:39:49.6027617Z     '      },\n' +
+2026-10-28T22:39:49.6027843Z     '      "paired": {\n' +
+2026-10-28T22:39:49.6028336Z     '        "directTouch": {\n' +
+2026-10-28T22:39:49.6028608Z     '          "gained": 9,\n' +
+2026-10-28T22:39:49.6028852Z     '          "lost": 0\n' +
+2026-10-28T22:39:49.6029098Z     '        },\n' +
+2026-10-28T22:39:49.6029344Z     '        "directControl": {\n' +
+2026-10-28T22:39:49.6029620Z     '          "gained": 10,\n' +
+2026-10-28T22:39:49.6029872Z     '          "lost": 0\n' +
+2026-10-28T22:39:49.6030106Z     '        },\n' +
+2026-10-28T22:39:49.6030345Z     '        "directRetained": {\n' +
+2026-10-28T22:39:49.6030627Z     '          "gained": 10,\n' +
+2026-10-28T22:39:49.6030869Z     '          "lost": 2\n' +
+2026-10-28T22:39:49.6031095Z     '        }\n' +
+2026-10-28T22:39:49.6031305Z     '      },\n' +
+2026-10-28T22:39:49.6031519Z     '      "costs": {\n' +
+2026-10-28T22:39:49.6031792Z     '        "wallSeconds": 35.1475703,\n' +
+2026-10-28T22:39:49.6032195Z     '        "cpu": {\n' +
+2026-10-28T22:39:49.6032457Z     '          "user": 45719000,\n' +
+2026-10-28T22:39:49.6032733Z     '          "system": 485000\n' +
+2026-10-28T22:39:49.6032975Z     '        },\n' +
+2026-10-28T22:39:49.6033239Z     '        "peakRSSKiB": 454304,\n' +
+2026-10-28T22:39:49.6033524Z     '        "node": "v24.22.1",\n' +
+2026-10-28T22:39:49.6033931Z     '        "platform": "win32",\n' +
+2026-10-28T22:39:49.6034334Z     '        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "\n' +
+2026-10-28T22:39:49.6034704Z     '      }\n' +
+2026-10-28T22:39:49.6034907Z     '    },\n' +
+2026-10-28T22:39:49.6035128Z     '    "fresh201": {\n' +
+2026-10-28T22:39:49.6035817Z     '      "path": "docs/performance/pr201/receivers-fresh201-v1.json.gz",\n' +
+2026-10-28T22:39:49.6036408Z     '      "sha256": "10341f1cb648f1b7658eeb88b63be7d79019ab2d7367d2aeb4b34a0a0aab189f",\n' +
+2026-10-28T22:39:49.6036839Z     '      "source": {\n' +
+2026-10-28T22:39:49.6037175Z     '        "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.6037737Z     '        "fingerprint": "92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428",\n' +
+2026-10-28T22:39:49.6038559Z     '        "path": "docs/performance/pr201/source/92a84f33abe8e73fc2d8609d722f72bbf4d1eaa0e150e61b32536f295ca9e428.json.gz"\n' +
+2026-10-28T22:39:49.6039107Z     '      },\n' +
+2026-10-28T22:39:49.6039321Z     '      "summary": {\n' +
+2026-10-28T22:39:49.6039593Z     '        "bounded": {\n' +
+2026-10-28T22:39:49.6039857Z     '          "trials": 90,\n' +
+2026-10-28T22:39:49.6040122Z     '          "touch": 26,\n' +
+2026-10-28T22:39:49.6040391Z     '          "control": 22,\n' +
+2026-10-28T22:39:49.6040671Z     '          "retained": 21,\n' +
+2026-10-28T22:39:49.6040987Z     '          "allReceiverControl": 22,\n' +
+2026-10-28T22:39:49.6041332Z     '          "deflectedReceiverTouch": 0,\n' +
+2026-10-28T22:39:49.6041675Z     '          "uninterruptedRetention": 21,\n' +
+2026-10-28T22:39:49.6042019Z     '          "censored": 7,\n' +
+2026-10-28T22:39:49.6042322Z     '          "defensiveControl": 27,\n' +
+2026-10-28T22:39:49.6042660Z     '          "nextDecisionOpportunity": 22,\n' +
+2026-10-28T22:39:49.6042982Z     '          "nextAction": 22,\n' +
+2026-10-28T22:39:49.6043277Z     '          "nextPasses": 0,\n' +
+2026-10-28T22:39:49.6043588Z     '          "nextPassDirectControl": 0,\n' +
+2026-10-28T22:39:49.6043915Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.6044220Z     '        },\n' +
+2026-10-28T22:39:49.6044466Z     '        "recovery": {\n' +
+2026-10-28T22:39:49.6044738Z     '          "trials": 90,\n' +
+2026-10-28T22:39:49.6045113Z     '          "touch": 35,\n' +
+2026-10-28T22:39:49.6045628Z     '          "control": 32,\n' +
+2026-10-28T22:39:49.6045905Z     '          "retained": 31,\n' +
+2026-10-28T22:39:49.6046197Z     '          "allReceiverControl": 35,\n' +
+2026-10-28T22:39:49.6046529Z     '          "deflectedReceiverTouch": 3,\n' +
+2026-10-28T22:39:49.6046955Z     '          "uninterruptedRetention": 34,\n' +
+2026-10-28T22:39:49.6047410Z     '          "censored": 3,\n' +
+2026-10-28T22:39:49.6048010Z     '          "defensiveControl": 24,\n' +
+2026-10-28T22:39:49.6048342Z     '          "nextDecisionOpportunity": 35,\n' +
+2026-10-28T22:39:49.6048656Z     '          "nextAction": 35,\n' +
+2026-10-28T22:39:49.6048946Z     '          "nextPasses": 1,\n' +
+2026-10-28T22:39:49.6049246Z     '          "nextPassDirectControl": 1,\n' +
+2026-10-28T22:39:49.6049563Z     '          "nextPassCensored": 0\n' +
+2026-10-28T22:39:49.6049834Z     '        }\n' +
+2026-10-28T22:39:49.6050045Z     '      },\n' +
+2026-10-28T22:39:49.6050265Z     '      "paired": {\n' +
+2026-10-28T22:39:49.6050538Z     '        "directTouch": {\n' +
+2026-10-28T22:39:49.6050809Z     '          "gained": 11,\n' +
+2026-10-28T22:39:49.6051060Z     '          "lost": 2\n' +
+2026-10-28T22:39:49.6051296Z     '        },\n' +
+2026-10-28T22:39:49.6051548Z     '        "directControl": {\n' +
+2026-10-28T22:39:49.6051958Z     '          "gained": 11,\n' +
+2026-10-28T22:39:49.6052202Z     '          "lost": 1\n' +
+2026-10-28T22:39:49.6052448Z     '        },\n' +
+2026-10-28T22:39:49.6052692Z     '        "directRetained": {\n' +
+2026-10-28T22:39:49.6052969Z     '          "gained": 11,\n' +
+2026-10-28T22:39:49.6053215Z     '          "lost": 1\n' +
+2026-10-28T22:39:49.6053442Z     '        }\n' +
+2026-10-28T22:39:49.6053652Z     '      },\n' +
+2026-10-28T22:39:49.6053868Z     '      "costs": {\n' +
+2026-10-28T22:39:49.6054147Z     '        "wallSeconds": 37.8697751,\n' +
+2026-10-28T22:39:49.6054421Z     '        "cpu": {\n' +
+2026-10-28T22:39:49.6054671Z     '          "user": 48610000,\n' +
+2026-10-28T22:39:49.6054946Z     '          "system": 766000\n' +
+2026-10-28T22:39:49.6055192Z     '        },\n' +
+2026-10-28T22:39:49.6055712Z     '        "peakRSSKiB": 524844,\n' +
+2026-10-28T22:39:49.6056015Z     '        "node": "v24.22.1",\n' +
+2026-10-28T22:39:49.6056299Z     '        "platform": "win32",\n' +
+2026-10-28T22:39:49.6056699Z     '        "cpuModel": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "\n' +
+2026-10-28T22:39:49.6057075Z     '      }\n' +
+2026-10-28T22:39:49.6057283Z     '    }\n' +
+2026-10-28T22:39:49.6057490Z     '  },\n' +
+2026-10-28T22:39:49.6057708Z     '  "matches": [\n' +
+2026-10-28T22:39:49.6057944Z     '    {\n' +
+2026-10-28T22:39:49.6058462Z     '      "path": "docs/performance/pr201/matches/ss-opportunity-driven-v1-canonical-pr199-v1.json.gz",\n' +
+2026-10-28T22:39:49.6059173Z     '      "sha256": "98f7cb9754651629c49411b434f63f04eace3bbab0e7b27ebb0c551f7cdd6e49",\n' +
+2026-10-28T22:39:49.6059603Z     '      "source": {\n' +
+2026-10-28T22:39:49.6059943Z     '        "base": "df6d93df39d1bebfa5d395e29620224670520971",\n' +
+2026-10-28T22:39:49.6060506Z     '        "fingerprint": "09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c",\n' +
+2026-10-28T22:39:49.6061295Z     '        "path": "docs/performance/pr201/source/09f86034524c7cce9b663e0b7ad6f45b69c9bd9546ee001f71e0861983dbe01c.json.gz"\n' +
+2026-10-28T22:39:49.6061862Z     '      },\n' +
+2026-10-28T22:39:49.6062108Z     '      "design": "ss",\n' +
+2026-10-28T22:39:49.6062418Z     '      "policy": "opportunity-driven-v1",\n' +
+2026-10-28T22:39:49.6062763Z     '      "profile": "canonical-pr199",\n' +
+2026-10-28T22:39:49.6063143Z     '      "implementation": "pr200-integration-v0-final",\n' +
+2026-10-28T22:39:49.6063549Z     '      "configurationFingerprint": "ip0-e4568ab1",\n' +
+2026-10-28T22:39:49.6064206Z     '      "inputPath": "docs/performance/PR188-match-dev-ss-opportunity-driven-v1-full-observed-final-v1.json",\n' +
+2026-10-28T22:39:49.6065017Z     '      "originalInputHash": "3d7bfe27f3b43b944e34eb6c0ea93aa9c204573a9fb443d4bb544b1fab417161",\n' +
+2026-10-28T22:39:49.6065959Z     '      "initialHash": "f71c014e31d24412742e7554cc80f8958151bb8269316490f9713973de8e2024",\n' +
+2026-10-28T22:39:49.6066608Z     '      "finalHash": "66dc030ac2fbd6cd39c17ba8a43029c5326e214dfb97c16cee2ae8cd20cb721f",\n' +
+2026-10-28T22:39:49.6067175Z     '      "seed": "pr200-development-ss-opportunity-driven-v1",\n' +
+2026-10-28T22:39:49.6067554Z     '      "status": "full_time",\n' +
+2026-10-28T22:39:49.6068007Z     '      "seconds": 5591.800000000043,\n' +
+2026-10-28T22:39:49.6068318Z     '      "ticks": 223673,\n' +
+2026-10-28T22:39:49.6068581Z     '      "passes": {\n' +
+2026-10-28T22:39:49.6068851Z     '        "attempted": 2394,\n' +
+2026-10-28T22:39:49.6069146Z     '        "completed": 880\n' +
+2026-10-28T22:39:49.6069397Z     '      },\n' +
+2026-10-28T22:39:49.6069631Z     '      "receptions": {\n' +
+2026-10-28T22:39:49.6069908Z     '        "trials": 2394,\n' +
+2026-10-28T22:39:49.6070188Z     '        "directTouch": 797,\n' +
+2026-10-28T22:39:49.6070485Z     '        "directControl": 797,\n' +
+2026-10-28T22:39:49.6070936Z     '        "directRetained": 299,\n' +
+2026-10-28T22:39:49.6071230Z     '        "allControl": 834,\n' +
+2026-10-28T22:39:49.6071510Z     '        "allRetained": 312,\n' +
+2026-10-28T22:39:49.6071794Z     '        "deflectedTouch": 37,\n' +
+2026-10-28T22:39:49.6072215Z     '        "censored": 0\n' +
+2026-10-28T22:39:49.6072455Z     '      },\n' +
+2026-10-28T22:39:49.6072665Z     '      "shots": {\n' +
+2026-10-28T22:39:49.6073051Z     '        "attempted": 0,\n' +
+2026-10-28T22:39:49.6073471Z     '        "onTarget": 0,\n' +
+2026-10-28T22:39:49.6073754Z     '        "blocked": 0,\n' +
+2026-10-28T22:39:49.6074195Z     '        "saves": 0,\n' +
+2026-10-28T22:39:49.6074601Z     '        "failedSaves": 0\n' +
+2026-10-28T22:39:49.6074978Z     '      },\n' +
+2026-10-28T22:39:49.6075710Z     '      "score": {\n' +
+2026-10-28T22:39:49.6076185Z     '        "home": 0,\n' +
+2026-10-28T22:39:49.6076553Z     '        "away": 0\n' +
+2026-10-28T22:39:49.6076851Z     '      },\n' +
+2026-10-28T22:39:49.6077137Z     '      "releases": {\n' +
+2026-10-28T22:39:49.6077425Z     '        "long": 71,\n' +
+2026-10-28T22:39:49.6077701Z     '        "through": 0,\n' +
+2026-10-28T22:39:49.6078121Z     '        "progressive10m": 573,\n' +
+2026-10-28T22:39:49.6078406Z     '        "lofted": 0\n' +
+2026-10-28T22:39:49.6078634Z     '      },\n' +
+2026-10-28T22:39:49.6078882Z     '      "progression": {\n' +
+2026-10-28T22:39:49.6079167Z     '        "finalThirdEntries": 101,\n' +
+2026-10-28T22:39:49.6079547Z     '        "finalThirdPossessionSeconds": 695.2249999970178,\n' +
+2026-10-28T22:39:49.6079910Z     '        "boxEntries": 5,\n' +
+2026-10-28T22:39:49.6080185Z     '        "boxTouches": 0,\n' +
+2026-10-28T22:39:49.6080459Z     '        "backwardPasses": 620,\n' +
+2026-10-28T22:39:49.6080758Z     '        "lateralPasses": 812,\n' +
+2026-10-28T22:39:49.6081055Z     '        "progressivePasses": 962,\n' +
+2026-10-28T22:39:49.6081346Z     '        "threatFlow": {\n' +
+2026-10-28T22:39:49.6081648Z     '          "progressiveReceptions": 223,\n' +
+2026-10-28T22:39:49.6082015Z     '          "resultingFinalThirdEntries": 44,\n' +
+2026-10-28T22:39:49.6082357Z     '          "resultingBoxEntries": 0,\n' +
+2026-10-28T22:39:49.6082667Z     '          "resultingShots": 0\n' +
+2026-10-28T22:39:49.6082939Z     '        },\n' +
+2026-10-28T22:39:49.6083184Z     '        "carries": 4019\n' +
+2026-10-28T22:39:49.6083431Z     '      },\n' +
+2026-10-28T22:39:49.6083670Z     '      "possession": {\n' +
+2026-10-28T22:39:49.6083953Z     '        "bothTeamChanges": 1709,\n' +
+2026-10-28T22:39:49.6084264Z     '        "bothTeamTurnoverCauses": {\n' +
+2026-10-28T22:39:49.6084571Z     '          "tackle": 470,\n' +
+2026-10-28T22:39:49.6084849Z     '          "interception": 1013,\n' +
+2026-10-28T22:39:49.6085140Z     '          "bad_pass": 15,\n' +
+2026-10-28T22:39:49.6085706Z     '          "pass_out": 0,\n' +
+2026-10-28T22:39:49.6086070Z     '          "heavy_touch": 87,\n' +
+2026-10-28T22:39:49.6086524Z     '          "failed_control": 29,\n' +
+2026-10-28T22:39:49.6086992Z     '          "loose_ball_claim": 94,\n' +
+2026-10-28T22:39:49.6087446Z     '          "shot": 0,\n' +
+2026-10-28T22:39:49.6087858Z     '          "foul_stoppage": 21,\n' +
+2026-10-28T22:39:49.6088293Z     '          "other": 4\n' +
+2026-10-28T22:39:49.6088662Z     '        },\n' +
+2026-10-28T22:39:49.6089038Z     '        "homeTurnovers": 855,\n' +
+2026-10-28T22:39:49.6089773Z     '        "looseEpisodes": 1071\n' +
+2026-10-28T22:39:49.6090195Z     '      },\n' +
+2026-10-28T22:39:49.6090557Z     '      "goalkeeper": {\n' +
+2026-10-28T22:39:49.6090966Z     '        "catches": 0,\n' +
+2026-10-28T22:39:49.6091371Z     '        "parries": 0,\n' +
+2026-10-28T22:39:49.6091764Z     '        "rebounds": 0\n' +
+2026-10-28T22:39:49.6092116Z     '      },\n' +
+2026-10-28T22:39:49.6092483Z     '      "playingTime": {\n' +
+2026-10-28T22:39:49.6093006Z     '        "canonicalElapsedSeconds": 5591.800000000043,\n' +
+2026-10-28T22:39:49.6093575Z     '        "regulationSeconds": 5400,\n' +
+2026-10-28T22:39:49.6094183Z     '        "addedSecondsActuallyPlayed": 191.80000000004293,\n' +
+2026-10-28T22:39:49.6094815Z     '        "ballInPlaySeconds": 4849.550000000602,\n' +
+2026-10-28T22:39:49.6095559Z     '        "deadBallSeconds": 742.249999999441,\n' +
+2026-10-28T22:39:49.6096242Z     '        "deadBallByReason": {\n' +
+2026-10-28T22:39:49.6096764Z     '          "period_start": 33.30000000012033,\n' +
+2026-10-28T22:39:49.6097264Z     '          "foul": 485.49999999894663,\n' +
+2026-10-28T22:39:49.6097768Z     '          "substitution": 78.30000000028485,\n' +
+2026-10-28T22:39:49.6098278Z     '          "goal_kick": 83.72500000030459,\n' +
+2026-10-28T22:39:49.6098780Z     '          "discipline": 61.42499999978463\n' +
+2026-10-28T22:39:49.6099203Z     '        },\n' +
+2026-10-28T22:39:49.6099589Z     '        "restartDurations": {\n' +
+2026-10-28T22:39:49.6100053Z     '          "period_start": {\n' +
+2026-10-28T22:39:49.6100485Z     '            "count": 2,\n' +
+2026-10-28T22:39:49.6100942Z     '            "seconds": 33.30000000012033,\n' +
+2026-10-28T22:39:49.6101417Z     '  '... 165010 more characters,
+2026-10-28T22:39:49.6101838Z   operator: 'strictEqual',
+2026-10-28T22:39:49.6102216Z   diff: 'simple'
+2026-10-28T22:39:49.6102540Z }
+2026-10-28T22:39:49.6102713Z 
+2026-10-28T22:39:49.6102849Z Node.js v24.22.1
+2026-10-28T22:39:49.6144531Z ##[error]Process completed with exit code 1.
+2026-10-28T22:39:49.6291338Z Post job cleanup.
+2026-10-28T22:39:49.7149573Z [command]/usr/bin/git version
+2026-10-28T22:39:49.7194767Z git version 2.56.0
+2026-10-28T22:39:49.7237669Z Temporarily overriding HOME='/home/runner/work/_temp/89c678ec-73f2-4019-bdcd-7a79e38807f2' before making global git config changes
+2026-10-28T22:39:49.7238669Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-28T22:39:49.7243826Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/my_football_legend/my_football_legend
+2026-10-28T22:39:49.7288013Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-28T22:39:49.7332144Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-28T22:39:49.7667633Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-28T22:39:49.7695971Z http.https://github.com/.extraheader
+2026-10-28T22:39:49.7708056Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-28T22:39:49.7752552Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-28T22:39:49.8044185Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-28T22:39:49.8120532Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-28T22:39:49.8586892Z Cleaning up orphan processes
+2026-10-28T22:39:49.8998764Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

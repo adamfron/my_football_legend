@@ -56,7 +56,7 @@ jobs:
           - group: passing
             command: npm run benchmark:pr197:check && npm run benchmark:pr197:replay && npm run benchmark:pr198:check && npm run benchmark:pr198:replay
           - group: perception
-            command: npm run benchmark:pr199:check && npm run benchmark:realism:check && npm run benchmark:pr200:check && npm run benchmark:pr201:check
+            command: npm run benchmark:pr199:check && npm run benchmark:realism:check && npm run benchmark:pr200:check && npm run ci:pr201-check
     env:
       VITEST_MAX_WORKERS: '1'
       NODE_OPTIONS: '--max-semi-space-size=64'

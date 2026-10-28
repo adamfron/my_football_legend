@@ -31,4 +31,5 @@ jobs:
         with:
           name: pr202-parity-${{ matrix.os }}-${{ matrix.group }}-${{ github.run_attempt }}
           path: .benchmark-artifacts/pr202
+          include-hidden-files: true
           if-no-files-found: error

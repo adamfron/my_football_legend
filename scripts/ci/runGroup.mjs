@@ -8,6 +8,7 @@ import { pathToFileURL } from 'node:url';
 import { performance } from 'node:perf_hooks';
 import { setTimeout, clearTimeout } from 'node:timers';
 import { digest, json, validateManifest, checkEvidence } from './manifest.mjs';
+import { pr201Context } from './replayPr201Check.mjs';
 
 export function stopTree(child) {
   if (!child.pid) return;
@@ -34,6 +35,7 @@ export async function runChild(command, options = {}) {
     windowsHide: true,
     detached: process.platform !== 'win32',
     env: options.env ?? process.env,
+    cwd: options.cwd,
   });
   let timedOut = false,
     cancelled = false;
@@ -43,6 +45,8 @@ export async function runChild(command, options = {}) {
   };
   process.once('SIGTERM', cancel);
   process.once('SIGINT', cancel);
+  options.signal?.addEventListener('abort', cancel, { once: true });
+  if (options.signal?.aborted) cancel();
   const timer = setTimeout(
     () => {
       timedOut = true;
@@ -57,6 +61,7 @@ export async function runChild(command, options = {}) {
   clearTimeout(timer);
   process.removeListener('SIGTERM', cancel);
   process.removeListener('SIGINT', cancel);
+  options.signal?.removeEventListener('abort', cancel);
   return {
     ...result,
     timedOut,
@@ -64,7 +69,6 @@ export async function runChild(command, options = {}) {
     success: result.exitCode === 0 && !timedOut && !cancelled && !result.error,
   };
 }
-export const successful = (results) => results.length > 0 && results.every((r) => r === 'success');
 async function main() {
   const args = new Map(process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')));
   const m = validateManifest(json('docs/performance/pr202/task-manifest.json'));
@@ -132,15 +136,22 @@ async function main() {
           command = [process.execPath, process.env.npm_execpath, ...command.slice(1)];
         } else if (command[0] === 'node') command = [process.execPath, ...command.slice(1)];
         console.log('CI task START', task.id, JSON.stringify(task.command));
-        const result = await runChild(command, {
-          timeoutMs: Math.max(1, task.timeoutMinutes * 60000 - (performance.now() - start)),
-          env: {
-            ...process.env,
-            MFL_CI_RESOURCES: resources,
-            NODE_OPTIONS:
-              `${process.env.NODE_OPTIONS ?? ''} --import=${pathToFileURL(resolve('scripts/ci/resourceProbe.mjs')).href}`.trim(),
-          },
-        });
+        const context = task.command[2] === 'benchmark:pr201:check' ? pr201Context() : null;
+        let result;
+        try {
+          result = await runChild(command, {
+            cwd: context?.cwd,
+            timeoutMs: Math.max(1, task.timeoutMinutes * 60000 - (performance.now() - start)),
+            env: {
+              ...(context?.env ?? process.env),
+              MFL_CI_RESOURCES: resources,
+              NODE_OPTIONS:
+                `${process.env.NODE_OPTIONS ?? ''} --import=${pathToFileURL(resolve('scripts/ci/resourceProbe.mjs')).href}`.trim(),
+            },
+          });
+        } finally {
+          context?.cleanup();
+        }
         Object.assign(entry, result);
         assert.ok(result.success, `Child failed: ${task.id}`);
       }

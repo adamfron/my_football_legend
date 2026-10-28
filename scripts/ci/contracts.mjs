@@ -5,7 +5,10 @@ import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { digest, json, validateManifest, checkEvidence } from './manifest.mjs';
-import { runChild, successful } from './runGroup.mjs';
+import { runChild } from './runGroup.mjs';
+import { qualityKeys, qualityProgram } from './quality.mjs';
+import { spawnSync } from 'node:child_process';
+import { setTimeout } from 'node:timers';
 const manifest = json('docs/performance/pr202/task-manifest.json');
 test('packing loses, duplicates or crosses no platform/budget case', () => {
   validateManifest(manifest);
@@ -53,10 +56,25 @@ test('nonzero exit, crash, missing executable and killed child fail closed', asy
   });
   assert.equal(timeout.timedOut, true);
   assert.equal(timeout.success, false);
+  const controller = new globalThis.AbortController();
+  const pending = runChild([process.execPath, '-e', 'setInterval(()=>{},100)'], {
+    stdio: 'ignore',
+    signal: controller.signal,
+  });
+  setTimeout(() => controller.abort(), 100);
+  const cancelled = await pending;
+  assert.equal(cancelled.cancelled, true);
+  assert.equal(cancelled.success, false);
 });
-test('stable quality gate rejects failure, timeout, cancelled, skipped and missing results', () => {
-  assert.equal(successful(['success', 'success']), true);
-  for (const state of ['failure', 'cancelled', 'skipped', 'timed_out', '', undefined])
-    assert.equal(successful(['success', state]), false);
-  assert.equal(successful([]), false);
+test('actual rendered quality program rejects failure, timeout, cancelled, skipped and missing results', () => {
+  const env = Object.fromEntries(qualityKeys.map((k) => [k, 'success']));
+  const status = (e) => spawnSync(process.execPath, ['-e', qualityProgram], { env: e }).status;
+  assert.equal(status(env), 0);
+  for (const key of qualityKeys)
+    for (const state of ['failure', 'cancelled', 'skipped', 'timed_out', '', undefined]) {
+      const bad = { ...env, [key]: state };
+      if (state === undefined) delete bad[key];
+      assert.equal(status(bad), 1);
+    }
+  assert.equal(status({}), 1);
 });

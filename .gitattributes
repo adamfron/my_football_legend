@@ -160,3 +160,8 @@ docs/PR201*.md text eol=lf
 docs/PR202*.md text eol=lf
 scripts/*Pr201* text eol=lf
 scripts/pr201* text eol=lf
+
+# PR202 manifest/archive byte identities are independent of checkout conversion.
+docs/performance/pr202/** -text linguist-generated=true
+docs/performance/pr202/**/*.json -diff
+scripts/ci/** text eol=lf

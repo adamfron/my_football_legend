@@ -1,12 +1,16 @@
 import process from 'node:process';
 import console from 'node:console';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { catalogue as c198, groups as g198 } from '../pr198Catalogue.mjs';
 import { catalogue as c199, groups as g199 } from '../pr199Catalogue.mjs';
 import { digest, json, validateManifest } from './manifest.mjs';
 const ROOT = 'docs/performance/pr202';
+const BASE = '5b6bbf6778017ac415964dd48dfe30b850f2f352';
+const git = (args) =>
+  execFileSync('git', args, { encoding: 'utf8', windowsHide: true, maxBuffer: 128 * 1024 * 1024 });
 const cache = new Map();
 const read = (p) => {
   if (!cache.has(p))
@@ -51,6 +55,29 @@ const add = (job, command, cases = [], os = 'ubuntu-latest', node = '24', timeou
 const npm = (job, name, cases = [], args = [], ...context) =>
   add(job, ['npm', 'run', name, ...(args.length ? ['--', ...args] : [])], cases, ...context);
 const workflow = readFileSync(`${ROOT}/ci-pr201.yml`, 'utf8').replaceAll('\r\n', '\n');
+assert.equal(
+  workflow,
+  git(['show', `${BASE}:.github/workflows/ci.yml`]),
+  'Rollback workflow differs from merged PR201',
+);
+const originalPackage = JSON.parse(git(['show', `${BASE}:package.json`]));
+const currentPackage = json('package.json');
+for (const key of Object.keys(currentPackage.scripts).filter((k) => k.startsWith('ci:')))
+  delete currentPackage.scripts[key];
+assert.deepEqual(currentPackage, originalPackage, 'Existing npm commands/dependencies changed');
+git([
+  'diff',
+  '--exit-code',
+  BASE,
+  '--',
+  'src',
+  'scripts',
+  'package-lock.json',
+  'docs/performance',
+  'docs/match-engine',
+  ':(exclude)scripts/ci/**',
+  ':(exclude)docs/performance/pr202/**',
+]);
 // Derive unchanged verify/historical commands from the frozen workflow, rather than a second hand-written list.
 for (const family of ['checks', 'historical-checks']) {
   const block = workflow.split(`  ${family}:\n`)[1].split(/^ {2}[a-z][\w-]+:\n/m)[0];
