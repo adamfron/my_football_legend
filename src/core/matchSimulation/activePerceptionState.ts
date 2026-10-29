@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { physicalPointSchema } from './matchSpace';
+import { situationSchema, prospectiveSupportSchema } from './situationalAwarenessState';
 
 const unit = z.number().min(0).max(1);
 export const activePerceptionConfigSchema = z.object({
@@ -26,6 +27,7 @@ export const perceivedBallSchema = z.object({
   ownerId: z.string().nullable(),
 });
 export const spatialMemorySchema = z.object({
+  situation: situationSchema.optional(),
   gaze: z.number(),
   targetOffset: z.number(),
   scanningUntil: z.number(),
@@ -72,6 +74,7 @@ export const preReceptionPlanSchema = z.object({
   usedId: z.string().nullable(),
 });
 export const receivingPositionSchema = z.object({
+  prospective: prospectiveSupportSchema.optional(),
   target: physicalPointSchema,
   origin: physicalPointSchema,
   observedAt: z.number(),

@@ -114,9 +114,10 @@ export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: Ma
     return { state, action: undefined };
   const scene = observeBoundedScene(state, actor),
     signature = boundedDecisionSignature(scene);
-  const plan = state.experimentalActivePerception
-    ? state.activePerceptionRuntime?.plans[actor.id]
-    : undefined;
+  const plan =
+    state.experimentalActivePerception || state.situationalAwareness
+      ? state.activePerceptionRuntime?.plans[actor.id]
+      : undefined;
   const perception = preparedRecognitionLatency(scene, plan, ordinaryPerception);
   if (state.time < (state.ballOwnershipStartedAt ?? state.time) + perception)
     return { state, action: undefined };
@@ -202,7 +203,9 @@ export const advanceBoundedOwnerDecision = (state: TacticalMatchState, actor: Ma
     actorId: actor.id,
     scene: result.scene,
     decision: result.decision,
-    ...(state.experimentalTransitionIntelligence || state.experimentalActivePerception
+    ...(state.experimentalTransitionIntelligence ||
+    state.experimentalActivePerception ||
+    state.situationalAwareness
       ? { candidates }
       : {}),
     reason: result.decision.reasons.join('|'),

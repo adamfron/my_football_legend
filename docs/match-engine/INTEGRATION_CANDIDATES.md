@@ -1,5 +1,9 @@
 # MatchEngine integration candidates
 
+## PR203 development experiments — maintained candidate unchanged
+
+`situational-awareness-v1` enables the existing memory/preparation route with explicit direct/remembered/inferred provenance. `prospective-play-v1` additionally prepares a role-local support target for a possible intermediary. Both retain PR201 `hold-local-v1`, explicit policy selection and optional saved-state validation. Memory is RETAIN_EXPERIMENTAL; prospective movement NEEDS_REPAIR; covariance is diagnostic-only with insufficient signed residuals. Real early motion does not establish improved B→C contact. The local downstream gate fails, so neither profile replaces `realism-candidate-v1` or receives a full-match promotion claim. [Source-bound laboratories, costs, limitations and next dependency](../PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md).
+
 ## realism-candidate-v1 — PR201 experimental successor
 
 Implementation `pr201-receiver-recovery-v1`, configuration schema edition0. It inherits the explicit PR200 feature/auxiliary selection and adds optional `boundedReceiverRecovery: hold-local-v1`. `realism-candidate-no-recovery-v1` disables exactly that behaviour while retaining the successor identity. Old v0 checksums, absent saved fields and physical behaviour remain unchanged.

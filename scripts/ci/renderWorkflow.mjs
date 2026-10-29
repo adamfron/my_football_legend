@@ -39,6 +39,8 @@ workflow = workflow.replace(
         run: node scripts/ci/renderWorkflow.mjs --check
       - if: matrix.group == 'main'
         run: node scripts/ci/corruptReplay.mjs
+      - if: matrix.group == 'main'
+        run: node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr203Evidence.mjs
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(

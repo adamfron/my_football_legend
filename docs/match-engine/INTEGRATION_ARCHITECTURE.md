@@ -10,6 +10,8 @@ Default matches do not select a profile and do not enable the new perception fla
 
 ## Profiles and policies
 
+PR203 adds two separately selected development experiments, `situational-awareness-v1` and `prospective-play-v1`. Both inherit PR201 recovery; the former enables optional `situationalAwareness: bounded-v1` in existing spatial memory/preparation, the latter also selects `prospectiveMovement: two-pass-v1` in existing receiving-position jobs. Their implementation/checksums are separate; historical v0/v1 selections are unchanged. The maintained candidate remains `realism-candidate-v1`: local downstream-contact losses fail the new experiment's integration gate. See the [PR203 report](../PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md) for actual consumers, information boundaries, preserved negative results and diagnostic-only covariance. No new full-match benefit or canonical promotion is asserted.
+
 The permanent API is `resolveIntegrationProfile(id, policy)` and `withIntegrationProfile(state, id, policy)` in `src/core/matchSimulation/integrationProfile.ts`. The application writes every mechanism switch, validates body-v1 exclusion, clears incompatible caches and persists the selection. It never creates a second simulator.
 
 The profile has a stable ID, version 0, implementation reference, explicit features and auxiliary switches, policy dimension, dependencies, mutually exclusive choices, reasons/evidence/limits per mechanism, policy-specific inactive consumers and a deterministic resolved checksum. Source SHA256 and the exact input/seed/hash are separate evidence identities. A checksum is not a source revision or a security hash.

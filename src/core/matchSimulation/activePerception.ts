@@ -8,6 +8,7 @@ import {
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { distance } from './matchSpace';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
+import { updateSituation } from './situationalAwareness';
 
 export const emptyActiveRuntime = (): ActivePerceptionRuntime => ({
   lastUpdateAt: -1,
@@ -18,7 +19,10 @@ export const emptyActiveRuntime = (): ActivePerceptionRuntime => ({
 });
 export const usesActiveContext = (s: TacticalMatchState) =>
   Boolean(
-    s.experimentalActivePerception || s.experimentalReceivingPositions || s.experimentalTeamTempo,
+    s.experimentalActivePerception ||
+      s.experimentalReceivingPositions ||
+      s.experimentalTeamTempo ||
+      s.situationalAwareness,
   );
 
 /** Logical attention, not anatomical neck animation. Rotation and acquisition take time;
@@ -138,6 +142,7 @@ export const advanceActivePerception = (state: TacticalMatchState): TacticalMatc
       directIds: entities.filter((q) => ids.has(q.id)).map((q) => q.id),
       ball: direct.ball ?? (old && state.time - old.ballSeenAt <= 0.35 ? old.ball : null),
       ballSeenAt: direct.ball ? state.time : (old?.ballSeenAt ?? -10),
+      ...(state.situationalAwareness ? { situation: updateSituation(direct, old?.situation) } : {}),
     };
   }
   if (state.restart || state.postGoal)

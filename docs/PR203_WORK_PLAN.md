@@ -1,0 +1,11 @@
+# PR203 work plan
+
+1. Audit PR195–202, existing perception/memory, bounded flight, receiving/preparation, opportunity windows, movement authority and integration profiles. Preserve historical evidence; run PR200 freeze, original PR201 evidence check and relevant current-source contracts before runtime edits.
+2. Extend existing spatial memory with timestamped direct/remembered ball location and explicitly inferred possession/phase. Never refresh ball evidence from a prediction. Keep current 36m detailed sensor; separate coarse sector knowledge from precision. Add an opt-in profile, preserving old checksums.
+3. Add one conditional two-pass support behaviour in existing receiving-position storage, bounded to two intermediaries, nine local targets and a two-second horizon. Respect roles, attention, native capability and higher movement authorities. Expire and invalidate hypotheses; never commit hypothetical passes.
+4. Diagnostic-only sample covariance of actual contact residuals, rotated along/across the predicted flight. Separate timing residuals and trajectory strata; no 95% coverage claim or acting contact expansion.
+5. Reproducible A–F development laboratories and information interventions; native 40Hz MatchEngine executes movement, release/contact and continuations. Compare awareness-only and anticipation with PR201. Report recognition, selection, release and physical outcome separately, including failed predictions and no-pass runs.
+6. Local gate: lawful information, real prospective motion, role discipline, withdrawal and physical continuation. If physical value is unproven, retain a limited experiment and stop before whole-profile promotion. If justified, run WW/SS/SW policy-specific full matches; never infer match benefits from local counts.
+7. Preserve historical source/receipts/assertions while extending existing CI groups. Run npm run verify and evidence controls, update report/register/roadmap according to evidence, commit/push and open PR203. Independent confirmation remains sealed; B, 40Hz and 28 attributes remain.
+
+Integration candidate remains realism-candidate-v1 until evidence justifies an explicit successor. PR203 profiles are development experiments, not a silent redefinition of PR201.
