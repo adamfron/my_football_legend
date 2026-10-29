@@ -2,7 +2,7 @@ import process from 'node:process';
 import console from 'node:console';
 import assert from 'node:assert/strict';
 import { spawn, execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, writeFileSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { performance } from 'node:perf_hooks';
@@ -13,10 +13,10 @@ import {
   json,
   validateManifest,
   checkEvidence,
-  nodeResourceSchema,
   groupExecutionSchema,
 } from './manifest.mjs';
 import { pr201Context } from './replayPr201Check.mjs';
+import { readNodeResources } from './telemetry.mjs';
 
 export function stopTree(child) {
   if (!child.pid) return;
@@ -182,9 +182,8 @@ async function main() {
       report.status = 'failure';
     } finally {
       entry.wallSeconds = (performance.now() - taskStart) / 1000;
-      const samples = readdirSync(resources)
-        .filter((n) => n.endsWith('.json'))
-        .map((n) => nodeResourceSchema.parse(json(join(resources, n))));
+      const { samples, incomplete } = readNodeResources(resources);
+      entry.incompleteNodeProcessSamples = incomplete;
       entry.nodeProcesses = samples.length;
       entry.maxNodeProcessRSSKiB = samples.length
         ? Math.max(...samples.map((s) => s.peakRSSKiB))

@@ -9,7 +9,49 @@ import { runChild } from './runGroup.mjs';
 import { qualityKeys, qualityProgram } from './quality.mjs';
 import { spawnSync } from 'node:child_process';
 import { setTimeout } from 'node:timers';
+import fs from 'node:fs';
+import { publishNodeResource } from './resourceProbe.mjs';
+import { readNodeResources } from './telemetry.mjs';
 const manifest = json('docs/performance/pr202/task-manifest.json');
+test('interrupted observer publication remains explicit; completed corruption still fails', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'pr202-atomic-probe-'));
+  const realWrite = fs.writeFileSync;
+  try {
+    const interruptedIO = {
+      writeFileSync: (path) => {
+        realWrite(path, '');
+        throw Error('intentional interrupted publication');
+      },
+      renameSync: () => {
+        throw Error('Incomplete record must never be published');
+      },
+    };
+    assert.throws(
+      () => publishNodeResource(dir, 'interrupted', {}, interruptedIO),
+      /interrupted publication/,
+    );
+    assert.equal(fs.existsSync(join(dir, 'interrupted.json')), false);
+    assert.deepEqual(readNodeResources(dir), { samples: [], incomplete: ['interrupted.json.tmp'] });
+    const r = {
+      pid: 1,
+      parentPid: 0,
+      argv: ['node', 'fixture'],
+      node: process.version,
+      platform: process.platform,
+      exitCode: 0,
+      wallSeconds: 1,
+      cpuUserMicros: 1,
+      cpuSystemMicros: 1,
+      peakRSSKiB: 1,
+    };
+    publishNodeResource(dir, 'complete', r);
+    assert.deepEqual(readNodeResources(dir).samples, [r]);
+    realWrite(join(dir, 'corrupt.json'), '{');
+    assert.throws(() => readNodeResources(dir), SyntaxError);
+  } finally {
+    rmSync(dir, { recursive: true });
+  }
+});
 test('packing loses, duplicates or crosses no platform/budget case', () => {
   validateManifest(manifest);
   for (const mutate of [

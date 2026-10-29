@@ -199,6 +199,12 @@
             "minimum": 0,
             "maximum": 9007199254740991
           },
+          "incompleteNodeProcessSamples": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "maxNodeProcessRSSKiB": {
             "anyOf": [
               {

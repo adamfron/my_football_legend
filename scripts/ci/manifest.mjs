@@ -122,6 +122,7 @@ export const groupExecutionSchema = z.object({
       error: z.string().optional(),
       wallSeconds: z.number().nonnegative().optional(),
       nodeProcesses: z.number().int().nonnegative().optional(),
+      incompleteNodeProcessSamples: z.array(z.string()).optional(),
       maxNodeProcessRSSKiB: z.number().nonnegative().nullable().optional(),
       sumNodeCPUMicros: z.number().nonnegative().nullable().optional(),
     }),
