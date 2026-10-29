@@ -1,0 +1,55 @@
+{
+  "schema": "pr202-ci-comparison-v1",
+  "before": {
+    "runId": 40733773018,
+    "head": "2312964b7b8291ad6da52ea2f1859a1f8ea857f5",
+    "qualification": "Original nineteen Linux source jobs; setup and runtime from PR201 attempt 1.",
+    "byOS": {
+      "linux": {
+        "jobs": 19,
+        "runnerSeconds": 8139,
+        "roundedJobMinutes": 143,
+        "checkoutSeconds": 4620,
+        "installSeconds": 110
+      }
+    },
+    "billableMilliseconds": null,
+    "failures": [],
+    "criticalPathSeconds": 1640
+  },
+  "after": {
+    "runId": 40784091754,
+    "head": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+    "qualification": "Four Linux grouped source jobs during successful cross-platform rehearsal. Other parity Windows jobs are rollout cost, not production source jobs.",
+    "byOS": {
+      "linux": {
+        "jobs": 4,
+        "runnerSeconds": 3600,
+        "roundedJobMinutes": 61,
+        "checkoutSeconds": 766,
+        "installSeconds": 18
+      }
+    },
+    "billableMilliseconds": null,
+    "failures": [],
+    "criticalPathSeconds": 1374
+  },
+  "inputs": [
+    {
+      "path": "docs/performance/pr202/source-before.json",
+      "sha256": "6ce307ac78ee9e7f8bf7ef2f3dba2731982dbed5a7864e6454344b8934bfcebb"
+    },
+    {
+      "path": "docs/performance/pr202/source-after.json",
+      "sha256": "0b2d10fd80e07f6aafa396528ac98eb10f3b16dc3a083d82720f6b29f646cb0d"
+    }
+  ],
+  "qualifications": [
+    "Critical path includes queue gaps between job starts/completions; this is not CPU time.",
+    "Rounded job minutes are ceil(duration / 60) per observed job, not an account invoice.",
+    "Do not double-count carried successful jobs from rerun metadata.",
+    "Compare serial source payloads and grouped payloads on the same OS; setup and instrumentation are separate.",
+    "The old workflow has no hosted RSS samples; absence is unknown. New RSS is maximum per Node process, not simultaneous process-tree RSS.",
+    "No dollar saving is inferred from runner-seconds. API billable time excludes any unobserved artifact/storage charges."
+  ]
+}

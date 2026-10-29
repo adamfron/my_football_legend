@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "pr202-ci-equivalence-v1"
+    },
+    "base": {
+      "type": "string"
+    },
+    "originalTaskDefinitionsSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "proposedTaskDefinitionsSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "frozenInventorySha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "originalCommands": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "explicitCases": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "fullMatchExecutions": {
+      "type": "number",
+      "const": 63
+    },
+    "beforeJobs": {
+      "type": "number",
+      "const": 43
+    },
+    "afterJobs": {
+      "type": "number",
+      "const": 28
+    },
+    "taskMultiplicityEqual": {
+      "type": "boolean",
+      "const": true
+    },
+    "platformsAndEditionsEqual": {
+      "type": "boolean",
+      "const": true
+    },
+    "receiptAndArchiveBytesEqual": {
+      "type": "boolean",
+      "const": true
+    },
+    "originalTimeoutsEqual": {
+      "type": "boolean",
+      "const": true
+    },
+    "currentRuntimeAndHistoricalEvidenceUnchanged": {
+      "type": "boolean",
+      "const": true
+    },
+    "historicalCheckerContext": {
+      "type": "string",
+      "const": "merged-pr201-private-index-and-work-tree"
+    }
+  },
+  "required": [
+    "schema",
+    "base",
+    "originalTaskDefinitionsSha256",
+    "proposedTaskDefinitionsSha256",
+    "frozenInventorySha256",
+    "originalCommands",
+    "explicitCases",
+    "fullMatchExecutions",
+    "beforeJobs",
+    "afterJobs",
+    "taskMultiplicityEqual",
+    "platformsAndEditionsEqual",
+    "receiptAndArchiveBytesEqual",
+    "originalTimeoutsEqual",
+    "currentRuntimeAndHistoricalEvidenceUnchanged",
+    "historicalCheckerContext"
+  ],
+  "additionalProperties": false
+}

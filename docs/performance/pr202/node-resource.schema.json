@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "pid": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "parentPid": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "argv": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "node": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "exitCode": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "wallSeconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "cpuUserMicros": {
+      "type": "number",
+      "minimum": 0
+    },
+    "cpuSystemMicros": {
+      "type": "number",
+      "minimum": 0
+    },
+    "peakRSSKiB": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "pid",
+    "parentPid",
+    "argv",
+    "node",
+    "platform",
+    "exitCode",
+    "wallSeconds",
+    "cpuUserMicros",
+    "cpuSystemMicros",
+    "peakRSSKiB"
+  ],
+  "additionalProperties": false
+}

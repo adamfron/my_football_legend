@@ -1,0 +1,191 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  checks:
+    name: verify (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    # Keep every verify stage and its time limits. Fixed-budget native integration
+    # and full career fixtures get fresh workers alongside the unit/build group.
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: main
+            command: npm run lint && npm run test:unit && npm run build
+          - group: integration
+            command: npm run generate:world-db && npm run test:match-integration
+          - group: career
+            command: npm run generate:world-db && npm run test:match-contract && npm run test:full-career
+    env:
+      # Simulation parity tests keep their original time limits on a shared CPU.
+      VITEST_MAX_WORKERS: '1'
+      # Canonical fixed-tick fixtures allocate many short-lived state objects.
+      # Give V8 more young-generation space; preserve every test and wall budget.
+      NODE_OPTIONS: '--max-semi-space-size=64'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - if: matrix.group == 'main'
+        run: npm run ci:manifest
+      - if: matrix.group == 'main'
+        run: npm run ci:contracts
+      - if: matrix.group == 'main'
+        run: node scripts/ci/renderWorkflow.mjs --check
+      - if: matrix.group == 'main'
+        run: node scripts/ci/corruptReplay.mjs
+      - run: npm run ci:group -- --group=checks:${{ matrix.group }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr202-checks-${{ matrix.group }}-${{ github.run_attempt }}
+          path: .benchmark-artifacts/pr202
+          include-hidden-files: true
+          if-no-files-found: error
+  historical-checks:
+    name: Historical checks (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: foundations
+            command: npm run benchmark:pr186:replay && npm run benchmark:pr187:replay && npm run benchmark:pr188:replay && npm run benchmark:pr189:replay && npm run benchmark:pr190:replay && npm run benchmark:pr191:baseline && npm run benchmark:pr192:baseline && npm run benchmark:pr193:baseline && npm run benchmark:pr194:baseline && npm run benchmark:pr193:replay && npm run benchmark:pr196:historical
+          - group: assumptions
+            command: npm run benchmark:pr195:check && npm run benchmark:pr196:check && npm run benchmark:pr196:replay
+          - group: passing
+            command: npm run benchmark:pr197:check && npm run benchmark:pr197:replay && npm run benchmark:pr198:check && npm run benchmark:pr198:replay
+          - group: perception
+            command: npm run benchmark:pr199:check && npm run benchmark:realism:check && npm run benchmark:pr200:check && npm run benchmark:pr201:check
+    env:
+      VITEST_MAX_WORKERS: '1'
+      NODE_OPTIONS: '--max-semi-space-size=64'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run ci:group -- --group=historical-checks:${{ matrix.group }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr202-historical-checks-${{ matrix.group }}-${{ github.run_attempt }}
+          path: .benchmark-artifacts/pr202
+          include-hidden-files: true
+          if-no-files-found: error
+  historical-source:
+    name: Historical source (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [source-01, source-02, source-03, source-04]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run ci:group -- --group=${{ matrix.group }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr202-historical-source-${{ matrix.group }}-${{ github.run_attempt }}
+          path: .benchmark-artifacts/pr202
+          include-hidden-files: true
+          if-no-files-found: error
+  pr200-matches:
+    name: PR200 complete matches (${{ matrix.fixture }}, ${{ matrix.cohort }})
+    # These exact long-match receipts were measured on Windows / Node 24.22.1.
+    # Keep their full hashes; Linux remains covered by verify and platform probes.
+    runs-on: windows-2025
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        fixture: [ww-opportunity-driven-v1, ww-hierarchical-intent-v1, ss-opportunity-driven-v1, sw-state-value-v1, sw-contextual-judgment-v1, ww-phase-role-hybrid-v1, ss-state-value-v1]
+        cohort: [current, historical]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.22.1
+          cache: npm
+      - run: npm ci
+      - run: npm run ci:group -- --group=pr200-matches:${{ matrix.fixture }}:${{ matrix.cohort }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr202-pr200-matches-${{ matrix.fixture }}-${{ matrix.cohort }}-${{ github.run_attempt }}
+          path: .benchmark-artifacts/pr202
+          include-hidden-files: true
+          if-no-files-found: error
+  pr200-platform:
+    name: PR200 platform (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2025]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.22.1
+          cache: npm
+      - run: npm ci
+      - run: npm run ci:group -- --group=pr200-platform:${{ matrix.os }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr202-pr200-platform-${{ matrix.os }}-${{ github.run_attempt }}
+          path: .benchmark-artifacts/pr202
+          include-hidden-files: true
+          if-no-files-found: error
+  quality:
+    # Preserve the existing required check and fail it if either group fails,
+    # times out or is cancelled, including failures before tests can start.
+    needs: [checks, historical-checks, historical-source, pr200-matches, pr200-platform]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Require every verification group
+        env:
+          VERIFY_RESULT: ${{ needs.checks.result }}
+          HISTORICAL_RESULT: ${{ needs.historical-checks.result }}
+          SOURCE_RESULT: ${{ needs.historical-source.result }}
+          PR200_MATCHES_RESULT: ${{ needs.pr200-matches.result }}
+          PR200_PLATFORM_RESULT: ${{ needs.pr200-platform.result }}
+        run: node -e 'process.exit(["VERIFY_RESULT","HISTORICAL_RESULT","SOURCE_RESULT","PR200_MATCHES_RESULT","PR200_PLATFORM_RESULT"].every(k=>process.env[k]==="success")?0:1)'

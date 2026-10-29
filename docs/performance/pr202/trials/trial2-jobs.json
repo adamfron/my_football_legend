@@ -1,0 +1,933 @@
+{
+  "total_count": 8,
+  "jobs": [
+    {
+      "id": 123153316522,
+      "run_id": 40784091754,
+      "workflow_name": "PR202 source packing parity",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091754",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIJ6qg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153316522",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091754/job/123153316522",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:44Z",
+      "started_at": "2026-10-28T23:00:47Z",
+      "completed_at": "2026-10-28T23:23:41Z",
+      "name": "Source packing parity (ubuntu-latest, source-02)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:48Z",
+          "completed_at": "2026-10-28T23:00:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:49Z",
+          "completed_at": "2026-10-28T23:12:12Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:12:12Z",
+          "completed_at": "2026-10-28T23:12:15Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:12:15Z",
+          "completed_at": "2026-10-28T23:12:19Z"
+        },
+        {
+          "name": "Run npm run ci:manifest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:12:19Z",
+          "completed_at": "2026-10-28T23:13:03Z"
+        },
+        {
+          "name": "Run npm run ci:contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:13:03Z",
+          "completed_at": "2026-10-28T23:13:05Z"
+        },
+        {
+          "name": "Run npm run ci:group -- --group=source-02 --platform-parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:13:05Z",
+          "completed_at": "2026-10-28T23:23:37Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:23:37Z",
+          "completed_at": "2026-10-28T23:23:38Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:23:38Z",
+          "completed_at": "2026-10-28T23:23:39Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:23:39Z",
+          "completed_at": "2026-10-28T23:23:39Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:23:39Z",
+          "completed_at": "2026-10-28T23:23:39Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153316522",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001490,
+      "runner_name": "GitHub Actions 1000001490",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153316765,
+      "run_id": 40784091754,
+      "workflow_name": "PR202 source packing parity",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091754",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIJ7nQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153316765",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091754/job/123153316765",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:44Z",
+      "started_at": "2026-10-28T23:00:47Z",
+      "completed_at": "2026-10-28T23:12:22Z",
+      "name": "Source packing parity (ubuntu-latest, source-03)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:48Z",
+          "completed_at": "2026-10-28T23:00:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:49Z",
+          "completed_at": "2026-10-28T23:01:17Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:17Z",
+          "completed_at": "2026-10-28T23:01:19Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:19Z",
+          "completed_at": "2026-10-28T23:01:24Z"
+        },
+        {
+          "name": "Run npm run ci:manifest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:24Z",
+          "completed_at": "2026-10-28T23:02:09Z"
+        },
+        {
+          "name": "Run npm run ci:contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:02:09Z",
+          "completed_at": "2026-10-28T23:02:10Z"
+        },
+        {
+          "name": "Run npm run ci:group -- --group=source-03 --platform-parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:02:10Z",
+          "completed_at": "2026-10-28T23:12:18Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:12:18Z",
+          "completed_at": "2026-10-28T23:12:19Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:12:19Z",
+          "completed_at": "2026-10-28T23:12:19Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:12:19Z",
+          "completed_at": "2026-10-28T23:12:20Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:12:20Z",
+          "completed_at": "2026-10-28T23:12:20Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153316765",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001491,
+      "runner_name": "GitHub Actions 1000001491",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153316830,
+      "run_id": 40784091754,
+      "workflow_name": "PR202 source packing parity",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091754",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIJ73g",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153316830",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091754/job/123153316830",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:44Z",
+      "started_at": "2026-10-28T23:00:47Z",
+      "completed_at": "2026-10-28T23:19:12Z",
+      "name": "Source packing parity (windows-2025, source-01)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:48Z",
+          "completed_at": "2026-10-28T23:00:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:49Z",
+          "completed_at": "2026-10-28T23:01:26Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:26Z",
+          "completed_at": "2026-10-28T23:01:35Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:35Z",
+          "completed_at": "2026-10-28T23:01:48Z"
+        },
+        {
+          "name": "Run npm run ci:manifest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:48Z",
+          "completed_at": "2026-10-28T23:02:42Z"
+        },
+        {
+          "name": "Run npm run ci:contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:02:42Z",
+          "completed_at": "2026-10-28T23:02:45Z"
+        },
+        {
+          "name": "Run npm run ci:group -- --group=source-01 --platform-parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:02:45Z",
+          "completed_at": "2026-10-28T23:19:07Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:19:07Z",
+          "completed_at": "2026-10-28T23:19:08Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:19:08Z",
+          "completed_at": "2026-10-28T23:19:08Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:19:08Z",
+          "completed_at": "2026-10-28T23:19:11Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:19:11Z",
+          "completed_at": "2026-10-28T23:19:11Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153316830",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001492,
+      "runner_name": "GitHub Actions 1000001492",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153316848,
+      "run_id": 40784091754,
+      "workflow_name": "PR202 source packing parity",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091754",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIJ78A",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153316848",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091754/job/123153316848",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:44Z",
+      "started_at": "2026-10-28T23:00:47Z",
+      "completed_at": "2026-10-28T23:17:39Z",
+      "name": "Source packing parity (ubuntu-latest, source-01)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:48Z",
+          "completed_at": "2026-10-28T23:00:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:49Z",
+          "completed_at": "2026-10-28T23:01:16Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:16Z",
+          "completed_at": "2026-10-28T23:01:17Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:17Z",
+          "completed_at": "2026-10-28T23:01:23Z"
+        },
+        {
+          "name": "Run npm run ci:manifest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:23Z",
+          "completed_at": "2026-10-28T23:02:20Z"
+        },
+        {
+          "name": "Run npm run ci:contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:02:20Z",
+          "completed_at": "2026-10-28T23:02:21Z"
+        },
+        {
+          "name": "Run npm run ci:group -- --group=source-01 --platform-parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:02:21Z",
+          "completed_at": "2026-10-28T23:17:36Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:17:36Z",
+          "completed_at": "2026-10-28T23:17:37Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:17:37Z",
+          "completed_at": "2026-10-28T23:17:38Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:17:38Z",
+          "completed_at": "2026-10-28T23:17:38Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:17:38Z",
+          "completed_at": "2026-10-28T23:17:38Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153316848",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001494,
+      "runner_name": "GitHub Actions 1000001494",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153316850,
+      "run_id": 40784091754,
+      "workflow_name": "PR202 source packing parity",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091754",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIJ78g",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153316850",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091754/job/123153316850",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:44Z",
+      "started_at": "2026-10-28T23:00:47Z",
+      "completed_at": "2026-10-28T23:18:22Z",
+      "name": "Source packing parity (windows-2025, source-03)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:48Z",
+          "completed_at": "2026-10-28T23:00:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:49Z",
+          "completed_at": "2026-10-28T23:01:22Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:22Z",
+          "completed_at": "2026-10-28T23:01:30Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:30Z",
+          "completed_at": "2026-10-28T23:01:42Z"
+        },
+        {
+          "name": "Run npm run ci:manifest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:42Z",
+          "completed_at": "2026-10-28T23:02:39Z"
+        },
+        {
+          "name": "Run npm run ci:contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:02:39Z",
+          "completed_at": "2026-10-28T23:02:42Z"
+        },
+        {
+          "name": "Run npm run ci:group -- --group=source-03 --platform-parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:02:42Z",
+          "completed_at": "2026-10-28T23:18:17Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:18:17Z",
+          "completed_at": "2026-10-28T23:18:18Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:18:18Z",
+          "completed_at": "2026-10-28T23:18:18Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:18:18Z",
+          "completed_at": "2026-10-28T23:18:20Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:18:20Z",
+          "completed_at": "2026-10-28T23:18:20Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153316850",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001493,
+      "runner_name": "GitHub Actions 1000001493",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153316866,
+      "run_id": 40784091754,
+      "workflow_name": "PR202 source packing parity",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091754",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIJ8Ag",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153316866",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091754/job/123153316866",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:44Z",
+      "started_at": "2026-10-28T23:00:48Z",
+      "completed_at": "2026-10-28T23:15:16Z",
+      "name": "Source packing parity (windows-2025, source-02)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:49Z",
+          "completed_at": "2026-10-28T23:00:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:49Z",
+          "completed_at": "2026-10-28T23:01:34Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:34Z",
+          "completed_at": "2026-10-28T23:01:45Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:45Z",
+          "completed_at": "2026-10-28T23:02:00Z"
+        },
+        {
+          "name": "Run npm run ci:manifest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:02:00Z",
+          "completed_at": "2026-10-28T23:02:45Z"
+        },
+        {
+          "name": "Run npm run ci:contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:02:45Z",
+          "completed_at": "2026-10-28T23:02:48Z"
+        },
+        {
+          "name": "Run npm run ci:group -- --group=source-02 --platform-parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:02:48Z",
+          "completed_at": "2026-10-28T23:15:11Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:15:11Z",
+          "completed_at": "2026-10-28T23:15:12Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:15:12Z",
+          "completed_at": "2026-10-28T23:15:13Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:15:13Z",
+          "completed_at": "2026-10-28T23:15:15Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:15:15Z",
+          "completed_at": "2026-10-28T23:15:15Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153316866",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001496,
+      "runner_name": "GitHub Actions 1000001496",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153316882,
+      "run_id": 40784091754,
+      "workflow_name": "PR202 source packing parity",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091754",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIJ8Eg",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153316882",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091754/job/123153316882",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:44Z",
+      "started_at": "2026-10-28T23:00:48Z",
+      "completed_at": "2026-10-28T23:09:27Z",
+      "name": "Source packing parity (ubuntu-latest, source-04)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:48Z",
+          "completed_at": "2026-10-28T23:00:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:49Z",
+          "completed_at": "2026-10-28T23:01:17Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:17Z",
+          "completed_at": "2026-10-28T23:01:19Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:19Z",
+          "completed_at": "2026-10-28T23:01:22Z"
+        },
+        {
+          "name": "Run npm run ci:manifest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:22Z",
+          "completed_at": "2026-10-28T23:01:55Z"
+        },
+        {
+          "name": "Run npm run ci:contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:01:55Z",
+          "completed_at": "2026-10-28T23:01:57Z"
+        },
+        {
+          "name": "Run npm run ci:group -- --group=source-04 --platform-parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:01:57Z",
+          "completed_at": "2026-10-28T23:09:23Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:09:23Z",
+          "completed_at": "2026-10-28T23:09:24Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:09:24Z",
+          "completed_at": "2026-10-28T23:09:24Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:09:24Z",
+          "completed_at": "2026-10-28T23:09:24Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:09:24Z",
+          "completed_at": "2026-10-28T23:09:24Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153316882",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001495,
+      "runner_name": "GitHub Actions 1000001495",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123153317121,
+      "run_id": 40784091754,
+      "workflow_name": "PR202 source packing parity",
+      "head_branch": "codex/pr202-lean-ci",
+      "run_url": "https://api.github.com/repos/adamfron/my_football_legend/actions/runs/40784091754",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTuAvq88AAAAcrIJ9AQ",
+      "head_sha": "f1685607c5a5c93cb6404e47cd7a2b179cac1291",
+      "url": "https://api.github.com/repos/adamfron/my_football_legend/actions/jobs/123153317121",
+      "html_url": "https://github.com/adamfron/my_football_legend/actions/runs/40784091754/job/123153317121",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T23:00:44Z",
+      "started_at": "2026-10-28T23:00:48Z",
+      "completed_at": "2026-10-28T23:17:10Z",
+      "name": "Source packing parity (windows-2025, source-04)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-28T23:00:49Z",
+          "completed_at": "2026-10-28T23:00:50Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-28T23:00:50Z",
+          "completed_at": "2026-10-28T23:01:31Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-28T23:01:31Z",
+          "completed_at": "2026-10-28T23:01:40Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-28T23:01:40Z",
+          "completed_at": "2026-10-28T23:01:51Z"
+        },
+        {
+          "name": "Run npm run ci:manifest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-28T23:01:51Z",
+          "completed_at": "2026-10-28T23:02:46Z"
+        },
+        {
+          "name": "Run npm run ci:contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-28T23:02:46Z",
+          "completed_at": "2026-10-28T23:02:49Z"
+        },
+        {
+          "name": "Run npm run ci:group -- --group=source-04 --platform-parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-28T23:02:49Z",
+          "completed_at": "2026-10-28T23:17:04Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-28T23:17:04Z",
+          "completed_at": "2026-10-28T23:17:05Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-28T23:17:05Z",
+          "completed_at": "2026-10-28T23:17:06Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-28T23:17:06Z",
+          "completed_at": "2026-10-28T23:17:08Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-28T23:17:08Z",
+          "completed_at": "2026-10-28T23:17:08Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/adamfron/my_football_legend/check-runs/123153317121",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000001497,
+      "runner_name": "GitHub Actions 1000001497",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}
