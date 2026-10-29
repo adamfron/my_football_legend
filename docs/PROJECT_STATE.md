@@ -1,5 +1,8 @@
 # My Football Legend — Current Project State
 
+PR204 development: a supported-intent continuity intervention and a fixed-delivery skill factorial remain unpromoted. A synthetic physical counterfactual exposes a hidden reception-preparation information boundary; the lawful handoff and pre-release preparation study remain unresolved. The maintained candidate remains PR201; independent confirmation stays sealed. See [PR204 evidence](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
+
+
 ## PR201 — Ograniczona percepcja i odzyskanie przyjęć
 
 [Raport PR201](PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) wskazuje konkretny błąd autorytetu ruchu: brak lokalnego celu przyjęcia wysyłał odbiorcę do odległej kotwicy formacji. Wersjonowane `hold-local-v1` zleca fizyczne hamowanie w aktualnym miejscu, dopóki legalny cel lub wyższy autorytet nie dostarczy zamiaru. Jedna obserwacja nadal nie ujawnia prędkości. Badane reakcje na samą pozycję i odświeżanie zegara ruchu nie odzyskały żadnego z11 wybranych kontaktów; nie są wdrożone jako domniemana naprawa.

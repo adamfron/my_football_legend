@@ -1,5 +1,8 @@
 # Roadmap
 
+PR204 development: a supported-intent continuity intervention and a fixed-delivery skill factorial remain unpromoted. A synthetic physical counterfactual exposes a hidden reception-preparation information boundary; the lawful handoff and pre-release preparation study remain unresolved. The maintained candidate remains PR201; independent confirmation stays sealed. See [PR204 evidence](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
+
+
 ### PR203 — świadomość sytuacyjna i warunkowe wsparcie
 
 [PR203](PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md) rozszerza istniejącą pamięć i pozycjonowanie: rozróżnia obserwację, pamięć i wnioskowanie oraz wykonuje rzeczywisty ruch C przed możliwym podaniem A→B. Laboratoria zachowują negatywne skutki dla dalszego kontaktu C; elipsa pozostaje diagnostyką bez skalibrowanego pokrycia. Pamięć RETAIN_EXPERIMENTAL, ruch NEEDS_REPAIR, cały profil NOT_READY_FOR_PROMOTION. Utrzymywany kandydat pozostaje PR201, B domyślne, canonical NOT READY, confirmation zamknięte, 135 ID i zero COMPLETE.

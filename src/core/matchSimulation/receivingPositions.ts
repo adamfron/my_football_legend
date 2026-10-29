@@ -103,6 +103,26 @@ export const evaluateProspectivePosition = (
   const memory = state.activePerceptionRuntime?.memory[actor.id];
   const situation = memory?.situation;
   const previous = old?.prospective;
+  const possessor = situation?.possessor;
+  const protectedRole =
+    actor.duty === 'defend' ||
+    actor.slot.position === 'center_back' ||
+    scene.instructions.includes('hold_position');
+  // A short, evidence-bounded lease applies only after the original conditional
+  // intention was already supported. A remembered proximity inference is not
+  // ownership; do not refresh beyond the age of the actual observation.
+  const supportEvidence = Boolean(
+    state.prospectiveMovement === 'two-pass-continuity-dev-v1' &&
+      previous && previous.status !== 'withdrawn' &&
+      possessor?.id === previous.intermediaryId &&
+      possessor.team === actor.team &&
+      possessor.confidence >= 0.25 &&
+      scene.at >= possessor.evidenceAt &&
+      scene.at - possessor.evidenceAt < 0.6 &&
+      scene.visible.some((p) => p.id === previous.intermediaryId && p.team === actor.team) &&
+      !protectedRole,
+  );
+  const continueSupported = supportEvidence && previous?.status === 'supported';
   const withdraw = (reason: string) =>
     old && previous
       ? {
@@ -113,11 +133,32 @@ export const evaluateProspectivePosition = (
           prospective: { ...previous, status: 'withdrawn' as const },
         }
       : undefined;
-  if (previous && (previous.status === 'withdrawn' || scene.at >= previous.horizonAt)) {
+  if (state.prospectiveMovement === 'two-pass-continuity-dev-v1' && previous) {
+    if (protectedRole) return withdraw('carrier_unavailable_or_role_protected');
+    // A fast optical motion estimate near B is evidence of flight, not proof
+    // that B controlled the ball. No physical velocity enters this decision.
+    const ball = scene.ball;
+    if (
+      previous.status === 'supported' &&
+      scene.visible.some((p) => p.id === previous.intermediaryId && p.team === actor.team) &&
+      ball?.observedAt !== undefined &&
+      scene.at >= ball.observedAt &&
+      scene.at - ball.observedAt < 0.3 &&
+      ball.motionEvidenceAt !== undefined &&
+      ball.motionEvidenceAt !== null &&
+      scene.at >= ball.motionEvidenceAt &&
+      scene.at - ball.motionEvidenceAt < 0.3 &&
+      Math.hypot(ball.velocity.x, ball.velocity.y) > 4
+    )
+      return withdraw('observed_flight_contradicts_supported_possession');
+  }
+  if (
+    previous &&
+    (previous.status === 'withdrawn' || (scene.at >= previous.horizonAt && !continueSupported))
+  ) {
     if (scene.at < previous.horizonAt + 0.5) return withdraw('prospective_expired_or_withdrawn');
     old = undefined;
   }
-  const possessor = situation?.possessor;
   if (
     !possessor &&
     situation?.phase === 'flight' &&
@@ -154,7 +195,11 @@ export const evaluateProspectivePosition = (
     scene.at - possessor.evidenceAt > 0.9
   )
     return withdraw('possession_evidence_lost_or_opponent');
-  if (previous && previous.status !== 'withdrawn' && scene.at < previous.horizonAt) {
+  if (
+    previous &&
+    previous.status !== 'withdrawn' &&
+    (scene.at < previous.horizonAt || continueSupported)
+  ) {
     if (possessor.id === previous.intermediaryId) {
       const pressure = Math.min(
         12,
@@ -162,8 +207,20 @@ export const evaluateProspectivePosition = (
           .filter((p) => p.team !== actor.team)
           .map((p) => distance(p.position, scene.position)),
       );
-      if (pressure < 2.5) return withdraw('support_now_marked');
-      return { ...old!, observedAt: scene.at, prospective: { ...previous, status: 'supported' } };
+      if (
+        pressure < 2.5 ||
+        (state.prospectiveMovement === 'two-pass-continuity-dev-v1' &&
+          scene.visible.some((p) => p.team !== actor.team && distance(p.position, old!.target) < 2.5))
+      )
+        return withdraw('support_now_marked');
+      return {
+        ...old!,
+        observedAt: scene.at,
+        expiresAt: supportEvidence
+          ? Math.max(old!.expiresAt, Math.min(scene.at + 0.35, possessor.evidenceAt + 0.6))
+          : old!.expiresAt,
+        prospective: { ...previous, status: 'supported' },
+      };
     }
     if (possessor.id !== previous.carrierId) return withdraw('alternative_possessor_observed');
   }
