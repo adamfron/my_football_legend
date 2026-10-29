@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { situationalAwarenessSchema, prospectiveMovementSchema } from './situationalAwarenessState';
 import {
   boundedReceiverRecoverySchema,
   integrationSelectionSchema,
@@ -812,6 +813,8 @@ export const passDiagnosticSchema = z.object({
 
 export interface TacticalMatchState {
   boundedReceiverRecovery?: z.infer<typeof boundedReceiverRecoverySchema>;
+  situationalAwareness?: z.infer<typeof situationalAwarenessSchema>;
+  prospectiveMovement?: z.infer<typeof prospectiveMovementSchema>;
   experimentalDefensiveReception?: boolean;
   integrationProfile?: z.infer<typeof integrationSelectionSchema>;
   experimentalBoundedBallFlightBelief?: boolean;
@@ -1047,6 +1050,8 @@ export interface TacticalMatchState {
 export const tacticalMatchStateSchema = z
   .object({
     boundedReceiverRecovery: boundedReceiverRecoverySchema.optional(),
+    situationalAwareness: situationalAwarenessSchema.optional(),
+    prospectiveMovement: prospectiveMovementSchema.optional(),
     experimentalBodyContacts: experimentalBodyContactsSchema.optional(),
     experimentalBallRecovery: z.boolean().optional(),
     experimentalCanonicalArrival: z.boolean().optional(),

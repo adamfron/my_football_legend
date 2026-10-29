@@ -1,5 +1,11 @@
 # Roadmap
 
+### PR203 — świadomość sytuacyjna i warunkowe wsparcie
+
+[PR203](PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md) rozszerza istniejącą pamięć i pozycjonowanie: rozróżnia obserwację, pamięć i wnioskowanie oraz wykonuje rzeczywisty ruch C przed możliwym podaniem A→B. Laboratoria zachowują negatywne skutki dla dalszego kontaktu C; elipsa pozostaje diagnostyką bez skalibrowanego pokrycia. Pamięć RETAIN_EXPERIMENTAL, ruch NEEDS_REPAIR, cały profil NOT_READY_FOR_PROMOTION. Utrzymywany kandydat pozostaje PR201, B domyślne, canonical NOT READY, confirmation zamknięte, 135 ID i zero COMPLETE.
+
+Jedna następna zależność futbolowa: naprawić zakończenie/wycofywanie zamiaru wsparcia C w rzeczywistym oknie dostarczenia B→C i odzyskać zachowane utracone kontakty bez ukrytej wiedzy ani zmiany geometrii. Dopiero po przejściu tej bramki nowy kandydat wymaga pełnych WW/SS/SW. Infrastruktura PR202 zachowuje 28 jobów i historyczne 63 wykonania pełnych meczów; PR203 dodaje ograniczoną kontrolę w istniejącej grupie.
+
 ### PR201 i kolejne bramki jakości
 
 Bieżący zakres: [PR201 — bounded receiver recovery](PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md). Wąska, osobno wersjonowana poprawka lokalnego celu ruchu poprawia fizyczną kontrolę i utrzymanie na180+90+90 piłkach, zachowując straty i historyczny PR200. Nadal **RETAIN_EXPERIMENTAL / NOT_READY_FOR_PROMOTION**, canonical NOT READY, B domyślne, confirmation zamknięte i135 ID bez COMPLETE.

@@ -1014,9 +1014,10 @@ const resolveRoutineOwnerDecision = (state: TacticalMatchState): TacticalMatchSt
     else {
       const before = state;
       state = resolveMatchAction(state, action, 'autonomous_npc');
-      const plan = state.experimentalActivePerception
-        ? state.activePerceptionRuntime?.plans[action.actorId]
-        : undefined;
+      const plan =
+        state.experimentalActivePerception || state.situationalAwareness
+          ? state.activePerceptionRuntime?.plans[action.actorId]
+          : undefined;
       const physicallyReleased =
         action.type === 'pass'
           ? state.lastPassDiagnostic?.passId !== before.lastPassDiagnostic?.passId
@@ -2012,15 +2013,27 @@ const stepTacticalMatchCore = (
       );
       player = { ...player, target: movementTarget };
     }
-    const locomotion = boundedMotor
+    const prospectiveMotor = Boolean(
+      state.prospectiveMovement &&
+        patternTarget &&
+        movementTarget === patternTarget &&
+        state.activePerceptionRuntime?.positions[player.id]?.prospective,
+    );
+    const locomotion = prospectiveMotor
       ? {
           intensity: 'run' as const,
-          reason: 'receive_pass' as const,
-          targetSpeed: keeperCommand
-            ? 3.6 + player.profile.attributes.agility * 0.035
-            : deriveMovementCapability(player).runSpeed,
+          reason: 'support_run' as const,
+          targetSpeed: deriveMovementCapability(player).runSpeed,
         }
-      : projectLocomotion(state, player, movementTarget, cooperativePress ?? null);
+      : boundedMotor
+        ? {
+            intensity: 'run' as const,
+            reason: 'receive_pass' as const,
+            targetSpeed: keeperCommand
+              ? 3.6 + player.profile.attributes.agility * 0.035
+              : deriveMovementCapability(player).runSpeed,
+          }
+        : projectLocomotion(state, player, movementTarget, cooperativePress ?? null);
     const preparing =
       state.onBallPreparation?.actorId === player.id &&
       state.ball.ownerId === player.id &&
@@ -2038,28 +2051,33 @@ const stepTacticalMatchCore = (
         ? state.receptionPreparation.meetingPlan
         : undefined;
     const boundedFlight = boundedMotor ? observedFlight(state, player) : undefined;
-    const desiredFacingAngle = keeperCommand
-      ? keeperCommand.facing
-      : boundedMotor && !observedIncoming
-        ? boundedFlight
-          ? angleForVector({
-              x: boundedFlight.position.x - player.position.x,
-              y: boundedFlight.position.y - player.position.y,
-            })
-          : player.facingAngle
-        : meeting?.incomingVelocity && meeting.contactAt !== null
-          ? receptionPlanFacing(
-              player,
-              movementTarget,
-              meeting.incomingVelocity,
-              meeting.contactAt - state.time,
-            )
-          : observedIncoming
-            ? angleForVector({ x: -observedIncoming.velocity.x, y: -observedIncoming.velocity.y })
-            : preparing
-              ? (state.onBallPreparation?.micro?.orientationTarget ??
-                deriveOrientationTarget(state, player))
-              : deriveOrientationTarget(state, player);
+    const desiredFacingAngle = prospectiveMotor
+      ? angleForVector({
+          x: movementTarget.x - player.position.x,
+          y: movementTarget.y - player.position.y,
+        })
+      : keeperCommand
+        ? keeperCommand.facing
+        : boundedMotor && !observedIncoming
+          ? boundedFlight
+            ? angleForVector({
+                x: boundedFlight.position.x - player.position.x,
+                y: boundedFlight.position.y - player.position.y,
+              })
+            : player.facingAngle
+          : meeting?.incomingVelocity && meeting.contactAt !== null
+            ? receptionPlanFacing(
+                player,
+                movementTarget,
+                meeting.incomingVelocity,
+                meeting.contactAt - state.time,
+              )
+            : observedIncoming
+              ? angleForVector({ x: -observedIncoming.velocity.x, y: -observedIncoming.velocity.y })
+              : preparing
+                ? (state.onBallPreparation?.micro?.orientationTarget ??
+                  deriveOrientationTarget(state, player))
+                : deriveOrientationTarget(state, player);
     const recovery = player.challengeRecovery;
     const balance =
       recovery && state.time < recovery.until

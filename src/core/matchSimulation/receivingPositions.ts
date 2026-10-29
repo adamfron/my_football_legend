@@ -1,14 +1,18 @@
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
-import { observeBoundedScene, knownBoundedPlayers } from './boundedPerception';
+import { observeBoundedScene, knownBoundedPlayers, type BoundedScene } from './boundedPerception';
+import type { ActivePerceptionRuntime } from './activePerceptionState';
 import { clampPitchPoint, distance, distanceToSegment } from './matchSpace';
 import { angleForVector, normalizeAngle } from './playerOrientation';
-import { observedOffsideAssessment } from './opportunityWindows';
+import { observedOffsideAssessment, estimateUsefulContact } from './opportunityWindows';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 
 /** Small departures from a player's own role/formation, never a common free-space target. */
-export const evaluateReceivingPosition = (state: TacticalMatchState, actor: MatchPlayerState) => {
-  const s = observeBoundedScene(state, actor),
-    known = knownBoundedPlayers(s);
+export const evaluateReceivingPosition = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  s: BoundedScene = observeBoundedScene(state, actor),
+) => {
+  const known = knownBoundedPlayers(s);
   const carrier = known.find((p) => p.id === s.ball?.ownerId && p.team === s.team);
   if (!carrier || carrier.id === actor.id || distance(carrier.position, s.position) > 30) return;
   const defensive =
@@ -87,9 +91,178 @@ export const evaluateReceivingPosition = (state: TacticalMatchState, actor: Matc
         : 'separate_from_mark_and_prepare_half_turn',
   };
 };
+
+/** At most two possible intermediaries, reusing the existing role-local search.
+ * Conditional ownership lives only in this local scene; no pass is scheduled. */
+export const evaluateProspectivePosition = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  old?: ActivePerceptionRuntime['positions'][string],
+): ActivePerceptionRuntime['positions'][string] | undefined => {
+  const scene = observeBoundedScene(state, actor);
+  const memory = state.activePerceptionRuntime?.memory[actor.id];
+  const situation = memory?.situation;
+  const previous = old?.prospective;
+  const withdraw = (reason: string) =>
+    old && previous
+      ? {
+          ...old,
+          observedAt: scene.at,
+          expiresAt: scene.at,
+          reason,
+          prospective: { ...previous, status: 'withdrawn' as const },
+        }
+      : undefined;
+  if (previous && (previous.status === 'withdrawn' || scene.at >= previous.horizonAt)) {
+    if (scene.at < previous.horizonAt + 0.5) return withdraw('prospective_expired_or_withdrawn');
+    old = undefined;
+  }
+  const possessor = situation?.possessor;
+  if (
+    !possessor &&
+    situation?.phase === 'flight' &&
+    previous &&
+    previous.status !== 'withdrawn' &&
+    scene.at < previous.horizonAt
+  ) {
+    const intermediary = scene.visible.find((p) => p.id === previous.intermediaryId);
+    const ball = scene.ball;
+    const speed2 = ball ? ball.velocity.x ** 2 + ball.velocity.y ** 2 : 0;
+    const tau =
+      ball && intermediary && speed2 > 1
+        ? ((intermediary.position.x - ball.position.x) * ball.velocity.x +
+            (intermediary.position.y - ball.position.y) * ball.velocity.y) /
+          speed2
+        : -1;
+    if (
+      ball &&
+      intermediary &&
+      tau >= 0 &&
+      tau <= 2 &&
+      distance(intermediary.position, {
+        x: ball.position.x + ball.velocity.x * tau,
+        y: ball.position.y + ball.velocity.y * tau,
+      }) < 3
+    )
+      return { ...old!, observedAt: scene.at };
+    return withdraw('observed_flight_contradicts_intermediary');
+  }
+  if (
+    !possessor ||
+    possessor.team !== actor.team ||
+    possessor.confidence < 0.25 ||
+    scene.at - possessor.evidenceAt > 0.9
+  )
+    return withdraw('possession_evidence_lost_or_opponent');
+  if (previous && previous.status !== 'withdrawn' && scene.at < previous.horizonAt) {
+    if (possessor.id === previous.intermediaryId) {
+      const pressure = Math.min(
+        12,
+        ...scene.visible
+          .filter((p) => p.team !== actor.team)
+          .map((p) => distance(p.position, scene.position)),
+      );
+      if (pressure < 2.5) return withdraw('support_now_marked');
+      return { ...old!, observedAt: scene.at, prospective: { ...previous, status: 'supported' } };
+    }
+    if (possessor.id !== previous.carrierId) return withdraw('alternative_possessor_observed');
+  }
+  const carrier = scene.visible.find((p) => p.id === possessor.id && p.team === actor.team);
+  if (
+    !carrier ||
+    carrier.id === actor.id ||
+    actor.duty === 'defend' ||
+    actor.slot.position === 'center_back' ||
+    scene.instructions.includes('hold_position')
+  )
+    return withdraw('carrier_unavailable_or_role_protected');
+  const foes = scene.visible.filter((p) => p.team !== actor.team);
+  if (old?.prospective && foes.some((p) => distance(p.position, old!.target) < 2.5))
+    return withdraw('support_target_now_marked');
+  const hypotheses = scene.visible
+    .filter((p) => p.team === actor.team && !p.keeper && ![actor.id, carrier.id].includes(p.id))
+    .filter(
+      (p) =>
+        distance(p.position, carrier.position) >= 5 &&
+        distance(p.position, carrier.position) <= 22 &&
+        distance(p.position, actor.position) <= 24,
+    )
+    .map((p) => {
+      const lane = Math.min(
+        8,
+        ...foes.map((q) => distanceToSegment(q.position, carrier.position, p.position)),
+      );
+      const space = Math.min(8, ...foes.map((q) => distance(q.position, p.position)));
+      return {
+        p,
+        confidence: Math.min(0.8, possessor.confidence * (0.4 + lane / 20 + space / 20)),
+      };
+    })
+    .filter((h) => h.confidence >= 0.4 + (1 - scene.attributes.gameReading / 100) * 0.2)
+    .sort((a, b) => b.confidence - a.confidence || a.p.id.localeCompare(b.p.id))
+    .slice(0, 2);
+  for (const hypothesis of hypotheses) {
+    const conditional: BoundedScene = {
+      ...scene,
+      ball: {
+        position: { ...hypothesis.p.position },
+        height: 0.11,
+        velocity: { x: 0, y: 0, z: 0 },
+        ownerId: hypothesis.p.id,
+      },
+    };
+    const job = evaluateReceivingPosition(state, actor, conditional);
+    if (!job || job.reason === 'protect_role_and_rest_defence') continue;
+    // Wingers retain their side/width. Native capability, inertia and turn cost
+    // bound feasibility; reading never changes running or contact capability.
+    if (
+      /winger|left_midfielder|right_midfielder/.test(actor.slot.position) &&
+      Math.abs(job.target.y - 34) + 0.1 < Math.abs(actor.position.y - 34)
+    )
+      continue;
+    const travel = estimateUsefulContact(
+      { position: actor.position, velocity: actor.velocity, facing: actor.facingAngle },
+      job.target,
+      scene.capability.runSpeed,
+      scene.capability.acceleration,
+    );
+    if (travel.playableSeconds > 2) continue;
+    if (foes.some((p) => distance(p.position, hypothesis.p.position) < 2.5)) continue;
+    const same =
+      old?.prospective?.intermediaryId === hypothesis.p.id && scene.at < old.prospective.horizonAt;
+    const createdAt = same ? old!.prospective!.createdAt : scene.at;
+    const familiarity = scene.config.players[actor.id] ?? scene.config.knowledge;
+    const recognisedAt =
+      createdAt +
+      0.12 +
+      (1 - scene.attributes.gameReading / 100) * 0.7 +
+      (1 - familiarity.system) * 0.1;
+    const horizonAt = same ? old!.prospective!.horizonAt : createdAt + 2;
+    // Do not chase a target that keeps walking away at each review.
+    const target = same ? old!.target : job.target;
+    return {
+      ...job,
+      target,
+      origin: same ? old!.origin : job.origin,
+      expiresAt: horizonAt,
+      reason: 'conditional_two_pass_support',
+      prospective: {
+        carrierId: carrier.id,
+        intermediaryId: hypothesis.p.id,
+        createdAt,
+        recognisedAt,
+        horizonAt,
+        confidence: hypothesis.confidence,
+        status: 'conditional',
+        hypotheses: hypotheses.map((h) => ({ intermediaryId: h.p.id, confidence: h.confidence })),
+      },
+    };
+  }
+  return withdraw('future_lane_or_intermediary_unavailable');
+};
 export const advanceReceivingPositions = (state: TacticalMatchState): TacticalMatchState => {
   if (
-    !state.experimentalReceivingPositions ||
+    (!state.experimentalReceivingPositions && !state.prospectiveMovement) ||
     !state.activePerceptionRuntime ||
     state.restart ||
     state.postGoal
@@ -109,7 +282,9 @@ export const advanceReceivingPositions = (state: TacticalMatchState): TacticalMa
       continue;
     }
     if (positions[p.id] && state.time - positions[p.id]!.observedAt < 0.3 - 1e-8) continue;
-    const next = evaluateReceivingPosition(state, p);
+    const next = state.prospectiveMovement
+      ? evaluateProspectivePosition(state, p, positions[p.id])
+      : evaluateReceivingPosition(state, p);
     if (next) positions[p.id] = next;
     else delete positions[p.id];
   }
@@ -118,7 +293,7 @@ export const advanceReceivingPositions = (state: TacticalMatchState): TacticalMa
 };
 export const receivingPositionTarget = (s: TacticalMatchState, p: MatchPlayerState) => {
   if (
-    !s.experimentalReceivingPositions ||
+    (!s.experimentalReceivingPositions && !s.prospectiveMovement) ||
     s.restart ||
     s.postGoal ||
     s.ball.ownerId === p.id ||
@@ -126,6 +301,12 @@ export const receivingPositionTarget = (s: TacticalMatchState, p: MatchPlayerSta
   )
     return;
   const job = s.activePerceptionRuntime?.positions[p.id];
+  if (job?.prospective && s.ballCarrierIntent?.actorId === p.id) return;
+  if (
+    job?.prospective &&
+    (job.prospective.status === 'withdrawn' || s.time < job.prospective.recognisedAt)
+  )
+    return;
   // Protection is a decision not to recruit this player for an attacking job.
   // Let the ordinary structural/defensive controller keep updating its target.
   // Recycling that target as a new override would freeze its own future updates.

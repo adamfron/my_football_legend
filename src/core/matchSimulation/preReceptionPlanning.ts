@@ -87,7 +87,7 @@ export const prepareObservedReception = (
 
 export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMatchState => {
   if (
-    !state.experimentalActivePerception ||
+    (!state.experimentalActivePerception && !state.situationalAwareness) ||
     state.activePerceptionConfig?.preparation === false ||
     !state.activePerceptionRuntime ||
     state.restart ||
@@ -107,6 +107,16 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
     if (old && state.time < old.expiresAt) plans[p.id] = old;
     if (state.ball.ownerId === p.id || (old && state.time - old.reviewedAt < 0.15 - 1e-8)) continue;
     const scene = observeBoundedScene(state, p);
+    if (
+      state.situationalAwareness &&
+      (!scene.ball ||
+        scene.ball.motionEvidenceAt == null ||
+        state.time - scene.ball.motionEvidenceAt > 0.5 ||
+        (scene.ball.uncertainty ?? Infinity) > 3)
+    ) {
+      delete plans[p.id];
+      continue;
+    }
     const plan = prepareObservedReception(scene, old?.status === 'preparing' ? old : undefined);
     if (plan) plans[p.id] = plan;
   }

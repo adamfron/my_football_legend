@@ -1,0 +1,149 @@
+{
+  "schema": "pr203-verification-v1",
+  "source": {
+    "base": "5a9e12a2b7e4054bb1f68366ac82569f575b19f6",
+    "fingerprint": "5d291d7a63dd16e865e007da7c152f49b912e5ebfdfc4c04a8b9f226cdbe2bf2",
+    "path": "docs/performance/pr203/source/5d291d7a63dd16e865e007da7c152f49b912e5ebfdfc4c04a8b9f226cdbe2bf2.json.gz"
+  },
+  "tests": {
+    "groups": [
+      2403,
+      56,
+      4,
+      5
+    ],
+    "total": 2468,
+    "newContracts": 15
+  },
+  "verify": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "node": "24.22.1",
+    "platform": "win32",
+    "localNodeOptions": "--max-semi-space-size=128",
+    "ciOptionsAndTimers": "unchanged"
+  },
+  "commands": [
+    {
+      "key": "baseline-pr200-freeze",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/baseline-pr200-freeze.log.gz",
+      "sha256": "2406aaf70e611d9662c82d1062000988886fa796011d44785390bd2a39672530",
+      "rawSha256": "b74d2278caf2089a3ea004468a24b9790b6e490e0b47567bdb9761e8916cf58e",
+      "rawBytes": 241
+    },
+    {
+      "key": "baseline-pr201-check",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/baseline-pr201-check.log.gz",
+      "sha256": "7b3d3bfcc86d458e8812397ce16874d31c7ccf7296740c24c1b6a893cb8353e7",
+      "rawSha256": "4f7b9a1fee252e681fd3d2f7e779f7b4c1cd9cb7e62de3a95e1a92499e1bd200",
+      "rawBytes": 1141
+    },
+    {
+      "key": "baseline-tests",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/baseline-tests.log.gz",
+      "sha256": "49858abc1f40c6567327fb0e30d4057f73bc04ca1eca0f60b86a54294ad50255",
+      "rawSha256": "438f03de44bad621c2fc8060142758ad1634e8565f0ed0006d49eb537963d4a6",
+      "rawBytes": 296
+    },
+    {
+      "key": "types-initial",
+      "exitCode": 1,
+      "path": "docs/performance/pr203/verification/types-initial.log.gz",
+      "sha256": "eeface3f3cd0eec8b5f4031c5f1c4b1fb9125925c5727bc82d6e23479f00a74b",
+      "rawSha256": "b164d637de72cc8c13d1f0f42cf8e0db6cfdf3c805a1dc2727375644f5c0319c",
+      "rawBytes": 165
+    },
+    {
+      "key": "lint-initial",
+      "exitCode": 1,
+      "path": "docs/performance/pr203/verification/lint-initial.log.gz",
+      "sha256": "be622f8792c8bca663c33e6264e70f1e78ff984344eabba512c29ae06f52f874",
+      "rawSha256": "2528c5e4e4c3ffe572b172fdfa859f7510c2924c79dae0fad9995108bdca943d",
+      "rawBytes": 431
+    },
+    {
+      "key": "lint-fixed",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/lint-fixed.log.gz",
+      "sha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "rawBytes": 0
+    },
+    {
+      "key": "contracts-final",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/contracts-final.log.gz",
+      "sha256": "822de2928965f6e9386201d7a70fdb597e16b9a2a8fbb0759ad3562ea9f1f681",
+      "rawSha256": "fef0f3db47d8b1210cbd48a383fd261e11f34d7d0a4509be2846e499c4ec1f35",
+      "rawBytes": 294
+    },
+    {
+      "key": "verify-final",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/verify-final.log.gz",
+      "sha256": "b744b1557333367df0b35f44b0cb529c00ea1fd58c96d2fd9c171563a329c625",
+      "rawSha256": "d236eda71445d9a2b3ed41216662ae20d4c964122b35f6e306881297f31e0f32",
+      "rawBytes": 7143
+    },
+    {
+      "key": "manifest-final",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/manifest-final.log.gz",
+      "sha256": "cf934d45b968ba00b126c8a7f1892d270e7f083770bcabf802dc7a7d20406377",
+      "rawSha256": "c9c7c5c4d92c0b3813251d97f6cbeff7c02d206014244ff177c5ed41efad032c",
+      "rawBytes": 93
+    },
+    {
+      "key": "pr203-evidence",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/pr203-evidence.log.gz",
+      "sha256": "35691821f0483a5c0929be2209576c301c613dfa16613573900314a91b47e2b3",
+      "rawSha256": "2422101ae8495c669f9766b3a1ac8c046542a8676533d9d8175c8d4eec0e92f2",
+      "rawBytes": 1575
+    },
+    {
+      "key": "pr203-archive",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/pr203-archive.log.gz",
+      "sha256": "0c7b41aaa4ba588e67fdcf669c71462ee8c3131d2a0567ab412136b05cee64aa",
+      "rawSha256": "5378cb771b369e990729987ab29a9a58ef520a04f4f3eeec61838957f528475f",
+      "rawBytes": 1516
+    },
+    {
+      "key": "ci-contracts",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/ci-contracts.log.gz",
+      "sha256": "af8bdcf96c48edec612ff7cff85609836789f407ec16b83a93981eb39c0cda58",
+      "rawSha256": "9ce91ceed079fc1f91545a50f21b63c5e335e606221b02792dcf93e5fc6ffd9a",
+      "rawBytes": 1170
+    },
+    {
+      "key": "historical-pr201",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/historical-pr201.log.gz",
+      "sha256": "dabf3a15ccf62135c94b63adb46905d2a9cbf417d2cafde1af73f5f8f5bff732",
+      "rawSha256": "990cf44f36ec8efbe7b9340d6400854a4e61e079adfcae1c3c2ec9945372dc4b",
+      "rawBytes": 1141
+    },
+    {
+      "key": "pr200-current",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/pr200-current.log.gz",
+      "sha256": "b22dc5c8a3b49fa2c0577a921a1c4c79482e7e26a65dd06195984345dbc73ded",
+      "rawSha256": "edf25cd433b70224dc1b022ee3a9669ae05c4b5044067b9cec034f836e98bfdf",
+      "rawBytes": 2161
+    },
+    {
+      "key": "workflow",
+      "exitCode": 0,
+      "path": "docs/performance/pr203/verification/workflow.log.gz",
+      "sha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "rawBytes": 0
+    }
+  ],
+  "classification": "development; confirmation sealed; profile NOT_READY_FOR_PROMOTION"
+}

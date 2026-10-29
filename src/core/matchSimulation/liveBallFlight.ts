@@ -42,9 +42,10 @@ export const advanceLiveBallFlight = (state: TacticalMatchState): TacticalMatchS
   for (const actor of state.players) {
     if (state.discipline?.[actor.id]?.sentOff) continue;
     const old = state.liveBallFlightRuntime?.sensors[actor.id];
-    const gaze = state.experimentalActivePerception
-      ? (state.activePerceptionRuntime?.memory[actor.id]?.gaze ?? actor.facingAngle)
-      : actor.facingAngle;
+    const gaze =
+      state.experimentalActivePerception || state.situationalAwareness
+        ? (state.activePerceptionRuntime?.memory[actor.id]?.gaze ?? actor.facingAngle)
+        : actor.facingAngle;
     const delta = angleForVector({
       x: position.x - actor.position.x,
       y: position.y - actor.position.y,

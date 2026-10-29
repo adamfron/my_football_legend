@@ -165,3 +165,7 @@ scripts/pr201* text eol=lf
 docs/performance/pr202/** -text linguist-generated=true
 docs/performance/pr202/**/*.json -diff
 scripts/ci/** text eol=lf
+
+# PR203 source archives and development receipts retain exact bytes.
+docs/performance/pr203/** -text linguist-generated=true
+docs/PR203*.md text eol=lf

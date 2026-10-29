@@ -17,6 +17,7 @@ import {
 } from './manifest.mjs';
 import { z } from 'zod';
 import { qualityProgram } from './quality.mjs';
+import { BASE as PR203_BASE, checkCurrentSource } from '../pr203Evidence.mjs';
 const ROOT = 'docs/performance/pr202';
 const BASE = '5b6bbf6778017ac415964dd48dfe30b850f2f352';
 const git = (args) =>
@@ -75,10 +76,14 @@ const currentPackage = json('package.json');
 for (const key of Object.keys(currentPackage.scripts).filter((k) => k.startsWith('ci:')))
   delete currentPackage.scripts[key];
 assert.deepEqual(currentPackage, originalPackage, 'Existing npm commands/dependencies changed');
+checkCurrentSource();
+// Preserve the original PR202 unchanged-runtime assertion over its historical
+// interval. PR203 current bytes are independently bound above and replayed.
 git([
   'diff',
   '--exit-code',
   BASE,
+  PR203_BASE,
   '--',
   'src',
   'scripts',

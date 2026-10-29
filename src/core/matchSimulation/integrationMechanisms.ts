@@ -43,6 +43,54 @@ export const integrationMechanismSchema = z.object({
   persistence: z.string(),
 });
 export type IntegrationMechanism = z.infer<typeof integrationMechanismSchema>;
+export const SITUATIONAL_AWARENESS_MECHANISM = integrationMechanismSchema.parse({
+  flag: 'situationalAwareness',
+  ids: ['TACT-009', 'PASS-004'],
+  entry: 'activePerception.advanceActivePerception -> updateSituation',
+  consumer: 'existing spatial memory, bounded scenes and pre-reception preparation',
+  policies: 'all',
+  dependencies: ['experimentalBoundedBallFlightBelief'],
+  origin: 203,
+  lifecycle: 'EXPERIMENTAL',
+  promotion: 'RETAIN_EXPERIMENTAL',
+  physicalExecution: false,
+  observation: true,
+  generation: true,
+  utility: false,
+  reason:
+    'Retain aged sector information and distinguish inferred possession from direct ball evidence',
+  positive: 'Memory age, expiry and hidden-state equality contracts; native continuations retained',
+  negative: 'Possession proximity cues can be wrong; optics and phase classification uncalibrated',
+  evidence: 'docs/PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md',
+  performance: 'Existing 100-200ms memory cadence, at most 12 remembered actors per player',
+  persistence:
+    'Optional bounded-v1 setting and situation in existing SpatialMemory; absent in old profiles',
+});
+export const PROSPECTIVE_MOVEMENT_MECHANISM = integrationMechanismSchema.parse({
+  flag: 'prospectiveMovement',
+  ids: ['TACT-004', 'TACT-009', 'PASS-009'],
+  entry: 'receivingPositions.evaluateProspectivePosition',
+  consumer: 'existing receivingPositionTarget -> canonical locomotion',
+  policies: 'all',
+  dependencies: ['situationalAwareness'],
+  origin: 203,
+  lifecycle: 'EXPERIMENTAL',
+  promotion: 'NEEDS_REPAIR',
+  physicalExecution: true,
+  observation: false,
+  generation: true,
+  utility: false,
+  reason:
+    'Prepare a local support option for a possible intermediary without committing either pass',
+  positive:
+    'Real prospective movement, bounded two-second hypotheses, withdrawal and role contracts',
+  negative:
+    'Local downstream C contact losses prevent integration promotion; no full-match benefit established',
+  evidence: 'docs/PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md',
+  performance: 'At most two intermediaries and existing nine local targets; review at 300ms',
+  persistence:
+    'Optional two-pass-v1 setting; prospective metadata in existing receiving-position jobs',
+});
 export const BOUNDED_RECEIVER_RECOVERY_MECHANISM = integrationMechanismSchema.parse({
   flag: 'boundedReceiverRecovery',
   ids: ['PASS-004', 'PASS-009', 'TACT-009'],
