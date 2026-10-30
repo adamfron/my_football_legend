@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { distance, signedForwardDistance } from './matchSpace';
 import { estimateCarrierContactWindow } from './ballContactGeometry';
 import { deriveFitnessPhysicalModifiers } from './matchFitness';
+import type { BallMovementPlan } from './ballOrientedMovement';
 import {
   isDefensiveEpisodeLocked,
   shouldCommitRoutinePress,
@@ -83,6 +84,7 @@ export const projectLocomotion = (
   player: MatchPlayerState,
   target = player.target,
   cooperativePress?: CooperativePress | null,
+  observedRecovery?: BallMovementPlan,
 ): LocomotionProjection => {
   const metres = distance(player.position, target);
   const capability = deriveMovementCapability(player);
@@ -154,6 +156,7 @@ export const projectLocomotion = (
   )
     return { ...result('walk', 'structural_adjustment'), targetSpeed: 0.85 };
   if (
+    state.prospectiveMovement !== 'observed-ball-contact-dev-v1' &&
     state.receptionPreparation?.actorId === player.id &&
     state.time >= state.receptionPreparation.awarenessAt
   ) {
@@ -219,11 +222,21 @@ export const projectLocomotion = (
   // A live delivery does not turn every nearby player into a loose-ball sprinter. The tactical
   // assignment must actually point at a physically loose ball before a race is urgent.
   const looseRace =
-    !state.ball.ownerId &&
-    !state.ball.travelKind &&
-    state.ball.looseSince !== undefined &&
-    distance(player.position, state.ball) < 15 &&
-    distance(target, state.ball) < 5;
+    state.prospectiveMovement === 'observed-ball-contact-dev-v1'
+      ? Boolean(
+          observedRecovery &&
+            observedRecovery.observedAt !== null &&
+            state.time >= observedRecovery.observedAt &&
+            state.time - observedRecovery.observedAt <= 0.5 &&
+            (observedRecovery.intention === 'recover_touch' ||
+              observedRecovery.intention === 'contest_loose_ball') &&
+            distance(target, observedRecovery.movementTarget) < 0.1,
+        )
+      : !state.ball.ownerId &&
+        !state.ball.travelKind &&
+        state.ball.looseSince !== undefined &&
+        distance(player.position, state.ball) < 15 &&
+        distance(target, state.ball) < 5;
   if (looseRace) return result('sprint', 'loose_ball_race');
   if (
     cooperativePress?.primaryId === player.id &&

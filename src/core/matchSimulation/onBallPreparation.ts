@@ -1,3 +1,4 @@
+import { usesLocalReception } from './situationalAwarenessState';
 import { attacksRight } from './matchSpace';
 import { z } from 'zod';
 import { playStylePreparationRelief } from '../playStyles';
@@ -114,7 +115,7 @@ export const deriveOnBallPreparation = (
     ...(receptionKind ? { receptionKind } : {}),
     incomingSpeed,
     ...(receptionKind !== 'heavy_touch' &&
-    state.prospectiveMovement !== 'two-pass-continuity-dev-v1' &&
+    !usesLocalReception(state) &&
     state.receptionPreparation?.actorId === actor.id &&
     state.receptionPreparation.continuation
       ? { plannedCarry: state.receptionPreparation.continuation }

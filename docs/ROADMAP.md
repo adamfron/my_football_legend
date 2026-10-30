@@ -1,5 +1,7 @@
 # Roadmap
 
+PR205: zachowano historyczne warianty, naprawiono sprawdzone granice zamiaru pogoni i niskiego kontaktu w osobnej rewizji rozwojowej. Kandydat PR201 bez zmian; pełna promocja niewykazana, a ciągły kontakt ciała nadal wymaga naprawy. Następny krok PR206: najpierw wykazać rzeczywiste rozpoznanie i ruch przed wypuszczeniem piłki, dopiero potem ograniczony eksperyment `gameReading × firstTouch` z osobną kontrolą fizycznego wykonania. [Wyniki i ograniczenia PR205](./PR205_OBSERVED_BALL_INTENT_CONTACT_PARITY.md).
+
 PR204 (badania): wariant ciągłości i lokalnego odbioru pozostaje eksperymentalny. Sprawdzone kontrfaktyki ukrytego przygotowania przeszły, ale inne granice informacji i regresja kontroli pozostają otwarte. Eksperyment 2×2 z okresem przed podaniem nie potwierdził przewidywanego wsparcia. Kandydatem pozostaje PR201; niezależna konfirmacja jest zamknięta. [Raport PR204](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
 
 

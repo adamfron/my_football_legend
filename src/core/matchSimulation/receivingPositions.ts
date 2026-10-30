@@ -1,3 +1,4 @@
+import { usesLocalReception } from './situationalAwarenessState';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { observeBoundedScene, knownBoundedPlayers, type BoundedScene } from './boundedPerception';
 import type { ActivePerceptionRuntime } from './activePerceptionState';
@@ -113,8 +114,9 @@ export const evaluateProspectivePosition = (
   // intention was already supported. A remembered proximity inference is not
   // ownership; do not refresh beyond the age of the actual observation.
   const supportEvidence = Boolean(
-    state.prospectiveMovement === 'two-pass-continuity-dev-v1' &&
-      previous && previous.status !== 'withdrawn' &&
+    usesLocalReception(state) &&
+      previous &&
+      previous.status !== 'withdrawn' &&
       possessor?.id === previous.intermediaryId &&
       possessor.team === actor.team &&
       possessor.confidence >= 0.25 &&
@@ -134,7 +136,7 @@ export const evaluateProspectivePosition = (
           prospective: { ...previous, status: 'withdrawn' as const },
         }
       : undefined;
-  if (state.prospectiveMovement === 'two-pass-continuity-dev-v1' && previous) {
+  if (usesLocalReception(state) && previous) {
     if (protectedRole) return withdraw('carrier_unavailable_or_role_protected');
     // A fast optical motion estimate near B is evidence of flight, not proof
     // that B controlled the ball. No physical velocity enters this decision.
@@ -210,8 +212,10 @@ export const evaluateProspectivePosition = (
       );
       if (
         pressure < 2.5 ||
-        (state.prospectiveMovement === 'two-pass-continuity-dev-v1' &&
-          scene.visible.some((p) => p.team !== actor.team && distance(p.position, old!.target) < 2.5))
+        (usesLocalReception(state) &&
+          scene.visible.some(
+            (p) => p.team !== actor.team && distance(p.position, old!.target) < 2.5,
+          ))
       )
         return withdraw('support_now_marked');
       return {
@@ -355,7 +359,7 @@ export const receivingPositionTarget = (s: TacticalMatchState, p: MatchPlayerSta
     s.restart ||
     s.postGoal ||
     s.ball.ownerId === p.id ||
-    (s.prospectiveMovement === 'two-pass-continuity-dev-v1'
+    (usesLocalReception(s)
       ? Boolean(locallyObservedReception(s, p))
       : s.receptionPreparation?.actorId === p.id)
   )

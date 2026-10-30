@@ -104,6 +104,16 @@ export const advanceBallAcquisition = (
   // two metres stopped the chase and made the new finite-control envelope reject
   // a possession that had never involved an actual foot contact.
   if (!canGroundContact(state, candidate)) return { state };
+  if (
+    state.prospectiveMovement === 'observed-ball-contact-dev-v1' &&
+    candidate.slot.position !== 'goalkeeper'
+  ) {
+    // Nominate the real available foot to the shared finite impulse resolver.
+    // This is permission to attempt contact, never an award of control.
+    const next = { ...state };
+    delete next.ballAcquisition;
+    return { state: next, securedPlayerId: candidate.id };
+  }
   const rng = RandomGenerator.fromSeed(active.id);
   // A rival arriving during preparation is part of the live contest. The initial
   // broad-phase nomination cannot certify that the ball is still uncontested.

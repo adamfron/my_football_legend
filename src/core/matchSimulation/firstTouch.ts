@@ -1,3 +1,4 @@
+import { usesLocalReception } from './situationalAwarenessState';
 import { z } from 'zod';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { distance, type PitchPoint } from './matchSpace';
@@ -78,7 +79,7 @@ export const assessFirstTouch = (
   const preparationSeconds = Math.max(
     0,
     availableSeconds +
-      (state.prospectiveMovement !== 'two-pass-continuity-dev-v1' && state.receptionPreparation?.actorId === actor.id
+      (!usesLocalReception(state) && state.receptionPreparation?.actorId === actor.id
         ? state.time - state.receptionPreparation.awarenessAt
         : 0),
   );
@@ -98,7 +99,7 @@ export const assessFirstTouch = (
   const skill =
     (a.firstTouch * 2 + a.technique * 2 + a.agility + a.composure + a.concentration) / 700;
   const surface =
-    state.prospectiveMovement !== 'two-pass-continuity-dev-v1' && state.receptionPreparation?.actorId === actor.id
+    !usesLocalReception(state) && state.receptionPreparation?.actorId === actor.id
       ? (state.receptionPreparation.contactSurface ?? 'cushion')
       : 'cushion';
   const n =

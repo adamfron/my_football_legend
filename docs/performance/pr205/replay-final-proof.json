@@ -1,0 +1,38 @@
+{
+  "source": "5ef2f76cb3ea301355f6844e4d98c8fb4ad1faf2081ac82d052b92ce7d2b7a3d",
+  "node": "v24.22.1",
+  "platform": "win32",
+  "receipts": {
+    "baseline-final": "19cf2d7e662d70341e84f3c86adc40955e2c4c25ed06dcdc0792f2af5187c0bb",
+    "development-final": "2ff46f630f594e02ca1890987e3662701abb31ab27df54f3d80c6eb68afe1ae3",
+    "recovery-final": "fb05e71bf85d66c7670890fbc6d31e5d24d4621da25087b004f1e7af1017cfb5",
+    "receiving-final": "cfb46146348954269ff410b71ecec742d772b2c9b9ce4b4d63d5f2ff1ca7452a",
+    "support-final2": "2b1fb1c91e3891dda511b9d5fbb1db50a5713a2534b90cba220c054ccea166ab"
+  },
+  "replays": [
+    {
+      "script": "benchmarkPr205",
+      "version": "development-final",
+      "result": "PASS",
+      "outputHash": "dee3711ffb447a6147b2efe43fb81d49293a530de0eb6dc8d32da19f79d78105"
+    },
+    {
+      "script": "benchmarkPr205Recovery",
+      "version": "recovery-final",
+      "result": "PASS",
+      "outputHash": "e7fd8cebf93519671bf3a1010728ffa5bac422fc2519652b1c5585878d37bbbe"
+    },
+    {
+      "script": "benchmarkPr205Receiving",
+      "version": "receiving-final",
+      "result": "PASS",
+      "outputHash": "fb3dee45475904e874b38ef31be5c881bcbd0657bc4cba13c9626257adf796c4"
+    },
+    {
+      "script": "benchmarkPr205Regressions",
+      "version": "support-final2",
+      "result": "PASS",
+      "outputHash": "a1f5c7b65aaa1e20bd8fd9617300b50d57bcb6df35c8248f7b30db27b2deac97"
+    }
+  ]
+}

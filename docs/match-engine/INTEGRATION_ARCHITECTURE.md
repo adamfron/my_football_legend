@@ -1,5 +1,7 @@
 # MatchEngine integration architecture
 
+PR205 scoped correction: `observed-ball-contact-dev-v1` is a separate development revision of existing movement/reception pathways. It repairs the demonstrated observed recovery/low-foot contact routes while retaining PR204 selection. Fixed-release control/retention is unchanged; selected support still loses controls against PR203. Keeper/high-free-ball equivalence and already-active continuous-body contact parity remain unresolved. Maintained candidate PR201 unchanged; whole profile NOT_READY_FOR_PROMOTION, confirmation sealed. [PR205 evidence](../PR205_OBSERVED_BALL_INTENT_CONTACT_PARITY.md).
+
 PR204 development: the opt-in continuity and local-observation intervention remains experimental. Tested hidden-preparation counterfactuals pass, but other information boundaries and downstream control regressions remain. The pre-release factorial did not demonstrate prospective recognition. The maintained candidate remains PR201; independent confirmation is sealed. [PR204 evidence](../PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
 
 
