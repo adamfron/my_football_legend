@@ -1,0 +1,158 @@
+{
+  "source": "f83ea56a253ec4e0e73b25bb60c5f8165dd31f2ac3a812ea75a183c782827c57",
+  "qualification": "Synthetic matched physical release and prelude-body recombination; early and late are assigned visibility windows, not guaranteed observation. Paired seed-labelled episodes; complete non-censored outcome pairs; 4000 deterministic paired episode percentile-bootstrap replicates. Degenerate or small-sample intervals do not imply population certainty.",
+  "groups": {
+    "LL": {
+      "touch": {
+        "n": 51,
+        "early": 28,
+        "late": 29,
+        "gained": 0,
+        "lost": 1,
+        "delta": -0.0196078431372549,
+        "bootstrap95": [
+          -0.058823529411764705,
+          0
+        ]
+      },
+      "control": {
+        "n": 51,
+        "early": 14,
+        "late": 15,
+        "gained": 0,
+        "lost": 1,
+        "delta": -0.0196078431372549,
+        "bootstrap95": [
+          -0.058823529411764705,
+          0
+        ]
+      },
+      "retention": {
+        "n": 51,
+        "early": 13,
+        "late": 12,
+        "gained": 3,
+        "lost": 2,
+        "delta": 0.0196078431372549,
+        "bootstrap95": [
+          -0.058823529411764705,
+          0.09803921568627451
+        ]
+      }
+    },
+    "LH": {
+      "touch": {
+        "n": 51,
+        "early": 28,
+        "late": 29,
+        "gained": 0,
+        "lost": 1,
+        "delta": -0.0196078431372549,
+        "bootstrap95": [
+          -0.058823529411764705,
+          0
+        ]
+      },
+      "control": {
+        "n": 51,
+        "early": 19,
+        "late": 21,
+        "gained": 0,
+        "lost": 2,
+        "delta": -0.0392156862745098,
+        "bootstrap95": [
+          -0.09803921568627451,
+          0
+        ]
+      },
+      "retention": {
+        "n": 51,
+        "early": 19,
+        "late": 19,
+        "gained": 2,
+        "lost": 2,
+        "delta": 0,
+        "bootstrap95": [
+          -0.0784313725490196,
+          0.0784313725490196
+        ]
+      }
+    },
+    "HL": {
+      "touch": {
+        "n": 49,
+        "early": 27,
+        "late": 25,
+        "gained": 2,
+        "lost": 0,
+        "delta": 0.04081632653061224,
+        "bootstrap95": [
+          0,
+          0.10204081632653061
+        ]
+      },
+      "control": {
+        "n": 49,
+        "early": 17,
+        "late": 13,
+        "gained": 6,
+        "lost": 2,
+        "delta": 0.08163265306122448,
+        "bootstrap95": [
+          -0.02040816326530612,
+          0.1836734693877551
+        ]
+      },
+      "retention": {
+        "n": 49,
+        "early": 14,
+        "late": 9,
+        "gained": 7,
+        "lost": 2,
+        "delta": 0.10204081632653061,
+        "bootstrap95": [
+          -0.02040816326530612,
+          0.22448979591836735
+        ]
+      }
+    },
+    "HH": {
+      "touch": {
+        "n": 49,
+        "early": 27,
+        "late": 25,
+        "gained": 2,
+        "lost": 0,
+        "delta": 0.04081632653061224,
+        "bootstrap95": [
+          0,
+          0.10204081632653061
+        ]
+      },
+      "control": {
+        "n": 49,
+        "early": 19,
+        "late": 16,
+        "gained": 4,
+        "lost": 1,
+        "delta": 0.061224489795918366,
+        "bootstrap95": [
+          -0.02040816326530612,
+          0.16326530612244897
+        ]
+      },
+      "retention": {
+        "n": 49,
+        "early": 17,
+        "late": 15,
+        "gained": 3,
+        "lost": 1,
+        "delta": 0.04081632653061224,
+        "bootstrap95": [
+          -0.04081632653061224,
+          0.12244897959183673
+        ]
+      }
+    }
+  }
+}

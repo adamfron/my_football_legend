@@ -339,12 +339,13 @@ export const resolveReceptionOutcome = (
   contactPoint: PitchPoint,
 ): ReceptionOutcome => {
   const a = receiver.profile.attributes;
+  const localReceptionMode = state.prospectiveMovement === 'two-pass-continuity-dev-v1';
   const speed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
   const chosenTarget =
     state.pendingReceptionIntent?.actorId === receiver.id &&
     state.pendingReceptionIntent.action.type === 'carry'
       ? state.pendingReceptionIntent.action.target
-      : state.receptionPreparation?.actorId === receiver.id
+      : !localReceptionMode && state.receptionPreparation?.actorId === receiver.id
         ? state.receptionPreparation.continuation?.target
         : undefined;
   const contact = assessFirstTouch(
@@ -369,7 +370,7 @@ export const resolveReceptionOutcome = (
   const incomingFacing = angleForVector(incomingVector);
   const facingError = Math.abs(normalizeAngle(incomingFacing - receiver.facingAngle));
   const preparation =
-    state.receptionPreparation?.actorId === receiver.id
+    !localReceptionMode && state.receptionPreparation?.actorId === receiver.id
       ? Math.max(0, state.time - state.receptionPreparation.awarenessAt)
       : 0;
   const readiness = projectReceiverReadiness(
@@ -377,7 +378,7 @@ export const resolveReceptionOutcome = (
     receiver,
     contactPoint,
     preparation,
-    state.currentAction?.type === 'pass' ? state.currentAction.intent : 'support',
+    !localReceptionMode && state.currentAction?.type === 'pass' ? state.currentAction.intent : 'support',
   );
   // Facing has already been integrated canonically throughout the approach. Subtracting the
   // whole preparation time again forgave even a receiver who remained facing away at contact.
@@ -425,7 +426,7 @@ export const resolveReceptionOutcome = (
   );
   const movingWithIntent =
     speed > 0.7 &&
-    ((state.receptionPreparation?.actorId === receiver.id &&
+    ((!localReceptionMode && state.receptionPreparation?.actorId === receiver.id &&
       state.receptionPreparation.movement !== 'wait') ||
       (state.pendingReceptionIntent?.actorId === receiver.id &&
         state.pendingReceptionIntent.action.type === 'carry'));
@@ -453,7 +454,7 @@ export const resolveReceptionOutcome = (
     : undefined;
   const contactState = { ...state, ball: { ...state.ball, x: contactPoint.x, y: contactPoint.y } };
   const surfaceContact = executeFootContact(contactState, receiver, {
-    intended: state.receptionPreparation?.contactSurface ?? 'cushion',
+    intended: localReceptionMode ? 'cushion' : (state.receptionPreparation?.contactSurface ?? 'cushion'),
     desiredVelocity: { ...(directionalImpulse?.velocity ?? receiver.velocity), z: 0 },
     balance: receiver.plantBalance?.balance ?? 1,
     preparationSeconds: Math.max(0.012, preparation),
@@ -487,7 +488,7 @@ export const resolveReceptionOutcome = (
     state.pendingReceptionIntent?.actorId === receiver.id &&
     state.pendingReceptionIntent.action.type === 'carry'
       ? state.pendingReceptionIntent.action.target
-      : state.receptionPreparation?.actorId === receiver.id
+      : !localReceptionMode && state.receptionPreparation?.actorId === receiver.id
         ? state.receptionPreparation.continuation?.target
         : undefined;
   const displacementDirection =

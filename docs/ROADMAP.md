@@ -1,5 +1,8 @@
 # Roadmap
 
+PR204 (badania): wariant ciągłości i lokalnego odbioru pozostaje eksperymentalny. Sprawdzone kontrfaktyki ukrytego przygotowania przeszły, ale inne granice informacji i regresja kontroli pozostają otwarte. Eksperyment 2×2 z okresem przed podaniem nie potwierdził przewidywanego wsparcia. Kandydatem pozostaje PR201; niezależna konfirmacja jest zamknięta. [Raport PR204](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
+
+
 ### PR203 — świadomość sytuacyjna i warunkowe wsparcie
 
 [PR203](PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md) rozszerza istniejącą pamięć i pozycjonowanie: rozróżnia obserwację, pamięć i wnioskowanie oraz wykonuje rzeczywisty ruch C przed możliwym podaniem A→B. Laboratoria zachowują negatywne skutki dla dalszego kontaktu C; elipsa pozostaje diagnostyką bez skalibrowanego pokrycia. Pamięć RETAIN_EXPERIMENTAL, ruch NEEDS_REPAIR, cały profil NOT_READY_FOR_PROMOTION. Utrzymywany kandydat pozostaje PR201, B domyślne, canonical NOT READY, confirmation zamknięte, 135 ID i zero COMPLETE.

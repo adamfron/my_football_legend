@@ -1,0 +1,146 @@
+{
+  "schema": "pr204-validation-v1",
+  "fingerprint": "2674d51cc2a9b27ca73eca52ebbc0bbf143620957d3fc9e259ebb2b3e121fe19",
+  "command": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerPr199Lab.mjs scripts/checkPr204Boundary.mjs",
+  "result": {
+    "source": "2674d51cc2a9b27ca73eca52ebbc0bbf143620957d3fc9e259ebb2b3e121fe19",
+    "stable": true,
+    "arms": {
+      "hiddenPreparation": {
+        "input": {
+          "target": {
+            "x": 49.7,
+            "y": 38.1
+          },
+          "targetSpeed": 5.390000000000001,
+          "desiredFacingAngle": 1.5707963267948966,
+          "dt": 0.025,
+          "balance": 1,
+          "structural": true,
+          "receivingMomentum": false
+        },
+        "position": {
+          "x": 44.653755520790384,
+          "y": 38.148983620895706
+        },
+        "velocity": {
+          "x": -1.8497791683847709,
+          "y": 1.9593448358281762
+        },
+        "target": {
+          "x": 49.7,
+          "y": 38.1
+        },
+        "observation": null
+      },
+      "noPreparation": {
+        "input": {
+          "target": {
+            "x": 49.7,
+            "y": 38.1
+          },
+          "targetSpeed": 5.390000000000001,
+          "desiredFacingAngle": 1.5707963267948966,
+          "dt": 0.025,
+          "balance": 1,
+          "structural": true,
+          "receivingMomentum": false
+        },
+        "position": {
+          "x": 44.653755520790384,
+          "y": 38.148983620895706
+        },
+        "velocity": {
+          "x": -1.8497791683847709,
+          "y": 1.9593448358281762
+        },
+        "target": {
+          "x": 49.7,
+          "y": 38.1
+        },
+        "observation": null
+      },
+      "oldClock": {
+        "input": {
+          "target": {
+            "x": 49.7,
+            "y": 38.1
+          },
+          "targetSpeed": 5.390000000000001,
+          "desiredFacingAngle": 1.5707963267948966,
+          "dt": 0.025,
+          "balance": 1,
+          "structural": true,
+          "receivingMomentum": false
+        },
+        "position": {
+          "x": 44.653755520790384,
+          "y": 38.148983620895706
+        },
+        "velocity": {
+          "x": -1.8497791683847709,
+          "y": 1.9593448358281762
+        },
+        "target": {
+          "x": 49.7,
+          "y": 38.1
+        },
+        "observation": null
+      },
+      "otherActor": {
+        "input": {
+          "target": {
+            "x": 49.7,
+            "y": 38.1
+          },
+          "targetSpeed": 5.390000000000001,
+          "desiredFacingAngle": 1.5707963267948966,
+          "dt": 0.025,
+          "balance": 1,
+          "structural": true,
+          "receivingMomentum": false
+        },
+        "position": {
+          "x": 44.653755520790384,
+          "y": 38.148983620895706
+        },
+        "velocity": {
+          "x": -1.8497791683847709,
+          "y": 1.9593448358281762
+        },
+        "target": {
+          "x": 49.7,
+          "y": 38.1
+        },
+        "observation": null
+      },
+      "otherRecipient": {
+        "input": {
+          "target": {
+            "x": 49.7,
+            "y": 38.1
+          },
+          "targetSpeed": 5.390000000000001,
+          "desiredFacingAngle": 1.5707963267948966,
+          "dt": 0.025,
+          "balance": 1,
+          "structural": true,
+          "receivingMomentum": false
+        },
+        "position": {
+          "x": 44.653755520790384,
+          "y": 38.148983620895706
+        },
+        "velocity": {
+          "x": -1.8497791683847709,
+          "y": 1.9593448358281762
+        },
+        "target": {
+          "x": 49.7,
+          "y": 38.1
+        },
+        "observation": null
+      }
+    }
+  }
+}

@@ -1,0 +1,177 @@
+// Development-only pressure/alternative probe. No production decisions are overridden.
+import { createHash } from 'node:crypto';
+import { writeFileSync } from 'node:fs';
+import process from 'node:process';
+import console from 'node:console';
+import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { performance } from 'node:perf_hooks';
+import { source, hash } from './pr199Evidence.mjs';
+import { createProspectiveFixture } from '../src/core/matchSimulation/prospectivePlayLaboratory.ts';
+import { stepTacticalMatchAfterDecisionProbe as step } from '../src/core/matchSimulation/matchSimulation.ts';
+import { advanceActivePerception } from '../src/core/matchSimulation/activePerception.ts';
+import { advanceLiveBallFlight } from '../src/core/matchSimulation/liveBallFlight.ts';
+import { advanceReceivingPositions } from '../src/core/matchSimulation/receivingPositions.ts';
+import { observeBoundedScene } from '../src/core/matchSimulation/boundedPerception.ts';
+import { withBoundedObserver } from '../src/core/matchSimulation/boundedIntelligence.ts';
+import { resolveMatchAction } from '../src/core/matchSimulation/matchActions.ts';
+import {
+  sampleCanonicalOutcome,
+  interpretCanonicalOutcome,
+  outcomeContractSchema,
+} from '../src/core/matchSimulation/canonicalOutcome.ts';
+import { distance, distanceToSegment } from '../src/core/matchSimulation/matchSpace.ts';
+
+const manifest = source(),
+  fingerprint = hash(manifest);
+const base = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+const started = performance.now(),
+  cpu = process.cpuUsage();
+const rows = [];
+for (const sample of [0, 1, 2])
+  for (const arm of ['open', 'pressure']) {
+    const f = createProspectiveFixture({
+      seed: `pr203-${sample}`,
+      reading: 85,
+      profile: 'prospective-play-v1',
+    });
+    // Additional teammate is a real actor and an available retreat option at setup.
+    const alternative = f.state.players.find(
+      (p) =>
+        p.team === f.a.team &&
+        ![f.a.id, f.b.id, f.c.id].includes(p.id) &&
+        p.slot.position !== 'goalkeeper',
+    );
+    alternative.position = { x: 46, y: 42 };
+    alternative.target = { ...alternative.position };
+    alternative.anchor = { ...alternative.position };
+    alternative.neutralAnchor = { ...alternative.position };
+    alternative.velocity = { x: 0, y: 0 };
+    let s = advanceReceivingPositions(advanceActivePerception(advanceLiveBallFlight(f.state)));
+    const start = s.time,
+      decisions = [],
+      passes = [],
+      episodes = [];
+    let requested = false,
+      intervened = false;
+    withBoundedObserver(
+      (t) => {
+        if (t.actorId !== f.b.id || t.stage !== 'decision') return;
+        const b = s.players.find((p) => p.id === f.b.id),
+          c = s.players.find((p) => p.id === f.c.id);
+        const scene = observeBoundedScene(s, b),
+          foes = s.players.filter((p) => p.team !== b.team);
+        decisions.push({
+          at: t.at,
+          action: t.action ?? null,
+          candidates: t.candidates ?? null,
+          preStepVisibleActors: scene.visible.map((p) => ({
+            id: p.id,
+            team: p.team,
+            position: p.position,
+          })),
+          observedAt: scene.at,
+          actualCPosition: c.position,
+          actualBPosition: b.position,
+          actualNearestOpponent: Math.min(...foes.map((p) => distance(p.position, b.position))),
+          actualLaneDistance: Math.min(
+            ...foes.map((p) => distanceToSegment(p.position, b.position, c.position)),
+          ),
+        });
+      },
+      () => {
+        for (let i = 0; i < 280; i++) {
+          if (!requested && s.time - start >= 0.9 - 1e-7) {
+            requested = true;
+            const b = s.players.find((p) => p.id === f.b.id);
+            s = resolveMatchAction(
+              s,
+              {
+                type: 'pass',
+                actorId: f.a.id,
+                receiverId: f.b.id,
+                target: { ...b.position },
+                intent: 'support',
+                delivery: 'ground',
+              },
+              'autonomous_npc',
+            );
+          }
+          if (!intervened && s.time - start >= 1.2) {
+            intervened = true;
+            if (arm === 'pressure') {
+              const b = s.players.find((p) => p.id === f.b.id),
+                foe = s.players.find((p) => p.id === f.opponent.id);
+              foe.position = { x: b.position.x + 0.6, y: b.position.y + 0.2 };
+              foe.target = { ...foe.position };
+            }
+          }
+          const before = s;
+          s = step(s, 0.025);
+          const fact = sampleCanonicalOutcome(before, s, 'original-delivery-v3');
+          for (const e of episodes) e.samples.push(fact);
+          if (s.lastPassDiagnostic?.passId !== before.lastPassDiagnostic?.passId) {
+            const d = s.lastPassDiagnostic;
+            passes.push({
+              at: s.time,
+              passId: d.passId,
+              actorId: d.passerId,
+              receiverId: d.intendedReceiverId,
+            });
+            if (d.passerId === f.b.id && d.intendedReceiverId === f.c.id)
+              episodes.push({
+                contract: outcomeContractSchema.parse({
+                  version: 'original-delivery-v3',
+                  actorId: f.b.id,
+                  receiverId: f.c.id,
+                  teamIds: s.players.filter((p) => p.team === f.b.team).map((p) => p.id),
+                  opponentIds: s.players.filter((p) => p.team !== f.b.team).map((p) => p.id),
+                  requestedAt: s.time,
+                  releasedAt: d.releasedAt,
+                  horizonAt: start + 7,
+                  passId: d.passId,
+                  shotId: null,
+                  information: 'privileged_engineering_observer',
+                  conditionalOnRelease: true,
+                }),
+                samples: [fact],
+              });
+          }
+          if (s.restart || s.postGoal) break;
+        }
+      },
+    );
+    rows.push({
+      sample,
+      arm,
+      alternativeId: alternative.id,
+      decisions,
+      passes,
+      outcomes: episodes.map((e) => interpretCanonicalOutcome(e.contract, e.samples)),
+    });
+  }
+const result = {
+  classification:
+    'development; scene modification and exogenous pressure intervention; not independent confirmation',
+  source: { base, fingerprint, manifest },
+  limitations: [
+    'Three seeds, one receiver skill and a single artificial geometry are not a general pressure model.',
+    'A to B release and pressure repositioning are explicit development interventions.',
+    'Physical positions and visible actors are pre-step snapshots, at most one tick before the decision; they are not the exact decision knowledge state.',
+    'Candidate menu and action are actual decision telemetry; candidate evidence IDs need not mean direct current visibility.',
+    'No persistent unseen-support condition is implemented or proved.',
+  ],
+  rows,
+};
+assert.equal(hash(source()), fingerprint, 'Source changed during experiment');
+result.costs = {
+  wallSeconds: (performance.now() - started) / 1000,
+  cpu: process.cpuUsage(cpu),
+  peakRSSKiB: process.resourceUsage().maxRSS,
+  node: process.version,
+  platform: process.platform,
+};
+const data = JSON.stringify(result);
+const path = process.argv[2];
+if (path) writeFileSync(path, data + '\n', { flag: 'wx' });
+console.log('PR204 pressure probe', rows.length, createHash('sha256').update(data).digest('hex'));

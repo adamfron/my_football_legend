@@ -179,6 +179,8 @@ export const shouldLetPassRun = (
   receiver: MatchPlayerState,
   point: PitchPoint,
 ): boolean => {
+  // A private release-time run-on flag cannot decide a player's contact race.
+  if (state.prospectiveMovement === 'two-pass-continuity-dev-v1') return false;
   const preparation = state.receptionPreparation;
   const runOn = preparation?.actorId === receiver.id ? preparation.runOn : undefined;
   if (

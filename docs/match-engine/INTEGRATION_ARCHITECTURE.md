@@ -1,5 +1,8 @@
 # MatchEngine integration architecture
 
+PR204 development: the opt-in continuity and local-observation intervention remains experimental. Tested hidden-preparation counterfactuals pass, but other information boundaries and downstream control regressions remain. The pre-release factorial did not demonstrate prospective recognition. The maintained candidate remains PR201; independent confirmation is sealed. [PR204 evidence](../PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
+
+
 PR200 establishes a maintained integration product. Canonical **NOT READY**, B/default **state-value-v1**, independent confirmation **sealed**. Implementation lifecycle and the original I/F/E/T/M/C evidence gates are separate.
 
 ## One physical engine

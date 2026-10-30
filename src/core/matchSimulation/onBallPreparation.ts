@@ -114,6 +114,7 @@ export const deriveOnBallPreparation = (
     ...(receptionKind ? { receptionKind } : {}),
     incomingSpeed,
     ...(receptionKind !== 'heavy_touch' &&
+    state.prospectiveMovement !== 'two-pass-continuity-dev-v1' &&
     state.receptionPreparation?.actorId === actor.id &&
     state.receptionPreparation.continuation
       ? { plannedCarry: state.receptionPreparation.continuation }

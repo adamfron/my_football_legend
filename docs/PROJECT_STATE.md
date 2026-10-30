@@ -1,5 +1,8 @@
 # My Football Legend — Current Project State
 
+PR204 (badania): wariant ciągłości i lokalnego odbioru pozostaje eksperymentalny. Sprawdzone kontrfaktyki ukrytego przygotowania przeszły, ale inne granice informacji i regresja kontroli pozostają otwarte. Eksperyment 2×2 z okresem przed podaniem nie potwierdził przewidywanego wsparcia. Kandydatem pozostaje PR201; niezależna konfirmacja jest zamknięta. [Raport PR204](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
+
+
 ## PR201 — Ograniczona percepcja i odzyskanie przyjęć
 
 [Raport PR201](PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) wskazuje konkretny błąd autorytetu ruchu: brak lokalnego celu przyjęcia wysyłał odbiorcę do odległej kotwicy formacji. Wersjonowane `hold-local-v1` zleca fizyczne hamowanie w aktualnym miejscu, dopóki legalny cel lub wyższy autorytet nie dostarczy zamiaru. Jedna obserwacja nadal nie ujawnia prędkości. Badane reakcje na samą pozycję i odświeżanie zegara ruchu nie odzyskały żadnego z11 wybranych kontaktów; nie są wdrożone jako domniemana naprawa.
