@@ -581,7 +581,7 @@ export const applyCanonicalBallControl = (
     feet.footReach
   )
     return state;
-  return changePossession(state, ownerId);
+  return changePossession(state, ownerId, 'claim', true);
 };
 
 /** Shared low-ball executor for the new revision. Historical event labels never
@@ -606,17 +606,19 @@ const resolveFiniteGroundClaim = (
     const finish = tryIncomingFinish(atContact, contact.playerId!);
     if (finish) return finish;
   }
-  return changePossession(atContact, contact.playerId!, contact.cause);
+  return changePossession(atContact, contact.playerId!, contact.cause, true);
 };
 
 const changePossession = (
   state: TacticalMatchState,
   ownerId: string,
   cause: 'tackle' | 'interception' | 'claim' = 'claim',
+  finiteGroundContact = false,
 ) => {
   if (!canContactAfterThrowIn(state, ownerId)) return state;
   const receivingActor = state.players.find((p) => p.id === ownerId);
   const finiteRecovery =
+    finiteGroundContact &&
     state.prospectiveMovement === 'observed-ball-contact-dev-v1' &&
     receivingActor &&
     !isMatchGoalkeeper(receivingActor) &&
@@ -2963,6 +2965,7 @@ const stepTacticalMatchCore = (
             { ...state, ball: { ...state.ball, ...landing } },
             claim.playerId,
             claim.cause,
+            true,
           );
         } else {
           state = finishUnclaimedDelivery(state);
@@ -3292,7 +3295,7 @@ const stepTacticalMatchCore = (
         const acquisition = advanceBallAcquisition(state, claimant?.p, controlRadius);
         state = acquisition.state;
         if (acquisition.securedPlayerId)
-          state = changePossession(state, acquisition.securedPlayerId, 'claim');
+          state = changePossession(state, acquisition.securedPlayerId, 'claim', true);
         else if (acquisition.failedVelocity) state = makeLoose(state, acquisition.failedVelocity);
       }
     } else if (state.ball.ownerId && !isRestartSetup(state)) {

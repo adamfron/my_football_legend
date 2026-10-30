@@ -176,6 +176,19 @@ describe('PR205 finite physical contact parity', () => {
     },
   );
 
+  it('keeps an airborne opponent checkpoint on its historical aerial executor', () => {
+    const f = fixture('opponent', 1);
+    Object.assign(f.state.ball, { height: 1.7, airborne: true, velocity: { x: 0.1, y: 0, z: -1 } });
+    const historical = structuredClone(f.state);
+    historical.prospectiveMovement = 'two-pass-continuity-dev-v1';
+    const next = step(f.state, 0.025),
+      old = step(historical, 0.025);
+    expect(physical(next)).toEqual(physical(old));
+    expect(next.lastAerialContact).toEqual(old.lastAerialContact);
+    expect(next.lastAerialResult).toEqual(old.lastAerialResult);
+    expect(next.lastAerialContact).toBeDefined();
+  });
+
   it('does not secure fast loose acquisition before its native contact impulse', () => {
     const { state: s, actor } = fixture('opponent', 30);
     const nominated = advanceBallAcquisition(s, actor, 2).state;
