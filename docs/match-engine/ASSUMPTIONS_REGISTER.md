@@ -1,5 +1,7 @@
 # MatchEngine assumptions register
 
+PR205 scoped evidence for PASS-004/006/009, DEF-003/004 and MEAS-008/009: observed recovery and eligible low-foot teammate/opponent contacts have paired development contracts. Native high body-v1 pass/cross contacts are checked separately; keeper and high free-ball/aerial equivalence remain unresolved. Fixed-release control/retention is unchanged and the selected support gate still fails against PR203. No original status, I/F/E/T/M/C gate or COMPLETE count is promoted. Candidate PR201 unchanged; confirmation sealed. [PR205 report](../PR205_OBSERVED_BALL_INTENT_CONTACT_PARITY.md).
+
 Authoritative, persistent checklist. Base: merged PR194 `e828f5a1e41bbec2101c71f42739037702276cce`. PR195 audits and builds measurement infrastructure; canonical **NOT READY**, **B remains default**, independent confirmation **sealed**. This is a source-backed initial register, not proof that every behaviour is understood.
 
 ## Reading and updating

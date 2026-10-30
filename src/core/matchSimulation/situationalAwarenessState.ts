@@ -3,8 +3,17 @@ import { physicalPointSchema } from './matchSpace';
 
 const unit = z.number().min(0).max(1);
 export const situationalAwarenessSchema = z.literal('bounded-v1');
-// The second mode is a development-only intervention, not an integration profile.
-export const prospectiveMovementSchema = z.enum(['two-pass-v1', 'two-pass-continuity-dev-v1']);
+// Development revisions stay separately selectable for historical save/replay fidelity.
+export const prospectiveMovementSchema = z.enum([
+  'two-pass-v1',
+  'two-pass-continuity-dev-v1',
+  'observed-ball-contact-dev-v1',
+]);
+export const usesLocalReception = (state: {
+  prospectiveMovement?: z.infer<typeof prospectiveMovementSchema>;
+}) =>
+  state.prospectiveMovement === 'two-pass-continuity-dev-v1' ||
+  state.prospectiveMovement === 'observed-ball-contact-dev-v1';
 export const situationSchema = z.object({
   reviewedAt: z.number(),
   ball: z

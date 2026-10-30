@@ -1,3 +1,4 @@
+import { usesLocalReception } from './situationalAwarenessState';
 import { z } from 'zod';
 import {
   clampPitchPoint,
@@ -339,7 +340,7 @@ export const resolveReceptionOutcome = (
   contactPoint: PitchPoint,
 ): ReceptionOutcome => {
   const a = receiver.profile.attributes;
-  const localReceptionMode = state.prospectiveMovement === 'two-pass-continuity-dev-v1';
+  const localReceptionMode = usesLocalReception(state);
   const speed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
   const chosenTarget =
     state.pendingReceptionIntent?.actorId === receiver.id &&
@@ -378,7 +379,9 @@ export const resolveReceptionOutcome = (
     receiver,
     contactPoint,
     preparation,
-    !localReceptionMode && state.currentAction?.type === 'pass' ? state.currentAction.intent : 'support',
+    !localReceptionMode && state.currentAction?.type === 'pass'
+      ? state.currentAction.intent
+      : 'support',
   );
   // Facing has already been integrated canonically throughout the approach. Subtracting the
   // whole preparation time again forgave even a receiver who remained facing away at contact.
@@ -426,7 +429,8 @@ export const resolveReceptionOutcome = (
   );
   const movingWithIntent =
     speed > 0.7 &&
-    ((!localReceptionMode && state.receptionPreparation?.actorId === receiver.id &&
+    ((!localReceptionMode &&
+      state.receptionPreparation?.actorId === receiver.id &&
       state.receptionPreparation.movement !== 'wait') ||
       (state.pendingReceptionIntent?.actorId === receiver.id &&
         state.pendingReceptionIntent.action.type === 'carry'));
@@ -454,7 +458,9 @@ export const resolveReceptionOutcome = (
     : undefined;
   const contactState = { ...state, ball: { ...state.ball, x: contactPoint.x, y: contactPoint.y } };
   const surfaceContact = executeFootContact(contactState, receiver, {
-    intended: localReceptionMode ? 'cushion' : (state.receptionPreparation?.contactSurface ?? 'cushion'),
+    intended: localReceptionMode
+      ? 'cushion'
+      : (state.receptionPreparation?.contactSurface ?? 'cushion'),
     desiredVelocity: { ...(directionalImpulse?.velocity ?? receiver.velocity), z: 0 },
     balance: receiver.plantBalance?.balance ?? 1,
     preparationSeconds: Math.max(0.012, preparation),

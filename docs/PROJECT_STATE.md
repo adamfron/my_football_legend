@@ -1,5 +1,7 @@
 # My Football Legend — Current Project State
 
+PR205 (korekta rozwojowa): osobny `observed-ball-contact-dev-v1` wiąże pogoń z istniejącą obserwacją i ujednolica sprawdzone niskie kontakty partnera/przeciwnika. W 20 identycznych wypuszczeniach kontrola/retencja pozostaje 4/3; wybrane wsparcie poprawia się wobec PR204, ale nadal traci kontrole wobec PR203. Bramkarze i wysokie wolne piłki pozostają osobną zależnością. **Kandydat PR201 bez zmian, NOT_READY_FOR_PROMOTION, B domyślne, confirmation zamknięte.** [Raport PR205](./PR205_OBSERVED_BALL_INTENT_CONTACT_PARITY.md).
+
 PR204 (badania): wariant ciągłości i lokalnego odbioru pozostaje eksperymentalny. Sprawdzone kontrfaktyki ukrytego przygotowania przeszły, ale inne granice informacji i regresja kontroli pozostają otwarte. Eksperyment 2×2 z okresem przed podaniem nie potwierdził przewidywanego wsparcia. Kandydatem pozostaje PR201; niezależna konfirmacja jest zamknięta. [Raport PR204](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
 
 

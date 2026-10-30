@@ -5,6 +5,7 @@ import { canContactAfterThrowIn } from './throwIn';
 import { shouldLetPassRun } from './receptionContinuation';
 import { playerContactGeometry, motorContactReadyAt } from './ballContactGeometry';
 import type { MatchPlayerState } from './matchState';
+import { canParticipatePhysically } from './matchInjuries';
 
 /** The broad-phase proximity radius nominates bodies; only a reachable foot controls a low ball. */
 const reachesGroundContact = (player: MatchPlayerState, point: PitchPoint) => {
@@ -55,8 +56,16 @@ export const resolveContinuousGroundPassClaim = (
     .filter(
       (player) =>
         player.id !== passer?.id &&
+        (state.prospectiveMovement !== 'observed-ball-contact-dev-v1' ||
+          player.slot.position === 'goalkeeper' ||
+          (canParticipatePhysically(player) && !state.discipline?.[player.id]?.sentOff)) &&
         canContactAfterThrowIn(state, player.id) &&
-        (!state.experimentalBodyContacts || state.time >= motorContactReadyAt(state, player.id)),
+        (!(
+          state.experimentalBodyContacts ||
+          (state.prospectiveMovement === 'observed-ball-contact-dev-v1' &&
+            player.slot.position !== 'goalkeeper')
+        ) ||
+          state.time >= motorContactReadyAt(state, player.id)),
     )
     .map((player) => {
       const segmentFraction = Math.max(
@@ -102,8 +111,16 @@ export const resolveGroundPassClaim = (
     .filter(
       (player) =>
         player.id !== passer?.id &&
+        (state.prospectiveMovement !== 'observed-ball-contact-dev-v1' ||
+          player.slot.position === 'goalkeeper' ||
+          (canParticipatePhysically(player) && !state.discipline?.[player.id]?.sentOff)) &&
         canContactAfterThrowIn(state, player.id) &&
-        (!state.experimentalBodyContacts || state.time >= motorContactReadyAt(state, player.id)),
+        (!(
+          state.experimentalBodyContacts ||
+          (state.prospectiveMovement === 'observed-ball-contact-dev-v1' &&
+            player.slot.position !== 'goalkeeper')
+        ) ||
+          state.time >= motorContactReadyAt(state, player.id)),
     )
     .map((player) => ({ player, metres: distance(player.position, landingPosition) }))
     .filter(

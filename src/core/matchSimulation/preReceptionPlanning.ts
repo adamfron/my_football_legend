@@ -1,3 +1,4 @@
+import { usesLocalReception } from './situationalAwarenessState';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { observeBoundedScene, knownBoundedPlayers, type BoundedScene } from './boundedPerception';
 import { constructBoundedCandidates, type BoundedCandidate } from './boundedDecision';
@@ -118,7 +119,9 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
       continue;
     }
     const changedFlight = Boolean(
-      state.prospectiveMovement === 'two-pass-continuity-dev-v1' && old && scene.ball &&
+      usesLocalReception(state) &&
+        old &&
+        scene.ball &&
         (state.time - old.reviewedAt > 0.35 ||
           Math.hypot(
             scene.ball.velocity.x - old.incomingVelocity.x,
@@ -126,9 +129,12 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
             scene.ball.velocity.z - old.incomingVelocity.z,
           ) > Math.max(4, Math.hypot(old.incomingVelocity.x, old.incomingVelocity.y) * 0.6)),
     );
-    const plan = prepareObservedReception(scene, old?.status === 'preparing' && !changedFlight ? old : undefined);
+    const plan = prepareObservedReception(
+      scene,
+      old?.status === 'preparing' && !changedFlight ? old : undefined,
+    );
     if (plan) plans[p.id] = plan;
-    else if (state.prospectiveMovement === 'two-pass-continuity-dev-v1') delete plans[p.id];
+    else if (usesLocalReception(state)) delete plans[p.id];
   }
   endPerformanceSpan('pre_reception_candidates', span);
   return { ...state, activePerceptionRuntime: { ...runtime, plans } };

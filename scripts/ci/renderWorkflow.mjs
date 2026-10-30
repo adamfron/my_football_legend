@@ -42,11 +42,15 @@ workflow = workflow.replace(
       - if: matrix.group == 'main'
         run: node scripts/ci/replayPr203Check.mjs
       - if: matrix.group == 'main'
-        run: node scripts/checkPr204Decisions.mjs docs/performance/pr204/decision-corpus.json --replay
+        run: node scripts/ci/replayPr204Check.mjs
       - if: matrix.group == 'main'
         run: node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr204Authority.mjs
       - if: matrix.group == 'main'
         run: node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerPr199Lab.mjs scripts/checkPr204Boundary.mjs
+      - if: matrix.group == 'main'
+        run: node scripts/checkPr205Evidence.mjs
+      - if: matrix.group == 'main'
+        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr205.mjs --contracts
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(
