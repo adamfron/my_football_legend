@@ -97,11 +97,11 @@ describe('PR204 supported-intention development intervention', () => {
     belief.motionEvidenceAt = f.state.time - 0.31;
     expect(evaluateProspectivePosition(f.state, f.c, f.job)?.reason).not.toBe('observed_flight_contradicts_supported_possession');
   });
-  it('lets a real reception, human control and a restart preempt the support target', () => {
+  it('ignores a hidden reception flag and lets human control and a restart preempt support', () => {
     const f = supportedFixture();
     f.state.activePerceptionRuntime!.positions[f.c.id] = evaluateProspectivePosition(f.state, f.c, f.job)!;
     const receiving = { ...f.state, receptionPreparation: { ...f.state.receptionPreparation!, actorId: f.c.id } };
-    expect(receivingPositionTarget(receiving, f.c)).toBeUndefined();
+    expect(receivingPositionTarget(receiving, f.c)).toEqual(f.job.target);
     f.state.controlledFootballerId = f.c.id;
     const human = advanceReceivingPositions({ ...f.state, time: f.state.time + 0.4 });
     expect(human.activePerceptionRuntime!.positions[f.c.id]).toBeUndefined();

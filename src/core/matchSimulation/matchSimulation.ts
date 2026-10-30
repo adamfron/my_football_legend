@@ -45,6 +45,7 @@ import { authoritativeMovementTarget } from './movementAuthority';
 import { observeBallMotorState, planBallOrientedMovement } from './ballOrientedMovement';
 import { advanceActivePerception } from './activePerception';
 import { advancePreReceptionPlans, preparedContinuation } from './preReceptionPlanning';
+import { locallyObservedReception, locallyPreparedFirstTimeAction, localReceptionMovementTarget } from './localReception';
 import { advanceReceivingPositions, receivingPositionTarget } from './receivingPositions';
 import { advanceTeamTempo } from './teamTempo';
 import { deriveCarryPursuit } from './carryPursuit';
@@ -483,13 +484,18 @@ const tryIncomingFinish = (
   const pending =
     state.pendingReceptionIntent?.actorId === actorId ? state.pendingReceptionIntent : undefined;
   const selected = pending?.action;
+  const localActor = state.prospectiveMovement === 'two-pass-continuity-dev-v1'
+    ? state.players.find((p) => p.id === actorId)
+    : undefined;
   const action = selected
     ? selected.type === 'shot' ||
       selected.type === 'header' ||
       (selected.type === 'pass' && selected.firstTime)
       ? selected
       : undefined
-    : !hasPendingPlayerDecision(state, actorId)
+    : localActor && !isHumanControlled(state, actorId)
+      ? locallyPreparedFirstTimeAction(state, localActor)
+      : state.prospectiveMovement !== 'two-pass-continuity-dev-v1' && !hasPendingPlayerDecision(state, actorId)
       ? chooseIncomingShotAction(state, actorId)
       : undefined;
   if (!pending && (action?.type === 'hold' || action?.type === 'carry')) {
@@ -623,8 +629,18 @@ const changePossession = (
     ...(state.ball.heldByKeeperId === ownerId ? { heldByKeeperId: ownerId } : {}),
   };
   const reception =
-    state.receptionPreparation?.actorId === ownerId ||
-    (state.ball.travelKind === 'pass' && owner.team === state.possessionTeam)
+    (state.prospectiveMovement === 'two-pass-continuity-dev-v1'
+      ? isMatchGoalkeeper(owner)
+        ? state.ball.travelKind === 'pass' && owner.team === state.possessionTeam
+        : !state.ball.ownerId &&
+          owner.team === state.possessionTeam &&
+          (state.ball.height ?? 0) <= 0.65 &&
+          Math.min(
+            distance(playerContactGeometry(owner).leftFoot, state.ball),
+            distance(playerContactGeometry(owner).rightFoot, state.ball),
+          ) <= playerContactGeometry(owner).footReach
+      : state.receptionPreparation?.actorId === ownerId ||
+        (state.ball.travelKind === 'pass' && owner.team === state.possessionTeam))
       ? resolveReceptionOutcome(state, owner, { x: state.ball.x, y: state.ball.y })
       : undefined;
   const receptionPoint = reception?.resultingPoint ?? { x: state.ball.x, y: state.ball.y };
@@ -1512,6 +1528,17 @@ const stepTacticalMatchCore = (
     void _expired;
     state = withoutIntent;
   }
+  // Missing source is the legacy representation of a human-selected action.
+  // An explicitly autonomous pre-contact intent has no lawful provenance here.
+  if (
+    state.prospectiveMovement === 'two-pass-continuity-dev-v1' &&
+    state.pendingReceptionIntent &&
+    (state.pendingReceptionIntent.actionSource ?? 'human_selected') !== 'human_selected'
+  ) {
+    const { pendingReceptionIntent: _unverified, ...withoutIntent } = state;
+    void _unverified;
+    state = withoutIntent;
+  }
   if (
     state.pendingReceptionIntent &&
     (state.time >= state.pendingReceptionIntent.expiresAt ||
@@ -1742,7 +1769,8 @@ const stepTacticalMatchCore = (
     state.planningSchedule.semanticKey !== semanticKey ||
     state.time - state.planningSchedule.lastTacticalPlanAt >= 0.1 - FIXED_MATCH_DT / 2;
   if (tacticalPlanDue) state.planningSchedule = { lastTacticalPlanAt: state.time, semanticKey };
-  if (tacticalPlanDue && state.receptionPreparation) {
+  const localReceptionMode = state.prospectiveMovement === 'two-pass-continuity-dev-v1';
+  if (tacticalPlanDue && state.receptionPreparation && !localReceptionMode) {
     let receiver = state.players.find((p) => p.id === state.receptionPreparation!.actorId);
     if (receiver && state.experimentalReceiverAnticipation) {
       receiver = { ...receiver, ballMotorObservation: observeReceptionBall(state, receiver) };
@@ -1805,6 +1833,9 @@ const stepTacticalMatchCore = (
       : null;
   state.players = plannedPlayers.map((player) => {
     if (!canParticipatePhysically(player)) return { ...player, velocity: { x: 0, y: 0 } };
+    const localReception = localReceptionMode ? locallyObservedReception(state, player) : undefined;
+    const movementState: TacticalMatchState = localReceptionMode ? { ...state } : state;
+    if (localReceptionMode) delete movementState.receptionPreparation;
     const recoveringOwnTouch =
       state.experimentalBallRecovery === true &&
       !isRestartSetup(state) &&
@@ -1819,9 +1850,11 @@ const stepTacticalMatchCore = (
       (!isHumanControlled(state, player.id) || state.ballCarrierIntent?.humanSelected === true);
     if (recoveringOwnTouch)
       player = { ...player, ballMotorObservation: observeBallMotorState(state, player) };
-    else if (
+    else if (localReceptionMode && localReception) {
+      player = { ...player, ballMotorObservation: localReception.observation };
+    } else if (
       player.ballMotorObservation &&
-      !(state.experimentalReceiverAnticipation && state.receptionPreparation?.actorId === player.id)
+      (localReceptionMode || !(state.experimentalReceiverAnticipation && state.receptionPreparation?.actorId === player.id))
     ) {
       const { ballMotorObservation: _oldObservation, ...withoutObservation } = player;
       void _oldObservation;
@@ -1852,9 +1885,13 @@ const stepTacticalMatchCore = (
       player = { ...player, target: state.defensiveChallenge.target };
       movementTarget = player.target;
     }
-    const receptionContactTarget = receptionMovementContactTarget(state, player);
+    const receptionContactTarget = localReceptionMode
+      ? localReception
+        ? localReceptionMovementTarget(state, player, localReception)
+        : undefined
+      : receptionMovementContactTarget(state, player);
     if (
-      state.receptionPreparation?.actorId === player.id &&
+      !localReceptionMode && state.receptionPreparation?.actorId === player.id &&
       receptionContactTarget &&
       player.spatialMovement?.kind !== 'aerial_challenge' &&
       state.time >= state.receptionPreparation.awarenessAt
@@ -1891,7 +1928,7 @@ const stepTacticalMatchCore = (
             : contactTarget;
       player = { ...player, target };
     }
-    if (state.receptionPreparation?.actorId === player.id) movementTarget = player.target;
+    if (!localReceptionMode && state.receptionPreparation?.actorId === player.id) movementTarget = player.target;
     if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
     if (
       state.keeperIntervention?.keeperId === player.id &&
@@ -1947,7 +1984,7 @@ const stepTacticalMatchCore = (
       endPerformanceSpan('pressure_decision', pressureSpan);
     }
     if (usesStateValue(state) && state.decisionAblation !== 'movement')
-      movementTarget = authoritativeMovementTarget(state, player, movementTarget);
+      movementTarget = authoritativeMovementTarget(movementState, player, movementTarget);
     if (
       recoveringOwnTouch &&
       (distance(player.position, state.ball) > 0.8 || !state.ball.ownerId)
@@ -1976,7 +2013,7 @@ const stepTacticalMatchCore = (
       !recoveringOwnTouch &&
       state.defensiveChallenge?.actorId !== player.id &&
       state.playerMovementIntent?.actorId !== player.id &&
-      state.receptionPreparation?.actorId !== player.id &&
+      (localReceptionMode ? !localReception : state.receptionPreparation?.actorId !== player.id) &&
       state.ball.ownerId !== player.id &&
       !(state.playerAgencyEnabled !== false && state.controlledFootballerId === player.id)
     )
@@ -1984,7 +2021,7 @@ const stepTacticalMatchCore = (
     if (
       patternTarget &&
       state.playerMovementIntent?.actorId !== player.id &&
-      state.receptionPreparation?.actorId !== player.id &&
+      (localReceptionMode ? !localReception : state.receptionPreparation?.actorId !== player.id) &&
       !recoveringOwnTouch &&
       state.defensiveChallenge?.actorId !== player.id &&
       !(state.playerAgencyEnabled !== false && player.id === state.controlledFootballerId)
@@ -2001,14 +2038,14 @@ const stepTacticalMatchCore = (
       state.playerMovementIntent?.actorId !== player.id &&
       !(state.playerAgencyEnabled !== false && state.controlledFootballerId === player.id) &&
       ((isMatchGoalkeeper(player) && state.ball.ownerId !== player.id) ||
-        (state.receptionPreparation?.actorId === player.id && state.ball.ownerId !== player.id));
+        ((localReceptionMode ? Boolean(localReception) : state.receptionPreparation?.actorId === player.id) && state.ball.ownerId !== player.id));
     const keeperCommand =
       boundedMotor && isMatchGoalkeeper(player) ? boundedKeeperCommand(state, player) : undefined;
     if (boundedMotor) {
       movementTarget = boundedMovementTarget(
-        state,
+        movementState,
         player,
-        receptionMovementContactTarget(state, player),
+        receptionContactTarget,
         keeperCommand?.target,
       );
       player = { ...player, target: movementTarget };
@@ -2033,18 +2070,18 @@ const stepTacticalMatchCore = (
               ? 3.6 + player.profile.attributes.agility * 0.035
               : deriveMovementCapability(player).runSpeed,
           }
-        : projectLocomotion(state, player, movementTarget, cooperativePress ?? null);
+        : projectLocomotion(movementState, player, movementTarget, cooperativePress ?? null);
     const preparing =
       state.onBallPreparation?.actorId === player.id &&
       state.ball.ownerId === player.id &&
       state.ballCarrierIntent?.actorId !== player.id &&
       state.playerMovementIntent?.actorId !== player.id;
     const observedIncoming =
-      state.experimentalReceiverAnticipation && state.receptionPreparation?.actorId === player.id
+      state.experimentalReceiverAnticipation && (localReceptionMode ? Boolean(localReception) : state.receptionPreparation?.actorId === player.id)
         ? player.ballMotorObservation?.ball
         : undefined;
     const meeting =
-      state.experimentalReceiverSynchronisation &&
+      !localReceptionMode && state.experimentalReceiverSynchronisation &&
       state.experimentalReceiverAnticipation &&
       state.receptionPreparation?.actorId === player.id &&
       receptionContactTarget
@@ -2076,8 +2113,8 @@ const stepTacticalMatchCore = (
               ? angleForVector({ x: -observedIncoming.velocity.x, y: -observedIncoming.velocity.y })
               : preparing
                 ? (state.onBallPreparation?.micro?.orientationTarget ??
-                  deriveOrientationTarget(state, player))
-                : deriveOrientationTarget(state, player);
+                  deriveOrientationTarget(movementState, player))
+                : deriveOrientationTarget(movementState, player);
     const recovery = player.challengeRecovery;
     const balance =
       recovery && state.time < recovery.until

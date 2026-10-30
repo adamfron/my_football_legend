@@ -1,0 +1,6696 @@
+{
+  "source": "09c791e82b495dc0abcf3991b5b0b7a95b9cff222ab333f7e7b33b9a7d9a29a0",
+  "stable": true,
+  "releases": 51,
+  "rejectedEpisodes": [
+    {
+      "family": "short_ground",
+      "seedIndex": 1,
+      "pressure": "immediate",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "short_ground",
+      "seedIndex": 4,
+      "pressure": "immediate",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "short_ground",
+      "seedIndex": 7,
+      "pressure": "immediate",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "progressive_ground",
+      "seedIndex": 0,
+      "pressure": "unpressured",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "progressive_ground",
+      "seedIndex": 2,
+      "pressure": "delayed",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "progressive_ground",
+      "seedIndex": 3,
+      "pressure": "unpressured",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "progressive_ground",
+      "seedIndex": 5,
+      "pressure": "delayed",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "progressive_ground",
+      "seedIndex": 6,
+      "pressure": "unpressured",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "moving_lead",
+      "seedIndex": 0,
+      "pressure": "unpressured",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "moving_lead",
+      "seedIndex": 2,
+      "pressure": "delayed",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "moving_lead",
+      "seedIndex": 3,
+      "pressure": "unpressured",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "moving_lead",
+      "seedIndex": 5,
+      "pressure": "delayed",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    },
+    {
+      "family": "moving_lead",
+      "seedIndex": 6,
+      "pressure": "unpressured",
+      "reason": "reference_passer_lost_ball",
+      "at": 11.000000000000014
+    }
+  ],
+  "rejectedArms": [],
+  "qualification": "Complete paired quartets only; unresolved/censored outcomes excluded per metric, not set to failure. Seed-labelled episodes are independent experimental units. Percentile bootstrap resamples paired episodes; small samples, post-selection, multiple looks, and zero-discordance intervals limit inference. Conditions describe assigned visibility gates, not necessarily observed recognition.",
+  "conditions": {
+    "early": {
+      "attempted": 51,
+      "completeQuartets": 51,
+      "metrics": {
+        "touch": {
+          "n": 50,
+          "excludedUnresolved": 1,
+          "counts": {
+            "LL": 28,
+            "LH": 28,
+            "HL": 27,
+            "HH": 27
+          },
+          "means": {
+            "LL": 0.56,
+            "LH": 0.56,
+            "HL": 0.54,
+            "HH": 0.54
+          },
+          "contrasts": {
+            "readingLowTouch": {
+              "mean": -0.02,
+              "bootstrap95": [
+                -0.06,
+                0
+              ],
+              "discordant": 1
+            },
+            "readingHighTouch": {
+              "mean": -0.02,
+              "bootstrap95": [
+                -0.06,
+                0
+              ],
+              "discordant": 1
+            },
+            "touchLowReading": {
+              "mean": 0,
+              "bootstrap95": [
+                0,
+                0
+              ],
+              "discordant": 0
+            },
+            "touchHighReading": {
+              "mean": 0,
+              "bootstrap95": [
+                0,
+                0
+              ],
+              "discordant": 0
+            },
+            "interaction": {
+              "mean": 0,
+              "bootstrap95": [
+                0,
+                0
+              ],
+              "discordant": 0
+            }
+          }
+        },
+        "control": {
+          "n": 50,
+          "excludedUnresolved": 1,
+          "counts": {
+            "LL": 14,
+            "LH": 19,
+            "HL": 17,
+            "HH": 19
+          },
+          "means": {
+            "LL": 0.28,
+            "LH": 0.38,
+            "HL": 0.34,
+            "HH": 0.38
+          },
+          "contrasts": {
+            "readingLowTouch": {
+              "mean": 0.06,
+              "bootstrap95": [
+                -0.02,
+                0.16
+              ],
+              "discordant": 5
+            },
+            "readingHighTouch": {
+              "mean": 0,
+              "bootstrap95": [
+                -0.06,
+                0.06
+              ],
+              "discordant": 2
+            },
+            "touchLowReading": {
+              "mean": 0.1,
+              "bootstrap95": [
+                0.02,
+                0.2
+              ],
+              "discordant": 5
+            },
+            "touchHighReading": {
+              "mean": 0.04,
+              "bootstrap95": [
+                -0.04,
+                0.12
+              ],
+              "discordant": 4
+            },
+            "interaction": {
+              "mean": -0.06,
+              "bootstrap95": [
+                -0.14,
+                0
+              ],
+              "discordant": 3
+            }
+          }
+        },
+        "retention": {
+          "n": 50,
+          "excludedUnresolved": 1,
+          "counts": {
+            "LL": 14,
+            "LH": 18,
+            "HL": 12,
+            "HH": 17
+          },
+          "means": {
+            "LL": 0.28,
+            "LH": 0.36,
+            "HL": 0.24,
+            "HH": 0.34
+          },
+          "contrasts": {
+            "readingLowTouch": {
+              "mean": -0.04,
+              "bootstrap95": [
+                -0.12,
+                0.04
+              ],
+              "discordant": 4
+            },
+            "readingHighTouch": {
+              "mean": -0.02,
+              "bootstrap95": [
+                -0.06,
+                0
+              ],
+              "discordant": 1
+            },
+            "touchLowReading": {
+              "mean": 0.08,
+              "bootstrap95": [
+                0.02,
+                0.16
+              ],
+              "discordant": 4
+            },
+            "touchHighReading": {
+              "mean": 0.1,
+              "bootstrap95": [
+                0.02,
+                0.18
+              ],
+              "discordant": 5
+            },
+            "interaction": {
+              "mean": 0.02,
+              "bootstrap95": [
+                -0.04,
+                0.08
+              ],
+              "discordant": 3
+            }
+          }
+        }
+      },
+      "exposure": {
+        "LL": {
+          "n": 51,
+          "seenBeforeRelease": 27,
+          "meanSecondsSeenBeforeRelease": 0.7203703703703807,
+          "prospectiveRecognised": 0,
+          "preReceptionPlans": 5,
+          "flightSeenBeforeContact": 28,
+          "meanFlightSightToContact": 1.0107142857143003
+        },
+        "LH": {
+          "n": 51,
+          "seenBeforeRelease": 27,
+          "meanSecondsSeenBeforeRelease": 0.7203703703703807,
+          "prospectiveRecognised": 0,
+          "preReceptionPlans": 5,
+          "flightSeenBeforeContact": 28,
+          "meanFlightSightToContact": 1.0107142857143003
+        },
+        "HL": {
+          "n": 51,
+          "seenBeforeRelease": 27,
+          "meanSecondsSeenBeforeRelease": 0.683333333333343,
+          "prospectiveRecognised": 0,
+          "preReceptionPlans": 5,
+          "flightSeenBeforeContact": 27,
+          "meanFlightSightToContact": 0.9768518518518655
+        },
+        "HH": {
+          "n": 51,
+          "seenBeforeRelease": 27,
+          "meanSecondsSeenBeforeRelease": 0.683333333333343,
+          "prospectiveRecognised": 0,
+          "preReceptionPlans": 5,
+          "flightSeenBeforeContact": 27,
+          "meanFlightSightToContact": 0.9768518518518655
+        }
+      },
+      "contactMeasurements": {
+        "LL": {
+          "directContactCount": 28,
+          "assessmentCount": 26,
+          "meanRelativeSpeed": 13.560347690273572,
+          "meanPreparationSeconds": 0,
+          "meanFacingError": 0.08214317970056229,
+          "meanContactQuality": 0.30248865609952874,
+          "surfaces": {
+            "cushion": 26
+          }
+        },
+        "LH": {
+          "directContactCount": 28,
+          "assessmentCount": 26,
+          "meanRelativeSpeed": 13.56028490679431,
+          "meanPreparationSeconds": 0,
+          "meanFacingError": 0.08214082454283457,
+          "meanContactQuality": 0.5056222039302943,
+          "surfaces": {
+            "cushion": 26
+          }
+        },
+        "HL": {
+          "directContactCount": 27,
+          "assessmentCount": 26,
+          "meanRelativeSpeed": 13.433605944722114,
+          "meanPreparationSeconds": 0,
+          "meanFacingError": 0.028254350188403096,
+          "meanContactQuality": 0.31660963131417164,
+          "surfaces": {
+            "cushion": 26
+          }
+        },
+        "HH": {
+          "directContactCount": 27,
+          "assessmentCount": 26,
+          "meanRelativeSpeed": 13.433107658699884,
+          "meanPreparationSeconds": 0,
+          "meanFacingError": 0.028253892562213025,
+          "meanContactQuality": 0.5180300132380389,
+          "surfaces": {
+            "cushion": 26
+          }
+        }
+      }
+    },
+    "late": {
+      "attempted": 51,
+      "completeQuartets": 51,
+      "metrics": {
+        "touch": {
+          "n": 49,
+          "excludedUnresolved": 2,
+          "counts": {
+            "LL": 29,
+            "LH": 29,
+            "HL": 25,
+            "HH": 25
+          },
+          "means": {
+            "LL": 0.5918367346938775,
+            "LH": 0.5918367346938775,
+            "HL": 0.5102040816326531,
+            "HH": 0.5102040816326531
+          },
+          "contrasts": {
+            "readingLowTouch": {
+              "mean": -0.08163265306122448,
+              "bootstrap95": [
+                -0.16326530612244897,
+                -0.02040816326530612
+              ],
+              "discordant": 4
+            },
+            "readingHighTouch": {
+              "mean": -0.08163265306122448,
+              "bootstrap95": [
+                -0.16326530612244897,
+                -0.02040816326530612
+              ],
+              "discordant": 4
+            },
+            "touchLowReading": {
+              "mean": 0,
+              "bootstrap95": [
+                0,
+                0
+              ],
+              "discordant": 0
+            },
+            "touchHighReading": {
+              "mean": 0,
+              "bootstrap95": [
+                0,
+                0
+              ],
+              "discordant": 0
+            },
+            "interaction": {
+              "mean": 0,
+              "bootstrap95": [
+                0,
+                0
+              ],
+              "discordant": 0
+            }
+          }
+        },
+        "control": {
+          "n": 49,
+          "excludedUnresolved": 2,
+          "counts": {
+            "LL": 15,
+            "LH": 21,
+            "HL": 13,
+            "HH": 16
+          },
+          "means": {
+            "LL": 0.30612244897959184,
+            "LH": 0.42857142857142855,
+            "HL": 0.2653061224489796,
+            "HH": 0.32653061224489793
+          },
+          "contrasts": {
+            "readingLowTouch": {
+              "mean": -0.04081632653061224,
+              "bootstrap95": [
+                -0.14285714285714285,
+                0.061224489795918366
+              ],
+              "discordant": 6
+            },
+            "readingHighTouch": {
+              "mean": -0.10204081632653061,
+              "bootstrap95": [
+                -0.20408163265306123,
+                -0.02040816326530612
+              ],
+              "discordant": 5
+            },
+            "touchLowReading": {
+              "mean": 0.12244897959183673,
+              "bootstrap95": [
+                0.04081632653061224,
+                0.22448979591836735
+              ],
+              "discordant": 6
+            },
+            "touchHighReading": {
+              "mean": 0.061224489795918366,
+              "bootstrap95": [
+                -0.02040816326530612,
+                0.14285714285714285
+              ],
+              "discordant": 5
+            },
+            "interaction": {
+              "mean": -0.061224489795918366,
+              "bootstrap95": [
+                -0.16326530612244897,
+                0.02040816326530612
+              ],
+              "discordant": 5
+            }
+          }
+        },
+        "retention": {
+          "n": 49,
+          "excludedUnresolved": 2,
+          "counts": {
+            "LL": 13,
+            "LH": 20,
+            "HL": 10,
+            "HH": 15
+          },
+          "means": {
+            "LL": 0.2653061224489796,
+            "LH": 0.40816326530612246,
+            "HL": 0.20408163265306123,
+            "HH": 0.30612244897959184
+          },
+          "contrasts": {
+            "readingLowTouch": {
+              "mean": -0.061224489795918366,
+              "bootstrap95": [
+                -0.16326530612244897,
+                0.04081632653061224
+              ],
+              "discordant": 7
+            },
+            "readingHighTouch": {
+              "mean": -0.10204081632653061,
+              "bootstrap95": [
+                -0.20408163265306123,
+                0
+              ],
+              "discordant": 7
+            },
+            "touchLowReading": {
+              "mean": 0.14285714285714285,
+              "bootstrap95": [
+                0.04081632653061224,
+                0.2653061224489796
+              ],
+              "discordant": 9
+            },
+            "touchHighReading": {
+              "mean": 0.10204081632653061,
+              "bootstrap95": [
+                0.02040816326530612,
+                0.1836734693877551
+              ],
+              "discordant": 5
+            },
+            "interaction": {
+              "mean": -0.04081632653061224,
+              "bootstrap95": [
+                -0.16326530612244897,
+                0.061224489795918366
+              ],
+              "discordant": 8
+            }
+          }
+        }
+      },
+      "exposure": {
+        "LL": {
+          "n": 51,
+          "seenBeforeRelease": 27,
+          "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+          "prospectiveRecognised": 0,
+          "preReceptionPlans": 0,
+          "flightSeenBeforeContact": 29,
+          "meanFlightSightToContact": 1.1241379310344988
+        },
+        "LH": {
+          "n": 51,
+          "seenBeforeRelease": 27,
+          "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+          "prospectiveRecognised": 0,
+          "preReceptionPlans": 0,
+          "flightSeenBeforeContact": 29,
+          "meanFlightSightToContact": 1.1275862068965674
+        },
+        "HL": {
+          "n": 51,
+          "seenBeforeRelease": 25,
+          "meanSecondsSeenBeforeRelease": 0.142000000000002,
+          "prospectiveRecognised": 0,
+          "preReceptionPlans": 0,
+          "flightSeenBeforeContact": 25,
+          "meanFlightSightToContact": 1.0730000000000155
+        },
+        "HH": {
+          "n": 51,
+          "seenBeforeRelease": 25,
+          "meanSecondsSeenBeforeRelease": 0.142000000000002,
+          "prospectiveRecognised": 0,
+          "preReceptionPlans": 0,
+          "flightSeenBeforeContact": 25,
+          "meanFlightSightToContact": 1.0730000000000155
+        }
+      },
+      "contactMeasurements": {
+        "LL": {
+          "directContactCount": 29,
+          "assessmentCount": 27,
+          "meanRelativeSpeed": 12.985877557683336,
+          "meanPreparationSeconds": 0,
+          "meanFacingError": 0.12412518938204581,
+          "meanContactQuality": 0.3156135803039717,
+          "surfaces": {
+            "cushion": 27
+          }
+        },
+        "LH": {
+          "directContactCount": 29,
+          "assessmentCount": 27,
+          "meanRelativeSpeed": 12.966755396155532,
+          "meanPreparationSeconds": 0,
+          "meanFacingError": 0.12272694839378916,
+          "meanContactQuality": 0.5177011105346486,
+          "surfaces": {
+            "cushion": 27
+          }
+        },
+        "HL": {
+          "directContactCount": 25,
+          "assessmentCount": 23,
+          "meanRelativeSpeed": 13.687194052528296,
+          "meanPreparationSeconds": 0,
+          "meanFacingError": 0.048701176189984555,
+          "meanContactQuality": 0.3283879008923231,
+          "surfaces": {
+            "cushion": 23
+          }
+        },
+        "HH": {
+          "directContactCount": 25,
+          "assessmentCount": 23,
+          "meanRelativeSpeed": 13.68689712421204,
+          "meanPreparationSeconds": 0,
+          "meanFacingError": 0.04868155209705326,
+          "meanContactQuality": 0.5282561106453414,
+          "surfaces": {
+            "cushion": 23
+          }
+        }
+      }
+    }
+  },
+  "families": {
+    "short_ground": {
+      "early": {
+        "attempted": 5,
+        "completeQuartets": 5,
+        "metrics": {
+          "touch": {
+            "n": 5,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 1,
+              "HH": 1
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 5,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 1,
+              "HH": 1
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 5,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 1,
+              "HH": 1
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 5,
+            "seenBeforeRelease": 5,
+            "meanSecondsSeenBeforeRelease": 0.7300000000000104,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 5,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 0.3100000000000044
+          },
+          "LH": {
+            "n": 5,
+            "seenBeforeRelease": 5,
+            "meanSecondsSeenBeforeRelease": 0.7300000000000104,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 5,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 0.3100000000000044
+          },
+          "HL": {
+            "n": 5,
+            "seenBeforeRelease": 5,
+            "meanSecondsSeenBeforeRelease": 0.7300000000000104,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 5,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 0.3450000000000049
+          },
+          "HH": {
+            "n": 5,
+            "seenBeforeRelease": 5,
+            "meanSecondsSeenBeforeRelease": 0.7300000000000104,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 5,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 0.3450000000000049
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 5.9774358211418575,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.039383756884341634,
+            "meanContactQuality": 0.3950555844793679,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "LH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 5.977916461335518,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.039384264036063855,
+            "meanContactQuality": 0.5863375104279014,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 5.773756961945752,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.05758750087913853,
+            "meanContactQuality": 0.36981606877907564,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 5.773397240046716,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.05758776116053603,
+            "meanContactQuality": 0.5643714612617261,
+            "surfaces": {
+              "cushion": 5
+            }
+          }
+        }
+      },
+      "late": {
+        "attempted": 5,
+        "completeQuartets": 5,
+        "metrics": {
+          "touch": {
+            "n": 5,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 0.6,
+              "HH": 0.6
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.4,
+                "bootstrap95": [
+                  -0.8,
+                  0
+                ],
+                "discordant": 2
+              },
+              "readingHighTouch": {
+                "mean": -0.4,
+                "bootstrap95": [
+                  -0.8,
+                  0
+                ],
+                "discordant": 2
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 5,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 0.6,
+              "HH": 0.6
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.4,
+                "bootstrap95": [
+                  -0.8,
+                  0
+                ],
+                "discordant": 2
+              },
+              "readingHighTouch": {
+                "mean": -0.4,
+                "bootstrap95": [
+                  -0.8,
+                  0
+                ],
+                "discordant": 2
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 5,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 4,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 1,
+              "LH": 0.8,
+              "HL": 0.6,
+              "HH": 0.6
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.4,
+                "bootstrap95": [
+                  -0.8,
+                  0
+                ],
+                "discordant": 2
+              },
+              "readingHighTouch": {
+                "mean": -0.2,
+                "bootstrap95": [
+                  -0.8,
+                  0.6
+                ],
+                "discordant": 3
+              },
+              "touchLowReading": {
+                "mean": -0.2,
+                "bootstrap95": [
+                  -0.6,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0.2,
+                "bootstrap95": [
+                  0,
+                  0.6
+                ],
+                "discordant": 1
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 5,
+            "seenBeforeRelease": 5,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 0.7350000000000104
+          },
+          "LH": {
+            "n": 5,
+            "seenBeforeRelease": 5,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 0.7550000000000108
+          },
+          "HL": {
+            "n": 5,
+            "seenBeforeRelease": 4,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 0.5500000000000078
+          },
+          "HH": {
+            "n": 5,
+            "seenBeforeRelease": 4,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 0.5500000000000078
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 4.5795150927957,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.1375978619720243,
+            "meanContactQuality": 0.4092535391367448,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "LH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 4.464659366042152,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.13004531760383245,
+            "meanContactQuality": 0.6009920272055423,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 4.842069601370231,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.13507432433644814,
+            "meanContactQuality": 0.4015171908670034,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 4.844079442825245,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.13492863349326592,
+            "meanContactQuality": 0.5918216236425661,
+            "surfaces": {
+              "cushion": 3
+            }
+          }
+        }
+      }
+    },
+    "medium_ground": {
+      "early": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.625,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 3,
+              "LH": 4,
+              "HL": 4,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.375,
+              "LH": 0.5,
+              "HL": 0.5,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              },
+              "touchHighReading": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 3,
+              "LH": 4,
+              "HL": 2,
+              "HH": 4
+            },
+            "means": {
+              "LL": 0.375,
+              "LH": 0.5,
+              "HL": 0.25,
+              "HH": 0.5
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.125,
+                "bootstrap95": [
+                  -0.375,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              },
+              "touchHighReading": {
+                "mean": 0.25,
+                "bootstrap95": [
+                  0,
+                  0.5
+                ],
+                "discordant": 2
+              },
+              "interaction": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.7375000000000105,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0000000000000138
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.7375000000000105,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0000000000000138
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.7375000000000105,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 0.9950000000000141
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.7375000000000105,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 0.9950000000000141
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 5,
+            "assessmentCount": 4,
+            "meanRelativeSpeed": 10.83400827752503,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.03690393725849139,
+            "meanContactQuality": 0.3542941494350092,
+            "surfaces": {
+              "cushion": 4
+            }
+          },
+          "LH": {
+            "directContactCount": 5,
+            "assessmentCount": 4,
+            "meanRelativeSpeed": 10.833675577649878,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.03690371104072909,
+            "meanContactQuality": 0.5507751704396113,
+            "surfaces": {
+              "cushion": 4
+            }
+          },
+          "HL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 10.750435251613727,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.03251588651683797,
+            "meanContactQuality": 0.3488520858120163,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 10.749920117243422,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.03251563231347028,
+            "meanContactQuality": 0.5460861263676595,
+            "surfaces": {
+              "cushion": 5
+            }
+          }
+        }
+      },
+      "late": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.625,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 3,
+              "LH": 5,
+              "HL": 3,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.375,
+              "LH": 0.625,
+              "HL": 0.375,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  -0.375,
+                  0.375
+                ],
+                "discordant": 2
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0.25,
+                "bootstrap95": [
+                  0,
+                  0.5
+                ],
+                "discordant": 2
+              },
+              "touchHighReading": {
+                "mean": 0.25,
+                "bootstrap95": [
+                  0,
+                  0.5
+                ],
+                "discordant": 2
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  -0.375,
+                  0.375
+                ],
+                "discordant": 2
+              }
+            }
+          },
+          "retention": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 1,
+              "LH": 5,
+              "HL": 2,
+              "HH": 4
+            },
+            "means": {
+              "LL": 0.125,
+              "LH": 0.625,
+              "HL": 0.25,
+              "HH": 0.5
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  -0.25,
+                  0.5
+                ],
+                "discordant": 3
+              },
+              "readingHighTouch": {
+                "mean": -0.125,
+                "bootstrap95": [
+                  -0.375,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0.5,
+                "bootstrap95": [
+                  0.125,
+                  0.875
+                ],
+                "discordant": 4
+              },
+              "touchHighReading": {
+                "mean": 0.25,
+                "bootstrap95": [
+                  0,
+                  0.625
+                ],
+                "discordant": 2
+              },
+              "interaction": {
+                "mean": -0.25,
+                "bootstrap95": [
+                  -0.625,
+                  0.25
+                ],
+                "discordant": 4
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.055000000000015
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.055000000000015
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 7,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0500000000000154
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 7,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0500000000000154
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 10.259358941431454,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.026077983552135107,
+            "meanContactQuality": 0.34973699778388695,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "LH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 10.271474746052712,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.02607320087360989,
+            "meanContactQuality": 0.5479725300475593,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 9.803079132452407,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.026486420870455163,
+            "meanContactQuality": 0.36092275293229614,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 9.803253862062059,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.026485251889445394,
+            "meanContactQuality": 0.5566179694218213,
+            "surfaces": {
+              "cushion": 5
+            }
+          }
+        }
+      }
+    },
+    "progressive_ground": {
+      "early": {
+        "attempted": 3,
+        "completeQuartets": 3,
+        "metrics": {
+          "touch": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 1,
+              "HH": 1
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 1,
+              "HL": 2,
+              "HH": 1
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0.3333333333333333,
+              "HL": 0.6666666666666666,
+              "HH": 0.3333333333333333
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0.6666666666666666,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 2
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "touchHighReading": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": -0.6666666666666666,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 2
+              }
+            }
+          },
+          "retention": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 1,
+              "HL": 0,
+              "HH": 1
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0.3333333333333333,
+              "HL": 0,
+              "HH": 0.3333333333333333
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "touchHighReading": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.5833333333333416,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.0250000000000146
+          },
+          "LH": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.5833333333333416,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.0250000000000146
+          },
+          "HL": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.3833333333333388,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.0250000000000146
+          },
+          "HH": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.3833333333333388,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.0250000000000146
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 15.115242291095981,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.018048869008217377,
+            "meanContactQuality": 0.2662741654788919,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "LH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 15.115113794755272,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.018048439188920185,
+            "meanContactQuality": 0.47403636977869373,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 15.12172833469326,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.01805178141552055,
+            "meanContactQuality": 0.2682934608805944,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 15.121600916834618,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.018051345956447307,
+            "meanContactQuality": 0.4758001462212416,
+            "surfaces": {
+              "cushion": 3
+            }
+          }
+        }
+      },
+      "late": {
+        "attempted": 3,
+        "completeQuartets": 3,
+        "metrics": {
+          "touch": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 1,
+              "HH": 1
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 2,
+              "HL": 1,
+              "HH": 1
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0.6666666666666666,
+              "HL": 0.3333333333333333,
+              "HH": 0.3333333333333333
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0.6666666666666666,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 2
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  -1,
+                  1
+                ],
+                "discordant": 2
+              },
+              "interaction": {
+                "mean": -0.6666666666666666,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 2
+              }
+            }
+          },
+          "retention": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 2,
+              "HL": 0,
+              "HH": 1
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0.6666666666666666,
+              "HL": 0,
+              "HH": 0.3333333333333333
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0.6666666666666666,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 2
+              },
+              "touchHighReading": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.050000000000015
+          },
+          "LH": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.050000000000015
+          },
+          "HL": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.11666666666666832,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.050000000000015
+          },
+          "HH": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.11666666666666832,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.050000000000015
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 14.967712901828245,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.019970655126789083,
+            "meanContactQuality": 0.32518731992732114,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "LH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 14.96771245347775,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.019970041783747543,
+            "meanContactQuality": 0.5254650187770364,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 14.942402146237114,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.020031954088235437,
+            "meanContactQuality": 0.3160935779425662,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 14.942342435226365,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.020031395520432465,
+            "meanContactQuality": 0.5175197197600249,
+            "surfaces": {
+              "cushion": 3
+            }
+          }
+        }
+      }
+    },
+    "long_ground": {
+      "early": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.625,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.1900000000000168
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.1900000000000168
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.180000000000017
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.180000000000017
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 25.27059521315197,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.01928362366674925,
+            "meanContactQuality": 0.16346969142784884,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "LH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 25.270584296736434,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.01927007829542049,
+            "meanContactQuality": 0.38426636859280106,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 25.373064208610536,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.006567781981784648,
+            "meanContactQuality": 0.2067635025663212,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 25.373046119043163,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.006567776490732769,
+            "meanContactQuality": 0.42205130938520785,
+            "surfaces": {
+              "cushion": 5
+            }
+          }
+        }
+      },
+      "late": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.625,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.1900000000000168
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.1900000000000168
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.185000000000017
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.185000000000017
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 25.37695870248992,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.11423505937241493,
+            "meanContactQuality": 0.17195390937774468,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "LH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 25.37694826481582,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.114249606356978,
+            "meanContactQuality": 0.39167255567870984,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 25.395927482462263,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.071411303049803,
+            "meanContactQuality": 0.20356474429196852,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 25.39591911240498,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.07141135312215177,
+            "meanContactQuality": 0.4192607063243451,
+            "surfaces": {
+              "cushion": 5
+            }
+          }
+        }
+      }
+    },
+    "long_lofted": {
+      "early": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 7,
+            "excludedUnresolved": 1,
+            "counts": {
+              "LL": 2,
+              "LH": 2,
+              "HL": 1,
+              "HH": 1
+            },
+            "means": {
+              "LL": 0.2857142857142857,
+              "LH": 0.2857142857142857,
+              "HL": 0.14285714285714285,
+              "HH": 0.14285714285714285
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.42857142857142855,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.42857142857142855,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 7,
+            "excludedUnresolved": 1,
+            "counts": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0.14285714285714285,
+              "LH": 0.14285714285714285,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.42857142857142855,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.42857142857142855,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 7,
+            "excludedUnresolved": 1,
+            "counts": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0.14285714285714285,
+              "LH": 0.14285714285714285,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.42857142857142855,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.42857142857142855,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 2,
+            "meanFlightSightToContact": 1.8000000000000256
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 2,
+            "meanFlightSightToContact": 1.8000000000000256
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 1,
+            "meanFlightSightToContact": 1.6000000000000227
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 1,
+            "meanFlightSightToContact": 1.6000000000000227
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 2,
+            "assessmentCount": 1,
+            "meanRelativeSpeed": 13.152526784602246,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 1.4436153264266363,
+            "meanContactQuality": 0.06420612607075038,
+            "surfaces": {
+              "cushion": 1
+            }
+          },
+          "LH": {
+            "directContactCount": 2,
+            "assessmentCount": 1,
+            "meanRelativeSpeed": 13.1524974142951,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 1.443626619197044,
+            "meanContactQuality": 0.2976327353400073,
+            "surfaces": {
+              "cushion": 1
+            }
+          },
+          "HL": {
+            "directContactCount": 1,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          },
+          "HH": {
+            "directContactCount": 1,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          }
+        }
+      },
+      "late": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 6,
+            "excludedUnresolved": 2,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 1,
+              "HH": 1
+            },
+            "means": {
+              "LL": 0.5,
+              "LH": 0.5,
+              "HL": 0.16666666666666666,
+              "HH": 0.16666666666666666
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -0.6666666666666666,
+                  0
+                ],
+                "discordant": 2
+              },
+              "readingHighTouch": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -0.6666666666666666,
+                  0
+                ],
+                "discordant": 2
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 6,
+            "excludedUnresolved": 2,
+            "counts": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0.16666666666666666,
+              "LH": 0.16666666666666666,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.16666666666666666,
+                "bootstrap95": [
+                  -0.5,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.16666666666666666,
+                "bootstrap95": [
+                  -0.5,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 6,
+            "excludedUnresolved": 2,
+            "counts": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0.16666666666666666,
+              "LH": 0.16666666666666666,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.16666666666666666,
+                "bootstrap95": [
+                  -0.5,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.16666666666666666,
+                "bootstrap95": [
+                  -0.5,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.7583333333333577
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.7583333333333577
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 1,
+            "meanFlightSightToContact": 1.6000000000000227
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 1,
+            "meanFlightSightToContact": 1.6000000000000227
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 3,
+            "assessmentCount": 1,
+            "meanRelativeSpeed": 12.370134715912465,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 1.7410514436860094,
+            "meanContactQuality": 0.1065473720889738,
+            "surfaces": {
+              "cushion": 1
+            }
+          },
+          "LH": {
+            "directContactCount": 3,
+            "assessmentCount": 1,
+            "meanRelativeSpeed": 12.370113101710762,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 1.7410168598823734,
+            "meanContactQuality": 0.33459469661972596,
+            "surfaces": {
+              "cushion": 1
+            }
+          },
+          "HL": {
+            "directContactCount": 1,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          },
+          "HH": {
+            "directContactCount": 1,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          }
+        }
+      }
+    },
+    "moving_lead": {
+      "early": {
+        "attempted": 3,
+        "completeQuartets": 3,
+        "metrics": {
+          "touch": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 1,
+              "HH": 1
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 3,
+              "HL": 1,
+              "HH": 3
+            },
+            "means": {
+              "LL": 0,
+              "LH": 1,
+              "HL": 0.3333333333333333,
+              "HH": 1
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 1,
+                "bootstrap95": [
+                  1,
+                  1
+                ],
+                "discordant": 3
+              },
+              "touchHighReading": {
+                "mean": 0.6666666666666666,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 2
+              },
+              "interaction": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              }
+            }
+          },
+          "retention": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 2,
+              "HL": 1,
+              "HH": 2
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0.6666666666666666,
+              "HL": 0.3333333333333333,
+              "HH": 0.6666666666666666
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0.6666666666666666,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 2
+              },
+              "touchHighReading": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.683333333333343,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.3166666666666853
+          },
+          "LH": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.683333333333343,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.3166666666666853
+          },
+          "HL": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.516666666666674,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.3166666666666853
+          },
+          "HH": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.516666666666674,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.3166666666666853
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 12.377298647055573,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.0370542615970173,
+            "meanContactQuality": 0.2925669752370361,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "LH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 12.377232195742286,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.03705392675460336,
+            "meanContactQuality": 0.49696498682626733,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 12.339964446013624,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.03692147860865802,
+            "meanContactQuality": 0.3044209639259437,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 12.339827157426283,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.03692124469605732,
+            "meanContactQuality": 0.5073025651729614,
+            "surfaces": {
+              "cushion": 3
+            }
+          }
+        }
+      },
+      "late": {
+        "attempted": 3,
+        "completeQuartets": 3,
+        "metrics": {
+          "touch": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 1,
+              "LH": 1,
+              "HL": 1,
+              "HH": 1
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 1,
+              "LH": 3,
+              "HL": 1,
+              "HH": 2
+            },
+            "means": {
+              "LL": 0.3333333333333333,
+              "LH": 1,
+              "HL": 0.3333333333333333,
+              "HH": 0.6666666666666666
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0.6666666666666666,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 2
+              },
+              "touchHighReading": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              }
+            }
+          },
+          "retention": {
+            "n": 3,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 1,
+              "LH": 3,
+              "HL": 1,
+              "HH": 2
+            },
+            "means": {
+              "LL": 0.3333333333333333,
+              "LH": 1,
+              "HL": 0.3333333333333333,
+              "HH": 0.6666666666666666
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0.6666666666666666,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 2
+              },
+              "touchHighReading": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0,
+                  1
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": -0.3333333333333333,
+                "bootstrap95": [
+                  -1,
+                  0
+                ],
+                "discordant": 1
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.3250000000000188
+          },
+          "LH": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.3250000000000188
+          },
+          "HL": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.11666666666666832,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.3166666666666853
+          },
+          "HH": {
+            "n": 3,
+            "seenBeforeRelease": 3,
+            "meanSecondsSeenBeforeRelease": 0.11666666666666832,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 1.3166666666666853
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 12.279282815660101,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.012431368734551048,
+            "meanContactQuality": 0.32612963820378554,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "LH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 12.279117164214327,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.012431301007688115,
+            "meanContactQuality": 0.5262442301525591,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HL": {
+            "directContactCount": 3,
+            "assessmentCount": 2,
+            "meanRelativeSpeed": 12.087811275091102,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.021318175464565492,
+            "meanContactQuality": 0.34005164717546393,
+            "surfaces": {
+              "cushion": 2
+            }
+          },
+          "HH": {
+            "directContactCount": 3,
+            "assessmentCount": 2,
+            "meanRelativeSpeed": 12.087741608500668,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.021317690335963313,
+            "meanContactQuality": 0.5384531233189704,
+            "surfaces": {
+              "cushion": 2
+            }
+          }
+        }
+      }
+    },
+    "cross_field": {
+      "early": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 0,
+            "meanFlightSightToContact": null
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 0,
+            "meanFlightSightToContact": null
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 0,
+            "meanFlightSightToContact": null
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 0,
+            "meanFlightSightToContact": null
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 0,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          },
+          "LH": {
+            "directContactCount": 0,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          },
+          "HL": {
+            "directContactCount": 0,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          },
+          "HH": {
+            "directContactCount": 0,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          }
+        }
+      },
+      "late": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "means": {
+              "LL": 0,
+              "LH": 0,
+              "HL": 0,
+              "HH": 0
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 0,
+            "meanFlightSightToContact": null
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 0,
+            "meanFlightSightToContact": null
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 0,
+            "meanFlightSightToContact": null
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 0,
+            "meanSecondsSeenBeforeRelease": null,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 0,
+            "meanFlightSightToContact": null
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 0,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          },
+          "LH": {
+            "directContactCount": 0,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          },
+          "HL": {
+            "directContactCount": 0,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          },
+          "HH": {
+            "directContactCount": 0,
+            "assessmentCount": 0,
+            "meanRelativeSpeed": null,
+            "meanPreparationSeconds": null,
+            "meanFacingError": null,
+            "meanContactQuality": null,
+            "surfaces": {}
+          }
+        }
+      }
+    },
+    "through_ball": {
+      "early": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.625,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.625,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 4,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.5,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.125,
+                "bootstrap95": [
+                  -0.375,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.7625000000000108,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0350000000000148
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.7625000000000108,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0350000000000148
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.775000000000011,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.030000000000015
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.775000000000011,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.030000000000015
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 11.472540413297324,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.017169060436571827,
+            "meanContactQuality": 0.38283450661861795,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "LH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 11.472133217980993,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.01716823305314925,
+            "meanContactQuality": 0.5758840840341609,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 11.480478821960855,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.017267495587427815,
+            "meanContactQuality": 0.3773097707923568,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 11.478939504349535,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.01726551696726588,
+            "meanContactQuality": 0.5713855449866883,
+            "surfaces": {
+              "cushion": 5
+            }
+          }
+        }
+      },
+      "late": {
+        "attempted": 8,
+        "completeQuartets": 8,
+        "metrics": {
+          "touch": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.625,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.625,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 8,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 4,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.625,
+              "LH": 0.625,
+              "HL": 0.5,
+              "HH": 0.625
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.125,
+                "bootstrap95": [
+                  -0.375,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": 0.125,
+                "bootstrap95": [
+                  0,
+                  0.375
+                ],
+                "discordant": 1
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0600000000000147
+          },
+          "LH": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0600000000000147
+          },
+          "HL": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0600000000000147
+          },
+          "HH": {
+            "n": 8,
+            "seenBeforeRelease": 8,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 5,
+            "meanFlightSightToContact": 1.0600000000000147
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 11.085681701097455,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.02471361471246709,
+            "meanContactQuality": 0.36126923804661154,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "LH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 11.0852763713718,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.024713218840705053,
+            "meanContactQuality": 0.5570043952735888,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HL": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 11.056278468114636,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.024536649313034432,
+            "meanContactQuality": 0.3795097267244943,
+            "surfaces": {
+              "cushion": 5
+            }
+          },
+          "HH": {
+            "directContactCount": 5,
+            "assessmentCount": 5,
+            "meanRelativeSpeed": 11.0536040266771,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.02453544109224346,
+            "meanContactQuality": 0.5731133778532612,
+            "surfaces": {
+              "cushion": 5
+            }
+          }
+        }
+      }
+    }
+  },
+  "pressure": {
+    "unpressured": {
+      "early": {
+        "attempted": 18,
+        "completeQuartets": 18,
+        "metrics": {
+          "touch": {
+            "n": 17,
+            "excludedUnresolved": 1,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 0.17647058823529413,
+              "LH": 0.17647058823529413,
+              "HL": 0.17647058823529413,
+              "HH": 0.17647058823529413
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 17,
+            "excludedUnresolved": 1,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 0.17647058823529413,
+              "LH": 0.17647058823529413,
+              "HL": 0.17647058823529413,
+              "HH": 0.17647058823529413
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 17,
+            "excludedUnresolved": 1,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 3,
+              "HH": 3
+            },
+            "means": {
+              "LL": 0.17647058823529413,
+              "LH": 0.17647058823529413,
+              "HL": 0.17647058823529413,
+              "HH": 0.17647058823529413
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 18,
+            "seenBeforeRelease": 9,
+            "meanSecondsSeenBeforeRelease": 0.7277777777777881,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 3,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 0.3250000000000046
+          },
+          "LH": {
+            "n": 18,
+            "seenBeforeRelease": 9,
+            "meanSecondsSeenBeforeRelease": 0.7277777777777881,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 3,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 0.3250000000000046
+          },
+          "HL": {
+            "n": 18,
+            "seenBeforeRelease": 9,
+            "meanSecondsSeenBeforeRelease": 0.7277777777777881,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 3,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 0.350000000000005
+          },
+          "HH": {
+            "n": 18,
+            "seenBeforeRelease": 9,
+            "meanSecondsSeenBeforeRelease": 0.7277777777777881,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 3,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 0.350000000000005
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 6.062361936789789,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.048923630241482975,
+            "meanContactQuality": 0.39459515683920476,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "LH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 6.062735635682771,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.04892403616484901,
+            "meanContactQuality": 0.5859602092123621,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 5.820566143639592,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.04921480946756359,
+            "meanContactQuality": 0.351671460733898,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 5.819624785083608,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.04921431116244671,
+            "meanContactQuality": 0.5485821098746747,
+            "surfaces": {
+              "cushion": 3
+            }
+          }
+        }
+      },
+      "late": {
+        "attempted": 18,
+        "completeQuartets": 18,
+        "metrics": {
+          "touch": {
+            "n": 16,
+            "excludedUnresolved": 2,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 2,
+              "HH": 2
+            },
+            "means": {
+              "LL": 0.1875,
+              "LH": 0.1875,
+              "HL": 0.125,
+              "HH": 0.125
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.0625,
+                "bootstrap95": [
+                  -0.1875,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.0625,
+                "bootstrap95": [
+                  -0.1875,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 16,
+            "excludedUnresolved": 2,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 2,
+              "HH": 2
+            },
+            "means": {
+              "LL": 0.1875,
+              "LH": 0.1875,
+              "HL": 0.125,
+              "HH": 0.125
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.0625,
+                "bootstrap95": [
+                  -0.1875,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.0625,
+                "bootstrap95": [
+                  -0.1875,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 16,
+            "excludedUnresolved": 2,
+            "counts": {
+              "LL": 3,
+              "LH": 3,
+              "HL": 2,
+              "HH": 2
+            },
+            "means": {
+              "LL": 0.1875,
+              "LH": 0.1875,
+              "HL": 0.125,
+              "HH": 0.125
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.0625,
+                "bootstrap95": [
+                  -0.1875,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.0625,
+                "bootstrap95": [
+                  -0.1875,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 18,
+            "seenBeforeRelease": 9,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 0.7083333333333434
+          },
+          "LH": {
+            "n": 18,
+            "seenBeforeRelease": 9,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 3,
+            "meanFlightSightToContact": 0.7083333333333434
+          },
+          "HL": {
+            "n": 18,
+            "seenBeforeRelease": 9,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 2,
+            "meanFlightSightToContact": 0.6125000000000087
+          },
+          "HH": {
+            "n": 18,
+            "seenBeforeRelease": 9,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 2,
+            "meanFlightSightToContact": 0.6125000000000087
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 4.713225727642564,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.10906484756218345,
+            "meanContactQuality": 0.390811966712624,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "LH": {
+            "directContactCount": 3,
+            "assessmentCount": 3,
+            "meanRelativeSpeed": 4.713078122990713,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.10906674666984036,
+            "meanContactQuality": 0.582649748907611,
+            "surfaces": {
+              "cushion": 3
+            }
+          },
+          "HL": {
+            "directContactCount": 2,
+            "assessmentCount": 2,
+            "meanRelativeSpeed": 5.213749394335904,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.06297891335641204,
+            "meanContactQuality": 0.3900701193028812,
+            "surfaces": {
+              "cushion": 2
+            }
+          },
+          "HH": {
+            "directContactCount": 2,
+            "assessmentCount": 2,
+            "meanRelativeSpeed": 5.21645998670209,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.06299270053987271,
+            "meanContactQuality": 0.5817575002621367,
+            "surfaces": {
+              "cushion": 2
+            }
+          }
+        }
+      }
+    },
+    "immediate": {
+      "early": {
+        "attempted": 21,
+        "completeQuartets": 21,
+        "metrics": {
+          "touch": {
+            "n": 21,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 17,
+              "LH": 17,
+              "HL": 16,
+              "HH": 16
+            },
+            "means": {
+              "LL": 0.8095238095238095,
+              "LH": 0.8095238095238095,
+              "HL": 0.7619047619047619,
+              "HH": 0.7619047619047619
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.047619047619047616,
+                "bootstrap95": [
+                  -0.14285714285714285,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.047619047619047616,
+                "bootstrap95": [
+                  -0.14285714285714285,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 21,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 10,
+              "HL": 8,
+              "HH": 10
+            },
+            "means": {
+              "LL": 0.23809523809523808,
+              "LH": 0.47619047619047616,
+              "HL": 0.38095238095238093,
+              "HH": 0.47619047619047616
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0.14285714285714285,
+                "bootstrap95": [
+                  -0.047619047619047616,
+                  0.3333333333333333
+                ],
+                "discordant": 5
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  -0.14285714285714285,
+                  0.14285714285714285
+                ],
+                "discordant": 2
+              },
+              "touchLowReading": {
+                "mean": 0.23809523809523808,
+                "bootstrap95": [
+                  0.09523809523809523,
+                  0.42857142857142855
+                ],
+                "discordant": 5
+              },
+              "touchHighReading": {
+                "mean": 0.09523809523809523,
+                "bootstrap95": [
+                  -0.09523809523809523,
+                  0.2857142857142857
+                ],
+                "discordant": 4
+              },
+              "interaction": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.2857142857142857,
+                  0
+                ],
+                "discordant": 3
+              }
+            }
+          },
+          "retention": {
+            "n": 21,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 9,
+              "HL": 4,
+              "HH": 8
+            },
+            "means": {
+              "LL": 0.23809523809523808,
+              "LH": 0.42857142857142855,
+              "HL": 0.19047619047619047,
+              "HH": 0.38095238095238093
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.047619047619047616,
+                "bootstrap95": [
+                  -0.19047619047619047,
+                  0.09523809523809523
+                ],
+                "discordant": 3
+              },
+              "readingHighTouch": {
+                "mean": -0.047619047619047616,
+                "bootstrap95": [
+                  -0.14285714285714285,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0.19047619047619047,
+                "bootstrap95": [
+                  0.047619047619047616,
+                  0.38095238095238093
+                ],
+                "discordant": 4
+              },
+              "touchHighReading": {
+                "mean": 0.19047619047619047,
+                "bootstrap95": [
+                  0.047619047619047616,
+                  0.38095238095238093
+                ],
+                "discordant": 4
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  -0.14285714285714285,
+                  0.14285714285714285
+                ],
+                "discordant": 2
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 21,
+            "seenBeforeRelease": 12,
+            "meanSecondsSeenBeforeRelease": 0.6750000000000096,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 17,
+            "meanFlightSightToContact": 1.200000000000017
+          },
+          "LH": {
+            "n": 21,
+            "seenBeforeRelease": 12,
+            "meanSecondsSeenBeforeRelease": 0.6750000000000096,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 17,
+            "meanFlightSightToContact": 1.200000000000017
+          },
+          "HL": {
+            "n": 21,
+            "seenBeforeRelease": 12,
+            "meanSecondsSeenBeforeRelease": 0.5916666666666751,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 16,
+            "meanFlightSightToContact": 1.1484375000000164
+          },
+          "HH": {
+            "n": 21,
+            "seenBeforeRelease": 12,
+            "meanSecondsSeenBeforeRelease": 0.5916666666666751,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 16,
+            "meanFlightSightToContact": 1.1484375000000164
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 17,
+            "assessmentCount": 15,
+            "meanRelativeSpeed": 15.092698001257814,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.1187680058755697,
+            "meanContactQuality": 0.2742849436993143,
+            "surfaces": {
+              "cushion": 15
+            }
+          },
+          "LH": {
+            "directContactCount": 17,
+            "assessmentCount": 15,
+            "meanRelativeSpeed": 15.092491222598175,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.1187683143931185,
+            "meanContactQuality": 0.48104004817936963,
+            "surfaces": {
+              "cushion": 15
+            }
+          },
+          "HL": {
+            "directContactCount": 16,
+            "assessmentCount": 15,
+            "meanRelativeSpeed": 14.895680362272376,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.023359966567917802,
+            "meanContactQuality": 0.30674763128544646,
+            "surfaces": {
+              "cushion": 15
+            }
+          },
+          "HH": {
+            "directContactCount": 16,
+            "assessmentCount": 15,
+            "meanRelativeSpeed": 14.894932849199696,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.02335914991396481,
+            "meanContactQuality": 0.5094893155512696,
+            "surfaces": {
+              "cushion": 15
+            }
+          }
+        }
+      },
+      "late": {
+        "attempted": 21,
+        "completeQuartets": 21,
+        "metrics": {
+          "touch": {
+            "n": 21,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 17,
+              "LH": 17,
+              "HL": 16,
+              "HH": 16
+            },
+            "means": {
+              "LL": 0.8095238095238095,
+              "LH": 0.8095238095238095,
+              "HL": 0.7619047619047619,
+              "HH": 0.7619047619047619
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.047619047619047616,
+                "bootstrap95": [
+                  -0.14285714285714285,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.047619047619047616,
+                "bootstrap95": [
+                  -0.14285714285714285,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 21,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 6,
+              "LH": 12,
+              "HL": 6,
+              "HH": 9
+            },
+            "means": {
+              "LL": 0.2857142857142857,
+              "LH": 0.5714285714285714,
+              "HL": 0.2857142857142857,
+              "HH": 0.42857142857142855
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  -0.19047619047619047,
+                  0.19047619047619047
+                ],
+                "discordant": 4
+              },
+              "readingHighTouch": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.2857142857142857,
+                  0
+                ],
+                "discordant": 3
+              },
+              "touchLowReading": {
+                "mean": 0.2857142857142857,
+                "bootstrap95": [
+                  0.09523809523809523,
+                  0.47619047619047616
+                ],
+                "discordant": 6
+              },
+              "touchHighReading": {
+                "mean": 0.14285714285714285,
+                "bootstrap95": [
+                  -0.047619047619047616,
+                  0.3333333333333333
+                ],
+                "discordant": 5
+              },
+              "interaction": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.3333333333333333,
+                  0.047619047619047616
+                ],
+                "discordant": 5
+              }
+            }
+          },
+          "retention": {
+            "n": 21,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 12,
+              "HL": 4,
+              "HH": 8
+            },
+            "means": {
+              "LL": 0.23809523809523808,
+              "LH": 0.5714285714285714,
+              "HL": 0.19047619047619047,
+              "HH": 0.38095238095238093
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.047619047619047616,
+                "bootstrap95": [
+                  -0.19047619047619047,
+                  0.09523809523809523
+                ],
+                "discordant": 3
+              },
+              "readingHighTouch": {
+                "mean": -0.19047619047619047,
+                "bootstrap95": [
+                  -0.38095238095238093,
+                  -0.047619047619047616
+                ],
+                "discordant": 4
+              },
+              "touchLowReading": {
+                "mean": 0.3333333333333333,
+                "bootstrap95": [
+                  0.14285714285714285,
+                  0.5238095238095238
+                ],
+                "discordant": 7
+              },
+              "touchHighReading": {
+                "mean": 0.19047619047619047,
+                "bootstrap95": [
+                  0.047619047619047616,
+                  0.38095238095238093
+                ],
+                "discordant": 4
+              },
+              "interaction": {
+                "mean": -0.14285714285714285,
+                "bootstrap95": [
+                  -0.3333333333333333,
+                  0.047619047619047616
+                ],
+                "discordant": 5
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 21,
+            "seenBeforeRelease": 12,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 17,
+            "meanFlightSightToContact": 1.2235294117647229
+          },
+          "LH": {
+            "n": 21,
+            "seenBeforeRelease": 12,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 17,
+            "meanFlightSightToContact": 1.2235294117647229
+          },
+          "HL": {
+            "n": 21,
+            "seenBeforeRelease": 12,
+            "meanSecondsSeenBeforeRelease": 0.13333333333333522,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 16,
+            "meanFlightSightToContact": 1.1718750000000164
+          },
+          "HH": {
+            "n": 21,
+            "seenBeforeRelease": 12,
+            "meanSecondsSeenBeforeRelease": 0.13333333333333522,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 16,
+            "meanFlightSightToContact": 1.1718750000000164
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 17,
+            "assessmentCount": 16,
+            "meanRelativeSpeed": 14.513559195947611,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.14466098489689216,
+            "meanContactQuality": 0.29395352149812454,
+            "surfaces": {
+              "cushion": 16
+            }
+          },
+          "LH": {
+            "directContactCount": 17,
+            "assessmentCount": 16,
+            "meanRelativeSpeed": 14.517221917453075,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.144657203727648,
+            "meanContactQuality": 0.4985440713201149,
+            "surfaces": {
+              "cushion": 16
+            }
+          },
+          "HL": {
+            "directContactCount": 16,
+            "assessmentCount": 14,
+            "meanRelativeSpeed": 14.722621454134513,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.030028064214658583,
+            "meanContactQuality": 0.31358992583054446,
+            "surfaces": {
+              "cushion": 14
+            }
+          },
+          "HH": {
+            "directContactCount": 16,
+            "assessmentCount": 14,
+            "meanRelativeSpeed": 14.721733847371175,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.030027111360384367,
+            "meanContactQuality": 0.5154183616867765,
+            "surfaces": {
+              "cushion": 14
+            }
+          }
+        }
+      }
+    },
+    "delayed": {
+      "early": {
+        "attempted": 12,
+        "completeQuartets": 12,
+        "metrics": {
+          "touch": {
+            "n": 12,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 8,
+              "LH": 8,
+              "HL": 8,
+              "HH": 8
+            },
+            "means": {
+              "LL": 0.6666666666666666,
+              "LH": 0.6666666666666666,
+              "HL": 0.6666666666666666,
+              "HH": 0.6666666666666666
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 12,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 6,
+              "LH": 6,
+              "HL": 6,
+              "HH": 6
+            },
+            "means": {
+              "LL": 0.5,
+              "LH": 0.5,
+              "HL": 0.5,
+              "HH": 0.5
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 12,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 6,
+              "LH": 6,
+              "HL": 5,
+              "HH": 6
+            },
+            "means": {
+              "LL": 0.5,
+              "LH": 0.5,
+              "HL": 0.4166666666666667,
+              "HH": 0.5
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.08333333333333333,
+                "bootstrap95": [
+                  -0.25,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0.08333333333333333,
+                "bootstrap95": [
+                  0,
+                  0.25
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": 0.08333333333333333,
+                "bootstrap95": [
+                  0,
+                  0.25
+                ],
+                "discordant": 1
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 12,
+            "seenBeforeRelease": 6,
+            "meanSecondsSeenBeforeRelease": 0.8000000000000114,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 2,
+            "flightSeenBeforeContact": 8,
+            "meanFlightSightToContact": 0.8656250000000127
+          },
+          "LH": {
+            "n": 12,
+            "seenBeforeRelease": 6,
+            "meanSecondsSeenBeforeRelease": 0.8000000000000114,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 2,
+            "flightSeenBeforeContact": 8,
+            "meanFlightSightToContact": 0.8656250000000127
+          },
+          "HL": {
+            "n": 12,
+            "seenBeforeRelease": 6,
+            "meanSecondsSeenBeforeRelease": 0.8000000000000114,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 2,
+            "flightSeenBeforeContact": 8,
+            "meanFlightSightToContact": 0.8687500000000126
+          },
+          "HH": {
+            "n": 12,
+            "seenBeforeRelease": 6,
+            "meanSecondsSeenBeforeRelease": 0.8000000000000114,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 2,
+            "flightSeenBeforeContact": 8,
+            "meanFlightSightToContact": 0.8687500000000126
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 8,
+            "assessmentCount": 8,
+            "meanRelativeSpeed": 13.498935514734534,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.025928961669578143,
+            "meanContactQuality": 0.320830679072552,
+            "surfaces": {
+              "cushion": 8
+            }
+          },
+          "LH": {
+            "directContactCount": 8,
+            "assessmentCount": 8,
+            "meanRelativeSpeed": 13.498979041328882,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.025920576715296795,
+            "meanContactQuality": 0.5215869939825029,
+            "surfaces": {
+              "cushion": 8
+            }
+          },
+          "HL": {
+            "directContactCount": 8,
+            "assessmentCount": 8,
+            "meanRelativeSpeed": 13.54710633722132,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.029571147247127838,
+            "meanContactQuality": 0.32195269533563425,
+            "surfaces": {
+              "cushion": 8
+            }
+          },
+          "HH": {
+            "directContactCount": 8,
+            "assessmentCount": 8,
+            "meanRelativeSpeed": 13.54724150411882,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.029571378052590802,
+            "meanContactQuality": 0.5225867851619935,
+            "surfaces": {
+              "cushion": 8
+            }
+          }
+        }
+      },
+      "late": {
+        "attempted": 12,
+        "completeQuartets": 12,
+        "metrics": {
+          "touch": {
+            "n": 12,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 9,
+              "LH": 9,
+              "HL": 7,
+              "HH": 7
+            },
+            "means": {
+              "LL": 0.75,
+              "LH": 0.75,
+              "HL": 0.5833333333333334,
+              "HH": 0.5833333333333334
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.16666666666666666,
+                "bootstrap95": [
+                  -0.4166666666666667,
+                  0
+                ],
+                "discordant": 2
+              },
+              "readingHighTouch": {
+                "mean": -0.16666666666666666,
+                "bootstrap95": [
+                  -0.4166666666666667,
+                  0
+                ],
+                "discordant": 2
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "control": {
+            "n": 12,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 6,
+              "LH": 6,
+              "HL": 5,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.5,
+              "LH": 0.5,
+              "HL": 0.4166666666666667,
+              "HH": 0.4166666666666667
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.08333333333333333,
+                "bootstrap95": [
+                  -0.25,
+                  0
+                ],
+                "discordant": 1
+              },
+              "readingHighTouch": {
+                "mean": -0.08333333333333333,
+                "bootstrap95": [
+                  -0.25,
+                  0
+                ],
+                "discordant": 1
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "touchHighReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              },
+              "interaction": {
+                "mean": 0,
+                "bootstrap95": [
+                  0,
+                  0
+                ],
+                "discordant": 0
+              }
+            }
+          },
+          "retention": {
+            "n": 12,
+            "excludedUnresolved": 0,
+            "counts": {
+              "LL": 5,
+              "LH": 5,
+              "HL": 4,
+              "HH": 5
+            },
+            "means": {
+              "LL": 0.4166666666666667,
+              "LH": 0.4166666666666667,
+              "HL": 0.3333333333333333,
+              "HH": 0.4166666666666667
+            },
+            "contrasts": {
+              "readingLowTouch": {
+                "mean": -0.08333333333333333,
+                "bootstrap95": [
+                  -0.3333333333333333,
+                  0.16666666666666666
+                ],
+                "discordant": 3
+              },
+              "readingHighTouch": {
+                "mean": 0,
+                "bootstrap95": [
+                  -0.25,
+                  0.25
+                ],
+                "discordant": 2
+              },
+              "touchLowReading": {
+                "mean": 0,
+                "bootstrap95": [
+                  -0.25,
+                  0.25
+                ],
+                "discordant": 2
+              },
+              "touchHighReading": {
+                "mean": 0.08333333333333333,
+                "bootstrap95": [
+                  0,
+                  0.25
+                ],
+                "discordant": 1
+              },
+              "interaction": {
+                "mean": 0.08333333333333333,
+                "bootstrap95": [
+                  -0.25,
+                  0.3333333333333333
+                ],
+                "discordant": 3
+              }
+            }
+          }
+        },
+        "exposure": {
+          "LL": {
+            "n": 12,
+            "seenBeforeRelease": 6,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 9,
+            "meanFlightSightToContact": 1.0750000000000153
+          },
+          "LH": {
+            "n": 12,
+            "seenBeforeRelease": 6,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 9,
+            "meanFlightSightToContact": 1.0861111111111266
+          },
+          "HL": {
+            "n": 12,
+            "seenBeforeRelease": 4,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 7,
+            "meanFlightSightToContact": 0.9785714285714427
+          },
+          "HH": {
+            "n": 12,
+            "seenBeforeRelease": 4,
+            "meanSecondsSeenBeforeRelease": 0.15000000000000213,
+            "prospectiveRecognised": 0,
+            "preReceptionPlans": 0,
+            "flightSeenBeforeContact": 7,
+            "meanFlightSightToContact": 0.9785714285714427
+          }
+        },
+        "contactMeasurements": {
+          "LL": {
+            "directContactCount": 9,
+            "assessmentCount": 8,
+            "meanRelativeSpeed": 13.032758717420087,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.0887012265348015,
+            "meanContactQuality": 0.33073430301242107,
+            "surfaces": {
+              "cushion": 8
+            }
+          },
+          "LH": {
+            "directContactCount": 9,
+            "assessmentCount": 8,
+            "meanRelativeSpeed": 12.96095133099726,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.08398901337255227,
+            "meanContactQuality": 0.5316594495738551,
+            "surfaces": {
+              "cushion": 8
+            }
+          },
+          "HL": {
+            "directContactCount": 7,
+            "assessmentCount": 7,
+            "meanRelativeSpeed": 14.03732343737083,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.08196804666451436,
+            "meanContactQuality": 0.3403603600414352,
+            "surfaces": {
+              "cushion": 7
+            }
+          },
+          "HH": {
+            "directContactCount": 7,
+            "assessmentCount": 7,
+            "meanRelativeSpeed": 14.037348574325181,
+            "meanPreparationSeconds": 0,
+            "meanFacingError": 0.08190153401529976,
+            "meanContactQuality": 0.5386454972433867,
+            "surfaces": {
+              "cushion": 7
+            }
+          }
+        }
+      }
+    }
+  },
+  "matchedBody": {
+    "attempted": 28,
+    "completeQuartets": 28,
+    "metrics": {
+      "touch": {
+        "n": 28,
+        "excludedUnresolved": 0,
+        "counts": {
+          "LL": 28,
+          "LH": 28,
+          "HL": 28,
+          "HH": 28
+        },
+        "means": {
+          "LL": 1,
+          "LH": 1,
+          "HL": 1,
+          "HH": 1
+        },
+        "contrasts": {
+          "readingLowTouch": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "readingHighTouch": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "touchLowReading": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "touchHighReading": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "interaction": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          }
+        }
+      },
+      "control": {
+        "n": 17,
+        "excludedUnresolved": 11,
+        "counts": {
+          "LL": 13,
+          "LH": 15,
+          "HL": 13,
+          "HH": 15
+        },
+        "means": {
+          "LL": 0.7647058823529411,
+          "LH": 0.8823529411764706,
+          "HL": 0.7647058823529411,
+          "HH": 0.8823529411764706
+        },
+        "contrasts": {
+          "readingLowTouch": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "readingHighTouch": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "touchLowReading": {
+            "mean": 0.11764705882352941,
+            "bootstrap95": [
+              0,
+              0.29411764705882354
+            ],
+            "discordant": 2
+          },
+          "touchHighReading": {
+            "mean": 0.11764705882352941,
+            "bootstrap95": [
+              0,
+              0.29411764705882354
+            ],
+            "discordant": 2
+          },
+          "interaction": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          }
+        }
+      },
+      "retention": {
+        "n": 7,
+        "excludedUnresolved": 21,
+        "counts": {
+          "LL": 5,
+          "LH": 5,
+          "HL": 5,
+          "HH": 5
+        },
+        "means": {
+          "LL": 0.7142857142857143,
+          "LH": 0.7142857142857143,
+          "HL": 0.7142857142857143,
+          "HH": 0.7142857142857143
+        },
+        "contrasts": {
+          "readingLowTouch": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "readingHighTouch": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "touchLowReading": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "touchHighReading": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          },
+          "interaction": {
+            "mean": 0,
+            "bootstrap95": [
+              0,
+              0
+            ],
+            "discordant": 0
+          }
+        }
+      }
+    },
+    "exposure": {
+      "LL": {
+        "n": 28,
+        "seenBeforeRelease": 0,
+        "meanSecondsSeenBeforeRelease": null,
+        "prospectiveRecognised": 0,
+        "preReceptionPlans": 0,
+        "flightSeenBeforeContact": 0,
+        "meanFlightSightToContact": null
+      },
+      "LH": {
+        "n": 28,
+        "seenBeforeRelease": 0,
+        "meanSecondsSeenBeforeRelease": null,
+        "prospectiveRecognised": 0,
+        "preReceptionPlans": 0,
+        "flightSeenBeforeContact": 0,
+        "meanFlightSightToContact": null
+      },
+      "HL": {
+        "n": 28,
+        "seenBeforeRelease": 0,
+        "meanSecondsSeenBeforeRelease": null,
+        "prospectiveRecognised": 0,
+        "preReceptionPlans": 0,
+        "flightSeenBeforeContact": 0,
+        "meanFlightSightToContact": null
+      },
+      "HH": {
+        "n": 28,
+        "seenBeforeRelease": 0,
+        "meanSecondsSeenBeforeRelease": null,
+        "prospectiveRecognised": 0,
+        "preReceptionPlans": 0,
+        "flightSeenBeforeContact": 0,
+        "meanFlightSightToContact": null
+      }
+    },
+    "contactMeasurements": {
+      "LL": {
+        "directContactCount": 28,
+        "assessmentCount": 0,
+        "meanRelativeSpeed": null,
+        "meanPreparationSeconds": null,
+        "meanFacingError": null,
+        "meanContactQuality": null,
+        "surfaces": {}
+      },
+      "LH": {
+        "directContactCount": 28,
+        "assessmentCount": 0,
+        "meanRelativeSpeed": null,
+        "meanPreparationSeconds": null,
+        "meanFacingError": null,
+        "meanContactQuality": null,
+        "surfaces": {}
+      },
+      "HL": {
+        "directContactCount": 28,
+        "assessmentCount": 0,
+        "meanRelativeSpeed": null,
+        "meanPreparationSeconds": null,
+        "meanFacingError": null,
+        "meanContactQuality": null,
+        "surfaces": {}
+      },
+      "HH": {
+        "directContactCount": 28,
+        "assessmentCount": 0,
+        "meanRelativeSpeed": null,
+        "meanPreparationSeconds": null,
+        "meanFacingError": null,
+        "meanContactQuality": null,
+        "surfaces": {}
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # MatchEngine integration architecture
 
-PR204 development: a supported-intent continuity intervention and a fixed-delivery skill factorial remain unpromoted. A synthetic physical counterfactual exposes a hidden reception-preparation information boundary; the lawful handoff and pre-release preparation study remain unresolved. The maintained candidate remains PR201; independent confirmation stays sealed. See [PR204 evidence](../PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
+PR204 development: the opt-in continuity and local-observation intervention remains experimental. Tested hidden-preparation counterfactuals pass, but other information boundaries and downstream control regressions remain. The pre-release factorial did not demonstrate prospective recognition. The maintained candidate remains PR201; independent confirmation is sealed. [PR204 evidence](../PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
 
 
 PR200 establishes a maintained integration product. Canonical **NOT READY**, B/default **state-value-v1**, independent confirmation **sealed**. Implementation lifecycle and the original I/F/E/T/M/C evidence gates are separate.

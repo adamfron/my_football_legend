@@ -78,7 +78,7 @@ export const assessFirstTouch = (
   const preparationSeconds = Math.max(
     0,
     availableSeconds +
-      (state.receptionPreparation?.actorId === actor.id
+      (state.prospectiveMovement !== 'two-pass-continuity-dev-v1' && state.receptionPreparation?.actorId === actor.id
         ? state.time - state.receptionPreparation.awarenessAt
         : 0),
   );
@@ -98,7 +98,7 @@ export const assessFirstTouch = (
   const skill =
     (a.firstTouch * 2 + a.technique * 2 + a.agility + a.composure + a.concentration) / 700;
   const surface =
-    state.receptionPreparation?.actorId === actor.id
+    state.prospectiveMovement !== 'two-pass-continuity-dev-v1' && state.receptionPreparation?.actorId === actor.id
       ? (state.receptionPreparation.contactSurface ?? 'cushion')
       : 'cushion';
   const n =

@@ -1,0 +1,60 @@
+{
+  "schema": "pr204-validation-v1",
+  "fingerprint": "2674d51cc2a9b27ca73eca52ebbc0bbf143620957d3fc9e259ebb2b3e121fe19",
+  "command": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr204Authority.mjs",
+  "result": {
+    "result": "PASS",
+    "fixture": {
+      "seed": "pr200-fresh-short_ground-55-1",
+      "receiver": "geometry:anchor:6",
+      "releasedAt": 10
+    },
+    "checkpointAt": 10.825000000000012,
+    "normal": {
+      "execution": "first_time",
+      "actionSource": "autonomous_npc",
+      "contact": {
+        "actorId": "geometry:anchor:6",
+        "at": 10.850000000000012,
+        "region": "left_foot",
+        "point": {
+          "x": 45.25618464792764,
+          "y": 33.50666048115194
+        },
+        "incomingVelocity": {
+          "x": 4.679327880312752,
+          "y": -0.613898289084681
+        },
+        "outgoingVelocity": {
+          "x": -4.6230913131519085,
+          "y": -1.6002099608769567
+        },
+        "quality": 0.48830832814462805,
+        "retained": false,
+        "executed": true,
+        "physicalCount": 1
+      }
+    },
+    "challenge": {
+      "pass": null,
+      "target": {
+        "x": 46.33306021340349,
+        "y": 41.548620783403756
+      }
+    },
+    "humanMove": {
+      "pass": null,
+      "target": {
+        "x": 46.33306021340349,
+        "y": 41.548620783403756
+      }
+    },
+    "humanSelected": {
+      "execution": "first_time",
+      "actionSource": "human_selected"
+    },
+    "restart": {
+      "pass": null
+    }
+  }
+}

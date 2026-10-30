@@ -1,0 +1,57 @@
+{
+  "schema": "pr204-preparation-replay-proof-v1",
+  "source": "2674d51cc2a9b27ca73eca52ebbc0bbf143620957d3fc9e259ebb2b3e121fe19",
+  "command": "node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerPr204VisionLab.mjs scripts/benchmarkPr204Preparation.mjs --version=replay3",
+  "initialReceiptSha256": "a564755c88bc59e2a9267a6046861cc3f63a1319e9ced178f9b03b6ec555088f",
+  "replayReceiptSha256": "bf42d1536d34c7de5402a0bddcf317ddc175c9bd31eed91b17edc3648c53d10d",
+  "comparison": {
+    "source": {
+      "match": true,
+      "normalizedSha256": "bdc8e65cc3443ee92bc5c5653201835401828925f21debfd4362e4d6c53d5870"
+    },
+    "sourceAfter": {
+      "match": true,
+      "normalizedSha256": "bdc8e65cc3443ee92bc5c5653201835401828925f21debfd4362e4d6c53d5870"
+    },
+    "stable": {
+      "match": true,
+      "normalizedSha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+    },
+    "releases": {
+      "match": true,
+      "normalizedSha256": "c9d4da501e21b5d4bd71009f75ba351cd6b66c22b2fb99c9521178588952c5c1"
+    },
+    "rejected": {
+      "match": true,
+      "normalizedSha256": "bf140e05078a3e96da7e8eff099d4a67d4aebe88b7b0d1238bdace3dcce3dfd1"
+    },
+    "rows": {
+      "match": true,
+      "normalizedSha256": "0356af46e1d8d121fcbf82bb648d68ca758720b58c41baeaeff58c494f879537"
+    },
+    "matchedBody": {
+      "match": true,
+      "normalizedSha256": "4c5f572873817e7716c8bf9c062e67c74a60de7af160e3456679665948f41b42"
+    }
+  },
+  "initialCosts": {
+    "wallSeconds": 253.57243709999997,
+    "cpu": {
+      "user": 277297000,
+      "system": 1609000
+    },
+    "peakRSSKiB": 638204,
+    "node": "v24.22.1",
+    "platform": "win32"
+  },
+  "replayCosts": {
+    "wallSeconds": 241.86545909999998,
+    "cpu": {
+      "user": 265922000,
+      "system": 1703000
+    },
+    "peakRSSKiB": 607940,
+    "node": "v24.22.1",
+    "platform": "win32"
+  }
+}

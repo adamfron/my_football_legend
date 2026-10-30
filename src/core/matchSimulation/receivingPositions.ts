@@ -5,6 +5,7 @@ import { clampPitchPoint, distance, distanceToSegment } from './matchSpace';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { observedOffsideAssessment, estimateUsefulContact } from './opportunityWindows';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
+import { locallyObservedReception } from './localReception';
 
 /** Small departures from a player's own role/formation, never a common free-space target. */
 export const evaluateReceivingPosition = (
@@ -354,7 +355,9 @@ export const receivingPositionTarget = (s: TacticalMatchState, p: MatchPlayerSta
     s.restart ||
     s.postGoal ||
     s.ball.ownerId === p.id ||
-    s.receptionPreparation?.actorId === p.id
+    (s.prospectiveMovement === 'two-pass-continuity-dev-v1'
+      ? Boolean(locallyObservedReception(s, p))
+      : s.receptionPreparation?.actorId === p.id)
   )
     return;
   const job = s.activePerceptionRuntime?.positions[p.id];

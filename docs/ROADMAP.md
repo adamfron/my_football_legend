@@ -1,6 +1,6 @@
 # Roadmap
 
-PR204 development: a supported-intent continuity intervention and a fixed-delivery skill factorial remain unpromoted. A synthetic physical counterfactual exposes a hidden reception-preparation information boundary; the lawful handoff and pre-release preparation study remain unresolved. The maintained candidate remains PR201; independent confirmation stays sealed. See [PR204 evidence](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
+PR204 (badania): wariant ciągłości i lokalnego odbioru pozostaje eksperymentalny. Sprawdzone kontrfaktyki ukrytego przygotowania przeszły, ale inne granice informacji i regresja kontroli pozostają otwarte. Eksperyment 2×2 z okresem przed podaniem nie potwierdził przewidywanego wsparcia. Kandydatem pozostaje PR201; niezależna konfirmacja jest zamknięta. [Raport PR204](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
 
 
 ### PR203 — świadomość sytuacyjna i warunkowe wsparcie

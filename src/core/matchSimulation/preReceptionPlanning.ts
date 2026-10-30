@@ -117,8 +117,18 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
       delete plans[p.id];
       continue;
     }
-    const plan = prepareObservedReception(scene, old?.status === 'preparing' ? old : undefined);
+    const changedFlight = Boolean(
+      state.prospectiveMovement === 'two-pass-continuity-dev-v1' && old && scene.ball &&
+        (state.time - old.reviewedAt > 0.35 ||
+          Math.hypot(
+            scene.ball.velocity.x - old.incomingVelocity.x,
+            scene.ball.velocity.y - old.incomingVelocity.y,
+            scene.ball.velocity.z - old.incomingVelocity.z,
+          ) > Math.max(4, Math.hypot(old.incomingVelocity.x, old.incomingVelocity.y) * 0.6)),
+    );
+    const plan = prepareObservedReception(scene, old?.status === 'preparing' && !changedFlight ? old : undefined);
     if (plan) plans[p.id] = plan;
+    else if (state.prospectiveMovement === 'two-pass-continuity-dev-v1') delete plans[p.id];
   }
   endPerformanceSpan('pre_reception_candidates', span);
   return { ...state, activePerceptionRuntime: { ...runtime, plans } };
