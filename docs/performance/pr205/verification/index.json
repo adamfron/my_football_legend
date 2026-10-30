@@ -1,5 +1,5 @@
 {
-  "qualification": "Retained intermediate failures, interrupted checks and passing targeted/replay checks. Full final verify is recorded separately after completion.",
+  "qualification": "Retained intermediate failures, interrupted checks, passing targeted/replay controls, and final full npm run verify PASS; see verification-final.json for exact source, environment and counts.",
   "logs": [
     {
       "name": "pr205-targeted4.log.gz",
@@ -95,6 +95,21 @@
       "name": "pr205-ci-perception-c8.log.gz",
       "bytes": 13412,
       "sha256": "ae4622e2b39464c44e3e9fc50e52d75ffe91564d820573ffba3c2dff769ee0ec"
+    },
+    {
+      "name": "pr205-verify-scoped-final.log.gz",
+      "bytes": 1127,
+      "sha256": "9a3d71aa652d07c0fbb3d82d1761fa94354a0bd934aa8625af9cab8d874da447"
+    },
+    {
+      "name": "pr205-reactive-diagnosis.log.gz",
+      "bytes": 331,
+      "sha256": "e62a5759c95557baef8303fa28b7d7d0bfd4d1e300b2be61bde054d624c1d70a"
+    },
+    {
+      "name": "pr205-verify-final256.log.gz",
+      "bytes": 2302,
+      "sha256": "9e443e02bcff07e41f638c803039da6a1ea3191b4ab2f2bc7bb4432d9d6654e3"
     }
   ]
 }

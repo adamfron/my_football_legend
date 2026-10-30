@@ -1,0 +1,36 @@
+{
+  "schema": "pr205-verification-v1",
+  "source": "81936c1d77e61e3cfc5827334849647a4af2a602f8ba8fcea19f63ea7a621e69",
+  "verifiedCodeHead": "257043e6949e3d3ca95d83c88483a94a80ed65ab",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "environment": {
+    "platform": "win32",
+    "node": "v24.22.1",
+    "npm": "11.6.0",
+    "nodeOptions": "--max-semi-space-size=256",
+    "temp": "workspace-local"
+  },
+  "tests": {
+    "unit": 2439,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "total": 2504
+  },
+  "stageWallSeconds": {
+    "unit": 314.52,
+    "integration": 247.32,
+    "careerContract": 922.43,
+    "fullCareer": 81.61
+  },
+  "lint": "PASS",
+  "typescript": "PASS",
+  "productionBuild": "PASS",
+  "log": {
+    "path": "docs/performance/pr205/verification/pr205-verify-final256.log.gz",
+    "sha256": "9e443e02bcff07e41f638c803039da6a1ea3191b4ab2f2bc7bb4432d9d6654e3",
+    "uncompressedSha256": "8289f0cef9c30babf9b4b84a1a4fe3a4ccc974cf5eade42b2307247d88500f0e"
+  },
+  "scope": "Local source-correct verification; no engine promotion, no assertion that final-head remote CI is complete."
+}
