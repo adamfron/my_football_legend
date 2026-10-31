@@ -5,6 +5,7 @@ import { mkdtempSync, mkdirSync, rmSync, cpSync, symlinkSync, copyFileSync } fro
 import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
+import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr207SourceGuard.mjs';
 mkdirSync('.benchmark-artifacts', { recursive: true });
 const root = resolve('.'),
@@ -34,6 +35,7 @@ try {
     { windowsHide: true },
   );
   execFileSync('tar', ['-xf', tar, '-C', scratch], { windowsHide: true });
+  preserveHistoricalBytes(scratch);
   for (const pr of [205, 206])
     cpSync(`docs/performance/pr${pr}`, join(scratch, `docs/performance/pr${pr}`), {
       recursive: true,

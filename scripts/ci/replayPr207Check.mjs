@@ -5,9 +5,10 @@ import { mkdtempSync, mkdirSync, rmSync, symlinkSync } from 'node:fs';
 import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
+import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr208SourceGuard.mjs';
-import { checkPr209Source } from '../pr209SourceGuard.mjs';
-checkPr209Source();
+import { checkPr210Source } from '../pr210SourceGuard.mjs';
+checkPr210Source();
 mkdirSync('.benchmark-artifacts', { recursive: true });
 const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr207-check-'));
 const safe = () =>
@@ -38,6 +39,7 @@ try {
     { windowsHide: true },
   );
   execFileSync('tar', ['-xf', tar, '-C', scratch], { windowsHide: true });
+  preserveHistoricalBytes(scratch);
   symlinkSync(
     resolve('node_modules'),
     join(scratch, 'node_modules'),

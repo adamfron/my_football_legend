@@ -46,7 +46,13 @@ import {
   incomingShotContact,
   canExecuteCanonicalShot,
 } from './shootingOptions';
-import { hasActiveHumanPossession, humanPossessionRedecisionReason } from './possessionAgency';
+import {
+  hasActiveHumanPossession,
+  humanPossessionRedecisionReason,
+  replaceHumanCarryWithMovement,
+} from './possessionAgency';
+import { canOfferOwnedBallActions } from './decisionReadiness';
+import { deriveCarryPursuit } from './carryPursuit';
 import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
 import { canContactAfterThrowIn } from './throwIn';
 import { enumerateDefensiveChallengeActions } from './defensiveChallenges';
@@ -1041,6 +1047,8 @@ export const projectPlayerAgency = (
   if (state.scenario !== 'open_play' && state.restart?.phase !== 'release' && !controlledRestart)
     return blocked('not_open_play');
   const humanPossession = hasActiveHumanPossession(state);
+  const onBallExecutable = canOfferOwnedBallActions(state, actor);
+  const pursuit = deriveCarryPursuit(state, actor);
   // Share one pure ranking within this probe. Agency and relevance inspect identical policy;
   // no cache survives a snapshot mutation or changes the engine's RNG/decision cadence.
   let ownerRanking: RankedAiAction[] | undefined;
@@ -1054,7 +1062,10 @@ export const projectPlayerAgency = (
     state.time - state.ballOwnershipStartedAt >= npcPossessionDecisionDelay(state, actor);
   const autonomousChoice =
     !humanPossession && !state.pendingReceptionIntent
-      ? state.ball.ownerId === actorId && state.actionCooldown <= 0 && routineReady
+      ? state.ball.ownerId === actorId &&
+        onBallExecutable &&
+        state.actionCooldown <= 0 &&
+        routineReady
         ? rankedOwnerActions()[0]?.action
         : !state.ball.ownerId && state.ball.travelKind && distance(actor.position, state.ball) < 2.2
           ? chooseIncomingShotAction(state, actorId)
@@ -1072,6 +1083,7 @@ export const projectPlayerAgency = (
   if (
     humanPossession &&
     !mandatoryShot &&
+    onBallExecutable &&
     state.humanPossessionEpisode?.intent === 'control' &&
     preparation?.actorId === actorId &&
     state.time >= preparation.readyAt &&
@@ -1088,6 +1100,31 @@ export const projectPlayerAgency = (
   )
     redecisionReason = 'controlled_reception_complete';
   const continuingCarry = humanPossession && state.ballCarrierIntent?.actorId === actorId;
+  // Shooting/pass/zone changes wait for a playable contact. Body/route threats
+  // permit immediate prospective movement without advertising a kick from afar.
+  const pursuitIntervention = Boolean(
+    humanPossession &&
+      pursuit &&
+      !onBallExecutable &&
+      redecisionReason &&
+      [
+        'route_blocked',
+        'major_pressure',
+        'new_defender_angle',
+        'goalkeeper_rush',
+        'one_on_one',
+        'possession_contested',
+      ].includes(redecisionReason),
+  );
+  if (humanPossession && !onBallExecutable && !pursuitIntervention)
+    return blocked('possession_continuity');
+  if (
+    state.ball.ownerId === actorId &&
+    !onBallExecutable &&
+    !pursuitIntervention &&
+    !controlledRestart
+  )
+    return blocked('possession_continuity');
   // A committed ball flight is precisely when reception/interception control may begin.
   if (
     !controlledRestart &&
@@ -1153,7 +1190,36 @@ export const projectPlayerAgency = (
       semanticChoiceCount: 1,
       semanticFamilies: ['hold_shape'],
     });
-  if (controlledRestart) {
+  if (pursuitIntervention) {
+    kind = 'loose_ball';
+    context.ownershipReason = redecisionReason;
+    options = [
+      {
+        id: 'pursue',
+        kind: 'movement',
+        labelKey: 'attack_ball',
+        intent: {
+          actorId,
+          type: 'attack_space',
+          target: pursuit!.target,
+          startedAt: state.time,
+          expiresAt: state.time + Math.max(0.5, pursuit!.arrival),
+        },
+      },
+      {
+        id: 'hold-position',
+        kind: 'movement',
+        labelKey: 'hold_position',
+        intent: {
+          actorId,
+          type: 'hold_shape',
+          target: { ...actor.position },
+          startedAt: state.time,
+          expiresAt: state.time + 1.5,
+        },
+      },
+    ];
+  } else if (controlledRestart) {
     kind = 'restart';
     const actions = enumerateRestartActions(state);
     const fallback = mandatoryRestart && !actions.length ? chooseRestartAction(state) : undefined;
@@ -1165,6 +1231,7 @@ export const projectPlayerAgency = (
     }));
   } else if (
     state.ball.ownerId === actorId &&
+    onBallExecutable &&
     (mandatoryShot || agencyHandoff || redecisionReason || onBallRelevance().relevant)
   ) {
     kind = 'on_ball';
@@ -1607,6 +1674,14 @@ export const applyPlayerDecision = (
     return state;
   const option = opportunity.options.find((candidate) => candidate.id === optionId);
   if (!option) return state;
+  if (
+    opportunity.kind === 'on_ball' &&
+    !canOfferOwnedBallActions(
+      state,
+      state.players.find((player) => player.id === opportunity.actorId)!,
+    )
+  )
+    return state;
   if (option.kind === 'action' && !hasActiveMatchActionParticipants(state, option.action))
     return state;
   const gated = {
@@ -1638,7 +1713,10 @@ export const applyPlayerDecision = (
   }
   return option.kind === 'action'
     ? resolveMatchAction(gated, option.action, 'human_selected')
-    : { ...gated, playerMovementIntent: option.intent };
+    : {
+        ...replaceHumanCarryWithMovement(gated, option.intent.actorId),
+        playerMovementIntent: option.intent,
+      };
 };
 
 export const createPendingOutcome = (

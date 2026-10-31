@@ -1,5 +1,7 @@
 # Roadmap
 
+PR210: po rozdzieleniu bieżącej fizycznej dostępności piłki, kontynuacji pościgu i przygotowania przyszłego kontaktu następna zależność PR211 to zapisany cykl zamierzonego uderzenia w jednym wykonawcy 40 Hz: ruch ciała/piłki, konkurujące kontakty, granice, anulowanie i rzeczywiste pudła. Zachować laboratoryjny status PR209 i utrzymany PR201. [Raport PR210](PR210_HUMAN_AGENCY_PHYSICAL_BALL_READINESS.md). Niezależny [backlog gotowości wydania](RELEASE_READINESS_BACKLOG.md) zachowuje uwagi z kariery; nie jest obietnicą wykonania wszystkiego przed PR211.
+
 PR209: po sprawdzonym laboratoryjnym fundamencie zderzenia ruchomej stopy i piłki następna pojedyncza zależność to cykl zamierzonego kopnięcia w istniejącym wykonawcy: zapisane przygotowanie, kanoniczny ruch ciała, najwcześniejszy kontakt, pudło i konkurujące zdarzenia. Dopiero po tej bramce rozszerzać doświadczenia przygotowania i techniki. Zachować rozróżnienie pierwszej kontroli, kolejnego podania oraz posiadania po sekundzie; nie stroić fizyki pod ten licznik. PR201 utrzymany, event-v1 bez zmian, brak promocji. [Raport PR209](PR209_MOVING_BALL_STRIKE_AND_BOUNCE_RECEPTION.md).
 
 PR208: naprawę kontaktu z murawą utrzymywać jako osobną wersję fizyki. Następny krok: wyjaśnić przygotowanie odbiorcy, prędkość kontaktu i utrzymanie przez sekundę na zachowanych parach, potem oddzielnie kalibrować rozrzut kopnięcia. Regresje contact-v1 nadal blokują nowe pełne mecze i promocję; PR201 bez zmian. [Raport PR208](PR208_GROUND_CONTACT_CONTINUITY.md).

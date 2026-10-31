@@ -3,6 +3,16 @@ import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { STATE_VALUE_CONFIG } from './decisionPolicyConfig';
 import { distance } from './matchSpace';
 import { playerContactGeometry, motorContactReadyAt } from './ballContactGeometry';
+import { canThrowGoalkeeperBall } from './goalkeeperDistribution';
+import { canParticipatePhysically } from './matchInjuries';
+import { isBallWithinPlayingBoundary } from './pitchBoundary';
+
+export const actionAvailabilityContextSchema = z.enum([
+  'current',
+  'incoming_preparation',
+  'prospective_ranking',
+]);
+export type ActionAvailabilityContext = z.infer<typeof actionAvailabilityContextSchema>;
 
 export const decisionReadinessSchema = z.object({
   actorId: z.string(),
@@ -86,3 +96,14 @@ export const releaseContactReadiness = (state: TacticalMatchState, actor: MatchP
 };
 export const canReleaseControlledAction = (state: TacticalMatchState, actor: MatchPlayerState) =>
   releaseContactReadiness(state, actor).ready;
+
+/** Ordinary owned-ball choices share the executor's existing foot/recovery window.
+ * Incoming preparation and movement choices have their own contracts; this is not
+ * a test for whether any human decision is allowed. A catch retains lawful handling. */
+export const canOfferOwnedBallActions = (state: TacticalMatchState, actor: MatchPlayerState) =>
+  canParticipatePhysically(actor) &&
+  !state.discipline?.[actor.id]?.sentOff &&
+  isBallWithinPlayingBoundary(state.ball) &&
+  !state.ball.travelKind &&
+  !state.ball.shot &&
+  (canReleaseControlledAction(state, actor) || canThrowGoalkeeperBall(state, actor));

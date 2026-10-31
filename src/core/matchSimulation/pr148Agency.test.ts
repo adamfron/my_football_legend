@@ -10,7 +10,10 @@ import {
   resolveMatchAction,
 } from './matchActions';
 import { distance, fieldValue } from './matchSpace';
-import { createOpenPlayMatchFixture as createTacticalMatch, stepTacticalMatch } from './matchSimulation';
+import {
+  createOpenPlayMatchFixture as createTacticalMatch,
+  stepTacticalMatch,
+} from './matchSimulation';
 import {
   evaluateOnBallDecisionRelevance,
   evaluateDefensiveCommitment,
@@ -18,6 +21,7 @@ import {
   resolveDevPlayerDecision,
 } from './playerDecision';
 import { hasActiveHumanPossession, humanPossessionRedecisionReason } from './possessionAgency';
+import { motorContactReadyAt } from './ballContactGeometry';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { deriveStructuralPosition } from './tacticalPositioning';
 import { TACTICAL_PREFERENCE_DEFAULTS } from './tacticalPreferences';
@@ -299,6 +303,7 @@ describe('PR148 explicit DEV possession continuity', () => {
     expect(advanced.decisionIndex).toBe(held.decisionIndex);
     const pressured = {
       ...advanced,
+      time: motorContactReadyAt(advanced, actor.id),
       players: advanced.players.map((player) =>
         player.id === defender.id
           ? { ...player, position: { x: actor.position.x, y: actor.position.y + 2 } }
@@ -333,6 +338,7 @@ describe('PR148 explicit DEV possession continuity', () => {
     expect(advanced.latestActionSource).toBe('dev_ai_selected');
     const waypoint = {
       ...advanced,
+      time: motorContactReadyAt(advanced, actor.id),
       players: advanced.players.map((player) =>
         player.id === actor.id ? { ...player, position: { x: target.x - 1, y: target.y } } : player,
       ),

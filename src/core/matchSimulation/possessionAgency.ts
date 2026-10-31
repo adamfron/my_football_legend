@@ -10,6 +10,8 @@ import {
 import { normalizeAngle } from './playerOrientation';
 import { hasReachedCarryDecisionWaypoint } from './carryExecution';
 import { deriveCarryPursuit } from './carryPursuit';
+import { canParticipatePhysically } from './matchInjuries';
+import { isBallWithinPlayingBoundary } from './pitchBoundary';
 
 /** A human choice owns this physical possession, independently of an action cooldown. */
 export const hasActiveHumanPossession = (state: TacticalMatchState): boolean =>
@@ -17,6 +19,20 @@ export const hasActiveHumanPossession = (state: TacticalMatchState): boolean =>
     state.playerAgencyEnabled !== false &&
       state.humanPossessionEpisode &&
       state.humanPossessionEpisode.actorId === state.controlledFootballerId &&
+      isBallWithinPlayingBoundary(state.ball) &&
+      !state.ball.travelKind &&
+      !state.ball.shot &&
+      state.players.some(
+        (actor) =>
+          actor.id === state.humanPossessionEpisode!.actorId &&
+          canParticipatePhysically(actor) &&
+          !state.discipline?.[actor.id]?.sentOff,
+      ) &&
+      state.playerMovementIntent?.actorId !== state.humanPossessionEpisode.actorId &&
+      (!state.ballCarrierIntent ||
+        state.ballCarrierIntent.actorId !== state.humanPossessionEpisode.actorId ||
+        !state.ball.lastTouchPlayerId ||
+        state.ball.lastTouchPlayerId === state.humanPossessionEpisode.actorId) &&
       (state.ball.ownerId === state.humanPossessionEpisode.actorId ||
         state.players.some(
           (actor) =>
@@ -39,7 +55,35 @@ export const hasActiveHumanPossession = (state: TacticalMatchState): boolean =>
 export const reconcileHumanPossession = (state: TacticalMatchState): TacticalMatchState => {
   if (!state.humanPossessionEpisode || hasActiveHumanPossession(state)) return state;
   const { humanPossessionEpisode: _ended, ...next } = state;
-  void _ended;
+  const carry = next.ballCarrierIntent;
+  if (carry?.humanSelected && carry.actorId === _ended.actorId) {
+    const actor = next.players.find((player) => player.id === carry.actorId);
+    if (
+      !actor ||
+      !canParticipatePhysically(actor) ||
+      next.discipline?.[actor.id]?.sentOff ||
+      next.playerMovementIntent?.actorId === actor.id ||
+      !isBallWithinPlayingBoundary(next.ball) ||
+      (next.ball.lastTouchPlayerId && next.ball.lastTouchPlayerId !== actor.id) ||
+      (next.ball.ownerId && next.ball.ownerId !== actor.id) ||
+      (!next.ball.ownerId && !deriveCarryPursuit(next, actor))
+    ) {
+      delete next.ballCarrierIntent;
+      if (next.postActionAgencyCheckpoint?.actorId === carry.actorId)
+        delete next.postActionAgencyCheckpoint;
+    }
+  }
+  return next;
+};
+
+/** An explicit movement replaces the old carry now, including across save/reload.
+ * No ball or body coordinate changes and no possession award are implied. */
+export const replaceHumanCarryWithMovement = (state: TacticalMatchState, actorId: string) => {
+  if (actorId !== state.controlledFootballerId) return state;
+  const next = { ...state };
+  if (next.ballCarrierIntent?.actorId === actorId) delete next.ballCarrierIntent;
+  if (next.humanPossessionEpisode?.actorId === actorId) delete next.humanPossessionEpisode;
+  if (next.postActionAgencyCheckpoint?.actorId === actorId) delete next.postActionAgencyCheckpoint;
   return next;
 };
 

@@ -1604,6 +1604,7 @@ export const RunningLab = ({
         control_ball: 'Przyjmij i osłoń',
         first_touch_into_space: 'Pierwszy kontakt w przestrzeń',
         attack_ball: 'Walcz o piłkę',
+        hold_position: 'Zatrzymaj się',
         move_here: 'Pokaż się tutaj',
         run_in_behind: 'Rusz za linię',
         keeper_stay: 'Zostań',

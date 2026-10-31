@@ -140,7 +140,11 @@ describe('player decision lifecycle', () => {
     state.time = 6;
     state.ballOwnershipStartedAt = 0;
     expect(projectPlayerDecisionProbe(state).blockedReason).toBe('routine');
-    expect(stepTacticalMatch(state, 0.025).decisionIndex).toBeGreaterThan(state.decisionIndex);
+    let next = stepTacticalMatch(state, 0.025);
+    // A just-executed physical touch may still own the finite motor-recovery window.
+    for (let i = 0; i < 40 && next.decisionIndex === state.decisionIndex; i++)
+      next = stepTacticalMatch(next, 0.025);
+    expect(next.decisionIndex).toBeGreaterThan(state.decisionIndex);
   });
 
   it('executes carry through tactical recomputation and restores tactical control', () => {
@@ -178,10 +182,10 @@ describe('player decision lifecycle', () => {
       opponent.position = { x: 30, y: 60 };
     let carried = resolveMatchAction(
       state,
-      { type: 'carry', actorId: actor.id, target: { x: 103, y: 34 } },
+      { type: 'carry', actorId: actor.id, target: { x: 100, y: 34 } },
       'human_selected',
     );
-    for (let index = 0; index < 150 && carried.ballCarrierIntent; index += 1)
+    for (let index = 0; index < 150 && !projectPlayerDecisionOpportunity(carried); index += 1)
       carried = stepTacticalMatch(carried, 0.025);
     const opportunity = projectPlayerDecisionOpportunity(carried);
     expect(carried.postActionAgencyCheckpoint?.completedAction).toBe('carry');

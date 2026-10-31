@@ -6,8 +6,10 @@ import { tmpdir } from 'node:os';
 import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
-import { BASE, checkPr209Source } from '../pr209SourceGuard.mjs';
-checkPr209Source();
+import { preserveHistoricalBytes } from './historicalBytes.mjs';
+import { BASE } from '../pr209SourceGuard.mjs';
+import { checkPr210Source } from '../pr210SourceGuard.mjs';
+checkPr210Source();
 const scratch = mkdtempSync(join(tmpdir(), 'pr209-history-208-'));
 const safe = () =>
   assert.ok(
@@ -36,6 +38,7 @@ try {
     { windowsHide: true },
   );
   execFileSync('tar', ['-xf', tar, '-C', scratch], { windowsHide: true });
+  preserveHistoricalBytes(scratch);
   symlinkSync(
     resolve('node_modules'),
     join(scratch, 'node_modules'),

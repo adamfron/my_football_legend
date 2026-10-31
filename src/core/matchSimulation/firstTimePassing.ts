@@ -88,7 +88,7 @@ export const enumerateFirstTimePasses = (
   };
   delete forecast.restart;
   const contactActor = contact.arrivalTime > 0 ? { ...actor, position: contact.point } : actor;
-  return enumerateAvailableActions(forecast, actorId)
+  return enumerateAvailableActions(forecast, actorId, 'incoming_preparation')
     .filter((a): a is PassAction => a.type === 'pass' && distance(contact.point, a.target) >= 4)
     .map((action) => ({ ...action, firstTime: true }))
     .filter(

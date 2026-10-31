@@ -93,7 +93,7 @@ export const evaluateTacticalActions = (state: TacticalMatchState, actorId: stri
     time: state.time,
     scoreDifference: state.score[actor.team] - state.score[actor.team === 'home' ? 'away' : 'home'],
   });
-  const actions = enumerateAvailableActions(state, actorId)
+  const actions = enumerateAvailableActions(state, actorId, 'prospective_ranking')
     .filter((action) => hasActiveMatchActionParticipants(state, action))
     .slice(0, 96)
     .map((action) => {
