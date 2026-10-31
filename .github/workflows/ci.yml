@@ -56,9 +56,13 @@ jobs:
       - if: matrix.group == 'main'
         run: node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerPr199Lab.mjs scripts/checkPr204Boundary.mjs
       - if: matrix.group == 'main'
-        run: node scripts/checkPr205Evidence.mjs
+        run: node scripts/ci/replayPr205Check.mjs
       - if: matrix.group == 'main'
         run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr205.mjs --contracts
+      - if: matrix.group == 'main'
+        run: node scripts/checkPr206Evidence.mjs
+      - if: matrix.group == 'main'
+        run: node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerPr206Lab.mjs scripts/checkPr206Contracts.mjs
       - run: npm run ci:group -- --group=checks:${{ matrix.group }}
       - uses: actions/upload-artifact@v4
         if: always()

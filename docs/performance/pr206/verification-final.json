@@ -1,0 +1,54 @@
+{
+  "schema": "pr206-verification-v1",
+  "classification": "Development verification; do not confuse separately passing components with a successful complete local verify.",
+  "base": "30cfc99e00746cddd43e7df7281ab6f1c36d5516",
+  "source": "2d606e095fdf25f994e45f5024dac995e71c3c977f4d28ce74f2097ccedc986e",
+  "codeHead": "2e1a6303be27346d7aed3ce108fc290896b993a5",
+  "recordedFromHead": "2e1a6303be27346d7aed3ce108fc290896b993a5",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.22.1",
+    "verifyNodeOptions": "--max-semi-space-size=256",
+    "laboratorySemiSpaceMiB": 64
+  },
+  "completeLocalVerify": {
+    "command": "npm run verify",
+    "exitCode": 1,
+    "lint": "PASS",
+    "unitPassed": 2438,
+    "unitFailed": 1,
+    "unitTotal": 2439,
+    "failure": {
+      "test": "PR160 observer half with serious injury/replacement",
+      "unchangedTimeoutMs": 180000,
+      "fullSuiteTestMs": 203063,
+      "isolated256TestMs": 198180,
+      "isolated64TestMs": 210750
+    },
+    "subsequentCommandsWereNotReached": true
+  },
+  "separateCommandExits": {
+    "fullCareer": 0,
+    "build": 0,
+    "careerContract": 0,
+    "integration": 0,
+    "exactReplay": 0
+  },
+  "separateTestSummaries": {
+    "integration": ["56 passed (56)"],
+    "careerContract": ["4 passed (4)"],
+    "fullCareer": ["5 passed (5)"]
+  },
+  "productionRuntimeAndPackagesUnchangedFromPR205": true,
+  "historicalCommandsAndTimeoutsUnchanged": true,
+  "sourceBoundExactReplay": "PASS",
+  "readiness": "DRAFT_LOCAL_VERIFY_FAILED",
+  "hostedCodeHeadCI": {
+    "runId": 41134814713,
+    "head": "2e1a6303be27346d7aed3ce108fc290896b993a5",
+    "verifyMain": "success",
+    "verifyIntegration": "success",
+    "verifyCareer": "success",
+    "allJobResults": "See ci-code-head.json; any later documentation commit requires its own actual CI status."
+  }
+}

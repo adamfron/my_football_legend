@@ -1,0 +1,5641 @@
+{
+  "source": "2d606e095fdf25f994e45f5024dac995e71c3c977f4d28ce74f2097ccedc986e",
+  "qualificationSource": "2d606e095fdf25f994e45f5024dac995e71c3c977f4d28ce74f2097ccedc986e",
+  "qualification": [
+    {
+      "config": {
+        "seed": "pr206-0",
+        "geometry": 0,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "open",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": true,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": 10.250000000000004,
+        "physicalOnset": 10.250000000000004,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.45000000000002,
+        "bControl": 11.45000000000002,
+        "bDecision": 11.700000000000024,
+        "bRelease": 12.425000000000034,
+        "cContact": 13.675000000000052,
+        "cControl": 13.675000000000052,
+        "withdrawal": 12.400000000000034
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-0:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": 11.45000000000002,
+          "receiverControlAt": 11.45000000000002,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.45000000000002,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 12.400000000000034,
+            "horizonAt": 17,
+            "releasedAt": 12.425000000000034,
+            "passId": "pr206-0:pass:10:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": true,
+          "uninterruptedRetention": true,
+          "receiverTouchAt": 13.675000000000052,
+          "receiverControlAt": 13.675000000000052,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 13.675000000000052,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-0",
+        "geometry": 0,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "ablation",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": false,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": null,
+        "physicalOnset": null,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.45000000000002,
+        "bControl": 11.45000000000002,
+        "bDecision": 11.700000000000024,
+        "bRelease": 12.200000000000031,
+        "cContact": 15.750000000000082,
+        "cControl": 15.750000000000082,
+        "withdrawal": 12.400000000000034
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-0:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": 11.45000000000002,
+          "receiverControlAt": 11.45000000000002,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.45000000000002,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": true,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 12.175000000000031,
+            "horizonAt": 17,
+            "releasedAt": 12.200000000000031,
+            "passId": "pr206-0:pass:9:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": false,
+          "deflectedReceiverTouch": false,
+          "receiverControl": false,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": null,
+          "receiverControlAt": null,
+          "defensiveContactAt": 14.22500000000006,
+          "defensiveDisruptionAt": 14.22500000000006,
+          "defensiveControlAt": 14.500000000000064,
+          "outOfPlayAt": null,
+          "terminalAt": 14.500000000000064,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": true,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-1",
+        "geometry": 1,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "open",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": true,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": 10.250000000000004,
+        "physicalOnset": 10.250000000000004,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.575000000000022,
+        "bControl": 11.575000000000022,
+        "bDecision": 11.800000000000026,
+        "bRelease": 12.350000000000033,
+        "cContact": 14.650000000000066,
+        "cControl": 14.650000000000066,
+        "withdrawal": 11.800000000000026
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-1:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": 11.575000000000022,
+          "receiverControlAt": 11.575000000000022,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.575000000000022,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 12.325000000000033,
+            "horizonAt": 17,
+            "releasedAt": 12.350000000000033,
+            "passId": "pr206-1:pass:9:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": 14.650000000000066,
+          "receiverControlAt": 14.650000000000066,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 14.650000000000066,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-1",
+        "geometry": 1,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "ablation",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": false,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": null,
+        "physicalOnset": null,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.575000000000022,
+        "bControl": 11.575000000000022,
+        "bDecision": 11.800000000000026,
+        "bRelease": 12.350000000000033,
+        "cContact": 14.575000000000065,
+        "cControl": 14.575000000000065,
+        "withdrawal": 12.400000000000034
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-1:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": 11.575000000000022,
+          "receiverControlAt": 11.575000000000022,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.575000000000022,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": true,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 12.325000000000033,
+            "horizonAt": 17,
+            "releasedAt": 12.350000000000033,
+            "passId": "pr206-1:pass:9:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": false,
+          "deflectedReceiverTouch": true,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": 14.575000000000065,
+          "receiverControlAt": 14.575000000000065,
+          "defensiveContactAt": 14.525000000000064,
+          "defensiveDisruptionAt": 14.525000000000064,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 14.575000000000065,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": true,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-2",
+        "geometry": 2,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "open",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": true,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": 10.250000000000004,
+        "physicalOnset": 10.250000000000004,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.600000000000023,
+        "bControl": 11.600000000000023,
+        "bDecision": 11.850000000000026,
+        "bRelease": 12.77500000000004,
+        "cContact": 16.225000000000072,
+        "cControl": 16.225000000000072,
+        "withdrawal": 12.400000000000034
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-2:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": true,
+          "uninterruptedRetention": true,
+          "receiverTouchAt": 11.600000000000023,
+          "receiverControlAt": 11.600000000000023,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.600000000000023,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 12.750000000000039,
+            "horizonAt": 17,
+            "releasedAt": 12.77500000000004,
+            "passId": "pr206-2:pass:10:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": false,
+          "deflectedReceiverTouch": false,
+          "receiverControl": false,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": null,
+          "receiverControlAt": null,
+          "defensiveContactAt": 14.20000000000006,
+          "defensiveDisruptionAt": 14.20000000000006,
+          "defensiveControlAt": 14.20000000000006,
+          "outOfPlayAt": null,
+          "terminalAt": 14.20000000000006,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-2",
+        "geometry": 2,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "ablation",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": false,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": null,
+        "physicalOnset": null,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.600000000000023,
+        "bControl": 11.600000000000023,
+        "bDecision": 11.850000000000026,
+        "bRelease": 12.77500000000004,
+        "cContact": 14.650000000000066,
+        "cControl": 14.650000000000066,
+        "withdrawal": 12.400000000000034
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-2:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": true,
+          "uninterruptedRetention": true,
+          "receiverTouchAt": 11.600000000000023,
+          "receiverControlAt": 11.600000000000023,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.600000000000023,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 12.750000000000039,
+            "horizonAt": 17,
+            "releasedAt": 12.77500000000004,
+            "passId": "pr206-2:pass:10:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": false,
+          "deflectedReceiverTouch": true,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": 14.650000000000066,
+          "receiverControlAt": 14.650000000000066,
+          "defensiveContactAt": 14.425000000000063,
+          "defensiveDisruptionAt": 14.425000000000063,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 14.650000000000066,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-negative",
+        "geometry": 0,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "late",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": false,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": 10.250000000000004,
+        "physicalOnset": 10.250000000000004,
+        "aRelease": 10.150000000000002,
+        "bContact": 11.100000000000016,
+        "bControl": 11.100000000000016,
+        "bDecision": 11.35000000000002,
+        "bRelease": 12.300000000000033,
+        "cContact": null,
+        "cControl": null,
+        "withdrawal": 12.400000000000034
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.150000000000002,
+            "horizonAt": 17,
+            "releasedAt": 10.150000000000002,
+            "passId": "pr206-negative:pass:1:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": true,
+          "uninterruptedRetention": true,
+          "receiverTouchAt": 11.100000000000016,
+          "receiverControlAt": 11.100000000000016,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.100000000000016,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": true,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 12.275000000000032,
+            "horizonAt": 17,
+            "releasedAt": 12.300000000000033,
+            "passId": "pr206-negative:pass:7:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": false,
+          "deflectedReceiverTouch": false,
+          "receiverControl": false,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": null,
+          "receiverControlAt": null,
+          "defensiveContactAt": 12.77500000000004,
+          "defensiveDisruptionAt": 12.77500000000004,
+          "defensiveControlAt": 13.050000000000043,
+          "outOfPlayAt": null,
+          "terminalAt": 13.050000000000043,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": true,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:10",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:10",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 14.400000000000063,
+            "horizonAt": 17,
+            "releasedAt": 14.425000000000063,
+            "passId": "pr206-negative:pass:10:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": false,
+          "deflectedReceiverTouch": true,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": null,
+          "uninterruptedRetention": null,
+          "receiverTouchAt": 16.350000000000065,
+          "receiverControlAt": 16.350000000000065,
+          "defensiveContactAt": 14.450000000000063,
+          "defensiveDisruptionAt": 14.450000000000063,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 16.350000000000065,
+          "terminal": "control",
+          "censored": true,
+          "looseAtHorizon": true,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-negative",
+        "geometry": 0,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "unseen_ball",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": false,
+      "clocks": {
+        "firstObservation": null,
+        "intention": null,
+        "scheduledRecognition": null,
+        "recognition": null,
+        "command": null,
+        "physicalOnset": null,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.475000000000021,
+        "bControl": 11.475000000000021,
+        "bDecision": 11.700000000000024,
+        "bRelease": 12.200000000000031,
+        "cContact": null,
+        "cControl": null,
+        "withdrawal": null
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-negative:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": 11.475000000000021,
+          "receiverControlAt": 11.475000000000021,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.475000000000021,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 12.175000000000031,
+            "horizonAt": 17,
+            "releasedAt": 12.200000000000031,
+            "passId": "pr206-negative:pass:9:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": false,
+          "deflectedReceiverTouch": false,
+          "receiverControl": false,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": null,
+          "receiverControlAt": null,
+          "defensiveContactAt": 14.20000000000006,
+          "defensiveDisruptionAt": 14.20000000000006,
+          "defensiveControlAt": 14.375000000000062,
+          "outOfPlayAt": null,
+          "terminalAt": 14.375000000000062,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-negative",
+        "geometry": 0,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "unseen_C",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": true,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": 10.250000000000004,
+        "physicalOnset": 10.250000000000004,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.475000000000021,
+        "bControl": 11.475000000000021,
+        "bDecision": 11.700000000000024,
+        "bRelease": null,
+        "cContact": null,
+        "cControl": null,
+        "withdrawal": 12.10000000000003
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-negative:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": true,
+          "uninterruptedRetention": true,
+          "receiverTouchAt": 11.475000000000021,
+          "receiverControlAt": 11.475000000000021,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.475000000000021,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-negative",
+        "geometry": 0,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "marked",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": true,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10.600000000000009,
+        "scheduledRecognition": 10.850000000000009,
+        "recognition": 10.850000000000012,
+        "command": 10.850000000000012,
+        "physicalOnset": 10.850000000000012,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.475000000000021,
+        "bControl": 11.475000000000021,
+        "bDecision": 11.700000000000024,
+        "bRelease": 12.85000000000004,
+        "cContact": 14.750000000000068,
+        "cControl": 14.750000000000068,
+        "withdrawal": 10.900000000000013
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-negative:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": true,
+          "uninterruptedRetention": true,
+          "receiverTouchAt": 11.475000000000021,
+          "receiverControlAt": 11.475000000000021,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.475000000000021,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 12.82500000000004,
+            "horizonAt": 17,
+            "releasedAt": 12.85000000000004,
+            "passId": "pr206-negative:pass:13:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": false,
+          "deflectedReceiverTouch": true,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": true,
+          "uninterruptedRetention": true,
+          "receiverTouchAt": 14.750000000000068,
+          "receiverControlAt": 14.750000000000068,
+          "defensiveContactAt": 14.525000000000064,
+          "defensiveDisruptionAt": 14.525000000000064,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 14.750000000000068,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": false,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-negative",
+        "geometry": 0,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "wrong",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": true,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": 10.250000000000004,
+        "physicalOnset": 10.250000000000004,
+        "aRelease": 10.900000000000013,
+        "bContact": 11.475000000000021,
+        "bControl": 11.475000000000021,
+        "bDecision": 11.700000000000024,
+        "bRelease": 13.50000000000005,
+        "cContact": null,
+        "cControl": null,
+        "withdrawal": 11.200000000000017
+      },
+      "outcomes": [
+        {
+          "receiverId": "geometry:anchor:6",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:6",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 10.900000000000013,
+            "horizonAt": 17,
+            "releasedAt": 10.900000000000013,
+            "passId": "pr206-negative:pass:5:geometry:anchor:5",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": true,
+          "deflectedReceiverTouch": false,
+          "receiverControl": true,
+          "teamPossessionAtOneSecond": true,
+          "uninterruptedRetention": true,
+          "receiverTouchAt": 11.475000000000021,
+          "receiverControlAt": 11.475000000000021,
+          "defensiveContactAt": null,
+          "defensiveDisruptionAt": null,
+          "defensiveControlAt": null,
+          "outOfPlayAt": null,
+          "terminalAt": 11.475000000000021,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": true,
+          "originalShotOutcome": null
+        },
+        {
+          "receiverId": "geometry:anchor:9",
+          "contract": {
+            "version": "original-delivery-v3",
+            "actorId": "geometry:anchor:6",
+            "receiverId": "geometry:anchor:9",
+            "teamIds": [
+              "geometry:anchor:0",
+              "geometry:anchor:1",
+              "geometry:anchor:2",
+              "geometry:anchor:3",
+              "geometry:anchor:4",
+              "geometry:anchor:5",
+              "geometry:anchor:6",
+              "geometry:anchor:7",
+              "geometry:anchor:8",
+              "geometry:anchor:9",
+              "geometry:anchor:10"
+            ],
+            "opponentIds": [
+              "geometry:opponent:0",
+              "geometry:opponent:1",
+              "geometry:opponent:2",
+              "geometry:opponent:3",
+              "geometry:opponent:4",
+              "geometry:opponent:5",
+              "geometry:opponent:6",
+              "geometry:opponent:7",
+              "geometry:opponent:8",
+              "geometry:opponent:9",
+              "geometry:opponent:10"
+            ],
+            "requestedAt": 13.47500000000005,
+            "horizonAt": 17,
+            "releasedAt": 13.50000000000005,
+            "passId": "pr206-negative:pass:16:geometry:anchor:6",
+            "shotId": null,
+            "information": "privileged_engineering_observer",
+            "conditionalOnRelease": true,
+            "previousShotId": null
+          },
+          "released": true,
+          "directReceiverTouch": false,
+          "deflectedReceiverTouch": false,
+          "receiverControl": false,
+          "teamPossessionAtOneSecond": false,
+          "uninterruptedRetention": false,
+          "receiverTouchAt": null,
+          "receiverControlAt": null,
+          "defensiveContactAt": 14.95000000000007,
+          "defensiveDisruptionAt": 14.95000000000007,
+          "defensiveControlAt": 15.150000000000073,
+          "outOfPlayAt": null,
+          "terminalAt": 15.150000000000073,
+          "terminal": "control",
+          "censored": false,
+          "looseAtHorizon": true,
+          "originalShotOutcome": null
+        }
+      ]
+    },
+    {
+      "config": {
+        "seed": "pr206-negative",
+        "geometry": 0,
+        "reading": 85,
+        "touch": 55,
+        "scenario": "withdrawn",
+        "duration": 7,
+        "controlledB": false,
+        "family": "support"
+      },
+      "qualifies": true,
+      "clocks": {
+        "firstObservation": 10,
+        "intention": 10,
+        "scheduledRecognition": 10.25,
+        "recognition": 10.250000000000004,
+        "command": 10.250000000000004,
+        "physicalOnset": 10.250000000000004,
+        "aRelease": 11.850000000000026,
+        "bContact": null,
+        "bControl": null,
+        "bDecision": null,
+        "bRelease": null,
+        "cContact": 13.600000000000051,
+        "cControl": 13.600000000000051,
+        "withdrawal": 11.500000000000021
+      },
+      "outcomes": []
+    }
+  ],
+  "primary": {
+    "LL": {
+      "n": 20,
+      "touch": 12,
+      "control": 6,
+      "retention": 6,
+      "censored": 0,
+      "firstTime": 0
+    },
+    "LH": {
+      "n": 20,
+      "touch": 12,
+      "control": 11,
+      "retention": 10,
+      "censored": 0,
+      "firstTime": 0
+    },
+    "HL": {
+      "n": 20,
+      "touch": 13,
+      "control": 6,
+      "retention": 6,
+      "censored": 0,
+      "firstTime": 0
+    },
+    "HH": {
+      "n": 20,
+      "touch": 13,
+      "control": 12,
+      "retention": 12,
+      "censored": 0,
+      "firstTime": 0
+    }
+  },
+  "exploratoryOrExcluded": {
+    "LL": {
+      "n": 4,
+      "touch": 4,
+      "control": 4,
+      "retention": 4,
+      "censored": 0,
+      "firstTime": 0
+    },
+    "LH": {
+      "n": 4,
+      "touch": 4,
+      "control": 4,
+      "retention": 4,
+      "censored": 0,
+      "firstTime": 0
+    },
+    "HL": {
+      "n": 4,
+      "touch": 4,
+      "control": 4,
+      "retention": 4,
+      "censored": 0,
+      "firstTime": 0
+    },
+    "HH": {
+      "n": 4,
+      "touch": 4,
+      "control": 4,
+      "retention": 4,
+      "censored": 0,
+      "firstTime": 0
+    }
+  },
+  "families": {
+    "long_ground": {
+      "primary": {
+        "LL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "all": {
+        "LL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "releaseDistances": [
+        24.985320924624993,
+        22.09270475151769,
+        23.917266750347032,
+        22.047453992387254
+      ]
+    },
+    "fast_ground": {
+      "primary": {
+        "LL": {
+          "n": 4,
+          "touch": 4,
+          "control": 1,
+          "retention": 1,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 4,
+          "control": 4,
+          "retention": 4,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 4,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 4,
+          "control": 4,
+          "retention": 4,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "all": {
+        "LL": {
+          "n": 4,
+          "touch": 4,
+          "control": 1,
+          "retention": 1,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 4,
+          "control": 4,
+          "retention": 4,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 4,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 4,
+          "control": 4,
+          "retention": 4,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "releaseDistances": [
+        17.042628312250137,
+        14.203346869556945,
+        15.91284088357536,
+        14.295302301562781
+      ]
+    },
+    "descending": {
+      "primary": {
+        "LL": {
+          "n": 0,
+          "touch": 0,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 0,
+          "touch": 0,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 0,
+          "touch": 0,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 0,
+          "touch": 0,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "all": {
+        "LL": {
+          "n": 4,
+          "touch": 4,
+          "control": 4,
+          "retention": 4,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 4,
+          "control": 4,
+          "retention": 4,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 4,
+          "control": 4,
+          "retention": 4,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 4,
+          "control": 4,
+          "retention": 4,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "releaseDistances": [
+        17.042628312250137,
+        14.203346869556945,
+        15.91284088357536,
+        14.295302301562781
+      ]
+    },
+    "moving": {
+      "primary": {
+        "LL": {
+          "n": 4,
+          "touch": 3,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 3,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 3,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 3,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "all": {
+        "LL": {
+          "n": 4,
+          "touch": 3,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 3,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 3,
+          "control": 0,
+          "retention": 0,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 3,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "releaseDistances": [
+        17.119237501006847,
+        14.248781178021755,
+        15.922736911482737,
+        14.34185337945298
+      ]
+    },
+    "lateral": {
+      "primary": {
+        "LL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 1,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "all": {
+        "LL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 1,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "releaseDistances": [
+        17.72682364766809,
+        15.387937957208644,
+        16.576082291246017,
+        15.479490676272922
+      ]
+    },
+    "pressure": {
+      "primary": {
+        "LL": {
+          "n": 4,
+          "touch": 1,
+          "control": 1,
+          "retention": 1,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 1,
+          "control": 1,
+          "retention": 1,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "all": {
+        "LL": {
+          "n": 4,
+          "touch": 1,
+          "control": 1,
+          "retention": 1,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "LH": {
+          "n": 4,
+          "touch": 1,
+          "control": 1,
+          "retention": 1,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HL": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        },
+        "HH": {
+          "n": 4,
+          "touch": 2,
+          "control": 2,
+          "retention": 2,
+          "censored": 0,
+          "firstTime": 0
+        }
+      },
+      "releaseDistances": [
+        21.693856474974357,
+        13.773733094819509,
+        20.04380185563201,
+        15.13689175339158
+      ]
+    }
+  },
+  "windows": {
+    "adequate": {
+      "LL": {
+        "n": 10,
+        "touch": 8,
+        "control": 4,
+        "retention": 4,
+        "censored": 0,
+        "firstTime": 0
+      },
+      "LH": {
+        "n": 10,
+        "touch": 8,
+        "control": 7,
+        "retention": 6,
+        "censored": 0,
+        "firstTime": 0
+      },
+      "HL": {
+        "n": 10,
+        "touch": 9,
+        "control": 5,
+        "retention": 5,
+        "censored": 0,
+        "firstTime": 0
+      },
+      "HH": {
+        "n": 10,
+        "touch": 9,
+        "control": 8,
+        "retention": 8,
+        "censored": 0,
+        "firstTime": 0
+      }
+    },
+    "inadequate": {
+      "LL": {
+        "n": 10,
+        "touch": 4,
+        "control": 2,
+        "retention": 2,
+        "censored": 0,
+        "firstTime": 0
+      },
+      "LH": {
+        "n": 10,
+        "touch": 4,
+        "control": 4,
+        "retention": 4,
+        "censored": 0,
+        "firstTime": 0
+      },
+      "HL": {
+        "n": 10,
+        "touch": 4,
+        "control": 1,
+        "retention": 1,
+        "censored": 0,
+        "firstTime": 0
+      },
+      "HH": {
+        "n": 10,
+        "touch": 4,
+        "control": 4,
+        "retention": 4,
+        "censored": 0,
+        "firstTime": 0
+      }
+    }
+  },
+  "recognition": {
+    "LL": {
+      "n": 24,
+      "qualified": 10,
+      "commandLatency": 0.7250000000000103,
+      "bodyAtBRelease": [
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 74.43864308728128,
+            "y": 34.39130007936149
+          },
+          "velocity": {
+            "x": 0.42314440671134435,
+            "y": -2.5534575544548943
+          },
+          "facing": 3.045598408904282,
+          "target": {
+            "x": 96.89793889678624,
+            "y": 34.52086847369504
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7362844704836567,
+            "support": "right"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 73.72864490378882,
+            "y": 34.504394615781074
+          },
+          "velocity": {
+            "x": 0.26829381124173324,
+            "y": -0.49870430193493576
+          },
+          "facing": 2.6480233081478417,
+          "target": {
+            "x": 74,
+            "y": 34
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 1.1492541092485354e-11,
+            "support": "both"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 71.47081046542836,
+            "y": 32.37728490695641
+          },
+          "velocity": {
+            "x": 0.601289690412159,
+            "y": -2.6221269920003465
+          },
+          "facing": 2.9353434979619877,
+          "target": {
+            "x": 96.90954262397078,
+            "y": 32.57992945166302
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7305902846782141,
+            "support": "right"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 70.7796584509765,
+            "y": 32.49690842706526
+          },
+          "velocity": {
+            "x": 0.37282000212371713,
+            "y": -0.8407507457687302
+          },
+          "facing": 2.7242196404973384,
+          "target": {
+            "x": 71,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.00000705597144565437,
+            "support": "both"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 66.43867054176219,
+            "y": 34.39124333892297
+          },
+          "velocity": {
+            "x": 0.4234705910772618,
+            "y": -2.5541314769742485
+          },
+          "facing": 3.045613507288146,
+          "target": {
+            "x": 96.89793940031643,
+            "y": 34.52084326959176
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7362227398693346,
+            "support": "right"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.96133077897807,
+            "y": 34.44694725035842
+          },
+          "velocity": {
+            "x": 0.455981817261204,
+            "y": -1.6816900986074756
+          },
+          "facing": 2.9298146035829262,
+          "target": {
+            "x": 97.41544659939957,
+            "y": 34.48898950282361
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7298406204959739,
+            "support": "right"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 63.33040880753773,
+            "y": 32.43404737229991
+          },
+          "velocity": {
+            "x": -0.5676746892802953,
+            "y": -2.0182897404964706
+          },
+          "facing": -2.5233606218415066,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.2440710376164246,
+            "support": "left"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.18185636141118,
+            "y": 32.460101221784704
+          },
+          "velocity": {
+            "x": -0.0033541024384931006,
+            "y": -2.1256473749807014
+          },
+          "facing": -2.800921866603338,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.24071560872537134,
+            "support": "left"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 66.43867054176219,
+            "y": 34.39124333892297
+          },
+          "velocity": {
+            "x": 0.4234705910772618,
+            "y": -2.5541314769742485
+          },
+          "facing": 3.045613507288146,
+          "target": {
+            "x": 96.89793940031643,
+            "y": 34.52084326959176
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7362227398693346,
+            "support": "right"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.96133077897807,
+            "y": 34.44694725035842
+          },
+          "velocity": {
+            "x": 0.455981817261204,
+            "y": -1.6816900986074756
+          },
+          "facing": 2.9298146035829262,
+          "target": {
+            "x": 97.41544659939957,
+            "y": 34.48898950282361
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7298406204959739,
+            "support": "right"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 63.33040880753773,
+            "y": 32.43404737229991
+          },
+          "velocity": {
+            "x": -0.5676746892802953,
+            "y": -2.0182897404964706
+          },
+          "facing": -2.5233606218415066,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.2440710376164246,
+            "support": "left"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.18185636141118,
+            "y": 32.460101221784704
+          },
+          "velocity": {
+            "x": -0.0033541024384931006,
+            "y": -2.1256473749807014
+          },
+          "facing": -2.800921866603338,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.24071560872537134,
+            "support": "left"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 68.41137739423067,
+            "y": 35.10942994446945
+          },
+          "velocity": {
+            "x": 0.2072217802464138,
+            "y": -2.3254661605955107
+          },
+          "facing": -2.714905746204588,
+          "target": {
+            "x": 96.89523911576688,
+            "y": 35.227397348431424
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.739486848265986,
+            "support": "right"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 66.42246280559665,
+            "y": 34.29575040732411
+          },
+          "velocity": {
+            "x": -0.2627581456158623,
+            "y": -1.8622129991996417
+          },
+          "facing": -2.4004493523729735,
+          "target": {
+            "x": 97.41698151078197,
+            "y": 34.3423057323041
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.45178508471634127,
+            "support": "right"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 65.41138403966767,
+            "y": 33.10939785861345
+          },
+          "velocity": {
+            "x": 0.2073019413541033,
+            "y": -2.3255702974162773
+          },
+          "facing": -2.7148968189660785,
+          "target": {
+            "x": 96.8289913841011,
+            "y": 33.22736985726011
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7394840025717986,
+            "support": "right"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.78964898463728,
+            "y": 32.32326145694804
+          },
+          "velocity": {
+            "x": -0.9932455126016748,
+            "y": -2.377453052262979
+          },
+          "facing": -2.0100487266195506,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5103474092897614,
+            "support": "left"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 66.43867054176219,
+            "y": 34.39124333892297
+          },
+          "velocity": {
+            "x": 0.4234705910772618,
+            "y": -2.5541314769742485
+          },
+          "facing": 3.045613507288146,
+          "target": {
+            "x": 96.89793940031643,
+            "y": 34.52084326959176
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7362227398693346,
+            "support": "right"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.96133077897807,
+            "y": 34.44694725035842
+          },
+          "velocity": {
+            "x": 0.455981817261204,
+            "y": -1.6816900986074756
+          },
+          "facing": 2.9298146035829262,
+          "target": {
+            "x": 97.41544659939957,
+            "y": 34.48898950282361
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7298406204959739,
+            "support": "right"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 63.33040880753773,
+            "y": 32.43404737229991
+          },
+          "velocity": {
+            "x": -0.5676746892802953,
+            "y": -2.0182897404964706
+          },
+          "facing": -2.5233606218415066,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.2440710376164246,
+            "support": "left"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.18185636141118,
+            "y": 32.460101221784704
+          },
+          "velocity": {
+            "x": -0.0033541024384931006,
+            "y": -2.1256473749807014
+          },
+          "facing": -2.800921866603338,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.24071560872537134,
+            "support": "left"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 70.7224425207962,
+            "y": 36.94425642750869
+          },
+          "velocity": {
+            "x": 6.779056898849376,
+            "y": -0.5750714899772902
+          },
+          "facing": 1.5701967483214734,
+          "target": {
+            "x": 96.88569609262612,
+            "y": 36.97442175470111
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.10391899298086064,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 66.84122698453058,
+            "y": 35.16841391967923
+          },
+          "velocity": {
+            "x": 4.2544156722260595,
+            "y": -1.9170829227641661
+          },
+          "facing": 1.5707963267948966,
+          "target": {
+            "x": 97.4188415354162,
+            "y": 35.216340992748336
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.47565468475288064,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 66.96864950938196,
+            "y": 34.71218144873786
+          },
+          "velocity": {
+            "x": 4.789571604789558,
+            "y": -1.3679821211556487
+          },
+          "facing": 1.568367123236639,
+          "target": {
+            "x": 96.90140757752016,
+            "y": 34.81938477888316
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.32346273684556515,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 64.83124022372715,
+            "y": 33.785756433479335
+          },
+          "velocity": {
+            "x": 5.365629325436316,
+            "y": -1.3507024257009448
+          },
+          "facing": 1.5697113068846846,
+          "target": {
+            "x": 97.42967072570042,
+            "y": 33.855039499561485
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.2875241390272019,
+            "support": "right"
+          }
+        }
+      ]
+    },
+    "LH": {
+      "n": 24,
+      "qualified": 10,
+      "commandLatency": 0.7250000000000103,
+      "bodyAtBRelease": [
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 74.43864308728128,
+            "y": 34.39130007936149
+          },
+          "velocity": {
+            "x": 0.42314440671134435,
+            "y": -2.5534575544548943
+          },
+          "facing": 3.045598408904282,
+          "target": {
+            "x": 96.89793889678624,
+            "y": 34.52086847369504
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7362844704836567,
+            "support": "right"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 73.72864490378882,
+            "y": 34.504394615781074
+          },
+          "velocity": {
+            "x": 0.26829381124173324,
+            "y": -0.49870430193493576
+          },
+          "facing": 2.6480233081478417,
+          "target": {
+            "x": 74,
+            "y": 34
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 1.1492541092485354e-11,
+            "support": "both"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 71.47081046542836,
+            "y": 32.37728490695641
+          },
+          "velocity": {
+            "x": 0.601289690412159,
+            "y": -2.6221269920003465
+          },
+          "facing": 2.9353434979619877,
+          "target": {
+            "x": 96.90954262397078,
+            "y": 32.57992945166302
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7305902846782141,
+            "support": "right"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 70.7796584509765,
+            "y": 32.49690842706526
+          },
+          "velocity": {
+            "x": 0.37282000212371713,
+            "y": -0.8407507457687302
+          },
+          "facing": 2.7242196404973384,
+          "target": {
+            "x": 71,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.00000705597144565437,
+            "support": "both"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 66.43867054176219,
+            "y": 34.39124333892297
+          },
+          "velocity": {
+            "x": 0.4234705910772618,
+            "y": -2.5541314769742485
+          },
+          "facing": 3.045613507288146,
+          "target": {
+            "x": 96.89793940031643,
+            "y": 34.52084326959176
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7362227398693346,
+            "support": "right"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.96133077897807,
+            "y": 34.44694725035842
+          },
+          "velocity": {
+            "x": 0.455981817261204,
+            "y": -1.6816900986074756
+          },
+          "facing": 2.9298146035829262,
+          "target": {
+            "x": 97.41544659939957,
+            "y": 34.48898950282361
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7298406204959739,
+            "support": "right"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 63.33040880753773,
+            "y": 32.43404737229991
+          },
+          "velocity": {
+            "x": -0.5676746892802953,
+            "y": -2.0182897404964706
+          },
+          "facing": -2.5233606218415066,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.2440710376164246,
+            "support": "left"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.18185636141118,
+            "y": 32.460101221784704
+          },
+          "velocity": {
+            "x": -0.0033541024384931006,
+            "y": -2.1256473749807014
+          },
+          "facing": -2.800921866603338,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.24071560872537134,
+            "support": "left"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 66.43867054176219,
+            "y": 34.39124333892297
+          },
+          "velocity": {
+            "x": 0.4234705910772618,
+            "y": -2.5541314769742485
+          },
+          "facing": 3.045613507288146,
+          "target": {
+            "x": 96.89793940031643,
+            "y": 34.52084326959176
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7362227398693346,
+            "support": "right"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.96133077897807,
+            "y": 34.44694725035842
+          },
+          "velocity": {
+            "x": 0.455981817261204,
+            "y": -1.6816900986074756
+          },
+          "facing": 2.9298146035829262,
+          "target": {
+            "x": 97.41544659939957,
+            "y": 34.48898950282361
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7298406204959739,
+            "support": "right"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 63.33040880753773,
+            "y": 32.43404737229991
+          },
+          "velocity": {
+            "x": -0.5676746892802953,
+            "y": -2.0182897404964706
+          },
+          "facing": -2.5233606218415066,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.2440710376164246,
+            "support": "left"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.18185636141118,
+            "y": 32.460101221784704
+          },
+          "velocity": {
+            "x": -0.0033541024384931006,
+            "y": -2.1256473749807014
+          },
+          "facing": -2.800921866603338,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.24071560872537134,
+            "support": "left"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 68.41137739423067,
+            "y": 35.10942994446945
+          },
+          "velocity": {
+            "x": 0.2072217802464138,
+            "y": -2.3254661605955107
+          },
+          "facing": -2.714905746204588,
+          "target": {
+            "x": 96.89523911502823,
+            "y": 35.227397348431424
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7394868482659867,
+            "support": "right"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 66.42246280559665,
+            "y": 34.29575040732411
+          },
+          "velocity": {
+            "x": -0.2627581456158623,
+            "y": -1.8622129991996417
+          },
+          "facing": -2.4004493523729735,
+          "target": {
+            "x": 97.41698151078197,
+            "y": 34.3423057323041
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.45178508471634127,
+            "support": "right"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 65.41138403966767,
+            "y": 33.10939785861345
+          },
+          "velocity": {
+            "x": 0.2073019413541033,
+            "y": -2.3255702974162773
+          },
+          "facing": -2.7148968189660785,
+          "target": {
+            "x": 96.8289913841011,
+            "y": 33.22736985726011
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7394840025717986,
+            "support": "right"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.78964898463728,
+            "y": 32.32326145694804
+          },
+          "velocity": {
+            "x": -0.9932455126016748,
+            "y": -2.377453052262979
+          },
+          "facing": -2.0100487266195506,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5103474092897614,
+            "support": "left"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 66.43867054176219,
+            "y": 34.39124333892297
+          },
+          "velocity": {
+            "x": 0.4234705910772618,
+            "y": -2.5541314769742485
+          },
+          "facing": 3.045613507288146,
+          "target": {
+            "x": 96.89793940031643,
+            "y": 34.52084326959176
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7362227398693346,
+            "support": "right"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.96133077897807,
+            "y": 34.44694725035842
+          },
+          "velocity": {
+            "x": 0.455981817261204,
+            "y": -1.6816900986074756
+          },
+          "facing": 2.9298146035829262,
+          "target": {
+            "x": 97.41544659939957,
+            "y": 34.48898950282361
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.7298406204959739,
+            "support": "right"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 63.33040880753773,
+            "y": 32.43404737229991
+          },
+          "velocity": {
+            "x": -0.5676746892802953,
+            "y": -2.0182897404964706
+          },
+          "facing": -2.5233606218415066,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.2440710376164246,
+            "support": "left"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.18185636141118,
+            "y": 32.460101221784704
+          },
+          "velocity": {
+            "x": -0.0033541024384931006,
+            "y": -2.1256473749807014
+          },
+          "facing": -2.800921866603338,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.24071560872537134,
+            "support": "left"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 70.7224425207962,
+            "y": 36.94425642750869
+          },
+          "velocity": {
+            "x": 6.779056898849376,
+            "y": -0.5750714899772902
+          },
+          "facing": 1.5701967483214734,
+          "target": {
+            "x": 96.88569609262612,
+            "y": 36.97442175470111
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.10391899298086064,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 66.84122698453058,
+            "y": 35.16841391967923
+          },
+          "velocity": {
+            "x": 4.2544156722260595,
+            "y": -1.9170829227641661
+          },
+          "facing": 1.5707963267948966,
+          "target": {
+            "x": 97.4188415354162,
+            "y": 35.216340992748336
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.47565468475288064,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 66.96864950938196,
+            "y": 34.71218144873786
+          },
+          "velocity": {
+            "x": 4.789571604789558,
+            "y": -1.3679821211556487
+          },
+          "facing": 1.568367123236639,
+          "target": {
+            "x": 96.90140757752016,
+            "y": 34.81938477888316
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.32346273684556515,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 64.83124022372715,
+            "y": 33.785756433479335
+          },
+          "velocity": {
+            "x": 5.365629325436316,
+            "y": -1.3507024257009448
+          },
+          "facing": 1.5697113068846846,
+          "target": {
+            "x": 97.42967072570042,
+            "y": 33.855039499561485
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.2875241390272019,
+            "support": "right"
+          }
+        }
+      ]
+    },
+    "HL": {
+      "n": 24,
+      "qualified": 10,
+      "commandLatency": 0.25000000000000355,
+      "bodyAtBRelease": [
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 73.7342129392494,
+            "y": 34.44488790688986
+          },
+          "velocity": {
+            "x": 1.051038187067661,
+            "y": 0
+          },
+          "facing": 1.7629544450621868,
+          "target": {
+            "x": 96.90074694277452,
+            "y": 34.44488790688986
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 73.6415671212202,
+            "y": 34.441866249162935
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.4600719712321926,
+          "target": {
+            "x": 74,
+            "y": 34
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 70.76485553020447,
+            "y": 32.44488790688986
+          },
+          "velocity": {
+            "x": 1.2260452166600544,
+            "y": 0
+          },
+          "facing": 1.651838951324489,
+          "target": {
+            "x": 96.91186098110336,
+            "y": 32.44488790688986
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 70.64214332661498,
+            "y": 32.44205893646952
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.4610721954384243,
+          "target": {
+            "x": 71,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 65.73421293927285,
+            "y": 34.444887906860906
+          },
+          "velocity": {
+            "x": 1.0510381870705032,
+            "y": 0
+          },
+          "facing": 1.7629544450610055,
+          "target": {
+            "x": 96.90074694585117,
+            "y": 34.444887906860906
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.64714963424382,
+            "y": 34.44133643762236
+          },
+          "velocity": {
+            "x": 0.19936746983887588,
+            "y": -0.029200016200832124
+          },
+          "facing": 2.340503525654224,
+          "target": {
+            "x": 97.41740292717276,
+            "y": 34.44206643802738
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "right"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 62.67822714362465,
+            "y": 32.041785720092086
+          },
+          "velocity": {
+            "x": 1.2041881266142695,
+            "y": -0.6356854236346976
+          },
+          "facing": 1.853926167580692,
+          "target": {
+            "x": 96.91002285847695,
+            "y": 32.0906161686801
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5824178168117206,
+            "support": "right"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 62.64231106793121,
+            "y": 32.44211365095512
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.461361989550122,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 65.73421293927285,
+            "y": 34.444887906860906
+          },
+          "velocity": {
+            "x": 1.0510381870705032,
+            "y": 0
+          },
+          "facing": 1.7629544450610055,
+          "target": {
+            "x": 96.90074694585117,
+            "y": 34.444887906860906
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.64714963424382,
+            "y": 34.44133643762236
+          },
+          "velocity": {
+            "x": 0.19936746983887588,
+            "y": -0.029200016200832124
+          },
+          "facing": 2.340503525654224,
+          "target": {
+            "x": 97.41740292717276,
+            "y": 34.44206643802738
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "right"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 62.67822714362465,
+            "y": 32.041785720092086
+          },
+          "velocity": {
+            "x": 1.2041881266142695,
+            "y": -0.6356854236346976
+          },
+          "facing": 1.853926167580692,
+          "target": {
+            "x": 96.91002285847695,
+            "y": 32.0906161686801
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5824178168117206,
+            "support": "right"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 62.64231106793121,
+            "y": 32.44211365095512
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.461361989550122,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 65.80444880670746,
+            "y": 34.49376587206809
+          },
+          "velocity": {
+            "x": 1.0524749405470857,
+            "y": 0
+          },
+          "facing": 1.9120759686444124,
+          "target": {
+            "x": 96.9058468472239,
+            "y": 34.49376587206809
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.68475711507037,
+            "y": 34.472788274006014
+          },
+          "velocity": {
+            "x": 0.17535931212819378,
+            "y": 0
+          },
+          "facing": 2.4260627029584168,
+          "target": {
+            "x": 97.42157807853285,
+            "y": 34.472788274006014
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 62.63688409218581,
+            "y": 32.12934291484132
+          },
+          "velocity": {
+            "x": 0.8836979466715889,
+            "y": -0.3273719629146399
+          },
+          "facing": 2.0078114639155036,
+          "target": {
+            "x": 96.83725003063799,
+            "y": 32.145901093829785
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.46545974086264713,
+            "support": "right"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 62.681221033187235,
+            "y": 32.473139714099716
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.548700645969184,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 65.73421293927285,
+            "y": 34.444887906860906
+          },
+          "velocity": {
+            "x": 1.0510381870705032,
+            "y": 0
+          },
+          "facing": 1.7629544450610055,
+          "target": {
+            "x": 96.90074694585117,
+            "y": 34.444887906860906
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.64714963424382,
+            "y": 34.44133643762236
+          },
+          "velocity": {
+            "x": 0.19936746983887588,
+            "y": -0.029200016200832124
+          },
+          "facing": 2.340503525654224,
+          "target": {
+            "x": 97.41740292717276,
+            "y": 34.44206643802738
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "right"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 62.67822714362465,
+            "y": 32.041785720092086
+          },
+          "velocity": {
+            "x": 1.2041881266142695,
+            "y": -0.6356854236346976
+          },
+          "facing": 1.853926167580692,
+          "target": {
+            "x": 96.91002285847695,
+            "y": 32.0906161686801
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5824178168117206,
+            "support": "right"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 62.64231106793121,
+            "y": 32.44211365095512
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.461361989550122,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 70.09356225241184,
+            "y": 36.47631594405973
+          },
+          "velocity": {
+            "x": 5.9922159219598825,
+            "y": -0.9869342916135793
+          },
+          "facing": 1.5698203330513767,
+          "target": {
+            "x": 96.88649461403858,
+            "y": 36.527285253186356
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.19395357477442215,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.00967369531284,
+            "y": 34.523727855299356
+          },
+          "velocity": {
+            "x": 2.262583984640969,
+            "y": -2.3196168505350556
+          },
+          "facing": 1.739727963815664,
+          "target": {
+            "x": 97.42470949724056,
+            "y": 34.58171827656273
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.8171574689279608,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 66.48675355631725,
+            "y": 34.25893156306143
+          },
+          "velocity": {
+            "x": 4.11217788870033,
+            "y": -1.8431228409585287
+          },
+          "facing": 1.764348031362351,
+          "target": {
+            "x": 96.90226061023878,
+            "y": 34.40231320541725
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.476622066313126,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.381502799840604,
+            "y": 32.888270068861154
+          },
+          "velocity": {
+            "x": 4.091365067488368,
+            "y": -1.9975996712048527
+          },
+          "facing": 1.5692810939180095,
+          "target": {
+            "x": 97.44007444307984,
+            "y": 32.9899717520202
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5088433537822854,
+            "support": "right"
+          }
+        }
+      ]
+    },
+    "HH": {
+      "n": 24,
+      "qualified": 10,
+      "commandLatency": 0.25000000000000355,
+      "bodyAtBRelease": [
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 73.7342129392494,
+            "y": 34.44488790688986
+          },
+          "velocity": {
+            "x": 1.051038187067661,
+            "y": 0
+          },
+          "facing": 1.7629544450621868,
+          "target": {
+            "x": 96.90074694277452,
+            "y": 34.44488790688986
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 73.6415671212202,
+            "y": 34.441866249162935
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.4600719712321926,
+          "target": {
+            "x": 74,
+            "y": 34
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 70.76485553020447,
+            "y": 32.44488790688986
+          },
+          "velocity": {
+            "x": 1.2260452166600544,
+            "y": 0
+          },
+          "facing": 1.651838951324489,
+          "target": {
+            "x": 96.91186098110336,
+            "y": 32.44488790688986
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 70.64214332661498,
+            "y": 32.44205893646952
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.4610721954384243,
+          "target": {
+            "x": 71,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 65.73421293927285,
+            "y": 34.444887906860906
+          },
+          "velocity": {
+            "x": 1.0510381870705032,
+            "y": 0
+          },
+          "facing": 1.7629544450610055,
+          "target": {
+            "x": 96.90074694585117,
+            "y": 34.444887906860906
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.64714963424382,
+            "y": 34.44133643762236
+          },
+          "velocity": {
+            "x": 0.19936746983887588,
+            "y": -0.029200016200832124
+          },
+          "facing": 2.340503525654224,
+          "target": {
+            "x": 97.41740292717276,
+            "y": 34.44206643802738
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "right"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 62.67822714362465,
+            "y": 32.041785720092086
+          },
+          "velocity": {
+            "x": 1.2041881266142695,
+            "y": -0.6356854236346976
+          },
+          "facing": 1.853926167580692,
+          "target": {
+            "x": 96.91002285847695,
+            "y": 32.0906161686801
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5824178168117206,
+            "support": "right"
+          }
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 62.64231106793121,
+            "y": 32.44211365095512
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.461361989550122,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 65.73421293927285,
+            "y": 34.444887906860906
+          },
+          "velocity": {
+            "x": 1.0510381870705032,
+            "y": 0
+          },
+          "facing": 1.7629544450610055,
+          "target": {
+            "x": 96.90074694585117,
+            "y": 34.444887906860906
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.64714963424382,
+            "y": 34.44133643762236
+          },
+          "velocity": {
+            "x": 0.19936746983887588,
+            "y": -0.029200016200832124
+          },
+          "facing": 2.340503525654224,
+          "target": {
+            "x": 97.41740292717276,
+            "y": 34.44206643802738
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "right"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 62.67822714362465,
+            "y": 32.041785720092086
+          },
+          "velocity": {
+            "x": 1.2041881266142695,
+            "y": -0.6356854236346976
+          },
+          "facing": 1.853926167580692,
+          "target": {
+            "x": 96.91002285847695,
+            "y": 32.0906161686801
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5824178168117206,
+            "support": "right"
+          }
+        },
+        {
+          "family": "descending",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 62.64231106793121,
+            "y": 32.44211365095512
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.461361989550122,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 65.80444880670746,
+            "y": 34.49376587206809
+          },
+          "velocity": {
+            "x": 1.0524749405470857,
+            "y": 0
+          },
+          "facing": 1.9120759686444124,
+          "target": {
+            "x": 96.9058468472239,
+            "y": 34.49376587206809
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.68475711507037,
+            "y": 34.472788274006014
+          },
+          "velocity": {
+            "x": 0.17535931212819378,
+            "y": 0
+          },
+          "facing": 2.4260627029584168,
+          "target": {
+            "x": 97.42157807853285,
+            "y": 34.472788274006014
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 62.63688409218581,
+            "y": 32.12934291484132
+          },
+          "velocity": {
+            "x": 0.8836979466715889,
+            "y": -0.3273719629146399
+          },
+          "facing": 2.0078114639155036,
+          "target": {
+            "x": 96.83725003063799,
+            "y": 32.145901093829785
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.46545974086264713,
+            "support": "right"
+          }
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 62.681221033187235,
+            "y": 32.473139714099716
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.548700645969184,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 65.73421293927285,
+            "y": 34.444887906860906
+          },
+          "velocity": {
+            "x": 1.0510381870705032,
+            "y": 0
+          },
+          "facing": 1.7629544450610055,
+          "target": {
+            "x": 96.90074694585117,
+            "y": 34.444887906860906
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.64714963424382,
+            "y": 34.44133643762236
+          },
+          "velocity": {
+            "x": 0.19936746983887588,
+            "y": -0.029200016200832124
+          },
+          "facing": 2.340503525654224,
+          "target": {
+            "x": 97.41740292717276,
+            "y": 34.44206643802738
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "right"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 62.67822714362465,
+            "y": 32.041785720092086
+          },
+          "velocity": {
+            "x": 1.2041881266142695,
+            "y": -0.6356854236346976
+          },
+          "facing": 1.853926167580692,
+          "target": {
+            "x": 96.91002285847695,
+            "y": 32.0906161686801
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5824178168117206,
+            "support": "right"
+          }
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 62.64231106793121,
+            "y": 32.44211365095512
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facing": 2.461361989550122,
+          "target": {
+            "x": 63,
+            "y": 32
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0,
+            "support": "both"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "adequate",
+          "position": {
+            "x": 70.09356225241184,
+            "y": 36.47631594405973
+          },
+          "velocity": {
+            "x": 5.9922159219598825,
+            "y": -0.9869342916135793
+          },
+          "facing": 1.5698203330513767,
+          "target": {
+            "x": 96.88649461403858,
+            "y": 36.527285253186356
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.19395357477442215,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "inadequate",
+          "position": {
+            "x": 65.00967369531284,
+            "y": 34.523727855299356
+          },
+          "velocity": {
+            "x": 2.262583984640969,
+            "y": -2.3196168505350556
+          },
+          "facing": 1.739727963815664,
+          "target": {
+            "x": 97.42470949724056,
+            "y": 34.58171827656273
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.8171574689279608,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "adequate",
+          "position": {
+            "x": 66.48675355631725,
+            "y": 34.25893156306143
+          },
+          "velocity": {
+            "x": 4.11217788870033,
+            "y": -1.8431228409585287
+          },
+          "facing": 1.764348031362351,
+          "target": {
+            "x": 96.90226061023878,
+            "y": 34.40231320541725
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.476622066313126,
+            "support": "right"
+          }
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "inadequate",
+          "position": {
+            "x": 63.381502799840604,
+            "y": 32.888270068861154
+          },
+          "velocity": {
+            "x": 4.091365067488368,
+            "y": -1.9975996712048527
+          },
+          "facing": 1.5692810939180095,
+          "target": {
+            "x": 97.44007444307984,
+            "y": 32.9899717520202
+          },
+          "plantBalance": {
+            "balance": 1,
+            "load": 0.5088433537822854,
+            "support": "right"
+          }
+        }
+      ]
+    }
+  },
+  "mediators": {
+    "LL": {
+      "n": 16,
+      "meanSpeed": 2.366079946718966,
+      "meanRelativeSpeed": 11.995677826551153,
+      "meanFacingError": 0.08662031852902295,
+      "meanObservedPlanAge": 1.065000000000015,
+      "rows": [
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.700000000000053,
+          "speed": 3.2298470082586896,
+          "relativeSpeed": 7.969617353188155,
+          "facingError": 0.15914715525639966,
+          "observedPlanAge": 1.6000000000000227,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 13.600000000000051,
+          "speed": 3.6099185108824714,
+          "relativeSpeed": 5.769428035800331,
+          "facingError": 0.32894570093280456,
+          "observedPlanAge": 1.6000000000000227,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.57500000000005,
+          "speed": 3.2965362467352373,
+          "relativeSpeed": 13.062029491001503,
+          "facingError": 0.0046440599368615665,
+          "observedPlanAge": 1.475000000000021,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 13.300000000000047,
+          "speed": 3.3440901477319893,
+          "relativeSpeed": 12.35131190328219,
+          "facingError": 0.021269790147833586,
+          "observedPlanAge": 1.3000000000000185,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.000000000000043,
+          "speed": 1.4979062984749003,
+          "relativeSpeed": 15.312736989255118,
+          "facingError": 0.08206900594666822,
+          "observedPlanAge": 0.9000000000000128,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 12.750000000000039,
+          "speed": 0.2602377518847564,
+          "relativeSpeed": 12.89050443546863,
+          "facingError": 0.01760170012484008,
+          "observedPlanAge": 0.7500000000000107,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.000000000000043,
+          "speed": 1.6625560248949651,
+          "relativeSpeed": 15.30285795112395,
+          "facingError": 0.09250576001930645,
+          "observedPlanAge": 0.70000000000001,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 12.675000000000038,
+          "speed": 1.4881372589640407,
+          "relativeSpeed": 14.939783898719789,
+          "facingError": 0.09577035241323606,
+          "observedPlanAge": 0.6750000000000096,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 12.950000000000042,
+          "speed": 1.5041799908493994,
+          "relativeSpeed": 18.24247723199221,
+          "facingError": 0.004515777387679388,
+          "observedPlanAge": 0.8500000000000121,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 12.625000000000037,
+          "speed": 0.17521051974457935,
+          "relativeSpeed": 15.501856882503178,
+          "facingError": 0.0066886811185735695,
+          "observedPlanAge": null,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.225000000000046,
+          "speed": 3.1106448310008528,
+          "relativeSpeed": 14.339151048930232,
+          "facingError": 0.19596403744099056,
+          "observedPlanAge": 0.12500000000000178,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.350000000000048,
+          "speed": 3.0796515284784163,
+          "relativeSpeed": 10.713752163634595,
+          "facingError": 0.06792559658844399,
+          "observedPlanAge": 1.2500000000000178,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 13.47500000000005,
+          "speed": 3.2968102747767984,
+          "relativeSpeed": 4.64943191733951,
+          "facingError": 0.08625912773088394,
+          "observedPlanAge": 1.475000000000021,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.325000000000047,
+          "speed": 3.326205175775886,
+          "relativeSpeed": 11.02799090938659,
+          "facingError": 0.12062221927713757,
+          "observedPlanAge": 1.0250000000000146,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 14.000000000000057,
+          "speed": 3.238730447916312,
+          "relativeSpeed": 10.399463271729838,
+          "facingError": 0.049121906128844595,
+          "observedPlanAge": 1.7000000000000242,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 14.95000000000007,
+          "speed": 1.7366171311341618,
+          "relativeSpeed": 9.458451741462634,
+          "facingError": 0.05287422601386349,
+          "observedPlanAge": 0.5500000000000078,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        }
+      ]
+    },
+    "LH": {
+      "n": 16,
+      "meanSpeed": 2.366176343838703,
+      "meanRelativeSpeed": 11.99570246962242,
+      "meanFacingError": 0.08662226519910113,
+      "meanObservedPlanAge": 1.065000000000015,
+      "rows": [
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.700000000000053,
+          "speed": 3.2298470082586896,
+          "relativeSpeed": 7.969617353188155,
+          "facingError": 0.15914715525639966,
+          "observedPlanAge": 1.6000000000000227,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 13.600000000000051,
+          "speed": 3.6099185108824714,
+          "relativeSpeed": 5.769428035800331,
+          "facingError": 0.32894570093280456,
+          "observedPlanAge": 1.6000000000000227,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.57500000000005,
+          "speed": 3.2965362467352373,
+          "relativeSpeed": 13.062029491001503,
+          "facingError": 0.0046440599368615665,
+          "observedPlanAge": 1.475000000000021,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 13.300000000000047,
+          "speed": 3.3440901477319893,
+          "relativeSpeed": 12.35131190328219,
+          "facingError": 0.021269790147833586,
+          "observedPlanAge": 1.3000000000000185,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.000000000000043,
+          "speed": 1.4979062984749003,
+          "relativeSpeed": 15.312736989255118,
+          "facingError": 0.08206900594666822,
+          "observedPlanAge": 0.9000000000000128,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 12.750000000000039,
+          "speed": 0.2602377518847564,
+          "relativeSpeed": 12.89050443546863,
+          "facingError": 0.01760170012484008,
+          "observedPlanAge": 0.7500000000000107,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.000000000000043,
+          "speed": 1.6625560248949651,
+          "relativeSpeed": 15.30285795112395,
+          "facingError": 0.09250576001930645,
+          "observedPlanAge": 0.70000000000001,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 12.675000000000038,
+          "speed": 1.4881372589640407,
+          "relativeSpeed": 14.939783898719789,
+          "facingError": 0.09577035241323606,
+          "observedPlanAge": 0.6750000000000096,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 12.950000000000042,
+          "speed": 1.5041799908493994,
+          "relativeSpeed": 18.24247723199221,
+          "facingError": 0.004515777387679388,
+          "observedPlanAge": 0.8500000000000121,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 12.625000000000037,
+          "speed": 0.17521051974457935,
+          "relativeSpeed": 15.501856882503178,
+          "facingError": 0.0066886811185735695,
+          "observedPlanAge": null,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.225000000000046,
+          "speed": 3.1106448310008528,
+          "relativeSpeed": 14.339151048930232,
+          "facingError": 0.19596403744099056,
+          "observedPlanAge": 0.12500000000000178,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.350000000000048,
+          "speed": 3.0796515284784163,
+          "relativeSpeed": 10.713752163634595,
+          "facingError": 0.06792559658844399,
+          "observedPlanAge": 1.2500000000000178,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 13.47500000000005,
+          "speed": 3.2968102747767984,
+          "relativeSpeed": 4.64943191733951,
+          "facingError": 0.08625912773088394,
+          "observedPlanAge": 1.475000000000021,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.325000000000047,
+          "speed": 3.326205175775886,
+          "relativeSpeed": 11.02799090938659,
+          "facingError": 0.12062221927713757,
+          "observedPlanAge": 1.0250000000000146,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 14.000000000000057,
+          "speed": 3.238730447916312,
+          "relativeSpeed": 10.399463271729838,
+          "facingError": 0.049121906128844595,
+          "observedPlanAge": 1.7000000000000242,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 14.95000000000007,
+          "speed": 1.738159485049956,
+          "relativeSpeed": 9.458846030602905,
+          "facingError": 0.052905372735114316,
+          "observedPlanAge": 0.5500000000000078,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        }
+      ]
+    },
+    "HL": {
+      "n": 17,
+      "meanSpeed": 2.10691415508782,
+      "meanRelativeSpeed": 11.622411102884543,
+      "meanFacingError": 0.1569523798923529,
+      "meanObservedPlanAge": 1.0666666666666818,
+      "rows": [
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.675000000000052,
+          "speed": 3.231223070632646,
+          "relativeSpeed": 7.9477196453929455,
+          "facingError": 0.23200711775715946,
+          "observedPlanAge": 1.5750000000000224,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 13.600000000000051,
+          "speed": 3.4679760523303687,
+          "relativeSpeed": 5.668757157658422,
+          "facingError": 0.3210436160497983,
+          "observedPlanAge": 1.6000000000000227,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.57500000000005,
+          "speed": 3.32666450395036,
+          "relativeSpeed": 13.020791236244332,
+          "facingError": 0.06605856383473596,
+          "observedPlanAge": 1.475000000000021,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 13.275000000000047,
+          "speed": 3.553514039517704,
+          "relativeSpeed": 12.643740940529169,
+          "facingError": 0.06313244138799012,
+          "observedPlanAge": 1.2750000000000181,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 12.975000000000042,
+          "speed": 1.2399921305219996,
+          "relativeSpeed": 15.66827268316899,
+          "facingError": 0.00875449216098545,
+          "observedPlanAge": 0.8750000000000124,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 12.700000000000038,
+          "speed": 0.4680833683218517,
+          "relativeSpeed": 13.4737611254371,
+          "facingError": 0.005000181852177432,
+          "observedPlanAge": 0.70000000000001,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.075000000000044,
+          "speed": 0.6507352753809724,
+          "relativeSpeed": 14.273698101940896,
+          "facingError": 0.04764366131194597,
+          "observedPlanAge": 0.775000000000011,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 12.650000000000038,
+          "speed": 0.8621321045831216,
+          "relativeSpeed": 15.099613174754866,
+          "facingError": 0.031076926453237563,
+          "observedPlanAge": 0.6500000000000092,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 12.87500000000004,
+          "speed": 0.5026414598543064,
+          "relativeSpeed": 17.44612842778728,
+          "facingError": 0.008602649818330477,
+          "observedPlanAge": 0.775000000000011,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 12.600000000000037,
+          "speed": 0.08419739996449058,
+          "relativeSpeed": 15.783486066900133,
+          "facingError": 0.07065397085309755,
+          "observedPlanAge": null,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.100000000000044,
+          "speed": 3.2034830734880337,
+          "relativeSpeed": 13.87428265155658,
+          "facingError": 0.658797375712737,
+          "observedPlanAge": null,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.325000000000047,
+          "speed": 3.1979343840600145,
+          "relativeSpeed": 11.10387194296958,
+          "facingError": 0.037379453505772986,
+          "observedPlanAge": 1.2250000000000174,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 13.450000000000049,
+          "speed": 3.148457621673457,
+          "relativeSpeed": 4.563536476136314,
+          "facingError": 0.2746176246696521,
+          "observedPlanAge": 1.4500000000000206,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.50000000000005,
+          "speed": 2.7989771724758925,
+          "relativeSpeed": 10.02039624120981,
+          "facingError": 0.06132632378858083,
+          "observedPlanAge": 1.200000000000017,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 14.25000000000006,
+          "speed": 2.1412406619470867,
+          "relativeSpeed": 8.906628749131386,
+          "facingError": 0.14322816110376713,
+          "observedPlanAge": 0.4500000000000064,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.875000000000055,
+          "speed": 3.148805392663488,
+          "relativeSpeed": 10.715348314956719,
+          "facingError": 0.02505140562041408,
+          "observedPlanAge": 1.5750000000000224,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 14.800000000000068,
+          "speed": 0.7914829251271426,
+          "relativeSpeed": 7.370955813262683,
+          "facingError": 0.613816492289617,
+          "observedPlanAge": 0.4000000000000057,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        }
+      ]
+    },
+    "HH": {
+      "n": 17,
+      "meanSpeed": 2.10691415508782,
+      "meanRelativeSpeed": 11.622411102884543,
+      "meanFacingError": 0.1569523798923529,
+      "meanObservedPlanAge": 1.0666666666666818,
+      "rows": [
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.675000000000052,
+          "speed": 3.231223070632646,
+          "relativeSpeed": 7.9477196453929455,
+          "facingError": 0.23200711775715946,
+          "observedPlanAge": 1.5750000000000224,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 13.600000000000051,
+          "speed": 3.4679760523303687,
+          "relativeSpeed": 5.668757157658422,
+          "facingError": 0.3210436160497983,
+          "observedPlanAge": 1.6000000000000227,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.57500000000005,
+          "speed": 3.32666450395036,
+          "relativeSpeed": 13.020791236244332,
+          "facingError": 0.06605856383473596,
+          "observedPlanAge": 1.475000000000021,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "long_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 13.275000000000047,
+          "speed": 3.553514039517704,
+          "relativeSpeed": 12.643740940529169,
+          "facingError": 0.06313244138799012,
+          "observedPlanAge": 1.2750000000000181,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 12.975000000000042,
+          "speed": 1.2399921305219996,
+          "relativeSpeed": 15.66827268316899,
+          "facingError": 0.00875449216098545,
+          "observedPlanAge": 0.8750000000000124,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 12.700000000000038,
+          "speed": 0.4680833683218517,
+          "relativeSpeed": 13.4737611254371,
+          "facingError": 0.005000181852177432,
+          "observedPlanAge": 0.70000000000001,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.075000000000044,
+          "speed": 0.6507352753809724,
+          "relativeSpeed": 14.273698101940896,
+          "facingError": 0.04764366131194597,
+          "observedPlanAge": 0.775000000000011,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "fast_ground",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 12.650000000000038,
+          "speed": 0.8621321045831216,
+          "relativeSpeed": 15.099613174754866,
+          "facingError": 0.031076926453237563,
+          "observedPlanAge": 0.6500000000000092,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 12.87500000000004,
+          "speed": 0.5026414598543064,
+          "relativeSpeed": 17.44612842778728,
+          "facingError": 0.008602649818330477,
+          "observedPlanAge": 0.775000000000011,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 12.600000000000037,
+          "speed": 0.08419739996449058,
+          "relativeSpeed": 15.783486066900133,
+          "facingError": 0.07065397085309755,
+          "observedPlanAge": null,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "moving",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.100000000000044,
+          "speed": 3.2034830734880337,
+          "relativeSpeed": 13.87428265155658,
+          "facingError": 0.658797375712737,
+          "observedPlanAge": null,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 13.325000000000047,
+          "speed": 3.1979343840600145,
+          "relativeSpeed": 11.10387194296958,
+          "facingError": 0.037379453505772986,
+          "observedPlanAge": 1.2250000000000174,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 0,
+          "window": "inadequate",
+          "contactAt": 13.450000000000049,
+          "speed": 3.148457621673457,
+          "relativeSpeed": 4.563536476136314,
+          "facingError": 0.2746176246696521,
+          "observedPlanAge": 1.4500000000000206,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "lateral",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.50000000000005,
+          "speed": 2.7989771724758925,
+          "relativeSpeed": 10.02039624120981,
+          "facingError": 0.06132632378858083,
+          "observedPlanAge": 1.200000000000017,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 0,
+          "window": "adequate",
+          "contactAt": 14.25000000000006,
+          "speed": 2.1412406619470867,
+          "relativeSpeed": 8.906628749131386,
+          "facingError": 0.14322816110376713,
+          "observedPlanAge": 0.4500000000000064,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "adequate",
+          "contactAt": 13.875000000000055,
+          "speed": 3.148805392663488,
+          "relativeSpeed": 10.715348314956719,
+          "facingError": 0.02505140562041408,
+          "observedPlanAge": 1.5750000000000224,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        },
+        {
+          "family": "pressure",
+          "sample": 1,
+          "window": "inadequate",
+          "contactAt": 14.800000000000068,
+          "speed": 0.7914829251271426,
+          "relativeSpeed": 7.370955813262683,
+          "facingError": 0.613816492289617,
+          "observedPlanAge": 0.4000000000000057,
+          "storedPreparation": 0.012,
+          "surface": "cushion"
+        }
+      ]
+    }
+  },
+  "differences": {
+    "readingLowTouch": {
+      "directReceiverTouch": {
+        "pairedN": 20,
+        "mean": 0.05,
+        "wins": 1,
+        "losses": 0,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0.1
+          },
+          {
+            "seed": 1,
+            "mean": 0
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      },
+      "control": {
+        "pairedN": 20,
+        "mean": 0,
+        "wins": 1,
+        "losses": 1,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0
+          },
+          {
+            "seed": 1,
+            "mean": 0
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      },
+      "retention": {
+        "pairedN": 20,
+        "mean": 0,
+        "wins": 1,
+        "losses": 1,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0
+          },
+          {
+            "seed": 1,
+            "mean": 0
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      }
+    },
+    "readingHighTouch": {
+      "directReceiverTouch": {
+        "pairedN": 20,
+        "mean": 0.05,
+        "wins": 1,
+        "losses": 0,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0.1
+          },
+          {
+            "seed": 1,
+            "mean": 0
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      },
+      "control": {
+        "pairedN": 20,
+        "mean": 0.05,
+        "wins": 1,
+        "losses": 0,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0.1
+          },
+          {
+            "seed": 1,
+            "mean": 0
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      },
+      "retention": {
+        "pairedN": 20,
+        "mean": 0.1,
+        "wins": 2,
+        "losses": 0,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0.1
+          },
+          {
+            "seed": 1,
+            "mean": 0.1
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      }
+    },
+    "touchLowReading": {
+      "directReceiverTouch": {
+        "pairedN": 20,
+        "mean": 0,
+        "wins": 0,
+        "losses": 0,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0
+          },
+          {
+            "seed": 1,
+            "mean": 0
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      },
+      "control": {
+        "pairedN": 20,
+        "mean": 0.25,
+        "wins": 5,
+        "losses": 0,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0.2
+          },
+          {
+            "seed": 1,
+            "mean": 0.3
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      },
+      "retention": {
+        "pairedN": 20,
+        "mean": 0.2,
+        "wins": 5,
+        "losses": 1,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0.2
+          },
+          {
+            "seed": 1,
+            "mean": 0.2
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      }
+    },
+    "touchHighReading": {
+      "directReceiverTouch": {
+        "pairedN": 20,
+        "mean": 0,
+        "wins": 0,
+        "losses": 0,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0
+          },
+          {
+            "seed": 1,
+            "mean": 0
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      },
+      "control": {
+        "pairedN": 20,
+        "mean": 0.3,
+        "wins": 6,
+        "losses": 0,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0.3
+          },
+          {
+            "seed": 1,
+            "mean": 0.3
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      },
+      "retention": {
+        "pairedN": 20,
+        "mean": 0.3,
+        "wins": 6,
+        "losses": 0,
+        "seedMeans": [
+          {
+            "seed": 0,
+            "mean": 0.3
+          },
+          {
+            "seed": 1,
+            "mean": 0.3
+          }
+        ],
+        "uncertainty": "Two seed clusters and constructed geometries; seed means are sensitivity descriptions, not confidence intervals."
+      }
+    }
+  },
+  "matched": {
+    "nativeReadiness": {
+      "LL": {
+        "n": 17,
+        "finiteContacts": 17,
+        "controlled": 6,
+        "meanQuality": 0.26143260455076434,
+        "meanRelativeSpeed": 11.813969057291168
+      },
+      "LH": {
+        "n": 17,
+        "finiteContacts": 17,
+        "controlled": 14,
+        "meanQuality": 0.39334649766264046,
+        "meanRelativeSpeed": 11.813969057291168
+      },
+      "HL": {
+        "n": 17,
+        "finiteContacts": 17,
+        "controlled": 6,
+        "meanQuality": 0.26143260455076434,
+        "meanRelativeSpeed": 11.813969057291168
+      },
+      "HH": {
+        "n": 17,
+        "finiteContacts": 17,
+        "controlled": 14,
+        "meanQuality": 0.39334649766264046,
+        "meanRelativeSpeed": 11.813969057291168
+      }
+    },
+    "readinessReading55": {
+      "LL": {
+        "n": 17,
+        "finiteContacts": 17,
+        "controlled": 6,
+        "meanQuality": 0.26143260455076434,
+        "meanRelativeSpeed": 11.813969057291168
+      },
+      "LH": {
+        "n": 17,
+        "finiteContacts": 17,
+        "controlled": 14,
+        "meanQuality": 0.39334649766264046,
+        "meanRelativeSpeed": 11.813969057291168
+      },
+      "HL": {
+        "n": 17,
+        "finiteContacts": 17,
+        "controlled": 6,
+        "meanQuality": 0.26143260455076434,
+        "meanRelativeSpeed": 11.813969057291168
+      },
+      "HH": {
+        "n": 17,
+        "finiteContacts": 17,
+        "controlled": 14,
+        "meanQuality": 0.39334649766264046,
+        "meanRelativeSpeed": 11.813969057291168
+      }
+    }
+  },
+  "rejected": [],
+  "costs": {
+    "qualification": {
+      "wallSeconds": 8.117964299999999,
+      "cpuSeconds": 10.188,
+      "peakRSSKiB": 335844,
+      "node": "v24.22.1",
+      "platform": "win32"
+    },
+    "factorial": {
+      "wallSeconds": 175.4904535,
+      "cpuSeconds": 190.672,
+      "peakRSSKiB": 504552,
+      "node": "v24.22.1",
+      "platform": "win32"
+    },
+    "maxSaveBytes": 306109
+  },
+  "limitations": [
+    "No production runtime, physics, default or profile changes.",
+    "Only two seed clusters; repeated families/windows are dependent.",
+    "Aerial outcomes are exploratory and excluded from primary inference.",
+    "Planned window labels do not prove adequate actual contact preparation.",
+    "Physical execution checkpoints are selected from actual contacts and do not represent misses.",
+    "First-time events and subsequent actions are recorded, not guaranteed successful useful continuation."
+  ]
+}
