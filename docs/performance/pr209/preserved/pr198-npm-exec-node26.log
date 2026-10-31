@@ -1,0 +1,20 @@
+npm warn exec The following package was not found and will be installed: node@26.13.0
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+
+> my_football_legend@0.1.0 benchmark:pr198:check
+> node scripts/freezePr198Baseline.mjs --check && node scripts/checkPr198Evidence.mjs && node scripts/summarizePr198.mjs --check && node scripts/reportPr198.mjs --check
+
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+PR198 frozen PR197 baseline PASS 1123b7ca2a220622bd619b1eb7b24f6495cd1964cc97c10025777188fa05a435 134
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+warning: in the working copy of 'docs/performance/pr196/exploratory/aborted-uncached-prefixes.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/performance/pr196/exploratory/summary-initial-v1.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/performance/pr197/README.md', LF will be replaced by CRLF the next time Git touches it
+PR198 integrity PASS: 134 preserved IDs + TACT-013; identical actual balls; isolated experiments; negatives; real rebounds; seven complete pairs; bounded information
+PR198 summary 14 matches 135 IDs { lostTouch: 8, gainedTouch: 3, lostControl: 13, gainedControl: 3 }
+PR198 report 14 complete match rows; canonical NOT READY

@@ -1,0 +1,27 @@
+
+ RUN  v4.1.10 C:/Users/Admin/Documents/Codex/2026-10-31/cze-zapoznaj-si-prosz-z-wytycznymi/work/repo
+
+ ❯ src/core/matchSimulation/temporalFootStrike.test.ts (15 tests | 1 failed) 368ms
+     × records unsupported high contacts and insufficient preparation without a fabricated impulse 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/matchSimulation/temporalFootStrike.test.ts > bounded temporal low inside-foot strike foundation > records unsupported high contacts and insufficient preparation without a fabricated impulse
+Error: Temporal strike cannot move its initial foot or enlarge physical capability
+ ❯ executeTemporalStrike src/core/matchSimulation/temporalFootStrike.ts:241:11
+    239|       plan.reach > geometry.footReach + 1e-9 ||
+    240|       plan.maximumFootSpeed > capability.maximumFootSpeed + 1e-9)
+    241|     throw Error('Temporal strike cannot move its initial foot or enlar…
+       |           ^
+    242|   const path = temporalFootPath(plan, error);
+    243|   let ball: Ball = physicalBallSchema.parse({
+ ❯ src/core/matchSimulation/temporalFootStrike.test.ts:189:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  18:54:51
+   Duration  8.08s (transform 4.00s, setup 0ms, import 6.68s, tests 368ms, environment 742ms)
+

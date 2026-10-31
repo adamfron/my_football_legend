@@ -1,0 +1,23 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Read-only observer changed autonomous football
++ actual - expected
+
++ '3ca21aeb3c118c1b85ef642054e0e3600034e48701ef3ba77d4e0552769240f8'
+- '373b525f10508064c66b5684cc369e977d3b911ebb12396eb98072b98bc55e70'
+
+    at file:///C:/Users/Admin/Documents/Codex/2026-10-31/cze-zapoznaj-si-prosz-z-wytycznymi/work/repo/scripts/pr209Measurements.mjs:284:14
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '3ca21aeb3c118c1b85ef642054e0e3600034e48701ef3ba77d4e0552769240f8',
+  expected: '373b525f10508064c66b5684cc369e977d3b911ebb12396eb98072b98bc55e70',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

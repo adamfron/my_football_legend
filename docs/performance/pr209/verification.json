@@ -1,0 +1,198 @@
+{
+  "schema": "pr209-verification-v1",
+  "source": "4988874f644231dfa0fa3f0db586af3f35548c539edce4c361b4707e3de9dfb6",
+  "base": "5353858065eaefdebfabacdd12a1a961bda36d74",
+  "recordedAt": "2026-10-31T19:18:42.277Z",
+  "node": "v24.22.1",
+  "platform": "win32",
+  "fullVerifySemiSpaceMiB": 256,
+  "fullVerifyExecution": "Native Windows, outside the restricted execution sandbox; unchanged assertions and timeouts",
+  "uniqueVitestCases": 2548,
+  "groups": {
+    "unit": 2483,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5
+  },
+  "ciContracts": 5,
+  "commands": [
+    {
+      "key": "verify",
+      "command": "npm run verify",
+      "exitCode": 0,
+      "log": "docs/performance/pr209/verification/verify-native.log.gz",
+      "sha256": "92805508a14c0d8832c1284a973f02b9e2429237b860797e11cccfcab29cd513"
+    },
+    {
+      "key": "pr209-replay",
+      "argv": [
+        "node",
+        "scripts/checkPr209Evidence.mjs",
+        "--preflight",
+        "--replay"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 20.4864477,
+      "log": "docs/performance/pr209/verification/pr209-replay.log.gz",
+      "sha256": "5be9ad7a48c00647e2c76b075f49d07120052b39013e36cc0795c8a1cb5d5d77"
+    },
+    {
+      "key": "pr209-supplement-replay",
+      "argv": [
+        "node",
+        "--max-semi-space-size=64",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerTypescriptLoader.mjs",
+        "docs/performance/pr209/bounce-observation-method.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 5.6130452,
+      "log": "docs/performance/pr209/verification/pr209-supplement-replay.log.gz",
+      "sha256": "2e49a547bd12e5e96cd23ef305ea7b28d1ae2edf9de2aa176ae730884c674d2d"
+    },
+    {
+      "key": "pr208-original",
+      "argv": [
+        "node",
+        "scripts/ci/replayPr208Check.mjs",
+        "--replay"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 178.3990443,
+      "log": "docs/performance/pr209/verification/pr208-original.log.gz",
+      "sha256": "0925b0a62feeb17dfd3fb9a69e7a4f42a402a2e6c34d818399f4f62cc3e2e31f"
+    },
+    {
+      "key": "pr207-original",
+      "argv": [
+        "node",
+        "scripts/ci/replayPr207Check.mjs",
+        "--replay"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 74.4954246,
+      "log": "docs/performance/pr209/verification/pr207-original.log.gz",
+      "sha256": "1e955c189184e7762aaf08012a40ea827ad74fef8f5159dab849dd94bf0f6e22"
+    },
+    {
+      "key": "pr206-original",
+      "argv": [
+        "node",
+        "scripts/ci/replayPr206Check.mjs",
+        "--replay"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 106.7209493,
+      "log": "docs/performance/pr209/verification/pr206-original.log.gz",
+      "sha256": "36df335f99f538c897b8872f38d236588ed19de4aa372ad982b74432e2b7fcfb"
+    },
+    {
+      "key": "pr206-causal",
+      "argv": [
+        "node",
+        "--max-semi-space-size=64",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerPr206Lab.mjs",
+        "scripts/checkPr206Contracts.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 6.2931261,
+      "log": "docs/performance/pr209/verification/pr206-causal.log.gz",
+      "sha256": "2f38215db1254ed73c83a5490af28280a6f9912c838c36e28ef5c0d4d3184b8a"
+    },
+    {
+      "key": "pr198-original",
+      "argv": [
+        "npm",
+        "exec",
+        "--offline",
+        "--call=C:\\Users\\Admin\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe scripts/ci/replayPr198Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": null,
+      "log": "docs/performance/pr209/verification/pr198-original.log.gz",
+      "qualification": "Correct npm context with the pinned Node 24 executable; original direct invocation retained separately",
+      "sha256": "7a526c6d8ba70d585def5c479774d3841645bf37bf58f82a11ff068aeb65dcb2"
+    },
+    {
+      "key": "source-final",
+      "argv": [
+        "node",
+        "scripts/checkPr209Evidence.mjs",
+        "--preflight"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 2.2839756,
+      "log": "docs/performance/pr209/verification/source-final.log.gz",
+      "sha256": "d726c8e1c60becda07b104bc6ee1c7a1db8ffd6bc00e375c5d00f1a49931ad92"
+    },
+    {
+      "key": "ci-manifest",
+      "command": "node scripts/ci/buildManifest.mjs --check",
+      "exitCode": 0,
+      "log": "docs/performance/pr209/verification/ci-manifest.log.gz",
+      "sha256": "a29e49d92541c80d350f20e6f4f17b370e76c41881caa584ea5d8ad559ca5bbb"
+    },
+    {
+      "key": "ci-contracts",
+      "command": "node --test scripts/ci/contracts.mjs",
+      "exitCode": 0,
+      "log": "docs/performance/pr209/verification/ci-contracts.log.gz",
+      "sha256": "fc94f24f86a88b2a604834f1975f8c1844f1f29e7998cffaa0b5588b0dc74557"
+    },
+    {
+      "key": "workflow",
+      "command": "node scripts/ci/renderWorkflow.mjs --check",
+      "exitCode": 0,
+      "log": "docs/performance/pr209/verification/workflow.log.gz",
+      "sha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e"
+    },
+    {
+      "key": "realism",
+      "command": "node scripts/realismProgress.mjs --check",
+      "exitCode": 0,
+      "log": "docs/performance/pr209/verification/realism.log.gz",
+      "sha256": "52f165b6b5927ed781635b89d147bf73ee716deb108fa626522e252ff2d9d68a"
+    },
+    {
+      "key": "attribute-isolation",
+      "command": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs docs/performance/pr209/attribute-isolation-method.mjs --check",
+      "exitCode": 0,
+      "log": "docs/performance/pr209/verification/attribute-isolation.log.gz",
+      "sha256": "f137b3a7993260369ea1eb1a4ef67dfe97b348d786a6fab82331c892b1c1e473"
+    },
+    {
+      "key": "lint-final",
+      "command": "npm run lint",
+      "exitCode": 0,
+      "log": "docs/performance/pr209/verification/lint-final.log.gz",
+      "sha256": "daf88501805204d9de1253e49ec86c1cba402b3f4df6da80d408203b13082aa0"
+    }
+  ],
+  "priorAttempts": [
+    {
+      "status": "interrupted_after_original_timeout_failures",
+      "source": "4988874f644231dfa0fa3f0db586af3f35548c539edce4c361b4707e3de9dfb6",
+      "log": "docs/performance/pr209/preserved/verify-sandbox-interrupted.log.gz",
+      "sha256": "0bef1e5e1243566ae1a18aef772006f9de03e439d02d98652c03ad318043ee45",
+      "exitCode": null,
+      "explanation": "Restricted run was stopped after historical timeout failures; it is not a successful full verify. Complete native repeat uses identical source and original test budgets."
+    },
+    {
+      "status": "manual_invocation_rejected_by_original_npm_context_guard",
+      "exitCode": 1,
+      "log": "docs/performance/pr209/preserved/pr198-direct-invocation.log",
+      "sha256": "b4d27f41b69d265f4dcf61fa63ce4754db833a0a58644478319b49e4d88001f2"
+    },
+    {
+      "status": "unpinned_npm_exec_runtime_not_used_as_final_validation",
+      "exitCode": 0,
+      "log": "docs/performance/pr209/preserved/pr198-npm-exec-node26.log",
+      "sha256": "c8e34924bf085037abc60c4acf2f02f5acbe85a71296b6c7eaf4e3b84b6f19ea"
+    }
+  ],
+  "hostedCI": "Final head must be assessed after publishing; local verification is not hosted CI success"
+}
