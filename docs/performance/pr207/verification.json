@@ -1,7 +1,7 @@
 {
   "schema": "pr207-verification-v1",
   "base": "f61395cdf05194092f2ac5818e37404ee7d8fac3",
-  "source": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+  "source": "e03d33a7e699e1ccb996d47606df4b79efa826042a3873c77747dd46fead7d0c",
   "preliminaryVerify": {
     "command": "npm run verify",
     "exitCode": 0,
@@ -18,13 +18,30 @@
     "typescript": "PASS"
   },
   "sourceBoundFinalVerify": {
-    "status": "RUNNING",
+    "status": "PASS",
+    "command": "npm run verify",
+    "exitCode": 0,
     "start": {
       "source": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
       "startedAt": "2026-10-31T08:17:20.472Z",
       "node": "v24.22.1",
       "platform": "win32"
-    }
+    },
+    "end": {
+      "source": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+      "endedAt": "2026-10-31T08:39:34.211Z"
+    },
+    "sourceStable": true,
+    "unit": 2454,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "total": 2519,
+    "lint": "PASS",
+    "typescript": "PASS",
+    "build": "PASS",
+    "codeHead": "5da428b305911e78baa4973e9fb2d3fe520533de",
+    "sourceRuntimeHash": "6bf5715f4b284d19f4877e1d9fdd25c92274f3f5e07e2f99691d7e755882f574"
   },
   "ciManifest": {
     "commands": 124,
@@ -76,6 +93,114 @@
     {
       "path": "docs/performance/pr207/pr207-physical-final.log.gz",
       "sha256": "dc651171f2d5d55981a44c0b8a2c74542024bd223b6133b10269c323bd4952d5"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-verify-final.log.gz",
+      "sha256": "8d70e202bc5d5398298dd2b40e0919668c877028133ac159e5b0980a539eb3ec"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-lab-replay.log.gz",
+      "sha256": "de4eab6c65b0329a3b54e5e6ce33ce9c7ba701cb2c3570666ddaf3146ea5cd39"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-live-replay.log.gz",
+      "sha256": "2a0c52d41245847f19fe44260b50933427cef0f5e14964347bce40f5e705a5f3"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-explore-replay.log.gz",
+      "sha256": "34fadd27e5b20487301f6dc0f47c7e1555837be33a12f8ebb7addf568abcdc6e"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-physical-replay.log.gz",
+      "sha256": "50c6cefa421c27ad11156dc2d58436cfde4c2fc113a53d2547cd4a332df4acfb"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-examples-replay.log.gz",
+      "sha256": "02ab52047a0c35f1e4a41c4cf7a6c875d4ddc18bfd1d61c37a4159838bcf48a3"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-save-replay.log.gz",
+      "sha256": "b690d772bc307ceef57fd330db63da84e6d9a9aaf8dd378e9df6b52ff88c0f7d"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-historical198-installed.log.gz",
+      "sha256": "1d097d8974a0ca065e56a581fb02791e6d674283ca6ac3a446460a27ebce23b8"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-ci-contracts-after-isolation.log.gz",
+      "sha256": "d0d4e933877c342eb5e493aec125b9ea3b6e41c5f4709e3873a81a1340b323d8"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-ci-manifest-after-isolation.log.gz",
+      "sha256": "d2f203f95750438bf8dafe1fee7c49be082fc3e8c68dd00359800d167c4f1a86"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-lint-final.log.gz",
+      "sha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63"
     }
-  ]
+  ],
+  "footballVerifySource": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+  "postVerifyCiOnlyChange": {
+    "schema": "pr207-ci-isolation-parity-v1",
+    "verifiedCodeHead": "5da428b305911e78baa4973e9fb2d3fe520533de",
+    "beforeSource": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+    "afterSource": "e03d33a7e699e1ccb996d47606df4b79efa826042a3873c77747dd46fead7d0c",
+    "changed": [
+      "scripts/ci/replayPr198Check.mjs",
+      "scripts/ci/runGroup.mjs"
+    ],
+    "runtimeHash": "6bf5715f4b284d19f4877e1d9fdd25c92274f3f5e07e2f99691d7e755882f574",
+    "runtimeUnchanged": true,
+    "experimentHarnessUnchanged": true,
+    "rows": [
+      {
+        "mode": "lab",
+        "rows": 2752,
+        "beforeSource": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+        "afterSource": "e03d33a7e699e1ccb996d47606df4b79efa826042a3873c77747dd46fead7d0c",
+        "resultRowsHash": "db47da60e570aa0afcc5594e58de4a60a0d62e011b8f22e5be967e6ec1fec192",
+        "allPhysicalResultsEqual": true
+      },
+      {
+        "mode": "live",
+        "rows": 60,
+        "beforeSource": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+        "afterSource": "e03d33a7e699e1ccb996d47606df4b79efa826042a3873c77747dd46fead7d0c",
+        "resultRowsHash": "61ebea96c6f8b996be2cd017480f997b5cc0f18f2a50d6ab3c3dc8c5da9403da",
+        "allPhysicalResultsEqual": true
+      },
+      {
+        "mode": "explore",
+        "rows": 512,
+        "beforeSource": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+        "afterSource": "e03d33a7e699e1ccb996d47606df4b79efa826042a3873c77747dd46fead7d0c",
+        "resultRowsHash": "353c439ad7f226253fa938da8d6e14aa59e8e05e5a43e5b16c55fa9ecea57067",
+        "allPhysicalResultsEqual": true
+      }
+    ]
+  },
+  "finalCiContracts": {
+    "passed": 5,
+    "manifest": "124 commands,144 cases,28 jobs,63 full matches",
+    "lint": "PASS",
+    "originalPr198Command": "PASS in isolated original source"
+  },
+  "recordedPlatformExactReplay": {
+    "lab": "PASS",
+    "live": "PASS",
+    "explore": "PASS",
+    "physicalChecks": "PASS",
+    "examples": "PASS",
+    "saveSize": "PASS",
+    "newCiSourcePhysicalRowsEqual": true
+  },
+  "hostedFirstRun": {
+    "runId": 41184155502,
+    "head": "5da428b305911e78baa4973e9fb2d3fe520533de",
+    "main": "success",
+    "integration": "success",
+    "historicalPassing": "failure: original foot-source identity asserted against intentional extension; unchanged checker isolated, local original command PASS",
+    "failureLog": "ci-first-passing-failure.log"
+  },
+  "readiness": "LOCAL_VERIFIED_RESEARCH_PR; final hosted CI must be assessed on its own head"
 }

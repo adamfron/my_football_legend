@@ -1,7 +1,7 @@
 {
   "result": {
     "schema": "pr207-physical-checks-v1",
-    "source": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+    "source": "e03d33a7e699e1ccb996d47606df4b79efa826042a3873c77747dd46fead7d0c",
     "nominal": {
       "version": "contact-v1",
       "episode": "pr207-physical-checks:kick-contact-v1:0:geometry:anchor:5",
@@ -741,14 +741,14 @@
   "costs": {
     "legacyTouch": {
       "iterations": 3000,
-      "wallMicrosecondsPerCall": 2.2695666666666057,
-      "cpuMicrosecondsPerCall": 0
+      "wallMicrosecondsPerCall": 2.1917999999999815,
+      "cpuMicrosecondsPerCall": 10.666666666666666
     },
     "activeKick": {
       "iterations": 3000,
-      "wallMicrosecondsPerCall": 13.011400000000018,
-      "cpuMicrosecondsPerCall": 31.333333333333332
+      "wallMicrosecondsPerCall": 12.59736666666663,
+      "cpuMicrosecondsPerCall": 31
     },
-    "peakRSSKiB": 289640
+    "peakRSSKiB": 283024
   }
 }

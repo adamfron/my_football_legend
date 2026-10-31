@@ -169,3 +169,11 @@ scripts/ci/** text eol=lf
 # PR203 source archives and development receipts retain exact bytes.
 docs/performance/pr203/** -text linguist-generated=true
 docs/PR203*.md text eol=lf
+
+# PR207 source-bound receipts/methods retain exact bytes on Windows and Linux.
+docs/performance/pr207/** -text whitespace=cr-at-eol linguist-generated=true
+docs/performance/pr207/**/*.gz binary
+docs/performance/pr207/**/*.png binary
+docs/PR207*.md text eol=lf
+scripts/*Pr207* text eol=lf
+scripts/pr207* text eol=lf
