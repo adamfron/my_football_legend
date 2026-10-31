@@ -5,14 +5,14 @@ import { mkdtempSync, mkdirSync, rmSync, symlinkSync } from 'node:fs';
 import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
-import { checkPr208Source } from '../pr208SourceGuard.mjs';
+import { checkPr209Source } from '../pr209SourceGuard.mjs';
 import { BASE } from '../pr207SourceGuard.mjs';
 
 /** The historical PR198 check asserts the original foot solver's source bytes.
  * Execute the ORIGINAL npm command/assertions in merged PR206, where that contract
  * still holds. Current PR207 runtime/receipt and disabled-path checks stay separate. */
 export function pr198Context() {
-  checkPr208Source();
+  checkPr209Source();
   mkdirSync('.benchmark-artifacts', { recursive: true });
   const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr198-check-'));
   const safe = () =>

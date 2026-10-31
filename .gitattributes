@@ -184,3 +184,11 @@ docs/performance/pr208/**/*.gz binary
 docs/PR208*.md text eol=lf
 scripts/*Pr208* text eol=lf
 scripts/pr208* text eol=lf
+
+# PR209 preserves all preceding evidence and separately binds the contact foundation.
+docs/performance/pr209/** -text whitespace=cr-at-eol linguist-generated=true
+docs/performance/pr209/**/*.gz binary
+docs/performance/pr209/**/*.log binary
+docs/PR209*.md text eol=lf
+scripts/*Pr209* text eol=lf
+scripts/pr209* text eol=lf

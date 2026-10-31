@@ -5,8 +5,9 @@ import { mkdtempSync, mkdirSync, rmSync, symlinkSync } from 'node:fs';
 import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
-import { BASE, checkPr208Source } from '../pr208SourceGuard.mjs';
-checkPr208Source();
+import { BASE } from '../pr208SourceGuard.mjs';
+import { checkPr209Source } from '../pr209SourceGuard.mjs';
+checkPr209Source();
 mkdirSync('.benchmark-artifacts', { recursive: true });
 const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr207-check-'));
 const safe = () =>

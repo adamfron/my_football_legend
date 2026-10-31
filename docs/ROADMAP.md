@@ -1,5 +1,7 @@
 # Roadmap
 
+PR209: po sprawdzonym laboratoryjnym fundamencie zderzenia ruchomej stopy i piłki następna pojedyncza zależność to cykl zamierzonego kopnięcia w istniejącym wykonawcy: zapisane przygotowanie, kanoniczny ruch ciała, najwcześniejszy kontakt, pudło i konkurujące zdarzenia. Dopiero po tej bramce rozszerzać doświadczenia przygotowania i techniki. Zachować rozróżnienie pierwszej kontroli, kolejnego podania oraz posiadania po sekundzie; nie stroić fizyki pod ten licznik. PR201 utrzymany, event-v1 bez zmian, brak promocji. [Raport PR209](PR209_MOVING_BALL_STRIKE_AND_BOUNCE_RECEPTION.md).
+
 PR208: naprawę kontaktu z murawą utrzymywać jako osobną wersję fizyki. Następny krok: wyjaśnić przygotowanie odbiorcy, prędkość kontaktu i utrzymanie przez sekundę na zachowanych parach, potem oddzielnie kalibrować rozrzut kopnięcia. Regresje contact-v1 nadal blokują nowe pełne mecze i promocję; PR201 bez zmian. [Raport PR208](PR208_GROUND_CONTACT_CONTINUITY.md).
 
 PR207: najpierw usunąć wykazaną nieciągłość kontaktu z murawą przy granicznie małym dodatnim pionowym impulsie, potem zweryfikować rozkłady wykonania, przygotowanie i techniki przed rozszerzeniem eksperymentalnego kopnięcia na loft/cross. Skończone kanoniczne wypuszczenie jest wykazane; realizm rozrzutu i transfer na pełny mecz pozostają niewykazane. Kandydat PR201 bez zmian, bez nowych domyślnych ustawień. Zależności kontaktu ciągłego, bramkarza, piłek wysokich i handoff PR206 pozostają niezależne. [Raport PR207](PR207_PHYSICAL_KICK_EXECUTION_AND_ERROR_PROPAGATION.md).

@@ -1,0 +1,12 @@
+src/core/matchSimulation/temporalFootStrike.test.ts(39,43): error TS2345: Argument of type '{ position: { x: number; y: number; z: number; }; velocity: { x: number; y: number; z?: number; }; spin: { x: number; y: number; z: number; }; airborne: boolean; bounceCount: number; }' is not assignable to parameter of type 'PhysicalBall'.
+  Types of property 'velocity' are incompatible.
+    Type '{ x: number; y: number; z?: number; }' is not assignable to type 'BallVelocity3d'.
+      Property 'z' is optional in type '{ x: number; y: number; z?: number; }' but required in type 'BallVelocity3d'.
+src/core/matchSimulation/temporalFootStrike.test.ts(118,89): error TS2345: Argument of type '{ position: { x: number; y: number; z: number; }; velocity: { x: number; y: number; z?: number; }; spin: { x: number; y: number; z: number; }; airborne: boolean; bounceCount: number; }' is not assignable to parameter of type 'PhysicalBall'.
+  Types of property 'velocity' are incompatible.
+    Type '{ x: number; y: number; z?: number; }' is not assignable to type 'BallVelocity3d'.
+      Property 'z' is optional in type '{ x: number; y: number; z?: number; }' but required in type 'BallVelocity3d'.
+src/core/matchSimulation/temporalStrikeLaboratory.ts(42,43): error TS2345: Argument of type '{ position: { x: number; y: number; z: number; }; velocity: { x: number; y: number; z?: number; }; spin: { x: number; y: number; z: number; }; airborne: boolean; bounceCount: number; }' is not assignable to parameter of type 'PhysicalBall'.
+  Types of property 'velocity' are incompatible.
+    Type '{ x: number; y: number; z?: number; }' is not assignable to type 'BallVelocity3d'.
+      Property 'z' is optional in type '{ x: number; y: number; z?: number; }' but required in type 'BallVelocity3d'.

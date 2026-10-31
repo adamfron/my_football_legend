@@ -1,0 +1,22 @@
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+error: C:/Users/Admin/Documents/Codex/2026-10-29/cze-przejrzyj-prosz-wklejony-prompt-rozplanuj/work/mfl/.git/objects: ignoring alternate object stores, nesting too deep
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Run via npm so the original CLI command is explicit
+    at file:///C:/Users/Admin/Documents/Codex/2026-10-31/cze-zapoznaj-si-prosz-z-wytycznymi/work/repo/scripts/ci/replayPr198Check.mjs:78:12
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

@@ -1,0 +1,3335 @@
+{
+  "schema": "pr209-summary-v1",
+  "source": "4988874f644231dfa0fa3f0db586af3f35548c539edce4c361b4707e3de9dfb6",
+  "inputResults": {
+    "timing": "801f9ed6fca7707bf371b1858b2cce6e64d4d64e765385f2fa0b3d213612dc4b",
+    "retention": "4b7ffbcd3bb8030dfb9afad34982d230823c44881d689cecd9eca0e83dcd6e40",
+    "bounce": "399c9ff97b5d63a509ec38b1e503e26bc6269a61cee711999da4501c92f37847"
+  },
+  "timing": {
+    "attempts": 210,
+    "contact": 168,
+    "miss": 38,
+    "unavailable": 0,
+    "unresolved": 4,
+    "strata": [
+      {
+        "speed": 0,
+        "direction": "approaching",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 11.999999168122079,
+          "sd": 3.5827932225884356e-7,
+          "min": 11.999998837946086,
+          "max": 11.999999745452673
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.00000447577357193045,
+          "sd": 0.0000019276588493753503,
+          "min": 0.0000013695477134128067,
+          "max": 0.00000625222728643206
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": -5.243294814200843e-9,
+          "sd": 0.012247448863904322,
+          "min": -0.020000006817799232,
+          "max": 0.019999992675618472
+        }
+      },
+      {
+        "speed": 0,
+        "direction": "departing",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 11.999999168122079,
+          "sd": 3.5827932225884356e-7,
+          "min": 11.999998837946086,
+          "max": 11.999999745452673
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.00000447577357193045,
+          "sd": 0.0000019276588493753503,
+          "min": 0.0000013695477134128067,
+          "max": 0.00000625222728643206
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": -5.243294814200843e-9,
+          "sd": 0.012247448863904322,
+          "min": -0.020000006817799232,
+          "max": 0.019999992675618472
+        }
+      },
+      {
+        "speed": 0,
+        "direction": "crossing",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 11.999999168122079,
+          "sd": 3.5827932225884356e-7,
+          "min": 11.999998837946086,
+          "max": 11.999999745452673
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.00000447577357193045,
+          "sd": 0.0000019276588493753503,
+          "min": 0.0000013695477134128067,
+          "max": 0.00000625222728643206
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": -5.243294814200843e-9,
+          "sd": 0.012247448863904322,
+          "min": -0.020000006817799232,
+          "max": 0.019999992675618472
+        }
+      },
+      {
+        "speed": 1,
+        "direction": "approaching",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 11.552081028094902,
+          "sd": 0.29709008957744176,
+          "min": 10.955977077723698,
+          "max": 11.925745880424934
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.3112056961767471,
+          "sd": 0.4325280637558221,
+          "min": 0,
+          "max": 1.214223891887275
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.000027037335093079866,
+          "sd": 0.011261110812925345,
+          "min": -0.01830993011946802,
+          "max": 0.018455477967680878
+        }
+      },
+      {
+        "speed": 1,
+        "direction": "departing",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 11.811747629101566,
+          "sd": 0.3760456305925849,
+          "min": 11.015500429391807,
+          "max": 12.08090278374702
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.3627148263421375,
+          "sd": 0.5084467662186546,
+          "min": 0,
+          "max": 1.4327117398996125
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": -0.0000167574791658203,
+          "sd": 0.013346442484895795,
+          "min": -0.021844803513234368,
+          "max": 0.02175523087411335
+        }
+      },
+      {
+        "speed": 1,
+        "direction": "crossing",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 11.925255425176701,
+          "sd": 0.10448248679596239,
+          "min": 11.693523482586862,
+          "max": 12.00152367947725
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 2.446439451225995,
+          "sd": 1.786446207163801,
+          "min": 0.11445854162172582,
+          "max": 5.861014795960207
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.000034946733723728585,
+          "sd": 0.012159224440652603,
+          "min": -0.019760978984635358,
+          "max": 0.019947666559854582
+        }
+      },
+      {
+        "speed": 3,
+        "direction": "approaching",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 10.205916339109107,
+          "sd": 1.2864010033649795,
+          "min": 7.946994636515619,
+          "max": 11.925745834611096
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.9326400589572764,
+          "sd": 1.2834396132828447,
+          "min": 0,
+          "max": 3.5862118261520597
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": -0.000028210236963691466,
+          "sd": 0.008875510730008713,
+          "min": -0.014472635983009852,
+          "max": 0.014314885693245571
+        }
+      },
+      {
+        "speed": 3,
+        "direction": "departing",
+        "attempts": 14,
+        "contact": 12,
+        "miss": 2,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 12,
+          "missing": 2,
+          "mean": 12.133953812565663,
+          "sd": 1.7710529128686672,
+          "min": 9.146828628346906,
+          "max": 14.492117640272232
+        },
+        "spin": {
+          "n": 12,
+          "missing": 2,
+          "mean": 1.331472291625474,
+          "sd": 1.5148254418900922,
+          "min": 0,
+          "max": 3.9570837212244223
+        },
+        "timingResidual": {
+          "n": 12,
+          "missing": 2,
+          "mean": -0.004300729677146009,
+          "sd": 0.013597016757821967,
+          "min": -0.02693391709033044,
+          "max": 0.014551042684614046
+        }
+      },
+      {
+        "speed": 3,
+        "direction": "crossing",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 11.348124661842235,
+          "sd": 1.0229857513125735,
+          "min": 9.07070856526548,
+          "max": 12.10402093685384
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 7.636513713040709,
+          "sd": 5.091546141506195,
+          "min": 1.183068768522653,
+          "max": 15.086206616824326
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.00044148588695134904,
+          "sd": 0.01133051150108306,
+          "min": -0.017273435830315265,
+          "max": 0.019659690423523557
+        }
+      },
+      {
+        "speed": 5,
+        "direction": "approaching",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 8.29120273865885,
+          "sd": 3.314599852158809,
+          "min": 1.1901002133543,
+          "max": 11.925742397118364
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 1.5184605710622097,
+          "sd": 2.1701272672536343,
+          "min": 0,
+          "max": 6.182383089746811
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": -0.0004896273927122203,
+          "sd": 0.006360945119627857,
+          "min": -0.011338141286797665,
+          "max": 0.0083799203081103
+        }
+      },
+      {
+        "speed": 5,
+        "direction": "departing",
+        "attempts": 14,
+        "contact": 4,
+        "miss": 8,
+        "unavailable": 0,
+        "unresolved": 2,
+        "outgoingSpeed": {
+          "n": 4,
+          "missing": 10,
+          "mean": 13.53574480174257,
+          "sd": 2.297929392214579,
+          "min": 11.237815409527991,
+          "max": 15.83367419395715
+        },
+        "spin": {
+          "n": 4,
+          "missing": 10,
+          "mean": 1.5049987340760806,
+          "sd": 0.7881448538917822,
+          "min": 0.7168538801842986,
+          "max": 2.293143587967863
+        },
+        "timingResidual": {
+          "n": 4,
+          "missing": 10,
+          "mean": -0.01878435019396285,
+          "sd": 0.008544378523270169,
+          "min": -0.02732872871723302,
+          "max": -0.010239971670692682
+        }
+      },
+      {
+        "speed": 5,
+        "direction": "crossing",
+        "attempts": 14,
+        "contact": 14,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 14,
+          "missing": 0,
+          "mean": 10.5876330839746,
+          "sd": 2.138582681207578,
+          "min": 5.914051012570345,
+          "max": 12.330950480338918
+        },
+        "spin": {
+          "n": 14,
+          "missing": 0,
+          "mean": 10.560794770868409,
+          "sd": 8.394631654595482,
+          "min": 0.615756230587696,
+          "max": 28.871700866382373
+        },
+        "timingResidual": {
+          "n": 14,
+          "missing": 0,
+          "mean": 0.001329835700023604,
+          "sd": 0.010036792172737605,
+          "min": -0.012672151701234924,
+          "max": 0.019681026485734776
+        }
+      },
+      {
+        "speed": 8,
+        "direction": "approaching",
+        "attempts": 14,
+        "contact": 12,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 2,
+        "outgoingSpeed": {
+          "n": 12,
+          "missing": 2,
+          "mean": 6.820992392819009,
+          "sd": 2.880876259562126,
+          "min": 3.2063692361777547,
+          "max": 10.799465893169645
+        },
+        "spin": {
+          "n": 12,
+          "missing": 2,
+          "mean": 8.072337054377389,
+          "sd": 8.00785875822116,
+          "min": 1.0074888129537398,
+          "max": 19.353683091393666
+        },
+        "timingResidual": {
+          "n": 12,
+          "missing": 2,
+          "mean": -0.017487337813446285,
+          "sd": 0.016540144905763287,
+          "min": -0.04063688067821225,
+          "max": -0.002382447581689817
+        }
+      },
+      {
+        "speed": 8,
+        "direction": "departing",
+        "attempts": 14,
+        "contact": 0,
+        "miss": 14,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 0,
+          "missing": 14
+        },
+        "spin": {
+          "n": 0,
+          "missing": 14
+        },
+        "timingResidual": {
+          "n": 0,
+          "missing": 14
+        }
+      },
+      {
+        "speed": 8,
+        "direction": "crossing",
+        "attempts": 14,
+        "contact": 0,
+        "miss": 14,
+        "unavailable": 0,
+        "unresolved": 0,
+        "outgoingSpeed": {
+          "n": 0,
+          "missing": 14
+        },
+        "spin": {
+          "n": 0,
+          "missing": 14
+        },
+        "timingResidual": {
+          "n": 0,
+          "missing": 14
+        }
+      }
+    ],
+    "limits": [
+      {
+        "direction": "approaching",
+        "mirror": false,
+        "outcome": "contact",
+        "contactAt": 10.0749999983956,
+        "velocity": {
+          "x": 11.999999436066439,
+          "y": 0,
+          "z": 1.0043351579752019e-7
+        }
+      },
+      {
+        "direction": "approaching",
+        "mirror": true,
+        "outcome": "contact",
+        "contactAt": 10.0749999983956,
+        "velocity": {
+          "x": 11.999999436066439,
+          "y": 0,
+          "z": 1.0043351579752019e-7
+        }
+      },
+      {
+        "direction": "departing",
+        "mirror": false,
+        "outcome": "contact",
+        "contactAt": 10.074999998395597,
+        "velocity": {
+          "x": 12.000000054838912,
+          "y": 0,
+          "z": 1.0043351786593e-7
+        }
+      },
+      {
+        "direction": "departing",
+        "mirror": true,
+        "outcome": "contact",
+        "contactAt": 10.074999998395597,
+        "velocity": {
+          "x": 12.000000054838912,
+          "y": 0,
+          "z": 1.0043351786593e-7
+        }
+      },
+      {
+        "direction": "crossing",
+        "mirror": false,
+        "outcome": "contact",
+        "contactAt": 10.074999998395597,
+        "velocity": {
+          "x": 11.999999745452596,
+          "y": -6.273884478789391e-7,
+          "z": 1.0043351621120235e-7
+        }
+      },
+      {
+        "direction": "crossing",
+        "mirror": true,
+        "outcome": "contact",
+        "contactAt": 10.074999998395597,
+        "velocity": {
+          "x": 11.999999745452596,
+          "y": 6.273884478789391e-7,
+          "z": 1.0043351621120235e-7
+        }
+      }
+    ],
+    "examples": [
+      {
+        "timingSeconds": -0.01,
+        "plannedAt": 10.075000000000001,
+        "contactAt": 10.067655640008253,
+        "normal": {
+          "x": 0.7832624622615766,
+          "y": -0.6216777017885469,
+          "z": 0.004092714361247437
+        },
+        "velocity": {
+          "x": 9.183823719245282,
+          "y": -1.5790423806395317,
+          "z": 0.03264465187697716
+        },
+        "spin": {
+          "x": -0.07834942376717562,
+          "y": -0.16387413842845766,
+          "z": -9.897767498189447
+        },
+        "normalImpulse": 4.7940398667930575,
+        "tangentImpulse": {
+          "x": 0.19405272903098014,
+          "y": 0.24445362364693723,
+          "z": -0.0055834355041165205
+        }
+      },
+      {
+        "timingSeconds": 0,
+        "plannedAt": 10.075000000000001,
+        "contactAt": 10.075078774090606,
+        "normal": {
+          "x": 0.9337108188408066,
+          "y": -0.3580046877751541,
+          "z": 0.004092714337046702
+        },
+        "velocity": {
+          "x": 11.889642416659322,
+          "y": 0.15533379202752684,
+          "z": 0.03733279298883322
+        },
+        "spin": {
+          "x": -0.07471686585574991,
+          "y": -0.18822105367912376,
+          "z": 0.5815031903748956
+        },
+        "normalImpulse": 5.482518228712468,
+        "tangentImpulse": {
+          "x": -0.006540345477259457,
+          "y": -0.017130849587689623,
+          "z": -0.006385279972573123
+        }
+      },
+      {
+        "timingSeconds": 0.01,
+        "plannedAt": 10.075000000000001,
+        "contactAt": 10.084039052723284,
+        "normal": {
+          "x": 0.9985569451791247,
+          "y": -0.053504361867075086,
+          "z": 0.004616329248629252
+        },
+        "velocity": {
+          "x": 11.889998211366974,
+          "y": 3.2666013145535286,
+          "z": 0.09797006694844278
+        },
+        "spin": {
+          "x": -0.020709094612465742,
+          "y": 0.5855528762965706,
+          "z": 11.266276826933618
+        },
+        "normalImpulse": 5.13920876293625,
+        "tangentImpulse": {
+          "x": -0.01909337206761208,
+          "y": -0.3547536128321587,
+          "z": 0.018402849060676022
+        }
+      }
+    ],
+    "unexpected": [
+      {
+        "delta": -2,
+        "planHash": "4455a26061665de5cee6aaeb46ee43772b2be36ec403b9c56c0979a48daba0a1",
+        "outcome": "miss",
+        "contactAt": null,
+        "velocity": null
+      },
+      {
+        "delta": 0,
+        "planHash": "4455a26061665de5cee6aaeb46ee43772b2be36ec403b9c56c0979a48daba0a1",
+        "outcome": "contact",
+        "contactAt": 10.074999990676648,
+        "velocity": {
+          "x": 11.947097399054657,
+          "y": -0.13734564281699413,
+          "z": 5.836303202879381e-7
+        }
+      },
+      {
+        "delta": 2,
+        "planHash": "4455a26061665de5cee6aaeb46ee43772b2be36ec403b9c56c0979a48daba0a1",
+        "outcome": "miss",
+        "contactAt": null,
+        "velocity": null
+      }
+    ],
+    "maximumEvaluations": 193,
+    "maximumReceiptBytes": 4402,
+    "saveStateAdditionalBytes": 0
+  },
+  "skills": {
+    "attempts": 256,
+    "contact": 256,
+    "miss": 0,
+    "unavailable": 0,
+    "unresolved": 0,
+    "strata": [
+      {
+        "primary": 25,
+        "technique": 25,
+        "preparationSeconds": 0.04,
+        "pressure": "open",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 10.58045680176962,
+          "sd": 1.2010831772235055,
+          "min": 8.02218531325961,
+          "max": 12.224929494643737
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.30446054381292625,
+          "sd": 1.4170745275926304,
+          "min": -2.771367400612647,
+          "max": 2.2927097601505784
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -4.441537885178998,
+          "sd": 10.18062718890607,
+          "min": -20.41773934645282,
+          "max": 13.172070443227515
+        }
+      },
+      {
+        "primary": 25,
+        "technique": 25,
+        "preparationSeconds": 0.04,
+        "pressure": "immediate",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 2,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 10.35920727161506,
+          "sd": 1.3478431318558486,
+          "min": 7.855069749850286,
+          "max": 12.228633661708512
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.4146219609281888,
+          "sd": 1.521497485989292,
+          "min": -2.7699282919966652,
+          "max": 2.3895656181231626
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -5.1617407205050485,
+          "sd": 10.463132308147127,
+          "min": -20.61192298303384,
+          "max": 13.713214085230586
+        }
+      },
+      {
+        "primary": 25,
+        "technique": 25,
+        "preparationSeconds": 0.24,
+        "pressure": "open",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 10.953316354960949,
+          "sd": 0.8567664414231022,
+          "min": 9.300720363333618,
+          "max": 12.045344266317395
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.1627278526893136,
+          "sd": 1.2314996281475357,
+          "min": -2.1762944395618087,
+          "max": 1.98116094412141
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -3.4367837480976027,
+          "sd": 9.483339751010114,
+          "min": -17.511049342387132,
+          "max": 11.430547307508366
+        }
+      },
+      {
+        "primary": 25,
+        "technique": 25,
+        "preparationSeconds": 0.24,
+        "pressure": "immediate",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 1,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 10.43215005999491,
+          "sd": 1.2839091435859074,
+          "min": 7.928847470447858,
+          "max": 12.198443694573962
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.39745528082589643,
+          "sd": 1.4817104345994534,
+          "min": -2.76596229684299,
+          "max": 2.325628150760684
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -5.030362681078279,
+          "sd": 10.343659787747097,
+          "min": -20.46727745124307,
+          "max": 13.348807108420658
+        }
+      },
+      {
+        "primary": 25,
+        "technique": 90,
+        "preparationSeconds": 0.04,
+        "pressure": "open",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.467508001759223,
+          "sd": 0.45474839355662416,
+          "min": 10.722254472688801,
+          "max": 12.1047971826402
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.1304857212238434,
+          "sd": 0.7720375130428107,
+          "min": -1.6090937513163457,
+          "max": 1.2669489747234546
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -2.2901733613764903,
+          "sd": 5.595642268743215,
+          "min": -10.115412572541343,
+          "max": 7.065012071288507
+        }
+      },
+      {
+        "primary": 25,
+        "technique": 90,
+        "preparationSeconds": 0.04,
+        "pressure": "immediate",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.403304569185067,
+          "sd": 0.4893886347635325,
+          "min": 10.70595276964556,
+          "max": 12.105778664671965
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.19914597630980402,
+          "sd": 0.8260664470244757,
+          "min": -1.8530280781806563,
+          "max": 1.3038878523077737
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -2.6839861945211854,
+          "sd": 5.760090158117722,
+          "min": -11.63704636331112,
+          "max": 7.260036648452503
+        }
+      },
+      {
+        "primary": 25,
+        "technique": 90,
+        "preparationSeconds": 0.24,
+        "pressure": "open",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.534245435684703,
+          "sd": 0.43330634466827456,
+          "min": 10.746453749350769,
+          "max": 12.019599521612236
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.07746559505988608,
+          "sd": 0.6792853196523904,
+          "min": -1.0452414543190027,
+          "max": 1.0926406231376187
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -2.0158319491398964,
+          "sd": 5.374809709317416,
+          "min": -10.401011146741864,
+          "max": 6.125114609593246
+        }
+      },
+      {
+        "primary": 25,
+        "technique": 90,
+        "preparationSeconds": 0.24,
+        "pressure": "immediate",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.426021657292555,
+          "sd": 0.46968552731908314,
+          "min": 10.719190540780613,
+          "max": 12.091018655550268
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.18525042910700848,
+          "sd": 0.8000673282251338,
+          "min": -1.748684133005892,
+          "max": 1.2686792241398597
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -2.600484072908594,
+          "sd": 5.669340579995946,
+          "min": -10.93514339645601,
+          "max": 7.070427626418368
+        }
+      },
+      {
+        "primary": 90,
+        "technique": 25,
+        "preparationSeconds": 0.04,
+        "pressure": "open",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.141728539402296,
+          "sd": 0.9354746113157045,
+          "min": 8.688811131777847,
+          "max": 12.130048290832075
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.5602368621824289,
+          "sd": 1.0060357008055705,
+          "min": -2.4165350120170714,
+          "max": 1.1058637753276648
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -4.393404916423434,
+          "sd": 5.756152257299954,
+          "min": -16.1905512433871,
+          "max": 5.8182177007365645
+        }
+      },
+      {
+        "primary": 90,
+        "technique": 25,
+        "preparationSeconds": 0.04,
+        "pressure": "immediate",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 2,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 10.873366540836813,
+          "sd": 1.180989892571357,
+          "min": 8.540491743342212,
+          "max": 12.16868435519197
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.6532257232448608,
+          "sd": 1.2015439327352178,
+          "min": -2.4382106435569777,
+          "max": 1.3634388514423954
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -5.115474721431983,
+          "sd": 6.7869104597935355,
+          "min": -16.455479761516703,
+          "max": 7.183235853611024
+        }
+      },
+      {
+        "primary": 90,
+        "technique": 25,
+        "preparationSeconds": 0.24,
+        "pressure": "open",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.545530840406473,
+          "sd": 0.3699975767848952,
+          "min": 10.840220755545078,
+          "max": 12.046184925482908
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.34818366701067033,
+          "sd": 0.6173721525067165,
+          "min": -1.6195458175893793,
+          "max": 0.7293772921203177
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -2.9931553545088057,
+          "sd": 3.7450458612083835,
+          "min": -9.978080034280408,
+          "max": 3.8214242539356316
+        }
+      },
+      {
+        "primary": 90,
+        "technique": 25,
+        "preparationSeconds": 0.24,
+        "pressure": "immediate",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 1,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 10.963099297168947,
+          "sd": 1.0980948843368152,
+          "min": 8.561010496650978,
+          "max": 12.157933497640428
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.6314572188002471,
+          "sd": 1.1350902887815857,
+          "min": -2.4332967657890014,
+          "max": 1.2696376284831499
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -4.923469973796192,
+          "sd": 6.433007087524263,
+          "min": -16.399129361583846,
+          "max": 6.685418389525846
+        }
+      },
+      {
+        "primary": 90,
+        "technique": 90,
+        "preparationSeconds": 0.04,
+        "pressure": "open",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.731037213439578,
+          "sd": 0.2242066088953091,
+          "min": 11.275688697445863,
+          "max": 12.0075519083542
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.2784719487223387,
+          "sd": 0.39762667099213245,
+          "min": -1.1725697908257522,
+          "max": 0.35986878753282525
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -2.2772946026216734,
+          "sd": 2.261635784824709,
+          "min": -7.146341067368569,
+          "max": 1.679996055336836
+        }
+      },
+      {
+        "primary": 90,
+        "technique": 90,
+        "preparationSeconds": 0.04,
+        "pressure": "immediate",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.660881642185624,
+          "sd": 0.3175115434492316,
+          "min": 10.93605958694435,
+          "max": 12.026265859381791
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.34694364025787255,
+          "sd": 0.5022093414931714,
+          "min": -1.4401639376194235,
+          "max": 0.44048174245035465
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -2.679065997546939,
+          "sd": 2.773117768967674,
+          "min": -8.782520548264184,
+          "max": 2.1113143493746507
+        }
+      },
+      {
+        "primary": 90,
+        "technique": 90,
+        "preparationSeconds": 0.24,
+        "pressure": "open",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.813125297945035,
+          "sd": 0.12678018303267444,
+          "min": 11.621951429507325,
+          "max": 11.980553911316296
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.19246008656408312,
+          "sd": 0.24891252200589145,
+          "min": -0.7049595965816677,
+          "max": 0.24820534864777377
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -1.7830632083678875,
+          "sd": 1.632603854200314,
+          "min": -4.4155841249154815,
+          "max": 1.1042873580146317
+        }
+      },
+      {
+        "primary": 90,
+        "technique": 90,
+        "preparationSeconds": 0.24,
+        "pressure": "immediate",
+        "attempts": 16,
+        "contact": 16,
+        "miss": 0,
+        "unavailable": 0,
+        "unresolved": 0,
+        "timingClipped": 0,
+        "outgoingX": {
+          "n": 16,
+          "missing": 0,
+          "mean": 11.685768094578389,
+          "sd": 0.2817436236333093,
+          "min": 11.067057742737331,
+          "max": 12.020284731896897
+        },
+        "outgoingY": {
+          "n": 16,
+          "missing": 0,
+          "mean": -0.3263931018474067,
+          "sd": 0.463527987418024,
+          "min": -1.3409910944017933,
+          "max": 0.41043122897356277
+        },
+        "spinZ": {
+          "n": 16,
+          "missing": 0,
+          "mean": -2.556441031059423,
+          "sd": 2.5770906367853526,
+          "min": -8.166323658128587,
+          "max": 1.9504090717254687
+        }
+      }
+    ],
+    "qualification": "Exploratory paired engineering interventions; preparation budget is not a witnessed lawful recognition-to-wind-up history. PR206 compensation remains unestablished."
+  },
+  "retention": {
+    "discordances": 10,
+    "preservedCounts": [
+      {
+        "key": "pass/open/baseline",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 6,
+            "control": 6,
+            "retention": 2,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 6,
+            "control": 6,
+            "retention": 2,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      },
+      {
+        "key": "pass/open/contact-v1",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 6,
+            "control": 6,
+            "retention": 3,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 6,
+            "control": 6,
+            "retention": 0,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      },
+      {
+        "key": "pass/moderate/baseline",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 6,
+            "control": 6,
+            "retention": 4,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 6,
+            "control": 6,
+            "retention": 4,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      },
+      {
+        "key": "pass/moderate/contact-v1",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 6,
+            "control": 6,
+            "retention": 1,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 6,
+            "control": 6,
+            "retention": 2,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      },
+      {
+        "key": "pass/immediate/baseline",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 6,
+            "control": 6,
+            "retention": 0,
+            "censored": 0,
+            "usefulNextAction": 5,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 6,
+            "control": 6,
+            "retention": 0,
+            "censored": 0,
+            "usefulNextAction": 5,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      },
+      {
+        "key": "pass/immediate/contact-v1",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 5,
+            "control": 5,
+            "retention": 2,
+            "censored": 0,
+            "usefulNextAction": 5,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 5,
+            "control": 5,
+            "retention": 3,
+            "censored": 0,
+            "usefulNextAction": 5,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      },
+      {
+        "key": "pass/hurried/baseline",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 6,
+            "control": 6,
+            "retention": 3,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 6,
+            "control": 6,
+            "retention": 3,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      },
+      {
+        "key": "pass/hurried/contact-v1",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 6,
+            "control": 6,
+            "retention": 0,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 6,
+            "control": 6,
+            "retention": 1,
+            "censored": 0,
+            "usefulNextAction": 5,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      },
+      {
+        "key": "pass/first_time/baseline",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 6,
+            "control": 6,
+            "retention": 3,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 6,
+            "control": 6,
+            "retention": 3,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      },
+      {
+        "key": "pass/first_time/contact-v1",
+        "attempts": 6,
+        "arms": {
+          "legacy": {
+            "touch": 6,
+            "control": 6,
+            "retention": 3,
+            "censored": 0,
+            "usefulNextAction": 6,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          },
+          "corrected": {
+            "touch": 6,
+            "control": 6,
+            "retention": 3,
+            "censored": 0,
+            "usefulNextAction": 5,
+            "shotOutcomes": {
+              "goal": 0,
+              "save": 0,
+              "block": 0,
+              "post": 0,
+              "crossbar": 0,
+              "miss": 0
+            }
+          }
+        }
+      }
+    ],
+    "rows": [
+      {
+        "config": {
+          "seed": "pr207-live-pass-0",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "open",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.025,
+          "receiverMovement": 10.025,
+          "preparation": 10.075000000000001,
+          "opponents": 10.025,
+          "contact": 12.200000000000031,
+          "control": 12.200000000000031,
+          "action": 12.200000000000031
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": true,
+            "touchAt": 12.375000000000034,
+            "controlAt": 12.375000000000034,
+            "classification": "own_team_control",
+            "oneSecondAt": 13.375000000000048,
+            "firstTouch": {
+              "score": 0.9081400084726574,
+              "pressure": 0.35929443417962037,
+              "incomingSpeed": 2.4981398929040886,
+              "incomingHeight": 0.11,
+              "facingError": 0.0007466992937459338,
+              "preparationSeconds": 2.161363636363671,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 2.4981398929040886,
+            "fixedReceiverContactAt": null,
+            "nextReleases": [
+              {
+                "at": 13.52500000000005,
+                "receiverId": "geometry:anchor:10",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "b868aae16d1f1de0d0ae7cb91a43a83af62d4bdc3273506fc6142cd344a10efc"
+          },
+          {
+            "edition": "corrected",
+            "retained": false,
+            "touchAt": 12.200000000000031,
+            "controlAt": 12.200000000000031,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.200000000000045,
+            "firstTouch": {
+              "score": 0.8597168869652188,
+              "pressure": 0.6013937082061989,
+              "incomingSpeed": 5.167380736914214,
+              "incomingHeight": 0.11,
+              "facingError": 0.009684163904324805,
+              "preparationSeconds": 1.9863636363636683,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 5.167380736914214,
+            "fixedReceiverContactAt": 12.209378176474596,
+            "nextReleases": [
+              {
+                "at": 12.82500000000004,
+                "receiverId": "geometry:anchor:5",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "3ca21aeb3c118c1b85ef642054e0e3600034e48701ef3ba77d4e0552769240f8"
+          }
+        ]
+      },
+      {
+        "config": {
+          "seed": "pr207-live-pass-4",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "open",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.125000000000002,
+          "receiverMovement": 10.125000000000002,
+          "preparation": 10.125000000000002,
+          "opponents": 10.05,
+          "contact": 12.12500000000003,
+          "control": 12.925000000000042,
+          "action": 12.12500000000003
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": true,
+            "touchAt": 12.12500000000003,
+            "controlAt": 12.12500000000003,
+            "classification": "own_team_control",
+            "oneSecondAt": 13.125000000000044,
+            "firstTouch": {
+              "score": 0.8591929297142468,
+              "pressure": 0.6040215646113478,
+              "incomingSpeed": 5.742177614638513,
+              "incomingHeight": 0.11,
+              "facingError": 0.004133812907216594,
+              "preparationSeconds": 1.9113636363636672,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 5.742177614638513,
+            "fixedReceiverContactAt": 12.1,
+            "nextReleases": [
+              {
+                "at": 13.55000000000005,
+                "receiverId": "geometry:anchor:10",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "57a1ee77edd96e5f59f71e09d0190f67ec0688cc3862cec741056cc97052ef7f"
+          },
+          {
+            "edition": "corrected",
+            "retained": false,
+            "touchAt": 12.12500000000003,
+            "controlAt": 12.12500000000003,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.125000000000044,
+            "firstTouch": {
+              "score": 0.8596673396692076,
+              "pressure": 0.6016335959700495,
+              "incomingSpeed": 5.719703982010966,
+              "incomingHeight": 0.11,
+              "facingError": 0.004346838840653788,
+              "preparationSeconds": 1.9113636363636672,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 5.719703982010966,
+            "fixedReceiverContactAt": 12.085739223106025,
+            "nextReleases": [
+              {
+                "at": 12.925000000000042,
+                "receiverId": "geometry:anchor:10",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "d7783fae349a125de1c3ddafba10601351e9bd2f9bc2581648dc5a0d5caf0ede"
+          }
+        ]
+      },
+      {
+        "config": {
+          "seed": "pr207-live-pass-5",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "open",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.025,
+          "receiverMovement": 10.025,
+          "preparation": 10.075000000000001,
+          "opponents": 10.025,
+          "contact": 12.025000000000029,
+          "control": 12.025000000000029,
+          "action": 12.025000000000029
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": true,
+            "touchAt": 12.475000000000035,
+            "controlAt": 12.475000000000035,
+            "classification": "own_team_control",
+            "oneSecondAt": 13.47500000000005,
+            "firstTouch": {
+              "score": 0.8816277992458903,
+              "pressure": 0.49185898634190844,
+              "incomingSpeed": 2.592940687322053,
+              "incomingHeight": 0.11,
+              "facingError": 0.0006271919050924168,
+              "preparationSeconds": 2.261363636363672,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 2.592940687322053,
+            "fixedReceiverContactAt": null,
+            "nextReleases": [
+              {
+                "at": 13.800000000000054,
+                "receiverId": "geometry:anchor:8",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "8e7f99fd00a346aca85f45600a654d3b88174400720382636805751bcaf6c549"
+          },
+          {
+            "edition": "corrected",
+            "retained": false,
+            "touchAt": 12.025000000000029,
+            "controlAt": 12.025000000000029,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.025000000000043,
+            "firstTouch": {
+              "score": 0.8560125768210876,
+              "pressure": 0.5840275881084267,
+              "incomingSpeed": 6.2481826468867565,
+              "incomingHeight": 0.11,
+              "facingError": 0.0006010703899264058,
+              "preparationSeconds": 1.8113636363636658,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 6.2481826468867565,
+            "fixedReceiverContactAt": 12.025,
+            "nextReleases": [
+              {
+                "at": 12.650000000000038,
+                "receiverId": "geometry:anchor:10",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "5c45ef78f9667e3e17c1dfa46da6e0c4b93c940d4f230e91c4d13846da0531f4"
+          }
+        ]
+      },
+      {
+        "config": {
+          "seed": "pr207-live-pass-0",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "moderate",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.025,
+          "receiverMovement": 10.025,
+          "preparation": 10.075000000000001,
+          "opponents": 10.025,
+          "contact": 12.200000000000031,
+          "control": 12.200000000000031,
+          "action": 12.200000000000031
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": false,
+            "touchAt": 12.350000000000033,
+            "controlAt": 12.350000000000033,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.350000000000048,
+            "firstTouch": {
+              "score": 0.9091567432867922,
+              "pressure": 0.3542095665051851,
+              "incomingSpeed": 2.5685709051225216,
+              "incomingHeight": 0.11,
+              "facingError": 0.0007957090993233606,
+              "preparationSeconds": 2.1363636363636704,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 2.5685709051225216,
+            "fixedReceiverContactAt": null,
+            "nextReleases": [
+              {
+                "at": 13.000000000000043,
+                "receiverId": "geometry:anchor:7",
+                "directTouch": false,
+                "control": false,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "d74f8907c5eb67151b164d85b2300dd3e2d86d5ee3cc7ecdff9909b43af2a583"
+          },
+          {
+            "edition": "corrected",
+            "retained": true,
+            "touchAt": 12.200000000000031,
+            "controlAt": 12.200000000000031,
+            "classification": "own_team_control",
+            "oneSecondAt": 13.200000000000045,
+            "firstTouch": {
+              "score": 0.8600419608482669,
+              "pressure": 0.5997639715320382,
+              "incomingSpeed": 5.152435398933134,
+              "incomingHeight": 0.11,
+              "facingError": 0.014795217056152055,
+              "preparationSeconds": 1.9863636363636683,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 5.152435398933134,
+            "fixedReceiverContactAt": 12.225,
+            "nextReleases": [
+              {
+                "at": 14.22500000000006,
+                "receiverId": "geometry:anchor:8",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "d35510267b9eac6aef7c770aef24fc791e384d17c8f197f84c05c0be4ab49595"
+          }
+        ]
+      },
+      {
+        "config": {
+          "seed": "pr207-live-pass-2",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "moderate",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.025,
+          "receiverMovement": 10.025,
+          "preparation": 10.075000000000001,
+          "opponents": 10.025,
+          "contact": 11.875000000000027,
+          "control": 11.875000000000027,
+          "action": 11.875000000000027
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": false,
+            "touchAt": 12.575000000000037,
+            "controlAt": 12.575000000000037,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.57500000000005,
+            "firstTouch": {
+              "score": 0.8614699008976137,
+              "pressure": 0.592649615272323,
+              "incomingSpeed": 2.678869051826364,
+              "incomingHeight": 0.11,
+              "facingError": 0.00020783441519611756,
+              "preparationSeconds": 2.3613636363636736,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 2.678869051826364,
+            "fixedReceiverContactAt": null,
+            "nextReleases": [
+              {
+                "at": 13.55000000000005,
+                "receiverId": "geometry:anchor:8",
+                "directTouch": true,
+                "control": true,
+                "retention": true,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "fb17dd4ceec4aeede4c7ecc5187dac3db8ae2b5f6a0bbbbe405bb8f9d4cde474"
+          },
+          {
+            "edition": "corrected",
+            "retained": true,
+            "touchAt": 11.875000000000027,
+            "controlAt": 11.875000000000027,
+            "classification": "own_team_control",
+            "oneSecondAt": 12.87500000000004,
+            "firstTouch": {
+              "score": 0.8619554596067596,
+              "pressure": 0.48800022705227836,
+              "incomingSpeed": 7.219462790975127,
+              "incomingHeight": 0.11,
+              "facingError": 0.0019203551121655948,
+              "preparationSeconds": 1.6613636363636637,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 7.219462790975127,
+            "fixedReceiverContactAt": 11.875,
+            "nextReleases": [
+              {
+                "at": 13.125000000000044,
+                "receiverId": "geometry:anchor:9",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "12bcd0cbb1af6f4b3fad0b120f8895871a89f72edfcb5a0b408187307b572179"
+          }
+        ]
+      },
+      {
+        "config": {
+          "seed": "pr207-live-pass-5",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "moderate",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.025,
+          "receiverMovement": 10.025,
+          "preparation": 10.075000000000001,
+          "opponents": 10.025,
+          "contact": 12.025000000000029,
+          "control": 12.025000000000029,
+          "action": 12.025000000000029
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": true,
+            "touchAt": 12.475000000000035,
+            "controlAt": 12.475000000000035,
+            "classification": "own_team_control",
+            "oneSecondAt": 13.47500000000005,
+            "firstTouch": {
+              "score": 0.8816507155428097,
+              "pressure": 0.4917444289536225,
+              "incomingSpeed": 2.592156960670889,
+              "incomingHeight": 0.11,
+              "facingError": 0.0006153530852301969,
+              "preparationSeconds": 2.261363636363672,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 2.592156960670889,
+            "fixedReceiverContactAt": null,
+            "nextReleases": [
+              {
+                "at": 12.925000000000042,
+                "receiverId": "geometry:anchor:7",
+                "directTouch": false,
+                "control": false,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "88139bee150f5ef7310cf5f07048a0e8fea71abe252ebdbeacfbc972d9298729"
+          },
+          {
+            "edition": "corrected",
+            "retained": false,
+            "touchAt": 12.025000000000029,
+            "controlAt": 12.025000000000029,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.025000000000043,
+            "firstTouch": {
+              "score": 0.8560490794888164,
+              "pressure": 0.5838926123497901,
+              "incomingSpeed": 6.246913672479586,
+              "incomingHeight": 0.11,
+              "facingError": 0.0006049383665747143,
+              "preparationSeconds": 1.8113636363636658,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 6.246913672479586,
+            "fixedReceiverContactAt": 12.025,
+            "nextReleases": [
+              {
+                "at": 12.750000000000039,
+                "receiverId": "geometry:anchor:5",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "e3344f63c86cca406208f33142b509b53d5f882241a2126f8a3f5f3f1eca65bf"
+          }
+        ]
+      },
+      {
+        "config": {
+          "seed": "pr207-live-pass-0",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "immediate",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.025,
+          "receiverMovement": 10.025,
+          "preparation": 10.075000000000001,
+          "opponents": 10.025,
+          "contact": 12.275000000000032,
+          "control": 12.275000000000032,
+          "action": 12.275000000000032
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": true,
+            "touchAt": 12.325000000000033,
+            "controlAt": 12.325000000000033,
+            "classification": "own_team_control",
+            "oneSecondAt": 13.325000000000047,
+            "firstTouch": {
+              "score": 0.9117464343531428,
+              "pressure": 0.34125328729954524,
+              "incomingSpeed": 2.5903024304715223,
+              "incomingHeight": 0.11,
+              "facingError": 0.0014574021577775653,
+              "preparationSeconds": 2.11136363636367,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 2.5903024304715223,
+            "fixedReceiverContactAt": null,
+            "nextReleases": [
+              {
+                "at": 13.375000000000048,
+                "receiverId": "geometry:anchor:10",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "754517f84dcd4279aba47cc7983e31e852416f8a55f223b1d40750eb77900206"
+          },
+          {
+            "edition": "corrected",
+            "retained": false,
+            "touchAt": 12.275000000000032,
+            "controlAt": 12.275000000000032,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.275000000000047,
+            "firstTouch": {
+              "score": 0.8559910867004685,
+              "pressure": 0.6199967146966283,
+              "incomingSpeed": 4.82220808092097,
+              "incomingHeight": 0.11,
+              "facingError": 0.010779367627119285,
+              "preparationSeconds": 2.0613636363636694,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 4.82220808092097,
+            "fixedReceiverContactAt": 12.275,
+            "nextReleases": [
+              {
+                "at": 12.82500000000004,
+                "receiverId": "geometry:anchor:5",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "0ebf93f879ff577ab27ebf23f47e7de53e60f0b23f99673ce13d3b68f7007b25"
+          }
+        ]
+      },
+      {
+        "config": {
+          "seed": "pr207-live-pass-3",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "immediate",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.025,
+          "receiverMovement": 10.025,
+          "preparation": 10.075000000000001,
+          "opponents": 10.025,
+          "contact": 12.275000000000032,
+          "control": 12.275000000000032,
+          "action": 12.275000000000032
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": false,
+            "touchAt": 12.375000000000034,
+            "controlAt": 12.375000000000034,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.375000000000048,
+            "firstTouch": {
+              "score": 0.9062677324813625,
+              "pressure": 0.36863950745269286,
+              "incomingSpeed": 2.5466057037314362,
+              "incomingHeight": 0.11,
+              "facingError": 0.0004443399137414872,
+              "preparationSeconds": 2.161363636363671,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 2.5466057037314362,
+            "fixedReceiverContactAt": null,
+            "nextReleases": [
+              {
+                "at": 12.85000000000004,
+                "receiverId": "geometry:anchor:8",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "11f4813d20155a70c8a8b64f9d82c7dd61f787a9e17acfd43f7eef5306735d61"
+          },
+          {
+            "edition": "corrected",
+            "retained": true,
+            "touchAt": 12.275000000000032,
+            "controlAt": 12.275000000000032,
+            "classification": "own_team_control",
+            "oneSecondAt": 13.275000000000047,
+            "firstTouch": {
+              "score": 0.855330883544886,
+              "pressure": 0.6232286818755036,
+              "incomingSpeed": 4.836687237128929,
+              "incomingHeight": 0.11,
+              "facingError": 0.0016038063995935659,
+              "preparationSeconds": 2.0613636363636694,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 4.836687237128929,
+            "fixedReceiverContactAt": 12.275,
+            "nextReleases": [
+              {
+                "at": 15.300000000000075,
+                "receiverId": "geometry:anchor:8",
+                "directTouch": false,
+                "control": false,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "8d4da2ae92ae8cddd97953ad8d93ee7e5a8d64d000e20f9bb9c6d374a99fe19c"
+          }
+        ]
+      },
+      {
+        "config": {
+          "seed": "pr207-live-pass-5",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "immediate",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.025,
+          "receiverMovement": 10.025,
+          "preparation": 10.075000000000001,
+          "opponents": 10.025,
+          "contact": 12.025000000000029,
+          "control": 12.025000000000029,
+          "action": 12.025000000000029
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": false,
+            "touchAt": 12.475000000000035,
+            "controlAt": 12.475000000000035,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.47500000000005,
+            "firstTouch": {
+              "score": 0.8817700774187683,
+              "pressure": 0.4911458538307651,
+              "incomingSpeed": 2.587283523212664,
+              "incomingHeight": 0.11,
+              "facingError": 0.0011316181168403716,
+              "preparationSeconds": 2.261363636363672,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 2.587283523212664,
+            "fixedReceiverContactAt": null,
+            "nextReleases": [
+              {
+                "at": 12.925000000000042,
+                "receiverId": "geometry:anchor:7",
+                "directTouch": false,
+                "control": false,
+                "retention": false,
+                "censored": false,
+                "terminal": "new_action"
+              }
+            ],
+            "finalHash": "04720e12c9db6cdf6299d2cba6f75f02059b3a27b09aa58a276b28deed73b97d"
+          },
+          {
+            "edition": "corrected",
+            "retained": true,
+            "touchAt": 12.025000000000029,
+            "controlAt": 12.025000000000029,
+            "classification": "own_team_control",
+            "oneSecondAt": 13.025000000000043,
+            "firstTouch": {
+              "score": 0.856165071224081,
+              "pressure": 0.5833946001916984,
+              "incomingSpeed": 6.239093852472526,
+              "incomingHeight": 0.11,
+              "facingError": 0.00144560537818883,
+              "preparationSeconds": 1.8113636363636658,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 6.239093852472526,
+            "fixedReceiverContactAt": 12.025,
+            "nextReleases": [
+              {
+                "at": 13.300000000000047,
+                "receiverId": "geometry:anchor:8",
+                "directTouch": true,
+                "control": true,
+                "retention": true,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "e63c5a73adff5553a838af8658fba67b748462620f43a85dafc8f333c58a142d"
+          }
+        ]
+      },
+      {
+        "config": {
+          "seed": "pr207-live-pass-0",
+          "family": "pass",
+          "metres": 20,
+          "primary": 70,
+          "technique": 70,
+          "strength": 70,
+          "context": "hurried",
+          "delivery": "ground",
+          "intent": "placed",
+          "experimental": true
+        },
+        "flags": {
+          "experimentalBoundedBallFlightBelief": false,
+          "experimentalReceiverAnticipation": false,
+          "experimentalActivePerception": false,
+          "prospectiveMovement": null
+        },
+        "firstDivergence": {
+          "ball": 10.025,
+          "perceivedBall": null,
+          "receiverIntention": 10.025,
+          "receiverMovement": 10.025,
+          "preparation": 10.075000000000001,
+          "opponents": 10.025,
+          "contact": 12.275000000000032,
+          "control": 12.275000000000032,
+          "action": 12.275000000000032
+        },
+        "arms": [
+          {
+            "edition": "legacy",
+            "retained": false,
+            "touchAt": 12.325000000000033,
+            "controlAt": 12.325000000000033,
+            "classification": "own_team_delivery_in_flight",
+            "oneSecondAt": 13.325000000000047,
+            "firstTouch": {
+              "score": 0.9118390229735531,
+              "pressure": 0.3407884989034498,
+              "incomingSpeed": 2.5877740327507035,
+              "incomingHeight": 0.11,
+              "facingError": 0.0017394347425749856,
+              "preparationSeconds": 2.11136363636367,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 2.5877740327507035,
+            "fixedReceiverContactAt": null,
+            "nextReleases": [
+              {
+                "at": 13.200000000000045,
+                "receiverId": "geometry:anchor:10",
+                "directTouch": true,
+                "control": true,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "f1400333f79f47258ff1dab1905a0849dd87a1b74b6503cb8818b2e8de2eebed"
+          },
+          {
+            "edition": "corrected",
+            "retained": true,
+            "touchAt": 12.275000000000032,
+            "controlAt": 12.275000000000032,
+            "classification": "own_team_control",
+            "oneSecondAt": 13.275000000000047,
+            "firstTouch": {
+              "score": 0.8561155818392298,
+              "pressure": 0.6193710217419514,
+              "incomingSpeed": 4.818448580068305,
+              "incomingHeight": 0.11,
+              "facingError": 0.013375359936407705,
+              "preparationSeconds": 2.0613636363636694,
+              "weakFootDifficulty": 0
+            },
+            "firstTouchRelativeSpeed": 4.818448580068305,
+            "fixedReceiverContactAt": 12.258580467978891,
+            "nextReleases": [
+              {
+                "at": 13.50000000000005,
+                "receiverId": "geometry:anchor:8",
+                "directTouch": false,
+                "control": false,
+                "retention": false,
+                "censored": false,
+                "terminal": "control"
+              },
+              {
+                "at": 15.900000000000084,
+                "receiverId": "geometry:anchor:7",
+                "directTouch": true,
+                "control": true,
+                "retention": null,
+                "censored": true,
+                "terminal": "control"
+              }
+            ],
+            "finalHash": "64d689fd903092924501707e400a8792a0b514ff185660e8a5a32a479671d881"
+          }
+        ]
+      }
+    ]
+  },
+  "bounce": [
+    {
+      "name": "rolling",
+      "impacts": 0,
+      "firstImpactAt": null,
+      "firstImpactX": null,
+      "apexSample": 0.11,
+      "rollingAtHorizon": true,
+      "firstMotionEvidenceAt": 10.175000000000002,
+      "firstTouchAt": 11.125000000000016,
+      "controlAt": 11.125000000000016,
+      "retention": true,
+      "oneSecondCensored": false,
+      "nextActions": [
+        {
+          "at": 11.40000000000002,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.625000000000023,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.975000000000028,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.12500000000003,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.375000000000034,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.625000000000037,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.87500000000004,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.250000000000046,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.47500000000005,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.700000000000053,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.925000000000056,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.150000000000059,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.375000000000062,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.600000000000065,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.825000000000069,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.050000000000072,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.275000000000075,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.500000000000078,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.725000000000081,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.950000000000085,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        }
+      ]
+    },
+    {
+      "name": "microscopic-hop",
+      "impacts": 12,
+      "firstImpactAt": 0.00020387272551941268,
+      "firstImpactX": 40.00142710296871,
+      "apexSample": 0.11,
+      "rollingAtHorizon": true,
+      "firstMotionEvidenceAt": 10.175000000000002,
+      "firstTouchAt": 11.075000000000015,
+      "controlAt": 11.075000000000015,
+      "retention": true,
+      "oneSecondCensored": false,
+      "nextActions": [
+        {
+          "at": 11.325000000000019,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.42500000000002,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.575000000000022,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.950000000000028,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.15000000000003,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.650000000000038,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.900000000000041,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.275000000000047,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.52500000000005,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.725000000000053,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.950000000000056,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.17500000000006,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.400000000000063,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.625000000000066,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.850000000000069,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.075000000000072,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.300000000000075,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.525000000000079,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.750000000000082,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.975000000000085,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        }
+      ]
+    },
+    {
+      "name": "one-centimetre-apex",
+      "impacts": 20,
+      "firstImpactAt": 0.09020460881503718,
+      "firstImpactX": 40.63023669355779,
+      "apexSample": 0.11986467182932824,
+      "rollingAtHorizon": true,
+      "firstMotionEvidenceAt": 10.175000000000002,
+      "firstTouchAt": 11.075000000000015,
+      "controlAt": 11.075000000000015,
+      "retention": true,
+      "oneSecondCensored": false,
+      "nextActions": [
+        {
+          "at": 11.35000000000002,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.575000000000022,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.925000000000027,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.025000000000029,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.175000000000031,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.425000000000034,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.675000000000038,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.925000000000042,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.125000000000044,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.300000000000047,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.52500000000005,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.750000000000053,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.975000000000056,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.20000000000006,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.425000000000063,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.650000000000066,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.87500000000007,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.100000000000072,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.325000000000076,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.550000000000079,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.775000000000082,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 16.000000000000085,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        }
+      ]
+    },
+    {
+      "name": "low-repeated-bounce",
+      "impacts": 21,
+      "firstImpactAt": 0.24410154493197717,
+      "firstImpactX": 41.69995063143437,
+      "apexSample": 0.18305973160067235,
+      "rollingAtHorizon": true,
+      "firstMotionEvidenceAt": 10.175000000000002,
+      "firstTouchAt": 11.075000000000015,
+      "controlAt": 11.075000000000015,
+      "retention": true,
+      "oneSecondCensored": false,
+      "nextActions": [
+        {
+          "at": 11.325000000000019,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.42500000000002,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.575000000000022,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.950000000000028,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.025000000000029,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.175000000000031,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.675000000000038,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.925000000000042,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.300000000000047,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.52500000000005,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.750000000000053,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.975000000000056,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.20000000000006,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.425000000000063,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.650000000000066,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.87500000000007,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.100000000000072,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.325000000000076,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.550000000000079,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.775000000000082,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 16.000000000000085,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        }
+      ]
+    },
+    {
+      "name": "descending-to-roll",
+      "impacts": 22,
+      "firstImpactAt": 0.08754909459149468,
+      "firstImpactX": 40.61171130605054,
+      "apexSample": 0.2,
+      "rollingAtHorizon": true,
+      "firstMotionEvidenceAt": 10.175000000000002,
+      "firstTouchAt": 11.150000000000016,
+      "controlAt": 11.150000000000016,
+      "retention": true,
+      "oneSecondCensored": false,
+      "nextActions": [
+        {
+          "at": 11.42500000000002,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.650000000000023,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.000000000000028,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.10000000000003,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.250000000000032,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.500000000000036,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.750000000000039,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.000000000000043,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.375000000000048,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.600000000000051,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.825000000000054,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.050000000000058,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.27500000000006,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.500000000000064,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.725000000000067,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.95000000000007,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.175000000000074,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.400000000000077,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.62500000000008,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.850000000000083,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        }
+      ]
+    },
+    {
+      "name": "spinning-impact",
+      "impacts": 22,
+      "firstImpactAt": 0.0671259244718016,
+      "firstImpactX": 40.46906961434263,
+      "apexSample": 0.2,
+      "rollingAtHorizon": true,
+      "firstMotionEvidenceAt": 10.175000000000002,
+      "firstTouchAt": 11.075000000000015,
+      "controlAt": 11.075000000000015,
+      "retention": true,
+      "oneSecondCensored": false,
+      "nextActions": [
+        {
+          "at": 11.325000000000019,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.575000000000022,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 11.900000000000027,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.000000000000028,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.375000000000034,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.625000000000037,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 12.87500000000004,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.125000000000044,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.300000000000047,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.50000000000005,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.725000000000053,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 13.950000000000056,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.17500000000006,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.400000000000063,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.625000000000066,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 14.850000000000069,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.075000000000072,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.300000000000075,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.525000000000079,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.750000000000082,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        },
+        {
+          "at": 15.975000000000085,
+          "type": "carry",
+          "actorId": "geometry:anchor:9"
+        }
+      ]
+    }
+  ],
+  "costs": {
+    "timing": {
+      "wallSeconds": 5.503890600000001,
+      "cpuSeconds": 6.735,
+      "peakRSSKiB": 320304,
+      "node": "v24.22.1",
+      "platform": "win32",
+      "micro": {
+        "instant-contact-v1": {
+          "calls": 1000,
+          "wallMicrosecondsPerCall": 50.640300000000934,
+          "cpuMicrosecondsPerCall": 63
+        },
+        "temporal-contact-dev-v1": {
+          "calls": 1000,
+          "wallMicrosecondsPerCall": 179.22290000000066,
+          "cpuMicrosecondsPerCall": 297
+        }
+      }
+    },
+    "retention": {
+      "wallSeconds": 17.9045242,
+      "cpuSeconds": 22.094,
+      "peakRSSKiB": 434124,
+      "node": "v24.22.1",
+      "platform": "win32"
+    },
+    "bounce": {
+      "wallSeconds": 8.5379182,
+      "cpuSeconds": 10.171,
+      "peakRSSKiB": 306036,
+      "node": "v24.22.1",
+      "platform": "win32"
+    }
+  },
+  "integration": {
+    "researchChange": "Bounded low inside-foot temporal contact foundation and retained-continuation diagnosis",
+    "maintainedCandidate": "realism-candidate-v1 / PR201 unchanged",
+    "defaultPolicy": "B",
+    "confirmation": "sealed",
+    "promotion": "RETAIN_EXPERIMENTAL; live temporal integration BLOCKED_BY_DEPENDENCY",
+    "nextDependency": "Persist and arbitrate intentional strike preparation/contact on canonical body and ball segments, including misses and competing contacts, before live integration or broader skill claims",
+    "fullMatchMatrix": "withheld; no local live temporal integration gate passed"
+  }
+}

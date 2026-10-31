@@ -1,5 +1,7 @@
 # Mechanism dependencies
 
+PR209: authoritative ball/body snapshot + explicit planned meeting intention → anchored finite effective-foot path → timing-shifted onset → first physical swept intersection → existing finite impulse → shared ball integration. This contact foundation is laboratory-only. Its missing live dependency is a persisted intentional-strike lifecycle with canonical body/ball segments and shared earliest-event arbitration, including misses and competing contacts. Reception diagnosis keeps isolated fixed-body physics, autonomous decisions, first control, onward release and one-second ownership distinct. PR206 lawful preparation mediation remains unestablished; PR201 and event-v1 remain unchanged. [PR209](../PR209_MOVING_BALL_STRIKE_AND_BOUNCE_RECEPTION.md).
+
 PR208: nominal plan → unchanged contact-v1 impulse/errors → explicitly selected event-v1 impact/remaining-time integration → actual receiver/opponent movement/contact → one-second continuation. The numerical shallow-flight discontinuity is repaired locally; retention and shot-dispersion dependencies remain. Historical physics, PR201 and PR205/206 dependencies remain unchanged. [Evidence](../PR208_GROUND_CONTACT_CONTINUITY.md).
 
 ## PR207 release execution boundary

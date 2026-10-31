@@ -1,5 +1,7 @@
 # MatchEngine calibration plan
 
+PR209 bounded protocol: [temporal contact and retained-continuation diagnosis](../performance/pr209/protocol.md). Zero-error geometry and paired onset interventions precede exploratory skill latents. The planned meeting is an engineering intervention; assigned preparation budgets do not prove lawful anticipation. The existing event-v1 material coefficients are held fixed. Separate no-contact, unsupported and numerically unresolved cases; retain onward passes in flight in the historical one-second denominator and report their later outcomes separately. The live canonical strike lifecycle must pass before a broader skill/preparation experiment or full-match matrix. [PR209 report](../PR209_MOVING_BALL_STRIKE_AND_BOUNCE_RECEPTION.md).
+
 PR208 development gate: first preserve the same PR207 inputs and impulses while repairing ground contact. Event-v1 improves plane arrival but leaves moderate/hurried retention regressions and adds an open-context loss. Isolate receiver meeting/preparation/contact-speed and later control/decisions before separately fitting empirical kick variance. No simultaneous patch/effort/accuracy/keeper tuning, new full-match experiment or confirmation. [PR208](../PR208_GROUND_CONTACT_CONTINUITY.md).
 
 ## PR207 contact-error development gate
