@@ -1,5 +1,7 @@
 # MatchEngine calibration plan
 
+PR208 development gate: first preserve the same PR207 inputs and impulses while repairing ground contact. Event-v1 improves plane arrival but leaves moderate/hurried retention regressions and adds an open-context loss. Isolate receiver meeting/preparation/contact-speed and later control/decisions before separately fitting empirical kick variance. No simultaneous patch/effort/accuracy/keeper tuning, new full-match experiment or confirmation. [PR208](../PR208_GROUND_CONTACT_CONTINUITY.md).
+
 ## PR207 contact-error development gate
 
 The [PR207 experiment](../PR207_PHYSICAL_KICK_EXECUTION_AND_ERROR_PROPAGATION.md) freezes 64 independent seeds per stratum for paired nominal/baseline/contact error, and separates unobstructed trajectories from 120 actual canonical release continuations. Keep missing planes, short balls, rejected contacts and censoring. Unit-covariance ellipses are descriptive; empirical coverage and non-Gaussian floor/capability mixtures preclude calibrated confidence claims. A larger goal count or narrower scatter is not an acceptance target. Repair the measured near-ground discontinuity and validate realistic skill/context variance before new full matches or live aerial extension. No coefficient is fitted to protected confirmation or a desired success rate; historical baselines remain intact and PR201 remains maintained.

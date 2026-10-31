@@ -1,0 +1,28 @@
+{
+  "schema": "pr208-reporter-fix-parity-v1",
+  "previous": "1bb1ab1bd5d82dfb8db7d68ec3deca3defc24445beb7ce06d8bd288701985351",
+  "current": "0855f89258f66c23b7cfd785d49a0c3de9f369db3eabcaf40787ec8080228813",
+  "changedPaths": [
+    "scripts/pr208Measurements.mjs",
+    "scripts/summarizePr208.mjs"
+  ],
+  "allRuntimeAndTestBytesUnchanged": true,
+  "physical": [
+    {
+      "mode": "sweep",
+      "physicalSha256": "8d6781651df0d3d1b5bed2e9925787486b3d762787f2d44fedc269c496564f3b",
+      "unchanged": true
+    },
+    {
+      "mode": "trajectories",
+      "physicalSha256": "e7fa1a9b1b980e53c7844692847f0254e4073b44af99dba56cd8b4212df6c85b",
+      "unchanged": true
+    },
+    {
+      "mode": "live",
+      "physicalSha256": "6a35b9f9b0d20c108bf6d61a56c286c4a7f97ec84605d90c2a0ba01ab416e157",
+      "unchanged": true
+    }
+  ],
+  "reason": "Move nondeterministic CPU/wall microbenchmark timings out of the deterministic physical receipt. Preserve failed replay and old source/receipts."
+}

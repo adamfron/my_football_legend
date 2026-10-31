@@ -75,6 +75,7 @@ export const derivePassLaunchPlan = (
       },
       aerial.predictedFlightTime + 0.15,
       0.025,
+      state.ballEnvironment,
     );
     const arrival = samples.reduce((best, sample) =>
       Math.abs(sample.at - aerial.predictedFlightTime) <
@@ -115,6 +116,7 @@ export const derivePassLaunchPlan = (
       },
       8,
       0.025,
+      state.ballEnvironment,
     );
     const arrival =
       samples.find((sample) => distance(sample.ball.position, target) <= 0.55) ??
@@ -191,6 +193,7 @@ export const deriveFeasiblePassPlans = (
       },
       Math.min(8, metres / Math.max(2, arrivalSpeed) + 0.8),
       0.025,
+      state.ballEnvironment,
     );
     const arrival =
       samples.find((s) => distance(s.ball.position, target) <= 0.55) ??

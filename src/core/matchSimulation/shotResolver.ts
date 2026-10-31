@@ -14,6 +14,7 @@ import {
   ballSpinSchema,
   ZERO_BALL_SPIN,
   type BallSpin3d,
+  type BallEnvironment,
   type BallVelocity3d,
 } from './ballPhysics';
 import { shotExecutionErrorProfileSchema, type ShotExecutionErrorProfile } from './shotIntent';
@@ -108,6 +109,7 @@ const solveSpinningLaunch = (
   speed: number,
   initialElevation: number,
   spin: BallSpin3d,
+  environment?: BallEnvironment,
 ) => {
   let heading = Math.atan2(goalY - from.y, goalX - from.x);
   let elevation = initialElevation;
@@ -125,6 +127,7 @@ const solveSpinningLaunch = (
       { position: from, velocity, spin, airborne: true, bounceCount: 0 },
       6,
       0.025,
+      environment,
     )) {
       const next = sample.ball.position;
       const dx = next.x - previous.x;
@@ -272,6 +275,7 @@ export const resolveCanonicalShot = (
       speed,
       launchElevation,
       launchSpin,
+      state.ballEnvironment,
     );
     launchVelocity = solved.velocity;
     launchElevation = solved.elevation;
@@ -306,6 +310,7 @@ export const resolveCanonicalShot = (
     },
     6,
     0.025,
+    state.ballEnvironment,
   )) {
     const next = sample.ball.position;
     const contact = findFirstBallContact({ previous, next, attackingTeam: shooter });

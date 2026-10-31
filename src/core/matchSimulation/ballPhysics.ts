@@ -40,13 +40,33 @@ export const BALL_PHYSICS = {
   airborneSpinDecay: 0.12,
   rollingSpinDecay: 2.4,
   bounceSpinRetention: 0.55,
+  /** Event-v1 Coulomb impact coefficient; an uncalibrated grass/material assumption. */
+  groundImpactFriction: 0.45,
 } as const;
 
 export const ballEnvironmentSchema = z.object({
   rollingResistanceMultiplier: z.number().positive(),
+  /** Omission preserves the exact historical fixed-step collision rule. */
+  groundContact: z.enum(['legacy-v1', 'event-v1']).optional(),
 });
 export type BallEnvironment = z.infer<typeof ballEnvironmentSchema>;
 export const NEUTRAL_BALL_ENVIRONMENT: BallEnvironment = { rollingResistanceMultiplier: 1 };
+const finiteVectorSchema = z.object({
+  x: z.number().finite(),
+  y: z.number().finite(),
+  z: z.number().finite(),
+});
+export const groundImpactEventSchema = z.object({
+  at: z.number().nonnegative().finite(),
+  position: finiteVectorSchema,
+  incomingVelocity: finiteVectorSchema,
+  outgoingVelocity: finiteVectorSchema,
+  incomingSpin: ballSpinSchema,
+  outgoingSpin: ballSpinSchema,
+  normalDelta: z.number().nonnegative().finite(),
+  tangentDelta: z.number().nonnegative().finite(),
+});
+export type GroundImpactEvent = z.infer<typeof groundImpactEventSchema>;
 
 /** Apex bounds are metres above the pitch, with distance slopes in metres/metre. */
 export const AERIAL_DELIVERY = {
@@ -157,11 +177,143 @@ export const integrateGroundRolling = (
   };
 };
 
+/** Event-aware substep within the same canonical integrator. Acceleration is held over
+ * each free-flight segment. Solve z(t)=R before applying restitution, then consume the
+ * remaining time. Coulomb impulse depends on actual incoming normal momentum, so its
+ * horizontal effect vanishes with hop height instead of removing a fixed speed fraction. */
+const integrateGroundContactStep = (
+  initial: PhysicalBall,
+  dt: number,
+  environment: BallEnvironment,
+  observeImpact?: (event: GroundImpactEvent) => void,
+): PhysicalBall => {
+  let current = initial;
+  let remaining = dt;
+  const roll = (ball: PhysicalBall, seconds: number): PhysicalBall => {
+    const rolled = integrateGroundRolling(ball.position, ball.velocity, seconds, environment);
+    return {
+      position: { ...rolled.position, z: BALL_RADIUS },
+      velocity: { ...rolled.velocity, z: 0 },
+      airborne: false,
+      bounceCount: ball.bounceCount,
+      ...(ball.spin
+        ? { spin: dampSpin(ball.spin, Math.exp(-BALL_PHYSICS.rollingSpinDecay * seconds)) }
+        : {}),
+    };
+  };
+  while (remaining > 0) {
+    if (current.position.z <= BALL_RADIUS && current.velocity.z === 0)
+      return roll(current, remaining);
+    const drag = dragAcceleration(current.velocity);
+    const magnus = magnusAcceleration(current.velocity, current.spin);
+    const acceleration = {
+      x: drag.x + magnus.x,
+      y: drag.y + magnus.y,
+      z: -BALL_PHYSICS.gravity + drag.z + magnus.z,
+    };
+    const height = Math.max(0, current.position.z - BALL_RADIUS);
+    const vz = current.velocity.z;
+    // Stable positive root, including a launch from the surface and immediate impact.
+    const discriminant = vz * vz - 2 * acceleration.z * height;
+    const impactTime =
+      height === 0 && vz < 0
+        ? 0
+        : acceleration.z < 0 && discriminant >= 0
+          ? vz >= 0
+            ? (vz + Math.sqrt(discriminant)) / -acceleration.z
+            : (2 * height) / (Math.sqrt(discriminant) - vz)
+          : vz < 0 && discriminant >= 0
+            ? (2 * height) / (Math.sqrt(discriminant) - vz)
+            : Infinity;
+    const impact = impactTime <= remaining;
+    const seconds = impact ? impactTime : remaining;
+    const velocity = {
+      x: current.velocity.x + acceleration.x * seconds,
+      y: current.velocity.y + acceleration.y * seconds,
+      z: current.velocity.z + acceleration.z * seconds,
+    };
+    const position = {
+      x: current.position.x + current.velocity.x * seconds + 0.5 * acceleration.x * seconds ** 2,
+      y: current.position.y + current.velocity.y * seconds + 0.5 * acceleration.y * seconds ** 2,
+      z: impact
+        ? BALL_RADIUS
+        : current.position.z + vz * seconds + 0.5 * acceleration.z * seconds ** 2,
+    };
+    let spin = current.spin
+      ? dampSpin(current.spin, Math.exp(-BALL_PHYSICS.airborneSpinDecay * seconds))
+      : undefined;
+    current = {
+      position,
+      velocity,
+      airborne: true,
+      bounceCount: current.bounceCount,
+      ...(spin ? { spin } : {}),
+    };
+    if (!impact) return current;
+    remaining = Math.max(0, remaining - seconds);
+    const normalDelta = (1 + BALL_PHYSICS.verticalRestitution) * Math.max(0, -velocity.z);
+    // Hollow sphere: I/(mR²)=2/3. Contact slip includes omega cross (0,0,-R).
+    const slipX = velocity.x - (spin?.y ?? 0) * BALL_RADIUS;
+    const slipY = velocity.y + (spin?.x ?? 0) * BALL_RADIUS;
+    const slip = Math.hypot(slipX, slipY);
+    let tangentDelta = Math.min(BALL_PHYSICS.groundImpactFriction * normalDelta, slip / 2.5);
+    // Preserve the shared finite-spin envelope by scaling the SAME linear/torque impulse.
+    const spinDeltaX = slip === 0 ? 0 : (-(1.5 / BALL_RADIUS) * tangentDelta * slipY) / slip;
+    const spinDeltaY = slip === 0 ? 0 : ((1.5 / BALL_RADIUS) * tangentDelta * slipX) / slip;
+    let scale = 1;
+    for (const [value, change] of [
+      [spin?.x ?? 0, spinDeltaX],
+      [spin?.y ?? 0, spinDeltaY],
+    ] as const) {
+      if (change > 0) scale = Math.min(scale, (160 - value) / change);
+      if (change < 0) scale = Math.min(scale, (-160 - value) / change);
+    }
+    scale = Math.max(0, scale);
+    tangentDelta *= scale;
+    const incomingVelocity = observeImpact ? { ...velocity } : undefined;
+    const incomingSpin = observeImpact ? { ...(spin ?? ZERO_BALL_SPIN) } : undefined;
+    if (slip > 0) {
+      velocity.x -= (tangentDelta * slipX) / slip;
+      velocity.y -= (tangentDelta * slipY) / slip;
+    }
+    if (spin || tangentDelta > 0)
+      spin = {
+        x: (spin?.x ?? 0) + spinDeltaX * scale,
+        y: (spin?.y ?? 0) + spinDeltaY * scale,
+        z: spin?.z ?? 0,
+      };
+    velocity.z = Math.max(0, -velocity.z) * BALL_PHYSICS.verticalRestitution;
+    if (observeImpact && incomingVelocity && incomingSpin)
+      observeImpact({
+        at: dt - remaining,
+        position: { ...position },
+        incomingVelocity,
+        outgoingVelocity: { ...velocity },
+        incomingSpin,
+        outgoingSpin: { ...(spin ?? ZERO_BALL_SPIN) },
+        normalDelta,
+        tangentDelta,
+      });
+    current = {
+      position,
+      velocity,
+      airborne: true,
+      bounceCount: current.bounceCount + 1,
+      ...(spin ? { spin } : {}),
+    };
+    // Resolve the inelastic Zeno tail only after impact. Remaining vertical specific
+    // energy < 5e-15 J/kg, apex < 6e-16 m; never clamp a finite upward launch.
+    if (velocity.z < 1e-7) return roll(current, remaining);
+  }
+  return current;
+};
+
 /** Shared fixed-step integrator for ordinary and spinning launches, forecasts and live play. */
 export const integrateBallFlight = (
   ball: PhysicalBall,
   dt: number,
   environment: BallEnvironment = NEUTRAL_BALL_ENVIRONMENT,
+  observeImpact?: (event: GroundImpactEvent) => void,
 ): PhysicalBall => {
   // Match stepping may batch time for tests/replay; ball substeps stay fixed and deterministic.
   const maximumStep = 0.025;
@@ -175,6 +327,17 @@ export const integrateBallFlight = (
     ...(ball.spin ? { spin: { ...ball.spin } } : {}),
   };
   for (let index = 0; index < steps; index += 1) {
+    if (environment.groundContact === 'event-v1') {
+      current = integrateGroundContactStep(
+        current,
+        step,
+        environment,
+        observeImpact
+          ? (event) => observeImpact({ ...event, at: index * step + event.at })
+          : undefined,
+      );
+      continue;
+    }
     let velocity = { ...current.velocity };
     let airborne = current.airborne || current.position.z > BALL_RADIUS || velocity.z > 0;
     let bounceCount = current.bounceCount;
