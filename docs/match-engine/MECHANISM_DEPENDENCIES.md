@@ -1,5 +1,7 @@
 # Mechanism dependencies
 
+PR208: nominal plan → unchanged contact-v1 impulse/errors → explicitly selected event-v1 impact/remaining-time integration → actual receiver/opponent movement/contact → one-second continuation. The numerical shallow-flight discontinuity is repaired locally; retention and shot-dispersion dependencies remain. Historical physics, PR201 and PR205/206 dependencies remain unchanged. [Evidence](../PR208_GROUND_CONTACT_CONTINUITY.md).
+
 ## PR207 release execution boundary
 
 Football intention → existing nominal pass/shot plan → contact-v1 preparation-limited normal/effective foot velocity → finite normal/Coulomb impulse and torque → shared 40 Hz flight → unchanged body/keeper/boundary/reception. The new release path replaces eligible destination and independent speed noise; it does not add noise to those same old errors. PASS-005/008 and SHOT-003 depend on PHYS-002's near-ground transition: a +0.001 m/s vertical release currently incurs a finite horizontal bounce loss compared with zero. MEAS-008/009 preserve cost and source identities. Calibration of contact distributions and historical selection priors remains open; live loft/cross integration is withheld. PR201, PR205 already-active body/keeper/high free-ball parity and PR206 lawful preparation handoff are unchanged. [PR207 evidence](../PR207_PHYSICAL_KICK_EXECUTION_AND_ERROR_PROPAGATION.md).

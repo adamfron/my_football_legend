@@ -220,7 +220,12 @@ export const incomingBallContact = (
   function* samples() {
     yield { at: 0, ball: current };
     // Most committed contacts are already local. Forecast only if this first sample fails.
-    yield* projectFutureBallTrajectory(current, purpose === 'pass' ? 1.8 : 1.4, 0.05);
+    yield* projectFutureBallTrajectory(
+      current,
+      purpose === 'pass' ? 1.8 : 1.4,
+      0.05,
+      state.ballEnvironment,
+    );
   }
   const a = actor.profile.attributes;
   for (const sample of samples()) {

@@ -41,6 +41,7 @@ export const forecastPassInterventions = (
     },
     Math.min(6, plan.predictedArrivalTime + 0.25),
     0.025,
+    state.ballEnvironment,
   );
   // A physical trajectory may leave the pitch. It cannot become an in-play ETA target;
   // stop at its first exit instead of clipping the ball or weakening pitch validation.

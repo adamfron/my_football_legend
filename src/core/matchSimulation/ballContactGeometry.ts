@@ -672,6 +672,7 @@ export const advanceControlledBall = (
       bounceCount: state.ball.bounceCount ?? 0,
     },
     dt,
+    state.ballEnvironment,
   );
   const rolled = {
     position: { x: physical.position.x, y: physical.position.y },

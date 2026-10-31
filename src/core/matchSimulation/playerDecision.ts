@@ -689,6 +689,7 @@ export const evaluatePassInterceptionOpportunity = (
     },
     2.5,
     0.05,
+    state.ballEnvironment,
   );
   // A physical flight continues after a line crossing, but the playable football action does not.
   // Stop at the first outside sample: clamping it would manufacture an interception on the line.

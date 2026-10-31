@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ballEnvironmentSchema, type BallEnvironment } from './ballPhysics';
 import {
   kickExecutionSelectionSchema,
   kickExecutionReceiptSchema,
@@ -817,6 +818,8 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  /** Explicit physical edition; absent in every frozen historical profile. */
+  ballEnvironment?: BallEnvironment;
   experimentalKickExecution?: z.infer<typeof kickExecutionSelectionSchema>;
   lastKickExecution?: KickExecutionReceipt;
   boundedReceiverRecovery?: z.infer<typeof boundedReceiverRecoverySchema>;
@@ -1056,6 +1059,7 @@ export interface TacticalMatchState {
 // are already validated by the canonical world database schema.
 export const tacticalMatchStateSchema = z
   .object({
+    ballEnvironment: ballEnvironmentSchema.optional(),
     boundedReceiverRecovery: boundedReceiverRecoverySchema.optional(),
     situationalAwareness: situationalAwarenessSchema.optional(),
     prospectiveMovement: prospectiveMovementSchema.optional(),

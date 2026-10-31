@@ -1,7 +1,12 @@
 import { z } from 'zod';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { labVectorSchema as vector } from './footballLabObjects';
-import { ballSpinSchema, integrateBallFlight, type PhysicalBall } from './ballPhysics';
+import {
+  ballSpinSchema,
+  integrateBallFlight,
+  type PhysicalBall,
+  type BallEnvironment,
+} from './ballPhysics';
 import { deriveLowerBodyGeometry } from './lowerBodyGeometry';
 import {
   executeFootContact,
@@ -167,6 +172,7 @@ export const sweepSurface = (
   previous: MatchPlayerState,
   r: SurfaceRequest,
   dt = 0.025,
+  environment?: BallEnvironment,
 ) => {
   const dx = next.position.x - ball.position.x,
     dy = next.position.y - ball.position.y;
@@ -189,7 +195,9 @@ export const sweepSurface = (
     b = { ...f1, z: 0 };
   const distanceAt = (t: number) => {
     const q =
-      dt > 0 ? integrateBallFlight(ball, dt * t).position : mix(ball.position, next.position, t);
+      dt > 0
+        ? integrateBallFlight(ball, dt * t, environment).position
+        : mix(ball.position, next.position, t);
     if (footSurface(r)) {
       const c = mix(a, b, t),
         top = r.intendedSurface === 'sole' ? 0.24 : 0.65;
@@ -427,18 +435,19 @@ export const advanceSurfaceBall = (
   }[],
   inspectGoal = false,
 ): z.infer<typeof surfaceBallStepSchema> => {
-  const next = integrateBallFlight(ball, dt);
+  const next = integrateBallFlight(ball, dt, state.ballEnvironment);
   const opening = inspectGoal
     ? findFirstBallContact({ previous: ball.position, next: next.position, attackingTeam: 'home' })
     : undefined;
   const finishFlight = () => {
     if (opening && ['left_post', 'right_post', 'crossbar'].includes(opening.kind)) {
-      const impact = integrateBallFlight(ball, dt * opening.segmentFraction);
+      const impact = integrateBallFlight(ball, dt * opening.segmentFraction, state.ballEnvironment);
       const rebound = resolveBallRebound(opening.kind, impact.velocity, 'home', impact.spin);
       return {
         ball: integrateBallFlight(
           { ...impact, velocity: rebound.velocity, spin: rebound.spin ?? zero() },
           dt * (1 - opening.segmentFraction),
+          state.ballEnvironment,
         ),
         contacts: [] as SurfaceContactReceipt[],
         goalCrossing: false,
@@ -453,7 +462,15 @@ export const advanceSurfaceBall = (
   const hits = candidates
     .map((c) => ({
       ...c,
-      hit: sweepSurface(ball, next, c.player, c.previous ?? c.player, c.request, dt),
+      hit: sweepSurface(
+        ball,
+        next,
+        c.player,
+        c.previous ?? c.player,
+        c.request,
+        dt,
+        state.ballEnvironment,
+      ),
     }))
     .filter((c) => c.hit)
     .sort(
@@ -464,7 +481,7 @@ export const advanceSurfaceBall = (
     );
   for (const c of hits) {
     const t = c.hit!.fraction,
-      impact = integrateBallFlight(ball, dt * t);
+      impact = integrateBallFlight(ball, dt * t, state.ballEnvironment);
     if (opening && opening.segmentFraction <= t) return finishFlight();
     // CCD uses the integrator chord. Integrate to the hit time and check real
     // geometry again; a curved/tangential near miss never receives an impulse.
@@ -512,7 +529,10 @@ export const advanceSurfaceBall = (
     };
     const rest = inspectGoal
       ? advanceSurfaceBall({ ...state, time: at }, after, dt * (1 - t), [], true)
-      : { ball: integrateBallFlight(after, dt * (1 - t)), goalCrossing: false };
+      : {
+          ball: integrateBallFlight(after, dt * (1 - t), state.ballEnvironment),
+          goalCrossing: false,
+        };
     return { ball: rest.ball, contacts: [contact], goalCrossing: rest.goalCrossing };
   }
   return finishFlight();

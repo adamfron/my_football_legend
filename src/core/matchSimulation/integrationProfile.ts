@@ -271,6 +271,7 @@ export const withIntegrationProfile = (
     }),
   };
   delete next.experimentalBodyContacts;
+  delete (next as TacticalMatchState).ballEnvironment;
   delete (next as TacticalMatchState).experimentalKickExecution;
   delete (next as TacticalMatchState).lastKickExecution;
   delete next.liveBallFlightRuntime;
@@ -308,6 +309,8 @@ export const integrationStateErrors = (state: TacticalMatchState) => {
   )
     return ['Live bounded belief requires anticipation and excludes unvalidated synchronisation'];
   if (!state.integrationProfile) return [];
+  if (state.ballEnvironment)
+    return ['Ball environment is not declared by a historical integration profile'];
   if (state.experimentalKickExecution)
     return ['Kick execution is not declared by a historical integration profile'];
   const expected = resolveIntegrationProfile(

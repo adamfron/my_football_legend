@@ -35,6 +35,7 @@ export const deriveAerialAssignments = (state: TacticalMatchState): AerialAssign
     },
     3,
     0.15,
+    state.ballEnvironment,
   ).filter(
     (s) =>
       s.ball.position.x >= 0.4 &&

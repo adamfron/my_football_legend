@@ -109,6 +109,7 @@ export const advancePostGoalReaction = (
         ...(state.ball.spin ? { spin: state.ball.spin } : {}),
       },
       dt,
+      state.ballEnvironment,
     ),
   );
   const right = attacksRight(reaction.scoringTeam, state);

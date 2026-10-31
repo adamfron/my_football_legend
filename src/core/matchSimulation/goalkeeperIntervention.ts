@@ -86,7 +86,12 @@ export const projectGoalkeeperIntervention = (
   let elapsed = 0;
   let crossedInterventionPlane = false;
   const attackingRight = Boolean(shooter && attacksRight(shooter));
-  for (const sample of projectFutureBallTrajectory(physical, maxSeconds, 0.025)) {
+  for (const sample of projectFutureBallTrajectory(
+    physical,
+    maxSeconds,
+    0.025,
+    state.ballEnvironment,
+  )) {
     const next = sample.ball;
     elapsed = sample.at;
     const crossed = attackingRight
