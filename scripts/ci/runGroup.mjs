@@ -16,6 +16,7 @@ import {
   groupExecutionSchema,
 } from './manifest.mjs';
 import { pr201Context } from './replayPr201Check.mjs';
+import { pr198Context } from './replayPr198Check.mjs';
 import { readNodeResources } from './telemetry.mjs';
 
 export function stopTree(child) {
@@ -155,7 +156,12 @@ async function main() {
           command = [process.execPath, process.env.npm_execpath, ...command.slice(1)];
         } else if (command[0] === 'node') command = [process.execPath, ...command.slice(1)];
         console.log('CI task START', task.id, JSON.stringify(task.command));
-        const context = task.command[2] === 'benchmark:pr201:check' ? pr201Context() : null;
+        const context =
+          task.command[2] === 'benchmark:pr201:check'
+            ? pr201Context()
+            : task.command[2] === 'benchmark:pr198:check'
+              ? pr198Context()
+              : null;
         let result;
         try {
           result = await runChild(command, {

@@ -1,4 +1,9 @@
 import { z } from 'zod';
+import {
+  kickExecutionSelectionSchema,
+  kickExecutionReceiptSchema,
+  type KickExecutionReceipt,
+} from './kickExecutionState';
 import { situationalAwarenessSchema, prospectiveMovementSchema } from './situationalAwarenessState';
 import {
   boundedReceiverRecoverySchema,
@@ -812,6 +817,8 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  experimentalKickExecution?: z.infer<typeof kickExecutionSelectionSchema>;
+  lastKickExecution?: KickExecutionReceipt;
   boundedReceiverRecovery?: z.infer<typeof boundedReceiverRecoverySchema>;
   situationalAwareness?: z.infer<typeof situationalAwarenessSchema>;
   prospectiveMovement?: z.infer<typeof prospectiveMovementSchema>;
@@ -1052,6 +1059,8 @@ export const tacticalMatchStateSchema = z
     boundedReceiverRecovery: boundedReceiverRecoverySchema.optional(),
     situationalAwareness: situationalAwarenessSchema.optional(),
     prospectiveMovement: prospectiveMovementSchema.optional(),
+    experimentalKickExecution: kickExecutionSelectionSchema.optional(),
+    lastKickExecution: kickExecutionReceiptSchema.optional(),
     experimentalBodyContacts: experimentalBodyContactsSchema.optional(),
     experimentalBallRecovery: z.boolean().optional(),
     experimentalCanonicalArrival: z.boolean().optional(),

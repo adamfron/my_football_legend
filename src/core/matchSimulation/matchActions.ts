@@ -33,6 +33,7 @@ import { RandomGenerator } from '../random/RandomGenerator';
 import { clampPitchPoint, distance, distanceToSegment, fieldValue } from './matchSpace';
 import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { resolveCanonicalShot } from './shotResolver';
+import { eligiblePhysicalPass, executePhysicalKick } from './kickExecution';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { evaluateRunSpace } from './reachableSpace';
 import {
@@ -51,7 +52,7 @@ import {
 } from './throwIn';
 import { derivePassLaunchPlan } from './passLaunchPlan';
 import { deriveSpacePassPlan, enumerateNpcSpacePasses, type SpacePassPlan } from './spacePassing';
-import { interpretPassExecution } from './passExecution';
+import { interpretPassExecution, isPhysicalKickPassTechnique } from './passExecution';
 import { projectReceiverReadiness } from './receiverReadiness';
 import { deriveFlankRelationship } from './tacticalPositioning';
 import {
@@ -1346,6 +1347,8 @@ const resolveMatchActionCanonical = (
       },
       action,
     );
+    if (shot.kickExecution && (!shot.kickExecution.contact.available || shot.speed === 0))
+      return { ...state, lastKickExecution: shot.kickExecution };
     const direction = attacksRight(actor) ? 1 : -1;
     const target = { ...shot.goalPoint, x: shot.goalPoint.x + direction * 2 };
     const duration = Math.max(0.28, distance(actor.position, target) / shot.speed);
@@ -1356,6 +1359,7 @@ const resolveMatchActionCanonical = (
     void _shotRestart;
     return {
       ...shotBaseState,
+      ...(shot.kickExecution ? { lastKickExecution: shot.kickExecution } : {}),
       ...(penaltyReleased
         ? {
             scenario: 'open_play' as const,
@@ -1392,7 +1396,7 @@ const resolveMatchActionCanonical = (
         shot,
         height: state.ball.height ?? 0,
         releaseHeight: state.ball.height ?? 0,
-        airborne: true,
+        airborne: shot.kickExecution ? shotVelocity.z > 0 || (state.ball.height ?? 0) > 0.11 : true,
         velocity: shotVelocity,
         spin: shot.launchSpin,
         launchVelocity: shotVelocity,
@@ -1573,6 +1577,7 @@ const resolveMatchActionCanonical = (
     action.intent,
     action.delivery ?? 'ground',
     {
+      ...(eligiblePhysicalPass(state, actor, action) ? { nominalContact: true } : {}),
       firstTime: Boolean(action.firstTime),
       goalkeeperDistribution: action.distribution === 'kick' && isMatchGoalkeeper(actor),
       ...(action.foot ? { foot: action.foot } : {}),
@@ -1633,14 +1638,14 @@ const resolveMatchActionCanonical = (
         ),
       ),
   );
-  const launchSpeed =
+  let launchSpeed =
     keeperThrow?.speed ?? throwPlan?.speed ?? distributionPlan?.speed ?? sampledSpeed;
-  const launchElevation =
+  let launchElevation =
     keeperThrow?.elevation ??
     throwPlan?.elevation ??
     distributionPlan?.elevation ??
     canonicalPlan.elevation;
-  const launchVelocity =
+  let launchVelocity =
     keeperThrow?.velocity ??
     throwPlan?.velocity ??
     distributionPlan?.velocity ??
@@ -1659,6 +1664,30 @@ const resolveMatchActionCanonical = (
     launchVelocity.y = launchVelocity.y * (1 - retained) + incomingVelocity.y * retained;
     launchVelocity.z = launchVelocity.z * (1 - retained) + (incomingVelocity.z ?? 0) * retained;
   }
+  const kickExecution =
+    eligiblePhysicalPass(state, actor, action) && isPhysicalKickPassTechnique(execution.type)
+      ? executePhysicalKick(state, actor, {
+          family: 'pass',
+          target,
+          nominalVelocity: launchVelocity,
+          surface: 'inside',
+          ...(action.foot ? { foot: action.foot } : {}),
+        })
+      : undefined;
+  if (kickExecution) {
+    if (
+      !kickExecution.contact.available ||
+      Math.hypot(
+        kickExecution.contact.outgoingVelocity.x,
+        kickExecution.contact.outgoingVelocity.y,
+        kickExecution.contact.outgoingVelocity.z,
+      ) === 0
+    )
+      return { ...state, lastKickExecution: kickExecution };
+    launchVelocity = kickExecution.contact.outgoingVelocity;
+    launchSpeed = Math.hypot(launchVelocity.x, launchVelocity.y, launchVelocity.z);
+    launchElevation = Math.atan2(launchVelocity.z, Math.hypot(launchVelocity.x, launchVelocity.y));
+  }
   const defenders = state.players.filter((p) => p.team !== actor.team);
   const bestDefenderArrival = Math.min(
     ...defenders.map(
@@ -1667,6 +1696,7 @@ const resolveMatchActionCanonical = (
   );
   return {
     ...baseState,
+    ...(kickExecution ? { lastKickExecution: kickExecution } : {}),
     ball: {
       x: releasePosition.x,
       y: releasePosition.y,
@@ -1686,14 +1716,16 @@ const resolveMatchActionCanonical = (
       distanceTravelled: 0,
       ...(isThrowIn ? { releaseHeight: 1.9 } : {}),
       height:
+        (kickExecution ? (state.ball.height ?? 0.11) : undefined) ??
         keeperThrow?.release.z ??
         (isThrowIn ? 1.9 : action.firstTime ? (state.ball.height ?? 0.11) : 0),
-      airborne:
-        Boolean(keeperThrow) ||
-        isThrowIn ||
-        isLongDistribution ||
-        action.delivery === 'lofted' ||
-        canonicalPlan.elevation > 0,
+      airborne: kickExecution
+        ? launchVelocity.z > 0 || (state.ball.height ?? 0) > 0.11
+        : Boolean(keeperThrow) ||
+          isThrowIn ||
+          isLongDistribution ||
+          action.delivery === 'lofted' ||
+          canonicalPlan.elevation > 0,
       velocity: launchVelocity,
       launchVelocity,
       launchSpeed: execution.contact
@@ -1704,6 +1736,7 @@ const resolveMatchActionCanonical = (
         : launchElevation,
       bounceCount: 0,
       lastTouchPlayerId: actor.id,
+      ...(kickExecution ? { spin: kickExecution.contact.outgoingSpin } : {}),
       ...(keeperThrow ? { spin: keeperThrow.spin, releaseHeight: keeperThrow.release.z } : {}),
       ...(execution.contact && state.ball.spin
         ? {

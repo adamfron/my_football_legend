@@ -123,6 +123,13 @@ export const selectFootSurface = (
   return side > 0.12 ? 'outside' : 'inside';
 };
 
+/** Active strike is a moving effective foot, not a requested ball-speed override.
+ * Only contact-v1 releases supply it. Legacy touches retain their original contract. */
+export const activeFootStrikeSchema = z.object({
+  normal: vector.refine((v) => Math.abs(Math.hypot(v.x, v.y, v.z) - 1) < 1e-6),
+  footVelocity: vector,
+});
+
 export const footContactRequestSchema = z.object({
   intended: footSurfaceSchema,
   foot: z.enum(['left', 'right']).optional(),
@@ -132,8 +139,34 @@ export const footContactRequestSchema = z.object({
   contactSeconds: z.number().positive().max(0.2).default(0.06),
   pressure: z.number().min(0).max(1).default(0),
   contactQuality: z.number().min(0).max(1).optional(),
+  activeStrike: activeFootStrikeSchema.optional(),
 });
 export type FootContactRequest = z.infer<typeof footContactRequestSchema>;
+
+/** Engineering capability, not calibrated physiology. Independent of the requested launch.
+ * Coordination and preparation mediate strength; low technical skill does not gate a strike. */
+export const activeStrikeCapability = (
+  actor: MatchPlayerState,
+  foot: 'left' | 'right',
+  balance: number,
+  preparationSeconds: number,
+) => {
+  const a = actor.profile.attributes;
+  const fitness = deriveFitnessPhysicalModifiers(actor);
+  const weak =
+    foot === actor.profile.dominantFoot ? 0 : 1 - actor.profile.weakFootProficiency / 100;
+  const preparation = clamp(preparationSeconds / (0.12 + (1 - a.agility / 100) * 0.1));
+  return {
+    effectiveMass: 1.5 + a.strength * 0.012,
+    restitution: 0.55,
+    maximumFootSpeed:
+      (21 + a.strength * 0.035 + a.technique * 0.015 + a.agility * 0.01) *
+      (0.7 + 0.3 * balance) *
+      (0.65 + 0.35 * preparation) *
+      (1 - weak * 0.15) *
+      (1 - fitness.bodyControlImpairment * 0.3),
+  };
+};
 
 /** Active normal impulse plus Coulomb-limited tangential impulse at r=-R*n.
  * Tangent slip includes omega cross r; translation and rotation receive the SAME impulse.
@@ -149,7 +182,9 @@ export const executeFootContact = (
   const foot = chooseContactFoot(actor, state.ball, request.foot),
     geometry = playerFootGeometry(actor);
   const centre = geometry[foot === 'left' ? 'leftFoot' : 'rightFoot'];
-  const height = state.ball.height ?? 0.11;
+  const height = request.activeStrike
+    ? Math.max(0.11, state.ball.height ?? 0.11)
+    : (state.ball.height ?? 0.11);
   const incomingVelocity = {
     x: state.ball.velocity?.x ?? 0,
     y: state.ball.velocity?.y ?? 0,
@@ -213,6 +248,7 @@ export const executeFootContact = (
     const angle = nominal + clamp(delta, -arc, arc) + attack;
     normal = { x: Math.cos(angle), y: Math.sin(angle), z: 0 };
   }
+  if (request.activeStrike) normal = request.activeStrike.normal;
   const reason: FootContactExecution['unavailableReason'] =
     distance(centre, state.ball) > geometry.footReach + 1e-8
       ? 'out_of_reach'
@@ -243,12 +279,58 @@ export const executeFootContact = (
     intended === 'cushion' && request.contactQuality !== undefined
       ? Math.min(0.12, preparationSeconds * 0.1) * balance
       : 0;
-  const normalImpulseLimit =
+  let normalImpulseLimit =
     m *
     (intended === 'cushion' ? 10 + skill * 20 : 4.5 + skill * 8) *
     quality *
     (1 + cushionStroke / 0.24);
-  const jn = clamp(normalError * m, -normalImpulseLimit, normalImpulseLimit);
+  let jn = clamp(normalError * m, -normalImpulseLimit, normalImpulseLimit);
+  const strike = request.activeStrike;
+  const capability = strike
+    ? activeStrikeCapability(actor, foot, balance, preparationSeconds)
+    : undefined;
+  let footVelocity = desired;
+  if (strike && capability) {
+    const relative = {
+      x: strike.footVelocity.x - actor.velocity.x,
+      y: strike.footVelocity.y - actor.velocity.y,
+      z: strike.footVelocity.z,
+    };
+    const scale = Math.min(
+      1,
+      capability.maximumFootSpeed / Math.max(1e-9, Math.hypot(relative.x, relative.y, relative.z)),
+    );
+    footVelocity = {
+      x: actor.velocity.x + relative.x * scale,
+      y: actor.velocity.y + relative.y * scale,
+      z: relative.z * scale,
+    };
+    const inverseMass = 1 / m + 1 / capability.effectiveMass;
+    normalImpulseLimit =
+      ((1 + capability.restitution) *
+        Math.max(
+          0,
+          capability.maximumFootSpeed +
+            dot(
+              {
+                x: actor.velocity.x - incomingVelocity.x,
+                y: actor.velocity.y - incomingVelocity.y,
+                z: -incomingVelocity.z,
+              },
+              normal,
+            ),
+        )) /
+      inverseMass;
+    const closing = dot(
+      {
+        x: footVelocity.x - incomingVelocity.x - rotational.x,
+        y: footVelocity.y - incomingVelocity.y - rotational.y,
+        z: footVelocity.z - incomingVelocity.z - rotational.z,
+      },
+      normal,
+    );
+    jn = clamp(((1 + capability.restitution) * closing) / inverseMass, 0, normalImpulseLimit);
+  }
   const normalLoad =
     intended === 'sole'
       ? (45 + skill * 85) * contactSeconds * balance
@@ -266,9 +348,9 @@ export const executeFootContact = (
   const tangentImpulseLimit = friction * normalLoad;
   // Solve tangent surface slip against the moving foot. Shell inertia gives 1/m+R²/I.
   const slip = {
-    x: incomingVelocity.x + rotational.x - desired.x,
-    y: incomingVelocity.y + rotational.y - desired.y,
-    z: incomingVelocity.z + rotational.z - desired.z,
+    x: incomingVelocity.x + rotational.x - footVelocity.x,
+    y: incomingVelocity.y + rotational.y - footVelocity.y,
+    z: incomingVelocity.z + rotational.z - footVelocity.z,
   };
   const sn = dot(slip, normal);
   const tangent = {
@@ -278,7 +360,11 @@ export const executeFootContact = (
   };
   const tangentSpeed = Math.hypot(tangent.x, tangent.y, tangent.z);
   const jt =
-    Math.min(tangentImpulseLimit, tangentSpeed / (1 / m + (radius * radius) / I)) * quality;
+    Math.min(
+      tangentImpulseLimit,
+      tangentSpeed /
+        (1 / m + (radius * radius) / I + (capability ? 1 / capability.effectiveMass : 0)),
+    ) * (strike ? 1 : quality);
   const scale = tangentSpeed > 1e-9 ? -jt / tangentSpeed : 0;
   const tangentImpulse = { x: tangent.x * scale, y: tangent.y * scale, z: tangent.z * scale };
   const torque = cross(r, reason ? zero() : tangentImpulse);

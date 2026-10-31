@@ -1,0 +1,61 @@
+{
+  "schema": "pr207-release-inventory-v1",
+  "source": "e03d33a7e699e1ccb996d47606df4b79efa826042a3873c77747dd46fead7d0c",
+  "selection": "experimentalKickExecution: contact-v1",
+  "default": "absent; historical release path",
+  "stateAndValidation": [
+    "src/core/matchSimulation/matchState.ts",
+    "src/core/matchSimulation/kickExecutionState.ts"
+  ],
+  "actingConsumers": [
+    "src/core/matchSimulation/matchActions.ts: eligible ordinary ground pass",
+    "src/core/matchSimulation/shotResolver.ts: eligible settled placed/driven foot shot"
+  ],
+  "physicalImplementation": [
+    "src/core/matchSimulation/kickExecution.ts",
+    "src/core/matchSimulation/footContact.ts: optional activeStrike"
+  ],
+  "sharedFlight": "src/core/matchSimulation/ballPhysics.ts: unchanged integrateBallFlight",
+  "policies": "Shared release boundary for all selecting policies and human actions; no ranking-policy replacement",
+  "historicalProfileTreatment": "withIntegrationProfile clears selection/receipt; schema rejects undeclared selected kick mechanism with a historical profile",
+  "unchangedCandidate": "PR201 realism-candidate-v1",
+  "historicalProfileFingerprints": "unchanged",
+  "lifecycle": "EXPERIMENTAL",
+  "promotion": "RETAIN_EXPERIMENTAL",
+  "wholeProfile": "NOT_READY_FOR_PROMOTION",
+  "positiveEvidence": [
+    "finite nominal pass/shot",
+    "actual canonical velocity and spin consumers",
+    "skill sensitivity and mirrored contacts",
+    "disabled-path source parity"
+  ],
+  "negativeEvidence": [
+    "near-ground transition discontinuity",
+    "moderate/hurried retention losses",
+    "under-calibrated target dispersion",
+    "no full-match transfer gate"
+  ],
+  "dependencies": [
+    "PASS-005",
+    "PASS-008",
+    "SHOT-003",
+    "PHYS-002",
+    "MEAS-008",
+    "MEAS-009",
+    "PR205 body/keeper/high free-ball parity",
+    "PR206 preparation handoff"
+  ],
+  "fitness": "Existing body-control impairment, balance, preparation, weak foot and bounded effective-foot capability; no extra fatigue charge",
+  "costEvidence": [
+    "physical-checks.json",
+    "summary.json",
+    "save-size.json"
+  ],
+  "replayEvidence": [
+    "current-source.json",
+    "source-5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6.json.gz"
+  ],
+  "confirmation": "sealed",
+  "runtimeVerificationSource": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+  "ciOnlyParity": "ci-isolation-runtime-parity.json"
+}

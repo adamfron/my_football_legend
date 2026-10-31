@@ -1,0 +1,754 @@
+{
+  "result": {
+    "schema": "pr207-physical-checks-v1",
+    "source": "e03d33a7e699e1ccb996d47606df4b79efa826042a3873c77747dd46fead7d0c",
+    "nominal": {
+      "version": "contact-v1",
+      "episode": "pr207-physical-checks:kick-contact-v1:0:geometry:anchor:5",
+      "actorId": "geometry:anchor:5",
+      "at": 10,
+      "family": "shot",
+      "intendedTarget": {
+        "x": 105,
+        "y": 34
+      },
+      "nominalVelocity": {
+        "x": 30,
+        "y": 0,
+        "z": 6
+      },
+      "nominalSpin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "nominalFootVelocity": {
+        "x": 22.91149710504549,
+        "y": 0,
+        "z": 4.582299421009099
+      },
+      "realisedFootVelocity": {
+        "x": 22.91149710504549,
+        "y": 0,
+        "z": 4.582299421009099
+      },
+      "nominalNormal": {
+        "x": 0.9805806756909201,
+        "y": 0,
+        "z": 0.19611613513818402
+      },
+      "effectiveNormal": {
+        "x": 0.9805806756909201,
+        "y": 0,
+        "z": 0.19611613513818402
+      },
+      "angularImpulse": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "capability": {
+        "effectiveMass": 2.34,
+        "restitution": 0.55,
+        "maximumFootSpeed": 25.2
+      },
+      "perturbation": {
+        "lateralPatchMetres": 0,
+        "verticalPatchMetres": 0,
+        "timingSeconds": 0,
+        "effortError": 0
+      },
+      "body": {
+        "position": {
+          "x": 84.4,
+          "y": 34
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": 1.5707963267948966
+      },
+      "context": {
+        "skill": 0.7,
+        "pressure": 0,
+        "preparationSeconds": 0.3,
+        "obstructionTime": null,
+        "balance": 1,
+        "alignmentError": 6.123233995736766e-17,
+        "weakFootDeficit": 0
+      },
+      "contact": {
+        "intended": "instep",
+        "executed": "instep",
+        "foot": "right",
+        "available": true,
+        "unavailableReason": null,
+        "at": 10,
+        "point": {
+          "x": 85,
+          "y": 34,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 84.892136125674,
+          "y": 34,
+          "z": 0.08842722513479975
+        },
+        "relativePoint": {
+          "x": 0.3999999999999915,
+          "y": 0.1700000000000017,
+          "z": 0.11
+        },
+        "normal": {
+          "x": 0.9805806756909201,
+          "y": 0,
+          "z": 0.19611613513818402
+        },
+        "incomingVelocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": 30,
+          "y": 0,
+          "z": 6
+        },
+        "incomingSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "outgoingSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "impulse": {
+          "x": 12.9,
+          "y": 0,
+          "z": 2.58
+        },
+        "normalImpulseLimit": 14.18850974729242,
+        "tangentImpulseLimit": 5.5695896949291415,
+        "tangentSpeed": 3.66205343881779e-15,
+        "quality": 0.851,
+        "balance": 1,
+        "preparationSeconds": 0.3,
+        "contactSeconds": 0.025,
+        "retained": true,
+        "recoverySeconds": 0.11725000000000001
+      }
+    },
+    "old": {
+      "intended": "instep",
+      "executed": "instep",
+      "foot": "right",
+      "available": true,
+      "unavailableReason": null,
+      "at": 10,
+      "point": {
+        "x": 85,
+        "y": 34,
+        "z": 0.11
+      },
+      "surfacePoint": {
+        "x": 84.89,
+        "y": 34,
+        "z": 0.11
+      },
+      "relativePoint": {
+        "x": 0.3999999999999915,
+        "y": 0.1700000000000017,
+        "z": 0.11
+      },
+      "normal": {
+        "x": 1,
+        "y": 0,
+        "z": 0
+      },
+      "incomingVelocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": 8.5951,
+        "y": 0,
+        "z": 2.0423999999999998
+      },
+      "incomingSpin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "outgoingSpin": {
+        "x": 0,
+        "y": 27.85090909090909,
+        "z": 0
+      },
+      "impulse": {
+        "x": 3.695893,
+        "y": 0,
+        "z": 0.8782319999999999
+      },
+      "normalImpulseLimit": 3.695893,
+      "tangentImpulseLimit": 1.59656721,
+      "tangentSpeed": 6,
+      "quality": 0.851,
+      "balance": 1,
+      "preparationSeconds": 0.3,
+      "contactSeconds": 0.025,
+      "retained": false,
+      "recoverySeconds": 0.11725000000000001
+    },
+    "mirrored": [
+      {
+        "version": "contact-v1",
+        "episode": "pr207-physical-checks:kick-contact-v1:0:geometry:anchor:5",
+        "actorId": "geometry:anchor:5",
+        "at": 10,
+        "family": "shot",
+        "intendedTarget": {
+          "x": 105,
+          "y": 34
+        },
+        "nominalVelocity": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "nominalSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "nominalFootVelocity": {
+          "x": 7.6371657016818295,
+          "y": 0,
+          "z": 0
+        },
+        "realisedFootVelocity": {
+          "x": 7.6371657016818295,
+          "y": 0,
+          "z": 0
+        },
+        "nominalNormal": {
+          "x": 1,
+          "y": 0,
+          "z": 0
+        },
+        "effectiveNormal": {
+          "x": 0.9993394979464321,
+          "y": 0.036339618107142986,
+          "z": 0
+        },
+        "angularImpulse": {
+          "x": 0,
+          "y": 0,
+          "z": 0.004891363369648632
+        },
+        "capability": {
+          "effectiveMass": 2.34,
+          "restitution": 0.55,
+          "maximumFootSpeed": 25.2
+        },
+        "perturbation": {
+          "lateralPatchMetres": -0.004,
+          "verticalPatchMetres": 0,
+          "timingSeconds": 0,
+          "effortError": 0
+        },
+        "body": {
+          "position": {
+            "x": 84.4,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": 1.5707963267948966
+        },
+        "context": {
+          "skill": 0.7,
+          "pressure": 0,
+          "preparationSeconds": 0.3,
+          "obstructionTime": null,
+          "balance": 1,
+          "alignmentError": 6.123233995736766e-17,
+          "weakFootDeficit": 0
+        },
+        "contact": {
+          "intended": "instep",
+          "executed": "instep",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10,
+          "point": {
+            "x": 85,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 84.8900726552259,
+            "y": 33.996002642008214,
+            "z": 0.11
+          },
+          "relativePoint": {
+            "x": 0.3999999999999915,
+            "y": 0.1700000000000017,
+            "z": 0.11
+          },
+          "normal": {
+            "x": 0.9993394979464321,
+            "y": 0.036339618107142986,
+            "z": 0
+          },
+          "incomingVelocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 9.990552255530284,
+            "y": 0.2598129729171669,
+            "z": 0
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 1.4101566508692964
+          },
+          "impulse": {
+            "x": 4.295937469878022,
+            "y": 0.11171957835438175,
+            "z": 0
+          },
+          "normalImpulseLimit": 14.18850974729242,
+          "tangentImpulseLimit": 1.8490992832912563,
+          "tangentSpeed": 0.2775316850200884,
+          "quality": 0.851,
+          "balance": 1,
+          "preparationSeconds": 0.3,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.11725000000000001
+        }
+      },
+      {
+        "version": "contact-v1",
+        "episode": "pr207-physical-checks:kick-contact-v1:0:geometry:anchor:5",
+        "actorId": "geometry:anchor:5",
+        "at": 10,
+        "family": "shot",
+        "intendedTarget": {
+          "x": 105,
+          "y": 34
+        },
+        "nominalVelocity": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "nominalSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "nominalFootVelocity": {
+          "x": 7.6371657016818295,
+          "y": 0,
+          "z": 0
+        },
+        "realisedFootVelocity": {
+          "x": 7.6371657016818295,
+          "y": 0,
+          "z": 0
+        },
+        "nominalNormal": {
+          "x": 1,
+          "y": 0,
+          "z": 0
+        },
+        "effectiveNormal": {
+          "x": 0.9993394979464321,
+          "y": -0.036339618107142986,
+          "z": 0
+        },
+        "angularImpulse": {
+          "x": 0,
+          "y": 0,
+          "z": -0.004891363369648632
+        },
+        "capability": {
+          "effectiveMass": 2.34,
+          "restitution": 0.55,
+          "maximumFootSpeed": 25.2
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0.004,
+          "verticalPatchMetres": 0,
+          "timingSeconds": 0,
+          "effortError": 0
+        },
+        "body": {
+          "position": {
+            "x": 84.4,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": 1.5707963267948966
+        },
+        "context": {
+          "skill": 0.7,
+          "pressure": 0,
+          "preparationSeconds": 0.3,
+          "obstructionTime": null,
+          "balance": 1,
+          "alignmentError": 6.123233995736766e-17,
+          "weakFootDeficit": 0
+        },
+        "contact": {
+          "intended": "instep",
+          "executed": "instep",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10,
+          "point": {
+            "x": 85,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 84.8900726552259,
+            "y": 34.003997357991786,
+            "z": 0.11
+          },
+          "relativePoint": {
+            "x": 0.3999999999999915,
+            "y": 0.1700000000000017,
+            "z": 0.11
+          },
+          "normal": {
+            "x": 0.9993394979464321,
+            "y": -0.036339618107142986,
+            "z": 0
+          },
+          "incomingVelocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 9.990552255530284,
+            "y": -0.2598129729171669,
+            "z": 0
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": -1.4101566508692964
+          },
+          "impulse": {
+            "x": 4.295937469878022,
+            "y": -0.11171957835438175,
+            "z": 0
+          },
+          "normalImpulseLimit": 14.18850974729242,
+          "tangentImpulseLimit": 1.8490992832912563,
+          "tangentSpeed": 0.2775316850200884,
+          "quality": 0.851,
+          "balance": 1,
+          "preparationSeconds": 0.3,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.11725000000000001
+        }
+      }
+    ],
+    "symmetryResidual": {
+      "y": 0,
+      "spinZ": 0
+    },
+    "groundTransition": [
+      {
+        "vz": -0.001,
+        "firstTick": {
+          "position": {
+            "x": 30.249,
+            "y": 34,
+            "z": 0.11
+          },
+          "velocity": {
+            "x": 9.92,
+            "y": 0,
+            "z": 0
+          },
+          "airborne": false,
+          "bounceCount": 0
+        },
+        "flight": {
+          "apex": 0.11,
+          "landing": null,
+          "plane": {
+            "at": 1.2500000000000013,
+            "x": 40,
+            "y": 34,
+            "z": 0.11,
+            "speed": 5.919999999999996
+          },
+          "frame": null,
+          "stop": {
+            "x": 45.624999999999986,
+            "y": 34,
+            "z": 0.11
+          },
+          "elapsed": 3.125,
+          "stopCensored": false,
+          "lateralError": 0,
+          "longitudinalError": 5.624999999999986
+        }
+      },
+      {
+        "vz": 0,
+        "firstTick": {
+          "position": {
+            "x": 30.249,
+            "y": 34,
+            "z": 0.11
+          },
+          "velocity": {
+            "x": 9.92,
+            "y": 0,
+            "z": 0
+          },
+          "airborne": false,
+          "bounceCount": 0
+        },
+        "flight": {
+          "apex": 0.11,
+          "landing": null,
+          "plane": {
+            "at": 1.2500000000000013,
+            "x": 40,
+            "y": 34,
+            "z": 0.11,
+            "speed": 5.919999999999996
+          },
+          "frame": null,
+          "stop": {
+            "x": 45.624999999999986,
+            "y": 34,
+            "z": 0.11
+          },
+          "elapsed": 3.125,
+          "stopCensored": false,
+          "lateralError": 0,
+          "longitudinalError": 5.624999999999986
+        }
+      },
+      {
+        "vz": 0.001,
+        "firstTick": {
+          "position": {
+            "x": 30.249624999998126,
+            "y": 34,
+            "z": 0.11
+          },
+          "velocity": {
+            "x": 8.1876999999385,
+            "y": 0,
+            "z": 0
+          },
+          "airborne": false,
+          "bounceCount": 1
+        },
+        "flight": {
+          "apex": 0.11,
+          "landing": {
+            "at": 0.025,
+            "x": 30.249624999998126,
+            "y": 34,
+            "z": 0.11
+          },
+          "plane": {
+            "at": 1.9109128370432842,
+            "x": 40,
+            "y": 34,
+            "z": 0.11,
+            "speed": 2.107699999938495
+          },
+          "frame": null,
+          "stop": {
+            "x": 40.724259999841294,
+            "y": 34,
+            "z": 0.11
+          },
+          "elapsed": 2.575,
+          "stopCensored": false,
+          "lateralError": 0,
+          "longitudinalError": 0.7242599998412942
+        }
+      },
+      {
+        "vz": 0.05,
+        "firstTick": {
+          "position": {
+            "x": 30.24962499531253,
+            "y": 34,
+            "z": 0.11
+          },
+          "velocity": {
+            "x": 8.187699846250961,
+            "y": 0,
+            "z": 0
+          },
+          "airborne": false,
+          "bounceCount": 1
+        },
+        "flight": {
+          "apex": 0.11,
+          "landing": {
+            "at": 0.025,
+            "x": 30.24962499531253,
+            "y": 34,
+            "z": 0.11
+          },
+          "plane": {
+            "at": 1.9109129741792539,
+            "x": 40,
+            "y": 34,
+            "z": 0.11,
+            "speed": 2.1076998462509557
+          },
+          "frame": null,
+          "stop": {
+            "x": 40.72425960325247,
+            "y": 34,
+            "z": 0.11
+          },
+          "elapsed": 2.575,
+          "stopCensored": false,
+          "lateralError": 0,
+          "longitudinalError": 0.7242596032524702
+        }
+      },
+      {
+        "vz": 0.2,
+        "firstTick": {
+          "position": {
+            "x": 30.2496249250075,
+            "y": 34,
+            "z": 0.11
+          },
+          "velocity": {
+            "x": 8.18769754024595,
+            "y": 0,
+            "z": 0
+          },
+          "airborne": false,
+          "bounceCount": 1
+        },
+        "flight": {
+          "apex": 0.11,
+          "landing": {
+            "at": 0.025,
+            "x": 30.2496249250075,
+            "y": 34,
+            "z": 0.11
+          },
+          "plane": {
+            "at": 1.9109150318385424,
+            "x": 40,
+            "y": 34,
+            "z": 0.11,
+            "speed": 2.107697540245944
+          },
+          "frame": null,
+          "stop": {
+            "x": 40.724253652634665,
+            "y": 34,
+            "z": 0.11
+          },
+          "elapsed": 2.575,
+          "stopCensored": false,
+          "lateralError": 0,
+          "longitudinalError": 0.7242536526346655
+        }
+      },
+      {
+        "vz": 0.3,
+        "firstTick": {
+          "position": {
+            "x": 30.249624831287953,
+            "y": 34,
+            "z": 0.11135749493863856
+          },
+          "velocity": {
+            "x": 9.984993251518066,
+            "y": 0,
+            "z": 0.05429979754554198
+          },
+          "airborne": true,
+          "bounceCount": 0
+        },
+        "flight": {
+          "apex": 0.11135749493863856,
+          "landing": {
+            "at": 0.05,
+            "x": 30.498875781709195,
+            "y": 34,
+            "z": 0.11
+          },
+          "plane": {
+            "at": 1.8375166956801074,
+            "x": 40,
+            "y": 34,
+            "z": 0.11,
+            "speed": 2.4154311738167245
+          },
+          "frame": null,
+          "stop": {
+            "x": 40.94222527494185,
+            "y": 34,
+            "z": 0.11
+          },
+          "elapsed": 2.6,
+          "stopCensored": false,
+          "lateralError": 0,
+          "longitudinalError": 0.9422252749418476
+        }
+      }
+    ]
+  },
+  "costs": {
+    "legacyTouch": {
+      "iterations": 3000,
+      "wallMicrosecondsPerCall": 2.1917999999999815,
+      "cpuMicrosecondsPerCall": 10.666666666666666
+    },
+    "activeKick": {
+      "iterations": 3000,
+      "wallMicrosecondsPerCall": 12.59736666666663,
+      "cpuMicrosecondsPerCall": 31
+    },
+    "peakRSSKiB": 283024
+  }
+}

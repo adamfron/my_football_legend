@@ -1,5 +1,9 @@
 # MatchEngine calibration plan
 
+## PR207 contact-error development gate
+
+The [PR207 experiment](../PR207_PHYSICAL_KICK_EXECUTION_AND_ERROR_PROPAGATION.md) freezes 64 independent seeds per stratum for paired nominal/baseline/contact error, and separates unobstructed trajectories from 120 actual canonical release continuations. Keep missing planes, short balls, rejected contacts and censoring. Unit-covariance ellipses are descriptive; empirical coverage and non-Gaussian floor/capability mixtures preclude calibrated confidence claims. A larger goal count or narrower scatter is not an acceptance target. Repair the measured near-ground discontinuity and validate realistic skill/context variance before new full matches or live aerial extension. No coefficient is fitted to protected confirmation or a desired success rate; historical baselines remain intact and PR201 remains maintained.
+
 ## PR201 development gate
 
 [PR201](../PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) reproduces the complete PR200 baseline before changing runtime code, distinguishes null position-only/clock interventions from a causal motor fallback, and retains one separately versioned local correction. On180+90+90 paired balls, direct control and retention improve; seven paired strict-retention losses and all censoring remain. The next gate is lawful acquisition/search, body preparation and useful continuation under short/adverse-facing pressure, using actual alternative contacts rather than theoretical reach.
