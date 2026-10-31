@@ -1,4 +1,6 @@
 import { attacksRight } from './matchSpace';
+import { eligiblePhysicalShot, executePhysicalKick } from './kickExecution';
+import type { KickExecutionReceipt } from './kickExecutionState';
 import { goalIntentToPitch, pitchToGoalIntent } from './goalCoordinates';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { distance, PITCH_LENGTH, type PitchPoint } from './matchSpace';
@@ -25,6 +27,7 @@ import type {
 
 type ShotAction = Extract<MatchAction, { type: 'shot' | 'header' }>;
 export interface CanonicalShot extends ShotDiagnostic {
+  kickExecution?: KickExecutionReceipt;
   goalPoint: PitchPoint;
   heightMetres: number;
   launchVelocity: BallVelocity3d;
@@ -183,18 +186,19 @@ export const resolveCanonicalShot = (
   const opportunity = evaluateShootingOpportunity(state, shooter);
   const profile = deriveShotExecutionProfile(state, action);
   const executionErrorProfile = deriveShotExecutionErrorProfile(state, action);
+  const physicalKick = eligiblePhysicalShot(state, shooter, action);
   const rng = RandomGenerator.fromSeed(
     `${state.seed}:shot-v3:${state.decisionIndex}:${shooter.id}`,
   );
-  const horizontalError = normal(rng) * executionErrorProfile.horizontalSigma;
-  const verticalError = normal(rng) * executionErrorProfile.verticalSigma;
+  const horizontalError = physicalKick ? 0 : normal(rng) * executionErrorProfile.horizontalSigma;
+  const verticalError = physicalKick ? 0 : normal(rng) * executionErrorProfile.verticalSigma;
   const actual = {
     horizontal: intended.horizontal + horizontalError,
     vertical: intended.vertical + verticalError,
   };
   const goalY = goalIntentToPitch(shooter, actual).y;
   const intendedHeightMetres = actual.vertical * GOAL_HEIGHT;
-  const nominalSpeed = clamp(profile.nominalSpeed + normal(rng) * 1.8, 13, 38);
+  const nominalSpeed = clamp(profile.nominalSpeed + (physicalKick ? 0 : normal(rng) * 1.8), 13, 38);
   const contactHeight = Math.max(0, state.ball.height ?? 0);
   const contactPoint = { x: state.ball.x, y: state.ball.y };
   const lineEnd = { x: goalX, y: goalY };
@@ -272,6 +276,21 @@ export const resolveCanonicalShot = (
     launchVelocity = solved.velocity;
     launchElevation = solved.elevation;
   }
+  const kickExecution = physicalKick
+    ? executePhysicalKick(state, shooter, {
+        family: 'shot',
+        target: lineEnd,
+        nominalVelocity: launchVelocity,
+        surface: profile.intent === 'driven' ? 'instep' : 'inside',
+        preparationSeconds: profile.preparationSeconds,
+      })
+    : undefined;
+  if (kickExecution) {
+    launchVelocity = kickExecution.contact.outgoingVelocity;
+    launchSpin = kickExecution.contact.outgoingSpin;
+    speed = Math.hypot(launchVelocity.x, launchVelocity.y, launchVelocity.z);
+    launchElevation = Math.atan2(launchVelocity.z, Math.hypot(launchVelocity.x, launchVelocity.y));
+  }
   // A miss below the grass can bounce/roll into the goal. Diagnose the physical goal-plane
   // crossing, rather than classifying the unclamped aiming height as an impossible low miss.
   let previous = { ...contactPoint, z: Math.max(BALL_RADIUS, contactHeight) };
@@ -293,6 +312,14 @@ export const resolveCanonicalShot = (
     previous = next;
     if (!contact) continue;
     heightMetres = contact.point.z;
+    if (kickExecution) {
+      const intersection = pitchToGoalIntent(shooter, {
+        y: contact.point.y,
+        height: contact.point.z,
+      });
+      actual.horizontal = intersection.horizontal;
+      actual.vertical = intersection.vertical;
+    }
     classification =
       contact.kind === 'goal_plane'
         ? 'on_target'
@@ -307,6 +334,7 @@ export const resolveCanonicalShot = (
   }
 
   return {
+    ...(kickExecution ? { kickExecution } : {}),
     shotId: `${state.seed}:shot:${state.decisionIndex}:${shooter.id}`,
     shooterId: shooter.id,
     releasedAt: state.time,
@@ -338,7 +366,12 @@ export const resolveCanonicalShot = (
     shooterExecutionQuality: executionErrorProfile.executionQuality,
     intendedTarget: intended,
     actualTarget: actual,
-    error: { horizontal: horizontalError, vertical: verticalError },
+    error: kickExecution
+      ? {
+          horizontal: actual.horizontal - intended.horizontal,
+          vertical: actual.vertical - intended.vertical,
+        }
+      : { horizontal: horizontalError, vertical: verticalError },
     speed,
     classification,
     goalPoint: lineEnd,

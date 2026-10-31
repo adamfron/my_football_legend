@@ -52,9 +52,13 @@ workflow = workflow.replace(
       - if: matrix.group == 'main'
         run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr205.mjs --contracts
       - if: matrix.group == 'main'
-        run: node scripts/checkPr206Evidence.mjs
+        run: node scripts/ci/replayPr206Check.mjs
       - if: matrix.group == 'main'
         run: node --max-semi-space-size=64 --experimental-transform-types --import ./scripts/registerPr206Lab.mjs scripts/checkPr206Contracts.mjs
+      - if: matrix.group == 'main'
+        run: node scripts/checkPr207Evidence.mjs
+      - if: matrix.group == 'main'
+        run: node scripts/summarizePr207.mjs --check
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(

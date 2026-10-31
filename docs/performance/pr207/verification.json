@@ -1,0 +1,81 @@
+{
+  "schema": "pr207-verification-v1",
+  "base": "f61395cdf05194092f2ac5818e37404ee7d8fac3",
+  "source": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+  "preliminaryVerify": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "unit": 2452,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "build": "PASS",
+    "sourceStable": false,
+    "note": "Final opt-in zero-impulse and technique guards were added after preliminary unit execution; do not label this the final-source verify."
+  },
+  "targetedFinalContracts": {
+    "passed": 15,
+    "typescript": "PASS"
+  },
+  "sourceBoundFinalVerify": {
+    "status": "RUNNING",
+    "start": {
+      "source": "5f52b531caffb29d69845c854b0b7bd753d841c2dce897c3c165902a48b2b7f6",
+      "startedAt": "2026-10-31T08:17:20.472Z",
+      "node": "v24.22.1",
+      "platform": "win32"
+    }
+  },
+  "ciManifest": {
+    "commands": 124,
+    "explicitCases": 144,
+    "jobs": 28,
+    "historicalFullMatches": 63
+  },
+  "ciContracts": {
+    "passed": 5
+  },
+  "historicalPr206": "Original checker and disabled-path complete-state parity PASS",
+  "logs": [
+    {
+      "path": "docs/performance/pr207/pr207-verify.log.gz",
+      "sha256": "27c5ee0cc8fe2b0dabc4bd88aae6aa28d1a240de3e4d66f0e4d48b01f47a39a0"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-contracts-final.log.gz",
+      "sha256": "028c58e3f216d4282a40e8fd3194b70c01161d722ce0261822ef27ab25ddf886"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-historical206-final.log.gz",
+      "sha256": "9aff4996355438dfc030dad3e82983e2807f242efe675d0aaa575a24729e6f4d"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-ci-manifest-final.log.gz",
+      "sha256": "d2f203f95750438bf8dafe1fee7c49be082fc3e8c68dd00359800d167c4f1a86"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-ci-contracts-final.log.gz",
+      "sha256": "7838612dccb3e309f5cd68b5d84d16ee9ee3a20f0a73046bc06b7c323c21f56b"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-realism-check-final.log.gz",
+      "sha256": "3e069ffcad8eec7e4e1e0b9c3849c1ab404b576834a22e30750cb64fe0306f4a"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-lab-final.log.gz",
+      "sha256": "3f44cd3ced727336d51e0e786e0aece213a4879e7fef96acb1ad96ac45fa55bd"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-live-final.log.gz",
+      "sha256": "61511ec1d1d908a0ae6413f69e37fa98f3039cb5a997fcc0be3fbf6d2c7a81ca"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-explore-final.log.gz",
+      "sha256": "c825d9ac59421f31d5511bb13ec2f0514dade149530d519db8a829db8d579122"
+    },
+    {
+      "path": "docs/performance/pr207/pr207-physical-final.log.gz",
+      "sha256": "dc651171f2d5d55981a44c0b8a2c74542024bd223b6133b10269c323bd4952d5"
+    }
+  ]
+}

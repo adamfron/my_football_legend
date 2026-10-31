@@ -1,0 +1,4052 @@
+{
+  "schema": "pr207-contact-examples-v1",
+  "source": "8268b8d3e5b65c07cef497782e487d68897bede14933815929b17156e652dade",
+  "methodSha256": "7d8f954b12e6ce059ddd07f117a0550b39e58096be14ee8208dd3793fc850726",
+  "rows": [
+    {
+      "id": "ground-pass-lift",
+      "scope": "controlled contact intervention; no frequency or natural-sampling claim",
+      "input": {
+        "id": "ground-pass-lift",
+        "velocity": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0,
+          "verticalPatchMetres": -0.015,
+          "timingSeconds": 0,
+          "effortError": 0
+        }
+      },
+      "nominal": {
+        "version": "contact-v1",
+        "episode": "pr207-controlled-ground-pass-lift:kick-contact-v1:0:geometry:anchor:5",
+        "actorId": "geometry:anchor:5",
+        "at": 10,
+        "family": "shot",
+        "intendedTarget": {
+          "x": 105,
+          "y": 34
+        },
+        "nominalVelocity": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "nominalSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "nominalFootVelocity": {
+          "x": 7.6371657016818295,
+          "y": 0,
+          "z": 0
+        },
+        "realisedFootVelocity": {
+          "x": 7.6371657016818295,
+          "y": 0,
+          "z": 0
+        },
+        "nominalNormal": {
+          "x": 1,
+          "y": 0,
+          "z": 0
+        },
+        "effectiveNormal": {
+          "x": 1,
+          "y": 0,
+          "z": 0
+        },
+        "angularImpulse": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "capability": {
+          "effectiveMass": 2.34,
+          "restitution": 0.55,
+          "maximumFootSpeed": 25.2
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0,
+          "verticalPatchMetres": 0,
+          "timingSeconds": 0,
+          "effortError": 0
+        },
+        "body": {
+          "position": {
+            "x": 84.4,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": 1.5707963267948966
+        },
+        "context": {
+          "skill": 0.7,
+          "pressure": 0,
+          "preparationSeconds": 0.3,
+          "obstructionTime": null,
+          "balance": 1,
+          "alignmentError": 6.123233995736766e-17,
+          "weakFootDeficit": 0
+        },
+        "contact": {
+          "intended": "instep",
+          "executed": "instep",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10,
+          "point": {
+            "x": 85,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 84.89,
+            "y": 34,
+            "z": 0.11
+          },
+          "relativePoint": {
+            "x": 0.3999999999999915,
+            "y": 0.1700000000000017,
+            "z": 0.11
+          },
+          "normal": {
+            "x": 1,
+            "y": 0,
+            "z": 0
+          },
+          "incomingVelocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 10,
+            "y": 0,
+            "z": 0
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "impulse": {
+            "x": 4.3,
+            "y": 0,
+            "z": 0
+          },
+          "normalImpulseLimit": 14.18850974729242,
+          "tangentImpulseLimit": 1.8502921499999998,
+          "tangentSpeed": 0,
+          "quality": 0.851,
+          "balance": 1,
+          "preparationSeconds": 0.3,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.11725000000000001
+        }
+      },
+      "actual": {
+        "version": "contact-v1",
+        "episode": "pr207-controlled-ground-pass-lift:kick-contact-v1:0:geometry:anchor:5",
+        "actorId": "geometry:anchor:5",
+        "at": 10,
+        "family": "shot",
+        "intendedTarget": {
+          "x": 105,
+          "y": 34
+        },
+        "nominalVelocity": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "nominalSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "nominalFootVelocity": {
+          "x": 7.6371657016818295,
+          "y": 0,
+          "z": 0
+        },
+        "realisedFootVelocity": {
+          "x": 7.6371657016818295,
+          "y": 0,
+          "z": 0
+        },
+        "nominalNormal": {
+          "x": 1,
+          "y": 0,
+          "z": 0
+        },
+        "effectiveNormal": {
+          "x": 0.9908301680442988,
+          "y": 0,
+          "z": 0.13511320473331348
+        },
+        "angularImpulse": {
+          "x": 0,
+          "y": -0.01818642613248763,
+          "z": 0
+        },
+        "capability": {
+          "effectiveMass": 2.34,
+          "restitution": 0.55,
+          "maximumFootSpeed": 25.2
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0,
+          "verticalPatchMetres": -0.015,
+          "timingSeconds": 0,
+          "effortError": 0
+        },
+        "body": {
+          "position": {
+            "x": 84.4,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": 1.5707963267948966
+        },
+        "context": {
+          "skill": 0.7,
+          "pressure": 0,
+          "preparationSeconds": 0.3,
+          "obstructionTime": null,
+          "balance": 1,
+          "alignmentError": 6.123233995736766e-17,
+          "weakFootDeficit": 0
+        },
+        "contact": {
+          "intended": "instep",
+          "executed": "instep",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10,
+          "point": {
+            "x": 85,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 84.89100868151513,
+            "y": 34,
+            "z": 0.09513754747933552
+          },
+          "relativePoint": {
+            "x": 0.3999999999999915,
+            "y": 0.1700000000000017,
+            "z": 0.11
+          },
+          "normal": {
+            "x": 0.9908301680442988,
+            "y": 0,
+            "z": 0.13511320473331348
+          },
+          "incomingVelocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 9.86939403550258,
+            "y": 0,
+            "z": 0.9577770729810524
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0,
+            "y": -5.243059619206506,
+            "z": 0
+          },
+          "impulse": {
+            "x": 4.24383943526611,
+            "y": 0,
+            "z": 0.41184414138185255
+          },
+          "normalImpulseLimit": 14.18850974729242,
+          "tangentImpulseLimit": 1.8337314334880035,
+          "tangentSpeed": 1.0318819330335771,
+          "quality": 0.851,
+          "balance": 1,
+          "preparationSeconds": 0.3,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.11725000000000001
+        }
+      },
+      "nominalFlight": {
+        "apex": 0.11,
+        "landing": null,
+        "plane": null,
+        "frame": null,
+        "stop": {
+          "x": 100.62499999999999,
+          "y": 34,
+          "z": 0.11
+        },
+        "elapsed": 3.125,
+        "stopCensored": false,
+        "lateralError": null,
+        "longitudinalError": -4.375000000000014
+      },
+      "actualFlight": {
+        "apex": 0.14513965884844904,
+        "landing": {
+          "at": 0.17500000000000002,
+          "x": 86.7168962200199,
+          "y": 34,
+          "z": 0.11
+        },
+        "plane": null,
+        "frame": null,
+        "stop": {
+          "x": 96.74044894117492,
+          "y": 34,
+          "z": 0.11
+        },
+        "elapsed": 2.6750000000000003,
+        "stopCensored": false,
+        "lateralError": null,
+        "longitudinalError": -8.259551058825082,
+        "trace": [
+          {
+            "at": 0.1,
+            "position": {
+              "x": 85.98325436842204,
+              "y": 34,
+              "z": 0.14465138313545162
+            },
+            "velocity": {
+              "x": 9.810653779485618,
+              "y": 0,
+              "z": -0.019531028519896448
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -5.180518898586595,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.2,
+            "position": {
+              "x": 86.91613174723146,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 7.929421088462012,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -2.6593140775851163,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.30000000000000004,
+            "position": {
+              "x": 87.69307385607766,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 7.609421088462012,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -2.0918905447549547,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.4,
+            "position": {
+              "x": 88.43801596492386,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 7.289421088462012,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -1.6455393848059372,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.5,
+            "position": {
+              "x": 89.15095807377007,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.969421088462012,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -1.2944271265706666,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.6000000000000001,
+            "position": {
+              "x": 89.83190018261627,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.649421088462011,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -1.0182324418808084,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.7000000000000001,
+            "position": {
+              "x": 90.48084229146247,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.329421088462011,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.8009700078252739,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.8,
+            "position": {
+              "x": 91.09778440030867,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.009421088462011,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.6300653240340558,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.9,
+            "position": {
+              "x": 91.68272650915486,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 5.6894210884620104,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.4956269381771142,
+              "z": 0
+            }
+          },
+          {
+            "at": 1,
+            "position": {
+              "x": 92.23566861800106,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 5.36942108846201,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.3898739582652283,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.1,
+            "position": {
+              "x": 92.75661072684726,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 5.04942108846201,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.30668571787572724,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.2000000000000002,
+            "position": {
+              "x": 93.24555283569345,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 4.72942108846201,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.2412475302722438,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.3,
+            "position": {
+              "x": 93.70249494453964,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 4.409421088462009,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.18977202872564372,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.4000000000000001,
+            "position": {
+              "x": 94.12743705338585,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 4.089421088462009,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.14927996504671365,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.5,
+            "position": {
+              "x": 94.52037916223206,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 3.7694210884620087,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.11742777960478623,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.6,
+            "position": {
+              "x": 94.88132127107826,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 3.4494210884620085,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.09237196310030765,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.7000000000000002,
+            "position": {
+              "x": 95.21026337992447,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 3.129421088462008,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.0726623597561136,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.8,
+            "position": {
+              "x": 95.50720548877068,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 2.809421088462008,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.057158236635000054,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.9000000000000001,
+            "position": {
+              "x": 95.77214759761688,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 2.4894210884620076,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.044962261426526005,
+              "z": 0
+            }
+          },
+          {
+            "at": 2,
+            "position": {
+              "x": 96.00508970646308,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 2.1694210884620073,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.03536856753466335,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.1,
+            "position": {
+              "x": 96.20603181530929,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 1.849421088462007,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.027821900628780177,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.2,
+            "position": {
+              "x": 96.37497392415548,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 1.5294210884620068,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.02188548218242355,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.3000000000000003,
+            "position": {
+              "x": 96.51191603300168,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 1.2094210884620065,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.017215730037570005,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.4000000000000004,
+            "position": {
+              "x": 96.61685814184789,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.8894210884620062,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.013542372896152908,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.5,
+            "position": {
+              "x": 96.68980025069408,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.5694210884620059,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.010652807825066429,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.6,
+            "position": {
+              "x": 96.73074235954027,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.24942108846200584,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -0.008379795433785048,
+              "z": 0
+            }
+          }
+        ]
+      },
+      "magnusAtOneSecond": {
+        "spinning": {
+          "x": 92.23566861800106,
+          "y": 34,
+          "z": 0.11
+        },
+        "noSpin": {
+          "x": 92.2359200119569,
+          "y": 34,
+          "z": 0.11
+        }
+      }
+    },
+    {
+      "id": "driven-shot-high",
+      "scope": "controlled contact intervention; no frequency or natural-sampling claim",
+      "input": {
+        "id": "driven-shot-high",
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 6
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0,
+          "verticalPatchMetres": -0.02,
+          "timingSeconds": 0,
+          "effortError": 0
+        }
+      },
+      "nominal": {
+        "version": "contact-v1",
+        "episode": "pr207-controlled-driven-shot-high:kick-contact-v1:0:geometry:anchor:5",
+        "actorId": "geometry:anchor:5",
+        "at": 10,
+        "family": "shot",
+        "intendedTarget": {
+          "x": 105,
+          "y": 34
+        },
+        "nominalVelocity": {
+          "x": 30,
+          "y": 0,
+          "z": 6
+        },
+        "nominalSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "nominalFootVelocity": {
+          "x": 22.91149710504549,
+          "y": 0,
+          "z": 4.582299421009099
+        },
+        "realisedFootVelocity": {
+          "x": 22.91149710504549,
+          "y": 0,
+          "z": 4.582299421009099
+        },
+        "nominalNormal": {
+          "x": 0.9805806756909201,
+          "y": 0,
+          "z": 0.19611613513818402
+        },
+        "effectiveNormal": {
+          "x": 0.9805806756909201,
+          "y": 0,
+          "z": 0.19611613513818402
+        },
+        "angularImpulse": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "capability": {
+          "effectiveMass": 2.34,
+          "restitution": 0.55,
+          "maximumFootSpeed": 25.2
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0,
+          "verticalPatchMetres": 0,
+          "timingSeconds": 0,
+          "effortError": 0
+        },
+        "body": {
+          "position": {
+            "x": 84.4,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": 1.5707963267948966
+        },
+        "context": {
+          "skill": 0.7,
+          "pressure": 0,
+          "preparationSeconds": 0.3,
+          "obstructionTime": null,
+          "balance": 1,
+          "alignmentError": 6.123233995736766e-17,
+          "weakFootDeficit": 0
+        },
+        "contact": {
+          "intended": "instep",
+          "executed": "instep",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10,
+          "point": {
+            "x": 85,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 84.892136125674,
+            "y": 34,
+            "z": 0.08842722513479975
+          },
+          "relativePoint": {
+            "x": 0.3999999999999915,
+            "y": 0.1700000000000017,
+            "z": 0.11
+          },
+          "normal": {
+            "x": 0.9805806756909201,
+            "y": 0,
+            "z": 0.19611613513818402
+          },
+          "incomingVelocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 30,
+            "y": 0,
+            "z": 6
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "impulse": {
+            "x": 12.9,
+            "y": 0,
+            "z": 2.58
+          },
+          "normalImpulseLimit": 14.18850974729242,
+          "tangentImpulseLimit": 5.5695896949291415,
+          "tangentSpeed": 3.66205343881779e-15,
+          "quality": 0.851,
+          "balance": 1,
+          "preparationSeconds": 0.3,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.11725000000000001
+        }
+      },
+      "actual": {
+        "version": "contact-v1",
+        "episode": "pr207-controlled-driven-shot-high:kick-contact-v1:0:geometry:anchor:5",
+        "actorId": "geometry:anchor:5",
+        "at": 10,
+        "family": "shot",
+        "intendedTarget": {
+          "x": 105,
+          "y": 34
+        },
+        "nominalVelocity": {
+          "x": 30,
+          "y": 0,
+          "z": 6
+        },
+        "nominalSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "nominalFootVelocity": {
+          "x": 22.91149710504549,
+          "y": 0,
+          "z": 4.582299421009099
+        },
+        "realisedFootVelocity": {
+          "x": 22.91149710504549,
+          "y": 0,
+          "z": 4.582299421009099
+        },
+        "nominalNormal": {
+          "x": 0.9805806756909201,
+          "y": 0,
+          "z": 0.19611613513818402
+        },
+        "effectiveNormal": {
+          "x": 0.9296815004654511,
+          "y": 0,
+          "z": 0.3683643681089523
+        },
+        "angularImpulse": {
+          "x": 0,
+          "y": -0.07366521851090893,
+          "z": 0
+        },
+        "capability": {
+          "effectiveMass": 2.34,
+          "restitution": 0.55,
+          "maximumFootSpeed": 25.2
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0,
+          "verticalPatchMetres": -0.02,
+          "timingSeconds": 0,
+          "effortError": 0
+        },
+        "body": {
+          "position": {
+            "x": 84.4,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": 1.5707963267948966
+        },
+        "context": {
+          "skill": 0.7,
+          "pressure": 0,
+          "preparationSeconds": 0.3,
+          "obstructionTime": null,
+          "balance": 1,
+          "alignmentError": 6.123233995736766e-17,
+          "weakFootDeficit": 0
+        },
+        "contact": {
+          "intended": "instep",
+          "executed": "instep",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10,
+          "point": {
+            "x": 85,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 84.8977350349488,
+            "y": 34,
+            "z": 0.06947991950801524
+          },
+          "relativePoint": {
+            "x": 0.3999999999999915,
+            "y": 0.1700000000000017,
+            "z": 0.11
+          },
+          "normal": {
+            "x": 0.9296815004654511,
+            "y": 0,
+            "z": 0.3683643681089523
+          },
+          "incomingVelocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 28.557692212862136,
+            "y": 0,
+            "z": 9.640110129443192
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0,
+            "y": -21.237329957017764,
+            "z": 0
+          },
+          "impulse": {
+            "x": 12.279807651530719,
+            "y": 0,
+            "z": 4.1452473556605725
+          },
+          "normalImpulseLimit": 14.18850974729242,
+          "tangentImpulseLimit": 5.480466148804674,
+          "tangentSpeed": 4.179700152224465,
+          "quality": 0.851,
+          "balance": 1,
+          "preparationSeconds": 0.3,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.11725000000000001
+        }
+      },
+      "nominalFlight": {
+        "apex": 1.7434022899066408,
+        "landing": {
+          "at": 1.175,
+          "x": 116.87696503376586,
+          "y": 34,
+          "z": 0.11
+        },
+        "plane": {
+          "at": 0.7105442863721263,
+          "x": 105,
+          "y": 34,
+          "z": 1.6426276311406445,
+          "speed": 26.54347489667121
+        },
+        "frame": {
+          "kind": "goal_plane",
+          "point": {
+            "x": 105.11,
+            "y": 34,
+            "z": 1.6367653914940912
+          },
+          "segmentFraction": 0.5877724748688564,
+          "at": 0.7250000000000001
+        },
+        "stop": {
+          "x": 165.0114536484011,
+          "y": 34,
+          "z": 0.11
+        },
+        "elapsed": 6.575,
+        "stopCensored": false,
+        "lateralError": 0,
+        "longitudinalError": 60.0114536484011
+      },
+      "actualFlight": {
+        "apex": 4.573651274988607,
+        "landing": {
+          "at": 1.975,
+          "x": 133.1835214780228,
+          "y": 34,
+          "z": 0.11
+        },
+        "plane": {
+          "at": 0.7497489493956766,
+          "x": 105,
+          "y": 34,
+          "z": 4.3620429475045475,
+          "speed": 25.196281584310476
+        },
+        "frame": {
+          "kind": "out",
+          "point": {
+            "x": 105.11,
+            "y": 34,
+            "z": 4.370334453071708
+          },
+          "segmentFraction": 0.165837773166147,
+          "at": 0.775
+        },
+        "stop": {
+          "x": 168.2464185751727,
+          "y": 34,
+          "z": 0.11
+        },
+        "elapsed": 6.4,
+        "stopCensored": false,
+        "lateralError": 0,
+        "longitudinalError": 63.2464185751727,
+        "trace": [
+          {
+            "at": 0.1,
+            "position": {
+              "x": 87.82213235061492,
+              "y": 34,
+              "z": 1.0074425378869956
+            },
+            "velocity": {
+              "x": 28.022931074785912,
+              "y": 0,
+              "z": 8.577655247559623
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -20.984004987244532,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.2,
+            "position": {
+              "x": 90.59245383996742,
+              "y": 34,
+              "z": 1.7999227530855555
+            },
+            "velocity": {
+              "x": 27.514555406174058,
+              "y": 0,
+              "z": 7.535536197024199
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -20.73370175045,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.30000000000000004,
+            "position": {
+              "x": 93.31347737509903,
+              "y": 34,
+              "z": 2.489380523429666
+            },
+            "velocity": {
+              "x": 27.03057403492542,
+              "y": 0,
+              "z": 6.512273157787026
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -20.48638420253554,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.4,
+            "position": {
+              "x": 95.98752589333623,
+              "y": 34,
+              "z": 3.077617186349869
+            },
+            "velocity": {
+              "x": 26.569140144314293,
+              "y": 0,
+              "z": 5.506535864134602
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -20.242016729346886,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.5,
+            "position": {
+              "x": 98.6167458494682,
+              "y": 34,
+              "z": 3.5663097786332556
+            },
+            "velocity": {
+              "x": 26.1285363803104,
+              "y": 0,
+              "z": 4.517132360379322
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -20.00056414154563,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.6000000000000001,
+            "position": {
+              "x": 101.20311934762202,
+              "y": 34,
+              "z": 3.9570242480711473
+            },
+            "velocity": {
+              "x": 25.707162068240375,
+              "y": 0,
+              "z": 3.5429992615200185
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -19.7619916695419,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.7000000000000001,
+            "position": {
+              "x": 103.74847511265281,
+              "y": 34,
+              "z": 4.251227770185867
+            },
+            "velocity": {
+              "x": 25.303522285691294,
+              "y": 0,
+              "z": 2.5831932459023754
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -19.526264958487467,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.8,
+            "position": {
+              "x": 106.2544984727109,
+              "y": 34,
+              "z": 4.450300277771931
+            },
+            "velocity": {
+              "x": 24.91621857184721,
+              "y": 0,
+              "z": 1.6368835357758453
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -19.293350063328603,
+              "z": 0
+            }
+          },
+          {
+            "at": 0.9,
+            "position": {
+              "x": 108.72274050427275,
+              "y": 34,
+              "z": 4.5555452881699985
+            },
+            "velocity": {
+              "x": 24.543941078177124,
+              "y": 0,
+              "z": 0.7033451467909795
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -19.06321344391793,
+              "z": 0
+            }
+          },
+          {
+            "at": 1,
+            "position": {
+              "x": 111.15462647257631,
+              "y": 34,
+              "z": 4.5682000927558715
+            },
+            "velocity": {
+              "x": 24.18546198322548,
+              "y": 0,
+              "z": -0.2180472893094328
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -18.83582196018457,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.1,
+            "position": {
+              "x": 113.55146368349645,
+              "y": 34,
+              "z": 4.4894453549711875
+            },
+            "velocity": {
+              "x": 23.839630006812282,
+              "y": 0,
+              "z": -1.1278253018335
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -18.611142867361938,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.2000000000000002,
+            "position": {
+              "x": 115.91444884700404,
+              "y": 34,
+              "z": 4.320414147367423
+            },
+            "velocity": {
+              "x": 23.5053658678299,
+              "y": 0,
+              "z": -2.026432107861672
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -18.389143811272415,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.3,
+            "position": {
+              "x": 118.24467503720473,
+              "y": 34,
+              "z": 4.062200444678706
+            },
+            "velocity": {
+              "x": 23.181658536592224,
+              "y": 0,
+              "z": -2.9142280138316012
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -18.169792823668306,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.4000000000000001,
+            "position": {
+              "x": 120.54313831943162,
+              "y": 34,
+              "z": 3.7158670790109842
+            },
+            "velocity": {
+              "x": 22.86756213881634,
+              "y": 0,
+              "z": -3.7914957915116925
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -17.95305831762836,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.5,
+            "position": {
+              "x": 122.81074410098698,
+              "y": 34,
+              "z": 3.282453154946963
+            },
+            "velocity": {
+              "x": 22.56219337507416,
+              "y": 0,
+              "z": -4.658446101178794
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -17.73890908300919,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.6,
+            "position": {
+              "x": 125.04831324901937,
+              "y": 34,
+              "z": 2.7629809167679378
+            },
+            "velocity": {
+              "x": 22.264729327921437,
+              "y": 0,
+              "z": -5.515223007921678
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -17.52731428195095,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.7000000000000002,
+            "position": {
+              "x": 127.25658800688632,
+              "y": 34,
+              "z": 2.158462057038936
+            },
+            "velocity": {
+              "x": 21.974405539495113,
+              "y": 0,
+              "z": -6.36190961097617
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -17.318243444436654,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.8,
+            "position": {
+              "x": 129.43623772942416,
+              "y": 34,
+              "z": 1.469903455330293
+            },
+            "velocity": {
+              "x": 21.69051425533816,
+              "y": 0,
+              "z": -7.198533782054954
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -17.111666463904424,
+              "z": 0
+            }
+          },
+          {
+            "at": 1.9000000000000001,
+            "position": {
+              "x": 131.5878644480516,
+              "y": 34,
+              "z": 0.69831233757691
+            },
+            "velocity": {
+              "x": 21.412402745316015,
+              "y": 0,
+              "z": -8.025073987911624
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 0,
+              "y": -16.9075535929121,
+              "z": 0
+            }
+          },
+          {
+            "at": 2,
+            "position": {
+              "x": 133.61707478415687,
+              "y": 34,
+              "z": 0.2030838961658924
+            },
+            "velocity": {
+              "x": 17.342132245362695,
+              "y": 0,
+              "z": 3.723355846635696
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -9.188231491369452,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.1,
+            "position": {
+              "x": 135.33956730782285,
+              "y": 34,
+              "z": 0.5131940242740431
+            },
+            "velocity": {
+              "x": 17.155498260766098,
+              "y": 0,
+              "z": 2.7290931670170377
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -9.078631627849346,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.2,
+            "position": {
+              "x": 137.04382595160675,
+              "y": 34,
+              "z": 0.7245355707822584
+            },
+            "velocity": {
+              "x": 16.975635338372555,
+              "y": 0,
+              "z": 1.7452780274487674
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -8.970339102971598,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.3000000000000003,
+            "position": {
+              "x": 138.7304778681024,
+              "y": 34,
+              "z": 0.8381183015721546
+            },
+            "velocity": {
+              "x": 16.80174779258154,
+              "y": 0,
+              "z": 0.771365145252946
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -8.8633383224255,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.4000000000000004,
+            "position": {
+              "x": 140.40007246870758,
+              "y": 34,
+              "z": 0.8549046614306705
+            },
+            "velocity": {
+              "x": 16.63306941490811,
+              "y": 0,
+              "z": -0.19307576655119343
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -8.757613877913753,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.5,
+            "position": {
+              "x": 142.0530845103836,
+              "y": 34,
+              "z": 0.7758210926596051
+            },
+            "velocity": {
+              "x": 16.468865796733898,
+              "y": 0,
+              "z": -1.1483630150387791
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -8.65315054493366,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.6,
+            "position": {
+              "x": 143.6899174573854,
+              "y": 34,
+              "z": 0.6017689860062515
+            },
+            "velocity": {
+              "x": 16.308437300535708,
+              "y": 0,
+              "z": -2.094707029957723
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -8.549933280584751,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.7,
+            "position": {
+              "x": 145.31090716453542,
+              "y": 34,
+              "z": 0.3336351431810253
+            },
+            "velocity": {
+              "x": 16.151122382738478,
+              "y": 0,
+              "z": -3.032215731961508
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 0,
+              "y": -8.447947221402602,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.8000000000000003,
+            "position": {
+              "x": 146.84447114905655,
+              "y": 34,
+              "z": 0.14672635652514837
+            },
+            "velocity": {
+              "x": 13.122111016962023,
+              "y": 0,
+              "z": 1.4690542610059352
+            },
+            "airborne": true,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0,
+              "y": -4.590947724670152,
+              "z": 0
+            }
+          },
+          {
+            "at": 2.9000000000000004,
+            "position": {
+              "x": 148.15017266428828,
+              "y": 34,
+              "z": 0.23223989848653362
+            },
+            "velocity": {
+              "x": 13.018322406498438,
+              "y": 0,
+              "z": 0.48774615714171754
+            },
+            "airborne": true,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0,
+              "y": -4.53618558197442,
+              "z": 0
+            }
+          },
+          {
+            "at": 3,
+            "position": {
+              "x": 149.44566241348355,
+              "y": 34,
+              "z": 0.22009707143041923
+            },
+            "velocity": {
+              "x": 12.917126184048547,
+              "y": 0,
+              "z": -0.4860029916640142
+            },
+            "airborne": true,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0,
+              "y": -4.482076657841059,
+              "z": 0
+            }
+          },
+          {
+            "at": 3.1,
+            "position": {
+              "x": 150.7311595835405,
+              "y": 34,
+              "z": 0.11104089000807289
+            },
+            "velocity": {
+              "x": 12.8178844401868,
+              "y": 0,
+              "z": -1.4523824481448793
+            },
+            "airborne": true,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0,
+              "y": -4.4286131604914925,
+              "z": 0
+            }
+          },
+          {
+            "at": 3.2,
+            "position": {
+              "x": 151.82878065078864,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 10.250511851370016,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -2.0284044077745307,
+              "z": 0
+            }
+          },
+          {
+            "at": 3.3000000000000003,
+            "position": {
+              "x": 152.83783183592564,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 9.930511851370015,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -1.5955994206656483,
+              "z": 0
+            }
+          },
+          {
+            "at": 3.4000000000000004,
+            "position": {
+              "x": 153.81488302106263,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 9.610511851370015,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -1.2551429593972507,
+              "z": 0
+            }
+          },
+          {
+            "at": 3.5,
+            "position": {
+              "x": 154.7599342061996,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 9.290511851370015,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.9873304214834034,
+              "z": 0
+            }
+          },
+          {
+            "at": 3.6,
+            "position": {
+              "x": 155.6729853913366,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 8.970511851370015,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.7766616176174282,
+              "z": 0
+            }
+          },
+          {
+            "at": 3.7,
+            "position": {
+              "x": 156.5540365764736,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 8.650511851370014,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.6109436670388869,
+              "z": 0
+            }
+          },
+          {
+            "at": 3.8000000000000003,
+            "position": {
+              "x": 157.40308776161064,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 8.330511851370014,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.4805853100349562,
+              "z": 0
+            }
+          },
+          {
+            "at": 3.9000000000000004,
+            "position": {
+              "x": 158.22013894674765,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 8.010511851370014,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.378041794492804,
+              "z": 0
+            }
+          },
+          {
+            "at": 4,
+            "position": {
+              "x": 159.00519013188466,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 7.6905118513700135,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.297378208195636,
+              "z": 0
+            }
+          },
+          {
+            "at": 4.1000000000000005,
+            "position": {
+              "x": 159.75824131702169,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 7.370511851370013,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.23392598384073734,
+              "z": 0
+            }
+          },
+          {
+            "at": 4.2,
+            "position": {
+              "x": 160.4792925021587,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 7.050511851370013,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.18401269631652836,
+              "z": 0
+            }
+          },
+          {
+            "at": 4.3,
+            "position": {
+              "x": 161.1683436872957,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.730511851370013,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.14474951371255998,
+              "z": 0
+            }
+          },
+          {
+            "at": 4.4,
+            "position": {
+              "x": 161.82539487243272,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.410511851370012,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.11386400036213483,
+              "z": 0
+            }
+          },
+          {
+            "at": 4.5,
+            "position": {
+              "x": 162.45044605756974,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.090511851370012,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.08956859505734739,
+              "z": 0
+            }
+          },
+          {
+            "at": 4.6000000000000005,
+            "position": {
+              "x": 163.04349724270674,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 5.770511851370012,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.07045715234869744,
+              "z": 0
+            }
+          },
+          {
+            "at": 4.7,
+            "position": {
+              "x": 163.60454842784375,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 5.4505118513700115,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.05542355904889616,
+              "z": 0
+            }
+          },
+          {
+            "at": 4.800000000000001,
+            "position": {
+              "x": 164.13359961298076,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 5.130511851370011,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.043597715707329,
+              "z": 0
+            }
+          },
+          {
+            "at": 4.9,
+            "position": {
+              "x": 164.63065079811776,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 4.810511851370011,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.034295177854243894,
+              "z": 0
+            }
+          },
+          {
+            "at": 5,
+            "position": {
+              "x": 165.09570198325477,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 4.490511851370011,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.026977542400380913,
+              "z": 0
+            }
+          },
+          {
+            "at": 5.1000000000000005,
+            "position": {
+              "x": 165.52875316839177,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 4.17051185137001,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.021221286475243892,
+              "z": 0
+            }
+          },
+          {
+            "at": 5.2,
+            "position": {
+              "x": 165.92980435352877,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 3.85051185137001,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.016693255189101683,
+              "z": 0
+            }
+          },
+          {
+            "at": 5.300000000000001,
+            "position": {
+              "x": 166.29885553866578,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 3.53051185137001,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.0131313796236412,
+              "z": 0
+            }
+          },
+          {
+            "at": 5.4,
+            "position": {
+              "x": 166.63590672380278,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 3.2105118513700095,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.010329509066197801,
+              "z": 0
+            }
+          },
+          {
+            "at": 5.5,
+            "position": {
+              "x": 166.94095790893977,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 2.890511851370009,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.008125479622610747,
+              "z": 0
+            }
+          },
+          {
+            "at": 5.6000000000000005,
+            "position": {
+              "x": 167.21400909407677,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 2.570511851370009,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.0063917286556741575,
+              "z": 0
+            }
+          },
+          {
+            "at": 5.7,
+            "position": {
+              "x": 167.45506027921377,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 2.2505118513700086,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.005027911840930759,
+              "z": 0
+            }
+          },
+          {
+            "at": 5.800000000000001,
+            "position": {
+              "x": 167.66411146435075,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 1.9305118513700084,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.003955095537062561,
+              "z": 0
+            }
+          },
+          {
+            "at": 5.9,
+            "position": {
+              "x": 167.84116264948776,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 1.610511851370008,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.003111188342633394,
+              "z": 0
+            }
+          },
+          {
+            "at": 6,
+            "position": {
+              "x": 167.98621383462475,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 1.2905118513700078,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.002447347431340902,
+              "z": 0
+            }
+          },
+          {
+            "at": 6.1000000000000005,
+            "position": {
+              "x": 168.09926501976173,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.9705118513700075,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.0019251516752024178,
+              "z": 0
+            }
+          },
+          {
+            "at": 6.2,
+            "position": {
+              "x": 168.18031620489873,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.6505118513700072,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.0015143779444931702,
+              "z": 0
+            }
+          },
+          {
+            "at": 6.300000000000001,
+            "position": {
+              "x": 168.22936739003572,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.3305118513700071,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.0011912518833230262,
+              "z": 0
+            }
+          },
+          {
+            "at": 6.4,
+            "position": {
+              "x": 168.2464185751727,
+              "y": 34,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.010511851370007042,
+              "y": 0,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 3,
+            "spin": {
+              "x": 0,
+              "y": -0.0009370719209698955,
+              "z": 0
+            }
+          }
+        ]
+      },
+      "magnusAtOneSecond": {
+        "spinning": {
+          "x": 111.15462647257631,
+          "y": 34,
+          "z": 4.5682000927558715
+        },
+        "noSpin": {
+          "x": 111.24094881253691,
+          "y": 34,
+          "z": 4.192393186003489
+        }
+      }
+    },
+    {
+      "id": "unwanted-spin",
+      "scope": "controlled contact intervention; no frequency or natural-sampling claim",
+      "input": {
+        "id": "unwanted-spin",
+        "velocity": {
+          "x": 25,
+          "y": 0,
+          "z": 6
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0.02,
+          "verticalPatchMetres": 0,
+          "timingSeconds": 0.02,
+          "effortError": -0.03
+        }
+      },
+      "nominal": {
+        "version": "contact-v1",
+        "episode": "pr207-controlled-unwanted-spin:kick-contact-v1:0:geometry:anchor:5",
+        "actorId": "geometry:anchor:5",
+        "at": 10,
+        "family": "shot",
+        "intendedTarget": {
+          "x": 105,
+          "y": 34
+        },
+        "nominalVelocity": {
+          "x": 25,
+          "y": 0,
+          "z": 6
+        },
+        "nominalSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "nominalFootVelocity": {
+          "x": 19.092914254204576,
+          "y": 0,
+          "z": 4.582299421009098
+        },
+        "realisedFootVelocity": {
+          "x": 19.092914254204576,
+          "y": 0,
+          "z": 4.582299421009098
+        },
+        "nominalNormal": {
+          "x": 0.9723873019805175,
+          "y": 0,
+          "z": 0.2333729524753242
+        },
+        "effectiveNormal": {
+          "x": 0.9723873019805175,
+          "y": 0,
+          "z": 0.2333729524753242
+        },
+        "angularImpulse": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "capability": {
+          "effectiveMass": 2.34,
+          "restitution": 0.55,
+          "maximumFootSpeed": 25.2
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0,
+          "verticalPatchMetres": 0,
+          "timingSeconds": 0,
+          "effortError": 0
+        },
+        "body": {
+          "position": {
+            "x": 84.4,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": 1.5707963267948966
+        },
+        "context": {
+          "skill": 0.7,
+          "pressure": 0,
+          "preparationSeconds": 0.3,
+          "obstructionTime": null,
+          "balance": 1,
+          "alignmentError": 6.123233995736766e-17,
+          "weakFootDeficit": 0
+        },
+        "contact": {
+          "intended": "instep",
+          "executed": "instep",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10,
+          "point": {
+            "x": 85,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 84.89303739678215,
+            "y": 34,
+            "z": 0.08432897522771435
+          },
+          "relativePoint": {
+            "x": 0.3999999999999915,
+            "y": 0.1700000000000017,
+            "z": 0.11
+          },
+          "normal": {
+            "x": 0.9723873019805175,
+            "y": 0,
+            "z": 0.2333729524753242
+          },
+          "incomingVelocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 25,
+            "y": 0,
+            "z": 6
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "impulse": {
+            "x": 10.75,
+            "y": 0,
+            "z": 2.58
+          },
+          "normalImpulseLimit": 14.18850974729242,
+          "tangentImpulseLimit": 4.687503749744297,
+          "tangentSpeed": 0,
+          "quality": 0.851,
+          "balance": 1,
+          "preparationSeconds": 0.3,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.11725000000000001
+        }
+      },
+      "actual": {
+        "version": "contact-v1",
+        "episode": "pr207-controlled-unwanted-spin:kick-contact-v1:0:geometry:anchor:5",
+        "actorId": "geometry:anchor:5",
+        "at": 10,
+        "family": "shot",
+        "intendedTarget": {
+          "x": 105,
+          "y": 34
+        },
+        "nominalVelocity": {
+          "x": 25,
+          "y": 0,
+          "z": 6
+        },
+        "nominalSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "nominalFootVelocity": {
+          "x": 19.092914254204576,
+          "y": 0,
+          "z": 4.582299421009098
+        },
+        "realisedFootVelocity": {
+          "x": 18.520126826578437,
+          "y": 0,
+          "z": 4.444830438378824
+        },
+        "nominalNormal": {
+          "x": 0.9723873019805175,
+          "y": 0,
+          "z": 0.2333729524753242
+        },
+        "effectiveNormal": {
+          "x": 0.9567026073818632,
+          "y": -0.17888543819998315,
+          "z": 0.22960862577164717
+        },
+        "angularImpulse": {
+          "x": 0.014013529810015192,
+          "y": -5.204170427930421e-18,
+          "z": -0.05838970754172997
+        },
+        "capability": {
+          "effectiveMass": 2.34,
+          "restitution": 0.55,
+          "maximumFootSpeed": 25.2
+        },
+        "perturbation": {
+          "lateralPatchMetres": 0.02,
+          "verticalPatchMetres": 0,
+          "timingSeconds": 0.02,
+          "effortError": -0.03
+        },
+        "body": {
+          "position": {
+            "x": 84.4,
+            "y": 34
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "facingAngle": 1.5707963267948966
+        },
+        "context": {
+          "skill": 0.7,
+          "pressure": 0,
+          "preparationSeconds": 0.3,
+          "obstructionTime": null,
+          "balance": 1,
+          "alignmentError": 6.123233995736766e-17,
+          "weakFootDeficit": 0
+        },
+        "contact": {
+          "intended": "instep",
+          "executed": "instep",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10,
+          "point": {
+            "x": 85,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 84.894762713188,
+            "y": 34.019677398202,
+            "z": 0.08474305116511881
+          },
+          "relativePoint": {
+            "x": 0.3999999999999915,
+            "y": 0.1700000000000017,
+            "z": 0.11
+          },
+          "normal": {
+            "x": 0.9567026073818632,
+            "y": -0.17888543819998315,
+            "z": 0.22960862577164717
+          },
+          "incomingVelocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 23.694825970823906,
+            "y": -3.1401656050519247,
+            "z": 5.686758232997738
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 4.0400335796699585,
+            "y": -1.5003374287710233e-15,
+            "z": -16.833473248624827
+          },
+          "impulse": {
+            "x": 10.18877516745428,
+            "y": -1.3502712101723275,
+            "z": 2.445306040189027
+          },
+          "normalImpulseLimit": 14.18850974729242,
+          "tangentImpulseLimit": 4.47555884383881,
+          "tangentSpeed": 3.407059096868097,
+          "quality": 0.851,
+          "balance": 1,
+          "preparationSeconds": 0.3,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.11725000000000001
+        }
+      },
+      "nominalFlight": {
+        "apex": 1.7625753116325589,
+        "landing": {
+          "at": 1.175,
+          "x": 111.97856379694703,
+          "y": 34,
+          "z": 0.11
+        },
+        "plane": {
+          "at": 0.8524149806183929,
+          "x": 105,
+          "y": 34,
+          "z": 1.3806096363839384,
+          "speed": 22.247524826193914
+        },
+        "frame": {
+          "kind": "goal_plane",
+          "point": {
+            "x": 105.11,
+            "y": 34,
+            "z": 1.3666532047952746
+          },
+          "segmentFraction": 0.29595953793198054,
+          "at": 0.875
+        },
+        "stop": {
+          "x": 149.13100102806158,
+          "y": 34,
+          "z": 0.11
+        },
+        "elapsed": 5.9,
+        "stopCensored": false,
+        "lateralError": 0,
+        "longitudinalError": 44.131001028061576
+      },
+      "actualFlight": {
+        "apex": 1.5963371585922868,
+        "landing": {
+          "at": 1.1,
+          "x": 109.09557664533445,
+          "y": 30.494404997082984,
+          "z": 0.11
+        },
+        "plane": {
+          "at": 0.9011019131451068,
+          "x": 105,
+          "y": 31.13220275487784,
+          "z": 0.9738546298875232,
+          "speed": 21.373198085503876
+        },
+        "frame": {
+          "kind": "goal_plane",
+          "point": {
+            "x": 105.11,
+            "y": 31.115270633319522,
+            "z": 0.9550846692314485
+          },
+          "segmentFraction": 0.2553078338938476,
+          "at": 0.925
+        },
+        "stop": {
+          "x": 143.76373630127927,
+          "y": 24.86589329799813,
+          "z": 0.11
+        },
+        "elapsed": 5.7,
+        "stopCensored": false,
+        "lateralError": -2.8677972451221585,
+        "longitudinalError": 38.763736301279266,
+        "trace": [
+          {
+            "at": 0.1,
+            "position": {
+              "x": 87.34739904742244,
+              "y": 33.685204754482434,
+              "z": 0.6122861775886992
+            },
+            "velocity": {
+              "x": 23.343150780085743,
+              "y": -3.1524706871225057,
+              "z": 4.626692357120656
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.991842899084212,
+              "y": -1.4824409731166497e-15,
+              "z": -16.632678746184222
+            }
+          },
+          {
+            "at": 0.2,
+            "position": {
+              "x": 89.66043356913661,
+              "y": 33.36925582409698,
+              "z": 1.009623953719068
+            },
+            "velocity": {
+              "x": 23.004176701390005,
+              "y": -3.1635470583174468,
+              "z": 3.583421571050153
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.944227050773872,
+              "y": -1.4647579915240755e-15,
+              "z": -16.434279378224474
+            }
+          },
+          {
+            "at": 0.30000000000000004,
+            "position": {
+              "x": 91.9403018863781,
+              "y": 33.052276008128224,
+              "z": 1.3036280495613741
+            },
+            "velocity": {
+              "x": 22.67676352720437,
+              "y": -3.1733950349348334,
+              "z": 2.5559259391176163
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.897179177974501,
+              "y": -1.4472859376133945e-15,
+              "z": -16.23824657489376
+            }
+          },
+          {
+            "at": 0.4,
+            "position": {
+              "x": 94.18809241041589,
+              "y": 32.73438847104327,
+              "z": 1.4958193563055493
+            },
+            "velocity": {
+              "x": 22.35983628606007,
+              "y": -3.1820086886984256,
+              "z": 1.543315244251017
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.850692505711116,
+              "y": -1.4300222953786521e-15,
+              "z": -16.044552107129658
+            }
+          },
+          {
+            "at": 0.5,
+            "position": {
+              "x": 96.40478992309048,
+              "y": 32.415717314037096,
+              "z": 1.5876374702573073
+            },
+            "velocity": {
+              "x": 22.052381484689267,
+              "y": -3.189376697160228,
+              "z": 0.544822061834268
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.8047603398225824,
+              "y": -1.4129645788255346e-15,
+              "z": -15.853168082594099
+            }
+          },
+          {
+            "at": 0.6000000000000001,
+            "position": {
+              "x": 98.59128154377542,
+              "y": 32.096388059594034,
+              "z": 1.5804525609130728
+            },
+            "velocity": {
+              "x": 21.753444327208598,
+              "y": -3.1954832252949474,
+              "z": -0.44020478534030993
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.7593760659976407,
+              "y": -1.3961103316133823e-15,
+              "z": -15.66406694165684
+            }
+          },
+          {
+            "at": 0.7000000000000001,
+            "position": {
+              "x": 100.74836247114347,
+              "y": 31.776528046022584,
+              "z": 1.4755765966588814
+            },
+            "velocity": {
+              "x": 21.4621267612624,
+              "y": -3.200308836407043,
+              "z": -1.4123066024350321
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.7145331488224356,
+              "y": -1.3794571267014728e-15,
+              "z": -15.477221453426818
+            }
+          },
+          {
+            "at": 0.8,
+            "position": {
+              "x": 102.87674157266288,
+              "y": 31.45626672943098,
+              "z": 1.274273933728176
+            },
+            "velocity": {
+              "x": 21.177586193985796,
+              "y": -3.2038314253547413,
+              "z": -2.3719212049154637
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.6702251308394045,
+              "y": -1.3630025659995215e-15,
+              "z": -15.292604711830855
+            }
+          },
+          {
+            "at": 0.9,
+            "position": {
+              "x": 104.97704687869275,
+              "y": 31.13573589160618,
+              "z": 0.9777712588318074
+            },
+            "velocity": {
+              "x": 20.899034715558496,
+              "y": -3.2060271624452645,
+              "z": -3.319389444855506
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.626445631617394,
+              "y": -1.346744280022354e-15,
+              "z": -15.110190131739143
+            }
+          },
+          {
+            "at": 1,
+            "position": {
+              "x": 107.04983102173081,
+              "y": 30.815069753667938,
+              "z": 0.5872668648728026
+            },
+            "velocity": {
+              "x": 20.625738667304493,
+              "y": -3.2068714325751766,
+              "z": -4.2549619746668705
+            },
+            "airborne": true,
+            "bounceCount": 0,
+            "spin": {
+              "x": 3.5831883468328645,
+              "y": -1.3306799275486948e-15,
+              "z": -14.929951445136938
+            }
+          },
+          {
+            "at": 1.1,
+            "position": {
+              "x": 109.09557664533445,
+              "y": 30.494404997082984,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 16.69275508509213,
+              "y": -2.6291985963397915,
+              "z": 2.3822508964158686
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 1.9472458760491322,
+              "y": -7.231439574062158e-16,
+              "z": -8.11352448353805
+            }
+          },
+          {
+            "at": 1.2000000000000002,
+            "position": {
+              "x": 110.75405743005686,
+              "y": 30.231944554107546,
+              "z": 0.28550940836857946
+            },
+            "velocity": {
+              "x": 16.520625296651296,
+              "y": -2.6218267699663276,
+              "z": 1.3801209620492132
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 1.9240185681111968,
+              "y": -7.145180886401147e-16,
+              "z": -8.016744033796652
+            }
+          },
+          {
+            "at": 1.3,
+            "position": {
+              "x": 112.39560125160685,
+              "y": 29.970233670137176,
+              "z": 0.3614547846876088
+            },
+            "velocity": {
+              "x": 16.352822327446997,
+              "y": -2.614247337970956,
+              "z": 0.3883156178463519
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 1.9010683221717892,
+              "y": -7.059951117134709e-16,
+              "z": -7.921118009049121
+            }
+          },
+          {
+            "at": 1.4000000000000001,
+            "position": {
+              "x": 114.02059674136086,
+              "y": 29.709297893534664,
+              "z": 0.33884201173217593
+            },
+            "velocity": {
+              "x": 16.18864499183745,
+              "y": -2.6063837376411536,
+              "z": -0.5935753987165714
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 1.8783918333558365,
+              "y": -6.975737993028792e-16,
+              "z": -7.82663263898265
+            }
+          },
+          {
+            "at": 1.5,
+            "position": {
+              "x": 115.62936430872348,
+              "y": 29.449170385287424,
+              "z": 0.21864332767590894
+            },
+            "velocity": {
+              "x": 16.02742291415711,
+              "y": -2.598160227051475,
+              "z": -1.565844790050626
+            },
+            "airborne": true,
+            "bounceCount": 1,
+            "spin": {
+              "x": 1.8559858362097637,
+              "y": -6.892529387248005e-16,
+              "z": -7.73327431754068
+            }
+          },
+          {
+            "at": 1.6,
+            "position": {
+              "x": 117.15057473504784,
+              "y": 29.20166005184797,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 12.965651800351528,
+              "y": -2.1123398615400943,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.9527326043300036,
+              "y": -3.5381398636878943e-16,
+              "z": -3.969719184708347
+            }
+          },
+          {
+            "at": 1.7000000000000002,
+            "position": {
+              "x": 118.43134811804838,
+              "y": 28.99299883587746,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 12.649815859658968,
+              "y": -2.060884457870082,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.7494460107124777,
+              "y": -2.7831993931271156e-16,
+              "z": -3.1226917113019894
+            }
+          },
+          {
+            "at": 1.8,
+            "position": {
+              "x": 119.68053790697964,
+              "y": 28.789483160273953,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 12.333979918966408,
+              "y": -2.0094290542000692,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.5895351123916176,
+              "y": -2.1893421855373128e-16,
+              "z": -2.4563963016317394
+            }
+          },
+          {
+            "at": 1.9000000000000001,
+            "position": {
+              "x": 120.89814410184165,
+              "y": 28.591113025037448,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 12.018143978273846,
+              "y": -1.9579736505300567,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.4637447444842483,
+              "y": -1.72219756055199e-16,
+              "z": -1.9322697686843675
+            }
+          },
+          {
+            "at": 2,
+            "position": {
+              "x": 122.08416670263442,
+              "y": 28.397888430167942,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 11.702308037581286,
+              "y": -1.906518246860044,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.3647945364344996,
+              "y": -1.354728583391048e-16,
+              "z": -1.519977235143748
+            }
+          },
+          {
+            "at": 2.1,
+            "position": {
+              "x": 123.23860570935791,
+              "y": 28.209809375665436,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 11.386472096888726,
+              "y": -1.8550628431900313,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.28695754592423534,
+              "y": -1.0656672478786222e-16,
+              "z": -1.1956564413509803
+            }
+          },
+          {
+            "at": 2.2,
+            "position": {
+              "x": 124.36146112201216,
+              "y": 28.026875861529934,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 11.070636156196164,
+              "y": -1.8036074395200188,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.2257288005672885,
+              "y": -8.382835478074413e-17,
+              "z": -0.9405366690303686
+            }
+          },
+          {
+            "at": 2.3000000000000003,
+            "position": {
+              "x": 125.45273294059716,
+              "y": 27.84908788776143,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 10.754800215503602,
+              "y": -1.752152035850006,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.1775645635713648,
+              "y": -6.594171941790495e-17,
+              "z": -0.7398523482140198
+            }
+          },
+          {
+            "at": 2.4000000000000004,
+            "position": {
+              "x": 126.51242116511288,
+              "y": 27.67644545435993,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 10.438964274811042,
+              "y": -1.7006966321799935,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.13967723284335876,
+              "y": -5.1871593700757394e-17,
+              "z": -0.5819884701806612
+            }
+          },
+          {
+            "at": 2.5,
+            "position": {
+              "x": 127.54052579555936,
+              "y": 27.50894856132543,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 10.123128334118476,
+              "y": -1.649241228509981,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.10987400291126624,
+              "y": -4.08036408029401e-17,
+              "z": -0.4578083454636092
+            }
+          },
+          {
+            "at": 2.6,
+            "position": {
+              "x": 128.53704683193658,
+              "y": 27.34659720865793,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 9.807292393425914,
+              "y": -1.5977858248399683,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.08642995189690962,
+              "y": -3.209728068854472e-17,
+              "z": -0.3601247995704566
+            }
+          },
+          {
+            "at": 2.7,
+            "position": {
+              "x": 129.50198427424453,
+              "y": 27.189391396357436,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 9.49145645273335,
+              "y": -1.5463304211699558,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.06798820819275112,
+              "y": -2.5248615254082724e-17,
+              "z": -0.28328420080312955
+            }
+          },
+          {
+            "at": 2.8000000000000003,
+            "position": {
+              "x": 130.43533812248324,
+              "y": 27.037331124423943,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 9.175620512040787,
+              "y": -1.4948750174999432,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.05348141878841134,
+              "y": -1.9861264212211447e-17,
+              "z": -0.2228392449517138
+            }
+          },
+          {
+            "at": 2.9000000000000004,
+            "position": {
+              "x": 131.3371083766527,
+              "y": 26.89041639285745,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 8.859784571348225,
+              "y": -1.4434196138299307,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.04206997406833259,
+              "y": -1.5623423785329578e-17,
+              "z": -0.1752915586180524
+            }
+          },
+          {
+            "at": 3,
+            "position": {
+              "x": 132.2072950367529,
+              "y": 26.74864720165796,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 8.543948630655661,
+              "y": -1.391964210159918,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.03309341371649784,
+              "y": -1.228982043479012e-17,
+              "z": -0.13788922381874094
+            }
+          },
+          {
+            "at": 3.1,
+            "position": {
+              "x": 133.04589810278384,
+              "y": 26.61202355082547,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 8.228112689963098,
+              "y": -1.3405088064899053,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.02603220124719924,
+              "y": -9.667515161510973e-18,
+              "z": -0.10846750519666344
+            }
+          },
+          {
+            "at": 3.2,
+            "position": {
+              "x": 133.8529175747455,
+              "y": 26.48054544035998,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 7.912276749270535,
+              "y": -1.2890534028198928,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.020477654785938403,
+              "y": -7.604736773327852e-18,
+              "z": -0.08532356160807664
+            }
+          },
+          {
+            "at": 3.3000000000000003,
+            "position": {
+              "x": 134.62835345263792,
+              "y": 26.35421287026149,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 7.596440808577971,
+              "y": -1.2375979991498802,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.016108293783921996,
+              "y": -5.982097821977052e-18,
+              "z": -0.06711789076634161
+            }
+          },
+          {
+            "at": 3.4000000000000004,
+            "position": {
+              "x": 135.3722057364611,
+              "y": 26.233025840530004,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 7.280604867885408,
+              "y": -1.1861425954798677,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.01267123268467822,
+              "y": -4.705684814392696e-18,
+              "z": -0.05279680285282589
+            }
+          },
+          {
+            "at": 3.5,
+            "position": {
+              "x": 136.08447442621502,
+              "y": 26.116984351165517,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.964768927192846,
+              "y": -1.1346871918098551,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.00996754466382503,
+              "y": -3.701622780399088e-18,
+              "z": -0.04153143609927094
+            }
+          },
+          {
+            "at": 3.6,
+            "position": {
+              "x": 136.76515952189968,
+              "y": 26.006088402168032,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.648932986500284,
+              "y": -1.0832317881398426,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.007840748338990022,
+              "y": -2.9117996102205632e-18,
+              "z": -0.03266978474579174
+            }
+          },
+          {
+            "at": 3.7,
+            "position": {
+              "x": 137.41426102351508,
+              "y": 25.900337993537548,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.3330970458077225,
+              "y": -1.03177638446983,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.0061677510950608515,
+              "y": -2.2905026992422258e-18,
+              "z": -0.025698962896086874
+            }
+          },
+          {
+            "at": 3.8000000000000003,
+            "position": {
+              "x": 138.0317789310612,
+              "y": 25.799733125274063,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 6.0172611051151605,
+              "y": -0.9803209807998173,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.0048517248514986094,
+              "y": -1.8017732390720792e-18,
+              "z": -0.02021552021457754
+            }
+          },
+          {
+            "at": 3.9000000000000004,
+            "position": {
+              "x": 138.6177132445381,
+              "y": 25.70427379737758,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 5.701425164422599,
+              "y": -0.9288655771298048,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.003816501942417793,
+              "y": -1.4173250291782257e-18,
+              "z": -0.015902091426740806
+            }
+          },
+          {
+            "at": 4,
+            "position": {
+              "x": 139.17206396394573,
+              "y": 25.6139600098481,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 5.385589223730037,
+              "y": -0.8774101734597922,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.003002166759720455,
+              "y": -1.114907356138558e-18,
+              "z": -0.012509028165501899
+            }
+          },
+          {
+            "at": 4.1000000000000005,
+            "position": {
+              "x": 139.69483108928412,
+              "y": 25.528791762685618,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 5.069753283037475,
+              "y": -0.8259547697897797,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.0023615880167640073,
+              "y": -8.7701718884664e-19,
+              "z": -0.009839950069850032
+            }
+          },
+          {
+            "at": 4.2,
+            "position": {
+              "x": 140.18601462055324,
+              "y": 25.448769055890143,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 4.753917342344913,
+              "y": -0.7744993661197672,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.001857690930347475,
+              "y": -6.89886155381034e-19,
+              "z": -0.007740378876447814
+            }
+          },
+          {
+            "at": 4.3,
+            "position": {
+              "x": 140.6456145577531,
+              "y": 25.373891889461667,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 4.438081401652351,
+              "y": -0.7230439624497547,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.00146131144306197,
+              "y": -5.426836707868108e-19,
+              "z": -0.0060887976794248766
+            }
+          },
+          {
+            "at": 4.4,
+            "position": {
+              "x": 141.0736309008837,
+              "y": 25.304160263400195,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 4.122245460959789,
+              "y": -0.6715885587797422,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.001149508294807916,
+              "y": -4.268900951867746e-19,
+              "z": -0.004789617895032985
+            }
+          },
+          {
+            "at": 4.5,
+            "position": {
+              "x": 141.47006364994505,
+              "y": 25.239574177705723,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 3.806409520267226,
+              "y": -0.6201331551097299,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.0009042352512230121,
+              "y": -3.358036424872699e-19,
+              "z": -0.0037676468800958846
+            }
+          },
+          {
+            "at": 4.6000000000000005,
+            "position": {
+              "x": 141.83491280493715,
+              "y": 25.18013363237825,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 3.490573579574663,
+              "y": -0.5686777514397174,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.0007112966415705357,
+              "y": -2.641525010281187e-19,
+              "z": -0.002963736006543899
+            }
+          },
+          {
+            "at": 4.7,
+            "position": {
+              "x": 142.16817836586,
+              "y": 25.12583862741778,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 3.1747376388820996,
+              "y": -0.5172223477697049,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.0005595257557424534,
+              "y": -2.0778971687912955e-19,
+              "z": -0.0023313573155935557
+            }
+          },
+          {
+            "at": 4.800000000000001,
+            "position": {
+              "x": 142.46986033271358,
+              "y": 25.076689162824312,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 2.858901698189537,
+              "y": -0.4657669440996924,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.000440138548451333,
+              "y": -1.634531805402544e-19,
+              "z": -0.0018339106185472206
+            }
+          },
+          {
+            "at": 4.9,
+            "position": {
+              "x": 142.7399587054979,
+              "y": 25.032685238597843,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 2.5430657574969744,
+              "y": -0.4143115404296799,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.00034622524494120965,
+              "y": -1.2857682579290552e-19,
+              "z": -0.0014426051872550403
+            }
+          },
+          {
+            "at": 5,
+            "position": {
+              "x": 142.97847348421297,
+              "y": 24.993826854738376,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 2.2272298168044116,
+              "y": -0.36285613675966744,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.0002723504238753473,
+              "y": -1.0114211345620014e-19,
+              "z": -0.001134793432813947
+            }
+          },
+          {
+            "at": 5.1000000000000005,
+            "position": {
+              "x": 143.18540466885878,
+              "y": 24.96011401124591,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 1.9113938761118483,
+              "y": -0.311400733089655,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.00021423843139363363,
+              "y": -7.95612043718014e-20,
+              "z": -0.0008926601308068068
+            }
+          },
+          {
+            "at": 5.2,
+            "position": {
+              "x": 143.36075225943534,
+              "y": 24.931546708120443,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 1.5955579354192853,
+              "y": -0.2599453294196425,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.0001685259190454276,
+              "y": -6.258506001886906e-20,
+              "z": -0.0007021913293559482
+            }
+          },
+          {
+            "at": 5.300000000000001,
+            "position": {
+              "x": 143.50451625594263,
+              "y": 24.90812494536198,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 1.279721994726722,
+              "y": -0.20848992574963005,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.00013256718323297986,
+              "y": -4.923115189736483e-20,
+              "z": -0.0005523632634707493
+            }
+          },
+          {
+            "at": 5.4,
+            "position": {
+              "x": 143.61669665838068,
+              "y": 24.889848722970516,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.9638860540341586,
+              "y": -0.15703452207961757,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.00010428103979417682,
+              "y": -3.8726595714866695e-20,
+              "z": -0.00043450433247573667
+            }
+          },
+          {
+            "at": 5.5,
+            "position": {
+              "x": 143.69729346674947,
+              "y": 24.876718040946052,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.6480501133415957,
+              "y": -0.10557911840960511,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.00008203037128308945,
+              "y": -3.0463419153574745e-20,
+              "z": -0.00034179321367953935
+            }
+          },
+          {
+            "at": 5.6000000000000005,
+            "position": {
+              "x": 143.746306681049,
+              "y": 24.86873289928859,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.3322141726490327,
+              "y": -0.05412371473959267,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.00006452737550491189,
+              "y": -2.3963374249550378e-20,
+              "z": -0.0002688640646037995
+            }
+          },
+          {
+            "at": 5.7,
+            "position": {
+              "x": 143.76373630127927,
+              "y": 24.86589329799813,
+              "z": 0.11
+            },
+            "velocity": {
+              "x": 0.016378231956469837,
+              "y": -0.0026683110695802374,
+              "z": 0
+            },
+            "airborne": false,
+            "bounceCount": 2,
+            "spin": {
+              "x": 0.00005075903137366715,
+              "y": -1.885025782986114e-20,
+              "z": -0.00021149596405694644
+            }
+          }
+        ]
+      },
+      "magnusAtOneSecond": {
+        "spinning": {
+          "x": 107.04983102173081,
+          "y": 30.815069753667938,
+          "z": 0.5872668648728026
+        },
+        "noSpin": {
+          "x": 107.08515550082284,
+          "y": 31.073156571341737,
+          "z": 0.5957340458005166
+        }
+      }
+    }
+  ]
+}

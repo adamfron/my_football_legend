@@ -1,0 +1,95 @@
+// Controlled contact interventions, separate from the sampled distribution cohort.
+import assert from 'node:assert/strict';
+import console from 'node:console';
+import process from 'node:process';
+import { URL } from 'node:url';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { createKickFixture } from '../../../src/core/matchSimulation/physicalKickLaboratory.ts';
+import { executePhysicalKick } from '../../../src/core/matchSimulation/kickExecution.ts';
+import { integrateBallFlight } from '../../../src/core/matchSimulation/ballPhysics.ts';
+import { flight } from '../../../scripts/pr207Experiments.mjs';
+import { source, hash } from '../../../scripts/pr199Evidence.mjs';
+const clean = { lateralPatchMetres: 0, verticalPatchMetres: 0, timingSeconds: 0, effortError: 0 };
+const cases = [
+  {
+    id: 'ground-pass-lift',
+    velocity: { x: 10, y: 0, z: 0 },
+    perturbation: { ...clean, verticalPatchMetres: -0.015 },
+  },
+  {
+    id: 'driven-shot-high',
+    velocity: { x: 30, y: 0, z: 6 },
+    perturbation: { ...clean, verticalPatchMetres: -0.02 },
+  },
+  {
+    id: 'unwanted-spin',
+    velocity: { x: 25, y: 0, z: 6 },
+    perturbation: { ...clean, lateralPatchMetres: 0.02, timingSeconds: 0.02, effortError: -0.03 },
+  },
+];
+const rows = cases.map((c) => {
+  const f = createKickFixture({ seed: 'pr207-controlled-' + c.id, family: 'shot', metres: 20 });
+  const request = {
+    family: 'shot',
+    target: { x: 105, y: 34 },
+    nominalVelocity: c.velocity,
+    surface: 'instep',
+    preparationSeconds: 0.3,
+  };
+  const nominal = executePhysicalKick(f.state, f.actor, request, clean);
+  const actual = executePhysicalKick(f.state, f.actor, request, c.perturbation);
+  const ball = (receipt) => ({
+    ...f.state.ball,
+    velocity: receipt.contact.outgoingVelocity,
+    spin: receipt.contact.outgoingSpin,
+    airborne: receipt.contact.outgoingVelocity.z > 0,
+  });
+  const actualFlight = flight(ball(actual), request.target, f.actor, true, true);
+  const nominalFlight = flight(ball(nominal), request.target, f.actor, true);
+  let spinning = {
+    position: { x: 85, y: 34, z: 0.11 },
+    velocity: actual.contact.outgoingVelocity,
+    spin: actual.contact.outgoingSpin,
+    airborne: true,
+    bounceCount: 0,
+  };
+  let noSpin = { ...spinning, spin: { x: 0, y: 0, z: 0 } };
+  for (let tick = 0; tick < 40; tick++) {
+    spinning = integrateBallFlight(spinning, 0.025);
+    noSpin = integrateBallFlight(noSpin, 0.025);
+  }
+  return {
+    id: c.id,
+    scope: 'controlled contact intervention; no frequency or natural-sampling claim',
+    input: c,
+    nominal,
+    actual,
+    nominalFlight,
+    actualFlight,
+    magnusAtOneSecond: { spinning: spinning.position, noSpin: noSpin.position },
+  };
+});
+assert.ok(rows[0].actualFlight.apex > 0.12);
+assert.ok(rows[1].actualFlight.plane.z > 2.55);
+assert.ok(Math.abs(rows[2].actual.contact.outgoingSpin.z) > 1);
+const method = readFileSync(new URL(import.meta.url), 'utf8').replaceAll('\r\n', '\n');
+const result = {
+  schema: 'pr207-contact-examples-v1',
+  source: hash(source()),
+  methodSha256: hash(method),
+  rows,
+};
+const output = 'docs/performance/pr207/unexpected-examples.json';
+if (process.argv.includes('--check'))
+  assert.equal(hash(JSON.parse(readFileSync(output, 'utf8'))), hash(result));
+else writeFileSync(output, JSON.stringify(result, null, 2) + '\n', { flag: 'wx' });
+console.log(
+  JSON.stringify(
+    rows.map((r) => ({
+      id: r.id,
+      apex: r.actualFlight.apex,
+      plane: r.actualFlight.plane,
+      spin: r.actual.contact.outgoingSpin,
+    })),
+  ),
+);

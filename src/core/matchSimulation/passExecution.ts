@@ -24,6 +24,8 @@ export const passExecutionTypeSchema = z.enum([
   'turning_pass',
 ]);
 export type PassExecutionType = z.infer<typeof passExecutionTypeSchema>;
+export const isPhysicalKickPassTechnique = (type: PassExecutionType) =>
+  !['backheel', 'outside_foot', 'turning_pass'].includes(type);
 export const passExecutionSchema = z.object({
   type: passExecutionTypeSchema,
   quality: z.number().min(0).max(1),
@@ -132,6 +134,7 @@ export const interpretPassExecution = (
   options: {
     goalkeeperDistribution?: boolean;
     firstTime?: boolean;
+    nominalContact?: boolean;
     spatial?: boolean;
     receiverSpeed?: number;
     foot?: 'left' | 'right';
@@ -188,6 +191,15 @@ export const interpretPassExecution = (
   const quality =
     (profile.ability / (1 + (profile.difficulty - 1) * 0.25 + metres / 400)) *
     (touch?.quality ?? 1);
+  if (options.nominalContact && isPhysicalKickPassTechnique(type))
+    return passExecutionSchema.parse({
+      type,
+      quality,
+      facingError,
+      pressure,
+      intendedTarget: { ...target },
+      physicalTarget: { ...target },
+    });
   const rng = RandomGenerator.fromSeed(
     `${state.seed}:pass-execution:${state.decisionIndex}:${passer.id}`,
   );
