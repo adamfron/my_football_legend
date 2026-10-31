@@ -71,6 +71,7 @@ export const projectLiveReceptionTarget = (
     },
     horizon,
     0.1,
+    state.ballEnvironment,
   );
   let target: PitchPoint | undefined,
     bestCost = Infinity;

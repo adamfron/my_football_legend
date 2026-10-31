@@ -142,6 +142,7 @@ export const prepareReceptionContinuation = (
       },
       2,
       0.1,
+      state.ballEnvironment,
     );
     const defenders = state.players.filter((p) => p.team !== receiver.team);
     // Only a later useful meeting within the actual reachable flight is eligible. Opponents,

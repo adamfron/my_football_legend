@@ -2501,6 +2501,7 @@ const stepTacticalMatchCore = (
           ...(state.ball.spin ? { spin: state.ball.spin } : {}),
         },
         dt,
+        state.ballEnvironment,
       );
       const next: FlightPoint = integrated.position;
       const nextHeight = next.z;
@@ -2986,7 +2987,7 @@ const stepTacticalMatchCore = (
         bounceCount: state.ball.bounceCount ?? 0,
         ...(state.ball.spin ? { spin: state.ball.spin } : {}),
       };
-      const integrated = integrateBallFlight(flightStart, dt);
+      const integrated = integrateBallFlight(flightStart, dt, state.ballEnvironment);
       // The same low segment has the same finite-foot access whether its last
       // event was named pass/cross or a deflection. High-body/keeper routes keep
       // their own resolvers. Physical truth is appropriate at this boundary.
@@ -3153,7 +3154,7 @@ const stepTacticalMatchCore = (
         // ground bounce before then integrating the remaining physical time.
         const flightAtContact =
           found.segmentFraction > 0
-            ? integrateBallFlight(flightStart, dt * found.segmentFraction)
+            ? integrateBallFlight(flightStart, dt * found.segmentFraction, state.ballEnvironment)
             : flightStart;
         const incoming = supportContinuousBodyContacts(
           found.point,
@@ -3231,7 +3232,10 @@ const stepTacticalMatchCore = (
           bounceCount: flightAtContact.bounceCount,
           ...(outgoingSpin ? { spin: outgoingSpin } : {}),
         };
-        const advanced = remaining > 0 ? integrateBallFlight(afterImpact, remaining) : afterImpact;
+        const advanced =
+          remaining > 0
+            ? integrateBallFlight(afterImpact, remaining, state.ballEnvironment)
+            : afterImpact;
         // Do not tunnel through a second body during the remainder. Its impulse and
         // identity are resolved by the next canonical step, at the same contact site.
         const following = findFirstBallContact({

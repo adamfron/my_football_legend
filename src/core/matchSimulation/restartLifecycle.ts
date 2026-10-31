@@ -377,6 +377,7 @@ export const advanceRestartPlacement = (
           ...(state.ball.spin ? { spin: state.ball.spin } : {}),
         },
         dt,
+        state.ballEnvironment,
       ),
     );
     next = {

@@ -11,7 +11,7 @@ import { hash } from './pr199Evidence.mjs';
 import { goalIntentToPitch } from '../src/core/matchSimulation/goalCoordinates.ts';
 
 /** Read-only isolation of flight. No opponents/keeper in this arm; the live arm below retains all. */
-export function flight(ball, target, shooter, shot = false, retainTrace = false) {
+export function flight(ball, target, shooter, shot = false, retainTrace = false, environment) {
   let physical = {
     position: { x: ball.x, y: ball.y, z: Math.max(0.11, ball.height ?? 0.11) },
     velocity: { x: ball.velocity?.x ?? 0, y: ball.velocity?.y ?? 0, z: ball.velocity?.z ?? 0 },
@@ -26,9 +26,17 @@ export function flight(ball, target, shooter, shot = false, retainTrace = false)
     stopped = false,
     at = 0;
   const trace = [];
+  const impacts = [];
   for (let tick = 1; tick <= 1000; tick++) {
     const previous = physical;
-    physical = integrateBallFlight(physical, 0.025);
+    physical = integrateBallFlight(
+      physical,
+      0.025,
+      environment,
+      environment?.groundContact === 'event-v1'
+        ? (event) => impacts.push({ ...event, at: (tick - 1) * 0.025 + event.at })
+        : undefined,
+    );
     at = tick * 0.025;
     apex = Math.max(apex, physical.position.z);
     if (
@@ -73,11 +81,15 @@ export function flight(ball, target, shooter, shot = false, retainTrace = false)
     lateralError: plane ? plane.y - target.y : null,
     longitudinalError: physical.position.x - target.x,
     ...(retainTrace ? { trace } : {}),
+    ...(environment?.groundContact === 'event-v1'
+      ? { impacts, bounceCount: physical.bounceCount }
+      : {}),
   };
 }
 
-export function runPair(config, continuation = false) {
+export function runPair(config, continuation = false, environment) {
   const f = createKickFixture({ ...config, experimental: true });
+  if (environment) f.state.ballEnvironment = environment;
   const before = f.state,
     baseline = globalThis.structuredClone(before);
   delete baseline.experimentalKickExecution;
@@ -101,7 +113,9 @@ export function runPair(config, continuation = false) {
       target,
       contact: receipt,
       launch: released ? after.ball : null,
-      flight: released ? flight(after.ball, target, f.actor, config.family === 'shot') : null,
+      flight: released
+        ? flight(after.ball, target, f.actor, config.family === 'shot', false, environment)
+        : null,
     };
     if (continuation && released) {
       let current = after;
@@ -176,6 +190,8 @@ export function runPair(config, continuation = false) {
       c.intendedTarget,
       f.actor,
       config.family === 'shot',
+      false,
+      environment,
     );
   } else result.nominal = null;
   return result;

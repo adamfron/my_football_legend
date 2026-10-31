@@ -254,6 +254,7 @@ const stepInjuryAssessmentIntervalCore = (
       bounceCount: state.ball.bounceCount ?? 0,
     },
     dt,
+    state.ballEnvironment,
   );
   state = {
     ...state,
