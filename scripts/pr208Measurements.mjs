@@ -69,6 +69,7 @@ function stop(initial, dt, env, trace = false) {
   };
 }
 let result;
+let microCost;
 if (mode === 'sweep') {
   const spins = [
     { name: 'zero', value: { x: 0, y: 0, z: 0 } },
@@ -135,7 +136,8 @@ if (mode === 'sweep') {
           Object.values(process.cpuUsage(usage)).reduce((a, b) => a + b, 0) / calls,
       };
     }
-  result = { recorded, rows, boundaries, microCost: costs, constants: BALL_PHYSICS };
+  microCost = costs;
+  result = { recorded, rows, boundaries, constants: BALL_PHYSICS };
 } else {
   const frozen = readFrozen(mode === 'live' ? 'live' : 'lab'),
     rows = [];
@@ -288,6 +290,7 @@ const receipt = {
   result,
 };
 const costs = {
+  ...(microCost ? { microCost } : {}),
   wallSeconds: (performance.now() - start) / 1000,
   cpuSeconds: Object.values(process.cpuUsage(cpu)).reduce((a, b) => a + b, 0) / 1e6,
   peakRSSKiB: process.resourceUsage().maxRSS,

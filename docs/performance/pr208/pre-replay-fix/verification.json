@@ -1,0 +1,75 @@
+{
+  "schema": "pr208-verification-v1",
+  "source": "1bb1ab1bd5d82dfb8db7d68ec3deca3defc24445beb7ce06d8bd288701985351",
+  "sourceStable": true,
+  "focusedTests": {
+    "passed": 42,
+    "files": 3
+  },
+  "ciContracts": {
+    "passed": 5
+  },
+  "originalPr206Controls": "PASS unchanged",
+  "originalPr207SourceAssertions": "PASS in original merged source",
+  "manifest": "PASS; 124 original commands,144 cases,28 jobs,63 historical full matches",
+  "realismRegister": "PASS; no status or COMPLETE promotion",
+  "fullVerify": {
+    "status": "RUNNING",
+    "log": "work/verify-final.log",
+    "sourceAtStart": "1bb1ab1bd5d82dfb8db7d68ec3deca3defc24445beb7ce06d8bd288701985351"
+  },
+  "hostedCi": {
+    "status": "NOT_STARTED"
+  },
+  "promotion": "RETAIN_EXPERIMENTAL; PR201 maintained; no new full-match experiment",
+  "logs": [
+    {
+      "path": "docs/performance/pr208/logs/ground-tests.log.gz",
+      "sha256": "e0f4116a30ed95b8d80f29195cdcb750ff8c831d95d8a44a782c19d1c217b4e1"
+    },
+    {
+      "path": "docs/performance/pr208/logs/ci-contracts-final.log.gz",
+      "sha256": "7a3a7f6a2ac02e3ba8585ed117f2d24c13929645eb28f295dba098f024270b08"
+    },
+    {
+      "path": "docs/performance/pr208/logs/manifest-final.log.gz",
+      "sha256": "058e486c3f56ed3c27bf94113e760c245a7709b30f5b7f515e067e556452962c"
+    },
+    {
+      "path": "docs/performance/pr208/logs/pr206-controls-final.log.gz",
+      "sha256": "f26ac16b4cee0915f48e0f023335ecaa8e9a812cb997b580c9bc9533216667f3"
+    },
+    {
+      "path": "docs/performance/pr208/logs/pr207-history-approved.log.gz",
+      "sha256": "6e09507cd1d698fa9b0f1f8b0db43f62776efff82f4450d193dfe1460344455b"
+    },
+    {
+      "path": "docs/performance/pr208/logs/lint-preverify.log.gz",
+      "sha256": "7c2905e3ea1786670f8cda24deb23e937a4914314428100b568d86179ee7c5b4"
+    },
+    {
+      "path": "docs/performance/pr208/logs/lint-final.log.gz",
+      "sha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63"
+    },
+    {
+      "path": "docs/performance/pr208/logs/sweep-final.log.gz",
+      "sha256": "a489568f4cb860b2ecec4a7efa950e03288c29545e0beb800296b42f0d207f72"
+    },
+    {
+      "path": "docs/performance/pr208/logs/trajectories-final2.log.gz",
+      "sha256": "9c5b9be136a15b32fd27d08f1ceb82ef6ea788013cc249c17fcc24e90826aff0"
+    },
+    {
+      "path": "docs/performance/pr208/logs/live-final2.log.gz",
+      "sha256": "f6d1a626d4a194b45afb368d1df0fd1396d99692abf41181d61974a8ff0a5c22"
+    },
+    {
+      "path": "docs/performance/pr208/logs/trajectory-diagnostics.log.gz",
+      "sha256": "7a8ecd7ecbfdedc2dc5b6d43edb1bb64d9fd5542e95eb866de66649dbf1b606d"
+    },
+    {
+      "path": "docs/performance/pr208/logs/realism-final.log.gz",
+      "sha256": "3e069ffcad8eec7e4e1e0b9c3849c1ab404b576834a22e30750cb64fe0306f4a"
+    }
+  ]
+}

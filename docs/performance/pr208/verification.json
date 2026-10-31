@@ -1,6 +1,6 @@
 {
   "schema": "pr208-verification-v1",
-  "source": "1bb1ab1bd5d82dfb8db7d68ec3deca3defc24445beb7ce06d8bd288701985351",
+  "source": "0855f89258f66c23b7cfd785d49a0c3de9f369db3eabcaf40787ec8080228813",
   "sourceStable": true,
   "focusedTests": {
     "passed": 42,
@@ -14,12 +14,41 @@
   "manifest": "PASS; 124 original commands,144 cases,28 jobs,63 historical full matches",
   "realismRegister": "PASS; no status or COMPLETE promotion",
   "fullVerify": {
-    "status": "RUNNING",
-    "log": "work/verify-final.log",
-    "sourceAtStart": "1bb1ab1bd5d82dfb8db7d68ec3deca3defc24445beb7ce06d8bd288701985351"
+    "command": "npm run verify",
+    "status": "PASS",
+    "exitCode": 0,
+    "tests": 2533,
+    "groups": {
+      "unit": 2468,
+      "integration": 56,
+      "careerContract": 4,
+      "fullCareer": 5
+    },
+    "lint": "PASS",
+    "typescript": "PASS",
+    "productionBuild": "PASS",
+    "sourceAtStart": "0855f89258f66c23b7cfd785d49a0c3de9f369db3eabcaf40787ec8080228813",
+    "sourceAtCompletion": "0855f89258f66c23b7cfd785d49a0c3de9f369db3eabcaf40787ec8080228813",
+    "runtimeAndTestsIdenticalToCommit": "da9f7b331d25489f9ca210122d6310f4dabe6048",
+    "measurementOnlySourceChange": "reporter-fix-parity.json",
+    "initialAttempt": {
+      "status": "FAIL",
+      "cause": "Vitest discovered a concurrently exported historical test copy that was later removed; all real tests passed",
+      "log": "logs/verify-temporary-export-failure.log.gz"
+    },
+    "cleanRepeat": "No concurrent historical source exports",
+    "finalReporterLint": "PASS",
+    "allFinalMeasurementExactReplays": "PASS"
   },
   "hostedCi": {
-    "status": "NOT_STARTED"
+    "firstHead": "da9f7b331d25489f9ca210122d6310f4dabe6048",
+    "firstRun": 41211465037,
+    "firstHeadSnapshot": "ci-first-head.json",
+    "observedBeforeFinalPush": "completed",
+    "firstHeadConclusion": "success",
+    "firstHeadOutcome": "ci-first-head-outcome.json",
+    "finalHeadOutcome": "Read checks on the final PR head after push; this receipt makes no hosted PASS claim",
+    "url": "https://github.com/adamfron/my_football_legend/pull/208/checks"
   },
   "promotion": "RETAIN_EXPERIMENTAL; PR201 maintained; no new full-match experiment",
   "logs": [
@@ -70,6 +99,91 @@
     {
       "path": "docs/performance/pr208/logs/realism-final.log.gz",
       "sha256": "3e069ffcad8eec7e4e1e0b9c3849c1ab404b576834a22e30750cb64fe0306f4a"
+    },
+    {
+      "path": "docs/performance/pr208/logs/verify-final.log.gz",
+      "sha256": "0f79aa45e1c816e9c0a063448e796a9dc7a431ec7a2709262f40d1b7ac42665f"
+    },
+    {
+      "path": "docs/performance/pr208/logs/current-source-replay.log.gz",
+      "sha256": "bc8d394820a024ddb571278ad336b76d4f46094674a2b820811616ebb5c8318e"
+    },
+    {
+      "path": "docs/performance/pr208/logs/current-source-replay-fixed.log.gz",
+      "sha256": "b56215df88de1bcd85e0390f5c0e9a44cdbde1b414755ef52781a6cf83f2eb6f"
+    },
+    {
+      "path": "docs/performance/pr208/logs/pr207-source-replay.log.gz",
+      "sha256": "c3f43e68674a5ffe862535f7b2448a069d22499bea7b41419cc231ae51433b0a"
+    },
+    {
+      "path": "docs/performance/pr208/logs/pr206-source-replay.log.gz",
+      "sha256": "a207d1c281bf4ba7c953f6e590cf92ffac4775679dc370246f8ecc1b05823682"
+    },
+    {
+      "path": "docs/performance/pr208/logs/lint-replay-fix.log.gz",
+      "sha256": "d4ee20f1a256cfc5fd600ce4c242552a14ece97d2db83df2f17de9a12b4ee006"
+    },
+    {
+      "path": "docs/performance/pr208/logs/lint-final-clean.log.gz",
+      "sha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63"
+    },
+    {
+      "path": "docs/performance/pr208/logs/lint-reporter-fix-targeted.log.gz",
+      "sha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63"
+    },
+    {
+      "path": "docs/performance/pr208/logs/sweep-replay-fix.log.gz",
+      "sha256": "cac876dbc58965a597007d9d539bde4a3e50fa17e572b37e84c6986334f7fec9"
+    },
+    {
+      "path": "docs/performance/pr208/logs/trajectories-replay-fix.log.gz",
+      "sha256": "fe5ebeb9893798b6673c12d169de6472db8326d0bca755be367dfd930d1d2fcd"
+    },
+    {
+      "path": "docs/performance/pr208/logs/live-replay-fix.log.gz",
+      "sha256": "43e16534a43c360350d9fe2029a5d8304c9d14ac2df47465586dcd679e7c4356"
+    },
+    {
+      "path": "docs/performance/pr208/logs/diagnostics-replay-fix.log.gz",
+      "sha256": "c1dea6a52723747bcac5f7cb3019a788a2df8ca0983b70619fb74abd075cfbfb"
+    },
+    {
+      "path": "docs/performance/pr208/logs/diagnostics-final-check.log.gz",
+      "sha256": "2c118ba1e6f78812658010d389366ccd28b7b21bf92b9e3d62256da8dbdb51b5"
+    },
+    {
+      "path": "docs/performance/pr208/logs/runtime-parity-final.log.gz",
+      "sha256": "e7558c9e2edc1566913e10c99a8ac37a007a18b44fdf0bc930430a060f0620a8"
+    },
+    {
+      "path": "docs/performance/pr208/logs/manifest-replay-fix.log.gz",
+      "sha256": "058e486c3f56ed3c27bf94113e760c245a7709b30f5b7f515e067e556452962c"
+    },
+    {
+      "path": "docs/performance/pr208/logs/realism-last.log.gz",
+      "sha256": "3e069ffcad8eec7e4e1e0b9c3849c1ab404b576834a22e30750cb64fe0306f4a"
+    },
+    {
+      "path": "docs/performance/pr208/logs/trajectory-diagnostics-replay.log.gz",
+      "sha256": "fb2fb95098d1e4c19739230c43eddfd21cafc25467ab45a1c6984987948d01df"
+    },
+    {
+      "path": "docs/performance/pr208/logs/pr198-current-context.log.gz",
+      "sha256": "2ffdec7d9506f4fb7573001eef667bfb9beef16a6d71bca1ea6600b8e3720f39"
+    },
+    {
+      "path": "docs/performance/pr208/logs/verify-temporary-export-failure.log.gz",
+      "sha256": "a4153695921aeb882f07d583e9eb5d43841418ca7f5fe9a0767a9923fc8c5c94"
+    },
+    {
+      "path": "docs/performance/pr208/logs/original-sample-observer.log.gz",
+      "sha256": "912ac40b25e2e201fe05fd5fcf62f3bdaf149df407421a7bd29ac535289131a4"
     }
-  ]
+  ],
+  "historical": {
+    "pr198OriginalSourceAndExpectations": "PASS; original command in historical context",
+    "pr206OriginalSourceAndExpectations": "PASS; full replay and disabled-path complete-state parity",
+    "pr207OriginalSourceAndExpectations": "PASS; lab/live/explore and physical-check exact replays"
+  }
 }

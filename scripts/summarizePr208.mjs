@@ -148,7 +148,7 @@ const summary = {
     maxImpactEnergyGain: Math.max(
       ...sweep.receipt.result.rows.map((r) => r.corrected.maxImpactEnergyGain),
     ),
-    microCost: sweep.receipt.result.microCost,
+    microCost: sweep.costs.microCost,
   },
   strata,
   continuations,

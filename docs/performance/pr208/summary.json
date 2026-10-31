@@ -1,10 +1,10 @@
 {
   "schema": "pr208-summary-v1",
-  "source": "1bb1ab1bd5d82dfb8db7d68ec3deca3defc24445beb7ce06d8bd288701985351",
+  "source": "0855f89258f66c23b7cfd785d49a0c3de9f369db3eabcaf40787ec8080228813",
   "inputResults": {
-    "sweep": "fe64507792a5938ac5af018556088c916a11d61c670f1f3ce983405bc8fbddc1",
-    "trajectories": "64dfb721264e9776f885ba75123aedcebbdb75b7b80ef64f63e2748e3366c8c0",
-    "live": "68af741ad92f98584137718f88adc926c7905a57aba2ea28f415f27260328cc8"
+    "sweep": "2db6d21ccf1e679fdfd3b0d41b53c2a43c5e1481d5c1f93d4effcfc0ba0660f9",
+    "trajectories": "7c12964d978f116c231fe2d0ff164a1697c4a5d5350524ba7cee07e35c0cb4b3",
+    "live": "d80ca5b27d7f9a051d39e1708dbe819a6b0a1afee3bc37fef2dadb18bb22953e"
   },
   "scope": {
     "frozenLabRows": 2752,
@@ -237,32 +237,32 @@
     "microCost": {
       "rolling/legacy": {
         "calls": 100000,
-        "wallMicrosecondsPerCall": 0.1633080000000018,
+        "wallMicrosecondsPerCall": 0.16347699999999804,
         "cpuMicrosecondsPerCall": 0.15
       },
       "rolling/corrected": {
         "calls": 100000,
-        "wallMicrosecondsPerCall": 0.17778699999999845,
+        "wallMicrosecondsPerCall": 0.16347600000000057,
         "cpuMicrosecondsPerCall": 0.16
       },
       "tiny-hop/legacy": {
         "calls": 100000,
-        "wallMicrosecondsPerCall": 0.15981900000000224,
-        "cpuMicrosecondsPerCall": 0.15
+        "wallMicrosecondsPerCall": 0.2161760000000004,
+        "cpuMicrosecondsPerCall": 0.31
       },
       "tiny-hop/corrected": {
         "calls": 100000,
-        "wallMicrosecondsPerCall": 2.471032,
-        "cpuMicrosecondsPerCall": 2.66
+        "wallMicrosecondsPerCall": 2.6377869999999985,
+        "cpuMicrosecondsPerCall": 2.81
       },
       "real-impact/legacy": {
         "calls": 100000,
-        "wallMicrosecondsPerCall": 0.22929200000000038,
-        "cpuMicrosecondsPerCall": 0.16
+        "wallMicrosecondsPerCall": 0.3573839999999973,
+        "cpuMicrosecondsPerCall": 0.32
       },
       "real-impact/corrected": {
         "calls": 100000,
-        "wallMicrosecondsPerCall": 0.3646060000000034,
+        "wallMicrosecondsPerCall": 0.3943199999999979,
         "cpuMicrosecondsPerCall": 0.47
       }
     }
@@ -25021,23 +25021,55 @@
   ],
   "costs": {
     "sweep": {
-      "wallSeconds": 0.7298142000000003,
-      "cpuSeconds": 0.876,
-      "peakRSSKiB": 286488,
+      "microCost": {
+        "rolling/legacy": {
+          "calls": 100000,
+          "wallMicrosecondsPerCall": 0.16347699999999804,
+          "cpuMicrosecondsPerCall": 0.15
+        },
+        "rolling/corrected": {
+          "calls": 100000,
+          "wallMicrosecondsPerCall": 0.16347600000000057,
+          "cpuMicrosecondsPerCall": 0.16
+        },
+        "tiny-hop/legacy": {
+          "calls": 100000,
+          "wallMicrosecondsPerCall": 0.2161760000000004,
+          "cpuMicrosecondsPerCall": 0.31
+        },
+        "tiny-hop/corrected": {
+          "calls": 100000,
+          "wallMicrosecondsPerCall": 2.6377869999999985,
+          "cpuMicrosecondsPerCall": 2.81
+        },
+        "real-impact/legacy": {
+          "calls": 100000,
+          "wallMicrosecondsPerCall": 0.3573839999999973,
+          "cpuMicrosecondsPerCall": 0.32
+        },
+        "real-impact/corrected": {
+          "calls": 100000,
+          "wallMicrosecondsPerCall": 0.3943199999999979,
+          "cpuMicrosecondsPerCall": 0.47
+        }
+      },
+      "wallSeconds": 0.7242246,
+      "cpuSeconds": 0.875,
+      "peakRSSKiB": 292900,
       "node": "v24.22.1",
       "platform": "win32"
     },
     "trajectories": {
-      "wallSeconds": 48.5658177,
-      "cpuSeconds": 52.922,
-      "peakRSSKiB": 603684,
+      "wallSeconds": 47.161666100000005,
+      "cpuSeconds": 51.203,
+      "peakRSSKiB": 765368,
       "node": "v24.22.1",
       "platform": "win32"
     },
     "live": {
-      "wallSeconds": 111.67775400000001,
-      "cpuSeconds": 126.501,
-      "peakRSSKiB": 447672,
+      "wallSeconds": 114.3996989,
+      "cpuSeconds": 126.766,
+      "peakRSSKiB": 592728,
       "node": "v24.22.1",
       "platform": "win32"
     }
