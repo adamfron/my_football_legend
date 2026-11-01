@@ -70,7 +70,9 @@ jobs:
       - if: matrix.group == 'main'
         run: node scripts/ci/replayPr209Check.mjs
       - if: matrix.group == 'main'
-        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr210Evidence.mjs --check
+        run: node scripts/ci/replayPr210Check.mjs
+      - if: matrix.group == 'main'
+        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr211.mjs --check
       - run: npm run ci:group -- --group=checks:${{ matrix.group }}
       - uses: actions/upload-artifact@v4
         if: always()

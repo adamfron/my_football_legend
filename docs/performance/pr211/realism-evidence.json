@@ -1,0 +1,24 @@
+{
+  "sourceArchive": {
+    "fingerprint": "ffcca31c6e829b2836e74bd7bff2b366a94ac0e575b840a4e454434a2c4888c3",
+    "path": "docs/performance/pr211/source-ffcca31c6e829b2836e74bd7bff2b366a94ac0e575b840a4e454434a2c4888c3.json.gz"
+  },
+  "receipt": "docs/performance/pr211/canonical-final-v3.json.gz",
+  "sha256": "d43015c28718218c9cd574254428c25f00cb76a99b80c1224bb535b249a4256d",
+  "resultHash": "8ce6870246cb9f28f55db72d6672d1c6cbb7aba756e093e45a232f4e2bdbc69f",
+  "cases": 18,
+  "totals": {
+    "contact": 11,
+    "miss": 2,
+    "interrupted": 4,
+    "unresolved": 1
+  },
+  "reloadCheckpoints": 54,
+  "legacyControls": 5,
+  "decision": "RETAIN_EXPERIMENTAL; general active-challenge/body arbitration BLOCKED_BY_DEPENDENCY",
+  "limitations": [
+    "Engineering corpus only; no empirical calibration or new full-match promotion.",
+    "Active challenges cancel conservatively because no shared substep contact event exists.",
+    "PR201/default B/40Hz/28 attributes and sealed confirmation remain."
+  ]
+}

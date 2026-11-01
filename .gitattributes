@@ -202,3 +202,10 @@ scripts/pr210* text eol=lf
 
 # Archived receipts are authoritative raw Git bytes, including older CRLF blobs.
 docs/performance/** -text
+
+# PR211 retains canonical timelines and exact source reconstruction independently.
+docs/performance/pr211/** -text linguist-generated=true
+docs/performance/pr211/**/*.gz binary
+docs/PR211*.md text eol=lf
+scripts/*Pr211* text eol=lf
+scripts/pr211* text eol=lf

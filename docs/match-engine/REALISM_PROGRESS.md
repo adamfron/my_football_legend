@@ -68,6 +68,7 @@ New IDs in PR199: none; temporal observation/velocity/memory is explicitly cover
 - TACT-009: PR200 live bounded pathway loses real receptions and some difficult saves; executable combined candidate is NOT_READY_FOR_PROMOTION.; PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only.
 
 - Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.
+- PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates.
 - No external calibration of optical noise, derivative correction, uncertainty, cue priors or memory commitment; no live consumer promotion.
 - Missing physical capability or competition/context representation; see original registry item.
 

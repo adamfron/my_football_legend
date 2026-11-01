@@ -5,6 +5,7 @@ import type { TacticalMatchState } from './matchState';
 export const isActionResolutionInProgress = (state: TacticalMatchState): boolean =>
   Boolean(
     state.ball.travelKind ||
+      state.pendingStrike ||
       state.ballCarrierIntent ||
       state.goalCompletionUntil !== undefined ||
       isRestartSetup(state),

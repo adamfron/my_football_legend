@@ -1031,6 +1031,7 @@ export const projectPlayerAgency = (
   if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
     return blocked('not_open_play');
   if (state.defensiveChallenge?.actorId === actorId) return blocked('resolution_in_progress');
+  if (state.pendingStrike?.actorId === actorId) return blocked('resolution_in_progress');
   const controlledRestart =
     state.scenario !== 'open_play' &&
     (state.restart?.phase === 'setup' || state.restart?.phase === 'awaiting_decision') &&

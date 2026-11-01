@@ -8,8 +8,8 @@ import process from 'node:process';
 import console from 'node:console';
 import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr209SourceGuard.mjs';
-import { checkPr210Source } from '../pr210SourceGuard.mjs';
-checkPr210Source();
+import { checkPr211Source } from '../pr211Evidence.mjs';
+checkPr211Source();
 const scratch = mkdtempSync(join(tmpdir(), 'pr209-history-208-'));
 const safe = () =>
   assert.ok(

@@ -1,4 +1,6 @@
 import { usesLocalReception } from './situationalAwarenessState';
+import { reconcilePendingStrike } from './pendingStrike';
+import { advancePendingStrikeInterval } from './pendingStrikeInterval';
 import { attacksRight } from './matchSpace';
 import { finishIncidentalGoal } from './incidentalGoals';
 import { advanceExperimentalBodyReception } from './experimentalBodyReception';
@@ -619,7 +621,8 @@ const changePossession = (
   const receivingActor = state.players.find((p) => p.id === ownerId);
   const finiteRecovery =
     finiteGroundContact &&
-    state.prospectiveMovement === 'observed-ball-contact-dev-v1' &&
+    (state.prospectiveMovement === 'observed-ball-contact-dev-v1' ||
+      state.experimentalPendingStrike === 'low-pass-dev-v1') &&
     receivingActor &&
     !isMatchGoalkeeper(receivingActor) &&
     !state.ball.ownerId;
@@ -679,7 +682,7 @@ const changePossession = (
     ...(state.ball.heldByKeeperId === ownerId ? { heldByKeeperId: ownerId } : {}),
   };
   const reception = (
-    usesLocalReception(state)
+    usesLocalReception(state) || finiteRecovery
       ? isMatchGoalkeeper(owner)
         ? state.ball.travelKind === 'pass' && owner.team === state.possessionTeam
         : !state.ball.ownerId &&
@@ -1072,6 +1075,7 @@ const prepareIncomingHeaderDelivery = (state: TacticalMatchState, actorId: strin
 
 /** Rank once at a real foot window, before the routine dribble impulse consumes it. */
 const resolveRoutineOwnerDecision = (state: TacticalMatchState): TacticalMatchState => {
+  if (state.pendingStrike) return state;
   const ownerId = state.ball.ownerId;
   if (!ownerId) return state;
   const owner = state.players.find((p) => p.id === ownerId)!;
@@ -1530,7 +1534,7 @@ const stepTacticalMatchCore = (
   rawDelta = 0.1,
   decisionAlreadyProjected = false,
 ): TacticalMatchState => {
-  input = reconcileHumanPossession(resolvePendingPlayerDecision(input));
+  input = reconcilePendingStrike(reconcileHumanPossession(resolvePendingPlayerDecision(input)));
   if (
     !input.periodEndPending &&
     isRestartDecisionBoundary(input) &&
@@ -2469,6 +2473,28 @@ const stepTacticalMatchCore = (
         y: state.ball.y + velocity.y * dt,
         velocity: { x: velocity.x * 0.94, y: velocity.y * 0.94 },
       };
+    } else if (state.pendingStrike) {
+      state = advancePendingStrikeInterval(input, state, dt, {
+        boundary: applyBoundaryRestart,
+        control: (contact, actorId) =>
+          changePossession(
+            contact,
+            actorId,
+            contact.players.find((p) => p.id === actorId)?.team === contact.possessionTeam
+              ? 'claim'
+              : 'interception',
+            true,
+          ),
+        body: (contact, actorId) =>
+          isOffsideOffence(contact.offsideSnapshot, actorId)
+            ? awardOffsideRestart(contact, actorId, contact.ball)
+            : contact.ball.travelKind
+              ? recordPassDeflection(applyIncomingContact(contact, actorId), actorId, {
+                  x: contact.ball.x,
+                  y: contact.ball.y,
+                })
+              : applyIncomingContact(contact, actorId),
+      });
     } else if (
       state.ball.travelKind &&
       state.ball.from &&
@@ -3316,7 +3342,7 @@ const stepTacticalMatchCore = (
       )
         state = resolveRoutineOwnerDecision(state);
       const controlled =
-        state.ball.ownerId === owner.id
+        state.ball.ownerId === owner.id && !state.pendingStrike
           ? advanceControlledBall(
               state,
               owner,
@@ -3545,7 +3571,22 @@ const stepCanonicalMatch = (
   rawDelta: number,
   decisionAlreadyProjected: boolean,
 ): TacticalMatchState => {
-  let input = enforceMinimumPlayers(ensureMatchGoalkeepers(processInjuryAssessment(original)));
+  // A batched caller still gives a pending strike ordinary bounded canonical intervals.
+  // Re-enter this SAME executor so laws, bodies and observers participate in every interval.
+  if (original.pendingStrike && rawDelta > FIXED_MATCH_DT + 1e-12) {
+    const duration = Math.min(0.25, rawDelta);
+    const count = Math.ceil(duration / FIXED_MATCH_DT);
+    let state = original;
+    for (let i = 0; i < count; i++) {
+      const next = stepCanonicalMatch(state, duration / count, decisionAlreadyProjected);
+      if (next === state) break;
+      state = next;
+    }
+    return state;
+  }
+  let input = reconcilePendingStrike(
+    enforceMinimumPlayers(ensureMatchGoalkeepers(processInjuryAssessment(original))),
+  );
   const status = input.status ?? (input.time >= 2700 ? 'second_half' : 'first_half');
   if (status === 'full_time' || status === 'half_time' || status === 'abandoned') return input;
   const dt = Math.min(0.25, Math.max(0.01, rawDelta));
@@ -3606,7 +3647,7 @@ const stepCanonicalMatch = (
     };
     next = advanceMatchRules(original, next);
   }
-  next = reconcileControlledBallContact(next);
+  next = reconcilePendingStrike(reconcileControlledBallContact(next));
   next = observeRestartLiveness(next);
   next = observeLooseBallLiveness(next);
   next = emitCanonicalActionEvents(original, next);
