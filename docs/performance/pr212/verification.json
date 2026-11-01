@@ -1,0 +1,605 @@
+{
+  "source": "048b97bfbef36dec505ba6634be1493e378127dbd086acc3d0391ed326f82464",
+  "base": "a0b3396d2d0f2e81f68d2dbc65c6aedf92c8e7ae",
+  "node": "v24.22.1",
+  "platform": "win32",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "tests": 2616,
+  "groups": {
+    "unit": 2551,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5
+  },
+  "lint": true,
+  "typescript": true,
+  "productionBuild": true,
+  "focusedContracts": 47,
+  "canonicalScenes": 16,
+  "reloads": 48,
+  "exactSourceReplay": true,
+  "historicalAndCIGates": [
+    {
+      "name": "manifest",
+      "command": [
+        "node",
+        "scripts/ci/buildManifest.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 23.127011,
+      "log": "../pr212-manifest-final.log"
+    },
+    {
+      "name": "ci-contracts",
+      "command": [
+        "node",
+        "--test",
+        "scripts/ci/contracts.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 38.2504399,
+      "log": "../pr212-ci-contracts-final.log"
+    },
+    {
+      "name": "workflow",
+      "command": [
+        "node",
+        "scripts/ci/renderWorkflow.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 0.0664144,
+      "log": "../pr212-workflow-final.log"
+    },
+    {
+      "name": "corruption",
+      "command": [
+        "node",
+        "scripts/ci/corruptReplay.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 11.5968738,
+      "log": "../pr212-corruption-final.log"
+    },
+    {
+      "name": "history203",
+      "command": [
+        "node",
+        "scripts/ci/replayPr203Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 131.7450794,
+      "log": "../pr212-history203-final.log"
+    },
+    {
+      "name": "history204",
+      "command": [
+        "node",
+        "scripts/ci/replayPr204Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 29.9183532,
+      "log": "../pr212-history204-final.log"
+    },
+    {
+      "name": "authority",
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerTypescriptLoader.mjs",
+        "scripts/checkPr204Authority.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 1.8539381,
+      "log": "../pr212-authority-final.log"
+    },
+    {
+      "name": "information",
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerPr199Lab.mjs",
+        "scripts/checkPr204Boundary.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 1.961768,
+      "log": "../pr212-information-final.log"
+    },
+    {
+      "name": "history205",
+      "command": [
+        "node",
+        "scripts/ci/replayPr205Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 6.8443754,
+      "log": "../pr212-history205-final.log"
+    },
+    {
+      "name": "contracts205",
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerTypescriptLoader.mjs",
+        "scripts/benchmarkPr205.mjs",
+        "--contracts"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 1.6600761,
+      "log": "../pr212-contracts205-final.log"
+    },
+    {
+      "name": "history206",
+      "command": [
+        "node",
+        "scripts/ci/replayPr206Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 10.9721569,
+      "log": "../pr212-history206-final.log"
+    },
+    {
+      "name": "contracts206",
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerPr206Lab.mjs",
+        "scripts/checkPr206Contracts.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 5.5722699,
+      "log": "../pr212-contracts206-final.log"
+    },
+    {
+      "name": "history207",
+      "command": [
+        "node",
+        "scripts/ci/replayPr207Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 25.008797,
+      "log": "../pr212-history207-final.log"
+    },
+    {
+      "name": "history208",
+      "command": [
+        "node",
+        "scripts/ci/replayPr208Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 25.8589736,
+      "log": "../pr212-history208-final.log"
+    },
+    {
+      "name": "history209-replay",
+      "command": [
+        "node",
+        "scripts/ci/replayPr209Check.mjs",
+        "--replay"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 41.4861739,
+      "log": "../pr212-history209-replay-final.log"
+    },
+    {
+      "name": "history210-replay",
+      "command": [
+        "node",
+        "scripts/ci/replayPr210Check.mjs",
+        "--replay"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 32.2906982,
+      "log": "../pr212-history210-replay-final.log"
+    },
+    {
+      "name": "history211",
+      "command": [
+        "node",
+        "scripts/ci/replayPr211Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 36.8140755,
+      "log": "../pr212-history211-final.log"
+    },
+    {
+      "name": "realism",
+      "command": [
+        "node",
+        "scripts/realismProgress.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 7.4508248,
+      "log": "../pr212-realism-final.log"
+    }
+  ],
+  "archives": [
+    {
+      "name": "source-048b97bfbef36dec505ba6634be1493e378127dbd086acc3d0391ed326f82464.json.gz",
+      "fingerprint": "048b97bfbef36dec505ba6634be1493e378127dbd086acc3d0391ed326f82464",
+      "files": 957,
+      "pass": true
+    },
+    {
+      "name": "source-1d29e704b82ce6250435e3a80533132ad397eff89e5bc12b0b8e7b282036d2de.json.gz",
+      "fingerprint": "1d29e704b82ce6250435e3a80533132ad397eff89e5bc12b0b8e7b282036d2de",
+      "files": 957,
+      "pass": true
+    },
+    {
+      "name": "source-27eabaa40705604201d7b772a89916fccdb38c5ad80098f57125605017466559.json.gz",
+      "fingerprint": "27eabaa40705604201d7b772a89916fccdb38c5ad80098f57125605017466559",
+      "files": 957,
+      "pass": true
+    },
+    {
+      "name": "source-8415eae04f78ab2a6c9f8703af6abae510392d25f1124e26bb60af68ef02332d.json.gz",
+      "fingerprint": "8415eae04f78ab2a6c9f8703af6abae510392d25f1124e26bb60af68ef02332d",
+      "files": 957,
+      "pass": true
+    },
+    {
+      "name": "source-ee6856313eb1f9229d49b3b5c92a4f24cec2ee5933482d01ab16394d2103dcba.json.gz",
+      "fingerprint": "ee6856313eb1f9229d49b3b5c92a4f24cec2ee5933482d01ab16394d2103dcba",
+      "files": 957,
+      "pass": true
+    },
+    {
+      "name": "source-f42e78a8bfc5ee9e75b34f1a9af926b149420e416e7dc2c2eddf9cb0700cf5b4.json.gz",
+      "fingerprint": "f42e78a8bfc5ee9e75b34f1a9af926b149420e416e7dc2c2eddf9cb0700cf5b4",
+      "files": 957,
+      "pass": true
+    }
+  ],
+  "historicalScope": "Original source-specific assertions and receipts retained. Host guards ran at each invocation; final current manifest/replay independently checked on final source.",
+  "attempts": [
+    {
+      "name": "focused-first",
+      "status": "FAIL",
+      "reason": "Earlier intention was incorrectly expected to guarantee earlier contact; paired physical scene and expectation corrected, negative scene retained."
+    },
+    {
+      "name": "pilot-v1",
+      "status": "FAIL",
+      "reason": "Observer included extra legacy properties on 2D diagnostic points; frames now use the save schema."
+    },
+    {
+      "name": "pilot-v2",
+      "status": "EXPLORATORY",
+      "reason": "Contact/controlling-episode metrics corrected in successors; original receipt/source retained."
+    },
+    {
+      "name": "ci-contracts212",
+      "status": "ENVIRONMENT_FAIL",
+      "reason": "Windows sandbox denied atomic cache/evidence rename; original contracts pass natively."
+    },
+    {
+      "name": "verify212-final",
+      "status": "INTERRUPTED",
+      "reason": "Earlier run was deliberately stopped after unit/integration passed to repeat the complete command on final law-observer code."
+    },
+    {
+      "name": "verify212-exact",
+      "status": "PASS",
+      "source": "048b97bfbef36dec505ba6634be1493e378127dbd086acc3d0391ed326f82464",
+      "log": "verify212-exact.log"
+    }
+  ],
+  "logs": [
+    {
+      "name": "archive-audit212.log",
+      "path": "docs/performance/pr212/verification/archive-audit212.log.gz",
+      "bytes": 1179,
+      "sha256": "0427e09212bf86ebf345b1284d67b05a0919d5545298e8405254f2b0e03f87db",
+      "gzipSha256": "8e3691b470d6119a02b50fd2c0ecdda1fe1a4c577be4a65c2de8992f0f1b0c27"
+    },
+    {
+      "name": "benchmark212-final-v2.log",
+      "path": "docs/performance/pr212/verification/benchmark212-final-v2.log.gz",
+      "bytes": 6446,
+      "sha256": "48eafb16c93788ac5ba027fba74724aa43da2168ccdb17817b60a67c30f90da5",
+      "gzipSha256": "1d462c379a7d7851248cc9b0fcd8aa1c56d68c8bd7f4d871e137f8a8f436712f"
+    },
+    {
+      "name": "benchmark212-final-v3.log",
+      "path": "docs/performance/pr212/verification/benchmark212-final-v3.log.gz",
+      "bytes": 6446,
+      "sha256": "8e14773dd150eda7915ce0a938f4dce510685f788e15ffc588c0fced752d0d16",
+      "gzipSha256": "83da1cbc3e6c9ed854b6a5b9a12665395b8fa413e26c2d476a559eee98fb5cf1"
+    },
+    {
+      "name": "benchmark212-final.log",
+      "path": "docs/performance/pr212/verification/benchmark212-final.log.gz",
+      "bytes": 6446,
+      "sha256": "97aed05b3c28bca18bb81b8dedb8b6cc73e07ffbeb156541defed78e9c2e48e3",
+      "gzipSha256": "d124735406a44a38312f6f5bc2e9fdb3c7b1a2ac776a519814837c3c7abfcbbe"
+    },
+    {
+      "name": "ci-contracts212.log",
+      "path": "docs/performance/pr212/verification/ci-contracts212.log.gz",
+      "bytes": 4324,
+      "sha256": "e56bba28e66c9a6a03ca039f2475da0e2357d02e64818c44f3bd2850549a15d3",
+      "gzipSha256": "df2ef579df979b02410d780e54efc9cdd134d68e8a3c5998ca6cc3d4bcc932d9"
+    },
+    {
+      "name": "diff-check212.log",
+      "path": "docs/performance/pr212/verification/diff-check212.log.gz",
+      "bytes": 1151,
+      "sha256": "97719f9b2f998484eda9d9531a88359844de1d9b8ff77ecb6f01f5d98d9098fd",
+      "gzipSha256": "ff2ee577bdc925748426fd5290922c05f987026681181803a08a3e1a2aa059c0"
+    },
+    {
+      "name": "focused-final.log",
+      "path": "docs/performance/pr212/verification/focused-final.log.gz",
+      "bytes": 293,
+      "sha256": "833666275dff5486ec3bfa382a1f197ac6d9b47f7d938bb79d30175cea3b104b",
+      "gzipSha256": "70324cfc015e7cbf265d6a5fc7d91f1eed6b86b15a03b6c9f7ab95a3b4a9c319"
+    },
+    {
+      "name": "focused-first.log",
+      "path": "docs/performance/pr212/verification/focused-first.log.gz",
+      "bytes": 1524,
+      "sha256": "048f7bebd719dbcbbb4c2579d87c7c0a1867f4d9e7c6b5ee80eaa32f73a94e88",
+      "gzipSha256": "7f0d8c27c556a7648b9afb0547b5d25b6c3d346a68f896a36d74ce99fce5e985"
+    },
+    {
+      "name": "focused-law-final.log",
+      "path": "docs/performance/pr212/verification/focused-law-final.log.gz",
+      "bytes": 293,
+      "sha256": "064cfd153db00a89cf36d7be890ad317f37810f650d53f17db09cd575f2977ec",
+      "gzipSha256": "7efb593ed77ecc77b540eb556824851662b2d22f731089abf1ec42df03c92619"
+    },
+    {
+      "name": "focused-second.log",
+      "path": "docs/performance/pr212/verification/focused-second.log.gz",
+      "bytes": 293,
+      "sha256": "395bcfd7b10d676acc3c66ee6b195b2e2eef7ec4d14c7e2bb80ac7c79d1f8950",
+      "gzipSha256": "927f9a47fc3c61394e8068b90addeff332f7c72f1efec90aca2f480c926931ef"
+    },
+    {
+      "name": "lint-first.log",
+      "path": "docs/performance/pr212/verification/lint-first.log.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e"
+    },
+    {
+      "name": "manifest212-exact.log",
+      "path": "docs/performance/pr212/verification/manifest212-exact.log.gz",
+      "bytes": 93,
+      "sha256": "c9c7c5c4d92c0b3813251d97f6cbeff7c02d206014244ff177c5ed41efad032c",
+      "gzipSha256": "cf934d45b968ba00b126c8a7f1892d270e7f083770bcabf802dc7a7d20406377"
+    },
+    {
+      "name": "pilot212-v2.log",
+      "path": "docs/performance/pr212/verification/pilot212-v2.log.gz",
+      "bytes": 6462,
+      "sha256": "85e9edb2fe0813dc487861c8ca634fd603cecfee8ebaaad194b7c0830f6480ff",
+      "gzipSha256": "8b217ae6f3dd0849d5fd805944da938856b8cedda7efd6db4d6087f7e7a7b510"
+    },
+    {
+      "name": "pilot212-v3.log",
+      "path": "docs/performance/pr212/verification/pilot212-v3.log.gz",
+      "bytes": 6454,
+      "sha256": "5d80a4f361e8a1b2ec6bea1c4105e73f04fc217eb9406b2b5ea72a3eb399ca82",
+      "gzipSha256": "73c350c8d026f70887686c80a6a06166f3db149c7a5baf871bc9caa2cea37746"
+    },
+    {
+      "name": "pilot212.log",
+      "path": "docs/performance/pr212/verification/pilot212.log.gz",
+      "bytes": 256705,
+      "sha256": "f3cc961ac001b88bd8f11e0c39e9f0e98f4d16b5af84f81284ce7696efb67f62",
+      "gzipSha256": "dd0aefcea137c6ed1878c979b81ef72934dcdd8bf1168fb0005078e1cc6379c8"
+    },
+    {
+      "name": "pr212-authority-final.log",
+      "path": "docs/performance/pr212/verification/pr212-authority-final.log.gz",
+      "bytes": 1019,
+      "sha256": "a9a131b238cad85355aad4a661748f4fdccf84e0ad002b779c872c3fdd507895",
+      "gzipSha256": "47cb98df36aab65a5ce18b7f245162d256ef8774e564959834ef2e64a7036d45"
+    },
+    {
+      "name": "pr212-ci-contracts-final.log",
+      "path": "docs/performance/pr212/verification/pr212-ci-contracts-final.log.gz",
+      "bytes": 1181,
+      "sha256": "72bb79c8f85b9621e8e0076abef7d769dcca6218db6d49ad078535d6f3f6db75",
+      "gzipSha256": "77b32fb88b696f1852601bd3f1f032e237c630bc41bfbdd03c4a67829ff2094d"
+    },
+    {
+      "name": "pr212-contracts205-final.log",
+      "path": "docs/performance/pr212/verification/pr212-contracts205-final.log.gz",
+      "bytes": 7825,
+      "sha256": "70638ebdadd5f795efa576d821184c6e33b191f3c89766ea20b7fb65c8037fde",
+      "gzipSha256": "bbef1e42098c0a83908fa7141acaf3aeff5a26c942c52c7e0c91198d5824b3d2"
+    },
+    {
+      "name": "pr212-contracts206-final.log",
+      "path": "docs/performance/pr212/verification/pr212-contracts206-final.log.gz",
+      "bytes": 652,
+      "sha256": "ea76d41ce2f4421722558e645db9af3c53772e5bdf3dd6372a1c2c40c88fb59f",
+      "gzipSha256": "63ea3267c16cef0b9357cfdf758e356c6bd115f91733b217b512bd1bfd163913"
+    },
+    {
+      "name": "pr212-corruption-final.log",
+      "path": "docs/performance/pr212/verification/pr212-corruption-final.log.gz",
+      "bytes": 119,
+      "sha256": "d6c94be2d474b22a4a52428f633233bd1839b848a3673a4da3d234013c3d847b",
+      "gzipSha256": "4ee3ea730b7a66e08b21e00a2f2e5fb8947f7fba926cc78d11c7b91fda932b59"
+    },
+    {
+      "name": "pr212-history203-final.log",
+      "path": "docs/performance/pr212/verification/pr212-history203-final.log.gz",
+      "bytes": 1617,
+      "sha256": "5d20d0d6f8c283436d39b3a9f2a28c8914dd57e277592c833a893e4462e51029",
+      "gzipSha256": "659bd871a03e6240a920d558d883d34f0478bdf1b8e9feae984b9a925c008f66"
+    },
+    {
+      "name": "pr212-history204-final.log",
+      "path": "docs/performance/pr212/verification/pr212-history204-final.log.gz",
+      "bytes": 429,
+      "sha256": "31ae44f0823ca86548802eb702f0c1832191aab32dd3cb19b92497f358536609",
+      "gzipSha256": "f726ea025b5858f0ef71ce1c45ee3b3fe9a2a71d8e3e2e4f6d21790f4c303212"
+    },
+    {
+      "name": "pr212-history205-final.log",
+      "path": "docs/performance/pr212/verification/pr212-history205-final.log.gz",
+      "bytes": 147,
+      "sha256": "3366d4a9cf64098f01ae6601e37f9486aa157aacdbf6baa7561fa4be902dfd81",
+      "gzipSha256": "9101ec6854a0637f881beb574e980627f6b6a1c79eb2015f22a1eedc006ec350"
+    },
+    {
+      "name": "pr212-history206-final.log",
+      "path": "docs/performance/pr212/verification/pr212-history206-final.log.gz",
+      "bytes": 550,
+      "sha256": "cc87ccb822a0bd69a4a117fff514d5d4fdcd1ecb0821f2d9de4d3d49d919d61f",
+      "gzipSha256": "f5b488a7244865cd16df5f9c78246d28ab6af48614c0dd9584a2062b1e073a24"
+    },
+    {
+      "name": "pr212-history207-final.log",
+      "path": "docs/performance/pr212/verification/pr212-history207-final.log.gz",
+      "bytes": 5277,
+      "sha256": "5b75e064515ce2998cdb6e34d963f3b4aee95595c3a73ea510c870eb45aafb7b",
+      "gzipSha256": "41cbcd719727c510937cb82a5010067b4b57a08ddc39f799482f263bb876d422"
+    },
+    {
+      "name": "pr212-history208-final.log",
+      "path": "docs/performance/pr212/verification/pr212-history208-final.log.gz",
+      "bytes": 5343,
+      "sha256": "f62ea9798aefbaf96a040d008f90cb692650faba4caed60961616c83508f7ff6",
+      "gzipSha256": "ede8f11a3b1cc16e818807f4b97983dc31438840c13c2ed3226eda83ea8719e5"
+    },
+    {
+      "name": "pr212-history209-replay-final.log",
+      "path": "docs/performance/pr212/verification/pr212-history209-replay-final.log.gz",
+      "bytes": 2581,
+      "sha256": "b90ecb29899e4060ac34f6aaa0d96f4549ddbbdf61811a56087b3ae678ca46a3",
+      "gzipSha256": "322127bee3f794d7c933654a70a98c0185ba51af096fefc0d33c73fcc15f1f4f"
+    },
+    {
+      "name": "pr212-history210-replay-final.log",
+      "path": "docs/performance/pr212/verification/pr212-history210-replay-final.log.gz",
+      "bytes": 2388,
+      "sha256": "421dbba35f64f1fc6658c02e26c26c05c721289a43cf6842b5453c8da1985aa1",
+      "gzipSha256": "31c795937c248493d662e65fd68d9ab4a39fe90bd6030adf5421f78eded68cde"
+    },
+    {
+      "name": "pr212-history211-final.log",
+      "path": "docs/performance/pr212/verification/pr212-history211-final.log.gz",
+      "bytes": 1054,
+      "sha256": "08b2f4bb78f2dee626b66e9328e756701c0913b2f65702c1e82a373384ecb56b",
+      "gzipSha256": "ad02b6e52b6906b7ff000c6a12af986f6268826fe1d8bb0a354a86615b10b3f9"
+    },
+    {
+      "name": "pr212-information-final.log",
+      "path": "docs/performance/pr212/verification/pr212-information-final.log.gz",
+      "bytes": 2094,
+      "sha256": "66d8a9fd019aea65af2f8cf70b23a405ce8f1e4d638bb9f3bc0c8de313fb3aba",
+      "gzipSha256": "0442b964f0cc1343b2a607f5b7b14679bea1637ff1cc72c892a14f32a81ff31f"
+    },
+    {
+      "name": "pr212-manifest-final.log",
+      "path": "docs/performance/pr212/verification/pr212-manifest-final.log.gz",
+      "bytes": 93,
+      "sha256": "c9c7c5c4d92c0b3813251d97f6cbeff7c02d206014244ff177c5ed41efad032c",
+      "gzipSha256": "cf934d45b968ba00b126c8a7f1892d270e7f083770bcabf802dc7a7d20406377"
+    },
+    {
+      "name": "pr212-realism-final.log",
+      "path": "docs/performance/pr212/verification/pr212-realism-final.log.gz",
+      "bytes": 215,
+      "sha256": "f01405963aebb6f72da679a174a84fc25b7d00d4a09582a85e2d52f98cab3b6b",
+      "gzipSha256": "52f165b6b5927ed781635b89d147bf73ee716deb108fa626522e252ff2d9d68a"
+    },
+    {
+      "name": "pr212-workflow-final.log",
+      "path": "docs/performance/pr212/verification/pr212-workflow-final.log.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e"
+    },
+    {
+      "name": "realism-generate.log",
+      "path": "docs/performance/pr212/verification/realism-generate.log.gz",
+      "bytes": 215,
+      "sha256": "f01405963aebb6f72da679a174a84fc25b7d00d4a09582a85e2d52f98cab3b6b",
+      "gzipSha256": "52f165b6b5927ed781635b89d147bf73ee716deb108fa626522e252ff2d9d68a"
+    },
+    {
+      "name": "realism212-exact.log",
+      "path": "docs/performance/pr212/verification/realism212-exact.log.gz",
+      "bytes": 215,
+      "sha256": "f01405963aebb6f72da679a174a84fc25b7d00d4a09582a85e2d52f98cab3b6b",
+      "gzipSha256": "52f165b6b5927ed781635b89d147bf73ee716deb108fa626522e252ff2d9d68a"
+    },
+    {
+      "name": "replay212-exact.log",
+      "path": "docs/performance/pr212/verification/replay212-exact.log.gz",
+      "bytes": 6488,
+      "sha256": "29a95a3593df72cd9967ce2e26c988c6def3704b230879cf7a72a6515ff992a1",
+      "gzipSha256": "16cf9299777f3f97bb30bea3a88bbd4473c36efd1aba71fcbd2815742dba923e"
+    },
+    {
+      "name": "replay212.log",
+      "path": "docs/performance/pr212/verification/replay212.log.gz",
+      "bytes": 6497,
+      "sha256": "a2775c81b76736bb1cd9e5f3352bbff3219494b33847f2d1543d931209f69092",
+      "gzipSha256": "921327ccf74f6786f833979740e00b05da35569158cfad5addce8f137bf4a3f0"
+    },
+    {
+      "name": "types-first.log",
+      "path": "docs/performance/pr212/verification/types-first.log.gz",
+      "bytes": 2220,
+      "sha256": "8bb865dc0e61b2843745115dfaedfb8a9a5e98c7b5e61c76aa6260e592f7da72",
+      "gzipSha256": "28333cb0b2f49e564ccb55ba33ad414c4d7b403ac58f7d08fc2a7d4a26425e92"
+    },
+    {
+      "name": "types-second.log",
+      "path": "docs/performance/pr212/verification/types-second.log.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e"
+    },
+    {
+      "name": "verify212-exact.log",
+      "path": "docs/performance/pr212/verification/verify212-exact.log.gz",
+      "bytes": 7161,
+      "sha256": "f8881203effbf7707c68b3c066391e6cd07ade414d1755209d514f8599e57363",
+      "gzipSha256": "e282ffe12add6720767078ccf23af2febc76942f1543a674ff1302156ed37fc0"
+    },
+    {
+      "name": "verify212-final.log",
+      "path": "docs/performance/pr212/verification/verify212-final.log.gz",
+      "bytes": 2648,
+      "sha256": "9fbac3989a0647fc6f168c41fd1cf8fd5a6d341e8bf016bb8f5f04a363caf7ae",
+      "gzipSha256": "21d104596a0535aaad45870b83be966fd596d9063f94f4319b573038e98f3e06"
+    },
+    {
+      "name": "workflow-check212.log",
+      "path": "docs/performance/pr212/verification/workflow-check212.log.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e"
+    },
+    {
+      "name": "workflow-generate212.log",
+      "path": "docs/performance/pr212/verification/workflow-generate212.log.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e"
+    },
+    {
+      "name": "workflow212-exact.log",
+      "path": "docs/performance/pr212/verification/workflow212-exact.log.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e"
+    }
+  ]
+}
