@@ -5,7 +5,7 @@ import { mkdtempSync, mkdirSync, rmSync, symlinkSync } from 'node:fs';
 import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
-import { checkPr211Source } from '../pr211Evidence.mjs';
+import { checkPr212Source } from '../pr212Evidence.mjs';
 import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr207SourceGuard.mjs';
 
@@ -13,7 +13,7 @@ import { BASE } from '../pr207SourceGuard.mjs';
  * Execute the ORIGINAL npm command/assertions in merged PR206, where that contract
  * still holds. Current PR207 runtime/receipt and disabled-path checks stay separate. */
 export function pr198Context() {
-  checkPr211Source();
+  checkPr212Source();
   mkdirSync('.benchmark-artifacts', { recursive: true });
   const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr198-check-'));
   const safe = () =>

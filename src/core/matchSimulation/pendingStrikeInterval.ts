@@ -1,3 +1,11 @@
+import { compareSharedContactEvents, type sharedContactEventSchema } from './sharedContactTimeline';
+import type { z } from 'zod';
+import { resolveDefensiveChallenge, type ChallengeDiagnostic } from './defensiveChallenges';
+import { executeFootContact } from './footContact';
+import {
+  retainContinuousBodyContacts,
+  supportContinuousBodyContacts,
+} from './ballContactResolution';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import {
   findPitchBoundaryCrossing,
@@ -28,6 +36,7 @@ type Handlers = {
     previous: { x: number; y: number; z: number },
     seconds: number,
   ) => TacticalMatchState;
+  challenge?: (state: TacticalMatchState, diagnostic: ChallengeDiagnostic) => TacticalMatchState;
   control: (state: TacticalMatchState, actorId: string) => TacticalMatchState;
   body: (state: TacticalMatchState, actorId: string) => TacticalMatchState;
 };
@@ -56,7 +65,8 @@ export const advancePendingStrikeInterval = (
   dt: number,
   handlers: Handlers,
 ): TacticalMatchState => {
-  const pending = moved.pendingStrike!;
+  const pending = moved.pendingStrike;
+  const shared = moved.experimentalContactTimeline === 'standing-contact-dev-v1';
   const start = moved.time - dt,
     end = moved.time;
   const before = new Map(input.players.map((p) => [p.id, p]));
@@ -80,7 +90,20 @@ export const advancePendingStrikeInterval = (
   let state = { ...moved, time: start },
     elapsed = 0,
     evaluations = 0;
-  const excluded = new Set<string>([pending.actorId]);
+  const excluded = new Set<string>(pending ? [pending.actorId] : []);
+  const resolveChallenge = (
+    kind: 'ball' | 'body' | 'miss' | 'interrupted' | 'unresolved',
+    reason: string,
+    contact?: ReturnType<typeof executeFootContact>,
+  ) => {
+    const resolution = resolveDefensiveChallenge(state, {
+      kind,
+      reason,
+      ...(contact ? { contact } : {}),
+    });
+    state = resolution.state;
+    if (resolution.diagnostic) state = handlers.challenge?.(state, resolution.diagnostic) ?? state;
+  };
   for (let eventCount = 0; eventCount < 4 && elapsed < dt - 1e-12; eventCount++) {
     const seconds = dt - elapsed;
     const ball = physicalStrikeBall(state);
@@ -128,11 +151,21 @@ export const advancePendingStrikeInterval = (
           radius: isMatchGoalkeeper(p) ? GOALKEEPER_PHYSICS.passiveBodyRadiusMetres : 0.72,
         };
       });
+    if (shared) {
+      const active = retainContinuousBodyContacts(
+        ball.position,
+        candidates,
+        state.ball.continuousBodyContacts,
+      );
+      state = { ...state, ball: { ...state.ball, continuousBodyContacts: active } };
+    }
     let body = findFirstBallContact({
       previous: ball.position,
       next: integrated.position,
       attackingTeam: { team: state.possessionTeam, endsSwitched: state.endsSwitched },
-      candidates,
+      candidates: shared
+        ? candidates.filter((c) => !state.ball.continuousBodyContacts?.includes(c.playerId))
+        : candidates,
     });
     if (
       body &&
@@ -142,15 +175,42 @@ export const advancePendingStrikeInterval = (
       state.time - state.lastBallContact.at < 0.15
     )
       body = undefined;
-    type Event = {
-      at: number;
-      rank: number;
-      key: string;
-      kind: 'boundary' | 'body' | 'foot' | 'strike' | 'uncertain' | 'expiry';
-      playerId?: string;
+    type Event = z.infer<typeof sharedContactEventSchema> & {
       hit?: ReturnType<typeof findStrikeIntervalContact>;
     };
     const events: Event[] = [];
+    const challenge = shared ? state.defensiveChallenge : undefined;
+    const attempt = challenge?.physicalAttempt;
+    if (attempt && attempt.expiresAt <= end)
+      events.push({
+        at: Math.max(0, attempt.expiresAt - state.time),
+        rank: 4,
+        key: challenge!.id,
+        kind: 'challenge_expiry',
+      });
+    if (attempt && challenge) {
+      // A bounded swept torso contact witness, independent of ball reach. Initial
+      // overlap is uncertainty, not a newly observed opponent impact.
+      const p = finalPlayers.find((p) => p.id === challenge.actorId);
+      const q = finalPlayers.find((p) => p.id === challenge.opponentId);
+      if (p && q) {
+        const a = bodyAt(before.get(p.id) ?? p, p, elapsed / dt);
+        const b = bodyAt(before.get(q.id) ?? q, q, elapsed / dt);
+        const x = a.position.x - b.position.x,
+          y = a.position.y - b.position.y;
+        const vx = (p.position.x - a.position.x - (q.position.x - b.position.x)) / seconds;
+        const vy = (p.position.y - a.position.y - (q.position.y - b.position.y)) / seconds;
+        const c = x * x + y * y - 0.68 ** 2,
+          v = vx * vx + vy * vy,
+          dot = x * vx + y * vy;
+        const discriminant = dot * dot - v * c;
+        if (c >= 0 && v > 1e-12 && dot < 0 && discriminant >= 0) {
+          const at = (-dot - Math.sqrt(discriminant)) / v;
+          if (at >= 0 && at <= seconds && state.time + at <= attempt.expiresAt)
+            events.push({ at, rank: 1, key: challenge.id, kind: 'challenge_body', playerId: p.id });
+        }
+      }
+    }
     if (state.pendingStrike && state.pendingStrike.expiresAt <= end)
       events.push({
         at: Math.max(0, state.pendingStrike.expiresAt - state.time),
@@ -183,6 +243,7 @@ export const advancePendingStrikeInterval = (
         continue;
       const a = before.get(p.id) ?? p;
       const own = p.id === state.pendingStrike?.actorId ? state.pendingStrike : undefined;
+      const defending = p.id === challenge?.actorId ? attempt : undefined;
       const travel = Math.hypot(p.position.x - a.position.x, p.position.y - a.position.y);
       // Broad phase only; the inherited reach is never a collision envelope.
       if (
@@ -190,12 +251,31 @@ export const advancePendingStrikeInterval = (
         1.5 + travel + Math.hypot(ball.velocity.x, ball.velocity.y, ball.velocity.z) * seconds
       )
         continue;
-      for (const foot of own ? [own.plan.foot] : (['left', 'right'] as const)) {
+      const prepared = own ?? defending;
+      for (const foot of prepared ? [prepared.plan.foot] : (['left', 'right'] as const)) {
+        const footAt = (t: number) =>
+          canonicalStrikeFoot(prepared, a, p, foot, start, dt, elapsed + t);
+        if (
+          shared &&
+          state.continuousFootContacts?.some((c) => c.actorId === p.id && c.foot === foot)
+        ) {
+          const f = footAt(0).position;
+          if (
+            Math.hypot(f.x - ball.position.x, f.y - ball.position.y, f.z - ball.position.z) <= 0.155
+          )
+            continue;
+          state = {
+            ...state,
+            continuousFootContacts: state.continuousFootContacts.filter(
+              (c) => c.actorId !== p.id || c.foot !== foot,
+            ),
+          };
+        }
         if (!own && start + elapsed < motorContactReadyAt(state, p.id) - 1e-9) continue;
         const hit = findStrikeIntervalContact(
           state,
-          own ? Math.min(seconds, Math.max(0, own.expiresAt - state.time)) : seconds,
-          (t) => canonicalStrikeFoot(own, a, p, foot, start, dt, elapsed + t),
+          prepared ? Math.min(seconds, Math.max(0, prepared.expiresAt - state.time)) : seconds,
+          footAt,
         );
         evaluations += hit.evaluations;
         if (hit.outcome === 'clear') continue;
@@ -204,22 +284,33 @@ export const advancePendingStrikeInterval = (
           at: hit.local,
           rank: hit.outcome === 'unresolved' ? 1 : own ? 3 : 2,
           key: `${p.id}:${foot}`,
-          kind: hit.outcome === 'unresolved' ? 'uncertain' : own ? 'strike' : 'foot',
+          kind:
+            hit.outcome === 'unresolved'
+              ? 'uncertain'
+              : own
+                ? 'strike'
+                : defending
+                  ? 'challenge'
+                  : 'foot',
           playerId: p.id,
           hit,
         });
       }
     }
     // Exact numeric time first; only events in the same 1ns bucket use legal/body/foot/strike and stable identity.
-    events.sort(
-      (a, b) =>
-        Math.round(a.at * 1e9) - Math.round(b.at * 1e9) ||
-        a.rank - b.rank ||
-        (a.key < b.key ? -1 : a.key > b.key ? 1 : 0),
-    );
+    events.sort(compareSharedContactEvents);
     const event = events[0];
     if (!event) {
       state = withPhysicalStrikeBall(state, integrated);
+      if (shared && state.ball.continuousBodyContacts?.length) {
+        const supported = supportContinuousBodyContacts(
+          integrated.position,
+          integrated.velocity,
+          candidates.filter((c) => state.ball.continuousBodyContacts?.includes(c.playerId!)),
+          seconds,
+        );
+        state = withPhysicalStrikeBall(state, { ...integrated, ...supported });
+      }
       elapsed = dt;
       break;
     }
@@ -234,6 +325,30 @@ export const advancePendingStrikeInterval = (
       },
       incoming,
     );
+    if (event.kind === 'challenge_expiry') {
+      resolveChallenge('miss', 'swing_completed_without_contact');
+      continue;
+    }
+    if (event.kind === 'challenge_body') {
+      state = finishPendingStrike(state, 'interrupted', 'active_body_contact', state.time, {
+        evaluations,
+        firstEvent: event.key,
+      });
+      resolveChallenge('body', 'swept_torso_contact');
+      if (state.restart || state.scenario !== 'open_play' || state.postGoal)
+        return restoreClock(state);
+      // The standing-body impulse model is not established. Keep a conservative
+      // diagnostic continuation rather than inventing a knockdown or displacement.
+      if (state.lastStrikeResolution)
+        state = {
+          ...state,
+          lastStrikeResolution: {
+            ...state.lastStrikeResolution,
+            continuationUnresolvedReason: 'body_impulse_not_supported',
+          },
+        };
+      return restoreClock(state);
+    }
     if (event.kind === 'expiry') {
       state = finishPendingStrike(state, 'miss', 'swing_completed_without_contact', state.time, {
         evaluations,
@@ -241,10 +356,15 @@ export const advancePendingStrikeInterval = (
       continue;
     }
     if (event.kind === 'boundary') {
+      if (attempt) resolveChallenge('interrupted', 'boundary');
       state = finishPendingStrike(state, 'interrupted', 'boundary', state.time, {
         evaluations,
         firstEvent: crossing!.boundary,
       });
+      if (shared)
+        return restoreClock(
+          handlers.boundary(state, { ...crossing!, segmentFraction: 1 }, ball.position, event.at),
+        );
       // Preserve the raw unstruck endpoint for existing incidental-goal/boundary laws.
       const atEnd = withPhysicalStrikeBall({ ...state, time: end }, integrated);
       return restoreClock(handlers.boundary(atEnd, crossing!, ball.position, seconds));
@@ -259,6 +379,8 @@ export const advancePendingStrikeInterval = (
       );
       // No speculative impulse. Re-run this same interval with the uncertain actor excluded;
       // real other bodies and boundaries still have authority over unstruck continuation.
+      if (attempt && event.playerId === challenge?.actorId)
+        resolveChallenge('unresolved', event.hit?.reason ?? 'uncertain_contact');
       excluded.add(event.playerId!);
       continue;
     }
@@ -295,6 +417,66 @@ export const advancePendingStrikeInterval = (
       continue;
     }
     const actor = state.players.find((p) => p.id === event.playerId)!;
+    if (event.kind === 'challenge') {
+      const hit = event.hit!;
+      const contact =
+        hit.foot && hit.normal
+          ? executePendingContact(state, actor, hit.foot, hit.normal, attempt!)
+          : undefined;
+      if (!contact?.available) {
+        resolveChallenge('unresolved', contact?.unavailableReason ?? 'current_capability');
+        excluded.add(actor.id);
+        continue;
+      }
+      // The same actual-contact law/lineage observer as passive deflection.
+      // It can end play; it never awards this foot secure possession.
+      state = handlers.body(state, actor.id);
+      if (state.restart || state.scenario !== 'open_play' || state.postGoal) {
+        resolveChallenge('interrupted', 'law_interruption');
+        return restoreClock(state);
+      }
+      state = finishPendingStrike(state, 'interrupted', 'active_challenge', state.time, {
+        evaluations,
+        firstEvent: event.key,
+        contact,
+      });
+      state = {
+        ...state,
+        ballEpisode: (state.ballEpisode ?? 0) + 1,
+        ball: {
+          x: state.ball.x,
+          y: state.ball.y,
+          height: state.ball.height ?? 0.11,
+          velocity: contact.outgoingVelocity,
+          spin: contact.outgoingSpin,
+          airborne: state.ball.airborne ?? false,
+          bounceCount: state.ball.bounceCount ?? 0,
+          looseSince: state.time,
+          lastTouchPlayerId: actor.id,
+        },
+        continuousFootContacts: [
+          ...(state.continuousFootContacts ?? []),
+          { actorId: actor.id, foot: contact.foot },
+        ].slice(-44),
+        lastGroundContact: {
+          actorId: actor.id,
+          at: state.time,
+          region: contact.foot === 'left' ? 'left_foot' : 'right_foot',
+          point: { x: state.ball.x, y: state.ball.y },
+          incomingVelocity: contact.incomingVelocity,
+          outgoingVelocity: contact.outgoingVelocity,
+          quality: contact.quality,
+          retained: false,
+          executed: true,
+          physicalCount: 1,
+          surfaceContact: contact,
+        },
+      };
+      delete state.ballAcquisition;
+      resolveChallenge('ball', 'foot_ball_intersection', contact);
+      excluded.add(actor.id);
+      continue;
+    }
     if (event.kind === 'strike') {
       const hit = event.hit!;
       const contact =
@@ -380,6 +562,18 @@ export const advancePendingStrikeInterval = (
       );
       if (event.kind === 'foot') {
         state = handlers.control(state, actor.id);
+        if (
+          shared &&
+          state.lastGroundContact?.at === state.time &&
+          state.lastGroundContact.surfaceContact?.available
+        )
+          state = {
+            ...state,
+            continuousFootContacts: [
+              ...(state.continuousFootContacts ?? []),
+              { actorId: actor.id, foot: state.lastGroundContact.surfaceContact.foot },
+            ].slice(-44),
+          };
         const changedActor = state.players.find((p) => p.id === actor.id);
         if (
           changedActor &&
@@ -391,9 +585,19 @@ export const advancePendingStrikeInterval = (
           state.lastGroundContact?.actorId === actor.id && state.lastGroundContact.at === state.time
             ? state.lastGroundContact.surfaceContact
             : undefined;
-        if (state.lastStrikeResolution?.id === pending.id && contact)
+        if (pending && state.lastStrikeResolution?.id === pending.id && contact)
           state = { ...state, lastStrikeResolution: { ...state.lastStrikeResolution, contact } };
       } else {
+        if (shared)
+          state = {
+            ...state,
+            ball: {
+              ...state.ball,
+              continuousBodyContacts: [
+                ...new Set([...(state.ball.continuousBodyContacts ?? []), actor.id]),
+              ],
+            },
+          };
         const rebound = resolveBallRebound(
           body!.kind,
           incoming.velocity,
@@ -445,7 +649,7 @@ export const advancePendingStrikeInterval = (
   if (elapsed < dt - 1e-12) {
     // Event budget exhausted: preserve uncertain evidence, never fabricate a clean miss.
     state = finishPendingStrike(state, 'unresolved', 'event_budget', state.time, { evaluations });
-    if (state.lastStrikeResolution?.id === pending.id)
+    if (pending && state.lastStrikeResolution?.id === pending.id)
       state = {
         ...state,
         lastStrikeResolution: {
@@ -465,7 +669,10 @@ export const advancePendingStrikeInterval = (
       ...state,
       pendingStrike: {
         ...state.pendingStrike,
-        phase: end - pending.selectedAt >= pending.path.onset ? 'swinging' : 'preparing',
+        phase:
+          end - state.pendingStrike.selectedAt >= state.pendingStrike.path.onset
+            ? 'swinging'
+            : 'preparing',
       },
     };
   return state;

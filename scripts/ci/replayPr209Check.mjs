@@ -8,9 +8,9 @@ import console from 'node:console';
 import { pathToFileURL } from 'node:url';
 import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr210SourceGuard.mjs';
-import { checkPr211Source } from '../pr211Evidence.mjs';
+import { checkPr212Source } from '../pr212Evidence.mjs';
 export function pr209Context() {
-  checkPr211Source();
+  checkPr212Source();
   mkdirSync('.benchmark-artifacts', { recursive: true });
   const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr209-check-'));
   const safe = () => assert.ok(resolve(scratch).startsWith(resolve('.benchmark-artifacts') + sep));

@@ -166,7 +166,7 @@ export const reconcilePendingStrike = (state: TacticalMatchState): TacticalMatch
       ? 'actor_ineligible'
       : state.time > p.expiresAt + 1e-9
         ? 'expired_snapshot'
-        : state.defensiveChallenge
+        : state.defensiveChallenge && !state.defensiveChallenge.physicalAttempt
           ? 'challenge_timing_not_supported'
           : terminal || state.restart || state.scenario !== 'open_play' || state.postGoal
             ? 'terminal_or_restart'
@@ -218,7 +218,7 @@ const footAnchor = (actor: MatchPlayerState, foot: 'left' | 'right'): V => ({
 
 /** Body/pose anchors come from this actual canonical interval, never a whole-swing extrapolation. */
 export const canonicalStrikeFoot = (
-  pending: PendingStrike | undefined,
+  pending: Pick<PendingStrike, 'path' | 'plan' | 'selectedAt'> | undefined,
   before: MatchPlayerState,
   after: MatchPlayerState,
   foot: 'left' | 'right',
@@ -309,8 +309,9 @@ export const executePendingContact = (
   actor: MatchPlayerState,
   foot: ReturnType<typeof canonicalStrikeFoot>,
   normal: V,
+  prepared?: Pick<PendingStrike, 'plan' | 'selectedAt'>,
 ) => {
-  const pending = state.pendingStrike!;
+  const pending = prepared ?? state.pendingStrike!;
   const preparationSeconds =
     pending.plan.preparationSeconds + Math.max(0, state.time - pending.selectedAt);
   const capability = activeStrikeCapability(

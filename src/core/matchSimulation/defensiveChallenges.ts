@@ -1,3 +1,10 @@
+import { physicalChallengeAttemptSchema } from './sharedContactTimeline';
+import {
+  prepareTemporalStrike,
+  temporalFootPath,
+  ZERO_TEMPORAL_ERROR,
+  TEMPORAL_STRIKE,
+} from './temporalFootStrike';
 import { attacksRight, type TeamOrientation } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
@@ -21,7 +28,7 @@ import { derivePressingOpportunity } from './tacticalPreferences';
 import { deriveMovementCapability } from './locomotion';
 import { boundedPolicySchema } from './boundedIntelligenceState';
 import { clearanceIntentionSchema } from './strategicClearance';
-import { executeFootContact } from './footContact';
+import { footContactExecutionSchema, executeFootContact } from './footContact';
 const relativeDefensivePolicies = new Set<string>(boundedPolicySchema.options);
 const relativeDefence = (s: TacticalMatchState) =>
   relativeDefensivePolicies.has(s.decisionPolicy ?? '') &&
@@ -30,6 +37,7 @@ const relativeDefence = (s: TacticalMatchState) =>
 export const defensiveTechniqueSchema = z.enum(['standing', 'committed', 'slide', 'tactical']);
 export type DefensiveTechnique = z.infer<typeof defensiveTechniqueSchema>;
 export const defensiveChallengeSchema = z.object({
+  physicalAttempt: physicalChallengeAttemptSchema.optional(),
   clearance: clearanceIntentionSchema.optional(),
   id: z.string(),
   actorId: z.string(),
@@ -54,7 +62,14 @@ export const defensiveEpisodeSchema = z.object({
   position: physicalPointSchema,
 });
 export type DefensiveEpisode = z.infer<typeof defensiveEpisodeSchema>;
+export const challengePhysicalEvidenceSchema = z.object({
+  kind: z.enum(['ball', 'body', 'miss', 'interrupted', 'unresolved']),
+  reason: z.string(),
+  contact: footContactExecutionSchema.optional(),
+});
+export type ChallengePhysicalEvidence = z.infer<typeof challengePhysicalEvidenceSchema>;
 export const challengeDiagnosticSchema = z.object({
+  physical: challengePhysicalEvidenceSchema.optional(),
   clearance: clearanceIntentionSchema.optional(),
   id: z.string(),
   at: z.number().nonnegative(),
@@ -814,6 +829,7 @@ export const beginDefensiveChallenge = (
   source: ActionSource,
 ): TacticalMatchState => {
   if (action.type !== 'challenge' || state.defensiveChallenge) return state;
+  if (state.experimentalContactTimeline && state.ball.heldByKeeperId) return state;
   const c = deriveDefensiveContext(state, action.actorId, action.opponentId);
   if (!c || c.opponentDistance > 4.5 || state.ball.ownerId !== c.opponent.id) return state;
   if (isDefensiveEpisodeLocked(state, action.actorId, action.opponentId)) return state;
@@ -843,6 +859,34 @@ export const beginDefensiveChallenge = (
     expiresAt: state.time + (action.technique === 'standing' ? 0.55 : 1.2),
     target: { ...state.ball },
   };
+  if (
+    state.experimentalContactTimeline === 'standing-contact-dev-v1' &&
+    action.technique === 'standing' &&
+    !action.clearance &&
+    !isMatchGoalkeeper(c.actor)
+  ) {
+    const dx = state.ball.x - c.actor.position.x,
+      dy = state.ball.y - c.actor.position.y;
+    const d = Math.max(0.01, Math.hypot(dx, dy));
+    const plan = prepareTemporalStrike(state, c.actor, {
+      family: 'pass',
+      surface: 'inside',
+      target: { x: state.ball.x, y: state.ball.y },
+      nominalVelocity: { x: (dx / d) * 3, y: (dy / d) * 3, z: 0 },
+      plannedBallPoint: {
+        x: state.ball.x,
+        y: state.ball.y,
+        z: Math.max(0.11, state.ball.height ?? 0.11),
+      },
+    });
+    challenge.physicalAttempt = {
+      version: 'standing-contact-dev-v1',
+      selectedAt: state.time,
+      expiresAt: state.time + TEMPORAL_STRIKE.windowSeconds,
+      plan,
+      path: temporalFootPath(plan, ZERO_TEMPORAL_ERROR),
+    };
+  }
   let next: TacticalMatchState = {
     ...state,
     defensiveChallenge: challenge,
@@ -1050,11 +1094,15 @@ export const challengeResolutionSchema = z.object({
 });
 export type ChallengeResolution = z.infer<typeof challengeResolutionSchema>;
 /** Resolves a physical attempt once. The caller applies possession/loose ball via the existing lifecycle. */
-export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeResolution => {
+export const resolveDefensiveChallenge = (
+  state: TacticalMatchState,
+  physical?: ChallengePhysicalEvidence,
+): ChallengeResolution => {
   if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
     return { state };
   const intent = state.defensiveChallenge;
   if (!intent) return { state };
+  if (intent.physicalAttempt && !physical) return { state };
   const c = deriveDefensiveContext(state, intent.actorId, intent.opponentId);
   if (!c) {
     const actor = state.players.find((p) => p.id === intent.actorId);
@@ -1104,7 +1152,7 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
     c.opponentDistance <= (intent.technique === 'slide' ? 1.75 : 1.35) && aligned;
   const access = deriveBallContactAccess(state, c.actor, c.opponent, reach);
   const ballReachable = access.ballReachable && aligned;
-  if (elapsed < minimumTime || (!opponentContact && !ballReachable)) {
+  if (!physical && (elapsed < minimumTime || (!opponentContact && !ballReachable))) {
     if (state.time < intent.expiresAt) return { state };
   }
   const rng = RandomGenerator.fromSeed(intent.id);
@@ -1152,7 +1200,7 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
     c.relativeSpeed <= 3.5 &&
     distance(state.ball, c.opponent.position) > 0.65 &&
     !access.bodyOccludes;
-  const ballFirst =
+  let ballFirst =
     ballReachable &&
     originalPossession &&
     !access.bodyOccludes &&
@@ -1242,7 +1290,15 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
       : undefined;
   if (intent.clearance && clearance?.available) outcome = 'loose_ball';
   else if (clearing && ballFirst && !clearance?.available && outcome !== 'foul') outcome = 'missed';
+  if (physical) {
+    ballFirst = physical.kind === 'ball';
+    opponentContact = physical.kind === 'body';
+    // Physical contact establishes a deflection, never secure control. A missed
+    // standing poke is not a foul. Existing law consumers assess real body contact.
+    outcome = ballFirst ? 'loose_ball' : opponentContact && impedingContact ? 'foul' : 'missed';
+  }
   const diagnostic: ChallengeDiagnostic = {
+    ...(physical ? { physical } : {}),
     ...(intent.clearance ? { clearance: intent.clearance } : {}),
     id: intent.id,
     at: state.time,
@@ -1351,8 +1407,8 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
   return {
     state: next,
     diagnostic,
-    ...(clearance?.available ? { physicalClearance: true } : {}),
-    ...(outcome === 'loose_ball'
+    ...(clearance?.available || physical ? { physicalClearance: true } : {}),
+    ...(outcome === 'loose_ball' && !physical
       ? { looseVelocity: { x: (rng.float() - 0.5) * 5, y: (rng.float() - 0.5) * 5 } }
       : {}),
   };

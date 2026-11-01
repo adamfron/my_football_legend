@@ -274,6 +274,10 @@ export const withIntegrationProfile = (
   delete (next as TacticalMatchState).ballEnvironment;
   delete (next as TacticalMatchState).experimentalKickExecution;
   delete (next as TacticalMatchState).lastKickExecution;
+  delete (next as TacticalMatchState).experimentalContactTimeline;
+  delete (next as TacticalMatchState).continuousFootContacts;
+  if ((next as TacticalMatchState).defensiveChallenge?.physicalAttempt)
+    delete (next as TacticalMatchState).defensiveChallenge;
   delete (next as TacticalMatchState).experimentalPendingStrike;
   delete (next as TacticalMatchState).pendingStrike;
   delete (next as TacticalMatchState).lastStrikeResolution;
@@ -316,6 +320,8 @@ export const integrationStateErrors = (state: TacticalMatchState) => {
     return ['Ball environment is not declared by a historical integration profile'];
   if (state.experimentalKickExecution)
     return ['Kick execution is not declared by a historical integration profile'];
+  if (state.experimentalContactTimeline)
+    return ['Shared contacts are not declared by a historical integration profile'];
   if (state.experimentalPendingStrike || state.pendingStrike)
     return ['Pending strike is not declared by a historical integration profile'];
   const expected = resolveIntegrationProfile(

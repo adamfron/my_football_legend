@@ -2473,9 +2473,15 @@ const stepTacticalMatchCore = (
         y: state.ball.y + velocity.y * dt,
         velocity: { x: velocity.x * 0.94, y: velocity.y * 0.94 },
       };
-    } else if (state.pendingStrike) {
+    } else if (
+      state.pendingStrike ||
+      (state.experimentalContactTimeline === 'standing-contact-dev-v1' &&
+        state.defensiveChallenge?.physicalAttempt)
+    ) {
       state = advancePendingStrikeInterval(input, state, dt, {
         boundary: applyBoundaryRestart,
+        challenge: (contact, diagnostic) =>
+          diagnostic.outcome === 'foul' ? applyChallengeInfringement(contact, diagnostic) : contact,
         control: (contact, actorId) =>
           changePossession(
             contact,
@@ -3573,7 +3579,10 @@ const stepCanonicalMatch = (
 ): TacticalMatchState => {
   // A batched caller still gives a pending strike ordinary bounded canonical intervals.
   // Re-enter this SAME executor so laws, bodies and observers participate in every interval.
-  if (original.pendingStrike && rawDelta > FIXED_MATCH_DT + 1e-12) {
+  if (
+    (original.pendingStrike || original.defensiveChallenge?.physicalAttempt) &&
+    rawDelta > FIXED_MATCH_DT + 1e-12
+  ) {
     const duration = Math.min(0.25, rawDelta);
     const count = Math.ceil(duration / FIXED_MATCH_DT);
     let state = original;

@@ -1,6 +1,6 @@
 # MFL — roadmapa kompletnej gry
 
-Stan audytu: PR211, baza `0f817849e4f76aad9f72cb99b066895822ae9d42` z PR210. To plan produktu, nie rozszerzenie implementacji fizyki PR211 ani harmonogram numerów PR. MFL jest narracyjną karierą piłkarza w przeglądarce. Podstawowa wersja pozostaje lokalna, bez kont, backendu, zewnętrznych API i generatywnej AI w rozgrywce.
+Stan audytu finansów: PR212, baza `a0b3396d2d0f2e81f68d2dbc65c6aedf92c8e7ae` z PR211. Pozostałe strumienie zachowują audyt PR211. To plan produktu, nie rozszerzenie implementacji fizyki PR211 ani harmonogram numerów PR. MFL jest narracyjną karierą piłkarza w przeglądarce. Podstawowa wersja pozostaje lokalna, bez kont, backendu, zewnętrznych API i generatywnej AI w rozgrywce.
 
 Właściciel ukończył ręcznie 25 sezonów i potwierdził przyjemność z obecnej kariery. [Backlog wydania](RELEASE_READINESS_BACKLOG.md) zachowuje jego konkretne uwagi oraz rozróżnia relację użytkownika od odtworzonego testu. Pojedyncza kariera nie jest kalibracją populacji. Pełny playthrough jest właściwą bramką zmian świata/kariery, ale nie obowiązkowym dodatkiem do każdego eksperymentu kontaktu stopy.
 
@@ -8,7 +8,7 @@ Właściciel ukończył ręcznie 25 sezonów i potwierdził przyjemność z obec
 
 | Strumień | Stan obecny | Znaczenie dla MFL 1.0 |
 | --- | --- | --- |
-| A. Ekonomia | wspólne wyceny, kontrakty, pojemność budżetowa i rynek; uproszczone przepływy | spójność zobowiązań konieczna; głębsze finanse pożądane |
+| A. Ekonomia | wspólne kontrakty/budżety klubów; osobista księga pensji i decyzji | proste możliwości klubów; znaczące finanse osobiste i styl życia jako osobny etap kariery |
 | B. Świat i rozgrywki | polski świat, akademie, cztery poziomy zawodowe, terminarze i awanse | stabilna piramida konieczna; wiele krajów i reprezentacje pożądane, szeroki świat później |
 | C. Pochodzenie i akademia | kreator PL, start Vistula Nova, wspólna generacja kariery | wybór startu pożądany; szeroka kwalifikacja międzynarodowa wraz z reprezentacjami |
 | D. Pokolenia i rozwój | kohorty, graduacja, emerytury, projekcja wieku, rynek i rozwój | stabilność wielopokoleniowa konieczna |
@@ -24,15 +24,28 @@ Prace produktowe mogą postępować obok badań silnika. Nie trzeba zamknąć ws
 
 ## A. Ekonomia kariery i finanse
 
-**Istnieje:** [playerEconomy.ts](../src/core/playerEconomy.ts) wyprowadza płace, wartość i opłaty z jakości, wieku, reputacji, roli, ligi i kontraktu. [contracts.ts](../src/core/contracts.ts) obsługuje renegocjacje, a [professionalClubs.ts](../src/core/professionalClubs.ts) oferty protagonisty. [npcTransferEconomics.ts](../src/core/npcTransferEconomics.ts) wyprowadza sezonowy budżet transferowy, miesięczny budżet płac i istniejące zobowiązania; [npcTransferMarket.ts](../src/core/npcTransferMarket.ts) wydaje je na rekrutację. Dowody: `playerEconomy.test.ts`, `npcTransferMarket.test.ts`, `scripts/economyAudit.test.ts`. To sezonowa projekcja możliwości, nie pełne konto bankowe klubu.
+### A1. Możliwości finansowe klubu — celowo proste
 
-**Brakuje lub wymaga rozwoju:** trwały bilans przychodów/wydatków, wiarygodne skutki awansu i sukcesów, ograniczenia płynności, kontrakty i negocjacje uwzględniające strategię stron. Obecne tabele bazowe poziomów są ujawnionym uproszczeniem. Sama rozbudowa tabel cen nie stworzy ekonomii.
+**Istnieje:** [playerEconomy.ts](../src/core/playerEconomy.ts) wyprowadza płace, wartość i opłaty z jakości, wieku, reputacji, ligi, roli i kontraktu. [contracts.ts](../src/core/contracts.ts) i [professionalClubs.ts](../src/core/professionalClubs.ts) obsługują protagonistę; [npcTransferEconomics.ts](../src/core/npcTransferEconomics.ts) wyznacza sezonowy budżet transferowy, miesięczny budżet płac i zobowiązania NPC; [npcTransferMarket.ts](../src/core/npcTransferMarket.ts) używa tych ograniczeń przy rekrutacji. Testy 'playerEconomy', 'npcTransferMarket' i 'economyAudit' pozostają podstawą wspólnej gospodarki kontraktowej.
 
-**Zależności i etapy:** najpierw audyt wszystkich konsumentów wspólnej wyceny i kontraktów; potem mała księga przepływów (płace, transfery, podstawowe przychody, koszty) oraz testy zachowania zobowiązań; następnie reakcja klubów na deficyt, awans/spadek i potrzeby kadry; na końcu bogatsze negocjacje i zróżnicowanie krajów. Reputacja, jakość sportowa i pieniądze pozostają osobne.
+**Docelowa rola:** czy klub może zapłacić za transfer, utrzymać pensje i złożyć rozsądną ofertę, uzupełnić kadrę oraz w ograniczonym stopniu utrzymać lub poprawić infrastrukturę. Utrzymanie boiska/stadionu może później wpływać na nawierzchnię, pojemność i ograniczenia obiektu (strumień I). To nie jest plan pełnej księgowości Football Managera. Bilans aktywów/pasywów, podatki, obsługa kredytów i rozbudowane źródła przychodu nie są wymaganiem MFL 1.0 bez wykazanej potrzeby rozgrywki.
 
-**Akceptacja:** zgodna wycena protagonistów/NPC; brak podwójnego obciążenia transferu; płace są pokrywane albo jawny deficyt wywołuje przewidywalną reakcję; wielosezonowe rozkłady budżetów nie eksplodują i nie sprowadzają wszystkich klubów do jednego poziomu. Testować kluby stabilne, awansujące, spadające i sprzedające liderów.
+**Następny zakres:** audyt zgodności wszystkich ofert ze wspólną wyceną, istniejącym budżetem i zobowiązaniami; ograniczone reakcje na awans/spadek oraz potrzeby kadry. Zachować obecne budżety, transfery i płace. Akceptacja: brak podwójnego obciążenia transferu, pokrycie trwałych ofert płacowych w prostym modelu, spójne pensje protagonistów/NPC i stabilne wielosezonowe możliwości klubów. Sprawdzać również kluby sprzedające liderów. Reputacja, siła XI i zamożność pozostają odrębne.
 
-**Koszt i priorytet:** księgować zdarzenia i okresowe agregaty zamiast pełnego dziennego śladu każdego klubu. Spójność i stabilność są konieczne dla 1.0; szersze typy przychodów i negocjacje pożądane; rozbudowane modele długu mogą poczekać.
+### A2. Finanse osobiste i styl życia — istotny system kariery
+
+**Audyt istniejącego kodu:** 'CareerState.finances' jest datowaną księgą transakcji, a nie osobnym bankiem. [careerWeeks.applyMonthlySalary](../src/core/careerWeeks.ts) księguje jeden wpis na uprawniony miesiąc profesjonalnego kontraktu, z deterministycznym ID chroniącym przed duplikacją. [regularSeasonEvents.ts](../src/core/events/regularSeasonEvents.ts) ma już pracę dodatkową, zakup rozwojowy i kontakt z dietetykiem; decyzje mogą zmienić środki, fitness, morale i postęp rozwoju. Są to uproszczone jednorazowe zdarzenia, nie trwała umowa ze specjalistą. 'initializeWeekContent' warunkuje część oferty zdarzeń środkami i obciążeniem. [development.ts](../src/core/development.ts) korzysta z treningu i minut; istnieją podejścia recovery/balanced/extra_work, fitness i dostępność. [FinanceView.tsx](../src/app/career/FinanceView.tsx) oraz [financePresentation.ts](../src/app/career/financePresentation.ts) pokazują rzeczywistą księgę i saldo, a 'CareerView' pensję i środki. Kategoria 'lifestyle' w typach nie dowodzi istniejącego systemu mieszkań lub inwestycji.
+
+**Brakuje:** trwałych warunków mieszkania, posiadanego sprzętu, dostępności domowej siłowni, usług psychologa/dietetyka/trenera, zobowiązań sponsorskich, wsparcia rodziny, oszczędności i ostrożnie ograniczonych inwestycji oraz sensownych wyborów mobilności. Docelowa inspiracja to kariera i codzienne decyzje w duchu New Star Soccer, powiązane z rozwojem, dobrostanem i piłką. Bez osobnej gry nieruchomościowej, giełdy lub kolekcji samochodów.
+
+**Proponowany osobny PR produktowy, etapami:**
+
+1. Uzgodnić wersjonowane potrzeby i zobowiązania osobiste oraz idempotentne rozliczenia okresowe, migrację istniejącej księgi i kalendarz. Pensje nadal pochodzą ze wspólnej gospodarki kontraktowej; bez wymyślania zaległych wpływów.
+2. Dodać niewielki zestaw okazjonalnych wyborów: wynajem/zakup mieszkania, lepsze warunki odpoczynku, sprzęt/siłownia, konsultacja lub usługa specjalisty. Każdy wybór ma koszt, dostępność, czas i jawny mechanizm, zamiast natychmiastowej premii do trwałego atrybutu. Siłownia daje dostęp do możliwości treningu; specjalista wspiera przygotowanie i dobrostan; żywienie i mieszkanie poprawiają warunki regeneracji. To hipotezy do sprawdzenia.
+3. Powiązać dostęp z istniejącym treningiem, fitness i rozwojem: potrzeby zawodnika, limit czasu, malejące korzyści, nakładające się usługi klubowe/prywatne i ograniczenia medyczne. Zamożność nie daje automatycznej trwałej przewagi. Zachować sensowne bezpłatne/klubowe alternatywy.
+4. Dopiero po sprawdzeniu podstaw dodać wsparcie rodziny, obowiązki sponsorskie, bezpieczeństwo oszczędności i ograniczone inwestycje. Finansowe wybory powinny otwierać sytuacje kariery i wyjaśnialne konsekwencje, bez stałej mikrozarządczej obsługi.
+
+**Akceptacja i koszt:** zapis/wczytanie nie duplikuje pensji ani kosztów; rezygnacja lub koniec kontraktu zamyka właściwe zobowiązanie; saldo zgadza się we wszystkich widokach; czas usług/treningu jest skończony; bogatszy gracz nie kupuje nieograniczonych treningów ani stałych punktów umiejętności. Sprawdzać młodzieżowca z małymi środkami, rezerwowego, kontuzję, transfer i koniec kariery. Stosować zdarzenia i agregaty okresowe, mierzyć wielosezonowy zapis i koszt kalendarza. Wykorzystać istniejący lifecycle/księgę i [fakty oraz narrację PR169](PR169_CAREER_STORIES_NEWS_SEASON_NARRATIVES.md), a przepływ UI wpisać do [backlogu wydania](RELEASE_READINESS_BACKLOG.md). Nie tworzyć równoległego planu ani nowego symulatora ekonomii w PR212.
 
 ## B. Piłkarski świat i baza rozgrywek
 
@@ -165,6 +178,6 @@ Prace produktowe mogą postępować obok badań silnika. Nie trzeba zamknąć ws
 
 ## Decyzja integracyjna produktu
 
-Najbliższa zależność fizyczna jest opisana w [raporcie PR211](PR211_CANONICAL_PENDING_STRIKE_LIFECYCLE.md). Utrzymany kandydat realizmu pozostaje PR201; domyślna polityka B, 40 Hz i 28 atrybutów pozostają. Przyszły profil realizmu ma łączyć sprawdzone, kompatybilne mechanizmy przez [istniejącą architekturę](match-engine/INTEGRATION_ARCHITECTURE.md), z jawnymi wykluczeniami historycznych wariantów. Nie należy włączać ich wszystkich naraz.
+Najbliższa zależność fizyczna jest opisana w [raporcie PR212](PR212_SHARED_CONTACT_TIMELINE_AND_BALANCE.md). Utrzymany kandydat realizmu pozostaje PR201; domyślna polityka B, 40 Hz i 28 atrybutów pozostają. Przyszły profil realizmu ma łączyć sprawdzone, kompatybilne mechanizmy przez [istniejącą architekturę](match-engine/INTEGRATION_ARCHITECTURE.md), z jawnymi wykluczeniami historycznych wariantów. Nie należy włączać ich wszystkich naraz.
 
-Żaden ze strumieni A–K nie jest implementowany w PR211. Następne zakresy wybieramy według ryzyka, korzyści dla kariery i rzeczywistych zależności; nie przypisujemy każdemu systemowi arbitralnego numeru PR. Celem wydania jest kompletna, przyjemna kariera, wsparta wiarygodnym silnikiem i światem.
+Żaden ze strumieni A–K nie jest implementowany w PR212. Następne zakresy wybieramy według ryzyka, korzyści dla kariery i rzeczywistych zależności; nie przypisujemy każdemu systemowi arbitralnego numeru PR. Celem wydania jest kompletna, przyjemna kariera, wsparta wiarygodnym silnikiem i światem.
