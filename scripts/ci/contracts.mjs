@@ -12,7 +12,57 @@ import { setTimeout } from 'node:timers';
 import fs from 'node:fs';
 import { publishNodeResource } from './resourceProbe.mjs';
 import { readNodeResources } from './telemetry.mjs';
+import { pr209Context } from './replayPr209Check.mjs';
+import { BASE as PR209_MERGED } from '../pr210SourceGuard.mjs';
+import { execFileSync } from 'node:child_process';
 const manifest = json('docs/performance/pr202/task-manifest.json');
+
+test('PR209 history uses private real evidence files and still rejects byte drift', () => {
+  const context = pr209Context();
+  const evidence = 'docs/performance/pr195/pilot-protocol.json';
+  const original = fs.readFileSync(evidence);
+  const historicalBase = '5353858065eaefdebfabacdd12a1a961bda36d74';
+  const git = (args) =>
+    spawnSync('git', args, {
+      cwd: context.cwd,
+      env: context.env,
+      windowsHide: true,
+      encoding: 'utf8',
+    });
+  try {
+    assert.equal(fs.lstatSync(join(context.cwd, 'docs')).isSymbolicLink(), false);
+    assert.equal(fs.lstatSync(join(context.cwd, 'docs/performance')).isSymbolicLink(), false);
+    for (let pr = 195; pr <= 209; pr++)
+      assert.equal(
+        fs.lstatSync(join(context.cwd, `docs/performance/pr${pr}`)).isSymbolicLink(),
+        false,
+      );
+    const archived = execFileSync('git', ['show', `${PR209_MERGED}:${evidence}`], {
+      windowsHide: true,
+    });
+    assert.deepEqual(fs.readFileSync(join(context.cwd, evidence)), archived);
+    const diff = [
+      'diff',
+      '--exit-code',
+      historicalBase,
+      '--',
+      ...Array.from({ length: 14 }, (_, i) => `docs/performance/pr${195 + i}`),
+    ];
+    assert.equal(git(diff).status, 0, 'Original evidence must be visible to Git on every platform');
+    fs.appendFileSync(join(context.cwd, evidence), '\nintentional private corruption\n');
+    assert.equal(git(diff).status, 1, 'Evidence drift must still fail the original Git assertion');
+    assert.deepEqual(
+      fs.readFileSync(evidence),
+      original,
+      'Private corruption leaked into checkout',
+    );
+    assert.equal(git(['diff', '--exit-code', '--cached', PR209_MERGED]).status, 0);
+  } finally {
+    context.cleanup();
+  }
+  assert.equal(fs.existsSync(context.cwd), false);
+  assert.deepEqual(fs.readFileSync(evidence), original);
+});
 test('interrupted observer publication remains explicit; completed corruption still fails', () => {
   const dir = mkdtempSync(join(tmpdir(), 'pr202-atomic-probe-'));
   const realWrite = fs.writeFileSync;

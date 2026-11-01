@@ -1,0 +1,37 @@
+{
+  "head": "2aaa1cf612a15a0708401b76f9d6de54b158f7e8",
+  "run": "https://github.com/adamfron/my_football_legend/actions/runs/41250287974",
+  "job": 124682192022,
+  "name": "verify (main)",
+  "conclusion": "failure",
+  "fullLogBytes": 45350039,
+  "fullLogSha256": "d1594e5900832801c5076b5c05143e101184ac3c19629ca5af547bd0a9a4fe18",
+  "cause": "Git does not traverse the docs symlink as historical worktree files on Linux.",
+  "excerpt": [
+    "2026-10-31T23:01:17.8840337Z ##[group]Run node scripts/ci/replayPr209Check.mjs",
+    "2026-10-31T23:01:17.8840765Z \u001b[36;1mnode scripts/ci/replayPr209Check.mjs\u001b[0m",
+    "2026-10-31T23:01:17.8869767Z shell: /usr/bin/bash -e {0}",
+    "2026-10-31T23:01:17.8870031Z env:",
+    "2026-10-31T23:01:17.8870231Z   VITEST_MAX_WORKERS: 1",
+    "2026-10-31T23:01:17.8870489Z   NODE_OPTIONS: --max-semi-space-size=64",
+    "2026-10-31T23:01:17.8870768Z ##[endgroup]",
+    "2026-10-31T23:01:18.3512519Z diff --git a/docs/performance/pr195/pilot-protocol.json b/docs/performance/pr195/pilot-protocol.json",
+    "2026-10-31T23:01:18.3513645Z deleted file mode 100644",
+    "2026-10-31T23:01:18.3514171Z index 94fa0c0..0000000",
+    "2026-10-31T23:01:18.3514806Z --- a/docs/performance/pr195/pilot-protocol.json",
+    "2026-10-31T23:01:18.3515416Z +++ /dev/null",
+    "2026-10-31T23:01:18.3515816Z @@ -1,71 +0,0 @@",
+    "2026-10-31T23:01:18.3516220Z -{",
+    "2026-10-31T23:01:18.3516938Z -  \"schema\": \"mfl-pr195-pilot-protocol-v1\",",
+    "2026-10-31T23:01:18.3518195Z -  \"classification\": \"controlled development; not independent validation or real-football calibration\",",
+    "2026-10-31T23:01:18.3519578Z -  \"scenarios\": [",
+    "2026-10-31T23:01:42.2975245Z ##[error]Process completed with exit code 1.",
+    "2026-10-31T23:01:43.8277693Z ##[error]Process completed with exit code 1.",
+    "2026-10-31T23:01:44.0438132Z ##[error]No files were found with the provided path: .benchmark-artifacts/pr202. No artifacts will be uploaded."
+  ],
+  "dependent": {
+    "job": 124690364863,
+    "name": "quality",
+    "cause": "VERIFY_RESULT was failure; all other dependency results were success."
+  }
+}

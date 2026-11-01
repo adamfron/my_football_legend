@@ -1,5 +1,5 @@
 {
-  "source": "8bfc326a81b5cb33a6531c7abe484fbb2feae02b0316ade88baae446618d30ba",
+  "source": "45296dfead9c6c471015e3035db90964fe53107f3808bbfa3e398267088e200e",
   "files": [
     {
       "path": "docs/performance/pr210/action-execution-method.mjs",
@@ -9,7 +9,7 @@
     {
       "path": "docs/performance/pr210/action-execution.json",
       "bytes": 102010,
-      "sha256": "79dc09c5a1606ed83291e0af9a9deaf0e641ada72323fcc03f677378b46b38b7"
+      "sha256": "102d301d00a25b79e5e87df5cc4f0427295b11081e08c339e6d56713cf7e0e84"
     },
     {
       "path": "docs/performance/pr210/after.json.gz",
@@ -27,9 +27,74 @@
       "sha256": "166d74aa267bfd03c7e53a93dec769cd96caf46a895effb7c89d67f961474214"
     },
     {
-      "path": "docs/performance/pr210/interactive-smoke.json",
+      "path": "docs/performance/pr210/ci-fix/actions-check.log.gz",
+      "bytes": 170,
+      "sha256": "c390f0610cc45759ada1eef120392579de3be8ff5a3ef6337cde9edddf18862a"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/contracts.log.gz",
+      "bytes": 631,
+      "sha256": "4f679fcff3754472313bcb3895d70cd623e310952b42be6f1345772b8cbe4f1e"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/evidence.log.gz",
+      "bytes": 846,
+      "sha256": "dfda0b58fff93e9dac7a0b7928cd4d797e75f33095d7fe56582b4d7fc84ad1e4"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/github-failure.json",
+      "bytes": 2148,
+      "sha256": "dc0c52a2e3e05b81d7745dd9c0c01aac4e785a39d3bfd153cb8917694260cc1e"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/history209.log.gz",
+      "bytes": 887,
+      "sha256": "114af632dcac4cd2867537817e6555279bff52809047bc6e6a140085e2037870"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/manifest.log.gz",
+      "bytes": 105,
+      "sha256": "d0e1fb01e7e17df283e6a006fc2d01fce8952e71c9bf5ab1477260f2411d61e5"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/published-action-execution.json",
+      "bytes": 102010,
+      "sha256": "79dc09c5a1606ed83291e0af9a9deaf0e641ada72323fcc03f677378b46b38b7"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/published-evidence-index.json",
+      "bytes": 9731,
+      "sha256": "cf5b4c8c59d6ca6e086d2f7f9cdd1fef66a070eadcd1a8ff5e5b83646caf2fe9"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/published-interactive-smoke.json",
       "bytes": 18506,
       "sha256": "244f563c4b37452d1d02735088189780bff5adae68158f9517358ddc83fa86af"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/published-source.json",
+      "bytes": 103430,
+      "sha256": "d47d6f6b17a5be8e73119d1261c7f552d2d7044cdc3249c126273964af435106"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/smoke.log.gz",
+      "bytes": 246,
+      "sha256": "8c4a010d82acef3094eca887dd40fcf2392d7ceb6318cf5b9e1065f4f5570604"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/verification.json",
+      "bytes": 3103,
+      "sha256": "61e408a2d8e01ca4de2c0424dca215c40aed6a7f2fd089ba1405c6c9e4f0d747"
+    },
+    {
+      "path": "docs/performance/pr210/ci-fix/workflow.log.gz",
+      "bytes": 20,
+      "sha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e"
+    },
+    {
+      "path": "docs/performance/pr210/interactive-smoke.json",
+      "bytes": 18507,
+      "sha256": "ea262eddb8acfa0f3ac2f792feb84a1c1c4aa3dde525cd904a84214359ded178"
     },
     {
       "path": "docs/performance/pr210/source-0fd0f2259ca825c9436157f8db2d64436732f043bbe762cfc7588d13d8028d2a.json.gz",
@@ -40,6 +105,11 @@
       "path": "docs/performance/pr210/source-3629d2c237b3ecaf8b82ad220b1c626ee7056edf24af143e6678232afb7c3afe.json.gz",
       "bytes": 190172,
       "sha256": "4bf8662da3e592cef4f09966bc357ea4d78cf40d69fc9c83a2f33a84d1e0ea24"
+    },
+    {
+      "path": "docs/performance/pr210/source-45296dfead9c6c471015e3035db90964fe53107f3808bbfa3e398267088e200e.json.gz",
+      "bytes": 192110,
+      "sha256": "7f9ddd8258dc5faaedb7648eae400bcb498c38af491e51da53f611151f7ee0a0"
     },
     {
       "path": "docs/performance/pr210/source-6bc4a13605eaa21f750bba0820f1f99ffe59257a58af6c72897d3753e30c34fc.json.gz",
@@ -69,7 +139,7 @@
     {
       "path": "docs/performance/pr210/source.json",
       "bytes": 103430,
-      "sha256": "d47d6f6b17a5be8e73119d1261c7f552d2d7044cdc3249c126273964af435106"
+      "sha256": "4754fdf258267f531dc0a941e3132e4946353f34624ebe80f93b5567e4f77a47"
     },
     {
       "path": "docs/performance/pr210/verification.json",

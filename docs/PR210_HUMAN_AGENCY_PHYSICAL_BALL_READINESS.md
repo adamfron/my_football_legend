@@ -88,9 +88,9 @@ The local calendar previously captured today's date only in `useState` initializ
 
 ## Verification and performance
 
-Final normalized production/harness/configuration fingerprint: `8bfc326a81b5cb33a6531c7abe484fbb2feae02b0316ade88baae446618d30ba`. The original before edition is merged main plus the exact shared laboratory files preserved in [before-source.json.gz](performance/pr210/before-source.json.gz). The final guarded exact replay reproduces the same after result hash; verification records bind those measurements and their logs to this source.
+Original publication normalized production/harness/configuration fingerprint: `8bfc326a81b5cb33a6531c7abe484fbb2feae02b0316ade88baae446618d30ba`. The original before edition is merged main plus the exact shared laboratory files preserved in [before-source.json.gz](performance/pr210/before-source.json.gz). The guarded exact replay reproduces the same after result hash; the original verification records bind those measurements and their logs to that source. The subsequent CI correction and its separate source binding are documented below.
 
-| Final local gate | Result |
+| Original publication local gate | Result |
 | --- | --- |
 | `npm run verify` | **PASS: 2569/2569 unique tests**, lint, TypeScript and production build |
 | Test groups | 2504 unit, 56 integration, 4 career-contract, 5 full-career cases; no skipped-case substitution |
@@ -100,7 +100,7 @@ Final normalized production/harness/configuration fingerprint: `8bfc326a81b5cb33
 | Exact development replay | Paired result hash repeats; all 77 offered-action requests repeat |
 | Representative interactive smoke | **Full time**, 228427 canonical ticks, 12 explicit test-driver choices, t=5710.675 s; source matches the final binding |
 
-The final smoke records wall 240.723 s, CPU 259.828 s and peak RSS 585532 KiB. It is one representative B/right-back test-driver match, not a new policy matrix or an empirical career calibration. Hosted CI is assessed independently on the published commit; this table reports completed local checks. Earlier failed/interrupted attempts remain separately archived and are not counted as passing verification.
+The original smoke records wall 240.723 s, CPU 259.828 s and peak RSS 585532 KiB. It is one representative B/right-back test-driver match, not a new policy matrix or an empirical career calibration. Hosted CI is assessed independently on the published commit; this table reports completed local checks. Earlier failed/interrupted attempts remain separately archived and are not counted as passing verification.
 
 Exact command statuses and archived logs are recorded in [verification](performance/pr210/verification.json). The final source binding and reconstructible delta archive are in [source.json](performance/pr210/source.json). `scripts/checkPr210Evidence.mjs --check --replay` verifies paired receipts and repeats the current experiment exactly.
 
@@ -109,6 +109,14 @@ One paired laboratory measurement recorded before/after wall **1.873 / 1.741 s**
 The existing consolidated manifest retains **28 jobs, 124 historical commands, 144 explicit cases and 63 historical full-match executions**. PR210 adds its focused checks inside the existing main job and normal unit suites. Historical source checks use their original code, receipts and profiles. Raw historical Git bytes are protected against Windows newline conversion; temporary replay trees are excluded from ESLint so archive cleanup cannot race file discovery. No broad WW/SS/SW matrix or confirmation run is introduced.
 
 The [single full-match smoke receipt](performance/pr210/interactive-smoke.json) states its exact source, policy, terminal state, choice count and CPU/memory. It uses an explicit deterministic test driver with human agency enabled; it is **not a claim of a manual browser career playtest**.
+
+### Hosted CI correction — 2026-11-01
+
+The initial GitHub run failed in `verify (main)` at `replayPr209Check.mjs`; `quality` then correctly rejected its failed dependency. The 45 MB job log showed Git reporting the historical PR195–208 evidence as deleted. The replay used a `docs` directory link: Windows junction traversal hid a Linux Git worktree difference. The missing PR202 upload was a consequence of failing before that group started.
+
+The replay now exports the exact committed PR195–209 evidence as real files alongside the original PR209 source and uses a private Git index. Only dependencies remain linked. A new CI contract requires real directories, checks the unchanged historical bytes with the original Git assertion, deliberately corrupts a private receipt and requires rejection, then checks cleanup and isolation. Original PR209 assertions and every existing gate remain intact.
+
+The corrected source fingerprint is `45296dfead9c6c471015e3035db90964fe53107f3808bbfa3e398267088e200e`. Its manifest differs from publication only in `scripts/ci/replayPr209Check.mjs` and `scripts/ci/contracts.mjs`; production, physics, scenarios and benchmark methods are byte-identical after normalization. [Correction verification](performance/pr210/ci-fix/verification.json) records the repeated six CI contracts, original PR209 replay, exact PR210 replay, manifest/workflow checks and refreshed action/smoke receipts. Original source/action/smoke/index records remain under `performance/pr210/ci-fix/published-*`; the original full verification log keeps its original source identity.
 
 Reproduction entry points (Node 24, installed locked dependencies, full Git history):
 

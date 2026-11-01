@@ -1,0 +1,73 @@
+{
+  "source": "45296dfead9c6c471015e3035db90964fe53107f3808bbfa3e398267088e200e",
+  "publicationSource": "8bfc326a81b5cb33a6531c7abe484fbb2feae02b0316ade88baae446618d30ba",
+  "node": "v24.22.1",
+  "platform": "win32",
+  "measuredSourceDelta": [
+    "scripts/ci/contracts.mjs",
+    "scripts/ci/replayPr209Check.mjs"
+  ],
+  "runtimeAndBenchmarkMethodsUnchanged": true,
+  "results": {
+    "ciContracts": "6/6 PASS including byte-corruption rejection",
+    "actionRequests": 77,
+    "actionResultsMatchPublication": true,
+    "smokeFinalStateMatchesPublication": true,
+    "exactPairedResultUnchanged": true,
+    "originalPr209ChecksAndReplay": "PASS"
+  },
+  "commands": [
+    {
+      "key": "contracts",
+      "command": "node --test scripts/ci/contracts.mjs",
+      "exitCode": 0,
+      "log": "docs/performance/pr210/ci-fix/contracts.log.gz",
+      "sha256": "4f679fcff3754472313bcb3895d70cd623e310952b42be6f1345772b8cbe4f1e"
+    },
+    {
+      "key": "history209",
+      "command": "node scripts/ci/replayPr209Check.mjs --replay",
+      "exitCode": 0,
+      "log": "docs/performance/pr210/ci-fix/history209.log.gz",
+      "sha256": "114af632dcac4cd2867537817e6555279bff52809047bc6e6a140085e2037870"
+    },
+    {
+      "key": "evidence",
+      "command": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/checkPr210Evidence.mjs --check --replay",
+      "exitCode": 0,
+      "log": "docs/performance/pr210/ci-fix/evidence.log.gz",
+      "sha256": "dfda0b58fff93e9dac7a0b7928cd4d797e75f33095d7fe56582b4d7fc84ad1e4"
+    },
+    {
+      "key": "actions-check",
+      "command": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs docs/performance/pr210/action-execution-method.mjs --check",
+      "exitCode": 0,
+      "log": "docs/performance/pr210/ci-fix/actions-check.log.gz",
+      "sha256": "c390f0610cc45759ada1eef120392579de3be8ff5a3ef6337cde9edddf18862a"
+    },
+    {
+      "key": "smoke",
+      "command": "node --max-semi-space-size=256 --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/smokePr210.mjs",
+      "exitCode": 0,
+      "log": "docs/performance/pr210/ci-fix/smoke.log.gz",
+      "sha256": "8c4a010d82acef3094eca887dd40fcf2392d7ceb6318cf5b9e1065f4f5570604"
+    },
+    {
+      "key": "manifest",
+      "command": "node scripts/ci/buildManifest.mjs --check",
+      "exitCode": 0,
+      "log": "docs/performance/pr210/ci-fix/manifest.log.gz",
+      "sha256": "d0e1fb01e7e17df283e6a006fc2d01fce8952e71c9bf5ab1477260f2411d61e5"
+    },
+    {
+      "key": "workflow",
+      "command": "node scripts/ci/renderWorkflow.mjs --check",
+      "exitCode": 0,
+      "log": "docs/performance/pr210/ci-fix/workflow.log.gz",
+      "sha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e"
+    }
+  ],
+  "originalFullVerification": "docs/performance/pr210/verification.json",
+  "originalFullVerificationSource": "8bfc326a81b5cb33a6531c7abe484fbb2feae02b0316ade88baae446618d30ba",
+  "hostedCi": "Assessed separately on the correction commit; these are native Windows results."
+}
