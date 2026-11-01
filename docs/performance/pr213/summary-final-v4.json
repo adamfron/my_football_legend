@@ -1,0 +1,3671 @@
+{
+  "source": {
+    "base": "44b2f1df70af49c4b0135849eeb67855440efa35",
+    "fingerprint": "4e9234d6d569c9e4ed42507808c222bae0bfc4e6ad1bce6066d26eeea351a7b7",
+    "archive": "docs/performance/pr213/source-4e9234d6d569c9e4ed42507808c222bae0bfc4e6ad1bce6066d26eeea351a7b7.json.gz"
+  },
+  "rows": [
+    {
+      "name": "paired-earlier",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.5678138366850021,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "active_challenge",
+      "challenge": "ball"
+    },
+    {
+      "name": "paired-later",
+      "footContacts": 0,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.25000000000000355,
+      "displacement": 0.19647321907138882,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "bounded_search_exhausted",
+      "challenge": "unresolved"
+    },
+    {
+      "name": "paired-unresolved-10ms",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.4424090170302582,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "active_challenge",
+      "challenge": "ball"
+    },
+    {
+      "name": "defender-10ms-earlier",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.7372828258298036,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "same-onset",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.7091242461261484,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "defender-10ms-later",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.8651812794929908,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "defender-20ms-earlier",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.7506906880951059,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "close-miss",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.26445678106607795,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "active_challenge",
+      "challenge": "ball"
+    },
+    {
+      "name": "late-real-contact",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.9876186531289468,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "out-of-reach",
+      "footContacts": 1,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.8879802369250385,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "foot_ball_intersection",
+      "challenge": "miss"
+    },
+    {
+      "name": "escaping-ball",
+      "footContacts": 0,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.20000000000000284,
+      "displacement": 2.2560000000000002,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "bounded_search_exhausted",
+      "challenge": "unresolved"
+    },
+    {
+      "name": "stationary-duel",
+      "footContacts": 3,
+      "passiveContacts": 2,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 1.40000000000002,
+      "displacement": 6.80136770602391,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "challenge": "ball"
+    },
+    {
+      "name": "stationary-close",
+      "footContacts": 4,
+      "passiveContacts": 1,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 1,
+      "controlEvents": 2,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 1.4500000000000206,
+      "displacement": 6.843160476867131,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "challenge": "ball"
+    },
+    {
+      "name": "opponent-body",
+      "footContacts": 0,
+      "passiveContacts": 0,
+      "impacts": 1,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.20000000000000284,
+      "displacement": 0.0390625,
+      "bodyRearmings": 1,
+      "bodyTimes": [
+        {
+          "at": 10.035349510875065,
+          "kind": "impact",
+          "normalImpulse": 197.47781059431807,
+          "energyChange": -470.445858962147
+        }
+      ],
+      "strike": "swing_completed_without_contact",
+      "challenge": "miss"
+    },
+    {
+      "name": "unsupported-committed",
+      "footContacts": 0,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.30000000000000426,
+      "displacement": 0.10735659312365553,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "challenge_timing_not_supported"
+    },
+    {
+      "name": "unsupported-slide",
+      "footContacts": 0,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.30000000000000426,
+      "displacement": 0.12670593854607123,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "challenge_timing_not_supported"
+    },
+    {
+      "name": "body-closing",
+      "footContacts": 0,
+      "passiveContacts": 0,
+      "impacts": 1,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.10000000000000142,
+      "displacement": 0.0390625,
+      "bodyRearmings": 1,
+      "bodyTimes": [
+        {
+          "at": 10.035349510875065,
+          "kind": "impact",
+          "normalImpulse": 197.47781059431807,
+          "energyChange": -470.445858962147
+        }
+      ],
+      "strike": "swing_completed_without_contact",
+      "challenge": "miss"
+    },
+    {
+      "name": "body-gentle",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 1.1461766573934005,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "body-near-tangent",
+      "footContacts": 0,
+      "passiveContacts": 0,
+      "impacts": 1,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.10000000000000142,
+      "displacement": 0.0390625,
+      "bodyRearmings": 1,
+      "bodyTimes": [
+        {
+          "at": 10.058297513672912,
+          "kind": "impact",
+          "normalImpulse": 154.05736780184262,
+          "energyChange": -286.3109707343567
+        }
+      ],
+      "strike": "swing_completed_without_contact",
+      "challenge": "miss"
+    },
+    {
+      "name": "body-initial-overlap",
+      "footContacts": 0,
+      "passiveContacts": 5,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 5,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.20000000000000284,
+      "displacement": 0.0390625,
+      "bodyRearmings": 0,
+      "bodyTimes": [
+        {
+          "at": 10,
+          "kind": "unresolved",
+          "normalImpulse": 0,
+          "energyChange": 0
+        },
+        {
+          "at": 10.025,
+          "kind": "unresolved",
+          "normalImpulse": 0,
+          "energyChange": 0
+        },
+        {
+          "at": 10.05,
+          "kind": "unresolved",
+          "normalImpulse": 0,
+          "energyChange": 0
+        },
+        {
+          "at": 10.075000000000001,
+          "kind": "unresolved",
+          "normalImpulse": 0,
+          "energyChange": 0
+        },
+        {
+          "at": 10.100000000000001,
+          "kind": "unresolved",
+          "normalImpulse": 0,
+          "energyChange": 0
+        }
+      ],
+      "strike": "passive_body",
+      "challenge": "miss"
+    },
+    {
+      "name": "body-pass-challenge",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 1,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.12500000000000178,
+      "displacement": 0.299734364673271,
+      "bodyRearmings": 1,
+      "bodyTimes": [
+        {
+          "at": 10.075843161255372,
+          "kind": "impact",
+          "normalImpulse": 209.96332978855676,
+          "energyChange": -531.8142204838518
+        }
+      ],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "pass-challenge-body",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 1,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.12500000000000178,
+      "displacement": 0.6244148089355784,
+      "bodyRearmings": 1,
+      "bodyTimes": [
+        {
+          "at": 10.088421099636466,
+          "kind": "impact",
+          "normalImpulse": 191.90385125056255,
+          "energyChange": -444.2632853150244
+        }
+      ],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "pass-body-challenge",
+      "footContacts": 2,
+      "passiveContacts": 0,
+      "impacts": 1,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 0,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.12500000000000178,
+      "displacement": 0.48661488331052655,
+      "bodyRearmings": 1,
+      "bodyTimes": [
+        {
+          "at": 10.080999322731765,
+          "kind": "impact",
+          "normalImpulse": 293.08864457754635,
+          "energyChange": -1036.2654717623893
+        }
+      ],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "stationary-loose",
+      "footContacts": 4,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.5500000000000078,
+      "displacement": 2.2835842866949894,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "challenge": "miss"
+    },
+    {
+      "name": "moving-loose",
+      "footContacts": 5,
+      "passiveContacts": 1,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 1.200000000000017,
+      "displacement": 4.788556361704373,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "foot_ball_intersection",
+      "challenge": "ball"
+    },
+    {
+      "name": "shielding",
+      "footContacts": 3,
+      "passiveContacts": 2,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 1.40000000000002,
+      "displacement": 6.80136770602391,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "challenge": "ball"
+    },
+    {
+      "name": "owned-to-loose",
+      "footContacts": 3,
+      "passiveContacts": 2,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 1.40000000000002,
+      "displacement": 6.80136770602391,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "challenge": "ball"
+    },
+    {
+      "name": "returning-ball",
+      "footContacts": 3,
+      "passiveContacts": 3,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.3250000000000046,
+      "displacement": 0.9704934583763436,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "challenge": "miss"
+    },
+    {
+      "name": "third-opponent",
+      "footContacts": 4,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.70000000000001,
+      "displacement": 3.2270860257071377,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "challenge": "miss"
+    },
+    {
+      "name": "teammate-replacement",
+      "footContacts": 5,
+      "passiveContacts": 0,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 2,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.7250000000000103,
+      "displacement": 1.30886709602792,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "strike": "swing_completed_without_contact",
+      "challenge": "miss"
+    },
+    {
+      "name": "consecutive-ticks",
+      "footContacts": 2,
+      "passiveContacts": 1,
+      "impacts": 0,
+      "supportImpulses": 0,
+      "unresolvedBodies": 0,
+      "ownerChanges": 0,
+      "controlEvents": 1,
+      "unexplainedAcquisitions": 0,
+      "looseSeconds": 0.30000000000000426,
+      "displacement": 1.6139217454953536,
+      "bodyRearmings": 0,
+      "bodyTimes": [],
+      "challenge": "ball"
+    }
+  ],
+  "mechanics": [
+    {
+      "name": "symmetric",
+      "restitution": 0,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": -3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 4.440892098500626e-16,
+            "y": 0
+          },
+          {
+            "x": -4.440892098500626e-16,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 224.99999999999997,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 1.479114197289397e-29,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 4.440892098500626e-16,
+            "y": 0
+          },
+          {
+            "x": -4.440892098500626e-16,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 4.440892098500626e-16,
+            "y": 0
+          },
+          {
+            "x": -4.440892098500626e-16,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 1.479114197289397e-29,
+        "energyAfter": 1.479114197289397e-29,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "symmetric",
+      "restitution": 0.05,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": -3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -0.1499999999999999,
+            "y": 0
+          },
+          {
+            "x": 0.1499999999999999,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 236.25,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 1.6874999999999982,
+        "restitution": 0.05,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -0.1499999999999999,
+            "y": 0
+          },
+          {
+            "x": 0.1499999999999999,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -0.1499999999999999,
+            "y": 0
+          },
+          {
+            "x": 0.1499999999999999,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 1.6874999999999982,
+        "energyAfter": 1.6874999999999982,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "symmetric",
+      "restitution": 0.15,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": -3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -0.4499999999999993,
+            "y": 0
+          },
+          {
+            "x": 0.4499999999999993,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 258.74999999999994,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 15.18749999999995,
+        "restitution": 0.15,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -0.4499999999999993,
+            "y": 0
+          },
+          {
+            "x": 0.4499999999999993,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -0.4499999999999993,
+            "y": 0
+          },
+          {
+            "x": 0.4499999999999993,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 15.18749999999995,
+        "energyAfter": 15.18749999999995,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "symmetric",
+      "restitution": 0.3,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": -3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -0.8999999999999999,
+            "y": 0
+          },
+          {
+            "x": 0.8999999999999999,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 292.5,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 60.749999999999986,
+        "restitution": 0.3,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -0.8999999999999999,
+            "y": 0
+          },
+          {
+            "x": 0.8999999999999999,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -0.8999999999999999,
+            "y": 0
+          },
+          {
+            "x": 0.8999999999999999,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 60.749999999999986,
+        "energyAfter": 60.749999999999986,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "unequal",
+      "restitution": 0,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          55,
+          110
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": -3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -1,
+            "y": 0
+          },
+          {
+            "x": -1,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 220,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": -165,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": -165,
+          "y": 0
+        },
+        "energyBefore": 742.5,
+        "energyAfter": 82.5,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          55,
+          110
+        ],
+        "before": [
+          {
+            "x": -1,
+            "y": 0
+          },
+          {
+            "x": -1,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -1,
+            "y": 0
+          },
+          {
+            "x": -1,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": -165,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": -165,
+          "y": 0
+        },
+        "energyBefore": 82.5,
+        "energyAfter": 82.5,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "unequal",
+      "restitution": 0.05,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          55,
+          110
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": -3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -1.2000000000000002,
+            "y": 0
+          },
+          {
+            "x": -0.8999999999999999,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 231.00000000000003,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": -165,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": -165,
+          "y": 0
+        },
+        "energyBefore": 742.5,
+        "energyAfter": 84.15,
+        "restitution": 0.05,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          55,
+          110
+        ],
+        "before": [
+          {
+            "x": -1.2000000000000002,
+            "y": 0
+          },
+          {
+            "x": -0.8999999999999999,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -1.2000000000000002,
+            "y": 0
+          },
+          {
+            "x": -0.8999999999999999,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": -165,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": -165,
+          "y": 0
+        },
+        "energyBefore": 84.15,
+        "energyAfter": 84.15,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "unequal",
+      "restitution": 0.15,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          55,
+          110
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": -3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -1.5999999999999996,
+            "y": 0
+          },
+          {
+            "x": -0.7000000000000002,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 253,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": -165,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": -165,
+          "y": 0
+        },
+        "energyBefore": 742.5,
+        "energyAfter": 97.34999999999998,
+        "restitution": 0.15,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          55,
+          110
+        ],
+        "before": [
+          {
+            "x": -1.5999999999999996,
+            "y": 0
+          },
+          {
+            "x": -0.7000000000000002,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -1.5999999999999996,
+            "y": 0
+          },
+          {
+            "x": -0.7000000000000002,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": -165,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": -165,
+          "y": 0
+        },
+        "energyBefore": 97.34999999999998,
+        "energyAfter": 97.34999999999998,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "unequal",
+      "restitution": 0.3,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          55,
+          110
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": -3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -2.200000000000001,
+            "y": 0
+          },
+          {
+            "x": -0.39999999999999947,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 286.00000000000006,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": -165,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": -165,
+          "y": 0
+        },
+        "energyBefore": 742.5,
+        "energyAfter": 141.9000000000001,
+        "restitution": 0.3,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          55,
+          110
+        ],
+        "before": [
+          {
+            "x": -2.200000000000001,
+            "y": 0
+          },
+          {
+            "x": -0.39999999999999947,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -2.200000000000001,
+            "y": 0
+          },
+          {
+            "x": -0.39999999999999947,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": -165,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": -165,
+          "y": 0
+        },
+        "energyBefore": 141.9000000000001,
+        "energyAfter": 141.9000000000001,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "glancing",
+      "restitution": 0,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": -3,
+            "y": -1
+          }
+        ],
+        "after": [
+          {
+            "x": 4.440892098500626e-16,
+            "y": 2
+          },
+          {
+            "x": -4.440892098500626e-16,
+            "y": -1
+          }
+        ],
+        "normalImpulse": 224.99999999999997,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 75
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 75
+        },
+        "energyBefore": 862.5000000000001,
+        "energyAfter": 187.5,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 4.440892098500626e-16,
+            "y": 2
+          },
+          {
+            "x": -4.440892098500626e-16,
+            "y": -1
+          }
+        ],
+        "after": [
+          {
+            "x": 4.440892098500626e-16,
+            "y": 2
+          },
+          {
+            "x": -4.440892098500626e-16,
+            "y": -1
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 75
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 75
+        },
+        "energyBefore": 187.5,
+        "energyAfter": 187.5,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "glancing",
+      "restitution": 0.05,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": -3,
+            "y": -1
+          }
+        ],
+        "after": [
+          {
+            "x": -0.1499999999999999,
+            "y": 2
+          },
+          {
+            "x": 0.1499999999999999,
+            "y": -1
+          }
+        ],
+        "normalImpulse": 236.25,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 75
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 75
+        },
+        "energyBefore": 862.5000000000001,
+        "energyAfter": 189.1875,
+        "restitution": 0.05,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -0.1499999999999999,
+            "y": 2
+          },
+          {
+            "x": 0.1499999999999999,
+            "y": -1
+          }
+        ],
+        "after": [
+          {
+            "x": -0.1499999999999999,
+            "y": 2
+          },
+          {
+            "x": 0.1499999999999999,
+            "y": -1
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 75
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 75
+        },
+        "energyBefore": 189.1875,
+        "energyAfter": 189.1875,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "glancing",
+      "restitution": 0.15,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": -3,
+            "y": -1
+          }
+        ],
+        "after": [
+          {
+            "x": -0.4499999999999993,
+            "y": 2
+          },
+          {
+            "x": 0.4499999999999993,
+            "y": -1
+          }
+        ],
+        "normalImpulse": 258.74999999999994,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 75
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 75
+        },
+        "energyBefore": 862.5000000000001,
+        "energyAfter": 202.68749999999997,
+        "restitution": 0.15,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -0.4499999999999993,
+            "y": 2
+          },
+          {
+            "x": 0.4499999999999993,
+            "y": -1
+          }
+        ],
+        "after": [
+          {
+            "x": -0.4499999999999993,
+            "y": 2
+          },
+          {
+            "x": 0.4499999999999993,
+            "y": -1
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 75
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 75
+        },
+        "energyBefore": 202.68749999999997,
+        "energyAfter": 202.68749999999997,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "glancing",
+      "restitution": 0.3,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": -3,
+            "y": -1
+          }
+        ],
+        "after": [
+          {
+            "x": -0.8999999999999999,
+            "y": 2
+          },
+          {
+            "x": 0.8999999999999999,
+            "y": -1
+          }
+        ],
+        "normalImpulse": 292.5,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 75
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 75
+        },
+        "energyBefore": 862.5000000000001,
+        "energyAfter": 248.24999999999994,
+        "restitution": 0.3,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -0.8999999999999999,
+            "y": 2
+          },
+          {
+            "x": 0.8999999999999999,
+            "y": -1
+          }
+        ],
+        "after": [
+          {
+            "x": -0.8999999999999999,
+            "y": 2
+          },
+          {
+            "x": 0.8999999999999999,
+            "y": -1
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 75
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 75
+        },
+        "energyBefore": 248.24999999999994,
+        "energyAfter": 248.24999999999994,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.7,
+          0.7
+        ],
+        "balanceAfter": [
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "name": "similarly-moving",
+      "restitution": 0,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 2.9,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 2.95,
+            "y": 0
+          },
+          {
+            "x": 2.95,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 3.750000000000003,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 442.5,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 442.5,
+          "y": 0
+        },
+        "energyBefore": 652.875,
+        "energyAfter": 652.6875,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.9879518072289156,
+          0.9893617021276596
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 2.95,
+            "y": 0
+          },
+          {
+            "x": 2.95,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 2.95,
+            "y": 0
+          },
+          {
+            "x": 2.95,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 442.5,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 442.5,
+          "y": 0
+        },
+        "energyBefore": 652.6875,
+        "energyAfter": 652.6875,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.9879518072289156,
+          0.9893617021276596
+        ],
+        "balanceAfter": [
+          0.9879518072289156,
+          0.9893617021276596
+        ]
+      }
+    },
+    {
+      "name": "similarly-moving",
+      "restitution": 0.05,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 2.9,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 2.9475,
+            "y": 0
+          },
+          {
+            "x": 2.9525,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 3.937500000000003,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 442.5,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 442.5,
+          "y": 0
+        },
+        "energyBefore": 652.875,
+        "energyAfter": 652.68796875,
+        "restitution": 0.05,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.9873493975903614,
+          0.9888297872340426
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 2.9475,
+            "y": 0
+          },
+          {
+            "x": 2.9525,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 2.9475,
+            "y": 0
+          },
+          {
+            "x": 2.9525,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 442.5,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 442.5,
+          "y": 0
+        },
+        "energyBefore": 652.68796875,
+        "energyAfter": 652.68796875,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.9873493975903614,
+          0.9888297872340426
+        ],
+        "balanceAfter": [
+          0.9873493975903614,
+          0.9888297872340426
+        ]
+      }
+    },
+    {
+      "name": "similarly-moving",
+      "restitution": 0.15,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 2.9,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 2.9425,
+            "y": 0
+          },
+          {
+            "x": 2.9575,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 4.312500000000003,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 442.5,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 442.5,
+          "y": 0
+        },
+        "energyBefore": 652.875,
+        "energyAfter": 652.6917187500001,
+        "restitution": 0.15,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.986144578313253,
+          0.9877659574468085
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 2.9425,
+            "y": 0
+          },
+          {
+            "x": 2.9575,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 2.9425,
+            "y": 0
+          },
+          {
+            "x": 2.9575,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 442.5,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 442.5,
+          "y": 0
+        },
+        "energyBefore": 652.6917187500001,
+        "energyAfter": 652.6917187500001,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.986144578313253,
+          0.9877659574468085
+        ],
+        "balanceAfter": [
+          0.986144578313253,
+          0.9877659574468085
+        ]
+      }
+    },
+    {
+      "name": "similarly-moving",
+      "restitution": 0.3,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "impact",
+        "reason": "closing_surface",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 2.9,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 2.935,
+            "y": 0
+          },
+          {
+            "x": 2.965,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 4.875000000000004,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 442.5,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 442.5,
+          "y": 0
+        },
+        "energyBefore": 652.875,
+        "energyAfter": 652.704375,
+        "restitution": 0.3,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          0.9843373493975903,
+          0.9861702127659574
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 2.935,
+            "y": 0
+          },
+          {
+            "x": 2.965,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 2.935,
+            "y": 0
+          },
+          {
+            "x": 2.965,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 442.5,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 442.5,
+          "y": 0
+        },
+        "energyBefore": 652.704375,
+        "energyAfter": 652.704375,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          0.9843373493975903,
+          0.9861702127659574
+        ],
+        "balanceAfter": [
+          0.9843373493975903,
+          0.9861702127659574
+        ]
+      }
+    },
+    {
+      "name": "separating",
+      "restitution": 0,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 675,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 675,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "separating",
+      "restitution": 0.05,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 675,
+        "restitution": 0.05,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 675,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "separating",
+      "restitution": 0.15,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 675,
+        "restitution": 0.15,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 675,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "separating",
+      "restitution": 0.3,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 675,
+        "restitution": 0.3,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": -3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 675,
+        "energyAfter": 675,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "resting",
+      "restitution": 0,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 0,
+        "energyAfter": 0,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 0,
+        "energyAfter": 0,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "resting",
+      "restitution": 0.05,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 0,
+        "energyAfter": 0,
+        "restitution": 0.05,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 0,
+        "energyAfter": 0,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "resting",
+      "restitution": 0.15,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 0,
+        "energyAfter": 0,
+        "restitution": 0.15,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 0,
+        "energyAfter": 0,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "resting",
+      "restitution": 0.3,
+      "contact": {
+        "at": 10,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 0,
+        "energyAfter": 0,
+        "restitution": 0.3,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      },
+      "persistent": {
+        "at": 10.025,
+        "participants": [
+          "geometry:opponent:1",
+          "geometry:anchor:5"
+        ],
+        "kind": "separating",
+        "reason": "separating_or_resting",
+        "normal": {
+          "x": -1,
+          "y": 0
+        },
+        "masses": [
+          75,
+          75
+        ],
+        "before": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "after": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "normalImpulse": 0,
+        "tangentImpulse": 0,
+        "momentumBefore": {
+          "x": 0,
+          "y": 0
+        },
+        "momentumAfter": {
+          "x": 0,
+          "y": 0
+        },
+        "energyBefore": 0,
+        "energyAfter": 0,
+        "restitution": 0,
+        "clearance": -3.3306690738754696e-16,
+        "correctionIterations": 0,
+        "balanceBefore": [
+          1,
+          1
+        ],
+        "balanceAfter": [
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "balance": [
+    {
+      "name": "gentle",
+      "initial": [
+        0.9620481927710843,
+        0.9664893617021276
+      ],
+      "final": {
+        "balance": 1,
+        "load": 0,
+        "support": "both"
+      }
+    },
+    {
+      "name": "strong",
+      "initial": [
+        0.7,
+        0.7
+      ],
+      "final": {
+        "balance": 1,
+        "load": 0,
+        "support": "both"
+      }
+    },
+    {
+      "name": "one-legged",
+      "initial": [
+        0.55,
+        0.7
+      ],
+      "final": {
+        "balance": 1,
+        "load": 0,
+        "support": "both"
+      }
+    },
+    {
+      "name": "turning",
+      "initial": [
+        0.55,
+        0.7
+      ],
+      "final": {
+        "balance": 1,
+        "load": 0,
+        "support": "both"
+      }
+    },
+    {
+      "name": "recovering",
+      "initial": [
+        0.7469879518072289,
+        0.7765957446808511
+      ],
+      "final": {
+        "balance": 1,
+        "load": 0,
+        "support": "both"
+      }
+    },
+    {
+      "name": "severe-upright-limit",
+      "initial": [
+        0.55,
+        0.7
+      ],
+      "final": {
+        "balance": 1,
+        "load": 0,
+        "support": "both"
+      }
+    }
+  ],
+  "clinch": {
+    "clearances": [
+      -0.0027602794322632157,
+      0.000009999999999940612
+    ],
+    "releasedClearances": [
+      0.4822964964316693,
+      0.4767202545006529
+    ]
+  },
+  "costs": {
+    "wallSeconds": 7.618217999999999,
+    "cpu": {
+      "user": 10079000,
+      "system": 313000
+    },
+    "peakRSSKiB": 505584,
+    "node": "v24.22.1",
+    "platform": "win32"
+  }
+}

@@ -72,6 +72,8 @@ export const physicalWorkSampleSchema = z.object({
   distance: nonnegative,
   speed: nonnegative,
   previousSpeed: nonnegative,
+  /** Optional already integrated motor speed; passive collision delta is not motor work. */
+  actuatorSpeed: nonnegative.optional(),
   /** Actual velocity-heading change. A stationary look/scan is not a demanding turn. */
   turnRadians: nonnegative,
   sprinting: z.boolean().optional(),
@@ -95,8 +97,9 @@ export const advanceMatchFitness = (
   const naturalSprintSpeed = 6.2 + (player.profile.attributes.pace / 100) * 3.3;
   const sprinting = sample.sprinting ?? speed >= naturalSprintSpeed * 0.82;
   const band = sprinting ? 'Sprint' : speed < 2.2 ? 'Walk' : speed < 4.2 ? 'Jog' : 'Run';
-  const acceleration = Math.max(0, speed - previousSpeed);
-  const braking = Math.max(0, previousSpeed - speed);
+  const motorSpeed = sample.actuatorSpeed ?? speed;
+  const acceleration = Math.max(0, motorSpeed - previousSpeed);
+  const braking = Math.max(0, previousSpeed - motorSpeed);
   const turning = sample.turnRadians * Math.min(speed, previousSpeed);
   const contact = (sample.bodyContactLoad ?? 0) * dt;
   const actualPress = Boolean(sample.pressing && speed >= 4.2 && sample.distance > 0);

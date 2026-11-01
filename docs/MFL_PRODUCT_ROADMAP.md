@@ -6,6 +6,15 @@ Właściciel ukończył ręcznie 25 sezonów i potwierdził przyjemność z obec
 
 ## Priorytety i zależności
 
+### Uzgodniona kolejność rozwoju — PR213
+
+1. **Kanoniczny fizyczny i decyzyjny MatchEngine.** Doprowadzić zintegrowane zachowanie fizyczne, poznawcze, taktyczne i zgodne z przepisami do dostatecznie wiarygodnego, stabilnego poziomu. Po lokalnych bramkach przechodzić do coraz szerszych prób integracji i reprezentatywnych pełnych meczów. Celem jest wiarygodna piłka, nie niekończące się izolowane laboratoria.
+2. **Destylowany model statystyczny.** Dopiero dostatecznie dojrzały canonical jest podstawowym źródłem badawczym taniego modelu dla kariery i świata. Osobno wersjonować model, pochodzenie źródeł, dane development i odłożoną ewaluację. Walidować warunkowe rozkłady wyników i rezultatów bramkowych, goli/asyst/strzałów i innych statystyk, gry drużyn i osób, ocen, minut i zmian, kar, obciążenia, zmęczenia/ekspozycji urazowej oraz konsekwencji dla treningu, fitness i rozwoju. Porównywać siłę drużyn, taktykę, pozycje/role, atrybuty, kontekst, poziom ligi, wiek/fitness oraz presję i minuty. Sprawdzać ogony, zera i korelacje zależnych statystyk, nie tylko średnią goli. Nie uczyć na niestabilnym lub znanym jako nierealistyczny baseline. Trwałym rozwojem nadal zarządza system kariery z odpowiednimi dowodami meczowymi; wysoka ocena sama nie tworzy stałego wzrostu umiejętności. **Bez implementacji lub treningu tego modelu w PR213.**
+3. **Rozbudowa kariery, świata i prezentacji.** Po wiarygodnej i taniej podstawie meczowej rozwijać ligi/kraje/reprezentacje, akademie/pochodzenie, wymianę pokoleń i schyłek kariery, transfery/rankingi klubów, finanse osobiste/styl życia, newsy/narrację, identyfikację klubów/herby/stadiony oraz responsywny interfejs gracza. Pełny interfejs rozwoju i diagnostyki zachować za jawnym trybem developerskim. Strumienie A–K poniżej pozostają planem produktu, bez wdrożeń w PR213.
+
+Obecna kariera pozostaje funkcjonalna i grywalna w całym procesie. To strategiczny priorytet, nie wymóg oznaczenia wszystkich 135 problemów realizmu jako COMPLETE ani harmonogram sztywnych numerów PR. Lokalny sukces fizyki nie oznacza gotowego do wydania MatchEngine; wiele rekordów symulacji nie zastępuje wiarygodnego źródła do destylacji. Zakresy wybieramy według rzeczywistych zależności i kryteriów akceptacji.
+
+
 | Strumień | Stan obecny | Znaczenie dla MFL 1.0 |
 | --- | --- | --- |
 | A. Ekonomia | wspólne kontrakty/budżety klubów; osobista księga pensji i decyzji | proste możliwości klubów; znaczące finanse osobiste i styl życia jako osobny etap kariery |
@@ -20,7 +29,7 @@ Właściciel ukończył ręcznie 25 sezonów i potwierdził przyjemność z obec
 | J. UI i responsywność | istniejące widoki kariery/meczu i breakpointy CSS | osobna faza użyteczności przed wydaniem konieczna |
 | K. Walidacja i wydanie | rozbudowane audyty, testy kariery i źródłowe replaye | warstwowe kryteria wydania konieczne |
 
-Prace produktowe mogą postępować obok badań silnika. Nie trzeba zamknąć wszystkich 135 zagadnień realizmu, aby poprawić ekonomię, UI czy świat. Zależności są rzeczowe: stabilna tożsamość i kalendarz → kohorty/kontrakty/ligi; spójna księga faktów → newsy i historia; zweryfikowane mecze canonical → dane dla destylacji; budżet i potrzeby kadry → wiarygodny rynek. Jedna selekcja prezentacji może korzystać z różnych poziomów szczegółowości, ale wynik danego meczu ma jednego właściciela.
+Bieżący priorytet realizuje powyższa kolejność: MatchEngine, następnie destylacja, potem główne rozszerzenia produktu. Nie trzeba zamknąć wszystkich 135 zagadnień realizmu, aby utrzymywać i naprawiać grywalną karierę. Zależności są rzeczowe: stabilna tożsamość i kalendarz → kohorty/kontrakty/ligi; spójna księga faktów → newsy i historia; zweryfikowane mecze canonical → dane dla destylacji; budżet i potrzeby kadry → wiarygodny rynek. Jedna selekcja prezentacji może korzystać z różnych poziomów szczegółowości, ale wynik danego meczu ma jednego właściciela.
 
 ## A. Ekonomia kariery i finanse
 
@@ -178,6 +187,6 @@ Prace produktowe mogą postępować obok badań silnika. Nie trzeba zamknąć ws
 
 ## Decyzja integracyjna produktu
 
-Najbliższa zależność fizyczna jest opisana w [raporcie PR212](PR212_SHARED_CONTACT_TIMELINE_AND_BALANCE.md). Utrzymany kandydat realizmu pozostaje PR201; domyślna polityka B, 40 Hz i 28 atrybutów pozostają. Przyszły profil realizmu ma łączyć sprawdzone, kompatybilne mechanizmy przez [istniejącą architekturę](match-engine/INTEGRATION_ARCHITECTURE.md), z jawnymi wykluczeniami historycznych wariantów. Nie należy włączać ich wszystkich naraz.
+Najbliższa zależność fizyczna jest opisana w [raporcie PR213](PR213_PERSISTENT_CONTACT_AND_BODY_IMPULSE.md): jednoczesne podparcie wielu ciał i jawna kontynuacja na granicy ruchu. Utrzymany kandydat realizmu pozostaje PR201; domyślna polityka B, 40 Hz i 28 atrybutów pozostają. Przyszły profil realizmu ma łączyć sprawdzone, kompatybilne mechanizmy przez [istniejącą architekturę](match-engine/INTEGRATION_ARCHITECTURE.md), z jawnymi wykluczeniami historycznych wariantów. Nie należy włączać ich wszystkich naraz.
 
 Żaden ze strumieni A–K nie jest implementowany w PR212. Następne zakresy wybieramy według ryzyka, korzyści dla kariery i rzeczywistych zależności; nie przypisujemy każdemu systemowi arbitralnego numeru PR. Celem wydania jest kompletna, przyjemna kariera, wsparta wiarygodnym silnikiem i światem.

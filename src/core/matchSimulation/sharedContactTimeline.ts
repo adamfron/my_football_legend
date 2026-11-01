@@ -16,6 +16,7 @@ export const sharedContactEventSchema = z.object({
     'challenge',
     'challenge_body',
     'challenge_expiry',
+    'player_constraint',
   ]),
   playerId: z.string().optional(),
 });
@@ -32,6 +33,13 @@ export const continuousFootContactsSchema = z
     z.object({
       actorId: z.string(),
       foot: z.enum(['left', 'right']),
+      prepared: z
+        .object({
+          path: temporalFootPathSchema,
+          facingAngle: z.number().finite(),
+          selectedAt: z.number().nonnegative(),
+        })
+        .optional(),
     }),
   )
   .max(44);

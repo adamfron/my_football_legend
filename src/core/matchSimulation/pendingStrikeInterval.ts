@@ -1,5 +1,15 @@
 import { compareSharedContactEvents, type sharedContactEventSchema } from './sharedContactTimeline';
 import type { z } from 'zod';
+import {
+  integrateCanonicalBodyRemainder,
+  accountCanonicalContactMovement,
+} from './canonicalMovement';
+import {
+  findPlayerBodyContact,
+  playerPairKey,
+  resolvePlayerBodyImpulse,
+  supportedUprightPair,
+} from './playerBodyContact';
 import { resolveDefensiveChallenge, type ChallengeDiagnostic } from './defensiveChallenges';
 import { executeFootContact } from './footContact';
 import {
@@ -57,8 +67,8 @@ const bodyAt = (a: MatchPlayerState, b: MatchPlayerState, fraction: number): Mat
       fraction,
 });
 
-/** Ball branch of the canonical step, subordinate to its already integrated body segments.
- * No player/match stepping, hidden prediction, future state injection or RNG occurs here. */
+/** Canonical contact interval. The selected upright pair can replace its transport
+ * segments after impact; the tick's finite actuator update is never spent twice. */
 export const advancePendingStrikeInterval = (
   input: TacticalMatchState,
   moved: TacticalMatchState,
@@ -70,27 +80,97 @@ export const advancePendingStrikeInterval = (
   const start = moved.time - dt,
     end = moved.time;
   const before = new Map(input.players.map((p) => [p.id, p]));
-  const finalPlayers = moved.players;
+  let finalPlayers = moved.players;
+  const nominalPlayers = moved.players;
+  const pairIntent =
+    moved.experimentalPlayerBodyImpulse &&
+    moved.defensiveChallenge?.physicalAttempt &&
+    moved.defensiveChallenge.technique === 'standing'
+      ? moved.defensiveChallenge
+      : undefined;
+  const pairIds = pairIntent?.physicalAttempt ? [pairIntent.actorId, pairIntent.opponentId] : [];
+  const pairServiced = new Set<string>();
+  const origins = new Map<string, { player: MatchPlayerState; at: number }>();
+  const travelled = new Map<string, number>();
+  let transportEnd = dt;
+  const playerAt = (p: MatchPlayerState, at: number) => {
+    const origin = origins.get(p.id);
+    const a = origin?.player ?? before.get(p.id) ?? p;
+    const began = origin?.at ?? 0;
+    const value = bodyAt(a, p, (at - began) / Math.max(1e-12, dt - began));
+    return moved.experimentalPlayerBodyImpulse && (pairIds.includes(p.id) || origin)
+      ? {
+          ...value,
+          velocity: p.velocity,
+          ...(p.plantBalance ? { plantBalance: p.plantBalance } : {}),
+        }
+      : value;
+  };
   const changedVelocities = new Map<string, MatchPlayerState['velocity']>();
   const restoreClock = (s: TacticalMatchState) => ({
     ...s,
     time: end,
-    players: finalPlayers.map((p) => {
-      const changed = s.players.find((a) => a.id === p.id);
-      return changed
-        ? {
-            ...changed,
-            position: p.position,
-            facingAngle: p.facingAngle,
-            velocity: changedVelocities.get(p.id) ?? p.velocity,
-          }
-        : p;
-    }),
+    ...(moved.experimentalPlayerBodyImpulse
+      ? {
+          playerBodyContacts: (s.playerBodyContacts ?? []).map((c) => ({
+            ...c,
+            actualRemainderSeconds: Math.max(0, transportEnd - (c.at - start)),
+            remainderPositions: c.participants.map(
+              (id) => finalPlayers.find((p) => p.id === id)?.position ?? { x: 0, y: 0 },
+            ) as [MatchPlayerState['position'], MatchPlayerState['position']],
+          })),
+        }
+      : {}),
+    players: finalPlayers
+      .filter((p) => !moved.experimentalPlayerBodyImpulse || s.players.some((a) => a.id === p.id))
+      .map((p) => {
+        const changed = s.players.find((a) => a.id === p.id);
+        const physical = changed
+          ? {
+              ...changed,
+              position: p.position,
+              facingAngle: p.facingAngle,
+              velocity: changedVelocities.get(p.id) ?? p.velocity,
+            }
+          : p;
+        const origin = origins.get(p.id);
+        return origin && (before.get(p.id)?.samples ?? 0) < p.samples
+          ? accountCanonicalContactMovement(
+              before.get(p.id)!,
+              nominalPlayers.find((a) => a.id === p.id)!,
+              physical,
+              (travelled.get(p.id) ?? 0) +
+                Math.hypot(p.velocity.x, p.velocity.y) * Math.max(0, transportEnd - origin.at),
+              dt,
+              end,
+            )
+          : physical;
+      }),
   });
   let state = { ...moved, time: start },
     elapsed = 0,
     evaluations = 0;
   const excluded = new Set<string>(pending ? [pending.actorId] : []);
+  const rebasePlayer = (p: MatchPlayerState) => {
+    const old = finalPlayers.find((q) => q.id === p.id)!;
+    const began = origins.get(p.id)?.at ?? 0;
+    travelled.set(
+      p.id,
+      (travelled.get(p.id) ?? 0) + Math.hypot(old.velocity.x, old.velocity.y) * (elapsed - began),
+    );
+    origins.set(p.id, { player: p, at: elapsed });
+    changedVelocities.set(p.id, p.velocity);
+    finalPlayers = finalPlayers.map((q) =>
+      q.id === p.id
+        ? {
+            ...q,
+            velocity: p.velocity,
+            ...(p.plantBalance ? { plantBalance: p.plantBalance } : {}),
+            position: integrateCanonicalBodyRemainder(p, dt - elapsed),
+          }
+        : q,
+    );
+  };
   const resolveChallenge = (
     kind: 'ball' | 'body' | 'miss' | 'interrupted' | 'unresolved',
     reason: string,
@@ -136,7 +216,7 @@ export const advancePendingStrikeInterval = (
           canContactAfterThrowIn(state, p.id),
       )
       .map((p) => {
-        const a = bodyAt(before.get(p.id) ?? p, p, elapsed / dt);
+        const a = playerAt(p, elapsed);
         return {
           kind: isMatchGoalkeeper(p) ? ('goalkeeper' as const) : ('defender' as const),
           playerId: p.id,
@@ -177,8 +257,54 @@ export const advancePendingStrikeInterval = (
       body = undefined;
     type Event = z.infer<typeof sharedContactEventSchema> & {
       hit?: ReturnType<typeof findStrikeIntervalContact>;
+      bodyUnresolved?: string;
     };
     const events: Event[] = [];
+    if (moved.experimentalPlayerBodyImpulse && origins.size) {
+      // A third solid body is outside the isolated pair approximation. Stop at its
+      // witnessed encounter, rather than drifting a corrected player through it.
+      for (const p of finalPlayers.filter((p) => origins.has(p.id))) {
+        const current = playerAt(p, elapsed);
+        for (const [axis, maximum] of [
+          ['x', 104.6],
+          ['y', 67.6],
+        ] as const) {
+          const edge =
+            p.position[axis] < 0.4 ? 0.4 : p.position[axis] > maximum ? maximum : undefined;
+          if (edge !== undefined && Math.abs(p.velocity[axis]) > 1e-12) {
+            const at = (edge - current.position[axis]) / p.velocity[axis];
+            if (at >= 0 && at <= seconds)
+              events.push({
+                at,
+                rank: 1,
+                key: `${p.id}:pitch-edge`,
+                kind: 'player_constraint',
+                playerId: p.id,
+                bodyUnresolved: 'player_pitch_edge',
+              });
+          }
+        }
+        for (const q of finalPlayers.filter(
+          (q) => q.id !== p.id && !pairIds.includes(q.id) && canParticipatePhysically(q),
+        )) {
+          const a = playerAt(p, elapsed),
+            b = playerAt(q, elapsed);
+          b.velocity = {
+            x: (q.position.x - b.position.x) / seconds,
+            y: (q.position.y - b.position.y) / seconds,
+          };
+          const hit = findPlayerBodyContact(a, b, seconds, false);
+          if (hit)
+            events.push({
+              at: hit.at,
+              rank: 1,
+              key: `${p.id}:${q.id}`,
+              kind: 'player_constraint',
+              playerId: p.id,
+            });
+        }
+      }
+    }
     const challenge = shared ? state.defensiveChallenge : undefined;
     const attempt = challenge?.physicalAttempt;
     if (attempt && attempt.expiresAt <= end)
@@ -188,7 +314,29 @@ export const advancePendingStrikeInterval = (
         key: challenge!.id,
         kind: 'challenge_expiry',
       });
-    if (attempt && challenge) {
+    const physicalPair = moved.experimentalPlayerBodyImpulse ? pairIntent : undefined;
+    if (physicalPair && !pairServiced.has(physicalPair.id)) {
+      const p = finalPlayers.find((p) => p.id === physicalPair.actorId);
+      const q = finalPlayers.find((p) => p.id === physicalPair.opponentId);
+      if (p && q && supportedUprightPair(p, q)) {
+        const a = playerAt(p, elapsed),
+          b = playerAt(q, elapsed);
+        const active =
+          state.continuousPlayerContacts?.some(
+            (c) => playerPairKey(...c.participants) === playerPairKey(p.id, q.id),
+          ) ?? false;
+        const hit = findPlayerBodyContact(a, b, seconds, active);
+        if (hit)
+          events.push({
+            at: hit.at,
+            rank: 1,
+            key: physicalPair.id,
+            kind: 'challenge_body',
+            playerId: p.id,
+            ...(hit.unresolved ? { bodyUnresolved: hit.unresolved } : {}),
+          });
+      }
+    } else if (!moved.experimentalPlayerBodyImpulse && attempt && challenge) {
       // A bounded swept torso contact witness, independent of ball reach. Initial
       // overlap is uncertainty, not a newly observed opponent impact.
       const p = finalPlayers.find((p) => p.id === challenge.actorId);
@@ -241,7 +389,9 @@ export const advancePendingStrikeInterval = (
         !canContactAfterThrowIn(state, p.id)
       )
         continue;
-      const a = before.get(p.id) ?? p;
+      const origin = origins.get(p.id);
+      const a = origin?.player ?? before.get(p.id) ?? p;
+      const began = origin?.at ?? 0;
       const own = p.id === state.pendingStrike?.actorId ? state.pendingStrike : undefined;
       const defending = p.id === challenge?.actorId ? attempt : undefined;
       const travel = Math.hypot(p.position.x - a.position.x, p.position.y - a.position.y);
@@ -253,8 +403,27 @@ export const advancePendingStrikeInterval = (
         continue;
       const prepared = own ?? defending;
       for (const foot of prepared ? [prepared.plan.foot] : (['left', 'right'] as const)) {
+        const latched = moved.experimentalPlayerBodyImpulse
+          ? state.continuousFootContacts?.find((c) => c.actorId === p.id && c.foot === foot)
+              ?.prepared
+          : undefined;
+        const trajectory = latched
+          ? {
+              path: latched.path,
+              selectedAt: latched.selectedAt,
+              plan: { facingAngle: latched.facingAngle },
+            }
+          : prepared;
         const footAt = (t: number) =>
-          canonicalStrikeFoot(prepared, a, p, foot, start, dt, elapsed + t);
+          canonicalStrikeFoot(
+            trajectory,
+            a,
+            p,
+            foot,
+            start + began,
+            dt - began,
+            elapsed + t - began,
+          );
         if (
           shared &&
           state.continuousFootContacts?.some((c) => c.actorId === p.id && c.foot === foot)
@@ -321,7 +490,7 @@ export const advancePendingStrikeInterval = (
       {
         ...state,
         time: start + elapsed,
-        players: finalPlayers.map((p) => bodyAt(before.get(p.id) ?? p, p, elapsed / dt)),
+        players: finalPlayers.map((p) => playerAt(p, elapsed)),
       },
       incoming,
     );
@@ -329,7 +498,98 @@ export const advancePendingStrikeInterval = (
       resolveChallenge('miss', 'swing_completed_without_contact');
       continue;
     }
+    if (event.kind === 'player_constraint') {
+      transportEnd = elapsed;
+      const reason = event.bodyUnresolved ?? 'third_body_remainder';
+      for (const p of state.players.filter((p) => origins.has(p.id)))
+        finalPlayers = finalPlayers.map((q) =>
+          q.id === p.id ? { ...q, position: p.position } : q,
+        );
+      state = finishPendingStrike(state, 'unresolved', reason, state.time, {
+        evaluations,
+      });
+      state = {
+        ...state,
+        playerBodyContacts: (state.playerBodyContacts ?? []).map((c) => ({
+          ...c,
+          continuationUnresolvedReason: reason,
+        })),
+      };
+      if (pending && state.lastStrikeResolution?.id === pending.id)
+        state = {
+          ...state,
+          lastStrikeResolution: {
+            ...state.lastStrikeResolution,
+            continuationUnresolvedReason: reason,
+          },
+        };
+      if (state.defensiveChallenge?.physicalAttempt) resolveChallenge('unresolved', reason);
+      return restoreClock(state);
+    }
     if (event.kind === 'challenge_body') {
+      if (moved.experimentalPlayerBodyImpulse && pairIntent) {
+        pairServiced.add(pairIntent.id);
+        const a = state.players.find((p) => p.id === pairIntent.actorId)!;
+        const b = state.players.find((p) => p.id === pairIntent.opponentId)!;
+        const active =
+          state.continuousPlayerContacts?.some(
+            (c) => playerPairKey(...c.participants) === playerPairKey(a.id, b.id),
+          ) ?? false;
+        const unresolved = event.bodyUnresolved;
+        const result = resolvePlayerBodyImpulse(a, b, state.time, active, undefined, unresolved);
+        result.evidence.remainderSeconds = dt - elapsed;
+        result.evidence.positionsAtContact = [a.position, b.position];
+        result.evidence.remainderPositions = result.players.map((p) =>
+          integrateCanonicalBodyRemainder(p, dt - elapsed),
+        ) as [MatchPlayerState['position'], MatchPlayerState['position']];
+        result.evidence.locomotionWorkBefore = [a, b].reduce((sum, p) => {
+          const previous = before.get(p.id) ?? p;
+          return (
+            sum +
+            0.5 *
+              p.profile.weightKg *
+              (p.velocity.x ** 2 +
+                p.velocity.y ** 2 -
+                previous.velocity.x ** 2 -
+                previous.velocity.y ** 2)
+          );
+        }, 0);
+        result.evidence.locomotionWorkAfter = 0;
+        state = {
+          ...state,
+          playerBodyContacts: [...(state.playerBodyContacts ?? []), result.evidence].slice(-8),
+        };
+        if (result.evidence.kind === 'unresolved') continue;
+        if (!active && result.evidence.kind === 'impact') {
+          state = {
+            ...state,
+            continuousPlayerContacts: [
+              ...(state.continuousPlayerContacts ?? []),
+              { participants: [a.id, b.id] as [string, string], beganAt: state.time },
+            ].slice(-22),
+          };
+          // Assess the separate body event with the existing referee consumer. Do not
+          // finish the still-live foot attempt or count it twice as a discrete duel.
+          const law = resolveDefensiveChallenge(
+            { ...state, defensiveChallenge: pairIntent },
+            { kind: 'body', reason: 'swept_torso_contact' },
+          );
+          result.evidence.refereeOutcome = law.diagnostic?.outcome ?? 'unresolved';
+          if (law.diagnostic) state = handlers.challenge?.(state, law.diagnostic) ?? state;
+        }
+        for (const p of result.players) {
+          rebasePlayer(p);
+        }
+        state = {
+          ...state,
+          players: state.players.map((p) => result.players.find((q) => q.id === p.id) ?? p),
+        };
+        if (state.restart || state.scenario !== 'open_play' || state.postGoal) {
+          state = finishPendingStrike(state, 'interrupted', 'law_interruption');
+          return restoreClock(state);
+        }
+        continue;
+      }
       state = finishPendingStrike(state, 'interrupted', 'active_body_contact', state.time, {
         evaluations,
         firstEvent: event.key,
@@ -446,6 +706,9 @@ export const advancePendingStrikeInterval = (
         ball: {
           x: state.ball.x,
           y: state.ball.y,
+          ...(moved.experimentalPlayerBodyImpulse && state.ball.continuousBodyContacts
+            ? { continuousBodyContacts: state.ball.continuousBodyContacts }
+            : {}),
           height: state.ball.height ?? 0.11,
           velocity: contact.outgoingVelocity,
           spin: contact.outgoingSpin,
@@ -456,7 +719,19 @@ export const advancePendingStrikeInterval = (
         },
         continuousFootContacts: [
           ...(state.continuousFootContacts ?? []),
-          { actorId: actor.id, foot: contact.foot },
+          {
+            actorId: actor.id,
+            foot: contact.foot,
+            ...(moved.experimentalPlayerBodyImpulse
+              ? {
+                  prepared: {
+                    path: attempt!.path,
+                    facingAngle: attempt!.plan.facingAngle,
+                    selectedAt: attempt!.selectedAt,
+                  },
+                }
+              : {}),
+          },
         ].slice(-44),
         lastGroundContact: {
           actorId: actor.id,
@@ -507,9 +782,28 @@ export const advancePendingStrikeInterval = (
         ...state,
         ballEpisode: (state.ballEpisode ?? 0) + 1,
         ...(offsideSnapshot ? { offsideSnapshot } : {}),
+        ...(moved.experimentalPlayerBodyImpulse
+          ? {
+              continuousFootContacts: [
+                ...(state.continuousFootContacts ?? []),
+                {
+                  actorId: actor.id,
+                  foot: p.plan.foot,
+                  prepared: {
+                    path: p.path,
+                    facingAngle: p.plan.facingAngle,
+                    selectedAt: p.selectedAt,
+                  },
+                },
+              ].slice(-44),
+            }
+          : {}),
         ball: {
           x: state.ball.x,
           y: state.ball.y,
+          ...(moved.experimentalPlayerBodyImpulse && state.ball.continuousBodyContacts
+            ? { continuousBodyContacts: state.ball.continuousBodyContacts }
+            : {}),
           height: state.ball.height ?? 0.11,
           from: { x: state.ball.x, y: state.ball.y },
           target: p.passDiagnostic.intendedTarget ?? p.passDiagnostic.predictedReceptionPoint,
@@ -580,7 +874,8 @@ export const advancePendingStrikeInterval = (
           (changedActor.velocity.x !== actor.velocity.x ||
             changedActor.velocity.y !== actor.velocity.y)
         )
-          changedVelocities.set(actor.id, changedActor.velocity);
+          if (moved.experimentalPlayerBodyImpulse) rebasePlayer(changedActor);
+          else changedVelocities.set(actor.id, changedActor.velocity);
         const contact =
           state.lastGroundContact?.actorId === actor.id && state.lastGroundContact.at === state.time
             ? state.lastGroundContact.surfaceContact

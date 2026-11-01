@@ -9,7 +9,6 @@ import { strikeResolutionSchema, type StrikeResolution } from './pendingStrikeSt
 import { executePhysicalKick } from './kickExecution';
 import {
   prepareTemporalStrike,
-  temporalFootAt,
   temporalFootPath,
   TEMPORAL_STRIKE,
   ZERO_TEMPORAL_ERROR,
@@ -22,6 +21,7 @@ import { canParticipatePhysically } from './matchInjuries';
 import { normalizeAngle } from './playerOrientation';
 import { integrateBallFlight, BALL_PHYSICS } from './ballPhysics';
 import type { FlightPoint } from './ballFlight';
+import { relativeTemporalFootAt } from './temporalFootTrajectory';
 
 type V = FlightPoint;
 const add = (a: V, b: V): V => ({ x: a.x + b.x, y: a.y + b.y, z: a.z + b.z });
@@ -218,7 +218,11 @@ const footAnchor = (actor: MatchPlayerState, foot: 'left' | 'right'): V => ({
 
 /** Body/pose anchors come from this actual canonical interval, never a whole-swing extrapolation. */
 export const canonicalStrikeFoot = (
-  pending: Pick<PendingStrike, 'path' | 'plan' | 'selectedAt'> | undefined,
+  pending:
+    | (Pick<PendingStrike, 'path' | 'selectedAt'> & {
+        plan: Pick<PendingStrike['plan'], 'facingAngle'>;
+      })
+    | undefined,
   before: MatchPlayerState,
   after: MatchPlayerState,
   foot: 'left' | 'right',
@@ -232,12 +236,7 @@ export const canonicalStrikeFoot = (
   const position = add(a, scale(anchorVelocity, local));
   if (!pending) return { position, velocity: anchorVelocity, speedBound: norm(anchorVelocity) };
   const elapsed = intervalAt + local - pending.selectedAt;
-  const nominal = temporalFootAt(pending.path, elapsed);
-  const relative = sub(
-    sub(nominal.position, pending.path.origin),
-    scale(pending.path.bodyVelocity, elapsed),
-  );
-  const relativeVelocity = sub(nominal.velocity, pending.path.bodyVelocity);
+  const { relative, relativeVelocity } = relativeTemporalFootAt(pending.path, elapsed);
   const turn = normalizeAngle(after.facingAngle - before.facingAngle);
   const angle = normalizeAngle(before.facingAngle - pending.plan.facingAngle) + (turn * local) / dt;
   const offset = rotate(relative, angle);
