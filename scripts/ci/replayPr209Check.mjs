@@ -7,9 +7,10 @@ import process from 'node:process';
 import console from 'node:console';
 import { pathToFileURL } from 'node:url';
 import { preserveHistoricalBytes } from './historicalBytes.mjs';
-import { BASE, checkPr210Source } from '../pr210SourceGuard.mjs';
+import { BASE } from '../pr210SourceGuard.mjs';
+import { checkPr211Source } from '../pr211Evidence.mjs';
 export function pr209Context() {
-  checkPr210Source();
+  checkPr211Source();
   mkdirSync('.benchmark-artifacts', { recursive: true });
   const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr209-check-'));
   const safe = () => assert.ok(resolve(scratch).startsWith(resolve('.benchmark-artifacts') + sep));

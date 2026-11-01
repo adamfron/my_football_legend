@@ -51,8 +51,8 @@ export const groundContactFactSchema = z.object({
   region: contactBodyRegionSchema,
   intendedRegion: contactBodyRegionSchema.optional(),
   point: physicalPointSchema,
-  incomingVelocity: physicalPointSchema,
-  outgoingVelocity: physicalPointSchema,
+  incomingVelocity: physicalPointSchema.extend({ z: z.number().finite().optional() }),
+  outgoingVelocity: physicalPointSchema.extend({ z: z.number().finite().optional() }),
   /** Actual retained impulse efficiency, not an inferred probability of success. */
   quality: z.number().min(0).max(1).optional(),
   retained: z.boolean(),

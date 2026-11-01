@@ -39,6 +39,7 @@ import { clampPitchPoint, distance, distanceToSegment, fieldValue } from './matc
 import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { resolveCanonicalShot } from './shotResolver';
 import { eligiblePhysicalPass, executePhysicalKick } from './kickExecution';
+import { commitPendingPass, selectsPendingPass } from './pendingStrike';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { evaluateRunSpace } from './reachableSpace';
 import {
@@ -1128,6 +1129,8 @@ const resolveMatchActionCanonical = (
   if (!hasActiveMatchActionParticipants(state, action)) return state;
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor) return state;
+  // The existing authority grants no unrestricted replacement during a committed swing.
+  if (state.pendingStrike?.actorId === actor.id) return state;
   if (
     usesBoundedIntelligence(state) &&
     source === 'autonomous_npc' &&
@@ -1548,6 +1551,7 @@ const resolveMatchActionCanonical = (
   }
   const receiverId = action.receiverId;
   const receiver = state.players.find((p) => p.id === receiverId)!;
+  const temporalPass = selectsPendingPass(state, actor, action);
   const projection = spacePlan
     ? {
         releaseTarget: spacePlan.requestedSpace,
@@ -1597,7 +1601,9 @@ const resolveMatchActionCanonical = (
     action.intent,
     action.delivery ?? 'ground',
     {
-      ...(eligiblePhysicalPass(state, actor, action) ? { nominalContact: true } : {}),
+      ...(temporalPass || eligiblePhysicalPass(state, actor, action)
+        ? { nominalContact: true }
+        : {}),
       firstTime: Boolean(action.firstTime),
       goalkeeperDistribution: action.distribution === 'kick' && isMatchGoalkeeper(actor),
       ...(action.foot ? { foot: action.foot } : {}),
@@ -1685,7 +1691,9 @@ const resolveMatchActionCanonical = (
     launchVelocity.z = launchVelocity.z * (1 - retained) + (incomingVelocity.z ?? 0) * retained;
   }
   const kickExecution =
-    eligiblePhysicalPass(state, actor, action) && isPhysicalKickPassTechnique(execution.type)
+    !temporalPass &&
+    eligiblePhysicalPass(state, actor, action) &&
+    isPhysicalKickPassTechnique(execution.type)
       ? executePhysicalKick(state, actor, {
           family: 'pass',
           target,
@@ -1714,7 +1722,7 @@ const resolveMatchActionCanonical = (
       (p) => distance(p.position, target) / Math.max(2.5, 2.6 + p.profile.attributes.pace * 0.042),
     ),
   );
-  return {
+  const release: TacticalMatchState = {
     ...baseState,
     ...(kickExecution ? { lastKickExecution: kickExecution } : {}),
     ball: {
@@ -1904,6 +1912,9 @@ const resolveMatchActionCanonical = (
         }
       : {}),
   };
+  return temporalPass && isPhysicalKickPassTechnique(execution.type)
+    ? commitPendingPass(state, baseState, actor, action, release)
+    : release;
 };
 
 export const enumerateRestartActions = enumerateContextualRestartActions;

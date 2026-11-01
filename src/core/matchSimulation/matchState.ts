@@ -1,4 +1,10 @@
 import { z } from 'zod';
+import {
+  pendingStrikeFields,
+  pendingStrikeSelectionSchema,
+  strikeResolutionSchema,
+  type StrikeResolution,
+} from './pendingStrikeState';
 import { ballEnvironmentSchema, type BallEnvironment } from './ballPhysics';
 import {
   kickExecutionSelectionSchema,
@@ -817,7 +823,29 @@ export const passDiagnosticSchema = z.object({
     .optional(),
 });
 
+export const pendingStrikeSchema = z
+  .object({
+    ...pendingStrikeFields,
+    action: matchActionSchema,
+    source: actionSourceSchema,
+    passDiagnostic: passDiagnosticSchema,
+  })
+  .superRefine((pending, ctx) => {
+    if (
+      pending.action.type !== 'pass' ||
+      pending.action.actorId !== pending.actorId ||
+      pending.plan.actorId !== pending.actorId ||
+      pending.plan.plannedAt !== pending.selectedAt ||
+      pending.expiresAt <= pending.selectedAt
+    )
+      ctx.addIssue({ code: 'custom', message: 'Invalid pending low-pass identity or clock' });
+  });
+export type PendingStrike = z.infer<typeof pendingStrikeSchema>;
+
 export interface TacticalMatchState {
+  experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
+  pendingStrike?: PendingStrike;
+  lastStrikeResolution?: StrikeResolution;
   /** Explicit physical edition; absent in every frozen historical profile. */
   ballEnvironment?: BallEnvironment;
   experimentalKickExecution?: z.infer<typeof kickExecutionSelectionSchema>;
@@ -1059,6 +1087,9 @@ export interface TacticalMatchState {
 // are already validated by the canonical world database schema.
 export const tacticalMatchStateSchema = z
   .object({
+    experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
+    pendingStrike: pendingStrikeSchema.optional(),
+    lastStrikeResolution: strikeResolutionSchema.optional(),
     ballEnvironment: ballEnvironmentSchema.optional(),
     boundedReceiverRecovery: boundedReceiverRecoverySchema.optional(),
     situationalAwareness: situationalAwarenessSchema.optional(),
@@ -1326,6 +1357,12 @@ export const tacticalMatchStateSchema = z
   })
   .passthrough()
   .superRefine((state, ctx) => {
+    if (state.pendingStrike && state.experimentalPendingStrike !== state.pendingStrike.version)
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Pending strike requires its selected physical edition',
+        path: ['pendingStrike'],
+      });
     for (const message of integrationStateErrors(state as unknown as TacticalMatchState))
       ctx.addIssue({ code: 'custom', message, path: ['integrationProfile'] });
   });

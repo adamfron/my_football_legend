@@ -1,7 +1,7 @@
 {
   "schema": "mfl-realism-progress-v1",
-  "registryHash": "b4194cb14f0f1bef9323d60f22480cb732d552de893d62950d6e2bde3d925e68",
-  "mappingHash": "e91e9895e8ff8b93db826fe2da51252ebb99ca90bd9455e956dcc610b2b2d524",
+  "registryHash": "cea56f3cbdf81e3595b70088f3e38f35b62ba5f8639e8edca4b2868fd7213511",
+  "mappingHash": "5e9dad773f9f976bae8420a9192475d77a8dd73ca715dfe49d74086d2519c8c1",
   "baseline": "aa2292b664ab3c0afa43297c2e4d24fc0f6c6d5b",
   "definitions": {
     "supported": "Evidence supports the explicitly stated scope; it does not close the whole issue.",
@@ -1419,6 +1419,7 @@
   ],
   "majorBlockers": [
     "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+    "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates.",
     "No external calibration of optical noise, derivative correction, uncertainty, cue priors or memory commitment; no live consumer promotion.",
     "Missing physical capability or competition/context representation; see original registry item."
   ],
@@ -1489,7 +1490,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -1526,7 +1529,8 @@
       },
       "regressions": [],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ]
     },
     {
@@ -2041,7 +2045,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -2078,7 +2084,8 @@
       },
       "regressions": [],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ]
     },
     {
@@ -2456,7 +2463,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -2495,7 +2504,8 @@
       },
       "regressions": [],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ]
     },
     {
@@ -2517,7 +2527,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -2565,7 +2577,8 @@
         "PR201 recovery retains four frozen, two PR200-fresh and one new-development paired retention losses; opt-in only."
       ],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ],
       "scopeHistory": [
         {
@@ -2692,7 +2705,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -2731,7 +2746,8 @@
       },
       "regressions": [],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ]
     },
     {
@@ -8803,7 +8819,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -8840,7 +8858,8 @@
       },
       "regressions": [],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ]
     },
     {
@@ -8858,7 +8877,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -8895,7 +8916,8 @@
       },
       "regressions": [],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ]
     },
     {
@@ -8913,7 +8935,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -8950,7 +8974,8 @@
       },
       "regressions": [],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ]
     },
     {
@@ -8968,7 +8993,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -9005,7 +9032,8 @@
       },
       "regressions": [],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ]
     },
     {
@@ -9209,7 +9237,9 @@
         "SOURCE_AUDITED": {
           "status": "SUPPORTED",
           "evidence": [
-            "source-register"
+            "source-register",
+            "pr211-pending-strike",
+            "pr211-pending-strike-final"
           ],
           "limitation": "Source auditing alone proves no experiment, repair or realism; PR195 originated 133 entries, MEAS-012 was added in PR196 and TACT-013 in PR198."
         },
@@ -9248,7 +9278,8 @@
       },
       "regressions": [],
       "blockers": [
-        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed."
+        "Original empirical/tactical/full-match/independent closure gates remain open; independent confirmation sealed.",
+        "PR211: active-challenge/shared body-event timing blocks general pending-strike promotion; source-linked local evidence does not close the original gates."
       ]
     },
     {
@@ -9955,6 +9986,52 @@
       "experiment": "goalkeepers-v1.json.gz",
       "result": "42/42 full state hashes equal after removing only the recovery selection field; active/passive/contact outcome witnesses preserved.",
       "limitation": "Dependent development trials; no empirical calibration, broad tactical transfer, independent confirmation or COMPLETE. Direct contact/control/retention and censoring remain separate."
+    },
+    {
+      "key": "pr211-pending-strike",
+      "ids": [
+        "PASS-005",
+        "PASS-006",
+        "PASS-008",
+        "PHYS-002",
+        "DEC-002",
+        "DEC-012",
+        "MEAS-007",
+        "MEAS-008",
+        "MEAS-009",
+        "MEAS-010"
+      ],
+      "pr": 211,
+      "receipt": "docs/performance/pr211/realism-evidence.json",
+      "sha256": "b6105bd59cf0b3863f0e01ae41ed176d0c387d712c5ee8a737278b4384c8e980",
+      "sourceFingerprint": "ffcca31c6e829b2836e74bd7bff2b366a94ac0e575b840a4e454434a2c4888c3",
+      "sourceArchive": "docs/performance/pr211/source-ffcca31c6e829b2836e74bd7bff2b366a94ac0e575b840a4e454434a2c4888c3.json.gz",
+      "experiment": "Canonical low-pass lifecycle: 18 scenes, timing/body/competition/boundary/no-contact and 54 reloads",
+      "result": "11 contacts, 2 misses, 4 earlier-event interruptions, 1 unresolved; five legacy controls. Scoped source-linked evidence, without original status or gate promotion.",
+      "limitation": "Active-challenge precise timing and near-coincident passive-body refinement remain blocked. No new opt-in full match, empirical calibration, independent confirmation or COMPLETE."
+    },
+    {
+      "key": "pr211-pending-strike-final",
+      "ids": [
+        "PASS-005",
+        "PASS-006",
+        "PASS-008",
+        "PHYS-002",
+        "DEC-002",
+        "DEC-012",
+        "MEAS-007",
+        "MEAS-008",
+        "MEAS-009",
+        "MEAS-010"
+      ],
+      "pr": 211,
+      "receipt": "docs/performance/pr211/realism-evidence-final.json",
+      "sha256": "c9b6f8b3d2ecd42467ac4e993bf1d522b524c0d9e9eb094c1e3d6117ae0c2a4d",
+      "sourceFingerprint": "cf232abc0869ca4f95aaf1fbcfc7429119c2f262f4fcc964af14a0622ed5867f",
+      "sourceArchive": "docs/performance/pr211/source-cf232abc0869ca4f95aaf1fbcfc7429119c2f262f4fcc964af14a0622ed5867f.json.gz",
+      "experiment": "Canonical low-pass lifecycle: 19 scenes, timing/body/competition/boundary/frame/no-contact and 57 reloads",
+      "result": "11 contacts, 2 misses, 5 earlier-event interruptions, 1 unresolved; five legacy controls. Scoped source-linked evidence, without original status or gate promotion.",
+      "limitation": "Active-challenge precise timing and near-coincident passive-body refinement remain blocked. No new opt-in full match, empirical calibration, independent confirmation or COMPLETE."
     }
   ],
   "integration": {
