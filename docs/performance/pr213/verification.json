@@ -1,0 +1,299 @@
+{
+  "source": {
+    "base": "44b2f1df70af49c4b0135849eeb67855440efa35",
+    "fingerprint": "a91b473369da114892d288a9e5a9139f70de32b8b8089d10c17f71277db161e0",
+    "archive": "docs/performance/pr213/source-a91b473369da114892d288a9e5a9139f70de32b8b8089d10c17f71277db161e0.json.gz"
+  },
+  "verify": {
+    "wallSeconds": 1454.1964197,
+    "command": "npm run verify",
+    "exitCode": 0,
+    "status": "PASS",
+    "testsInInvocation": {
+      "unit": 2571,
+      "integration": 56,
+      "careerContracts": 4,
+      "fullCareer": 5,
+      "total": 2636
+    }
+  },
+  "finalSourceChecks": {
+    "unitTests": 2572,
+    "focusedTests": 89,
+    "focusedFiles": 5,
+    "lint": "PASS",
+    "typescript": "PASS",
+    "productionBuild": "PASS",
+    "nativeInformationBoundary": "PASS",
+    "canonicalReplay": "PASS",
+    "archiveReconstructions": 7
+  },
+  "validationSequence": "Full verify passed; after the final passive-latch preservation and import-cycle follow-up, all unit tests, focused contracts, lint, TypeScript, final build, current-source replay and CI guards were checked again. Earlier career/integration results retain their actual invocation count; final default algorithms are unchanged by the scoped guard.",
+  "gates": [
+    {
+      "name": "current-replay",
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerTypescriptLoader.mjs",
+        "scripts/benchmarkPr213.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 8.7781147,
+      "log": "gate213-current-replay-final.log"
+    },
+    {
+      "name": "manifest",
+      "command": [
+        "node",
+        "scripts/ci/buildManifest.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 28.2621922,
+      "log": "gate213-manifest-final.log"
+    },
+    {
+      "name": "ci-contracts",
+      "command": [
+        "node",
+        "--test",
+        "scripts/ci/contracts.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 32.1459878,
+      "log": "gate213-ci-contracts-final.log"
+    },
+    {
+      "name": "workflow",
+      "command": [
+        "node",
+        "scripts/ci/renderWorkflow.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 0.0669421,
+      "log": "gate213-workflow.log"
+    },
+    {
+      "name": "corruption",
+      "command": [
+        "node",
+        "scripts/ci/corruptReplay.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 10.624026,
+      "log": "gate213-corruption.log"
+    },
+    {
+      "name": "history203",
+      "command": [
+        "node",
+        "scripts/ci/replayPr203Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 155.5528517,
+      "log": "gate213-history203.log"
+    },
+    {
+      "name": "history204",
+      "command": [
+        "node",
+        "scripts/ci/replayPr204Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 32.1716347,
+      "log": "gate213-history204.log"
+    },
+    {
+      "name": "authority",
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerTypescriptLoader.mjs",
+        "scripts/checkPr204Authority.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 1.7665831,
+      "log": "gate213-authority.log"
+    },
+    {
+      "name": "information",
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerPr199Lab.mjs",
+        "scripts/checkPr204Boundary.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 1.9681007,
+      "log": "gate213-information-final.log"
+    },
+    {
+      "name": "history205",
+      "command": [
+        "node",
+        "scripts/ci/replayPr205Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 7.1507277,
+      "log": "gate213-history205.log"
+    },
+    {
+      "name": "contracts205",
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerTypescriptLoader.mjs",
+        "scripts/benchmarkPr205.mjs",
+        "--contracts"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 1.5786178,
+      "log": "gate213-contracts205.log"
+    },
+    {
+      "name": "history206",
+      "command": [
+        "node",
+        "scripts/ci/replayPr206Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 10.6021729,
+      "log": "gate213-history206.log"
+    },
+    {
+      "name": "contracts206",
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "./scripts/registerPr206Lab.mjs",
+        "scripts/checkPr206Contracts.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 5.4068822,
+      "log": "gate213-contracts206.log"
+    },
+    {
+      "name": "history207",
+      "command": [
+        "node",
+        "scripts/ci/replayPr207Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 26.1569707,
+      "log": "gate213-history207-final.log"
+    },
+    {
+      "name": "history208",
+      "command": [
+        "node",
+        "scripts/ci/replayPr208Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 27.5160461,
+      "log": "gate213-history208-final.log"
+    },
+    {
+      "name": "history209",
+      "command": [
+        "node",
+        "scripts/ci/replayPr209Check.mjs",
+        "--replay"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 41.6816307,
+      "log": "gate213-history209-final.log"
+    },
+    {
+      "name": "history210",
+      "command": [
+        "node",
+        "scripts/ci/replayPr210Check.mjs",
+        "--replay"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 31.0192589,
+      "log": "gate213-history210-final.log"
+    },
+    {
+      "name": "history211",
+      "command": [
+        "node",
+        "scripts/ci/replayPr211Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 34.3380822,
+      "log": "gate213-history211-final.log"
+    },
+    {
+      "name": "history212",
+      "command": [
+        "node",
+        "scripts/ci/replayPr212Check.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 34.2049613,
+      "log": "gate213-history212-final.log"
+    },
+    {
+      "name": "realism",
+      "command": [
+        "node",
+        "scripts/realismProgress.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 6.1878394,
+      "log": "gate213-realism-final.log"
+    }
+  ],
+  "historyBytes": "PR195–212 receipts and package manifests unchanged from merged PR212",
+  "logs": {
+    "path": "docs/performance/pr213/verification-logs.json.gz",
+    "sha256": "5334e4fe925a3005da02fbb2f1e475a71f3c561ddb2f1e8f53961c443c920d0c"
+  },
+  "failuresRetained": [
+    {
+      "name": "information",
+      "log": "gate213-information.log",
+      "reason": "Native import-order initialization cycle, repaired by pure geometry schema"
+    },
+    {
+      "name": "history207",
+      "log": "gate213-history207.log",
+      "reason": "Current source changed during final passive-latch preservation; source was frozen and guards rerun"
+    },
+    {
+      "name": "history208",
+      "log": "gate213-history208.log",
+      "reason": "Current source changed during final passive-latch preservation; source was frozen and guards rerun"
+    },
+    {
+      "name": "history209",
+      "log": "gate213-history209.log",
+      "reason": "Current source changed during final passive-latch preservation; source was frozen and guards rerun"
+    },
+    {
+      "name": "history210",
+      "log": "gate213-history210.log",
+      "reason": "Current source changed during final passive-latch preservation; source was frozen and guards rerun"
+    },
+    {
+      "name": "history211",
+      "log": "gate213-history211.log",
+      "reason": "Current source changed during final passive-latch preservation; source was frozen and guards rerun"
+    },
+    {
+      "name": "history212",
+      "log": "gate213-history212.log",
+      "reason": "Current source changed during final passive-latch preservation; source was frozen and guards rerun"
+    }
+  ]
+}

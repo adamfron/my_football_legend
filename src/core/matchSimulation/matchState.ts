@@ -4,6 +4,11 @@ import {
 } from './sharedContactTimeline';
 import { z } from 'zod';
 import {
+  playerBodyImpulseSelectionSchema,
+  continuousPlayerContactsSchema,
+  playerBodyContactsSchema,
+} from './playerBodyContact';
+import {
   pendingStrikeFields,
   pendingStrikeSelectionSchema,
   strikeResolutionSchema,
@@ -848,6 +853,9 @@ export type PendingStrike = z.infer<typeof pendingStrikeSchema>;
 
 export interface TacticalMatchState {
   experimentalContactTimeline?: z.infer<typeof sharedContactSelectionSchema>;
+  experimentalPlayerBodyImpulse?: z.infer<typeof playerBodyImpulseSelectionSchema>;
+  continuousPlayerContacts?: z.infer<typeof continuousPlayerContactsSchema>;
+  playerBodyContacts?: z.infer<typeof playerBodyContactsSchema>;
   continuousFootContacts?: z.infer<typeof continuousFootContactsSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
   pendingStrike?: PendingStrike;
@@ -1094,6 +1102,9 @@ export interface TacticalMatchState {
 export const tacticalMatchStateSchema = z
   .object({
     experimentalContactTimeline: sharedContactSelectionSchema.optional(),
+    experimentalPlayerBodyImpulse: playerBodyImpulseSelectionSchema.optional(),
+    continuousPlayerContacts: continuousPlayerContactsSchema.optional(),
+    playerBodyContacts: playerBodyContactsSchema.optional(),
     continuousFootContacts: continuousFootContactsSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
@@ -1365,6 +1376,18 @@ export const tacticalMatchStateSchema = z
   })
   .passthrough()
   .superRefine((state, ctx) => {
+    if (
+      (state.experimentalPlayerBodyImpulse ||
+        state.continuousPlayerContacts?.length ||
+        state.playerBodyContacts?.length) &&
+      (state.experimentalPlayerBodyImpulse !== 'upright-pair-dev-v1' ||
+        state.experimentalContactTimeline !== 'standing-contact-dev-v1')
+    )
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Player impulses require the shared standing timeline',
+        path: ['experimentalPlayerBodyImpulse'],
+      });
     if (
       (state.experimentalContactTimeline || state.defensiveChallenge?.physicalAttempt) &&
       (state.experimentalContactTimeline !== 'standing-contact-dev-v1' ||

@@ -4,6 +4,7 @@ import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { physicalPointSchema, distance } from './matchSpace';
 import { ballSpinSchema } from './ballPhysics';
 import { deriveFitnessPhysicalModifiers } from './matchFitness';
+import { relativeTemporalFootAt } from './temporalFootTrajectory';
 
 export const footSurfaceSchema = z.enum([
   'inside',
@@ -20,7 +21,9 @@ export const footContactExecutionSchema = z.object({
   executed: footSurfaceSchema.nullable(),
   foot: z.enum(['left', 'right']),
   available: z.boolean(),
-  unavailableReason: z.enum(['out_of_reach', 'height', 'support', 'preparation']).nullable(),
+  unavailableReason: z
+    .enum(['out_of_reach', 'height', 'support', 'preparation', 'continuous_contact'])
+    .nullable(),
   at: z.number().nonnegative(),
   point: vector,
   surfacePoint: vector,
@@ -173,6 +176,45 @@ export const activeStrikeCapability = (
  * Sole normal load is a bounded downward press. No spin reset, attachment or position correction.
  * Coefficients are engineering approximations awaiting PR186 calibration, not fitted physiology.
  */
+export const isContinuousFootContact = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  foot: 'left' | 'right',
+) => {
+  if (
+    !state.experimentalPlayerBodyImpulse ||
+    !state.continuousFootContacts?.some((c) => c.actorId === actor.id && c.foot === foot)
+  )
+    return false;
+  const centre = {
+    ...playerFootGeometry(actor)[foot === 'left' ? 'leftFoot' : 'rightFoot'],
+    z: actor.lowerBodyPose ? deriveLowerBodyGeometry(actor)[foot].foot.z : 0.04,
+  };
+  const prepared = state.continuousFootContacts?.find(
+    (c) => c.actorId === actor.id && c.foot === foot,
+  )?.prepared;
+  if (prepared) {
+    const { relative } = relativeTemporalFootAt(prepared.path, state.time - prepared.selectedAt);
+    const angle = actor.facingAngle - prepared.facingAngle;
+    centre.x += relative.x * Math.cos(angle) + relative.y * Math.sin(angle);
+    centre.y += -relative.x * Math.sin(angle) + relative.y * Math.cos(angle);
+    centre.z += relative.z;
+  }
+  return (
+    Math.hypot(
+      centre.x - state.ball.x,
+      centre.y - state.ball.y,
+      centre.z - (state.ball.height ?? 0.11),
+    ) <= 0.155
+  );
+};
+
+export const retainContinuousFootContacts = (state: TacticalMatchState) =>
+  (state.continuousFootContacts ?? []).filter((c) => {
+    const actor = state.players.find((p) => p.id === c.actorId);
+    return actor && isContinuousFootContact(state, actor, c.foot);
+  });
+
 export const executeFootContact = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
@@ -249,8 +291,13 @@ export const executeFootContact = (
     normal = { x: Math.cos(angle), y: Math.sin(angle), z: 0 };
   }
   if (request.activeStrike) normal = request.activeStrike.normal;
-  const reason: FootContactExecution['unavailableReason'] =
-    distance(centre, state.ball) > geometry.footReach + 1e-8
+  const reason: FootContactExecution['unavailableReason'] = isContinuousFootContact(
+    state,
+    actor,
+    foot,
+  )
+    ? 'continuous_contact'
+    : distance(centre, state.ball) > geometry.footReach + 1e-8
       ? 'out_of_reach'
       : height > (intended === 'sole' ? 0.24 : 0.65)
         ? 'height'

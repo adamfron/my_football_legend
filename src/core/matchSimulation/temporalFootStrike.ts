@@ -1,3 +1,15 @@
+import {
+  TEMPORAL_STRIKE,
+  temporalFootPathSchema,
+  temporalFootAt,
+  type TemporalFootPath,
+} from './temporalFootTrajectory';
+export {
+  TEMPORAL_STRIKE,
+  temporalFootPathSchema,
+  temporalFootAt,
+  type TemporalFootPath,
+} from './temporalFootTrajectory';
 import { z } from 'zod';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { integrateBallFlight, ballSpinSchema, BALL_PHYSICS } from './ballPhysics';
@@ -24,18 +36,6 @@ const clamp = (v: number, lo = 0, hi = 1) => Math.max(lo, Math.min(hi, v));
 const kinetic = (v: V, w: V) =>
   (FOOT_CONTACT_PHYSICS.mass * dot(v, v) + FOOT_CONTACT_PHYSICS.inertia * dot(w, w)) / 2;
 
-/** Engineering assumptions, not articulated biomechanics or calibrated human timing. */
-export const TEMPORAL_STRIKE = Object.freeze({
-  version: 'temporal-contact-dev-v1' as const,
-  footRadius: 0.035,
-  nominalOnset: 0.025,
-  swingSeconds: 0.05,
-  followThroughSeconds: 0.02,
-  windowSeconds: 0.12,
-  maximumTimingError: 0.02,
-  distanceTolerance: 1e-7,
-  maximumEvaluationsPerStep: 160,
-});
 const physicalBallSchema = z.object({
   position: vector,
   velocity: vector,
@@ -70,18 +70,6 @@ export const temporalStrikePlanSchema = z.object({
   reach: z.number().positive(),
 });
 export type TemporalStrikePlan = z.infer<typeof temporalStrikePlanSchema>;
-export const temporalFootPathSchema = z.object({
-  origin: vector,
-  bodyVelocity: vector,
-  onset: z.number().nonnegative(),
-  duration: z.number().positive(),
-  controls: z.tuple([vector, vector, vector, vector]),
-  finalVelocity: vector,
-  speedBound: z.number().nonnegative(),
-  reachBound: z.number().nonnegative(),
-  capabilityScale: z.number().min(0).max(1),
-});
-export type TemporalFootPath = z.infer<typeof temporalFootPathSchema>;
 const frameSchema = z.object({
   at: z.number().nonnegative(),
   ball: physicalBallSchema,
@@ -200,29 +188,6 @@ export const temporalFootPath = (
     reachBound: reach * capabilityScale,
     capabilityScale,
   });
-};
-
-export const temporalFootAt = (path: TemporalFootPath, at: number) => {
-  const t = clamp((at - path.onset) / path.duration),
-    u = 1 - t;
-  const [, , c, d] = path.controls;
-  const relative = add(scale(c, 3 * u * t * t), scale(d, t * t * t));
-  const follow = clamp(at - path.onset - path.duration, 0, TEMPORAL_STRIKE.followThroughSeconds);
-  const followDistance = follow - (follow * follow) / (2 * TEMPORAL_STRIKE.followThroughSeconds);
-  return {
-    position: add(
-      add(path.origin, scale(path.bodyVelocity, at)),
-      add(relative, scale(path.finalVelocity, followDistance)),
-    ),
-    velocity: add(
-      path.bodyVelocity,
-      at < path.onset
-        ? zero()
-        : follow > 0
-          ? scale(path.finalVelocity, 1 - follow / TEMPORAL_STRIKE.followThroughSeconds)
-          : scale(add(scale(c, 6 * t - 9 * t * t), scale(d, 3 * t * t)), 1 / path.duration),
-    ),
-  };
 };
 
 /** A bounded single-ball collision primitive, not a match executor. Canonical integration

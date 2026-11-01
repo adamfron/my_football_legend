@@ -5,6 +5,7 @@ import type { TacticalMatchState, MatchPlayerState } from './matchState';
 import { motorContactReadyAt, playerContactGeometry } from './ballContactGeometry';
 import { canContactAfterThrowIn } from './throwIn';
 import { canParticipatePhysically } from './matchInjuries';
+import { isContinuousFootContact } from './footContact';
 
 export const ballAcquisitionSchema = z.object({
   id: z.string(),
@@ -28,6 +29,8 @@ const groundContactDistance = (state: TacticalMatchState, player: MatchPlayerSta
 };
 const canGroundContact = (state: TacticalMatchState, player: MatchPlayerState) =>
   canParticipatePhysically(player) &&
+  (!state.experimentalPlayerBodyImpulse ||
+    (['left', 'right'] as const).some((foot) => !isContinuousFootContact(state, player, foot))) &&
   state.time + 1e-8 >= motorContactReadyAt(state, player.id) &&
   !state.discipline?.[player.id]?.sentOff &&
   canContactAfterThrowIn(state, player.id) &&

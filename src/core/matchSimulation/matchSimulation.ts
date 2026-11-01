@@ -1,6 +1,8 @@
 import { usesLocalReception } from './situationalAwarenessState';
 import { reconcilePendingStrike } from './pendingStrike';
 import { advancePendingStrikeInterval } from './pendingStrikeInterval';
+import { retainPlayerBodyContacts, supportedUprightPair } from './playerBodyContact';
+import { retainContinuousFootContacts } from './footContact';
 import { attacksRight } from './matchSpace';
 import { finishIncidentalGoal } from './incidentalGoals';
 import { advanceExperimentalBodyReception } from './experimentalBodyReception';
@@ -619,8 +621,16 @@ const changePossession = (
 ) => {
   if (!canContactAfterThrowIn(state, ownerId)) return state;
   const receivingActor = state.players.find((p) => p.id === ownerId);
+  if (
+    state.experimentalPlayerBodyImpulse &&
+    receivingActor &&
+    !isMatchGoalkeeper(receivingActor) &&
+    state.ball.ownerId &&
+    state.ball.ownerId !== ownerId
+  )
+    return state;
   const finiteRecovery =
-    finiteGroundContact &&
+    (finiteGroundContact || Boolean(state.experimentalPlayerBodyImpulse)) &&
     (state.prospectiveMovement === 'observed-ball-contact-dev-v1' ||
       state.experimentalPendingStrike === 'low-pass-dev-v1') &&
     receivingActor &&
@@ -677,6 +687,9 @@ const changePossession = (
   const controlledBall = {
     x: state.ball.x,
     y: state.ball.y,
+    ...(state.experimentalPlayerBodyImpulse && state.ball.continuousBodyContacts
+      ? { continuousBodyContacts: state.ball.continuousBodyContacts }
+      : {}),
     ownerId,
     lastTouchPlayerId: ownerId,
     ...(state.ball.heldByKeeperId === ownerId ? { heldByKeeperId: ownerId } : {}),
@@ -698,6 +711,13 @@ const changePossession = (
     ? resolveReceptionOutcome(state, owner, { x: state.ball.x, y: state.ball.y })
     : undefined;
   const receptionPoint = reception?.resultingPoint ?? { x: state.ball.x, y: state.ball.y };
+  if (
+    state.experimentalPlayerBodyImpulse &&
+    !isMatchGoalkeeper(owner) &&
+    state.ball.ownerId !== ownerId &&
+    !reception?.surfaceContact?.available
+  )
+    return state;
   if (reception?.retainedVelocity) {
     state = {
       ...state,
@@ -955,6 +975,9 @@ const completePossessionTurnover = (
     ball: controlled?.ball ?? {
       x: state.ball.x,
       y: state.ball.y,
+      ...(state.experimentalPlayerBodyImpulse && state.ball.continuousBodyContacts
+        ? { continuousBodyContacts: state.ball.continuousBodyContacts }
+        : {}),
       ownerId,
       lastTouchPlayerId: ownerId,
       ...(state.ball.heldByKeeperId === ownerId ? { heldByKeeperId: ownerId } : {}),
@@ -996,6 +1019,9 @@ const makeLoose = (state: TacticalMatchState, velocity = { x: 0, y: 0 }): Tactic
   ball: {
     x: state.ball.x,
     y: state.ball.y,
+    ...(state.experimentalPlayerBodyImpulse && state.ball.continuousBodyContacts
+      ? { continuousBodyContacts: state.ball.continuousBodyContacts }
+      : {}),
     velocity,
     looseSince: state.time,
     ...(state.ball.lastTouchPlayerId ? { lastTouchPlayerId: state.ball.lastTouchPlayerId } : {}),
@@ -1582,6 +1608,27 @@ const stepTacticalMatchCore = (
   )
     return input;
   const dt = Math.min(0.25, Math.max(0.01, rawDelta));
+  // A real human decision freezes the complete snapshot, including contact latches.
+  if (input.experimentalPlayerBodyImpulse) {
+    const contact = input.lastGroundContact;
+    const feet = [...(input.continuousFootContacts ?? [])];
+    if (
+      contact?.executed &&
+      contact.at > input.time - 0.025 - 1e-9 &&
+      contact.surfaceContact?.available &&
+      !feet.some((c) => c.actorId === contact.actorId && c.foot === contact.surfaceContact!.foot)
+    )
+      feet.push({ actorId: contact.actorId, foot: contact.surfaceContact.foot });
+    input = {
+      ...input,
+      continuousPlayerContacts: retainPlayerBodyContacts(input),
+      playerBodyContacts: [],
+      continuousFootContacts: retainContinuousFootContacts({
+        ...input,
+        continuousFootContacts: feet,
+      }).slice(-44),
+    };
+  }
   input = planCoachSubstitutions(processInjuryAssessment(input));
   if (input.injuryAssessment) return stepInjuryAssessmentInterval(input, dt);
   if (substitutionBlocksRestart(input)) return stepSubstitutionInterval(input, dt);
@@ -2327,6 +2374,22 @@ const stepTacticalMatchCore = (
         distance(p.position, next) < (player.lowerBodyPose && p.lowerBodyPose ? 1.4 : 1.15),
     );
     for (const other of close) {
+      // The selected pair's solid torso contact belongs to the shared event interval.
+      // Do not geometrically stop one body before the two-body impulse can be found.
+      if (
+        state.experimentalPlayerBodyImpulse &&
+        state.defensiveChallenge?.physicalAttempt &&
+        [player.id, other.id].every((id) =>
+          [state.defensiveChallenge!.actorId, state.defensiveChallenge!.opponentId].includes(id),
+        ) &&
+        supportedUprightPair(player, other) &&
+        (Math.hypot(player.position.x - other.position.x, player.position.y - other.position.y) >=
+          0.68 - 1e-8 ||
+          state.continuousPlayerContacts?.some(
+            (c) => c.participants.includes(player.id) && c.participants.includes(other.id),
+          ))
+      )
+        continue;
       if (player.lowerBodyPose && other.lowerBodyPose) {
         next = movementBounds(
           constrainCompliantBodyStep({ ...player, facingAngle }, next, other, dt),
@@ -2434,7 +2497,8 @@ const stepTacticalMatchCore = (
     };
   });
   endPerformanceSpan('movement_physics', movementSpan);
-  state = advanceMatchInjuries(input, state);
+  if (!(state.experimentalPlayerBodyImpulse && state.defensiveChallenge?.physicalAttempt))
+    state = advanceMatchInjuries(input, state);
   state = processInjuryAssessment(state);
   if (state.injuryAssessment) return state;
   const ballSpan = startPerformanceSpan('ball_physics');
