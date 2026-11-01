@@ -1,0 +1,887 @@
+{
+  "source": {
+    "base": "a0b3396d2d0f2e81f68d2dbc65c6aedf92c8e7ae",
+    "fingerprint": "f42e78a8bfc5ee9e75b34f1a9af926b149420e416e7dc2c2eddf9cb0700cf5b4",
+    "archive": "docs/performance/pr212/source-f42e78a8bfc5ee9e75b34f1a9af926b149420e416e7dc2c2eddf9cb0700cf5b4.json.gz"
+  },
+  "rows": [
+    {
+      "name": "paired-earlier",
+      "attempted": 1,
+      "realFootContacts": 2,
+      "activeBallContact": true,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 1,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 2,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.48193356388337416,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1127,
+      "strike": "active_challenge",
+      "challenge": {
+        "kind": "ball",
+        "reason": "foot_ball_intersection",
+        "contact": {
+          "intended": "inside",
+          "executed": "inside",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10.050447375915162,
+          "point": {
+            "x": 30.0463754755364,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 30.15315016329493,
+            "y": 34.0264126290311,
+            "z": 0.10875940267064901
+          },
+          "relativePoint": {
+            "x": -0.293536308319986,
+            "y": -0.039483133013455074,
+            "z": 0.11
+          },
+          "normal": {
+            "x": -0.9706789796230136,
+            "y": -0.24011480937363716,
+            "z": 0.011278157539554436
+          },
+          "incomingVelocity": {
+            "x": 0.8385683970714842,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": -2.106026961627495,
+            "y": 0.277573946137179,
+            "z": 0.28005562723020566
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0.9596730850882655,
+            "y": -3.2541068199797896,
+            "z": 13.315583836948262
+          },
+          "impulse": {
+            "x": -1.266176004240561,
+            "y": 0.11935679683898698,
+            "z": 0.12042391970898843
+          },
+          "normalImpulseLimit": 14.033005280592148,
+          "tangentImpulseLimit": 0.9411888652105965,
+          "tangentSpeed": 2.719784072779379,
+          "quality": 0.7864648303140734,
+          "balance": 1,
+          "preparationSeconds": 0.29044737591516223,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.133405078106751
+        }
+      }
+    },
+    {
+      "name": "paired-later",
+      "attempted": 1,
+      "realFootContacts": 3,
+      "activeBallContact": true,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 1,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 2,
+      "looseSeconds": 0.20000000000000284,
+      "displacement": 0.2511976320792585,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1112,
+      "strike": "foot_ball_intersection",
+      "challenge": {
+        "kind": "ball",
+        "reason": "foot_ball_intersection",
+        "contact": {
+          "intended": "inside",
+          "executed": "inside",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10.092010986270967,
+          "point": {
+            "x": 30.084751789389696,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 30.167256989500594,
+            "y": 34.072752264257964,
+            "z": 0.11000000000000001
+          },
+          "relativePoint": {
+            "x": -0.2859383364517498,
+            "y": -0.059985646353482025,
+            "z": 0.11
+          },
+          "normal": {
+            "x": -0.7500472737354406,
+            "y": -0.6613842205269437,
+            "z": -9.57088182049018e-17
+          },
+          "incomingVelocity": {
+            "x": 2.9409951481080787,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 1.0051345344945815,
+            "y": -0.5303300477055388,
+            "z": -6.488737923349296e-17
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 1.9039076437698726e-15,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 1.0693327347363224e-16,
+            "y": 4.1039512254715595e-17,
+            "z": 12.035114407118844
+          },
+          "impulse": {
+            "x": -0.8324200638538038,
+            "y": -0.22804192051338168,
+            "z": -2.790157307040197e-17
+          },
+          "normalImpulseLimit": 14.847575583179154,
+          "tangentImpulseLimit": 0.6340573636865547,
+          "tangentSpeed": 2.3821354534831225,
+          "quality": 0.7864458848990676,
+          "balance": 1,
+          "preparationSeconds": 0.33201098627096726,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.13342128249632962
+        }
+      }
+    },
+    {
+      "name": "paired-unresolved-10ms",
+      "attempted": 1,
+      "realFootContacts": 0,
+      "activeBallContact": false,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.25000000000000355,
+      "displacement": 0.19647321907138882,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1127,
+      "strike": "bounded_search_exhausted",
+      "challenge": {
+        "kind": "unresolved",
+        "reason": "bounded_search_exhausted"
+      }
+    },
+    {
+      "name": "defender-10ms-earlier",
+      "attempted": 1,
+      "realFootContacts": 2,
+      "activeBallContact": true,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.7147762672313651,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1126,
+      "strike": "foot_ball_intersection",
+      "challenge": {
+        "kind": "ball",
+        "reason": "foot_ball_intersection",
+        "contact": {
+          "intended": "inside",
+          "executed": "inside",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10.082832291108053,
+          "point": {
+            "x": 30.06360317341887,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 30.15351673403997,
+            "y": 34.063368380257316,
+            "z": 0.11000000000000001
+          },
+          "relativePoint": {
+            "x": -0.30073488612441324,
+            "y": -0.056218955908349244,
+            "z": 0.11
+          },
+          "normal": {
+            "x": -0.8173960056463818,
+            "y": -0.5760761841573907,
+            "z": -9.57088271779989e-17
+          },
+          "incomingVelocity": {
+            "x": 8.702916397864481,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 0.393211401627239,
+            "y": -3.425011534666526,
+            "z": -3.588556400541924e-16
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 7.19305806059034e-15,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 1.651031580931011e-15,
+            "y": 3.478087069396329e-16,
+            "z": 27.101350881501187
+          },
+          "impulse": {
+            "x": -3.5731731483820144,
+            "y": -1.4727549599066063,
+            "z": -1.5430792522330272e-16
+          },
+          "normalImpulseLimit": 17.578024177020676,
+          "tangentImpulseLimit": 2.7896932918600084,
+          "tangentSpeed": 5.364227259353924,
+          "quality": 0.7864458848990676,
+          "balance": 1,
+          "preparationSeconds": 0.322832291108053,
+          "contactSeconds": 0.025,
+          "retained": false,
+          "recoverySeconds": 0.13342128249632962
+        }
+      }
+    },
+    {
+      "name": "same-onset",
+      "attempted": 1,
+      "realFootContacts": 2,
+      "activeBallContact": true,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.673962780731704,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1111,
+      "strike": "foot_ball_intersection",
+      "challenge": {
+        "kind": "ball",
+        "reason": "foot_ball_intersection",
+        "contact": {
+          "intended": "inside",
+          "executed": "inside",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10.083160880678845,
+          "point": {
+            "x": 30.06646268822892,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 30.158719498367475,
+            "y": 34.059905600598434,
+            "z": 0.11000000000000001
+          },
+          "relativePoint": {
+            "x": -0.2979508753304003,
+            "y": -0.056267374140702486,
+            "z": 0.11
+          },
+          "normal": {
+            "x": -0.8386982739868523,
+            "y": -0.5445963690766539,
+            "z": -9.570881737008108e-17
+          },
+          "incomingVelocity": {
+            "x": 8.701864911237944,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": -0.4732421665542468,
+            "y": -3.256298171908181,
+            "z": -4.008121799916064e-16
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 7.187387743466735e-15,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 1.273303488171299e-15,
+            "y": -2.0322358527167376e-16,
+            "z": 30.895613783034563
+          },
+          "impulse": {
+            "x": -3.945296043450642,
+            "y": -1.4002082139205179,
+            "z": -1.7234923739639076e-16
+          },
+          "normalImpulseLimit": 17.687349893772275,
+          "tangentImpulseLimit": 3.007381529708374,
+          "tangentSpeed": 6.115233678722242,
+          "quality": 0.7864458848990676,
+          "balance": 1,
+          "preparationSeconds": 0.32316088067884485,
+          "contactSeconds": 0.025,
+          "retained": false,
+          "recoverySeconds": 0.13342128249632962
+        }
+      }
+    },
+    {
+      "name": "defender-10ms-later",
+      "attempted": 1,
+      "realFootContacts": 2,
+      "activeBallContact": true,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.7405869964457532,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1111,
+      "strike": "foot_ball_intersection",
+      "challenge": {
+        "kind": "ball",
+        "reason": "foot_ball_intersection",
+        "contact": {
+          "intended": "inside",
+          "executed": "inside",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10.084004955974065,
+          "point": {
+            "x": 30.073806577481868,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 30.170582208935716,
+            "y": 34.05229219139394,
+            "z": 0.1099377430476937
+          },
+          "relativePoint": {
+            "x": -0.29080100628971906,
+            "y": -0.056391638027015745,
+            "z": 0.11
+          },
+          "normal": {
+            "x": -0.8797784677622704,
+            "y": -0.4753835581267347,
+            "z": 0.0005659722936936436
+          },
+          "incomingVelocity": {
+            "x": 8.69916387029324,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": -1.994563967922451,
+            "y": -3.0903510730968304,
+            "z": 0.06509428169047243
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 7.172842409833697e-15,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0.39812315670765724,
+            "y": -0.698402641813615,
+            "z": 32.24724623772644
+          },
+          "impulse": {
+            "x": -4.598302970432747,
+            "y": -1.328850961431637,
+            "z": 0.02799054112690315
+          },
+          "normalImpulseLimit": 17.899025122106657,
+          "tangentImpulseLimit": 3.4435261308746052,
+          "tangentSpeed": 6.384748201565564,
+          "quality": 0.7864458848990676,
+          "balance": 1,
+          "preparationSeconds": 0.32400495597406453,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.13342128249632962
+        }
+      }
+    },
+    {
+      "name": "defender-20ms-earlier",
+      "attempted": 1,
+      "realFootContacts": 2,
+      "activeBallContact": true,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.7242907656168002,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1126,
+      "strike": "foot_ball_intersection",
+      "challenge": {
+        "kind": "ball",
+        "reason": "foot_ball_intersection",
+        "contact": {
+          "intended": "inside",
+          "executed": "inside",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10.082821439385508,
+          "point": {
+            "x": 30.06350873159637,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 30.153337464461533,
+            "y": 34.06348857182076,
+            "z": 0.11000000000000001
+          },
+          "relativePoint": {
+            "x": -0.3008268346635319,
+            "y": -0.05621735647170567,
+            "z": 0.11
+          },
+          "normal": {
+            "x": -0.8166248442287253,
+            "y": -0.577168834734179,
+            "z": -9.570881668077686e-17
+          },
+          "incomingVelocity": {
+            "x": 8.702951123376625,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 0.5236973392960227,
+            "y": -3.4475449444653323,
+            "z": -3.525078294429209e-16
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 7.193245399998653e-15,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 1.7250533718317203e-15,
+            "y": 4.437901768456103e-16,
+            "z": 25.98353894055539
+          },
+          "impulse": {
+            "x": -3.517079127154659,
+            "y": -1.4824443261200928,
+            "z": -1.5157836666045598e-16
+          },
+          "normalImpulseLimit": 17.574070940232094,
+          "tangentImpulseLimit": 2.759912898204819,
+          "tangentSpeed": 5.1429763958574615,
+          "quality": 0.7864458848990676,
+          "balance": 1,
+          "preparationSeconds": 0.32282143938550845,
+          "contactSeconds": 0.025,
+          "retained": false,
+          "recoverySeconds": 0.13342128249632962
+        }
+      }
+    },
+    {
+      "name": "close-miss",
+      "attempted": 1,
+      "realFootContacts": 0,
+      "activeBallContact": false,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.20000000000000284,
+      "displacement": 0.0390625,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1119,
+      "strike": "swing_completed_without_contact",
+      "challenge": {
+        "kind": "miss",
+        "reason": "swing_completed_without_contact"
+      }
+    },
+    {
+      "name": "late-real-contact",
+      "attempted": 1,
+      "realFootContacts": 2,
+      "activeBallContact": true,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.9876186531289468,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1146,
+      "strike": "foot_ball_intersection",
+      "challenge": {
+        "kind": "ball",
+        "reason": "foot_ball_intersection",
+        "contact": {
+          "intended": "inside",
+          "executed": "inside",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10.10623601894095,
+          "point": {
+            "x": 30.266407484984573,
+            "y": 34,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 30.335167569584453,
+            "y": 34.08380368544895,
+            "z": 0.09131864375932719
+          },
+          "relativePoint": {
+            "x": -0.5248757341568435,
+            "y": -0.041007603540840876,
+            "z": 0.11
+          },
+          "normal": {
+            "x": -0.6250916781807164,
+            "y": -0.761851685899547,
+            "z": 0.1698305112788438
+          },
+          "incomingVelocity": {
+            "x": 8.628024468799214,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 2.588608088312993,
+            "y": -2.908416623383394,
+            "z": 0.7410812189557409
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 6.8001689391913004e-15,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 0.9634921893931689,
+            "y": 7.669547303161974,
+            "z": 37.951534409500226
+          },
+          "impulse": {
+            "x": -2.596949043609075,
+            "y": -1.2506191480548594,
+            "z": 0.3186649241509686
+          },
+          "normalImpulseLimit": 16.682840460408006,
+          "tangentImpulseLimit": 1.969699729808481,
+          "tangentSpeed": 7.666054140901592,
+          "quality": 0.7864052928642841,
+          "balance": 1,
+          "preparationSeconds": 0.34623601894094924,
+          "contactSeconds": 0.025,
+          "retained": false,
+          "recoverySeconds": 0.13345600547182743
+        }
+      }
+    },
+    {
+      "name": "out-of-reach",
+      "attempted": 1,
+      "realFootContacts": 1,
+      "activeBallContact": false,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.2250000000000032,
+      "displacement": 0.8879802369250385,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1149,
+      "strike": "foot_ball_intersection",
+      "challenge": {
+        "kind": "miss",
+        "reason": "swing_completed_without_contact"
+      }
+    },
+    {
+      "name": "escaping-ball",
+      "attempted": 1,
+      "realFootContacts": 0,
+      "activeBallContact": false,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.20000000000000284,
+      "displacement": 2.2560000000000002,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1158,
+      "strike": "bounded_search_exhausted",
+      "challenge": {
+        "kind": "unresolved",
+        "reason": "bounded_search_exhausted"
+      }
+    },
+    {
+      "name": "stationary-duel",
+      "attempted": 1,
+      "realFootContacts": 3,
+      "activeBallContact": true,
+      "activeBodyContacts": 0,
+      "passiveContacts": 2,
+      "controlAcquisitions": 1,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 2,
+      "looseSeconds": 1.4500000000000206,
+      "displacement": 7.09858465084875,
+      "elapsed": 2.0000000000000284,
+      "physicalAttemptBytes": 1114,
+      "challenge": {
+        "kind": "ball",
+        "reason": "foot_ball_intersection",
+        "contact": {
+          "intended": "inside",
+          "executed": "inside",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10.04169088314734,
+          "point": {
+            "x": 30.165251253757525,
+            "y": 33.99123672114111,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 30.264871595304015,
+            "y": 34.0163599162771,
+            "z": 0.07069844002689848
+          },
+          "relativePoint": {
+            "x": -0.16734468436891348,
+            "y": -0.0419669681221464,
+            "z": 0.11
+          },
+          "normal": {
+            "x": -0.905639468604447,
+            "y": -0.22839268305454813,
+            "z": 0.3572869088463774
+          },
+          "incomingVelocity": {
+            "x": 9.874021692120104,
+            "y": -0.5236196614504709,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": -5.1303247401912895,
+            "y": -2.8777186082149018,
+            "z": 4.722700770312847
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 3.239203150739402,
+            "y": 14.778986455319599,
+            "z": 17.657972999529672
+          },
+          "impulse": {
+            "x": -6.451868965893899,
+            "y": -1.0122625471087052,
+            "z": 2.0307613312345243
+          },
+          "normalImpulseLimit": 18.456091887898296,
+          "tangentImpulseLimit": 4.97180338524648,
+          "tangentSpeed": 4.602569906640005,
+          "quality": 0.7864828679006911,
+          "balance": 1,
+          "preparationSeconds": 0.28169088314733925,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.13338965131269676
+        }
+      }
+    },
+    {
+      "name": "stationary-close",
+      "attempted": 1,
+      "realFootContacts": 4,
+      "activeBallContact": true,
+      "activeBodyContacts": 0,
+      "passiveContacts": 1,
+      "controlAcquisitions": 2,
+      "possessionChanges": 1,
+      "uniqueControllingEpisodes": 3,
+      "looseSeconds": 1.40000000000002,
+      "displacement": 6.6925930337908905,
+      "elapsed": 2.0000000000000284,
+      "physicalAttemptBytes": 1116,
+      "challenge": {
+        "kind": "ball",
+        "reason": "foot_ball_intersection",
+        "contact": {
+          "intended": "inside",
+          "executed": "inside",
+          "foot": "right",
+          "available": true,
+          "unavailableReason": null,
+          "at": 10.029017998657434,
+          "point": {
+            "x": 30.05387665378943,
+            "y": 33.9971339754027,
+            "z": 0.11
+          },
+          "surfacePoint": {
+            "x": 30.149711761793693,
+            "y": 34.01120949910928,
+            "z": 0.057870241644555655
+          },
+          "relativePoint": {
+            "x": -0.12595611553152608,
+            "y": -0.020246125359051348,
+            "z": 0.11
+          },
+          "normal": {
+            "x": -0.8712282545841972,
+            "y": -0.12795930642344888,
+            "z": 0.47390689414040316
+          },
+          "incomingVelocity": {
+            "x": 13.40240849997957,
+            "y": -0.7129550505160347,
+            "z": 0
+          },
+          "outgoingVelocity": {
+            "x": 0.40961736130935655,
+            "y": -1.7666827689291817,
+            "z": 4.885213615862383
+          },
+          "incomingSpin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "outgoingSpin": {
+            "x": 1.714632486999702,
+            "y": 25.92596131259203,
+            "z": 10.152425204848623
+          },
+          "impulse": {
+            "x": -5.586900189628191,
+            "y": -0.4531029189176532,
+            "z": 2.1006418548208243
+          },
+          "normalImpulseLimit": 19.956477370914826,
+          "tangentImpulseLimit": 4.339015339038124,
+          "tangentSpeed": 5.521444136427789,
+          "quality": 0.7864828679006911,
+          "balance": 1,
+          "preparationSeconds": 0.2690179986574337,
+          "contactSeconds": 0.025,
+          "retained": true,
+          "recoverySeconds": 0.13338965131269676
+        }
+      }
+    },
+    {
+      "name": "opponent-body",
+      "attempted": 1,
+      "realFootContacts": 1,
+      "activeBallContact": false,
+      "activeBodyContacts": 1,
+      "passiveContacts": 0,
+      "controlAcquisitions": 1,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 2,
+      "looseSeconds": 0.20000000000000284,
+      "displacement": 0.06341024217093827,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 1172,
+      "strike": "active_body_contact",
+      "challenge": {
+        "kind": "body",
+        "reason": "swept_torso_contact"
+      }
+    },
+    {
+      "name": "unsupported-committed",
+      "attempted": 1,
+      "realFootContacts": 0,
+      "activeBallContact": false,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.30000000000000426,
+      "displacement": 0.10735659312365553,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 4,
+      "strike": "challenge_timing_not_supported"
+    },
+    {
+      "name": "unsupported-slide",
+      "attempted": 1,
+      "realFootContacts": 0,
+      "activeBallContact": false,
+      "activeBodyContacts": 0,
+      "passiveContacts": 0,
+      "controlAcquisitions": 0,
+      "possessionChanges": 0,
+      "uniqueControllingEpisodes": 1,
+      "looseSeconds": 0.30000000000000426,
+      "displacement": 0.12670593854607123,
+      "elapsed": 0.30000000000000426,
+      "physicalAttemptBytes": 4,
+      "strike": "challenge_timing_not_supported"
+    }
+  ],
+  "costs": {
+    "wallSeconds": 2.2409513,
+    "cpu": {
+      "user": 3296000,
+      "system": 172000
+    },
+    "peakRSSKiB": 424908,
+    "node": "v24.22.1",
+    "platform": "win32"
+  }
+}

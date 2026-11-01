@@ -1,3 +1,7 @@
+import {
+  sharedContactSelectionSchema,
+  continuousFootContactsSchema,
+} from './sharedContactTimeline';
 import { z } from 'zod';
 import {
   pendingStrikeFields,
@@ -843,6 +847,8 @@ export const pendingStrikeSchema = z
 export type PendingStrike = z.infer<typeof pendingStrikeSchema>;
 
 export interface TacticalMatchState {
+  experimentalContactTimeline?: z.infer<typeof sharedContactSelectionSchema>;
+  continuousFootContacts?: z.infer<typeof continuousFootContactsSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
   pendingStrike?: PendingStrike;
   lastStrikeResolution?: StrikeResolution;
@@ -1087,6 +1093,8 @@ export interface TacticalMatchState {
 // are already validated by the canonical world database schema.
 export const tacticalMatchStateSchema = z
   .object({
+    experimentalContactTimeline: sharedContactSelectionSchema.optional(),
+    continuousFootContacts: continuousFootContactsSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
     lastStrikeResolution: strikeResolutionSchema.optional(),
@@ -1357,6 +1365,17 @@ export const tacticalMatchStateSchema = z
   })
   .passthrough()
   .superRefine((state, ctx) => {
+    if (
+      (state.experimentalContactTimeline || state.defensiveChallenge?.physicalAttempt) &&
+      (state.experimentalContactTimeline !== 'standing-contact-dev-v1' ||
+        state.experimentalPendingStrike !== 'low-pass-dev-v1' ||
+        state.ballEnvironment?.groundContact !== 'event-v1')
+    )
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Shared contacts require compatible pending-strike and ground editions',
+        path: ['experimentalContactTimeline'],
+      });
     if (state.pendingStrike && state.experimentalPendingStrike !== state.pendingStrike.version)
       ctx.addIssue({
         code: 'custom',

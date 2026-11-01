@@ -64,7 +64,10 @@ workflow = workflow.replace(
       - if: matrix.group == 'main'
         run: node scripts/ci/replayPr210Check.mjs
       - if: matrix.group == 'main'
-        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr211.mjs --check
+        run: node scripts/ci/replayPr211Check.mjs
+      - name: PR212 shared standing-contact timeline
+        if: matrix.group == 'main'
+        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr212.mjs --check
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(
