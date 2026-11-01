@@ -29,6 +29,8 @@ import {
 } from './playerDecision';
 import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
 import { enumerateDefensiveChallengeActions } from './defensiveChallenges';
+import { canOfferOwnedBallActions } from './decisionReadiness';
+import { replaceHumanCarryWithMovement } from './possessionAgency';
 import { secondLastOpponentLine } from './offside';
 import { deriveSpacePassPlan } from './spacePassing';
 import { enumerateFreeKickStrikeProfiles } from './shootingOptions';
@@ -193,6 +195,30 @@ export const projectContextualInteractions = (
     return [];
   const actor = state.players.find((player) => player.id === opportunity.actorId);
   if (!actor) return [];
+  if (opportunity.kind === 'on_ball' && !canOfferOwnedBallActions(state, actor)) return [];
+  if (opportunity.kind === 'loose_ball') {
+    if (target.kind !== 'ball' && target.kind !== 'space') return [];
+    return opportunity.options.flatMap((option) =>
+      option.kind === 'movement'
+        ? [
+            contextualInteractionSchema.parse({
+              id: option.id,
+              target,
+              labelKey: option.labelKey,
+              resolution: {
+                kind: 'movement',
+                intent: {
+                  ...option.intent,
+                  ...(target.kind === 'space' && option.intent.type !== 'hold_shape'
+                    ? { target: target.point }
+                    : {}),
+                },
+              },
+            }),
+          ]
+        : [],
+    );
+  }
   if (opportunity.kind === 'incoming_ball') {
     const incomingActions = opportunity.options.flatMap((option) =>
       option.kind === 'action' ? [option.action] : [],
@@ -406,20 +432,6 @@ export const projectContextualInteractions = (
               id: option.id,
               target,
               labelKey: option.labelKey,
-              resolution: { kind: 'movement', intent: option.intent },
-            }),
-          ]
-        : [],
-    );
-  }
-  if (opportunity.kind === 'loose_ball' && target.kind === 'ball') {
-    return opportunity.options.flatMap((option) =>
-      option.kind === 'movement'
-        ? [
-            contextualInteractionSchema.parse({
-              id: option.id,
-              target,
-              labelKey: 'attack_ball',
               resolution: { kind: 'movement', intent: option.intent },
             }),
           ]
@@ -664,6 +676,14 @@ export const applyContextualInteraction = (
   )
     return state;
   const resolution = interaction.resolution;
+  if (
+    opportunity.kind === 'on_ball' &&
+    !canOfferOwnedBallActions(
+      state,
+      state.players.find((player) => player.id === opportunity.actorId)!,
+    )
+  )
+    return state;
   if (resolution.kind === 'action' && !hasActiveMatchActionParticipants(state, resolution.action))
     return state;
   if (
@@ -716,7 +736,7 @@ export const applyContextualInteraction = (
       return state;
   if (resolution.kind === 'movement')
     return {
-      ...gated,
+      ...replaceHumanCarryWithMovement(gated, resolution.intent.actorId),
       playerMovementIntent: resolution.intent,
       decisionIndex: state.decisionIndex + 1,
     };
@@ -733,7 +753,7 @@ export const applyContextualInteraction = (
           }
         : opponent.position;
   return {
-    ...gated,
+    ...replaceHumanCarryWithMovement(gated, actor.id),
     decisionIndex: state.decisionIndex + 1,
     playerMovementIntent: {
       actorId: actor.id,

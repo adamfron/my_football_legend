@@ -5,10 +5,11 @@ import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
 import { BASE as PR203_BASE } from '../pr203Evidence.mjs';
-import { checkPr209Source } from '../pr209SourceGuard.mjs';
+import { checkPr210Source } from '../pr210SourceGuard.mjs';
+import { preserveHistoricalBytes } from './historicalBytes.mjs';
 const BASE = '5b6bbf6778017ac415964dd48dfe30b850f2f352';
 export function pr201Context() {
-  checkPr209Source();
+  checkPr210Source();
   // These historical assertions include the old workflow family list and whole
   // research-tool inventory. Execute them verbatim against their original bytes.
   // Independently require all current engine and original harness bytes to agree.
@@ -73,6 +74,7 @@ export function pr201Context() {
       { windowsHide: true },
     );
     execFileSync('tar', ['-xf', tar, '-C', scratch], { windowsHide: true });
+    preserveHistoricalBytes(scratch);
     for (const name of ['node_modules', '.git'])
       symlinkSync(
         resolve(name),

@@ -7,7 +7,12 @@ import { usesBoundedIntelligence } from './boundedIntelligenceState';
 import { inspectBoundedAction, observeBoundedTrace } from './boundedIntelligence';
 import { observeDecisionRanking } from './decisionObservation';
 import { evaluateStateValueAction } from './decisionStateValue';
-import { canReconsiderDecision, releaseContactReadiness } from './decisionReadiness';
+import {
+  canReconsiderDecision,
+  releaseContactReadiness,
+  canOfferOwnedBallActions,
+  type ActionAvailabilityContext,
+} from './decisionReadiness';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { canThrowGoalkeeperBall, deriveGoalkeeperThrow } from './goalkeeperDistribution';
 import { selectRestartAction } from './restartLifecycle';
@@ -263,6 +268,7 @@ export const deriveHumanLeadPass = (
 export const enumerateAvailableActions = (
   state: TacticalMatchState,
   actorId: string,
+  context: ActionAvailabilityContext = 'current',
 ): MatchAction[] => {
   if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
     return [];
@@ -270,6 +276,13 @@ export const enumerateAvailableActions = (
   if (!actor) return [];
   if (isRestartSetup(state))
     return state.restart.takerId === actorId ? enumerateRestartActions(state) : [];
+  if (
+    context === 'current' &&
+    isHumanControlled(state, actorId) &&
+    state.ball.ownerId === actorId &&
+    !canOfferOwnedBallActions(state, actor)
+  )
+    return [];
   if (usesStateValue(state) && state.ball.ownerId === actorId)
     return enumerateStateValueActions(state, actor);
   if (state.ball.ownerId !== actorId)
@@ -817,14 +830,14 @@ const rankActionsForAI = (state: TacticalMatchState, actorId: string): RankedAiA
   }
   if (usesStateValue(state) && stateValueActor && !isRestartSetup(state)) {
     if (state.ball.ownerId === actorId) return rankStateValueActions(state, stateValueActor);
-    const options = enumerateAvailableActions(state, actorId);
+    const options = enumerateAvailableActions(state, actorId, 'prospective_ranking');
     if (options.some((a) => a.type !== 'challenge'))
       return rankStateValueActions(state, stateValueActor, options);
   }
   const rng = RandomGenerator.fromSeed(`${state.seed}:decision:${state.decisionIndex}:${actorId}`);
   const actor = state.players.find((player) => player.id === actorId);
   const preferences = actor ? deriveTeamTacticalPreferences(state, actor.team) : undefined;
-  return enumerateAvailableActions(state, actorId)
+  return enumerateAvailableActions(state, actorId, 'prospective_ranking')
     .map((action) => {
       const canonicalScore = scoreActionForAI(state, actorId, action, preferences);
       const deterministicNoise = (rng.float() - 0.5) * 8;
@@ -940,7 +953,9 @@ export const chooseIncomingShotAction = (
     const options = [
       control,
       ...enumerateCarryChoices(state, actor),
-      ...enumerateAvailableActions(state, actorId).filter((a) => a.type !== 'challenge'),
+      ...enumerateAvailableActions(state, actorId, 'prospective_ranking').filter(
+        (a) => a.type !== 'challenge',
+      ),
     ];
     const ranked = rankStateValueActions(state, actor, options);
     observeDecisionRanking(state, actorId, ranked);
@@ -1295,9 +1310,14 @@ const resolveMatchActionCanonical = (
       ...(restart ? { restart } : {}),
     };
   if (action.type === 'carry') {
+    const carryBase = { ...baseState };
+    // A new explicit destination supersedes the earlier off-ball approach. A
+    // first-time pass can still continue a run through its separate lifecycle.
+    if (consciouslySelected && carryBase.playerMovementIntent?.actorId === actor.id)
+      delete carryBase.playerMovementIntent;
     const estimatedArrival = estimatePlayerArrivalTime(state, actor, action.target).estimatedTime;
     return {
-      ...baseState,
+      ...carryBase,
       ballCarrierIntent: {
         ...(action.contactSurface ? { contactSurface: action.contactSurface } : {}),
         ...(action.skillMove ? { skillMove: action.skillMove } : {}),

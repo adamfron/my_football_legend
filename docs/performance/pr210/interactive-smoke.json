@@ -1,0 +1,681 @@
+{
+  "source": "45296dfead9c6c471015e3035db90964fe53107f3808bbfa3e398267088e200e",
+  "seed": "pr210:interactive-right-back:full-match:B",
+  "controller": "Explicit deterministic test-driver selections; not a manual browser playtest",
+  "status": "full_time",
+  "canonicalTime": 5710.674999980927,
+  "ticks": 228427,
+  "decisions": [
+    {
+      "at": 16.02500000000016,
+      "kind": "defensive_response",
+      "reason": "dangerous_receiver",
+      "option": {
+        "id": "contain",
+        "kind": "movement",
+        "labelKey": "contain",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 27.35918117231339,
+            "y": 48.86855087010857
+          },
+          "startedAt": 16.02500000000016,
+          "expiresAt": 18.02500000000016
+        }
+      },
+      "body": {
+        "x": 27.35918117231339,
+        "y": 48.86855087010857
+      },
+      "ball": {
+        "x": 26.252571501492433,
+        "y": 47.8104034642407,
+        "ownerId": "footballer_pro_1_21",
+        "lastTouchPlayerId": "footballer_pro_1_21",
+        "velocity": {
+          "x": -2.1587621737055787,
+          "y": -3.00893024768638,
+          "z": 0
+        },
+        "height": 0.11,
+        "airborne": false,
+        "bounceCount": 0,
+        "spin": {
+          "x": 0,
+          "y": 0,
+          "z": 0.21888150394833183
+        }
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 16.02500000000016,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 441.92499999987194,
+      "kind": "defensive_response",
+      "reason": "dangerous_receiver",
+      "option": {
+        "id": "contain",
+        "kind": "movement",
+        "labelKey": "contain",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 22.21241479430903,
+            "y": 53.48624053718009
+          },
+          "startedAt": 441.92499999987194,
+          "expiresAt": 443.92499999987194
+        }
+      },
+      "body": {
+        "x": 22.21241479430903,
+        "y": 53.48624053718009
+      },
+      "ball": {
+        "x": 22.5248398259977,
+        "y": 55.01928939059902,
+        "ownerId": "footballer_pro_1_17",
+        "lastTouchPlayerId": "footballer_pro_1_17",
+        "spin": {
+          "x": 0,
+          "y": 0,
+          "z": 0.42786573655712606
+        },
+        "height": 0.11,
+        "velocity": {
+          "x": -3.3906555436860124,
+          "y": 1.9620917351338867,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 441.92499999987194,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 1121.6749999996978,
+      "kind": "on_ball",
+      "reason": "meaningful_action_diversity,progressive_option,pressure,transition,line_breaking_outlet_choice,autopilot_escalation",
+      "option": {
+        "id": "action-27",
+        "kind": "action",
+        "labelKey": "pass_support",
+        "action": {
+          "type": "pass",
+          "actorId": "footballer_pro_0_9",
+          "receiverId": "footballer_pro_0_11",
+          "target": {
+            "x": 48.285867832508195,
+            "y": 38.70771438570727
+          },
+          "intent": "support",
+          "delivery": "ground",
+          "deliveryPlan": {
+            "target": {
+              "x": 48.285867832508195,
+              "y": 38.70771438570727
+            },
+            "velocity": {
+              "x": -1.8861050008172904,
+              "y": 9.457630378016399,
+              "z": 0
+            },
+            "speed": 9.64386667479837,
+            "elevation": 0,
+            "predictedArrivalTime": 1.4749999999999988,
+            "predictedArrivalSpeed": 4.923866674798378,
+            "receiverReadiness": {
+              "contactPoint": {
+                "x": 48.285867832508195,
+                "y": 38.70771438570727
+              },
+              "awareAt": 0.350996379204467,
+              "readyAt": 0.746682138193675,
+              "earliestUsefulContactTime": 0.866682138193675,
+              "preferredArrivalSpeed": 4.599367300816599,
+              "maximumComfortableArrivalSpeed": 9.5153673008166,
+              "preparationMargin": 0.7283178618063237,
+              "movementTime": 0.395685758989208,
+              "orientationTime": 0.30418266459722837
+            },
+            "feasible": true,
+            "targetMissMetres": 0.4828567911513893
+          }
+        }
+      },
+      "body": {
+        "x": 50.48359676067572,
+        "y": 28.603807277873457
+      },
+      "ball": {
+        "x": 50.48150905499863,
+        "y": 27.69795452819539,
+        "ownerId": "footballer_pro_0_9",
+        "lastTouchPlayerId": "footballer_pro_0_9",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "height": 0.11,
+        "airborne": false,
+        "bounceCount": 0,
+        "spin": {
+          "x": -5.031184339636813,
+          "y": -0.13863940930967614,
+          "z": -0.00822376111846273
+        }
+      },
+      "readiness": {
+        "ready": true,
+        "readyAt": 1121.6678206472393,
+        "reason": "available"
+      }
+    },
+    {
+      "at": 1206.3000000000056,
+      "kind": "defensive_response",
+      "reason": "significant_step_out",
+      "option": {
+        "id": "hold-line",
+        "kind": "movement",
+        "labelKey": "hold_line",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 46.23265074626496,
+            "y": 48.91799433257524
+          },
+          "startedAt": 1206.3000000000056,
+          "expiresAt": 1207.8000000000056
+        }
+      },
+      "body": {
+        "x": 46.23265074626496,
+        "y": 48.91799433257524
+      },
+      "ball": {
+        "x": 63.91025912402672,
+        "y": 36.63345309382127,
+        "from": {
+          "x": 64.11460772785,
+          "y": 36.45205416930098
+        },
+        "target": {
+          "x": 53.88390695097109,
+          "y": 45.53378060781229
+        },
+        "intendedReceiverId": "footballer_pro_1_17",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "normal",
+        "flightTime": 0.025,
+        "distanceTravelled": 0.2945571620274063,
+        "height": 0.11,
+        "airborne": false,
+        "velocity": {
+          "x": -8.144030030453996,
+          "y": 7.229402409144423,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": -8.203858275408148,
+          "y": 7.282511552478748,
+          "z": 0
+        },
+        "launchSpeed": 10.969879904309307,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_1_4"
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 1206.3000000000056,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 1452.7250000009021,
+      "kind": "defensive_response",
+      "reason": "dangerous_receiver",
+      "option": {
+        "id": "hold-line",
+        "kind": "movement",
+        "labelKey": "hold_line",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 34.99139765531101,
+            "y": 45.144396876211346
+          },
+          "startedAt": 1452.7250000009021,
+          "expiresAt": 1454.2250000009021
+        }
+      },
+      "body": {
+        "x": 34.99139765531101,
+        "y": 45.144396876211346
+      },
+      "ball": {
+        "x": 43.083430730186016,
+        "y": 28.057657886499044,
+        "from": {
+          "x": 43.083430730186016,
+          "y": 28.057657886499044
+        },
+        "target": {
+          "x": 32.593762039008276,
+          "y": 39.54426983924367
+        },
+        "intendedReceiverId": "footballer_pro_1_21",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "normal",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": -10.007441189709402,
+          "y": 10.958553312821415,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": -10.007441189709402,
+          "y": 10.958553312821415,
+          "z": 0
+        },
+        "launchSpeed": 14.840443722323183,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_1_22"
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 1452.7250000009021,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 2122.7500000033397,
+      "kind": "defensive_response",
+      "reason": "protect_dangerous_space",
+      "option": {
+        "id": "contain",
+        "kind": "movement",
+        "labelKey": "contain",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 35.870946900696595,
+            "y": 40.68862223116683
+          },
+          "startedAt": 2122.7500000033397,
+          "expiresAt": 2124.7500000033397
+        }
+      },
+      "body": {
+        "x": 35.870946900696595,
+        "y": 40.68862223116683
+      },
+      "ball": {
+        "x": 36.47243144178529,
+        "y": 40.98844130404002,
+        "ownerId": "footballer_pro_1_21",
+        "lastTouchPlayerId": "footballer_pro_1_21"
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 2122.4884756935435,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 2297.2250000039744,
+      "kind": "defensive_response",
+      "reason": "dangerous_receiver",
+      "option": {
+        "id": "hold-line",
+        "kind": "movement",
+        "labelKey": "hold_line",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 35.15275061949738,
+            "y": 45.01213206426728
+          },
+          "startedAt": 2297.2250000039744,
+          "expiresAt": 2298.7250000039744
+        }
+      },
+      "body": {
+        "x": 35.15275061949738,
+        "y": 45.01213206426728
+      },
+      "ball": {
+        "x": 40.76078190368692,
+        "y": 34.02278720184507,
+        "from": {
+          "x": 40.76078190368692,
+          "y": 34.02278720184507
+        },
+        "target": {
+          "x": 33.264490745751814,
+          "y": 38.27997508516004
+        },
+        "intendedReceiverId": "footballer_pro_1_23",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "normal",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": -7.692595237774354,
+          "y": 4.368670126004052,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": -7.692595237774354,
+          "y": 4.368670126004052,
+          "z": 0
+        },
+        "launchSpeed": 8.846541706343158,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_1_12"
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 2297.2250000039744,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 2357.2250000041927,
+      "kind": "defensive_response",
+      "reason": "dangerous_receiver",
+      "option": {
+        "id": "contain",
+        "kind": "movement",
+        "labelKey": "contain",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 31.732774062896492,
+            "y": 40.659770384525125
+          },
+          "startedAt": 2357.2250000041927,
+          "expiresAt": 2359.2250000041927
+        }
+      },
+      "body": {
+        "x": 31.732774062896492,
+        "y": 40.659770384525125
+      },
+      "ball": {
+        "x": 32.15970687120466,
+        "y": 39.74647888973865,
+        "ownerId": "footballer_pro_1_21",
+        "lastTouchPlayerId": "footballer_pro_1_21"
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 2357.148910916889,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 2485.8250000046605,
+      "kind": "defensive_response",
+      "reason": "significant_step_out",
+      "option": {
+        "id": "hold-line",
+        "kind": "movement",
+        "labelKey": "hold_line",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 42.40908561078983,
+            "y": 45.02309992865617
+          },
+          "startedAt": 2485.8250000046605,
+          "expiresAt": 2487.3250000046605
+        }
+      },
+      "body": {
+        "x": 42.40908561078983,
+        "y": 45.02309992865617
+      },
+      "ball": {
+        "x": 49.39554296628523,
+        "y": 32.63782982425867,
+        "from": {
+          "x": 51.25903834028118,
+          "y": 22.535728094880145
+        },
+        "target": {
+          "x": 49.050810437711995,
+          "y": 34.506642122732465
+        },
+        "intendedReceiverId": "footballer_pro_1_21",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "normal",
+        "flightTime": 0.8750000000000004,
+        "distanceTravelled": 10.29051950000219,
+        "height": 0.11,
+        "airborne": false,
+        "velocity": {
+          "x": -1.8757412781882317,
+          "y": 10.168487389168668,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": -2.3836767195168087,
+          "y": 12.922030849410824,
+          "z": 0
+        },
+        "launchSpeed": 13.140045508912493,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_1_12"
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 2485.8250000046605,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 2636.82500000521,
+      "kind": "defensive_response",
+      "reason": "dangerous_receiver",
+      "option": {
+        "id": "hold-line",
+        "kind": "movement",
+        "labelKey": "hold_line",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 34.81777891484221,
+            "y": 44.273807741028804
+          },
+          "startedAt": 2636.82500000521,
+          "expiresAt": 2638.32500000521
+        }
+      },
+      "body": {
+        "x": 34.81777891484221,
+        "y": 44.273807741028804
+      },
+      "ball": {
+        "x": 57.335618619733424,
+        "y": 18.623179853190926,
+        "from": {
+          "x": 57.72781824030805,
+          "y": 18.290075546118516
+        },
+        "target": {
+          "x": 34.87092458414573,
+          "y": 37.702969704477155
+        },
+        "intendedReceiverId": "footballer_pro_1_21",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "driven",
+        "flightTime": 0.025,
+        "distanceTravelled": 0.6047987471361507,
+        "height": 0.3178089092023431,
+        "airborne": true,
+        "velocity": {
+          "x": -15.687984822985236,
+          "y": 13.324172282896422,
+          "z": 8.312356368093724
+        },
+        "launchVelocity": {
+          "x": -15.740793181976668,
+          "y": 13.369023656805707,
+          "z": 8.586412690530468
+        },
+        "launchSpeed": 22.36581870681457,
+        "launchElevation": 0.39402471309445475,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_1_19"
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 2636.82500000521,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 2972.600000000337,
+      "kind": "defensive_response",
+      "reason": "significant_step_out",
+      "option": {
+        "id": "hold-line",
+        "kind": "movement",
+        "labelKey": "hold_line",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 64.40419420831822,
+            "y": 21.924075043750012
+          },
+          "startedAt": 2972.600000000337,
+          "expiresAt": 2974.100000000337
+        }
+      },
+      "body": {
+        "x": 64.40419420831822,
+        "y": 21.924075043750012
+      },
+      "ball": {
+        "x": 54.583289483294834,
+        "y": 42.787416229647306,
+        "from": {
+          "x": 54.583289483294834,
+          "y": 42.787416229647306
+        },
+        "target": {
+          "x": 64.5972333140151,
+          "y": 34.73380286338369
+        },
+        "intendedReceiverId": "footballer_pro_1_21",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "normal",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": false,
+        "velocity": {
+          "x": 11.05583378072435,
+          "y": -8.89154285432278,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": 11.05583378072435,
+          "y": -8.89154285432278,
+          "z": 0
+        },
+        "launchSpeed": 14.187705766517157,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_1_23"
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 2972.600000000337,
+        "reason": "not_owner"
+      }
+    },
+    {
+      "at": 2989.100000000397,
+      "kind": "defensive_response",
+      "reason": "dangerous_receiver",
+      "option": {
+        "id": "contain",
+        "kind": "movement",
+        "labelKey": "contain",
+        "intent": {
+          "actorId": "footballer_pro_0_9",
+          "type": "hold_shape",
+          "target": {
+            "x": 75.58402343775096,
+            "y": 21.208732651989397
+          },
+          "startedAt": 2989.100000000397,
+          "expiresAt": 2991.100000000397
+        }
+      },
+      "body": {
+        "x": 75.58402343775096,
+        "y": 21.208732651989397
+      },
+      "ball": {
+        "x": 74.9551036606236,
+        "y": 21.994997242883574,
+        "ownerId": "footballer_pro_1_21",
+        "lastTouchPlayerId": "footballer_pro_1_21"
+      },
+      "readiness": {
+        "ready": false,
+        "readyAt": 2988.9770283206185,
+        "reason": "not_owner"
+      }
+    }
+  ],
+  "finalHash": "25953c18c808e155561b8c33957894c99d18eaa5fcd654797d34373c706b9b46",
+  "score": {
+    "home": 1,
+    "away": 4
+  },
+  "policy": "state-value-v1",
+  "fixedStep": 0.025,
+  "performance": {
+    "wallSeconds": 207.9176946,
+    "cpuSeconds": 224.234,
+    "peakRSSKiB": 1125328
+  }
+}

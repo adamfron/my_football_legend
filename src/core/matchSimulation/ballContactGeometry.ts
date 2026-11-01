@@ -689,7 +689,10 @@ export const advanceControlledBall = (
   };
   // Dropping a caught ball into ordinary foot control ends the hand-distribution window.
   // It must never leave an owned ball stationary while its goalkeeper walks away.
-  if (contactFact?.executed) delete ball.heldByKeeperId;
+  if (contactFact?.executed) {
+    delete ball.heldByKeeperId;
+    ball.lastTouchPlayerId = actor.id;
+  }
   active = { ...active, lastBodyOrientation: actor.facingAngle, balance };
   const localDefenders = state.players.filter(
     (p) =>

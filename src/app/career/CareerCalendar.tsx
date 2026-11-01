@@ -14,9 +14,11 @@ import {
 export const CareerCalendar = ({ career }: { career: CareerState }) => {
   const today =
     career.currentDate ?? career.careerCalendar?.currentDate ?? `${career.currentSeason}-07-01`;
-  const [month, setMonth] = useState(today.slice(0, 7)),
-    [selected, setSelected] = useState(today);
+  const [view, setView] = useState({ month: today.slice(0, 7), selected: today, following: true });
+  const month = view.following ? today.slice(0, 7) : view.month;
+  const selected = view.following ? today : view.selected;
   const [focusDate, setFocusDate] = useState<string>();
+  const gridFocused = useRef(false);
   const host = useRef<HTMLElement>(null);
   const timeline = useMemo(() => buildSeasonTimeline(career), [career]);
   const byDate = useMemo(() => {
@@ -25,16 +27,15 @@ export const CareerCalendar = ({ career }: { career: CareerState }) => {
     return index;
   }, [timeline]);
   useLayoutEffect(() => {
-    if (focusDate)
-      host.current?.querySelector<HTMLButtonElement>(`[data-date="${focusDate}"]`)?.focus();
+    if (focusDate === selected || gridFocused.current)
+      host.current?.querySelector<HTMLButtonElement>(`[data-date="${selected}"]`)?.focus();
   }, [focusDate, month, selected]);
   const injuries = (date: string) =>
     (career.playerAvailability?.injuries ?? []).filter(
       (injury) => injury.startDate <= date && date <= (injury.recoveryDate ?? today),
     );
   const select = (date: string, focus = false) => {
-    setSelected(date);
-    setMonth(date.slice(0, 7));
+    setView({ selected: date, month: date.slice(0, 7), following: date === today });
     setFocusDate(focus ? date : undefined);
   };
   return (
@@ -45,8 +46,7 @@ export const CareerCalendar = ({ career }: { career: CareerState }) => {
           aria-label="Poprzedni miesiąc"
           onClick={() => {
             const next = shiftCalendarMonth(month, -1);
-            setMonth(next);
-            setSelected(`${next}-01`);
+            setView({ month: next, selected: `${next}-01`, following: false });
             setFocusDate(undefined);
           }}
         >
@@ -64,8 +64,7 @@ export const CareerCalendar = ({ career }: { career: CareerState }) => {
           aria-label="Następny miesiąc"
           onClick={() => {
             const next = shiftCalendarMonth(month, 1);
-            setMonth(next);
-            setSelected(`${next}-01`);
+            setView({ month: next, selected: `${next}-01`, following: false });
             setFocusDate(undefined);
           }}
         >
@@ -80,7 +79,18 @@ export const CareerCalendar = ({ career }: { career: CareerState }) => {
           <span key={day}>{day}</span>
         ))}
       </div>
-      <div className="calendar-days" role="group" aria-label="Dni miesiąca">
+      <div
+        className="calendar-days"
+        role="group"
+        aria-label="Dni miesiąca"
+        onFocusCapture={() => {
+          gridFocused.current = true;
+        }}
+        onBlurCapture={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+            gridFocused.current = false;
+        }}
+      >
         {calendarDays(month).map((date) => {
           const entries = byDate.get(date) ?? [],
             injured = injuries(date).length > 0;

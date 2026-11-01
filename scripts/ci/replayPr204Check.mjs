@@ -6,6 +6,7 @@ import { mkdtempSync, mkdirSync, rmSync, copyFileSync } from 'node:fs';
 import { resolve, join, sep, basename, dirname } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
+import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr205SourceGuard.mjs';
 
 mkdirSync('.benchmark-artifacts', { recursive: true });
@@ -36,6 +37,7 @@ try {
     { windowsHide: true },
   );
   execFileSync('tar', ['-xf', tar, '-C', scratch], { windowsHide: true });
+  preserveHistoricalBytes(scratch);
   for (const file of ['docs/performance/pr204/decision-corpus.json']) {
     const target = join(scratch, file);
     mkdirSync(dirname(target), { recursive: true });

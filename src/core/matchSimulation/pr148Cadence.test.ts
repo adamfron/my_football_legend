@@ -21,6 +21,8 @@ import {
 import { projectLocomotion, projectSprintEpisode } from './locomotion';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { projectPlayerAgency } from './playerDecision';
+import { canOfferOwnedBallActions } from './decisionReadiness';
+import { humanPossessionRedecisionReason } from './possessionAgency';
 import { distance } from './matchSpace';
 
 const world = createCanonicalWorldDatabase();
@@ -238,13 +240,19 @@ describe('PR148 sustained sprint episodes and locomotion', () => {
     // The selected scan has finished; ownership still belongs to the player's decision.
     held.actionCooldown = 0;
     expect(projectPlayerAgency(held).probe.blockedReason).toBe('possession_continuity');
-    for (let tick = 0; tick < 120 && !projectPlayerAgency(held).opportunity; tick++)
+    let contestedDuringRecovery = false;
+    for (let tick = 0; tick < 120 && !projectPlayerAgency(held).opportunity; tick++) {
+      contestedDuringRecovery ||= humanPossessionRedecisionReason(held) === 'possession_contested';
       held = stepTacticalMatch(held, FIXED_MATCH_DT);
+    }
     const pressedOwner = held.players.find((player) => player.id === owner.id)!;
     const pressing = held.players.find((player) => player.id === marker.id)!;
-    expect(distance(pressing.position, pressedOwner.position)).toBeLessThan(1.6);
-    expect(distance(pressing.position, held.ball)).toBeLessThanOrEqual(1);
-    expect(projectPlayerAgency(held).opportunity?.triggerReason).toBe('possession_contested');
+    // PR210 defers the old contested menu while the foot is recovering. The
+    // first executable choice in this exact continuation is a new support outlet.
+    expect(contestedDuringRecovery).toBe(true);
+    expect(distance(pressing.position, pressedOwner.position)).toBeLessThan(3);
+    expect(canOfferOwnedBallActions(held, pressedOwner)).toBe(true);
+    expect(projectPlayerAgency(held).opportunity?.triggerReason).toBe('support_outlet_available');
     expect(held.latestAction?.type).toBe('hold');
     expect(held.latestActionSource).toBe('human_selected');
   });

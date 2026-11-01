@@ -11,9 +11,18 @@ import { distance } from './matchSpace';
 describe('PR172 human carry intention', () => {
   it('continues the exact PR171 open-space stride past the former heavy-touch prompt', () => {
     const result = carryProbe('straight');
-    const prompt = result.firstPrompt as { at: number; gate: { signature: string } };
-    expect(prompt.at).toBeGreaterThan(601.45);
-    expect(prompt.gate.signature).not.toContain('heavy_touch');
+    const prompt = result.firstPrompt as { at: number; gate: { signature: string } } | null;
+    if (prompt) {
+      expect(prompt.at).toBeGreaterThan(601.45);
+      expect(prompt.gate.signature).not.toContain('heavy_touch');
+    } else {
+      // PR210 no longer guarantees an ordinary menu between a recovery and the
+      // real later loss. This exact stride still recovers and executes a touch.
+      expect(result.recoveredAt).not.toBeNull();
+      expect(result.physicalContactAt).toBeGreaterThanOrEqual(result.recoveredAt!);
+      expect(result.lastLoss!.at).toBeGreaterThan(result.physicalContactAt!);
+      expect(result.endOwner).not.toBe(result.actorId);
+    }
   });
   it.each([false, true])(
     'recovers the ball before completing a crossed waypoint, reversed=%s',

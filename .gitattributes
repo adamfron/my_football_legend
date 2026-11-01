@@ -192,3 +192,13 @@ docs/performance/pr209/**/*.log binary
 docs/PR209*.md text eol=lf
 scripts/*Pr209* text eol=lf
 scripts/pr209* text eol=lf
+
+# PR210 paired agency receipts preserve physical/source identities.
+docs/performance/pr210/** -text linguist-generated=true
+docs/performance/pr210/**/*.gz binary
+docs/PR210*.md text eol=lf
+scripts/*Pr210* text eol=lf
+scripts/pr210* text eol=lf
+
+# Archived receipts are authoritative raw Git bytes, including older CRLF blobs.
+docs/performance/** -text

@@ -5,6 +5,7 @@ import { mkdtempSync, mkdirSync, rmSync, cpSync } from 'node:fs';
 import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
+import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr206SourceGuard.mjs';
 mkdirSync('.benchmark-artifacts', { recursive: true });
 const root = resolve('.'),
@@ -34,6 +35,7 @@ try {
     { windowsHide: true },
   );
   execFileSync('tar', ['-xf', tar, '-C', scratch], { windowsHide: true });
+  preserveHistoricalBytes(scratch);
   for (const path of ['docs/performance/pr204', 'docs/performance/pr205'])
     cpSync(path, join(scratch, path), { recursive: true });
   const env = {

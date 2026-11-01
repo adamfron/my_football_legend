@@ -5,6 +5,7 @@ import { mkdtempSync, mkdirSync, rmSync, readFileSync, writeFileSync, copyFileSy
 import { resolve, join, sep, basename, dirname } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
+import { preserveHistoricalBytes } from './historicalBytes.mjs';
 
 const base = '22d07d0a19149c240034801f55580c532bb62bd4';
 const root = resolve('.');
@@ -35,6 +36,7 @@ try {
     { windowsHide: true },
   );
   execFileSync('tar', ['-xf', tar, '-C', scratch], { windowsHide: true });
+  preserveHistoricalBytes(scratch);
   const receipt = JSON.parse(readFileSync('docs/performance/pr203/current-source.json', 'utf8'));
   const inputs = [
     'docs/performance/pr203/current-source.json',
