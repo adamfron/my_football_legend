@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { recordExecution } from './executionWitness';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import {
   acquireFlightSighting,
@@ -105,7 +106,10 @@ export const advanceLiveBallFlight = (state: TacticalMatchState): TacticalMatchS
       ...(belief ? { belief } : {}),
     };
   }
-  return { ...state, liveBallFlightRuntime: { at: state.time, sensors } };
+  return {
+    ...recordExecution(state, 'bounded-flight-belief', 'liveBallFlight.advanceLiveBallFlight'),
+    liveBallFlightRuntime: { at: state.time, sensors },
+  };
 };
 
 export const observedFlight = (state: TacticalMatchState, actor: MatchPlayerState) =>

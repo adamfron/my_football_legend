@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { noteExecution } from './executionWitness';
 import { distance, distanceToSegment, type PitchPoint } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import {
@@ -102,6 +103,8 @@ export const evaluatePassDecision = (
   const dx = target.x - origin.x,
     dy = target.y - origin.y;
   const squared = Math.max(0.001, dx * dx + dy * dy);
+  if (state.experimentalHeightAwarePassing && delivery === 'lofted')
+    noteExecution(state, 'height-aware-passing', 'passDecision.forecastPassInterventions:lofted');
   const interventions =
     state.experimentalHeightAwarePassing && delivery === 'lofted'
       ? forecastPassInterventions(state, passer, plan)

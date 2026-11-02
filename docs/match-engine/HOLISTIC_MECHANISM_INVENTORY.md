@@ -1,5 +1,36 @@
 # Current-source holistic mechanism inventory — PR214
 
+## PR215 additive observation scope
+
+PR214's historical inventory and formal realism counts are preserved. PR215 adds session
+selection and extends the existing upright/shared family to bounded ordinary low loose
+balls; it creates no additional MatchEngine or permanent attribute. Read-only, schema-backed
+fixed-key counters witness actual consumer calls for pending plans/resolutions, kick releases,
+standing feet, body clusters, ball-body contacts, ground integration, finite reception,
+defensive reception, receiver anticipation/recovery, bounded flight belief and selected B
+rankings/height-aware loft forecasts. Pure forecasts publish only inside a synchronous
+canonical observation scope; UI previews do not count as match execution.
+
+Invocation, physical execution and outcome remain separate. The seven-scene corpus proves
+11 new body impacts, 3 prepared contacts, 3 standing contacts, 1 missed swing, 1 interrupted
+swing and 1 finite reception. It does not exercise every instrumented consumer; inactive
+observed loft under B remains inactive. The human shot is a separate actual contact-v1
+case; browser startup proves belief/anticipation execution without proving a body collision.
+`fullyEvaluated` remains false. No formal issue is promoted or marked COMPLETE.
+
+The separate final 22-player UI pilot adds genuine source invocation evidence for B
+reevaluation, height-aware loft forecasts and defensive reception. It measures 18 fresh
+body impacts, 6 passive ball-body contacts, 1 prepared kick / 3 missed swings and 5 finite
+contacts including 2 defensive receptions before `initial_body_overlap` ends the bounded
+pilot at 11.475s. These counts belong to that continuous UI run, not the primary laboratory
+corpus. Receiver-recovery, standing contact and other unexercised consumers are not credited
+by these events. The failed pilot blocks promotion; it is not a completed holistic match.
+
+The upper-sphere support apparatus is a scoped geometry result; ordinary carry/delivery
+coverage and the reception remainder still block the holistic match. Current source and
+readiness are in [PR215](../PR215_PLAYABLE_HOLISTIC_MATCH_INTEGRATION.md), not in rewritten
+PR214 receipts.
+
 Planning inventory, bound to [PR214 source](../performance/pr214/source.json) and
 [machine-readable rows](../performance/pr214/holistic-inventory-ci-v1.json).
 The [CI correction](../performance/pr214/ci-fix/README.md) fixes only filesystem-dependent

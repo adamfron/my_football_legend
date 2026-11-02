@@ -3,6 +3,7 @@ import {
   continuousFootContactsSchema,
 } from './sharedContactTimeline';
 import { z } from 'zod';
+import { executionWitnessesSchema } from './executionWitness';
 import { multiBodyResolutionsSchema } from './multiBodyContact';
 import {
   playerBodyImpulseSelectionSchema,
@@ -858,6 +859,7 @@ export interface TacticalMatchState {
   continuousPlayerContacts?: z.infer<typeof continuousPlayerContactsSchema>;
   playerBodyContacts?: z.infer<typeof playerBodyContactsSchema>;
   multiBodyResolutions?: z.infer<typeof multiBodyResolutionsSchema>;
+  executionWitnesses?: z.infer<typeof executionWitnessesSchema>;
   continuousFootContacts?: z.infer<typeof continuousFootContactsSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
   pendingStrike?: PendingStrike;
@@ -1108,6 +1110,7 @@ export const tacticalMatchStateSchema = z
     continuousPlayerContacts: continuousPlayerContactsSchema.optional(),
     playerBodyContacts: playerBodyContactsSchema.optional(),
     multiBodyResolutions: multiBodyResolutionsSchema.optional(),
+    executionWitnesses: executionWitnessesSchema.optional(),
     continuousFootContacts: continuousFootContactsSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
@@ -1379,6 +1382,15 @@ export const tacticalMatchStateSchema = z
   })
   .passthrough()
   .superRefine((state, ctx) => {
+    if (
+      state.executionWitnesses &&
+      (state.integrationProfile || state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1')
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['executionWitnesses'],
+        message: 'Execution witnesses belong to the unprofiled development cluster selection',
+      });
     if (
       state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
       (state.players.length > 22 ||

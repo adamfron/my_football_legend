@@ -39,6 +39,7 @@ import { clampPitchPoint, distance, distanceToSegment, fieldValue } from './matc
 import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { resolveCanonicalShot } from './shotResolver';
 import { eligiblePhysicalPass, executePhysicalKick } from './kickExecution';
+import { recordExecution } from './executionWitness';
 import { commitPendingPass, selectsPendingPass } from './pendingStrike';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { evaluateRunSpace } from './reachableSpace';
@@ -1046,6 +1047,13 @@ export const resolveMatchAction = (
   source: ActionSource = 'autonomous_npc',
 ): TacticalMatchState => {
   let next = resolveMatchActionCanonical(state, action, source);
+  if (next.lastKickExecution && next.lastKickExecution !== state.lastKickExecution)
+    next = recordExecution(
+      next,
+      'physical-kick',
+      'matchActions.resolveMatchAction:physical-kick',
+      next.lastKickExecution.contact.available ? 1 : 0,
+    );
   if (usesBoundedIntelligence(state)) {
     const actor = state.players.find((p) => p.id === action.actorId);
     const released =

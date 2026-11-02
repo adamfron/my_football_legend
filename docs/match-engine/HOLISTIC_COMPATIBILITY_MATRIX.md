@@ -1,5 +1,28 @@
 # Holistic compatibility and selection — PR214
 
+## PR215 limited UI edition
+
+The shared browser/CLI recipe now lives in `src/core/matchSimulation/holisticDevelopment.ts`;
+the historical script path re-exports it. `SingleMatchSetup.physicalPreset` accepts only
+`holistic-physical-dev-v1`, with absent meaning the unchanged ordinary configuration.
+The recipe remains unprofiled, retains the PR201/B baseline fingerprint `ip0-2d2162c9`,
+and has no career or browser-global setting. Policy replay retains physical identity.
+
+| Phase | Actual owner in this edition |
+| --- | --- |
+| Pending pass / standing contact | Existing shared interval and bounded upright cluster |
+| Unowned grounded loose ball ≤0.24m, no first-time intent / shot lineage, outside keeper zone | Same shared interval, seeded by ball-local participants; legacy loose branch excluded for that interval |
+| Genuine control within the new loose interval | Existing finite reception; remaining carry substep explicitly unresolved; browser auto-pauses |
+| Owned carry / long touch | Existing `advanceControlledBall`, counted `fallback-carry`; not migrated |
+| Labelled deliveries | Existing low/high/first-time/keeper/law path, counted `fallback-delivery`; not migrated |
+| Keeper-zone / high / other loose-ball cases | Existing loose/keeper/aerial path, counted `fallback-keeper-aerial`; not migrated |
+| Admissible upper-body support | Existing spherical support primitive; no new low-leg anatomy or canonical high-ball migration |
+
+These exclusions choose one consumer before ball execution; a fallback never follows
+the shared interval for the same ball step. An unresolved event preserves prior impulses;
+it does not disable selectors or award a winner. **LIMITED_UI / BLOCKED_FOR_HOLISTIC_MATCH**.
+See [PR215 evidence and limits](../PR215_PLAYABLE_HOLISTIC_MATCH_INTEGRATION.md).
+
 Authority: current `matchState.tacticalMatchStateSchema`, `integrationProfile`, actual
 `matchActions` and `pendingStrikeInterval` consumers. Executable checks:
 `holisticDevelopment.test.ts` and `scripts/benchmarkPr214.mjs --check`.

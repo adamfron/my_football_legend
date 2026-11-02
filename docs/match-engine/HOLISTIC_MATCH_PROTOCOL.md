@@ -1,5 +1,38 @@
 # First holistic development match protocol — PR215 handoff
 
+## PR215 execution update
+
+The final normal-team **UI incident pilot** (seed `pr215-ui-incident`) reaches 11.475s,
+executes real prepared/ordinary-play consumers and then pauses at `initial_body_overlap`
+at 11.45s: 0.3007790105m core penetration between the two recorded players. Its measured
+18 body impacts, 6 ball-body contacts, 1 prepared kick / 3 misses, 5 finite controls and
+2 defensive receptions demonstrate actual execution, not a successful match. The exact
+state and native pre-incident save continuation are preserved. Edge/Node exact identity
+fails and remains explicitly unestablished. See [PR215 incident](../performance/pr215/browser/incident-report.json)
+and [native comparison](../performance/pr215/browser/incident-native-replay-summary.json).
+This failed UI pilot does not satisfy the still-blocked mandatory holistic smoke gate.
+
+**LIMITED_UI / BLOCKED_FOR_HOLISTIC_MATCH.** The owner can select the actual recipe in
+Single Match Lab. The shared interval now also owns a bounded unowned low loose ball
+outside keeper zones. A real controlling reception at **10.047033038999901s** exposes
+`controlled_reception_remainder_not_migrated`: the genuine contact is kept, the remainder
+is explicitly unresolved, and the browser pauses. Owned carrying and labelled deliveries
+still have named historical consumers. This fails the complete interval-coverage gate.
+
+The new admissible geometry supports an upper ball at **1.562495283m** between the
+existing passive spheres and releases it through an actual third-body impulse, with
+all upright torso cores separated. It is a geometry primitive, not a migrated canonical
+high-ball clinch or articulated low-leg trap. Invocation counters now witness the named
+consumers when they actually run; unexercised mechanisms remain unexercised.
+
+The browser startup/pause/restart/export checks are **UI acceptance**, not the mandatory
+integration smoke. The latter and the full 90-minute experiment are **NOT RUN**, following
+the existing stopping rule. Original paired input bytes, seed, baseline and confirmation
+remain unchanged. PR215's additive [source and local receipt](../performance/pr215/source.json),
+[summary](../performance/pr215/summary-final-v7.json) and [report](../PR215_PLAYABLE_HOLISTIC_MATCH_INTEGRATION.md)
+identify this source edition. Complete the carry/delivery/reception remainder gate before
+dispatching the frozen match below; do not reinterpret UI availability as promotion.
+
 **Status: BLOCKED_FOR_HOLISTIC_MATCH.** The full match and integration smoke were not run
 in PR214. This document freezes reproducible inputs and acceptance requirements; the four
 combined local scenes are not a substitute for a match. See [physical gates](../PR214_MULTIBODY_CONTACT_AND_HOLISTIC_READINESS.md)

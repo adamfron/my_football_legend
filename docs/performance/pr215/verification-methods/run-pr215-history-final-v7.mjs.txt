@@ -1,0 +1,30 @@
+import { spawnSync } from 'node:child_process';
+import { writeFileSync, readFileSync, mkdirSync } from 'node:fs';
+import { resolve } from 'node:path';
+const root = resolve('..');
+const loader = ['--max-semi-space-size=64','--experimental-transform-types','--import','./scripts/registerTypescriptLoader.mjs'];
+const checks = [
+  ['current-replay',[...loader,'scripts/benchmarkPr215.mjs','--check']],
+  ['registry',['scripts/realismProgress.mjs','--check']],
+  ['ci-contracts',['--test','scripts/ci/contracts.mjs']],
+  ['corruption',['scripts/ci/corruptReplay.mjs']],
+  ...[203,204,205,206,207,208,209,210,211,212,213].map(n=>[`history-${n}`,[`scripts/ci/replayPr${n}Check.mjs`,...(n>=207&&n<=210?['--replay']:[])]]),
+  ['authority',[...loader,'scripts/checkPr204Authority.mjs']],
+  ['information',['--max-semi-space-size=64','--experimental-transform-types','--import','./scripts/registerPr199Lab.mjs','scripts/checkPr204Boundary.mjs']],
+  ['pr205-contracts',[...loader,'scripts/benchmarkPr205.mjs','--contracts']],
+  ['pr206-contracts',['--max-semi-space-size=64','--experimental-transform-types','--import','./scripts/registerPr206Lab.mjs','scripts/checkPr206Contracts.mjs']],
+];
+mkdirSync(resolve(root,'history-logs-final-v7'),{recursive:true});
+const results=[];
+const binding=JSON.parse(readFileSync('docs/performance/pr215/source.json'));
+for(const [name,args] of checks) {
+  const start=Date.now();
+  const p=spawnSync(process.execPath,args,{encoding:'utf8',windowsHide:true,maxBuffer:128*1024*1024,env:process.env});
+  const log=resolve(root,'history-logs-final-v7',`${name}.log`);
+  writeFileSync(log,(p.stdout??'')+(p.stderr??'')+(p.error?String(p.error):''));
+  const result={name,args,exitCode:p.status,error:p.error?String(p.error):null,seconds:(Date.now()-start)/1000,log};
+  results.push(result);console.log(JSON.stringify(result));
+  if(p.status!==0) console.log(((p.stdout??'')+(p.stderr??'')).slice(-2500));
+  writeFileSync(resolve(root,'pr215-history-results-final-v7.json'),JSON.stringify({source:binding.fingerprint,results},null,2)+'\n');
+}
+process.exitCode=results.some(r=>r.exitCode!==0)?1:0;

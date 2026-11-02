@@ -279,6 +279,7 @@ export const withIntegrationProfile = (
   delete (next as TacticalMatchState).continuousPlayerContacts;
   delete (next as TacticalMatchState).playerBodyContacts;
   delete (next as TacticalMatchState).multiBodyResolutions;
+  delete (next as TacticalMatchState).executionWitnesses;
   delete (next as TacticalMatchState).continuousFootContacts;
   if ((next as TacticalMatchState).defensiveChallenge?.physicalAttempt)
     delete (next as TacticalMatchState).defensiveChallenge;

@@ -1,5 +1,18 @@
 # My Football Legend — Current Project State
 
+PR215: Single Match Lab ma rzeczywisty wybór **Fizyka meczu → Holistyczna (eksperymentalna)**.
+Wspólna receptura browser/CLI jest walidowana przed inicjalizacją meczu; restart,
+powtórka polityki i eksport zachowują jej tożsamość. Dotychczasowy wariant i kariera
+pozostają domyślne. Istniejący solver obsługuje także niską wolną piłkę poza strefą
+bramkarza, bez pomocniczego pending pass. Geometria wykazuje legalne podparcie piłki
+na górnych powierzchniach oraz uwolnienie przez trzecie ciało; nie przedstawia
+klinczu stóp/łydek. **LIMITED_UI / BLOCKED_FOR_HOLISTIC_MATCH**: rzeczywiste przyjęcie
+ujawnia `controlled_reception_remainder_not_migrated`; interfejs wstrzymuje mecz
+i udostępnia raport. Prowadzenie i oznaczone podania wymagają dalszej wspólnej chronologii.
+7 scen, 21 checkpointów i źródłowe liczniki są odrębne od krótkiego testu UI;
+pełnego smoke/90 minut nie uruchomiono. PR201/B/40Hz/28 atrybutów i confirmation bez zmian.
+[Raport PR215](PR215_PLAYABLE_HOLISTIC_MATCH_INTEGRATION.md).
+
 PR214: osobny `upright-cluster-dev-v1` kontynuuje 2–4 stojące ciała na istniejącej osi przygotowanego podania/próby stojącej, z ograniczonym solverem impulsów i osobną granicą ruchu zawodnika. Dwa zderzenia, podanie i kontakt obrońcy zachodzą w jednym kroku 25ms; 25 scen, 100 odtworzeń zapisu i zero niewyjaśnionych nowych właścicieli w korpusie. Głęboki overlap, >4 ciała i niezgodna geometria dawnego clinchu pozostają jawne. Inwentarz rozdziela 25 wykonywalnych rodzin eksperymentalnych/sprawczości, jeden prymityw laboratoryjny i formalny rejestr 135 problemów. Konfiguracja development przechodzi zwykły schemat i lokalne replaye, lecz **pełny holistyczny mecz PR215 jest nadal zablokowany**: trzeba rozszerzyć pojedynczą władzę kontaktów poza pending/standing, uzgodnić geometrię clinchu i domknąć świadków aktywacji. PR201, B, 40Hz, 28 atrybutów i confirmation bez zmian; bez promocji i nowej macierzy pełnych meczów. [Raport PR214](PR214_MULTIBODY_CONTACT_AND_HOLISTIC_READINESS.md), [inwentarz](match-engine/HOLISTIC_MECHANISM_INVENTORY.md), [protokół meczu](match-engine/HOLISTIC_MATCH_PROTOCOL.md).
 
 PR213: jawny `upright-pair-dev-v1` nadaje obu stojącym ciałom fizyczny impuls i kontynuuje ich rzeczywisty ruch przez resztę kroku 25ms. Trzy kolejności dwóch kontaktów stopy i jednego zderzenia w jednej klatce; 31 scen i 93 porównania zapisu. Zero niewyjaśnionych nowych właścicieli w tym korpusie, bez deklaracji uniwersalnej naprawy. Ciągłe powierzchnie są oddzielone od prób odbioru; zakończony zamach zachowuje geometrię do rozdzielenia. Początkowe nakładanie, trzeci gracz i krawędź ruchu mają jawne nierozstrzygnięcia; brak nowych upadków/kontuzji. RETAIN_EXPERIMENTAL, PR201/B/40Hz/28 atrybutów i zamknięte confirmation bez zmian. [Raport](PR213_PERSISTENT_CONTACT_AND_BODY_IMPULSE.md). Roadmapa porządkuje: canonical MatchEngine → destylacja statystyczna → rozbudowa kariery i prezentacji.

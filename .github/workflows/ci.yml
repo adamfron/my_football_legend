@@ -81,7 +81,10 @@ jobs:
         run: node scripts/ci/replayPr213Check.mjs
       - name: PR214 bounded multi-body and holistic compatibility
         if: matrix.group == 'main'
-        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr214.mjs --check
+        run: node scripts/ci/replayPr214Check.mjs
+      - name: PR215 limited Single Match Lab and ordinary contact evidence
+        if: matrix.group == 'main'
+        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr215.mjs --check
       - run: npm run ci:group -- --group=checks:${{ matrix.group }}
       - uses: actions/upload-artifact@v4
         if: always()

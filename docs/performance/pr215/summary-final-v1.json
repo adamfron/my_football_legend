@@ -1,0 +1,714 @@
+{
+  "source": {
+    "base": "3aadeabdaac4bc9d038bf80399fd4a6f3e76a232",
+    "fingerprint": "30807d72ccdbfaac9dd5b5d280622c40a922c382e485a6c2c85c2e7da19bf9c1",
+    "archive": "docs/performance/pr215/source-30807d72ccdbfaac9dd5b5d280622c40a922c382e485a6c2c85c2e7da19bf9c1.json.gz"
+  },
+  "recipe": {
+    "id": "holistic-physical-dev-v1",
+    "experimental": true,
+    "base": "realism-candidate-v1",
+    "policy": "state-value-v1",
+    "groundContact": "event-v1",
+    "kickExecution": "contact-v1",
+    "pendingStrike": "low-pass-dev-v1",
+    "timeline": "standing-contact-dev-v1",
+    "playerBody": "upright-cluster-dev-v1"
+  },
+  "readiness": "LIMITED_UI / BLOCKED_FOR_HOLISTIC_MATCH",
+  "blocker": "controlled_reception_remainder_not_migrated",
+  "smoke": "NOT_RUN: carry/delivery single-authority gate fails; browser startup is separate UI evidence",
+  "fullMatch": "NOT_RUN: mandatory local gate failed; frozen PR214 paired input and baseline unchanged",
+  "rows": [
+    {
+      "name": "ordinary-loose-three",
+      "frames": 9,
+      "checkpoints": [
+        {
+          "index": 0,
+          "bytes": 89217,
+          "terminal": "a1422fe258a42caab3edfef6a97d58b92b58c9958217d7621d04d1745e078dba"
+        },
+        {
+          "index": 1,
+          "bytes": 163885,
+          "terminal": "c016e2d5596d3b29832a2bf18bb9425dd672e189a5eb83fcf5d4184b6a185307"
+        },
+        {
+          "index": 8,
+          "bytes": 164971,
+          "terminal": "8a7902280544fc390df1b58574b360a386da0e620fd9c33d1f77ab4b885a1988"
+        }
+      ],
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 8,
+          "executed": 0,
+          "at": 10.200000000000003,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "contact-interval": {
+          "invoked": 8,
+          "executed": 0,
+          "at": 10.175000000000002,
+          "source": "pendingStrikeInterval.advance"
+        },
+        "ordinary-loose-ball": {
+          "invoked": 8,
+          "executed": 0,
+          "at": 10.175000000000002,
+          "source": "pendingStrikeInterval.advance:ordinary"
+        },
+        "ground-contact": {
+          "invoked": 26,
+          "executed": 0,
+          "at": 10.175249230789793,
+          "source": "pendingStrikeInterval.integrateBallFlight"
+        },
+        "body-cluster": {
+          "invoked": 18,
+          "executed": 2,
+          "at": 10.175249230789793,
+          "source": "pendingStrikeInterval.resolveMultiBodyContact"
+        }
+      }
+    },
+    {
+      "name": "reception-carry-blocker",
+      "frames": 3,
+      "checkpoints": [
+        {
+          "index": 0,
+          "bytes": 87755,
+          "terminal": "2590899ffc7aa3756a02f500eeea7a7b673a50b9104c996ee941b079999c0ba8"
+        },
+        {
+          "index": 1,
+          "bytes": 116853,
+          "terminal": "97e641d1fdbfe872cbac904e5a2a2ff653460e3f2614731d1ffe85e1b349d5c2"
+        },
+        {
+          "index": 2,
+          "bytes": 121551,
+          "terminal": "550917973f5c83ca0e1abcd559e5123f288730b7230b296b148d106acc9748ec"
+        }
+      ],
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 2,
+          "executed": 0,
+          "at": 10.05,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "contact-interval": {
+          "invoked": 2,
+          "executed": 0,
+          "at": 10.025,
+          "source": "pendingStrikeInterval.advance"
+        },
+        "ordinary-loose-ball": {
+          "invoked": 2,
+          "executed": 0,
+          "at": 10.025,
+          "source": "pendingStrikeInterval.advance:ordinary"
+        },
+        "ground-contact": {
+          "invoked": 2,
+          "executed": 0,
+          "at": 10.025,
+          "source": "pendingStrikeInterval.integrateBallFlight"
+        },
+        "controlled-reception": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.047033038999901,
+          "source": "matchSimulation.resolveReceptionOutcome"
+        },
+        "unresolved": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.047033038999901,
+          "source": "controlled_reception_remainder_not_migrated"
+        }
+      }
+    },
+    {
+      "name": "line-four",
+      "frames": 13,
+      "checkpoints": [
+        {
+          "index": 0,
+          "bytes": 92013,
+          "terminal": "283547b3a6f47db3b680119cc4f5d23d9b8d07458b15a659dc3256ee8c48202d"
+        },
+        {
+          "index": 1,
+          "bytes": 213948,
+          "terminal": "7f46b4e458d42e30d71f6b948dccf1c3a9506acb887cb9e390353f5244f66f03"
+        },
+        {
+          "index": 12,
+          "bytes": 122737,
+          "terminal": "c797e9a1b7adc688fcbb1c1885c087c2f285ec3585f7195324ad4a787415143e"
+        }
+      ],
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 12,
+          "executed": 0,
+          "at": 10.300000000000004,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "contact-interval": {
+          "invoked": 5,
+          "executed": 0,
+          "at": 10.100000000000001,
+          "source": "pendingStrikeInterval.advance"
+        },
+        "ground-contact": {
+          "invoked": 12,
+          "executed": 0,
+          "at": 10.12,
+          "source": "pendingStrikeInterval.integrateBallFlight"
+        },
+        "body-cluster": {
+          "invoked": 6,
+          "executed": 3,
+          "at": 10.100015459188043,
+          "source": "pendingStrikeInterval.resolveMultiBodyContact"
+        },
+        "missed-kick": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.12,
+          "source": "pendingStrike.finish:miss:swing_completed_without_contact"
+        }
+      }
+    },
+    {
+      "name": "body-pass-third",
+      "frames": 13,
+      "checkpoints": [
+        {
+          "index": 0,
+          "bytes": 93660,
+          "terminal": "51d5eb3ad433a0145d71c742bfcbf91e227f7622ff354b38e0215bb55d6fef28"
+        },
+        {
+          "index": 1,
+          "bytes": 119881,
+          "terminal": "99d486627caca065016a819be6476eea25a288a41af2a84b9c6b3764ab08984f"
+        },
+        {
+          "index": 12,
+          "bytes": 172744,
+          "terminal": "2bfa631368fd3e3ecbe5e420cb40f96daeab89c66622239483955ed8c6729db4"
+        }
+      ],
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 12,
+          "executed": 0,
+          "at": 10.300000000000004,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "contact-interval": {
+          "invoked": 12,
+          "executed": 0,
+          "at": 10.275000000000004,
+          "source": "pendingStrikeInterval.advance"
+        },
+        "ground-contact": {
+          "invoked": 40,
+          "executed": 0,
+          "at": 10.278508028827048,
+          "source": "pendingStrikeInterval.integrateBallFlight"
+        },
+        "body-cluster": {
+          "invoked": 26,
+          "executed": 2,
+          "at": 10.278508028827048,
+          "source": "pendingStrikeInterval.resolveMultiBodyContact"
+        },
+        "prepared-kick": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.080603132391248,
+          "source": "pendingStrike.finish:contact:foot_ball_intersection"
+        },
+        "standing-challenge": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.091975545420608,
+          "source": "pendingStrikeInterval.executePendingContact"
+        },
+        "ordinary-loose-ball": {
+          "invoked": 8,
+          "executed": 0,
+          "at": 10.275000000000004,
+          "source": "pendingStrikeInterval.advance:ordinary"
+        }
+      }
+    },
+    {
+      "name": "pass-body-third",
+      "frames": 13,
+      "checkpoints": [
+        {
+          "index": 0,
+          "bytes": 93679,
+          "terminal": "8bff5cf203061ca783604751222cb67f98c5dc8271db50ed83dd949f19d89142"
+        },
+        {
+          "index": 1,
+          "bytes": 121294,
+          "terminal": "be72d0ac8dd7a5f0e149570964f07ce0755a834c3a3ba7c99c6668275e66666b"
+        },
+        {
+          "index": 12,
+          "bytes": 136822,
+          "terminal": "913372c4076584df60977478b50190e666819d7eefe6597eabc51041f1a1d769"
+        }
+      ],
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 12,
+          "executed": 0,
+          "at": 10.300000000000004,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "contact-interval": {
+          "invoked": 9,
+          "executed": 0,
+          "at": 10.275000000000004,
+          "source": "pendingStrikeInterval.advance"
+        },
+        "ground-contact": {
+          "invoked": 16,
+          "executed": 0,
+          "at": 10.275000000000004,
+          "source": "pendingStrikeInterval.integrateBallFlight"
+        },
+        "prepared-kick": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.078915780860633,
+          "source": "pendingStrike.finish:contact:foot_ball_intersection"
+        },
+        "body-cluster": {
+          "invoked": 5,
+          "executed": 2,
+          "at": 10.084193195713823,
+          "source": "pendingStrikeInterval.resolveMultiBodyContact"
+        },
+        "standing-challenge": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.081341161755134,
+          "source": "pendingStrikeInterval.executePendingContact"
+        },
+        "fallback-keeper-aerial": {
+          "invoked": 3,
+          "executed": 0,
+          "at": 10.175000000000002,
+          "source": "matchSimulation.historical-loose-ball"
+        },
+        "ordinary-loose-ball": {
+          "invoked": 5,
+          "executed": 0,
+          "at": 10.275000000000004,
+          "source": "pendingStrikeInterval.advance:ordinary"
+        }
+      }
+    },
+    {
+      "name": "body-pass-challenge",
+      "frames": 13,
+      "checkpoints": [
+        {
+          "index": 0,
+          "bytes": 93528,
+          "terminal": "0fd2a3c7bda91c58b1308ac736b18b75b1b3a50cedfd238b6ff30f3f3a9a56d9"
+        },
+        {
+          "index": 1,
+          "bytes": 120483,
+          "terminal": "04a55b24e2d46b44073cfe90b324a0b97f5272adeb417cf49a30cc28fb866aa6"
+        },
+        {
+          "index": 12,
+          "bytes": 136641,
+          "terminal": "31a860fdacdeb579f0d118a296d5952c2667ad70ce785d7b8a2d8d74cc0db538"
+        }
+      ],
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 12,
+          "executed": 0,
+          "at": 10.300000000000004,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "contact-interval": {
+          "invoked": 12,
+          "executed": 0,
+          "at": 10.275000000000004,
+          "source": "pendingStrikeInterval.advance"
+        },
+        "ground-contact": {
+          "invoked": 15,
+          "executed": 0,
+          "at": 10.275000000000004,
+          "source": "pendingStrikeInterval.integrateBallFlight"
+        },
+        "body-cluster": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.075843161255372,
+          "source": "pendingStrikeInterval.resolveMultiBodyContact"
+        },
+        "prepared-kick": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.081600166129645,
+          "source": "pendingStrike.finish:contact:foot_ball_intersection"
+        },
+        "standing-challenge": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.094964810391408,
+          "source": "pendingStrikeInterval.executePendingContact"
+        },
+        "ordinary-loose-ball": {
+          "invoked": 8,
+          "executed": 0,
+          "at": 10.275000000000004,
+          "source": "pendingStrikeInterval.advance:ordinary"
+        }
+      }
+    },
+    {
+      "name": "ball-touchline",
+      "frames": 13,
+      "checkpoints": [
+        {
+          "index": 0,
+          "bytes": 92022,
+          "terminal": "d461646dcee2e7fa159ae8f85491723f896e1e38f75ad46054293609c9504b9b"
+        },
+        {
+          "index": 1,
+          "bytes": 157329,
+          "terminal": "a0c5f18fe73e3b7ae3b36d2a294d1ec51dfe2f9eba5c9a33a4572bc8ba4d55e0"
+        },
+        {
+          "index": 12,
+          "bytes": 124606,
+          "terminal": "e64af8ce5508c4779af65978bc3430eb0ac57b38f740c944a47fda86cb51c03d"
+        }
+      ],
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 12,
+          "executed": 0,
+          "at": 10.300000000000004,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "contact-interval": {
+          "invoked": 1,
+          "executed": 0,
+          "at": 10,
+          "source": "pendingStrikeInterval.advance"
+        },
+        "ground-contact": {
+          "invoked": 5,
+          "executed": 0,
+          "at": 10.0045164947439,
+          "source": "pendingStrikeInterval.integrateBallFlight"
+        },
+        "body-cluster": {
+          "invoked": 4,
+          "executed": 1,
+          "at": 10.0045164947439,
+          "source": "pendingStrikeInterval.resolveMultiBodyContact"
+        },
+        "interrupted-kick": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 10.011510599516443,
+          "source": "pendingStrike.finish:interrupted:boundary"
+        }
+      }
+    }
+  ],
+  "clinch": {
+    "height": 1.5624952830020753,
+    "groundMaximumSeparation": 0.5091168824543136,
+    "thirdTorsoSeparation": 0.6931089380465361,
+    "retained": [
+      "support-0",
+      "support-1"
+    ],
+    "escaped": [],
+    "outgoing": {
+      "x": 0.026355942801005342,
+      "y": 2.1568331123852,
+      "z": 1.6922377317055763
+    }
+  },
+  "costs": {
+    "node": "v24.22.1",
+    "platform": "win32",
+    "wallSeconds": 2.6253403000000004,
+    "cpu": {
+      "user": 3234000,
+      "system": 281000
+    },
+    "peakRSSKiB": 427580,
+    "matched": [
+      {
+        "mode": "ordinary",
+        "ticks": 256,
+        "wallSeconds": 0.3572345999999998,
+        "cpu": {
+          "user": 500000,
+          "system": 31000
+        },
+        "maximumCheckpointBytes": 128049,
+        "spans": {
+          "enabled": true,
+          "sampleEveryTicks": 1,
+          "ticks": 256,
+          "sampledTicks": 256,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "defensive_attention",
+              "sampledMs": 0.1051000000024942,
+              "estimatedMs": 0.1051000000024942,
+              "sampledCalls": 256
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 97.23049999999967,
+              "estimatedMs": 97.23049999999967,
+              "sampledCalls": 6400
+            },
+            {
+              "category": "tactical_planning",
+              "sampledMs": 48.617199999996046,
+              "estimatedMs": 48.617199999996046,
+              "sampledCalls": 256
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 3.378699999944729,
+              "estimatedMs": 3.378699999944729,
+              "sampledCalls": 5632
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 91.37739999998848,
+              "estimatedMs": 91.37739999998848,
+              "sampledCalls": 256
+            },
+            {
+              "category": "ball_collision_resolution",
+              "sampledMs": 0.27990000000318105,
+              "estimatedMs": 0.27990000000318105,
+              "sampledCalls": 256
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 0.5774000000037631,
+              "estimatedMs": 0.5774000000037631,
+              "sampledCalls": 256
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 102.39679999999953,
+              "estimatedMs": 102.39679999999953,
+              "sampledCalls": 256
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1.3634000000020023,
+              "estimatedMs": 1.3634000000020023,
+              "sampledCalls": 256
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 0.48680000000786094,
+              "estimatedMs": 0.48680000000786094,
+              "sampledCalls": 256
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 16.014300000006187,
+              "estimatedMs": 16.014300000006187,
+              "sampledCalls": 256
+            }
+          ]
+        }
+      },
+      {
+        "mode": "holistic-without-witnesses",
+        "ticks": 256,
+        "wallSeconds": 0.6600258999999996,
+        "cpu": {
+          "user": 954000,
+          "system": 47000
+        },
+        "maximumCheckpointBytes": 164345,
+        "spans": {
+          "enabled": true,
+          "sampleEveryTicks": 1,
+          "ticks": 256,
+          "sampledTicks": 256,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "defensive_attention",
+              "sampledMs": 0.11790000000746659,
+              "estimatedMs": 0.11790000000746659,
+              "sampledCalls": 256
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 19.955100000009224,
+              "estimatedMs": 19.955100000009224,
+              "sampledCalls": 1280
+            },
+            {
+              "category": "tactical_planning",
+              "sampledMs": 49.916100000010374,
+              "estimatedMs": 49.916100000010374,
+              "sampledCalls": 256
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 3.781799999991563,
+              "estimatedMs": 3.781799999991563,
+              "sampledCalls": 5632
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 94.76570000000538,
+              "estimatedMs": 94.76570000000538,
+              "sampledCalls": 256
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 3.7440999999889755,
+              "estimatedMs": 3.7440999999889755,
+              "sampledCalls": 832
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 376.2815000000046,
+              "estimatedMs": 376.2815000000046,
+              "sampledCalls": 256
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1.4170999999951164,
+              "estimatedMs": 1.4170999999951164,
+              "sampledCalls": 256
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 0.3974000000034721,
+              "estimatedMs": 0.3974000000034721,
+              "sampledCalls": 256
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 15.545999999997548,
+              "estimatedMs": 15.545999999997548,
+              "sampledCalls": 256
+            }
+          ]
+        }
+      },
+      {
+        "mode": "holistic",
+        "ticks": 256,
+        "wallSeconds": 0.5688598000000001,
+        "cpu": {
+          "user": 703000,
+          "system": 47000
+        },
+        "maximumCheckpointBytes": 164971,
+        "spans": {
+          "enabled": true,
+          "sampleEveryTicks": 1,
+          "ticks": 256,
+          "sampledTicks": 256,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "defensive_attention",
+              "sampledMs": 0.07840000000214786,
+              "estimatedMs": 0.07840000000214786,
+              "sampledCalls": 256
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 16.735500000001593,
+              "estimatedMs": 16.735500000001593,
+              "sampledCalls": 1280
+            },
+            {
+              "category": "tactical_planning",
+              "sampledMs": 43.40019999999822,
+              "estimatedMs": 43.40019999999822,
+              "sampledCalls": 256
+            },
+            {
+              "category": "movement_authority",
+              "sampledMs": 2.2283000000052198,
+              "estimatedMs": 2.2283000000052198,
+              "sampledCalls": 5632
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 79.39660000000549,
+              "estimatedMs": 79.39660000000549,
+              "sampledCalls": 256
+            },
+            {
+              "category": "ball_contact_detection",
+              "sampledMs": 2.4353000000037355,
+              "estimatedMs": 2.4353000000037355,
+              "sampledCalls": 832
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 326.98170000000573,
+              "estimatedMs": 326.98170000000573,
+              "sampledCalls": 256
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 1.0683999999891967,
+              "estimatedMs": 1.0683999999891967,
+              "sampledCalls": 256
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 0.337800000002062,
+              "estimatedMs": 0.337800000002062,
+              "sampledCalls": 256
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 12.79280000000017,
+              "estimatedMs": 12.79280000000017,
+              "sampledCalls": 256
+            }
+          ]
+        }
+      }
+    ],
+    "scope": "32 matched local inputs x 8 ticks/arm; inclusive sampled spans; descriptive single ordered sample, no speedup claim; browser/render/export measured separately"
+  }
+}
