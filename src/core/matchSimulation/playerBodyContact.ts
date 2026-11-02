@@ -4,7 +4,10 @@ import { deriveMovementCapability } from './locomotion';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { canParticipatePhysically } from './matchInjuries';
 
-export const playerBodyImpulseSelectionSchema = z.literal('upright-pair-dev-v1');
+export const playerBodyImpulseSelectionSchema = z.enum([
+  'upright-pair-dev-v1',
+  'upright-cluster-dev-v1',
+]);
 const vector = z.object({ x: z.number().finite(), y: z.number().finite() });
 export const continuousPlayerContactsSchema = z
   .array(
@@ -31,7 +34,7 @@ export const playerBodyContactSchema = z.object({
   energyAfter: z.number().nonnegative(),
   restitution: z.number().min(0).max(1),
   clearance: z.number().finite(),
-  correctionIterations: z.number().int().nonnegative().max(8),
+  correctionIterations: z.number().int().nonnegative().max(32),
   balanceBefore: z.tuple([z.number(), z.number()]),
   balanceAfter: z.tuple([z.number(), z.number()]),
   remainderSeconds: z.number().nonnegative().optional(),

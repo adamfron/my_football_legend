@@ -1,0 +1,298 @@
+import { z } from 'zod';
+import type { MatchPlayerState, TacticalMatchState } from './matchState';
+import { canParticipatePhysically } from './matchInjuries';
+import {
+  PLAYER_BODY_CONTACT,
+  playerBodyClearance,
+  playerPairKey,
+  playerBodyContactSchema,
+  resolvePlayerBodyImpulse,
+  supportedUprightPair,
+} from './playerBodyContact';
+
+export const MULTI_BODY = {
+  maximumBodies: 4,
+  iterations: 32,
+  events: 16,
+  contactTolerance: 1e-7,
+  velocityTolerance: 1e-4,
+  maximumCorrection: 0.002,
+  minimum: { x: 0.4, y: 0.4 },
+  maximum: { x: 104.6, y: 67.6 },
+} as const;
+const vector = z.object({ x: z.number().finite(), y: z.number().finite() });
+export const multiBodyResolutionSchema = z.object({
+  at: z.number().nonnegative(),
+  participants: z.string().array().max(22),
+  reason: z.string(),
+  iterations: z.number().int().min(0).max(MULTI_BODY.iterations),
+  pairChecks: z.number().int().min(0).max(231),
+  momentumBefore: vector,
+  momentumAfter: vector,
+  boundaryImpulse: vector,
+  energyBefore: z.number().nonnegative(),
+  energyAfter: z.number().nonnegative(),
+  residualClosingSpeed: z.number().nonnegative(),
+  maximumPenetration: z.number().nonnegative(),
+  positionCorrection: z.number().nonnegative(),
+  unresolved: z.boolean(),
+  impulses: playerBodyContactSchema.array().max(192),
+  motorWorkAt: z.number().nonnegative().optional(),
+  motorWork: z
+    .array(
+      z.object({
+        actorId: z.string(),
+        mass: z.number().positive(),
+        beforeVelocity: vector,
+        actuatorVelocity: vector,
+        kineticWork: z.number().finite(),
+      }),
+    )
+    .max(22)
+    .optional(),
+});
+export const multiBodyResolutionsSchema = multiBodyResolutionSchema.array().max(MULTI_BODY.events);
+
+export const ownsMultiBodyInterval = (s: TacticalMatchState) =>
+  s.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
+  s.scenario === 'open_play' &&
+  !s.restart &&
+  !s.postGoal &&
+  Boolean(s.pendingStrike || s.defensiveChallenge?.physicalAttempt);
+
+/** Conservative connected broad phase for this existing interval, not a second
+ * movement authority. At 12m/s/body no reachable torso can enter from outside it. */
+export const multiBodyParticipants = (s: TacticalMatchState, dt: number) => {
+  const ids = new Set<string>();
+  if (!ownsMultiBodyInterval(s)) return ids;
+  if (s.pendingStrike) ids.add(s.pendingStrike.actorId);
+  if (s.defensiveChallenge?.physicalAttempt) {
+    ids.add(s.defensiveChallenge.actorId);
+    ids.add(s.defensiveChallenge.opponentId);
+  }
+  const players = [...s.players].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  for (let pass = 0; pass < players.length; pass++) {
+    const count = ids.size;
+    for (const a of players.filter((p) => ids.has(p.id)))
+      for (const b of players)
+        if (
+          !ids.has(b.id) &&
+          canParticipatePhysically(b) &&
+          playerBodyClearance(a, b) <=
+            Math.max(
+              24,
+              Math.hypot(a.velocity.x, a.velocity.y) + Math.hypot(b.velocity.x, b.velocity.y),
+            ) *
+              dt +
+              MULTI_BODY.contactTolerance
+        )
+          ids.add(b.id);
+    if (ids.size === count) break;
+  }
+  return ids;
+};
+
+export const findPlayerMovementEdge = (p: MatchPlayerState, seconds: number) => {
+  const events: { at: number; axis: 'x' | 'y'; edge: number }[] = [];
+  for (const axis of ['x', 'y'] as const) {
+    if (
+      p.position[axis] < MULTI_BODY.minimum[axis] - MULTI_BODY.contactTolerance ||
+      p.position[axis] > MULTI_BODY.maximum[axis] + MULTI_BODY.contactTolerance
+    ) {
+      events.push({ at: 0, axis, edge: p.position[axis] });
+      continue;
+    }
+    const v = p.velocity[axis];
+    if (Math.abs(v) < 1e-10) continue;
+    const edge = v < 0 ? MULTI_BODY.minimum[axis] : MULTI_BODY.maximum[axis];
+    const at = (edge - p.position[axis]) / v;
+    if (at >= -1e-10 && at <= seconds) events.push({ at: Math.max(0, at), axis, edge });
+  }
+  return events.sort((a, b) => a.at - b.at || (a.axis < b.axis ? -1 : 1))[0];
+};
+
+/** Deterministically ordered sequential impulses, not exact simultaneous rigid-body
+ * mechanics. Each approaching pair impulse is passive/dissipative and equal/opposite.
+ * Only its first new impact has restitution. Later sweeps enforce zero-restition
+ * support. A movement edge removes only outward normal velocity, with external
+ * momentum explicitly measured. Position projection never changes velocity. */
+export const resolveMultiBodyContact = (
+  state: TacticalMatchState,
+  seedIds: string[],
+  at: number,
+) => {
+  const ordered = [...state.players].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  const ids = new Set(seedIds);
+  let pairChecks = 0;
+  const pairs: [MatchPlayerState, MatchPlayerState][] = [];
+  for (let i = 0; i < ordered.length; i++)
+    for (let j = i + 1; j < ordered.length; j++) {
+      const a = ordered[i]!,
+        b = ordered[j]!;
+      pairChecks++;
+      if (playerBodyClearance(a, b) <= MULTI_BODY.contactTolerance) pairs.push([a, b]);
+    }
+  for (let pass = 0; pass < ordered.length; pass++) {
+    const count = ids.size;
+    for (const [a, b] of pairs)
+      if (ids.has(a.id) || ids.has(b.id)) {
+        ids.add(a.id);
+        ids.add(b.id);
+      }
+    if (ids.size === count) break;
+  }
+  let players = ordered.filter((p) => ids.has(p.id)).map((p) => ({ ...p }));
+  const momentum = () =>
+    players.reduce(
+      (v, p) => ({
+        x: v.x + p.profile.weightKg * p.velocity.x,
+        y: v.y + p.profile.weightKg * p.velocity.y,
+      }),
+      { x: 0, y: 0 },
+    );
+  const energy = () =>
+    players.reduce(
+      (e, p) => e + 0.5 * p.profile.weightKg * (p.velocity.x ** 2 + p.velocity.y ** 2),
+      0,
+    );
+  const momentumBefore = momentum(),
+    energyBefore = energy();
+  const boundaryImpulse = { x: 0, y: 0 };
+  let reason = 'resolved',
+    iterations = 0,
+    positionCorrection = 0;
+  const contacts: ReturnType<typeof resolvePlayerBodyImpulse>['evidence'][] = [];
+  const activePairs = new Map(
+    (state.continuousPlayerContacts ?? []).map((c) => [playerPairKey(...c.participants), c]),
+  );
+  const localPairs = pairs.filter(([a, b]) => ids.has(a.id) && ids.has(b.id));
+  if (players.length > MULTI_BODY.maximumBodies) reason = 'body_count_bound';
+  else if (players.some((p) => !supportedUprightPair(p, p))) reason = 'unsupported_body_state';
+  else if (
+    players.some((p) =>
+      (['x', 'y'] as const).some(
+        (axis) =>
+          p.position[axis] < MULTI_BODY.minimum[axis] - MULTI_BODY.contactTolerance ||
+          p.position[axis] > MULTI_BODY.maximum[axis] + MULTI_BODY.contactTolerance,
+      ),
+    )
+  )
+    reason = 'initial_player_outside_movement_area';
+  else if (localPairs.some(([a, b]) => playerBodyClearance(a, b) < -MULTI_BODY.maximumCorrection))
+    reason = 'initial_body_overlap';
+  else if (
+    localPairs.some(([a, b]) => playerBodyClearance(a, b) < -PLAYER_BODY_CONTACT.tolerance)
+  ) {
+    // One finite projection sweep for shallow initial overlap. Restitution is
+    // suppressed even when no previous episode existed; overlap proves no impact.
+    for (const [a0, b0] of localPairs) {
+      const a = players.find((p) => p.id === a0.id)!,
+        b = players.find((p) => p.id === b0.id)!;
+      const gap = playerBodyClearance(a, b);
+      if (gap >= 0) continue;
+      const d = gap + PLAYER_BODY_CONTACT.diameter;
+      const n = { x: (a.position.x - b.position.x) / d, y: (a.position.y - b.position.y) / d };
+      const inverse = 1 / a.profile.weightKg + 1 / b.profile.weightKg;
+      const correction = Math.min(-gap, MULTI_BODY.maximumCorrection);
+      a.position = {
+        x: a.position.x + (n.x * correction) / (a.profile.weightKg * inverse),
+        y: a.position.y + (n.y * correction) / (a.profile.weightKg * inverse),
+      };
+      b.position = {
+        x: b.position.x - (n.x * correction) / (b.profile.weightKg * inverse),
+        y: b.position.y - (n.y * correction) / (b.profile.weightKg * inverse),
+      };
+      positionCorrection += correction;
+      if (!activePairs.has(playerPairKey(a.id, b.id)) && activePairs.size >= 22) {
+        reason = 'persistent_storage_bound';
+        break;
+      }
+      activePairs.set(playerPairKey(a.id, b.id), { participants: [a.id, b.id], beganAt: at });
+    }
+    for (const p of players)
+      p.position = {
+        x: Math.max(MULTI_BODY.minimum.x, Math.min(MULTI_BODY.maximum.x, p.position.x)),
+        y: Math.max(MULTI_BODY.minimum.y, Math.min(MULTI_BODY.maximum.y, p.position.y)),
+      };
+  }
+  if (reason === 'resolved') {
+    for (let pass = 0; pass < MULTI_BODY.iterations; pass++) {
+      iterations++;
+      let changed = false;
+      for (const [a0, b0] of localPairs) {
+        const a = players.find((p) => p.id === a0.id)!,
+          b = players.find((p) => p.id === b0.id)!;
+        if (playerBodyClearance(a, b) > MULTI_BODY.contactTolerance) continue;
+        const key = playerPairKey(a.id, b.id);
+        if (!activePairs.has(key) && activePairs.size >= 22) {
+          reason = 'persistent_storage_bound';
+          break;
+        }
+        const result = resolvePlayerBodyImpulse(a, b, at, activePairs.has(key));
+        if (!result.evidence.normalImpulse) continue;
+        changed = true;
+        result.evidence.correctionIterations = pass + 1;
+        result.evidence.positionsAtContact = [a.position, b.position];
+        contacts.push(result.evidence);
+        players = players.map((p) => result.players.find((q) => q.id === p.id) ?? p);
+        if (!activePairs.has(key))
+          activePairs.set(key, { participants: [a.id, b.id], beganAt: at });
+      }
+      for (const p of players)
+        for (const axis of ['x', 'y'] as const)
+          if (
+            (p.position[axis] <= MULTI_BODY.minimum[axis] + MULTI_BODY.contactTolerance &&
+              p.velocity[axis] < 0) ||
+            (p.position[axis] >= MULTI_BODY.maximum[axis] - MULTI_BODY.contactTolerance &&
+              p.velocity[axis] > 0)
+          ) {
+            boundaryImpulse[axis] -= p.profile.weightKg * p.velocity[axis];
+            p.velocity = { ...p.velocity, [axis]: 0 };
+            changed = true;
+          }
+      if (reason !== 'resolved') break;
+      if (!changed) break;
+    }
+  }
+  let residualClosingSpeed = 0,
+    maximumPenetration = 0;
+  for (const [a0, b0] of localPairs) {
+    const a = players.find((p) => p.id === a0.id)!,
+      b = players.find((p) => p.id === b0.id)!;
+    const dx = a.position.x - b.position.x,
+      dy = a.position.y - b.position.y;
+    const d = Math.hypot(dx, dy);
+    residualClosingSpeed = Math.max(
+      residualClosingSpeed,
+      -((a.velocity.x - b.velocity.x) * dx + (a.velocity.y - b.velocity.y) * dy) /
+        Math.max(d, 1e-12),
+    );
+    maximumPenetration = Math.max(maximumPenetration, PLAYER_BODY_CONTACT.diameter - d);
+  }
+  if (
+    reason === 'resolved' &&
+    (residualClosingSpeed > MULTI_BODY.velocityTolerance ||
+      maximumPenetration > MULTI_BODY.contactTolerance)
+  )
+    reason = 'constraint_iteration_bound';
+  if (reason === 'resolved' && players.some((p) => !supportedUprightPair(p, p)))
+    reason = 'post_impact_speed_bound';
+  const evidence = multiBodyResolutionSchema.parse({
+    at,
+    participants: players.map((p) => p.id),
+    reason,
+    iterations,
+    pairChecks,
+    momentumBefore,
+    momentumAfter: momentum(),
+    boundaryImpulse,
+    energyBefore,
+    energyAfter: energy(),
+    residualClosingSpeed,
+    maximumPenetration,
+    positionCorrection,
+    unresolved: reason !== 'resolved',
+    impulses: contacts,
+  });
+  return { players, contacts, continuous: [...activePairs.values()], evidence };
+};

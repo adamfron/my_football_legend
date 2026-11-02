@@ -3,6 +3,7 @@ import {
   continuousFootContactsSchema,
 } from './sharedContactTimeline';
 import { z } from 'zod';
+import { multiBodyResolutionsSchema } from './multiBodyContact';
 import {
   playerBodyImpulseSelectionSchema,
   continuousPlayerContactsSchema,
@@ -856,6 +857,7 @@ export interface TacticalMatchState {
   experimentalPlayerBodyImpulse?: z.infer<typeof playerBodyImpulseSelectionSchema>;
   continuousPlayerContacts?: z.infer<typeof continuousPlayerContactsSchema>;
   playerBodyContacts?: z.infer<typeof playerBodyContactsSchema>;
+  multiBodyResolutions?: z.infer<typeof multiBodyResolutionsSchema>;
   continuousFootContacts?: z.infer<typeof continuousFootContactsSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
   pendingStrike?: PendingStrike;
@@ -1105,6 +1107,7 @@ export const tacticalMatchStateSchema = z
     experimentalPlayerBodyImpulse: playerBodyImpulseSelectionSchema.optional(),
     continuousPlayerContacts: continuousPlayerContactsSchema.optional(),
     playerBodyContacts: playerBodyContactsSchema.optional(),
+    multiBodyResolutions: multiBodyResolutionsSchema.optional(),
     continuousFootContacts: continuousFootContactsSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
@@ -1377,16 +1380,35 @@ export const tacticalMatchStateSchema = z
   .passthrough()
   .superRefine((state, ctx) => {
     if (
+      state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
+      (state.players.length > 22 ||
+        new Set(state.players.map((p) => p.id)).size !== state.players.length)
+    )
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Cluster interval requires at most 22 uniquely identified players',
+        path: ['players'],
+      });
+    if (
       (state.experimentalPlayerBodyImpulse ||
         state.continuousPlayerContacts?.length ||
         state.playerBodyContacts?.length) &&
-      (state.experimentalPlayerBodyImpulse !== 'upright-pair-dev-v1' ||
+      (!state.experimentalPlayerBodyImpulse ||
         state.experimentalContactTimeline !== 'standing-contact-dev-v1')
     )
       ctx.addIssue({
         code: 'custom',
         message: 'Player impulses require the shared standing timeline',
         path: ['experimentalPlayerBodyImpulse'],
+      });
+    if (
+      state.multiBodyResolutions?.length &&
+      state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1'
+    )
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Cluster evidence requires its selected edition',
+        path: ['multiBodyResolutions'],
       });
     if (
       (state.experimentalContactTimeline || state.defensiveChallenge?.physicalAttempt) &&

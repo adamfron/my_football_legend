@@ -17,6 +17,22 @@ import { BASE as PR209_MERGED } from '../pr210SourceGuard.mjs';
 import { execFileSync } from 'node:child_process';
 const manifest = json('docs/performance/pr202/task-manifest.json');
 
+test('PR214 inventory is independent of filesystem order and preserves physical receipts', async () => {
+  const result = await runChild(
+    [
+      process.execPath,
+      '--experimental-transform-types',
+      '--import',
+      './scripts/registerTypescriptLoader.mjs',
+      '--test',
+      'scripts/pr214InventoryContracts.mjs',
+    ],
+    { timeoutMs: 60000 },
+  );
+  assert.equal(result.exitCode, 0);
+  assert.equal(result.timedOut, false);
+});
+
 test('PR209 history uses private real evidence files and still rejects byte drift', () => {
   const context = pr209Context();
   const evidence = 'docs/performance/pr195/pilot-protocol.json';

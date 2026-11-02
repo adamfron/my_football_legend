@@ -1,0 +1,1073 @@
+{
+  "schema": "pr214-holistic-inventory-v1",
+  "records": [
+    {
+      "id": "experimentalCanonicalArrival",
+      "implementation": "playerArrival.estimatePlayerArrivalTime",
+      "consumer": "passDecision/passReception/roleTactics/goalkeeperPositioning",
+      "origin": 196,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "value",
+      "actions": "passDecision/passReception/roleTactics/goalkeeperPositioning",
+      "limitations": "Seven full-match pairs have policy-specific harms",
+      "evidence": [
+        "docs/performance/pr196/summary.json"
+      ],
+      "fullMatchEvidence": "docs/performance/pr196/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/carryOpportunity.ts",
+        "src/core/matchSimulation/decisionPolicy.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/playerArrival.ts"
+      ]
+    },
+    {
+      "id": "experimentalDefensiveReception",
+      "implementation": "matchSimulation.changePossession",
+      "consumer": "tryIncomingFinish incoming control",
+      "origin": 197,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "tryIncomingFinish incoming control",
+      "limitations": "Broader delivery families need calibration; guard does not guarantee contact",
+      "evidence": [
+        "docs/performance/pr197/summary.json"
+      ],
+      "fullMatchEvidence": "docs/performance/pr197/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/pr205Laboratory.ts"
+      ]
+    },
+    {
+      "id": "experimentalHeightAwarePassing",
+      "implementation": "passDecision.evaluatePassDecision",
+      "consumer": "B/R1/R2/R3 pass rankings",
+      "origin": 197,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "value",
+      "actions": "B/R1/R2/R3 pass rankings",
+      "limitations": "Approximate height/reach forecast; aggregate gains do not certify policy transfer",
+      "evidence": [
+        "docs/performance/pr197/summary.json"
+      ],
+      "fullMatchEvidence": "docs/performance/pr197/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/passDecision.ts"
+      ]
+    },
+    {
+      "id": "experimentalReceiverAnticipation",
+      "implementation": "ballOrientedMovement.observeReceptionBall",
+      "consumer": "passReception.projectLiveReceptionTarget → canonical movement",
+      "origin": 197,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "passReception.projectLiveReceptionTarget → canonical movement",
+      "limitations": "Frozen 180 R:154/123/116 versus baseline160/128/107",
+      "evidence": [
+        "docs/performance/pr197/summary.json"
+      ],
+      "fullMatchEvidence": "docs/performance/pr197/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/liveBallFlight.ts",
+        "src/core/matchSimulation/locomotion.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/passReception.ts",
+        "src/core/matchSimulation/physicalKickLaboratory.ts"
+      ]
+    },
+    {
+      "id": "experimentalReceiverSynchronisation",
+      "implementation": "receiverSynchronisation.planSynchronizedReception",
+      "consumer": "locomotion + receptionPlanFacing + receptionMovementContactTarget",
+      "origin": 198,
+      "dependencies": [
+        "experimentalReceiverAnticipation"
+      ],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [
+        "experimentalBoundedBallFlightBelief"
+      ],
+      "policies": "all",
+      "actions": "locomotion + receptionPlanFacing + receptionMovementContactTarget",
+      "limitations": "Frozen S149/113/108; eight lost and three gained direct contacts",
+      "evidence": [
+        "docs/performance/pr198/summary.json"
+      ],
+      "fullMatchEvidence": "docs/performance/pr198/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/liveBallFlight.ts",
+        "src/core/matchSimulation/locomotion.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/passReception.ts"
+      ]
+    },
+    {
+      "id": "experimentalObservedLoftedPasses",
+      "implementation": "boundedDecision.constructBoundedCandidates",
+      "consumer": "O/H/J observed moving-receiver repertoire",
+      "origin": 198,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "bounded",
+      "actions": "O/H/J observed moving-receiver repertoire",
+      "limitations": "Full deliberate run-to-controlled-reception chain unproven",
+      "evidence": [
+        "docs/performance/pr198/summary.json"
+      ],
+      "fullMatchEvidence": "docs/performance/pr198/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/boundedPerception.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchState.ts"
+      ]
+    },
+    {
+      "id": "experimentalBoundedBallFlightBelief",
+      "implementation": "liveBallFlight.advanceLiveBallFlight",
+      "consumer": "boundedPerception + ballOrientedMovement + final keeper/receiver commands + active save gate",
+      "origin": 200,
+      "dependencies": [
+        "experimentalReceiverAnticipation"
+      ],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "boundedPerception + ballOrientedMovement + final keeper/receiver commands + active save gate",
+      "limitations": "Uncalibrated optics/occlusion, motion and motor cadence; no global bounded-AI certification",
+      "evidence": [
+        "docs/performance/pr200/local-frozen-v1.json.gz"
+      ],
+      "fullMatchEvidence": "docs/performance/pr200/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/ballOrientedMovement.ts",
+        "src/core/matchSimulation/boundedPerception.ts",
+        "src/core/matchSimulation/goalkeeperIntervention.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/liveBallFlight.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/physicalKickLaboratory.ts"
+      ]
+    },
+    {
+      "id": "experimentalActivePerception",
+      "implementation": "activePerception.advanceActivePerception",
+      "consumer": "bounded scenes, preReceptionPlanning and attention",
+      "origin": 194,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "bounded scenes, preReceptionPlanning and attention",
+      "limitations": "Existing legacy ball velocity contract is privileged when PR200 route is disabled",
+      "evidence": [
+        "docs/PR194_ACTIVE_PERCEPTION_PRE_RECEPTION_INTELLIGENCE_AND_TEAM_TEMPO.md"
+      ],
+      "fullMatchEvidence": "docs/performance/pr194/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/activePerception.ts",
+        "src/core/matchSimulation/ballOrientedMovement.ts",
+        "src/core/matchSimulation/boundedIntelligence.ts",
+        "src/core/matchSimulation/boundedPerception.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/liveBallFlight.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/perceptionLaboratory.ts",
+        "src/core/matchSimulation/playerOrientation.ts",
+        "src/core/matchSimulation/preReceptionPlanning.ts",
+        "src/core/matchSimulation/receptionContinuation.ts"
+      ]
+    },
+    {
+      "id": "experimentalReceivingPositions",
+      "implementation": "receivingPositions.advanceReceivingPositions",
+      "consumer": "receivingPositionTarget in canonical movement",
+      "origin": 194,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "receivingPositionTarget in canonical movement",
+      "limitations": "Proposal/job instances do not prove deliberate runs",
+      "evidence": [
+        "docs/PR194_ACTIVE_PERCEPTION_PRE_RECEPTION_INTELLIGENCE_AND_TEAM_TEMPO.md"
+      ],
+      "fullMatchEvidence": "docs/performance/pr194/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/activePerception.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/perceptionLaboratory.ts",
+        "src/core/matchSimulation/receivingPositions.ts"
+      ]
+    },
+    {
+      "id": "experimentalTeamTempo",
+      "implementation": "teamTempo.advanceTeamTempo",
+      "consumer": "tempoEffort in projectLocomotion",
+      "origin": 194,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "tempoEffort in projectLocomotion",
+      "limitations": "No calibrated team rhythm/communication model",
+      "evidence": [
+        "docs/PR194_ACTIVE_PERCEPTION_PRE_RECEPTION_INTELLIGENCE_AND_TEAM_TEMPO.md"
+      ],
+      "fullMatchEvidence": "docs/performance/pr194/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/activePerception.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/perceptionLaboratory.ts",
+        "src/core/matchSimulation/teamTempo.ts",
+        "src/core/matchSimulation/tempoEffort.ts"
+      ]
+    },
+    {
+      "id": "experimentalTransitionIntelligence",
+      "implementation": "transitionMovement.advanceTransitionRuns",
+      "consumer": "bounded scenes/patterns and transition defence",
+      "origin": 193,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "bounded scenes/patterns and transition defence",
+      "limitations": "Mixed full-match effects and uncertain downstream value",
+      "evidence": [
+        "docs/PR193_TRANSITION_INTELLIGENCE_STRATEGIC_CLEARANCES_AND_OPPORTUNITY_WINDOWS.md"
+      ],
+      "fullMatchEvidence": "docs/performance/pr193/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/boundedIntelligence.ts",
+        "src/core/matchSimulation/boundedPerception.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/locomotion.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/pr205Laboratory.ts",
+        "src/core/matchSimulation/transitionLaboratory.ts",
+        "src/core/matchSimulation/transitionMovement.ts"
+      ]
+    },
+    {
+      "id": "experimentalStrategicClearances",
+      "implementation": "strategicClearance",
+      "consumer": "bounded candidate → challenge clearance execution",
+      "origin": 193,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "bounded",
+      "actions": "bounded candidate → challenge clearance execution",
+      "limitations": "No universal territorial/restart value calibration",
+      "evidence": [
+        "docs/PR193_TRANSITION_INTELLIGENCE_STRATEGIC_CLEARANCES_AND_OPPORTUNITY_WINDOWS.md"
+      ],
+      "fullMatchEvidence": "docs/performance/pr193/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/transitionLaboratory.ts"
+      ]
+    },
+    {
+      "id": "experimentalIncidentalGoals",
+      "implementation": "incidentalGoalState + matchSimulation",
+      "consumer": "unowned physical ball goal attribution",
+      "origin": 193,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "unowned physical ball goal attribution",
+      "limitations": "Not enabled in historical PR193/194 development cohorts",
+      "evidence": [
+        "docs/PR193_TRANSITION_INTELLIGENCE_STRATEGIC_CLEARANCES_AND_OPPORTUNITY_WINDOWS.md"
+      ],
+      "fullMatchEvidence": "docs/performance/pr193/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/incidentalGoals.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/transitionLaboratory.ts"
+      ]
+    },
+    {
+      "id": "experimentalBodyContacts",
+      "implementation": "experimentalBodyReception + ballSurfaceContact",
+      "consumer": "finite body-v1 reception surfaces",
+      "origin": 191,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [
+        "historical integration profiles"
+      ],
+      "policies": "all",
+      "actions": "finite body-v1 reception surfaces",
+      "limitations": "Not validated as a full finishing/keeper anatomy model",
+      "evidence": [
+        "docs/PR191_FIRST_TOUCH_DIRECTIONAL_CONTROL_AND_ONE_TOUCH_LAB.md"
+      ],
+      "fullMatchEvidence": "docs/performance/pr191/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/ballContactGeometry.ts",
+        "src/core/matchSimulation/ballSurfaceContact.ts",
+        "src/core/matchSimulation/experimentalBodyReception.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/naturalMatchFlowDiagnostics.ts",
+        "src/core/matchSimulation/passClaimResolver.ts",
+        "src/core/matchSimulation/pr205Laboratory.ts"
+      ]
+    },
+    {
+      "id": "experimentalBallRecovery",
+      "implementation": "ballOrientedMovement.planBallOrientedMovement",
+      "consumer": "recoveringOwnTouch in matchSimulation",
+      "origin": 192,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "recoveringOwnTouch in matchSimulation",
+      "limitations": "Whole-match liveness and progression remain uncalibrated",
+      "evidence": [
+        "docs/PR192_BALL_ORIENTED_MOVEMENT_RECOVERY_AND_NATURAL_MATCH_FLOW.md"
+      ],
+      "fullMatchEvidence": "docs/performance/pr192/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/assumptionCalibration.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/passReception.ts",
+        "src/core/matchSimulation/transitionLaboratory.ts"
+      ]
+    },
+    {
+      "id": "experimentalRestartPreparation",
+      "implementation": "restartLifecycle",
+      "consumer": "retrieval/setup/preparation movement",
+      "origin": 192,
+      "dependencies": [],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "retrieval/setup/preparation movement",
+      "limitations": "No global restart duration calibration",
+      "evidence": [
+        "docs/PR192_BALL_ORIENTED_MOVEMENT_RECOVERY_AND_NATURAL_MATCH_FLOW.md"
+      ],
+      "fullMatchEvidence": "docs/performance/pr192/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/assumptionCalibration.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/restartLaws.ts",
+        "src/core/matchSimulation/restartLifecycle.ts",
+        "src/core/matchSimulation/transitionLaboratory.ts"
+      ]
+    },
+    {
+      "id": "boundedReceiverRecovery",
+      "implementation": "liveBallFlight.boundedMovementTarget",
+      "consumer": "final bounded receiver movement authority in canonical MatchEngine",
+      "origin": 201,
+      "dependencies": [
+        "experimentalBoundedBallFlightBelief",
+        "experimentalReceiverAnticipation"
+      ],
+      "editions": [
+        "hold-local-v1"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "final bounded receiver movement authority in canonical MatchEngine",
+      "limitations": "Seven paired local retention losses across frozen and fresh development; full profile remains NOT_READY_FOR_PROMOTION",
+      "evidence": [
+        "docs/performance/pr201/receivers-frozen-v1.json.gz"
+      ],
+      "fullMatchEvidence": "docs/performance/pr201/ (historical development scope; see original report)",
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/liveBallFlight.ts",
+        "src/core/matchSimulation/localReception.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/physicalKickLaboratory.ts"
+      ]
+    },
+    {
+      "id": "situationalAwareness",
+      "implementation": "activePerception.advanceActivePerception -> updateSituation",
+      "consumer": "existing spatial memory, bounded scenes and pre-reception preparation",
+      "origin": 203,
+      "dependencies": [
+        "experimentalBoundedBallFlightBelief"
+      ],
+      "editions": [
+        "existing-selector"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "existing spatial memory, bounded scenes and pre-reception preparation",
+      "limitations": "Possession proximity cues can be wrong; optics and phase classification uncalibrated",
+      "evidence": [
+        "docs/PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md"
+      ],
+      "fullMatchEvidence": null,
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/activePerception.ts",
+        "src/core/matchSimulation/activePerceptionState.ts",
+        "src/core/matchSimulation/boundedIntelligence.ts",
+        "src/core/matchSimulation/boundedPerception.ts",
+        "src/core/matchSimulation/firstTouch.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/liveBallFlight.ts",
+        "src/core/matchSimulation/localReception.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/onBallPreparation.ts",
+        "src/core/matchSimulation/passReception.ts",
+        "src/core/matchSimulation/physicalKickLaboratory.ts",
+        "src/core/matchSimulation/preReceptionPlanning.ts",
+        "src/core/matchSimulation/receivingPositions.ts",
+        "src/core/matchSimulation/receptionContinuation.ts",
+        "src/core/matchSimulation/situationalAwareness.ts",
+        "src/core/matchSimulation/situationalAwarenessState.ts"
+      ]
+    },
+    {
+      "id": "prospectiveMovement",
+      "implementation": "receivingPositions.evaluateProspectivePosition",
+      "consumer": "existing receivingPositionTarget -> canonical locomotion",
+      "origin": 203,
+      "dependencies": [
+        "situationalAwareness"
+      ],
+      "editions": [
+        "two-pass-v1",
+        "two-pass-continuity-dev-v1",
+        "observed-ball-contact-dev-v1"
+      ],
+      "exclusions": [],
+      "policies": "all",
+      "actions": "existing receivingPositionTarget -> canonical locomotion",
+      "limitations": "Local downstream C contact losses prevent integration promotion; no full-match benefit established",
+      "evidence": [
+        "docs/PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md"
+      ],
+      "fullMatchEvidence": null,
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/ballAcquisition.ts",
+        "src/core/matchSimulation/integrationMechanisms.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/localReception.ts",
+        "src/core/matchSimulation/locomotion.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/passClaimResolver.ts",
+        "src/core/matchSimulation/physicalKickLaboratory.ts",
+        "src/core/matchSimulation/pr205Laboratory.ts",
+        "src/core/matchSimulation/receivingPositions.ts",
+        "src/core/matchSimulation/situationalAwarenessState.ts"
+      ]
+    },
+    {
+      "id": "kick-execution",
+      "implementation": "kickExecution.executePhysicalKick",
+      "consumer": "matchActions eligible settled pass / shot release",
+      "origin": 207,
+      "dependencies": [
+        "finite foot capability"
+      ],
+      "editions": [
+        "contact-v1"
+      ],
+      "exclusions": [
+        "pending release has priority on the same low pass"
+      ],
+      "policies": "all",
+      "actions": "settled inside ground pass; placed/driven shot",
+      "limitations": "Narrow shot dispersion; preparation/retention regressions; loft/cross/first-time/keeper excluded",
+      "evidence": [
+        "docs/performance/pr207/summary.json"
+      ],
+      "fullMatchEvidence": null,
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/kickExecution.ts",
+        "src/core/matchSimulation/kickExecutionState.ts",
+        "src/core/matchSimulation/matchActions.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/pendingStrike.ts",
+        "src/core/matchSimulation/pendingStrikeState.ts",
+        "src/core/matchSimulation/shotResolver.ts",
+        "src/core/matchSimulation/temporalFootStrike.ts",
+        "src/core/matchSimulation/temporalStrikeLaboratory.ts"
+      ]
+    },
+    {
+      "id": "ground-contact",
+      "implementation": "ballPhysics.integrateBallFlight",
+      "consumer": "canonical integrator and physical forecasts",
+      "origin": 208,
+      "dependencies": [],
+      "editions": [
+        "legacy-v1",
+        "event-v1"
+      ],
+      "exclusions": [
+        "historical named profiles reject event-v1"
+      ],
+      "policies": "all",
+      "actions": "rolling / descending ground impact / remaining flight",
+      "limitations": "Material/rolling assumptions uncalibrated; cognitive beliefs retain their approximation",
+      "evidence": [
+        "docs/performance/pr208/summary.json"
+      ],
+      "fullMatchEvidence": null,
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/aerialPositioning.ts",
+        "src/core/matchSimulation/attributeCognitionLab.ts",
+        "src/core/matchSimulation/ballContactGeometry.ts",
+        "src/core/matchSimulation/ballContactResolution.ts",
+        "src/core/matchSimulation/ballFlight.ts",
+        "src/core/matchSimulation/ballOrientedMovement.ts",
+        "src/core/matchSimulation/ballSurfaceContact.ts",
+        "src/core/matchSimulation/carryPursuit.ts",
+        "src/core/matchSimulation/crossOpportunity.ts",
+        "src/core/matchSimulation/deadBallEnclosure.ts",
+        "src/core/matchSimulation/defensiveChallenges.ts",
+        "src/core/matchSimulation/experimentalBodyReception.ts",
+        "src/core/matchSimulation/extendedPhysicalLab.ts",
+        "src/core/matchSimulation/firstTouchLaboratory.ts",
+        "src/core/matchSimulation/footballLabObjects.ts",
+        "src/core/matchSimulation/footballPerformanceLab.ts",
+        "src/core/matchSimulation/footContact.ts",
+        "src/core/matchSimulation/goalkeeperDistribution.ts",
+        "src/core/matchSimulation/goalkeeperIntervention.ts",
+        "src/core/matchSimulation/index.ts",
+        "src/core/matchSimulation/injuryStoppage.ts",
+        "src/core/matchSimulation/looseBallPhysics.ts",
+        "src/core/matchSimulation/matchActions.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/observedPassDelivery.ts",
+        "src/core/matchSimulation/passDecision.ts",
+        "src/core/matchSimulation/passInterception.ts",
+        "src/core/matchSimulation/passLaunchPlan.ts",
+        "src/core/matchSimulation/passReception.ts",
+        "src/core/matchSimulation/pendingStrike.ts",
+        "src/core/matchSimulation/pendingStrikeInterval.ts",
+        "src/core/matchSimulation/playerDecision.ts",
+        "src/core/matchSimulation/postGoalReactions.ts",
+        "src/core/matchSimulation/receptionContinuation.ts",
+        "src/core/matchSimulation/restartLifecycle.ts",
+        "src/core/matchSimulation/shootingOptions.ts",
+        "src/core/matchSimulation/shotResolver.ts",
+        "src/core/matchSimulation/temporalFootStrike.ts",
+        "src/core/matchSimulation/temporalStrikeLaboratory.ts"
+      ]
+    },
+    {
+      "id": "temporal-strike-laboratory",
+      "implementation": "temporalFootStrike.executeTemporalStrike",
+      "consumer": "laboratory only; shared primitive feeds pending strike",
+      "origin": 209,
+      "dependencies": [],
+      "editions": [
+        "temporal-contact-dev-v1"
+      ],
+      "exclusions": [
+        "direct live mini-match execution"
+      ],
+      "policies": "laboratory",
+      "actions": "low inside-foot pass primitive",
+      "limitations": "Not a live selector; four historical unresolved searches retained",
+      "evidence": [
+        "docs/PR209_MOVING_BALL_STRIKE_AND_BOUNCE_RECEPTION.md"
+      ],
+      "fullMatchEvidence": null,
+      "localValidated": true,
+      "selected": false,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": false,
+      "status": "DIAGNOSTIC_ONLY",
+      "sourceLocations": [
+        "src/core/matchSimulation/defensiveChallenges.ts",
+        "src/core/matchSimulation/pendingStrike.ts",
+        "src/core/matchSimulation/pendingStrikeState.ts",
+        "src/core/matchSimulation/sharedContactTimeline.ts",
+        "src/core/matchSimulation/temporalStrikeLaboratory.ts"
+      ]
+    },
+    {
+      "id": "human-readiness",
+      "implementation": "playerDecision.projectPlayerAgency",
+      "consumer": "ordinary menu / physical release readiness / whole-world pause",
+      "origin": 210,
+      "dependencies": [
+        "finite foot access"
+      ],
+      "editions": [
+        "current canonical"
+      ],
+      "exclusions": [],
+      "policies": "human",
+      "actions": "owned contact; carry pursuit; incoming preparation; movement intervention",
+      "limitations": "No exact unavailable historical user save; no new universal action physics",
+      "evidence": [
+        "docs/performance/pr210/after.json.gz"
+      ],
+      "fullMatchEvidence": "docs/performance/pr210/interactive-smoke.json",
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": false,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/contextualInteractions.ts",
+        "src/core/matchSimulation/decisionOutcome.ts",
+        "src/core/matchSimulation/index.ts",
+        "src/core/matchSimulation/matchActions.ts",
+        "src/core/matchSimulation/matchMoment.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/playerAgency.ts",
+        "src/core/matchSimulation/playerDecision.ts",
+        "src/core/matchSimulation/presentationWindows.ts",
+        "src/core/matchSimulation/restartLifecycle.ts"
+      ]
+    },
+    {
+      "id": "pending-strike",
+      "implementation": "pendingStrike + pendingStrikeInterval",
+      "consumer": "canonical committed low-pass lifecycle",
+      "origin": 211,
+      "dependencies": [
+        "event-v1"
+      ],
+      "editions": [
+        "low-pass-dev-v1"
+      ],
+      "exclusions": [
+        "historical named profiles"
+      ],
+      "policies": "all",
+      "actions": "owned low inside-foot ground pass only",
+      "limitations": "Other releases remain instantaneous; preparation calibration incomplete",
+      "evidence": [
+        "docs/performance/pr211/canonical-final-v4.json.gz"
+      ],
+      "fullMatchEvidence": null,
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/actionLifecycle.ts",
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchActions.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/multiBodyContact.ts",
+        "src/core/matchSimulation/pendingStrike.ts",
+        "src/core/matchSimulation/pendingStrikeInterval.ts",
+        "src/core/matchSimulation/pendingStrikeState.ts",
+        "src/core/matchSimulation/playerDecision.ts"
+      ]
+    },
+    {
+      "id": "shared-standing-contact",
+      "implementation": "sharedContactTimeline + pendingStrikeInterval",
+      "consumer": "earliest prepared/defensive foot, passive body, expiry, boundary",
+      "origin": 212,
+      "dependencies": [
+        "low-pass-dev-v1",
+        "event-v1"
+      ],
+      "editions": [
+        "standing-contact-dev-v1"
+      ],
+      "exclusions": [
+        "historical named profiles"
+      ],
+      "policies": "all",
+      "actions": "standing inside-foot poke; pending low pass",
+      "limitations": "Slide/committed/keeper active contact not migrated; same actor once/interval",
+      "evidence": [
+        "docs/performance/pr212/canonical-final-v3.json.gz"
+      ],
+      "fullMatchEvidence": null,
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": true,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_READY",
+      "sourceLocations": [
+        "src/core/matchSimulation/defensiveChallenges.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/pendingStrikeInterval.ts"
+      ]
+    },
+    {
+      "id": "upright-contact",
+      "implementation": "playerBodyContact + multiBodyContact",
+      "consumer": "canonical pending/standing interval body response",
+      "origin": 213,
+      "dependencies": [
+        "standing-contact-dev-v1",
+        "low-pass-dev-v1",
+        "event-v1"
+      ],
+      "editions": [
+        "upright-pair-dev-v1",
+        "upright-cluster-dev-v1"
+      ],
+      "exclusions": [
+        "pair and cluster are alternative editions"
+      ],
+      "policies": "all",
+      "actions": "2–4 upright outfield torso cores; player movement edges",
+      "limitations": "Cluster origin PR214; only existing pending/standing intervals; >4, deep overlap, tangent unresolved; clinch coupling unclosed",
+      "evidence": [
+        "docs/performance/pr214/summary-final-v2.json"
+      ],
+      "fullMatchEvidence": null,
+      "localValidated": true,
+      "selected": true,
+      "readyForPolicyB": false,
+      "empiricalCalibrationRequired": true,
+      "live": true,
+      "status": "INTEGRATION_BLOCKED",
+      "sourceLocations": [
+        "src/core/matchSimulation/integrationProfile.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/matchState.ts",
+        "src/core/matchSimulation/multiBodyContact.ts",
+        "src/core/matchSimulation/pendingStrikeInterval.ts",
+        "src/core/matchSimulation/playerBodyContact.ts"
+      ]
+    }
+  ],
+  "historicalAlternatives": [
+    {
+      "mechanism": "prospectiveMovement",
+      "edition": "two-pass-v1",
+      "origin": 203,
+      "successor": "two-pass-continuity-dev-v1",
+      "limitation": "downstream control losses"
+    },
+    {
+      "mechanism": "prospectiveMovement",
+      "edition": "two-pass-continuity-dev-v1",
+      "origin": 204,
+      "successor": "observed-ball-contact-dev-v1",
+      "limitation": "observed contact parity losses"
+    },
+    {
+      "mechanism": "upright-contact",
+      "edition": "upright-pair-dev-v1",
+      "origin": 213,
+      "successor": "upright-cluster-dev-v1 (scoped)",
+      "limitation": "third body / player edge unresolved"
+    },
+    {
+      "mechanism": "ground-contact",
+      "edition": "legacy-v1",
+      "origin": 178,
+      "successor": "event-v1",
+      "limitation": "shallow upward sign discontinuity"
+    }
+  ],
+  "counts": {
+    "experimentalAndAgencyFamilies": 26,
+    "liveFamilies": 25,
+    "historicalAlternativeEditions": 4,
+    "locallyValidatedFamilies": 26,
+    "compatiblePolicyBDevelopmentFamilies": 10,
+    "blockedFamilies": 15,
+    "policySpecificFamilies": 6,
+    "requiringCalibration": 25
+  },
+  "canonicalSharedConsumers": [
+    "canonicalMovement / locomotion / lowerBodyGeometry",
+    "finite foot carry / first touch / control",
+    "ball flight / passive body / frame",
+    "goalkeeper positioning / active intervention / protected handling",
+    "aerialContest / high-ball technique / heading",
+    "matchRules / offside / pitchBoundary / restarts",
+    "matchFitness / movement workload",
+    "matchInjuries / medical / career availability",
+    "policy B / tactical and defensive selection"
+  ],
+  "diagnostics": [
+    "PR202 CI preservation (infrastructure, no football mechanism)",
+    "PR206 recognition-to-preparation mediation (negative experiment, no new selectable implementation)",
+    "covariance/error ellipses",
+    "disruption/outcome ledgers",
+    "sealed independent confirmation"
+  ],
+  "registry": {
+    "total": 135,
+    "dimensions": {
+      "SOURCE_AUDITED": {
+        "NOT_ASSESSED": 0,
+        "PARTIAL": 0,
+        "SUPPORTED": 135,
+        "FAILED": 0,
+        "BLOCKED": 0
+      },
+      "EXPERIMENT_INVESTIGATED": {
+        "NOT_ASSESSED": 96,
+        "PARTIAL": 1,
+        "SUPPORTED": 38,
+        "FAILED": 0,
+        "BLOCKED": 0
+      },
+      "ROOT_CAUSE_IDENTIFIED": {
+        "NOT_ASSESSED": 123,
+        "PARTIAL": 0,
+        "SUPPORTED": 12,
+        "FAILED": 0,
+        "BLOCKED": 0
+      },
+      "FIX_IMPLEMENTED": {
+        "NOT_ASSESSED": 123,
+        "PARTIAL": 0,
+        "SUPPORTED": 12,
+        "FAILED": 0,
+        "BLOCKED": 0
+      },
+      "DEVELOPMENT_VALIDATED": {
+        "NOT_ASSESSED": 122,
+        "PARTIAL": 5,
+        "SUPPORTED": 8,
+        "FAILED": 0,
+        "BLOCKED": 0
+      },
+      "INDEPENDENT_VALIDATED": {
+        "NOT_ASSESSED": 135,
+        "PARTIAL": 0,
+        "SUPPORTED": 0,
+        "FAILED": 0,
+        "BLOCKED": 0
+      },
+      "COMPLETE": {
+        "NOT_ASSESSED": 135,
+        "PARTIAL": 0,
+        "SUPPORTED": 0,
+        "FAILED": 0,
+        "BLOCKED": 0
+      }
+    },
+    "sha256": "d3409e995744f45e047a26914f9e32550fa4dcdf45463d14e5ddbba6cf0ce6a3"
+  }
+}

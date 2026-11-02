@@ -1,5 +1,7 @@
 # MatchEngine integration candidates
 
+PR214 retains maintained PR201 unchanged. `holistic-physical-dev-v1` is an unprofiled development fixture recipe over existing validated selectors, not a promoted historical profile: PR201 feature/auxiliary selection plus event-v1/contact-v1/low-pass/standing/cluster, explicit B policy. Four combined local continuations replay; full match remains BLOCKED by ordinary-phase body ownership, admissible clinch geometry and complete invocation evidence. No silent all-switch promotion or new full-match matrix. [Compatibility](HOLISTIC_COMPATIBILITY_MATRIX.md), [protocol](HOLISTIC_MATCH_PROTOCOL.md).
+
 PR204 development: the opt-in continuity and local-observation intervention remains experimental. Tested hidden-preparation counterfactuals pass, but other information boundaries and downstream control regressions remain. The pre-release factorial did not demonstrate prospective recognition. The maintained candidate remains PR201; independent confirmation is sealed. [PR204 evidence](../PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
 
 

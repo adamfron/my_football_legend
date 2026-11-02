@@ -1,0 +1,177 @@
+{
+  "schema": "pr214-ci-correction-v1",
+  "originalCommit": "99568ab1cbe97a31e24998ca2e7459c55d8b3452",
+  "failedRun": 41451172836,
+  "failedJobs": {
+    "main": 125296466017,
+    "quality": 125312132516
+  },
+  "originalSource": "de8e7fe86c7796d77af6d35167b95b06e7ebe38dc7a2dcf6fd786a09a5a85a57",
+  "correctedSource": "182e5bf13a821da9d7eeb6407831a14034f7b516f917debeab7e4561e534df74",
+  "changedSourcePaths": [
+    "scripts/benchmarkPr214.mjs",
+    "scripts/ci/contracts.mjs",
+    "scripts/pr214Inventory.mjs",
+    "scripts/pr214InventoryContracts.mjs"
+  ],
+  "rootCause": "Unsorted filesystem enumeration in inventory sourceLocations; Windows and Linux place footContact.ts differently relative to football*.",
+  "qualityGate": "Unchanged; correctly rejects the failed required verify group.",
+  "physicalRows": {
+    "count": 25,
+    "sha256": "122c8f3c426244795b869a36eecb991c074f8822065b5a03739f489f66e9cedf",
+    "identicalToFinalV3": true
+  },
+  "pr213Reference": {
+    "sha256": "c978b46d89f0e4461d065bb7de082baceffbe99e7f32286f7bf8f77f47a42530",
+    "identicalToFinalV3": true
+  },
+  "protocolWithoutSource": {
+    "sha256": "95d6d356eebe871ee7641e99408ce029568378a8c4658be66d07ef8e0bfa295d",
+    "identicalToFinalV3": true
+  },
+  "coreSchemaTypeAndPackageBytesUnchanged": true,
+  "inventoryDifference": "Only sourceLocations array ordering; source membership, every other mechanism field, counts and formal status remain identical.",
+  "sourceArchivesReconstructed": [
+    {
+      "path": "docs/performance/pr214/source-15d4c740fda6d9c4a272567d198326481954e370a270e5457251bec539507d46.json.gz",
+      "sha256": "035f0950765a2ea797458f39e540e4414eb50e56b6fb0a6aff227aabee0860f5",
+      "fingerprint": "15d4c740fda6d9c4a272567d198326481954e370a270e5457251bec539507d46",
+      "files": 973,
+      "pass": true
+    },
+    {
+      "path": "docs/performance/pr214/source-182e5bf13a821da9d7eeb6407831a14034f7b516f917debeab7e4561e534df74.json.gz",
+      "sha256": "2fc2963fa0e4ba63148c80e7c5a286ec2917516d20b2f20ff0d048990caf91ee",
+      "fingerprint": "182e5bf13a821da9d7eeb6407831a14034f7b516f917debeab7e4561e534df74",
+      "files": 974,
+      "pass": true
+    },
+    {
+      "path": "docs/performance/pr214/source-7dd0380f83f9912bf48174436656a81c8c057b6b48822ce1cc1394d7b1d254e2.json.gz",
+      "sha256": "9866b362499907ecbb2f171cd3388415af9e1824b053ffa25e2bff23be9c77cd",
+      "fingerprint": "7dd0380f83f9912bf48174436656a81c8c057b6b48822ce1cc1394d7b1d254e2",
+      "files": 973,
+      "pass": true
+    },
+    {
+      "path": "docs/performance/pr214/source-a249cf6cf037843a1d47a22a60fedd1d4b9e03dbdcbbdd00d1948dbec05c1f92.json.gz",
+      "sha256": "38c16c86036465e35b5ddb53e70955689909f13ebb87d2b62654b656c0e2bcc7",
+      "fingerprint": "a249cf6cf037843a1d47a22a60fedd1d4b9e03dbdcbbdd00d1948dbec05c1f92",
+      "files": 973,
+      "pass": true
+    },
+    {
+      "path": "docs/performance/pr214/source-d8e44cf4bc31260d7f399a48af6f395b1811f2d11873241442b58646cc24ff1e.json.gz",
+      "sha256": "ef99f3080eee55551adfc01cc1ad3443bfde49efbd779dc1de07d704f08473c2",
+      "fingerprint": "d8e44cf4bc31260d7f399a48af6f395b1811f2d11873241442b58646cc24ff1e",
+      "files": 973,
+      "pass": true
+    },
+    {
+      "path": "docs/performance/pr214/source-de8e7fe86c7796d77af6d35167b95b06e7ebe38dc7a2dcf6fd786a09a5a85a57.json.gz",
+      "sha256": "c998c1284c6f67d3c8faceb64263477dbbc774cdf4c569f92380a08c9322fb97",
+      "fingerprint": "de8e7fe86c7796d77af6d35167b95b06e7ebe38dc7a2dcf6fd786a09a5a85a57",
+      "files": 973,
+      "pass": true
+    },
+    {
+      "path": "docs/performance/pr214/source-f62c172f879f1db7104a3c4a4a43acbfab9ef032c13a5e49cb697e11efe026c0.json.gz",
+      "sha256": "da308bf22cd62d096e06600ea03e58a918c5769853628df42feacf53112383f6",
+      "fingerprint": "f62c172f879f1db7104a3c4a4a43acbfab9ef032c13a5e49cb697e11efe026c0",
+      "files": 973,
+      "pass": true
+    }
+  ],
+  "localChecks": {
+    "inventoryRegressions": 2,
+    "ciContracts": 7,
+    "canonicalScenes": 25,
+    "schemaReloads": 100,
+    "lint": "PASS",
+    "sourceManifest": "PASS",
+    "workflow": "PASS",
+    "currentReplay": "PASS"
+  },
+  "requiredVerification": {
+    "command": "npm run verify",
+    "finalResults": "See the corrected-head PR validation note and required GitHub checks; prior full verification remains bound to its original source."
+  },
+  "preserved": [
+    "final-v3 and all earlier physical receipts",
+    "original source archive and source pointer copy",
+    "original failed hosted logs",
+    "quality checks, budgets, CI job layout and all physical expectations"
+  ],
+  "logs": [
+    {
+      "name": "failed-main",
+      "exitCode": 1,
+      "path": "docs/performance/pr214/ci-fix/failed-main-e1444d4ed6d1.log.gz",
+      "sha256": "e1444d4ed6d14e00c910b2ede39fde4d8b297cbfb371014901a64c19d75c367b",
+      "bytes": 2739570
+    },
+    {
+      "name": "failed-quality",
+      "exitCode": 1,
+      "path": "docs/performance/pr214/ci-fix/failed-quality-c0b887ab9ddb.log.gz",
+      "sha256": "c0b887ab9ddb9bc606f5103269b0331b17a66e3efcdaa867f289cf2ad663dafd",
+      "bytes": 2724
+    },
+    {
+      "name": "record-ci-v1",
+      "exitCode": 0,
+      "path": "docs/performance/pr214/ci-fix/record-ci-v1-289b0b3fc3bc.log.gz",
+      "sha256": "289b0b3fc3bc6638a3c63326ac086fefc286b4abbc4206e2bda8438b370282be",
+      "bytes": 1031
+    },
+    {
+      "name": "inventory-contracts",
+      "exitCode": 0,
+      "path": "docs/performance/pr214/ci-fix/inventory-contracts-aff8ff163b0b.log.gz",
+      "sha256": "aff8ff163b0b1599a90a741b4a40cb666200cf398acdd83ccc5b8191ee6bf95a",
+      "bytes": 562
+    },
+    {
+      "name": "lint",
+      "exitCode": 0,
+      "path": "docs/performance/pr214/ci-fix/lint-e3b0c44298fc.log.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "replay",
+      "exitCode": 0,
+      "path": "docs/performance/pr214/ci-fix/replay-4be1c024423f.log.gz",
+      "sha256": "4be1c024423f0b029f2d7cc896c93fed9585b782ac84d522bc72b1dd278173a2",
+      "bytes": 1096
+    },
+    {
+      "name": "manifest",
+      "exitCode": 0,
+      "path": "docs/performance/pr214/ci-fix/manifest-c9c7c5c4d92c.log.gz",
+      "sha256": "c9c7c5c4d92c0b3813251d97f6cbeff7c02d206014244ff177c5ed41efad032c",
+      "bytes": 93
+    },
+    {
+      "name": "workflow",
+      "exitCode": 0,
+      "path": "docs/performance/pr214/ci-fix/workflow-e3b0c44298fc.log.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "ci-contracts",
+      "exitCode": 0,
+      "path": "docs/performance/pr214/ci-fix/ci-contracts-f20db4b0431c.log.gz",
+      "sha256": "f20db4b0431c4689c826436579d4d28c21a23274fcc488f331e29c188f72f306",
+      "bytes": 1466
+    },
+    {
+      "name": "archives",
+      "exitCode": 0,
+      "path": "docs/performance/pr214/ci-fix/archives-6f467c36a114.log.gz",
+      "sha256": "6f467c36a114ff44fc679f8fe401f03fcceda811d8442bfa5e9aebcb8052b8fa",
+      "bytes": 85
+    }
+  ]
+}

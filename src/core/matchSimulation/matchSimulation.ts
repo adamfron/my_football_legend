@@ -1,6 +1,7 @@
 import { usesLocalReception } from './situationalAwarenessState';
 import { reconcilePendingStrike } from './pendingStrike';
 import { advancePendingStrikeInterval } from './pendingStrikeInterval';
+import { multiBodyParticipants } from './multiBodyContact';
 import { retainPlayerBodyContacts, supportedUprightPair } from './playerBodyContact';
 import { retainContinuousFootContacts } from './footContact';
 import { attacksRight } from './matchSpace';
@@ -1623,6 +1624,9 @@ const stepTacticalMatchCore = (
       ...input,
       continuousPlayerContacts: retainPlayerBodyContacts(input),
       playerBodyContacts: [],
+      ...(input.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
+        ? { multiBodyResolutions: [] }
+        : {}),
       continuousFootContacts: retainContinuousFootContacts({
         ...input,
         continuousFootContacts: feet,
@@ -1978,6 +1982,7 @@ const stepTacticalMatchCore = (
         : state.players;
   endPerformanceSpan('tactical_planning', planningSpan);
   const movementSpan = startPerformanceSpan('movement_physics');
+  const clusterParticipants = multiBodyParticipants(state, dt);
   const cooperativePress =
     state.ball.ownerId && !isRestartSetup(state) && !state.postGoal
       ? deriveCooperativePress(state, state.possessionTeam === 'home' ? 'away' : 'home')
@@ -2346,6 +2351,10 @@ const stepTacticalMatchCore = (
       x: player.position.x + velocity.x * dt,
       y: player.position.y + velocity.y * dt,
     });
+    if (clusterParticipants.has(player.id) && supportedUprightPair(player, player)) {
+      integratedPosition.x = player.position.x + velocity.x * dt;
+      integratedPosition.y = player.position.y + velocity.y * dt;
+    }
     // A legally positioned penalty keeper starts on the goal line. Preserve that boundary
     // through integration instead of snapping the body 0.4 m inward on the first live tick.
     const retrievingStoppedBall =
@@ -2374,6 +2383,12 @@ const stepTacticalMatchCore = (
         distance(p.position, next) < (player.lowerBodyPose && p.lowerBodyPose ? 1.4 : 1.15),
     );
     for (const other of close) {
+      if (
+        clusterParticipants.has(player.id) &&
+        clusterParticipants.has(other.id) &&
+        supportedUprightPair(player, other)
+      )
+        continue;
       // The selected pair's solid torso contact belongs to the shared event interval.
       // Do not geometrically stop one body before the two-body impulse can be found.
       if (

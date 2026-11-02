@@ -17,6 +17,8 @@ export const sharedContactEventSchema = z.object({
     'challenge_body',
     'challenge_expiry',
     'player_constraint',
+    'player_cluster',
+    'player_edge',
   ]),
   playerId: z.string().optional(),
 });
