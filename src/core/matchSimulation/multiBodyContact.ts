@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { canParticipatePhysically } from './matchInjuries';
+import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
 import {
   PLAYER_BODY_CONTACT,
   playerBodyClearance,
@@ -53,18 +54,30 @@ export const multiBodyResolutionSchema = z.object({
 });
 export const multiBodyResolutionsSchema = multiBodyResolutionSchema.array().max(MULTI_BODY.events);
 
-export const ownsMultiBodyInterval = (s: TacticalMatchState) =>
+export const ownsMultiBodyInterval = (s: TacticalMatchState, dt = 0.025) =>
   s.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
   s.scenario === 'open_play' &&
   !s.restart &&
   !s.postGoal &&
-  Boolean(s.pendingStrike || s.defensiveChallenge?.physicalAttempt);
+  Boolean(
+    s.pendingStrike || s.defensiveChallenge?.physicalAttempt || ownsOrdinaryLowBallInterval(s, dt),
+  );
 
 /** Conservative connected broad phase for this existing interval, not a second
  * movement authority. At 12m/s/body no reachable torso can enter from outside it. */
 export const multiBodyParticipants = (s: TacticalMatchState, dt: number) => {
   const ids = new Set<string>();
-  if (!ownsMultiBodyInterval(s)) return ids;
+  if (!ownsMultiBodyInterval(s, dt)) return ids;
+  if (ownsOrdinaryLowBallInterval(s, dt)) {
+    const reach = 1.5 + (12 + Math.hypot(s.ball.velocity?.x ?? 0, s.ball.velocity?.y ?? 0)) * dt;
+    for (const p of s.players)
+      if (
+        canParticipatePhysically(p) &&
+        !s.discipline?.[p.id]?.sentOff &&
+        Math.hypot(p.position.x - s.ball.x, p.position.y - s.ball.y) <= reach
+      )
+        ids.add(p.id);
+  }
   if (s.pendingStrike) ids.add(s.pendingStrike.actorId);
   if (s.defensiveChallenge?.physicalAttempt) {
     ids.add(s.defensiveChallenge.actorId);

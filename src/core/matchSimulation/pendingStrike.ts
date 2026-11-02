@@ -7,6 +7,7 @@ import type {
 import { pendingStrikeSchema } from './matchState';
 import { strikeResolutionSchema, type StrikeResolution } from './pendingStrikeState';
 import { executePhysicalKick } from './kickExecution';
+import { recordExecution } from './executionWitness';
 import {
   prepareTemporalStrike,
   temporalFootPath,
@@ -105,7 +106,7 @@ export const commitPendingPass = (
     passDiagnostic: release.lastPassDiagnostic,
   });
   return {
-    ...prepared,
+    ...recordExecution(prepared, 'pending-low-pass', 'pendingStrike.commitPendingPass'),
     pendingStrike,
     currentAction: action,
     latestAction: action,
@@ -126,7 +127,22 @@ export const finishPendingStrike = (
 ): TacticalMatchState => {
   const pending = state.pendingStrike;
   if (!pending) return state;
-  const next = { ...state };
+  const observed =
+    outcome !== 'unresolved'
+      ? recordExecution(
+          state,
+          outcome === 'contact'
+            ? 'prepared-kick'
+            : outcome === 'miss'
+              ? 'missed-kick'
+              : outcome === 'interrupted'
+                ? 'interrupted-kick'
+                : 'cancelled-kick',
+          `pendingStrike.finish:${outcome}:${reason}`,
+          1,
+        )
+      : state;
+  const next = { ...observed };
   delete next.pendingStrike;
   delete next.controlledBallContact;
   next.lastStrikeResolution = strikeResolutionSchema.parse({

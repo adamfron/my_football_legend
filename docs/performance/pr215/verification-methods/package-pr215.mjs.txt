@@ -1,0 +1,79 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { resolve, join, basename } from 'node:path';
+import { createHash } from 'node:crypto';
+import { gzipSync } from 'node:zlib';
+const root = 'docs/performance/pr215', work = resolve('..');
+const hash = (x) => createHash('sha256').update(x).digest('hex');
+const json = (p) => JSON.parse(fs.readFileSync(p));
+const binding = json(`${root}/source.json`);
+const history = json(join(work, 'pr215-history-results-final-v7.json'));
+assert.equal(binding.fingerprint, history.source);
+assert.equal(history.results.length, 19);
+assert.ok(history.results.every((r) => r.exitCode === 0));
+const verify = fs.readFileSync(join(work, 'pr215-verify-final-v5.log'), 'utf8');
+for (const text of ['2606 passed', '56 passed', '4 passed', '5 passed', 'built in']) assert.ok(verify.includes(text));
+assert.doesNotMatch(verify, /Failed Tests|FAIL  /);
+assert.match(fs.readFileSync(join(work, 'pr215-unit-final-v7.log'), 'utf8'), /2607 passed/);
+assert.equal(fs.readFileSync(join(work, 'pr215-lint-publication.log'), 'utf8'), '');
+assert.equal(json(`${root}/source-archive-audit.json`).source, binding.fingerprint);
+const kept = [];
+fs.mkdirSync(`${root}/verification-logs`, { recursive: true });
+const keep = (path, label) => {
+  const bytes = fs.readFileSync(path), sha256 = hash(bytes);
+  const target = `${root}/verification-logs/${label}-${sha256.slice(0, 12)}.log.gz`;
+  if (!fs.existsSync(target)) fs.writeFileSync(target, gzipSync(bytes, { level: 9 }), { flag: 'wx' });
+  const r = { label, path: target, sha256, bytes: bytes.length };
+  kept.push(r); return r;
+};
+for (const name of fs.readdirSync(work).filter((p) => p.startsWith('pr215-') && p.endsWith('.log')))
+  keep(join(work, name), name.slice(0, -4));
+for (const directory of ['history-logs-phase1', 'history-logs-final-v5', 'history-logs-final-v7'])
+  if (fs.existsSync(join(work, directory))) for (const name of fs.readdirSync(join(work, directory)))
+    if (name.endsWith('.log')) keep(join(work, directory, name), `${directory}-${basename(name, '.log')}`);
+const methodSources = ['run-pr215-history-final-v7.mjs', 'package-pr215.mjs'];
+for (const name of methodSources) fs.copyFileSync(join(work, name), `${root}/verification-methods/${name}.txt`);
+const methods = fs.readdirSync(`${root}/verification-methods`).map((name) => ({
+  path: `${root}/verification-methods/${name}`, sha256: hash(fs.readFileSync(`${root}/verification-methods/${name}`)),
+}));
+const report = {
+  schema: 'pr215-verification-v1', source: { base: binding.base, fingerprint: binding.fingerprint, archive: binding.archive },
+  requiredVerify: { command: 'npm run verify', status: 'PASS', exitCode: 0, node: 'v24.22.1', npm: '11.6.2',
+    platform: 'win32', nodeOptions: '--max-semi-space-size=64', tests: { unit: 2606, integration: 56, careerContract: 4, fullCareer: 5, total: 2671 },
+    sourceAtStart: 'ef84a17603fbc427ce3987110a7d6bba1d127552067d16917d3e40ce3d27e8df', sourceAtEnd: binding.fingerprint,
+    scope: 'Full command passes. Its unit/integration phases precede the final selected passive-support follow-up. The distinct 2607-test publication run, final native canonical replay, final source checks and final build cover the frozen publication source. Do not describe one source-stable full verify invocation.',
+  },
+  publication: { unitCommand: 'npm run test:unit', unitTests: 2607, unitFiles: 280, exitCode: 0,
+    projectLint: 'PASS', typescriptAndBuild: 'PASS', diffCheck: 'PASS' },
+  sourceEvidenceChecks: { status: 'PASS', count: 19, results: history.results.map(({ log, ...r }) => ({ ...r,
+    log: kept.find((k) => k.label === `history-logs-final-v7-${basename(log, '.log')}`).path })) },
+  additional: { manifest: 'PASS / 124 commands, 144 cases, 28 jobs, 63 preserved complete-match definitions',
+    workflow: 'PASS', originalPr214: 'PASS / 25 exact-source scenes, 100 schema reloads',
+    sourceReconstruction: json(`${root}/source-archive-audit.json`),
+    clinchActualPlayers: { path: `${root}/clinch-player-geometry.json`, result: 'PASS' } },
+  physical: { primaryScenes: 7, primaryCheckpointComparisons: 21, persistentBodySupportIntervals: 4,
+    persistentBodySupportReloadComparisons: 4, persistentBodyRestitutingImpacts: 1,
+    localReceptionBlocker: 'controlled_reception_remainder_not_migrated',
+    readiness: 'LIMITED_UI / BLOCKED_FOR_HOLISTIC_MATCH', mandatoryHolisticSmoke: 'NOT_PASSED / NOT_DISPATCHED_AS_GATED_EXPERIMENT', full90MinuteMatch: 'NOT_RUN' },
+  browser: { path: `${root}/browser/report.json`, result: 'PASS', viewports: ['1366x768 spectator', '1920x1080 controlled-player'],
+    failedNormalTeamPilot: json(`${root}/browser/incident-report.json`),
+    nativeIncidentReplay: json(`${root}/browser/incident-native-replay-summary.json`),
+    scope: 'A real continuous 22-player UI pilot fails at its preserved incident; it is not a successful mandatory holistic smoke.' },
+  historyPreserved: 'Package/dependency commands and original PR195–214 receipt bytes/assertions unchanged; historical engines use their own exact source. No claim of locally rerunning all 63 historical complete matches.',
+  hostedCI: 'Not run as part of this local receipt; assess the actual published PR head separately.',
+  retainedAttempts: [
+    'Sandbox Vite cache rename EPERM; native tests used without changing assertions',
+    'Missing generated world database during the initial TypeScript pilot',
+    'Effective-recipe false-feature absence mismatch; boundary corrected and initialization retested',
+    'Initial inaccessible exact player selector label; explicit aria-label added and browser tests repeated',
+    'PR214 historical wrapper initially omitted docs/match-engine; complete original data exported and original assertions replayed',
+    'Earlier full verify attempts stopped before final source freeze; incomplete logs retained, never credited as full passes',
+    'Source guards rejected changes made during earlier long-running check suites; final 19-check suite passes the frozen source',
+    'Browser-to-Node exact checkpoint comparison fails; 127 leaves / max absolute numeric difference 3.3673331145678276e-7 retained without a tolerance pass',
+    'Raw target objects carry surplus ball metadata stripped by the normal point schema; native schema-normalized continuation is exact',
+    'Final normal UI pilot initial_body_overlap and local reception remainder remain blocked physical results, not repaired by a hidden fallback',
+  ],
+  warnings: ['Existing Vite mixed-import/chunk-size warnings; no altered budgets or weakened assertions'],
+  methods, logs: kept,
+};
+fs.writeFileSync(`${root}/verification.json`, JSON.stringify(report, null, 2) + '\n');

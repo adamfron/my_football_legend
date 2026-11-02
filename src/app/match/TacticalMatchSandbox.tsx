@@ -1,5 +1,9 @@
 import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
 import {
+  effectiveHolisticRecipe,
+  HOLISTIC_LIMITATION,
+} from '../../core/matchSimulation/holisticDevelopment';
+import {
   requestHumanFreeKickPreparation,
   chooseCurrentFreeKickPositions,
 } from '../../core/matchSimulation/restartLifecycle';
@@ -203,6 +207,7 @@ export const PitchCanvasHost = forwardRef<HTMLDivElement>(function PitchCanvasHo
   return <div className="pitch-canvas-host" ref={ref} aria-hidden="true" />;
 });
 export const TacticalMatchSandbox = () => {
+  const [physicalPreset, setPhysicalPreset] = useState<'holistic-physical-dev-v1'>();
   const [policy, setPolicy] = useState<DecisionPolicyId>(DEFAULT_DECISION_POLICY);
   const [world, setWorld] = useState<WorldDatabase>(),
     [homeId, setHomeId] = useState(''),
@@ -332,7 +337,11 @@ export const TacticalMatchSandbox = () => {
               </fieldset>
               <label>
                 PIŁKARZ
-                <select value={effectivePlayerId} onChange={(e) => setPlayerId(e.target.value)}>
+                <select
+                  aria-label="Piłkarz"
+                  value={effectivePlayerId}
+                  onChange={(e) => setPlayerId(e.target.value)}
+                >
                   {players.map((p) => (
                     <option key={p!.id} value={p!.id}>
                       {p!.firstName} {p!.lastName} — {positionCode(p!.primaryPosition)} —{' '}
@@ -370,6 +379,32 @@ export const TacticalMatchSandbox = () => {
             </select>
           </label>
           <button onClick={() => setSeed(freshSeed())}>Losuj seed</button>
+          <label>
+            Fizyka meczu
+            <select
+              aria-label="Fizyka meczu"
+              value={physicalPreset ?? 'ordinary'}
+              onChange={(e) =>
+                setPhysicalPreset(
+                  e.target.value === 'holistic-physical-dev-v1'
+                    ? 'holistic-physical-dev-v1'
+                    : undefined,
+                )
+              }
+            >
+              <option value="ordinary">Dotychczasowa</option>
+              <option value="holistic-physical-dev-v1">Holistyczna (eksperymentalna)</option>
+            </select>
+          </label>
+          {physicalPreset && (
+            <div role="status">
+              <p>
+                Nowy model kontaktu stopy, piłki i zawodników. W trakcie integracji — możliwe błędy
+                fizyki i nieobsługiwane sytuacje.
+              </p>
+              <p>{HOLISTIC_LIMITATION}</p>
+            </div>
+          )}
           <button
             className="primary-choice"
             disabled={homeId === awayId || (mode === 'player' && !effectivePlayerId)}
@@ -380,6 +415,7 @@ export const TacticalMatchSandbox = () => {
                   awayClubId: awayId,
                   seed,
                   decisionPolicy: policy,
+                  ...(physicalPreset ? { physicalPreset } : {}),
                   control:
                     mode === 'spectator'
                       ? { mode: 'spectator' }
@@ -1176,6 +1212,14 @@ export const RunningLab = ({
                   canonicalParticipationRef.current.observe(previousState, next, background);
                   onObserveRef.current?.(next);
                   executedTicks += 1;
+                  if (
+                    (next.executionWitnesses?.unresolved?.invoked ?? 0) >
+                    (previousState.executionWitnesses?.unresolved?.invoked ?? 0)
+                  ) {
+                    boundaryDetected = true;
+                    setPlaying(false);
+                    break;
+                  }
                   if (background)
                     presentationTelemetryRef.current.hiddenCanonicalSeconds += FIXED_MATCH_DT;
                   else presentationTelemetryRef.current.visibleCanonicalSeconds += FIXED_MATCH_DT;
@@ -1755,6 +1799,16 @@ export const RunningLab = ({
     debugRecorderRef.current.triggerTime === undefined
       ? 0
       : Math.max(0, debugRecorderRef.current.triggerTime + 10 - state.time);
+  const physicalRecipe = !careerMode ? effectiveHolisticRecipe(state) : undefined;
+  const physicalContactCount = (
+    [
+      'controlled-reception',
+      'ball-body-contact',
+      'prepared-kick',
+      'physical-kick',
+      'standing-challenge',
+    ] as const
+  ).reduce((count, key) => count + (state.executionWitnesses?.[key]?.executed ?? 0), 0);
   const scenarios: [RestartScenario, string][] = [
     ['open_play', 'Gra otwarta'],
     ['kick_off', 'Środek'],
@@ -1778,6 +1832,47 @@ export const RunningLab = ({
             <p>
               Polityka: <strong>{state.decisionPolicy ?? 'legacy-pr176'}</strong> ·{' '}
               {fixtureIdentity(session)}
+            </p>
+          )}
+          {!careerMode && (
+            <p aria-label="Wykonywana fizyka meczu">
+              Fizyka meczu:{' '}
+              <strong>
+                {physicalRecipe
+                  ? 'Holistyczna (eksperymentalna) · ograniczona'
+                  : session.setup.physicalPreset
+                    ? 'Niezgodna konfiguracja — sprawdź diagnostykę'
+                    : 'Dotychczasowa'}
+              </strong>
+              {physicalRecipe && (
+                <>
+                  {' '}
+                  · <code>{physicalRecipe.id}</code>
+                </>
+              )}
+            </p>
+          )}
+          {!careerMode && physicalRecipe && (
+            <details>
+              <summary>
+                Zmierzone kontakty: {physicalContactCount} · Zderzenia ciał:{' '}
+                {state.executionWitnesses?.['body-cluster']?.executed ?? 0} · Przygotowane
+                kopnięcia: {state.executionWitnesses?.['prepared-kick']?.executed ?? 0} · Chybione
+                kopnięcia: {state.executionWitnesses?.['missed-kick']?.executed ?? 0} ·
+                Nierozstrzygnięte: {state.executionWitnesses?.unresolved?.invoked ?? 0}
+              </summary>
+              <p>{HOLISTIC_LIMITATION}</p>
+              <p>
+                Liczniki obejmują zmierzone zdarzenia. Dotychczasowe ścieżki i wywołania konsumentów
+                są rozpisane w eksporcie benchmarku sesji.
+              </p>
+              <pre>{JSON.stringify(state.executionWitnesses, null, 2)}</pre>
+            </details>
+          )}
+          {!careerMode && state.executionWitnesses?.unresolved && (
+            <p role="alert">
+              Nierozstrzygnięty kontakt: <code>{state.executionWitnesses.unresolved.source}</code>.
+              Automatycznie wstrzymano mecz przy wykryciu. Zapisz benchmark sesji w panelu DEV.
             </p>
           )}
           <h1>
@@ -2453,6 +2548,8 @@ export const RunningLab = ({
                         engine: 'canonical',
                         fixedDt: FIXED_MATCH_DT,
                         seed: current.seed,
+                        selectedPhysicalPreset: session.setup.physicalPreset ?? 'ordinary',
+                        effectivePhysicalRecipe: effectiveHolisticRecipe(current) ?? null,
                         observerMode,
                         observationScope:
                           report.collectionScope.detailedObservers !== 'unavailable'
@@ -2486,6 +2583,9 @@ export const RunningLab = ({
                         })),
                       controlledPlayer: current.controlledFootballerId,
                       canonicalStatistics: current.statistics,
+                      physicalExecutionWitnesses: current.executionWitnesses,
+                      // One on-demand checkpoint; never a growing React snapshot history.
+                      canonicalPhysicalCheckpoint: current.executionWitnesses ? current : undefined,
                       defensiveTelemetry: current.defensiveTelemetry,
                       discipline: current.discipline,
                       recentCanonicalActionEvents: current.actionEvents ?? [],

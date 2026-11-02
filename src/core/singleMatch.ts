@@ -22,6 +22,7 @@ import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
 import { toCanonicalFootballProfile, type MatchVisualContext } from './visualIdentity';
 
+export const singleMatchPhysicalPresetSchema = z.literal('holistic-physical-dev-v1');
 export const singleMatchSetupSchema = z
   .object({
     homeClubId: z.string().min(1),
@@ -37,6 +38,8 @@ export const singleMatchSetupSchema = z
     ]),
     seed: z.string().min(1),
     decisionPolicy: decisionPolicyIdSchema.optional(),
+    /** Absence is the historical Single Match Lab configuration. Session-local. */
+    physicalPreset: singleMatchPhysicalPresetSchema.optional(),
   })
   .superRefine((setup, context) => {
     if (setup.homeClubId === setup.awayClubId)

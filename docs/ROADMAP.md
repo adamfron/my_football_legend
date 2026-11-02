@@ -1,5 +1,16 @@
 # Roadmap
 
+PR215 dostarcza wybór eksperymentalnej fizyki, rzeczywistą inicjalizację i ograniczone
+rozszerzenie wspólnej osi na niską wolną piłkę. Następny priorytet: przenieść istniejący
+kontroler prowadzenia, długi wypuszczony kontakt i oznaczone niskie podania do tej samej
+chronologii, szczególnie resztę kroku po `controlled_reception_remainder_not_migrated`.
+Zachować interaktywność człowieka, first-time, bramkarzy i prawa; nie poszerzać solvera
+o nowe rodziny technik przed tą bramką. Górne podparcie piłki ma poprawną geometrię;
+niski klincz nóg pozostaje nieprzedstawialny w obecnych sferach. Tryb w UI jest jawnie
+ograniczony, pełny smoke i 90 minut zablokowane. Po przejściu bramek nadal obowiązują
+zamrożone wejścia i PR201/B z [protokołu](match-engine/HOLISTIC_MATCH_PROTOCOL.md).
+[Wyniki PR215](PR215_PLAYABLE_HOLISTIC_MATCH_INTEGRATION.md).
+
 PR214 zamyka ograniczoną kontynuację 2–4 ciał w przedziale pending/standing, bez zmiany PR201/B/defaultów. Kolejny krok do pierwszego holistycznego meczu: ta sama władza kontaktu w zwykłym carry/loose/delivery z zachowaniem bramkarza i praw, spójna fizycznie geometria clinchu oraz kompletne świadectwa aktywacji wybranych konsumentów. Dopiero po tych bramkach krótki smoke i jeden jawny autonomiczny mecz według [protokołu PR215](match-engine/HOLISTIC_MATCH_PROTOCOL.md); termin PR215 jest warunkowy. Nie czekamy na 135 COMPLETE i nie utożsamiamy laboratoryjnych kompilacji z gotowością całego meczu. Priorytet produktu pozostaje: wiarygodny canonical MatchEngine → walidowana destylacja statystyczna → rozbudowa kariery/świata/finansów/prezentacji. [Wyniki i granice PR214](PR214_MULTIBODY_CONTACT_AND_HOLISTIC_READINESS.md).
 
 PR212: ograniczona stojąca próba odbioru ma wspólny czas kontaktu z przygotowanym podaniem. Następna zależność to pełna ciągłość i ponowne uzbrajanie stopy/ciała oraz impuls i reszta kroku po kontakcie z przeciwnikiem, przed rozszerzaniem wślizgów i upadków. Wyniki nierozstrzygnięte pozostają w korpusie; pełne mecze nowego wariantu i promocja wstrzymane. [Raport PR212](PR212_SHARED_CONTACT_TIMELINE_AND_BALANCE.md). Utrzymany PR201 i B bez zmian; [roadmapa produktu](MFL_PRODUCT_ROADMAP.md) koryguje rolę finansów klubowych i planuje osobny etap finansów osobistych.

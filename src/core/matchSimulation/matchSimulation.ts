@@ -1,6 +1,11 @@
+import { PASSIVE_OUTFIELD_BODY } from './ballFlight';
+import { singleMatchPhysicalPresetSchema } from '../singleMatch';
 import { usesLocalReception } from './situationalAwarenessState';
 import { reconcilePendingStrike } from './pendingStrike';
 import { advancePendingStrikeInterval } from './pendingStrikeInterval';
+import { withHolisticDevelopment } from './holisticDevelopment';
+import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
+import { recordExecution, noteExecution, withExecutionObservation } from './executionWitness';
 import { multiBodyParticipants } from './multiBodyContact';
 import { retainPlayerBodyContacts, supportedUprightPair } from './playerBodyContact';
 import { retainContinuousFootContacts } from './footContact';
@@ -418,7 +423,9 @@ const createInitialMatch = (
   if (session.frozenTactics)
     for (const side of ['home', 'away'] as const)
       state.teams[side].tacticalPreferences = { ...session.frozenTactics.preferences[side] };
-  const initialised = initialiseCoachIntelligence(initialiseTeamThreatMemory(state));
+  const preset = singleMatchPhysicalPresetSchema.optional().parse(session.setup.physicalPreset);
+  const configured = preset ? withHolisticDevelopment(state, state.decisionPolicy) : state;
+  const initialised = initialiseCoachIntelligence(initialiseTeamThreatMemory(configured));
   initialised.rolePlan = assignTacticalRoles(initialised);
   if (session.frozenTactics) {
     const assignments = { ...initialised.rolePlan.assignments };
@@ -711,6 +718,21 @@ const changePossession = (
   )
     ? resolveReceptionOutcome(state, owner, { x: state.ball.x, y: state.ball.y })
     : undefined;
+  if (reception) {
+    state = recordExecution(
+      state,
+      'controlled-reception',
+      'matchSimulation.resolveReceptionOutcome',
+      reception.surfaceContact?.available ? 1 : 0,
+    );
+    if (owner.team !== state.possessionTeam && state.experimentalDefensiveReception)
+      state = recordExecution(
+        state,
+        'defensive-reception',
+        'matchSimulation.resolveReceptionOutcome:defensive',
+        reception.surfaceContact?.available ? 1 : 0,
+      );
+  }
   const receptionPoint = reception?.resultingPoint ?? { x: state.ball.x, y: state.ball.y };
   if (
     state.experimentalPlayerBodyImpulse &&
@@ -1127,7 +1149,12 @@ const resolveRoutineOwnerDecision = (state: TacticalMatchState): TacticalMatchSt
         ? undefined
         : chooseNpcRoutineAction(state, ownerId);
   if (hybrid && !awaitsPlayer && !hasActiveHumanPossession(state))
-    state = { ...state, decisionReadiness: markDecisionEvaluated(state, owner) };
+    state = {
+      ...(state.decisionPolicy === 'state-value-v1'
+        ? recordExecution(state, 'policy-b', 'matchSimulation.chooseNpcRoutineAction')
+        : state),
+      decisionReadiness: markDecisionEvaluated(state, owner),
+    };
   if (action) {
     const carry = state.ballCarrierIntent;
     if (
@@ -1928,6 +1955,11 @@ const stepTacticalMatchCore = (
   if (tacticalPlanDue && state.receptionPreparation && !localReceptionMode) {
     let receiver = state.players.find((p) => p.id === state.receptionPreparation!.actorId);
     if (receiver && state.experimentalReceiverAnticipation) {
+      state = recordExecution(
+        state,
+        'receiver-anticipation',
+        'matchSimulation.observeReceptionBall',
+      );
       receiver = { ...receiver, ballMotorObservation: observeReceptionBall(state, receiver) };
       const observedReceiver = receiver;
       state.players = state.players.map((p) =>
@@ -1943,10 +1975,10 @@ const stepTacticalMatchCore = (
             receiver.ballMotorObservation,
             state.time,
             Math.max(
-              state.receptionPreparation.awarenessAt,
+              state.receptionPreparation!.awarenessAt,
               motorContactReadyAt(state, receiver.id),
             ),
-            state.receptionPreparation.meetingPlan,
+            state.receptionPreparation!.meetingPlan,
           )
         : undefined;
     const point = synchronized
@@ -1982,6 +2014,7 @@ const stepTacticalMatchCore = (
         : state.players;
   endPerformanceSpan('tactical_planning', planningSpan);
   const movementSpan = startPerformanceSpan('movement_physics');
+  const ordinaryContactInterval = ownsOrdinaryLowBallInterval(state, dt);
   const clusterParticipants = multiBodyParticipants(state, dt);
   const cooperativePress =
     state.ball.ownerId && !isRestartSetup(state) && !state.postGoal
@@ -2064,7 +2097,7 @@ const stepTacticalMatchCore = (
       state.receptionPreparation?.actorId === player.id &&
       receptionContactTarget &&
       player.spatialMovement?.kind !== 'aerial_challenge' &&
-      state.time >= state.receptionPreparation.awarenessAt
+      state.time >= state.receptionPreparation!.awarenessAt
     ) {
       const preparation = state.receptionPreparation;
       const contactTarget = receptionContactTarget;
@@ -2222,6 +2255,17 @@ const stepTacticalMatchCore = (
         receptionContactTarget ?? localRecovery?.movement.movementTarget,
         keeperCommand?.target,
       );
+      if (
+        state.boundedReceiverRecovery === 'hold-local-v1' &&
+        state.receptionPreparation?.actorId === player.id &&
+        !state.ball.ownerId &&
+        !(receptionContactTarget ?? localRecovery?.movement.movementTarget)
+      )
+        noteExecution(
+          state,
+          'receiver-recovery',
+          'matchSimulation.boundedMovementTarget:hold-local',
+        );
       player = { ...player, target: movementTarget };
     }
     const prospectiveMotor = Boolean(
@@ -2277,7 +2321,7 @@ const stepTacticalMatchCore = (
       state.experimentalReceiverAnticipation &&
       state.receptionPreparation?.actorId === player.id &&
       receptionContactTarget
-        ? state.receptionPreparation.meetingPlan
+        ? state.receptionPreparation!.meetingPlan
         : undefined;
     const boundedFlight = boundedMotor ? observedFlight(state, player) : undefined;
     const desiredFacingAngle = prospectiveMotor
@@ -2553,11 +2597,13 @@ const stepTacticalMatchCore = (
         velocity: { x: velocity.x * 0.94, y: velocity.y * 0.94 },
       };
     } else if (
+      ordinaryContactInterval ||
       state.pendingStrike ||
       (state.experimentalContactTimeline === 'standing-contact-dev-v1' &&
         state.defensiveChallenge?.physicalAttempt)
     ) {
       state = advancePendingStrikeInterval(input, state, dt, {
+        ordinary: ordinaryContactInterval,
         boundary: applyBoundaryRestart,
         challenge: (contact, diagnostic) =>
           diagnostic.outcome === 'foul' ? applyChallengeInfringement(contact, diagnostic) : contact,
@@ -2587,6 +2633,11 @@ const stepTacticalMatchCore = (
       state.ball.velocity
     ) {
       // Project from the start of this integration segment. After integration the ball may already
+      state = recordExecution(
+        state,
+        'fallback-delivery',
+        'matchSimulation.historical-labelled-delivery',
+      );
       // be beyond the keeper plane, which used to remove the keeper from the CCD candidate set and
       // let the later goal-plane event win.
       const goalkeeperProjectionAtSegmentStart = state.ball.shot
@@ -2627,9 +2678,9 @@ const stepTacticalMatchCore = (
           {
             position: previous,
             velocity: {
-              x: state.ball.velocity.x,
-              y: state.ball.velocity.y,
-              z: state.ball.velocity.z ?? 0,
+              x: state.ball.velocity!.x,
+              y: state.ball.velocity!.y,
+              z: state.ball.velocity!.z ?? 0,
             },
             spin: state.ball.spin ?? { x: 0, y: 0, z: 0 },
             airborne: state.ball.airborne ?? false,
@@ -2850,8 +2901,8 @@ const stepTacticalMatchCore = (
               : {
                   kind: 'defender' as const,
                   playerId: defender.id,
-                  centre: { ...defender.position, z: 0.9 },
-                  radius: 0.72,
+                  centre: { ...defender.position, z: PASSIVE_OUTFIELD_BODY.centreHeight },
+                  radius: PASSIVE_OUTFIELD_BODY.radius,
                 },
           );
         const keeperProjection = goalkeeperProjectionAtSegmentStart;
@@ -3084,8 +3135,13 @@ const stepTacticalMatchCore = (
         }
       }
     } else if (!state.ball.ownerId && state.ball.looseSince !== undefined) {
+      state = recordExecution(
+        state,
+        'fallback-keeper-aerial',
+        'matchSimulation.historical-loose-ball',
+      );
       const velocity = state.ball.velocity ?? { x: 0, y: 0 },
-        looseSince = state.ball.looseSince;
+        looseSince = state.ball.looseSince!;
       const previous: FlightPoint = {
         x: state.ball.x,
         y: state.ball.y,
@@ -3181,13 +3237,17 @@ const stepTacticalMatchCore = (
             );
           } else {
             const keeper = isMatchGoalkeeper(player);
-            const height = keeper ? GOALKEEPER_PHYSICS.contactCentreHeight : 0.9;
+            const height = keeper
+              ? GOALKEEPER_PHYSICS.contactCentreHeight
+              : PASSIVE_OUTFIELD_BODY.centreHeight;
             candidates.push({
               kind: keeper ? 'goalkeeper' : 'defender',
               playerId: player.id,
               centre: { ...player.position, z: height },
               previousCentre: { ...previousPosition, z: height },
-              radius: keeper ? GOALKEEPER_PHYSICS.passiveBodyRadiusMetres : 0.72,
+              radius: keeper
+                ? GOALKEEPER_PHYSICS.passiveBodyRadiusMetres
+                : PASSIVE_OUTFIELD_BODY.radius,
             });
           }
         }
@@ -3414,6 +3474,11 @@ const stepTacticalMatchCore = (
         else if (acquisition.failedVelocity) state = makeLoose(state, acquisition.failedVelocity);
       }
     } else if (state.ball.ownerId && !isRestartSetup(state)) {
+      state = recordExecution(
+        state,
+        'fallback-carry',
+        'matchSimulation.advanceControlledBall:owned',
+      );
       const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
       const beforeContact = { x: state.ball.x, y: state.ball.y };
       const contactSpan = startPerformanceSpan('ball_contact_control');
@@ -3659,7 +3724,9 @@ const stepCanonicalMatch = (
   // A batched caller still gives a pending strike ordinary bounded canonical intervals.
   // Re-enter this SAME executor so laws, bodies and observers participate in every interval.
   if (
-    (original.pendingStrike || original.defensiveChallenge?.physicalAttempt) &&
+    (original.pendingStrike ||
+      original.defensiveChallenge?.physicalAttempt ||
+      ownsOrdinaryLowBallInterval(original, FIXED_MATCH_DT)) &&
     rawDelta > FIXED_MATCH_DT + 1e-12
   ) {
     const duration = Math.min(0.25, rawDelta);
@@ -3757,13 +3824,14 @@ const stepCanonicalMatch = (
 };
 
 export const stepTacticalMatch = (input: TacticalMatchState, rawDelta = 0.1): TacticalMatchState =>
-  stepCanonicalMatch(input, rawDelta, false);
+  withExecutionObservation(input, () => stepCanonicalMatch(input, rawDelta, false));
 
 /** Skips only the duplicate pure human-decision projection after an exact negative probe. */
 export const stepTacticalMatchAfterDecisionProbe = (
   input: TacticalMatchState,
   rawDelta = FIXED_MATCH_DT,
-): TacticalMatchState => stepCanonicalMatch(input, rawDelta, true);
+): TacticalMatchState =>
+  withExecutionObservation(input, () => stepCanonicalMatch(input, rawDelta, true));
 
 export const matchStateToFrame = (
   state: TacticalMatchState,
