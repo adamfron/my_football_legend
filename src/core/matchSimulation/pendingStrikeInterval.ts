@@ -1,4 +1,10 @@
 import { compareSharedContactEvents, type sharedContactEventSchema } from './sharedContactTimeline';
+import {
+  MULTI_BODY,
+  multiBodyParticipants,
+  findPlayerMovementEdge,
+  resolveMultiBodyContact,
+} from './multiBodyContact';
 import type { z } from 'zod';
 import {
   integrateCanonicalBodyRemainder,
@@ -6,6 +12,7 @@ import {
 } from './canonicalMovement';
 import {
   findPlayerBodyContact,
+  retainPlayerBodyContacts,
   playerPairKey,
   resolvePlayerBodyImpulse,
   supportedUprightPair,
@@ -80,7 +87,13 @@ export const advancePendingStrikeInterval = (
   const start = moved.time - dt,
     end = moved.time;
   const before = new Map(input.players.map((p) => [p.id, p]));
-  let finalPlayers = moved.players;
+  const multi = moved.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1';
+  const clusterIds = multiBodyParticipants(input, dt);
+  // Direct interval callers supply the same authoritative pre/moved snapshots.
+  for (const id of multiBodyParticipants(moved, dt)) clusterIds.add(id);
+  let finalPlayers = multi
+    ? [...moved.players].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+    : moved.players;
   const nominalPlayers = moved.players;
   const pairIntent =
     moved.experimentalPlayerBodyImpulse &&
@@ -98,7 +111,8 @@ export const advancePendingStrikeInterval = (
     const a = origin?.player ?? before.get(p.id) ?? p;
     const began = origin?.at ?? 0;
     const value = bodyAt(a, p, (at - began) / Math.max(1e-12, dt - began));
-    return moved.experimentalPlayerBodyImpulse && (pairIds.includes(p.id) || origin)
+    return moved.experimentalPlayerBodyImpulse &&
+      (pairIds.includes(p.id) || origin || clusterIds.has(p.id))
       ? {
           ...value,
           velocity: p.velocity,
@@ -107,46 +121,58 @@ export const advancePendingStrikeInterval = (
       : value;
   };
   const changedVelocities = new Map<string, MatchPlayerState['velocity']>();
-  const restoreClock = (s: TacticalMatchState) => ({
-    ...s,
-    time: end,
-    ...(moved.experimentalPlayerBodyImpulse
-      ? {
-          playerBodyContacts: (s.playerBodyContacts ?? []).map((c) => ({
-            ...c,
-            actualRemainderSeconds: Math.max(0, transportEnd - (c.at - start)),
-            remainderPositions: c.participants.map(
-              (id) => finalPlayers.find((p) => p.id === id)?.position ?? { x: 0, y: 0 },
-            ) as [MatchPlayerState['position'], MatchPlayerState['position']],
-          })),
-        }
-      : {}),
-    players: finalPlayers
-      .filter((p) => !moved.experimentalPlayerBodyImpulse || s.players.some((a) => a.id === p.id))
-      .map((p) => {
-        const changed = s.players.find((a) => a.id === p.id);
-        const physical = changed
-          ? {
-              ...changed,
-              position: p.position,
-              facingAngle: p.facingAngle,
-              velocity: changedVelocities.get(p.id) ?? p.velocity,
-            }
-          : p;
-        const origin = origins.get(p.id);
-        return origin && (before.get(p.id)?.samples ?? 0) < p.samples
-          ? accountCanonicalContactMovement(
-              before.get(p.id)!,
-              nominalPlayers.find((a) => a.id === p.id)!,
-              physical,
-              (travelled.get(p.id) ?? 0) +
-                Math.hypot(p.velocity.x, p.velocity.y) * Math.max(0, transportEnd - origin.at),
-              dt,
-              end,
-            )
-          : physical;
-      }),
-  });
+  const restoreClock = (s: TacticalMatchState) => {
+    if (multi && (s.restart || s.scenario !== 'open_play' || s.postGoal)) {
+      // A lawful interruption precedes every later physical opportunity. Never
+      // restore a future drift endpoint through an edge or a third body.
+      transportEnd = elapsed;
+      finalPlayers = finalPlayers.map((p) =>
+        clusterIds.has(p.id) || origins.has(p.id)
+          ? { ...p, position: playerAt(p, elapsed).position }
+          : p,
+      );
+    }
+    return {
+      ...s,
+      time: end,
+      ...(moved.experimentalPlayerBodyImpulse
+        ? {
+            playerBodyContacts: (s.playerBodyContacts ?? []).map((c) => ({
+              ...c,
+              actualRemainderSeconds: Math.max(0, transportEnd - (c.at - start)),
+              remainderPositions: c.participants.map(
+                (id) => finalPlayers.find((p) => p.id === id)?.position ?? { x: 0, y: 0 },
+              ) as [MatchPlayerState['position'], MatchPlayerState['position']],
+            })),
+          }
+        : {}),
+      players: finalPlayers
+        .filter((p) => !moved.experimentalPlayerBodyImpulse || s.players.some((a) => a.id === p.id))
+        .map((p) => {
+          const changed = s.players.find((a) => a.id === p.id);
+          const physical = changed
+            ? {
+                ...changed,
+                position: p.position,
+                facingAngle: p.facingAngle,
+                velocity: changedVelocities.get(p.id) ?? p.velocity,
+              }
+            : p;
+          const origin = origins.get(p.id);
+          return origin && (before.get(p.id)?.samples ?? 0) < p.samples
+            ? accountCanonicalContactMovement(
+                before.get(p.id)!,
+                nominalPlayers.find((a) => a.id === p.id)!,
+                physical,
+                (travelled.get(p.id) ?? 0) +
+                  Math.hypot(p.velocity.x, p.velocity.y) * Math.max(0, transportEnd - origin.at),
+                dt,
+                end,
+              )
+            : physical;
+        }),
+    };
+  };
   let state = { ...moved, time: start },
     elapsed = 0,
     evaluations = 0;
@@ -184,8 +210,20 @@ export const advancePendingStrikeInterval = (
     state = resolution.state;
     if (resolution.diagnostic) state = handlers.challenge?.(state, resolution.diagnostic) ?? state;
   };
-  for (let eventCount = 0; eventCount < 4 && elapsed < dt - 1e-12; eventCount++) {
+  for (
+    let eventCount = 0;
+    eventCount < (multi ? MULTI_BODY.events : 4) && elapsed < dt - 1e-12;
+    eventCount++
+  ) {
     const seconds = dt - elapsed;
+    if (multi)
+      state = {
+        ...state,
+        continuousPlayerContacts: retainPlayerBodyContacts({
+          ...state,
+          players: finalPlayers.map((p) => playerAt(p, elapsed)),
+        }),
+      };
     const ball = physicalStrikeBall(state);
     const integrated = integrateBallFlight(ball, seconds, state.ballEnvironment);
     let crossing = findPitchBoundaryCrossing(ball.position, integrated.position);
@@ -258,9 +296,44 @@ export const advancePendingStrikeInterval = (
     type Event = z.infer<typeof sharedContactEventSchema> & {
       hit?: ReturnType<typeof findStrikeIntervalContact>;
       bodyUnresolved?: string;
+      participants?: string[];
     };
     const events: Event[] = [];
-    if (moved.experimentalPlayerBodyImpulse && origins.size) {
+    if (multi) {
+      const bodies = finalPlayers
+        .filter((p) => clusterIds.has(p.id))
+        .map((p) => playerAt(p, elapsed));
+      for (let i = 0; i < bodies.length; i++) {
+        const a = bodies[i]!;
+        const edge = supportedUprightPair(a, a) ? findPlayerMovementEdge(a, seconds) : undefined;
+        if (edge)
+          events.push({
+            at: edge.at,
+            rank: 1,
+            key: `${a.id}:edge:${edge.axis}`,
+            kind: 'player_edge',
+            participants: [a.id],
+          });
+        for (let j = i + 1; j < bodies.length; j++) {
+          const b = bodies[j]!;
+          const active =
+            state.continuousPlayerContacts?.some(
+              (c) => playerPairKey(...c.participants) === playerPairKey(a.id, b.id),
+            ) ?? false;
+          const hit = findPlayerBodyContact(a, b, seconds, active);
+          if (hit)
+            events.push({
+              at: hit.at,
+              rank: 1,
+              key: playerPairKey(a.id, b.id),
+              kind: 'player_cluster',
+              participants: [a.id, b.id],
+              ...(hit.unresolved ? { bodyUnresolved: hit.unresolved } : {}),
+            });
+        }
+      }
+    }
+    if (!multi && moved.experimentalPlayerBodyImpulse && origins.size) {
       // A third solid body is outside the isolated pair approximation. Stop at its
       // witnessed encounter, rather than drifting a corrected player through it.
       for (const p of finalPlayers.filter((p) => origins.has(p.id))) {
@@ -315,7 +388,7 @@ export const advancePendingStrikeInterval = (
         kind: 'challenge_expiry',
       });
     const physicalPair = moved.experimentalPlayerBodyImpulse ? pairIntent : undefined;
-    if (physicalPair && !pairServiced.has(physicalPair.id)) {
+    if (!multi && physicalPair && !pairServiced.has(physicalPair.id)) {
       const p = finalPlayers.find((p) => p.id === physicalPair.actorId);
       const q = finalPlayers.find((p) => p.id === physicalPair.opponentId);
       if (p && q && supportedUprightPair(p, q)) {
@@ -494,6 +567,107 @@ export const advancePendingStrikeInterval = (
       },
       incoming,
     );
+    if (event.kind === 'player_cluster' || event.kind === 'player_edge') {
+      const result = resolveMultiBodyContact(state, event.participants!, state.time);
+      // The one nominal actuator update belongs to the tick, not each impact.
+      // Repeated actor/tick records are the same work witness and must be deduplicated.
+      result.evidence.motorWorkAt = start;
+      result.evidence.motorWork = result.players.map((p) => {
+        const prior = before.get(p.id) ?? p;
+        const motor = nominalPlayers.find((q) => q.id === p.id) ?? p;
+        return {
+          actorId: p.id,
+          mass: p.profile.weightKg,
+          beforeVelocity: prior.velocity,
+          actuatorVelocity: motor.velocity,
+          kineticWork:
+            0.5 *
+            p.profile.weightKg *
+            (motor.velocity.x ** 2 +
+              motor.velocity.y ** 2 -
+              prior.velocity.x ** 2 -
+              prior.velocity.y ** 2),
+        };
+      });
+      if (event.bodyUnresolved === 'near_tangent_body') {
+        result.evidence.reason = 'near_tangent_body';
+        result.evidence.unresolved = true;
+      }
+      for (const c of result.contacts) {
+        c.remainderSeconds = dt - elapsed;
+        c.locomotionWorkAfter = 0;
+      }
+      state = {
+        ...state,
+        multiBodyResolutions: [...(state.multiBodyResolutions ?? []), result.evidence],
+        playerBodyContacts: [
+          ...(state.playerBodyContacts ?? []),
+          ...result.contacts.filter(
+            (c, i, all) =>
+              all.findIndex(
+                (q) => playerPairKey(...q.participants) === playerPairKey(...c.participants),
+              ) === i,
+          ),
+        ].slice(-8),
+        continuousPlayerContacts: result.continuous,
+      };
+      // Reuse the existing selected challenge referee for its actual fresh body
+      // event, without finishing/counting the still-live standing foot twice.
+      const selectedImpact =
+        pairIntent &&
+        result.contacts.find(
+          (c) =>
+            c.kind === 'impact' &&
+            playerPairKey(...c.participants) ===
+              playerPairKey(pairIntent.actorId, pairIntent.opponentId),
+        );
+      if (selectedImpact && pairIntent) {
+        const law = resolveDefensiveChallenge(
+          { ...state, defensiveChallenge: pairIntent },
+          { kind: 'body', reason: 'swept_torso_contact' },
+        );
+        selectedImpact.refereeOutcome = law.diagnostic?.outcome ?? 'unresolved';
+        if (law.diagnostic) state = handlers.challenge?.(state, law.diagnostic) ?? state;
+      }
+      for (const p of result.players) rebasePlayer(p);
+      state = {
+        ...state,
+        players: state.players.map((p) => result.players.find((q) => q.id === p.id) ?? p),
+      };
+      if (result.evidence.unresolved) {
+        transportEnd = elapsed;
+        for (const p of state.players.filter((p) => clusterIds.has(p.id) || origins.has(p.id)))
+          finalPlayers = finalPlayers.map((q) =>
+            q.id === p.id ? { ...q, position: p.position } : q,
+          );
+        state = finishPendingStrike(state, 'unresolved', result.evidence.reason, state.time, {
+          evaluations,
+        });
+        if (pending && state.lastStrikeResolution?.id === pending.id)
+          state = {
+            ...state,
+            lastStrikeResolution: {
+              ...state.lastStrikeResolution,
+              continuationUnresolvedReason: result.evidence.reason,
+            },
+          };
+        state = {
+          ...state,
+          playerBodyContacts: (state.playerBodyContacts ?? []).map((c) => ({
+            ...c,
+            continuationUnresolvedReason: result.evidence.reason,
+          })),
+        };
+        if (state.defensiveChallenge?.physicalAttempt)
+          resolveChallenge('unresolved', result.evidence.reason);
+        return restoreClock(state);
+      }
+      if (state.restart || state.scenario !== 'open_play' || state.postGoal) {
+        state = finishPendingStrike(state, 'interrupted', 'law_interruption');
+        return restoreClock(state);
+      }
+      continue;
+    }
     if (event.kind === 'challenge_expiry') {
       resolveChallenge('miss', 'swing_completed_without_contact');
       continue;
@@ -942,6 +1116,22 @@ export const advancePendingStrikeInterval = (
     excluded.add(actor.id);
   }
   if (elapsed < dt - 1e-12) {
+    if (multi) {
+      transportEnd = elapsed;
+      for (const p of finalPlayers.filter((p) => clusterIds.has(p.id) || origins.has(p.id))) {
+        const atStop = playerAt(p, elapsed);
+        finalPlayers = finalPlayers.map((q) =>
+          q.id === p.id ? { ...q, position: atStop.position } : q,
+        );
+      }
+      state = {
+        ...state,
+        playerBodyContacts: (state.playerBodyContacts ?? []).map((c) => ({
+          ...c,
+          continuationUnresolvedReason: 'event_budget',
+        })),
+      };
+    }
     // Event budget exhausted: preserve uncertain evidence, never fabricate a clean miss.
     state = finishPendingStrike(state, 'unresolved', 'event_budget', state.time, { evaluations });
     if (pending && state.lastStrikeResolution?.id === pending.id)
