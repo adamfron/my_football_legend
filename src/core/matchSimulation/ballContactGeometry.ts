@@ -450,6 +450,7 @@ export const advanceControlledBall = (
   dt: number,
   requiredFoot?: 'left' | 'right',
   previousBodyPosition?: { x: number; y: number },
+  intervalMode?: 'prepare' | 'contact',
 ): { state: TacticalMatchState; looseVelocity?: { x: number; y: number } } => {
   if (
     state.ball.ownerId !== actor.id ||
@@ -548,6 +549,7 @@ export const advanceControlledBall = (
   );
   balance = clamp01(balance - bodyContest.balanceDemand * dt * 3.2);
   if (
+    intervalMode !== 'prepare' &&
     state.time + 1e-8 >=
       Math.max(
         activeMove?.nextAt ?? active.nextContact.earliestAt,

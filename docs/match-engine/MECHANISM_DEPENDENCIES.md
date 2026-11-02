@@ -1,5 +1,20 @@
 # Mechanism dependencies
 
+## PR216 development update — draft, ordinary liveness still blocked
+
+The existing interval now owns supported upright outfield movement throughout open play,
+including low carrying, reception remainder and low deliveries. The preserved PR215
+30cm penetration path is prevented by first-contact detection and actual impulse/remainder
+transport. The 22-player run progresses physically, but a later loose-ball body-constrained
+contest exposes missing active foot reaching and action starvation. This is **not** a passed
+continuous-football smoke. Mandatory P1 remains incomplete; do not dispatch the frozen
+90-minute match. Stance/traction and planar falling are isolated prototypes; production
+falling/recovery stays disabled. Maintained PR201, default B and sealed confirmation remain.
+See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md) for exact source,
+negative result, unfulfilled gates and the PR217 contact/stance/fall implementation plan.
+Historical sections and frozen inputs below retain their original scope.
+
+
 PR214: single finite motor update → connected pending/standing interval candidates → deterministic bounded 2–4 upright contact constraints / unilateral player edge → rebase actual body and foot trajectories → finite foot impulse / independent control / existing law consumer. Earlier impulses survive later impacts and unresolved continuation. New `upright-cluster-dev-v1` replaces, rather than stacks with, pair-dev in its scope. Next integration dependencies: extend this same owner through ordinary carry/loose/delivery while retaining keeper/law authority; replace the geometrically incompatible 0.50m historical clinch apparatus with admissible shared surfaces; complete selected-consumer activation witnesses. Recipe construction/local replay is valid, holistic match remains BLOCKED. PR201/profile identities and formal issue dimensions unchanged. [PR214](../PR214_MULTIBODY_CONTACT_AND_HOLISTIC_READINESS.md), [matrix](HOLISTIC_COMPATIBILITY_MATRIX.md), [protocol](HOLISTIC_MATCH_PROTOCOL.md).
 
 PR213: existing bounded locomotion actuator → actual upright pair entry → isolated equal-and-opposite normal impulse → shared canonical transport remainder for both bodies → re-evaluated prepared feet/ball → existing laws and finite control. Persistent surface geometry is independent of defensive attempts/owner/ball episodes; completed prepared paths remain latched until real clearance. Third-body and movement-edge encounters stop with explicit unresolved remainder. Next single dependency: bounded simultaneous multi-body support on this same canonical interval, before broader techniques/falls/full-match promotion. PR201 unchanged. [PR213](../PR213_PERSISTENT_CONTACT_AND_BODY_IMPULSE.md).

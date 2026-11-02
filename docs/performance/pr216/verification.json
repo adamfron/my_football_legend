@@ -1,0 +1,38 @@
+{
+  "schema": "pr216-verification-v1",
+  "source": {
+    "base": "3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10",
+    "fingerprint": "81f3a2df63420dd6865bd39a9f4d9078ef4d7ee834cd9d55973da9c842adb994",
+    "archive": "docs/performance/pr216/source-81f3a2df63420dd6865bd39a9f4d9078ef4d7ee834cd9d55973da9c842adb994.json.gz"
+  },
+  "requiredVerify": {
+    "command": "npm run verify",
+    "status": "RUNNING"
+  },
+  "sourceSuite": {
+    "status": "RUNNING",
+    "scope": "historical source wrappers; failed initial suite current-replay was an invocation of old PR215 on current source and is retained; corrected PR216 current replay passes"
+  },
+  "currentReplay": {
+    "status": "PASS",
+    "seconds": 14.271
+  },
+  "browser": {
+    "status": "PASS",
+    "viewports": 2,
+    "report": "docs/performance/pr216/browser/report.json",
+    "visuallyInspected": [
+      "hud-1366.png",
+      "setup-1920.png"
+    ]
+  },
+  "canonical": {
+    "status": "PHYSICAL_PROGRESS_ONLY",
+    "matchSeconds": 599.9999999997282,
+    "lastPolicyDecisionAt": 22.624999999999783,
+    "mandatoryP1": "NOT_COMPLETE",
+    "readiness": "BLOCKED_BY_LIVENESS_AND_REMAINING_COVERAGE"
+  },
+  "full90Minutes": "NOT_RUN",
+  "promotion": "RETAIN_EXPERIMENTAL"
+}

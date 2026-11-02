@@ -1,0 +1,91 @@
+{
+  "schema": "pr216-browser-v1",
+  "browser": "155.0.4283.45",
+  "production": true,
+  "scenarios": [
+    {
+      "width": 1366,
+      "height": 768,
+      "human": false,
+      "errors": [],
+      "checks": [
+        "ordinary-default",
+        "effective-recipe-hud",
+        "initializes-normal-match",
+        "spectator",
+        "canonical-time-advances",
+        "real-belief-invocation",
+        "pause",
+        "diagnostics-download",
+        "restart-same-mode-seed",
+        "policy-independent-replay",
+        "randomize-keeps-mode",
+        "setup-keeps-mode",
+        "new-ordinary-initialization"
+      ],
+      "duration": 1.0500000000000003,
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 42,
+          "executed": 0,
+          "at": 1.0500000000000003,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "receiver-anticipation": {
+          "invoked": 9,
+          "executed": 0,
+          "at": 1.0500000000000003,
+          "source": "matchSimulation.observeReceptionBall"
+        },
+        "fallback-delivery": {
+          "invoked": 33,
+          "executed": 0,
+          "at": 1.0500000000000003,
+          "source": "matchSimulation.historical-labelled-delivery"
+        }
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "human": true,
+      "errors": [],
+      "checks": [
+        "ordinary-default",
+        "effective-recipe-hud",
+        "initializes-normal-match",
+        "human",
+        "canonical-time-advances",
+        "real-belief-invocation",
+        "pause",
+        "diagnostics-download",
+        "restart-same-mode-seed",
+        "policy-independent-replay",
+        "randomize-keeps-mode",
+        "setup-keeps-mode",
+        "new-ordinary-initialization"
+      ],
+      "duration": 1.0250000000000004,
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 41,
+          "executed": 0,
+          "at": 1.0250000000000004,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "receiver-anticipation": {
+          "invoked": 8,
+          "executed": 0,
+          "at": 0.9500000000000005,
+          "source": "matchSimulation.observeReceptionBall"
+        },
+        "fallback-delivery": {
+          "invoked": 32,
+          "executed": 0,
+          "at": 1.0250000000000004,
+          "source": "matchSimulation.historical-labelled-delivery"
+        }
+      }
+    }
+  ]
+}

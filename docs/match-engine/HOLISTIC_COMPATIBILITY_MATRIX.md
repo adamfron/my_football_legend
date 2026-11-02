@@ -1,5 +1,20 @@
 # Holistic compatibility and selection — PR214
 
+## PR216 development update — draft, ordinary liveness still blocked
+
+The existing interval now owns supported upright outfield movement throughout open play,
+including low carrying, reception remainder and low deliveries. The preserved PR215
+30cm penetration path is prevented by first-contact detection and actual impulse/remainder
+transport. The 22-player run progresses physically, but a later loose-ball body-constrained
+contest exposes missing active foot reaching and action starvation. This is **not** a passed
+continuous-football smoke. Mandatory P1 remains incomplete; do not dispatch the frozen
+90-minute match. Stance/traction and planar falling are isolated prototypes; production
+falling/recovery stays disabled. Maintained PR201, default B and sealed confirmation remain.
+See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md) for exact source,
+negative result, unfulfilled gates and the PR217 contact/stance/fall implementation plan.
+Historical sections and frozen inputs below retain their original scope.
+
+
 ## PR215 limited UI edition
 
 The shared browser/CLI recipe now lives in `src/core/matchSimulation/holisticDevelopment.ts`;

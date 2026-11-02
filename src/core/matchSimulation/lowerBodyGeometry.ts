@@ -45,7 +45,10 @@ export const lowerBodyGeometrySchema = z.object({
 
 /** Connected two-bone IK preserves both limb lengths. World pose follows the single
  * canonical body integrator. There is no independently positioned contact foot. */
-export const deriveLowerBodyGeometry = (actor: MatchPlayerState) => {
+export const deriveLowerBodyGeometry = (
+  actor: MatchPlayerState,
+  planted?: Partial<Record<'left' | 'right', { x: number; y: number }>>,
+) => {
   const pose = actor.lowerBodyPose ?? neutralLowerBodyPose(),
     height = Math.max(1.4, Math.min(2.2, actor.profile.heightCm / 100));
   const angle = actor.facingAngle + pose.hipYaw,
@@ -67,6 +70,13 @@ export const deriveLowerBodyGeometry = (actor: MatchPlayerState) => {
   const derive = (side: -1 | 1) => {
     const hip = { x: side * height * 0.055, y: 0, z: pelvisZ },
       ankle = { x: (side * pose.stanceWidth) / 2, y: pose.footLead, z: 0.075 + jump };
+    const anchor = planted?.[side === -1 ? 'left' : 'right'];
+    if (anchor) {
+      const dx = anchor.x - actor.position.x,
+        dy = anchor.y - actor.position.y;
+      ankle.x = dx * right.x + dy * right.y;
+      ankle.y = dx * forward.x + dy * forward.y;
+    }
     const d = { x: ankle.x - hip.x, y: ankle.y - hip.y, z: ankle.z - hip.z },
       length = Math.hypot(d.x, d.y, d.z);
     if (length >= thighLength + shinLength || length <= Math.abs(thighLength - shinLength))

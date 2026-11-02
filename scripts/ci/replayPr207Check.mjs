@@ -7,8 +7,8 @@ import process from 'node:process';
 import console from 'node:console';
 import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr208SourceGuard.mjs';
-import { checkPr215Source } from '../pr215Evidence.mjs';
-checkPr215Source();
+import { checkPr216Source } from '../pr216Evidence.mjs';
+checkPr216Source();
 mkdirSync('.benchmark-artifacts', { recursive: true });
 const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr207-check-'));
 const safe = () =>

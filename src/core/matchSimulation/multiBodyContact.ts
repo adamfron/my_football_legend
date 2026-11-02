@@ -15,6 +15,7 @@ export const MULTI_BODY = {
   maximumBodies: 4,
   iterations: 32,
   events: 16,
+  footEvaluations: 2560,
   contactTolerance: 1e-7,
   velocityTolerance: 1e-4,
   maximumCorrection: 0.002,
@@ -55,19 +56,23 @@ export const multiBodyResolutionSchema = z.object({
 export const multiBodyResolutionsSchema = multiBodyResolutionSchema.array().max(MULTI_BODY.events);
 
 export const ownsMultiBodyInterval = (s: TacticalMatchState, dt = 0.025) =>
+  dt > 0 &&
   s.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
   s.scenario === 'open_play' &&
   !s.restart &&
   !s.postGoal &&
-  Boolean(
-    s.pendingStrike || s.defensiveChallenge?.physicalAttempt || ownsOrdinaryLowBallInterval(s, dt),
-  );
+  !s.goalCompletionUntil;
 
 /** Conservative connected broad phase for this existing interval, not a second
  * movement authority. At 12m/s/body no reachable torso can enter from outside it. */
 export const multiBodyParticipants = (s: TacticalMatchState, dt: number) => {
   const ids = new Set<string>();
   if (!ownsMultiBodyInterval(s, dt)) return ids;
+  // Torso authority must not disappear when the ball changes owner or technique.
+  // The broad phase covers the roster; each actual connected solve is still <=4.
+  for (const p of s.players)
+    if (canParticipatePhysically(p) && !s.discipline?.[p.id]?.sentOff && supportedUprightPair(p, p))
+      ids.add(p.id);
   if (ownsOrdinaryLowBallInterval(s, dt)) {
     const reach = 1.5 + (12 + Math.hypot(s.ball.velocity?.x ?? 0, s.ball.velocity?.y ?? 0)) * dt;
     for (const p of s.players)

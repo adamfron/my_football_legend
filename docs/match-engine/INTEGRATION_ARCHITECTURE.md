@@ -1,5 +1,20 @@
 # MatchEngine integration architecture
 
+## PR216 development update — draft, ordinary liveness still blocked
+
+The existing interval now owns supported upright outfield movement throughout open play,
+including low carrying, reception remainder and low deliveries. The preserved PR215
+30cm penetration path is prevented by first-contact detection and actual impulse/remainder
+transport. The 22-player run progresses physically, but a later loose-ball body-constrained
+contest exposes missing active foot reaching and action starvation. This is **not** a passed
+continuous-football smoke. Mandatory P1 remains incomplete; do not dispatch the frozen
+90-minute match. Stance/traction and planar falling are isolated prototypes; production
+falling/recovery stays disabled. Maintained PR201, default B and sealed confirmation remain.
+See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md) for exact source,
+negative result, unfulfilled gates and the PR217 contact/stance/fall implementation plan.
+Historical sections and frozen inputs below retain their original scope.
+
+
 PR214 adds separately selected `upright-cluster-dev-v1` to the existing pending/standing interval, with ≤4-body sequential impulses, non-restituting support, explicit external player-edge impulse and canonical foot/remainder recalculation. Its bounded local evidence does not extend body authority to every ordinary carry/loose/delivery path. The current-source [inventory](HOLISTIC_MECHANISM_INVENTORY.md), [compatibility matrix](HOLISTIC_COMPATIBILITY_MATRIX.md) and [first-match protocol](HOLISTIC_MATCH_PROTOCOL.md) prepare a schema-valid unprofiled fixture recipe without changing historical profile checksums or adding a profile framework. Activation witnesses retain unknown invocation as null. Holistic match BLOCKED pending ordinary-phase ownership, admissible clinch coupling and complete activation; PR201/B/defaults/135-issue dimensions/confirmation unchanged. [PR214 evidence](../PR214_MULTIBODY_CONTACT_AND_HOLISTIC_READINESS.md).
 
 PR213 adds independent `experimentalPlayerBodyImpulse: upright-pair-dev-v1`, requiring the shared standing/pending/event-v1 editions. The existing finite motor update is spent once; a real torso impulse rebases both canonical transport and subsequent foot segments. Geometric player/foot episodes survive ownership and completed intentions. Selected acquisition requires finite control evidence. Three foot/body orderings within one step and 93 reloads are recorded. Initial overlap/tangent and third-body/player-edge remainders remain explicit; no universal contact/fall support or full-match promotion. PR201, B and profile checksums remain unchanged; RETAIN_EXPERIMENTAL, confirmation sealed. [PR213](../PR213_PERSISTENT_CONTACT_AND_BODY_IMPULSE.md).

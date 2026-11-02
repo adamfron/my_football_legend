@@ -10,6 +10,7 @@ export const sharedContactEventSchema = z.object({
     'boundary',
     'body',
     'foot',
+    'passive_foot',
     'strike',
     'uncertain',
     'expiry',
@@ -23,6 +24,22 @@ export const sharedContactEventSchema = z.object({
   playerId: z.string().optional(),
 });
 export const sharedContactSelectionSchema = z.literal('standing-contact-dev-v1');
+export const recoveringFeetSchema = z
+  .array(
+    z.object({
+      actorId: z.string(),
+      foot: z.enum(['left', 'right']),
+      facingAngle: z.number().finite(),
+      beganAt: z.number().nonnegative(),
+      seconds: z.number().positive(),
+      displacement: z.object({
+        x: z.number().finite(),
+        y: z.number().finite(),
+        z: z.number().finite(),
+      }),
+    }),
+  )
+  .max(44);
 export const physicalChallengeAttemptSchema = z.object({
   version: sharedContactSelectionSchema,
   selectedAt: z.number().nonnegative(),

@@ -118,6 +118,32 @@ export const commitPendingPass = (
   };
 };
 
+export const beginFootRecovery = (
+  state: TacticalMatchState,
+  actorId: string,
+  prepared: Pick<PendingStrike, 'path' | 'selectedAt' | 'plan'>,
+  at = state.time,
+): TacticalMatchState => {
+  if (state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1') return state;
+  const { relative } = relativeTemporalFootAt(prepared.path, at - prepared.selectedAt);
+  return {
+    ...state,
+    recoveringFeet: [
+      ...(state.recoveringFeet ?? []).filter(
+        (f) => f.actorId !== actorId || f.foot !== prepared.plan.foot,
+      ),
+      {
+        actorId,
+        foot: prepared.plan.foot,
+        facingAngle: prepared.plan.facingAngle,
+        beganAt: at,
+        seconds: Math.max(0.08, (1.5 * norm(relative)) / 18),
+        displacement: relative,
+      },
+    ].slice(-44),
+  };
+};
+
 export const finishPendingStrike = (
   state: TacticalMatchState,
   outcome: StrikeResolution['outcome'],
@@ -142,7 +168,7 @@ export const finishPendingStrike = (
           1,
         )
       : state;
-  const next = { ...observed };
+  const next = beginFootRecovery(observed, pending.actorId, pending, at);
   delete next.pendingStrike;
   delete next.controlledBallContact;
   next.lastStrikeResolution = strikeResolutionSchema.parse({
@@ -245,21 +271,67 @@ export const canonicalStrikeFoot = (
   intervalAt: number,
   dt: number,
   local: number,
+  recovery?: NonNullable<TacticalMatchState['recoveringFeet']>[number],
 ) => {
   const a = footAnchor(before, foot),
     b = footAnchor(after, foot);
-  const anchorVelocity = scale(sub(b, a), 1 / dt);
-  const position = add(a, scale(anchorVelocity, local));
-  if (!pending) return { position, velocity: anchorVelocity, speedBound: norm(anchorVelocity) };
+  const turn = normalizeAngle(after.facingAngle - before.facingAngle);
+  const bodyVelocity = scale(
+    sub({ ...after.position, z: 0 }, { ...before.position, z: 0 }),
+    1 / dt,
+  );
+  const angle = before.facingAngle + (turn * local) / dt;
+  const rotated = rotate(sub(a, { ...before.position, z: 0 }), (turn * local) / dt);
+  const position = add(add({ ...before.position, z: 0 }, scale(bodyVelocity, local)), rotated);
+  // Follow the same rotating body geometry used at an impulse rebase. Interpolating
+  // endpoint foot chords creates a discontinuity when a body event splits that chord.
+  const anchorVelocity = add(bodyVelocity, {
+    x: (rotated.y * turn) / dt,
+    y: (-rotated.x * turn) / dt,
+    z: (b.z - a.z) / dt,
+  });
+  position.z = a.z + ((b.z - a.z) * local) / dt;
+  if (recovery) {
+    const u = Math.max(0, Math.min(1, (intervalAt + local - recovery.beganAt) / recovery.seconds));
+    const offset = rotate(recovery.displacement, normalizeAngle(angle - recovery.facingAngle));
+    const k = 1 - 3 * u * u + 2 * u * u * u,
+      rate = (-6 * u + 6 * u * u) / recovery.seconds;
+    return {
+      position: add(position, scale(offset, k)),
+      velocity: add(
+        anchorVelocity,
+        add(scale(offset, rate), {
+          x: (offset.y * k * turn) / dt,
+          y: (-offset.x * k * turn) / dt,
+          z: 0,
+        }),
+      ),
+      speedBound:
+        norm(bodyVelocity) +
+        Math.abs(turn / dt) * (Math.hypot(rotated.x, rotated.y) + norm(offset)) +
+        (1.5 * norm(offset)) / recovery.seconds,
+    };
+  }
+  if (!pending)
+    return {
+      position,
+      velocity: anchorVelocity,
+      speedBound:
+        norm(bodyVelocity) +
+        Math.abs(turn / dt) * Math.hypot(rotated.x, rotated.y) +
+        Math.abs(anchorVelocity.z),
+      accelerationBound: (turn / dt) ** 2 * Math.hypot(rotated.x, rotated.y),
+    };
   const elapsed = intervalAt + local - pending.selectedAt;
   const { relative, relativeVelocity } = relativeTemporalFootAt(pending.path, elapsed);
-  const turn = normalizeAngle(after.facingAngle - before.facingAngle);
-  const angle = normalizeAngle(before.facingAngle - pending.plan.facingAngle) + (turn * local) / dt;
-  const offset = rotate(relative, angle);
+  const offset = rotate(relative, normalizeAngle(angle - pending.plan.facingAngle));
   const angular = { x: (offset.y * turn) / dt, y: (-offset.x * turn) / dt, z: 0 };
   return {
     position: add(position, offset),
-    velocity: add(anchorVelocity, add(rotate(relativeVelocity, angle), angular)),
+    velocity: add(
+      anchorVelocity,
+      add(rotate(relativeVelocity, normalizeAngle(angle - pending.plan.facingAngle)), angular),
+    ),
     speedBound:
       norm(anchorVelocity) +
       pending.path.speedBound +
@@ -274,16 +346,22 @@ export const findStrikeIntervalContact = (
   footAt: (t: number) => ReturnType<typeof canonicalStrikeFoot>,
   radius = TEMPORAL_STRIKE.footRadius,
   maximumEvaluations: number = TEMPORAL_STRIKE.maximumEvaluationsPerStep,
+  supportedFlight?: (t: number) => ReturnType<typeof integrateBallFlight>,
+  supportSpeedBound = 0,
 ) => {
   const initial = physicalStrikeBall(state);
   const speed =
     norm(initial.velocity) +
     Math.sqrt(2 / 3) * 0.11 * norm(initial.spin) +
     (BALL_PHYSICS.gravity + BALL_PHYSICS.maximumMagnusAcceleration) * seconds +
-    Math.max(footAt(0).speedBound, footAt(seconds).speedBound);
+    Math.max(footAt(0).speedBound, footAt(seconds).speedBound) +
+    supportSpeedBound;
   let local = 0;
   for (let evaluations = 1; evaluations <= maximumEvaluations; evaluations++) {
-    const ball = local === 0 ? initial : integrateBallFlight(initial, local, state.ballEnvironment);
+    const ball =
+      local === 0
+        ? initial
+        : (supportedFlight?.(local) ?? integrateBallFlight(initial, local, state.ballEnvironment));
     const foot = footAt(local);
     const delta = sub(ball.position, foot.position),
       gap = norm(delta) - 0.11 - radius;
@@ -309,7 +387,25 @@ export const findStrikeIntervalContact = (
       };
     }
     if (local >= seconds) return { outcome: 'clear' as const, local, evaluations };
-    local = Math.min(seconds, local + Math.max(1e-12, (0.9 * gap) / Math.max(1e-12, speed)));
+    let advance = gap / Math.max(1e-12, speed);
+    if (
+      !supportedFlight &&
+      !ball.airborne &&
+      ball.position.z <= 0.11 &&
+      ball.velocity.z === 0 &&
+      foot.accelerationBound !== undefined
+    ) {
+      // g'' >= -|relative acceleration|. Solve the conservative quadratic lower
+      // bound instead of using the sum of two almost co-moving speeds. This also
+      // certifies clear grazing paths without exhausting the search near a foot.
+      const acceleration =
+        BALL_PHYSICS.rollingDeceleration *
+          (state.ballEnvironment?.rollingResistanceMultiplier ?? 1) +
+        foot.accelerationBound;
+      const closing = dot(sub(foot.velocity, ball.velocity), scale(delta, 1 / norm(delta)));
+      advance = (-closing + Math.sqrt(closing * closing + 2 * acceleration * gap)) / acceleration;
+    }
+    local = Math.min(seconds, local + Math.max(1e-12, 0.9 * advance));
   }
   return {
     outcome: 'unresolved' as const,

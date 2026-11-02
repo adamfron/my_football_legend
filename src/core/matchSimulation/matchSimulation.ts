@@ -6,7 +6,7 @@ import { advancePendingStrikeInterval } from './pendingStrikeInterval';
 import { withHolisticDevelopment } from './holisticDevelopment';
 import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
 import { recordExecution, noteExecution, withExecutionObservation } from './executionWitness';
-import { multiBodyParticipants } from './multiBodyContact';
+import { multiBodyParticipants, ownsMultiBodyInterval } from './multiBodyContact';
 import { retainPlayerBodyContacts, supportedUprightPair } from './playerBodyContact';
 import { retainContinuousFootContacts } from './footContact';
 import { attacksRight } from './matchSpace';
@@ -1650,6 +1650,9 @@ const stepTacticalMatchCore = (
     input = {
       ...input,
       continuousPlayerContacts: retainPlayerBodyContacts(input),
+      recoveringFeet: (input.recoveringFeet ?? []).filter(
+        (f) => input.time < f.beganAt + f.seconds,
+      ),
       playerBodyContacts: [],
       ...(input.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
         ? { multiBodyResolutions: [] }
@@ -2556,6 +2559,20 @@ const stepTacticalMatchCore = (
     };
   });
   endPerformanceSpan('movement_physics', movementSpan);
+  if (
+    ownsMultiBodyInterval(input, dt) &&
+    !ordinaryContactInterval &&
+    !state.pendingStrike &&
+    !state.defensiveChallenge?.physicalAttempt
+  ) {
+    state = advancePendingStrikeInterval(input, state, dt, {
+      ordinary: false,
+      bodyOnly: true,
+      boundary: (s) => s,
+      control: (s) => s,
+      body: (s) => s,
+    });
+  }
   if (!(state.experimentalPlayerBodyImpulse && state.defensiveChallenge?.physicalAttempt))
     state = advanceMatchInjuries(input, state);
   state = processInjuryAssessment(state);
