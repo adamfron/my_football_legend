@@ -22,7 +22,7 @@ import {
 } from '../src/core/matchSimulation/integrationProfile.ts';
 import { ROOT, hash, write, read, recordPr214Source, checkPr214Source } from './pr214Evidence.mjs';
 const check = process.argv.includes('--check');
-const version = process.argv.find((a) => a.startsWith('--version='))?.split('=')[1] ?? 'final-v3';
+const version = process.argv.find((a) => a.startsWith('--version='))?.split('=')[1] ?? 'ci-v1';
 assert.match(version, /^[a-z0-9-]+$/);
 mkdirSync(ROOT, { recursive: true });
 if (process.argv.includes('--record-source')) recordPr214Source();

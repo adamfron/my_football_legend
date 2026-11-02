@@ -1,7 +1,9 @@
 # Current-source holistic mechanism inventory — PR214
 
 Planning inventory, bound to [PR214 source](../performance/pr214/source.json) and
-[machine-readable rows](../performance/pr214/holistic-inventory-final-v3.json).
+[machine-readable rows](../performance/pr214/holistic-inventory-ci-v1.json).
+The [CI correction](../performance/pr214/ci-fix/README.md) fixes only filesystem-dependent
+ordering of source references and preserves the original final-v3 inventory/evidence.
 Rows identify **mechanism families**, not every function, edition, flag, source file or
 realism issue. `LOCAL_VALIDATED` means evidence for a disclosed local scope; it does not
 assert empirical calibration, a good whole-match outcome or formal issue completion.

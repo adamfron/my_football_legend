@@ -7,7 +7,10 @@ and [compatibility](HOLISTIC_COMPATIBILITY_MATRIX.md).
 
 ## Frozen experiment
 
-Use [holistic-input-final-v3.json.gz](../performance/pr214/holistic-input-final-v3.json.gz).
+Use [holistic-input-ci-v1.json.gz](../performance/pr214/holistic-input-ci-v1.json.gz).
+This [CI observer correction](../performance/pr214/ci-fix/README.md) changes the source
+binding and inventory ordering; all original initial-state/configuration fields and hashes
+remain exactly equal to final-v3, which is preserved separately.
 It contains the **complete schema-normalized initial state and paired baseline**, all 22
 profiles with all 28 permanent attributes, positions/velocities/fitness, formation, roles,
 tactics, coach state, ball, match clocks, seed, policy, selectors and source binding.

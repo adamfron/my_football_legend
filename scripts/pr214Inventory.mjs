@@ -34,12 +34,18 @@ const row = z.object({
   ]),
   sourceLocations: z.string().array(),
 });
-export const holisticInventory = () => {
+export const holisticInventory = (sourcePaths = files('src/core/matchSimulation')) => {
   const selected = resolveIntegrationProfile('realism-candidate-v1', 'state-value-v1')
     .mechanisms.filter((m) => m.selected)
     .map((m) => m.flag);
-  const sources = files('src/core/matchSimulation')
+  // Directory enumeration differs between Windows and Linux (footContact versus
+  // football*). Use codepoint ordering, never filesystem or locale collation.
+  const sources = z
+    .string()
+    .array()
+    .parse(sourcePaths)
     .filter((p) => !p.includes('.test.'))
+    .sort()
     .map((p) => [p, normalized(p)]);
   const records = [
     ...INTEGRATION_MECHANISMS,

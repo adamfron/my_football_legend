@@ -1,0 +1,1621 @@
+{
+  "source": {
+    "base": "ac2b238b749fdf88de381a50fb7236cfe1141f41",
+    "fingerprint": "182e5bf13a821da9d7eeb6407831a14034f7b516f917debeab7e4561e534df74",
+    "archive": "docs/performance/pr214/source-182e5bf13a821da9d7eeb6407831a14034f7b516f917debeab7e4561e534df74.json.gz"
+  },
+  "rows": [
+    {
+      "name": "pair-reference",
+      "events": [
+        {
+          "at": 10.010102980146037,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 1,
+      "impacts": 1,
+      "maximumBodies": 2,
+      "maximumIterations": 2,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 5.684341886080802e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91876,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "f7e0543f2234411c1753a2cd61e467fbf5b642ba96bbffb9af4ecf5feec5052f"
+        },
+        {
+          "ticks": 2,
+          "bytes": 110042,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "f7d22dafe561f10f519b77b7c95d41f9ef664149284f3fbdbb0fe0dd19e5c36e"
+        },
+        {
+          "ticks": 3,
+          "bytes": 110962,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "5273bbf52eebd4578799a23c63d58169e31f83ed888d6fec51e2f3b428f11fa5"
+        },
+        {
+          "ticks": 4,
+          "bytes": 110626,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "df3634c6fda17da03404efafaf8331dfda744db12af4e635ee18bbd63b89b005"
+        }
+      ]
+    },
+    {
+      "name": "line-three",
+      "events": [
+        {
+          "at": 10.010102980146037,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.017906158860052,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:1",
+            "geometry:anchor:5"
+          ]
+        }
+      ],
+      "clusters": 8,
+      "impacts": 2,
+      "maximumBodies": 3,
+      "maximumIterations": 18,
+      "maximumEventsPerTick": 4,
+      "maximumResidualClosingSpeed": 5.38103485884649e-11,
+      "maximumMomentumResidual": 5.728578676879116e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91896,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "d24d424ddd990659ce93ab7c1f55c3058673f1ef512fc862a9cfe3e864e4ca3f"
+        },
+        {
+          "ticks": 2,
+          "bytes": 113250,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "892e278d09a17480ebb8ba3166daa8df5b22265170c1c3c34497ef1d1c18c10d"
+        },
+        {
+          "ticks": 3,
+          "bytes": 114200,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "8396db4e000c0d04afd8cabaf6aefb40744e8f02baa79a3ee53daa100ad7a90d"
+        },
+        {
+          "ticks": 4,
+          "bytes": 113954,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "ce72b624346a5241c7d67d5dc40898a347db21e29b79f075e02f46ffd9074c11"
+        }
+      ]
+    },
+    {
+      "name": "third-absent",
+      "events": [
+        {
+          "at": 10.010102980146037,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 1,
+      "impacts": 1,
+      "maximumBodies": 2,
+      "maximumIterations": 2,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 5.684341886080802e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91876,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "f7e0543f2234411c1753a2cd61e467fbf5b642ba96bbffb9af4ecf5feec5052f"
+        },
+        {
+          "ticks": 2,
+          "bytes": 110042,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "f7d22dafe561f10f519b77b7c95d41f9ef664149284f3fbdbb0fe0dd19e5c36e"
+        },
+        {
+          "ticks": 3,
+          "bytes": 110962,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "5273bbf52eebd4578799a23c63d58169e31f83ed888d6fec51e2f3b428f11fa5"
+        },
+        {
+          "ticks": 4,
+          "bytes": 110626,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "df3634c6fda17da03404efafaf8331dfda744db12af4e635ee18bbd63b89b005"
+        }
+      ]
+    },
+    {
+      "name": "third-approaching",
+      "events": [
+        {
+          "at": 10.010102980146037,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.010533575986559,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:1",
+            "geometry:anchor:5"
+          ]
+        }
+      ],
+      "clusters": 8,
+      "impacts": 2,
+      "maximumBodies": 3,
+      "maximumIterations": 18,
+      "maximumEventsPerTick": 4,
+      "maximumResidualClosingSpeed": 5.178790610325275e-11,
+      "maximumMomentumResidual": 5.695433295429594e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91897,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "5ae77f352a1a75bcf0e9d2fa639c3e44e55f78b13bb7e742c352874fea8bdeb0"
+        },
+        {
+          "ticks": 2,
+          "bytes": 113330,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "21a933849c004b21230e6d69688e132c013941ac4d98fa6f7e1157166fdc2050"
+        },
+        {
+          "ticks": 3,
+          "bytes": 114256,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "9626eabe5c6f27ff7ec249d4a0bef481b326fb356651ee8df87064936bb589a3"
+        },
+        {
+          "ticks": 4,
+          "bytes": 113998,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "55cf81335fb2351e3f6ffaeec9b3840d4f0cfa243a5cdf0e7080933e6d540fb6"
+        }
+      ]
+    },
+    {
+      "name": "third-away",
+      "events": [
+        {
+          "at": 10.010102980146037,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 1,
+      "impacts": 1,
+      "maximumBodies": 2,
+      "maximumIterations": 2,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 5.684341886080802e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91896,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "ae83f13626759df5d873f4adad629d0780488bb7c5259178758bf53aa13e21b7"
+        },
+        {
+          "ticks": 2,
+          "bytes": 110045,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "24eae645d2d7005ee9685899eb130d3ba4e08681ee602ebd3fa77d801703f80b"
+        },
+        {
+          "ticks": 3,
+          "bytes": 110926,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "f51c773e950d78f95020effdd78b10c4ec162f7faf2091bc983c0c230a6d4f62"
+        },
+        {
+          "ticks": 4,
+          "bytes": 110618,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "7a442c9458a86f9a6c417e39869e7e794fb1e34cb46e9e719fb4c3a4de3828c8"
+        }
+      ]
+    },
+    {
+      "name": "third-late",
+      "events": [
+        {
+          "at": 10.010102980146037,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 1,
+      "impacts": 1,
+      "maximumBodies": 2,
+      "maximumIterations": 2,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 5.684341886080802e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91896,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "c32ce67e699657b7c2937e2159c0423aebcd8aab045abdf103643a927822103d"
+        },
+        {
+          "ticks": 2,
+          "bytes": 110018,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "800ae56681cd05f871839d27b8ddd3da29ee55c97827671398e099cf478e4862"
+        },
+        {
+          "ticks": 3,
+          "bytes": 110913,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "7faff4e8014dd69754b56e890ca8365add749add80ea2510cbe226d67fa6429b"
+        },
+        {
+          "ticks": 4,
+          "bytes": 110590,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "ac24555a1e5ece9a70503aa91ef60a54d44a5ef00060dddc1041abe7072b5e62"
+        }
+      ]
+    },
+    {
+      "name": "simultaneous-three",
+      "events": [
+        {
+          "at": 10.020310218761034,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.021233177875784,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:1",
+            "geometry:anchor:5"
+          ]
+        }
+      ],
+      "clusters": 8,
+      "impacts": 2,
+      "maximumBodies": 3,
+      "maximumIterations": 18,
+      "maximumEventsPerTick": 4,
+      "maximumResidualClosingSpeed": 9.779599412152298e-11,
+      "maximumMomentumResidual": 1.4210854715202004e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91897,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "214dd2539a62a68d7f0ebb05e7cb0b7dc10916a839e71ffa21daeae69956c82f"
+        },
+        {
+          "ticks": 2,
+          "bytes": 113391,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "d677368dc4896e0f4eaba1b3860bb98a9a89158149f52a692ec90ab4bb6db88c"
+        },
+        {
+          "ticks": 3,
+          "bytes": 114393,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "77861630182c52bae97578f9909cce44875fcd1f3e9f92a224d06496db18b4b0"
+        },
+        {
+          "ticks": 4,
+          "bytes": 114069,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "ebf77c58d25ba137c45c83a54348e6ca9201ae3129082183c67e518cd7dd2195"
+        }
+      ]
+    },
+    {
+      "name": "line-four",
+      "events": [
+        {
+          "at": 10,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:1",
+            "geometry:anchor:5"
+          ]
+        },
+        {
+          "at": 10,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:1",
+            "geometry:anchor:2"
+          ]
+        }
+      ],
+      "clusters": 6,
+      "impacts": 3,
+      "maximumBodies": 4,
+      "maximumIterations": 32,
+      "maximumEventsPerTick": 2,
+      "maximumResidualClosingSpeed": 1.0992107224438996e-9,
+      "maximumMomentumResidual": 5.684341886080802e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91908,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "ec1b36470731706c655b03e960796b7eb11e4f356879d067e2721d331b545df6"
+        },
+        {
+          "ticks": 2,
+          "bytes": 113336,
+          "pending": true,
+          "persistent": 3,
+          "terminal": "bc9a036d5a5578828598e942f209f6ed3eaa7443836c7165f0fce763f2527ac2"
+        },
+        {
+          "ticks": 3,
+          "bytes": 114251,
+          "pending": true,
+          "persistent": 3,
+          "terminal": "b5572e1a275fb02464d97a99b24c00787506c7f332ae5c2c7e50af3d1ee9f2cd"
+        },
+        {
+          "ticks": 4,
+          "bytes": 113978,
+          "pending": true,
+          "persistent": 3,
+          "terminal": "1e69a82ac6e96a82c71fafb9c1ceb94eb83b9ce3496713ca80c5f2c08916eb24"
+        }
+      ]
+    },
+    {
+      "name": "glancing-three",
+      "events": [
+        {
+          "at": 10.010107480370861,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.043874622684859,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:1",
+            "geometry:anchor:5"
+          ]
+        }
+      ],
+      "clusters": 3,
+      "impacts": 2,
+      "maximumBodies": 2,
+      "maximumIterations": 2,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 3.214340558427603e-16,
+      "maximumMomentumResidual": 3.552713678800501e-15,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91900,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "2590349a36fe2bd0139b7dbb56d40a4cc6efa0517a4c4c7ee9a3b4795d26e197"
+        },
+        {
+          "ticks": 2,
+          "bytes": 113152,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "12b6a8e06c95628072bd6fda038928c6e03fa1844208a13ae781ba144c918f16"
+        },
+        {
+          "ticks": 3,
+          "bytes": 114165,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "06d1c902bab8e2e6604a00d792550f6b4a712b88f37496fad6a151513379a7b1"
+        },
+        {
+          "ticks": 4,
+          "bytes": 110818,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "e759ff8f0f35c839c401926d8d4699cb66c8948d464f96dfd437bad4eef7c462"
+        }
+      ]
+    },
+    {
+      "name": "resting-three",
+      "events": [
+        {
+          "at": 10,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 5,
+      "impacts": 1,
+      "maximumBodies": 3,
+      "maximumIterations": 2,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 9.949149347514042e-17,
+      "maximumMomentumResidual": 0,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91896,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "a8e77591eb6c5e05d268c625ebdd6b41a58618abfdae102ec0a8fe5184b1bc10"
+        },
+        {
+          "ticks": 2,
+          "bytes": 112964,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "55677fd74f6c1903647cea2acd77a65cfd75413d0cdfd11a5fbd8b7a19318626"
+        },
+        {
+          "ticks": 3,
+          "bytes": 114054,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "26c494ccd3be45106b361a80e544b29b480b0611a27bf8d0d678217b744ade90"
+        },
+        {
+          "ticks": 4,
+          "bytes": 113781,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "fd6b682f270e57ea8a918d8597c83abed65c143a943ddbf34cf29424dd855e3a"
+        }
+      ]
+    },
+    {
+      "name": "within-tick-rearm",
+      "events": [
+        {
+          "at": 10.002054473847505,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:1",
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.007356207175018,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 13,
+      "impacts": 2,
+      "maximumBodies": 3,
+      "maximumIterations": 25,
+      "maximumEventsPerTick": 4,
+      "maximumResidualClosingSpeed": 9.9957695944947e-11,
+      "maximumMomentumResidual": 1.1403325463066973e-13,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 92004,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "474caaa19877d52388b2a52a2333c87a780eb296115ae3ace793d473823d79d7"
+        },
+        {
+          "ticks": 2,
+          "bytes": 157361,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "1f8299f56307fd7af3f3b6de4869e21c69c3492db2fde7c85dbac0021fd305a8"
+        },
+        {
+          "ticks": 3,
+          "bytes": 157173,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "c07b2a36507cb71fb9c9824dae069fbad8a78bdddfaa323ec33a049239bab20a"
+        },
+        {
+          "ticks": 4,
+          "bytes": 158946,
+          "pending": true,
+          "persistent": 2,
+          "terminal": "843630f6b23d23c2317a615917bb7258a698e43d9c045c90faa4e8dcf589435e"
+        }
+      ]
+    },
+    {
+      "name": "over-bound-five",
+      "events": [],
+      "clusters": 1,
+      "impacts": 0,
+      "maximumBodies": 5,
+      "maximumIterations": 0,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 0,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [
+        "body_count_bound"
+      ],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91920,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "6af1eea166a4cf20c977d76b4b13b9ad5b60c8e8c0f93823bb71c1dcf7b63b70"
+        },
+        {
+          "ticks": 2,
+          "bytes": 107442,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "1f5b8fc35224ea16476940614eee27cf2fc3d74b4d0578ac769f1b0f98f9cf73"
+        },
+        {
+          "ticks": 3,
+          "bytes": 108486,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "5c453ee350af2baddb6159aa20d5ca4ade9a73ad735ae8476d15a13b07dcfd0a"
+        },
+        {
+          "ticks": 4,
+          "bytes": 108156,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "18948d9fd57185b0ed20a85246cc40ad1366ad5a68d6ac7a9669e973205f0df7"
+        }
+      ]
+    },
+    {
+      "name": "shallow-overlap",
+      "events": [],
+      "clusters": 5,
+      "impacts": 0,
+      "maximumBodies": 2,
+      "maximumIterations": 2,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 8.881784197001252e-16,
+      "maximumMomentumResidual": 5.684341886080802e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91900,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "5c788cfa29153803a8a47a8ec9039b57dc380cf0e8e585b4d2b165f4c4e8384d"
+        },
+        {
+          "ticks": 2,
+          "bytes": 113093,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "e39151c79c6c503d40d5365ccae4459b2416e8f68522cf57d3df3c226090e78a"
+        },
+        {
+          "ticks": 3,
+          "bytes": 114069,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "1013d319b23cfa7602e78d7b6117a5d181554234a2358ec7a1775bc03bd7c3ef"
+        },
+        {
+          "ticks": 4,
+          "bytes": 113754,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "c88f3e383baaf7545eb56349781c58c8c01efd3b38c4930fcf1747a5adff69c0"
+        }
+      ]
+    },
+    {
+      "name": "deep-overlap",
+      "events": [],
+      "clusters": 1,
+      "impacts": 0,
+      "maximumBodies": 2,
+      "maximumIterations": 0,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 0,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [
+        "initial_body_overlap"
+      ],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91896,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "e0a76ce1902da826e261e0a637ddc15c3ea90345c8266ebb01eb1e914f500ae1"
+        },
+        {
+          "ticks": 2,
+          "bytes": 107434,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "5c89b5973c600c6360393c0310136d157940a0349c4fe58165867508f785581c"
+        },
+        {
+          "ticks": 3,
+          "bytes": 108463,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "116e567b601269832177ef1aad9db55c511c6c4c263029235a944ea574cd56a2"
+        },
+        {
+          "ticks": 4,
+          "bytes": 108108,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "6963ddf246b9d941198dfd1114dcd6fb914e352df12091e09a3f362c2e5ed096"
+        }
+      ]
+    },
+    {
+      "name": "near-tangent",
+      "events": [],
+      "clusters": 0,
+      "impacts": 0,
+      "maximumBodies": 0,
+      "maximumIterations": 0,
+      "maximumEventsPerTick": 0,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 0,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91908,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "6e45e24c0217fd12d52f9ee01dcdccc4cc1c0603a4b78858167070bc2fc7c30d"
+        },
+        {
+          "ticks": 2,
+          "bytes": 109765,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "9e02031dd003e00556ada1b79d5f6150afa60414c04c2cdd95da497b0862c4ef"
+        },
+        {
+          "ticks": 3,
+          "bytes": 110794,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "726de5853f22e849f9bc3ed813b93dd5fd95982e0a00891cb610afcf58f35773"
+        },
+        {
+          "ticks": 4,
+          "bytes": 110450,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "e97267cb18d382a74089f4ae975296e1493ae2e4060c02ebdf183abc49489253"
+        }
+      ]
+    },
+    {
+      "name": "player-edge",
+      "events": [
+        {
+          "at": 10.002491026392189,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 8,
+      "impacts": 1,
+      "maximumBodies": 2,
+      "maximumIterations": 32,
+      "maximumEventsPerTick": 4,
+      "maximumResidualClosingSpeed": 6.249270185091055e-10,
+      "maximumMomentumResidual": 2.220446049250313e-16,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91913,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "4c57c0b3bcb8a03154bc72ebc8c90120f8c0eb6868bd9e0c5dd52131eef99ca6"
+        },
+        {
+          "ticks": 2,
+          "bytes": 113046,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "d34fdcda14896ee63ec96f403b297c7f110a9ba729635a06724f3e35ea351dac"
+        },
+        {
+          "ticks": 3,
+          "bytes": 114081,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "d09f7cb91c3c1a304f1a8ff1f3ea95af8b6c26ec13e5d1d95c42bda40b8a46b9"
+        },
+        {
+          "ticks": 4,
+          "bytes": 113740,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "934b5242180aca0b453b6284ff3767d18029ce1d94b370e260fe78a2d38e169b"
+        }
+      ]
+    },
+    {
+      "name": "edge-blocked",
+      "events": [
+        {
+          "at": 10.002491026392189,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 8,
+      "impacts": 1,
+      "maximumBodies": 2,
+      "maximumIterations": 32,
+      "maximumEventsPerTick": 4,
+      "maximumResidualClosingSpeed": 6.249270185091055e-10,
+      "maximumMomentumResidual": 2.220446049250313e-16,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91913,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "fc2e96cd7e85f53e89ea13ed12d12dfee5631e14195e4e801c8ae12c58665c5f"
+        },
+        {
+          "ticks": 2,
+          "bytes": 113043,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "020a438387ed804becc466c1331440e80a3b89a4a8820541cf8e34e032a7387d"
+        },
+        {
+          "ticks": 3,
+          "bytes": 114066,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "8c1ad44c10e5b570daee3e5bdab73abe37c83818f56191aa9448d6eac92a2be8"
+        },
+        {
+          "ticks": 4,
+          "bytes": 113721,
+          "pending": true,
+          "persistent": 1,
+          "terminal": "c00f1aa092d74799e8de959d131631844af26f3e2a13d7d17ac5a8ad8ec88e24"
+        }
+      ]
+    },
+    {
+      "name": "ball-touchline",
+      "events": [
+        {
+          "at": 10.002490538438654,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 4,
+      "impacts": 1,
+      "maximumBodies": 2,
+      "maximumIterations": 32,
+      "maximumEventsPerTick": 4,
+      "maximumResidualClosingSpeed": 6.250567247589869e-10,
+      "maximumMomentumResidual": 5.684341886080802e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [
+        {
+          "origin": "live_event",
+          "incidentId": "pr211-canonical-contact:boundary:10.011510599516443:touchline_top",
+          "eventAt": 10.011510599516443,
+          "incidentPosition": {
+            "x": 30,
+            "y": 0
+          },
+          "legalRestartPosition": {
+            "x": 30,
+            "y": 0
+          },
+          "indirect": false,
+          "id": "pr211-canonical-contact:restart:10.011510599516443:away:throw_in",
+          "at": 10.011510599516443,
+          "team": "away",
+          "scenario": "throw_in",
+          "takerId": "geometry:opponent:1",
+          "cause": "boundary",
+          "lossId": "pr211-canonical-contact:loss:boundary:10.011511:touchline_top"
+        }
+      ],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 91917,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "047df025d5766e049947488e215656ac85a6b664f982c74e09fc23f1b0bdecbb"
+        },
+        {
+          "ticks": 2,
+          "bytes": 116588,
+          "pending": false,
+          "persistent": 1,
+          "terminal": "6f5fd82f644d9117e4bb3832c346921c1927d104747285d0fb2acc1b4d380526"
+        },
+        {
+          "ticks": 3,
+          "bytes": 117343,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "cbdbd843bcbf0d0da2b542a98495561b881b4a9edb667adecf9791d4a7421bf1"
+        },
+        {
+          "ticks": 4,
+          "bytes": 117188,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "6fc03dd2810384bd6bfbe4d7a7fa2d2554a98178cec4e2ec799fab55340f7360"
+        }
+      ]
+    },
+    {
+      "name": "edge-body-foot",
+      "events": [
+        {
+          "at": 10.0537173454298,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.074781443665445,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 1,
+      "impacts": 1,
+      "maximumBodies": 2,
+      "maximumIterations": 2,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 7.105427357601002e-15,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 1,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [
+        {
+          "origin": "live_event",
+          "incidentId": "pr211-canonical-contact:boundary:10.250000000000004:touchline_top",
+          "eventAt": 10.228784767411259,
+          "incidentPosition": {
+            "x": 29.985939936978017,
+            "y": 0
+          },
+          "legalRestartPosition": {
+            "x": 29.985939936978017,
+            "y": 0
+          },
+          "indirect": false,
+          "id": "pr211-canonical-contact:restart:10.250000000000004:home:throw_in",
+          "at": 10.250000000000004,
+          "team": "home",
+          "scenario": "throw_in",
+          "takerId": "geometry:anchor:5",
+          "cause": "boundary"
+        }
+      ],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 93476,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "cf20100d84497d72bd6b10d2e30f33e861887a2edfd63c55af7ffe71d331b810"
+        },
+        {
+          "ticks": 2,
+          "bytes": 110932,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "1e54686f6a4ad96bfad68e08a75cba4c3fc7e0aa43baf24a243b0c127668b275"
+        },
+        {
+          "ticks": 3,
+          "bytes": 116896,
+          "pending": false,
+          "persistent": 1,
+          "terminal": "b4eccd1a44381d9f3f5d4e484f96908425e6a3d9ecec0e610ad4316ab511335b"
+        },
+        {
+          "ticks": 4,
+          "bytes": 115306,
+          "pending": false,
+          "persistent": 1,
+          "terminal": "3424ab51e2ea4cf168404bb82beac31dfbec03c5e064bee26832a241335a4134"
+        }
+      ]
+    },
+    {
+      "name": "body-pass-third",
+      "events": [
+        {
+          "at": 10.075843161255372,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.07830252983769,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:1",
+            "geometry:anchor:5"
+          ]
+        },
+        {
+          "at": 10.080603132391248,
+          "kind": "foot",
+          "actors": [
+            "geometry:anchor:5"
+          ]
+        },
+        {
+          "at": 10.091975545420608,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 4,
+      "impacts": 2,
+      "maximumBodies": 3,
+      "maximumIterations": 18,
+      "maximumEventsPerTick": 4,
+      "maximumResidualClosingSpeed": 5.971044624249003e-11,
+      "maximumMomentumResidual": 6.07087979554246e-14,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 2,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 93555,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "5ed2263a62f63d753d9fb64f2f11bfe6e45eabd337b3c1fc767c790112754c8d"
+        },
+        {
+          "ticks": 2,
+          "bytes": 111274,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "66567d146f232286fcbc3d5d5763f401a445881a592a4f1e3012c6bc08eaf0b3"
+        },
+        {
+          "ticks": 3,
+          "bytes": 112207,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "636662637377351643d32638ddd280328aa31394cc270f038b89a2ddf5562dde"
+        },
+        {
+          "ticks": 4,
+          "bytes": 163750,
+          "pending": false,
+          "persistent": 2,
+          "terminal": "38d3ea42b8b94a94ae8668dbfe82651656c5f3fcad0cd756d46a9ce8dd4cadfc"
+        }
+      ]
+    },
+    {
+      "name": "pass-body-third",
+      "events": [
+        {
+          "at": 10.078915780860633,
+          "kind": "foot",
+          "actors": [
+            "geometry:anchor:5"
+          ]
+        },
+        {
+          "at": 10.080999322731765,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.081341161755134,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.083405374342869,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:1",
+            "geometry:anchor:5"
+          ]
+        }
+      ],
+      "clusters": 5,
+      "impacts": 2,
+      "maximumBodies": 3,
+      "maximumIterations": 17,
+      "maximumEventsPerTick": 5,
+      "maximumResidualClosingSpeed": 5.879051330724195e-11,
+      "maximumMomentumResidual": 1.1368683772161603e-13,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 2,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 93574,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "93ec04f66439dec714a559ec8a60f84a0a4d4e17fdb6a939777b2b6b56032c93"
+        },
+        {
+          "ticks": 2,
+          "bytes": 111332,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "8e32730fee4f8600ffe011d907b288c24423d18beb46f52da9454e6dacdedd08"
+        },
+        {
+          "ticks": 3,
+          "bytes": 112298,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "c140a107e806bdf06891324c8024ea6f924befe5a82babf2c296e8e3185a20b9"
+        },
+        {
+          "ticks": 4,
+          "bytes": 164380,
+          "pending": false,
+          "persistent": 2,
+          "terminal": "d22437e395cdd9a7f6f066ccf2f92f100dd78c197729c9ff0b5a4f7b77ba072c"
+        }
+      ]
+    },
+    {
+      "name": "body-pass-challenge",
+      "events": [
+        {
+          "at": 10.075843161255372,
+          "kind": "body",
+          "actors": [
+            "geometry:anchor:5",
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 10.081600166129645,
+          "kind": "foot",
+          "actors": [
+            "geometry:anchor:5"
+          ]
+        },
+        {
+          "at": 10.094964810391408,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 1,
+      "impacts": 1,
+      "maximumBodies": 2,
+      "maximumIterations": 2,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 0,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 2,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 93423,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "c59890b9b14fd31e285d8e0fcd33bdab5748f072c857550a913cd45c4e3dcaf8"
+        },
+        {
+          "ticks": 2,
+          "bytes": 111230,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "2b1191156e5590ddc219c59c8d79e0e6f409a282e4c0bba31fe7d7d11ba411b2"
+        },
+        {
+          "ticks": 3,
+          "bytes": 112185,
+          "pending": true,
+          "persistent": 0,
+          "terminal": "999e4ad1635e439b58e206e341b863d018b0893cdc72de67df2c079c2e2f9f93"
+        },
+        {
+          "ticks": 4,
+          "bytes": 123432,
+          "pending": false,
+          "persistent": 1,
+          "terminal": "11c1be584234ffa4eac460dbf70fa9ecf7845be95ccbb2c4a4a7ff70ef530bfc"
+        }
+      ]
+    },
+    {
+      "name": "stationary-duel",
+      "events": [
+        {
+          "at": 10.900000000000013,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 11.200000000000017,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 11.500000000000021,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 11.775000000000025,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 0,
+      "impacts": 0,
+      "maximumBodies": 0,
+      "maximumIterations": 0,
+      "maximumEventsPerTick": 0,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 0,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 4,
+      "unexplainedAcquisitions": 0,
+      "controls": 1,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 90659,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "42ed3edfc25f60031506b111bafc3750b028ea800ad0f5023473a87f806262ad"
+        },
+        {
+          "ticks": 2,
+          "bytes": 118188,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "2869be426f9134765aae4784a72b0948599c60bec4c3dccbf49b439c72a90729"
+        },
+        {
+          "ticks": 3,
+          "bytes": 119686,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "aad757cbf2e00b9e4f74cea0b2ee11f85e8678991e8a5ebae79d9bafd393e8ed"
+        },
+        {
+          "ticks": 4,
+          "bytes": 119649,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "69d8e5a1ecf0d939290865f5aae57ee5b881a95da6ff54c7a7c4b7eedfe3938b"
+        }
+      ]
+    },
+    {
+      "name": "stationary-close",
+      "events": [
+        {
+          "at": 11.125000000000016,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 11.42500000000002,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 11.725000000000025,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        },
+        {
+          "at": 11.975000000000028,
+          "kind": "foot",
+          "actors": [
+            "geometry:opponent:1"
+          ]
+        }
+      ],
+      "clusters": 0,
+      "impacts": 0,
+      "maximumBodies": 0,
+      "maximumIterations": 0,
+      "maximumEventsPerTick": 0,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 0,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [],
+      "footContacts": 4,
+      "unexplainedAcquisitions": 0,
+      "controls": 1,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 90663,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "420e293e55833005d7bdf01f0f3acc7268165eb824ca6359eb51bf2a2b73c9fd"
+        },
+        {
+          "ticks": 2,
+          "bytes": 118194,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "a800a9e4fa737578e945baec937c54a35cbb18e2fc18e36b1f686e7decae11da"
+        },
+        {
+          "ticks": 3,
+          "bytes": 119680,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "1c876e70591d726fd039493fdbdb4290ddb54a2b9ef0e5ce443fe34e234d1f39"
+        },
+        {
+          "ticks": 4,
+          "bytes": 119647,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "cbc4f1b3a6c96c225a0508bd4a44e0867316d79228681b8cbcfe5460a28a2b8f"
+        }
+      ]
+    },
+    {
+      "name": "clinch-third",
+      "events": [],
+      "clusters": 1,
+      "impacts": 0,
+      "maximumBodies": 2,
+      "maximumIterations": 0,
+      "maximumEventsPerTick": 1,
+      "maximumResidualClosingSpeed": 0,
+      "maximumMomentumResidual": 0,
+      "maximumPassiveEnergyIncrease": 0,
+      "unresolved": [
+        "initial_body_overlap"
+      ],
+      "footContacts": 0,
+      "unexplainedAcquisitions": 0,
+      "controls": 0,
+      "restarts": [],
+      "saves": [
+        {
+          "ticks": 0,
+          "bytes": 90717,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "2e3dfa168ecadf712017106ab294b80c8c4aba4eaba5a71d17184e03a1bde8df"
+        },
+        {
+          "ticks": 2,
+          "bytes": 107926,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "79c908307dc225f1d799971c442e82301319f23633cb1f694f036457456ae774"
+        },
+        {
+          "ticks": 3,
+          "bytes": 108980,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "47b3438460c2dc649c2d28b05559b66cd5b49d743a5090ef167482d7b6e2db92"
+        },
+        {
+          "ticks": 4,
+          "bytes": 108686,
+          "pending": false,
+          "persistent": 0,
+          "terminal": "a992744f8ce0339edde763ae345246874866f7ec409a16992a7d6d5f291b46ee"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "experimentalAndAgencyFamilies": 26,
+    "liveFamilies": 25,
+    "historicalAlternativeEditions": 4,
+    "locallyValidatedFamilies": 26,
+    "compatiblePolicyBDevelopmentFamilies": 10,
+    "blockedFamilies": 15,
+    "policySpecificFamilies": 6,
+    "requiringCalibration": 25
+  },
+  "costs": {
+    "wallSeconds": 15.8419962,
+    "cpu": {
+      "user": 18797000,
+      "system": 1141000
+    },
+    "peakRSSKiB": 575432,
+    "node": "v24.22.1",
+    "platform": "win32",
+    "matchedPairCost": {
+      "pair": {
+        "wallSeconds": 1.0042190000000009,
+        "cpu": {
+          "user": 1344000,
+          "system": 62000
+        },
+        "ticks": 512,
+        "maximumTacticalBytes": 120672
+      },
+      "cluster": {
+        "wallSeconds": 0.9473407999999981,
+        "cpu": {
+          "user": 938000,
+          "system": 47000
+        },
+        "ticks": 512,
+        "maximumTacticalBytes": 120701
+      },
+      "scope": "64 identical isolated-pair inputs x 8 canonical ticks; no evidence-frame observer, shared process RSS; not whole-match overhead"
+    }
+  },
+  "readiness": "BLOCKED_FOR_HOLISTIC_MATCH",
+  "blockers": [
+    "upright-cluster-dev-v1 owns only pending/standing intervals; carry/loose/delivery body authority is not migrated",
+    "the historical two-surface ball clinch interpenetrates the solid torso cores; approaching third-body coupling remains unresolved",
+    "activation witnesses are incomplete for selected policy-specific consumers; unknown invocation remains null"
+  ]
+}

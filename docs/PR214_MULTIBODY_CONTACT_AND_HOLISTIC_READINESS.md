@@ -1,6 +1,13 @@
 # PR214 — Multi-body contact and holistic match readiness
 
 Base: merged PR213, `ac2b238b749fdf88de381a50fb7236cfe1141f41`.
+
+CI correction: [deterministic source inventory](performance/pr214/ci-fix/README.md).
+The initial Linux replay failed on filesystem ordering of inventory references; `quality`
+then correctly failed its dependency. `ci-v1` freezes sorted metadata with strict equality
+of every original physical/configuration witness. Original final-v3 evidence stays intact;
+the engine, maintained candidate and readiness decision do not change.
+
 Research change: opt-in **`upright-cluster-dev-v1`** extends the existing pending/standing
 canonical interval to sequential and simultaneous contacts among **up to four upright
 outfield players**, including unilateral player movement edges. Local result: two body
