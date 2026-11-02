@@ -249,6 +249,10 @@ export const advancePendingStrikeInterval = (
         { actorId: actor.id, foot },
       ].slice(-44),
     };
+    if (state.ball.ownerId && state.ball.ownerId !== actor.id) {
+      state = { ...state, ball: { ...state.ball, looseSince: state.time } };
+      delete state.ball.ownerId;
+    }
     state = recordExecution(state, 'ball-body-contact', 'pendingStrikeInterval.passiveFoot', 1);
   };
   if (multi && !handlers.bodyOnly) releaseSeparatedControl();
@@ -991,6 +995,9 @@ export const advancePendingStrikeInterval = (
     }
     const actor = state.players.find((p) => p.id === event.playerId)!;
     if (event.kind === 'passive_foot') {
+      state = handlers.body(state, actor.id);
+      if (state.restart || state.scenario !== 'open_play' || state.postGoal)
+        return restoreClock(finishPendingStrike(state, 'interrupted', 'law_interruption'));
       passiveFoot(actor, event.key, event.hit!);
       continue;
     }

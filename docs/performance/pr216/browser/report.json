@@ -65,24 +65,24 @@
         "setup-keeps-mode",
         "new-ordinary-initialization"
       ],
-      "duration": 1.0250000000000004,
+      "duration": 1.0500000000000003,
       "witnesses": {
         "bounded-flight-belief": {
-          "invoked": 41,
+          "invoked": 42,
           "executed": 0,
-          "at": 1.0250000000000004,
+          "at": 1.0500000000000003,
           "source": "liveBallFlight.advanceLiveBallFlight"
         },
         "receiver-anticipation": {
-          "invoked": 8,
+          "invoked": 9,
           "executed": 0,
-          "at": 0.9500000000000005,
+          "at": 1.0500000000000003,
           "source": "matchSimulation.observeReceptionBall"
         },
         "fallback-delivery": {
-          "invoked": 32,
+          "invoked": 33,
           "executed": 0,
-          "at": 1.0250000000000004,
+          "at": 1.0500000000000003,
           "source": "matchSimulation.historical-labelled-delivery"
         }
       }

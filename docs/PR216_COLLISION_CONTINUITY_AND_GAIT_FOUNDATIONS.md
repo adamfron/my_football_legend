@@ -64,6 +64,13 @@ initial fixture overlap. The saved window, ball-owner transition and absent clus
 records identify the missing movement consumer; no replay evidence establishes a cleared
 contact episode as the primary cause.
 
+The matched two-body experiment reuses those preserved chord velocities and masses
+69kg/79kg. The former endpoints penetrate 4.620598cm. The new solver records contact
+at 11.232146682511107s, applies 101.953206583Ns and ends with **3.152034mm positive
+clearance**. Full initial/nominal/result states and the impulse/remainder are in
+`performance/pr216/matched-original-pair.json.gz`. This is a local matched causal
+experiment, separate from the normal 22-player continuation.
+
 ## 3. First-contact movement authority
 
 `multiBodyParticipants` now includes active supported upright outfield players throughout
@@ -124,7 +131,7 @@ body-first, third-body and saved-continuation regressions remain required.
 The nine-scene source-bound receipt includes actual reception, ordinary contest, three/four
 bodies, body/pass orderings, standing foot and boundary cases. Full numerical impulses,
 normals, relative velocities, support/balance, remainder endpoints and law facts are saved.
-See `performance/pr216/summary-final-v1.json` and `canonical-final-v1.json.gz`.
+See `performance/pr216/summary-final-v2.json` and `canonical-final-v2.json.gz`.
 
 ## 7. Referee and Law 12
 
@@ -216,7 +223,7 @@ loose-ball state suffers action starvation. Four mutually constrained bodies can
 around a resting ball while no nominal foot sphere reaches it. The former acquisition
 consumer is replaced in the shared interval, but an active finite reaching-foot mechanism
 has not replaced its whole useful scope. Advancing the clock cannot pass this liveness gate.
-The complete terminal state and preceding 80-frame window are preserved. No possession,
+The final edition has 19 fresh body impacts, maximum reported penetration 1.4433e-11m, and its last B policy invocation at 6.450s. The earlier final-v1 edition (before the passive-foot law/ownership correction) had 97 impacts and last B invocation at 22.625s; it is retained as an earlier result, not rebound to the final code. The minimum actual foot-surface clearance in that terminal is 0.062366838m despite nominal 0.82m control reach; see `performance/pr216/loose-ball-reaching-blocker.json`. This distinguishes a reachable planned leg movement from a foot that physically touched the ball. The complete terminal state and preceding 80-frame window are preserved. No possession,
 fake force, immunity, teleport or invented referee interruption is used to break the pack.
 
 The mandatory controlled-long-touch/approaching-defender/actual-tackle sequence is therefore
@@ -229,7 +236,7 @@ Browser results and screenshots are retained separately in `performance/pr216/br
 New complete schema checkpoints are compared over eight exact native continuation steps
 each, with no rounding of physical values. Normal schema normalization removes surplus ball
 metadata copied into point-valued tactical targets, as in the preserved PR215 limitation.
-There is no claim of Edge/Node or Windows/Linux bit-identical trajectories. Historical
+There is no claim of Edge/Node or Windows/Linux bit-identical trajectories. The publication source differs from the final-v2 canonical recording only in the added passive-foot regression test and the corrected historical PR215 wrapper invocation; all production/runtime source hashes are equal, with this difference explicitly indexed in verification.json. Historical
 PR195–215 receipt bytes/assertions remain unchanged. PR215's original checker now executes
 in its exact merged source via `scripts/ci/replayPr215Check.mjs`; current guards bind PR216
 separately. Source manifests and reconstructible delta archives accompany the new receipts.

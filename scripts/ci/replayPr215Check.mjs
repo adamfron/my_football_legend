@@ -60,7 +60,7 @@ try {
       '--experimental-transform-types',
       '--import',
       './scripts/registerTypescriptLoader.mjs',
-      'scripts/benchmarkPr214.mjs',
+      'scripts/benchmarkPr215.mjs',
       '--check',
     ],
     { cwd: scratch, env, stdio: 'inherit', windowsHide: true },

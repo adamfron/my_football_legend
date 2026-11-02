@@ -1,11 +1,58 @@
 // @vitest-environment node
 import { expect, it } from 'vitest';
-import { createPr215LooseScene } from '../../../scripts/pr215Scenarios';
+import {
+  createPr215LooseScene,
+  createPr215ReceptionBlocker,
+} from '../../../scripts/pr215Scenarios';
 import { advancePendingStrikeInterval } from './pendingStrikeInterval';
 import { integrateCanonicalBodyRemainder } from './canonicalMovement';
 import { playerBodyClearance } from './playerBodyContact';
 import { multiBodyParticipants } from './multiBodyContact';
 import { tacticalMatchStateSchema } from './matchState';
+
+it('routes an unready passive foot through contact laws and ends the previous protected owner', () => {
+  const s = createPr215ReceptionBlocker();
+  const actor = s.players.find(
+    (p) => Math.hypot(p.position.x - s.ball.x, p.position.y - s.ball.y) < 1,
+  )!;
+  const other = s.players.find((p) => p.id !== actor.id && p.slot.position !== 'goalkeeper')!;
+  other.position = { x: s.ball.x + 1.5, y: s.ball.y };
+  other.velocity = { x: 0, y: 0 };
+  s.players = [actor, other];
+  s.ball.ownerId = other.id;
+  s.lastGroundContact = {
+    actorId: actor.id,
+    at: s.time,
+    region: 'right_foot',
+    point: { x: s.ball.x, y: s.ball.y },
+    incomingVelocity: { x: -1, y: 0 },
+    outgoingVelocity: { x: -1, y: 0 },
+    retained: false,
+    executed: false,
+    physicalCount: 0,
+  };
+  let laws = 0,
+    controls = 0;
+  let out = s;
+  for (let i = 0; i < 4 && !laws; i++)
+    out = advancePendingStrikeInterval(out, { ...out, time: out.time + 0.025 }, 0.025, {
+      ordinary: true,
+      boundary: (s) => s,
+      control: (s) => {
+        controls++;
+        return s;
+      },
+      body: (s) => {
+        laws++;
+        return s;
+      },
+    });
+  expect(laws).toBe(1);
+  expect(controls).toBe(0);
+  expect(out.ball.ownerId).toBeUndefined();
+  expect(out.ball.lastTouchPlayerId).toBe(actor.id);
+  expect(out.executionWitnesses?.['ball-body-contact']?.executed).toBe(1);
+});
 
 for (const [name, a, b, va, vb] of [
   ['head-on', [30, 30], [31, 30], [10, 0], [-10, 0]],
