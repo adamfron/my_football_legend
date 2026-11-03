@@ -1,6 +1,21 @@
 # First holistic development match protocol — PR215 handoff
 
-## PR216 development update — continuous P1 smoke passes
+## PR216 five-body follow-up — bounded support validated
+
+The existing upright cluster owner now supports five bodies. Components up to four retain
+32 sweeps; five-body components have 64 sweeps / at most 640 recorded pair impulses.
+Residual, geometric correction, event and persistent-storage tolerances are unchanged;
+six-body overflow remains explicit. The frozen five-body incident resolves in 11 sweeps
+and continues canonical play. Unequal-mass, oblique, persistent and native-reload controls pass.
+The renewed frozen 90-minute attempt reaches 946.075s / 1663 decisions, then stops on a
+separate historical pass-release/foot handoff. Full 90-minute completion is not claimed.
+Next dependency is finite release continuity for that exact source-bound incident; body
+support is not bypassed and foot tolerances are not widened. Maintained PR201/B/defaults
+and sealed confirmation stay unchanged; promotion remains RETAIN_EXPERIMENTAL.
+See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md) and its
+five-final-v2 receipts. Historical source editions below retain their original scope.
+
+## Earlier PR216 P1 source edition — p1-final-v6
 
 Finite ankle reaching/retraction, actual three-dimensional control and persistent foot support
 share the existing canonical interval and connected geometry. Two unchanged 22-player inputs

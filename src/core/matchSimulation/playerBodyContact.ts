@@ -4,6 +4,16 @@ import { deriveMovementCapability } from './locomotion';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { canParticipatePhysically } from './matchInjuries';
 
+/** Upright 34cm torso core. The wider locomotion clearance is not an impact
+ * surface. Restitution remains uncalibrated; tangent friction is zero. */
+export const PLAYER_BODY_CONTACT = {
+  diameter: 0.68,
+  rearmClearance: 0.01,
+  tolerance: 1e-8,
+  restitution: 0.05,
+  maximumCorrectionIterations: 64,
+} as const;
+
 export const playerBodyImpulseSelectionSchema = z.enum([
   'upright-pair-dev-v1',
   'upright-cluster-dev-v1',
@@ -34,7 +44,11 @@ export const playerBodyContactSchema = z.object({
   energyAfter: z.number().nonnegative(),
   restitution: z.number().min(0).max(1),
   clearance: z.number().finite(),
-  correctionIterations: z.number().int().nonnegative().max(32),
+  correctionIterations: z
+    .number()
+    .int()
+    .nonnegative()
+    .max(PLAYER_BODY_CONTACT.maximumCorrectionIterations),
   balanceBefore: z.tuple([z.number(), z.number()]),
   balanceAfter: z.tuple([z.number(), z.number()]),
   remainderSeconds: z.number().nonnegative().optional(),
@@ -48,15 +62,6 @@ export const playerBodyContactSchema = z.object({
 });
 export const playerBodyContactsSchema = z.array(playerBodyContactSchema).max(8);
 
-/** Same upright 34cm torso core as PR212's standing contact witness. The wider
- * locomotion personal-space/compliance constraint is not a second impact surface.
- * Restitution is an uncalibrated engineering assumption; tangent friction is zero. */
-export const PLAYER_BODY_CONTACT = {
-  diameter: 0.68,
-  rearmClearance: 0.01,
-  tolerance: 1e-8,
-  restitution: 0.05,
-} as const;
 const length = (v: { x: number; y: number }) => Math.hypot(v.x, v.y);
 export const playerPairKey = (a: string, b: string) => [a, b].sort().join('\u0000');
 export const playerBodyClearance = (a: MatchPlayerState, b: MatchPlayerState) =>

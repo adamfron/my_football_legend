@@ -2,6 +2,58 @@
 
 Base: merged PR215, `3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10`.
 
+## Five-body follow-up — five-final-v2
+
+**Five-body component support passes; full-match diagnostic remains incomplete.**
+Research change: the existing cluster solver now admits five connected upright outfield
+bodies. Two/four-body components retain their 32-sweep arithmetic and budget. Five-body
+components have at most 64 sweeps and 640 logged pair impulses (10 possible pairs × 64).
+The 1e-4m/s residual, 1e-7m contact tolerance, 2mm correction, 16-event interval and 22-episode
+storage bounds remain unchanged. Six connected bodies still produce explicit overflow.
+No second executor, extra motor update, changed restitution or forced possession is added.
+
+Local result: the exact old 698.675172247s five-body contact resolves in 11 sweeps / 20
+support impulses. Kinetic energy falls from 64.741200374J to 64.647856871J, residual closing
+speed is 4.38e-11m/s and penetration is zero. The 60s canonical continuation makes 133
+onward decisions. Replay from the native 660s checkpoint matches the full-run 720s
+checkpoint exactly. See canonical-five-final-v2.json.gz, five-component-native-replay-final-v2.json.gz
+and five-body-incident-input.json.gz under performance/pr216.
+
+The alternating 110/55kg chain exposes why simply raising the body count is insufficient:
+the actual 32-sweep impulse-ledger prefix leaves 0.000524121725m/s closing speed. The
+64-sweep result reaches 2.13e-8m/s with 256 recorded impulses and dissipates passive energy.
+This is an uncalibrated engineering stress control, not an empirical mass calibration.
+Its full input and impulse ledger are in five-constraint-budget-v2.json.gz. New tests cover
+unequal masses, oblique/cross contacts, zero-restitution persistence, deterministic roster
+ordering, canonical continuation/reload and explicit six-body overflow. The CI benchmark
+retains five-body support events even when no new restitution impact is due.
+
+Integration effect: the unchanged frozen 22-player / B input now passes the former five-body
+halt. The renewed full-match attempt reaches **946.075s and 1663 decisions**, then records
+initial_penetration at a different historical normal-pass release handoff. It is **not** a
+completed 90-minute match. Across 10766 body solves, the maximum component is five,
+maximum iterations 29, residual 1.00e-10m/s, body penetration 1.76e-14m, momentum error
+2.28e-13kg·m/s and passive-energy increase zero. Complete input, minute checkpoints,
+activation counters, event ledger and pre-incident window remain source-bound in
+match-attempt-initial-five-final-v2.json.gz. The maintained paired PR201/B baseline is
+recorded separately, without enabling the development observer or changing its profile.
+
+Next dependency: repair that finite release handoff.
+At 946.025s the owned ball is at 0.252378902m; at 946.050s the historical normal pass
+replaces it with a grounded release at height zero, outside the prepared low-foot path.
+On entry to the physical interval, the releasing right boot has a 0.026840311m negative
+surface clearance. The exact pre-release/invalid-input/terminal states and measured gaps
+are in next-release-handoff-blocker-five-v2.json.gz and its JSON summary. No body bound,
+foot tolerance or launch input is changed to force this attempt through the incident.
+
+Promotion decision: **RETAIN_EXPERIMENTAL**. Maintained PR201/B, defaults, issue dimensions
+and sealed independent confirmation remain unchanged. Production stance/traction/falling
+remain prototypes. Source, final verify, historical replay and browser results are indexed
+in performance/pr216/verification.json. Earlier source editions and their failures below
+remain preserved with their original scope.
+
+## Earlier P1 source edition — p1-final-v6
+
 **P0/P1 continuous-play gates pass; RETAIN_EXPERIMENTAL.** Research change: finite
 active-ankle reaching and retraction share the existing connected foot geometry, canonical
 motor interval and chronological contact search. Local result: the preserved resting-ball

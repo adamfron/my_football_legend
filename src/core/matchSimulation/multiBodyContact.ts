@@ -12,8 +12,9 @@ import {
 } from './playerBodyContact';
 
 export const MULTI_BODY = {
-  maximumBodies: 4,
+  maximumBodies: 5,
   iterations: 32,
+  fiveBodyIterations: PLAYER_BODY_CONTACT.maximumCorrectionIterations,
   events: 16,
   footEvaluations: 2560,
   contactTolerance: 1e-7,
@@ -27,7 +28,7 @@ export const multiBodyResolutionSchema = z.object({
   at: z.number().nonnegative(),
   participants: z.string().array().max(22),
   reason: z.string(),
-  iterations: z.number().int().min(0).max(MULTI_BODY.iterations),
+  iterations: z.number().int().min(0).max(MULTI_BODY.fiveBodyIterations),
   pairChecks: z.number().int().min(0).max(231),
   momentumBefore: vector,
   momentumAfter: vector,
@@ -38,7 +39,12 @@ export const multiBodyResolutionSchema = z.object({
   maximumPenetration: z.number().nonnegative(),
   positionCorrection: z.number().nonnegative(),
   unresolved: z.boolean(),
-  impulses: playerBodyContactSchema.array().max(192),
+  impulses: playerBodyContactSchema
+    .array()
+    .max(
+      (MULTI_BODY.fiveBodyIterations * MULTI_BODY.maximumBodies * (MULTI_BODY.maximumBodies - 1)) /
+        2,
+    ),
   motorWorkAt: z.number().nonnegative().optional(),
   motorWork: z
     .array(
@@ -70,7 +76,7 @@ export const multiBodyParticipants = (s: TacticalMatchState, dt: number) => {
   const ids = new Set<string>();
   if (!ownsMultiBodyInterval(s, dt)) return ids;
   // Torso authority must not disappear when the ball changes owner or technique.
-  // The broad phase covers the roster; each actual connected solve is still <=4.
+  // The broad phase covers the roster; each actual connected solve is still <=5.
   for (const p of s.players)
     if (canParticipatePhysically(p) && !s.discipline?.[p.id]?.sentOff && supportedUprightPair(p, p))
       ids.add(p.id);
@@ -253,7 +259,11 @@ export const resolveMultiBodyContact = (
       };
   }
   if (reason === 'resolved') {
-    for (let pass = 0; pass < MULTI_BODY.iterations; pass++) {
+    // Preserve the existing two/four-body arithmetic and budget. The measured
+    // five-body mass-ratio chain needs more support sweeps to meet the same residual.
+    const iterationLimit =
+      players.length === 5 ? MULTI_BODY.fiveBodyIterations : MULTI_BODY.iterations;
+    for (let pass = 0; pass < iterationLimit; pass++) {
       iterations++;
       let changed = false;
       for (const [a0, b0] of localPairs) {

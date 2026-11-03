@@ -88,7 +88,12 @@ const trace = (initial, ticks) => {
       maximumPenetration = Math.max(maximumPenetration, c.maximumPenetration);
       supportSteps += Number(c.impulses.some((x) => x.kind === 'support'));
       impacts += c.impulses.filter((x) => x.kind === 'impact').length;
-      if (c.unresolved || c.impulses.some((x) => x.kind === 'impact')) events.push(c);
+      if (
+        c.unresolved ||
+        c.participants.length === 5 ||
+        c.impulses.some((x) => x.kind === 'impact')
+      )
+        events.push(c);
     }
     window.push({
       time: s.time,
@@ -141,6 +146,30 @@ for (const name of [
 ])
   locals.push([name, withHolisticDevelopment(createPr214Scene(name).initial), 12]);
 const local = locals.map(([name, s, ticks]) => ({ name, ...trace(s, ticks) }));
+const fiveInput = JSON.parse(gunzipSync(readFileSync(`${ROOT}/five-body-incident-input.json.gz`)));
+const fiveContinuation = trace(fiveInput.initial, 2400);
+assert.equal(
+  fiveContinuation.terminal.executionWitnesses?.unresolved,
+  undefined,
+  'five-body canonical continuation',
+);
+assert.ok(
+  fiveContinuation.terminal.decisionIndex > fiveContinuation.initial.decisionIndex,
+  'onward decisions after fifth body',
+);
+assert.ok(
+  fiveContinuation.events.some((c) => c.participants.length === 5 && !c.unresolved),
+  'actual five-body solve',
+);
+for (const c of fiveContinuation.events) {
+  assert.ok(c.maximumPenetration <= 1e-7);
+  assert.ok(c.residualClosingSpeed <= 1e-4);
+  assert.ok(c.energyAfter <= c.energyBefore + 1e-7);
+  for (const axis of ['x', 'y'])
+    assert.ok(
+      Math.abs(c.momentumAfter[axis] - c.momentumBefore[axis] - c.boundaryImpulse[axis]) < 1e-7,
+    );
+}
 assert.equal(local[0].terminal.executionWitnesses?.unresolved, undefined, 'reception remainder');
 assert.equal(local[0].terminal.executionWitnesses?.['controlled-reception']?.executed, 1);
 const match = trace(old.initial, check ? 2400 : 24000);
@@ -280,6 +309,15 @@ assert.equal(falls[0].frames.at(-1).phase, 'supported');
 assert.equal(falls[2].frames.at(-1).phase, 'grounded');
 const summary = {
   source: source.fingerprint,
+  fiveBody: {
+    inputHash: hash(reload(fiveInput.initial)),
+    previousSource: fiveInput.source,
+    from: fiveContinuation.initial.time,
+    to: fiveContinuation.terminal.time,
+    decisions: fiveContinuation.terminal.decisionIndex - fiveContinuation.initial.decisionIndex,
+    solves: fiveContinuation.events.filter((c) => c.participants.length === 5).length,
+    maximumPenetration: fiveContinuation.maximumPenetration,
+  },
   lastSeparated,
   firstOverlap,
   local: local.map((r) => ({
@@ -332,6 +370,7 @@ if (!check) {
   write(`${ROOT}/canonical-${version}.json.gz`, {
     source: source.fingerprint,
     local,
+    fiveContinuation,
     match,
     reaching,
     settledRebound,

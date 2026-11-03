@@ -48,7 +48,7 @@ export const withHolisticDevelopment = (
 };
 
 export const HOLISTIC_LIMITATION =
-  'Tryb ograniczony: wspólna oś kontaktu obejmuje niskie podania, prowadzenie, przyjęcia i interwencje stojąc poza strefą bramkarza. Zderzenia wyprostowanych ciał mają wspólną chronologię; komponent może liczyć najwyżej cztery ciała. Bramkarze i wysokie zagrania zachowują dotychczasowe ścieżki. Podparcie stóp i upadanie pozostają prototypami. Pełny mecz holistyczny wymaga osobnej weryfikacji.';
+  'Tryb ograniczony: wspólna oś kontaktu obejmuje niskie podania, prowadzenie, przyjęcia i interwencje stojąc poza strefą bramkarza. Zderzenia wyprostowanych ciał mają wspólną chronologię; komponent może liczyć najwyżej pięć ciał. Bramkarze i wysokie zagrania zachowują dotychczasowe ścieżki. Podparcie stóp i upadanie pozostają prototypami. Pełny mecz holistyczny wymaga osobnej weryfikacji.';
 
 /** Derive the display/export identity from executing selectors, never the UI label. */
 export const effectiveHolisticRecipe = (s: TacticalMatchState) => {

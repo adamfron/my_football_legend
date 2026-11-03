@@ -158,7 +158,6 @@ describe('PR214 bounded canonical multi-body remainder', () => {
   });
   it('preserves explicit overflow/deep-overlap/tangent states instead of forcing a winner', () => {
     for (const [scene, reason] of [
-      ['over-bound-five', 'body_count_bound'],
       ['deep-overlap', 'initial_body_overlap'],
       ['near-tangent', 'near_tangent_body'],
     ] as const) {

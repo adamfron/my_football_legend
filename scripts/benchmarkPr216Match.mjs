@@ -41,6 +41,16 @@ for (const arm of smoke ? ['initial'] : ['initial', 'baseline']) {
     progressBall = { x: s.ball.x, y: s.ball.y },
     unchanged = 0;
   const identities = new Set();
+  const physicalDiagnostics = {
+    solves: 0,
+    fiveBodySolves: 0,
+    maximumBodies: 0,
+    maximumIterations: 0,
+    maximumResidual: 0,
+    maximumPenetration: 0,
+    maximumMomentumError: 0,
+    maximumPassiveEnergyIncrease: 0,
+  };
   const checkpoint = () => {
     let a = s,
       b = reload(s);
@@ -68,6 +78,36 @@ for (const arm of smoke ? ['initial'] : ['initial', 'baseline']) {
     }
     const prior = s;
     s = stepTacticalMatchAfterDecisionProbe(s, 0.025);
+    for (const c of s.multiBodyResolutions ?? []) {
+      physicalDiagnostics.solves++;
+      physicalDiagnostics.fiveBodySolves += Number(c.participants.length === 5);
+      physicalDiagnostics.maximumBodies = Math.max(
+        physicalDiagnostics.maximumBodies,
+        c.participants.length,
+      );
+      physicalDiagnostics.maximumIterations = Math.max(
+        physicalDiagnostics.maximumIterations,
+        c.iterations,
+      );
+      physicalDiagnostics.maximumResidual = Math.max(
+        physicalDiagnostics.maximumResidual,
+        c.residualClosingSpeed,
+      );
+      physicalDiagnostics.maximumPenetration = Math.max(
+        physicalDiagnostics.maximumPenetration,
+        c.maximumPenetration,
+      );
+      physicalDiagnostics.maximumMomentumError = Math.max(
+        physicalDiagnostics.maximumMomentumError,
+        ...['x', 'y'].map((axis) =>
+          Math.abs(c.momentumAfter[axis] - c.momentumBefore[axis] - c.boundaryImpulse[axis]),
+        ),
+      );
+      physicalDiagnostics.maximumPassiveEnergyIncrease = Math.max(
+        physicalDiagnostics.maximumPassiveEnergyIncrease,
+        c.energyAfter - c.energyBefore,
+      );
+    }
     if (s === prior) unchanged++;
     else unchanged = 0;
     ballTransport += Math.hypot(s.ball.x - prior.ball.x, s.ball.y - prior.ball.y);
@@ -160,6 +200,7 @@ for (const arm of smoke ? ['initial'] : ['initial', 'baseline']) {
     reason,
     decisions: s.decisionIndex - initial.decisionIndex,
     witnesses: s.executionWitnesses,
+    physicalDiagnostics,
     minutes: minutes.map((m) => ({ ...m, witnesses: undefined })),
     wallSeconds: (performance.now() - begin) / 1000,
     cpu: process.cpuUsage(cpu),
