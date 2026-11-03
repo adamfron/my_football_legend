@@ -15,7 +15,11 @@ import {
   ZERO_TEMPORAL_ERROR,
 } from './temporalFootStrike';
 import { activeStrikeCapability, executeFootContact, playerFootGeometry } from './footContact';
-import { deriveLowerBodyGeometry } from './lowerBodyGeometry';
+import {
+  deriveLowerBodyGeometry,
+  interpolateLowerBodyPose,
+  neutralLowerBodyPose,
+} from './lowerBodyGeometry';
 import { releaseContactReadiness } from './decisionReadiness';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { canParticipatePhysically } from './matchInjuries';
@@ -282,15 +286,66 @@ export const canonicalStrikeFoot = (
   );
   const angle = before.facingAngle + (turn * local) / dt;
   const rotated = rotate(sub(a, { ...before.position, z: 0 }), (turn * local) / dt);
-  const position = add(add({ ...before.position, z: 0 }, scale(bodyVelocity, local)), rotated);
+  let position = add(add({ ...before.position, z: 0 }, scale(bodyVelocity, local)), rotated);
   // Follow the same rotating body geometry used at an impulse rebase. Interpolating
   // endpoint foot chords creates a discontinuity when a body event splits that chord.
-  const anchorVelocity = add(bodyVelocity, {
+  let anchorVelocity = add(bodyVelocity, {
     x: (rotated.y * turn) / dt,
     y: (-rotated.x * turn) / dt,
     z: (b.z - a.z) / dt,
   });
   position.z = a.z + ((b.z - a.z) * local) / dt;
+  let baseSpeedBound =
+    norm(bodyVelocity) +
+    Math.abs(turn / dt) * Math.hypot(rotated.x, rotated.y) +
+    Math.abs(anchorVelocity.z);
+  let accelerationBound = (turn / dt) ** 2 * Math.hypot(rotated.x, rotated.y);
+  if (before.lowerBodyPose?.reachOffset || after.lowerBodyPose?.reachOffset) {
+    const from = before.lowerBodyPose ?? neutralLowerBodyPose(),
+      to = after.lowerBodyPose ?? neutralLowerBodyPose();
+    const pose = interpolateLowerBodyPose(from, to, local / dt)!;
+    const side = foot === 'left' ? -1 : 1,
+      alpha = angle + pose.hipYaw;
+    const fwd = { x: Math.sin(alpha), y: Math.cos(alpha) },
+      right = { x: fwd.y, y: -fwd.x };
+    const ankle = (p: typeof pose) => ({
+      x: (side * p.stanceWidth) / 2 + (p.activeLeg === foot ? (p.reachOffset?.x ?? 0) : 0),
+      y: p.footLead + (p.activeLeg === foot ? (p.reachOffset?.y ?? 0) : 0),
+    });
+    const startAnkle = ankle(from),
+      endAnkle = ankle(to),
+      current = ankle(pose);
+    const rate = { x: (endAnkle.x - startAnkle.x) / dt, y: (endAnkle.y - startAnkle.y) / dt };
+    const omega = (turn + to.hipYaw - from.hipYaw) / dt;
+    position = {
+      x: before.position.x + bodyVelocity.x * local + right.x * current.x + fwd.x * current.y,
+      y: before.position.y + bodyVelocity.y * local + right.y * current.x + fwd.y * current.y,
+      z: position.z,
+    };
+    anchorVelocity = {
+      x:
+        bodyVelocity.x +
+        right.x * rate.x +
+        fwd.x * rate.y +
+        omega * (right.x * current.y - fwd.x * current.x),
+      y:
+        bodyVelocity.y +
+        right.y * rate.x +
+        fwd.y * rate.y +
+        omega * (right.y * current.y - fwd.y * current.x),
+      z: anchorVelocity.z,
+    };
+    const radius = Math.max(
+      Math.hypot(startAnkle.x, startAnkle.y),
+      Math.hypot(endAnkle.x, endAnkle.y),
+    );
+    baseSpeedBound =
+      norm(bodyVelocity) +
+      Math.hypot(rate.x, rate.y) +
+      Math.abs(omega) * radius +
+      Math.abs(anchorVelocity.z);
+    accelerationBound = omega * omega * radius + 2 * Math.abs(omega) * Math.hypot(rate.x, rate.y);
+  }
   if (recovery) {
     const u = Math.max(0, Math.min(1, (intervalAt + local - recovery.beganAt) / recovery.seconds));
     const offset = rotate(recovery.displacement, normalizeAngle(angle - recovery.facingAngle));
@@ -307,8 +362,8 @@ export const canonicalStrikeFoot = (
         }),
       ),
       speedBound:
-        norm(bodyVelocity) +
-        Math.abs(turn / dt) * (Math.hypot(rotated.x, rotated.y) + norm(offset)) +
+        baseSpeedBound +
+        Math.abs(turn / dt) * norm(offset) +
         (1.5 * norm(offset)) / recovery.seconds,
     };
   }
@@ -316,11 +371,8 @@ export const canonicalStrikeFoot = (
     return {
       position,
       velocity: anchorVelocity,
-      speedBound:
-        norm(bodyVelocity) +
-        Math.abs(turn / dt) * Math.hypot(rotated.x, rotated.y) +
-        Math.abs(anchorVelocity.z),
-      accelerationBound: (turn / dt) ** 2 * Math.hypot(rotated.x, rotated.y),
+      speedBound: baseSpeedBound,
+      accelerationBound,
     };
   const elapsed = intervalAt + local - pending.selectedAt;
   const { relative, relativeVelocity } = relativeTemporalFootAt(pending.path, elapsed);
@@ -333,9 +385,7 @@ export const canonicalStrikeFoot = (
       add(rotate(relativeVelocity, normalizeAngle(angle - pending.plan.facingAngle)), angular),
     ),
     speedBound:
-      norm(anchorVelocity) +
-      pending.path.speedBound +
-      Math.abs(turn / dt) * pending.path.reachBound,
+      baseSpeedBound + pending.path.speedBound + Math.abs(turn / dt) * pending.path.reachBound,
   };
 };
 
@@ -356,15 +406,36 @@ export const findStrikeIntervalContact = (
     (BALL_PHYSICS.gravity + BALL_PHYSICS.maximumMagnusAcceleration) * seconds +
     Math.max(footAt(0).speedBound, footAt(seconds).speedBound) +
     supportSpeedBound;
-  let local = 0;
+  let local = 0,
+    previousLocal = 0;
   for (let evaluations = 1; evaluations <= maximumEvaluations; evaluations++) {
-    const ball =
+    let ball =
       local === 0
         ? initial
         : (supportedFlight?.(local) ?? integrateBallFlight(initial, local, state.ballEnvironment));
-    const foot = footAt(local);
-    const delta = sub(ball.position, foot.position),
+    let foot = footAt(local);
+    let delta = sub(ball.position, foot.position),
       gap = norm(delta) - 0.11 - radius;
+    if (supportedFlight && local > 0 && gap < -TEMPORAL_STRIKE.distanceTolerance) {
+      // A projected support curve can close faster than its free-flight bound.
+      // Refine the witnessed clear/intersecting bracket before competing events;
+      // do not misreport a later sampled crossing as corrupt initial geometry.
+      let low = previousLocal,
+        high = local;
+      while (high - low > 1e-10 && evaluations < maximumEvaluations) {
+        const middle = (low + high) / 2,
+          flight = supportedFlight(middle),
+          surface = footAt(middle);
+        evaluations++;
+        if (norm(sub(flight.position, surface.position)) - 0.11 - radius > 0) low = middle;
+        else high = middle;
+      }
+      local = high;
+      ball = supportedFlight(local);
+      foot = footAt(local);
+      delta = sub(ball.position, foot.position);
+      gap = norm(delta) - 0.11 - radius;
+    }
     if (gap <= TEMPORAL_STRIKE.distanceTolerance) {
       const normal = scale(delta, 1 / Math.max(1e-12, norm(delta)));
       const closing = dot(sub(foot.velocity, ball.velocity), normal);
@@ -405,6 +476,7 @@ export const findStrikeIntervalContact = (
       const closing = dot(sub(foot.velocity, ball.velocity), scale(delta, 1 / norm(delta)));
       advance = (-closing + Math.sqrt(closing * closing + 2 * acceleration * gap)) / acceleration;
     }
+    previousLocal = local;
     local = Math.min(seconds, local + Math.max(1e-12, 0.9 * advance));
   }
   return {

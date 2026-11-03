@@ -182,6 +182,16 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
   it('retains passive-body support after that actor is excluded from further foot service', () => {
     const f = createPr215PassiveSupportScene();
     let s = f.initial;
+    // Cluster mode now has separate boot and torso geometry. Exercise the torso
+    // at torso height; the historical ground-level aggregate fixture stays sealed.
+    const actor = s.players.find((p) => p.id === f.actorId)!;
+    s.ball = {
+      ...s.ball,
+      x: 30,
+      height: (actor.profile.heightCm / 100) * 0.77 + 0.45,
+      velocity: { x: 0, y: 0, z: -0.01 },
+      airborne: true,
+    };
     for (let i = 0; i < 4; i++) {
       s = advancePendingStrikeInterval(s, { ...s, time: s.time + 0.025 }, 0.025, {
         ordinary: true,

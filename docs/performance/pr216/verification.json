@@ -1,9 +1,9 @@
 {
-  "schema": "pr216-verification-v2",
+  "schema": "pr216-verification-p1-v6",
   "source": {
     "base": "3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10",
-    "fingerprint": "d3c0e1f660112cd3ba7b59a4395d63ed3997f076afafa9331805943b30b59873",
-    "archive": "docs/performance/pr216/source-d3c0e1f660112cd3ba7b59a4395d63ed3997f076afafa9331805943b30b59873.json.gz"
+    "fingerprint": "e6b5e4f1f8ee81321331e7a28af60789c73d9b8e776747aaac6b9e21666aef0d",
+    "archive": "docs/performance/pr216/source-e6b5e4f1f8ee81321331e7a28af60789c73d9b8e776747aaac6b9e21666aef0d.json.gz"
   },
   "requiredVerify": {
     "command": "npm run verify",
@@ -11,29 +11,12 @@
     "exitCode": 0,
     "node": "v24.22.1",
     "nodeOptions": "--max-semi-space-size=64",
-    "unit": 2612,
+    "unit": 2620,
     "integration": 56,
     "careerContract": 4,
     "fullCareer": 5,
-    "log": "docs/performance/pr216/verification-logs/verify-final-v2.log.gz",
-    "scope": "Full command passes. Unit phase precedes the passive-foot law/ownership follow-up; final 2613-unit and 56-integration publication phases separately cover it. Later career/full-career/TypeScript/build phases use final production code. Do not describe a single source-stable verify invocation."
-  },
-  "publication": {
-    "unit": {
-      "status": "PASS",
-      "count": 2613,
-      "files": 281
-    },
-    "integration": {
-      "status": "PASS",
-      "count": 56,
-      "files": 3
-    },
-    "supplementLog": "docs/performance/pr216/verification-logs/verify-publication-v3.log.gz",
-    "supplementFullCommand": "INTENTIONALLY_STOPPED_DURING_DUPLICATE_CAREER_AFTER_UNIT_AND_INTEGRATION_PASS; complete career coverage is retained in the required verify command",
-    "projectLint": "PASS after method-script import correction",
-    "typescriptAndProductionBuild": "PASS",
-    "diffCheck": "PASS"
+    "log": "docs/performance/pr216/verification-logs/verify-p1-final-v6.log.gz",
+    "scope": "One complete command on the final source manifest; no runtime/source edits during the command."
   },
   "sourceSuite": {
     "status": "PASS",
@@ -42,6 +25,7 @@
       {
         "name": "current-replay",
         "args": [
+          "--max-semi-space-size=64",
           "--experimental-transform-types",
           "--import",
           "./scripts/registerTypescriptLoader.mjs",
@@ -50,7 +34,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "log": "docs/performance/pr216/verification-logs/pr216-replay-publication-final.log.gz"
+        "seconds": 21.201,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-current-replay.log.gz"
       },
       {
         "name": "registry",
@@ -60,8 +45,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 7.125,
-        "log": "docs/performance/pr216/verification-logs/initial-registry.log.gz"
+        "seconds": 6.821,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-registry.log.gz"
       },
       {
         "name": "ci-contracts",
@@ -71,8 +56,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 47.39,
-        "log": "docs/performance/pr216/verification-logs/initial-ci-contracts.log.gz"
+        "seconds": 35.657,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-ci-contracts.log.gz"
       },
       {
         "name": "corruption",
@@ -81,8 +66,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 13.686,
-        "log": "docs/performance/pr216/verification-logs/initial-corruption.log.gz"
+        "seconds": 11.645,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-corruption.log.gz"
       },
       {
         "name": "history-203",
@@ -91,8 +76,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 185.903,
-        "log": "docs/performance/pr216/verification-logs/initial-history-203.log.gz"
+        "seconds": 184.157,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-203.log.gz"
       },
       {
         "name": "history-204",
@@ -101,8 +86,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 35.207,
-        "log": "docs/performance/pr216/verification-logs/initial-history-204.log.gz"
+        "seconds": 36.204,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-204.log.gz"
       },
       {
         "name": "history-205",
@@ -111,8 +96,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 8.386,
-        "log": "docs/performance/pr216/verification-logs/initial-history-205.log.gz"
+        "seconds": 7.17,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-205.log.gz"
       },
       {
         "name": "history-206",
@@ -121,8 +106,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 12.952,
-        "log": "docs/performance/pr216/verification-logs/initial-history-206.log.gz"
+        "seconds": 11.403,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-206.log.gz"
       },
       {
         "name": "history-207",
@@ -132,8 +117,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 86.956,
-        "log": "docs/performance/pr216/verification-logs/initial-history-207.log.gz"
+        "seconds": 70.369,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-207.log.gz"
       },
       {
         "name": "history-208",
@@ -143,8 +128,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 193.83,
-        "log": "docs/performance/pr216/verification-logs/initial-history-208.log.gz"
+        "seconds": 150.731,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-208.log.gz"
       },
       {
         "name": "history-209",
@@ -154,8 +139,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 48.993,
-        "log": "docs/performance/pr216/verification-logs/initial-history-209.log.gz"
+        "seconds": 40.219,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-209.log.gz"
       },
       {
         "name": "history-210",
@@ -165,8 +150,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 37.149,
-        "log": "docs/performance/pr216/verification-logs/frozen-history-210.log.gz"
+        "seconds": 29.384,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-210.log.gz"
       },
       {
         "name": "history-211",
@@ -175,8 +160,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 42.694,
-        "log": "docs/performance/pr216/verification-logs/frozen-history-211.log.gz"
+        "seconds": 32.062,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-211.log.gz"
       },
       {
         "name": "history-212",
@@ -185,8 +170,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 40.469,
-        "log": "docs/performance/pr216/verification-logs/frozen-history-212.log.gz"
+        "seconds": 31.872,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-212.log.gz"
       },
       {
         "name": "history-213",
@@ -195,8 +180,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 47.878,
-        "log": "docs/performance/pr216/verification-logs/frozen-history-213.log.gz"
+        "seconds": 35.922,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-213.log.gz"
       },
       {
         "name": "history-214",
@@ -205,8 +190,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 53.334,
-        "log": "docs/performance/pr216/verification-logs/frozen-history-214.log.gz"
+        "seconds": 36.321,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-214.log.gz"
       },
       {
         "name": "history-215",
@@ -215,7 +200,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "log": "docs/performance/pr216/verification-logs/history-215-corrected.log.gz"
+        "seconds": 33.957,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-history-215.log.gz"
       },
       {
         "name": "authority",
@@ -228,8 +214,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 2.101,
-        "log": "docs/performance/pr216/verification-logs/initial-authority.log.gz"
+        "seconds": 1.864,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-authority.log.gz"
       },
       {
         "name": "information",
@@ -242,8 +228,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 2.183,
-        "log": "docs/performance/pr216/verification-logs/initial-information.log.gz"
+        "seconds": 1.992,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-information.log.gz"
       },
       {
         "name": "pr205-contracts",
@@ -257,8 +243,8 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 2.051,
-        "log": "docs/performance/pr216/verification-logs/initial-pr205-contracts.log.gz"
+        "seconds": 1.635,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-pr205-contracts.log.gz"
       },
       {
         "name": "pr206-contracts",
@@ -271,145 +257,151 @@
         ],
         "exitCode": 0,
         "error": null,
-        "seconds": 6.871,
-        "log": "docs/performance/pr216/verification-logs/initial-pr206-contracts.log.gz"
+        "seconds": 5.529,
+        "log": "docs/performance/pr216/verification-logs/history-p1-v6-pr206-contracts.log.gz"
       }
-    ],
-    "failedAttemptsRetained": [
-      {
-        "name": "current-replay",
-        "exitCode": 1
-      },
-      {
-        "name": "history-210",
-        "exitCode": 1
-      },
-      {
-        "name": "history-211",
-        "exitCode": 1
-      },
-      {
-        "name": "history-212",
-        "exitCode": 1
-      },
-      {
-        "name": "history-213",
-        "exitCode": 1
-      },
-      {
-        "name": "history-214",
-        "exitCode": 1
-      },
-      {
-        "name": "history-215",
-        "exitCode": 1
-      }
-    ],
-    "failedFrozenAttempt": [
-      {
-        "name": "history-215",
-        "exitCode": 1
-      }
-    ],
-    "attemptExplanation": "Initial current-replay mistakenly invoked PR215 against current source; later guard rejections correctly detected source changes during development. The first exact-source PR215 wrapper also called benchmarkPr214 in the PR215 tree; correcting only that invocation passes original unmodified PR215 assertions. All failed attempts remain retained."
+    ]
   },
-  "sourceArchiveAudit": "docs/performance/pr216/source-archive-audit-final.json",
-  "historicalReceiptBytes": "PR195–215 unchanged versus merged PR215; git diff exit 0",
-  "manifest": "PASS: 124 commands, 144 explicit cases, 28 consolidated jobs, 63 historical complete matches preserved",
+  "sourceReconstruction": {
+    "source": "e6b5e4f1f8ee81321331e7a28af60789c73d9b8e776747aaac6b9e21666aef0d",
+    "base": "3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10",
+    "paths": 1373,
+    "status": "PASS",
+    "method": "git archive base plus complete normalized source delta; every manifest path hash compared"
+  },
+  "continuousPlay": {
+    "receipt": "docs/performance/pr216/canonical-p1-final-v6.json.gz",
+    "summary": "docs/performance/pr216/summary-p1-final-v6.json",
+    "normalSeconds": 599.9999999997282,
+    "frozenSeconds": 599.9999999997282,
+    "mandatoryP1": "PASS_WITHIN_DECLARED_FOUR_BODY_SCOPE",
+    "deadlock": {
+      "from": 599.9999999997282,
+      "to": 609.9999999997191,
+      "decisions": 2,
+      "lastContact": 600.0522105737579
+    }
+  },
+  "fullProtocol": {
+    "development": {
+      "reason": "unresolved:body_count_bound",
+      "seconds": 698.6999999996384,
+      "decisions": 1158,
+      "receipt": "docs/performance/pr216/match-attempt-initial-p1-final-v6.json.gz"
+    },
+    "baseline": {
+      "reason": "full_time",
+      "seconds": 5782.100000006393,
+      "fullMatch": true,
+      "receipt": "docs/performance/pr216/match-attempt-baseline-p1-final-v6.json.gz"
+    },
+    "status": "ATTEMPTED_NOT_COMPLETE: exact five-body overflow preserved; four-body bound unchanged"
+  },
   "browser": {
     "status": "PASS",
     "viewports": 2,
     "report": "docs/performance/pr216/browser/report.json",
-    "finalBuild": true
+    "source": "e6b5e4f1f8ee81321331e7a28af60789c73d9b8e776747aaac6b9e21666aef0d"
   },
-  "canonical": {
-    "status": "PHYSICAL_PROGRESS_ONLY",
-    "recordingSource": "da0646593e10d5eb0539314b90f1a6793723ce0b4ee4751736fa1c29b181faba",
-    "publicationSourceDifferences": [
-      "scripts/ci/replayPr215Check.mjs",
-      "src/core/matchSimulation/pr216Continuity.test.ts"
-    ],
-    "allProductionRuntimeSourceHashesEqual": true,
-    "matchSeconds": 599.9999999997282,
-    "lastPolicyDecisionAt": 6.450000000000024,
-    "impacts": 19,
-    "maximumPenetration": 1.4432899320127035e-11,
-    "wallSeconds": 144.7658334,
-    "cpu": {
-      "user": 154531000,
-      "system": 3360000
-    },
-    "peakRSSKiB": 687824,
-    "mandatoryP1": "NOT_COMPLETE",
-    "readiness": "BLOCKED_BY_LIVENESS_AND_REMAINING_COVERAGE"
-  },
-  "hostedCI": {
-    "firstHead": "d2bd89874bb253135c92c292f85aff94a0b940eb",
-    "firstRun": "https://github.com/adamfron/my_football_legend/actions/runs/41532376135",
-    "firstFailure": "PR215 wrapper invoked PR214 benchmark in PR215 source; fixed and locally replayed. Final head requires a new hosted run."
-  },
-  "logs": [
-    "docs/performance/pr216/verification-logs/blocker216.log.gz",
-    "docs/performance/pr216/verification-logs/browser-final.log.gz",
-    "docs/performance/pr216/verification-logs/browser-publication-final.log.gz",
-    "docs/performance/pr216/verification-logs/build-browser.log.gz",
-    "docs/performance/pr216/verification-logs/current-replay-final.log.gz",
-    "docs/performance/pr216/verification-logs/diff-check-publication.log.gz",
-    "docs/performance/pr216/verification-logs/diff-final.log.gz",
-    "docs/performance/pr216/verification-logs/focused-final-v2.log.gz",
-    "docs/performance/pr216/verification-logs/focused-v1.log.gz",
-    "docs/performance/pr216/verification-logs/history-215-corrected.log.gz",
-    "docs/performance/pr216/verification-logs/history-frozen-v3.log.gz",
-    "docs/performance/pr216/verification-logs/history-suite-final-v1.log.gz",
-    "docs/performance/pr216/verification-logs/lint-publication-final-v2.log.gz",
-    "docs/performance/pr216/verification-logs/lint-publication-final.log.gz",
-    "docs/performance/pr216/verification-logs/lint-v2.log.gz",
-    "docs/performance/pr216/verification-logs/manifest-final.log.gz",
-    "docs/performance/pr216/verification-logs/manifest-publication-final.log.gz",
-    "docs/performance/pr216/verification-logs/matched-original-pair.log.gz",
-    "docs/performance/pr216/verification-logs/passive-law-final.log.gz",
-    "docs/performance/pr216/verification-logs/pr216-record-final-v1.log.gz",
-    "docs/performance/pr216/verification-logs/pr216-record-final-v2.log.gz",
-    "docs/performance/pr216/verification-logs/pr216-record-v1.log.gz",
-    "docs/performance/pr216/verification-logs/pr216-record-v2.log.gz",
-    "docs/performance/pr216/verification-logs/shared-v2.log.gz",
-    "docs/performance/pr216/verification-logs/trace-debug.log.gz",
-    "docs/performance/pr216/verification-logs/trace-debug2.log.gz",
-    "docs/performance/pr216/verification-logs/trace-debug3.log.gz",
-    "docs/performance/pr216/verification-logs/trace-debug4.log.gz",
-    "docs/performance/pr216/verification-logs/trace-debug5.log.gz",
-    "docs/performance/pr216/verification-logs/trace-debug6.log.gz",
-    "docs/performance/pr216/verification-logs/trace-final-v1.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v1.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v10.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v11.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v12.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v2.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v3.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v4.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v5.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v6.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v7.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v8.log.gz",
-    "docs/performance/pr216/verification-logs/trace-long-v9.log.gz",
-    "docs/performance/pr216/verification-logs/trace-passive-law.log.gz",
-    "docs/performance/pr216/verification-logs/trace-v1.log.gz",
-    "docs/performance/pr216/verification-logs/trace-v2.log.gz",
-    "docs/performance/pr216/verification-logs/trace-v3.log.gz",
-    "docs/performance/pr216/verification-logs/trace-v4.log.gz",
-    "docs/performance/pr216/verification-logs/types-final-pre.log.gz",
-    "docs/performance/pr216/verification-logs/types-v1.log.gz",
-    "docs/performance/pr216/verification-logs/types-v2.log.gz",
-    "docs/performance/pr216/verification-logs/types-v3.log.gz",
-    "docs/performance/pr216/verification-logs/types-v4.log.gz",
-    "docs/performance/pr216/verification-logs/verify-final-v1.log.gz",
-    "docs/performance/pr216/verification-logs/verify-final-v2.log.gz",
-    "docs/performance/pr216/verification-logs/verify-publication-v3.log.gz",
-    "docs/performance/pr216/verification-logs/verify-v1.log.gz",
-    "docs/performance/pr216/verification-logs/verify-v2.log.gz",
-    "docs/performance/pr216/verification-logs/workflow-publication-final.log.gz",
-    "docs/performance/pr216/verification-logs/workflow.log.gz"
-  ],
-  "full90Minutes": "NOT_RUN",
-  "promotion": "RETAIN_EXPERIMENTAL"
+  "promotion": "RETAIN_EXPERIMENTAL",
+  "maintainedCandidate": "PR201 realism-candidate-v1 / B unchanged",
+  "previousVerification": "docs/performance/pr216/verification-before-p1.json",
+  "preservedNewLogs": [
+    "docs/performance/pr216/verification-logs/history-p1-v6-authority.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-ci-contracts.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-corruption.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-current-replay.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-203.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-204.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-205.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-206.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-207.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-208.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-209.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-210.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-211.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-212.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-213.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-214.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-history-215.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-information.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-pr205-contracts.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-pr206-contracts.log.gz",
+    "docs/performance/pr216/verification-logs/history-p1-v6-registry.log.gz",
+    "docs/performance/pr216/verification-logs/p1-52-search.log.gz",
+    "docs/performance/pr216/verification-logs/p1-52-torso-detail.log.gz",
+    "docs/performance/pr216/verification-logs/p1-791-debug.log.gz",
+    "docs/performance/pr216/verification-logs/p1-791-refine.log.gz",
+    "docs/performance/pr216/verification-logs/p1-791-torso.log.gz",
+    "docs/performance/pr216/verification-logs/p1-benchmark-final-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-benchmark-final-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-benchmark-final-v3.log.gz",
+    "docs/performance/pr216/verification-logs/p1-benchmark-final-v4.log.gz",
+    "docs/performance/pr216/verification-logs/p1-benchmark-final-v5.log.gz",
+    "docs/performance/pr216/verification-logs/p1-benchmark-final-v6.log.gz",
+    "docs/performance/pr216/verification-logs/p1-browser-v4.log.gz",
+    "docs/performance/pr216/verification-logs/p1-browser-v6.log.gz",
+    "docs/performance/pr216/verification-logs/p1-contact-gates-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-contact-gates-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-contact-gates-v3.log.gz",
+    "docs/performance/pr216/verification-logs/p1-contact-gates-v4.log.gz",
+    "docs/performance/pr216/verification-logs/p1-contact-gates-v5.log.gz",
+    "docs/performance/pr216/verification-logs/p1-contact-gates-v6.log.gz",
+    "docs/performance/pr216/verification-logs/p1-debug-budget.log.gz",
+    "docs/performance/pr216/verification-logs/p1-debug-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-debug-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-debug-v3.log.gz",
+    "docs/performance/pr216/verification-logs/p1-debug-v4.log.gz",
+    "docs/performance/pr216/verification-logs/p1-focused-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-focused-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-focused-v3.log.gz",
+    "docs/performance/pr216/verification-logs/p1-focused-v4.log.gz",
+    "docs/performance/pr216/verification-logs/p1-frozen-band-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-frozen-chord-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-frozen-debug-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-frozen-detail-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-frozen-reception-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-frozen-smoke-final-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-frozen-smoke-final-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-frozen-unlabelled-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-frozen600-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-handoff-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-handoff-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-lint-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-lint-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-lint-v3.log.gz",
+    "docs/performance/pr216/verification-logs/p1-lint-v4.log.gz",
+    "docs/performance/pr216/verification-logs/p1-lint-v6.log.gz",
+    "docs/performance/pr216/verification-logs/p1-match-attempt-final-v3.log.gz",
+    "docs/performance/pr216/verification-logs/p1-match-attempt-final-v4.log.gz",
+    "docs/performance/pr216/verification-logs/p1-match-attempt-final-v6.log.gz",
+    "docs/performance/pr216/verification-logs/p1-normal-acquisition-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-normal-band-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-normal-chord-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-normal238-detail.log.gz",
+    "docs/performance/pr216/verification-logs/p1-passive-body-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-persistent-foot-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-reach-600-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-reach-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-reach-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-restart-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-restart-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-source-reconstruction-v6.log.gz",
+    "docs/performance/pr216/verification-logs/p1-source-suite-v3.log.gz",
+    "docs/performance/pr216/verification-logs/p1-source-suite-v6.log.gz",
+    "docs/performance/pr216/verification-logs/p1-types-v1.log.gz",
+    "docs/performance/pr216/verification-logs/p1-types-v2.log.gz",
+    "docs/performance/pr216/verification-logs/p1-types-v3.log.gz",
+    "docs/performance/pr216/verification-logs/p1-types-v4.log.gz",
+    "docs/performance/pr216/verification-logs/p1-types-v5.log.gz",
+    "docs/performance/pr216/verification-logs/p1-types-v6.log.gz",
+    "docs/performance/pr216/verification-logs/p1-types-v7.log.gz",
+    "docs/performance/pr216/verification-logs/p1-verification-package-v6.log.gz",
+    "docs/performance/pr216/verification-logs/p1-vite-browser-v4.log.gz",
+    "docs/performance/pr216/verification-logs/verify-p1-final-v1.log.gz",
+    "docs/performance/pr216/verification-logs/verify-p1-final-v2.log.gz",
+    "docs/performance/pr216/verification-logs/verify-p1-final-v3.log.gz",
+    "docs/performance/pr216/verification-logs/verify-p1-final-v4.log.gz",
+    "docs/performance/pr216/verification-logs/verify-p1-final-v6.log.gz"
+  ]
 }

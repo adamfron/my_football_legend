@@ -2,22 +2,22 @@
 
 Base: merged PR215, `3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10`.
 
-**DRAFT / P1 NOT COMPLETE / BLOCKED_FOR_HOLISTIC_MATCH.** Research change: extend
-the existing contact owner across ordinary low football and all supported upright
-outfield transport. Local result: reception remainder and bounded body/contact
-regressions pass. Integration effect: the original 30cm overlap path is prevented,
-but normal-team play exposes a further loose-ball foot-reaching deadlock. Promotion:
-**RETAIN_EXPERIMENTAL**, maintained PR201/B unchanged. Next dependency: executable
-reaching/support-foot motion in the same geometry, then physical fall/recovery.
-This PR does **not** fulfil the prompt's mandatory complete P1 acceptance gate.
+**P0/P1 continuous-play gates pass; RETAIN_EXPERIMENTAL.** Research change: finite
+active-ankle reaching and retraction share the existing connected foot geometry, canonical
+motor interval and chronological contact search. Local result: the preserved resting-ball
+deadlock resumes actual control and two further decisions in ten seconds. Integration:
+two unchanged 22-player inputs each pass 600 seconds with contacts, decisions and ball
+transport in every minute. Promotion: maintained PR201/B remains unchanged; gait/traction
+and falling are isolated prototypes. Next dependency: bounded denser contact continuation,
+then common planted stance/ball geometry and physically coupled fall/recovery. Full protocol attempt is reported separately below.
 
 ## 1. Execution plan and audit
 
 Order: PR210–215/source/protocol audit; preserved incident reconstruction; extend
 first-contact authority; reception/carry/delivery remainder; local and saved-state
 regressions; normal 22-player run; gait/traction audit and isolated prototype; sparse
-fall prototype; historical-source checks, browser, verify and hosted CI. No 90-minute
-run may follow the failed ordinary-play liveness gate.
+fall prototype; historical-source checks, browser, verify and hosted CI. The preserved failed liveness editions are negative evidence; only the repaired, source-bound
+P1 edition may pass the smoke gate and dispatch the frozen protocol attempt.
 
 Audited authorities: `matchSimulation` remains the only canonical 40Hz executor;
 `canonicalMovement`/`locomotion` spend one finite motor budget; `pendingStrikeInterval`
@@ -103,10 +103,12 @@ historical profile selection.
 
 ## 5. Reception, carrying, low delivery and loose ball
 
-The ordinary interval admits owned low carries, released touches and low labelled deliveries,
-including a bounded low bounce whose projected height remains <=0.24m. It retains first-time,
-shot, keeper-zone and genuinely high-ball fallbacks. The incoming velocity/height and one
-actual reception impulse at **10.047027611s in this source edition** are retained; transport
+The ordinary interval admits owned carries and their physical bounces, free balls even without
+a historical looseSince label, and low deliveries approaching the existing 0.65m ground-control
+band. A descending delivery is admitted before crossing that band in the current tick. It retains
+first-time, shot, keeper-zone and genuinely high-ball fallbacks. A nonphysical committed/slide
+intention does not suspend ordinary ball flight while its historical resolver waits. The incoming velocity/height and one
+actual reception impulse recorded in the source-bound local receipt are retained; transport
 continues to 10.4s in the local apparatus instead of losing the reception remainder.
 Flight age/distance advance once along the actual serviced delivery segments.
 
@@ -190,56 +192,99 @@ support failure and ground contact. No RNG or injury roll is used. Only disturbe
 would need such extra state in a later live hybrid. It is neither a full anatomical ragdoll
 nor validated linked-body recovery; the grounded contact is dissipative and simplified.
 
-## 12. Exact next implementation plan (PR217)
+## 12. P1 repair and next implementation plan (PR217)
 
-1. Reproduce the complete source-bound normal-team loose-ball deadlock checkpoint below.
-   Give an actually nominated acquisition a finite reaching-foot path with reachable ankle,
-   passive opposing contacts, readiness, misses and finite retraction. Nomination cannot
-   assign possession; successful actual control must execute exactly one shared impulse.
-2. Persist stance/swing contact locations and finite transfer in the **same** canonical
-   player/foot geometry consumed by kicks, tackles and collision rebasing. Add leg-reach
-   admissibility, support loading, separate finite translation/rotation and explicit slip.
-3. Couple COM/support polygon, torso angular momentum and bounded postural recovery to
-   the existing physical body impulse. Do not infer a fall from balance rating alone.
-4. Activate sparse torso/pelvis falling only after physically failed support recovery; add
-   ground/player/ball contact for its actual fallen geometry. Keep upright and fallen
-   contact owners mutually exclusive and preserve Law 12/keeper authority.
-5. Implement grounded support and finite powered recovery through anatomically reachable
-   articulated poses, with force/work/ground constraints; no timer teleport to upright.
-6. Exercise pass, shot, one-leg opponent contact and supported turn with the actual common
-   foot solver, plus impulse/no-impulse/recovery controls and exact native saved states.
-7. Repair normal-team liveness, complete all ten required ordinary-play scenarios and the
-   frozen smoke/protocol gates. Then attempt the first 90-minute development match.
+Reaching is a bounded, saved displacement of the active ankle in body-local turf coordinates:
+maximum 1.2m/s and 0.30m per axis. The connected two-bone geometry, contact-law consumer and
+searched path use the same ankle; one canonical motor update spends that budget once. An
+actual foot event stops the remaining reach command, and finite retraction/recovery precedes
+another powered touch. Nomination never grants possession. Acquisition after a historical
+high-ball/keeper consumer also requires the actual three-dimensional foot surface (0.145m
+combined radii, 1µm contact tolerance). Both feet remain solid during a prepared stroke.
 
-Actual falling and recovery belong in that dedicated physics PR once the common support
-geometry is valid; they are not deferred to an unspecified animation project.
+Persistent foot support supplies zero-restitution constraints in the trajectory searched by
+all other feet. Prepared/recovering displacement participates in geometric rearming; expired
+recovery cannot resurrect an old prepared offset. Unsupported actors cannot be repeatedly
+serviced through the recovery exception. The shared upright motor chord now also survives
+personal-space writes around unsupported bodies. Staging/retrieval keeps upright outfield
+CCD active; the perimeter persists through restart release so a legal thrower returns from
+the touchline without a body snap. Historical keeper/aerial consumers retain their named
+scope. A selected prepared attempt still explicitly rejects an unsupported third-body contact.
+
+The historical 0.72m aggregate ball/body sphere also occupied working boot space. In cluster
+mode it is replaced by the same 0.34m torso core used for body/body contact, represented as
+a vertical capsule at 65% of player height with 12% half-height. These proportions remain
+uncalibrated development assumptions; lower-limb skin beyond the actual boots is not modeled.
+Keeper and historical pair/aerial consumers retain their old geometry. This removes mutually
+incompatible self-support constraints rather than increasing overlap tolerances. Current torso
+persistence tests therefore use the actual capsule surface; historical ground aggregate inputs
+and receipts remain sealed. Supported-curve root crossings are bracket-refined within the same
+finite evaluation budget. A new challenge cannot begin while that actor's foot is still returning,
+so a hidden mid-swing path cannot appear when recovery expires. Settled shot rebounds return
+to the low physical interval while their shot lineage remains intact; moving/high rebounds retain
+their named consumer.
+
+Next: validate five/six-body dense constraint continuation, preserving finite event/search bounds,
+impulse/energy accounting and native replay. Then persist world stance/swing contacts in the common foot geometry; add finite load transfer,
+translation/rotation limits and explicit slip. Couple COM/support polygon, torso angular momentum
+and bounded recovery to actual body impulses. Activate sparse falling only after failed physical
+support, then implement grounded contact and reachable powered recovery. Exercise real pass,
+shot, one-leg contact and turn controls against that common geometry before production promotion.
 
 ## 13. Normal-team and browser results
 
-The normal `pr215-ui-incident` input is loaded without injecting scenes or altering rosters,
-policy B, selectors or attributes. The physical run reaches 600s without the original
-unresolved halt. **This is not an accepted continuous football integration smoke:** a later
-loose-ball state suffers action starvation. Four mutually constrained bodies can remain
-around a resting ball while no nominal foot sphere reaches it. The former acquisition
-consumer is replaced in the shared interval, but an active finite reaching-foot mechanism
-has not replaced its whole useful scope. Advancing the clock cannot pass this liveness gate.
-The final edition has 19 fresh body impacts, maximum reported penetration 1.4433e-11m, and its last B policy invocation at 6.450s. The earlier final-v1 edition (before the passive-foot law/ownership correction) had 97 impacts and last B invocation at 22.625s; it is retained as an earlier result, not rebound to the final code. The minimum actual foot-surface clearance in that terminal is 0.062366838m despite nominal 0.82m control reach; see `performance/pr216/loose-ball-reaching-blocker.json`. This distinguishes a reachable planned leg movement from a foot that physically touched the ball. The complete terminal state and preceding 80-frame window are preserved. No possession,
-fake force, immunity, teleport or invented referee interruption is used to break the pack.
+The final P1 source is bound by performance/pr216/source.json and the reconstructible delta
+archive. See summary-p1-final-v6.json and canonical-p1-final-v6.json.gz for complete inputs,
+checkpoints, event windows and minute-by-minute liveness. No rosters, permanent attributes,
+seed, policy or selected physical mechanisms are changed between ticks.
 
-The mandatory controlled-long-touch/approaching-defender/actual-tackle sequence is therefore
-not certified in normal continuous play; neither are all ten requested full-team scenarios.
-Keeper fallback/local law tests remain distinct from a newly accepted whole-match result.
-Browser results and screenshots are retained separately in `performance/pr216/browser`.
+| 600s input | Decisions | Executed receptions | Prepared kicks | Standing foot contacts |
+| --- | ---: | ---: | ---: | ---: |
+| Preserved PR215 browser incident | 822 | 230 | 45 | 26 |
+| Frozen protocol B input | 1030 | 267 | 28 | 25 |
+
+Every 60-second window has actual foot activity, onward decisions and over one metre of
+measured ball transport. Neither run reports an unresolved interval. The first has 471 fresh
+body impacts, 5838 supporting solve steps and maximum recorded penetration 1.69e-14m; its last
+B invocation is at 599.825s. Save/reload continuation compares eight exact native steps at
+minute checkpoints. The CI check uses 60 seconds of the first roster, 120 seconds of the
+second, plus ten seconds resumed directly from the old resting-ball checkpoint. It requires
+real activity, rather than accepting clock progression alone. Resuming the old 600s deadlock
+now produces a fresh foot contact at 600.052210574s and two decisions by 610s. Separate regressions cover the
+prepared standing/recovery latch and an unlabelled ball handed back by the aerial consumer.
+
+Earlier final-v2 remains negative evidence: its last B call was 6.450s and the minimum actual
+foot-surface gap was 0.062366838m despite nominal reach of 0.82m. Earlier P1 source editions
+passed one roster but failed the frozen input at 63.600s; that failed receipt remains stored.
+The repaired handoffs are not rebound to those old recordings. No forced possession,
+teleport, immunity or invented referee intervention breaks the pack. Browser acceptance
+and exports remain separate UI checks in performance/pr216/browser.
+
+### Frozen protocol attempt
+
+The first full-match attempt was actually dispatched after the local and 600s smoke gates.
+It stopped at **698.700s** with **body_count_bound**: five connected bodies exceeded the
+unchanged four-body contract. It had made 1158 decisions. Complete input, native checkpoints,
+the contact event and bounded pre-incident window are in
+match-attempt-initial-p1-final-v6.json.gz and its summary. No bound is silently raised and no
+winner, teleport or forced continuation replaces that unsupported solve. This is an explicit
+failed 90-minute diagnostic, distinct from the passed scoped P0/P1 continuous-play gates.
+The maintained paired baseline completed at 5782.1s with 11521 decisions. Its complete terminal
+state matches the pre-torso-change baseline exactly in the same native environment; see
+baseline-parity-p1-v6.json. Earlier failed source editions are recorded separately.
+The next match-level dependency is supported five-body/denser contact continuation; production
+stance/fall coupling remains a separate physics dependency. **No holistic 90-minute completion
+or whole-profile promotion is claimed.**
 
 ## 14. Save/replay and historical evidence
 
 New complete schema checkpoints are compared over eight exact native continuation steps
 each, with no rounding of physical values. Normal schema normalization removes surplus ball
 metadata copied into point-valued tactical targets, as in the preserved PR215 limitation.
-There is no claim of Edge/Node or Windows/Linux bit-identical trajectories. The publication source differs from the final-v2 canonical recording only in the added passive-foot regression test and the corrected historical PR215 wrapper invocation; all production/runtime source hashes are equal, with this difference explicitly indexed in verification.json. Historical
-PR195–215 receipt bytes/assertions remain unchanged. PR215's original checker now executes
-in its exact merged source via `scripts/ci/replayPr215Check.mjs`; current guards bind PR216
-separately. Source manifests and reconstructible delta archives accompany the new receipts.
+There is no claim of Edge/Node or Windows/Linux bit-identical trajectories. The P1 receipts and
+final verification are indexed by their actual source fingerprint. Historical PR195–215 evidence
+bytes remain unchanged, and historical checks execute their frozen source archives. Earlier
+publication verification and failed invocations are retained separately from the new P1 run.
 
 ## 15. Performance and verification
 
@@ -252,20 +297,14 @@ be extrapolated to a certified 90-minute match.
 
 ## 16. Completion answers and promotion decision
 
-1. **Cause of 30cm penetration:** carry-phase omission of the shared two-moving-body contact
-   owner; historical position-only endpoints entered the solid core before later handoff.
-2. **Earlier time:** preserved chord entry 11.232146682511107s within [11.225,11.250].
-3. **Contact before deep overlap:** yes in the declared supported upright canonical paths
-   and tested ordinary low carry/reception coverage; unsupported geometry remains explicit.
-4. **Remainder:** both bodies and the supported low ball continue from resulting velocities;
-   reception remainder now completes. Unsupported high/keeper ball phases retain named owners.
-5. **Turf:** production feet still slide with the body; finite traction/anchored IK is an isolated
-   experiment with explicit slip/support failure, not a promoted live contact mechanism.
-6. **Destabilization:** body impulses already change velocity/balance. Genuine falls additionally
-   need COM/support geometry, angular momentum, recovery limits and ground/fallen-ball contacts;
-   a planar isolated prototype now exercises part of that dependency.
-7. **Playable continuous holistic match:** original halt prevented, **full ordinary play still
-   fails liveness**. This draft does not promise the owner a finished continuous match.
-8. **First 90 minutes:** **NOT READY / NOT RUN**. The exact next blocker is active finite
-   loose-ball foot reaching in a body-constrained contest, followed by complete ordinary
-   coverage/activation gates. Independent confirmation remains sealed.
+1. The original 30cm penetration came from carry-phase omission of the shared two-moving-body
+   owner; the preserved source/input evidence identifies first surface entry before the later halt.
+2. Supported upright outfield transport now uses first-contact impulses and actual remainders
+   across ordinary play and restart staging. Bounds and unsupported prepared encounters remain explicit.
+3. P1 now has finite reaching, real control and onward normal-team activity, with two 600s
+   receipts and continuous-play regression gates. This does not certify every future match input.
+4. World foot planting is still absent in production. The source-backed traction/IK and planar
+   fall prototypes establish executable foundations and explicit coupling dependencies.
+5. RETAIN_EXPERIMENTAL. PR201/B/defaults, formal issue dimensions and sealed independent
+   confirmation remain unchanged. Full-match protocol outcome is recorded separately; no
+   elapsed clock, selected flag or completed diagnostic promotes the physics profile.

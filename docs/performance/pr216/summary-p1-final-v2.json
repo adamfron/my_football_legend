@@ -1,0 +1,643 @@
+{
+  "source": "05604e55cb0d3fb2f2e622e54ce8bd00d68040b45a5097a773961dd18456bbb7",
+  "lastSeparated": {
+    "time": 11.225000000000092,
+    "players": [
+      {
+        "id": "footballer_pro_0_11",
+        "position": {
+          "x": 46.31433040718605,
+          "y": 37.44858029659183
+        },
+        "velocity": {
+          "x": -0.4883217192286793,
+          "y": 0.5226511542440448
+        }
+      },
+      {
+        "id": "footballer_pro_1_12",
+        "position": {
+          "x": 45.817404023552115,
+          "y": 37.940126357939356
+        },
+        "velocity": {
+          "x": 2.544637935573917,
+          "y": -1.3981831051617633
+        }
+      }
+    ],
+    "separation": 0.01896592275858966,
+    "ballOwner": "footballer_pro_0_12",
+    "contactOwnerActive": false
+  },
+  "firstOverlap": {
+    "time": 11.250000000000092,
+    "players": [
+      {
+        "id": "footballer_pro_0_11",
+        "position": {
+          "x": 46.28732818073837,
+          "y": 37.44483762099661
+        },
+        "velocity": {
+          "x": -0.42059053038713046,
+          "y": 0.5404659085684216
+        }
+      },
+      {
+        "id": "footballer_pro_1_12",
+        "position": {
+          "x": 45.86951067586959,
+          "y": 37.921412263597524
+        },
+        "velocity": {
+          "x": 2.529647695319568,
+          "y": -1.2219929954659392
+        }
+      }
+    ],
+    "separation": -0.046205981927122663,
+    "ballOwner": "footballer_pro_0_12",
+    "contactOwnerActive": false
+  },
+  "local": [
+    {
+      "name": "reception",
+      "unresolved": null,
+      "impacts": 0,
+      "maximumPenetration": 0
+    },
+    {
+      "name": "ordinary-contest",
+      "unresolved": null,
+      "impacts": 2,
+      "maximumPenetration": 3.552713678800501e-15
+    },
+    {
+      "name": "line-three",
+      "unresolved": null,
+      "impacts": 2,
+      "maximumPenetration": 3.1086244689504383e-15
+    },
+    {
+      "name": "line-four",
+      "unresolved": null,
+      "impacts": 3,
+      "maximumPenetration": 2.4424906541753444e-15
+    },
+    {
+      "name": "body-pass-third",
+      "unresolved": null,
+      "impacts": 2,
+      "maximumPenetration": 2.1094237467877974e-15
+    },
+    {
+      "name": "pass-body-third",
+      "unresolved": null,
+      "impacts": 2,
+      "maximumPenetration": 2.886579864025407e-15
+    },
+    {
+      "name": "body-pass-challenge",
+      "unresolved": null,
+      "impacts": 2,
+      "maximumPenetration": 1.2212453270876722e-15
+    },
+    {
+      "name": "ball-touchline",
+      "unresolved": null,
+      "impacts": 1,
+      "maximumPenetration": 2.220446049250313e-16
+    },
+    {
+      "name": "stationary-duel",
+      "unresolved": null,
+      "impacts": 0,
+      "maximumPenetration": 0
+    }
+  ],
+  "match": {
+    "seconds": 599.9999999997282,
+    "impacts": 541,
+    "supportSteps": 7309,
+    "maximumPenetration": 1.865174681370263e-14,
+    "savedComparisons": 88,
+    "witnesses": {
+      "bounded-flight-belief": {
+        "invoked": 24000,
+        "executed": 0,
+        "at": 599.9999999997282,
+        "source": "liveBallFlight.advanceLiveBallFlight"
+      },
+      "contact-interval": {
+        "invoked": 24000,
+        "executed": 0,
+        "at": 599.9749999997282,
+        "source": "pendingStrikeInterval.advance"
+      },
+      "ground-contact": {
+        "invoked": 32873,
+        "executed": 0,
+        "at": 599.9749999997282,
+        "source": "pendingStrikeInterval.integrateBallFlight"
+      },
+      "receiver-anticipation": {
+        "invoked": 744,
+        "executed": 0,
+        "at": 599.9749999997282,
+        "source": "matchSimulation.observeReceptionBall"
+      },
+      "fallback-delivery": {
+        "invoked": 1108,
+        "executed": 0,
+        "at": 599.9999999997282,
+        "source": "matchSimulation.historical-labelled-delivery"
+      },
+      "controlled-reception": {
+        "invoked": 369,
+        "executed": 369,
+        "at": 599.2465023070134,
+        "source": "matchSimulation.resolveReceptionOutcome"
+      },
+      "height-aware-passing": {
+        "invoked": 500,
+        "executed": 0,
+        "at": 599.9499999997282,
+        "source": "passDecision.forecastPassInterventions:lofted"
+      },
+      "ordinary-loose-ball": {
+        "invoked": 17872,
+        "executed": 0,
+        "at": 599.9499999997282,
+        "source": "pendingStrikeInterval.advance:ordinary"
+      },
+      "policy-b": {
+        "invoked": 1462,
+        "executed": 0,
+        "at": 599.9499999997282,
+        "source": "matchSimulation.chooseNpcRoutineAction"
+      },
+      "pending-low-pass": {
+        "invoked": 208,
+        "executed": 0,
+        "at": 598.6499999997294,
+        "source": "pendingStrike.commitPendingPass"
+      },
+      "missed-kick": {
+        "invoked": 153,
+        "executed": 153,
+        "at": 598.7699999997294,
+        "source": "pendingStrike.finish:miss:swing_completed_without_contact"
+      },
+      "defensive-reception": {
+        "invoked": 142,
+        "executed": 142,
+        "at": 595.9629596230153,
+        "source": "matchSimulation.resolveReceptionOutcome:defensive"
+      },
+      "body-cluster": {
+        "invoked": 7846,
+        "executed": 541,
+        "at": 599.4782861786883,
+        "source": "pendingStrikeInterval.resolveMultiBodyContact"
+      },
+      "ball-body-contact": {
+        "invoked": 297,
+        "executed": 297,
+        "at": 589.5428030111129,
+        "source": "pendingStrikeInterval.passiveFoot"
+      },
+      "standing-challenge": {
+        "invoked": 35,
+        "executed": 34,
+        "at": 592.245494015053,
+        "source": "pendingStrikeInterval.executePendingContact"
+      },
+      "prepared-kick": {
+        "invoked": 52,
+        "executed": 52,
+        "at": 590.2318067775085,
+        "source": "pendingStrike.finish:contact:foot_ball_intersection"
+      },
+      "physical-kick": {
+        "invoked": 4,
+        "executed": 1,
+        "at": 536.8499999997856,
+        "source": "matchActions.resolveMatchAction:physical-kick"
+      },
+      "receiver-recovery": {
+        "invoked": 1361,
+        "executed": 0,
+        "at": 599.9999999997282,
+        "source": "matchSimulation.boundedMovementTarget:hold-local"
+      },
+      "interrupted-kick": {
+        "invoked": 3,
+        "executed": 3,
+        "at": 125.56286185563928,
+        "source": "pendingStrike.finish:interrupted:competing_foot"
+      },
+      "fallback-keeper-aerial": {
+        "invoked": 51,
+        "executed": 0,
+        "at": 579.6249999997467,
+        "source": "matchSimulation.historical-loose-ball"
+      },
+      "fallback-carry": {
+        "invoked": 20,
+        "executed": 0,
+        "at": 476.77499999984025,
+        "source": "matchSimulation.advanceControlledBall:owned"
+      }
+    },
+    "liveness": [
+      {
+        "from": 0,
+        "to": 59.99999999999766,
+        "decisions": 162,
+        "receptions": 53,
+        "standingContacts": 5,
+        "kicks": 2,
+        "ballTransport": 78.61696138230351,
+        "secondsSincePolicy": 4.5999999999997385
+      },
+      {
+        "from": 59.99999999999766,
+        "to": 120.00000000001016,
+        "decisions": 109,
+        "receptions": 32,
+        "standingContacts": 1,
+        "kicks": 2,
+        "ballTransport": 155.1674569668052,
+        "secondsSincePolicy": 0.12500000000002842
+      },
+      {
+        "from": 120.00000000001016,
+        "to": 180.0000000000238,
+        "decisions": 135,
+        "receptions": 39,
+        "standingContacts": 5,
+        "kicks": 5,
+        "ballTransport": 98.69141988958815,
+        "secondsSincePolicy": 0.1750000000000398
+      },
+      {
+        "from": 180.0000000000238,
+        "to": 240.00000000003743,
+        "decisions": 142,
+        "receptions": 34,
+        "standingContacts": 2,
+        "kicks": 5,
+        "ballTransport": 138.74639419352042,
+        "secondsSincePolicy": 4.0000000000009095
+      },
+      {
+        "from": 240.00000000003743,
+        "to": 300.000000000001,
+        "decisions": 103,
+        "receptions": 32,
+        "standingContacts": 5,
+        "kicks": 5,
+        "ballTransport": 196.9655614108786,
+        "secondsSincePolicy": 0.09999999999990905
+      },
+      {
+        "from": 300.000000000001,
+        "to": 359.99999999994645,
+        "decisions": 154,
+        "receptions": 47,
+        "standingContacts": 7,
+        "kicks": 8,
+        "ballTransport": 114.45444088562746,
+        "secondsSincePolicy": 0.42499999999961346
+      },
+      {
+        "from": 359.99999999994645,
+        "to": 419.9999999998919,
+        "decisions": 42,
+        "receptions": 12,
+        "standingContacts": 0,
+        "kicks": 5,
+        "ballTransport": 145.8108561627045,
+        "secondsSincePolicy": 35.42499999996778
+      },
+      {
+        "from": 419.9999999998919,
+        "to": 479.9999999998373,
+        "decisions": 101,
+        "receptions": 32,
+        "standingContacts": 2,
+        "kicks": 5,
+        "ballTransport": 169.67093416229602,
+        "secondsSincePolicy": 1.1749999999989313
+      },
+      {
+        "from": 479.9999999998373,
+        "to": 539.9999999997827,
+        "decisions": 132,
+        "receptions": 39,
+        "standingContacts": 2,
+        "kicks": 9,
+        "ballTransport": 154.38572741311464,
+        "secondsSincePolicy": 0.1999999999998181
+      },
+      {
+        "from": 539.9999999997827,
+        "to": 599.9999999997282,
+        "decisions": 128,
+        "receptions": 49,
+        "standingContacts": 5,
+        "kicks": 6,
+        "ballTransport": 164.09048484256107,
+        "secondsSincePolicy": 0.049999999999954525
+      }
+    ]
+  },
+  "reaching": {
+    "from": 599.9999999997282,
+    "to": 609.9999999997191,
+    "decisions": 30,
+    "lastContact": 609.4712731997114
+  },
+  "audit": {
+    "bodyTranslation": 0.5,
+    "footTranslation": 0.5,
+    "support": "nominal flags do not anchor world feet"
+  },
+  "gait": [
+    {
+      "name": "acceleration",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 501.71951199999995,
+      "peakAcceleration": 7.066471999999999,
+      "steps": 16,
+      "unsupported": false,
+      "bodyTransport": 10.619905099999883,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "acceleration",
+      "mu": 0.25,
+      "slip": 0.2306985999999998,
+      "peakForce": 501.7195120000006,
+      "peakAcceleration": 2.452500000000004,
+      "steps": 11,
+      "unsupported": false,
+      "bodyTransport": 4.966312500000001,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "sprint",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 501.71951199999927,
+      "peakAcceleration": 7.06647199999999,
+      "steps": 1,
+      "unsupported": true,
+      "bodyTransport": 1.3412481750000111,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "sprint",
+      "mu": 0.25,
+      "slip": 0.03172105749999993,
+      "peakForce": 501.71951199999927,
+      "peakAcceleration": 2.4524999999999864,
+      "steps": 2,
+      "unsupported": true,
+      "bodyTransport": 2.0261656250000044,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "braking",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 495.6988778560001,
+      "peakAcceleration": 6.981674336000001,
+      "steps": 11,
+      "unsupported": false,
+      "bodyTransport": 3.4218919027999988,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "braking",
+      "mu": 0.25,
+      "slip": 0.22645871679999938,
+      "peakForce": 495.6988778560001,
+      "peakAcceleration": 2.452500000000004,
+      "steps": 15,
+      "unsupported": false,
+      "bodyTransport": 9.033687500000035,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "turn90",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 501.7195120000005,
+      "peakAcceleration": 7.066472000000006,
+      "steps": 23,
+      "unsupported": false,
+      "bodyTransport": 7.1396694884935,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "turn90",
+      "mu": 0.25,
+      "slip": 0.22820766862000014,
+      "peakForce": 501.71951200000063,
+      "peakAcceleration": 2.452500000000014,
+      "steps": 17,
+      "unsupported": false,
+      "bodyTransport": 10.008850743407926,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "reverse180",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 501.71951199999995,
+      "peakAcceleration": 7.066471999999999,
+      "steps": 18,
+      "unsupported": false,
+      "bodyTransport": 1.3584125281999775,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "reverse180",
+      "mu": 0.25,
+      "slip": 0.2267237094999994,
+      "peakForce": 501.7195120000006,
+      "peakAcceleration": 2.452500000000004,
+      "steps": 15,
+      "unsupported": false,
+      "bodyTransport": 9.033687500000035,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "shuffle",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 501.71951199999995,
+      "peakAcceleration": 7.066471999999999,
+      "steps": 10,
+      "unsupported": false,
+      "bodyTransport": 2.605663259999922,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "shuffle",
+      "mu": 0.25,
+      "slip": 0.05976371249999999,
+      "peakForce": 501.71951200000024,
+      "peakAcceleration": 2.452500000000004,
+      "steps": 10,
+      "unsupported": false,
+      "bodyTransport": 2.359801562499939,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "backpedal",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 501.71951199999995,
+      "peakAcceleration": 7.066471999999999,
+      "steps": 10,
+      "unsupported": false,
+      "bodyTransport": 1.3739992699998709,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "backpedal",
+      "mu": 0.25,
+      "slip": 0.028764530000000003,
+      "peakForce": 501.71951199999995,
+      "peakAcceleration": 2.4524999999999997,
+      "steps": 10,
+      "unsupported": false,
+      "bodyTransport": 1.3086656249998896,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "pass-support",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 0,
+      "peakAcceleration": 0,
+      "steps": 10,
+      "unsupported": false,
+      "bodyTransport": 0,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "pass-support",
+      "mu": 0.25,
+      "slip": 0,
+      "peakForce": 0,
+      "peakAcceleration": 0,
+      "steps": 10,
+      "unsupported": false,
+      "bodyTransport": 0,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "shot-support",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 0,
+      "peakAcceleration": 0,
+      "steps": 10,
+      "unsupported": false,
+      "bodyTransport": 0,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "shot-support",
+      "mu": 0.25,
+      "slip": 0,
+      "peakForce": 0,
+      "peakAcceleration": 0,
+      "steps": 10,
+      "unsupported": false,
+      "bodyTransport": 0,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "one-leg-impact",
+      "mu": 1,
+      "slip": 0,
+      "peakForce": 501.7195120000004,
+      "peakAcceleration": 7.066472000000005,
+      "steps": 12,
+      "unsupported": false,
+      "bodyTransport": 6.658847581835821,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    },
+    {
+      "name": "one-leg-impact",
+      "mu": 0.25,
+      "slip": 0.2306985999999999,
+      "peakForce": 501.7195120000004,
+      "peakAcceleration": 2.4525000000000077,
+      "steps": 11,
+      "unsupported": false,
+      "bodyTransport": 4.754652778203751,
+      "scope": "isolated canonical motor/traction/IK; pass/shot labels are stance loading objectives, not executed kicks"
+    }
+  ],
+  "falls": [
+    {
+      "impulse": 0,
+      "terminal": {
+        "angle": 0,
+        "omega": 0,
+        "x": 0,
+        "z": 0.9,
+        "vx": 0,
+        "vz": 0,
+        "phase": "supported"
+      }
+    },
+    {
+      "impulse": 8,
+      "terminal": {
+        "angle": 0.5906999686586417,
+        "omega": 0,
+        "x": 0.5163986689370342,
+        "z": 0.47399762155115294,
+        "vx": 0,
+        "vz": 0,
+        "phase": "grounded"
+      }
+    },
+    {
+      "impulse": 100,
+      "terminal": {
+        "angle": 1.5351624141865754,
+        "omega": 0,
+        "x": 1.3106717575060056,
+        "z": 0.19591759963485672,
+        "vx": 0,
+        "vz": 0,
+        "phase": "grounded"
+      }
+    }
+  ],
+  "cost": {
+    "wallSeconds": 47.90409400000001,
+    "cpu": {
+      "user": 58969000,
+      "system": 1015000
+    },
+    "peakRSSKiB": 658740
+  },
+  "promotion": "RETAIN_EXPERIMENTAL",
+  "physicalProgressOnly": false,
+  "mandatoryP1": "PASS: finite loose-ball reaching, actual contacts and onward decisions; rolling normal-team liveness",
+  "lastPolicyDecisionAt": 599.9499999997282,
+  "secondsSincePolicyDecision": 0.049999999999954525,
+  "fullMatchReadiness": "SMOKE_PASS_FULL_MATCH_REPORTED_SEPARATELY",
+  "fallingProduction": false,
+  "stanceProduction": false
+}

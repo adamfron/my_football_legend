@@ -54,9 +54,34 @@ const trace = (initial, ticks) => {
     supportSteps = 0;
   const checkpoints = [],
     events = [],
-    window = [];
+    window = [],
+    liveness = [];
+  let lastSample = s,
+    ballTransport = 0;
   for (let i = 0; i < ticks; i++) {
+    const previous = s;
     s = stepTacticalMatch(s, 0.025);
+    ballTransport += Math.hypot(s.ball.x - previous.ball.x, s.ball.y - previous.ball.y);
+    if ((i + 1) % 2400 === 0) {
+      liveness.push({
+        from: lastSample.time,
+        to: s.time,
+        decisions: s.decisionIndex - lastSample.decisionIndex,
+        receptions:
+          (s.executionWitnesses?.['controlled-reception']?.executed ?? 0) -
+          (lastSample.executionWitnesses?.['controlled-reception']?.executed ?? 0),
+        standingContacts:
+          (s.executionWitnesses?.['standing-challenge']?.executed ?? 0) -
+          (lastSample.executionWitnesses?.['standing-challenge']?.executed ?? 0),
+        kicks:
+          (s.executionWitnesses?.['prepared-kick']?.executed ?? 0) -
+          (lastSample.executionWitnesses?.['prepared-kick']?.executed ?? 0),
+        ballTransport,
+        secondsSincePolicy: s.time - (s.executionWitnesses?.['policy-b']?.at ?? 0),
+      });
+      lastSample = s;
+      ballTransport = 0;
+    }
     if ((i + 1) % 2400 === 0) console.log('PR216 progress', ticks, i + 1, s.time);
     const clusters = s.multiBodyResolutions ?? [];
     for (const c of clusters) {
@@ -98,6 +123,7 @@ const trace = (initial, ticks) => {
     checkpoints,
     events,
     window,
+    liveness,
   };
 };
 const locals = [
@@ -125,6 +151,53 @@ assert.equal(
 );
 assert.ok(match.terminal.time > 59 && match.impacts > 0);
 assert.ok(match.maximumPenetration <= 0.002, 'unchanged penetration correction bound');
+for (const minute of match.liveness) {
+  assert.ok(
+    minute.decisions > 0 &&
+      minute.receptions + minute.standingContacts + minute.kicks > 0 &&
+      minute.ballTransport > 1,
+    `real football in every minute: ${JSON.stringify(minute)}`,
+  );
+  assert.ok(minute.secondsSincePolicy < 60, 'policy B cannot silently starve');
+}
+const formerDeadlock = JSON.parse(gunzipSync(readFileSync(`${ROOT}/canonical-final-v2.json.gz`)))
+  .match.terminal;
+const reaching = trace(formerDeadlock, 400);
+assert.equal(reaching.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(reaching.terminal.decisionIndex > formerDeadlock.decisionIndex);
+assert.ok(reaching.terminal.lastGroundContact.at > formerDeadlock.time);
+assert.ok(
+  Math.hypot(
+    reaching.terminal.ball.x - formerDeadlock.ball.x,
+    reaching.terminal.ball.y - formerDeadlock.ball.y,
+  ) > 0.5,
+);
+const frozenInput = JSON.parse(
+  gunzipSync(readFileSync('docs/performance/pr214/holistic-input-ci-v1.json.gz')),
+);
+const settledRebound = trace(
+  JSON.parse(gunzipSync(readFileSync(`${ROOT}/p1-settled-rebound-input.json.gz`))),
+  400,
+);
+assert.equal(settledRebound.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(
+  settledRebound.terminal.decisionIndex > settledRebound.initial.decisionIndex,
+  'settled rebound onward decisions',
+);
+assert.equal(hash(reload(frozenInput.initial)), frozenInput.initialHash);
+const frozenSmoke = trace({ ...frozenInput.initial, executionWitnesses: {} }, check ? 4800 : 24000);
+assert.equal(
+  frozenSmoke.terminal.executionWitnesses?.unresolved,
+  undefined,
+  'frozen 22-player smoke',
+);
+for (const minute of frozenSmoke.liveness)
+  assert.ok(
+    minute.decisions > 0 &&
+      minute.receptions + minute.standingContacts + minute.kicks > 0 &&
+      minute.ballTransport > 1,
+    `frozen liveness ${JSON.stringify(minute)}`,
+  );
 const actor = {
   ...old.initial.players.find((p) => p.slot.position !== 'goalkeeper'),
   position: { x: 50, y: 34 },
@@ -222,6 +295,19 @@ const summary = {
     maximumPenetration: match.maximumPenetration,
     savedComparisons: match.checkpoints.length * 8,
     witnesses: match.terminal.executionWitnesses,
+    liveness: match.liveness,
+  },
+  reaching: {
+    from: formerDeadlock.time,
+    to: reaching.terminal.time,
+    decisions: reaching.terminal.decisionIndex - formerDeadlock.decisionIndex,
+    lastContact: reaching.terminal.lastGroundContact.at,
+  },
+  frozenSmoke: {
+    seconds: frozenSmoke.terminal.time,
+    decisions: frozenSmoke.terminal.decisionIndex - frozenSmoke.initial.decisionIndex,
+    liveness: frozenSmoke.liveness,
+    witnesses: frozenSmoke.terminal.executionWitnesses,
   },
   audit,
   gait,
@@ -232,13 +318,13 @@ const summary = {
     peakRSSKiB: process.resourceUsage().maxRSS,
   },
   promotion: 'RETAIN_EXPERIMENTAL',
-  physicalProgressOnly: true,
+  physicalProgressOnly: false,
   mandatoryP1:
-    'NOT_COMPLETE: inspect normal-team action starvation; clock progression alone is not match continuity',
+    'PASS: finite loose-ball reaching, actual contacts and onward decisions; rolling normal-team liveness',
   lastPolicyDecisionAt: match.terminal.executionWitnesses?.['policy-b']?.at ?? null,
   secondsSincePolicyDecision:
     match.terminal.time - (match.terminal.executionWitnesses?.['policy-b']?.at ?? 0),
-  fullMatchReadiness: 'BLOCKED_BY_LIVENESS_AND_REMAINING_COVERAGE',
+  fullMatchReadiness: 'SMOKE_PASS_FULL_MATCH_REPORTED_SEPARATELY',
   fallingProduction: false,
   stanceProduction: false,
 };
@@ -247,6 +333,9 @@ if (!check) {
     source: source.fingerprint,
     local,
     match,
+    reaching,
+    settledRebound,
+    frozenSmoke,
     causal,
     falls,
     summary,

@@ -12,7 +12,11 @@ import { retainContinuousFootContacts } from './footContact';
 import { attacksRight } from './matchSpace';
 import { finishIncidentalGoal } from './incidentalGoals';
 import { advanceExperimentalBodyReception } from './experimentalBodyReception';
-import { advanceLowerBodyPose, constrainCompliantBodyStep } from './lowerBodyGeometry';
+import {
+  advanceLowerBodyPose,
+  constrainCompliantBodyStep,
+  deriveLowerBodyGeometry,
+} from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
 import { planSynchronizedReception, receptionPlanFacing } from './receiverSynchronisation';
 import {
@@ -629,6 +633,21 @@ const changePossession = (
 ) => {
   if (!canContactAfterThrowIn(state, ownerId)) return state;
   const receivingActor = state.players.find((p) => p.id === ownerId);
+  if (
+    state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
+    receivingActor &&
+    !isMatchGoalkeeper(receivingActor)
+  ) {
+    const geometry = deriveLowerBodyGeometry(receivingActor);
+    const gap = Math.min(
+      ...[geometry.left.foot, geometry.right.foot].map((f) =>
+        Math.hypot(f.x - state.ball.x, f.y - state.ball.y, f.z - (state.ball.height ?? 0.11)),
+      ),
+    );
+    // Historical aerial/keeper consumers may nominate a recipient. An outfield
+    // foot can secure that ball only at its actual three-dimensional surface.
+    if (gap > 0.145 + 1e-6) return state;
+  }
   if (
     state.experimentalPlayerBodyImpulse &&
     receivingActor &&
@@ -1639,7 +1658,13 @@ const stepTacticalMatchCore = (
   // A real human decision freezes the complete snapshot, including contact latches.
   if (input.experimentalPlayerBodyImpulse) {
     const contact = input.lastGroundContact;
-    const feet = [...(input.continuousFootContacts ?? [])];
+    const feet = (input.continuousFootContacts ?? []).map((c) => {
+      // A completed stroke returns through recoveringFeet. Its old displacement
+      // must never reappear when that return expires while contact remains latched.
+      if (input.recoveringFeet?.some((f) => f.actorId === c.actorId && f.foot === c.foot))
+        return { actorId: c.actorId, foot: c.foot };
+      return c;
+    });
     if (
       contact?.executed &&
       contact.at > input.time - 0.025 - 1e-9 &&
@@ -2430,11 +2455,9 @@ const stepTacticalMatchCore = (
         distance(p.position, next) < (player.lowerBodyPose && p.lowerBodyPose ? 1.4 : 1.15),
     );
     for (const other of close) {
-      if (
-        clusterParticipants.has(player.id) &&
-        clusterParticipants.has(other.id) &&
-        supportedUprightPair(player, other)
-      )
+      if (clusterParticipants.has(player.id) && supportedUprightPair(player, player))
+        // The shared upright motor chord must survive every post-motor personal-
+        // space write, including avoidance of an unsupported keeper/aerial body.
         continue;
       // The selected pair's solid torso contact belongs to the shared event interval.
       // Do not geometrically stop one body before the two-body impulse can be found.
@@ -2513,9 +2536,25 @@ const stepTacticalMatchCore = (
       } as const
     )[actualSprinting ? 'sprint' : speed < 2.2 ? 'walk' : speed < 4.2 ? 'jog' : 'run'];
     const movingPlayer = withoutPreviousSprintEpisode(player);
+    const reachFrozen =
+      state.pendingStrike?.actorId === player.id ||
+      state.defensiveChallenge?.actorId === player.id ||
+      state.recoveringFeet?.some((f) => f.actorId === player.id);
+    const reachTarget =
+      state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' && !isMatchGoalkeeper(player)
+        ? reachFrozen
+          ? undefined
+          : ordinaryContactInterval &&
+              (!state.ball.ownerId || state.ball.ownerId === player.id) &&
+              distance(player.position, state.ball) < 0.82 &&
+              state.time >= motorContactReadyAt(state, player.id)
+            ? { x: state.ball.x, y: state.ball.y }
+            : null
+        : undefined;
+    const lowerBodyPose = advanceLowerBodyPose(player, dt, reachTarget);
     return {
       ...movingPlayer,
-      ...(player.lowerBodyPose ? { lowerBodyPose: advanceLowerBodyPose(player, dt) } : {}),
+      ...(lowerBodyPose ? { lowerBodyPose } : {}),
       plantBalance,
       ...(verticalJump ? { verticalJump } : {}),
       fitness: advanceMatchFitness(player, {

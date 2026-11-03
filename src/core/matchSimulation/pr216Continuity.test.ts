@@ -8,7 +8,157 @@ import { advancePendingStrikeInterval } from './pendingStrikeInterval';
 import { integrateCanonicalBodyRemainder } from './canonicalMovement';
 import { playerBodyClearance } from './playerBodyContact';
 import { multiBodyParticipants } from './multiBodyContact';
-import { tacticalMatchStateSchema } from './matchState';
+import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
+import { readFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
+import {
+  advanceLowerBodyPose,
+  deriveLowerBodyGeometry,
+  interpolateLowerBodyPose,
+} from './lowerBodyGeometry';
+import { canonicalStrikeFoot, findStrikeIntervalContact } from './pendingStrike';
+import { stepTacticalMatch } from './matchSimulation';
+import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
+const reload = (value: unknown) =>
+  tacticalMatchStateSchema.parse(value) as unknown as TacticalMatchState;
+
+it('continues the saved competing boot/support rearming incident without penetrating a proxy body', () => {
+  let s = reload(
+    JSON.parse(
+      gunzipSync(readFileSync('docs/performance/pr216/p1-support-rearm-input.json.gz')).toString(),
+    ),
+  );
+  for (let i = 0; i < 400; i++) s = stepTacticalMatch(s, 0.025);
+  expect(s.executionWitnesses?.unresolved).toBeUndefined();
+});
+
+it('refines an actual supported crossing before a competing event without enlarging the foot', () => {
+  const s = createPr215LooseScene();
+  s.ball = { x: 50, y: 34, height: 0.11, velocity: { x: 0, y: 0, z: 0 }, looseSince: s.time };
+  const hit = findStrikeIntervalContact(
+    s,
+    0.025,
+    () => ({
+      position: { x: 50.5, y: 34, z: 0.04 },
+      velocity: { x: 0, y: 0, z: 0 },
+      speedBound: 0,
+    }),
+    0.035,
+    2560,
+    (t) => ({
+      position: { x: 50 + 20 * t, y: 34, z: 0.11 },
+      velocity: { x: 20, y: 0, z: 0 },
+      airborne: false,
+      bounceCount: 0,
+    }),
+  );
+  expect(hit.outcome).toBe('contact');
+  expect(hit.local).toBeCloseTo((0.5 - Math.sqrt(0.145 ** 2 - 0.07 ** 2)) / 20, 8);
+  expect(hit.evaluations).toBeLessThanOrEqual(2560);
+});
+
+it('hands a settled shot rebound back to the physical reaching interval without erasing shot lineage', () => {
+  let s = reload(
+    JSON.parse(
+      gunzipSync(
+        readFileSync('docs/performance/pr216/p1-settled-rebound-input.json.gz'),
+      ).toString(),
+    ),
+  );
+  const initial = s;
+  expect(ownsOrdinaryLowBallInterval(s, 0.025)).toBe(true);
+  for (let i = 0; i < 400; i++) s = stepTacticalMatch(s, 0.025);
+  expect(s.executionWitnesses?.unresolved).toBeUndefined();
+  expect(s.decisionIndex).toBeGreaterThan(initial.decisionIndex);
+  expect(s.lastGroundContact!.at).toBeGreaterThan(initial.time);
+});
+
+it('services an unlabelled free ball after the historical aerial consumer declines control', () => {
+  let s = reload(
+    JSON.parse(
+      gunzipSync(
+        readFileSync('docs/performance/pr216/p1-unlabelled-loose-input.json.gz'),
+      ).toString(),
+    ),
+  );
+  expect(s.ball.ownerId).toBeUndefined();
+  expect(s.ball.looseSince).toBeUndefined();
+  expect(ownsOrdinaryLowBallInterval(s, 0.025)).toBe(true);
+  const initial = s;
+  for (let i = 0; i < 400; i++) s = stepTacticalMatch(s, 0.025);
+  expect(s.executionWitnesses?.unresolved).toBeUndefined();
+  expect(s.decisionIndex).toBeGreaterThan(initial.decisionIndex);
+});
+
+it('keeps a latched reaching foot solid when a standing stroke starts and recovers', () => {
+  let s = reload(
+    JSON.parse(
+      gunzipSync(readFileSync('docs/performance/pr216/p1-standing-latch-input.json.gz')).toString(),
+    ),
+  );
+  for (let i = 0; i < 24; i++) s = stepTacticalMatch(s, 0.025);
+  expect(s.executionWitnesses?.unresolved).toBeUndefined();
+  expect(s.defensiveChallenge).toBeUndefined();
+  expect(tacticalMatchStateSchema.safeParse(s).success).toBe(true);
+});
+
+it('spends a finite ankle budget and keeps the searched foot on the connected IK geometry', () => {
+  const actor = createPr215LooseScene().players.find((p) => p.slot.position !== 'goalkeeper')!;
+  actor.facingAngle = 0.6;
+  delete actor.lowerBodyPose;
+  const next = {
+    ...actor,
+    position: { x: actor.position.x + 0.03, y: actor.position.y + 0.01 },
+    facingAngle: 0.63,
+    lowerBodyPose: advanceLowerBodyPose(actor, 0.025, {
+      x: actor.position.x + 0.6,
+      y: actor.position.y + 0.2,
+    }),
+  };
+  expect(
+    Math.hypot(next.lowerBodyPose!.reachOffset!.x, next.lowerBodyPose!.reachOffset!.y),
+  ).toBeCloseTo(0.03, 12);
+  for (const t of [0, 0.00625, 0.0125, 0.01875, 0.025])
+    for (const foot of ['left', 'right'] as const) {
+      const f = t / 0.025;
+      const geometry = deriveLowerBodyGeometry({
+        ...next,
+        position: { x: actor.position.x + 0.03 * f, y: actor.position.y + 0.01 * f },
+        facingAngle: 0.6 + 0.03 * f,
+        lowerBodyPose: interpolateLowerBodyPose(actor.lowerBodyPose, next.lowerBodyPose, f),
+      })[foot];
+      const searched = canonicalStrikeFoot(undefined, actor, next, foot, 0, 0.025, t);
+      expect(searched.position.x).toBeCloseTo(geometry.foot.x, 12);
+      expect(searched.position.y).toBeCloseTo(geometry.foot.y, 12);
+      expect(
+        Math.hypot(
+          geometry.knee.x - geometry.hip.x,
+          geometry.knee.y - geometry.hip.y,
+          geometry.knee.z - geometry.hip.z,
+        ),
+      ).toBeCloseTo(geometry.thighLength, 12);
+    }
+  const returned = advanceLowerBodyPose(next, 0.025, null)!;
+  expect(Math.hypot(returned.reachOffset!.x, returned.reachOffset!.y)).toBeLessThan(1e-10);
+  expect(advanceLowerBodyPose(next, 0.025)?.reachOffset).toEqual(next.lowerBodyPose!.reachOffset);
+});
+
+it('escapes the preserved resting loose-ball deadlock through actual foot contact and onward decisions', () => {
+  const old = JSON.parse(
+    gunzipSync(readFileSync('docs/performance/pr216/canonical-final-v2.json.gz')).toString(),
+  );
+  let s = reload(old.match.terminal);
+  const initial = s;
+  for (let i = 0; i < 400; i++) s = stepTacticalMatch(s, 0.025);
+  expect(s.executionWitnesses?.unresolved).toBeUndefined();
+  expect(s.decisionIndex).toBeGreaterThan(initial.decisionIndex);
+  expect(s.lastGroundContact!.at).toBeGreaterThan(initial.time);
+  expect(s.executionWitnesses!['controlled-reception']!.executed).toBeGreaterThan(
+    initial.executionWitnesses!['controlled-reception']!.executed,
+  );
+  expect(Math.hypot(s.ball.x - initial.ball.x, s.ball.y - initial.ball.y)).toBeGreaterThan(0.5);
+  expect(tacticalMatchStateSchema.safeParse(s).success).toBe(true);
+});
 
 it('routes an unready passive foot through contact laws and ends the previous protected owner', () => {
   const s = createPr215ReceptionBlocker();

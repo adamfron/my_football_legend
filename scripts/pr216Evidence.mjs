@@ -43,7 +43,7 @@ export const recordPr216Source = () => {
 export const checkPr216Source = () => {
   const binding = JSON.parse(readFileSync(`${ROOT}/source.json`));
   assert.equal(hash(binding.manifest), binding.fingerprint);
-  assert.deepEqual(pr216Source(), binding.manifest, 'PR215 measured source drift');
+  assert.deepEqual(pr216Source(), binding.manifest, 'PR216 measured source drift');
   execFileSync(
     'git',
     [

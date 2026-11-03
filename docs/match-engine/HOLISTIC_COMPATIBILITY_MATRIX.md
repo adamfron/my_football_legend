@@ -1,17 +1,18 @@
 # Holistic compatibility and selection — PR214
 
-## PR216 development update — draft, ordinary liveness still blocked
+## PR216 development update — continuous P1 smoke passes
 
-The existing interval now owns supported upright outfield movement throughout open play,
-including low carrying, reception remainder and low deliveries. The preserved PR215
-30cm penetration path is prevented by first-contact detection and actual impulse/remainder
-transport. The 22-player run progresses physically, but a later loose-ball body-constrained
-contest exposes missing active foot reaching and action starvation. This is **not** a passed
-continuous-football smoke. Mandatory P1 remains incomplete; do not dispatch the frozen
-90-minute match. Stance/traction and planar falling are isolated prototypes; production
-falling/recovery stays disabled. Maintained PR201, default B and sealed confirmation remain.
-See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md) for exact source,
-negative result, unfulfilled gates and the PR217 contact/stance/fall implementation plan.
+Finite ankle reaching/retraction, actual three-dimensional control and persistent foot support
+share the existing canonical interval and connected geometry. Two unchanged 22-player inputs
+each pass 600s with actual contacts, onward decisions and ball transport in every minute; the
+old resting-ball checkpoint resumes two decisions in ten seconds. CI rejects action starvation
+and checks the frozen protocol input for 120s. Upright outfield CCD also covers restart staging
+and release. Keeper/aerial fallbacks and unsupported prepared-contact guards remain explicit.
+See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md), its p1-final-v6
+receipts and separate full-protocol attempt. Production stance/traction/falling remain disabled.
+The frozen full-match attempt stops at 698.7s on the explicit five-body/four-body-contract
+overflow; it is not a completed holistic match. The complete diagnostic remains preserved.
+Promotion stays RETAIN_EXPERIMENTAL; PR201/B/defaults and sealed confirmation are unchanged.
 Historical sections and frozen inputs below retain their original scope.
 
 

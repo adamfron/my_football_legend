@@ -190,9 +190,21 @@ export const isContinuousFootContact = (
     ...playerFootGeometry(actor)[foot === 'left' ? 'leftFoot' : 'rightFoot'],
     z: actor.lowerBodyPose ? deriveLowerBodyGeometry(actor)[foot].foot.z : 0.04,
   };
-  const prepared = state.continuousFootContacts?.find(
-    (c) => c.actorId === actor.id && c.foot === foot,
-  )?.prepared;
+  const active =
+    state.pendingStrike?.actorId === actor.id
+      ? state.pendingStrike
+      : state.defensiveChallenge?.actorId === actor.id
+        ? state.defensiveChallenge.physicalAttempt
+        : undefined;
+  const prepared =
+    (active?.plan.foot === foot
+      ? {
+          path: active.path,
+          selectedAt: active.selectedAt,
+          facingAngle: active.plan.facingAngle,
+        }
+      : undefined) ??
+    state.continuousFootContacts?.find((c) => c.actorId === actor.id && c.foot === foot)?.prepared;
   const recovery = state.recoveringFeet?.find((f) => f.actorId === actor.id && f.foot === foot);
   if (prepared || recovery) {
     const u = recovery
