@@ -2,7 +2,105 @@
 
 Base: merged PR215, `3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10`.
 
-## Release continuity follow-up — release-final-v2
+## Full-match continuity follow-up — keeper-cycle-v12
+
+**The 1493.925s starvation is repaired, and the unchanged frozen development match now reaches full time.**
+Source: `d013a1b07076b369a57eb54774aaa1214b69778f37c123db54cb68e2e77070d5`.
+
+Research change: ordinary low-foot contact remains authoritative near a goalkeeper,
+including keeper acquisition, carrying and finite reaching. A goalkeeper can acquire
+a ground ball only at the actual three-dimensional foot surface, with the same
+recovery and thrower-retouch restrictions. Held balls and live shots retain their
+existing consumers. Low rebounds outside a keeper's reachable margin use the shared
+contact interval throughout the existing ordinary height band, including crossings
+of the 0.24m strike-height boundary; their shot lineage is retained. The strike
+cap itself is unchanged.
+
+Upright keepers now share the same 0.68m torso core and finite-mass contact model
+as upright outfield players in the cluster experiment. The historical pair prototype
+retains its previous scope. Keeper x bounds match their existing motor (0..105m);
+outfield bounds remain 0.4..104.6m. Non-ready aerial bodies remain unsupported.
+
+Held substitution/assessment intervals resolve their already-spent actuator transport
+through body CCD. Cleared incoming substitutes participate physically while still
+outside football eligibility; only their resolved crossing of the existing entry
+line completes admission. Movement accounting uses the actual contact segments,
+with no second motor update. Existing substitution eligibility and baseline behavior
+are retained. Released restart presentation no longer truncates live contact search
+after a reception changes velocity. New referee interruptions still stop the interval.
+Conservative foot bounds use preparation/completed-stroke phases where applicable;
+active and crossing segments retain their full bounds. A stationary relative ball
+has no incoming direction, so JSON's -0 to +0 normalization cannot change touch quality.
+An already latched body pair keeps its supported surface identity through a nearly
+tangential recontact after a third-body impulse. The exact intersection still uses
+zero restitution and the same geometry; new grazing impacts retain their uncertainty gate.
+
+Local result: the clear native terminal at 1493.925s contacts at
+1493.999975871s, continues 60s and makes
+80 decisions. The old 1380s snapshot already contains a
+119mm keeper/anchor9 torso overlap under the newly admitted keeper model. It is
+preserved as a negative admission control, rather than separated after the fact.
+The original source-bound results keep their earlier scope.
+
+Both unchanged 22-player inputs pass 600s with actual football activity in every
+minute. The occupied entry-gate continuation advances 40.000s,
+records 28 impacts, completes the substitution and makes
+39 onward decisions. The header rebound meets the foot
+at 1349.130503832s, before its former entry.
+Incident continuations and minute checkpoints retain exact native schema reload parity.
+See canonical-keeper-cycle-v12.json.gz and summary-keeper-cycle-v12.json.
+
+Sequential failed trials remain preserved with their original sources and native inputs:
+
+| Edition | Stop / first invalid interval | Repair |
+| --- | --- | --- |
+| release-final-v2 | 1493.925s starvation | Low keeper-zone ball resumes finite reaching and actual foot contact. |
+| keeper-cycle-v1 | 2140.425s; first overlap 2137.900s | Body CCD through referee-held substitution braking. |
+| keeper-cycle-v3 | 4843.075s; first boot entry 4843.050s | Low-foot authority during a released throw-in. |
+| keeper-cycle-v4 | 222.581993s search exhaustion | Phase-aware conservative foot bounds. |
+| keeper-cycle-v5 | 406.075s; first overlap 406.050s | Continue the post-reception remainder during released restart presentation. |
+| keeper-cycle-v6 | 5233.500s foot entry | Keeper ground-foot acquisition/carry uses actual foot geometry; upright keeper torso participation and bounds. |
+| keeper-cycle-v7 | Native save/reload divergence | Remove arbitrary incoming direction at exactly zero relative speed. |
+| keeper-cycle-v8 | 1349.350s foot penetration; first entry 1349.150s | Fast low header rebound outside keeper reach remains in shared contact. |
+| keeper-cycle-v9 | Settled-rebound control at 837.400s | One contact owner through the strike-height boundary. |
+| keeper-cycle-v10 | Exception at 1979.975s; occupied entry gate | Cleared entrant body CCD before eligibility, plus guarded roster-change accounting. |
+| keeper-cycle-v11 | 3699.663247s near-tangent diagnostic | Preserve an already latched support identity through recontact after a third-body impulse; new grazing impacts remain uncertain. |
+
+Integration effect: the frozen 90-minute development protocol completes at
+**5821.125s / 8177 decisions**, including its normal second-half
+transition, without an unresolved witness, action starvation or an exception.
+Across 65229 body solves, the largest component has
+5 bodies (2 five-body solves).
+Maximum residual is 8.402e-10m/s, penetration
+3.642e-14m, momentum error
+3.411e-13kg·m/s and passive-energy increase
+5.684e-14J.
+Full frozen inputs, checkpoints, minute activity, events and native terminal states
+are retained in match-attempt-initial-keeper-cycle-v12.json.gz.
+
+The paired maintained PR201/B baseline completes at **5782.100s /
+11521 decisions**. Its complete native terminal is exactly equal to the
+previous published baseline (hash
+`536c0cc92dce5a8649dc24c9021bcb0037a6661d3d876d12d19ee3fed9f9b6d3`).
+No input, seed, policy, recipe, physical tolerance, foot envelope, evaluation limit
+or terminal criterion was relaxed. Full-match arms use the same source and frozen
+25ms decision-probe protocol; selecting an arm only isolates its execution.
+
+Final verification: one complete `npm run verify` passes lint,
+2657 unit tests, 56 integration tests, 4 career contracts,
+5 full-career tests, TypeScript and the production build. All 21 current/historical
+source and CI-contract checks pass, all 1383 manifest paths
+reconstruct, and production Edge UI passes two viewports. PR195–215 evidence is
+byte-preserved. verification.json indexes successful checks, interrupted commands,
+negative trials and previous published evidence.
+
+Promotion decision: **RETAIN_EXPERIMENTAL**. This is one completed frozen paired
+protocol, not independent-corpus promotion evidence. Maintained PR201/B, defaults,
+issue dimensions, sealed confirmation and production stance/falling remain unchanged.
+Next dependency: broader independent match corpus and source-bound integration of
+the stance/traction/falling prototypes. Earlier editions below retain their original results.
+
+## Earlier release continuity follow-up — release-final-v2
 
 **The recorded 946.075s pass handoff is repaired; the renewed full match remains incomplete.**
 Research change: ordinary owned ground-pass family selection in the upright cluster no longer

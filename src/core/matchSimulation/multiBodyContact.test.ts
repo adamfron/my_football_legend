@@ -8,6 +8,7 @@ import { resolveMultiBodyContact } from './multiBodyContact';
 import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
 import { withIntegrationProfile } from './integrationProfile';
 import { stepTacticalMatch } from './matchSimulation';
+import { beginVerticalJump } from './bodyMechanics';
 
 const drift = (input: TacticalMatchState) => {
   const s = {
@@ -51,12 +52,44 @@ describe('PR214 bounded canonical multi-body remainder', () => {
         impact.positionsAtContact![i],
       );
   });
-  it('retains an unsupported incoming keeper as uncertainty rather than drifting through it', () => {
+  it('retains a non-upright incoming keeper as uncertainty rather than drifting through it', () => {
+    const s = createPr214Scene('line-three').initial;
+    const third = s.players.find((p) => Math.abs(p.position.x - 31.44) < 1e-8)!;
+    third.goalkeeperRole = true;
+    third.verticalJump = beginVerticalJump(third, { armAssistance: false, approach: false })!;
+    const out = drift(s);
+    expect(out.multiBodyResolutions!.some((c) => c.reason === 'unsupported_body_state')).toBe(true);
+  });
+  it('resolves an upright keeper in the same passive component with conserved momentum', () => {
     const s = createPr214Scene('line-three').initial;
     const third = s.players.find((p) => Math.abs(p.position.x - 31.44) < 1e-8)!;
     third.goalkeeperRole = true;
     const out = drift(s);
-    expect(out.multiBodyResolutions!.some((c) => c.reason === 'unsupported_body_state')).toBe(true);
+    expect(out.executionWitnesses?.unresolved).toBeUndefined();
+    const c = out.multiBodyResolutions!.find(c=>c.participants.includes(third.id))!;
+    expect(c.unresolved).toBe(false);
+    expect(c.energyAfter).toBeLessThanOrEqual(c.energyBefore + 1e-7);
+    for(const axis of ['x','y'] as const)
+      expect(c.momentumAfter[axis]-c.momentumBefore[axis]).toBeCloseTo(c.boundaryImpulse[axis],8);
+  });
+  it('keeps a keeper on the legal goal plane without widening the outfield movement area', () => {
+    const s = createPr214Scene('line-three').initial;
+    const [keeper, runner] = s.players.slice(0, 2);
+    s.players = [
+      { ...keeper!, goalkeeperRole: true, position: {x:0,y:32}, velocity:{x:-1,y:0} },
+      { ...runner!, goalkeeperRole: false, position: {x:0.68,y:32}, velocity:{x:-2,y:0} },
+    ];
+    delete s.pendingStrike;
+    delete s.defensiveChallenge;
+    const r = resolveMultiBodyContact(s, [keeper!.id], s.time);
+    expect(r.evidence.unresolved).toBe(false);
+    expect(r.players.find(p=>p.id===keeper!.id)!.position.x).toBe(0);
+    expect(r.evidence.positionCorrection).toBe(0);
+    expect(r.evidence.boundaryImpulse.x).toBeGreaterThan(0);
+    expect(r.evidence.momentumAfter.x-r.evidence.momentumBefore.x).toBeCloseTo(r.evidence.boundaryImpulse.x,8);
+    expect(r.evidence.energyAfter).toBeLessThanOrEqual(r.evidence.energyBefore + 1e-7);
+    s.players[0]!.goalkeeperRole = false;
+    expect(resolveMultiBodyContact(s,[keeper!.id],s.time).evidence.reason).toBe('initial_player_outside_movement_area');
   });
   it('rejects overlarge/duplicate saved rosters and never teleports an initially outside player', () => {
     const s = createPr214Scene('line-three').initial;

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { canParticipatePhysically } from './matchInjuries';
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
 import {
   PLAYER_BODY_CONTACT,
@@ -66,10 +67,13 @@ export const ownsMultiBodyInterval = (s: TacticalMatchState, dt = 0.025) =>
   dt > 0 && s.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1';
 
 /** Match the canonical motor's perimeter during dead-ball retrieval and staging. */
-export const multiBodyMovementBounds = (s: TacticalMatchState) =>
+export const multiBodyMovementBounds = (s: TacticalMatchState, player?: MatchPlayerState) =>
   s.restart || s.postGoal
     ? { minimum: { x: -8, y: -8 }, maximum: { x: 113, y: 76 } }
-    : { minimum: MULTI_BODY.minimum, maximum: MULTI_BODY.maximum };
+    : {
+        minimum: { ...MULTI_BODY.minimum, x: player && isMatchGoalkeeper(player) ? 0 : MULTI_BODY.minimum.x },
+        maximum: { ...MULTI_BODY.maximum, x: player && isMatchGoalkeeper(player) ? 105 : MULTI_BODY.maximum.x },
+      };
 
 /** Conservative connected broad phase for this existing interval, not a second
  * movement authority. At 12m/s/body no reachable torso can enter from outside it. */
@@ -79,14 +83,14 @@ export const multiBodyParticipants = (s: TacticalMatchState, dt: number) => {
   // Torso authority must not disappear when the ball changes owner or technique.
   // The broad phase covers the roster; each actual connected solve is still <=5.
   for (const p of s.players)
-    if (canParticipatePhysically(p) && !s.discipline?.[p.id]?.sentOff && supportedUprightPair(p, p))
+    if (canParticipatePhysically(p) && !s.discipline?.[p.id]?.sentOff && supportedUprightPair(p, p, true))
       ids.add(p.id);
   if (ownsOrdinaryLowBallInterval(s, dt)) {
     const reach = 1.5 + (12 + Math.hypot(s.ball.velocity?.x ?? 0, s.ball.velocity?.y ?? 0)) * dt;
     for (const p of s.players)
       if (
         canParticipatePhysically(p) &&
-        supportedUprightPair(p, p) &&
+        supportedUprightPair(p, p, true) &&
         !s.discipline?.[p.id]?.sentOff &&
         Math.hypot(p.position.x - s.ball.x, p.position.y - s.ball.y) <= reach
       )
@@ -105,7 +109,7 @@ export const multiBodyParticipants = (s: TacticalMatchState, dt: number) => {
         if (
           !ids.has(b.id) &&
           canParticipatePhysically(b) &&
-          (supportedUprightPair(b, b) ||
+          (supportedUprightPair(b, b, true) ||
             s.pendingStrike ||
             s.defensiveChallenge?.physicalAttempt) &&
           playerBodyClearance(a, b) <=
@@ -158,7 +162,7 @@ export const resolveMultiBodyContact = (
   seedIds: string[],
   at: number,
 ) => {
-  const bounds = multiBodyMovementBounds(state);
+  const boundsFor = (p: MatchPlayerState) => multiBodyMovementBounds(state, p);
   const ordered = [...state.players].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   const ids = new Set(seedIds);
   let pairChecks = 0;
@@ -169,7 +173,7 @@ export const resolveMultiBodyContact = (
         b = ordered[j]!;
       pairChecks++;
       if (
-        (supportedUprightPair(a, b) ||
+        (supportedUprightPair(a, b, true) ||
           state.pendingStrike ||
           state.defensiveChallenge?.physicalAttempt) &&
         playerBodyClearance(a, b) <= MULTI_BODY.contactTolerance
@@ -223,15 +227,16 @@ export const resolveMultiBodyContact = (
       );
     }, 0);
   if (players.length > MULTI_BODY.maximumBodies) reason = 'body_count_bound';
-  else if (players.some((p) => !supportedUprightPair(p, p))) reason = 'unsupported_body_state';
+  else if (players.some((p) => !supportedUprightPair(p, p, true))) reason = 'unsupported_body_state';
   else if (
-    players.some((p) =>
-      (['x', 'y'] as const).some(
+    players.some((p) => {
+      const bounds = boundsFor(p);
+      return (['x', 'y'] as const).some(
         (axis) =>
           p.position[axis] < bounds.minimum[axis] - MULTI_BODY.contactTolerance ||
           p.position[axis] > bounds.maximum[axis] + MULTI_BODY.contactTolerance,
-      ),
-    )
+      );
+    })
   )
     reason = 'initial_player_outside_movement_area';
   else if (localPairs.some(([a, b]) => playerBodyClearance(a, b) < -MULTI_BODY.maximumCorrection))
@@ -265,11 +270,13 @@ export const resolveMultiBodyContact = (
       }
       activePairs.set(playerPairKey(a.id, b.id), { participants: [a.id, b.id], beganAt: at });
     }
-    for (const p of players)
+    for (const p of players) {
+      const bounds = boundsFor(p);
       p.position = {
         x: Math.max(bounds.minimum.x, Math.min(bounds.maximum.x, p.position.x)),
         y: Math.max(bounds.minimum.y, Math.min(bounds.maximum.y, p.position.y)),
       };
+    }
   }
   if (reason === 'resolved') {
     // Preserve the first 32 sweeps for smaller components. Only an unmet velocity
@@ -287,7 +294,7 @@ export const resolveMultiBodyContact = (
           reason = 'persistent_storage_bound';
           break;
         }
-        const result = resolvePlayerBodyImpulse(a, b, at, activePairs.has(key));
+        const result = resolvePlayerBodyImpulse(a, b, at, activePairs.has(key), undefined, undefined, true);
         if (!result.evidence.normalImpulse) continue;
         changed = true;
         result.evidence.correctionIterations = pass + 1;
@@ -297,7 +304,8 @@ export const resolveMultiBodyContact = (
         if (!activePairs.has(key))
           activePairs.set(key, { participants: [a.id, b.id], beganAt: at });
       }
-      for (const p of players)
+      for (const p of players) {
+        const bounds = boundsFor(p);
         for (const axis of ['x', 'y'] as const)
           if (
             (p.position[axis] <= bounds.minimum[axis] + MULTI_BODY.contactTolerance &&
@@ -309,6 +317,7 @@ export const resolveMultiBodyContact = (
             p.velocity = { ...p.velocity, [axis]: 0 };
             changed = true;
           }
+      }
       if (reason !== 'resolved') break;
       if (!changed) break;
       if (
@@ -340,7 +349,7 @@ export const resolveMultiBodyContact = (
       maximumPenetration > MULTI_BODY.contactTolerance)
   )
     reason = 'constraint_iteration_bound';
-  if (reason === 'resolved' && players.some((p) => !supportedUprightPair(p, p)))
+  if (reason === 'resolved' && players.some((p) => !supportedUprightPair(p, p, true)))
     reason = 'post_impact_speed_bound';
   const evidence = multiBodyResolutionSchema.parse({
     at,

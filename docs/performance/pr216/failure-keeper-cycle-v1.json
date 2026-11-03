@@ -1,0 +1,87 @@
+{
+  "source": "058bd6ee449e537d08da871c74f07654a744abd50b465af33921e0093e3f1455",
+  "version": "keeper-cycle-v1",
+  "reason": "unresolved:initial_body_overlap",
+  "from": 2100.000000003257,
+  "to": 2140.425000003404,
+  "nativeReplay": "EXACT_MATCH",
+  "witness": {
+    "invoked": 1,
+    "executed": 1,
+    "at": 2140.400000003404,
+    "source": "initial_body_overlap"
+  },
+  "ball": {
+    "x": 105.11,
+    "y": 44.89762681717436,
+    "height": 0.5117907248031547,
+    "airborne": true,
+    "bounceCount": 0,
+    "continuousBodyContacts": [],
+    "velocity": {
+      "x": 0,
+      "y": 0,
+      "z": -0.24525000000000002
+    }
+  },
+  "components": [
+    {
+      "at": 2140.400000003404,
+      "participants": [
+        "geometry:opponent:3",
+        "geometry:opponent:8"
+      ],
+      "reason": "initial_body_overlap",
+      "iterations": 0,
+      "pairChecks": 231,
+      "momentumBefore": {
+        "x": -18.76017724397741,
+        "y": -5.11258215167274
+      },
+      "momentumAfter": {
+        "x": -18.76017724397741,
+        "y": -5.11258215167274
+      },
+      "boundaryImpulse": {
+        "x": 0,
+        "y": 0
+      },
+      "energyBefore": 1.2213267663101917,
+      "energyAfter": 1.2213267663101917,
+      "residualClosingSpeed": 0,
+      "maximumPenetration": 0.3558731987609648,
+      "positionCorrection": 0,
+      "unresolved": true,
+      "motorWorkAt": 2140.400000003404,
+      "motorWork": [
+        {
+          "actorId": "geometry:opponent:3",
+          "mass": 78,
+          "beforeVelocity": {
+            "x": 0,
+            "y": 0
+          },
+          "actuatorVelocity": {
+            "x": -0.12054999443137149,
+            "y": -0.059532830606201514
+          },
+          "kineticWork": 0.7049819040182249
+        },
+        {
+          "actorId": "geometry:opponent:8",
+          "mass": 85,
+          "beforeVelocity": {
+            "x": 0,
+            "y": 0
+          },
+          "actuatorVelocity": {
+            "x": -0.11008561974506392,
+            "y": -0.0055178984045767265
+          },
+          "kineticWork": 0.5163448622919666
+        }
+      ],
+      "impulseCount": 0
+    }
+  ]
+}

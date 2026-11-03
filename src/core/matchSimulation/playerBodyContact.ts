@@ -67,10 +67,14 @@ export const playerPairKey = (a: string, b: string) => [a, b].sort().join('\u000
 export const playerBodyClearance = (a: MatchPlayerState, b: MatchPlayerState) =>
   Math.hypot(a.position.x - b.position.x, a.position.y - b.position.y) -
   PLAYER_BODY_CONTACT.diameter;
-export const supportedUprightPair = (a: MatchPlayerState, b: MatchPlayerState) =>
+export const supportedUprightPair = (
+  a: MatchPlayerState,
+  b: MatchPlayerState,
+  includeGoalkeepers = false,
+) =>
   [a, b].every(
     (p) =>
-      !isMatchGoalkeeper(p) &&
+      (includeGoalkeepers || !isMatchGoalkeeper(p)) &&
       canParticipatePhysically(p) &&
       (!p.verticalJump || p.verticalJump.phase === 'ready') &&
       Number.isFinite(p.profile.weightKg) &&
@@ -86,7 +90,7 @@ export const retainPlayerBodyContacts = (state: TacticalMatchState) =>
     return (
       a &&
       b &&
-      supportedUprightPair(a, b) &&
+      supportedUprightPair(a, b, state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1') &&
       playerBodyClearance(a, b) <= PLAYER_BODY_CONTACT.rearmClearance
     );
   });
@@ -116,7 +120,11 @@ export const findPlayerBodyContact = (
   if (d < 0) return undefined;
   const at = (-closing - Math.sqrt(d)) / speed2;
   if (at < -1e-10 || at > seconds) return undefined;
-  return d <= 1e-10
+  // A latched pair already has a supported surface identity. A third-body
+  // impulse can close its tiny separating gap almost tangentially; resolve that
+  // same exact intersection as support, with zero restitution, rather than
+  // applying the uncertainty gate for a new grazing impact.
+  return d <= 1e-10 && !continuous
     ? { at: Math.max(0, at), unresolved: 'near_tangent_body' }
     : { at: Math.max(0, at) };
 };
@@ -147,6 +155,7 @@ export const resolvePlayerBodyImpulse = (
   continuous = false,
   restitution: number = PLAYER_BODY_CONTACT.restitution,
   unresolved?: string,
+  includeGoalkeepers = false,
 ) => {
   const dx = a.position.x - b.position.x,
     dy = a.position.y - b.position.y;
@@ -157,7 +166,7 @@ export const resolvePlayerBodyImpulse = (
   const vn = (a.velocity.x - b.velocity.x) * normal.x + (a.velocity.y - b.velocity.y) * normal.y;
   const reason =
     unresolved ??
-    (!supportedUprightPair(a, b)
+    (!supportedUprightPair(a, b, includeGoalkeepers)
       ? 'unsupported_body_state'
       : Math.abs(d - PLAYER_BODY_CONTACT.diameter) > PLAYER_BODY_CONTACT.tolerance && !continuous
         ? 'no_surface_intersection'

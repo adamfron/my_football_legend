@@ -51,7 +51,8 @@ const trace = (initial, ticks) => {
   let s = reload(initial),
     maximumPenetration = 0,
     impacts = 0,
-    supportSteps = 0;
+    supportSteps = 0,
+    firstGroundContact;
   const checkpoints = [],
     events = [],
     strikes = [],
@@ -62,6 +63,8 @@ const trace = (initial, ticks) => {
   for (let i = 0; i < ticks; i++) {
     const previous = s;
     s = stepTacticalMatch(s, 0.025);
+    if (!firstGroundContact && s.lastGroundContact?.at > initial.time)
+      firstGroundContact = s.lastGroundContact;
     const strike = s.lastStrikeResolution;
     if (
       strike &&
@@ -137,6 +140,7 @@ const trace = (initial, ticks) => {
     checkpoints,
     events,
     strikes,
+    firstGroundContact,
     window,
     liveness,
   };
@@ -156,6 +160,81 @@ for (const name of [
 ])
   locals.push([name, withHolisticDevelopment(createPr214Scene(name).initial), 12]);
 const local = locals.map(([name, s, ticks]) => ({ name, ...trace(s, ticks) }));
+const tangentInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/failure-keeper-cycle-v11.json.gz`)),
+);
+const tangentContinuation = trace(tangentInput.initial, check ? 400 : 800);
+assert.equal(tangentContinuation.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(tangentContinuation.maximumPenetration <= 1e-7);
+assert.ok(tangentContinuation.terminal.decisionIndex > tangentContinuation.initial.decisionIndex);
+const entryInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/substitution-exception-v10.json.gz`)),
+);
+const entryContinuation = trace(entryInput.recent[0], check ? 800 : 1600);
+assert.equal(entryContinuation.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(entryContinuation.terminal.substitutionState.completed.length >
+  entryContinuation.initial.substitutionState.completed.length);
+assert.ok(entryContinuation.impacts > 0);
+assert.ok(entryContinuation.terminal.decisionIndex > entryContinuation.initial.decisionIndex);
+const reboundInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/rebound-entry-origin-v8.json.gz`)),
+);
+const reboundContinuation = trace(reboundInput.initial, check ? 400 : 800);
+assert.equal(reboundContinuation.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(reboundContinuation.firstGroundContact?.at > reboundContinuation.initial.time);
+assert.ok(reboundContinuation.firstGroundContact?.at < 1349.15);
+assert.ok(reboundContinuation.terminal.decisionIndex > reboundContinuation.initial.decisionIndex);
+const keeperFootInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/keeper-foot-entry-origin-v6.json.gz`)),
+);
+const keeperFootContinuation = trace(keeperFootInput.initial, check ? 400 : 800);
+assert.equal(keeperFootContinuation.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(keeperFootContinuation.terminal.decisionIndex > keeperFootContinuation.initial.decisionIndex);
+assert.ok(keeperFootContinuation.terminal.time > 5233.5);
+const remainderInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/body-overlap-first-entry-keeper-v5.json.gz`)),
+);
+const remainderContinuation = trace(remainderInput.initial, check ? 400 : 800);
+assert.equal(remainderContinuation.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(remainderContinuation.maximumPenetration <= 1e-7);
+assert.ok(remainderContinuation.terminal.decisionIndex > remainderContinuation.initial.decisionIndex);
+const searchInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/search-bound-origin-keeper-v4.json.gz`)),
+);
+const searchContinuation = trace(searchInput.initial, check ? 400 : 800);
+assert.equal(searchContinuation.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(searchContinuation.terminal.decisionIndex > searchContinuation.initial.decisionIndex);
+assert.ok(searchContinuation.firstGroundContact?.at > searchContinuation.initial.time);
+const keeperInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/next-keeper-zone-starvation-release-v2.json.gz`)),
+);
+const keeperContinuations = ['terminal'].map((key) => ({
+  key,
+  ...trace(keeperInput[key], check ? 400 : 2400),
+}));
+for (const r of keeperContinuations) {
+  assert.equal(r.terminal.executionWitnesses?.unresolved, undefined);
+  assert.ok(r.firstGroundContact?.executed && r.firstGroundContact.surfaceContact?.available);
+  assert.ok(r.firstGroundContact.at > r.initial.time && r.firstGroundContact.at < r.initial.time + 0.5);
+  assert.ok(r.terminal.decisionIndex > r.initial.decisionIndex);
+}
+const heldInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/restart-overlap-origin-keeper-v1.json.gz`)),
+);
+const heldContinuation = trace(heldInput.initial, check ? 400 : 800);
+assert.equal(heldContinuation.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(heldContinuation.impacts > 0, 'real braking impact in held substitution interval');
+assert.ok(heldContinuation.maximumPenetration <= 1e-7);
+assert.ok(heldContinuation.terminal.time > 2140.425);
+const releasedInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/release-foot-entry-origin-keeper-v3.json.gz`)),
+);
+const releasedContinuation = trace(releasedInput.initial, check ? 400 : 800);
+assert.equal(releasedContinuation.terminal.executionWitnesses?.unresolved, undefined);
+assert.ok(releasedContinuation.firstGroundContact?.surfaceContact?.available);
+assert.ok(releasedContinuation.firstGroundContact.at < 4843.075);
+assert.notEqual(releasedContinuation.firstGroundContact.actorId, releasedInput.initial.throwInRestriction.throwerId);
+assert.ok(releasedContinuation.terminal.decisionIndex > releasedContinuation.initial.decisionIndex);
 const releaseInput = JSON.parse(
   gunzipSync(readFileSync(`${ROOT}/next-release-handoff-blocker-five-v2.json.gz`)),
 );
@@ -365,6 +444,83 @@ assert.equal(falls[0].frames.at(-1).phase, 'supported');
 assert.equal(falls[2].frames.at(-1).phase, 'grounded');
 const summary = {
   source: source.fingerprint,
+  tangentSupport: {
+    previousSource: tangentInput.source,
+    inputHash: hash(tangentContinuation.initial),
+    from: tangentContinuation.initial.time,
+    to: tangentContinuation.terminal.time,
+    maximumPenetration: tangentContinuation.maximumPenetration,
+    decisions: tangentContinuation.terminal.decisionIndex - tangentContinuation.initial.decisionIndex,
+  },
+  substitutionEntry: {
+    previousSource: entryInput.source,
+    inputHash: hash(entryContinuation.initial),
+    from: entryContinuation.initial.time,
+    to: entryContinuation.terminal.time,
+    completedSubstitutions: entryContinuation.terminal.substitutionState.completed.length,
+    impacts: entryContinuation.impacts,
+    maximumPenetration: entryContinuation.maximumPenetration,
+    decisions: entryContinuation.terminal.decisionIndex - entryContinuation.initial.decisionIndex,
+  },
+  reboundHandoff: {
+    previousSource: reboundInput.source,
+    inputHash: hash(reboundContinuation.initial),
+    from: reboundContinuation.initial.time,
+    to: reboundContinuation.terminal.time,
+    firstGroundContact: reboundContinuation.firstGroundContact,
+    decisions: reboundContinuation.terminal.decisionIndex - reboundContinuation.initial.decisionIndex,
+  },
+  keeperFoot: {
+    previousSource: keeperFootInput.source,
+    inputHash: hash(keeperFootContinuation.initial),
+    from: keeperFootContinuation.initial.time,
+    to: keeperFootContinuation.terminal.time,
+    firstGroundContact: keeperFootContinuation.firstGroundContact,
+    decisions: keeperFootContinuation.terminal.decisionIndex - keeperFootContinuation.initial.decisionIndex,
+  },
+  receptionRemainder: {
+    previousSource: remainderInput.source,
+    inputHash: hash(remainderContinuation.initial),
+    from: remainderContinuation.initial.time,
+    to: remainderContinuation.terminal.time,
+    maximumPenetration: remainderContinuation.maximumPenetration,
+    firstGroundContact: remainderContinuation.firstGroundContact,
+    decisions: remainderContinuation.terminal.decisionIndex - remainderContinuation.initial.decisionIndex,
+  },
+  preparationSearch: {
+    previousSource: searchInput.source,
+    inputHash: hash(searchContinuation.initial),
+    from: searchContinuation.initial.time,
+    to: searchContinuation.terminal.time,
+    firstGroundContact: searchContinuation.firstGroundContact,
+    decisions: searchContinuation.terminal.decisionIndex - searchContinuation.initial.decisionIndex,
+  },
+  releasedRestart: {
+    previousSource: releasedInput.source,
+    inputHash: hash(releasedContinuation.initial),
+    from: releasedContinuation.initial.time,
+    to: releasedContinuation.terminal.time,
+    firstGroundContact: releasedContinuation.firstGroundContact,
+    decisions: releasedContinuation.terminal.decisionIndex - releasedContinuation.initial.decisionIndex,
+  },
+  heldInterval: {
+    previousSource: heldInput.source,
+    inputHash: hash(heldContinuation.initial),
+    from: heldContinuation.initial.time,
+    to: heldContinuation.terminal.time,
+    impacts: heldContinuation.impacts,
+    maximumPenetration: heldContinuation.maximumPenetration,
+    completedSubstitutions: heldContinuation.terminal.substitutionState.completed.length,
+  },
+  keeperZone: keeperContinuations.map((r) => ({
+    key: r.key,
+    previousSource: keeperInput.source,
+    inputHash: hash(r.initial),
+    from: r.initial.time,
+    to: r.terminal.time,
+    firstGroundContact: r.firstGroundContact,
+    decisions: r.terminal.decisionIndex - r.initial.decisionIndex,
+  })),
   boundaryCompletion: {
     inputHash: hash(convergenceContinuation.initial),
     previousSource: convergenceInput.source,
@@ -446,6 +602,15 @@ if (!check) {
   write(`${ROOT}/canonical-${version}.json.gz`, {
     source: source.fingerprint,
     local,
+    tangentContinuation,
+    entryContinuation,
+    reboundContinuation,
+    keeperFootContinuation,
+    remainderContinuation,
+    searchContinuation,
+    keeperContinuations,
+    heldContinuation,
+    releasedContinuation,
     releaseContinuation,
     convergenceContinuation,
     fiveContinuation,

@@ -42,6 +42,7 @@ import { canContactAfterThrowIn } from './throwIn';
 import { captureOffsideSnapshot } from './offside';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { GOALKEEPER_PHYSICS } from './goalkeeperIntervention';
+import { isRestartSetup } from './restartPhase';
 import {
   canonicalStrikeFoot,
   executePendingContact,
@@ -139,13 +140,18 @@ export const advancePendingStrikeInterval = (
       : value;
   };
   const changedVelocities = new Map<string, MatchPlayerState['velocity']>();
+  const interruptedByLaw = (s: TacticalMatchState) =>
+    Boolean(
+      (s.restart &&
+        (!input.restart ||
+          s.restart.awardId !== input.restart.awardId ||
+          (input.restart.phase === 'release' && s.restart.phase !== 'release'))) ||
+        (s.postGoal && !input.postGoal) ||
+        (s.scenario !== input.scenario &&
+          !(input.restart?.phase === 'release' && s.scenario === 'open_play' && !s.restart)),
+    );
   const restoreClock = (s: TacticalMatchState) => {
-    if (
-      multi &&
-      ((s.restart && !input.restart) ||
-        s.scenario !== input.scenario ||
-        (s.postGoal && !input.postGoal))
-    ) {
+    if (multi && interruptedByLaw(s)) {
       // A lawful interruption precedes every later physical opportunity. Never
       // restore a future drift endpoint through an edge or a third body.
       transportEnd = elapsed;
@@ -190,10 +196,12 @@ export const advancePendingStrikeInterval = (
               }
             : p;
           const origin = origins.get(p.id);
-          return origin && (before.get(p.id)?.samples ?? 0) < p.samples
+          const prior = before.get(p.id),
+            nominal = nominalPlayers.find((a) => a.id === p.id);
+          return origin && prior && nominal && prior.samples < p.samples
             ? accountCanonicalContactMovement(
-                before.get(p.id)!,
-                nominalPlayers.find((a) => a.id === p.id)!,
+                prior,
+                nominal,
                 physical,
                 (travelled.get(p.id) ?? 0) +
                   Math.hypot(p.velocity.x, p.velocity.y) * Math.max(0, transportEnd - origin.at),
@@ -519,8 +527,8 @@ export const advancePendingStrikeInterval = (
         .map((p) => playerAt(p, elapsed));
       for (let i = 0; i < bodies.length; i++) {
         const a = bodies[i]!;
-        const edge = supportedUprightPair(a, a)
-          ? findPlayerMovementEdge(a, seconds, multiBodyMovementBounds(state))
+        const edge = supportedUprightPair(a, a, true)
+          ? findPlayerMovementEdge(a, seconds, multiBodyMovementBounds(state, a))
           : undefined;
         if (edge)
           events.push({
@@ -882,11 +890,7 @@ export const advancePendingStrikeInterval = (
           resolveChallenge('unresolved', result.evidence.reason);
         return restoreClock(state);
       }
-      if (
-        (state.restart && !input.restart) ||
-        state.scenario !== input.scenario ||
-        (state.postGoal && !input.postGoal)
-      ) {
+      if (interruptedByLaw(state)) {
         state = finishPendingStrike(state, 'interrupted', 'law_interruption');
         return restoreClock(state);
       }
@@ -982,11 +986,7 @@ export const advancePendingStrikeInterval = (
           ...state,
           players: state.players.map((p) => result.players.find((q) => q.id === p.id) ?? p),
         };
-        if (
-          (state.restart && !input.restart) ||
-          state.scenario !== input.scenario ||
-          (state.postGoal && !input.postGoal)
-        ) {
+        if (interruptedByLaw(state)) {
           state = finishPendingStrike(state, 'interrupted', 'law_interruption');
           return restoreClock(state);
         }
@@ -997,12 +997,7 @@ export const advancePendingStrikeInterval = (
         firstEvent: event.key,
       });
       resolveChallenge('body', 'swept_torso_contact');
-      if (
-        (state.restart && !input.restart) ||
-        state.scenario !== input.scenario ||
-        (state.postGoal && !input.postGoal)
-      )
-        return restoreClock(state);
+      if (interruptedByLaw(state)) return restoreClock(state);
       // The standing-body impulse model is not established. Keep a conservative
       // diagnostic continuation rather than inventing a knockdown or displacement.
       if (state.lastStrikeResolution)
@@ -1099,11 +1094,7 @@ export const advancePendingStrikeInterval = (
     }
     if (event.kind === 'passive_foot') {
       state = handlers.body(state, actor.id);
-      if (
-        (state.restart && !input.restart) ||
-        state.scenario !== input.scenario ||
-        (state.postGoal && !input.postGoal)
-      )
+      if (interruptedByLaw(state))
         return restoreClock(finishPendingStrike(state, 'interrupted', 'law_interruption'));
       passiveFoot(actor, event.key, event.hit!);
       continue;
@@ -1128,11 +1119,7 @@ export const advancePendingStrikeInterval = (
       // The same actual-contact law/lineage observer as passive deflection.
       // It can end play; it never awards this foot secure possession.
       state = handlers.body(state, actor.id);
-      if (
-        (state.restart && !input.restart) ||
-        state.scenario !== input.scenario ||
-        (state.postGoal && !input.postGoal)
-      ) {
+      if (interruptedByLaw(state)) {
         resolveChallenge('interrupted', 'law_interruption');
         return restoreClock(state);
       }
@@ -1377,12 +1364,7 @@ export const advancePendingStrikeInterval = (
           },
         );
         state = handlers.body(state, actor.id);
-        if (
-          (state.restart && !input.restart) ||
-          state.scenario !== input.scenario ||
-          (state.postGoal && !input.postGoal)
-        )
-          return restoreClock(state);
+        if (interruptedByLaw(state)) return restoreClock(state);
         state = {
           ...state,
           ball: {
@@ -1408,8 +1390,8 @@ export const advancePendingStrikeInterval = (
         };
       }
       if (
-        state.restart ||
-        state.scenario !== 'open_play' ||
+        isRestartSetup(state) ||
+        (state.scenario !== 'open_play' && state.restart?.phase !== 'release') ||
         state.postGoal ||
         state.ball.heldByKeeperId
       )

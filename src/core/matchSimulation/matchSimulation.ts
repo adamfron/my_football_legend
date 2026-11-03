@@ -80,6 +80,7 @@ import {
   planCoachSubstitutions,
   substitutionBlocksRestart,
   stepSubstitutionInterval,
+  substitutionEntryBodies,
   advanceMatchSubstitutions,
   completeHalftimeSubstitutions,
 } from './substitutions';
@@ -633,25 +634,36 @@ const changePossession = (
 ) => {
   if (!canContactAfterThrowIn(state, ownerId)) return state;
   const receivingActor = state.players.find((p) => p.id === ownerId);
+  const keeperFootContact =
+    state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
+    receivingActor &&
+    isMatchGoalkeeper(receivingActor) &&
+    !state.ball.heldByKeeperId &&
+    !state.ball.shot &&
+    (state.ball.height ?? BALL_RADIUS) <= 0.24;
   if (
     state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
     receivingActor &&
-    !isMatchGoalkeeper(receivingActor)
+    (!isMatchGoalkeeper(receivingActor) || keeperFootContact)
   ) {
     const geometry = deriveLowerBodyGeometry(receivingActor);
     const gap = Math.min(
       ...[geometry.left.foot, geometry.right.foot].map((f) =>
-        Math.hypot(f.x - state.ball.x, f.y - state.ball.y, f.z - (state.ball.height ?? 0.11)),
+        Math.hypot(
+          f.x - state.ball.x,
+          f.y - state.ball.y,
+          f.z - Math.max(BALL_RADIUS, state.ball.height ?? BALL_RADIUS),
+        ),
       ),
     );
-    // Historical aerial/keeper consumers may nominate a recipient. An outfield
-    // foot can secure that ball only at its actual three-dimensional surface.
+    // Historical consumers may nominate a recipient. Shared low foot control,
+    // including a keeper playing with feet, needs its actual 3D surface.
     if (gap > 0.145 + 1e-6) return state;
   }
   if (
     state.experimentalPlayerBodyImpulse &&
     receivingActor &&
-    !isMatchGoalkeeper(receivingActor) &&
+    (!isMatchGoalkeeper(receivingActor) || keeperFootContact) &&
     state.ball.ownerId &&
     state.ball.ownerId !== ownerId
   )
@@ -661,7 +673,7 @@ const changePossession = (
     (state.prospectiveMovement === 'observed-ball-contact-dev-v1' ||
       state.experimentalPendingStrike === 'low-pass-dev-v1') &&
     receivingActor &&
-    !isMatchGoalkeeper(receivingActor) &&
+    (!isMatchGoalkeeper(receivingActor) || keeperFootContact) &&
     !state.ball.ownerId;
   if (
     finiteRecovery &&
@@ -674,7 +686,7 @@ const changePossession = (
     (finiteRecovery ||
       receivingActor.team === state.possessionTeam ||
       state.experimentalDefensiveReception) &&
-    !isMatchGoalkeeper(receivingActor) &&
+    (!isMatchGoalkeeper(receivingActor) || keeperFootContact) &&
     (finiteRecovery || state.ball.travelKind)
   ) {
     const feet = playerContactGeometry(receivingActor);
@@ -723,7 +735,7 @@ const changePossession = (
   };
   const reception = (
     usesLocalReception(state) || finiteRecovery
-      ? isMatchGoalkeeper(owner)
+      ? isMatchGoalkeeper(owner) && !keeperFootContact
         ? state.ball.travelKind === 'pass' && owner.team === state.possessionTeam
         : !state.ball.ownerId &&
           (owner.team === state.possessionTeam || finiteRecovery) &&
@@ -755,7 +767,7 @@ const changePossession = (
   const receptionPoint = reception?.resultingPoint ?? { x: state.ball.x, y: state.ball.y };
   if (
     state.experimentalPlayerBodyImpulse &&
-    !isMatchGoalkeeper(owner) &&
+    (!isMatchGoalkeeper(owner) || keeperFootContact) &&
     state.ball.ownerId !== ownerId &&
     !reception?.surfaceContact?.available
   )
@@ -1602,6 +1614,36 @@ const withoutPreviousSprintEpisode = (player: MatchPlayerState) => {
   return movingPlayer;
 };
 
+/** Referee-held intervals spend their own single actuator update, but their
+ * transport must keep the same body authority as ordinary play. */
+const advanceHeldBodyContacts = (
+  input: TacticalMatchState,
+  moved: TacticalMatchState,
+  dt: number,
+): TacticalMatchState => {
+  if (!ownsMultiBodyInterval(input, dt)) return moved;
+  const players = moved.players.map((p) => {
+    const before = input.players.find((a) => a.id === p.id);
+    if (!before) return p;
+    const samples = before.samples + 1;
+    return {
+      ...p,
+      samples,
+      meanPosition: {
+        x: (before.meanPosition.x * before.samples + p.position.x) / samples,
+        y: (before.meanPosition.y * before.samples + p.position.y) / samples,
+      },
+    };
+  });
+  return advancePendingStrikeInterval(input, { ...moved, players }, dt, {
+    ordinary: false,
+    bodyOnly: true,
+    boundary: (s) => s,
+    control: (s) => s,
+    body: (s) => s,
+  });
+};
+
 const stepTacticalMatchCore = (
   input: TacticalMatchState,
   rawDelta = 0.1,
@@ -1674,7 +1716,11 @@ const stepTacticalMatchCore = (
       feet.push({ actorId: contact.actorId, foot: contact.surfaceContact.foot });
     input = {
       ...input,
-      continuousPlayerContacts: retainPlayerBodyContacts(input),
+      continuousPlayerContacts: retainPlayerBodyContacts(
+        input.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
+          ? { ...input, players: [...input.players, ...substitutionEntryBodies(input)] }
+          : input,
+      ),
       recoveringFeet: (input.recoveringFeet ?? []).filter(
         (f) => input.time < f.beganAt + f.seconds,
       ),
@@ -1689,8 +1735,14 @@ const stepTacticalMatchCore = (
     };
   }
   input = planCoachSubstitutions(processInjuryAssessment(input));
-  if (input.injuryAssessment) return stepInjuryAssessmentInterval(input, dt);
-  if (substitutionBlocksRestart(input)) return stepSubstitutionInterval(input, dt);
+  if (input.injuryAssessment)
+    return advanceHeldBodyContacts(input, stepInjuryAssessmentInterval(input, dt), dt);
+  if (substitutionBlocksRestart(input))
+    return stepSubstitutionInterval(
+      input,
+      dt,
+      ownsMultiBodyInterval(input, dt) ? advanceHeldBodyContacts : undefined,
+    );
   let state = {
     ...input,
     time: input.time + dt,
@@ -2423,7 +2475,7 @@ const stepTacticalMatchCore = (
       x: player.position.x + velocity.x * dt,
       y: player.position.y + velocity.y * dt,
     });
-    if (clusterParticipants.has(player.id) && supportedUprightPair(player, player)) {
+    if (clusterParticipants.has(player.id) && supportedUprightPair(player, player, true)) {
       integratedPosition.x = player.position.x + velocity.x * dt;
       integratedPosition.y = player.position.y + velocity.y * dt;
     }
@@ -2434,7 +2486,11 @@ const stepTacticalMatchCore = (
       state.restart?.retrieval?.playerId === player.id &&
       (state.restart.retrieval.stage === 'approach' ||
         state.restart.retrieval.stage === 'transport');
-    if (isMatchGoalkeeper(player) && !retrievingStoppedBall) {
+    if (
+      isMatchGoalkeeper(player) &&
+      !retrievingStoppedBall &&
+      !clusterParticipants.has(player.id)
+    ) {
       // A keeper who fetched a scored ball behind the line must hand it over and return
       // through ordinary locomotion. Changing retrieval roles must never snap that body.
       const minimumX = stopped ? Math.min(0, player.position.x) : 0;
@@ -2455,7 +2511,7 @@ const stepTacticalMatchCore = (
         distance(p.position, next) < (player.lowerBodyPose && p.lowerBodyPose ? 1.4 : 1.15),
     );
     for (const other of close) {
-      if (clusterParticipants.has(player.id) && supportedUprightPair(player, player))
+      if (clusterParticipants.has(player.id) && supportedUprightPair(player, player, true))
         // The shared upright motor chord must survive every post-motor personal-
         // space write, including avoidance of an unsupported keeper/aerial body.
         continue;
@@ -2467,7 +2523,11 @@ const stepTacticalMatchCore = (
         [player.id, other.id].every((id) =>
           [state.defensiveChallenge!.actorId, state.defensiveChallenge!.opponentId].includes(id),
         ) &&
-        supportedUprightPair(player, other) &&
+        supportedUprightPair(
+          player,
+          other,
+          state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1',
+        ) &&
         (Math.hypot(player.position.x - other.position.x, player.position.y - other.position.y) >=
           0.68 - 1e-8 ||
           state.continuousPlayerContacts?.some(
@@ -2541,7 +2601,7 @@ const stepTacticalMatchCore = (
       state.defensiveChallenge?.actorId === player.id ||
       state.recoveringFeet?.some((f) => f.actorId === player.id);
     const reachTarget =
-      state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' && !isMatchGoalkeeper(player)
+      state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
         ? reachFrozen
           ? undefined
           : ordinaryContactInterval &&

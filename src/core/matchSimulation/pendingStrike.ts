@@ -383,6 +383,12 @@ export const canonicalStrikeFoot = (
   const { relative, relativeVelocity } = relativeTemporalFootAt(pending.path, elapsed);
   const offset = rotate(relative, normalizeAngle(angle - pending.plan.facingAngle));
   const angular = { x: (offset.y * turn) / dt, y: (-offset.x * turn) / dt, z: 0 };
+  // The whole motor segment precedes swing onset: the stroke contributes no
+  // displacement or acceleration here. Bounding a later 20m/s swing during
+  // this preparation phase can exhaust conservative advancement near contact.
+  const preparing = intervalAt + dt <= pending.selectedAt + pending.path.onset;
+  const completed = intervalAt >=
+    pending.selectedAt + pending.path.onset + pending.path.duration + TEMPORAL_STRIKE.followThroughSeconds;
   return {
     position: add(position, offset),
     velocity: add(
@@ -390,7 +396,15 @@ export const canonicalStrikeFoot = (
       add(rotate(relativeVelocity, normalizeAngle(angle - pending.plan.facingAngle)), angular),
     ),
     speedBound:
-      baseSpeedBound + pending.path.speedBound + Math.abs(turn / dt) * pending.path.reachBound,
+      baseSpeedBound +
+      (preparing
+        ? 0
+        : completed
+          ? Math.abs(turn / dt) * norm(offset)
+          : pending.path.speedBound + Math.abs(turn / dt) * pending.path.reachBound),
+    ...(preparing || completed
+      ? { accelerationBound: accelerationBound + (completed ? (turn / dt) ** 2 * norm(offset) : 0) }
+      : {}),
   };
 };
 

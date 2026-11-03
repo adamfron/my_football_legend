@@ -20,8 +20,15 @@ const version =
   process.argv.find((x) => x.startsWith('--version='))?.split('=')[1] ?? 'p1-final-v1';
 assert.match(version, /^[a-z0-9-]+$/);
 const smoke = process.argv.includes('--smoke');
+const developmentOnly = process.argv.includes('--development-only');
+const baselineOnly = process.argv.includes('--baseline-only');
+assert.ok(!(developmentOnly && baselineOnly), 'select one arm or the complete paired protocol');
 const reload = (s) => tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(s)));
-for (const arm of smoke ? ['initial'] : ['initial', 'baseline']) {
+for (const arm of baselineOnly
+  ? ['baseline']
+  : smoke || developmentOnly
+    ? ['initial']
+    : ['initial', 'baseline']) {
   const begin = performance.now(),
     cpu = process.cpuUsage();
   const original = reload(frozen[arm]);
@@ -35,6 +42,7 @@ for (const arm of smoke ? ['initial'] : ['initial', 'baseline']) {
     minutes = [];
   if (arm === 'initial') assert.deepEqual(effectiveHolisticRecipe(s), frozen.recipe);
   let reason = 'tick_cap',
+    exception,
     previousMinute = s,
     ballTransport = 0,
     lastProgress = s.time,
@@ -77,7 +85,13 @@ for (const arm of smoke ? ['initial'] : ['initial', 'baseline']) {
       break;
     }
     const prior = s;
-    s = stepTacticalMatchAfterDecisionProbe(s, 0.025);
+    try {
+      s = stepTacticalMatchAfterDecisionProbe(s, 0.025);
+    } catch (error) {
+      exception = { message: String(error), stack: error.stack };
+      reason = 'exception';
+      break;
+    }
     for (const c of s.multiBodyResolutions ?? []) {
       physicalDiagnostics.solves++;
       physicalDiagnostics.fiveBodySolves += Number(c.participants.length === 5);
@@ -188,7 +202,8 @@ for (const arm of smoke ? ['initial'] : ['initial', 'baseline']) {
     }
     if (smoke && tick === 23999) reason = 'smoke_complete';
   }
-  checkpoint();
+  if (!exception) checkpoint();
+  else checkpoints.push({ state: reload(s), hash: hash(s), exceptionInput: true });
   const summary = {
     source: source.fingerprint,
     arm,
@@ -198,6 +213,7 @@ for (const arm of smoke ? ['initial'] : ['initial', 'baseline']) {
     seconds: s.time,
     status: s.status,
     reason,
+    exception,
     decisions: s.decisionIndex - initial.decisionIndex,
     witnesses: s.executionWitnesses,
     physicalDiagnostics,

@@ -2,7 +2,7 @@
   "metadata": {
     "schema": "mfl-session-benchmark-v5",
     "policy": "state-value-v1",
-    "sourceRevision": "da3aef824af8f417f63be33d36631716fb81c092:3cf5bad829a917ca42660ce03bb0f6b5b79e9da7c66717446b2103cd41ed2c10",
+    "sourceRevision": "ecf0428f953d775342c136cada990659d0bf666d:51347d6e9e6a41d9bf4a3fb95796d03bd3901b04785a42c2150eba2c78989d83",
     "fixtureId": "fixture-3c0ffb2c",
     "engine": "canonical",
     "fixedDt": 0.025,
@@ -1207,11 +1207,11 @@
       "at": 0.9500000000000005,
       "source": "matchSimulation.observeReceptionBall"
     },
-    "fallback-delivery": {
+    "ordinary-loose-ball": {
       "invoked": 32,
       "executed": 0,
-      "at": 1.0250000000000004,
-      "source": "matchSimulation.historical-labelled-delivery"
+      "at": 1.0000000000000004,
+      "source": "pendingStrikeInterval.advance:ordinary"
     }
   },
   "canonicalPhysicalCheckpoint": {
@@ -1242,11 +1242,11 @@
         "at": 0.9500000000000005,
         "source": "matchSimulation.observeReceptionBall"
       },
-      "fallback-delivery": {
+      "ordinary-loose-ball": {
         "invoked": 32,
         "executed": 0,
-        "at": 1.0250000000000004,
-        "source": "matchSimulation.historical-labelled-delivery"
+        "at": 1.0000000000000004,
+        "source": "pendingStrikeInterval.advance:ordinary"
       }
     },
     "experimentalPendingStrike": "low-pass-dev-v1",
@@ -2502,6 +2502,17 @@
           "sprintSeconds": 0,
           "sprintBursts": 0,
           "maxSpeed": 0
+        },
+        "lowerBodyPose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "right",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
         },
         "sprintBurstCounted": false
       },
@@ -5033,7 +5044,7 @@
       "sourceAction": "pass",
       "executionType": "turning_pass",
       "flightTime": 0.8000000000000004,
-      "distanceTravelled": 7.741295823474907,
+      "distanceTravelled": 7.719913096006943,
       "height": 0.11,
       "airborne": false,
       "velocity": {
@@ -5050,7 +5061,12 @@
       "launchElevation": 0,
       "bounceCount": 0,
       "lastTouchPlayerId": "footballer_pro_0_21",
-      "continuousBodyContacts": []
+      "continuousBodyContacts": [],
+      "spin": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
     },
     "score": {
       "home": 0,
@@ -9525,7 +9541,7 @@
     "hiddenCanonicalSeconds": 0,
     "visibleCanonicalSeconds": 1.0250000000000004,
     "rendererCallsBackground": 0,
-    "rendererCallsVisible": 42,
+    "rendererCallsVisible": 40,
     "backgroundBatches": 0,
     "backgroundTicks": 0,
     "restartWatchdogFallbacks": 0
@@ -9544,7 +9560,7 @@
   "contextBuffer": {
     "samplesRetained": 13,
     "samplesWritten": 12,
-    "sampleWorkMs": 1.999999761581421,
+    "sampleWorkMs": 3.6000003814697266,
     "sampleHz": 10,
     "capacity": 128
   },

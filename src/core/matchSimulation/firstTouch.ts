@@ -64,9 +64,14 @@ export const assessFirstTouch = (
   const v = state.ball.velocity ?? { x: 0, y: 0, z: 0 };
   const relative = { x: v.x - actor.velocity.x, y: v.y - actor.velocity.y };
   const relativeSpeed = Math.hypot(relative.x, relative.y, v.z ?? 0);
-  const incomingAngle = Math.abs(
-    normalizeAngle(angleForVector({ x: -relative.x, y: -relative.y }) - actor.facingAngle),
-  );
+  // A zero relative velocity has no arrival direction. JSON normalises -0 to 0;
+  // atan2 must not turn that representation change into different touch quality.
+  const incomingAngle =
+    state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' && relativeSpeed === 0
+      ? 0
+      : Math.abs(
+          normalizeAngle(angleForVector({ x: -relative.x, y: -relative.y }) - actor.facingAngle),
+        );
   const outgoing = { x: target.x - point.x, y: target.y - point.y };
   const outgoingAngle =
     Math.hypot(outgoing.x, outgoing.y) > 0.01

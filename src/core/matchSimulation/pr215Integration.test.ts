@@ -163,6 +163,10 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
     );
     const keeper = s.players.find((p) => p.goalkeeperRole || p.slot.position === 'goalkeeper')!;
     keeper.position = { x: s.ball.x, y: s.ball.y + 2 };
+    expect(ownsOrdinaryLowBallInterval(s, 0.025)).toBe(true);
+    s.ball.velocity = { x: 1, y: 0, z: 0 };
+    expect(ownsOrdinaryLowBallInterval(s, 0.025)).toBe(true);
+    s.ball.height = 0.4;
     expect(ownsOrdinaryLowBallInterval(s, 0.025)).toBe(false);
   });
   it('bounds observation keys and rejects malformed saved counters', () => {

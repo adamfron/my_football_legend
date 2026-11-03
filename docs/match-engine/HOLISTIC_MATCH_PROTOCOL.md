@@ -1,5 +1,29 @@
 # First holistic development match protocol — PR215 handoff
 
+## PR216 full-match continuity follow-up — keeper-cycle-v12
+
+The 1493.925s keeper-zone starvation resumes actual foot contact and onward decisions.
+Ordinary low keeper foot play and rebounds outside keeper reach retain one contact
+owner. Upright keeper torsos share the cluster core with their existing motor bounds.
+Held substitution/assessment movement and cleared substitute entry use body CCD
+before eligibility. Released restart presentation no longer truncates post-reception
+search; foot bounds distinguish inactive phases, and stationary touch direction
+survives native JSON reload. No extra actuator update or relaxed physical tolerance.
+
+Both unchanged 22-player inputs pass 600s. The frozen development match completes
+at **5821.125s / 8177 decisions** with no unresolved witness or starvation.
+The same-source maintained PR201/B completes at 5782.100s / 11521
+decisions with its entire native terminal exactly unchanged. Failed native inputs
+and their sources remain preserved, including the already-overlapped old 1380s snapshot.
+
+One complete verify, 21 source/historical/contract checks, all 1383
+reconstructed manifest paths and two production UI viewports pass. See
+performance/pr216/verification.json and the [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md).
+Promotion remains RETAIN_EXPERIMENTAL; one frozen paired completion does not establish
+independent-corpus readiness. Maintained PR201/B/defaults and sealed confirmation
+remain unchanged. Next dependency: broader independent match corpus and stance/traction/falling
+integration. Historical editions below retain their original source and scope.
+
 ## PR216 release continuity follow-up — release-final-v2
 
 Research change: owned ground-pass family ownership is independent of instantaneous foot

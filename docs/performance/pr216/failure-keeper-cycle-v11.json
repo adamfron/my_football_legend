@@ -1,0 +1,93 @@
+{
+  "source": "84037b71b879e8119acd5a3def72b773e989b9ce0146ec52f1b360d5403ee155",
+  "version": "keeper-cycle-v11",
+  "reason": "unresolved:near_tangent_body",
+  "from": 3660.000000008932,
+  "to": 3699.6750000090765,
+  "nativeReplay": "EXACT_MATCH",
+  "witness": {
+    "invoked": 1,
+    "executed": 1,
+    "at": 3699.663247472473,
+    "source": "near_tangent_body"
+  },
+  "ball": {
+    "x": 45.88385940486561,
+    "y": 47.96296943669788,
+    "height": 0.009999999999999988,
+    "lastTouchPlayerId": "geometry:opponent:8",
+    "velocity": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "spin": {
+      "x": 1.053646890083554,
+      "y": -1.1785599559179567,
+      "z": 0.0000765214868704663
+    },
+    "airborne": false,
+    "bounceCount": 30,
+    "continuousBodyContacts": []
+  },
+  "components": [
+    {
+      "at": 3699.663247472473,
+      "participants": [
+        "geometry:anchor:14",
+        "geometry:opponent:8"
+      ],
+      "reason": "near_tangent_body",
+      "iterations": 2,
+      "pairChecks": 210,
+      "momentumBefore": {
+        "x": 149.1488485758622,
+        "y": -63.179024766112605
+      },
+      "momentumAfter": {
+        "x": 149.14884857586216,
+        "y": -63.179024766112605
+      },
+      "boundaryImpulse": {
+        "x": 0,
+        "y": 0
+      },
+      "energyBefore": 82.0846968408178,
+      "energyAfter": 82.08469683734695,
+      "residualClosingSpeed": 0,
+      "maximumPenetration": 3.9968028886505635e-15,
+      "positionCorrection": 0,
+      "unresolved": true,
+      "motorWorkAt": 3699.6500000090764,
+      "motorWork": [
+        {
+          "actorId": "geometry:anchor:14",
+          "mass": 75,
+          "beforeVelocity": {
+            "x": 0.9054620930697121,
+            "y": -0.4223410827398812
+          },
+          "actuatorVelocity": {
+            "x": 0.8709518959955176,
+            "y": -0.3851810436245273
+          },
+          "kineticWork": -3.4241981493829603
+        },
+        {
+          "actorId": "geometry:opponent:8",
+          "mass": 85,
+          "beforeVelocity": {
+            "x": 0.957358504091958,
+            "y": -0.3704521684994047
+          },
+          "actuatorVelocity": {
+            "x": 0.9857200574384706,
+            "y": -0.40375281337333035
+          },
+          "kineticWork": 3.437835686211827
+        }
+      ],
+      "impulseCount": 1
+    }
+  ]
+}

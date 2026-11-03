@@ -1,0 +1,43 @@
+{
+  "source": "c1554aa0957760e9e800d36623f17b242c5322622a52ffd46f0340581dbfc2d8",
+  "version": "keeper-cycle-v8",
+  "reason": "unresolved:initial_penetration",
+  "from": 1320.0000000004193,
+  "to": 1349.350000000526,
+  "nativeReplay": "EXACT_MATCH",
+  "witness": {
+    "invoked": 1,
+    "executed": 1,
+    "at": 1349.325000000526,
+    "source": "initial_penetration"
+  },
+  "ball": {
+    "x": 92.0355187178076,
+    "y": 48.39901697000017,
+    "velocity": {
+      "x": -0.26398673615488316,
+      "y": -0.2452527434183516,
+      "z": 0
+    },
+    "looseSince": 1347.1750000005181,
+    "lastTouchPlayerId": "geometry:anchor:9",
+    "secondBallPriorityIds": [
+      "geometry:anchor:7",
+      "geometry:anchor:9",
+      "geometry:opponent:0",
+      "geometry:opponent:1",
+      "geometry:opponent:2",
+      "geometry:opponent:3"
+    ],
+    "height": 0.11,
+    "airborne": false,
+    "spin": {
+      "x": -1.2783161865319763,
+      "y": -0.9298600916390546,
+      "z": 0
+    },
+    "bounceCount": 23,
+    "continuousBodyContacts": []
+  },
+  "components": []
+}

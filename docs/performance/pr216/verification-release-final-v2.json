@@ -1,0 +1,786 @@
+{
+  "schema": "pr216-verification-release-v2",
+  "source": {
+    "base": "3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10",
+    "fingerprint": "09929812ae12065fc124b0ba4e1eea22d370f0b48c4d9ec2de406922cc81a9fb",
+    "archive": "docs/performance/pr216/source-09929812ae12065fc124b0ba4e1eea22d370f0b48c4d9ec2de406922cc81a9fb.json.gz"
+  },
+  "requiredVerify": {
+    "command": "npm run verify",
+    "status": "PASS",
+    "exitCode": 0,
+    "node": "v24.22.1",
+    "nodeOptions": "--max-semi-space-size=64",
+    "unit": 2637,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "log": "docs/performance/pr216/verification-logs/verify-release-final-v2.log.gz",
+    "scope": "One complete command on the final source manifest."
+  },
+  "sourceSuite": {
+    "status": "PASS",
+    "count": 21,
+    "results": [
+      {
+        "name": "current-replay",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerTypescriptLoader.mjs",
+          "scripts/benchmarkPr216.mjs",
+          "--check"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 29.63,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-current-replay.log.gz"
+      },
+      {
+        "name": "registry",
+        "args": [
+          "scripts/realismProgress.mjs",
+          "--check"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 6.307,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-registry.log.gz"
+      },
+      {
+        "name": "ci-contracts",
+        "args": [
+          "--test",
+          "scripts/ci/contracts.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 36.4,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-ci-contracts.log.gz"
+      },
+      {
+        "name": "corruption",
+        "args": [
+          "scripts/ci/corruptReplay.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 11.732,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-corruption.log.gz"
+      },
+      {
+        "name": "history-203",
+        "args": [
+          "scripts/ci/replayPr203Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 172.001,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-203.log.gz"
+      },
+      {
+        "name": "history-204",
+        "args": [
+          "scripts/ci/replayPr204Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 39.769,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-204.log.gz"
+      },
+      {
+        "name": "history-205",
+        "args": [
+          "scripts/ci/replayPr205Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 7.992,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-205.log.gz"
+      },
+      {
+        "name": "history-206",
+        "args": [
+          "scripts/ci/replayPr206Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 11.989,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-206.log.gz"
+      },
+      {
+        "name": "history-207",
+        "args": [
+          "scripts/ci/replayPr207Check.mjs",
+          "--replay"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 77.648,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-207.log.gz"
+      },
+      {
+        "name": "history-208",
+        "args": [
+          "scripts/ci/replayPr208Check.mjs",
+          "--replay"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 160.621,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-208.log.gz"
+      },
+      {
+        "name": "history-209",
+        "args": [
+          "scripts/ci/replayPr209Check.mjs",
+          "--replay"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 40.561,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-209.log.gz"
+      },
+      {
+        "name": "history-210",
+        "args": [
+          "scripts/ci/replayPr210Check.mjs",
+          "--replay"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 83.403,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-210.log.gz"
+      },
+      {
+        "name": "history-211",
+        "args": [
+          "scripts/ci/replayPr211Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 363.803,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-211.log.gz"
+      },
+      {
+        "name": "history-212",
+        "args": [
+          "scripts/ci/replayPr212Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 47.618,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-212.log.gz"
+      },
+      {
+        "name": "history-213",
+        "args": [
+          "scripts/ci/replayPr213Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 56.153,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-213.log.gz"
+      },
+      {
+        "name": "history-214",
+        "args": [
+          "scripts/ci/replayPr214Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 47.455,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-214.log.gz"
+      },
+      {
+        "name": "history-215",
+        "args": [
+          "scripts/ci/replayPr215Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 43.008,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-history-215.log.gz"
+      },
+      {
+        "name": "authority",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerTypescriptLoader.mjs",
+          "scripts/checkPr204Authority.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 1.77,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-authority.log.gz"
+      },
+      {
+        "name": "information",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerPr199Lab.mjs",
+          "scripts/checkPr204Boundary.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 1.907,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-information.log.gz"
+      },
+      {
+        "name": "pr205-contracts",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerTypescriptLoader.mjs",
+          "scripts/benchmarkPr205.mjs",
+          "--contracts"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 1.596,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-pr205-contracts.log.gz"
+      },
+      {
+        "name": "pr206-contracts",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerPr206Lab.mjs",
+          "scripts/checkPr206Contracts.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 5.192,
+        "log": "docs/performance/pr216/verification-logs/history-release-v2-pr206-contracts.log.gz"
+      }
+    ]
+  },
+  "sourceReconstruction": {
+    "source": "09929812ae12065fc124b0ba4e1eea22d370f0b48c4d9ec2de406922cc81a9fb",
+    "base": "3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10",
+    "paths": 1375,
+    "status": "PASS",
+    "method": "git archive base plus complete normalized source delta; every manifest path hash compared"
+  },
+  "releaseHandoff": {
+    "status": "PASS",
+    "summary": {
+      "inputHash": "45f22444d029d09c1f00f2fad3eecd3bc6a6780b2b06db456caa390a66837249",
+      "previousSource": "3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782",
+      "from": 946.0249999994135,
+      "to": 966.0249999993953,
+      "selectedAt": 946.0499999994134,
+      "contactAt": 946.0822536141599,
+      "contact": {
+        "intended": "inside",
+        "executed": "inside",
+        "foot": "right",
+        "available": true,
+        "unavailableReason": null,
+        "at": 946.0822536141599,
+        "point": {
+          "x": 77.89569963848214,
+          "y": 19.97637140257555,
+          "z": 0.22058626779596463
+        },
+        "surfacePoint": {
+          "x": 77.89410393208927,
+          "y": 19.918582480701172,
+          "z": 0.12700264620700846
+        },
+        "relativePoint": {
+          "x": 0.06825676717343754,
+          "y": 0.1027947203340176,
+          "z": 0.22058626779596463
+        },
+        "normal": {
+          "x": 0.01450642175337417,
+          "y": 0.5253538352216063,
+          "z": 0.8507601962632377
+        },
+        "incomingVelocity": {
+          "x": 1.5955495878088364,
+          "y": -1.1829187324227954,
+          "z": -0.8359346875009073
+        },
+        "outgoingVelocity": {
+          "x": 3.244497121054389,
+          "y": 2.9347819208222887,
+          "z": 6.609946119287194
+        },
+        "incomingSpin": {
+          "x": 0.017499127351624993,
+          "y": -0.009920832644199542,
+          "z": -0.20781337601856986
+        },
+        "outgoingSpin": {
+          "x": -5.55358572548057,
+          "y": -17.666909555868923,
+          "z": 10.790565828612898
+        },
+        "impulse": {
+          "x": 0.7090474392955877,
+          "y": 1.7706112808953862,
+          "z": 3.2017287469188838
+        },
+        "normalImpulseLimit": 12.966486963161005,
+        "tangentImpulseLimit": 2.7142877126973333,
+        "tangentSpeed": 4.275254680383277,
+        "quality": 0.715639771421505,
+        "balance": 1,
+        "preparationSeconds": 0.2722536147464234,
+        "contactSeconds": 0.025,
+        "retained": false,
+        "recoverySeconds": 0.17977286232067816
+      },
+      "decisions": 53
+    },
+    "receipt": "docs/performance/pr216/canonical-release-final-v2.json.gz",
+    "targetedTests": {
+      "tests": 64,
+      "files": 4,
+      "status": "PASS"
+    }
+  },
+  "boundaryCompletion": {
+    "status": "PASS",
+    "from": 460.7749999998548,
+    "to": 480.7749999998366,
+    "decisions": 16,
+    "iterations": 64,
+    "residual": 2.266907124254938e-8,
+    "receipt": "docs/performance/pr216/canonical-release-final-v2.json.gz",
+    "negative": "docs/performance/pr216/release-convergence-input-v1.json.gz",
+    "negativeSource": "d8745408dd6a67eb5ee78ae8a4b57053dcf506c8acd50c180ac03619aae06126",
+    "scope": "Identical first 32 sweeps for smaller components; at most 64 only when velocity residual exceeds unchanged tolerance. Five-body budget remains 64."
+  },
+  "fiveBody": {
+    "status": "PASS",
+    "summary": {
+      "inputHash": "0cacbeb4461ff7be46a74fcb45e508a94381b41479c8d5b22d7a2aa90db8af4c",
+      "previousSource": "e6b5e4f1f8ee81321331e7a28af60789c73d9b8e776747aaac6b9e21666aef0d",
+      "from": 698.6749999996384,
+      "to": 758.6749999995839,
+      "decisions": 146,
+      "solves": 1,
+      "maximumPenetration": 1.199040866595169e-14
+    },
+    "receipt": "docs/performance/pr216/canonical-release-final-v2.json.gz",
+    "scope": "Independent preserved incident; renewed full-match trajectory has no five-body solves. Six-body overflow remains explicit."
+  },
+  "continuousPlay": {
+    "status": "PASS",
+    "normalSeconds": 599.9999999997282,
+    "frozenSeconds": 599.9999999997282,
+    "receipt": "docs/performance/pr216/canonical-release-final-v2.json.gz"
+  },
+  "fullProtocol": {
+    "status": "ATTEMPTED_NOT_COMPLETE: keeper-zone action starvation",
+    "development": {
+      "source": "09929812ae12065fc124b0ba4e1eea22d370f0b48c4d9ec2de406922cc81a9fb",
+      "arm": "initial",
+      "frozenInputHash": "afa44c827f58a0147e2328590b9f6eca13ca8c29902ff5530812a3b393064377",
+      "observedInputHash": "80cab976058716910bd3b52ae312098778c868441030b542bab0c201171caf7f",
+      "observerOnlyAddition": true,
+      "seconds": 1493.925000001052,
+      "status": "first_half",
+      "reason": "action_starvation",
+      "decisions": 2356,
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 59757,
+          "executed": 0,
+          "at": 1493.925000001052,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "contact-interval": {
+          "invoked": 59757,
+          "executed": 0,
+          "at": 1493.900000001052,
+          "source": "pendingStrikeInterval.advance"
+        },
+        "ground-contact": {
+          "invoked": 90578,
+          "executed": 0,
+          "at": 1493.908720109178,
+          "source": "pendingStrikeInterval.integrateBallFlight"
+        },
+        "receiver-anticipation": {
+          "invoked": 1726,
+          "executed": 0,
+          "at": 1373.250000000613,
+          "source": "matchSimulation.observeReceptionBall"
+        },
+        "fallback-delivery": {
+          "invoked": 3930,
+          "executed": 0,
+          "at": 1373.250000000613,
+          "source": "matchSimulation.historical-labelled-delivery"
+        },
+        "height-aware-passing": {
+          "invoked": 2340,
+          "executed": 0,
+          "at": 1373.225000000613,
+          "source": "passDecision.forecastPassInterventions:lofted"
+        },
+        "receiver-recovery": {
+          "invoked": 2976,
+          "executed": 0,
+          "at": 1373.250000000613,
+          "source": "matchSimulation.boundedMovementTarget:hold-local"
+        },
+        "ordinary-loose-ball": {
+          "invoked": 40278,
+          "executed": 0,
+          "at": 1370.8500000006043,
+          "source": "pendingStrikeInterval.advance:ordinary"
+        },
+        "body-cluster": {
+          "invoked": 29269,
+          "executed": 1140,
+          "at": 1493.908720109178,
+          "source": "pendingStrikeInterval.resolveMultiBodyContact"
+        },
+        "controlled-reception": {
+          "invoked": 573,
+          "executed": 573,
+          "at": 1370.2581757758599,
+          "source": "matchSimulation.resolveReceptionOutcome"
+        },
+        "policy-b": {
+          "invoked": 3117,
+          "executed": 0,
+          "at": 1373.225000000613,
+          "source": "matchSimulation.chooseNpcRoutineAction"
+        },
+        "ball-body-contact": {
+          "invoked": 216,
+          "executed": 216,
+          "at": 1360.5662108082297,
+          "source": "pendingStrikeInterval.passiveFoot"
+        },
+        "defensive-reception": {
+          "invoked": 227,
+          "executed": 227,
+          "at": 1370.2581757758599,
+          "source": "matchSimulation.resolveReceptionOutcome:defensive"
+        },
+        "pending-low-pass": {
+          "invoked": 355,
+          "executed": 0,
+          "at": 1369.5500000005995,
+          "source": "pendingStrike.commitPendingPass"
+        },
+        "missed-kick": {
+          "invoked": 259,
+          "executed": 259,
+          "at": 1369.6700000005994,
+          "source": "pendingStrike.finish:miss:swing_completed_without_contact"
+        },
+        "standing-challenge": {
+          "invoked": 63,
+          "executed": 61,
+          "at": 1366.049139270885,
+          "source": "pendingStrikeInterval.executePendingContact"
+        },
+        "prepared-kick": {
+          "invoked": 92,
+          "executed": 92,
+          "at": 1365.3659067509734,
+          "source": "pendingStrike.finish:contact:foot_ball_intersection"
+        },
+        "fallback-keeper-aerial": {
+          "invoked": 5024,
+          "executed": 0,
+          "at": 1493.925000001052,
+          "source": "matchSimulation.historical-loose-ball"
+        },
+        "interrupted-kick": {
+          "invoked": 4,
+          "executed": 4,
+          "at": 1288.212879450124,
+          "source": "pendingStrike.finish:interrupted:competing_foot"
+        },
+        "physical-kick": {
+          "invoked": 4,
+          "executed": 4,
+          "at": 1373.225000000613,
+          "source": "matchActions.resolveMatchAction:physical-kick"
+        },
+        "fallback-carry": {
+          "invoked": 124,
+          "executed": 0,
+          "at": 1373.225000000613,
+          "source": "matchSimulation.advanceControlledBall:owned"
+        }
+      },
+      "physicalDiagnostics": {
+        "solves": 29269,
+        "fiveBodySolves": 0,
+        "maximumBodies": 4,
+        "maximumIterations": 64,
+        "maximumResidual": 0.0000018451634979978692,
+        "maximumPenetration": 1.5843770739820684e-11,
+        "maximumMomentumError": 2.2737367544323206e-13,
+        "maximumPassiveEnergyIncrease": 7.105427357601002e-15
+      },
+      "minutes": [
+        {
+          "from": 0,
+          "to": 59.99999999999766,
+          "decisions": 118,
+          "ballTransport": 191.1245044249404,
+          "contacts": 24
+        },
+        {
+          "from": 59.99999999999766,
+          "to": 120.00000000001016,
+          "decisions": 89,
+          "ballTransport": 190.97413280518566,
+          "contacts": 28
+        },
+        {
+          "from": 120.00000000001016,
+          "to": 180.0000000000238,
+          "decisions": 107,
+          "ballTransport": 169.39792377549568,
+          "contacts": 28
+        },
+        {
+          "from": 180.0000000000238,
+          "to": 240.00000000003743,
+          "decisions": 165,
+          "ballTransport": 80.3825377091573,
+          "contacts": 36
+        },
+        {
+          "from": 240.00000000003743,
+          "to": 300.000000000001,
+          "decisions": 133,
+          "ballTransport": 169.49328295446392,
+          "contacts": 30
+        },
+        {
+          "from": 300.000000000001,
+          "to": 359.99999999994645,
+          "decisions": 88,
+          "ballTransport": 244.11046167896578,
+          "contacts": 27
+        },
+        {
+          "from": 359.99999999994645,
+          "to": 419.9999999998919,
+          "decisions": 91,
+          "ballTransport": 176.73502070321376,
+          "contacts": 21
+        },
+        {
+          "from": 419.9999999998919,
+          "to": 479.9999999998373,
+          "decisions": 43,
+          "ballTransport": 137.77523983532794,
+          "contacts": 9
+        },
+        {
+          "from": 479.9999999998373,
+          "to": 539.9999999997827,
+          "decisions": 134,
+          "ballTransport": 87.72328819583056,
+          "contacts": 40
+        },
+        {
+          "from": 539.9999999997827,
+          "to": 599.9999999997282,
+          "decisions": 152,
+          "ballTransport": 80.39598744195229,
+          "contacts": 39
+        },
+        {
+          "from": 599.9999999997282,
+          "to": 659.9999999996736,
+          "decisions": 138,
+          "ballTransport": 124.36290134961473,
+          "contacts": 37
+        },
+        {
+          "from": 659.9999999996736,
+          "to": 719.999999999619,
+          "decisions": 105,
+          "ballTransport": 98.78635892166567,
+          "contacts": 27
+        },
+        {
+          "from": 719.999999999619,
+          "to": 779.9999999995645,
+          "decisions": 71,
+          "ballTransport": 207.1129268323096,
+          "contacts": 18
+        },
+        {
+          "from": 779.9999999995645,
+          "to": 839.9999999995099,
+          "decisions": 115,
+          "ballTransport": 102.52242488230044,
+          "contacts": 24
+        },
+        {
+          "from": 839.9999999995099,
+          "to": 899.9999999994553,
+          "decisions": 115,
+          "ballTransport": 175.06153499727603,
+          "contacts": 26
+        },
+        {
+          "from": 899.9999999994553,
+          "to": 959.9999999994008,
+          "decisions": 100,
+          "ballTransport": 149.37769936369978,
+          "contacts": 18
+        },
+        {
+          "from": 959.9999999994008,
+          "to": 1019.9999999993462,
+          "decisions": 148,
+          "ballTransport": 124.38016932889131,
+          "contacts": 35
+        },
+        {
+          "from": 1019.9999999993462,
+          "to": 1079.9999999995462,
+          "decisions": 83,
+          "ballTransport": 230.70412373059267,
+          "contacts": 20
+        },
+        {
+          "from": 1079.9999999995462,
+          "to": 1139.9999999997644,
+          "decisions": 58,
+          "ballTransport": 213.60897788700774,
+          "contacts": 10
+        },
+        {
+          "from": 1139.9999999997644,
+          "to": 1199.9999999999827,
+          "decisions": 90,
+          "ballTransport": 192.30699213060177,
+          "contacts": 26
+        },
+        {
+          "from": 1199.9999999999827,
+          "to": 1260.000000000201,
+          "decisions": 22,
+          "ballTransport": 164.43467442847285,
+          "contacts": 5
+        },
+        {
+          "from": 1260.000000000201,
+          "to": 1320.0000000004193,
+          "decisions": 97,
+          "ballTransport": 94.22582486108125,
+          "contacts": 19
+        },
+        {
+          "from": 1320.0000000004193,
+          "to": 1380.0000000006376,
+          "decisions": 94,
+          "ballTransport": 157.87675851690065,
+          "contacts": 26
+        },
+        {
+          "from": 1380.0000000006376,
+          "to": 1440.0000000008558,
+          "decisions": 0,
+          "ballTransport": 0,
+          "contacts": 0
+        }
+      ],
+      "wallSeconds": 145.9456059,
+      "cpu": {
+        "user": 166782000,
+        "system": 1110000
+      },
+      "peakRSSKiB": 761348,
+      "fullMatch": false,
+      "promotion": "RETAIN_EXPERIMENTAL"
+    },
+    "baseline": {
+      "seconds": 5782.100000006393,
+      "status": "full_time",
+      "fullMatch": true,
+      "receipt": "docs/performance/pr216/match-attempt-baseline-release-final-v2.json.gz"
+    },
+    "nativeBaselineParity": {
+      "source": "09929812ae12065fc124b0ba4e1eea22d370f0b48c4d9ec2de406922cc81a9fb",
+      "previousSource": "3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782",
+      "status": "EXACT_MATCH",
+      "seconds": 5782.100000006393,
+      "decisions": 11521,
+      "terminalHash": "536c0cc92dce5a8649dc24c9021bcb0037a6661d3d876d12d19ee3fed9f9b6d3",
+      "previousTerminalHash": "536c0cc92dce5a8649dc24c9021bcb0037a6661d3d876d12d19ee3fed9f9b6d3",
+      "method": "deepEqual complete native terminal state; unchanged maintained PR201/B input"
+    },
+    "nextBlocker": "docs/performance/pr216/next-keeper-zone-starvation-release-v2.json.gz"
+  },
+  "browser": {
+    "status": "PASS",
+    "report": "docs/performance/pr216/browser/report.json",
+    "viewports": 2,
+    "source": "09929812ae12065fc124b0ba4e1eea22d370f0b48c4d9ec2de406922cc81a9fb"
+  },
+  "previousPublishedEvidence": {
+    "commit": "da3aef824af8f417f63be33d36631716fb81c092",
+    "verification": "docs/performance/pr216/verification-five-final-v2.json",
+    "browser": "docs/performance/pr216/browser-five-final-v2.json.gz"
+  },
+  "interruptedEarlierCommand": {
+    "command": "npm run verify",
+    "log": "docs/performance/pr216/verification-logs/verify-release-final-v1.log.gz",
+    "status": "INTERRUPTED: smoke exposed unresolved boundary constraint; not a successful verification",
+    "source": "d8745408dd6a67eb5ee78ae8a4b57053dcf506c8acd50c180ac03619aae06126"
+  },
+  "promotion": "RETAIN_EXPERIMENTAL",
+  "maintainedCandidate": "PR201 realism-candidate-v1 / B unchanged",
+  "preservedLogs": [
+    "docs/performance/pr216/verification-logs/history-release-v2-authority.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-ci-contracts.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-corruption.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-current-replay.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-203.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-204.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-205.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-206.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-207.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-208.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-209.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-210.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-211.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-212.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-213.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-214.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-history-215.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-information.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-pr205-contracts.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-pr206-contracts.log.gz",
+    "docs/performance/pr216/verification-logs/history-release-v2-registry.log.gz",
+    "docs/performance/pr216/verification-logs/release-benchmark-final-v1.log.gz",
+    "docs/performance/pr216/verification-logs/release-benchmark-final-v2.log.gz",
+    "docs/performance/pr216/verification-logs/release-browser-v2.log.gz",
+    "docs/performance/pr216/verification-logs/release-frozen-dev-v1.log.gz",
+    "docs/performance/pr216/verification-logs/release-lint-v3.log.gz",
+    "docs/performance/pr216/verification-logs/release-match-final-v2.log.gz",
+    "docs/performance/pr216/verification-logs/release-source-reconstruction-v2.log.gz",
+    "docs/performance/pr216/verification-logs/release-source-suite-v2.log.gz",
+    "docs/performance/pr216/verification-logs/release-starvation-replay-v2.log.gz",
+    "docs/performance/pr216/verification-logs/release-targeted-v2.log.gz",
+    "docs/performance/pr216/verification-logs/release-types-v3.log.gz",
+    "docs/performance/pr216/verification-logs/verify-release-final-v1.log.gz",
+    "docs/performance/pr216/verification-logs/verify-release-final-v2.log.gz"
+  ]
+}
