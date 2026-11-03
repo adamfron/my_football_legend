@@ -9,6 +9,14 @@ export const BALL_RADIUS = 0.11;
 /** Existing spherical passive envelope, distinct from the 0.34m upright torso core.
  * This is not an anatomical knee/ankle or articulated leg representation. */
 export const PASSIVE_OUTFIELD_BODY = { radius: 0.72, centreHeight: 0.9 } as const;
+/** Upright cluster mode models feet separately. Its passive torso therefore uses
+ * the same 34cm core as body/body contact, above the articulated lower limbs.
+ * The capsule proportions are explicit, uncalibrated development geometry. */
+export const UPRIGHT_OUTFIELD_BALL_BODY = {
+  radius: 0.34,
+  centreHeightRatio: 0.65,
+  halfHeightRatio: 0.12,
+} as const;
 export const GOAL_WIDTH = 7.32;
 export const GOAL_HEIGHT = 2.44;
 export const GOAL_POST_RADIUS = 0.06;

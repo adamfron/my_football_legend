@@ -1,5 +1,83 @@
 # MatchEngine integration architecture
 
+## PR216 full-match continuity follow-up — keeper-cycle-v12
+
+The 1493.925s keeper-zone starvation resumes actual foot contact and onward decisions.
+Ordinary low keeper foot play and rebounds outside keeper reach retain one contact
+owner. Upright keeper torsos share the cluster core with their existing motor bounds.
+Held substitution/assessment movement and cleared substitute entry use body CCD
+before eligibility. Released restart presentation no longer truncates post-reception
+search; foot bounds distinguish inactive phases, and stationary touch direction
+survives native JSON reload. No extra actuator update or relaxed physical tolerance.
+
+Both unchanged 22-player inputs pass 600s. The frozen development match completes
+at **5821.125s / 8177 decisions** with no unresolved witness or starvation.
+The same-source maintained PR201/B completes at 5782.100s / 11521
+decisions with its entire native terminal exactly unchanged. Failed native inputs
+and their sources remain preserved, including the already-overlapped old 1380s snapshot.
+
+One complete verify, 21 source/historical/contract checks, all 1383
+reconstructed manifest paths and two production UI viewports pass. See
+performance/pr216/verification.json and the [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md).
+Promotion remains RETAIN_EXPERIMENTAL; one frozen paired completion does not establish
+independent-corpus readiness. Maintained PR201/B/defaults and sealed confirmation
+remain unchanged. Next dependency: broader independent match corpus and stance/traction/falling
+integration. Historical editions below retain their original source and scope.
+
+## PR216 release continuity follow-up — release-final-v2
+
+Research change: owned ground-pass family ownership is independent of instantaneous foot
+readiness. Bouncing selection preserves the actual ball; only a real low-foot contact
+releases it. The exact old 946.075s failure now contacts at 946.082253614s / height 0.220586268m
+and continues 20s / 53 decisions. Unsupported non-grounded techniques and above-band or
+challenged intentions cannot fall through to a nominal grounded release.
+
+Integration: both unchanged 22-player inputs pass 600s with minute-by-minute football activity.
+A newly exposed three-body boundary case retains its identical 32-sweep prefix and receives
+at most 64 sweeps only when the unchanged residual tolerance is unmet. The exact case
+resolves with zero penetration and conserved momentum including its external edge impulse.
+Five-body support, explicit six-body overflow and other bounds retain their scope.
+
+The renewed frozen full-match attempt stops at 1493.925s / 2356 decisions on action starvation
+after a keeper-zone loose ball becomes stationary. Native replay exactly reproduces the
+1380s checkpoint; shared ordinary ownership is excluded there and the historical fallback
+continues without further decisions. This is not a completed 90-minute development match.
+Next dependency is keeper-zone low-ball contact/reaching continuity. Promotion remains
+RETAIN_EXPERIMENTAL; maintained PR201/B/defaults and sealed confirmation are unchanged.
+See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md), release-final-v2
+receipts and verification.json. Earlier editions below retain their original source and scope.
+
+## PR216 five-body follow-up — bounded support validated
+
+The existing upright cluster owner now supports five bodies. Components up to four retain
+32 sweeps; five-body components have 64 sweeps / at most 640 recorded pair impulses.
+Residual, geometric correction, event and persistent-storage tolerances are unchanged;
+six-body overflow remains explicit. The frozen five-body incident resolves in 11 sweeps
+and continues canonical play. Unequal-mass, oblique, persistent and native-reload controls pass.
+The renewed frozen 90-minute attempt reaches 946.075s / 1663 decisions, then stops on a
+separate historical pass-release/foot handoff. Full 90-minute completion is not claimed.
+Next dependency is finite release continuity for that exact source-bound incident; body
+support is not bypassed and foot tolerances are not widened. Maintained PR201/B/defaults
+and sealed confirmation stay unchanged; promotion remains RETAIN_EXPERIMENTAL.
+See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md) and its
+five-final-v2 receipts. Historical source editions below retain their original scope.
+
+## Earlier PR216 P1 source edition — p1-final-v6
+
+Finite ankle reaching/retraction, actual three-dimensional control and persistent foot support
+share the existing canonical interval and connected geometry. Two unchanged 22-player inputs
+each pass 600s with actual contacts, onward decisions and ball transport in every minute; the
+old resting-ball checkpoint resumes two decisions in ten seconds. CI rejects action starvation
+and checks the frozen protocol input for 120s. Upright outfield CCD also covers restart staging
+and release. Keeper/aerial fallbacks and unsupported prepared-contact guards remain explicit.
+See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md), its p1-final-v6
+receipts and separate full-protocol attempt. Production stance/traction/falling remain disabled.
+The frozen full-match attempt stops at 698.7s on the explicit five-body/four-body-contract
+overflow; it is not a completed holistic match. The complete diagnostic remains preserved.
+Promotion stays RETAIN_EXPERIMENTAL; PR201/B/defaults and sealed confirmation are unchanged.
+Historical sections and frozen inputs below retain their original scope.
+
+
 PR214 adds separately selected `upright-cluster-dev-v1` to the existing pending/standing interval, with ≤4-body sequential impulses, non-restituting support, explicit external player-edge impulse and canonical foot/remainder recalculation. Its bounded local evidence does not extend body authority to every ordinary carry/loose/delivery path. The current-source [inventory](HOLISTIC_MECHANISM_INVENTORY.md), [compatibility matrix](HOLISTIC_COMPATIBILITY_MATRIX.md) and [first-match protocol](HOLISTIC_MATCH_PROTOCOL.md) prepare a schema-valid unprofiled fixture recipe without changing historical profile checksums or adding a profile framework. Activation witnesses retain unknown invocation as null. Holistic match BLOCKED pending ordinary-phase ownership, admissible clinch coupling and complete activation; PR201/B/defaults/135-issue dimensions/confirmation unchanged. [PR214 evidence](../PR214_MULTIBODY_CONTACT_AND_HOLISTIC_READINESS.md).
 
 PR213 adds independent `experimentalPlayerBodyImpulse: upright-pair-dev-v1`, requiring the shared standing/pending/event-v1 editions. The existing finite motor update is spent once; a real torso impulse rebases both canonical transport and subsequent foot segments. Geometric player/foot episodes survive ownership and completed intentions. Selected acquisition requires finite control evidence. Three foot/body orderings within one step and 93 reloads are recorded. Initial overlap/tangent and third-body/player-edge remainders remain explicit; no universal contact/fall support or full-match promotion. PR201, B and profile checksums remain unchanged; RETAIN_EXPERIMENTAL, confirmation sealed. [PR213](../PR213_PERSISTENT_CONTACT_AND_BODY_IMPULSE.md).

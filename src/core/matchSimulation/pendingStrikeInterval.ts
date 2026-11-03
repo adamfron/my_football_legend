@@ -1,4 +1,5 @@
-import { PASSIVE_OUTFIELD_BODY } from './ballFlight';
+import { PASSIVE_OUTFIELD_BODY, UPRIGHT_OUTFIELD_BALL_BODY } from './ballFlight';
+import { interpolateLowerBodyPose } from './lowerBodyGeometry';
 import { compareSharedContactEvents, type sharedContactEventSchema } from './sharedContactTimeline';
 import { recordExecution } from './executionWitness';
 import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
@@ -6,6 +7,7 @@ import {
   MULTI_BODY,
   multiBodyParticipants,
   findPlayerMovementEdge,
+  multiBodyMovementBounds,
   resolveMultiBodyContact,
 } from './multiBodyContact';
 import type { z } from 'zod';
@@ -35,16 +37,18 @@ import {
 import { findFirstBallContact, resolveBallRebound, type ContactCandidate } from './ballFlight';
 import { integrateBallFlight } from './ballPhysics';
 import { canParticipatePhysically } from './matchInjuries';
-import { motorContactReadyAt } from './ballContactGeometry';
+import { motorContactReadyAt, advanceControlledBall } from './ballContactGeometry';
 import { canContactAfterThrowIn } from './throwIn';
 import { captureOffsideSnapshot } from './offside';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { GOALKEEPER_PHYSICS } from './goalkeeperIntervention';
+import { isRestartSetup } from './restartPhase';
 import {
   canonicalStrikeFoot,
   executePendingContact,
   findStrikeIntervalContact,
   finishPendingStrike,
+  beginFootRecovery,
   physicalStrikeBall,
   withPhysicalStrikeBall,
 } from './pendingStrike';
@@ -52,6 +56,8 @@ import {
 type Handlers = {
   /** Chosen before the motor step; moved endpoints cannot switch ball ownership. */
   ordinary?: boolean;
+  /** Unsupported ball techniques retain their named consumer; torso motion does not. */
+  bodyOnly?: boolean;
   boundary: (
     state: TacticalMatchState,
     crossing: PitchBoundaryCrossing,
@@ -65,6 +71,9 @@ type Handlers = {
 
 const bodyAt = (a: MatchPlayerState, b: MatchPlayerState, fraction: number): MatchPlayerState => ({
   ...b,
+  ...(a.lowerBodyPose || b.lowerBodyPose
+    ? { lowerBodyPose: interpolateLowerBodyPose(a.lowerBodyPose, b.lowerBodyPose, fraction) }
+    : {}),
   position: {
     x: a.position.x + (b.position.x - a.position.x) * fraction,
     y: a.position.y + (b.position.y - a.position.y) * fraction,
@@ -131,8 +140,18 @@ export const advancePendingStrikeInterval = (
       : value;
   };
   const changedVelocities = new Map<string, MatchPlayerState['velocity']>();
+  const interruptedByLaw = (s: TacticalMatchState) =>
+    Boolean(
+      (s.restart &&
+        (!input.restart ||
+          s.restart.awardId !== input.restart.awardId ||
+          (input.restart.phase === 'release' && s.restart.phase !== 'release'))) ||
+        (s.postGoal && !input.postGoal) ||
+        (s.scenario !== input.scenario &&
+          !(input.restart?.phase === 'release' && s.scenario === 'open_play' && !s.restart)),
+    );
   const restoreClock = (s: TacticalMatchState) => {
-    if (multi && (s.restart || s.scenario !== 'open_play' || s.postGoal)) {
+    if (multi && interruptedByLaw(s)) {
       // A lawful interruption precedes every later physical opportunity. Never
       // restore a future drift endpoint through an edge or a third body.
       transportEnd = elapsed;
@@ -166,13 +185,23 @@ export const advancePendingStrikeInterval = (
                 position: p.position,
                 facingAngle: p.facingAngle,
                 velocity: changedVelocities.get(p.id) ?? p.velocity,
+                ...(p.lowerBodyPose
+                  ? {
+                      lowerBodyPose:
+                        transportEnd < dt
+                          ? playerAt(p, transportEnd).lowerBodyPose
+                          : p.lowerBodyPose,
+                    }
+                  : {}),
               }
             : p;
           const origin = origins.get(p.id);
-          return origin && (before.get(p.id)?.samples ?? 0) < p.samples
+          const prior = before.get(p.id),
+            nominal = nominalPlayers.find((a) => a.id === p.id);
+          return origin && prior && nominal && prior.samples < p.samples
             ? accountCanonicalContactMovement(
-                before.get(p.id)!,
-                nominalPlayers.find((a) => a.id === p.id)!,
+                prior,
+                nominal,
                 physical,
                 (travelled.get(p.id) ?? 0) +
                   Math.hypot(p.velocity.x, p.velocity.y) * Math.max(0, transportEnd - origin.at),
@@ -193,6 +222,67 @@ export const advancePendingStrikeInterval = (
   if (ordinary)
     state = recordExecution(state, 'ordinary-loose-ball', 'pendingStrikeInterval.advance:ordinary');
   const excluded = new Set<string>(pending ? [pending.actorId] : []);
+  const uncertainActors = new Set<string>();
+  const advanceBallState = (
+    s: TacticalMatchState,
+    flight: ReturnType<typeof integrateBallFlight>,
+    seconds: number,
+  ) => {
+    const next = withPhysicalStrikeBall(s, flight);
+    if (s.ball.travelKind)
+      next.ball = {
+        ...next.ball,
+        flightTime: (s.ball.flightTime ?? 0) + seconds,
+        distanceTravelled:
+          (s.ball.distanceTravelled ?? 0) +
+          Math.hypot(flight.position.x - s.ball.x, flight.position.y - s.ball.y),
+      };
+    return next;
+  };
+  const releaseSeparatedControl = () => {
+    const owner = state.players.find((p) => p.id === state.ball.ownerId);
+    if (!owner || state.pendingStrike) return;
+    const prepared = advanceControlledBall(state, owner, 0, undefined, undefined, 'prepare');
+    state = prepared.state;
+    if (prepared.looseVelocity) {
+      state = { ...state, ball: { ...state.ball, looseSince: state.time } };
+      delete state.ball.ownerId;
+    }
+  };
+  const passiveFoot = (
+    actor: MatchPlayerState,
+    key: string,
+    hit: NonNullable<ReturnType<typeof findStrikeIntervalContact>>,
+  ) => {
+    const foot: 'left' | 'right' = key.endsWith(':left') ? 'left' : 'right';
+    const ball = physicalStrikeBall(state);
+    const rebound = resolveBallRebound(
+      'defender',
+      ball.velocity,
+      { team: state.possessionTeam, endsSwitched: state.endsSwitched },
+      ball.spin,
+      { surfaceNormal: hit.normal!, point: ball.position, surfaceVelocity: hit.foot!.velocity },
+    );
+    state = {
+      ...state,
+      ball: {
+        ...state.ball,
+        velocity: rebound.velocity,
+        ...(rebound.spin ? { spin: rebound.spin } : {}),
+        lastTouchPlayerId: actor.id,
+      },
+      continuousFootContacts: [
+        ...(state.continuousFootContacts ?? []),
+        { actorId: actor.id, foot },
+      ].slice(-44),
+    };
+    if (state.ball.ownerId && state.ball.ownerId !== actor.id) {
+      state = { ...state, ball: { ...state.ball, looseSince: state.time } };
+      delete state.ball.ownerId;
+    }
+    state = recordExecution(state, 'ball-body-contact', 'pendingStrikeInterval.passiveFoot', 1);
+  };
+  if (multi && !handlers.bodyOnly) releaseSeparatedControl();
   const rebasePlayer = (p: MatchPlayerState) => {
     const old = finalPlayers.find((q) => q.id === p.id)!;
     const began = origins.get(p.id)?.at ?? 0;
@@ -218,13 +308,53 @@ export const advancePendingStrikeInterval = (
     reason: string,
     contact?: ReturnType<typeof executeFootContact>,
   ) => {
+    const challengeBefore = state.defensiveChallenge;
     const resolution = resolveDefensiveChallenge(state, {
       kind,
       reason,
       ...(contact ? { contact } : {}),
     });
     state = resolution.state;
+    if (challengeBefore?.physicalAttempt)
+      state = beginFootRecovery(state, challengeBefore.actorId, challengeBefore.physicalAttempt);
     if (resolution.diagnostic) state = handlers.challenge?.(state, resolution.diagnostic) ?? state;
+  };
+  const intervalFoot = (p: MatchPlayerState, foot: 'left' | 'right', t: number) => {
+    const origin = origins.get(p.id),
+      a = origin?.player ?? before.get(p.id) ?? p,
+      began = origin?.at ?? 0;
+    const own =
+      state.pendingStrike?.actorId === p.id && state.pendingStrike.plan.foot === foot
+        ? state.pendingStrike
+        : undefined;
+    const defending =
+      state.defensiveChallenge?.actorId === p.id &&
+      state.defensiveChallenge.physicalAttempt?.plan.foot === foot
+        ? state.defensiveChallenge.physicalAttempt
+        : undefined;
+    const latched = state.continuousFootContacts?.find(
+      (c) => c.actorId === p.id && c.foot === foot,
+    )?.prepared;
+    const trajectory =
+      own ??
+      defending ??
+      (latched
+        ? {
+            path: latched.path,
+            selectedAt: latched.selectedAt,
+            plan: { facingAngle: latched.facingAngle },
+          }
+        : undefined);
+    return canonicalStrikeFoot(
+      trajectory,
+      a,
+      p,
+      foot,
+      start + began,
+      dt - began,
+      elapsed + t - began,
+      state.recoveringFeet?.find((f) => f.actorId === p.id && f.foot === foot),
+    );
   };
   for (
     let eventCount = 0;
@@ -241,27 +371,24 @@ export const advancePendingStrikeInterval = (
         }),
       };
     const ball = physicalStrikeBall(state);
+    if (multi)
+      state = {
+        ...state,
+        continuousFootContacts: (state.continuousFootContacts ?? []).filter((c) => {
+          const p = finalPlayers.find((p) => p.id === c.actorId);
+          if (!p) return false;
+          const foot = intervalFoot(p, c.foot, 0).position;
+          return (
+            Math.hypot(
+              foot.x - ball.position.x,
+              foot.y - ball.position.y,
+              foot.z - ball.position.z,
+            ) <= 0.155
+          );
+        }),
+      };
     state = recordExecution(state, 'ground-contact', 'pendingStrikeInterval.integrateBallFlight');
-    const integrated = integrateBallFlight(ball, seconds, state.ballEnvironment);
-    let crossing = findPitchBoundaryCrossing(ball.position, integrated.position);
-    if (crossing) {
-      // Refine the whole-ball plane against the same integrator as foot contact.
-      let low = 0,
-        high = seconds;
-      for (let i = 0; i < 32; i++) {
-        const middle = (low + high) / 2;
-        if (
-          isBallWithinPlayingBoundary(
-            integrateBallFlight(ball, middle, state.ballEnvironment).position,
-          )
-        )
-          low = middle;
-        else high = middle;
-      }
-      const out = integrateBallFlight(ball, high, state.ballEnvironment).position;
-      const legal = findPitchBoundaryCrossing(ball.position, out);
-      crossing = { ...(legal ?? crossing), segmentFraction: high / seconds };
-    }
+    let integrated = integrateBallFlight(ball, seconds, state.ballEnvironment);
     const candidates: ContactCandidate[] = finalPlayers
       .filter(
         (p) =>
@@ -279,17 +406,28 @@ export const advancePendingStrikeInterval = (
             ...p.position,
             z: isMatchGoalkeeper(p)
               ? GOALKEEPER_PHYSICS.contactCentreHeight
-              : PASSIVE_OUTFIELD_BODY.centreHeight,
+              : multi
+                ? (p.profile.heightCm / 100) * UPRIGHT_OUTFIELD_BALL_BODY.centreHeightRatio
+                : PASSIVE_OUTFIELD_BODY.centreHeight,
           },
           previousCentre: {
             ...a.position,
             z: isMatchGoalkeeper(p)
               ? GOALKEEPER_PHYSICS.contactCentreHeight
-              : PASSIVE_OUTFIELD_BODY.centreHeight,
+              : multi
+                ? (p.profile.heightCm / 100) * UPRIGHT_OUTFIELD_BALL_BODY.centreHeightRatio
+                : PASSIVE_OUTFIELD_BODY.centreHeight,
           },
           radius: isMatchGoalkeeper(p)
             ? GOALKEEPER_PHYSICS.passiveBodyRadiusMetres
-            : PASSIVE_OUTFIELD_BODY.radius,
+            : multi
+              ? UPRIGHT_OUTFIELD_BALL_BODY.radius
+              : PASSIVE_OUTFIELD_BODY.radius,
+          ...(multi && !isMatchGoalkeeper(p)
+            ? {
+                halfHeight: (p.profile.heightCm / 100) * UPRIGHT_OUTFIELD_BALL_BODY.halfHeightRatio,
+              }
+            : {}),
         };
       });
     if (shared) {
@@ -299,6 +437,67 @@ export const advancePendingStrikeInterval = (
         state.ball.continuousBodyContacts,
       );
       state = { ...state, ball: { ...state.ball, continuousBodyContacts: active } };
+    }
+    const supports =
+      shared && !handlers.bodyOnly
+        ? candidates.filter((c) => state.ball.continuousBodyContacts?.includes(c.playerId!))
+        : [];
+    const footSupports =
+      multi && !handlers.bodyOnly
+        ? (state.continuousFootContacts ?? [])
+            .map((c) => ({ contact: c, player: finalPlayers.find((p) => p.id === c.actorId)! }))
+            .filter((c) => c.player)
+        : [];
+    const hasSupport = !!(supports.length || footSupports.length);
+    const supportSpeedBound = Math.max(
+      0,
+      ...supports.map(
+        (c) =>
+          Math.hypot(c.centre.x - c.previousCentre!.x, c.centre.y - c.previousCentre!.y) / seconds,
+      ),
+      ...footSupports.map((c) => intervalFoot(c.player, c.contact.foot, 0).speedBound),
+    );
+    const advanceBall = (t: number) => {
+      const flight = integrateBallFlight(ball, t, state.ballEnvironment);
+      if (!hasSupport || t === 0) return flight;
+      const supported = supportContinuousBodyContacts(
+        flight.position,
+        flight.velocity,
+        [
+          ...supports.map((c) => ({
+            ...c,
+            centre: {
+              x: c.previousCentre!.x + ((c.centre.x - c.previousCentre!.x) * t) / seconds,
+              y: c.previousCentre!.y + ((c.centre.y - c.previousCentre!.y) * t) / seconds,
+              z: c.centre.z,
+            },
+          })),
+          ...footSupports.map((c) => ({
+            kind: 'defender' as const,
+            playerId: c.player.id,
+            radius: 0.035,
+            centre: intervalFoot(c.player, c.contact.foot, t).position,
+            previousCentre: intervalFoot(c.player, c.contact.foot, 0).position,
+          })),
+        ],
+        t,
+      );
+      return { ...flight, ...supported };
+    };
+    if (hasSupport) integrated = advanceBall(seconds);
+    let crossing = findPitchBoundaryCrossing(ball.position, integrated.position);
+    if (crossing) {
+      let low = 0,
+        high = seconds;
+      for (let i = 0; i < 32; i++) {
+        const middle = (low + high) / 2;
+        if (isBallWithinPlayingBoundary(advanceBall(middle).position)) low = middle;
+        else high = middle;
+      }
+      crossing = {
+        ...(findPitchBoundaryCrossing(ball.position, advanceBall(high).position) ?? crossing),
+        segmentFraction: high / seconds,
+      };
     }
     let body = findFirstBallContact({
       previous: ball.position,
@@ -328,7 +527,9 @@ export const advancePendingStrikeInterval = (
         .map((p) => playerAt(p, elapsed));
       for (let i = 0; i < bodies.length; i++) {
         const a = bodies[i]!;
-        const edge = supportedUprightPair(a, a) ? findPlayerMovementEdge(a, seconds) : undefined;
+        const edge = supportedUprightPair(a, a, true)
+          ? findPlayerMovementEdge(a, seconds, multiBodyMovementBounds(state, a))
+          : undefined;
         if (edge)
           events.push({
             at: edge.at,
@@ -462,14 +663,18 @@ export const advancePendingStrikeInterval = (
         key: 'swing_expired',
         kind: 'expiry',
       });
-    if (crossing)
+    if (crossing && !handlers.bodyOnly)
       events.push({
         at: seconds * crossing.segmentFraction,
         rank: 0,
         key: crossing.boundary,
         kind: 'boundary',
       });
-    if (body && (body.playerId || ['left_post', 'right_post', 'crossbar'].includes(body.kind)))
+    if (
+      !handlers.bodyOnly &&
+      body &&
+      (body.playerId || ['left_post', 'right_post', 'crossbar'].includes(body.kind))
+    )
       events.push({
         at: seconds * body.segmentFraction,
         rank: 1,
@@ -478,7 +683,14 @@ export const advancePendingStrikeInterval = (
         ...(body.playerId ? { playerId: body.playerId } : {}),
       });
     for (const p of finalPlayers) {
-      if (excluded.has(p.id) && p.id !== state.pendingStrike?.actorId) continue;
+      if (handlers.bodyOnly) continue;
+      if (uncertainActors.has(p.id)) continue;
+      if (
+        excluded.has(p.id) &&
+        p.id !== state.pendingStrike?.actorId &&
+        !state.recoveringFeet?.some((f) => f.actorId === p.id)
+      )
+        continue;
       if (
         !canParticipatePhysically(p) ||
         state.discipline?.[p.id]?.sentOff ||
@@ -487,7 +699,6 @@ export const advancePendingStrikeInterval = (
         continue;
       const origin = origins.get(p.id);
       const a = origin?.player ?? before.get(p.id) ?? p;
-      const began = origin?.at ?? 0;
       const own = p.id === state.pendingStrike?.actorId ? state.pendingStrike : undefined;
       const defending = p.id === challenge?.actorId ? attempt : undefined;
       const travel = Math.hypot(p.position.x - a.position.x, p.position.y - a.position.y);
@@ -498,28 +709,17 @@ export const advancePendingStrikeInterval = (
       )
         continue;
       const prepared = own ?? defending;
-      for (const foot of prepared ? [prepared.plan.foot] : (['left', 'right'] as const)) {
-        const latched = moved.experimentalPlayerBodyImpulse
-          ? state.continuousFootContacts?.find((c) => c.actorId === p.id && c.foot === foot)
-              ?.prepared
-          : undefined;
-        const trajectory = latched
-          ? {
-              path: latched.path,
-              selectedAt: latched.selectedAt,
-              plan: { facingAngle: latched.facingAngle },
-            }
-          : prepared;
-        const footAt = (t: number) =>
-          canonicalStrikeFoot(
-            trajectory,
-            a,
-            p,
-            foot,
-            start + began,
-            dt - began,
-            elapsed + t - began,
-          );
+      const carrying = multi && state.ball.ownerId === p.id && !own;
+      const readyAt = carrying
+        ? Math.max(
+            motorContactReadyAt(state, p.id),
+            state.controlledBallContact?.nextContact.earliestAt ?? state.time,
+          )
+        : motorContactReadyAt(state, p.id);
+      for (const foot of prepared && !multi ? [prepared.plan.foot] : (['left', 'right'] as const)) {
+        const selected = prepared?.plan.foot === foot;
+        const recovery = state.recoveringFeet?.find((f) => f.actorId === p.id && f.foot === foot);
+        const footAt = (t: number) => intervalFoot(p, foot, t);
         if (
           shared &&
           state.continuousFootContacts?.some((c) => c.actorId === p.id && c.foot === foot)
@@ -536,27 +736,32 @@ export const advancePendingStrikeInterval = (
             ),
           };
         }
-        if (!own && start + elapsed < motorContactReadyAt(state, p.id) - 1e-9) continue;
         const hit = findStrikeIntervalContact(
           state,
-          prepared ? Math.min(seconds, Math.max(0, prepared.expiresAt - state.time)) : seconds,
+          selected ? Math.min(seconds, Math.max(0, prepared.expiresAt - state.time)) : seconds,
           footAt,
+          undefined,
+          multi ? MULTI_BODY.footEvaluations : undefined,
+          hasSupport ? advanceBall : undefined,
+          2 * supportSpeedBound,
         );
         evaluations += hit.evaluations;
         if (hit.outcome === 'clear') continue;
         // Uncertain competing geometry blocks the planned impulse conservatively.
         events.push({
           at: hit.local,
-          rank: hit.outcome === 'unresolved' ? 1 : own ? 3 : 2,
+          rank: hit.outcome === 'unresolved' ? 1 : own && selected ? 3 : 2,
           key: `${p.id}:${foot}`,
           kind:
             hit.outcome === 'unresolved'
               ? 'uncertain'
-              : own
+              : own && selected
                 ? 'strike'
-                : defending
+                : defending && selected
                   ? 'challenge'
-                  : 'foot',
+                  : prepared || recovery || state.time + hit.local < readyAt - 1e-9
+                    ? 'passive_foot'
+                    : 'foot',
           playerId: p.id,
           hit,
         });
@@ -566,30 +771,23 @@ export const advancePendingStrikeInterval = (
     events.sort(compareSharedContactEvents);
     const event = events[0];
     if (!event) {
-      state = withPhysicalStrikeBall(state, integrated);
-      if (shared && state.ball.continuousBodyContacts?.length) {
-        const supported = supportContinuousBodyContacts(
-          integrated.position,
-          integrated.velocity,
-          candidates.filter((c) => state.ball.continuousBodyContacts?.includes(c.playerId!)),
-          seconds,
-        );
-        state = withPhysicalStrikeBall(state, { ...integrated, ...supported });
-      }
+      if (!handlers.bodyOnly) state = advanceBallState(state, integrated, seconds);
       elapsed = dt;
       break;
     }
-    const incoming =
-      event.at > 0 ? integrateBallFlight(ball, event.at, state.ballEnvironment) : ball;
+    const incoming = event.at > 0 ? advanceBall(event.at) : ball;
     elapsed += event.at;
-    state = withPhysicalStrikeBall(
+    const unchangedBall = state.ball;
+    state = advanceBallState(
       {
         ...state,
         time: start + elapsed,
         players: finalPlayers.map((p) => playerAt(p, elapsed)),
       },
       incoming,
+      event.at,
     );
+    if (handlers.bodyOnly) state = { ...state, ball: unchangedBall };
     if (event.kind === 'player_cluster' || event.kind === 'player_edge') {
       const result = resolveMultiBodyContact(state, event.participants!, state.time);
       state = recordExecution(
@@ -692,7 +890,7 @@ export const advancePendingStrikeInterval = (
           resolveChallenge('unresolved', result.evidence.reason);
         return restoreClock(state);
       }
-      if (state.restart || state.scenario !== 'open_play' || state.postGoal) {
+      if (interruptedByLaw(state)) {
         state = finishPendingStrike(state, 'interrupted', 'law_interruption');
         return restoreClock(state);
       }
@@ -788,7 +986,7 @@ export const advancePendingStrikeInterval = (
           ...state,
           players: state.players.map((p) => result.players.find((q) => q.id === p.id) ?? p),
         };
-        if (state.restart || state.scenario !== 'open_play' || state.postGoal) {
+        if (interruptedByLaw(state)) {
           state = finishPendingStrike(state, 'interrupted', 'law_interruption');
           return restoreClock(state);
         }
@@ -799,8 +997,7 @@ export const advancePendingStrikeInterval = (
         firstEvent: event.key,
       });
       resolveChallenge('body', 'swept_torso_contact');
-      if (state.restart || state.scenario !== 'open_play' || state.postGoal)
-        return restoreClock(state);
+      if (interruptedByLaw(state)) return restoreClock(state);
       // The standing-body impulse model is not established. Keep a conservative
       // diagnostic continuation rather than inventing a knockdown or displacement.
       if (state.lastStrikeResolution)
@@ -834,6 +1031,7 @@ export const advancePendingStrikeInterval = (
       return restoreClock(handlers.boundary(atEnd, crossing!, ball.position, seconds));
     }
     if (event.kind === 'uncertain') {
+      uncertainActors.add(event.playerId!);
       state = recordExecution(state, 'unresolved', event.hit?.reason ?? 'uncertain_contact', 1);
       state = finishPendingStrike(
         state,
@@ -882,6 +1080,25 @@ export const advancePendingStrikeInterval = (
       continue;
     }
     const actor = state.players.find((p) => p.id === event.playerId)!;
+    if (
+      event.hit?.foot &&
+      actor.lowerBodyPose?.reachOffset &&
+      Math.hypot(actor.lowerBodyPose.reachOffset.x, actor.lowerBodyPose.reachOffset.y) > 1e-9
+    ) {
+      // The motor has reached an actual surface. Stop its remaining ankle command;
+      // do not restore the planned penetrating endpoint after control or rebound.
+      finalPlayers = finalPlayers.map((p) =>
+        p.id === actor.id ? { ...p, lowerBodyPose: actor.lowerBodyPose } : p,
+      );
+      rebasePlayer(actor);
+    }
+    if (event.kind === 'passive_foot') {
+      state = handlers.body(state, actor.id);
+      if (interruptedByLaw(state))
+        return restoreClock(finishPendingStrike(state, 'interrupted', 'law_interruption'));
+      passiveFoot(actor, event.key, event.hit!);
+      continue;
+    }
     if (event.kind === 'challenge') {
       const hit = event.hit!;
       const contact =
@@ -902,7 +1119,7 @@ export const advancePendingStrikeInterval = (
       // The same actual-contact law/lineage observer as passive deflection.
       // It can end play; it never awards this foot secure possession.
       state = handlers.body(state, actor.id);
-      if (state.restart || state.scenario !== 'open_play' || state.postGoal) {
+      if (interruptedByLaw(state)) {
         resolveChallenge('interrupted', 'law_interruption');
         return restoreClock(state);
       }
@@ -1066,7 +1283,31 @@ export const advancePendingStrikeInterval = (
         { evaluations, firstEvent: event.key },
       );
       if (event.kind === 'foot') {
-        state = handlers.control(state, actor.id);
+        if (multi && state.ball.ownerId === actor.id) {
+          const carried = advanceControlledBall(
+            state,
+            actor,
+            0,
+            event.key.endsWith(':left') ? 'left' : 'right',
+            undefined,
+            'contact',
+          );
+          state = carried.state;
+          if (carried.looseVelocity) {
+            state = { ...state, ball: { ...state.ball, looseSince: state.time } };
+            delete state.ball.ownerId;
+          }
+        } else {
+          // Another real foot can end protected control. The reception consumer
+          // must see the actual free ball, not the previous owner's claim.
+          if (multi && state.ball.ownerId) {
+            state = { ...state, ball: { ...state.ball, looseSince: state.time } };
+            delete state.ball.ownerId;
+          }
+          state = handlers.control(state, actor.id);
+        }
+        if (!(state.lastGroundContact?.at === state.time && state.lastGroundContact.executed))
+          passiveFoot(actor, event.key, event.hit!);
         if (
           shared &&
           state.lastGroundContact?.at === state.time &&
@@ -1093,25 +1334,7 @@ export const advancePendingStrikeInterval = (
             : undefined;
         if (pending && state.lastStrikeResolution?.id === pending.id && contact)
           state = { ...state, lastStrikeResolution: { ...state.lastStrikeResolution, contact } };
-        if (ordinary && state.ball.ownerId) {
-          // The carry controller has not yet joined this substep chronology.
-          // Keep the genuine reception, but stop at its real state rather than
-          // inventing the carried-ball remainder or running another impulse.
-          transportEnd = elapsed;
-          for (const p of finalPlayers.filter((p) => clusterIds.has(p.id) || origins.has(p.id))) {
-            const atControl = playerAt(p, elapsed);
-            finalPlayers = finalPlayers.map((q) =>
-              q.id === p.id ? { ...q, position: atControl.position } : q,
-            );
-          }
-          state = recordExecution(
-            state,
-            'unresolved',
-            'controlled_reception_remainder_not_migrated',
-            1,
-          );
-          return restoreClock(state);
-        }
+        if (multi) releaseSeparatedControl();
       } else {
         state = recordExecution(
           state,
@@ -1141,8 +1364,7 @@ export const advancePendingStrikeInterval = (
           },
         );
         state = handlers.body(state, actor.id);
-        if (state.restart || state.scenario !== 'open_play' || state.postGoal)
-          return restoreClock(state);
+        if (interruptedByLaw(state)) return restoreClock(state);
         state = {
           ...state,
           ball: {
@@ -1168,14 +1390,14 @@ export const advancePendingStrikeInterval = (
         };
       }
       if (
-        state.restart ||
-        state.scenario !== 'open_play' ||
+        isRestartSetup(state) ||
+        (state.scenario !== 'open_play' && state.restart?.phase !== 'release') ||
         state.postGoal ||
         state.ball.heldByKeeperId
       )
         return restoreClock(state);
     }
-    excluded.add(actor.id);
+    if (!shared) excluded.add(actor.id);
   }
   if (elapsed < dt - 1e-12) {
     state = recordExecution(state, 'unresolved', 'pendingStrikeInterval.event_budget', 1);
@@ -1208,6 +1430,7 @@ export const advancePendingStrikeInterval = (
     // Conservative stop at the last witnessed contact, as in the existing loose-ball CCD remainder.
   }
   state = restoreClock(state);
+  if (multi && !handlers.bodyOnly) releaseSeparatedControl();
   if (state.pendingStrike && end >= state.pendingStrike.expiresAt - 1e-9)
     return finishPendingStrike(state, 'miss', 'swing_completed_without_contact', end, {
       evaluations,

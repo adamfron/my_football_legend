@@ -51,6 +51,7 @@ import {
 import { projectPassReception, receptionPreparationSchema } from './passReception';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { deriveAerialLaunchPlan, deriveLaunchVelocity } from './ballPhysics';
+import { BALL_RADIUS } from './ballFlight';
 import {
   canContactAfterThrowIn,
   isLegalThrowInReceiver,
@@ -1920,6 +1921,16 @@ const resolveMatchActionCanonical = (
         }
       : {}),
   };
+  // An unmigrated foot technique may retain its grounded consumer, but it cannot
+  // turn an airborne owned ball into a ground release. Keep the real ball live
+  // until that technique is ready instead of installing the nominal release.
+  if (
+    temporalPass &&
+    state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
+    !isPhysicalKickPassTechnique(execution.type) &&
+    (state.ball.height ?? BALL_RADIUS) > BALL_RADIUS + 1e-7
+  )
+    return state;
   return temporalPass && isPhysicalKickPassTechnique(execution.type)
     ? commitPendingPass(state, baseState, actor, action, release)
     : release;

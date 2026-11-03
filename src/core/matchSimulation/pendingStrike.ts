@@ -15,7 +15,11 @@ import {
   ZERO_TEMPORAL_ERROR,
 } from './temporalFootStrike';
 import { activeStrikeCapability, executeFootContact, playerFootGeometry } from './footContact';
-import { deriveLowerBodyGeometry } from './lowerBodyGeometry';
+import {
+  deriveLowerBodyGeometry,
+  interpolateLowerBodyPose,
+  neutralLowerBodyPose,
+} from './lowerBodyGeometry';
 import { releaseContactReadiness } from './decisionReadiness';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { canParticipatePhysically } from './matchInjuries';
@@ -36,7 +40,9 @@ const rotate = (a: V, angle: number): V => ({
   z: a.z,
 });
 
-/** Selection only; unsupported families stay on their historical path. */
+/** Family ownership is separate from instantaneous contact readiness. In cluster
+ * mode an owned ground-pass intention cannot fall through to a teleporting legacy
+ * release merely because the ball is currently above the low striking surface. */
 export const selectsPendingPass = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
@@ -45,7 +51,7 @@ export const selectsPendingPass = (
   state.experimentalPendingStrike === 'low-pass-dev-v1' &&
   state.scenario === 'open_play' &&
   !state.restart &&
-  !state.defensiveChallenge &&
+  (!state.defensiveChallenge || state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1') &&
   !isMatchGoalkeeper(actor) &&
   action.type === 'pass' &&
   !action.firstTime &&
@@ -53,7 +59,8 @@ export const selectsPendingPass = (
   action.delivery !== 'lofted' &&
   state.ball.ownerId === actor.id &&
   !state.ball.travelKind &&
-  (state.ball.height ?? 0.11) <= 0.24;
+  ((state.ball.height ?? 0.11) <= 0.24 ||
+    state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1');
 
 /** Nominal release metadata is prepared by the ordinary planner, never installed as a ball state.
  * Errors are sampled once from the existing action seed, with timing's duplicate patch/effort removed. */
@@ -64,6 +71,7 @@ export const commitPendingPass = (
   action: MatchAction,
   release: TacticalMatchState,
 ): TacticalMatchState => {
+  if (state.defensiveChallenge && !state.defensiveChallenge.physicalAttempt) return state;
   if (!releaseContactReadiness(state, actor).ready || !release.lastPassDiagnostic) return state;
   const nominal = release.ball.launchVelocity!;
   const request = {
@@ -118,6 +126,32 @@ export const commitPendingPass = (
   };
 };
 
+export const beginFootRecovery = (
+  state: TacticalMatchState,
+  actorId: string,
+  prepared: Pick<PendingStrike, 'path' | 'selectedAt' | 'plan'>,
+  at = state.time,
+): TacticalMatchState => {
+  if (state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1') return state;
+  const { relative } = relativeTemporalFootAt(prepared.path, at - prepared.selectedAt);
+  return {
+    ...state,
+    recoveringFeet: [
+      ...(state.recoveringFeet ?? []).filter(
+        (f) => f.actorId !== actorId || f.foot !== prepared.plan.foot,
+      ),
+      {
+        actorId,
+        foot: prepared.plan.foot,
+        facingAngle: prepared.plan.facingAngle,
+        beganAt: at,
+        seconds: Math.max(0.08, (1.5 * norm(relative)) / 18),
+        displacement: relative,
+      },
+    ].slice(-44),
+  };
+};
+
 export const finishPendingStrike = (
   state: TacticalMatchState,
   outcome: StrikeResolution['outcome'],
@@ -142,7 +176,7 @@ export const finishPendingStrike = (
           1,
         )
       : state;
-  const next = { ...observed };
+  const next = beginFootRecovery(observed, pending.actorId, pending, at);
   delete next.pendingStrike;
   delete next.controlledBallContact;
   next.lastStrikeResolution = strikeResolutionSchema.parse({
@@ -191,7 +225,8 @@ export const reconcilePendingStrike = (state: TacticalMatchState): TacticalMatch
               : state.ball.lastTouchPlayerId !== p.initialLastTouch ||
                   (state.ball.ownerId && state.ball.ownerId !== p.actorId)
                 ? 'another_touch'
-                : (state.ball.height ?? 0.11) > 0.24
+                : (state.ball.height ?? 0.11) >
+                    (state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' ? 0.65 : 0.24)
                   ? 'unsupported_height'
                   : state.experimentalPendingStrike !== p.version
                     ? 'selection_changed'
@@ -245,25 +280,131 @@ export const canonicalStrikeFoot = (
   intervalAt: number,
   dt: number,
   local: number,
+  recovery?: NonNullable<TacticalMatchState['recoveringFeet']>[number],
 ) => {
   const a = footAnchor(before, foot),
     b = footAnchor(after, foot);
-  const anchorVelocity = scale(sub(b, a), 1 / dt);
-  const position = add(a, scale(anchorVelocity, local));
-  if (!pending) return { position, velocity: anchorVelocity, speedBound: norm(anchorVelocity) };
+  const turn = normalizeAngle(after.facingAngle - before.facingAngle);
+  const bodyVelocity = scale(
+    sub({ ...after.position, z: 0 }, { ...before.position, z: 0 }),
+    1 / dt,
+  );
+  const angle = before.facingAngle + (turn * local) / dt;
+  const rotated = rotate(sub(a, { ...before.position, z: 0 }), (turn * local) / dt);
+  let position = add(add({ ...before.position, z: 0 }, scale(bodyVelocity, local)), rotated);
+  // Follow the same rotating body geometry used at an impulse rebase. Interpolating
+  // endpoint foot chords creates a discontinuity when a body event splits that chord.
+  let anchorVelocity = add(bodyVelocity, {
+    x: (rotated.y * turn) / dt,
+    y: (-rotated.x * turn) / dt,
+    z: (b.z - a.z) / dt,
+  });
+  position.z = a.z + ((b.z - a.z) * local) / dt;
+  let baseSpeedBound =
+    norm(bodyVelocity) +
+    Math.abs(turn / dt) * Math.hypot(rotated.x, rotated.y) +
+    Math.abs(anchorVelocity.z);
+  let accelerationBound = (turn / dt) ** 2 * Math.hypot(rotated.x, rotated.y);
+  if (before.lowerBodyPose?.reachOffset || after.lowerBodyPose?.reachOffset) {
+    const from = before.lowerBodyPose ?? neutralLowerBodyPose(),
+      to = after.lowerBodyPose ?? neutralLowerBodyPose();
+    const pose = interpolateLowerBodyPose(from, to, local / dt)!;
+    const side = foot === 'left' ? -1 : 1,
+      alpha = angle + pose.hipYaw;
+    const fwd = { x: Math.sin(alpha), y: Math.cos(alpha) },
+      right = { x: fwd.y, y: -fwd.x };
+    const ankle = (p: typeof pose) => ({
+      x: (side * p.stanceWidth) / 2 + (p.activeLeg === foot ? (p.reachOffset?.x ?? 0) : 0),
+      y: p.footLead + (p.activeLeg === foot ? (p.reachOffset?.y ?? 0) : 0),
+    });
+    const startAnkle = ankle(from),
+      endAnkle = ankle(to),
+      current = ankle(pose);
+    const rate = { x: (endAnkle.x - startAnkle.x) / dt, y: (endAnkle.y - startAnkle.y) / dt };
+    const omega = (turn + to.hipYaw - from.hipYaw) / dt;
+    position = {
+      x: before.position.x + bodyVelocity.x * local + right.x * current.x + fwd.x * current.y,
+      y: before.position.y + bodyVelocity.y * local + right.y * current.x + fwd.y * current.y,
+      z: position.z,
+    };
+    anchorVelocity = {
+      x:
+        bodyVelocity.x +
+        right.x * rate.x +
+        fwd.x * rate.y +
+        omega * (right.x * current.y - fwd.x * current.x),
+      y:
+        bodyVelocity.y +
+        right.y * rate.x +
+        fwd.y * rate.y +
+        omega * (right.y * current.y - fwd.y * current.x),
+      z: anchorVelocity.z,
+    };
+    const radius = Math.max(
+      Math.hypot(startAnkle.x, startAnkle.y),
+      Math.hypot(endAnkle.x, endAnkle.y),
+    );
+    baseSpeedBound =
+      norm(bodyVelocity) +
+      Math.hypot(rate.x, rate.y) +
+      Math.abs(omega) * radius +
+      Math.abs(anchorVelocity.z);
+    accelerationBound = omega * omega * radius + 2 * Math.abs(omega) * Math.hypot(rate.x, rate.y);
+  }
+  if (recovery) {
+    const u = Math.max(0, Math.min(1, (intervalAt + local - recovery.beganAt) / recovery.seconds));
+    const offset = rotate(recovery.displacement, normalizeAngle(angle - recovery.facingAngle));
+    const k = 1 - 3 * u * u + 2 * u * u * u,
+      rate = (-6 * u + 6 * u * u) / recovery.seconds;
+    return {
+      position: add(position, scale(offset, k)),
+      velocity: add(
+        anchorVelocity,
+        add(scale(offset, rate), {
+          x: (offset.y * k * turn) / dt,
+          y: (-offset.x * k * turn) / dt,
+          z: 0,
+        }),
+      ),
+      speedBound:
+        baseSpeedBound +
+        Math.abs(turn / dt) * norm(offset) +
+        (1.5 * norm(offset)) / recovery.seconds,
+    };
+  }
+  if (!pending)
+    return {
+      position,
+      velocity: anchorVelocity,
+      speedBound: baseSpeedBound,
+      accelerationBound,
+    };
   const elapsed = intervalAt + local - pending.selectedAt;
   const { relative, relativeVelocity } = relativeTemporalFootAt(pending.path, elapsed);
-  const turn = normalizeAngle(after.facingAngle - before.facingAngle);
-  const angle = normalizeAngle(before.facingAngle - pending.plan.facingAngle) + (turn * local) / dt;
-  const offset = rotate(relative, angle);
+  const offset = rotate(relative, normalizeAngle(angle - pending.plan.facingAngle));
   const angular = { x: (offset.y * turn) / dt, y: (-offset.x * turn) / dt, z: 0 };
+  // The whole motor segment precedes swing onset: the stroke contributes no
+  // displacement or acceleration here. Bounding a later 20m/s swing during
+  // this preparation phase can exhaust conservative advancement near contact.
+  const preparing = intervalAt + dt <= pending.selectedAt + pending.path.onset;
+  const completed = intervalAt >=
+    pending.selectedAt + pending.path.onset + pending.path.duration + TEMPORAL_STRIKE.followThroughSeconds;
   return {
     position: add(position, offset),
-    velocity: add(anchorVelocity, add(rotate(relativeVelocity, angle), angular)),
+    velocity: add(
+      anchorVelocity,
+      add(rotate(relativeVelocity, normalizeAngle(angle - pending.plan.facingAngle)), angular),
+    ),
     speedBound:
-      norm(anchorVelocity) +
-      pending.path.speedBound +
-      Math.abs(turn / dt) * pending.path.reachBound,
+      baseSpeedBound +
+      (preparing
+        ? 0
+        : completed
+          ? Math.abs(turn / dt) * norm(offset)
+          : pending.path.speedBound + Math.abs(turn / dt) * pending.path.reachBound),
+    ...(preparing || completed
+      ? { accelerationBound: accelerationBound + (completed ? (turn / dt) ** 2 * norm(offset) : 0) }
+      : {}),
   };
 };
 
@@ -274,19 +415,46 @@ export const findStrikeIntervalContact = (
   footAt: (t: number) => ReturnType<typeof canonicalStrikeFoot>,
   radius = TEMPORAL_STRIKE.footRadius,
   maximumEvaluations: number = TEMPORAL_STRIKE.maximumEvaluationsPerStep,
+  supportedFlight?: (t: number) => ReturnType<typeof integrateBallFlight>,
+  supportSpeedBound = 0,
 ) => {
   const initial = physicalStrikeBall(state);
   const speed =
     norm(initial.velocity) +
     Math.sqrt(2 / 3) * 0.11 * norm(initial.spin) +
     (BALL_PHYSICS.gravity + BALL_PHYSICS.maximumMagnusAcceleration) * seconds +
-    Math.max(footAt(0).speedBound, footAt(seconds).speedBound);
-  let local = 0;
+    Math.max(footAt(0).speedBound, footAt(seconds).speedBound) +
+    supportSpeedBound;
+  let local = 0,
+    previousLocal = 0;
   for (let evaluations = 1; evaluations <= maximumEvaluations; evaluations++) {
-    const ball = local === 0 ? initial : integrateBallFlight(initial, local, state.ballEnvironment);
-    const foot = footAt(local);
-    const delta = sub(ball.position, foot.position),
+    let ball =
+      local === 0
+        ? initial
+        : (supportedFlight?.(local) ?? integrateBallFlight(initial, local, state.ballEnvironment));
+    let foot = footAt(local);
+    let delta = sub(ball.position, foot.position),
       gap = norm(delta) - 0.11 - radius;
+    if (supportedFlight && local > 0 && gap < -TEMPORAL_STRIKE.distanceTolerance) {
+      // A projected support curve can close faster than its free-flight bound.
+      // Refine the witnessed clear/intersecting bracket before competing events;
+      // do not misreport a later sampled crossing as corrupt initial geometry.
+      let low = previousLocal,
+        high = local;
+      while (high - low > 1e-10 && evaluations < maximumEvaluations) {
+        const middle = (low + high) / 2,
+          flight = supportedFlight(middle),
+          surface = footAt(middle);
+        evaluations++;
+        if (norm(sub(flight.position, surface.position)) - 0.11 - radius > 0) low = middle;
+        else high = middle;
+      }
+      local = high;
+      ball = supportedFlight(local);
+      foot = footAt(local);
+      delta = sub(ball.position, foot.position);
+      gap = norm(delta) - 0.11 - radius;
+    }
     if (gap <= TEMPORAL_STRIKE.distanceTolerance) {
       const normal = scale(delta, 1 / Math.max(1e-12, norm(delta)));
       const closing = dot(sub(foot.velocity, ball.velocity), normal);
@@ -309,7 +477,26 @@ export const findStrikeIntervalContact = (
       };
     }
     if (local >= seconds) return { outcome: 'clear' as const, local, evaluations };
-    local = Math.min(seconds, local + Math.max(1e-12, (0.9 * gap) / Math.max(1e-12, speed)));
+    let advance = gap / Math.max(1e-12, speed);
+    if (
+      !supportedFlight &&
+      !ball.airborne &&
+      ball.position.z <= 0.11 &&
+      ball.velocity.z === 0 &&
+      foot.accelerationBound !== undefined
+    ) {
+      // g'' >= -|relative acceleration|. Solve the conservative quadratic lower
+      // bound instead of using the sum of two almost co-moving speeds. This also
+      // certifies clear grazing paths without exhausting the search near a foot.
+      const acceleration =
+        BALL_PHYSICS.rollingDeceleration *
+          (state.ballEnvironment?.rollingResistanceMultiplier ?? 1) +
+        foot.accelerationBound;
+      const closing = dot(sub(foot.velocity, ball.velocity), scale(delta, 1 / norm(delta)));
+      advance = (-closing + Math.sqrt(closing * closing + 2 * acceleration * gap)) / acceleration;
+    }
+    previousLocal = local;
+    local = Math.min(seconds, local + Math.max(1e-12, 0.9 * advance));
   }
   return {
     outcome: 'unresolved' as const,

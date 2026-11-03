@@ -8,6 +8,10 @@ export const lowerBodyPoseSchema = z.object({
   footLead: z.number().min(-0.12).max(0.35),
   hipYaw: z.number().min(-0.3).max(0.3),
   activeLeg: z.enum(['left', 'right']),
+  /** Finite motor displacement of the active ankle in body-local turf coordinates. */
+  reachOffset: z
+    .object({ x: z.number().min(-0.3).max(0.3), y: z.number().min(-0.3).max(0.3) })
+    .optional(),
 });
 export type LowerBodyPose = z.infer<typeof lowerBodyPoseSchema>;
 export const neutralLowerBodyPose = (): LowerBodyPose => ({
@@ -45,14 +49,30 @@ export const lowerBodyGeometrySchema = z.object({
 
 /** Connected two-bone IK preserves both limb lengths. World pose follows the single
  * canonical body integrator. There is no independently positioned contact foot. */
-export const deriveLowerBodyGeometry = (actor: MatchPlayerState) => {
+export const deriveLowerBodyGeometry = (
+  actor: MatchPlayerState,
+  planted?: Partial<Record<'left' | 'right', { x: number; y: number }>>,
+) => {
   const pose = actor.lowerBodyPose ?? neutralLowerBodyPose(),
     height = Math.max(1.4, Math.min(2.2, actor.profile.heightCm / 100));
   const angle = actor.facingAngle + pose.hipYaw,
     forward = { x: Math.sin(angle), y: Math.cos(angle) },
     right = { x: forward.y, y: -forward.x };
   const jump = actor.verticalJump?.height ?? 0;
-  const horizontal = (pose.stanceWidth / 2 - height * 0.055) ** 2 + pose.footLead ** 2;
+  const ankleLocal = (side: -1 | 1) => ({
+    x:
+      (side * pose.stanceWidth) / 2 +
+      ((side === -1 ? 'left' : 'right') === pose.activeLeg ? (pose.reachOffset?.x ?? 0) : 0),
+    y:
+      pose.footLead +
+      ((side === -1 ? 'left' : 'right') === pose.activeLeg ? (pose.reachOffset?.y ?? 0) : 0),
+  });
+  const horizontal = Math.max(
+    ...([-1, 1] as const).map((side) => {
+      const a = ankleLocal(side);
+      return (a.x - side * height * 0.055) ** 2 + a.y ** 2;
+    }),
+  );
   const maximumPelvis =
     0.075 + jump + Math.sqrt(Math.max(0, (height * 0.491 * 0.995) ** 2 - horizontal));
   const pelvisZ = Math.min(height * 0.49 - pose.crouch * 0.25 + jump, maximumPelvis);
@@ -66,7 +86,14 @@ export const deriveLowerBodyGeometry = (actor: MatchPlayerState) => {
     shinLength = height * 0.246;
   const derive = (side: -1 | 1) => {
     const hip = { x: side * height * 0.055, y: 0, z: pelvisZ },
-      ankle = { x: (side * pose.stanceWidth) / 2, y: pose.footLead, z: 0.075 + jump };
+      ankle = { ...ankleLocal(side), z: 0.075 + jump };
+    const anchor = planted?.[side === -1 ? 'left' : 'right'];
+    if (anchor) {
+      const dx = anchor.x - actor.position.x,
+        dy = anchor.y - actor.position.y;
+      ankle.x = dx * right.x + dy * right.y;
+      ankle.y = dx * forward.x + dy * forward.y;
+    }
     const d = { x: ankle.x - hip.x, y: ankle.y - hip.y, z: ankle.z - hip.z },
       length = Math.hypot(d.x, d.y, d.z);
     if (length >= thighLength + shinLength || length <= Math.abs(thighLength - shinLength))
@@ -127,17 +154,70 @@ const approach = (from: number, to: number, maximum: number) =>
 export const advanceLowerBodyPose = (
   actor: MatchPlayerState,
   dt: number,
+  reach?: { x: number; y: number } | null,
 ): LowerBodyPose | undefined => {
-  const pose = actor.lowerBodyPose;
+  const pose = actor.lowerBodyPose ?? (reach ? neutralLowerBodyPose() : undefined);
   if (!pose) return undefined;
   const speed = Math.hypot(actor.velocity.x, actor.velocity.y),
     balance = actor.plantBalance?.balance ?? 1;
-  return {
+  const next: LowerBodyPose = {
     ...pose,
     stanceWidth: approach(pose.stanceWidth, speed > 4 ? 0.26 : 0.34, dt * 0.35),
     crouch: approach(pose.crouch, (1 - balance) * 0.3, dt * 0.5),
     footLead: approach(pose.footLead, 0.2, dt * 0.3),
     hipYaw: approach(pose.hipYaw, 0, dt * 0.6),
+  };
+  if (reach !== undefined) {
+    const old = pose.reachOffset ?? { x: 0, y: 0 };
+    const angle = actor.facingAngle + pose.hipYaw,
+      dx = (reach?.x ?? actor.position.x) - actor.position.x,
+      dy = (reach?.y ?? actor.position.y) - actor.position.y;
+    const local = {
+      x: dx * Math.cos(angle) - dy * Math.sin(angle),
+      y: dx * Math.sin(angle) + dy * Math.cos(angle),
+    };
+    if (reach && Math.hypot(old.x, old.y) < 1e-9) next.activeLeg = local.x < 0 ? 'left' : 'right';
+    const target = reach
+      ? {
+          x: Math.max(
+            -0.3,
+            Math.min(0.3, local.x - ((next.activeLeg === 'left' ? -1 : 1) * next.stanceWidth) / 2),
+          ),
+          y: Math.max(-0.3, Math.min(0.3, local.y - next.footLead)),
+        }
+      : { x: 0, y: 0 };
+    const delta = { x: target.x - old.x, y: target.y - old.y },
+      length = Math.hypot(delta.x, delta.y);
+    // One finite actuator budget; collision search, not this plan, establishes contact.
+    const fraction = Math.min(1, (1.2 * dt) / Math.max(1e-12, length));
+    next.reachOffset = { x: old.x + delta.x * fraction, y: old.y + delta.y * fraction };
+  }
+  return next;
+};
+
+export const interpolateLowerBodyPose = (
+  a: LowerBodyPose | undefined,
+  b: LowerBodyPose | undefined,
+  t: number,
+): LowerBodyPose | undefined => {
+  if (!a && !b) return undefined;
+  const from = a ?? neutralLowerBodyPose(),
+    to = b ?? neutralLowerBodyPose();
+  const lerp = (x: number, y: number) => x + (y - x) * t;
+  return {
+    ...to,
+    stanceWidth: lerp(from.stanceWidth, to.stanceWidth),
+    crouch: lerp(from.crouch, to.crouch),
+    footLead: lerp(from.footLead, to.footLead),
+    hipYaw: lerp(from.hipYaw, to.hipYaw),
+    ...(from.reachOffset || to.reachOffset
+      ? {
+          reachOffset: {
+            x: lerp(from.reachOffset?.x ?? 0, to.reachOffset?.x ?? 0),
+            y: lerp(from.reachOffset?.y ?? 0, to.reachOffset?.y ?? 0),
+          },
+        }
+      : {}),
   };
 };
 

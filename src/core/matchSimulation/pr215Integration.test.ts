@@ -150,16 +150,23 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
     expect(out.executionWitnesses?.['fallback-keeper-aerial']).toBeUndefined();
     expect(out.playerBodyContacts?.some((c) => c.kind === 'impact')).toBe(true);
   });
-  it('keeps owned long touches, labelled deliveries, keeper zones and first-time intentions on named historical paths', () => {
+  it('migrates low carries/deliveries while preserving keeper and high-ball authority', () => {
     const s = looseScene();
     for (const ball of [
       { ...s.ball, ownerId: s.players[1]!.id },
       { ...s.ball, travelKind: 'pass' as const },
       { ...s.ball, airborne: true },
     ])
-      expect(ownsOrdinaryLowBallInterval({ ...s, ball }, 0.025)).toBe(false);
+      expect(ownsOrdinaryLowBallInterval({ ...s, ball }, 0.025)).toBe(true);
+    expect(ownsOrdinaryLowBallInterval({ ...s, ball: { ...s.ball, height: 1 } }, 0.025)).toBe(
+      false,
+    );
     const keeper = s.players.find((p) => p.goalkeeperRole || p.slot.position === 'goalkeeper')!;
     keeper.position = { x: s.ball.x, y: s.ball.y + 2 };
+    expect(ownsOrdinaryLowBallInterval(s, 0.025)).toBe(true);
+    s.ball.velocity = { x: 1, y: 0, z: 0 };
+    expect(ownsOrdinaryLowBallInterval(s, 0.025)).toBe(true);
+    s.ball.height = 0.4;
     expect(ownsOrdinaryLowBallInterval(s, 0.025)).toBe(false);
   });
   it('bounds observation keys and rejects malformed saved counters', () => {
@@ -179,6 +186,16 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
   it('retains passive-body support after that actor is excluded from further foot service', () => {
     const f = createPr215PassiveSupportScene();
     let s = f.initial;
+    // Cluster mode now has separate boot and torso geometry. Exercise the torso
+    // at torso height; the historical ground-level aggregate fixture stays sealed.
+    const actor = s.players.find((p) => p.id === f.actorId)!;
+    s.ball = {
+      ...s.ball,
+      x: 30,
+      height: (actor.profile.heightCm / 100) * 0.77 + 0.45,
+      velocity: { x: 0, y: 0, z: -0.01 },
+      airborne: true,
+    };
     for (let i = 0; i < 4; i++) {
       s = advancePendingStrikeInterval(s, { ...s, time: s.time + 0.025 }, 0.025, {
         ordinary: true,
@@ -191,14 +208,12 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
     expect(s.executionWitnesses?.['ball-body-contact']?.executed).toBe(1);
     expect(s.ball.ownerId).toBeUndefined();
   });
-  it('retains a genuine reception and the exact unsupported carry remainder without a second impulse', () => {
+  it('finishes a genuine reception remainder without a second impulse', () => {
     let s = createPr215ReceptionBlocker();
     for (let i = 0; i < 8 && !s.executionWitnesses?.unresolved; i++)
       s = stepTacticalMatch(s, 0.025);
-    expect(s.executionWitnesses?.unresolved?.source).toBe(
-      'controlled_reception_remainder_not_migrated',
-    );
-    expect(s.executionWitnesses?.unresolved?.invoked).toBe(1);
+    expect(s.executionWitnesses?.unresolved).toBeUndefined();
+    expect(s.time).toBeCloseTo(10.2, 12);
     expect(s.ball.ownerId).toBe(s.lastGroundContact?.actorId);
     expect(s.lastGroundContact?.surfaceContact?.available).toBe(true);
     expect(s.lastGroundContact?.retained).toBe(true);

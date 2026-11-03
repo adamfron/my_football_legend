@@ -1,0 +1,226 @@
+{
+  "source": "e6b5e4f1f8ee81321331e7a28af60789c73d9b8e776747aaac6b9e21666aef0d",
+  "arm": "initial",
+  "frozenInputHash": "afa44c827f58a0147e2328590b9f6eca13ca8c29902ff5530812a3b393064377",
+  "observedInputHash": "80cab976058716910bd3b52ae312098778c868441030b542bab0c201171caf7f",
+  "observerOnlyAddition": true,
+  "seconds": 698.6999999996384,
+  "status": "first_half",
+  "reason": "unresolved:body_count_bound",
+  "decisions": 1158,
+  "witnesses": {
+    "bounded-flight-belief": {
+      "invoked": 27948,
+      "executed": 0,
+      "at": 698.6999999996384,
+      "source": "liveBallFlight.advanceLiveBallFlight"
+    },
+    "contact-interval": {
+      "invoked": 27948,
+      "executed": 0,
+      "at": 698.6749999996384,
+      "source": "pendingStrikeInterval.advance"
+    },
+    "ground-contact": {
+      "invoked": 36435,
+      "executed": 0,
+      "at": 698.6750950889192,
+      "source": "pendingStrikeInterval.integrateBallFlight"
+    },
+    "receiver-anticipation": {
+      "invoked": 1050,
+      "executed": 0,
+      "at": 693.3749999996433,
+      "source": "matchSimulation.observeReceptionBall"
+    },
+    "fallback-delivery": {
+      "invoked": 1942,
+      "executed": 0,
+      "at": 694.5999999996421,
+      "source": "matchSimulation.historical-labelled-delivery"
+    },
+    "height-aware-passing": {
+      "invoked": 986,
+      "executed": 0,
+      "at": 692.2499999996443,
+      "source": "passDecision.forecastPassInterventions:lofted"
+    },
+    "receiver-recovery": {
+      "invoked": 1950,
+      "executed": 0,
+      "at": 692.6499999996439,
+      "source": "matchSimulation.boundedMovementTarget:hold-local"
+    },
+    "ordinary-loose-ball": {
+      "invoked": 19342,
+      "executed": 0,
+      "at": 698.6749999996384,
+      "source": "pendingStrikeInterval.advance:ordinary"
+    },
+    "body-cluster": {
+      "invoked": 7692,
+      "executed": 585,
+      "at": 698.6751722466529,
+      "source": "pendingStrikeInterval.resolveMultiBodyContact"
+    },
+    "controlled-reception": {
+      "invoked": 302,
+      "executed": 302,
+      "at": 698.4968751861609,
+      "source": "matchSimulation.resolveReceptionOutcome"
+    },
+    "policy-b": {
+      "invoked": 1534,
+      "executed": 0,
+      "at": 698.3999999996387,
+      "source": "matchSimulation.chooseNpcRoutineAction"
+    },
+    "ball-body-contact": {
+      "invoked": 125,
+      "executed": 125,
+      "at": 697.1671875903094,
+      "source": "pendingStrikeInterval.passiveFoot"
+    },
+    "defensive-reception": {
+      "invoked": 104,
+      "executed": 104,
+      "at": 698.4968751861609,
+      "source": "matchSimulation.resolveReceptionOutcome:defensive"
+    },
+    "pending-low-pass": {
+      "invoked": 167,
+      "executed": 0,
+      "at": 698.3999999996387,
+      "source": "pendingStrike.commitPendingPass"
+    },
+    "missed-kick": {
+      "invoked": 135,
+      "executed": 135,
+      "at": 690.0199999996464,
+      "source": "pendingStrike.finish:miss:swing_completed_without_contact"
+    },
+    "standing-challenge": {
+      "invoked": 29,
+      "executed": 28,
+      "at": 696.6604743524772,
+      "source": "pendingStrikeInterval.executePendingContact"
+    },
+    "prepared-kick": {
+      "invoked": 31,
+      "executed": 31,
+      "at": 672.0525442993891,
+      "source": "pendingStrike.finish:contact:foot_ball_intersection"
+    },
+    "physical-kick": {
+      "invoked": 5,
+      "executed": 2,
+      "at": 620.1499999997098,
+      "source": "matchActions.resolveMatchAction:physical-kick"
+    },
+    "fallback-keeper-aerial": {
+      "invoked": 106,
+      "executed": 0,
+      "at": 510.3749999998097,
+      "source": "matchSimulation.historical-loose-ball"
+    },
+    "interrupted-kick": {
+      "invoked": 1,
+      "executed": 1,
+      "at": 698.4968751861609,
+      "source": "pendingStrike.finish:interrupted:competing_foot"
+    },
+    "unresolved": {
+      "invoked": 1,
+      "executed": 1,
+      "at": 698.6751722466529,
+      "source": "body_count_bound"
+    }
+  },
+  "minutes": [
+    {
+      "from": 0,
+      "to": 59.99999999999766,
+      "decisions": 118,
+      "ballTransport": 191.1245044249404,
+      "contacts": 24
+    },
+    {
+      "from": 59.99999999999766,
+      "to": 120.00000000001016,
+      "decisions": 91,
+      "ballTransport": 208.99799050458304,
+      "contacts": 29
+    },
+    {
+      "from": 120.00000000001016,
+      "to": 180.0000000000238,
+      "decisions": 72,
+      "ballTransport": 155.32119777882798,
+      "contacts": 17
+    },
+    {
+      "from": 180.0000000000238,
+      "to": 240.00000000003743,
+      "decisions": 114,
+      "ballTransport": 119.67333991978462,
+      "contacts": 21
+    },
+    {
+      "from": 240.00000000003743,
+      "to": 300.000000000001,
+      "decisions": 134,
+      "ballTransport": 153.35385722159472,
+      "contacts": 35
+    },
+    {
+      "from": 300.000000000001,
+      "to": 359.99999999994645,
+      "decisions": 90,
+      "ballTransport": 196.72287260512596,
+      "contacts": 32
+    },
+    {
+      "from": 359.99999999994645,
+      "to": 419.9999999998919,
+      "decisions": 101,
+      "ballTransport": 103.25258749688126,
+      "contacts": 20
+    },
+    {
+      "from": 419.9999999998919,
+      "to": 479.9999999998373,
+      "decisions": 140,
+      "ballTransport": 91.90468404434117,
+      "contacts": 38
+    },
+    {
+      "from": 479.9999999998373,
+      "to": 539.9999999997827,
+      "decisions": 80,
+      "ballTransport": 175.78097915152674,
+      "contacts": 19
+    },
+    {
+      "from": 539.9999999997827,
+      "to": 599.9999999997282,
+      "decisions": 90,
+      "ballTransport": 145.14834433026093,
+      "contacts": 32
+    },
+    {
+      "from": 599.9999999997282,
+      "to": 659.9999999996736,
+      "decisions": 38,
+      "ballTransport": 151.0894166865458,
+      "contacts": 9
+    }
+  ],
+  "wallSeconds": 58.8601866,
+  "cpu": {
+    "user": 71391000,
+    "system": 891000
+  },
+  "peakRSSKiB": 491944,
+  "fullMatch": false,
+  "promotion": "RETAIN_EXPERIMENTAL"
+}

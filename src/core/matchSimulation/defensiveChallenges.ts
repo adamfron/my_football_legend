@@ -22,7 +22,11 @@ import {
 } from './matchSpace';
 import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
-import { deriveBallContactAccess, playerContactGeometry } from './ballContactGeometry';
+import {
+  deriveBallContactAccess,
+  playerContactGeometry,
+  motorContactReadyAt,
+} from './ballContactGeometry';
 import { integrateGroundRolling } from './ballPhysics';
 import { derivePressingOpportunity } from './tacticalPreferences';
 import { deriveMovementCapability } from './locomotion';
@@ -829,6 +833,11 @@ export const beginDefensiveChallenge = (
   source: ActionSource,
 ): TacticalMatchState => {
   if (action.type !== 'challenge' || state.defensiveChallenge) return state;
+  if (
+    state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
+    state.time < motorContactReadyAt(state, action.actorId) - 1e-9
+  )
+    return state;
   if (state.experimentalContactTimeline && state.ball.heldByKeeperId) return state;
   const c = deriveDefensiveContext(state, action.actorId, action.opponentId);
   if (!c || c.opponentDistance > 4.5 || state.ball.ownerId !== c.opponent.id) return state;

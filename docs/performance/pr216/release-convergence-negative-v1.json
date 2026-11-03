@@ -1,0 +1,79 @@
+{
+  "source": "d8745408dd6a67eb5ee78ae8a4b57053dcf506c8acd50c180ac03619aae06126",
+  "at": 460.79009913262945,
+  "component": [
+    {
+      "at": 460.79009913262945,
+      "participants": [
+        "geometry:anchor:9",
+        "geometry:opponent:3",
+        "geometry:opponent:4"
+      ],
+      "reason": "constraint_iteration_bound",
+      "iterations": 32,
+      "pairChecks": 231,
+      "momentumBefore": {
+        "x": 263.5582907781153,
+        "y": -254.0963952239742
+      },
+      "momentumAfter": {
+        "x": 13.232163500527182,
+        "y": -254.09639522397424
+      },
+      "boundaryImpulse": {
+        "x": -250.32612727758814,
+        "y": 0
+      },
+      "energyBefore": 353.75044036008035,
+      "energyAfter": 154.01854913958252,
+      "residualClosingSpeed": 0.00018833715647063027,
+      "maximumPenetration": 0,
+      "positionCorrection": 0,
+      "unresolved": true,
+      "motorWorkAt": 460.7749999998548,
+      "motorWork": [
+        {
+          "actorId": "geometry:anchor:9",
+          "mass": 71,
+          "beforeVelocity": {
+            "x": 3.8253411499039203,
+            "y": -0.9094192193782646
+          },
+          "actuatorVelocity": {
+            "x": 3.79073298827052,
+            "y": -0.9229899774638284
+          },
+          "kineticWork": -8.474245571593732
+        },
+        {
+          "actorId": "geometry:opponent:3",
+          "mass": 78,
+          "beforeVelocity": {
+            "x": 3.5169089407514775,
+            "y": -0.9825337081844054
+          },
+          "actuatorVelocity": {
+            "x": 3.3843483737575752,
+            "y": -0.9619720546336907
+          },
+          "kineticWork": -37.23785661977816
+        },
+        {
+          "actorId": "geometry:opponent:4",
+          "mass": 85,
+          "beforeVelocity": {
+            "x": 3.769092753692007,
+            "y": -1.3392150215656784
+          },
+          "actuatorVelocity": {
+            "x": 3.722253448635229,
+            "y": -1.3356504301484051
+          },
+          "kineticWork": -15.318030730752067
+        }
+      ],
+      "impulseCount": 64
+    }
+  ],
+  "reason": "constraint_iteration_bound"
+}

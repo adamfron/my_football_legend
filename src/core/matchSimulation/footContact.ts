@@ -190,12 +190,34 @@ export const isContinuousFootContact = (
     ...playerFootGeometry(actor)[foot === 'left' ? 'leftFoot' : 'rightFoot'],
     z: actor.lowerBodyPose ? deriveLowerBodyGeometry(actor)[foot].foot.z : 0.04,
   };
-  const prepared = state.continuousFootContacts?.find(
-    (c) => c.actorId === actor.id && c.foot === foot,
-  )?.prepared;
-  if (prepared) {
-    const { relative } = relativeTemporalFootAt(prepared.path, state.time - prepared.selectedAt);
-    const angle = actor.facingAngle - prepared.facingAngle;
+  const active =
+    state.pendingStrike?.actorId === actor.id
+      ? state.pendingStrike
+      : state.defensiveChallenge?.actorId === actor.id
+        ? state.defensiveChallenge.physicalAttempt
+        : undefined;
+  const prepared =
+    (active?.plan.foot === foot
+      ? {
+          path: active.path,
+          selectedAt: active.selectedAt,
+          facingAngle: active.plan.facingAngle,
+        }
+      : undefined) ??
+    state.continuousFootContacts?.find((c) => c.actorId === actor.id && c.foot === foot)?.prepared;
+  const recovery = state.recoveringFeet?.find((f) => f.actorId === actor.id && f.foot === foot);
+  if (prepared || recovery) {
+    const u = recovery
+      ? Math.max(0, Math.min(1, (state.time - recovery.beganAt) / recovery.seconds))
+      : 0;
+    const relative = recovery
+      ? {
+          x: recovery.displacement.x * (1 - 3 * u * u + 2 * u * u * u),
+          y: recovery.displacement.y * (1 - 3 * u * u + 2 * u * u * u),
+          z: recovery.displacement.z * (1 - 3 * u * u + 2 * u * u * u),
+        }
+      : relativeTemporalFootAt(prepared!.path, state.time - prepared!.selectedAt).relative;
+    const angle = actor.facingAngle - (recovery?.facingAngle ?? prepared!.facingAngle);
     centre.x += relative.x * Math.cos(angle) + relative.y * Math.sin(angle);
     centre.y += -relative.x * Math.sin(angle) + relative.y * Math.cos(angle);
     centre.z += relative.z;

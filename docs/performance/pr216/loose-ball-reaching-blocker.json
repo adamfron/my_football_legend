@@ -1,0 +1,197 @@
+{
+  "source": "da0646593e10d5eb0539314b90f1a6793723ce0b4ee4751736fa1c29b181faba",
+  "time": 599.9999999997282,
+  "ball": {
+    "x": 44.02798192612707,
+    "y": 36.32036917876508,
+    "spin": {
+      "x": -4e-323,
+      "y": -4e-323,
+      "z": 4e-323
+    },
+    "height": 0.11,
+    "airborne": false,
+    "velocity": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "bounceCount": 59,
+    "looseSince": 6.47881013747929,
+    "continuousBodyContacts": [],
+    "lastTouchPlayerId": "footballer_pro_1_22"
+  },
+  "lastPolicyAt": 6.450000000000024,
+  "players": [
+    {
+      "id": "footballer_pro_0_11",
+      "position": {
+        "x": 44.022152739687655,
+        "y": 37.00603548025103
+      },
+      "velocity": {
+        "x": 0.026694094362138928,
+        "y": -0.4859200657491818
+      },
+      "target": {
+        "x": 44.02798192612707,
+        "y": 36.32036917876508
+      },
+      "plant": {
+        "balance": 0.6253375630317894,
+        "load": 0.057676300360508234,
+        "support": "left"
+      },
+      "readyAt": 599.9999999997282,
+      "feet": [
+        {
+          "foot": "left",
+          "position": {
+            "x": 44.19403428699816,
+            "y": 36.80765016402488
+          },
+          "distance": 0.5195345466344136,
+          "surfaceClearance": 0.37453454663441355
+        },
+        {
+          "foot": "right",
+          "position": {
+            "x": 43.854049454807665,
+            "y": 36.80443864095895
+          },
+          "distance": 0.51911053621357,
+          "surfaceClearance": 0.37411053621356993
+        }
+      ],
+      "nominalControlReach": 0.82
+    },
+    {
+      "id": "footballer_pro_0_12",
+      "position": {
+        "x": 44.40118176943799,
+        "y": 36.44146750850359
+      },
+      "velocity": {
+        "x": 0.027109562329033235,
+        "y": -0.4856411462438552
+      },
+      "target": {
+        "x": 44.02798192612707,
+        "y": 36.32036917876508
+      },
+      "plant": {
+        "balance": 0.35,
+        "load": 1,
+        "support": "left"
+      },
+      "readyAt": 599.9999999997282,
+      "feet": [
+        {
+          "foot": "left",
+          "position": {
+            "x": 44.27003941320268,
+            "y": 36.21408746891997
+          },
+          "distance": 0.2734732690720608,
+          "surfaceClearance": 0.12847326907206083
+        },
+        {
+          "foot": "right",
+          "position": {
+            "x": 44.15564442769781,
+            "y": 36.53426521219913
+          },
+          "distance": 0.25874548774059997,
+          "surfaceClearance": 0.11374548774059998
+        }
+      ],
+      "nominalControlReach": 0.82
+    },
+    {
+      "id": "footballer_pro_1_21",
+      "position": {
+        "x": 43.722053205274364,
+        "y": 36.39557968632168
+      },
+      "velocity": {
+        "x": 0.08469963780849973,
+        "y": -0.5255733939545056
+      },
+      "target": {
+        "x": 44.02798192612707,
+        "y": 36.32036917876508
+      },
+      "plant": {
+        "balance": 0.35,
+        "load": 0.9986915822774857,
+        "support": "right"
+      },
+      "readyAt": 6.262328053233786,
+      "feet": [
+        {
+          "foot": "left",
+          "position": {
+            "x": 43.96120094960507,
+            "y": 36.50378484507825
+          },
+          "distance": 0.20736683793301422,
+          "surfaceClearance": 0.06236683793301423
+        },
+        {
+          "foot": "right",
+          "position": {
+            "x": 43.8673723744691,
+            "y": 36.17698796858162
+          },
+          "distance": 0.22639257831794435,
+          "surfaceClearance": 0.08139257831794436
+        }
+      ],
+      "nominalControlReach": 0.82
+    },
+    {
+      "id": "footballer_pro_1_22",
+      "position": {
+        "x": 44.10094075360939,
+        "y": 35.83091672159606
+      },
+      "velocity": {
+        "x": 0.07675237136131526,
+        "y": -0.5309092967627901
+      },
+      "target": {
+        "x": 44.02798192612707,
+        "y": 36.32036917876508
+      },
+      "plant": {
+        "balance": 0.35,
+        "load": 1,
+        "support": "right"
+      },
+      "readyAt": 599.9999999997282,
+      "feet": [
+        {
+          "foot": "left",
+          "position": {
+            "x": 43.9032728030469,
+            "y": 36.00362277626822
+          },
+          "distance": 0.34753510452056907,
+          "surfaceClearance": 0.20253510452056908
+        },
+        {
+          "foot": "right",
+          "position": {
+            "x": 44.23954594180189,
+            "y": 36.053826124282715
+          },
+          "distance": 0.34742557853624534,
+          "surfaceClearance": 0.20242557853624535
+        }
+      ],
+      "nominalControlReach": 0.82
+    }
+  ],
+  "minimumFootSurfaceClearance": 0.06236683793301423,
+  "scope": "direct audit of source-bound terminal; nominal control reach is not an active reaching-foot trajectory"
+}

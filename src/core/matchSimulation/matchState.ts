@@ -1,6 +1,7 @@
 import {
   sharedContactSelectionSchema,
   continuousFootContactsSchema,
+  recoveringFeetSchema,
 } from './sharedContactTimeline';
 import { z } from 'zod';
 import { executionWitnessesSchema } from './executionWitness';
@@ -861,6 +862,7 @@ export interface TacticalMatchState {
   multiBodyResolutions?: z.infer<typeof multiBodyResolutionsSchema>;
   executionWitnesses?: z.infer<typeof executionWitnessesSchema>;
   continuousFootContacts?: z.infer<typeof continuousFootContactsSchema>;
+  recoveringFeet?: z.infer<typeof recoveringFeetSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
   pendingStrike?: PendingStrike;
   lastStrikeResolution?: StrikeResolution;
@@ -1112,6 +1114,7 @@ export const tacticalMatchStateSchema = z
     multiBodyResolutions: multiBodyResolutionsSchema.optional(),
     executionWitnesses: executionWitnessesSchema.optional(),
     continuousFootContacts: continuousFootContactsSchema.optional(),
+    recoveringFeet: recoveringFeetSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
     lastStrikeResolution: strikeResolutionSchema.optional(),

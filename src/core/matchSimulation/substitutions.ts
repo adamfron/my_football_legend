@@ -563,10 +563,57 @@ const freezeOutgoingStatistics = (
       }
     : state;
 
+const substitutionEntryBody = (
+  state: TacticalMatchState,
+  request: SubstitutionRequest,
+): MatchPlayerState => {
+  const previousAppearance = state.departedPlayers?.find(
+    (player) => player.id === request.incoming.id,
+  );
+  return {
+    id: request.incoming.id,
+    team: request.team,
+    endsSwitched: state.endsSwitched,
+    profile: request.incoming.profile,
+    ...(request.incoming.playStyles ? { playStyles: request.incoming.playStyles } : {}),
+    slotIndex: request.outgoing.slotIndex,
+    slot: request.outgoing.slot,
+    duty: request.outgoing.duty,
+    anchor: request.outgoing.anchor,
+    neutralAnchor: request.outgoing.neutralAnchor,
+    target: request.outgoing.anchor,
+    idealTarget: request.outgoing.anchor,
+    fitness:
+      request.entryFitness ??
+      request.incoming.fitness ??
+      createMatchFitness(request.incoming.condition),
+    activeSince: state.time,
+    position: request.entryPosition,
+    velocity: request.entryVelocity,
+    facingAngle: Math.PI / 2,
+    meanPosition: request.entryPosition,
+    samples: 1,
+    ...(request.incoming.injury ? { injury: request.incoming.injury } : {}),
+    ...(previousAppearance?.locomotionTelemetry
+      ? { locomotionTelemetry: previousAppearance.locomotionTelemetry }
+      : {}),
+  };
+};
+/** Cleared entrants are physical bodies before they cross the eligibility line. */
+export const substitutionEntryBodies = (state: TacticalMatchState) =>
+  (state.substitutionState?.pending ?? [])
+    .filter((r) => r.refereeEntryAt !== undefined)
+    .map((r) => substitutionEntryBody(state, r));
+
 export const advanceMatchSubstitutions = (
   previous: TacticalMatchState,
   input: TacticalMatchState,
   dt: number,
+  resolveBodies?: (
+    previous: TacticalMatchState,
+    moved: TacticalMatchState,
+    dt: number,
+  ) => TacticalMatchState,
 ): TacticalMatchState => {
   const current = input.substitutionState;
   if (!current?.pending.length || input.status === 'full_time' || input.status === 'abandoned')
@@ -574,6 +621,79 @@ export const advanceMatchSubstitutions = (
   let state = input;
   const pending: SubstitutionRequest[] = [],
     completed = current.completed.slice();
+  const entryOrigins: MatchPlayerState[] = [],
+    entryMoves: MatchPlayerState[] = [];
+  const admitEntry = (request: SubstitutionRequest, moved: MatchPlayerState) => {
+    const fact: SubstitutionFact = {
+      id: request.id,
+      team: request.team,
+      outgoingId: request.outgoing.id,
+      incomingId: request.incoming.id,
+      requestedAt: request.requestedAt,
+      leftAt: request.leftAt!,
+      enteredAt: state.time,
+      opportunityId: request.opportunityId,
+      reason: request.reason,
+      ...(request.roleId ? { roleId: request.roleId } : {}),
+      ...(request.reasoning ? { reasoning: request.reasoning } : {}),
+      delayed: request.delayed,
+    };
+    const incoming: MatchPlayerState = {
+      ...moved,
+      activeSince: state.time,
+      target: moved.anchor,
+      idealTarget: moved.anchor,
+    };
+    state = {
+      ...state,
+      players: [...state.players, incoming],
+      departedPlayers: (state.departedPlayers ?? []).filter((player) => player.id !== incoming.id),
+    };
+    if (state.rolePlan) {
+      const prior =
+        state.rolePlan.assignments[request.outgoing.id] ?? tacticalRoleFor(state, incoming).id;
+      const requested = request.roleId ?? prior;
+      const role = rolesForPlayer(incoming).some((r) => r.id === requested)
+        ? requested
+        : tacticalRoleFor(state, incoming).id;
+      state = {
+        ...state,
+        rolePlan: {
+          ...state.rolePlan,
+          assignments: { ...state.rolePlan.assignments, [incoming.id]: role },
+          changes: [
+            ...state.rolePlan.changes,
+            {
+              at: state.time,
+              playerId: incoming.id,
+              from: prior,
+              to: role,
+              reason: 'substitution' as const,
+            },
+          ].slice(-64),
+        },
+      };
+    }
+    if (rulesFor(state).returnSubstitutions)
+      state = {
+        ...state,
+        bench: {
+          home: state.bench?.home ?? [],
+          away: state.bench?.away ?? [],
+          [request.team]: [
+            ...(state.bench?.[request.team] ?? []),
+            {
+              id: request.outgoing.id,
+              profile: request.outgoing.profile,
+              condition: (request.outgoing.fitness?.longTermCapacity ?? 1) * 100,
+              ...(request.outgoing.fitness ? { fitness: request.outgoing.fitness } : {}),
+              ...(request.outgoing.injury ? { injury: request.outgoing.injury } : {}),
+            },
+          ],
+        },
+      };
+    completed.push(fact);
+  };
   for (const original of current.pending) {
     const request = { ...original };
     if (request.leftAt === undefined) {
@@ -645,117 +765,48 @@ export const advanceMatchSubstitutions = (
     )
       request.refereeEntryAt = state.time;
     if (request.refereeEntryAt !== undefined) {
-      const previousAppearance = state.departedPlayers?.find(
-        (player) => player.id === request.incoming.id,
-      );
-      const entrant: MatchPlayerState = {
-        id: request.incoming.id,
-        team: request.team,
-        endsSwitched: state.endsSwitched,
-        profile: request.incoming.profile,
-        ...(request.incoming.playStyles ? { playStyles: request.incoming.playStyles } : {}),
-        slotIndex: request.outgoing.slotIndex,
-        slot: request.outgoing.slot,
-        duty: request.outgoing.duty,
-        anchor: request.outgoing.anchor,
-        neutralAnchor: request.outgoing.neutralAnchor,
-        target: request.outgoing.anchor,
-        idealTarget: request.outgoing.anchor,
-        fitness:
-          request.entryFitness ??
-          request.incoming.fitness ??
-          createMatchFitness(request.incoming.condition),
-        activeSince: state.time,
-        position: request.entryPosition,
-        velocity: request.entryVelocity,
-        facingAngle: Math.PI / 2,
-        meanPosition: request.entryPosition,
-        samples: 1,
-        ...(request.incoming.injury ? { injury: request.incoming.injury } : {}),
-        ...(previousAppearance?.locomotionTelemetry
-          ? { locomotionTelemetry: previousAppearance.locomotionTelemetry }
-          : {}),
-      };
+      const entrant = substitutionEntryBody(state, request);
+      if (resolveBodies) entryOrigins.push({ ...entrant, samples: 0 });
       const moved = moveSubstitutionBody(entrant, { x: 52.5, y: 0.5 }, dt);
       request.entryPosition = moved.position;
       request.entryVelocity = moved.velocity;
       request.entryFitness = moved.fitness;
+      if (resolveBodies) {
+        entryMoves.push(moved);
+        pending.push(request);
+        continue;
+      }
       if (request.entryPosition.y >= 0.2) {
-        const fact: SubstitutionFact = {
-          id: request.id,
-          team: request.team,
-          outgoingId: request.outgoing.id,
-          incomingId: request.incoming.id,
-          requestedAt: request.requestedAt,
-          leftAt: request.leftAt!,
-          enteredAt: state.time,
-          opportunityId: request.opportunityId,
-          reason: request.reason,
-          ...(request.roleId ? { roleId: request.roleId } : {}),
-          ...(request.reasoning ? { reasoning: request.reasoning } : {}),
-          delayed: request.delayed,
-        };
-        const incoming: MatchPlayerState = {
-          ...moved,
-          activeSince: state.time,
-          target: moved.anchor,
-          idealTarget: moved.anchor,
-        };
-        state = {
-          ...state,
-          players: [...state.players, incoming],
-          departedPlayers: (state.departedPlayers ?? []).filter(
-            (player) => player.id !== incoming.id,
-          ),
-        };
-        if (state.rolePlan) {
-          const prior =
-            state.rolePlan.assignments[request.outgoing.id] ?? tacticalRoleFor(state, incoming).id;
-          const requested = request.roleId ?? prior;
-          const role = rolesForPlayer(incoming).some((r) => r.id === requested)
-            ? requested
-            : tacticalRoleFor(state, incoming).id;
-          state = {
-            ...state,
-            rolePlan: {
-              ...state.rolePlan,
-              assignments: { ...state.rolePlan.assignments, [incoming.id]: role },
-              changes: [
-                ...state.rolePlan.changes,
-                {
-                  at: state.time,
-                  playerId: incoming.id,
-                  from: prior,
-                  to: role,
-                  reason: 'substitution' as const,
-                },
-              ].slice(-64),
-            },
-          };
-        }
-        if (rulesFor(state).returnSubstitutions)
-          state = {
-            ...state,
-            bench: {
-              home: state.bench?.home ?? [],
-              away: state.bench?.away ?? [],
-              [request.team]: [
-                ...(state.bench?.[request.team] ?? []),
-                {
-                  id: request.outgoing.id,
-                  profile: request.outgoing.profile,
-                  condition: (request.outgoing.fitness?.longTermCapacity ?? 1) * 100,
-                  ...(request.outgoing.fitness ? { fitness: request.outgoing.fitness } : {}),
-                  ...(request.outgoing.injury ? { injury: request.outgoing.injury } : {}),
-                },
-              ],
-            },
-          };
-        completed.push(fact);
+        admitEntry(request, moved);
         continue;
       }
     }
     pending.push(request);
+  }
+  if (resolveBodies) {
+    // Entry transport participates before football eligibility is granted. The
+    // existing substitution motor has already spent this interval's budget.
+    const entryIds = new Set(entryMoves.map((p) => p.id));
+    const resolved = resolveBodies(
+      { ...previous, players: [...previous.players, ...entryOrigins] },
+      { ...state, players: [...state.players, ...entryMoves] },
+      dt,
+    );
+    state = { ...resolved, players: resolved.players.filter((p) => !entryIds.has(p.id)) };
+    for (let i = pending.length - 1; i >= 0; i--) {
+      const request = pending[i]!;
+      const physical = entryIds.has(request.incoming.id)
+        ? resolved.players.find((p) => p.id === request.incoming.id)
+        : undefined;
+      if (!physical) continue;
+      request.entryPosition = physical.position;
+      request.entryVelocity = physical.velocity;
+      request.entryFitness = physical.fitness;
+      if (!resolved.executionWitnesses?.unresolved && physical.position.y >= 0.2) {
+        admitEntry(request, physical);
+        pending.splice(i, 1);
+      }
+    }
   }
   state = { ...state, substitutionState: { ...current, pending, completed } };
   // Entry completes the temporary handover before any consumer partitions the XI into
@@ -788,6 +839,11 @@ export const advanceMatchSubstitutions = (
 export const stepSubstitutionInterval = (
   state: TacticalMatchState,
   dt: number,
+  resolveBodies?: (
+    previous: TacticalMatchState,
+    moved: TacticalMatchState,
+    dt: number,
+  ) => TacticalMatchState,
 ): TacticalMatchState =>
   advanceMatchIntervalFitness(
     state,
@@ -799,6 +855,7 @@ export const stepSubstitutionInterval = (
         players: state.players.map((player) => moveSubstitutionBody(player, player.position, dt)),
       },
       dt,
+      resolveBodies,
     ),
     dt,
   );

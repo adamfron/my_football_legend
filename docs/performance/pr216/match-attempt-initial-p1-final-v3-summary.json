@@ -1,0 +1,234 @@
+{
+  "source": "d2f1790dba137e1deed6519d3b7c627a5cc0c321c68b7abe6583ac2f8393494f",
+  "arm": "initial",
+  "frozenInputHash": "afa44c827f58a0147e2328590b9f6eca13ca8c29902ff5530812a3b393064377",
+  "observedInputHash": "80cab976058716910bd3b52ae312098778c868441030b542bab0c201171caf7f",
+  "observerOnlyAddition": true,
+  "seconds": 831.9999999995172,
+  "status": "first_half",
+  "reason": "action_starvation",
+  "decisions": 1372,
+  "witnesses": {
+    "bounded-flight-belief": {
+      "invoked": 33280,
+      "executed": 0,
+      "at": 831.9999999995172,
+      "source": "liveBallFlight.advanceLiveBallFlight"
+    },
+    "contact-interval": {
+      "invoked": 33280,
+      "executed": 0,
+      "at": 831.9749999995172,
+      "source": "pendingStrikeInterval.advance"
+    },
+    "ground-contact": {
+      "invoked": 58358,
+      "executed": 0,
+      "at": 831.9772829707098,
+      "source": "pendingStrikeInterval.integrateBallFlight"
+    },
+    "receiver-anticipation": {
+      "invoked": 863,
+      "executed": 0,
+      "at": 692.549999999644,
+      "source": "matchSimulation.observeReceptionBall"
+    },
+    "fallback-delivery": {
+      "invoked": 1027,
+      "executed": 0,
+      "at": 710.6499999996275,
+      "source": "matchSimulation.historical-labelled-delivery"
+    },
+    "height-aware-passing": {
+      "invoked": 1310,
+      "executed": 0,
+      "at": 710.5499999996276,
+      "source": "passDecision.forecastPassInterventions:lofted"
+    },
+    "receiver-recovery": {
+      "invoked": 1658,
+      "executed": 0,
+      "at": 692.574999999644,
+      "source": "matchSimulation.boundedMovementTarget:hold-local"
+    },
+    "ordinary-loose-ball": {
+      "invoked": 23095,
+      "executed": 0,
+      "at": 695.5749999996412,
+      "source": "pendingStrikeInterval.advance:ordinary"
+    },
+    "body-cluster": {
+      "invoked": 24043,
+      "executed": 581,
+      "at": 831.9772829707098,
+      "source": "pendingStrikeInterval.resolveMultiBodyContact"
+    },
+    "controlled-reception": {
+      "invoked": 341,
+      "executed": 341,
+      "at": 694.5561023468618,
+      "source": "matchSimulation.resolveReceptionOutcome"
+    },
+    "policy-b": {
+      "invoked": 1807,
+      "executed": 0,
+      "at": 695.3249999996415,
+      "source": "matchSimulation.chooseNpcRoutineAction"
+    },
+    "ball-body-contact": {
+      "invoked": 271,
+      "executed": 271,
+      "at": 694.9419548423574,
+      "source": "pendingStrikeInterval.resolveBallRebound"
+    },
+    "defensive-reception": {
+      "invoked": 104,
+      "executed": 104,
+      "at": 692.5650506221256,
+      "source": "matchSimulation.resolveReceptionOutcome:defensive"
+    },
+    "pending-low-pass": {
+      "invoked": 211,
+      "executed": 0,
+      "at": 695.3249999996415,
+      "source": "pendingStrike.commitPendingPass"
+    },
+    "missed-kick": {
+      "invoked": 168,
+      "executed": 168,
+      "at": 694.2949999996425,
+      "source": "pendingStrike.finish:miss:swing_completed_without_contact"
+    },
+    "prepared-kick": {
+      "invoked": 42,
+      "executed": 42,
+      "at": 695.37878808734,
+      "source": "pendingStrike.finish:contact:foot_ball_intersection"
+    },
+    "standing-challenge": {
+      "invoked": 29,
+      "executed": 29,
+      "at": 657.1700979393496,
+      "source": "pendingStrikeInterval.executePendingContact"
+    },
+    "physical-kick": {
+      "invoked": 4,
+      "executed": 1,
+      "at": 683.3249999996524,
+      "source": "matchActions.resolveMatchAction:physical-kick"
+    },
+    "interrupted-kick": {
+      "invoked": 1,
+      "executed": 1,
+      "at": 487.36989793059814,
+      "source": "pendingStrike.finish:interrupted:passive_body"
+    },
+    "fallback-keeper-aerial": {
+      "invoked": 4854,
+      "executed": 0,
+      "at": 831.9999999995172,
+      "source": "matchSimulation.historical-loose-ball"
+    }
+  },
+  "minutes": [
+    {
+      "from": 0,
+      "to": 59.99999999999766,
+      "decisions": 126,
+      "ballTransport": 132.99087975609442,
+      "contacts": 28
+    },
+    {
+      "from": 59.99999999999766,
+      "to": 120.00000000001016,
+      "decisions": 131,
+      "ballTransport": 82.14140175310504,
+      "contacts": 25
+    },
+    {
+      "from": 120.00000000001016,
+      "to": 180.0000000000238,
+      "decisions": 107,
+      "ballTransport": 124.83372207495167,
+      "contacts": 28
+    },
+    {
+      "from": 180.0000000000238,
+      "to": 240.00000000003743,
+      "decisions": 88,
+      "ballTransport": 131.43112213662963,
+      "contacts": 20
+    },
+    {
+      "from": 240.00000000003743,
+      "to": 300.000000000001,
+      "decisions": 143,
+      "ballTransport": 72.7366845672082,
+      "contacts": 40
+    },
+    {
+      "from": 300.000000000001,
+      "to": 359.99999999994645,
+      "decisions": 77,
+      "ballTransport": 159.23906552236033,
+      "contacts": 25
+    },
+    {
+      "from": 359.99999999994645,
+      "to": 419.9999999998919,
+      "decisions": 105,
+      "ballTransport": 180.66716652223707,
+      "contacts": 28
+    },
+    {
+      "from": 419.9999999998919,
+      "to": 479.9999999998373,
+      "decisions": 120,
+      "ballTransport": 113.09754392047327,
+      "contacts": 24
+    },
+    {
+      "from": 479.9999999998373,
+      "to": 539.9999999997827,
+      "decisions": 139,
+      "ballTransport": 93.73581990641607,
+      "contacts": 49
+    },
+    {
+      "from": 539.9999999997827,
+      "to": 599.9999999997282,
+      "decisions": 153,
+      "ballTransport": 125.78091603942163,
+      "contacts": 33
+    },
+    {
+      "from": 599.9999999997282,
+      "to": 659.9999999996736,
+      "decisions": 124,
+      "ballTransport": 100.22377099884883,
+      "contacts": 27
+    },
+    {
+      "from": 659.9999999996736,
+      "to": 719.999999999619,
+      "decisions": 59,
+      "ballTransport": 157.46364906266493,
+      "contacts": 14
+    },
+    {
+      "from": 719.999999999619,
+      "to": 779.9999999995645,
+      "decisions": 0,
+      "ballTransport": 0,
+      "contacts": 0
+    }
+  ],
+  "wallSeconds": 87.1242295,
+  "cpu": {
+    "user": 101922000,
+    "system": 890000
+  },
+  "peakRSSKiB": 739980,
+  "fullMatch": false,
+  "promotion": "RETAIN_EXPERIMENTAL"
+}

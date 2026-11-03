@@ -1,0 +1,416 @@
+{
+  "source": "058bd6ee449e537d08da871c74f07654a744abd50b465af33921e0093e3f1455",
+  "arm": "initial",
+  "frozenInputHash": "afa44c827f58a0147e2328590b9f6eca13ca8c29902ff5530812a3b393064377",
+  "observedInputHash": "80cab976058716910bd3b52ae312098778c868441030b542bab0c201171caf7f",
+  "observerOnlyAddition": true,
+  "seconds": 2140.425000003404,
+  "status": "first_half",
+  "reason": "unresolved:initial_body_overlap",
+  "decisions": 3499,
+  "witnesses": {
+    "bounded-flight-belief": {
+      "invoked": 84846,
+      "executed": 0,
+      "at": 2140.425000003404,
+      "source": "liveBallFlight.advanceLiveBallFlight"
+    },
+    "contact-interval": {
+      "invoked": 84846,
+      "executed": 0,
+      "at": 2140.400000003404,
+      "source": "pendingStrikeInterval.advance"
+    },
+    "ground-contact": {
+      "invoked": 111398,
+      "executed": 0,
+      "at": 2140.400000003404,
+      "source": "pendingStrikeInterval.integrateBallFlight"
+    },
+    "receiver-anticipation": {
+      "invoked": 2687,
+      "executed": 0,
+      "at": 2119.850000003329,
+      "source": "matchSimulation.observeReceptionBall"
+    },
+    "fallback-delivery": {
+      "invoked": 6051,
+      "executed": 0,
+      "at": 2137.6000000033937,
+      "source": "matchSimulation.historical-labelled-delivery"
+    },
+    "height-aware-passing": {
+      "invoked": 3814,
+      "executed": 0,
+      "at": 2133.87500000338,
+      "source": "passDecision.forecastPassInterventions:lofted"
+    },
+    "receiver-recovery": {
+      "invoked": 4692,
+      "executed": 0,
+      "at": 2119.9000000033293,
+      "source": "matchSimulation.boundedMovementTarget:hold-local"
+    },
+    "ordinary-loose-ball": {
+      "invoked": 60835,
+      "executed": 0,
+      "at": 2137.2250000033923,
+      "source": "pendingStrikeInterval.advance:ordinary"
+    },
+    "body-cluster": {
+      "invoked": 24350,
+      "executed": 1623,
+      "at": 2140.400000003404,
+      "source": "pendingStrikeInterval.resolveMultiBodyContact"
+    },
+    "controlled-reception": {
+      "invoked": 832,
+      "executed": 832,
+      "at": 2136.384860109598,
+      "source": "matchSimulation.resolveReceptionOutcome"
+    },
+    "policy-b": {
+      "invoked": 4706,
+      "executed": 0,
+      "at": 2137.2500000033924,
+      "source": "matchSimulation.chooseNpcRoutineAction"
+    },
+    "ball-body-contact": {
+      "invoked": 299,
+      "executed": 299,
+      "at": 2131.3926963393696,
+      "source": "pendingStrikeInterval.passiveFoot"
+    },
+    "defensive-reception": {
+      "invoked": 314,
+      "executed": 314,
+      "at": 2136.384860109598,
+      "source": "matchSimulation.resolveReceptionOutcome:defensive"
+    },
+    "pending-low-pass": {
+      "invoked": 512,
+      "executed": 0,
+      "at": 2133.87500000338,
+      "source": "pendingStrike.commitPendingPass"
+    },
+    "missed-kick": {
+      "invoked": 373,
+      "executed": 373,
+      "at": 2133.99500000338,
+      "source": "pendingStrike.finish:miss:swing_completed_without_contact"
+    },
+    "standing-challenge": {
+      "invoked": 93,
+      "executed": 91,
+      "at": 2073.8777053372532,
+      "source": "pendingStrikeInterval.executePendingContact"
+    },
+    "prepared-kick": {
+      "invoked": 130,
+      "executed": 130,
+      "at": 2124.3870848664924,
+      "source": "pendingStrike.finish:contact:foot_ball_intersection"
+    },
+    "fallback-keeper-aerial": {
+      "invoked": 491,
+      "executed": 0,
+      "at": 2069.475000003146,
+      "source": "matchSimulation.historical-loose-ball"
+    },
+    "interrupted-kick": {
+      "invoked": 8,
+      "executed": 8,
+      "at": 2000.2398707174518,
+      "source": "pendingStrike.finish:interrupted:active_challenge"
+    },
+    "physical-kick": {
+      "invoked": 8,
+      "executed": 7,
+      "at": 2137.2500000033924,
+      "source": "matchActions.resolveMatchAction:physical-kick"
+    },
+    "fallback-carry": {
+      "invoked": 203,
+      "executed": 0,
+      "at": 1376.1500000006235,
+      "source": "matchSimulation.advanceControlledBall:owned"
+    },
+    "cancelled-kick": {
+      "invoked": 1,
+      "executed": 1,
+      "at": 1940.3191007231978,
+      "source": "pendingStrike.finish:cancelled:current_capability"
+    },
+    "unresolved": {
+      "invoked": 1,
+      "executed": 1,
+      "at": 2140.400000003404,
+      "source": "initial_body_overlap"
+    }
+  },
+  "physicalDiagnostics": {
+    "solves": 24350,
+    "fiveBodySolves": 0,
+    "maximumBodies": 4,
+    "maximumIterations": 64,
+    "maximumResidual": 0.0000018451634979978692,
+    "maximumPenetration": 0.3558731987609648,
+    "maximumMomentumError": 2.2737367544323206e-13,
+    "maximumPassiveEnergyIncrease": 7.105427357601002e-15
+  },
+  "minutes": [
+    {
+      "from": 0,
+      "to": 59.99999999999766,
+      "decisions": 118,
+      "ballTransport": 191.1245044249404,
+      "contacts": 24
+    },
+    {
+      "from": 59.99999999999766,
+      "to": 120.00000000001016,
+      "decisions": 89,
+      "ballTransport": 190.97413280518566,
+      "contacts": 28
+    },
+    {
+      "from": 120.00000000001016,
+      "to": 180.0000000000238,
+      "decisions": 107,
+      "ballTransport": 169.39792377549568,
+      "contacts": 28
+    },
+    {
+      "from": 180.0000000000238,
+      "to": 240.00000000003743,
+      "decisions": 165,
+      "ballTransport": 80.3825377091573,
+      "contacts": 36
+    },
+    {
+      "from": 240.00000000003743,
+      "to": 300.000000000001,
+      "decisions": 133,
+      "ballTransport": 169.49328295446392,
+      "contacts": 30
+    },
+    {
+      "from": 300.000000000001,
+      "to": 359.99999999994645,
+      "decisions": 88,
+      "ballTransport": 244.11046167896578,
+      "contacts": 27
+    },
+    {
+      "from": 359.99999999994645,
+      "to": 419.9999999998919,
+      "decisions": 91,
+      "ballTransport": 176.73502070321376,
+      "contacts": 21
+    },
+    {
+      "from": 419.9999999998919,
+      "to": 479.9999999998373,
+      "decisions": 43,
+      "ballTransport": 137.77523983532794,
+      "contacts": 9
+    },
+    {
+      "from": 479.9999999998373,
+      "to": 539.9999999997827,
+      "decisions": 134,
+      "ballTransport": 87.72328819583056,
+      "contacts": 40
+    },
+    {
+      "from": 539.9999999997827,
+      "to": 599.9999999997282,
+      "decisions": 152,
+      "ballTransport": 80.39598744195229,
+      "contacts": 39
+    },
+    {
+      "from": 599.9999999997282,
+      "to": 659.9999999996736,
+      "decisions": 138,
+      "ballTransport": 124.36290134961473,
+      "contacts": 37
+    },
+    {
+      "from": 659.9999999996736,
+      "to": 719.999999999619,
+      "decisions": 105,
+      "ballTransport": 98.78635892166567,
+      "contacts": 27
+    },
+    {
+      "from": 719.999999999619,
+      "to": 779.9999999995645,
+      "decisions": 71,
+      "ballTransport": 207.1129268323096,
+      "contacts": 18
+    },
+    {
+      "from": 779.9999999995645,
+      "to": 839.9999999995099,
+      "decisions": 115,
+      "ballTransport": 102.52242488230044,
+      "contacts": 24
+    },
+    {
+      "from": 839.9999999995099,
+      "to": 899.9999999994553,
+      "decisions": 115,
+      "ballTransport": 175.06153499727603,
+      "contacts": 26
+    },
+    {
+      "from": 899.9999999994553,
+      "to": 959.9999999994008,
+      "decisions": 100,
+      "ballTransport": 149.37769936369978,
+      "contacts": 18
+    },
+    {
+      "from": 959.9999999994008,
+      "to": 1019.9999999993462,
+      "decisions": 148,
+      "ballTransport": 124.38016932889131,
+      "contacts": 35
+    },
+    {
+      "from": 1019.9999999993462,
+      "to": 1079.9999999995462,
+      "decisions": 83,
+      "ballTransport": 230.70412373059267,
+      "contacts": 20
+    },
+    {
+      "from": 1079.9999999995462,
+      "to": 1139.9999999997644,
+      "decisions": 58,
+      "ballTransport": 213.60897788700774,
+      "contacts": 10
+    },
+    {
+      "from": 1139.9999999997644,
+      "to": 1199.9999999999827,
+      "decisions": 90,
+      "ballTransport": 192.30699213060177,
+      "contacts": 26
+    },
+    {
+      "from": 1199.9999999999827,
+      "to": 1260.000000000201,
+      "decisions": 22,
+      "ballTransport": 164.43467442847285,
+      "contacts": 5
+    },
+    {
+      "from": 1260.000000000201,
+      "to": 1320.0000000004193,
+      "decisions": 97,
+      "ballTransport": 94.22582486108125,
+      "contacts": 19
+    },
+    {
+      "from": 1320.0000000004193,
+      "to": 1380.0000000006376,
+      "decisions": 108,
+      "ballTransport": 179.15045289630984,
+      "contacts": 28
+    },
+    {
+      "from": 1380.0000000006376,
+      "to": 1440.0000000008558,
+      "decisions": 80,
+      "ballTransport": 181.25493681407434,
+      "contacts": 14
+    },
+    {
+      "from": 1440.0000000008558,
+      "to": 1500.000000001074,
+      "decisions": 137,
+      "ballTransport": 62.53492152246107,
+      "contacts": 23
+    },
+    {
+      "from": 1500.000000001074,
+      "to": 1560.0000000012924,
+      "decisions": 60,
+      "ballTransport": 176.47813671465929,
+      "contacts": 9
+    },
+    {
+      "from": 1560.0000000012924,
+      "to": 1620.0000000015107,
+      "decisions": 58,
+      "ballTransport": 235.7250738578874,
+      "contacts": 14
+    },
+    {
+      "from": 1620.0000000015107,
+      "to": 1680.000000001729,
+      "decisions": 96,
+      "ballTransport": 58.78117898605594,
+      "contacts": 30
+    },
+    {
+      "from": 1680.000000001729,
+      "to": 1740.0000000019472,
+      "decisions": 107,
+      "ballTransport": 260.72988102583264,
+      "contacts": 21
+    },
+    {
+      "from": 1740.0000000019472,
+      "to": 1800.0000000021655,
+      "decisions": 106,
+      "ballTransport": 168.73537633733727,
+      "contacts": 26
+    },
+    {
+      "from": 1800.0000000021655,
+      "to": 1860.0000000023838,
+      "decisions": 78,
+      "ballTransport": 184.94303623521418,
+      "contacts": 16
+    },
+    {
+      "from": 1860.0000000023838,
+      "to": 1920.000000002602,
+      "decisions": 95,
+      "ballTransport": 150.6090027961725,
+      "contacts": 29
+    },
+    {
+      "from": 1920.000000002602,
+      "to": 1980.0000000028203,
+      "decisions": 123,
+      "ballTransport": 121.22372849259708,
+      "contacts": 38
+    },
+    {
+      "from": 1980.0000000028203,
+      "to": 2040.0000000030386,
+      "decisions": 95,
+      "ballTransport": 110.13644478105118,
+      "contacts": 14
+    },
+    {
+      "from": 2040.0000000030386,
+      "to": 2100.000000003257,
+      "decisions": 45,
+      "ballTransport": 194.3349946884574,
+      "contacts": 14
+    }
+  ],
+  "wallSeconds": 153.2838167,
+  "cpu": {
+    "user": 177250000,
+    "system": 3406000
+  },
+  "peakRSSKiB": 773232,
+  "fullMatch": false,
+  "promotion": "RETAIN_EXPERIMENTAL"
+}

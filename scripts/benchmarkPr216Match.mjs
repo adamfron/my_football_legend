@@ -1,0 +1,239 @@
+import assert from 'node:assert/strict';
+import console from 'node:console';
+import process from 'node:process';
+import { readFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
+import { performance } from 'node:perf_hooks';
+import { checkPr216Source, ROOT } from './pr216Evidence.mjs';
+import { hash, write } from './pr199Evidence.mjs';
+import {
+  stepTacticalMatchAfterDecisionProbe,
+  startSecondHalf,
+} from '../src/core/matchSimulation/matchSimulation.ts';
+import { tacticalMatchStateSchema } from '../src/core/matchSimulation/matchState.ts';
+import { effectiveHolisticRecipe, observeHolisticActivation } from './holisticDevelopment.ts';
+const source = checkPr216Source();
+const frozen = JSON.parse(
+  gunzipSync(readFileSync('docs/performance/pr214/holistic-input-ci-v1.json.gz')),
+);
+const version =
+  process.argv.find((x) => x.startsWith('--version='))?.split('=')[1] ?? 'p1-final-v1';
+assert.match(version, /^[a-z0-9-]+$/);
+const smoke = process.argv.includes('--smoke');
+const developmentOnly = process.argv.includes('--development-only');
+const baselineOnly = process.argv.includes('--baseline-only');
+assert.ok(!(developmentOnly && baselineOnly), 'select one arm or the complete paired protocol');
+const reload = (s) => tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(s)));
+for (const arm of baselineOnly
+  ? ['baseline']
+  : smoke || developmentOnly
+    ? ['initial']
+    : ['initial', 'baseline']) {
+  const begin = performance.now(),
+    cpu = process.cpuUsage();
+  const original = reload(frozen[arm]);
+  assert.equal(hash(original), frozen[arm === 'initial' ? 'initialHash' : 'baselineHash']);
+  // This optional, read-only observer is the sole addition to the frozen input.
+  let s = reload(arm === 'initial' ? { ...original, executionWitnesses: {} } : original);
+  const initial = reload(s),
+    checkpoints = [],
+    events = [],
+    window = [],
+    minutes = [];
+  if (arm === 'initial') assert.deepEqual(effectiveHolisticRecipe(s), frozen.recipe);
+  let reason = 'tick_cap',
+    exception,
+    previousMinute = s,
+    ballTransport = 0,
+    lastProgress = s.time,
+    progressBall = { x: s.ball.x, y: s.ball.y },
+    unchanged = 0;
+  const identities = new Set();
+  const physicalDiagnostics = {
+    solves: 0,
+    fiveBodySolves: 0,
+    maximumBodies: 0,
+    maximumIterations: 0,
+    maximumResidual: 0,
+    maximumPenetration: 0,
+    maximumMomentumError: 0,
+    maximumPassiveEnergyIncrease: 0,
+  };
+  const checkpoint = () => {
+    let a = s,
+      b = reload(s);
+    for (let i = 0; i < 8; i++) {
+      a = stepTacticalMatchAfterDecisionProbe(a, 0.025);
+      b = stepTacticalMatchAfterDecisionProbe(b, 0.025);
+      assert.deepEqual(reload(a), reload(b), 'native saved continuation');
+    }
+    checkpoints.push({
+      state: reload(s),
+      hash: hash(s),
+      activation: observeHolisticActivation(initial, s),
+    });
+  };
+  checkpoint();
+  for (let tick = 0; tick < (smoke ? 24000 : 288000); tick++) {
+    if (s.status === 'half_time') {
+      checkpoint();
+      s = startSecondHalf(s);
+      events.push({ kind: 'half_time', at: s.time });
+    }
+    if (s.status === 'full_time' || s.status === 'abandoned') {
+      reason = s.status;
+      break;
+    }
+    const prior = s;
+    try {
+      s = stepTacticalMatchAfterDecisionProbe(s, 0.025);
+    } catch (error) {
+      exception = { message: String(error), stack: error.stack };
+      reason = 'exception';
+      break;
+    }
+    for (const c of s.multiBodyResolutions ?? []) {
+      physicalDiagnostics.solves++;
+      physicalDiagnostics.fiveBodySolves += Number(c.participants.length === 5);
+      physicalDiagnostics.maximumBodies = Math.max(
+        physicalDiagnostics.maximumBodies,
+        c.participants.length,
+      );
+      physicalDiagnostics.maximumIterations = Math.max(
+        physicalDiagnostics.maximumIterations,
+        c.iterations,
+      );
+      physicalDiagnostics.maximumResidual = Math.max(
+        physicalDiagnostics.maximumResidual,
+        c.residualClosingSpeed,
+      );
+      physicalDiagnostics.maximumPenetration = Math.max(
+        physicalDiagnostics.maximumPenetration,
+        c.maximumPenetration,
+      );
+      physicalDiagnostics.maximumMomentumError = Math.max(
+        physicalDiagnostics.maximumMomentumError,
+        ...['x', 'y'].map((axis) =>
+          Math.abs(c.momentumAfter[axis] - c.momentumBefore[axis] - c.boundaryImpulse[axis]),
+        ),
+      );
+      physicalDiagnostics.maximumPassiveEnergyIncrease = Math.max(
+        physicalDiagnostics.maximumPassiveEnergyIncrease,
+        c.energyAfter - c.energyBefore,
+      );
+    }
+    if (s === prior) unchanged++;
+    else unchanged = 0;
+    ballTransport += Math.hypot(s.ball.x - prior.ball.x, s.ball.y - prior.ball.y);
+    if (
+      s.decisionIndex !== prior.decisionIndex ||
+      s.lastGroundContact?.at !== prior.lastGroundContact?.at ||
+      Math.hypot(s.ball.x - progressBall.x, s.ball.y - progressBall.y) > 0.5
+    ) {
+      lastProgress = s.time;
+      progressBall = { x: s.ball.x, y: s.ball.y };
+    }
+    for (const [kind, event] of [
+      ['foot', s.lastGroundContact],
+      ['challenge', s.lastChallenge],
+      ['strike', s.lastStrikeResolution],
+      ['law', s.restart],
+      ['shot', s.lastShot],
+      [
+        'body',
+        s.multiBodyResolutions?.find(
+          (c) => c.unresolved || c.impulses.some((i) => i.kind === 'impact'),
+        ),
+      ],
+    ]) {
+      if (!event) continue;
+      const key = `${kind}:${event.id ?? event.at ?? event.shotId ?? JSON.stringify(event)}`;
+      if (!identities.has(key)) {
+        identities.add(key);
+        events.push({ kind, event });
+      }
+    }
+    window.push({
+      at: s.time,
+      ball: s.ball,
+      players: s.players.map((p) => ({
+        id: p.id,
+        position: p.position,
+        velocity: p.velocity,
+        pose: p.lowerBodyPose,
+      })),
+      contacts: s.multiBodyResolutions,
+      scenario: s.scenario,
+      restart: s.restart?.phase,
+    });
+    if (window.length > 80) window.shift();
+    if ((tick + 1) % 2400 === 0) {
+      reload(s);
+      checkpoint();
+      minutes.push({
+        from: previousMinute.time,
+        to: s.time,
+        decisions: s.decisionIndex - previousMinute.decisionIndex,
+        ballTransport,
+        contacts:
+          (s.executionWitnesses?.['controlled-reception']?.executed ?? 0) -
+          (previousMinute.executionWitnesses?.['controlled-reception']?.executed ?? 0),
+        witnesses: s.executionWitnesses,
+      });
+      previousMinute = s;
+      ballTransport = 0;
+      console.log('PR216 match', arm, Math.round(s.time), s.status, s.decisionIndex);
+    }
+    if (s.executionWitnesses?.unresolved) {
+      reason = `unresolved:${s.executionWitnesses.unresolved.source}`;
+      break;
+    }
+    if (unchanged > 160) {
+      reason = 'unchanged_state';
+      break;
+    }
+    if (s.pendingPlayerDecision || s.shotAgencyRequest) {
+      reason = 'unexpected_human_decision';
+      break;
+    }
+    if (s.time - lastProgress > 120) {
+      reason = 'action_starvation';
+      break;
+    }
+    if (smoke && tick === 23999) reason = 'smoke_complete';
+  }
+  if (!exception) checkpoint();
+  else checkpoints.push({ state: reload(s), hash: hash(s), exceptionInput: true });
+  const summary = {
+    source: source.fingerprint,
+    arm,
+    frozenInputHash: hash(original),
+    observedInputHash: hash(initial),
+    observerOnlyAddition: arm === 'initial',
+    seconds: s.time,
+    status: s.status,
+    reason,
+    exception,
+    decisions: s.decisionIndex - initial.decisionIndex,
+    witnesses: s.executionWitnesses,
+    physicalDiagnostics,
+    minutes: minutes.map((m) => ({ ...m, witnesses: undefined })),
+    wallSeconds: (performance.now() - begin) / 1000,
+    cpu: process.cpuUsage(cpu),
+    peakRSSKiB: process.resourceUsage().maxRSS,
+    fullMatch: s.status === 'full_time',
+    promotion: 'RETAIN_EXPERIMENTAL',
+  };
+  write(`${ROOT}/match-${smoke ? 'smoke' : 'attempt'}-${arm}-${version}.json.gz`, {
+    source: source.fingerprint,
+    initial,
+    terminal: reload(s),
+    checkpoints,
+    events,
+    window,
+    summary,
+  });
+  write(`${ROOT}/match-${smoke ? 'smoke' : 'attempt'}-${arm}-${version}-summary.json`, summary);
+  console.log(JSON.stringify(summary));
+  if (smoke) assert.equal(reason, 'smoke_complete');
+}

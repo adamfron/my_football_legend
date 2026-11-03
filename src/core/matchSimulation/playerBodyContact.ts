@@ -4,6 +4,16 @@ import { deriveMovementCapability } from './locomotion';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { canParticipatePhysically } from './matchInjuries';
 
+/** Upright 34cm torso core. The wider locomotion clearance is not an impact
+ * surface. Restitution remains uncalibrated; tangent friction is zero. */
+export const PLAYER_BODY_CONTACT = {
+  diameter: 0.68,
+  rearmClearance: 0.01,
+  tolerance: 1e-8,
+  restitution: 0.05,
+  maximumCorrectionIterations: 64,
+} as const;
+
 export const playerBodyImpulseSelectionSchema = z.enum([
   'upright-pair-dev-v1',
   'upright-cluster-dev-v1',
@@ -34,7 +44,11 @@ export const playerBodyContactSchema = z.object({
   energyAfter: z.number().nonnegative(),
   restitution: z.number().min(0).max(1),
   clearance: z.number().finite(),
-  correctionIterations: z.number().int().nonnegative().max(32),
+  correctionIterations: z
+    .number()
+    .int()
+    .nonnegative()
+    .max(PLAYER_BODY_CONTACT.maximumCorrectionIterations),
   balanceBefore: z.tuple([z.number(), z.number()]),
   balanceAfter: z.tuple([z.number(), z.number()]),
   remainderSeconds: z.number().nonnegative().optional(),
@@ -48,24 +62,19 @@ export const playerBodyContactSchema = z.object({
 });
 export const playerBodyContactsSchema = z.array(playerBodyContactSchema).max(8);
 
-/** Same upright 34cm torso core as PR212's standing contact witness. The wider
- * locomotion personal-space/compliance constraint is not a second impact surface.
- * Restitution is an uncalibrated engineering assumption; tangent friction is zero. */
-export const PLAYER_BODY_CONTACT = {
-  diameter: 0.68,
-  rearmClearance: 0.01,
-  tolerance: 1e-8,
-  restitution: 0.05,
-} as const;
 const length = (v: { x: number; y: number }) => Math.hypot(v.x, v.y);
 export const playerPairKey = (a: string, b: string) => [a, b].sort().join('\u0000');
 export const playerBodyClearance = (a: MatchPlayerState, b: MatchPlayerState) =>
   Math.hypot(a.position.x - b.position.x, a.position.y - b.position.y) -
   PLAYER_BODY_CONTACT.diameter;
-export const supportedUprightPair = (a: MatchPlayerState, b: MatchPlayerState) =>
+export const supportedUprightPair = (
+  a: MatchPlayerState,
+  b: MatchPlayerState,
+  includeGoalkeepers = false,
+) =>
   [a, b].every(
     (p) =>
-      !isMatchGoalkeeper(p) &&
+      (includeGoalkeepers || !isMatchGoalkeeper(p)) &&
       canParticipatePhysically(p) &&
       (!p.verticalJump || p.verticalJump.phase === 'ready') &&
       Number.isFinite(p.profile.weightKg) &&
@@ -81,7 +90,7 @@ export const retainPlayerBodyContacts = (state: TacticalMatchState) =>
     return (
       a &&
       b &&
-      supportedUprightPair(a, b) &&
+      supportedUprightPair(a, b, state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1') &&
       playerBodyClearance(a, b) <= PLAYER_BODY_CONTACT.rearmClearance
     );
   });
@@ -111,7 +120,11 @@ export const findPlayerBodyContact = (
   if (d < 0) return undefined;
   const at = (-closing - Math.sqrt(d)) / speed2;
   if (at < -1e-10 || at > seconds) return undefined;
-  return d <= 1e-10
+  // A latched pair already has a supported surface identity. A third-body
+  // impulse can close its tiny separating gap almost tangentially; resolve that
+  // same exact intersection as support, with zero restitution, rather than
+  // applying the uncertainty gate for a new grazing impact.
+  return d <= 1e-10 && !continuous
     ? { at: Math.max(0, at), unresolved: 'near_tangent_body' }
     : { at: Math.max(0, at) };
 };
@@ -142,6 +155,7 @@ export const resolvePlayerBodyImpulse = (
   continuous = false,
   restitution: number = PLAYER_BODY_CONTACT.restitution,
   unresolved?: string,
+  includeGoalkeepers = false,
 ) => {
   const dx = a.position.x - b.position.x,
     dy = a.position.y - b.position.y;
@@ -152,7 +166,7 @@ export const resolvePlayerBodyImpulse = (
   const vn = (a.velocity.x - b.velocity.x) * normal.x + (a.velocity.y - b.velocity.y) * normal.y;
   const reason =
     unresolved ??
-    (!supportedUprightPair(a, b)
+    (!supportedUprightPair(a, b, includeGoalkeepers)
       ? 'unsupported_body_state'
       : Math.abs(d - PLAYER_BODY_CONTACT.diameter) > PLAYER_BODY_CONTACT.tolerance && !continuous
         ? 'no_surface_intersection'

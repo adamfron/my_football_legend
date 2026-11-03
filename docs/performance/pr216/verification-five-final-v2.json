@@ -1,0 +1,645 @@
+{
+  "schema": "pr216-verification-five-v2",
+  "source": {
+    "base": "3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10",
+    "fingerprint": "3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782",
+    "archive": "docs/performance/pr216/source-3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782.json.gz"
+  },
+  "requiredVerify": {
+    "command": "npm run verify",
+    "status": "PASS",
+    "exitCode": 0,
+    "node": "v24.22.1",
+    "nodeOptions": "--max-semi-space-size=64",
+    "unit": 2627,
+    "integration": 56,
+    "careerContract": 4,
+    "fullCareer": 5,
+    "log": "docs/performance/pr216/verification-logs/verify-five-final-v2.log.gz",
+    "scope": "One complete command on the final source manifest."
+  },
+  "sourceSuite": {
+    "status": "PASS",
+    "count": 21,
+    "results": [
+      {
+        "name": "current-replay",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerTypescriptLoader.mjs",
+          "scripts/benchmarkPr216.mjs",
+          "--check"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 29.527,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-current-replay.log.gz"
+      },
+      {
+        "name": "registry",
+        "args": [
+          "scripts/realismProgress.mjs",
+          "--check"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 7.217,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-registry.log.gz"
+      },
+      {
+        "name": "ci-contracts",
+        "args": [
+          "--test",
+          "scripts/ci/contracts.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 33.662,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-ci-contracts.log.gz"
+      },
+      {
+        "name": "corruption",
+        "args": [
+          "scripts/ci/corruptReplay.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 11.964,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-corruption.log.gz"
+      },
+      {
+        "name": "history-203",
+        "args": [
+          "scripts/ci/replayPr203Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 180.003,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-203.log.gz"
+      },
+      {
+        "name": "history-204",
+        "args": [
+          "scripts/ci/replayPr204Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 36.357,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-204.log.gz"
+      },
+      {
+        "name": "history-205",
+        "args": [
+          "scripts/ci/replayPr205Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 7.069,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-205.log.gz"
+      },
+      {
+        "name": "history-206",
+        "args": [
+          "scripts/ci/replayPr206Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 10.938,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-206.log.gz"
+      },
+      {
+        "name": "history-207",
+        "args": [
+          "scripts/ci/replayPr207Check.mjs",
+          "--replay"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 70.179,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-207.log.gz"
+      },
+      {
+        "name": "history-208",
+        "args": [
+          "scripts/ci/replayPr208Check.mjs",
+          "--replay"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 149.511,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-208.log.gz"
+      },
+      {
+        "name": "history-209",
+        "args": [
+          "scripts/ci/replayPr209Check.mjs",
+          "--replay"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 40.609,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-209.log.gz"
+      },
+      {
+        "name": "history-210",
+        "args": [
+          "scripts/ci/replayPr210Check.mjs",
+          "--replay"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 30.544,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-210.log.gz"
+      },
+      {
+        "name": "history-211",
+        "args": [
+          "scripts/ci/replayPr211Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 35.133,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-211.log.gz"
+      },
+      {
+        "name": "history-212",
+        "args": [
+          "scripts/ci/replayPr212Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 31.415,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-212.log.gz"
+      },
+      {
+        "name": "history-213",
+        "args": [
+          "scripts/ci/replayPr213Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 36.139,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-213.log.gz"
+      },
+      {
+        "name": "history-214",
+        "args": [
+          "scripts/ci/replayPr214Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 37.012,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-214.log.gz"
+      },
+      {
+        "name": "history-215",
+        "args": [
+          "scripts/ci/replayPr215Check.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 34.285,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-history-215.log.gz"
+      },
+      {
+        "name": "authority",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerTypescriptLoader.mjs",
+          "scripts/checkPr204Authority.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 1.863,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-authority.log.gz"
+      },
+      {
+        "name": "information",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerPr199Lab.mjs",
+          "scripts/checkPr204Boundary.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 1.944,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-information.log.gz"
+      },
+      {
+        "name": "pr205-contracts",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerTypescriptLoader.mjs",
+          "scripts/benchmarkPr205.mjs",
+          "--contracts"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 1.656,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-pr205-contracts.log.gz"
+      },
+      {
+        "name": "pr206-contracts",
+        "args": [
+          "--max-semi-space-size=64",
+          "--experimental-transform-types",
+          "--import",
+          "./scripts/registerPr206Lab.mjs",
+          "scripts/checkPr206Contracts.mjs"
+        ],
+        "exitCode": 0,
+        "error": null,
+        "seconds": 5.493,
+        "log": "docs/performance/pr216/verification-logs/history-five-v2-pr206-contracts.log.gz"
+      }
+    ]
+  },
+  "sourceReconstruction": {
+    "source": "3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782",
+    "base": "3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10",
+    "paths": 1374,
+    "status": "PASS",
+    "method": "git archive base plus complete normalized source delta; every manifest path hash compared"
+  },
+  "fiveBody": {
+    "status": "PASS",
+    "scope": "At most five supported upright bodies; six-body overflow remains explicit.",
+    "summary": {
+      "inputHash": "0cacbeb4461ff7be46a74fcb45e508a94381b41479c8d5b22d7a2aa90db8af4c",
+      "previousSource": "e6b5e4f1f8ee81321331e7a28af60789c73d9b8e776747aaac6b9e21666aef0d",
+      "from": 698.6749999996384,
+      "to": 758.6749999995839,
+      "decisions": 133,
+      "solves": 1,
+      "maximumPenetration": 1.5210055437364645e-14
+    },
+    "receipt": "docs/performance/pr216/canonical-five-final-v2.json.gz",
+    "nativeReplay": "docs/performance/pr216/five-component-native-replay-final-v2.json.gz",
+    "budgetProbe": {
+      "source": "3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782",
+      "method": "32-sweep prefix reconstructed from the actual final per-contact impulse ledger; same masses/positions/pair order. No solver or match state is modified by this observer.",
+      "prefixResidual": 0.000524121724661574,
+      "finalResidual": 2.1275705936238947e-8,
+      "iterations": 64,
+      "impulses": 256,
+      "energyBefore": 17820,
+      "energyAfter": 6.121019621766766e-14
+    },
+    "targetedTests": {
+      "tests": 35,
+      "files": 3,
+      "status": "PASS"
+    }
+  },
+  "continuousPlay": {
+    "normalSeconds": 599.9999999997282,
+    "frozenSeconds": 599.9999999997282,
+    "receipt": "docs/performance/pr216/canonical-five-final-v2.json.gz"
+  },
+  "fullProtocol": {
+    "status": "ATTEMPTED_NOT_COMPLETE: separate historical release/foot handoff",
+    "development": {
+      "source": "3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782",
+      "arm": "initial",
+      "frozenInputHash": "afa44c827f58a0147e2328590b9f6eca13ca8c29902ff5530812a3b393064377",
+      "observedInputHash": "80cab976058716910bd3b52ae312098778c868441030b542bab0c201171caf7f",
+      "observerOnlyAddition": true,
+      "seconds": 946.0749999994134,
+      "status": "first_half",
+      "reason": "unresolved:initial_penetration",
+      "decisions": 1663,
+      "witnesses": {
+        "bounded-flight-belief": {
+          "invoked": 37843,
+          "executed": 0,
+          "at": 946.0749999994134,
+          "source": "liveBallFlight.advanceLiveBallFlight"
+        },
+        "contact-interval": {
+          "invoked": 37843,
+          "executed": 0,
+          "at": 946.0499999994134,
+          "source": "pendingStrikeInterval.advance"
+        },
+        "ground-contact": {
+          "invoked": 49760,
+          "executed": 0,
+          "at": 946.0499999994134,
+          "source": "pendingStrikeInterval.integrateBallFlight"
+        },
+        "receiver-anticipation": {
+          "invoked": 1210,
+          "executed": 0,
+          "at": 946.0749999994134,
+          "source": "matchSimulation.observeReceptionBall"
+        },
+        "fallback-delivery": {
+          "invoked": 2152,
+          "executed": 0,
+          "at": 912.1249999994443,
+          "source": "matchSimulation.historical-labelled-delivery"
+        },
+        "height-aware-passing": {
+          "invoked": 1316,
+          "executed": 0,
+          "at": 946.0499999994134,
+          "source": "passDecision.forecastPassInterventions:lofted"
+        },
+        "receiver-recovery": {
+          "invoked": 2173,
+          "executed": 0,
+          "at": 946.0749999994134,
+          "source": "matchSimulation.boundedMovementTarget:hold-local"
+        },
+        "ordinary-loose-ball": {
+          "invoked": 27798,
+          "executed": 0,
+          "at": 946.0499999994134,
+          "source": "pendingStrikeInterval.advance:ordinary"
+        },
+        "body-cluster": {
+          "invoked": 10766,
+          "executed": 842,
+          "at": 945.5499102346023,
+          "source": "pendingStrikeInterval.resolveMultiBodyContact"
+        },
+        "controlled-reception": {
+          "invoked": 444,
+          "executed": 444,
+          "at": 945.2944505188029,
+          "source": "matchSimulation.resolveReceptionOutcome"
+        },
+        "policy-b": {
+          "invoked": 2234,
+          "executed": 0,
+          "at": 946.0499999994134,
+          "source": "matchSimulation.chooseNpcRoutineAction"
+        },
+        "ball-body-contact": {
+          "invoked": 178,
+          "executed": 178,
+          "at": 942.8435744016242,
+          "source": "pendingStrikeInterval.passiveFoot"
+        },
+        "defensive-reception": {
+          "invoked": 178,
+          "executed": 178,
+          "at": 942.2024027794944,
+          "source": "matchSimulation.resolveReceptionOutcome:defensive"
+        },
+        "pending-low-pass": {
+          "invoked": 241,
+          "executed": 0,
+          "at": 944.374999999415,
+          "source": "pendingStrike.commitPendingPass"
+        },
+        "missed-kick": {
+          "invoked": 195,
+          "executed": 195,
+          "at": 944.494999999415,
+          "source": "pendingStrike.finish:miss:swing_completed_without_contact"
+        },
+        "standing-challenge": {
+          "invoked": 54,
+          "executed": 52,
+          "at": 940.7142913237855,
+          "source": "pendingStrikeInterval.executePendingContact"
+        },
+        "prepared-kick": {
+          "invoked": 44,
+          "executed": 44,
+          "at": 942.9572544054879,
+          "source": "pendingStrike.finish:contact:foot_ball_intersection"
+        },
+        "physical-kick": {
+          "invoked": 6,
+          "executed": 2,
+          "at": 731.8999999996082,
+          "source": "matchActions.resolveMatchAction:physical-kick"
+        },
+        "fallback-keeper-aerial": {
+          "invoked": 194,
+          "executed": 0,
+          "at": 892.4999999994621,
+          "source": "matchSimulation.historical-loose-ball"
+        },
+        "interrupted-kick": {
+          "invoked": 2,
+          "executed": 2,
+          "at": 900.6740930241082,
+          "source": "pendingStrike.finish:interrupted:competing_foot"
+        },
+        "unresolved": {
+          "invoked": 1,
+          "executed": 1,
+          "at": 946.0499999994134,
+          "source": "initial_penetration"
+        }
+      },
+      "physicalDiagnostics": {
+        "solves": 10766,
+        "fiveBodySolves": 1,
+        "maximumBodies": 5,
+        "maximumIterations": 29,
+        "maximumResidual": 9.999692028982245e-11,
+        "maximumPenetration": 1.7541523789077473e-14,
+        "maximumMomentumError": 2.2737367544323206e-13,
+        "maximumPassiveEnergyIncrease": 0
+      },
+      "minutes": [
+        {
+          "from": 0,
+          "to": 59.99999999999766,
+          "decisions": 118,
+          "ballTransport": 191.1245044249404,
+          "contacts": 24
+        },
+        {
+          "from": 59.99999999999766,
+          "to": 120.00000000001016,
+          "decisions": 91,
+          "ballTransport": 208.99799050458304,
+          "contacts": 29
+        },
+        {
+          "from": 120.00000000001016,
+          "to": 180.0000000000238,
+          "decisions": 72,
+          "ballTransport": 155.32119777882798,
+          "contacts": 17
+        },
+        {
+          "from": 180.0000000000238,
+          "to": 240.00000000003743,
+          "decisions": 114,
+          "ballTransport": 119.67333991978462,
+          "contacts": 21
+        },
+        {
+          "from": 240.00000000003743,
+          "to": 300.000000000001,
+          "decisions": 134,
+          "ballTransport": 153.35385722159472,
+          "contacts": 35
+        },
+        {
+          "from": 300.000000000001,
+          "to": 359.99999999994645,
+          "decisions": 90,
+          "ballTransport": 196.72287260512596,
+          "contacts": 32
+        },
+        {
+          "from": 359.99999999994645,
+          "to": 419.9999999998919,
+          "decisions": 101,
+          "ballTransport": 103.25258749688126,
+          "contacts": 20
+        },
+        {
+          "from": 419.9999999998919,
+          "to": 479.9999999998373,
+          "decisions": 140,
+          "ballTransport": 91.90468404434117,
+          "contacts": 38
+        },
+        {
+          "from": 479.9999999998373,
+          "to": 539.9999999997827,
+          "decisions": 80,
+          "ballTransport": 175.78097915152674,
+          "contacts": 19
+        },
+        {
+          "from": 539.9999999997827,
+          "to": 599.9999999997282,
+          "decisions": 90,
+          "ballTransport": 145.14834433026093,
+          "contacts": 32
+        },
+        {
+          "from": 599.9999999997282,
+          "to": 659.9999999996736,
+          "decisions": 38,
+          "ballTransport": 151.0894166865458,
+          "contacts": 9
+        },
+        {
+          "from": 659.9999999996736,
+          "to": 719.999999999619,
+          "decisions": 139,
+          "ballTransport": 144.9805093653763,
+          "contacts": 40
+        },
+        {
+          "from": 719.999999999619,
+          "to": 779.9999999995645,
+          "decisions": 123,
+          "ballTransport": 180.14950468145497,
+          "contacts": 36
+        },
+        {
+          "from": 779.9999999995645,
+          "to": 839.9999999995099,
+          "decisions": 136,
+          "ballTransport": 109.29087691983693,
+          "contacts": 26
+        },
+        {
+          "from": 839.9999999995099,
+          "to": 899.9999999994553,
+          "decisions": 98,
+          "ballTransport": 74.44823183343708,
+          "contacts": 38
+        }
+      ],
+      "wallSeconds": 86.5942865,
+      "cpu": {
+        "user": 103297000,
+        "system": 1079000
+      },
+      "peakRSSKiB": 566144,
+      "fullMatch": false,
+      "promotion": "RETAIN_EXPERIMENTAL"
+    },
+    "baseline": {
+      "seconds": 5782.100000006393,
+      "status": "full_time",
+      "fullMatch": true,
+      "receipt": "docs/performance/pr216/match-attempt-baseline-five-final-v2.json.gz"
+    },
+    "nativeBaselineParity": {
+      "status": "PASS",
+      "previousSource": "e6b5e4f1f8ee81321331e7a28af60789c73d9b8e776747aaac6b9e21666aef0d",
+      "currentSource": "3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782",
+      "inputHash": "67893f497637511e036b851d2787d3246946d72f8fac3b728dbb6e50bb31eb11",
+      "terminalHash": "536c0cc92dce5a8649dc24c9021bcb0037a6661d3d876d12d19ee3fed9f9b6d3",
+      "seconds": 5782.100000006393,
+      "decisions": 11521,
+      "method": "Complete maintained-baseline terminal state matches exactly in the same native environment."
+    },
+    "nextBlocker": "docs/performance/pr216/next-release-handoff-blocker-five-v2.json.gz"
+  },
+  "browser": {
+    "status": "PASS",
+    "report": "docs/performance/pr216/browser/report.json",
+    "viewports": 2,
+    "source": "3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782"
+  },
+  "previousPublishedEvidence": {
+    "commit": "4be6fa09a58f52a07ed4c7927ca5b4e93d0f6e75",
+    "verification": "docs/performance/pr216/verification-p1-final-v6.json",
+    "browser": "docs/performance/pr216/browser-p1-final-v6.json.gz"
+  },
+  "promotion": "RETAIN_EXPERIMENTAL",
+  "maintainedCandidate": "PR201 realism-candidate-v1 / B unchanged",
+  "preservedNewLogs": [
+    "docs/performance/pr216/verification-logs/five-benchmark-final-v1.log.gz",
+    "docs/performance/pr216/verification-logs/five-benchmark-final-v2.log.gz",
+    "docs/performance/pr216/verification-logs/five-browser-v2.log.gz",
+    "docs/performance/pr216/verification-logs/five-constraint-budget-v2.log.gz",
+    "docs/performance/pr216/verification-logs/five-lint-v1.log.gz",
+    "docs/performance/pr216/verification-logs/five-match-attempt-final-v1.log.gz",
+    "docs/performance/pr216/verification-logs/five-match-attempt-final-v2.log.gz",
+    "docs/performance/pr216/verification-logs/five-native-diagnostics-v2.log.gz",
+    "docs/performance/pr216/verification-logs/five-original-incident.log.gz",
+    "docs/performance/pr216/verification-logs/five-source-reconstruction-v2.log.gz",
+    "docs/performance/pr216/verification-logs/five-source-suite-v1.log.gz",
+    "docs/performance/pr216/verification-logs/five-source-suite-v2.log.gz",
+    "docs/performance/pr216/verification-logs/five-support-v1.log.gz",
+    "docs/performance/pr216/verification-logs/five-targeted-v1.log.gz",
+    "docs/performance/pr216/verification-logs/five-types-v1.log.gz",
+    "docs/performance/pr216/verification-logs/five-verification-package-v2.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-authority.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-ci-contracts.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-corruption.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-current-replay.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-203.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-204.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-205.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-206.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-207.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-208.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-209.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-210.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-211.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-212.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-213.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-214.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-history-215.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-information.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-pr205-contracts.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-pr206-contracts.log.gz",
+    "docs/performance/pr216/verification-logs/history-five-v2-registry.log.gz",
+    "docs/performance/pr216/verification-logs/verify-five-final-v1.log.gz",
+    "docs/performance/pr216/verification-logs/verify-five-final-v2.log.gz"
+  ]
+}

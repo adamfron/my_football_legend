@@ -1,0 +1,52 @@
+{
+  "source": "3312e86ce94ea6e758cbe4b8fcbb620231ce6406d18a32bacb4940f678014782",
+  "at": 946.0749999994134,
+  "reason": "initial_penetration",
+  "priorBall": {
+    "x": 77.84422684299791,
+    "y": 20.01453226789321,
+    "height": 0,
+    "airborne": false,
+    "flightTime": 0,
+    "distanceTravelled": 0,
+    "velocity": {
+      "x": -12.592701602299455,
+      "y": 4.9340173472240645,
+      "z": 0
+    },
+    "bounceCount": 0,
+    "travelKind": "pass",
+    "sourceAction": "pass",
+    "executionType": "normal",
+    "from": {
+      "x": 77.84422684299791,
+      "y": 20.01453226789321
+    },
+    "target": {
+      "x": 56.78128670246504,
+      "y": 28.26732148811537
+    },
+    "intendedReceiverId": "geometry:opponent:10",
+    "launchVelocity": {
+      "x": -12.592701602299455,
+      "y": 4.9340173472240645,
+      "z": 0
+    },
+    "launchSpeed": 13.524816480354298,
+    "launchElevation": 0,
+    "lastTouchPlayerId": "geometry:opponent:5"
+  },
+  "footGaps": [
+    {
+      "actorId": "geometry:opponent:5",
+      "foot": "right",
+      "gap": -0.026840310758711516
+    },
+    {
+      "actorId": "geometry:opponent:5",
+      "foot": "left",
+      "gap": 0.3343574075894816
+    }
+  ],
+  "scope": "Historical normal-pass release from a non-grounded owned ball; separate from five-body solver support"
+}

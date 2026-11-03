@@ -5,8 +5,9 @@ import { mkdirSync, mkdtempSync, symlinkSync, rmSync, readFileSync } from 'node:
 import { resolve, join, sep } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
-import { BASE, checkPr215Source } from '../pr215Evidence.mjs';
-checkPr215Source();
+import { BASE } from '../pr215Evidence.mjs';
+import { checkPr216Source } from '../pr216Evidence.mjs';
+checkPr216Source();
 mkdirSync('.benchmark-artifacts', { recursive: true });
 const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr214-check-'));
 const safe = () => assert.ok(resolve(scratch).startsWith(resolve('.benchmark-artifacts') + sep));
@@ -33,7 +34,7 @@ try {
       'eslint.config.js',
       'vitest.config.ts',
       '.github',
-    'docs/match-engine',
+      'docs/match-engine',
       inputPath,
       inputArchive,
       ...Array.from({ length: 20 }, (_, i) => `docs/performance/pr${195 + i}`),
