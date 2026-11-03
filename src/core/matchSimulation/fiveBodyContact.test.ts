@@ -15,7 +15,7 @@ const reload = (value: unknown) =>
 const incident = JSON.parse(
   gunzipSync(readFileSync('docs/performance/pr216/five-body-incident-input.json.gz')).toString(),
 ) as { initial: TacticalMatchState; terminal: TacticalMatchState };
-const check = (r: ReturnType<typeof resolveMultiBodyContact>) => {
+const check = (r: { evidence: ReturnType<typeof resolveMultiBodyContact>['evidence'] }) => {
   const e = r.evidence;
   expect(e.unresolved).toBe(false);
   expect(e.maximumPenetration).toBeLessThanOrEqual(MULTI_BODY.contactTolerance);
@@ -41,6 +41,38 @@ const chain = (masses: number[], angle = 0) => {
 };
 
 describe('PR216 five-body component continuation', () => {
+  it('completes the recorded three-body boundary constraint only after its 32-sweep prefix fails', () => {
+    const recorded = JSON.parse(
+      gunzipSync(
+        readFileSync('docs/performance/pr216/release-convergence-input-v1.json.gz'),
+      ).toString(),
+    ) as { initial: TacticalMatchState; terminal: TacticalMatchState };
+    const old = recorded.terminal.multiBodyResolutions!.find((c) => c.unresolved)!;
+    expect(old.iterations).toBe(32);
+    expect(old.residualClosingSpeed).toBeGreaterThan(MULTI_BODY.velocityTolerance);
+    let a = reload(recorded.initial),
+      b = reload(recorded.initial),
+      completed = false;
+    for (let i = 0; i < 400; i++) {
+      a = stepTacticalMatchAfterDecisionProbe(a, 0.025);
+      b = stepTacticalMatchAfterDecisionProbe(b, 0.025);
+      expect(a.executionWitnesses?.unresolved).toBeUndefined();
+      for (const evidence of a.multiBodyResolutions ?? [])
+        if (evidence.iterations > 32 && evidence.participants.length === 3) {
+          completed = true;
+          check({ evidence });
+          expect(evidence.iterations).toBeLessThanOrEqual(MULTI_BODY.completionIterations);
+          expect(evidence.positionCorrection).toBe(0);
+          expect(evidence.impulses.slice(0, old.impulses.length)).toEqual(old.impulses);
+        }
+      if (i % 40 === 0) {
+        expect(reload(a)).toEqual(reload(b));
+        b = reload(b);
+      }
+    }
+    expect(completed).toBe(true);
+    expect(a.decisionIndex).toBeGreaterThan(recorded.initial.decisionIndex);
+  });
   it('resolves the exact recorded five-body overflow with passive support and conserved momentum', () => {
     const old = incident.terminal.multiBodyResolutions!.find((c) => c.unresolved)!;
     const r = resolveMultiBodyContact(reload(incident.terminal), old.participants, old.at);

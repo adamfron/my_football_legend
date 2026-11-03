@@ -2,7 +2,7 @@
   "metadata": {
     "schema": "mfl-session-benchmark-v5",
     "policy": "state-value-v1",
-    "sourceRevision": "4be6fa09a58f52a07ed4c7927ca5b4e93d0f6e75:ba92c8d019b56a0ef8cac5b12776dc23740c9d21d3fc97747545afd3623b0246",
+    "sourceRevision": "da3aef824af8f417f63be33d36631716fb81c092:3cf5bad829a917ca42660ce03bb0f6b5b79e9da7c66717446b2103cd41ed2c10",
     "fixtureId": "fixture-3c0ffb2c",
     "engine": "canonical",
     "fixedDt": 0.025,
@@ -31,7 +31,7 @@
         {
           "mode": "normal",
           "startedAt": 0,
-          "endedAt": 1.0500000000000003
+          "endedAt": 1.0250000000000004
         }
       ]
     },
@@ -40,16 +40,16 @@
       {
         "mode": "normal",
         "startedAt": 0,
-        "endedAt": 1.0500000000000003
+        "endedAt": 1.0250000000000004
       }
     ]
   },
-  "duration": 1.0500000000000003,
+  "duration": 1.0250000000000004,
   "segments": [
     {
       "segmentId": "pr216-browser-1366:segment:0",
       "scenario": "kick_off",
-      "canonicalDuration": 1.0500000000000003,
+      "canonicalDuration": 1.0250000000000004,
       "matchFlowTelemetry": null,
       "sampledPositioning": null,
       "observationScope": "unavailable"
@@ -106,7 +106,7 @@
     },
     "teamAccounting": {
       "home": {
-        "possessionSeconds": 0.8250000000000003,
+        "possessionSeconds": 0.8000000000000004,
         "blockedShots": 0,
         "offsides": 0,
         "corners": 0,
@@ -154,7 +154,7 @@
         }
       }
     },
-    "observedThrough": 1.0500000000000003,
+    "observedThrough": 1.0250000000000004,
     "observedRestartIds": [
       "pr216-browser-1366:restart:0:home:kick_off"
     ],
@@ -162,7 +162,7 @@
     "players": [
       {
         "playerId": "footballer_pro_0_0",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -207,7 +207,7 @@
       },
       {
         "playerId": "footballer_pro_0_3",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -241,10 +241,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.004416555549934899,
+        "distanceCovered": 0,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 0.17666222199739598,
+        "maxSpeed": 0,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -252,7 +252,7 @@
       },
       {
         "playerId": "footballer_pro_0_5",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -286,10 +286,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.8234770351273101,
+        "distanceCovered": 0.7825218651861151,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 1.6382067976477979,
+        "maxSpeed": 1.6381726356828992,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -297,7 +297,7 @@
       },
       {
         "playerId": "footballer_pro_0_4",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -331,7 +331,7 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.8456381399960874,
+        "distanceCovered": 0.8093660546756534,
         "sprintDistance": 0,
         "sprintBursts": 0,
         "maxSpeed": 1.773635603910465,
@@ -342,7 +342,7 @@
       },
       {
         "playerId": "footballer_pro_0_7",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -376,10 +376,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.004507045683105327,
+        "distanceCovered": 0,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 0.18028182732421308,
+        "maxSpeed": 0,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -387,7 +387,7 @@
       },
       {
         "playerId": "footballer_pro_0_9",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -421,10 +421,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.004211756317702549,
+        "distanceCovered": 0,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 0.16847025270810195,
+        "maxSpeed": 0,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -432,7 +432,7 @@
       },
       {
         "playerId": "footballer_pro_0_14",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -466,10 +466,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.4837861280689246,
+        "distanceCovered": 0.44684194835750235,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 1.4777671884568897,
+        "maxSpeed": 1.4777318542538138,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -477,7 +477,7 @@
       },
       {
         "playerId": "footballer_pro_0_11",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -511,10 +511,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.004133825605066112,
+        "distanceCovered": 0,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 0.16535302420264447,
+        "maxSpeed": 0,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -522,7 +522,7 @@
       },
       {
         "playerId": "footballer_pro_0_13",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -556,10 +556,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 1.172879407045893,
+        "distanceCovered": 1.113748252533165,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 2.3652461805091183,
+        "maxSpeed": 2.199842413304283,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -567,7 +567,7 @@
       },
       {
         "playerId": "footballer_pro_0_12",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -601,7 +601,7 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.6362314167721828,
+        "distanceCovered": 0.6072332294771627,
         "sprintDistance": 0,
         "sprintBursts": 0,
         "maxSpeed": 1.1599274999279319,
@@ -612,7 +612,7 @@
       },
       {
         "playerId": "footballer_pro_0_21",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 1,
         "passesAttempted": 1,
         "passesCompleted": 0,
@@ -646,10 +646,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.004153769810605854,
+        "distanceCovered": 0,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 0.16615079242423414,
+        "maxSpeed": 0,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -657,7 +657,7 @@
       },
       {
         "playerId": "footballer_pro_1_0",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -702,7 +702,7 @@
       },
       {
         "playerId": "footballer_pro_1_7",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -736,10 +736,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.3770975029833286,
+        "distanceCovered": 0.33095843274195813,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 1.8455628096548184,
+        "maxSpeed": 1.845558169224367,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -747,7 +747,7 @@
       },
       {
         "playerId": "footballer_pro_1_3",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -781,10 +781,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.2822118548376531,
+        "distanceCovered": 0.24004085132329198,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 1.686840140574446,
+        "maxSpeed": 1.5911533884616955,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -792,7 +792,7 @@
       },
       {
         "playerId": "footballer_pro_1_4",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -826,10 +826,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.19004213681329182,
+        "distanceCovered": 0.1520456339821808,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 1.519860113244441,
+        "maxSpeed": 1.3513632465007417,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -837,7 +837,7 @@
       },
       {
         "playerId": "footballer_pro_1_9",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -871,10 +871,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.3809796692833701,
+        "distanceCovered": 0.3351641183179866,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 1.8326220386153418,
+        "maxSpeed": 1.8325831109441961,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -882,7 +882,7 @@
       },
       {
         "playerId": "footballer_pro_1_12",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -916,10 +916,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.06849403228235003,
+        "distanceCovered": 0.04566426708901719,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 0.9131906077333136,
+        "maxSpeed": 0.7305995657612083,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -927,7 +927,7 @@
       },
       {
         "playerId": "footballer_pro_1_14",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -961,10 +961,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.06009965475072915,
+        "distanceCovered": 0.040067889874642146,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 0.8012705950434803,
+        "maxSpeed": 0.6410683558158206,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -972,7 +972,7 @@
       },
       {
         "playerId": "footballer_pro_1_17",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -1006,10 +1006,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.19777743660346847,
+        "distanceCovered": 0.15822864986611943,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 1.5819514694939614,
+        "maxSpeed": 1.406285812077225,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -1017,7 +1017,7 @@
       },
       {
         "playerId": "footballer_pro_1_19",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -1051,10 +1051,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 1.2955439159152766,
+        "distanceCovered": 1.2111309602630496,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 3.376518226089083,
+        "maxSpeed": 3.206397689162167,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -1062,7 +1062,7 @@
       },
       {
         "playerId": "footballer_pro_1_21",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -1096,10 +1096,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 0.2793232844978154,
+        "distanceCovered": 0.23494785498076176,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 1.775017180682145,
+        "maxSpeed": 1.6441671214852611,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -1107,7 +1107,7 @@
       },
       {
         "playerId": "footballer_pro_1_22",
-        "minutesPlayed": 0.017500000000000005,
+        "minutesPlayed": 0.01708333333333334,
         "touches": 0,
         "passesAttempted": 0,
         "passesCompleted": 0,
@@ -1141,10 +1141,10 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceCovered": 1.07534227673138,
+        "distanceCovered": 0.9939637124084444,
         "sprintDistance": 0,
         "sprintBursts": 0,
-        "maxSpeed": 3.255142572917424,
+        "maxSpeed": 3.089149794904048,
         "saves": 0,
         "goalsConceded": 0,
         "catches": 0,
@@ -1184,33 +1184,33 @@
   },
   "physicalExecutionWitnesses": {
     "bounded-flight-belief": {
-      "invoked": 42,
+      "invoked": 41,
       "executed": 0,
-      "at": 1.0500000000000003,
+      "at": 1.0250000000000004,
       "source": "liveBallFlight.advanceLiveBallFlight"
     },
     "contact-interval": {
-      "invoked": 42,
+      "invoked": 41,
       "executed": 0,
-      "at": 1.0250000000000004,
+      "at": 1.0000000000000004,
       "source": "pendingStrikeInterval.advance"
     },
     "ground-contact": {
-      "invoked": 42,
+      "invoked": 41,
       "executed": 0,
-      "at": 1.0250000000000004,
+      "at": 1.0000000000000004,
       "source": "pendingStrikeInterval.integrateBallFlight"
     },
     "receiver-anticipation": {
-      "invoked": 9,
+      "invoked": 8,
       "executed": 0,
-      "at": 1.0500000000000003,
+      "at": 0.9500000000000005,
       "source": "matchSimulation.observeReceptionBall"
     },
     "fallback-delivery": {
-      "invoked": 33,
+      "invoked": 32,
       "executed": 0,
-      "at": 1.0500000000000003,
+      "at": 1.0250000000000004,
       "source": "matchSimulation.historical-labelled-delivery"
     }
   },
@@ -1219,33 +1219,33 @@
     "experimentalPlayerBodyImpulse": "upright-cluster-dev-v1",
     "executionWitnesses": {
       "bounded-flight-belief": {
-        "invoked": 42,
+        "invoked": 41,
         "executed": 0,
-        "at": 1.0500000000000003,
+        "at": 1.0250000000000004,
         "source": "liveBallFlight.advanceLiveBallFlight"
       },
       "contact-interval": {
-        "invoked": 42,
+        "invoked": 41,
         "executed": 0,
-        "at": 1.0250000000000004,
+        "at": 1.0000000000000004,
         "source": "pendingStrikeInterval.advance"
       },
       "ground-contact": {
-        "invoked": 42,
+        "invoked": 41,
         "executed": 0,
-        "at": 1.0250000000000004,
+        "at": 1.0000000000000004,
         "source": "pendingStrikeInterval.integrateBallFlight"
       },
       "receiver-anticipation": {
-        "invoked": 9,
+        "invoked": 8,
         "executed": 0,
-        "at": 1.0500000000000003,
+        "at": 0.9500000000000005,
         "source": "matchSimulation.observeReceptionBall"
       },
       "fallback-delivery": {
-        "invoked": 33,
+        "invoked": 32,
         "executed": 0,
-        "at": 1.0500000000000003,
+        "at": 1.0250000000000004,
         "source": "matchSimulation.historical-labelled-delivery"
       }
     },
@@ -1302,7 +1302,7 @@
     },
     "decisionAblation": "none",
     "seed": "pr216-browser-1366",
-    "time": 1.0500000000000003,
+    "time": 1.0250000000000004,
     "decisionIndex": 1,
     "status": "first_half",
     "teams": {
@@ -1336,7 +1336,7 @@
           "adaptability": 26
         },
         "phase": "attacking_transition",
-        "phaseElapsed": 1.0500000000000003,
+        "phaseElapsed": 1.0250000000000004,
         "threatMemory": {
           "evaluatedAt": 0,
           "decayedAt": 0,
@@ -1450,7 +1450,7 @@
           "adaptability": 49
         },
         "phase": "defensive_block",
-        "phaseElapsed": 1.0500000000000003,
+        "phaseElapsed": 1.0250000000000004,
         "threatMemory": {
           "evaluatedAt": 0,
           "decayedAt": 0,
@@ -1540,15 +1540,15 @@
         "id": "footballer_pro_0_0",
         "playStyles": [],
         "fitness": {
-          "longTermCapacity": 0.7800129401999982,
-          "burstReadiness": 0.7800129401999982,
+          "longTermCapacity": 0.7800126320999983,
+          "burstReadiness": 0.7800126320999983,
           "exertionSpent": 0,
           "capacitySpent": 0,
           "burstSpent": 0,
-          "capacityRecovered": 0.00001294019999999999,
-          "burstRecovered": 0.000012940199998201507,
+          "capacityRecovered": 0.00001263209999999999,
+          "burstRecovered": 0.000012632099998244328,
           "workload": {
-            "seconds": 1.0500000000000003,
+            "seconds": 1.0250000000000004,
             "distanceWalk": 0,
             "distanceJog": 0,
             "distanceRun": 0,
@@ -1573,10 +1573,10 @@
           "x": 0,
           "y": 0
         },
-        "facingAngle": 1.7006372381359256,
+        "facingAngle": 1.6966897050361478,
         "target": {
-          "x": 5.099883531217834,
-          "y": 34.02881593908716
+          "x": 5.172005518879156,
+          "y": 34.02579202605976
         },
         "anchor": {
           "x": 5.5,
@@ -1587,8 +1587,8 @@
           "y": 34
         },
         "idealTarget": {
-          "x": 4.736530698652769,
-          "y": 33.9572360620518
+          "x": 4.8260879999320965,
+          "y": 33.96730062835484
         },
         "profile": {
           "id": "footballer_pro_0_0",
@@ -1666,18 +1666,18 @@
           "x": 5.5,
           "y": 34
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
           "load": 0,
           "support": "both"
         },
-        "desiredFacingAngle": 1.7006372381359252,
+        "desiredFacingAngle": 1.6966897050361476,
         "movementMode": "backpedal",
-        "turnRate": 0.157901323991112,
+        "turnRate": 0.15841442157693564,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.6185920906125497,
+        "targetSpeed": 1.6185920396219997,
         "locomotionTelemetry": {
           "distanceTotal": 0,
           "distanceWalk": 0,
@@ -1697,22 +1697,22 @@
           "calm_finisher"
         ],
         "fitness": {
-          "longTermCapacity": 0.9800110058240208,
-          "burstReadiness": 0.9798603606334333,
-          "exertionSpent": 0.11591246996605375,
-          "capacitySpent": 0.0000042132965658097085,
-          "burstSpent": 0.00043024856897528084,
-          "capacityRecovered": 0.000015219120585267087,
-          "burstRecovered": 0.0002906092024085999,
+          "longTermCapacity": 0.9800148707000014,
+          "burstReadiness": 0.9800148707000014,
+          "exertionSpent": 0,
+          "capacitySpent": 0,
+          "burstSpent": 0,
+          "capacityRecovered": 0.000014870700000000015,
+          "burstRecovered": 0.000014870700001390347,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.004133825605066112,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 0.16535302420264444,
+            "accelerationImpulse": 0,
             "brakingImpulse": 0,
             "turningLoad": 0,
             "intensivePressSeconds": 0,
@@ -1723,17 +1723,17 @@
         },
         "team": "home",
         "position": {
-          "x": 37.59490079611457,
-          "y": 39.382834896314066
+          "x": 37.590793362399566,
+          "y": 39.382368524777704
         },
         "velocity": {
-          "x": 0.16429734860025746,
-          "y": 0.018654861454479033
+          "x": 0,
+          "y": 0
         },
-        "facingAngle": 2.0483554363916685,
+        "facingAngle": 2.0400479255412733,
         "target": {
-          "x": 38.31744969808853,
-          "y": 39.46487547563729
+          "x": 38.18066683964586,
+          "y": 39.45644800212432
         },
         "anchor": {
           "x": 37.45,
@@ -1744,8 +1744,8 @@
           "y": 40.24
         },
         "idealTarget": {
-          "x": 39.03066836801467,
-          "y": 39.425388421056155
+          "x": 38.83952144126699,
+          "y": 39.43567154289532
         },
         "profile": {
           "id": "footballer_pro_0_11",
@@ -1824,30 +1824,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 37.587614619872056,
-          "y": 39.40232428865584
+          "x": 37.58744113948533,
+          "y": 39.40278832180684
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
           "load": 0,
           "support": "both"
         },
-        "desiredFacingAngle": 2.048355436391668,
+        "desiredFacingAngle": 2.040047925541274,
         "movementMode": "diagonal",
-        "turnRate": 0.33230043401580645,
+        "turnRate": 0.33566900652431286,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.6666624834069002,
+        "targetSpeed": 1.666662422836,
         "locomotionTelemetry": {
-          "distanceTotal": 0.004133825605066112,
-          "distanceWalk": 0.004133825605066112,
+          "distanceTotal": 0,
+          "distanceWalk": 0,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.16535302420264447
+          "maxSpeed": 0
         },
         "sprintBurstCounted": false
       },
@@ -1855,43 +1855,43 @@
         "id": "footballer_pro_0_12",
         "playStyles": [],
         "fitness": {
-          "longTermCapacity": 0.8599745760822775,
-          "burstReadiness": 0.8599745760822775,
-          "exertionSpent": 0.9462221262025519,
-          "capacitySpent": 0.000037548497071529845,
-          "burstSpent": 0.0034907805461116565,
-          "capacityRecovered": 0.000012124579348113375,
-          "burstRecovered": 0.003465356628389308,
+          "longTermCapacity": 0.8599752788222815,
+          "burstReadiness": 0.8599752788222815,
+          "exertionSpent": 0.9223596673341811,
+          "capacitySpent": 0.000036601574100562754,
+          "burstSpent": 0.003400173071957166,
+          "capacityRecovered": 0.00001188039638129409,
+          "burstRecovered": 0.003375451894238895,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.6362314167721828,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.6072332294771627,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 1.1599275698603084,
+            "accelerationImpulse": 1.159927546549447,
             "brakingImpulse": 7.805950885675372e-8,
-            "turningLoad": 0.6045752709599232,
+            "turningLoad": 0.47845018729899597,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
-          "movementRiskExposure": 6.27988470598735e-7,
+          "movementRiskExposure": 4.492062366724979e-7,
           "assessedRiskExposure": 4.492062366724979e-7
         },
         "team": "home",
         "position": {
-          "x": 44.60848038296834,
-          "y": 41.28953122159058
+          "x": 44.5901385727785,
+          "y": 41.26707074819047
         },
         "velocity": {
-          "x": 0.7336724075935308,
-          "y": 0.8984189360043615
+          "x": 0.6318419468249203,
+          "y": 0.9727319704779802
         },
-        "facingAngle": 2.3539851942757206,
+        "facingAngle": 2.344958236162098,
         "target": {
-          "x": 45.305390514023266,
-          "y": 42.14293289235361
+          "x": 45.1309817745283,
+          "y": 42.09970852414268
         },
         "anchor": {
           "x": 44.47,
@@ -1902,8 +1902,8 @@
           "y": 41.8
         },
         "idealTarget": {
-          "x": 46.24341713920979,
-          "y": 42.39210326212048
+          "x": 45.99707809210272,
+          "y": 42.445709686040416
         },
         "profile": {
           "id": "footballer_pro_0_12",
@@ -1981,24 +1981,24 @@
         },
         "duty": "attack",
         "meanPosition": {
-          "x": 44.42525817057203,
-          "y": 40.894182293142265
+          "x": 44.42089573694355,
+          "y": 40.8847692234173
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.016562723135343873,
-          "support": "left"
+          "load": 1.2367368488083681e-14,
+          "support": "both"
         },
-        "desiredFacingAngle": 2.353985194275721,
+        "desiredFacingAngle": 2.344958236162099,
         "movementMode": "shuffle",
-        "turnRate": 0.3610783245449056,
+        "turnRate": 0.3712528601863596,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.7057757232362547,
+        "targetSpeed": 1.7057756889557072,
         "locomotionTelemetry": {
-          "distanceTotal": 0.6362314167721828,
-          "distanceWalk": 0.6362314167721828,
+          "distanceTotal": 0.6072332294771627,
+          "distanceWalk": 0.6072332294771627,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
@@ -2015,24 +2015,24 @@
           "between_the_lines"
         ],
         "fitness": {
-          "longTermCapacity": 0.9698955452204691,
-          "burstReadiness": 0.9668427457304121,
-          "exertionSpent": 2.9382607705913566,
-          "capacitySpent": 0.00011497542145792268,
-          "burstSpent": 0.010930196254039064,
-          "capacityRecovered": 0.000010520641927100848,
-          "burstRecovered": 0.007772941984451064,
+          "longTermCapacity": 0.9699003492599544,
+          "burstReadiness": 0.9671666901583101,
+          "exertionSpent": 2.8116812101905335,
+          "capacitySpent": 0.00011002230822484698,
+          "burstSpent": 0.010489786625895108,
+          "capacityRecovered": 0.000010371568179267215,
+          "burstRecovered": 0.007656476784205159,
           "workload": {
-            "seconds": 1.0500000000000003,
+            "seconds": 1.0250000000000004,
             "distanceWalk": 1.113748252533165,
-            "distanceJog": 0.059131154512727956,
+            "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 3.2187886504061205,
+            "accelerationImpulse": 3.0533848832012853,
             "brakingImpulse": 0.8535424698970044,
-            "turningLoad": 2.1783661606252736,
+            "turningLoad": 2.1709442793174833,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -2041,17 +2041,17 @@
         },
         "team": "home",
         "position": {
-          "x": 44.967580995117856,
-          "y": 26.719371934482087
+          "x": 44.9176513134289,
+          "y": 26.687693545627106
         },
         "velocity": {
-          "x": 1.9971872675583313,
-          "y": 1.2671355541992568
+          "x": 1.8614877393008555,
+          "y": 1.172249990319898
         },
         "facingAngle": 0.7387661480616057,
         "target": {
-          "x": 45.70061936291524,
-          "y": 27.199225283728172
+          "x": 45.7000227857819,
+          "y": 27.200141299987287
         },
         "anchor": {
           "x": 44.47,
@@ -2062,8 +2062,8 @@
           "y": 26.2
         },
         "idealTarget": {
-          "x": 44.549958705937165,
-          "y": 25.465535500535196
+          "x": 44.50432595274883,
+          "y": 25.398550576101346
         },
         "profile": {
           "id": "footballer_pro_0_13",
@@ -2139,13 +2139,13 @@
         },
         "duty": "attack",
         "meanPosition": {
-          "x": 44.530739276586296,
-          "y": 26.761121881185154
+          "x": 44.52033828328792,
+          "y": 26.762115927535227
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.008044399198943257,
+          "load": 0.009933428331363483,
           "support": "right"
         },
         "desiredFacingAngle": 0.7387661480616053,
@@ -2153,16 +2153,16 @@
         "turnRate": 0,
         "locomotionIntensity": "jog",
         "locomotionReason": "receive_pass",
-        "targetSpeed": 3.562828718207493,
+        "targetSpeed": 3.5629896441441224,
         "locomotionTelemetry": {
-          "distanceTotal": 1.172879407045893,
+          "distanceTotal": 1.113748252533165,
           "distanceWalk": 1.113748252533165,
-          "distanceJog": 0.059131154512727956,
+          "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 2.3652461805091183
+          "maxSpeed": 2.199842413304283
         },
         "ballMotorObservation": {
           "at": 0.9250000000000005,
@@ -2196,24 +2196,24 @@
           "calm_finisher"
         ],
         "fitness": {
-          "longTermCapacity": 0.8799669438011525,
-          "burstReadiness": 0.8789523698448288,
-          "exertionSpent": 1.0720743715730463,
-          "capacitySpent": 0.000045087239925969246,
-          "burstSpent": 0.003953460665550248,
-          "capacityRecovered": 0.000012031041078988796,
-          "burstRecovered": 0.002905830510379245,
+          "longTermCapacity": 0.8799668415427385,
+          "burstReadiness": 0.8788078472409645,
+          "exertionSpent": 1.069547172721176,
+          "capacitySpent": 0.00004498095586210554,
+          "burstSpent": 0.003946425084887958,
+          "capacityRecovered": 0.000011822498601104512,
+          "burstRecovered": 0.002754272325852638,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.4837861280689246,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.44684194835750235,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 1.4778219248176638,
+            "accelerationImpulse": 1.4777865906145877,
             "brakingImpulse": 0.00005473636077435451,
-            "turningLoad": 0.10129029387171042,
+            "turningLoad": 0.09559752875359835,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -2222,17 +2222,17 @@
         },
         "team": "home",
         "position": {
-          "x": 36.704090145009864,
-          "y": 28.497590242127565
+          "x": 36.682299616016955,
+          "y": 28.52742386847032
         },
         "velocity": {
-          "x": 0.8716211597163692,
-          "y": -1.1933450537101464
+          "x": 0.8761909327645867,
+          "y": -1.1899499495430632
         },
-        "facingAngle": 1.5679184473040788,
+        "facingAngle": 1.5617262289049059,
         "target": {
-          "x": 37.358720655362404,
-          "y": 27.601329208502506
+          "x": 37.247338561588386,
+          "y": 27.760047672678073
         },
         "anchor": {
           "x": 36.28,
@@ -2243,8 +2243,8 @@
           "y": 27.759999999999998
         },
         "idealTarget": {
-          "x": 37.358720655362404,
-          "y": 27.601329208502506
+          "x": 37.247338561588386,
+          "y": 27.760047672678073
         },
         "profile": {
           "id": "footballer_pro_0_14",
@@ -2320,30 +2320,30 @@
         },
         "duty": "defend",
         "meanPosition": {
-          "x": 36.458098401418106,
-          "y": 28.791223894163174
+          "x": 36.452241455142115,
+          "y": 28.79821517159259
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.0007374206162317247,
+          "load": 1.8821929777690946e-14,
           "support": "both"
         },
-        "desiredFacingAngle": 1.5679184473040788,
+        "desiredFacingAngle": 1.5617262289049048,
         "movementMode": "diagonal",
-        "turnRate": 0.24768873596691776,
+        "turnRate": 0.2424757897702534,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.6792808959737346,
+        "targetSpeed": 1.6792407434702141,
         "locomotionTelemetry": {
-          "distanceTotal": 0.4837861280689246,
-          "distanceWalk": 0.4837861280689246,
+          "distanceTotal": 0.44684194835750235,
+          "distanceWalk": 0.44684194835750235,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.4777671884568897
+          "maxSpeed": 1.4777318542538138
         },
         "sprintBurstCounted": false
       },
@@ -2353,22 +2353,22 @@
           "ball_winner"
         ],
         "fitness": {
-          "longTermCapacity": 0.9900089553565579,
-          "burstReadiness": 0.9898294567662322,
-          "exertionSpent": 0.11647170548938812,
-          "capacitySpent": 0.000004790883681007737,
-          "burstSpent": 0.00043232436188785724,
-          "capacityRecovered": 0.000013746240238190911,
-          "burstRecovered": 0.0002617811281200933,
+          "longTermCapacity": 0.9900134316000007,
+          "burstReadiness": 0.9900134316000007,
+          "exertionSpent": 0,
+          "capacitySpent": 0,
+          "burstSpent": 0,
+          "capacityRecovered": 0.000013431600000000002,
+          "burstRecovered": 0.000013431600000668453,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.004153769810605854,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 0.16615079242423414,
+            "accelerationImpulse": 0,
             "brakingImpulse": 0,
             "turningLoad": 0,
             "intensivePressSeconds": 0,
@@ -2379,17 +2379,17 @@
         },
         "team": "home",
         "position": {
-          "x": 52.50404273534235,
-          "y": 33.999046011220614
+          "x": 52.5,
+          "y": 34
         },
         "velocity": {
-          "x": 0.16170941369409775,
-          "y": -0.038159551175454
+          "x": 0,
+          "y": 0
         },
-        "facingAngle": 1.802533069079404,
+        "facingAngle": 1.8560740852437316,
         "target": {
-          "x": 53.143593739887145,
-          "y": 33.848127281570015
+          "x": 52.98553423233747,
+          "y": 33.8576038666075
         },
         "anchor": {
           "x": 51.88,
@@ -2400,8 +2400,8 @@
           "y": 34
         },
         "idealTarget": {
-          "x": 54.01484798661002,
-          "y": 33.84039340451385
+          "x": 53.81461342580234,
+          "y": 33.875237313233576
         },
         "profile": {
           "id": "footballer_pro_0_21",
@@ -2478,30 +2478,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 52.48567541244983,
-          "y": 33.99997781421443
+          "x": 52.485238095238095,
+          "y": 34
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
           "load": 0,
           "support": "both"
         },
-        "desiredFacingAngle": 1.8025330690794041,
+        "desiredFacingAngle": 1.8560740852437319,
         "movementMode": "forward",
-        "turnRate": 2.1416406465731086,
+        "turnRate": 0,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.7132873035194,
+        "targetSpeed": 1.713287247336,
         "locomotionTelemetry": {
-          "distanceTotal": 0.004153769810605854,
-          "distanceWalk": 0.004153769810605854,
+          "distanceTotal": 0,
+          "distanceWalk": 0,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.16615079242423414
+          "maxSpeed": 0
         },
         "sprintBurstCounted": false
       },
@@ -2511,22 +2511,22 @@
           "progressive_passer"
         ],
         "fitness": {
-          "longTermCapacity": 0.9000080490346362,
-          "burstReadiness": 0.8997777434275396,
-          "exertionSpent": 0.12384021762017455,
-          "capacitySpent": 0.000005287295818698154,
-          "burstSpent": 0.0004596751016372243,
-          "capacityRecovered": 0.000013336330455413849,
-          "burstRecovered": 0.00023741852917680422,
+          "longTermCapacity": 0.9000130318499995,
+          "burstReadiness": 0.9000130318499995,
+          "exertionSpent": 0,
+          "capacitySpent": 0,
+          "burstSpent": 0,
+          "capacityRecovered": 0.00001303185000000001,
+          "burstRecovered": 0.00001303184999945639,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.004416555549934899,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 0.17666222199739595,
+            "accelerationImpulse": 0,
             "brakingImpulse": 0,
             "turningLoad": 0,
             "intensivePressSeconds": 0,
@@ -2537,17 +2537,17 @@
         },
         "team": "home",
         "position": {
-          "x": 27.584072292356723,
-          "y": 19.91221607981081
+          "x": 27.579656022856945,
+          "y": 19.912266345415265
         },
         "velocity": {
-          "x": 0.176650779991121,
-          "y": -0.002010624178154785
+          "x": 0,
+          "y": 0
         },
-        "facingAngle": 1.5821777504200742,
+        "facingAngle": 1.571558129620506,
         "target": {
-          "x": 28.271682336737634,
-          "y": 19.904389760671744
+          "x": 28.141204973453192,
+          "y": 19.911838555755228
         },
         "anchor": {
           "x": 27.700000000000003,
@@ -2558,8 +2558,8 @@
           "y": 21
         },
         "idealTarget": {
-          "x": 28.95595185475272,
-          "y": 19.923379816187218
+          "x": 28.77251149451647,
+          "y": 19.937530383542324
         },
         "profile": {
           "id": "footballer_pro_0_3",
@@ -2636,30 +2636,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 27.582557423941665,
-          "y": 19.93756130794968
+          "x": 27.58252135564607,
+          "y": 19.938164765762508
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
           "load": 0,
           "support": "both"
         },
-        "desiredFacingAngle": 1.5821777504200742,
+        "desiredFacingAngle": 1.571558129620506,
         "movementMode": "forward",
-        "turnRate": 0.4247848319827341,
+        "turnRate": 0,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.8018023717966998,
+        "targetSpeed": 1.801802313948,
         "locomotionTelemetry": {
-          "distanceTotal": 0.004416555549934899,
-          "distanceWalk": 0.004416555549934899,
+          "distanceTotal": 0,
+          "distanceWalk": 0,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.17666222199739598
+          "maxSpeed": 0
         },
         "sprintBurstCounted": false
       },
@@ -2669,43 +2669,43 @@
           "progressive_passer"
         ],
         "fitness": {
-          "longTermCapacity": 0.7899309994024346,
-          "burstReadiness": 0.7868669970362215,
-          "exertionSpent": 1.7904863556025257,
-          "capacitySpent": 0.00007945945365099966,
-          "burstSpent": 0.006655620551036178,
-          "capacityRecovered": 0.00001045885608635434,
-          "burstRecovered": 0.0035226175872581427,
+          "longTermCapacity": 0.7899358494373884,
+          "burstReadiness": 0.7871544684653817,
+          "exertionSpent": 1.6766546639584312,
+          "capacitySpent": 0.00007440775135910198,
+          "burstSpent": 0.0062322935832626655,
+          "capacityRecovered": 0.000010257188748137442,
+          "burstRecovered": 0.0033867620486448596,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.8456381399960874,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.8093660546756534,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 2.0898075645871588,
+            "accelerationImpulse": 1.9496340083659955,
             "brakingImpulse": 0.6389241517697988,
-            "turningLoad": 0.6383154016451507,
+            "turningLoad": 0.5590969634425806,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
-          "movementRiskExposure": 0.0000010345438524278158,
+          "movementRiskExposure": 0.0000010058385094669769,
           "assessedRiskExposure": 7.559526329998886e-7
         },
         "team": "home",
         "position": {
-          "x": 27.811533030051525,
-          "y": 46.695234855026115
+          "x": 27.79340833983846,
+          "y": 46.663815756086564
         },
         "velocity": {
-          "x": 0.7249876085225537,
-          "y": 1.2567639575820522
+          "x": 0.5851711183512975,
+          "y": 1.1728320810865966
         },
-        "facingAngle": 0.560878547035891,
+        "facingAngle": 0.46279807514896554,
         "target": {
-          "x": 28.255308763396137,
-          "y": 47.37470231163211
+          "x": 28.125137946946715,
+          "y": 47.328686446490714
         },
         "anchor": {
           "x": 27.700000000000003,
@@ -2716,8 +2716,8 @@
           "y": 47
         },
         "idealTarget": {
-          "x": 28.94765929672613,
-          "y": 47.601730610865566
+          "x": 28.76395775355991,
+          "y": 47.65236466781684
         },
         "profile": {
           "id": "footballer_pro_0_4",
@@ -2792,24 +2792,24 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 27.621412022895093,
-          "y": 46.12995832814261
+          "x": 27.616885332248508,
+          "y": 46.11649936321681
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.027120745441484247,
-          "support": "left"
+          "load": 8.371649482525236e-16,
+          "support": "both"
         },
-        "desiredFacingAngle": 0.5762013171704561,
+        "desiredFacingAngle": 0.4627980751489663,
         "movementMode": "forward",
-        "turnRate": 3.923218875477019,
+        "turnRate": 0,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.773532413549065,
+        "targetSpeed": 1.77354332900578,
         "locomotionTelemetry": {
-          "distanceTotal": 0.8456381399960874,
-          "distanceWalk": 0.8456381399960874,
+          "distanceTotal": 0.8093660546756534,
+          "distanceWalk": 0.8093660546756534,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
@@ -2826,43 +2826,43 @@
           "progressive_passer"
         ],
         "fitness": {
-          "longTermCapacity": 0.8999522024202472,
-          "burstReadiness": 0.8990753369352548,
-          "exertionSpent": 1.2904860587485179,
-          "capacitySpent": 0.00005818824914196724,
-          "burstSpent": 0.004758064845572875,
-          "capacityRecovered": 0.000010390669389659742,
-          "burstRecovered": 0.003833401780827524,
+          "longTermCapacity": 0.8999532050427647,
+          "burstReadiness": 0.8990386561013148,
+          "exertionSpent": 1.2641350987417423,
+          "capacitySpent": 0.00005700007960258358,
+          "burstSpent": 0.00465865210976636,
+          "capacityRecovered": 0.000010205122367717946,
+          "burstRecovered": 0.003697308211081062,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.8234770351273101,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.7825218651861151,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 1.6382590857537864,
+            "accelerationImpulse": 1.6382249237888877,
             "brakingImpulse": 0.00005228810599033906,
-            "turningLoad": 0.6152832035894316,
+            "turningLoad": 0.4781229822911062,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
-          "movementRiskExposure": 3.2297724381691156e-7,
+          "movementRiskExposure": 2.08091598363168e-7,
           "assessedRiskExposure": 2.08091598363168e-7
         },
         "team": "home",
         "position": {
-          "x": 28.04909757545459,
-          "y": 34.34600137379993
+          "x": 28.028789394405763,
+          "y": 34.38156685885778
         },
         "velocity": {
-          "x": 0.8123272419530281,
-          "y": -1.4226194023140692
+          "x": 0.6904938225201818,
+          "y": -1.4855395872751842
         },
-        "facingAngle": 2.6227635463126084,
+        "facingAngle": 2.7064911207517497,
         "target": {
-          "x": 28.52029465628074,
-          "y": 33.52079931867074
+          "x": 28.388041239705455,
+          "y": 33.608666623419744
         },
         "anchor": {
           "x": 27.700000000000003,
@@ -2873,8 +2873,8 @@
           "y": 34
         },
         "idealTarget": {
-          "x": 29.136500785120816,
-          "y": 33.14782576980124
+          "x": 28.9587470053686,
+          "y": 33.16085652467174
         },
         "profile": {
           "id": "footballer_pro_0_5",
@@ -2951,30 +2951,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 27.85264814049259,
-          "y": 34.90115038095757
+          "x": 27.84797077299349,
+          "y": 34.91436821446132
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.019241977324236062,
-          "support": "right"
+          "load": 1.9037487078278817e-16,
+          "support": "both"
         },
-        "desiredFacingAngle": 2.6227635463126093,
+        "desiredFacingAngle": 2.7064911207517492,
         "movementMode": "forward",
-        "turnRate": 3.34910297756565,
+        "turnRate": 0,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.638206797647943,
+        "targetSpeed": 1.638172635682881,
         "locomotionTelemetry": {
-          "distanceTotal": 0.8234770351273101,
-          "distanceWalk": 0.8234770351273101,
+          "distanceTotal": 0.7825218651861151,
+          "distanceWalk": 0.7825218651861151,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.6382067976477979
+          "maxSpeed": 1.6381726356828992
         },
         "sprintBurstCounted": false
       },
@@ -2984,22 +2984,22 @@
           "progressive_passer"
         ],
         "fitness": {
-          "longTermCapacity": 0.9100100616795684,
-          "burstReadiness": 0.9097987927486583,
-          "exertionSpent": 0.12637756095427335,
-          "capacitySpent": 0.0000047470703196513356,
-          "burstSpent": 0.0004690933146976024,
-          "capacityRecovered": 0.00001480874988786807,
-          "burstRecovered": 0.000267886063355867,
+          "longTermCapacity": 0.9100144709500002,
+          "burstReadiness": 0.9100144709500002,
+          "exertionSpent": 0,
+          "capacitySpent": 0,
+          "burstSpent": 0,
+          "capacityRecovered": 0.000014470949999999994,
+          "burstRecovered": 0.000014470950000178284,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.004507045683105327,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 0.18028182732421308,
+            "accelerationImpulse": 0,
             "brakingImpulse": 0,
             "turningLoad": 0,
             "intensivePressSeconds": 0,
@@ -3010,17 +3010,17 @@
         },
         "team": "home",
         "position": {
-          "x": 36.60568845259517,
-          "y": 15.71471876198227
+          "x": 36.601298169097866,
+          "y": 15.715738012492658
         },
         "velocity": {
-          "x": 0.17561133989204336,
-          "y": -0.04077002041547928
+          "x": 0,
+          "y": 0
         },
-        "facingAngle": 1.7989157169966905,
+        "facingAngle": 1.7879506948301458,
         "target": {
-          "x": 37.333974775121256,
-          "y": 15.545639428859765
+          "x": 37.19658894632607,
+          "y": 15.58439699387196
         },
         "anchor": {
           "x": 36.67,
@@ -3031,8 +3031,8 @@
           "y": 14.760000000000002
         },
         "idealTarget": {
-          "x": 38.07498645833145,
-          "y": 15.279645451929897
+          "x": 37.879740951751224,
+          "y": 15.348002810961937
         },
         "profile": {
           "id": "footballer_pro_0_7",
@@ -3107,30 +3107,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 36.602997985711795,
-          "y": 15.693487843585611
+          "x": 36.602933926976476,
+          "y": 15.692982345528549
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
           "load": 0,
           "support": "both"
         },
-        "desiredFacingAngle": 1.7989157169966907,
+        "desiredFacingAngle": 1.7879506948301456,
         "movementMode": "forward",
-        "turnRate": 0.43860088666178854,
+        "turnRate": 0,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.7738925903000502,
+        "targetSpeed": 1.773892527122,
         "locomotionTelemetry": {
-          "distanceTotal": 0.004507045683105327,
-          "distanceWalk": 0.004507045683105327,
+          "distanceTotal": 0,
+          "distanceWalk": 0,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.18028182732421308
+          "maxSpeed": 0
         },
         "sprintBurstCounted": false
       },
@@ -3141,22 +3141,22 @@
           "engine"
         ],
         "fitness": {
-          "longTermCapacity": 0.8600100375359756,
-          "burstReadiness": 0.8598161056801858,
-          "exertionSpent": 0.11809764714837946,
-          "capacitySpent": 0.0000045267411598612226,
-          "burstSpent": 0.00043835959754648124,
-          "capacityRecovered": 0.000014564277136972637,
-          "burstRecovered": 0.00025446527773230964,
+          "longTermCapacity": 0.8600142310999985,
+          "burstReadiness": 0.8600142310999985,
+          "exertionSpent": 0,
+          "capacitySpent": 0,
+          "burstSpent": 0,
+          "capacityRecovered": 0.000014231100000000014,
+          "burstRecovered": 0.000014231099998540664,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.004211756317702549,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 0.16847025270810195,
+            "accelerationImpulse": 0,
             "brakingImpulse": 0,
             "turningLoad": 0,
             "intensivePressSeconds": 0,
@@ -3167,17 +3167,17 @@
         },
         "team": "home",
         "position": {
-          "x": 36.53295005006378,
-          "y": 52.111385973370716
+          "x": 36.528761388459245,
+          "y": 52.11094551310874
         },
         "velocity": {
-          "x": 0.16754646418149832,
-          "y": 0.017618410479087743
+          "x": 0,
+          "y": 0
         },
-        "facingAngle": 1.46602599564706,
+        "facingAngle": 1.4549344995830396,
         "target": {
-          "x": 37.257404925255216,
-          "y": 52.18756629401832
+          "x": 37.12023250098421,
+          "y": 52.17978273573754
         },
         "anchor": {
           "x": 36.67,
@@ -3188,8 +3188,8 @@
           "y": 53.239999999999995
         },
         "idealTarget": {
-          "x": 38.017410388699545,
-          "y": 52.26357140554391
+          "x": 37.82035146260335,
+          "y": 52.260568952091354
         },
         "profile": {
           "id": "footballer_pro_0_9",
@@ -3264,30 +3264,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 36.53214341806729,
-          "y": 52.13721283746117
+          "x": 36.532124212543565,
+          "y": 52.13782776279667
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
           "load": 0,
           "support": "both"
         },
-        "desiredFacingAngle": 1.4660259956470603,
+        "desiredFacingAngle": 1.4549344995830404,
         "movementMode": "forward",
-        "turnRate": 0.4436598425608196,
+        "turnRate": 0,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.801917600733525,
+        "targetSpeed": 1.801917537301,
         "locomotionTelemetry": {
-          "distanceTotal": 0.004211756317702549,
-          "distanceWalk": 0.004211756317702549,
+          "distanceTotal": 0,
+          "distanceWalk": 0,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.16847025270810195
+          "maxSpeed": 0
         },
         "sprintBurstCounted": false
       },
@@ -3295,15 +3295,15 @@
         "id": "footballer_pro_1_0",
         "playStyles": [],
         "fitness": {
-          "longTermCapacity": 0.9500130221000003,
-          "burstReadiness": 0.9500130221000003,
+          "longTermCapacity": 0.9500127120500003,
+          "burstReadiness": 0.9500127120500003,
           "exertionSpent": 0,
           "capacitySpent": 0,
           "burstSpent": 0,
-          "capacityRecovered": 0.000013022100000000007,
-          "burstRecovered": 0.000013022100000315007,
+          "capacityRecovered": 0.000012712050000000006,
+          "burstRecovered": 0.000012712050000307507,
           "workload": {
-            "seconds": 1.0500000000000003,
+            "seconds": 1.0250000000000004,
             "distanceWalk": 0,
             "distanceJog": 0,
             "distanceRun": 0,
@@ -3328,10 +3328,10 @@
           "x": 0,
           "y": 0
         },
-        "facingAngle": -1.6736568678902657,
+        "facingAngle": -1.6711588004289677,
         "target": {
-          "x": 99.95272896449363,
-          "y": 34.00808827949996
+          "x": 99.86983903558281,
+          "y": 34.00719447672241
         },
         "anchor": {
           "x": 99.5,
@@ -3342,8 +3342,8 @@
           "y": 34
         },
         "idealTarget": {
-          "x": 100.34284949137025,
-          "y": 33.97276102813288
+          "x": 100.23622812366759,
+          "y": 33.97810779273904
         },
         "profile": {
           "id": "footballer_pro_1_0",
@@ -3421,18 +3421,18 @@
           "x": 99.5,
           "y": 34
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
           "load": 0,
           "support": "both"
         },
-        "desiredFacingAngle": -1.673656867890266,
+        "desiredFacingAngle": -1.671158800428968,
         "movementMode": "backpedal",
-        "turnRate": 0.0999226984519197,
+        "turnRate": 0.10150618806420653,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.706427180116575,
+        "targetSpeed": 1.7064271269429998,
         "locomotionTelemetry": {
           "distanceTotal": 0,
           "distanceWalk": 0,
@@ -3452,24 +3452,24 @@
           "between_the_lines"
         ],
         "fitness": {
-          "longTermCapacity": 0.9899897275509006,
-          "burstReadiness": 0.9888288370999453,
-          "exertionSpent": 0.6424187325365603,
-          "capacitySpent": 0.000024624227397057252,
-          "burstSpent": 0.0023818779674827546,
-          "capacityRecovered": 0.000014351778298998072,
-          "burstRecovered": 0.0012107150674281076,
+          "longTermCapacity": 0.9899944071639328,
+          "burstReadiness": 0.9890916721685863,
+          "exertionSpent": 0.5132462687949814,
+          "capacitySpent": 0.000019672983045804224,
+          "burstSpent": 0.001903429558638185,
+          "capacityRecovered": 0.000014080146979937175,
+          "burstRecovered": 0.0009951017272244794,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.06849403228235003,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.04566426708901719,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 0.9131906077333136,
+            "accelerationImpulse": 0.7305995657612083,
             "brakingImpulse": 0,
-            "turningLoad": 0.002475254621926822,
+            "turningLoad": 1.1547638095497362e-8,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -3478,17 +3478,17 @@
         },
         "team": "away",
         "position": {
-          "x": 66.75509191240016,
-          "y": 40.272010691267816
+          "x": 66.77584699553533,
+          "y": 40.28151988170838
         },
         "velocity": {
-          "x": -0.8302033254068419,
-          "y": -0.38036761762242577
+          "x": -0.6652326506105055,
+          "y": -0.30206165935481977
         },
-        "facingAngle": -2.1051030688388312,
+        "facingAngle": -2.102789315884399,
         "target": {
-          "x": 65.90485326314928,
-          "y": 39.875642427914585
+          "x": 66.07041149304328,
+          "y": 39.96120334544842
         },
         "anchor": {
           "x": 66.77,
@@ -3499,8 +3499,8 @@
           "y": 40.24
         },
         "idealTarget": {
-          "x": 65.1162410320064,
-          "y": 39.466162586503934
+          "x": 65.33125408983737,
+          "y": 39.593849617716124
         },
         "profile": {
           "id": "footballer_pro_1_12",
@@ -3576,30 +3576,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 66.81293919567301,
-          "y": 40.29745649611883
+          "x": 66.81431651194141,
+          "y": 40.29806234861529
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.0020919327373125794,
-          "support": "right"
+          "load": 5.3739990423902544e-14,
+          "support": "both"
         },
-        "desiredFacingAngle": -2.105103068838831,
+        "desiredFacingAngle": -2.1027893158843987,
         "movementMode": "forward",
-        "turnRate": 0.09255011817728587,
+        "turnRate": 0.09410762211793156,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.7430312569740831,
+        "targetSpeed": 1.7430923216102538,
         "locomotionTelemetry": {
-          "distanceTotal": 0.06849403228235003,
-          "distanceWalk": 0.06849403228235003,
+          "distanceTotal": 0.04566426708901719,
+          "distanceWalk": 0.04566426708901719,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.9131906077333136
+          "maxSpeed": 0.7305995657612083
         },
         "sprintBurstCounted": false
       },
@@ -3609,24 +3609,24 @@
           "calm_finisher"
         ],
         "fitness": {
-          "longTermCapacity": 0.9699943154000513,
-          "burstReadiness": 0.9691772151421412,
-          "exertionSpent": 0.5638761352854074,
-          "capacitySpent": 0.00002062961470556369,
-          "burstSpent": 0.0020906072380306945,
-          "capacityRecovered": 0.00001494501475760642,
-          "burstRecovered": 0.0012678223801720044,
+          "longTermCapacity": 0.9699981768479468,
+          "burstReadiness": 0.9693684305082423,
+          "exertionSpent": 0.4503505663118882,
+          "capacitySpent": 0.000016476240230922743,
+          "burstSpent": 0.0016701171734367656,
+          "capacityRecovered": 0.000014653088178359263,
+          "burstRecovered": 0.0010385476816792238,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.06009965475072915,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.040067889874642146,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 0.8012705950434802,
+            "accelerationImpulse": 0.6410683558158206,
             "brakingImpulse": 0,
-            "turningLoad": 0.0032374031385680796,
+            "turningLoad": 9.143490314533893e-9,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -3635,17 +3635,17 @@
         },
         "team": "away",
         "position": {
-          "x": 66.67586980421115,
-          "y": 27.747461635431986
+          "x": 66.69547240658957,
+          "y": 27.743337367734064
         },
         "velocity": {
-          "x": -0.7841040951370815,
-          "y": 0.16497070791686497
+          "x": -0.6266595126226093,
+          "y": 0.1351535869594045
         },
-        "facingAngle": -1.5282933634294036,
+        "facingAngle": -1.5203009718043443,
         "target": {
-          "x": 65.81528547285392,
-          "y": 27.918792556820758
+          "x": 65.98133989309851,
+          "y": 27.89735652617409
         },
         "anchor": {
           "x": 66.77,
@@ -3656,8 +3656,8 @@
           "y": 27.759999999999998
         },
         "idealTarget": {
-          "x": 65.0505296831993,
-          "y": 28.014625849084826
+          "x": 65.26347309224894,
+          "y": 28.007285885522663
         },
         "profile": {
           "id": "footballer_pro_1_14",
@@ -3733,30 +3733,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 66.73227354808857,
-          "y": 27.736159253188568
+          "x": 66.73361649437136,
+          "y": 27.73589014884944
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.0036094866447929958,
-          "support": "right"
+          "load": 4.9855794242524565e-14,
+          "support": "both"
         },
-        "desiredFacingAngle": -1.5282933634294038,
+        "desiredFacingAngle": -1.5203009718043432,
         "movementMode": "forward",
-        "turnRate": 0.3196956650023708,
+        "turnRate": 0.3256361794230145,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.6872683577452725,
+        "targetSpeed": 1.6873115352658938,
         "locomotionTelemetry": {
-          "distanceTotal": 0.06009965475072915,
-          "distanceWalk": 0.06009965475072915,
+          "distanceTotal": 0.040067889874642146,
+          "distanceWalk": 0.040067889874642146,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.8012705950434803
+          "maxSpeed": 0.6410683558158206
         },
         "sprintBurstCounted": false
       },
@@ -3767,24 +3767,24 @@
           "between_the_lines"
         ],
         "fitness": {
-          "longTermCapacity": 0.8599637386860708,
-          "burstReadiness": 0.857458882484093,
-          "exertionSpent": 1.1164658083023735,
-          "capacitySpent": 0.00004877763240156002,
-          "burstSpent": 0.004135284477169924,
-          "capacityRecovered": 0.000012516318474092547,
-          "burstRecovered": 0.0015941669612628358,
+          "longTermCapacity": 0.8599690083339768,
+          "burstReadiness": 0.8577824772962742,
+          "exertionSpent": 0.9913979092705761,
+          "capacitySpent": 0.00004331350089046207,
+          "burstSpent": 0.0036729566323916683,
+          "capacityRecovered": 0.000012321834868969241,
+          "burstRecovered": 0.001455433928665795,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.19777743660346847,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.15822864986611943,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 1.5819514694939603,
+            "accelerationImpulse": 1.4062858120772241,
             "brakingImpulse": 0,
-            "turningLoad": 0.006603789958125977,
+            "turningLoad": 0.003714971232636169,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -3793,17 +3793,17 @@
         },
         "team": "away",
         "position": {
-          "x": 63.1809483761327,
-          "y": 52.60904247046437
+          "x": 63.20474629341473,
+          "y": 52.64062989937895
         },
         "velocity": {
-          "x": -0.9519166912812693,
-          "y": -1.2634971565833553
+          "x": -0.8485178909273827,
+          "y": -1.1214531528449356
         },
-        "facingAngle": -2.548911184370904,
+        "facingAngle": -2.550292344474239,
         "target": {
-          "x": 62.61514502175618,
-          "y": 51.85411144350702
+          "x": 62.74271970840063,
+          "y": 52.029689880071864
         },
         "anchor": {
           "x": 63.260000000000005,
@@ -3814,8 +3814,8 @@
           "y": 52.72
         },
         "idealTarget": {
-          "x": 61.85238550998867,
-          "y": 50.838893398956166
+          "x": 62.03671864586633,
+          "y": 51.0991253485658
         },
         "profile": {
           "id": "footballer_pro_1_17",
@@ -3890,30 +3890,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 63.28931189936237,
-          "y": 52.75211539362555
+          "x": 63.29189198324879,
+          "y": 52.75552189179606
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.0010594561652337619,
-          "support": "right"
+          "load": 0.0002692274153542428,
+          "support": "both"
         },
-        "desiredFacingAngle": -2.548911184370903,
+        "desiredFacingAngle": -2.5502923444742387,
         "movementMode": "forward",
-        "turnRate": 0.05524640413341331,
+        "turnRate": 0.056782572779070506,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.8530049692541364,
+        "targetSpeed": 1.8531000753711713,
         "locomotionTelemetry": {
-          "distanceTotal": 0.19777743660346847,
-          "distanceWalk": 0.19777743660346847,
+          "distanceTotal": 0.15822864986611943,
+          "distanceWalk": 0.15822864986611943,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.5819514694939614
+          "maxSpeed": 1.406285812077225
         },
         "sprintBurstCounted": false
       },
@@ -3924,24 +3924,24 @@
           "progressive_passer"
         ],
         "fitness": {
-          "longTermCapacity": 0.899888837169078,
-          "burstReadiness": 0.8936320364122557,
-          "exertionSpent": 2.847306353722666,
-          "capacitySpent": 0.00012064857431028245,
-          "burstSpent": 0.01030118606628524,
-          "capacityRecovered": 0.000009485743387526615,
-          "burstRecovered": 0.00393322247854099,
+          "longTermCapacity": 0.899894597195495,
+          "burstReadiness": 0.8940546994252613,
+          "exertionSpent": 2.7098899570601813,
+          "capacitySpent": 0.00011482584563814326,
+          "burstSpent": 0.009832289449759935,
+          "capacityRecovered": 0.00000942304113245597,
+          "burstRecovered": 0.0038869888750212456,
           "workload": {
-            "seconds": 1.0500000000000003,
+            "seconds": 1.0250000000000004,
             "distanceWalk": 0.7946776486253111,
-            "distanceJog": 0.5008662672899654,
+            "distanceJog": 0.41645331163773835,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 3.7161672348538457,
+            "accelerationImpulse": 3.54604669792693,
             "brakingImpulse": 0.33964900876476434,
-            "turningLoad": 0.21645476755240697,
+            "turningLoad": 0.18964394583414318,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -3950,17 +3950,17 @@
         },
         "team": "away",
         "position": {
-          "x": 61.994487050668475,
-          "y": 15.666015916393434
+          "x": 62.07537697803429,
+          "y": 15.641883640647087
         },
         "velocity": {
-          "x": -3.2355970946326806,
-          "y": 0.9652910298538586
+          "x": -3.0648045499145837,
+          "y": 0.9423158769156714
         },
-        "facingAngle": -0.861451964221482,
+        "facingAngle": -0.8525427237637899,
         "target": {
-          "x": 58.50765550114672,
-          "y": 16.646588107623806
+          "x": 59.122584573726016,
+          "y": 16.519612425316623
         },
         "anchor": {
           "x": 63.260000000000005,
@@ -3971,8 +3971,8 @@
           "y": 15.280000000000001
         },
         "idealTarget": {
-          "x": 58.50765550114672,
-          "y": 16.646588107623806
+          "x": 59.122584573726016,
+          "y": 16.519612425316623
         },
         "profile": {
           "id": "footballer_pro_1_19",
@@ -4047,30 +4047,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 62.900241647061215,
-          "y": 15.36008198200166
+          "x": 62.921807232689616,
+          "y": 15.352797840706618
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.011655919068540632,
+          "load": 0.006232259742364847,
           "support": "right"
         },
-        "desiredFacingAngle": -0.8614519642214815,
+        "desiredFacingAngle": -0.8525427237637895,
         "movementMode": "forward",
-        "turnRate": 0.35636961830768143,
+        "turnRate": 0.3623899344508885,
         "locomotionIntensity": "jog",
         "locomotionReason": "maintain_shape",
-        "targetSpeed": 3.7436713002739253,
+        "targetSpeed": 3.7439094573433964,
         "locomotionTelemetry": {
-          "distanceTotal": 1.2955439159152766,
+          "distanceTotal": 1.2111309602630496,
           "distanceWalk": 0.7946776486253111,
-          "distanceJog": 0.5008662672899654,
+          "distanceJog": 0.41645331163773835,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 3.376518226089083
+          "maxSpeed": 3.206397689162167
         },
         "sprintBurstCounted": false
       },
@@ -4080,24 +4080,24 @@
           "engine"
         ],
         "fitness": {
-          "longTermCapacity": 0.9199569863507542,
-          "burstReadiness": 0.9173444185040159,
-          "exertionSpent": 1.430333073685792,
-          "capacitySpent": 0.0000563616360033806,
-          "burstSpent": 0.005307017484810987,
-          "capacityRecovered": 0.000013347986757808494,
-          "burstRecovered": 0.002651435988826823,
+          "longTermCapacity": 0.9199605938492107,
+          "burstReadiness": 0.9175532573512294,
+          "exertionSpent": 1.3338111721279187,
+          "capacitySpent": 0.000052558233577720094,
+          "burstSpent": 0.004950674062595108,
+          "capacityRecovered": 0.000013152082788619315,
+          "burstRecovered": 0.002503931413824413,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.2793232844978154,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.23494785498076176,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 1.9494624252428085,
+            "accelerationImpulse": 1.8186123660459248,
             "brakingImpulse": 0.17444524456066426,
-            "turningLoad": 0.03162097866070834,
+            "turningLoad": 0.014110740108638605,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -4106,17 +4106,17 @@
         },
         "team": "away",
         "position": {
-          "x": 62.03148426303441,
-          "y": 41.28377049955262
+          "x": 62.073425875276634,
+          "y": 41.298264633101944
         },
         "velocity": {
-          "x": -1.6776644896890502,
-          "y": -0.5797653419730864
+          "x": -1.5596220906545,
+          "y": -0.5204464023466926
         },
-        "facingAngle": -2.271677808219584,
+        "facingAngle": -2.2700699894457674,
         "target": {
-          "x": 60.9868472963398,
-          "y": 40.92276607229341
+          "x": 61.22491690036873,
+          "y": 41.014108709588974
         },
         "anchor": {
           "x": 53.9,
@@ -4127,8 +4127,8 @@
           "y": 41.28
         },
         "idealTarget": {
-          "x": 59.79635107333128,
-          "y": 40.439176272900326
+          "x": 60.10824369151894,
+          "y": 40.578705127166124
         },
         "profile": {
           "id": "footballer_pro_1_21",
@@ -4203,30 +4203,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 62.07220264569601,
-          "y": 41.359508837866024
+          "x": 62.07317213099747,
+          "y": 41.36131213163539
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.0024235157811852964,
-          "support": "right"
+          "load": 0.0006105152580148984,
+          "support": "both"
         },
-        "desiredFacingAngle": -2.271677808219583,
+        "desiredFacingAngle": -2.2700699894457674,
         "movementMode": "forward",
-        "turnRate": 0.06431275095266642,
+        "turnRate": 0.06256682067373731,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.7750171806820598,
+        "targetSpeed": 1.7751005151749242,
         "locomotionTelemetry": {
-          "distanceTotal": 0.2793232844978154,
-          "distanceWalk": 0.2793232844978154,
+          "distanceTotal": 0.23494785498076176,
+          "distanceWalk": 0.23494785498076176,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.775017180682145
+          "maxSpeed": 1.6441671214852611
         },
         "sprintBurstCounted": false
       },
@@ -4237,24 +4237,24 @@
           "engine"
         ],
         "fitness": {
-          "longTermCapacity": 0.7999032221758012,
-          "burstReadiness": 0.7944509691151398,
-          "exertionSpent": 2.401211999890094,
-          "capacitySpent": 0.00010656266271701599,
-          "burstSpent": 0.008642717726042295,
-          "capacityRecovered": 0.000009784838519419638,
-          "burstRecovered": 0.003093686841182276,
+          "longTermCapacity": 0.799909025445574,
+          "burstReadiness": 0.7948550885652296,
+          "exertionSpent": 2.2688831563491347,
+          "capacitySpent": 0.00010069008090306811,
+          "burstSpent": 0.008191523282090375,
+          "capacityRecovered": 0.00000971552647816151,
+          "burstRecovered": 0.003046611847320135,
           "workload": {
-            "seconds": 1.0500000000000003,
+            "seconds": 1.0250000000000004,
             "distanceWalk": 0.5931589959797188,
-            "distanceJog": 0.4821832807516611,
+            "distanceJog": 0.4008047164287255,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 3.2551728904835655,
+            "accelerationImpulse": 3.08918011247019,
             "brakingImpulse": 0.000030317566143356345,
-            "turningLoad": 0.12059334929790591,
+            "turningLoad": 0.10329707907609333,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -4263,17 +4263,17 @@
         },
         "team": "away",
         "position": {
-          "x": 61.115333744549844,
-          "y": 26.487563016357388
+          "x": 61.194973804720206,
+          "y": 26.5042941713481
         },
         "velocity": {
-          "x": -3.185602406814496,
-          "y": -0.6692461996284749
+          "x": -3.0266644096715822,
+          "y": -0.6181820173566166
         },
-        "facingAngle": -1.4255182435461506,
+        "facingAngle": -1.4156191726100005,
         "target": {
-          "x": 57.678137790085785,
-          "y": 25.728459402191746
+          "x": 58.26694032058442,
+          "y": 25.887526910264654
         },
         "anchor": {
           "x": 53.9,
@@ -4284,8 +4284,8 @@
           "y": 26.72
         },
         "idealTarget": {
-          "x": 57.678137790085785,
-          "y": 25.728459402191746
+          "x": 58.26694032058442,
+          "y": 25.887526910264654
         },
         "profile": {
           "id": "footballer_pro_1_22",
@@ -4362,30 +4362,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 61.74380055449129,
-          "y": 26.642912979375186
+          "x": 61.75876404996608,
+          "y": 26.646611788018465
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.007343816977969138,
+          "load": 0.003927287900306092,
           "support": "right"
         },
-        "desiredFacingAngle": -1.4255182435461498,
+        "desiredFacingAngle": -1.4156191726100005,
         "movementMode": "forward",
-        "turnRate": 0.3959628374460067,
+        "turnRate": 0.40810677880294577,
         "locomotionIntensity": "jog",
         "locomotionReason": "maintain_shape",
-        "targetSpeed": 3.6031114158483124,
+        "targetSpeed": 3.6033612774309796,
         "locomotionTelemetry": {
-          "distanceTotal": 1.07534227673138,
+          "distanceTotal": 0.9939637124084444,
           "distanceWalk": 0.5931589959797188,
-          "distanceJog": 0.4821832807516611,
+          "distanceJog": 0.4008047164287255,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 3.255142572917424
+          "maxSpeed": 3.089149794904048
         },
         "sprintBurstCounted": false
       },
@@ -4396,24 +4396,24 @@
           "engine"
         ],
         "fitness": {
-          "longTermCapacity": 0.8399544452558723,
-          "burstReadiness": 0.8373314556166336,
-          "exertionSpent": 1.3354868943945273,
-          "capacitySpent": 0.00005789683068184367,
-          "burstSpent": 0.00495280392422096,
-          "capacityRecovered": 0.000012342086554035418,
-          "burstRecovered": 0.0022842595408544613,
+          "longTermCapacity": 0.8399573763583503,
+          "burstReadiness": 0.8374646184066445,
+          "exertionSpent": 1.2635428565650075,
+          "capacitySpent": 0.00005477786950426333,
+          "burstSpent": 0.0046876277027328404,
+          "capacityRecovered": 0.000012154227854543358,
+          "burstRecovered": 0.002152246109377322,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.2822118548376531,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.24004085132329198,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 1.8267555863037124,
+            "accelerationImpulse": 1.731068834190962,
             "brakingImpulse": 0.13991544572926667,
-            "turningLoad": 0.03496213880126523,
+            "turningLoad": 0.01675952096782035,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -4422,17 +4422,17 @@
         },
         "team": "away",
         "position": {
-          "x": 77.81776368368129,
-          "y": 40.14497325358261
+          "x": 77.85837973033804,
+          "y": 40.15631919080194
         },
         "velocity": {
-          "x": -1.6246418662700535,
-          "y": -0.4538374887729901
+          "x": -1.5372802945591957,
+          "y": -0.4105342879384466
         },
-        "facingAngle": -1.92968690172051,
+        "facingAngle": -1.926959228971647,
         "target": {
-          "x": 76.75042304342983,
-          "y": 39.8468157298268
+          "x": 76.99221293306731,
+          "y": 39.924013146747136
         },
         "anchor": {
           "x": 78.08,
@@ -4443,8 +4443,8 @@
           "y": 40.24
         },
         "idealTarget": {
-          "x": 75.58621032794852,
-          "y": 39.39946190445117
+          "x": 75.89860379405064,
+          "y": 39.525048126779815
         },
         "profile": {
           "id": "footballer_pro_1_3",
@@ -4519,30 +4519,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 78.05943368049645,
-          "y": 40.2089722648183
+          "x": 78.06518772803967,
+          "y": 40.2104960508001
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.0026801170460394705,
-          "support": "right"
+          "load": 0.0007045703086037988,
+          "support": "both"
         },
-        "desiredFacingAngle": -1.9296869017205105,
+        "desiredFacingAngle": -1.9269592289716468,
         "movementMode": "forward",
-        "turnRate": 0.10910690995451944,
+        "turnRate": 0.11077584254671535,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.6868401405744355,
+        "targetSpeed": 1.686918913694133,
         "locomotionTelemetry": {
-          "distanceTotal": 0.2822118548376531,
-          "distanceWalk": 0.2822118548376531,
+          "distanceTotal": 0.24004085132329198,
+          "distanceWalk": 0.24004085132329198,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.686840140574446
+          "maxSpeed": 1.5911533884616955
         },
         "sprintBurstCounted": false
       },
@@ -4550,24 +4550,24 @@
         "id": "footballer_pro_1_4",
         "playStyles": [],
         "fitness": {
-          "longTermCapacity": 0.9599693517814932,
-          "burstReadiness": 0.9578614028799848,
-          "exertionSpent": 1.0748873148585314,
-          "capacitySpent": 0.000043892857684785775,
-          "burstSpent": 0.003981254241319411,
-          "capacityRecovered": 0.000013244639179173132,
-          "burstRecovered": 0.0018426571213039414,
+          "longTermCapacity": 0.9599740966873395,
+          "burstReadiness": 0.9581475723603196,
+          "exertionSpent": 0.9535399455006651,
+          "capacitySpent": 0.00003893765657670593,
+          "burstSpent": 0.0035325140789120094,
+          "capacityRecovered": 0.00001303434391734449,
+          "burstRecovered": 0.0016800864392313734,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.19004213681329182,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.1520456339821808,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 1.5198601132444403,
+            "accelerationImpulse": 1.3513632465007412,
             "brakingImpulse": 0,
-            "turningLoad": 0.018797500638286727,
+            "turningLoad": 0.00835470883810541,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -4576,17 +4576,17 @@
         },
         "team": "away",
         "position": {
-          "x": 77.81300584053415,
-          "y": 27.864665447906674
+          "x": 77.85065156744689,
+          "y": 27.859514382715297
         },
         "velocity": {
-          "x": -1.5058290765097126,
-          "y": 0.20604260765509252
+          "x": -1.3374320800897976,
+          "y": 0.19354083584531168
         },
-        "facingAngle": -1.5474166753831184,
+        "facingAngle": -1.5423718516870615,
         "target": {
-          "x": 76.71079041295265,
-          "y": 28.00814097996482
+          "x": 76.94503236530238,
+          "y": 27.988595140086932
         },
         "anchor": {
           "x": 78.08,
@@ -4597,8 +4597,8 @@
           "y": 27.759999999999998
         },
         "idealTarget": {
-          "x": 75.5149706071237,
-          "y": 28.095742363484298
+          "x": 75.82512030249119,
+          "y": 28.09095725076936
         },
         "profile": {
           "id": "footballer_pro_1_4",
@@ -4673,30 +4673,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 77.9868418878253,
-          "y": 27.837696761241542
+          "x": 77.99098084133223,
+          "y": 27.837054649654277
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.0031468198699165033,
-          "support": "right"
+          "load": 0.0007869398757396501,
+          "support": "both"
         },
-        "desiredFacingAngle": -1.5474166753831176,
+        "desiredFacingAngle": -1.5423718516870615,
         "movementMode": "forward",
-        "turnRate": 0.20179294784227864,
+        "turnRate": 0.2046118530675045,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.6927427583953518,
+        "targetSpeed": 1.6928094404618577,
         "locomotionTelemetry": {
-          "distanceTotal": 0.19004213681329182,
-          "distanceWalk": 0.19004213681329182,
+          "distanceTotal": 0.1520456339821808,
+          "distanceWalk": 0.1520456339821808,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.519860113244441
+          "maxSpeed": 1.3513632465007417
         },
         "sprintBurstCounted": false
       },
@@ -4706,24 +4706,24 @@
           "progressive_passer"
         ],
         "fitness": {
-          "longTermCapacity": 0.8599695416131503,
-          "burstReadiness": 0.8577622395104643,
-          "exertionSpent": 1.311841428556814,
-          "capacitySpent": 0.000045063255179432555,
-          "burstSpent": 0.004849625708755107,
-          "capacityRecovered": 0.000014604868328481808,
-          "burstRecovered": 0.0026118652192195346,
+          "longTermCapacity": 0.8599694637255433,
+          "burstReadiness": 0.8576191131266145,
+          "exertionSpent": 1.30790347988961,
+          "capacitySpent": 0.000044927982133612574,
+          "burstSpent": 0.00483779185000057,
+          "capacityRecovered": 0.000014391707675713057,
+          "burstRecovered": 0.0024569049766151934,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.3770975029833286,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.33095843274195813,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 1.8456042500213532,
+            "accelerationImpulse": 1.8455581692243666,
             "brakingImpulse": 0.00004144036653541683,
-            "turningLoad": 0.026794167332799247,
+            "turningLoad": 0.015349004556918644,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -4732,17 +4732,17 @@
         },
         "team": "away",
         "position": {
-          "x": 77.81646836349401,
-          "y": 52.50883997531569
+          "x": 77.8539787632742,
+          "y": 52.535706007979044
         },
         "velocity": {
-          "x": -1.5004159912075465,
-          "y": -1.0746413065342608
+          "x": -1.5070139661173698,
+          "y": -1.0652891168228962
         },
-        "facingAngle": -2.2310045798373546,
+        "facingAngle": -2.2303153261315947,
         "target": {
-          "x": 76.80368260231361,
-          "y": 51.7834535358136
+          "x": 77.04459362734984,
+          "y": 51.96356188987254
         },
         "anchor": {
           "x": 78.08,
@@ -4753,8 +4753,8 @@
           "y": 52.72
         },
         "idealTarget": {
-          "x": 75.61353763033433,
-          "y": 50.80612927761296
+          "x": 75.92679179887381,
+          "y": 51.06532928639289
         },
         "profile": {
           "id": "footballer_pro_1_7",
@@ -4829,30 +4829,30 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 78.08699110127037,
-          "y": 52.69933829126869
+          "x": 78.09343211883647,
+          "y": 52.70387396545804
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.0014749194826808862,
-          "support": "right"
+          "load": 1.3597227361591425e-14,
+          "support": "both"
         },
-        "desiredFacingAngle": -2.2310045798373546,
+        "desiredFacingAngle": -2.2303153261315947,
         "movementMode": "forward",
-        "turnRate": 0.02757014823039583,
+        "turnRate": 0.028047655898717494,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.845562809654808,
+        "targetSpeed": 1.8455167288581062,
         "locomotionTelemetry": {
-          "distanceTotal": 0.3770975029833286,
-          "distanceWalk": 0.3770975029833286,
+          "distanceTotal": 0.33095843274195813,
+          "distanceWalk": 0.33095843274195813,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.8455628096548184
+          "maxSpeed": 1.845558169224367
         },
         "sprintBurstCounted": false
       },
@@ -4863,24 +4863,24 @@
           "progressive_passer"
         ],
         "fitness": {
-          "longTermCapacity": 0.8699668216613786,
-          "burstReadiness": 0.8676763488416779,
-          "exertionSpent": 1.3061001359077908,
-          "capacitySpent": 0.000047170550654775755,
-          "burstSpent": 0.004828663453201583,
-          "capacityRecovered": 0.0000139922120342459,
-          "burstRecovered": 0.002505012294879263,
+          "longTermCapacity": 0.8699668101230523,
+          "burstReadiness": 0.8675437614856111,
+          "exertionSpent": 1.3007284690266436,
+          "capacitySpent": 0.00004697654984446145,
+          "burstSpent": 0.004811223617831406,
+          "capacityRecovered": 0.000013786672897669967,
+          "burstRecovered": 0.0023549851034423337,
           "workload": {
-            "seconds": 1.0500000000000003,
-            "distanceWalk": 0.3809796692833701,
+            "seconds": 1.0250000000000004,
+            "distanceWalk": 0.3351641183179866,
             "distanceJog": 0,
             "distanceRun": 0,
             "distanceSprint": 0,
             "sprintSeconds": 0,
             "sprintBursts": 0,
-            "accelerationImpulse": 1.832626843874105,
+            "accelerationImpulse": 1.8325831109441957,
             "brakingImpulse": 0.000004805258763784792,
-            "turningLoad": 0.0445600719562711,
+            "turningLoad": 0.025068784225185166,
             "intensivePressSeconds": 0,
             "bodyContactLoad": 0
           },
@@ -4889,17 +4889,17 @@
         },
         "team": "away",
         "position": {
-          "x": 77.80692526879497,
-          "y": 15.499351426631048
+          "x": 77.84724294869308,
+          "y": 15.477590236454606
         },
         "velocity": {
-          "x": -1.6127071959243722,
-          "y": 0.8704476070576561
+          "x": -1.603319817699571,
+          "y": 0.88752961000786
         },
-        "facingAngle": -1.16909106797541,
+        "facingAngle": -1.1631430378906824,
         "target": {
-          "x": 76.8722479769688,
-          "y": 16.00383706053736
+          "x": 77.103638319992,
+          "y": 15.889218109337845
         },
         "anchor": {
           "x": 78.08,
@@ -4910,8 +4910,8 @@
           "y": 15.280000000000001
         },
         "idealTarget": {
-          "x": 75.62459437436979,
-          "y": 16.677004036708492
+          "x": 75.93819678681588,
+          "y": 16.538224950026866
         },
         "profile": {
           "id": "footballer_pro_1_9",
@@ -4989,37 +4989,37 @@
         },
         "duty": "support",
         "meanPosition": {
-          "x": 78.09773809903714,
-          "y": 15.33487678897138
+          "x": 78.10466221404292,
+          "y": 15.330960726169959
         },
-        "samples": 43,
+        "samples": 42,
         "plantBalance": {
           "balance": 1,
-          "load": 0.0024861460940992217,
-          "support": "right"
+          "load": 2.2100216107090405e-15,
+          "support": "both"
         },
-        "desiredFacingAngle": -1.1690910679754112,
+        "desiredFacingAngle": -1.1631430378906815,
         "movementMode": "forward",
-        "turnRate": 0.2379212033891065,
+        "turnRate": 0.2406180310039474,
         "locomotionIntensity": "walk",
         "locomotionReason": "structural_adjustment",
-        "targetSpeed": 1.8326220386154444,
+        "targetSpeed": 1.8325783056852476,
         "locomotionTelemetry": {
-          "distanceTotal": 0.3809796692833701,
-          "distanceWalk": 0.3809796692833701,
+          "distanceTotal": 0.3351641183179866,
+          "distanceWalk": 0.3351641183179866,
           "distanceJog": 0,
           "distanceRun": 0,
           "distanceSprint": 0,
           "sprintSeconds": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.8326220386153418
+          "maxSpeed": 1.8325831109441961
         },
         "sprintBurstCounted": false
       }
     ],
     "ball": {
-      "x": 46.85348355176266,
-      "y": 28.43469865911427,
+      "x": 47.00179938537619,
+      "y": 28.580881232963257,
       "from": {
         "x": 52.5,
         "y": 34
@@ -5032,13 +5032,13 @@
       "travelKind": "pass",
       "sourceAction": "pass",
       "executionType": "turning_pass",
-      "flightTime": 0.8250000000000004,
-      "distanceTravelled": 7.949543107725124,
+      "flightTime": 0.8000000000000004,
+      "distanceTravelled": 7.741295823474907,
       "height": 0.11,
       "airborne": false,
       "velocity": {
-        "x": -5.904144937761269,
-        "y": -5.819224302297717,
+        "x": -5.96112175132118,
+        "y": -5.875381605621141,
         "z": 0
       },
       "launchVelocity": {
@@ -5058,9 +5058,9 @@
     },
     "currentPressure": 0,
     "possessionTeam": "home",
-    "timeSincePossessionChanged": 1.0500000000000003,
+    "timeSincePossessionChanged": 1.0250000000000004,
     "ballEpisode": 0,
-    "actionCooldown": 0.6750000000000015,
+    "actionCooldown": 0.7000000000000015,
     "ballOwnershipStartedAt": 0,
     "scenario": "kick_off",
     "rolePlan": {
@@ -5165,7 +5165,7 @@
       },
       "teamAccounting": {
         "home": {
-          "possessionSeconds": 0.8250000000000003,
+          "possessionSeconds": 0.8000000000000004,
           "blockedShots": 0,
           "offsides": 0,
           "corners": 0,
@@ -5213,7 +5213,7 @@
           }
         }
       },
-      "observedThrough": 1.0500000000000003,
+      "observedThrough": 1.0250000000000004,
       "observedRestartIds": [
         "pr216-browser-1366:restart:0:home:kick_off"
       ],
@@ -5221,7 +5221,7 @@
       "players": [
         {
           "playerId": "footballer_pro_0_0",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5266,7 +5266,7 @@
         },
         {
           "playerId": "footballer_pro_0_3",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5300,10 +5300,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.004416555549934899,
+          "distanceCovered": 0,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.17666222199739598,
+          "maxSpeed": 0,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5311,7 +5311,7 @@
         },
         {
           "playerId": "footballer_pro_0_5",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5345,10 +5345,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.8234770351273101,
+          "distanceCovered": 0.7825218651861151,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.6382067976477979,
+          "maxSpeed": 1.6381726356828992,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5356,7 +5356,7 @@
         },
         {
           "playerId": "footballer_pro_0_4",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5390,7 +5390,7 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.8456381399960874,
+          "distanceCovered": 0.8093660546756534,
           "sprintDistance": 0,
           "sprintBursts": 0,
           "maxSpeed": 1.773635603910465,
@@ -5401,7 +5401,7 @@
         },
         {
           "playerId": "footballer_pro_0_7",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5435,10 +5435,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.004507045683105327,
+          "distanceCovered": 0,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.18028182732421308,
+          "maxSpeed": 0,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5446,7 +5446,7 @@
         },
         {
           "playerId": "footballer_pro_0_9",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5480,10 +5480,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.004211756317702549,
+          "distanceCovered": 0,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.16847025270810195,
+          "maxSpeed": 0,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5491,7 +5491,7 @@
         },
         {
           "playerId": "footballer_pro_0_14",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5525,10 +5525,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.4837861280689246,
+          "distanceCovered": 0.44684194835750235,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.4777671884568897,
+          "maxSpeed": 1.4777318542538138,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5536,7 +5536,7 @@
         },
         {
           "playerId": "footballer_pro_0_11",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5570,10 +5570,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.004133825605066112,
+          "distanceCovered": 0,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.16535302420264447,
+          "maxSpeed": 0,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5581,7 +5581,7 @@
         },
         {
           "playerId": "footballer_pro_0_13",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5615,10 +5615,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 1.172879407045893,
+          "distanceCovered": 1.113748252533165,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 2.3652461805091183,
+          "maxSpeed": 2.199842413304283,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5626,7 +5626,7 @@
         },
         {
           "playerId": "footballer_pro_0_12",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5660,7 +5660,7 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.6362314167721828,
+          "distanceCovered": 0.6072332294771627,
           "sprintDistance": 0,
           "sprintBursts": 0,
           "maxSpeed": 1.1599274999279319,
@@ -5671,7 +5671,7 @@
         },
         {
           "playerId": "footballer_pro_0_21",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 1,
           "passesAttempted": 1,
           "passesCompleted": 0,
@@ -5705,10 +5705,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.004153769810605854,
+          "distanceCovered": 0,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.16615079242423414,
+          "maxSpeed": 0,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5716,7 +5716,7 @@
         },
         {
           "playerId": "footballer_pro_1_0",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5761,7 +5761,7 @@
         },
         {
           "playerId": "footballer_pro_1_7",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5795,10 +5795,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.3770975029833286,
+          "distanceCovered": 0.33095843274195813,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.8455628096548184,
+          "maxSpeed": 1.845558169224367,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5806,7 +5806,7 @@
         },
         {
           "playerId": "footballer_pro_1_3",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5840,10 +5840,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.2822118548376531,
+          "distanceCovered": 0.24004085132329198,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.686840140574446,
+          "maxSpeed": 1.5911533884616955,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5851,7 +5851,7 @@
         },
         {
           "playerId": "footballer_pro_1_4",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5885,10 +5885,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.19004213681329182,
+          "distanceCovered": 0.1520456339821808,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.519860113244441,
+          "maxSpeed": 1.3513632465007417,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5896,7 +5896,7 @@
         },
         {
           "playerId": "footballer_pro_1_9",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5930,10 +5930,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.3809796692833701,
+          "distanceCovered": 0.3351641183179866,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.8326220386153418,
+          "maxSpeed": 1.8325831109441961,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5941,7 +5941,7 @@
         },
         {
           "playerId": "footballer_pro_1_12",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -5975,10 +5975,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.06849403228235003,
+          "distanceCovered": 0.04566426708901719,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.9131906077333136,
+          "maxSpeed": 0.7305995657612083,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -5986,7 +5986,7 @@
         },
         {
           "playerId": "footballer_pro_1_14",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -6020,10 +6020,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.06009965475072915,
+          "distanceCovered": 0.040067889874642146,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 0.8012705950434803,
+          "maxSpeed": 0.6410683558158206,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -6031,7 +6031,7 @@
         },
         {
           "playerId": "footballer_pro_1_17",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -6065,10 +6065,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.19777743660346847,
+          "distanceCovered": 0.15822864986611943,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.5819514694939614,
+          "maxSpeed": 1.406285812077225,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -6076,7 +6076,7 @@
         },
         {
           "playerId": "footballer_pro_1_19",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -6110,10 +6110,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 1.2955439159152766,
+          "distanceCovered": 1.2111309602630496,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 3.376518226089083,
+          "maxSpeed": 3.206397689162167,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -6121,7 +6121,7 @@
         },
         {
           "playerId": "footballer_pro_1_21",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -6155,10 +6155,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 0.2793232844978154,
+          "distanceCovered": 0.23494785498076176,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 1.775017180682145,
+          "maxSpeed": 1.6441671214852611,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -6166,7 +6166,7 @@
         },
         {
           "playerId": "footballer_pro_1_22",
-          "minutesPlayed": 0.017500000000000005,
+          "minutesPlayed": 0.01708333333333334,
           "touches": 0,
           "passesAttempted": 0,
           "passesCompleted": 0,
@@ -6200,10 +6200,10 @@
           "yellowCards": 0,
           "redCards": 0,
           "offsides": 0,
-          "distanceCovered": 1.07534227673138,
+          "distanceCovered": 0.9939637124084444,
           "sprintDistance": 0,
           "sprintBursts": 0,
-          "maxSpeed": 3.255142572917424,
+          "maxSpeed": 3.089149794904048,
           "saves": 0,
           "goalsConceded": 0,
           "catches": 0,
@@ -8062,26 +8062,26 @@
     "playerBodyContacts": [],
     "multiBodyResolutions": [],
     "continuousFootContacts": [],
-    "restartStalledSeconds": 1.0500000000000003,
+    "restartStalledSeconds": 1.0250000000000004,
     "liveBallFlightRuntime": {
-      "at": 1.0500000000000003,
+      "at": 1.0250000000000004,
       "sensors": {
         "footballer_pro_0_0": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0630000000000006,
           "optical": null
         },
         "footballer_pro_0_11": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0690000000000006,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 47.01469778503185,
-              "y": 28.592908305641192,
-              "z": 0.11155018540001335
+              "x": 47.15898622839014,
+              "y": 28.734864207414745,
+              "z": 0.11
             },
-            "positionError": 0.013163085265437849
+            "positionError": 0.013157399515826014
           },
           "belief": {
             "lastObservation": {
@@ -8128,16 +8128,16 @@
           }
         },
         "footballer_pro_0_12": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0690000000000006,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.99281199867585,
-              "y": 28.572295764225565,
-              "z": 0.11
+              "x": 47.151994544753265,
+              "y": 28.728816263044333,
+              "z": 0.11575394306711023
             },
-            "positionError": 0.012456692502575917
+            "positionError": 0.012388451822663276
           },
           "belief": {
             "lastObservation": {
@@ -8184,16 +8184,16 @@
           }
         },
         "footballer_pro_0_13": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0690000000000006,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.999589358042286,
-              "y": 28.588149566448323,
-              "z": 0.11740007302354859
+              "x": 47.15865320571359,
+              "y": 28.730456864062436,
+              "z": 0.11087270338151323
             },
-            "positionError": 0.007407820372533621
+            "positionError": 0.007539932919977355
           },
           "belief": {
             "lastObservation": {
@@ -8240,16 +8240,16 @@
           }
         },
         "footballer_pro_0_14": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0650000000000006,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 47.01168315129031,
-              "y": 28.578589355908274,
-              "z": 0.11
+              "x": 47.1436625957349,
+              "y": 28.730966419876133,
+              "z": 0.11279588612162272
             },
-            "positionError": 0.011159819114552945
+            "positionError": 0.011246271560898271
           },
           "belief": {
             "lastObservation": {
@@ -8296,7 +8296,7 @@
           }
         },
         "footballer_pro_0_21": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0620000000000005,
           "optical": null,
           "belief": {
@@ -8344,16 +8344,16 @@
           }
         },
         "footballer_pro_0_3": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.1490000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 47.01155648185916,
-              "y": 28.592329081395423,
-              "z": 0.11
+              "x": 47.13481489837183,
+              "y": 28.713671623226247,
+              "z": 0.12477023028075511
             },
-            "positionError": 0.01663443154172884
+            "positionError": 0.01673294036268641
           },
           "belief": {
             "lastObservation": {
@@ -8400,16 +8400,16 @@
           }
         },
         "footballer_pro_0_4": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.1390000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 47.00607639368458,
-              "y": 28.570542062535893,
-              "z": 0.11
+              "x": 47.14126634907348,
+              "y": 28.74274289797174,
+              "z": 0.1229496355036933
             },
-            "positionError": 0.01919047769724299
+            "positionError": 0.019190239412188982
           },
           "belief": {
             "lastObservation": {
@@ -8456,16 +8456,16 @@
           }
         },
         "footballer_pro_0_5": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0510000000000006,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.98879887566064,
-              "y": 28.577249821443157,
-              "z": 0.11
+              "x": 47.15060608192581,
+              "y": 28.73628796444782,
+              "z": 0.11346708696023736
             },
-            "positionError": 0.015919968017185374
+            "positionError": 0.01598397323229186
           },
           "belief": {
             "lastObservation": {
@@ -8512,16 +8512,16 @@
           }
         },
         "footballer_pro_0_7": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0520000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.99525129582584,
-              "y": 28.577238082908575,
-              "z": 0.12213000500150034
+              "x": 47.15089433101911,
+              "y": 28.73094440036762,
+              "z": 0.11
             },
-            "positionError": 0.014271673585693338
+            "positionError": 0.014376137684302879
           },
           "belief": {
             "lastObservation": {
@@ -8568,16 +8568,16 @@
           }
         },
         "footballer_pro_0_9": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0560000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 47.002130100754414,
-              "y": 28.59786341604467,
-              "z": 0.11
+              "x": 47.166155298980506,
+              "y": 28.721250518567615,
+              "z": 0.12424339146212154
             },
-            "positionError": 0.0188777759134938
+            "positionError": 0.018841180675908925
           },
           "belief": {
             "lastObservation": {
@@ -8624,21 +8624,21 @@
           }
         },
         "footballer_pro_1_0": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0600000000000005,
           "optical": null
         },
         "footballer_pro_1_12": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0620000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.99550933122738,
-              "y": 28.596456519051845,
-              "z": 0.11
+              "x": 47.138082556357055,
+              "y": 28.736522959600762,
+              "z": 0.12347154139804849
             },
-            "positionError": 0.017488232062390502
+            "positionError": 0.01739532809782897
           },
           "belief": {
             "lastObservation": {
@@ -8685,16 +8685,16 @@
           }
         },
         "footballer_pro_1_14": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0680000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.997110740922516,
-              "y": 28.574951226777543,
-              "z": 0.11441615600560781
+              "x": 47.16648044446984,
+              "y": 28.74281730338023,
+              "z": 0.11
             },
-            "positionError": 0.01585573737465456
+            "positionError": 0.015792281060611986
           },
           "belief": {
             "lastObservation": {
@@ -8741,16 +8741,16 @@
           }
         },
         "footballer_pro_1_17": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0580000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.98175935717894,
-              "y": 28.57902559909215,
-              "z": 0.11
+              "x": 47.14003477886741,
+              "y": 28.735349518574292,
+              "z": 0.12244221575989019
             },
-            "positionError": 0.02050350814799481
+            "positionError": 0.020418044850151577
           },
           "belief": {
             "lastObservation": {
@@ -8797,16 +8797,16 @@
           }
         },
         "footballer_pro_1_19": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0590000000000006,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.99381618440248,
-              "y": 28.565973912379718,
-              "z": 0.11945235079985146
+              "x": 47.15564404759946,
+              "y": 28.72498364317256,
+              "z": 0.11
             },
-            "positionError": 0.015932653222274603
+            "positionError": 0.015961043456003063
           },
           "belief": {
             "lastObservation": {
@@ -8853,16 +8853,16 @@
           }
         },
         "footballer_pro_1_21": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0620000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.992836477931796,
-              "y": 28.59201148793117,
-              "z": 0.11770271277465456
+              "x": 47.16221363388597,
+              "y": 28.72822195950024,
+              "z": 0.11
             },
-            "positionError": 0.015860093376804198
+            "positionError": 0.01577439119318985
           },
           "belief": {
             "lastObservation": {
@@ -8909,16 +8909,16 @@
           }
         },
         "footballer_pro_1_22": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0700000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 47.00039008160403,
-              "y": 28.59229182676493,
-              "z": 0.11
+              "x": 47.15557447139169,
+              "y": 28.719184641823293,
+              "z": 0.12259273297312102
             },
-            "positionError": 0.013172140787839933
+            "positionError": 0.013145408427991626
           },
           "belief": {
             "lastObservation": {
@@ -8965,16 +8965,16 @@
           }
         },
         "footballer_pro_1_3": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.1490000000000005,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 47.0172377050207,
-              "y": 28.57593995192273,
-              "z": 0.12919712481462242
+              "x": 47.1576527949219,
+              "y": 28.713965288845834,
+              "z": 0.11
             },
-            "positionError": 0.02247816217377456
+            "positionError": 0.022401998557933747
           },
           "belief": {
             "lastObservation": {
@@ -9021,16 +9021,16 @@
           }
         },
         "footballer_pro_1_4": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0510000000000006,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 47.01536540477596,
-              "y": 28.5801454268954,
-              "z": 0.12801911792501378
+              "x": 47.13852998489724,
+              "y": 28.743065590913208,
+              "z": 0.11
             },
-            "positionError": 0.021428642609477064
+            "positionError": 0.021372483552027692
           },
           "belief": {
             "lastObservation": {
@@ -9077,7 +9077,7 @@
           }
         },
         "footballer_pro_1_7": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0610000000000006,
           "optical": null,
           "belief": {
@@ -9125,16 +9125,16 @@
           }
         },
         "footballer_pro_1_9": {
-          "sampledAt": 1.0500000000000003,
+          "sampledAt": 1.0250000000000004,
           "nextAcquisitionAt": 1.0610000000000006,
           "optical": {
-            "at": 1.0500000000000003,
+            "at": 1.0250000000000004,
             "position": {
-              "x": 46.996662800842905,
-              "y": 28.600013995924105,
-              "z": 0.11
+              "x": 47.129165444302615,
+              "y": 28.731273754309075,
+              "z": 0.125145001426644
             },
-            "positionError": 0.02275662274711817
+            "positionError": 0.022739644814017267
           },
           "belief": {
             "lastObservation": {
@@ -9183,7 +9183,7 @@
       }
     },
     "planningSchedule": {
-      "lastTacticalPlanAt": 1.0500000000000003,
+      "lastTacticalPlanAt": 0.9500000000000005,
       "semanticKey": "home|loose|0|pass|kick_off|attacking_transition|defensive_block|release"
     },
     "actionEvents": [
@@ -9242,8 +9242,8 @@
       "releasedAt": 0.22499999999999998,
       "awarenessAt": 0.45346673426556355,
       "expectedContactPoint": {
-        "x": 45.70061936291524,
-        "y": 27.199225283728172
+        "x": 45.7000227857819,
+        "y": 27.200141299987287
       },
       "expectedArrivalTime": 1.375,
       "movement": "wait",
@@ -9263,8 +9263,8 @@
         "orientationTime": 0.09304081528416272
       },
       "observedContactPoint": {
-        "x": 45.70061936291524,
-        "y": 27.199225283728172
+        "x": 45.7000227857819,
+        "y": 27.200141299987287
       }
     },
     "lastPassDiagnostic": {
@@ -9401,12 +9401,12 @@
       {
         "mode": "normal",
         "startedAt": 0,
-        "endedAt": 1.0500000000000003
+        "endedAt": 1.0250000000000004
       }
     ]
   },
   "canonicalSanity": {
-    "canonicalSeconds": 1.0500000000000003,
+    "canonicalSeconds": 1.0250000000000004,
     "controlled": null,
     "teams": {
       "home": {
@@ -9420,13 +9420,13 @@
         "tackleSuccess": null,
         "interceptions": 0,
         "possessionChanges": 0,
-        "possessionSeconds": 0.8250000000000003,
+        "possessionSeconds": 0.8000000000000004,
         "possessionShare": 1,
         "fouls": 0,
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceMetres": 3.983435079976813,
+        "distanceMetres": 3.7597113502295985,
         "sprintDistanceMetres": 0,
         "restarts": {
           "throwIns": 0,
@@ -9466,7 +9466,7 @@
         "yellowCards": 0,
         "redCards": 0,
         "offsides": 0,
-        "distanceMetres": 4.206911764698663,
+        "distanceMetres": 3.7422123708474517,
         "sprintDistanceMetres": 0,
         "restarts": {
           "throwIns": 0,
@@ -9523,9 +9523,9 @@
     "episodeLeadIns": 0,
     "episodeAborts": 0,
     "hiddenCanonicalSeconds": 0,
-    "visibleCanonicalSeconds": 1.0500000000000003,
+    "visibleCanonicalSeconds": 1.0250000000000004,
     "rendererCallsBackground": 0,
-    "rendererCallsVisible": 43,
+    "rendererCallsVisible": 42,
     "backgroundBatches": 0,
     "backgroundTicks": 0,
     "restartWatchdogFallbacks": 0
@@ -9544,7 +9544,7 @@
   "contextBuffer": {
     "samplesRetained": 13,
     "samplesWritten": 12,
-    "sampleWorkMs": 2.3000001907348633,
+    "sampleWorkMs": 1.999999761581421,
     "sampleHz": 10,
     "capacity": 128
   },
@@ -9573,7 +9573,7 @@
   "subsystemProfile": {
     "enabled": false,
     "sampleEveryTicks": 37,
-    "ticks": 42,
+    "ticks": 41,
     "sampledTicks": 0,
     "timingSemantics": "inclusive_sampled_spans",
     "categories": []

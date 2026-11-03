@@ -54,6 +54,7 @@ const trace = (initial, ticks) => {
     supportSteps = 0;
   const checkpoints = [],
     events = [],
+    strikes = [],
     window = [],
     liveness = [];
   let lastSample = s,
@@ -61,6 +62,13 @@ const trace = (initial, ticks) => {
   for (let i = 0; i < ticks; i++) {
     const previous = s;
     s = stepTacticalMatch(s, 0.025);
+    const strike = s.lastStrikeResolution;
+    if (
+      strike &&
+      strike.at >= initial.time &&
+      !strikes.some((r) => r.id === strike.id && r.at === strike.at && r.outcome === strike.outcome)
+    )
+      strikes.push(strike);
     ballTransport += Math.hypot(s.ball.x - previous.ball.x, s.ball.y - previous.ball.y);
     if ((i + 1) % 2400 === 0) {
       liveness.push({
@@ -90,6 +98,7 @@ const trace = (initial, ticks) => {
       impacts += c.impulses.filter((x) => x.kind === 'impact').length;
       if (
         c.unresolved ||
+        c.iterations > 32 ||
         c.participants.length === 5 ||
         c.impulses.some((x) => x.kind === 'impact')
       )
@@ -127,6 +136,7 @@ const trace = (initial, ticks) => {
     supportSteps,
     checkpoints,
     events,
+    strikes,
     window,
     liveness,
   };
@@ -146,6 +156,52 @@ for (const name of [
 ])
   locals.push([name, withHolisticDevelopment(createPr214Scene(name).initial), 12]);
 const local = locals.map(([name, s, ticks]) => ({ name, ...trace(s, ticks) }));
+const releaseInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/next-release-handoff-blocker-five-v2.json.gz`)),
+);
+const releaseContinuation = trace(
+  releaseInput.recent.find((s) => s.time > 946.02 && s.time < 946.03),
+  check ? 400 : 800,
+);
+assert.equal(
+  releaseContinuation.terminal.executionWitnesses?.unresolved,
+  undefined,
+  'bouncing pass release continuation',
+);
+const releaseSelection = releaseContinuation.checkpoints[0].state.pendingStrike;
+assert.ok(releaseSelection, 'a real pending intention replaces the historical release');
+assert.ok(
+  releaseContinuation.checkpoints[0].state.ball.height > 0.24,
+  'selection preserves the actual incoming height',
+);
+assert.equal(releaseContinuation.checkpoints[0].state.ball.travelKind, undefined);
+const releaseContact = releaseContinuation.strikes.find(
+  (s) => s.id === releaseSelection.id && s.outcome === 'contact',
+);
+assert.ok(releaseContact?.contact?.available, 'actual foot contact before release');
+assert.ok(
+  releaseContact.at > releaseSelection.selectedAt && releaseContact.at < releaseSelection.expiresAt,
+);
+assert.ok(
+  releaseContact.contact.point.z <= 0.24,
+  'the physical low strike capability is not enlarged',
+);
+assert.ok(releaseContinuation.terminal.decisionIndex > releaseContinuation.initial.decisionIndex);
+const convergenceInput = JSON.parse(
+  gunzipSync(readFileSync(`${ROOT}/release-convergence-input-v1.json.gz`)),
+);
+const convergenceContinuation = trace(convergenceInput.initial, check ? 400 : 800);
+assert.equal(convergenceContinuation.terminal.executionWitnesses?.unresolved, undefined);
+const completedBoundary = convergenceContinuation.events.find(
+  (c) => c.participants.length === 3 && c.iterations > 32,
+);
+assert.ok(completedBoundary, 'bounded completion of the recorded three-body boundary constraint');
+assert.ok(completedBoundary.residualClosingSpeed <= 1e-4);
+assert.ok(completedBoundary.maximumPenetration <= 1e-7);
+assert.ok(completedBoundary.energyAfter <= completedBoundary.energyBefore + 1e-7);
+assert.ok(
+  convergenceContinuation.terminal.decisionIndex > convergenceContinuation.initial.decisionIndex,
+);
 const fiveInput = JSON.parse(gunzipSync(readFileSync(`${ROOT}/five-body-incident-input.json.gz`)));
 const fiveContinuation = trace(fiveInput.initial, 2400);
 assert.equal(
@@ -309,6 +365,26 @@ assert.equal(falls[0].frames.at(-1).phase, 'supported');
 assert.equal(falls[2].frames.at(-1).phase, 'grounded');
 const summary = {
   source: source.fingerprint,
+  boundaryCompletion: {
+    inputHash: hash(convergenceContinuation.initial),
+    previousSource: convergenceInput.source,
+    from: convergenceContinuation.initial.time,
+    to: convergenceContinuation.terminal.time,
+    decisions:
+      convergenceContinuation.terminal.decisionIndex - convergenceContinuation.initial.decisionIndex,
+    evidence: completedBoundary,
+  },
+  releaseHandoff: {
+    inputHash: hash(releaseContinuation.initial),
+    previousSource: releaseInput.source,
+    from: releaseContinuation.initial.time,
+    to: releaseContinuation.terminal.time,
+    selectedAt: releaseSelection.selectedAt,
+    contactAt: releaseContact.at,
+    contact: releaseContact.contact,
+    decisions:
+      releaseContinuation.terminal.decisionIndex - releaseContinuation.initial.decisionIndex,
+  },
   fiveBody: {
     inputHash: hash(reload(fiveInput.initial)),
     previousSource: fiveInput.source,
@@ -370,6 +446,8 @@ if (!check) {
   write(`${ROOT}/canonical-${version}.json.gz`, {
     source: source.fingerprint,
     local,
+    releaseContinuation,
+    convergenceContinuation,
     fiveContinuation,
     match,
     reaching,

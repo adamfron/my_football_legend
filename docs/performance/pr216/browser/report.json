@@ -23,36 +23,36 @@
         "setup-keeps-mode",
         "new-ordinary-initialization"
       ],
-      "duration": 1.0500000000000003,
+      "duration": 1.0250000000000004,
       "witnesses": {
         "bounded-flight-belief": {
-          "invoked": 42,
+          "invoked": 41,
           "executed": 0,
-          "at": 1.0500000000000003,
+          "at": 1.0250000000000004,
           "source": "liveBallFlight.advanceLiveBallFlight"
         },
         "contact-interval": {
-          "invoked": 42,
+          "invoked": 41,
           "executed": 0,
-          "at": 1.0250000000000004,
+          "at": 1.0000000000000004,
           "source": "pendingStrikeInterval.advance"
         },
         "ground-contact": {
-          "invoked": 42,
+          "invoked": 41,
           "executed": 0,
-          "at": 1.0250000000000004,
+          "at": 1.0000000000000004,
           "source": "pendingStrikeInterval.integrateBallFlight"
         },
         "receiver-anticipation": {
-          "invoked": 9,
+          "invoked": 8,
           "executed": 0,
-          "at": 1.0500000000000003,
+          "at": 0.9500000000000005,
           "source": "matchSimulation.observeReceptionBall"
         },
         "fallback-delivery": {
-          "invoked": 33,
+          "invoked": 32,
           "executed": 0,
-          "at": 1.0500000000000003,
+          "at": 1.0250000000000004,
           "source": "matchSimulation.historical-labelled-delivery"
         }
       }

@@ -40,7 +40,9 @@ const rotate = (a: V, angle: number): V => ({
   z: a.z,
 });
 
-/** Selection only; unsupported families stay on their historical path. */
+/** Family ownership is separate from instantaneous contact readiness. In cluster
+ * mode an owned ground-pass intention cannot fall through to a teleporting legacy
+ * release merely because the ball is currently above the low striking surface. */
 export const selectsPendingPass = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
@@ -49,7 +51,7 @@ export const selectsPendingPass = (
   state.experimentalPendingStrike === 'low-pass-dev-v1' &&
   state.scenario === 'open_play' &&
   !state.restart &&
-  !state.defensiveChallenge &&
+  (!state.defensiveChallenge || state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1') &&
   !isMatchGoalkeeper(actor) &&
   action.type === 'pass' &&
   !action.firstTime &&
@@ -57,7 +59,8 @@ export const selectsPendingPass = (
   action.delivery !== 'lofted' &&
   state.ball.ownerId === actor.id &&
   !state.ball.travelKind &&
-  (state.ball.height ?? 0.11) <= 0.24;
+  ((state.ball.height ?? 0.11) <= 0.24 ||
+    state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1');
 
 /** Nominal release metadata is prepared by the ordinary planner, never installed as a ball state.
  * Errors are sampled once from the existing action seed, with timing's duplicate patch/effort removed. */
@@ -68,6 +71,7 @@ export const commitPendingPass = (
   action: MatchAction,
   release: TacticalMatchState,
 ): TacticalMatchState => {
+  if (state.defensiveChallenge && !state.defensiveChallenge.physicalAttempt) return state;
   if (!releaseContactReadiness(state, actor).ready || !release.lastPassDiagnostic) return state;
   const nominal = release.ball.launchVelocity!;
   const request = {
@@ -221,7 +225,8 @@ export const reconcilePendingStrike = (state: TacticalMatchState): TacticalMatch
               : state.ball.lastTouchPlayerId !== p.initialLastTouch ||
                   (state.ball.ownerId && state.ball.ownerId !== p.actorId)
                 ? 'another_touch'
-                : (state.ball.height ?? 0.11) > 0.24
+                : (state.ball.height ?? 0.11) >
+                    (state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' ? 0.65 : 0.24)
                   ? 'unsupported_height'
                   : state.experimentalPendingStrike !== p.version
                     ? 'selection_changed'

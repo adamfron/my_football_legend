@@ -2,7 +2,74 @@
 
 Base: merged PR215, `3873c736e1b76c3ea5d1a71a6c1ab637d9a42c10`.
 
-## Five-body follow-up — five-final-v2
+## Release continuity follow-up — release-final-v2
+
+**The recorded 946.075s pass handoff is repaired; the renewed full match remains incomplete.**
+Research change: ordinary owned ground-pass family selection in the upright cluster no longer
+depends on instantaneous low-foot readiness. A bouncing ball can nominate a finite pending
+intention within the existing 0.65m readiness band. Selection preserves the actual ball state;
+only a real foot intersection at or below the unchanged 0.24m strike cap releases the pass.
+An out-of-band ball or an active historical challenge cannot fall through to the old grounded
+release. Unsupported foot techniques retain their existing grounded consumer, but cannot
+replace an airborne ball with a nominal ground release. The historical pair prototype and
+maintained baseline keep their old scope. No new executor, motor budget or possession grant.
+
+Local result: the exact pre-release state at 946.025s nominates at 946.050s with ball height
+0.242449559m, rather than installing the old zero-height release. The actual inside/right-foot
+contact occurs at **946.082253614s**, ball-centre height **0.220586268m**, within the existing
+pending window. The canonical continuation reaches 966.025s and makes **53 onward decisions**
+without an unresolved witness. Native schema reloads agree. Boundary-height, above-band,
+challenge and unsupported-technique regressions cover the selection/readiness distinction.
+See canonical-release-final-v2.json.gz and summary-release-final-v2.json under performance/pr216.
+
+Integration effect: the new ball trajectory exposes a three-body boundary constraint at
+460.790099133s. The preserved release-final-v1 source stops after 32 sweeps with residual
+0.000188337156m/s and no penetration. Smaller components still run their identical first
+32 sweeps; only a residual above 1e-4m/s earns bounded completion to 64. Five-body components
+retain their existing 64-sweep limit. The exact first 64 pair impulses remain equal to the
+failed ledger prefix; restitution is not reapplied. The repaired case reaches 2.27e-8m/s,
+zero penetration and zero position correction. Energy falls from 353.750440360J to
+154.018546348J; momentum change equals the external boundary impulse. Its 20s continuation
+makes 16 decisions. Input, negative source and ledger are retained in release-convergence-*
+receipts. Geometric, residual, correction, event, storage and body-count bounds are unchanged.
+
+Both unchanged 22-player inputs pass **600s**, with contacts, decisions and ball transport in
+every minute. CI replays both incident continuations as well as the previous five-body case.
+The renewed frozen 90-minute protocol reaches **1493.925s / 2356 decisions**, then stops on
+**action_starvation**, not a collision exception. The final complete minute has zero decisions,
+contacts and ball transport. A native replay from 1320s exactly reproduces the 1380s checkpoint.
+The loose ball is stationary at height 0.11m; keeper proximity excludes the shared ordinary
+owner and the historical keeper/aerial fallback continues. The ball and decision count stay
+identical from 1380s to the stop. This establishes the observed exclusion and liveness failure,
+not a complete causal repair of the keeper-zone path. Full input, minute checkpoints and events
+are in match-attempt-initial-release-final-v2.json.gz; the focused native replay and pre-stop
+states are in next-keeper-zone-starvation-release-v2.json.gz.
+
+Across 29269 body solves the largest component is four, maximum residual 1.85e-6m/s,
+penetration 1.59e-11m, momentum error 2.28e-13kg·m/s and maximum passive-energy increase
+7.11e-15J (floating-point scale). This renewed trajectory does not exercise five-body contact;
+the independent preserved five-body regression remains required. The maintained PR201/B arm
+completes at 5782.1s / 11521 decisions. Its complete native terminal state equals the
+previous five-final-v2 baseline exactly (hash 536c0cc92dce5a8649dc24c9021bcb0037a6661d3d876d12d19ee3fed9f9b6d3).
+See baseline-parity-release-v2.json and verification.json.
+
+Validation: one complete final-source `npm run verify` passes lint, 2637 unit tests in 283
+files, 56 integration tests, four career contracts, five full-career tests, TypeScript and
+production build. All 21 source/historical/CI-contract checks pass. Reconstruction compares
+all 1375 source-manifest paths. Production Edge UI passes both viewports, spectator/player
+controls, exports, restart and policy replay. The earlier interrupted verify is retained as
+interrupted evidence, not counted as a successful verification. The previous published
+five-final-v2 verification and browser bytes are preserved before the current evidence update.
+
+Promotion decision: **RETAIN_EXPERIMENTAL**. Next dependency: grounded loose-ball contact and
+reaching handoff inside the keeper zone, preserving lawful keeper ownership. Maintained
+PR201/B, defaults, formal issue dimensions and sealed confirmation remain unchanged.
+Production stance/traction/falling remain prototypes. Current source fingerprint:
+09929812ae12065fc124b0ba4e1eea22d370f0b48c4d9ec2de406922cc81a9fb.
+Final verification and production-browser evidence are indexed in performance/pr216/verification.json.
+Earlier editions and negative receipts below retain their original source and scope.
+
+## Earlier five-body follow-up — five-final-v2
 
 **Five-body component support passes; full-match diagnostic remains incomplete.**
 Research change: the existing cluster solver now admits five connected upright outfield

@@ -1,5 +1,28 @@
 # First holistic development match protocol — PR215 handoff
 
+## PR216 release continuity follow-up — release-final-v2
+
+Research change: owned ground-pass family ownership is independent of instantaneous foot
+readiness. Bouncing selection preserves the actual ball; only a real low-foot contact
+releases it. The exact old 946.075s failure now contacts at 946.082253614s / height 0.220586268m
+and continues 20s / 53 decisions. Unsupported non-grounded techniques and above-band or
+challenged intentions cannot fall through to a nominal grounded release.
+
+Integration: both unchanged 22-player inputs pass 600s with minute-by-minute football activity.
+A newly exposed three-body boundary case retains its identical 32-sweep prefix and receives
+at most 64 sweeps only when the unchanged residual tolerance is unmet. The exact case
+resolves with zero penetration and conserved momentum including its external edge impulse.
+Five-body support, explicit six-body overflow and other bounds retain their scope.
+
+The renewed frozen full-match attempt stops at 1493.925s / 2356 decisions on action starvation
+after a keeper-zone loose ball becomes stationary. Native replay exactly reproduces the
+1380s checkpoint; shared ordinary ownership is excluded there and the historical fallback
+continues without further decisions. This is not a completed 90-minute development match.
+Next dependency is keeper-zone low-ball contact/reaching continuity. Promotion remains
+RETAIN_EXPERIMENTAL; maintained PR201/B/defaults and sealed confirmation are unchanged.
+See [PR216 report](../PR216_COLLISION_CONTINUITY_AND_GAIT_FOUNDATIONS.md), release-final-v2
+receipts and verification.json. Earlier editions below retain their original source and scope.
+
 ## PR216 five-body follow-up — bounded support validated
 
 The existing upright cluster owner now supports five bodies. Components up to four retain

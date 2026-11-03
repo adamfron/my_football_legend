@@ -14,6 +14,7 @@ import {
 export const MULTI_BODY = {
   maximumBodies: 5,
   iterations: 32,
+  completionIterations: PLAYER_BODY_CONTACT.maximumCorrectionIterations,
   fiveBodyIterations: PLAYER_BODY_CONTACT.maximumCorrectionIterations,
   events: 16,
   footEvaluations: 2560,
@@ -209,6 +210,18 @@ export const resolveMultiBodyContact = (
     (state.continuousPlayerContacts ?? []).map((c) => [playerPairKey(...c.participants), c]),
   );
   const localPairs = pairs.filter(([a, b]) => ids.has(a.id) && ids.has(b.id));
+  const closingSpeed = () =>
+    localPairs.reduce((maximum, [a0, b0]) => {
+      const a = players.find((p) => p.id === a0.id)!,
+        b = players.find((p) => p.id === b0.id)!;
+      const dx = a.position.x - b.position.x,
+        dy = a.position.y - b.position.y;
+      return Math.max(
+        maximum,
+        -((a.velocity.x - b.velocity.x) * dx + (a.velocity.y - b.velocity.y) * dy) /
+          Math.max(Math.hypot(dx, dy), 1e-12),
+      );
+    }, 0);
   if (players.length > MULTI_BODY.maximumBodies) reason = 'body_count_bound';
   else if (players.some((p) => !supportedUprightPair(p, p))) reason = 'unsupported_body_state';
   else if (
@@ -259,10 +272,9 @@ export const resolveMultiBodyContact = (
       };
   }
   if (reason === 'resolved') {
-    // Preserve the existing two/four-body arithmetic and budget. The measured
-    // five-body mass-ratio chain needs more support sweeps to meet the same residual.
-    const iterationLimit =
-      players.length === 5 ? MULTI_BODY.fiveBodyIterations : MULTI_BODY.iterations;
+    // Preserve the first 32 sweeps for smaller components. Only an unmet velocity
+    // constraint earns bounded completion; five bodies retain their full budget.
+    const iterationLimit = MULTI_BODY.completionIterations;
     for (let pass = 0; pass < iterationLimit; pass++) {
       iterations++;
       let changed = false;
@@ -299,6 +311,12 @@ export const resolveMultiBodyContact = (
           }
       if (reason !== 'resolved') break;
       if (!changed) break;
+      if (
+        players.length < 5 &&
+        pass + 1 === MULTI_BODY.iterations &&
+        closingSpeed() <= MULTI_BODY.velocityTolerance
+      )
+        break;
     }
   }
   let residualClosingSpeed = 0,

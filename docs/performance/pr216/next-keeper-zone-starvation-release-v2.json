@@ -1,0 +1,43 @@
+{
+  "source": "09929812ae12065fc124b0ba4e1eea22d370f0b48c4d9ec2de406922cc81a9fb",
+  "reason": "action_starvation",
+  "from": 1380.0000000006376,
+  "to": 1493.925000001052,
+  "decisions": 0,
+  "ball": {
+    "x": 102.19727902177253,
+    "y": 31.51915155859973,
+    "height": 0.11,
+    "airborne": false,
+    "velocity": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "bounceCount": 0,
+    "looseSince": 1373.250000000613,
+    "continuousBodyContacts": [],
+    "lastTouchPlayerId": "geometry:anchor:10"
+  },
+  "sharedOrdinaryOwner": false,
+  "keeperDistances": [
+    {
+      "id": "geometry:anchor:0",
+      "distance": 100.20156717944636
+    },
+    {
+      "id": "geometry:opponent:0",
+      "distance": 0.534021881885063
+    }
+  ],
+  "lastPolicyAt": 1373.225000000613,
+  "lastActualFootAt": 1373.0250000006122,
+  "unresolved": null,
+  "nativeReplay": {
+    "from": 1320.0000000004193,
+    "to": 1380.0000000006376,
+    "status": "EXACT_MATCH",
+    "terminalHash": "29c084fb38364b5e1c8385796fdf2d99bffae23d52842517fb79dda73cd229ad"
+  },
+  "nextDependency": "Keeper-zone low loose-ball contact/reaching handoff; exact cause beyond observed owner exclusion remains to be investigated."
+}
