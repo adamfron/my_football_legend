@@ -21,6 +21,8 @@ before interpreting counters or full-match attempts. Current decision:
   **All three are failed full-match attempts**, preserved before the full_time assertion.
 - `full-baseline-final-v1`: completed ordinary baseline with exact PR216 terminal identity.
 - `source.json`, `source-<fingerprint>.json.gz`: current manifest and immutable source editions.
+- `verification.json`, `verify-final-v1.txt.gz`: final check results, complete verify log,
+  identical application-source proof for the three failed long attempts, and scope limits.
 - `browser/report.json`: real RunningLabGuard with canonical DEV fixtures, two viewports.
   `browser/production.json`: normal startup/play/pause on the production build.
 - Earlier `replay-*`, `failure-*`, `agency-*` and `full-incident-final-v1..v3`:

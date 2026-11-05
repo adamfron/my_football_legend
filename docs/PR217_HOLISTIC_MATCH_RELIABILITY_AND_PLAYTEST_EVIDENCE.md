@@ -145,6 +145,8 @@ przypisać wszystkich 35 różnic konkretnym przyczynom**.
 Wspólny `passCompletionCredit` zachowuje dotychczasowy warunek statystyk i dopisuje
 w przyszłych holistycznych eksportach actualReceiverId, resolvedAt, contact point
 oraz completionCredit. Zwykły profil zachowuje historyczny format telemetryczny.
+Ten powód kwalifikuje zdarzenie; finalny licznik nadal sprawdza dostępność
+uczestników. Nie zastępuje to kanonicznego rejestru zaliczonych tożsamości.
 Średnia prognoza 0,8868676 dotyczy geometrycznej możliwości odbioru po wypuszczeniu;
 nie przewiduje prawdopodobieństwa trafienia zamachem w piłkę. Utrzymanie posiadania
 jest kolejnym, odrębnym wynikiem. Nie zmieniono prognoz ani celności dla zgodności liczb.
@@ -236,6 +238,10 @@ W częściowym `full-incident-final-v4`: 132 przygotowane kopnięcia obejmują 4
 kontakty, 88 pudeł i 1 unresolved, 122 podania w tabeli tożsamości oraz 461 nowych
 kontaktów ground. Przykłady: piłka nieruchoma → kontakt; 1,74187 m/s → pudło.
 W tej próbie nie wystąpił przykład kategorii fast; nie zaliczamy jej jako ocenionej.
+Osobna świeża próba Node zachowuje wszystkie trzy kategorie: 0 m/s, 4,59209 m/s
+i 5,53377 m/s — te trzy wybrane zamachy są pudłami. Jej 496 rozstrzygniętych
+przygotowanych prób to 135 kontaktów, 348 pudeł, 11 przerwań i 2 anulowania;
+końcowe unresolved dotyczy innego kontaktu stojącej stopy, poza tą tabelą zamachów.
 Mecz zatrzymał się po 742,05 s dalszej gry, 112,16 s wall. Ordinary full match
 zajął 281,09 s wall, max RSS około 776 MiB. To różne trajektorie i zakresy;
 nie przedstawiamy ich jako porównania kosztu pełnego holistic vs baseline.
@@ -260,6 +266,24 @@ opcja); nie są replayem niezapisanego ciągu decyzji właściciela po naprawie 
 niezależnym confirmation. Każda porażka zostaje zapisana przed asercją full_time.
 
 ## Odpowiedzi na completion questions
+
+Końcowa weryfikacja techniczna: **`npm run verify` PASS**, exit 0, 2734 testy
+(2669 unit + 56 integration + 4 career-match contract + 5 full-career), końcowy
+TypeScript/Vite build. Kontrakty obejmują rzeczywisty pełny mecz U-17 oraz dwukrotne
+odtworzenie pełnego meczu z zapisem, odczytem i odrzucaniem duplikatów wyniku.
+Po końcowych edycjach powtórzono 111 testów ukierunkowanych, finalne 12 regresji,
+lint, typecheck, build oraz UI. Pełny verify działał w czasie końcowego opracowania
+regresji; wynik nie jest przedstawiany jako atomowy benchmark źródeł.
+
+Source-bound długie próby mają natomiast dokładnie te same pliki wykonywanej
+aplikacji (bez `.test.*`) co finalna gałąź: hash manifestu
+`b0da58414c150e36e870c20c4d006169f316615fcf2f6c2322df89552ede8ecc`.
+[Weryfikacja, tożsamości źródeł i zakresy](performance/pr217/verification.json),
+[pełny log verify](performance/pr217/verify-final-v1.txt.gz).
+`ci:manifest`, render workflow, siedem kontraktów CI i oryginalny PR216 checker
+przechodzą. Zachowano 124 komendy, 144 przypadki, 28 jobów i 63 historyczne
+przypadki pełnych meczów; całej macierzy historycznej nie wykonano lokalnie.
+Zdalny CI jest osobnym przebiegiem PR, a nie domniemanym lokalnym sukcesem.
 
 1. **Co przenikało?** Lewy but `footballer_pro_9_19` i piłka po utracie rzeczywistej
    wysokości w legacy challenge; nie body–body.

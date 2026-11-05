@@ -1,0 +1,173 @@
+{
+  "schema": "pr217-verification-v1",
+  "base": "d91852decfc523a2403460536ccc96da12c6ee17",
+  "source": "4de8dd502a270f5775a2af46d2027a1b8d2168a0ab1fe37fa25998724739d0b0",
+  "applicationSourceExcludingTests": "b0da58414c150e36e870c20c4d006169f316615fcf2f6c2322df89552ede8ecc",
+  "verification": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "node": "v24.22.1",
+    "platform": "win32",
+    "reports": [
+      " Test Files  292 passed (292)",
+      "      Tests  2669 passed (2669)",
+      "   Duration  428.49s (transform 29.64s, setup 0ms, import 184.13s, tests 472.77s, environment 125.52s)",
+      " Test Files  3 passed (3)",
+      "      Tests  56 passed (56)",
+      "   Duration  274.18s (transform 8.87s, setup 0ms, import 15.31s, tests 256.84s, environment 1.30s)",
+      " Test Files  1 passed (1)",
+      "      Tests  4 passed (4)",
+      "   Duration  1005.89s (transform 4.13s, setup 0ms, import 7.02s, tests 998.63s, environment 0ms)",
+      " Test Files  1 passed (1)",
+      "      Tests  5 passed (5)",
+      "   Duration  86.14s (transform 771ms, setup 0ms, import 1.03s, tests 84.85s, environment 0ms)"
+    ],
+    "log": "verify-final-v1.txt.gz",
+    "logSha256": "145d7d88fb38bff74c6a1dd31a6c65362b1f4037ceed78ea6b3a4502c1892b8e",
+    "finalFollowup": "The full verify was running during final reproduction/test development; 111 targeted tests, the final 12-test regression suite, lint, typecheck, production build and browser checks were repeated after the relevant edits. No historical assertion or timeout was weakened."
+  },
+  "checks": {
+    "pr217Bounded": "PASS",
+    "originalPr216": "PASS",
+    "ciManifest": "PASS",
+    "ciContracts": "7/7 PASS",
+    "workflowRender": "PASS",
+    "targeted": "111/111 PASS",
+    "finalRegression": "12/12 PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "browserDev": {
+      "schema": "pr217-browser-v1",
+      "browser": "155.0.4283.45",
+      "source": "4de8dd502a270f5775a2af46d2027a1b8d2168a0ab1fe37fa25998724739d0b0",
+      "componentFixtureInDev": true,
+      "scenarios": [
+        {
+          "width": 1366,
+          "height": 768,
+          "errors": [],
+          "checks": [
+            "normal-menu-ordinary-default-holistic-policy-seed",
+            "physical-incident-auto-halt",
+            "resume-disabled-state-preserved",
+            "one-alert",
+            "diagnostic-export",
+            "repaired-contact-continues-with-one-play-click",
+            "normal-user-pause",
+            "one-click-resume",
+            "ordinary-on-ball-human-menu",
+            "contextual-human-pass-selection"
+          ]
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "errors": [],
+          "checks": [
+            "normal-menu-ordinary-default-holistic-policy-seed",
+            "physical-incident-auto-halt",
+            "resume-disabled-state-preserved",
+            "one-alert",
+            "diagnostic-export",
+            "repaired-contact-continues-with-one-play-click",
+            "normal-user-pause",
+            "one-click-resume",
+            "ordinary-on-ball-human-menu",
+            "contextual-human-pass-selection"
+          ]
+        }
+      ]
+    },
+    "browserProduction": {
+      "schema": "pr217-browser-v1",
+      "browser": "155.0.4283.45",
+      "source": "4de8dd502a270f5775a2af46d2027a1b8d2168a0ab1fe37fa25998724739d0b0",
+      "componentFixtureInDev": false,
+      "scenarios": [
+        {
+          "width": 1366,
+          "height": 768,
+          "errors": [],
+          "checks": [
+            "normal-menu-ordinary-default-holistic-policy-seed",
+            "production-normal-start-play-pause"
+          ]
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "errors": [],
+          "checks": [
+            "normal-menu-ordinary-default-holistic-policy-seed",
+            "production-normal-start-play-pause"
+          ]
+        }
+      ]
+    }
+  },
+  "preservedCoverage": {
+    "commands": 124,
+    "explicitCases": 144,
+    "jobs": 28,
+    "fullMatchCases": 63,
+    "originalReceiptsPr195To216": "UNCHANGED",
+    "packageAndLockfile": "UNCHANGED",
+    "historicalMatrixExecutedLocally": false
+  },
+  "ordinaryBaseline": {
+    "source": "8136df52ce481a1722866a5b18f2e67869880e2043dd84edc5e8202d52b19943",
+    "fullTime": 5782.100000006393,
+    "terminalHash": "536c0cc92dce5a8649dc24c9021bcb0037a6661d3d876d12d19ee3fed9f9b6d3",
+    "exactPriorPr216Terminal": true,
+    "wallSeconds": 281.0936817
+  },
+  "longAttempts": [
+    {
+      "name": "full-incident-final-v4",
+      "source": "6c5380fafa011eafdcc2948a7bd887d180610ccdf1c8e58dfa2bc5148305d60a",
+      "identicalFinalEngine": true,
+      "reason": "halt:bounded_search_exhausted",
+      "time": 1037.7249999993924,
+      "status": "first_half",
+      "periods": [],
+      "wallSeconds": 112.1626667,
+      "maxRSSKiB": 700464,
+      "checkpoints": 15,
+      "humanDecisions": 9
+    },
+    {
+      "name": "full-checkpoint-final-v5",
+      "source": "cf2e37f5c7cc7e80e9df630470295a1e2cc026a54ae844dd3e3247d60465f3ae",
+      "identicalFinalEngine": true,
+      "reason": "halt:body_count_bound",
+      "time": 4273.975000007928,
+      "status": "second_half",
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 4269.150000007999
+        }
+      ],
+      "wallSeconds": 95.4780524,
+      "maxRSSKiB": 732756,
+      "checkpoints": 14,
+      "humanDecisions": 6
+    },
+    {
+      "name": "full-input-final-v5",
+      "source": "cf2e37f5c7cc7e80e9df630470295a1e2cc026a54ae844dd3e3247d60465f3ae",
+      "identicalFinalEngine": true,
+      "reason": "halt:bounded_search_exhausted",
+      "time": 2576.900000004992,
+      "status": "first_half",
+      "periods": [],
+      "wallSeconds": 346.7746654,
+      "maxRSSKiB": 749112,
+      "checkpoints": 44,
+      "humanDecisions": 44
+    }
+  ],
+  "promotion": "RETAIN_EXPERIMENTAL",
+  "nextBodyReliability": "NOT_READY",
+  "formalIssuesPromoted": 0
+}
