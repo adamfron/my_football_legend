@@ -1,0 +1,116 @@
+{
+  "source": "8136df52ce481a1722866a5b18f2e67869880e2043dd84edc5e8202d52b19943",
+  "name": "incident",
+  "initialHash": "466d7d3812d1480d1b636af77c997dbc398ed1c7fb4a526f379a8d2a9df9756e",
+  "terminalHash": "5261813e13aa245674b3f2baec18c0e43f16d9b6e40b0dc36f0d196bc3ef0e56",
+  "reason": "human_decision",
+  "totalTicks": 373,
+  "wallSeconds": 1.2864765999999999,
+  "cpu": {
+    "user": 2047000,
+    "system": 78000
+  },
+  "maxRSSKiB": 364944,
+  "decisions": 0,
+  "stages": [
+    {
+      "at": 295.70000000000493,
+      "stage": "open_play",
+      "ball": {
+        "x": 58.29942496360728,
+        "y": 42.630670991268325,
+        "continuousBodyContacts": [],
+        "velocity": {
+          "x": 0.17772066872566938,
+          "y": 1.67645045905374,
+          "z": -1.0231790602736406
+        },
+        "height": 0.13554646484944838,
+        "spin": {
+          "x": -0.7322992427483095,
+          "y": 1.4507475648681623,
+          "z": 0.15325211392274002
+        },
+        "airborne": true,
+        "bounceCount": 0,
+        "looseSince": 295.70000000000493,
+        "lastTouchPlayerId": "footballer_pro_9_19"
+      }
+    }
+  ],
+  "periods": [],
+  "contacts": 6,
+  "fitness": [
+    {
+      "at": 300.000000000001,
+      "fitness": {
+        "longTermCapacity": 0.7620652272677985,
+        "burstReadiness": 0.21091062159961912,
+        "exertionSpent": 534.8034112749981,
+        "capacitySpent": 0.019694069973301843,
+        "burstSpent": 1.7474565571284366,
+        "capacityRecovered": 0.0017592972410567997,
+        "burstRecovered": 1.1783671787280359,
+        "workload": {
+          "seconds": 300.000000000001,
+          "distanceWalk": 128.90402367192416,
+          "distanceJog": 366.98146598537403,
+          "distanceRun": 291.40977566348926,
+          "distanceSprint": 13.588679485835023,
+          "sprintSeconds": 1.8749999999999973,
+          "sprintBursts": 1,
+          "accelerationImpulse": 302.6712430737164,
+          "brakingImpulse": 287.37223073157713,
+          "turningLoad": 284.2292619997485,
+          "intensivePressSeconds": 0,
+          "bodyContactLoad": 0
+        },
+        "movementRiskExposure": 0.0007151326308248894,
+        "assessedRiskExposure": 0.0007151326308248894
+      },
+      "locomotion": {
+        "distanceTotal": 800.8839448066228,
+        "distanceWalk": 128.90402367192416,
+        "distanceJog": 366.98146598537403,
+        "distanceRun": 291.40977566348926,
+        "distanceSprint": 13.588679485835023,
+        "sprintSeconds": 1.8749999999999973,
+        "sprintBursts": 1,
+        "maxSpeed": 8.32401874616057
+      }
+    }
+  ],
+  "minutes": [
+    {
+      "from": 295.67500000000496,
+      "to": 300.000000000001,
+      "decisions": 7,
+      "transport": 33.459877128420985,
+      "status": "first_half"
+    }
+  ],
+  "checkpoints": [
+    {
+      "at": 295.67500000000496,
+      "hash": "466d7d3812d1480d1b636af77c997dbc398ed1c7fb4a526f379a8d2a9df9756e"
+    },
+    {
+      "at": 300.000000000001,
+      "hash": "99edded034d04e43ba2d0e00623d27de88340a18319c4cfbec8b1dbdd2d68a2b"
+    },
+    {
+      "at": 304.9999999999965,
+      "hash": "5261813e13aa245674b3f2baec18c0e43f16d9b6e40b0dc36f0d196bc3ef0e56"
+    }
+  ],
+  "passes": 2,
+  "strikes": 1,
+  "examples": [
+    {
+      "id": "lab-mw3xhr6o:pending-strike:412:footballer_pro_9_7",
+      "difficulty": "moving",
+      "speed": 1.7418719351913354,
+      "outcome": "miss"
+    }
+  ]
+}

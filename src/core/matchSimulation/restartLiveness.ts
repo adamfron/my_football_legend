@@ -3,6 +3,8 @@ import type { TacticalMatchState } from './matchState';
 import { isHumanControlled } from './actionAgency';
 import { isRestartSetup } from './restartPhase';
 import { distance } from './matchSpace';
+import { substitutionBlocksRestart } from './substitutions';
+import { haltEvidence } from './matchSafety';
 import {
   deriveRestartLegalReadiness,
   legalizeRestartPlayerTarget,
@@ -21,6 +23,7 @@ export const restartBlockingObservationSchema = z.object({
   sampledAt: z.number().nonnegative(),
   lastProgressAt: z.number().nonnegative(),
   remainingPhysicalDistance: z.number().nonnegative(),
+  progressDistance: z.number().nonnegative().optional(),
   lastDiagnosticAt: z.number().nonnegative().optional(),
   awardId: z.string().optional(),
   transitions: z.array(transition).max(12).optional(),
@@ -35,6 +38,10 @@ export const restartBlockingDiagnosticSchema = z.object({
   phase: z.string(),
   origin: z.string(),
   blockers: z.array(z.string()).max(48),
+  progressOwner: z
+    .enum(['human', 'substitution', 'retrieval', 'positioning', 'missing_lifecycle'])
+    .optional(),
+  pendingSubstitutionIds: z.array(z.string()).max(30).optional(),
   retrievalStage: z.string(),
   spot: point,
   ball: point.extend({ height: z.number(), velocity: point.extend({ z: z.number() }) }),
@@ -88,9 +95,23 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
     state.scenario !== 'throw_in' &&
     isHumanControlled(state, restart.takerId) &&
     deriveRestartLegalReadiness(state).ready;
+  const substitutionPending = substitutionBlocksRestart(state);
+  const progressOwner = humanPending
+    ? ('human' as const)
+    : substitutionPending
+      ? ('substitution' as const)
+      : restart.retrieval && restart.retrieval.stage !== 'placed'
+        ? ('retrieval' as const)
+        : restart.origin === 'live_event' && !restart.retrieval
+          ? ('missing_lifecycle' as const)
+          : ('positioning' as const);
   const blockers = humanPending
     ? ['pending_human_decision']
-    : (restart.readiness?.blockers ?? ['readiness_not_observed']);
+    : substitutionPending
+      ? ['substitution_in_progress']
+      : progressOwner === 'missing_lifecycle'
+        ? ['missing_retrieval_state']
+        : (restart.readiness?.blockers ?? ['readiness_not_observed']);
   const signature = [
     restart.awardId,
     restart.phase,
@@ -98,6 +119,9 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
     restart.takerId,
     restart.selectedAction?.type,
     restart.selectedSource,
+    ...(state.substitutionState?.pending ?? []).map(
+      (p) => `${p.id}:${p.leftAt ?? 'departing'}:${p.refereeEntryAt ?? 'waiting_entry'}`,
+    ),
     ...[...blockers].sort(),
   ].join(':');
   const previous = state.restartBlockingObservation;
@@ -133,18 +157,40 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
       minimumBodySeparation: nearest?.gap,
     };
   });
-  const remainingPhysicalDistance =
-    distance(state.ball, spot) +
-    actors.reduce((sum, actor) => sum + distance(actor.position, actor.legalTarget), 0);
+  const remainingPhysicalDistance = substitutionPending
+    ? (state.substitutionState?.pending ?? []).reduce(
+        (sum, p) =>
+          sum +
+          (p.leftAt === undefined ? distance(p.outgoing.position, p.exitTarget) : 0) +
+          Math.max(0, 0.2 - p.entryPosition.y),
+        0,
+      )
+    : distance(state.ball, spot) +
+      actors.reduce(
+        (sum, actor) =>
+          sum +
+          distance(
+            actor.position,
+            legalizeRestartPlayerTarget(
+              state,
+              state.players.find((p) => p.id === actor.id)!,
+              restart.targets[actor.id] ?? actor.legalTarget,
+            ),
+          ),
+        0,
+      );
+  const progressed =
+    previous?.signature !== signature ||
+    (previous.progressDistance ?? previous.remainingPhysicalDistance) - remainingPhysicalDistance >
+      0.1;
   let observation: RestartBlockingObservation = {
     signature,
     since: previous?.signature === signature ? previous.since : state.time,
     sampledAt: state.time,
-    lastProgressAt:
-      previous?.signature !== signature ||
-      previous.remainingPhysicalDistance - remainingPhysicalDistance > 0.1
-        ? state.time
-        : previous.lastProgressAt,
+    lastProgressAt: progressed ? state.time : previous.lastProgressAt,
+    progressDistance: progressed
+      ? remainingPhysicalDistance
+      : (previous.progressDistance ?? previous.remainingPhysicalDistance),
     remainingPhysicalDistance,
     awardId,
     transitions,
@@ -171,6 +217,8 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
     phase: restart.phase,
     origin: restart.origin ?? 'legacy_fixture',
     blockers,
+    progressOwner,
+    pendingSubstitutionIds: (state.substitutionState?.pending ?? []).map((p) => p.id),
     retrievalStage: restart.retrieval?.stage ?? 'not_started',
     spot,
     ball: {
@@ -213,6 +261,20 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
   observation = { ...observation, lastDiagnosticAt: state.time };
   return {
     ...state,
+    ...(classification === 'soft_lock' &&
+    state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
+      ? {
+          safetyHalt: haltEvidence(
+            state,
+            'restart_lifecycle',
+            progressOwner === 'missing_lifecycle'
+              ? 'missing_retrieval_state'
+              : progressOwner === 'substitution'
+                ? 'substitution_entry_not_progressing'
+                : (blockers[0] ?? 'restart_physical_progress_absent'),
+          ),
+        }
+      : {}),
     restartBlockingObservation: observation,
     restartLivenessDiagnostics: [...(state.restartLivenessDiagnostics ?? []), diagnostic].slice(
       -32,

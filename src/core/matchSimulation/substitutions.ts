@@ -802,7 +802,14 @@ export const advanceMatchSubstitutions = (
       request.entryPosition = physical.position;
       request.entryVelocity = physical.velocity;
       request.entryFitness = physical.fitness;
-      if (!resolved.executionWitnesses?.unresolved && physical.position.y >= 0.2) {
+      // Witnesses are cumulative session history. A previous, already continued
+      // incident cannot withhold admission after this entrant's lawful crossing.
+      // Only a new unresolved contact in THIS physical interval blocks entry.
+      if (
+        (resolved.executionWitnesses?.unresolved?.invoked ?? 0) ===
+          (previous.executionWitnesses?.unresolved?.invoked ?? 0) &&
+        physical.position.y >= 0.2
+      ) {
         admitEntry(request, physical);
         pending.splice(i, 1);
       }

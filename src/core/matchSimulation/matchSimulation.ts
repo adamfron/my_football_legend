@@ -98,6 +98,8 @@ import {
 } from './matchTimekeeping';
 import { observeRestartLiveness } from './restartLiveness';
 import { observeLooseBallLiveness } from './looseBallLiveness';
+import { haltEvidence } from './matchSafety';
+import { physicalAcquisitionCause } from './possessionEvents';
 import {
   prepareRestartMovement,
   advanceRestartPlacement,
@@ -1077,6 +1079,18 @@ const makeLoose = (state: TacticalMatchState, velocity = { x: 0, y: 0 }): Tactic
       ? { continuousBodyContacts: state.ball.continuousBodyContacts }
       : {}),
     velocity,
+    // The planar challenge/loose-ball consumer does not ground an airborne ball.
+    // Dropping height at this handoff can place a separated ball inside a real
+    // boot after the shared interval has already certified its trajectory.
+    ...(state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
+      ? {
+          height: state.ball.height ?? BALL_RADIUS,
+          velocity: { ...velocity, z: state.ball.velocity?.z ?? 0 },
+          ...(state.ball.spin ? { spin: state.ball.spin } : {}),
+          airborne: state.ball.airborne ?? false,
+          bounceCount: state.ball.bounceCount ?? 0,
+        }
+      : {}),
     looseSince: state.time,
     ...(state.ball.lastTouchPlayerId ? { lastTouchPlayerId: state.ball.lastTouchPlayerId } : {}),
     ...(state.ball.secondBallPriorityIds
@@ -2729,7 +2743,7 @@ const stepTacticalMatchCore = (
             actorId,
             contact.players.find((p) => p.id === actorId)?.team === contact.possessionTeam
               ? 'claim'
-              : 'interception',
+              : physicalAcquisitionCause(contact),
             true,
           ),
         body: (contact, actorId) =>
@@ -2742,6 +2756,15 @@ const stepTacticalMatchCore = (
                 })
               : applyIncomingContact(contact, actorId),
       });
+      // The shared consumer also owns the historical delivery's terminal state.
+      // A ball at physical rest is recoverable ground play, not an eternal
+      // incoming throw/pass aimed at its obsolete receiving point.
+      if (
+        ordinaryContactInterval && !state.safetyHalt &&
+        state.ball.travelKind && !state.ball.ownerId && !state.ball.airborne &&
+        (state.ball.height ?? BALL_RADIUS) <= BALL_RADIUS + 1e-8 &&
+        Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0, state.ball.velocity?.z ?? 0) === 0
+      ) state = finishUnclaimedDelivery(state);
     } else if (
       state.ball.travelKind &&
       state.ball.from &&
@@ -3837,6 +3860,7 @@ const stepCanonicalMatch = (
   rawDelta: number,
   decisionAlreadyProjected: boolean,
 ): TacticalMatchState => {
+  if (original.safetyHalt) return original;
   // A batched caller still gives a pending strike ordinary bounded canonical intervals.
   // Re-enter this SAME executor so laws, bodies and observers participate in every interval.
   if (
@@ -3880,6 +3904,18 @@ const stepCanonicalMatch = (
   input = preparePeriodEnd(input, dt);
   const prepared = input;
   let next = stepTacticalMatchCore(prepared, rawDelta, decisionAlreadyProjected);
+  if (
+    next.safetyHalt ||
+    (next.executionWitnesses?.unresolved?.invoked ?? 0) >
+      (original.executionWitnesses?.unresolved?.invoked ?? 0)
+  )
+    return {
+      ...original,
+      ...(next.executionWitnesses?.unresolved
+        ? { executionWitnesses: { ...original.executionWitnesses, unresolved: next.executionWitnesses.unresolved } }
+        : {}),
+      safetyHalt: next.safetyHalt ?? haltEvidence(next, 'physical_contact', next.executionWitnesses!.unresolved!.source, original.time),
+    };
   if (next === prepared) return original;
   next = advanceHumanIntentProgress(next);
   if (!next.status) next = { ...next, status };

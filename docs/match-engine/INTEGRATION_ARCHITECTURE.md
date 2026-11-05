@@ -1,5 +1,23 @@
 # MatchEngine integration architecture
 
+## PR217 real-session reliability
+
+The executable recipe remains PR201/B at 40Hz with the same experimental selectors.
+PR217 changes handoff continuity, current-interval substitution evidence, explicit
+halt ownership, control labels and ready human carry interruption. Policy ranking,
+fitness calibration and the formal realism registry are not promoted. Local
+incident repair, lifecycle progression and complete-match success remain distinct
+claims. See [PR217](../PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md).
+The preserved bounded-search and body-count failures keep the next-body
+reliability gate **NOT_READY**.
+
+Next candidates are dependency-ordered: PR218 authoritative articulated transforms,
+stance foot and finite traction consumed by the renderer; PR219 observation,
+preparation and technical execution using existing attributes; PR220 calibrated
+intermittent workload/recovery protocols. Later hybrid ragdoll integrates balance,
+support failure, ground/body/ball contact and controlled recovery. None is an
+animation-only second authority or a rigid PR promise; see [roadmap](../ROADMAP.md).
+
 ## PR216 full-match continuity follow-up — keeper-cycle-v12
 
 The 1493.925s keeper-zone starvation resumes actual foot contact and onward decisions.

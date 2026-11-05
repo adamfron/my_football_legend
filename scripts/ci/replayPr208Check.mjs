@@ -8,8 +8,8 @@ import process from 'node:process';
 import console from 'node:console';
 import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr209SourceGuard.mjs';
-import { checkPr216Source } from '../pr216Evidence.mjs';
-checkPr216Source();
+import { checkPr217Source } from '../pr217Evidence.mjs';
+checkPr217Source();
 const scratch = mkdtempSync(join(tmpdir(), 'pr209-history-208-'));
 const safe = () =>
   assert.ok(
@@ -46,7 +46,7 @@ try {
   );
   const env = {
     ...process.env,
-    GIT_DIR: resolve('.git'),
+    GIT_DIR: execFileSync('git', ['rev-parse', '--absolute-git-dir'], { encoding: 'utf8', windowsHide: true }).trim(),
     GIT_WORK_TREE: scratch,
     GIT_INDEX_FILE: join(scratch, 'private.index'),
   };

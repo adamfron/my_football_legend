@@ -43,6 +43,7 @@ import { captureOffsideSnapshot } from './offside';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { GOALKEEPER_PHYSICS } from './goalkeeperIntervention';
 import { isRestartSetup } from './restartPhase';
+import { haltEvidence } from './matchSafety';
 import {
   canonicalStrikeFoot,
   executePendingContact,
@@ -1031,6 +1032,34 @@ export const advancePendingStrikeInterval = (
       return restoreClock(handlers.boundary(atEnd, crossing!, ball.position, seconds));
     }
     if (event.kind === 'uncertain') {
+      if (multi) {
+        const hit = event.hit!;
+        const foot = 'foot' in hit ? hit.foot : undefined;
+        const normal = 'normal' in hit ? hit.normal : undefined;
+        const reason = hit.reason ?? 'uncertain_contact';
+        state = recordExecution(state, 'unresolved', reason, 1);
+        state = {
+          ...state,
+          safetyHalt: {
+            ...haltEvidence(state, 'physical_contact', reason, start),
+            actorIds: [event.playerId!],
+            ...(state.pendingStrike ? { actionId: state.pendingStrike.id } : {}),
+            ...(foot ? {
+              foot: foot.position,
+              footVelocity: foot.velocity,
+              footRadius: 0.035,
+              ballRadius: 0.11,
+              gap: Math.hypot(foot.position.x - incoming.position.x, foot.position.y - incoming.position.y, foot.position.z - incoming.position.z) - 0.145,
+              ...(normal ? { relativeClosingSpeed:
+                (foot.velocity.x - incoming.velocity.x) * normal.x +
+                (foot.velocity.y - incoming.velocity.y) * normal.y +
+                (foot.velocity.z - incoming.velocity.z) * normal.z,
+              } : {}),
+            } : {}),
+          },
+        };
+        return restoreClock(state);
+      }
       uncertainActors.add(event.playerId!);
       state = recordExecution(state, 'unresolved', event.hit?.reason ?? 'uncertain_contact', 1);
       state = finishPendingStrike(

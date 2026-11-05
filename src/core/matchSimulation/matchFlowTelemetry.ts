@@ -3,6 +3,7 @@ import { findMatchParticipant } from './matchParticipants';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { passDecisionQualitySchema } from './passDecision';
+import { passCompletionCredit, passCompletionCreditSchema } from './passCompletionCredit';
 import { emptyTurnoverCauseCounts, turnoverCauseCountsSchema } from './possessionEvents';
 import { distance } from './matchSpace';
 import { shotDiagnosticSchema, type TacticalMatchState } from './matchState';
@@ -80,6 +81,10 @@ const passOutcomeDiagnosticSchema = z.object({
   passId: z.string(),
   passerId: z.string().optional(),
   receiverId: z.string().optional(),
+  actualReceiverId: z.string().optional(),
+  resolvedAt: z.number().nonnegative().optional(),
+  actualContactPoint: z.object({ x: z.number().finite(), y: z.number().finite() }).optional(),
+  completionCredit: passCompletionCreditSchema.optional(),
   selection: passDecisionQualitySchema.optional(),
   executionErrorMetres: z.number().nonnegative().optional(),
   receiverFailure: z.boolean().optional(),
@@ -868,12 +873,7 @@ export const observeMatchFlow = (
       const resultId = `${result.benchmarkRunId}:${diagnostic.passId}`;
       append('observedPassResultIds', resultId);
       indexes.passResults.add(resultId);
-      if (
-        diagnostic.finalResult === 'completed' &&
-        diagnostic.actualContactPoint &&
-        diagnostic.resolvedAt !== undefined &&
-        (diagnostic.actualReceiverId ?? diagnostic.intendedReceiverId) !== diagnostic.passerId
-      ) {
+      if (passCompletionCredit(diagnostic) === 'credited') {
         result.passesCompleted++;
         result.observerState.spellPassCompletions++;
         const receiverId = diagnostic.actualReceiverId ?? diagnostic.intendedReceiverId;
@@ -944,6 +944,14 @@ export const observeMatchFlow = (
           result.passOutcomes = result.passOutcomes.slice();
         result.passOutcomes[passOutcomeIndex] = {
           ...result.passOutcomes[passOutcomeIndex]!,
+          ...(next.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
+            ? {
+                completionCredit: passCompletionCredit(diagnostic),
+                ...(diagnostic.actualReceiverId ? { actualReceiverId: diagnostic.actualReceiverId } : {}),
+                ...(diagnostic.resolvedAt !== undefined ? { resolvedAt: diagnostic.resolvedAt } : {}),
+                ...(diagnostic.actualContactPoint ? { actualContactPoint: diagnostic.actualContactPoint } : {}),
+              }
+            : {}),
           receiverFailure: ['failed_control', 'heavy_touch'].includes(
             diagnostic.receptionOutcome ?? '',
           ),

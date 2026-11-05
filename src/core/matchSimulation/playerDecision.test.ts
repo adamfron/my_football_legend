@@ -147,6 +147,27 @@ describe('player decision lifecycle', () => {
     expect(next.decisionIndex).toBeGreaterThan(state.decisionIndex);
   });
 
+  it('lets a ready human reconsider a meaningful route during an autonomous carry', () => {
+    const state = makeState();
+    const actor = state.players.find(p => p.id === state.controlledFootballerId)!;
+    actor.position = { x: 72, y: 9 };
+    actor.velocity = { x: 0, y: 0 };
+    state.ball = { ...actor.position, ownerId: actor.id };
+    state.time = 10;
+    state.ballOwnershipStartedAt = 5;
+    state.actionCooldown = 0;
+    for (const opponent of state.players.filter(p => p.team !== actor.team))
+      opponent.position = { x: 20, y: 60 };
+    const carried = resolveMatchAction(state, {
+      type: 'carry', actorId: actor.id, target: { x: 90, y: 9 }, movementMode: 'sprint',
+    }, 'autonomous_npc');
+    expect(carried.ballCarrierIntent?.humanSelected).toBe(false);
+    expect(projectPlayerDecisionOpportunity(carried)?.kind).toBe('on_ball');
+    expect(stepTacticalMatch(carried, 0.025)).toBe(carried);
+    const unreachable = { ...carried, ball: { ...carried.ball, x: carried.ball.x + 4 } };
+    expect(projectPlayerDecisionOpportunity(unreachable)).toBeUndefined();
+  });
+
   it('executes carry through tactical recomputation and restores tactical control', () => {
     const state = makeState();
     const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;

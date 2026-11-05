@@ -187,7 +187,43 @@ export const legalizeRestartPlayerTarget = (
       restart.indirect,
       state.endsSwitched,
     );
-  if (player.id === restart.takerId) return spot;
+  if (player.id === restart.takerId) {
+    if (
+      state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
+      restart.origin === 'live_event' &&
+      restart.retrieval?.stage === 'placed' &&
+      state.scenario !== 'throw_in'
+    ) {
+      const placement = state.ball;
+      const action = restart.selectedAction;
+      const target =
+        action && 'target' in action
+          ? action.target
+          : { x: spot.x + (attacksRight(player) ? 1 : -1), y: spot.y };
+      const dx = target.x - placement.x,
+        dy = target.y - placement.y,
+        length = Math.hypot(dx, dy);
+      // A finite run-up endpoint inside the existing 1.4m taker allowance and
+      // 0.82m release reach. Standing the torso on the ball put a solid boot
+      // through it before the historical release handed back to continuous play.
+      const behind = {
+        x: placement.x - 0.5 * (length > 1e-9 ? dx / length : attacksRight(player) ? 1 : -1),
+        y: placement.y - 0.5 * (length > 1e-9 ? dy / length : 0),
+      };
+      if (behind.x >= 0.4 && behind.x <= 104.6 && behind.y >= 0.4 && behind.y <= 67.6)
+        return behind;
+      // A corner run-up must also be a valid live-play starting position. Use
+      // an inward approach when the preferred side lies beyond the perimeter;
+      // the same finite motor and real-foot readiness checks still own arrival.
+      const inward = { x: 52.5 - placement.x, y: 34 - placement.y };
+      const inwardLength = Math.hypot(inward.x, inward.y);
+      return {
+        x: placement.x + (0.5 * inward.x) / inwardLength,
+        y: placement.y + (0.5 * inward.y) / inwardLength,
+      };
+    }
+    return spot;
+  }
   let target = pitchTarget(proposed);
   const opponent = player.team !== restart.restartTeam;
   if (state.scenario === 'kick_off') {

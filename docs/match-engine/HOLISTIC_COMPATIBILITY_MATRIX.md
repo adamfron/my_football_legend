@@ -1,5 +1,22 @@
 # Holistic compatibility and selection — PR214
 
+## PR217 reliability boundary
+
+| Combination | Evidence / boundary |
+| --- | --- |
+| Owner upright/shared recipe + legacy challenge handoff | Exact recovered 295.700s boot–ball failure repaired by retaining height/vz/spin; no tolerance expansion |
+| Same recipe + saved throw-in/substitution | Historical unresolved retained; current entrant, retrieval, transport, placement and release pass |
+| Ground restart + shared return | Real-foot clearance and finite approach must satisfy existing live perimeter/release reach |
+| Genuine unresolved contact | Explicit canonical halt; UI export available, repeated Play cannot advance |
+| Ordinary profile | Historical telemetry shape retained; full baseline terminal identity checked separately |
+| Human carry + contact readiness | Ready autonomous carry is interruptible; unreachable PR210 actions remain unavailable |
+| Loft/cross/restart release | Historical execution remains historical; vertical continuity is not a new physical strike certification |
+| Future skeleton, traction and renderer | Not implemented; PR218 candidate dependency |
+
+RETAIN_EXPERIMENTAL. Full-match and promotion decisions are governed by the
+[PR217 report](../PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md), not by
+passing these local cases alone. PR216 receipts below preserve their original scope.
+
 ## PR216 full-match continuity follow-up — keeper-cycle-v12
 
 The 1493.925s keeper-zone starvation resumes actual foot contact and onward decisions.

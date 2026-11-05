@@ -16,6 +16,14 @@ export const possessionLossCauseSchema = z.enum([
   'other',
 ]);
 export type PossessionLossCause = z.infer<typeof possessionLossCauseSchema>;
+/** Called only AFTER a real surface has nominated control. A team change alone
+ * does not turn recovery of a loose ball or a shot rebound into an interception. */
+export const physicalAcquisitionCause = (state: TacticalMatchState): 'interception' | 'claim' =>
+  !state.ball.ownerId &&
+  state.ball.looseSince === undefined &&
+  ['pass', 'through_ball', 'cross', 'throw_in', 'long_distribution', 'corner_delivery', 'free_kick_delivery'].includes(state.ball.travelKind ?? '')
+    ? 'interception'
+    : 'claim';
 export const turnoverCauseCountsSchema = z.record(
   possessionLossCauseSchema,
   z.number().int().nonnegative(),

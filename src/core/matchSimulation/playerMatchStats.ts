@@ -1,4 +1,5 @@
 import { isMatchGoalkeeper } from './matchGoalkeeper';
+import { passCompletionCredit } from './passCompletionCredit';
 import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
@@ -543,12 +544,7 @@ export const observePlayerMatchStats = (
       }
       if (pass.finalResult && !containsIdentity(result.observedPassResultIds, pass.passId)) {
         appendIdentity('observedPassResultIds', pass.passId);
-        if (
-          pass.finalResult === 'completed' &&
-          pass.actualContactPoint &&
-          pass.resolvedAt !== undefined &&
-          (pass.actualReceiverId ?? pass.intendedReceiverId) !== pass.passerId
-        ) {
+        if (passCompletionCredit(pass) === 'credited') {
           const passer = stats(pass.passerId, pass.releasedAt);
           const receiverId = pass.actualReceiverId ?? pass.intendedReceiverId;
           const receiver = stats(receiverId, pass.resolvedAt);

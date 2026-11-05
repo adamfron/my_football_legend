@@ -1027,6 +1027,7 @@ export const projectPlayerAgency = (
     probe: playerDecisionProbeSchema.parse({ actorId, candidate: false, blockedReason, ...extra }),
   });
   if (!actorId || !actor) return blocked('no_controlled_player');
+  if (state.safetyHalt) return blocked('resolution_in_progress');
   if (state.playerAgencyEnabled === false) return blocked('agency_disabled');
   if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
     return blocked('not_open_play');
@@ -1132,7 +1133,16 @@ export const projectPlayerAgency = (
     isActionResolutionInProgress(state) &&
     !state.ball.travelKind &&
     !redecisionReason &&
-    !mandatoryShot
+    !mandatoryShot &&
+    // An autonomous carry is an interruptible intention. It cannot reserve a
+    // physically ready human owner's future meaningful choices indefinitely.
+    !(
+      state.ball.ownerId === actorId &&
+      onBallExecutable &&
+      !humanPossession &&
+      state.ballCarrierIntent &&
+      !state.ballCarrierIntent.humanSelected
+    )
   )
     return blocked('resolution_in_progress');
   if (

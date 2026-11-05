@@ -1,5 +1,16 @@
 # My Football Legend — Current Project State
 
+PR217: odtworzono rzeczywisty incydent 295,700 s w Edge oraz blokadę autu ze
+zapisanej sesji `lab-mw3xhr6o`. Legacy challenge usuwał wysokość odbijającej się
+piłki, tworząc penetrację lewego buta `9_19`; historyczny unresolved blokował
+wejście zmiennika i cały retrieval. Naprawiono te przekazania, jawny `safetyHalt`,
+gotowość człowieka podczas autonomicznego carry i semantykę claim/interception.
+Per-pass diagnostyka rozdziela kontrolę drużyny od zaliczonego podania. Kondycja
+i celność nie są kalibrowane. **RETAIN_EXPERIMENTAL; bez formalnego COMPLETE.**
+Pełne próby, ograniczenia odtworzenia i gotowość PR218 są rozliczane w
+[raporcie PR217](PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md).
+Historyczne PR216 i kandydat PR201/B pozostają odrębnymi dowodami.
+
 PR215: Single Match Lab ma rzeczywisty wybór **Fizyka meczu → Holistyczna (eksperymentalna)**.
 Wspólna receptura browser/CLI jest walidowana przed inicjalizacją meczu; restart,
 powtórka polityki i eksport zachowują jej tożsamość. Dotychczasowy wariant i kariera

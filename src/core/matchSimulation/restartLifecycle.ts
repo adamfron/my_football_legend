@@ -19,6 +19,9 @@ import { markStoppageReady } from './stoppageLedger';
 import { shotPreparationSeconds } from './shotIntent';
 import { resolveDeadBallPerimeter } from './deadBallEnclosure';
 import { canExecuteCanonicalShot } from './shootingOptions';
+import { deriveLowerBodyGeometry } from './lowerBodyGeometry';
+import { playerContactGeometry } from './ballContactGeometry';
+import { TEMPORAL_STRIKE } from './temporalFootTrajectory';
 
 /** Context may change while bodies assemble; an obsolete selection cannot reserve the clock. */
 export const isRestartSelectionAvailable = (state: TacticalMatchState) => {
@@ -585,12 +588,43 @@ export const advanceRestartPlacement = (
         next.discipline?.[p.id]?.sentOff ||
         (distance(p.position, p.target) <= 2 && Math.hypot(p.velocity.x, p.velocity.y) <= 0.8),
     );
-  const tacticalReady = receiverReady && keepersReady && teamReady;
+  const taker = next.players.find((p) => p.id === next.restart!.takerId);
+  const groundFootRestart =
+    next.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
+    next.restart!.origin === 'live_event' &&
+    next.scenario !== 'throw_in' &&
+    next.restart!.retrieval?.stage === 'placed';
+  const clearFeet =
+    !groundFootRestart ||
+    next.players.every((p) => {
+      const geometry = deriveLowerBodyGeometry(p);
+      return [geometry.left.foot, geometry.right.foot].every(
+        (f) =>
+          Math.hypot(
+            f.x - next.ball.x,
+            f.y - next.ball.y,
+            f.z - Math.max(0.11, next.ball.height ?? 0.11),
+          ) >=
+          0.11 + TEMPORAL_STRIKE.footRadius - TEMPORAL_STRIKE.distanceTolerance,
+      );
+    });
+  const releaseReach =
+    !groundFootRestart ||
+    Boolean(
+      taker &&
+        Math.min(
+          distance(playerContactGeometry(taker).leftFoot, next.ball),
+          distance(playerContactGeometry(taker).rightFoot, next.ball),
+        ) <= playerContactGeometry(taker).footReach,
+    );
+  const tacticalReady = receiverReady && keepersReady && teamReady && clearFeet && releaseReach;
   const blockers = [
     ...legal.blockers,
     ...(!receiverReady ? ['delivery_receiver_developing'] : []),
     ...(!keepersReady ? ['kickoff_goalkeeper_developing'] : []),
     ...(!teamReady ? ['teammates_moving_to_positions'] : []),
+    ...(!clearFeet ? ['restart_foot_overlap'] : []),
+    ...(!releaseReach ? ['taker_outside_release_reach'] : []),
   ];
   let phase = next.restart!.phase;
   if (

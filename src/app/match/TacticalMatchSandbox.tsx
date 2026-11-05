@@ -1213,6 +1213,7 @@ export const RunningLab = ({
                   onObserveRef.current?.(next);
                   executedTicks += 1;
                   if (
+                    next.safetyHalt ||
                     (next.executionWitnesses?.unresolved?.invoked ?? 0) >
                     (previousState.executionWitnesses?.unresolved?.invoked ?? 0)
                   ) {
@@ -1869,10 +1870,16 @@ export const RunningLab = ({
               <pre>{JSON.stringify(state.executionWitnesses, null, 2)}</pre>
             </details>
           )}
-          {!careerMode && state.executionWitnesses?.unresolved && (
+          {!careerMode && state.safetyHalt && (
             <p role="alert">
-              Nierozstrzygnięty kontakt: <code>{state.executionWitnesses.unresolved.source}</code>.
-              Automatycznie wstrzymano mecz przy wykryciu. Zapisz benchmark sesji w panelu DEV.
+              Zatrzymanie bezpieczeństwa: <code>{state.safetyHalt.reason}</code>.
+              Zachowano stan meczu. Dalsza gra wymaga naprawy przyczyny.{' '}
+              <button onClick={() => {
+                setDiagnosticsExpanded(true);
+                const panel = document.getElementById('match-lab-export');
+                panel?.setAttribute('open', '');
+                panel?.scrollIntoView({ block: 'start' });
+              }}>Diagnostyka i eksport</button>
             </p>
           )}
           <h1>
@@ -2011,14 +2018,14 @@ export const RunningLab = ({
           </select>
         </label>
         <button
-          disabled={replaying || state.status === 'abandoned' || state.status === 'full_time'}
+          disabled={replaying || Boolean(state.safetyHalt) || state.status === 'abandoned' || state.status === 'full_time'}
           onClick={() => {
             publishState(stateRef.current);
             uiEvent(playing ? 'paused' : 'playing');
             setPlaying(!playing);
           }}
         >
-          {playing ? 'Pauza' : 'Odtwórz'}
+          {state.safetyHalt ? 'Zatrzymanie bezpieczeństwa' : playing ? 'Pauza' : 'Odtwórz'}
         </button>
         {[1, 2, 4, 8, 16].map((v) => (
           <button
@@ -2395,6 +2402,7 @@ export const RunningLab = ({
       {!careerMode && (
         <details
           className="lab-diagnostics"
+          id="match-lab-export"
           onToggle={(event) => {
             if (event.target === event.currentTarget)
               setDiagnosticsExpanded(event.currentTarget.open);

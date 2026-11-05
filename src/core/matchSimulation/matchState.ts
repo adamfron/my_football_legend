@@ -5,6 +5,7 @@ import {
 } from './sharedContactTimeline';
 import { z } from 'zod';
 import { executionWitnessesSchema } from './executionWitness';
+import { matchSafetyHaltSchema, type MatchSafetyHalt } from './matchSafety';
 import { multiBodyResolutionsSchema } from './multiBodyContact';
 import {
   playerBodyImpulseSelectionSchema,
@@ -861,6 +862,7 @@ export interface TacticalMatchState {
   playerBodyContacts?: z.infer<typeof playerBodyContactsSchema>;
   multiBodyResolutions?: z.infer<typeof multiBodyResolutionsSchema>;
   executionWitnesses?: z.infer<typeof executionWitnessesSchema>;
+  safetyHalt?: MatchSafetyHalt;
   continuousFootContacts?: z.infer<typeof continuousFootContactsSchema>;
   recoveringFeet?: z.infer<typeof recoveringFeetSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
@@ -1113,6 +1115,7 @@ export const tacticalMatchStateSchema = z
     playerBodyContacts: playerBodyContactsSchema.optional(),
     multiBodyResolutions: multiBodyResolutionsSchema.optional(),
     executionWitnesses: executionWitnessesSchema.optional(),
+    safetyHalt: matchSafetyHaltSchema.optional(),
     continuousFootContacts: continuousFootContactsSchema.optional(),
     recoveringFeet: recoveringFeetSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
