@@ -6,6 +6,12 @@ Najpierw domknąć niezawodność przekazań fizyki i wznowień, zachować negat
 replaye i jawnie rozliczyć pełne mecze. [PR217](PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md)
 nie promuje eksperymentalnej receptury ani formalnego realizmu.
 
+Follow-up PR217 domyka znane blokery solvera i trzy pełne trajektorie rozwojowe:
+świeży start 3–2, odzyskany incydent 3–0, rzeczywisty zapis autu 3–1, bez nowych
+unresolved. Te źródłowe wyniki stanowią punkt wejścia do badań PR218; kolejne
+zmiany nadal wymagają własnych regresji, pełnych meczów oraz bramek verify/CI.
+Nie zastępują niezależnego confirmation.
+
 1. **PR218 candidate — canonical articulated body / stance foot.** Skalowane
    proporcje szkieletu i jeden kontrakt transformacji stawów/ciała; rzeczywista
    stopa podporowa w świecie, skończona trakcja but–murawa, ograniczone fizycznie

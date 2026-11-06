@@ -57,6 +57,45 @@ Pierwsza długa kontynuacja zapisanego autu kończy mecz 2–2 w 7137,35 s
 (`full-checkpoint-solver-v2`); stare 12 unresolved pozostaje, nowych nie ma.
 Nie przedstawiamy tego jako świeżego meczu od 0 s ani dowodu wszystkich seedów.
 
+Świeży pełny mecz z dokładnego wejścia fixture przechodzi na źródle
+`d662c94c3158b6d22110ce55ba889120584689ee1509969bc5a06b48805367bc`:
+`full-input-solver-final-v7.json.gz`, **3–2, full_time w 5719,399999987 s**.
+Przerwa następuje w 2898,725000006 s; 228776 ticków, 77 jawnych wyborów,
+98 natywnych kontroli zapisu/odczytu, zero nowych unresolved i brak safety halt.
+Koszt rzeczywistego przebiegu: 1342,62 s wall, max RSS 805924 KiB, podczas
+równoległej pracy drugiej trajektorii. To rozwojowy Node/Windows, nie bitowy
+replay Edge ani niezależne confirmation.
+
+Odzyskany rzeczywisty stan sprzed incydentu również kończy mecz na tym samym
+źródle: `full-incident-solver-final-v7.json.gz`, **3–0, full_time w 5669,275 s**,
+przerwa w 2820 s, 214945 ticków, 94 jawne wybory i 93 kontrole zapisu/odczytu.
+Zero nowych unresolved; koszt 1241,25 s wall, max RSS 810572 KiB.
+
+Rzeczywisty zapis autu kończy się **3–1, full_time w 7137,175 s**
+(`full-checkpoint-solver-final-v7.json.gz`), po przerwie w 4256,300000008 s:
+140387 ticków, 14 jawnych wyborów, 61 kontroli zapisu/odczytu. Historyczny świadek
+12 unresolved jest identyczny na wejściu i wyjściu; nowych nie ma, safety halt
+nie występuje. Koszt: 300,28 s wall, max RSS 798672 KiB. Wcześniejszy postój
+w oryginalnym zapisie pozostaje częścią jego zegara.
+
+Wszystkie trzy pomiary mają tę samą wykonywaną aplikację. `input` startuje od 0 s;
+`incident` od 295,675 s, a `checkpoint` od 3627,5 s. Są to osobne trajektorie
+rozwojowe ze stałą polityką jawnych wyborów pass-first. Ich sukces zamyka te
+konkretne blokery niezawodności; nie certyfikuje wszystkich seedów, mechanizmów
+ani pełnego modelu kondycji.
+
+CI wykazał dwie asercje starego zachowania: brak obwiedni przyspieszenia przy
+przejściu przez onset oraz wymagane wyczerpanie wyszukiwania w konkretnej scenie
+PR212. Aktualne testy sprawdzają rzeczywistą zmianę prędkości stopy pod obwiednią
+oraz kontakt obrońcy przed zamierzonym kopnięciem, jego geometrię i impuls.
+Nadal przechodzą niezmienione negatywne przypadki budżetu, styczności,
+penetracji i dwóch nierozstrzygniętych prymitywów PR209 (64 testy kontaktów).
+Po pomiarach zmieniono wyłącznie dwa pliki `.test.ts`; wszystkie 1093 pozostałe
+pozycje manifestu, w tym kod aplikacji, skrypty, zależności i konfiguracja CI,
+są identyczne. [Dowód tożsamości wykonywanych źródeł](performance/pr217/test-only-edition-solver-v2.json)
+wiąże zmierzone wydanie z końcowym źródłem testów
+`2dd760e6b7d0d26c744f8e51cf529c9621fd9874be6155291d3387a895245471`.
+
 **CI:** historyczne replaye PR193, PR196, laboratoria PR200 i probe platformy
 uruchamiamy z niezmienionymi asercjami w ich własnych merged źródłach. Przed
 izolacją sprawdzamy, czy historyczne wejścia nie zostały zmienione w gałęzi PR217.
@@ -64,8 +103,8 @@ Przypadki pełnych meczów PR200 zachowują dotychczasową obsługę własnych a
 Nie zmieniono 124 komend, 144 przypadków, 28 jobów ani limitów czasu. Probe Windows
 odzyskuje dokładny zapisany hash, PR193 i PR196 także przechodzą lokalnie.
 
-Końcowe pełne mecze, verify i zdalny CI zostaną rozliczone osobno; do tego czasu
-PR pozostaje draftem. RETAIN_EXPERIMENTAL nie oznacza formalnego COMPLETE.
+Pełne mecze przechodzą. Końcowe verify i zdalny CI są rozliczane osobno; do ich
+zakończenia PR pozostaje draftem. RETAIN_EXPERIMENTAL nie oznacza formalnego COMPLETE.
 
 ## Etapy pracy i decyzja integracyjna
 
@@ -267,7 +306,10 @@ i reprezentatywne przykłady różnych prędkości. Nie zmniejszono błędu dla 
 ładniejszej skuteczności. Przygotowanie stopy, błąd czasu, obserwacja i przyjęcie
 stanowią zależności PR218/219; protokoły obciążeń i regeneracji należą do PR220.
 
-## Zapis, przeglądarka, pełne mecze i koszt
+## Zapis, przeglądarka, pełne mecze i koszt — wydanie początkowe
+
+Ta sekcja zachowuje wyniki pierwszego draftu, przed dalszymi naprawami solvera. Aktualne naprawy
+i nowe pomiary opisuje część „Follow-up solvera” na początku raportu.
 
 **Bramka kolejnej integracji ciała: NOT_READY / RETAIN_EXPERIMENTAL.**
 Nie ma jeszcze dowodu, że poprawiona oryginalna trajektoria kończy pełny mecz.
@@ -328,7 +370,10 @@ z jawnymi decyzjami testowego człowieka (pass-first, następnie pierwsza dostę
 opcja); nie są replayem niezapisanego ciągu decyzji właściciela po naprawie ani
 niezależnym confirmation. Każda porażka zostaje zapisana przed asercją full_time.
 
-## Odpowiedzi na completion questions
+## Odpowiedzi na completion questions — wydanie początkowe
+
+Poniższe odpowiedzi dokumentują pierwszy draft. Nowe rozliczenie pełnych meczów
+i weryfikacji należy czytać w części „Follow-up solvera”.
 
 Końcowa weryfikacja techniczna: **`npm run verify` PASS**, exit 0, 2734 testy
 (2669 unit + 56 integration + 4 career-match contract + 5 full-career), końcowy

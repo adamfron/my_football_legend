@@ -62,14 +62,32 @@ describe('PR212 canonical standing contact chronology', () => {
     const alone = createPr212Scene({ name: 'alone', pass: false }).initial;
     expect(stepTacticalMatch(alone, 0.1)).toEqual(tracePr212(alone, 4).state);
   });
-  it('retains bounded search uncertainty instead of awarding either intended action', () => {
+  it('resolves the formerly exhausted near-onset path only at the actual defender contact', () => {
     const s = tracePr212(
       createPr212Scene({ name: 'uncertain', ballSpeed: 1, timing: -0.01 }).initial,
       5,
     ).state;
-    expect(s.lastChallenge?.physical?.kind).toBe('unresolved');
-    expect(s.lastStrikeResolution?.outcome).toBe('unresolved');
-    expect(s.lastChallenge?.physical?.contact).toBeUndefined();
+    expect(s.lastChallenge?.physical?.kind).toBe('ball');
+    expect(s.lastStrikeResolution?.outcome).toBe('interrupted');
+    expect(s.lastStrikeResolution?.reason).toBe('active_challenge');
+    const contact = s.lastChallenge!.physical!.contact!;
+    expect(contact.available).toBe(true);
+    expect(contact.at).toBeCloseTo(10.0638923422389, 7);
+    expect(
+      Math.hypot(
+        contact.surfacePoint.x - contact.point.x,
+        contact.surfacePoint.y - contact.point.y,
+        contact.surfacePoint.z - contact.point.z,
+      ),
+    ).toBeCloseTo(0.11, 7);
+    expect(contact.at).toBeLessThan(s.lastStrikeResolution!.intendedContactAt);
+    expect(s.ball.ownerId).toBeUndefined();
+    expect(s.executionWitnesses?.unresolved).toBeUndefined();
+    for (const axis of ['x', 'y', 'z'] as const)
+      expect(contact.outgoingVelocity[axis] - contact.incomingVelocity[axis]).toBeCloseTo(
+        contact.impulse[axis] / FOOT_CONTACT_PHYSICS.mass,
+        10,
+      );
   });
   it('lets an earlier body witness end the pass without inventing a ball contact or downed body', () => {
     const s = tracePr212(

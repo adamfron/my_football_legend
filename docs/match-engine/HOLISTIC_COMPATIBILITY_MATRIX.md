@@ -11,6 +11,12 @@
 | Ordinary profile | Historical telemetry shape retained; full baseline terminal identity checked separately |
 | Human carry + contact readiness | Ready autonomous carry is interruptible; unreachable PR210 actions remain unavailable |
 | Loft/cross/restart release | Historical execution remains historical; vertical continuity is not a new physical strike certification |
+| Shared stroke/flight near contact | Derived acceleration envelope and certified search prefixes; existing event/evaluation bounds and unresolved halt retained |
+| Passive separating foot | Zero-impulse continuous support; no fabricated strike, pass credit or control |
+| Connected upright component | Up to the 22-player roster / 231 pairs, with unchanged sweeps, correction and residual requirements |
+| Pending human reception + another player's contact | Shared contact authority remains active; real contact precedes intention consumption |
+| Two pending substitutes | Shared entry is physically queued using both ends of the movement interval |
+| Restart reception + perimeter return | Saved staging provenance allows finite inward return; ordinary unmarked out-of-bounds inputs still halt |
 | Future skeleton, traction and renderer | Not implemented; PR218 candidate dependency |
 
 RETAIN_EXPERIMENTAL. Full-match and promotion decisions are governed by the

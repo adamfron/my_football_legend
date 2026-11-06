@@ -8,8 +8,12 @@ halt ownership, control labels and ready human carry interruption. Policy rankin
 fitness calibration and the formal realism registry are not promoted. Local
 incident repair, lifecycle progression and complete-match success remain distinct
 claims. See [PR217](../PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md).
-The preserved bounded-search and body-count failures keep the next-body
-reliability gate **NOT_READY**.
+The initial draft's bounded-search and body-count failures remain preserved.
+The solver follow-up repairs them and the subsequently observed receiving,
+substitution-entry and restart-return transitions. One fresh full match and both
+real saved continuations complete on the same executable source with no new
+unresolved intervals. This closes those development reliability blockers;
+technical verify/CI and independent confirmation remain separate gates.
 
 Next candidates are dependency-ordered: PR218 authoritative articulated transforms,
 stance foot and finite traction consumed by the renderer; PR219 observation,

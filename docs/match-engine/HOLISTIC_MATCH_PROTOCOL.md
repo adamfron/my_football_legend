@@ -8,6 +8,16 @@ an exact owner replay. The real 295.700s foot–ball incident and saved 3627.5s
 throw-in have separate source-bound regressions. A new unresolved physical step
 retains its input world and exports `safetyHalt`; resuming cannot bypass it.
 Old cumulative witnesses do not invalidate a newly resolved substitution interval.
+Simultaneous entrants must have actual clearance throughout admission. Completing
+a restart's law context must retain finite return from its legal staging area;
+save that provenance and expire it after return, without teleporting a body or
+accepting an arbitrary out-of-bounds live checkpoint.
+
+A search prefix is usable only when conservatively certified contact-free.
+Passive separating support earns no touch; selected active-foot uncertainty still
+halts. Roster-sized components keep finite work/correction bounds and must satisfy
+the original momentum, energy and residual constraints. Local success at these
+boundaries must be followed by a separately recorded complete-match attempt.
 
 Log explicit human choices in long continuations, native checkpoint/reload parity,
 restart stages and football progress. A clock advancing without actions/ball progress

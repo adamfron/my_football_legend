@@ -10,6 +10,11 @@
   przepycha geometrii. Nierozwiązany restart/loose-ball lifecycle jest jawny.
 - P1: przed deklaracją gotowości PR218 rozliczyć pełne źródłowe kontynuacje,
   wznowienia i żywotność; sukces jednostkowy nie jest certyfikacją meczu.
+  Follow-up PR217: świeży pełny holistic 3–2 i obie rzeczywiste kontynuacje
+  (3–0 oraz 3–1) ukończone na identycznym kodzie, zero nowych unresolved.
+  Znane blokery wyszukiwania, grup, odbioru, wejścia zmienników i powrotu
+  po aucie mają regresje. Zakres rozwojowy domknięty; verify/CI oraz następne
+  rozszerzenie ciała pozostają osobnymi warunkami, bez promocji confirmation.
 - P2: dopasować szanse odbioru, fizyczne zamachy i zaliczanie podań przez passId;
   35 wykluczeń starego ledgeru pozostaje bez per-attempt dowodu.
 - P2: środkowy pomocnik otrzymał 7 podań; zbadać wybór, kanał, przygotowanie
