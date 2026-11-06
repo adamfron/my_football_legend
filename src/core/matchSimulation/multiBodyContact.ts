@@ -28,6 +28,55 @@ export const MULTI_BODY = {
   maximum: { x: 104.6, y: 67.6 },
 } as const;
 const vector = z.object({ x: z.number().finite(), y: z.number().finite() });
+export const restartReentrySchema = z.object({
+  awardId: z.string(),
+  playerIds: z.array(z.string()).max(22),
+});
+const ordinaryBounds = (
+  player?: MatchPlayerState,
+): { minimum: { x: number; y: number }; maximum: { x: number; y: number } } => ({
+  minimum: {
+    ...MULTI_BODY.minimum,
+    x: player && isMatchGoalkeeper(player) ? 0 : MULTI_BODY.minimum.x,
+  },
+  maximum: {
+    ...MULTI_BODY.maximum,
+    x: player && isMatchGoalkeeper(player) ? 105 : MULTI_BODY.maximum.x,
+  },
+});
+const outsideOrdinaryBounds = (player: MatchPlayerState) => {
+  const bounds = ordinaryBounds(player);
+  return (['x', 'y'] as const).some(
+    (axis) =>
+      player.position[axis] < bounds.minimum[axis] || player.position[axis] > bounds.maximum[axis],
+  );
+};
+/** A first touch completes the law context, not the finite return from staging. */
+export const markRestartReentry = (state: TacticalMatchState): TacticalMatchState => {
+  if (state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1' || !state.restart)
+    return state;
+  const playerIds = state.players.filter(outsideOrdinaryBounds).map((p) => p.id);
+  return playerIds.length
+    ? {
+        ...state,
+        restartReentry: {
+          awardId: state.restart.awardId ?? `${state.seed}:restart:${state.restart.startedAt}`,
+          playerIds,
+        },
+      }
+    : state;
+};
+export const pruneRestartReentry = (state: TacticalMatchState): TacticalMatchState => {
+  if (!state.restartReentry) return state;
+  const playerIds = state.players
+    .filter((p) => state.restartReentry!.playerIds.includes(p.id) && outsideOrdinaryBounds(p))
+    .map((p) => p.id);
+  if (playerIds.length === state.restartReentry.playerIds.length) return state;
+  if (playerIds.length) return { ...state, restartReentry: { ...state.restartReentry, playerIds } };
+  const { restartReentry: _completed, ...next } = state;
+  void _completed;
+  return next;
+};
 export const multiBodyResolutionSchema = z.object({
   at: z.number().nonnegative(),
   participants: z.string().array().max(22),
@@ -72,16 +121,25 @@ export const ownsMultiBodyInterval = (s: TacticalMatchState, dt = 0.025) =>
 export const multiBodyMovementBounds = (s: TacticalMatchState, player?: MatchPlayerState) =>
   s.restart || s.postGoal
     ? { minimum: { x: -8, y: -8 }, maximum: { x: 113, y: 76 } }
-    : {
-        minimum: {
-          ...MULTI_BODY.minimum,
-          x: player && isMatchGoalkeeper(player) ? 0 : MULTI_BODY.minimum.x,
-        },
-        maximum: {
-          ...MULTI_BODY.maximum,
-          x: player && isMatchGoalkeeper(player) ? 105 : MULTI_BODY.maximum.x,
-        },
-      };
+    : (() => {
+        const bounds = ordinaryBounds(player);
+        if (
+          player &&
+          s.restartReentry?.playerIds.includes(player.id) &&
+          player.position.x >= -8 &&
+          player.position.x <= 113 &&
+          player.position.y >= -8 &&
+          player.position.y <= 76
+        ) {
+          // Shrink the authorized corridor with actual inward movement. Neither
+          // coordinates nor the ordinary bounds of unmarked players are changed.
+          for (const axis of ['x', 'y'] as const) {
+            bounds.minimum[axis] = Math.min(bounds.minimum[axis], player.position[axis]);
+            bounds.maximum[axis] = Math.max(bounds.maximum[axis], player.position[axis]);
+          }
+        }
+        return bounds;
+      })();
 
 /** Conservative connected broad phase for this existing interval, not a second
  * movement authority. At 12m/s/body no reachable torso can enter from outside it. */

@@ -6,7 +6,12 @@ import { advancePendingStrikeInterval } from './pendingStrikeInterval';
 import { withHolisticDevelopment } from './holisticDevelopment';
 import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
 import { recordExecution, noteExecution, withExecutionObservation } from './executionWitness';
-import { multiBodyParticipants, ownsMultiBodyInterval } from './multiBodyContact';
+import {
+  multiBodyParticipants,
+  ownsMultiBodyInterval,
+  markRestartReentry,
+  pruneRestartReentry,
+} from './multiBodyContact';
 import { retainPlayerBodyContacts, supportedUprightPair } from './playerBodyContact';
 import { retainContinuousFootContacts } from './footContact';
 import { attacksRight } from './matchSpace';
@@ -489,7 +494,7 @@ const applyIncomingContact = (state: TacticalMatchState, actorId: string): Tacti
       restartTouchRestriction: { ...state.restartTouchRestriction, touchedByOther: true },
     };
   if (state.restart?.phase !== 'release' || state.restart.takerId === actorId) return state;
-  const { restart: _completed, ...openPlay } = state;
+  const { restart: _completed, ...openPlay } = markRestartReentry(state);
   void _completed;
   return { ...openPlay, scenario: 'open_play', players: clearWallResponses(openPlay.players) };
 };
@@ -1967,7 +1972,7 @@ const stepTacticalMatchCore = (
     state.restart?.phase === 'release' &&
     state.time - (state.restart.executedAt ?? state.time) >= 4
   ) {
-    const { restart: _restart, ...openPlay } = state;
+    const { restart: _restart, ...openPlay } = markRestartReentry(state);
     void _restart;
     state = { ...openPlay, scenario: 'open_play', players: clearWallResponses(openPlay.players) };
   }
@@ -2760,11 +2765,19 @@ const stepTacticalMatchCore = (
       // A ball at physical rest is recoverable ground play, not an eternal
       // incoming throw/pass aimed at its obsolete receiving point.
       if (
-        ordinaryContactInterval && !state.safetyHalt &&
-        state.ball.travelKind && !state.ball.ownerId && !state.ball.airborne &&
+        ordinaryContactInterval &&
+        !state.safetyHalt &&
+        state.ball.travelKind &&
+        !state.ball.ownerId &&
+        !state.ball.airborne &&
         (state.ball.height ?? BALL_RADIUS) <= BALL_RADIUS + 1e-8 &&
-        Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0, state.ball.velocity?.z ?? 0) === 0
-      ) state = finishUnclaimedDelivery(state);
+        Math.hypot(
+          state.ball.velocity?.x ?? 0,
+          state.ball.velocity?.y ?? 0,
+          state.ball.velocity?.z ?? 0,
+        ) === 0
+      )
+        state = finishUnclaimedDelivery(state);
     } else if (
       state.ball.travelKind &&
       state.ball.from &&
@@ -3808,6 +3821,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
   ];
   const next = endStoppage(stable, state.status === 'abandoned' ? 'abandoned' : 'period_end');
   delete next.postGoal;
+  delete next.restartReentry;
   delete next.restartTouchRestriction;
   delete next.droppedBallTouchRestriction;
   next.players = clearWallResponses(next.players);
@@ -3912,11 +3926,24 @@ const stepCanonicalMatch = (
     return {
       ...original,
       ...(next.executionWitnesses?.unresolved
-        ? { executionWitnesses: { ...original.executionWitnesses, unresolved: next.executionWitnesses.unresolved } }
+        ? {
+            executionWitnesses: {
+              ...original.executionWitnesses,
+              unresolved: next.executionWitnesses.unresolved,
+            },
+          }
         : {}),
-      safetyHalt: next.safetyHalt ?? haltEvidence(next, 'physical_contact', next.executionWitnesses!.unresolved!.source, original.time),
+      safetyHalt:
+        next.safetyHalt ??
+        haltEvidence(
+          next,
+          'physical_contact',
+          next.executionWitnesses!.unresolved!.source,
+          original.time,
+        ),
     };
   if (next === prepared) return original;
+  next = pruneRestartReentry(next);
   next = advanceHumanIntentProgress(next);
   if (!next.status) next = { ...next, status };
   // Blocking intervals already advance their own pending bodies; ordinary football ticks

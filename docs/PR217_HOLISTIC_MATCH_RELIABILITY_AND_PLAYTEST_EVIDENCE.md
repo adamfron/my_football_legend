@@ -4,6 +4,69 @@ PR217 naprawia konkretne przejścia stanu z sesji właściciela. Nie wprowadza n
 szkieletu, parametrów kondycji ani korekty skuteczności podań. Receptura pozostaje
 eksperymentalna; kandydat PR201/B, 40 Hz, 28 atrybutów i zamknięte confirmation są zachowane.
 
+## Follow-up solvera — 6 listopada 2026
+
+Ta część opisuje dalszą walidację po początkowym drafcie. Negatywne wyniki
+poprzedniego wydania pozostają poniżej i zachowują własne źródła.
+
+- **Bliskie trajektorie stopy i piłki.** Skończony zamach ma teraz obwiednię
+  przyspieszenia wyprowadzoną z drugiej pochodnej krzywej Béziera, rotacji i
+  hamowania follow-through. Dla lotu stosujemy ją tylko wtedy, gdy dolna
+  obwiednia wysokości wyklucza impuls murawy. Stabilna postać pierwiastka
+  kwadratowego zapobiega utracie precyzji. To dokładniejsze ograniczenie
+  wyszukiwania, bez zmiany trajektorii buta, promieni ani błędów wykonania.
+- **Podparcie i granica wyszukiwania.** Zamiast uznawać wyczerpanie pojedynczego
+  wyszukiwania za zdarzenie piłkarskie, executor zużywa wyłącznie jego
+  konserwatywnie sprawdzony, wolny od kontaktu prefiks (`search_frontier`) i
+  rozpatruje resztę w tej samej chronologii. Pozostają limity 2560 ocen na
+  wyszukiwanie i 16 zdarzeń w kroku; wyczerpanie całego kroku nadal zatrzymuje świat.
+- **Rozchodzący się kontakt pasywny.** Powierzchnia w istniejącej tolerancji,
+  której prędkość normalna już oddala ją od piłki, zachowuje podparcie z zerowym
+  impulsem. Nie zaliczamy kopnięcia, kontaktu statystycznego, podania ani kontroli.
+  Wyjątek nie dotyczy aktywnej wybranej stopy i nie akceptuje głębokiej penetracji.
+- **Połączone grupy.** Pojemność jest ograniczona rzeczywistą kadrą: 22 ciała,
+  najwyżej 231 par. Ten sam solver ma nadal 64 przebiegi, 2 mm maksymalnej korekty,
+  tolerancję kontaktu 1e-7 m i dopuszczalną prędkość domykania 1e-4 m/s. Każdy
+  wynik musi spełnić reszty więzów; większy roster nie przyznaje automatycznego
+  sukcesu. Rzeczywista grupa sześciu ciał ze starego zatrzymania przechodzi test
+  pędu, energii i reszt oraz zapis/odczyt.
+- **Zamiar odbiorcy nie wybiera wykonawcy fizyki.** Oczekujący ludzki `hold`
+  dla `9_12` wyłączał wspólną oś wszystkim innym zawodnikom. Legacy first-time
+  gracza `9_7` położył wtedy piłkę 31,45 mm wewnątrz buta w 4267,525 s.
+  Teraz intencja czeka na rzeczywisty kontakt. Ten sam zapis daje skończoną
+  kontrolę prawej stopy `9_7` w 4267,516674426 s, bez nominalnego wypuszczenia.
+  Istniejąca tożsamość wykonania nadal uczciwie rozróżnia kontrolę + podanie
+  od żądania zagrania z pierwszej piłki.
+- **Zmiennicy są kolejką przed dołączeniem ciała.** Dwa równoczesne zezwolenia
+  tworzyły dwa ciała w (52,5; −0,35), powodując `initial_body_overlap`.
+  Referee clearance czeka teraz na rzeczywistą wolną przestrzeń zarówno na
+  początku, jak i końcu przedziału ruchu. Zmiennicy przechodzą ten sam skończony
+  motor i CCD; żaden nie jest przesuwany do gotowej pozycji ani automatycznie
+  dopuszczany po czasie.
+- **Powrót z legalnego ustawienia do autu.** Przyjęcie kończyło kontekst prawny
+  autu, choć ustawiony przy linii zawodnik miał jeszcze x = 0,261 m. Zmiana
+  zwykłego marginesu ruchu na 0,4 m natychmiast odrzucała następny krok. Zapisujemy
+  pochodzenie ustawienia i pozwalamy tylko tym ciałom wrócić skończonym ruchem.
+  Korytarz kurczy się z faktycznym powrotem i znika po wejściu w zwykły obszar;
+  nie przesuwa współrzędnych. Ten sam stan bez pochodzenia nadal jest odrzucany.
+
+`solver-blockers-v1`, `solver-separating-v1`, `solver-authority-and-entry-v1`
+i `solver-restart-return-v1` zawierają rzeczywiste wejścia tych usterek.
+Dziewiętnaście regresji PR217 przechodzi.
+Pierwsza długa kontynuacja zapisanego autu kończy mecz 2–2 w 7137,35 s
+(`full-checkpoint-solver-v2`); stare 12 unresolved pozostaje, nowych nie ma.
+Nie przedstawiamy tego jako świeżego meczu od 0 s ani dowodu wszystkich seedów.
+
+**CI:** historyczne replaye PR193, PR196, laboratoria PR200 i probe platformy
+uruchamiamy z niezmienionymi asercjami w ich własnych merged źródłach. Przed
+izolacją sprawdzamy, czy historyczne wejścia nie zostały zmienione w gałęzi PR217.
+Przypadki pełnych meczów PR200 zachowują dotychczasową obsługę własnych archiwów.
+Nie zmieniono 124 komend, 144 przypadków, 28 jobów ani limitów czasu. Probe Windows
+odzyskuje dokładny zapisany hash, PR193 i PR196 także przechodzą lokalnie.
+
+Końcowe pełne mecze, verify i zdalny CI zostaną rozliczone osobno; do tego czasu
+PR pozostaje draftem. RETAIN_EXPERIMENTAL nie oznacza formalnego COMPLETE.
+
 ## Etapy pracy i decyzja integracyjna
 
 1. Zamrozić wejście i odtworzyć rzeczywistą ścieżkę człowieka, oddzielając runtime'y.

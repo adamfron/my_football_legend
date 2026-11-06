@@ -338,3 +338,54 @@ it('queues simultaneous substitution entrants until the same physical entry lane
   expect(state.players.some((p) => p.id === 'footballer_pro_1_8')).toBe(true);
   expect(admitted[0]!.enteredAt).not.toBe(admitted[1]!.enteredAt);
 });
+
+it('preserves a finite return from lawful throw-in staging after the physical receiving touch', () => {
+  let state = JSON.parse(
+    gunzipSync(
+      readFileSync(
+        new URL(
+          '../../../docs/performance/pr217/solver-restart-return-v1.json.gz',
+          import.meta.url,
+        ),
+      ),
+    ).toString(),
+  ).initial as TacticalMatchState;
+  const initial = state;
+  let marked = false;
+  let previousX = state.players.find((p) => p.id === 'footballer_pro_9_17')!.position.x;
+  for (let tick = 0; tick < 80; tick++) {
+    const next = stepTacticalMatch(state, 0.025);
+    expect(next.safetyHalt).toBeUndefined();
+    expect(next.executionWitnesses?.unresolved).toEqual(initial.executionWitnesses?.unresolved);
+    const player = next.players.find((p) => p.id === 'footballer_pro_9_17')!;
+    if (next.restartReentry) {
+      marked = true;
+      expect(next.restart).toBeUndefined();
+      expect(next.restartReentry.playerIds).toContain(player.id);
+      expect(player.position.x).toBeGreaterThanOrEqual(previousX);
+      expect(player.position.x - previousX).toBeLessThan(0.3);
+      const reloaded = tacticalMatchStateSchema.parse(
+        JSON.parse(JSON.stringify(next)),
+      ) as unknown as TacticalMatchState;
+      expect(
+        JSON.parse(
+          JSON.stringify(tacticalMatchStateSchema.parse(stepTacticalMatch(reloaded, 0.025))),
+        ),
+      ).toEqual(
+        JSON.parse(JSON.stringify(tacticalMatchStateSchema.parse(stepTacticalMatch(next, 0.025)))),
+      );
+      const { restartReentry: _provenance, ...unmarked } = next;
+      void _provenance;
+      expect(stepTacticalMatch(unmarked, 0.025).safetyHalt?.reason).toBe(
+        'initial_player_outside_movement_area',
+      );
+    }
+    previousX = player.position.x;
+    state = next;
+  }
+  expect(marked).toBe(true);
+  expect(state.players.find((p) => p.id === 'footballer_pro_9_17')!.position.x).toBeGreaterThan(
+    0.4,
+  );
+  expect(state.restartReentry).toBeUndefined();
+});

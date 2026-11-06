@@ -6,7 +6,7 @@ import {
 import { z } from 'zod';
 import { executionWitnessesSchema } from './executionWitness';
 import { matchSafetyHaltSchema, type MatchSafetyHalt } from './matchSafety';
-import { multiBodyResolutionsSchema } from './multiBodyContact';
+import { multiBodyResolutionsSchema, restartReentrySchema } from './multiBodyContact';
 import {
   playerBodyImpulseSelectionSchema,
   continuousPlayerContactsSchema,
@@ -991,6 +991,7 @@ export interface TacticalMatchState {
   ballOwnershipStartedAt?: number;
   scenario: RestartScenario;
   restart?: RestartLifecycle;
+  restartReentry?: z.infer<typeof restartReentrySchema>;
   stoppageLedger?: StoppageLedger;
   restartTouchRestriction?: {
     awardId: string;
@@ -1364,6 +1365,7 @@ export const tacticalMatchStateSchema = z
     ballOwnershipStartedAt: z.number().nonnegative().optional(),
     scenario: restartScenarioSchema,
     restart: restartLifecycleSchema.optional(),
+    restartReentry: restartReentrySchema.optional(),
     throwInRestriction: throwInRestrictionSchema.optional(),
     lastThrowInDiagnostic: throwInDiagnosticSchema.optional(),
     lastRestartLivenessRecovery: restartLivenessDiagnosticSchema.optional(),

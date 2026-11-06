@@ -41,6 +41,7 @@ import { resolveCanonicalShot } from './shotResolver';
 import { eligiblePhysicalPass, executePhysicalKick } from './kickExecution';
 import { recordExecution } from './executionWitness';
 import { commitPendingPass, selectsPendingPass } from './pendingStrike';
+import { markRestartReentry } from './multiBodyContact';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { evaluateRunSpace } from './reachableSpace';
 import {
@@ -1387,7 +1388,7 @@ const resolveMatchActionCanonical = (
     const shotElevation = shot.launchElevation;
     const shotVelocity = shot.launchVelocity;
     const penaltyReleased = state.scenario === 'penalty' && restart?.phase === 'release';
-    const { restart: _shotRestart, ...shotBaseState } = baseState;
+    const { restart: _shotRestart, ...shotBaseState } = markRestartReentry(baseState);
     void _shotRestart;
     return {
       ...shotBaseState,
@@ -1537,9 +1538,11 @@ const resolveMatchActionCanonical = (
         ...(headerShot
           ? { targetHeight: Math.max(0, headerShot.heightMetres), shot: headerShot }
           : {}),
-        height: action.type === 'header' || state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
-          ? (state.ball.height ?? 0)
-          : 0,
+        height:
+          action.type === 'header' ||
+          state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
+            ? (state.ball.height ?? 0)
+            : 0,
         ...(state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' && state.ball.spin
           ? { spin: state.ball.spin }
           : {}),
@@ -1759,7 +1762,9 @@ const resolveMatchActionCanonical = (
       ...(isThrowIn ? { releaseHeight: 1.9 } : {}),
       height:
         (kickExecution ||
-        (state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' && !isRestartSetup(state) && !keeperThrow)
+        (state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1' &&
+          !isRestartSetup(state) &&
+          !keeperThrow)
           ? (state.ball.height ?? 0.11)
           : undefined) ??
         keeperThrow?.release.z ??
