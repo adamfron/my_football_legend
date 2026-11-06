@@ -1,5 +1,37 @@
 # Roadmap
 
+## Zależności po playteście PR217
+
+Najpierw domknąć niezawodność przekazań fizyki i wznowień, zachować negatywne
+replaye i jawnie rozliczyć pełne mecze. [PR217](PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md)
+nie promuje eksperymentalnej receptury ani formalnego realizmu.
+
+Follow-up PR217 domyka znane blokery solvera i trzy pełne trajektorie rozwojowe:
+świeży start 3–2, odzyskany incydent 3–0, rzeczywisty zapis autu 3–1, bez nowych
+unresolved. Te źródłowe wyniki stanowią punkt wejścia do badań PR218; kolejne
+zmiany nadal wymagają własnych regresji, pełnych meczów oraz bramek verify/CI.
+Nie zastępują niezależnego confirmation.
+
+1. **PR218 candidate — canonical articulated body / stance foot.** Skalowane
+   proporcje szkieletu i jeden kontrakt transformacji stawów/ciała; rzeczywista
+   stopa podporowa w świecie, skończona trakcja but–murawa, ograniczone fizycznie
+   przygotowanie kroku i zgodna geometria stopa–piłka. Renderer odczytuje stan
+   kanoniczny; nie buduje drugiej fizycznej interpretacji animacji.
+2. **PR219 candidate — technika i percepcja.** Obserwacja lotu z niepewnością,
+   ustawienie przed odbiorem, antycypacja ruchomej piłki, przygotowanie pierwszego
+   kontaktu, fizyczne wypuszczenie i kontrolowana absorpcja. Istniejące atrybuty
+   opisują wiarygodne różnice sterowania; bez nowych stałych atrybutów i bez
+   domyślnego wymogu neuronowego kontrolera ciała.
+3. **PR220 candidate — wysiłek przerywany.** Bieganie ciągłe ze wzrostem obciążenia,
+   powtarzane sprinty, odpoczynek między wysiłkami i obciążenia według pozycji.
+   Istniejące stamina/movement, sparowane reprezentatywne mecze i protokoły;
+   bez arbitralnej kwoty utraty kondycji.
+4. **Później hybrid ragdoll.** Znaczące zaburzenie równowagi, możliwość odzyskania
+   podparcia, utrata podporu, upadek, kontakt z murawą, legalny kontakt piłki
+   z leżącym ciałem i powrót do ruchu. Bez nieskalibrowanych częstości kontuzji.
+
+Numery opisują zależności kandydatów, nie sztywne obietnice zakresu PR.
+
 PR215 dostarcza wybór eksperymentalnej fizyki, rzeczywistą inicjalizację i ograniczone
 rozszerzenie wspólnej osi na niską wolną piłkę. Następny priorytet: przenieść istniejący
 kontroler prowadzenia, długi wypuszczony kontakt i oznaczone niskie podania do tej samej

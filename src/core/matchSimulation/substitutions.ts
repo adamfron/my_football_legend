@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PLAYER_BODY_CONTACT } from './playerBodyContact';
 import {
   rolesForPlayer,
   roleSuitability,
@@ -754,6 +755,17 @@ export const advanceMatchSubstitutions = (
     if (
       request.leftAt !== undefined &&
       request.refereeEntryAt === undefined &&
+      (state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1' ||
+        [
+          ...previous.players,
+          ...state.players,
+          ...entryOrigins,
+          ...substitutionEntryBodies(state),
+        ].every(
+          (body) =>
+            body.id === request.incoming.id ||
+            distance(body.position, request.entryPosition) >= PLAYER_BODY_CONTACT.diameter,
+        )) &&
       isLegalSubstitutionStoppage(state) &&
       (state.status === 'half_time' ||
         !request.delayed ||
@@ -802,7 +814,14 @@ export const advanceMatchSubstitutions = (
       request.entryPosition = physical.position;
       request.entryVelocity = physical.velocity;
       request.entryFitness = physical.fitness;
-      if (!resolved.executionWitnesses?.unresolved && physical.position.y >= 0.2) {
+      // Witnesses are cumulative session history. A previous, already continued
+      // incident cannot withhold admission after this entrant's lawful crossing.
+      // Only a new unresolved contact in THIS physical interval blocks entry.
+      if (
+        (resolved.executionWitnesses?.unresolved?.invoked ?? 0) ===
+          (previous.executionWitnesses?.unresolved?.invoked ?? 0) &&
+        physical.position.y >= 0.2
+      ) {
         admitEntry(request, physical);
         pending.splice(i, 1);
       }

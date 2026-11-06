@@ -79,7 +79,10 @@ workflow = workflow.replace(
         run: node scripts/ci/replayPr215Check.mjs
       - name: PR216 collision continuity and gait foundations
         if: matrix.group == 'main'
-        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr216.mjs --check
+        run: node scripts/ci/replayPr216Check.mjs
+      - name: PR217 source-bound playtest regression
+        if: matrix.group == 'main'
+        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr217.mjs --check
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(

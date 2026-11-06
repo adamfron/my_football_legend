@@ -1,5 +1,28 @@
 # Holistic compatibility and selection — PR214
 
+## PR217 reliability boundary
+
+| Combination | Evidence / boundary |
+| --- | --- |
+| Owner upright/shared recipe + legacy challenge handoff | Exact recovered 295.700s boot–ball failure repaired by retaining height/vz/spin; no tolerance expansion |
+| Same recipe + saved throw-in/substitution | Historical unresolved retained; current entrant, retrieval, transport, placement and release pass |
+| Ground restart + shared return | Real-foot clearance and finite approach must satisfy existing live perimeter/release reach |
+| Genuine unresolved contact | Explicit canonical halt; UI export available, repeated Play cannot advance |
+| Ordinary profile | Historical telemetry shape retained; full baseline terminal identity checked separately |
+| Human carry + contact readiness | Ready autonomous carry is interruptible; unreachable PR210 actions remain unavailable |
+| Loft/cross/restart release | Historical execution remains historical; vertical continuity is not a new physical strike certification |
+| Shared stroke/flight near contact | Derived acceleration envelope and certified search prefixes; existing event/evaluation bounds and unresolved halt retained |
+| Passive separating foot | Zero-impulse continuous support; no fabricated strike, pass credit or control |
+| Connected upright component | Up to the 22-player roster / 231 pairs, with unchanged sweeps, correction and residual requirements |
+| Pending human reception + another player's contact | Shared contact authority remains active; real contact precedes intention consumption |
+| Two pending substitutes | Shared entry is physically queued using both ends of the movement interval |
+| Restart reception + perimeter return | Saved staging provenance allows finite inward return; ordinary unmarked out-of-bounds inputs still halt |
+| Future skeleton, traction and renderer | Not implemented; PR218 candidate dependency |
+
+RETAIN_EXPERIMENTAL. Full-match and promotion decisions are governed by the
+[PR217 report](../PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md), not by
+passing these local cases alone. PR216 receipts below preserve their original scope.
+
 ## PR216 full-match continuity follow-up — keeper-cycle-v12
 
 The 1493.925s keeper-zone starvation resumes actual foot contact and onward decisions.

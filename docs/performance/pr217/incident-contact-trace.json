@@ -1,0 +1,2815 @@
+[
+  {
+    "time": 295.3250000000053,
+    "ordinary": true,
+    "ball": {
+      "x": 58.93175719696739,
+      "y": 42.82101969838677,
+      "continuousBodyContacts": [],
+      "height": 0.11,
+      "from": {
+        "x": 52.63634626502435,
+        "y": 39.73514895228624
+      },
+      "target": {
+        "x": 38.91475476332899,
+        "y": 31.11204741545954
+      },
+      "intendedReceiverId": "footballer_pro_1_22",
+      "travelKind": "pass",
+      "sourceAction": "pass",
+      "executionType": "normal",
+      "flightTime": 1.149903967364518,
+      "distanceTravelled": 7.011154496060411,
+      "velocity": {
+        "x": 3.256853599375659,
+        "y": 1.6386871101752598,
+        "z": 0
+      },
+      "launchVelocity": {
+        "x": 6.8518075809269225,
+        "y": 3.309886841728089,
+        "z": 2.625317163450644
+      },
+      "launchSpeed": 8.049528448288193,
+      "launchElevation": 0.3322231930378608,
+      "spin": {
+        "x": -10.605905091116028,
+        "y": 20.99227177469813,
+        "z": 2.2179368636453103
+      },
+      "airborne": false,
+      "bounceCount": 23,
+      "lastTouchPlayerId": "footballer_pro_1_14"
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 59.26366788359612,
+          "y": 42.81352931213665,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.1942945767095782,
+        "body": {
+          "x": 59.43378465283155,
+          "y": 43.020547335499025
+        },
+        "pose": {
+          "stanceWidth": 0.3037499999999999,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.010984427782411644,
+            "y": 0.027916703714675615
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 59.19542030639476,
+          "y": 43.0995944984637,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.24490018531774457,
+        "body": {
+          "x": 59.43378465283155,
+          "y": 43.020547335499025
+        },
+        "pose": {
+          "stanceWidth": 0.3037499999999999,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.010984427782411644,
+            "y": 0.027916703714675615
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_14",
+      "at": 294.1750960326418,
+      "region": "left_foot",
+      "point": {
+        "x": 52.63634626502435,
+        "y": 39.73514895228624
+      },
+      "incomingVelocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": 6.8518075809269225,
+        "y": 3.309886841728089,
+        "z": 2.625317163450644
+      },
+      "quality": 0.6194710694073146,
+      "retained": false,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "inside",
+        "executed": "inside",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 294.1750960326418,
+        "point": {
+          "x": 52.63634626502435,
+          "y": 39.73514895228624,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 52.546711293225414,
+          "y": 39.68758285991834,
+          "z": 0.06753779695480139
+        },
+        "relativePoint": {
+          "x": 0.20586554456626516,
+          "y": 0.09516536794436803,
+          "z": 0.11
+        },
+        "normal": {
+          "x": 0.8148633799903412,
+          "y": 0.43241902152640227,
+          "z": 0.3860200276836238
+        },
+        "incomingVelocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": 6.8518075809269225,
+          "y": 3.309886841728089,
+          "z": 2.625317163450644
+        },
+        "incomingSpin": {
+          "x": 0.00002519281678855066,
+          "y": -0.000006483625564210052,
+          "z": 0.12359172927516744
+        },
+        "outgoingSpin": {
+          "x": 1.942464255422358,
+          "y": -6.895371957028662,
+          "z": 3.74740560103197
+        },
+        "impulse": {
+          "x": 2.9462772597985767,
+          "y": 1.4232513419430783,
+          "z": 1.128886380283777
+        },
+        "normalImpulseLimit": 10.770548072482395,
+        "tangentImpulseLimit": 2.5613889485372083,
+        "tangentSpeed": 1.5828597211742397,
+        "quality": 0.6194710694073146,
+        "balance": 1,
+        "preparationSeconds": 0.10855548913778264,
+        "contactSeconds": 0.025,
+        "retained": false,
+        "recoverySeconds": 0.2677456739189888
+      }
+    },
+    "continuous": []
+  },
+  {
+    "time": 295.35000000000525,
+    "ordinary": true,
+    "ball": {
+      "x": 59.01228523828463,
+      "y": 42.8615374125817,
+      "continuousBodyContacts": [],
+      "height": 0.11,
+      "from": {
+        "x": 52.63634626502435,
+        "y": 39.73514895228624
+      },
+      "target": {
+        "x": 38.91475476332899,
+        "y": 31.11204741545954
+      },
+      "intendedReceiverId": "footballer_pro_1_22",
+      "travelKind": "pass",
+      "sourceAction": "pass",
+      "executionType": "normal",
+      "flightTime": 1.1749039673645179,
+      "distanceTravelled": 7.1013013240798895,
+      "velocity": {
+        "x": 3.1853897060039764,
+        "y": 1.6027300254191121,
+        "z": 0
+      },
+      "launchVelocity": {
+        "x": 6.8518075809269225,
+        "y": 3.309886841728089,
+        "z": 2.625317163450644
+      },
+      "launchSpeed": 8.049528448288193,
+      "launchElevation": 0.3322231930378608,
+      "spin": {
+        "x": -9.988265261373696,
+        "y": 19.76977703677237,
+        "z": 2.0887742759102372
+      },
+      "airborne": false,
+      "bounceCount": 23,
+      "lastTouchPlayerId": "footballer_pro_1_14"
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 59.15952207543068,
+          "y": 42.785311006719404,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.03496986181984579,
+        "body": {
+          "x": 59.36247340875881,
+          "y": 42.98977189266031
+        },
+        "pose": {
+          "stanceWidth": 0.3124999999999999,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.022987666878761547,
+            "y": 0.055410743999723885
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 59.124499508255155,
+          "y": 43.077990287448905,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.10866097339420702,
+        "body": {
+          "x": 59.36247340875881,
+          "y": 42.98977189266031
+        },
+        "pose": {
+          "stanceWidth": 0.3124999999999999,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.022987666878761547,
+            "y": 0.055410743999723885
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_14",
+      "at": 294.1750960326418,
+      "region": "left_foot",
+      "point": {
+        "x": 52.63634626502435,
+        "y": 39.73514895228624
+      },
+      "incomingVelocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": 6.8518075809269225,
+        "y": 3.309886841728089,
+        "z": 2.625317163450644
+      },
+      "quality": 0.6194710694073146,
+      "retained": false,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "inside",
+        "executed": "inside",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 294.1750960326418,
+        "point": {
+          "x": 52.63634626502435,
+          "y": 39.73514895228624,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 52.546711293225414,
+          "y": 39.68758285991834,
+          "z": 0.06753779695480139
+        },
+        "relativePoint": {
+          "x": 0.20586554456626516,
+          "y": 0.09516536794436803,
+          "z": 0.11
+        },
+        "normal": {
+          "x": 0.8148633799903412,
+          "y": 0.43241902152640227,
+          "z": 0.3860200276836238
+        },
+        "incomingVelocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": 6.8518075809269225,
+          "y": 3.309886841728089,
+          "z": 2.625317163450644
+        },
+        "incomingSpin": {
+          "x": 0.00002519281678855066,
+          "y": -0.000006483625564210052,
+          "z": 0.12359172927516744
+        },
+        "outgoingSpin": {
+          "x": 1.942464255422358,
+          "y": -6.895371957028662,
+          "z": 3.74740560103197
+        },
+        "impulse": {
+          "x": 2.9462772597985767,
+          "y": 1.4232513419430783,
+          "z": 1.128886380283777
+        },
+        "normalImpulseLimit": 10.770548072482395,
+        "tangentImpulseLimit": 2.5613889485372083,
+        "tangentSpeed": 1.5828597211742397,
+        "quality": 0.6194710694073146,
+        "balance": 1,
+        "preparationSeconds": 0.10855548913778264,
+        "contactSeconds": 0.025,
+        "retained": false,
+        "recoverySeconds": 0.2677456739189888
+      }
+    },
+    "continuous": []
+  },
+  {
+    "time": 295.37500000000523,
+    "ordinary": true,
+    "ball": {
+      "x": 59.01624748355163,
+      "y": 42.87307190514421,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -8.460257086767264,
+        "y": 16.760494413080647,
+        "z": 1.7705224957095163
+      },
+      "height": 0.11634985064207412,
+      "velocity": {
+        "x": -1.4191526821195684,
+        "y": -0.16781316646308025,
+        "z": 0.28771445447546473
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 59.084816225243976,
+          "y": 42.77061738806633,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.00001000000000145329,
+        "body": {
+          "x": 59.303214649422024,
+          "y": 42.96419788137532
+        },
+        "pose": {
+          "stanceWidth": 0.31552960455684614,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.030469505190899214,
+            "y": 0.0626160437075464
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 59.067998352264134,
+          "y": 43.06198860889732,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.0652307614563293,
+        "body": {
+          "x": 59.303214649422024,
+          "y": 42.96419788137532
+        },
+        "pose": {
+          "stanceWidth": 0.31552960455684614,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.030469505190899214,
+            "y": 0.0626160437075464
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": [
+      {
+        "actorId": "footballer_pro_1_3",
+        "foot": "left"
+      }
+    ]
+  },
+  {
+    "time": 295.4000000000052,
+    "ordinary": true,
+    "ball": {
+      "x": 58.98077478506807,
+      "y": 42.86887700030716,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -8.434914348621232,
+        "y": 16.71028827670057,
+        "z": 1.7652188876122392
+      },
+      "height": 0.12048732799928455,
+      "velocity": {
+        "x": -1.4186631965653258,
+        "y": -0.167779220501128,
+        "z": 0.04328373410136971
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 59.0044858874503,
+          "y": 43.02251883630693,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.030060675521447533,
+        "body": {
+          "x": 59.24857969875481,
+          "y": 42.94061934445427
+        },
+        "pose": {
+          "stanceWidth": 0.3242796045568461,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.017342870059353917,
+            "y": 0.035640286996690626
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 59.078509181838726,
+          "y": 42.7225172680959,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.048523625156050715,
+        "body": {
+          "x": 59.24857969875481,
+          "y": 42.94061934445427
+        },
+        "pose": {
+          "stanceWidth": 0.3242796045568461,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.017342870059353917,
+            "y": 0.035640286996690626
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": [
+      {
+        "actorId": "footballer_pro_1_3",
+        "foot": "left"
+      }
+    ]
+  },
+  {
+    "time": 295.4250000000052,
+    "ordinary": true,
+    "ball": {
+      "x": 58.94449933589805,
+      "y": 42.8602088176406,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -2.522894257428382,
+        "y": 4.998069759908333,
+        "z": -0.5279793499490597
+      },
+      "height": 0.12082484238280293,
+      "velocity": {
+        "x": -1.7125681448650514,
+        "y": -1.7866293870289256,
+        "z": 0.6349176233456834
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 58.942201178098145,
+          "y": 42.98178297823584,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.0010075792550390539,
+        "body": {
+          "x": 59.193944748087596,
+          "y": 42.91704080753322
+        },
+        "pose": {
+          "stanceWidth": 0.3320624862782404,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.005667093073214887,
+            "y": 0.011646101416610651
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 59.071031289511836,
+          "y": 42.681662357856624,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.08828486606060859,
+        "body": {
+          "x": 59.193944748087596,
+          "y": 42.91704080753322
+        },
+        "pose": {
+          "stanceWidth": 0.3320624862782404,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0.005667093073214887,
+            "y": 0.011646101416610651
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": [
+      {
+        "actorId": "footballer_pro_1_3",
+        "foot": "right"
+      }
+    ]
+  },
+  {
+    "time": 295.45000000000516,
+    "ordinary": true,
+    "ball": {
+      "x": 58.90169431221768,
+      "y": 42.81555273844409,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -2.515336916335741,
+        "y": 4.983098019468072,
+        "z": -0.5263977854321611
+      },
+      "height": 0.13363483312509228,
+      "velocity": {
+        "x": -1.711833749564934,
+        "y": -1.7858569486912066,
+        "z": 0.38988163603746406
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 58.892465584536986,
+          "y": 42.98272555850803,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.046831705296852544,
+        "body": {
+          "x": 59.13930979742038,
+          "y": 42.89346227061217
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 59.01144514807461,
+          "y": 42.66422302561323,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.06407752134346792,
+        "body": {
+          "x": 59.13930979742038,
+          "y": 42.89346227061217
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": [
+      {
+        "actorId": "footballer_pro_1_3",
+        "foot": "right"
+      }
+    ]
+  },
+  {
+    "time": 295.47500000000514,
+    "ordinary": true,
+    "ball": {
+      "x": 58.85890694529835,
+      "y": 42.77091552371212,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -2.5078022132923254,
+        "y": 4.968171126943622,
+        "z": -0.5248209584988845
+      },
+      "height": 0.14032011553262203,
+      "velocity": {
+        "x": -1.7111556039816667,
+        "y": -1.7851202298663782,
+        "z": 0.14494095656491687
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 58.93810692436513,
+          "y": 42.652127346581906,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.029491814394187882,
+        "body": {
+          "x": 59.08467484675317,
+          "y": 42.86988373369112
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 58.84615034367721,
+          "y": 42.9794559082263,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.08676701326703312,
+        "body": {
+          "x": 59.08467484675317,
+          "y": 42.86988373369112
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": []
+  },
+  {
+    "time": 295.5000000000051,
+    "ordinary": true,
+    "ball": {
+      "x": 58.8133931067037,
+      "y": 42.73037795734988,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -0.7500870241457271,
+        "y": 1.4859866843978546,
+        "z": 0.15697465648733308
+      },
+      "height": 0.1441793050955502,
+      "velocity": {
+        "x": -2.5740847168561856,
+        "y": -0.49932558000446303,
+        "z": 0.9379072314071206
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 58.86579284471102,
+          "y": 42.641554357664006,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.0015902180044206349,
+        "body": {
+          "x": 59.03003989608595,
+          "y": 42.84630519677007
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 58.80150289565817,
+          "y": 42.975420801696316,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.1215346136888992,
+        "body": {
+          "x": 59.03003989608595,
+          "y": 42.84630519677007
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": [
+      {
+        "actorId": "footballer_pro_1_3",
+        "foot": "left"
+      }
+    ]
+  },
+  {
+    "time": 295.5250000000051,
+    "ordinary": true,
+    "ball": {
+      "x": 58.74905507323319,
+      "y": 42.717897556051796,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -0.7478401350920371,
+        "y": 1.481535404602813,
+        "z": 0.1565044381979688
+      },
+      "height": 0.16455830098423269,
+      "velocity": {
+        "x": -2.572957960785316,
+        "y": -0.49910652384247306,
+        "z": 0.6924124396874787
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 58.79462660076374,
+          "y": 42.63241326015315,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.012794484411952689,
+        "body": {
+          "x": 58.97540494541874,
+          "y": 42.82272665984902
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 58.75845355492542,
+          "y": 42.97048353502921,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.13678498643145767,
+        "body": {
+          "x": 58.97540494541874,
+          "y": 42.82272665984902
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": [
+      {
+        "actorId": "footballer_pro_1_3",
+        "foot": "left"
+      }
+    ]
+  },
+  {
+    "time": 295.55000000000507,
+    "ordinary": true,
+    "ball": {
+      "x": 58.68474468508626,
+      "y": 42.705422480198436,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -0.7455999766046107,
+        "y": 1.4770974586364132,
+        "z": 0.1560356284496047
+      },
+      "height": 0.17880129858114774,
+      "velocity": {
+        "x": -2.571873090969276,
+        "y": -0.49889954442626494,
+        "z": 0.4470273680657245
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 58.756301247498634,
+          "y": 42.59817772588223,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.044440173776399444,
+        "body": {
+          "x": 58.92054781094284,
+          "y": 42.80292895639567
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 58.692010502827536,
+          "y": 42.93204401670781,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.12084941866615648,
+        "body": {
+          "x": 58.92054781094284,
+          "y": 42.80292895639567
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": []
+  },
+  {
+    "time": 295.57500000000505,
+    "ordinary": true,
+    "ball": {
+      "x": 58.620460996783855,
+      "y": 42.69295244792937,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -0.7433665285220067,
+        "y": 1.4726728065571115,
+        "z": 0.1555682230229499
+      },
+      "height": 0.18691095494090657,
+      "velocity": {
+        "x": -2.570821973222686,
+        "y": -0.49870303709913194,
+        "z": 0.20174514071498276
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 58.71916664611329,
+          "y": 42.56910639696798,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.0710173100238152,
+        "body": {
+          "x": 58.86565205212817,
+          "y": 42.78691830165791
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 58.627086050304065,
+          "y": 42.896400093631115,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.10603319413451448,
+        "body": {
+          "x": 58.86565205212817,
+          "y": 42.78691830165791
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": []
+  },
+  {
+    "time": 295.600000000005,
+    "ordinary": true,
+    "ball": {
+      "x": 58.55620327190044,
+      "y": 42.68048721860286,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -0.741139770743177,
+        "y": 1.4682614085430095,
+        "z": 0.15510221771135238
+      },
+      "height": 0.18888978348061228,
+      "velocity": {
+        "x": -2.569796017450543,
+        "y": -0.4985153090211658,
+        "z": -0.043438857538526915
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 58.67068210138575,
+          "y": 42.55316876235145,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.08189988833728717,
+        "body": {
+          "x": 58.8116594867172,
+          "y": 42.77458551154877
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 58.57042308726005,
+          "y": 42.878050479421745,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.10279348820974796,
+        "body": {
+          "x": 58.8116594867172,
+          "y": 42.77458551154877
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": []
+  },
+  {
+    "time": 295.625000000005,
+    "ordinary": true,
+    "ball": {
+      "x": 58.4919709921802,
+      "y": 42.66802659455942,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -0.7389196832272867,
+        "y": 1.463863224891495,
+        "z": 0.1546376083207612
+      },
+      "height": 0.18474021266611157,
+      "velocity": {
+        "x": -2.5687863601687466,
+        "y": -0.49833461445410215,
+        "z": -0.2885268076215295
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 58.617773085536186,
+          "y": 42.54443341769747,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.08314725337423917,
+        "body": {
+          "x": 58.758661488710246,
+          "y": 42.76590679725146
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "right",
+        "point": {
+          "x": 58.5173835339221,
+          "y": 42.86927482196534,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.10419144342139788,
+        "body": {
+          "x": 58.758661488710246,
+          "y": 42.76590679725146
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": []
+  },
+  {
+    "time": 295.650000000005,
+    "ordinary": true,
+    "ball": {
+      "x": 58.42776386178363,
+      "y": 42.65557041933725,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -0.7367062459935332,
+        "y": 1.4594782160188855,
+        "z": 0.15417439066968872
+      },
+      "height": 0.17446471515588494,
+      "velocity": {
+        "x": -2.567784043443827,
+        "y": -0.49815994994722645,
+        "z": -0.5334987474493046
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_1_3",
+        "foot": "left",
+        "point": {
+          "x": 58.58198253657621,
+          "y": 42.54749982952021,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.08639449358214196,
+        "body": {
+          "x": 58.72271182530839,
+          "y": 42.76907434812047
+        },
+        "pose": {
+          "stanceWidth": 0.34,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "left",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_9_19",
+        "foot": "left",
+        "point": {
+          "x": 58.2236565814865,
+          "y": 42.67154294468678,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.09994012137313416,
+        "body": {
+          "x": 58.11913810994552,
+          "y": 42.45170788923215
+        },
+        "pose": {
+          "stanceWidth": 0.27749999999999997,
+          "crouch": 0,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "right",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": []
+  },
+  {
+    "time": 295.67500000000496,
+    "ordinary": true,
+    "ball": {
+      "x": 58.36358180627223,
+      "y": 42.64311856889505,
+      "continuousBodyContacts": [],
+      "ownerId": "footballer_pro_1_3",
+      "lastTouchPlayerId": "footballer_pro_1_3",
+      "spin": {
+        "x": -0.7344994391209664,
+        "y": 1.4551063424600719,
+        "z": 0.15371256058917293
+      },
+      "height": 0.15806609195781876,
+      "velocity": {
+        "x": -2.5667803974684134,
+        "y": -0.4979880854290438,
+        "z": -0.7783911083959892
+      },
+      "airborne": true,
+      "bounceCount": 0
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_9_19",
+        "foot": "left",
+        "point": {
+          "x": 58.218190164788126,
+          "y": 42.687739726394625,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.04753409874678355,
+        "body": {
+          "x": 58.13019542143901,
+          "y": 42.45808413476245
+        },
+        "pose": {
+          "stanceWidth": 0.28624999999999995,
+          "crouch": 0.0125,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "right",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_9_19",
+        "foot": "right",
+        "point": {
+          "x": 58.37596012776737,
+          "y": 42.44889312021918,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.08263204920786207,
+        "body": {
+          "x": 58.13019542143901,
+          "y": 42.45808413476245
+        },
+        "pose": {
+          "stanceWidth": 0.28624999999999995,
+          "crouch": 0.0125,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "right",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": []
+  },
+  {
+    "time": 295.70000000000493,
+    "ordinary": true,
+    "ball": {
+      "x": 58.29942496360728,
+      "y": 42.630670991268325,
+      "continuousBodyContacts": [],
+      "velocity": {
+        "x": 0.17772066872566938,
+        "y": 1.67645045905374
+      },
+      "looseSince": 295.70000000000493,
+      "lastTouchPlayerId": "footballer_pro_9_19"
+    },
+    "feet": [
+      {
+        "id": "footballer_pro_9_19",
+        "foot": "left",
+        "point": {
+          "x": 58.2089923956724,
+          "y": 42.705485842088535,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": -0.008342357526014643,
+        "body": {
+          "x": 58.14390749850955,
+          "y": 42.4656521368649
+        },
+        "pose": {
+          "stanceWidth": 0.29499999999999993,
+          "crouch": 0.025,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "right",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      {
+        "id": "footballer_pro_9_19",
+        "foot": "right",
+        "point": {
+          "x": 58.392264242981724,
+          "y": 42.474322631382705,
+          "z": 0.04
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "gap": 0.04984337667390554,
+        "body": {
+          "x": 58.14390749850955,
+          "y": 42.4656521368649
+        },
+        "pose": {
+          "stanceWidth": 0.29499999999999993,
+          "crouch": 0.025,
+          "footLead": 0.2,
+          "hipYaw": 0,
+          "activeLeg": "right",
+          "reachOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    ],
+    "contact": {
+      "actorId": "footballer_pro_1_3",
+      "at": 295.3586560130248,
+      "region": "left_foot",
+      "point": {
+        "x": 59.039750922176296,
+        "y": 42.8753567817342
+      },
+      "incomingVelocity": {
+        "x": 3.1606460103458254,
+        "y": 1.5902802256673256,
+        "z": 0
+      },
+      "outgoingVelocity": {
+        "x": -1.207265614672468,
+        "y": -0.4848505799875946,
+        "z": 0.2113004699523579
+      },
+      "quality": 0.2214509306357597,
+      "retained": true,
+      "executed": true,
+      "physicalCount": 1,
+      "surfaceContact": {
+        "intended": "cushion",
+        "executed": "cushion",
+        "foot": "left",
+        "available": true,
+        "unavailableReason": null,
+        "at": 295.3586560130248,
+        "point": {
+          "x": 59.039750922176296,
+          "y": 42.8753567817342,
+          "z": 0.11
+        },
+        "surfacePoint": {
+          "x": 59.13930189926976,
+          "y": 42.922149975253525,
+          "z": 0.11
+        },
+        "relativePoint": {
+          "x": -0.08518155026260388,
+          "y": 0.09417594293258702,
+          "z": 0.11
+        },
+        "normal": {
+          "x": -0.90500888266784,
+          "y": -0.42539266835749306,
+          "z": 0
+        },
+        "incomingVelocity": {
+          "x": 3.1606460103458254,
+          "y": 1.5902802256673256,
+          "z": 0
+        },
+        "outgoingVelocity": {
+          "x": -1.207265614672468,
+          "y": -0.4848505799875946,
+          "z": 0.2113004699523579
+        },
+        "incomingSpin": {
+          "x": -9.782905235958205,
+          "y": 19.363307864349554,
+          "z": 2.045828806685769
+        },
+        "outgoingSpin": {
+          "x": -8.476866288879426,
+          "y": 16.793398666030836,
+          "z": 1.7739983907885637
+        },
+        "impulse": {
+          "x": -1.8782019987578662,
+          "y": -0.8923062464316157,
+          "z": 0.0908592020795139
+        },
+        "normalImpulseLimit": 2.0793700274819638,
+        "tangentImpulseLimit": 1.8328514061262373,
+        "tangentSpeed": 2.39600134936181,
+        "quality": 0.2214509306357597,
+        "balance": 1,
+        "preparationSeconds": 0.012,
+        "contactSeconds": 0.036937774491003265,
+        "retained": true,
+        "recoverySeconds": 0.35731965110900343
+      }
+    },
+    "continuous": []
+  }
+]

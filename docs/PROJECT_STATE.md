@@ -1,5 +1,27 @@
 # My Football Legend — Current Project State
 
+PR217: odtworzono rzeczywisty incydent 295,700 s w Edge oraz blokadę autu ze
+zapisanej sesji `lab-mw3xhr6o`. Legacy challenge usuwał wysokość odbijającej się
+piłki, tworząc penetrację lewego buta `9_19`; historyczny unresolved blokował
+wejście zmiennika i cały retrieval. Naprawiono te przekazania, jawny `safetyHalt`,
+gotowość człowieka podczas autonomicznego carry i semantykę claim/interception.
+Per-pass diagnostyka rozdziela kontrolę drużyny od zaliczonego podania. Kondycja
+i celność nie są kalibrowane. **RETAIN_EXPERIMENTAL; bez formalnego COMPLETE.**
+Pełne próby, ograniczenia odtworzenia i gotowość PR218 są rozliczane w
+[raporcie PR217](PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md).
+Historyczne PR216 i kandydat PR201/B pozostają odrębnymi dowodami.
+
+Follow-up solvera PR217: konserwatywna obwiednia zamachu/lotu i certyfikowane
+prefiksy wyszukiwania, pasywne rozchodzące się podparcie, grupy do 22 ciał przy
+zachowaniu reszt, ciągłość kontaktów podczas oczekiwania na zamiar człowieka,
+fizyczna kolejka zmienników i skończony powrót z legalnego ustawienia do autu.
+Na tej samej wykonywanej aplikacji pełny mecz od 0 s kończy się 3–2,
+odzyskany incydent 3–0, zapisany aut 3–1; zero nowych unresolved. Przechodzą
+kontrole natywnego zapisu/odczytu, 19 regresji PR217 i 64 testy kontaktów.
+To rozwojowe domknięcie konkretnych blokerów, bez niezależnego confirmation
+i bez promocji formalnego realizmu. Końcowe npm run verify przechodzi: 2742
+testy, lint i build. Zdalny CI ostatniego commita pozostaje osobną bramką PR.
+
 PR215: Single Match Lab ma rzeczywisty wybór **Fizyka meczu → Holistyczna (eksperymentalna)**.
 Wspólna receptura browser/CLI jest walidowana przed inicjalizacją meczu; restart,
 powtórka polityki i eksport zachowują jej tożsamość. Dotychczasowy wariant i kariera

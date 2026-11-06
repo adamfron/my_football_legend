@@ -1,0 +1,58 @@
+{
+  "source": "5a1a95356b1ad129482de887e8fc9847ad97825fe3da585d8e67e6082d7f9029",
+  "name": "incident",
+  "initialHash": "466d7d3812d1480d1b636af77c997dbc398ed1c7fb4a526f379a8d2a9df9756e",
+  "terminalHash": "fddf49fb53ca93fbb3e705071c5cc5fe9754d1ef21fd8fb08161fe917ddd2f8e",
+  "reason": "duration",
+  "totalTicks": 81,
+  "wallSeconds": 0.5924149999999999,
+  "cpu": {
+    "user": 906000,
+    "system": 94000
+  },
+  "maxRSSKiB": 327252,
+  "decisions": 0,
+  "stages": [
+    {
+      "at": 295.70000000000493,
+      "stage": "open_play",
+      "ball": {
+        "x": 58.29942496360728,
+        "y": 42.630670991268325,
+        "continuousBodyContacts": [],
+        "velocity": {
+          "x": 0.17772066872566938,
+          "y": 1.67645045905374,
+          "z": -1.0231790602736406
+        },
+        "height": 0.13554646484944838,
+        "spin": {
+          "x": -0.7322992427483095,
+          "y": 1.4507475648681623,
+          "z": 0.15325211392274002
+        },
+        "airborne": true,
+        "bounceCount": 0,
+        "looseSince": 295.70000000000493,
+        "lastTouchPlayerId": "footballer_pro_9_19"
+      }
+    }
+  ],
+  "periods": [],
+  "contacts": 3,
+  "fitness": [],
+  "minutes": [],
+  "checkpoints": [
+    {
+      "at": 295.67500000000496,
+      "hash": "466d7d3812d1480d1b636af77c997dbc398ed1c7fb4a526f379a8d2a9df9756e"
+    },
+    {
+      "at": 297.7000000000031,
+      "hash": "fddf49fb53ca93fbb3e705071c5cc5fe9754d1ef21fd8fb08161fe917ddd2f8e"
+    }
+  ],
+  "passes": 2,
+  "strikes": 0,
+  "examples": []
+}

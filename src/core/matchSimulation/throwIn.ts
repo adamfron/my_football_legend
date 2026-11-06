@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { distance, pitchPointSchema } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
+import { markRestartReentry } from './multiBodyContact';
 
 /** Metres: a legal receiver must remain inside one achievable throw's delivery range. */
 export const THROW_IN_MAXIMUM_RANGE_METRES = 35;
@@ -44,7 +45,7 @@ export const applyThrowInContact = (
   playerId: string,
 ): TacticalMatchState => {
   if (!state.throwInRestriction || !canContactAfterThrowIn(state, playerId)) return state;
-  const next = { ...state };
+  const next = { ...markRestartReentry(state) };
   delete next.throwInRestriction;
   // The delivery ends on a real contact, before that player can make a subsequent action.
   // Keeping the released restart alive would incorrectly launch their next pass as a throw.

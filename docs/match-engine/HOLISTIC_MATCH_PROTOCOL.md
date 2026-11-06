@@ -1,5 +1,31 @@
 # First holistic development match protocol — PR215 handoff
 
+## PR217 real-session reliability gate
+
+Retain the lossless owner session, runtime identity and recovered human choices.
+Same-seed Node replay diverges from Edge before the first choice; do not label it
+an exact owner replay. The real 295.700s foot–ball incident and saved 3627.5s
+throw-in have separate source-bound regressions. A new unresolved physical step
+retains its input world and exports `safetyHalt`; resuming cannot bypass it.
+Old cumulative witnesses do not invalidate a newly resolved substitution interval.
+Simultaneous entrants must have actual clearance throughout admission. Completing
+a restart's law context must retain finite return from its legal staging area;
+save that provenance and expire it after return, without teleporting a body or
+accepting an arbitrary out-of-bounds live checkpoint.
+
+A search prefix is usable only when conservatively certified contact-free.
+Passive separating support earns no touch; selected active-foot uncertainty still
+halts. Roster-sized components keep finite work/correction bounds and must satisfy
+the original momentum, energy and residual constraints. Local success at these
+boundaries must be followed by a separately recorded complete-match attempt.
+
+Log explicit human choices in long continuations, native checkpoint/reload parity,
+restart stages and football progress. A clock advancing without actions/ball progress
+is not a successful match. Separate evaluated options, prepared attempts, actual
+contacts/releases, pass results, credited completions and later retention by identity.
+Do not calibrate kick error or fitness to reconcile different denominators.
+See [PR217 evidence and readiness](../PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md).
+
 ## PR216 full-match continuity follow-up — keeper-cycle-v12
 
 The 1493.925s keeper-zone starvation resumes actual foot contact and onward decisions.

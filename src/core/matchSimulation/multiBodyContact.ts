@@ -13,7 +13,9 @@ import {
 } from './playerBodyContact';
 
 export const MULTI_BODY = {
-  maximumBodies: 5,
+  // A connected component may contain any member of the validated 22-player
+  // roster. Pair work remains bounded by 22 choose 2 and the same 64 sweeps.
+  maximumBodies: 22,
   iterations: 32,
   completionIterations: PLAYER_BODY_CONTACT.maximumCorrectionIterations,
   fiveBodyIterations: PLAYER_BODY_CONTACT.maximumCorrectionIterations,
@@ -26,6 +28,55 @@ export const MULTI_BODY = {
   maximum: { x: 104.6, y: 67.6 },
 } as const;
 const vector = z.object({ x: z.number().finite(), y: z.number().finite() });
+export const restartReentrySchema = z.object({
+  awardId: z.string(),
+  playerIds: z.array(z.string()).max(22),
+});
+const ordinaryBounds = (
+  player?: MatchPlayerState,
+): { minimum: { x: number; y: number }; maximum: { x: number; y: number } } => ({
+  minimum: {
+    ...MULTI_BODY.minimum,
+    x: player && isMatchGoalkeeper(player) ? 0 : MULTI_BODY.minimum.x,
+  },
+  maximum: {
+    ...MULTI_BODY.maximum,
+    x: player && isMatchGoalkeeper(player) ? 105 : MULTI_BODY.maximum.x,
+  },
+});
+const outsideOrdinaryBounds = (player: MatchPlayerState) => {
+  const bounds = ordinaryBounds(player);
+  return (['x', 'y'] as const).some(
+    (axis) =>
+      player.position[axis] < bounds.minimum[axis] || player.position[axis] > bounds.maximum[axis],
+  );
+};
+/** A first touch completes the law context, not the finite return from staging. */
+export const markRestartReentry = (state: TacticalMatchState): TacticalMatchState => {
+  if (state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1' || !state.restart)
+    return state;
+  const playerIds = state.players.filter(outsideOrdinaryBounds).map((p) => p.id);
+  return playerIds.length
+    ? {
+        ...state,
+        restartReentry: {
+          awardId: state.restart.awardId ?? `${state.seed}:restart:${state.restart.startedAt}`,
+          playerIds,
+        },
+      }
+    : state;
+};
+export const pruneRestartReentry = (state: TacticalMatchState): TacticalMatchState => {
+  if (!state.restartReentry) return state;
+  const playerIds = state.players
+    .filter((p) => state.restartReentry!.playerIds.includes(p.id) && outsideOrdinaryBounds(p))
+    .map((p) => p.id);
+  if (playerIds.length === state.restartReentry.playerIds.length) return state;
+  if (playerIds.length) return { ...state, restartReentry: { ...state.restartReentry, playerIds } };
+  const { restartReentry: _completed, ...next } = state;
+  void _completed;
+  return next;
+};
 export const multiBodyResolutionSchema = z.object({
   at: z.number().nonnegative(),
   participants: z.string().array().max(22),
@@ -70,10 +121,25 @@ export const ownsMultiBodyInterval = (s: TacticalMatchState, dt = 0.025) =>
 export const multiBodyMovementBounds = (s: TacticalMatchState, player?: MatchPlayerState) =>
   s.restart || s.postGoal
     ? { minimum: { x: -8, y: -8 }, maximum: { x: 113, y: 76 } }
-    : {
-        minimum: { ...MULTI_BODY.minimum, x: player && isMatchGoalkeeper(player) ? 0 : MULTI_BODY.minimum.x },
-        maximum: { ...MULTI_BODY.maximum, x: player && isMatchGoalkeeper(player) ? 105 : MULTI_BODY.maximum.x },
-      };
+    : (() => {
+        const bounds = ordinaryBounds(player);
+        if (
+          player &&
+          s.restartReentry?.playerIds.includes(player.id) &&
+          player.position.x >= -8 &&
+          player.position.x <= 113 &&
+          player.position.y >= -8 &&
+          player.position.y <= 76
+        ) {
+          // Shrink the authorized corridor with actual inward movement. Neither
+          // coordinates nor the ordinary bounds of unmarked players are changed.
+          for (const axis of ['x', 'y'] as const) {
+            bounds.minimum[axis] = Math.min(bounds.minimum[axis], player.position[axis]);
+            bounds.maximum[axis] = Math.max(bounds.maximum[axis], player.position[axis]);
+          }
+        }
+        return bounds;
+      })();
 
 /** Conservative connected broad phase for this existing interval, not a second
  * movement authority. At 12m/s/body no reachable torso can enter from outside it. */
@@ -81,9 +147,13 @@ export const multiBodyParticipants = (s: TacticalMatchState, dt: number) => {
   const ids = new Set<string>();
   if (!ownsMultiBodyInterval(s, dt)) return ids;
   // Torso authority must not disappear when the ball changes owner or technique.
-  // The broad phase covers the roster; each actual connected solve is still <=5.
+  // The broad phase covers the roster; each connected solve is roster-bounded.
   for (const p of s.players)
-    if (canParticipatePhysically(p) && !s.discipline?.[p.id]?.sentOff && supportedUprightPair(p, p, true))
+    if (
+      canParticipatePhysically(p) &&
+      !s.discipline?.[p.id]?.sentOff &&
+      supportedUprightPair(p, p, true)
+    )
       ids.add(p.id);
   if (ownsOrdinaryLowBallInterval(s, dt)) {
     const reach = 1.5 + (12 + Math.hypot(s.ball.velocity?.x ?? 0, s.ball.velocity?.y ?? 0)) * dt;
@@ -227,7 +297,8 @@ export const resolveMultiBodyContact = (
       );
     }, 0);
   if (players.length > MULTI_BODY.maximumBodies) reason = 'body_count_bound';
-  else if (players.some((p) => !supportedUprightPair(p, p, true))) reason = 'unsupported_body_state';
+  else if (players.some((p) => !supportedUprightPair(p, p, true)))
+    reason = 'unsupported_body_state';
   else if (
     players.some((p) => {
       const bounds = boundsFor(p);
@@ -264,7 +335,10 @@ export const resolveMultiBodyContact = (
         y: b.position.y - (n.y * correction) / (b.profile.weightKg * inverse),
       };
       positionCorrection += correction;
-      if (!activePairs.has(playerPairKey(a.id, b.id)) && activePairs.size >= 22) {
+      if (
+        !activePairs.has(playerPairKey(a.id, b.id)) &&
+        activePairs.size >= PLAYER_BODY_CONTACT.maximumPersistentPairs
+      ) {
         reason = 'persistent_storage_bound';
         break;
       }
@@ -290,11 +364,22 @@ export const resolveMultiBodyContact = (
           b = players.find((p) => p.id === b0.id)!;
         if (playerBodyClearance(a, b) > MULTI_BODY.contactTolerance) continue;
         const key = playerPairKey(a.id, b.id);
-        if (!activePairs.has(key) && activePairs.size >= 22) {
+        if (
+          !activePairs.has(key) &&
+          activePairs.size >= PLAYER_BODY_CONTACT.maximumPersistentPairs
+        ) {
           reason = 'persistent_storage_bound';
           break;
         }
-        const result = resolvePlayerBodyImpulse(a, b, at, activePairs.has(key), undefined, undefined, true);
+        const result = resolvePlayerBodyImpulse(
+          a,
+          b,
+          at,
+          activePairs.has(key),
+          undefined,
+          undefined,
+          true,
+        );
         if (!result.evidence.normalImpulse) continue;
         changed = true;
         result.evidence.correctionIterations = pass + 1;

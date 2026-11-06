@@ -1,5 +1,32 @@
 # Current-source holistic mechanism inventory — PR214
 
+## PR217 additive reliability scope
+
+No selector, permanent attribute or major physical system is added. Legacy
+challenge/loft/cross producers preserve the actual vertical ball state for the
+existing upright/shared consumer. Ground restart staging uses finite movement,
+real-foot clearance and the existing release reach. A settled delivery returns
+to existing loose-ball recovery without granting control. Substitution admission
+tests current-interval unresolved evidence, preserving older witnesses.
+
+The PR217 solver follow-up derives conservative stroke/airborne acceleration
+bounds and continues only certified clear search prefixes on the same timeline.
+Passive separating support has zero impulse and earns no football touch. Connected
+components are bounded by the validated 22-player roster and 231 pairs; the same
+64 sweeps, 2mm correction and contact/residual tolerances still decide resolution.
+Pending receiving intentions no longer disable other players' shared contacts.
+Simultaneous substitutes queue for a physically clear entry interval. A saved
+restart-return provenance permits finite inward movement after restart completion,
+then expires; unmarked invalid live positions remain rejected.
+
+`safetyHalt` describes a failed canonical interval and is schema-backed/saveable;
+it does not invent a miss, impulse, possession or restart outcome. Pass telemetry
+separates raw team-control results from statistical credit. Claim/interception
+labels remain downstream of the physical acquisition consumer. The autonomous
+carry exception restores a ready human owner's meaningful choices without
+removing PR210 contact readiness. No `fullyEvaluated` or formal COMPLETE promotion.
+[Measured scope and negative results](../PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md).
+
 ## PR215 additive observation scope
 
 PR214's historical inventory and formal realism counts are preserved. PR215 adds session

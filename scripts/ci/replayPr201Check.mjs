@@ -5,11 +5,11 @@ import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
 import { BASE as PR203_BASE } from '../pr203Evidence.mjs';
-import { checkPr216Source } from '../pr216Evidence.mjs';
+import { checkPr217Source } from '../pr217Evidence.mjs';
 import { preserveHistoricalBytes } from './historicalBytes.mjs';
 const BASE = '5b6bbf6778017ac415964dd48dfe30b850f2f352';
 export function pr201Context() {
-  checkPr216Source();
+  checkPr217Source();
   // These historical assertions include the old workflow family list and whole
   // research-tool inventory. Execute them verbatim against their original bytes.
   // Independently require all current engine and original harness bytes to agree.
@@ -92,7 +92,7 @@ export function pr201Context() {
       ...process.env,
       GIT_INDEX_FILE: join(scratch, 'private.index'),
       GIT_WORK_TREE: scratch,
-      GIT_DIR: resolve('.git'),
+      GIT_DIR: execFileSync('git', ['rev-parse', '--absolute-git-dir'], { encoding: 'utf8', windowsHide: true }).trim(),
     };
     execFileSync('git', ['read-tree', BASE], { cwd: scratch, env, windowsHide: true });
     return { cwd: scratch, env, cleanup };

@@ -7,6 +7,8 @@ export const sharedContactEventSchema = z.object({
   rank: z.number().int().nonnegative(),
   key: z.string(),
   kind: z.enum([
+    'search_frontier',
+    'separating_foot',
     'boundary',
     'body',
     'foot',

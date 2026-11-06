@@ -5,7 +5,8 @@ import {
 } from './sharedContactTimeline';
 import { z } from 'zod';
 import { executionWitnessesSchema } from './executionWitness';
-import { multiBodyResolutionsSchema } from './multiBodyContact';
+import { matchSafetyHaltSchema, type MatchSafetyHalt } from './matchSafety';
+import { multiBodyResolutionsSchema, restartReentrySchema } from './multiBodyContact';
 import {
   playerBodyImpulseSelectionSchema,
   continuousPlayerContactsSchema,
@@ -861,6 +862,7 @@ export interface TacticalMatchState {
   playerBodyContacts?: z.infer<typeof playerBodyContactsSchema>;
   multiBodyResolutions?: z.infer<typeof multiBodyResolutionsSchema>;
   executionWitnesses?: z.infer<typeof executionWitnessesSchema>;
+  safetyHalt?: MatchSafetyHalt;
   continuousFootContacts?: z.infer<typeof continuousFootContactsSchema>;
   recoveringFeet?: z.infer<typeof recoveringFeetSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
@@ -989,6 +991,7 @@ export interface TacticalMatchState {
   ballOwnershipStartedAt?: number;
   scenario: RestartScenario;
   restart?: RestartLifecycle;
+  restartReentry?: z.infer<typeof restartReentrySchema>;
   stoppageLedger?: StoppageLedger;
   restartTouchRestriction?: {
     awardId: string;
@@ -1113,6 +1116,7 @@ export const tacticalMatchStateSchema = z
     playerBodyContacts: playerBodyContactsSchema.optional(),
     multiBodyResolutions: multiBodyResolutionsSchema.optional(),
     executionWitnesses: executionWitnessesSchema.optional(),
+    safetyHalt: matchSafetyHaltSchema.optional(),
     continuousFootContacts: continuousFootContactsSchema.optional(),
     recoveringFeet: recoveringFeetSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
@@ -1361,6 +1365,7 @@ export const tacticalMatchStateSchema = z
     ballOwnershipStartedAt: z.number().nonnegative().optional(),
     scenario: restartScenarioSchema,
     restart: restartLifecycleSchema.optional(),
+    restartReentry: restartReentrySchema.optional(),
     throwInRestriction: throwInRestrictionSchema.optional(),
     lastThrowInDiagnostic: throwInDiagnosticSchema.optional(),
     lastRestartLivenessRecovery: restartLivenessDiagnosticSchema.optional(),

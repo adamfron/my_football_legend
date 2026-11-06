@@ -5,7 +5,7 @@ import { mkdtempSync, mkdirSync, rmSync, symlinkSync } from 'node:fs';
 import { resolve, join, sep, basename } from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
-import { checkPr216Source } from '../pr216Evidence.mjs';
+import { checkPr217Source } from '../pr217Evidence.mjs';
 import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr207SourceGuard.mjs';
 
@@ -13,7 +13,7 @@ import { BASE } from '../pr207SourceGuard.mjs';
  * Execute the ORIGINAL npm command/assertions in merged PR206, where that contract
  * still holds. Current PR207 runtime/receipt and disabled-path checks stay separate. */
 export function pr198Context() {
-  checkPr216Source();
+  checkPr217Source();
   mkdirSync('.benchmark-artifacts', { recursive: true });
   const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr198-check-'));
   const safe = () =>
@@ -63,7 +63,7 @@ export function pr198Context() {
     // freezer must not inherit a .benchmark-artifacts/ subdirectory prefix.
     const env = {
       ...process.env,
-      GIT_DIR: resolve('.git'),
+      GIT_DIR: execFileSync('git', ['rev-parse', '--absolute-git-dir'], { encoding: 'utf8', windowsHide: true }).trim(),
       GIT_WORK_TREE: scratch,
       GIT_INDEX_FILE: join(scratch, 'private.index'),
     };

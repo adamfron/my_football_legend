@@ -45,7 +45,7 @@ try {
   }
   const env = {
     ...process.env,
-    GIT_DIR: resolve('.git'),
+    GIT_DIR: execFileSync('git', ['rev-parse', '--absolute-git-dir'], { encoding: 'utf8', windowsHide: true }).trim(),
     GIT_WORK_TREE: root,
     GIT_INDEX_FILE: join(scratch, 'private.index'),
   };

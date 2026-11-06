@@ -8,9 +8,9 @@ import console from 'node:console';
 import { pathToFileURL } from 'node:url';
 import { preserveHistoricalBytes } from './historicalBytes.mjs';
 import { BASE } from '../pr210SourceGuard.mjs';
-import { checkPr216Source } from '../pr216Evidence.mjs';
+import { checkPr217Source } from '../pr217Evidence.mjs';
 export function pr209Context() {
-  checkPr216Source();
+  checkPr217Source();
   mkdirSync('.benchmark-artifacts', { recursive: true });
   const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr209-check-'));
   const safe = () => assert.ok(resolve(scratch).startsWith(resolve('.benchmark-artifacts') + sep));
@@ -53,7 +53,7 @@ export function pr209Context() {
       );
     const env = {
       ...process.env,
-      GIT_DIR: resolve('.git'),
+      GIT_DIR: execFileSync('git', ['rev-parse', '--absolute-git-dir'], { encoding: 'utf8', windowsHide: true }).trim(),
       GIT_WORK_TREE: scratch,
       GIT_INDEX_FILE: join(scratch, 'private.index'),
     };

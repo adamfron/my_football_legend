@@ -1,0 +1,12 @@
+{
+  "schema": "pr217-test-only-edition-v1",
+  "measuredSource": "d662c94c3158b6d22110ce55ba889120584689ee1509969bc5a06b48805367bc",
+  "finalSource": "2dd760e6b7d0d26c744f8e51cf529c9621fd9874be6155291d3387a895245471",
+  "changedFiles": [
+    "src/core/matchSimulation/preparationContactSearch.test.ts",
+    "src/core/matchSimulation/sharedContactTimeline.test.ts"
+  ],
+  "unchangedNonTestFiles": 1093,
+  "executableManifestFingerprint": "251d9e0cc90fc86c657d69ab1b8669ef5c3d2ad85054cff4e129d03dbae44546",
+  "assertion": "Every manifest entry other than the two listed test files is byte-identical after repository line-ending normalization. This includes all application code, scripts, dependencies and workflow configuration."
+}

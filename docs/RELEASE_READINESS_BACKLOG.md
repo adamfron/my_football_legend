@@ -1,5 +1,31 @@
 # Career playtest — release readiness backlog
 
+## PR217 — holistyczny playtest i bramki integracji
+
+- P1: rzeczywiste przekazania challenge/legacy delivery muszą zachowywać stan
+  pionowy piłki; zapisane regresje 295 s i lofted handoff są wykonywalne.
+- P1: stare unresolved nie blokuje poprawnej bieżącej zmiany; aut przechodzi
+  rzeczywisty retrieval, transport, ustawienie i release. Nowy konflikt blokuje.
+- P1: genuine unresolved zatrzymuje świat i daje eksport; kolejne Play nie
+  przepycha geometrii. Nierozwiązany restart/loose-ball lifecycle jest jawny.
+- P1: przed deklaracją gotowości PR218 rozliczyć pełne źródłowe kontynuacje,
+  wznowienia i żywotność; sukces jednostkowy nie jest certyfikacją meczu.
+  Follow-up PR217: świeży pełny holistic 3–2 i obie rzeczywiste kontynuacje
+  (3–0 oraz 3–1) ukończone na identycznym kodzie, zero nowych unresolved.
+  Znane blokery wyszukiwania, grup, odbioru, wejścia zmienników i powrotu
+  po aucie mają regresje. Zakres rozwojowy domknięty; pełne verify przechodzi
+  (2742 testy, lint i build). Zdalny CI ostatniego commita i następne rozszerzenie
+  ciała pozostają osobnymi warunkami, bez promocji confirmation.
+- P2: dopasować szanse odbioru, fizyczne zamachy i zaliczanie podań przez passId;
+  35 wykluczeń starego ledgeru pozostaje bez per-attempt dowodu.
+- P2: środkowy pomocnik otrzymał 7 podań; zbadać wybór, kanał, przygotowanie
+  i kontakty, bez premii/kwot dla roli. Rozdzielać rutynę od decyzji człowieka.
+- P2: odtworzyć minute-eight fitness i protokoły pracy przed kalibracją PR220;
+  krótki test workload nie dowodzi poprawności całego modelu.
+
+[Raport PR217 i wyniki bramek](PR217_HOLISTIC_MATCH_RELIABILITY_AND_PLAYTEST_EVIDENCE.md).
+RETAIN_EXPERIMENTAL; historyczne zobowiązania kariery poniżej pozostają otwarte.
+
 Source: the user's PR210 career playtest feedback. This is a scoped work register, not a promise to finish every item before PR211. P1 = player-facing correctness; P2 = usability or further diagnosis. Stored career facts remain authoritative.
 
 | Item | Priority / scope | Observable acceptance criterion | Dependency / status |

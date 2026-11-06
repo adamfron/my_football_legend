@@ -8,6 +8,7 @@ import { distance, physicalPointSchema, pitchPointSchema } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
 import { isBallWithinPlayingBoundary } from './pitchBoundary';
 import { canContactAfterThrowIn } from './throwIn';
+import { haltEvidence } from './matchSafety';
 
 const seconds = z.number().nonnegative().finite();
 export const looseBallLivenessObservationSchema = z.object({
@@ -141,6 +142,10 @@ export const observeLooseBallLiveness = (state: TacticalMatchState): TacticalMat
   observation = { ...observation, lastDiagnosticAt: state.time };
   return {
     ...state,
+    ...(diagnostic.classification === 'legal_unresolved' &&
+    state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1'
+      ? { safetyHalt: haltEvidence(state, 'loose_ball_lifecycle', 'no_reachable_control_progress') }
+      : {}),
     looseBallLivenessObservation: observation,
     looseBallLivenessDiagnostics: [...(state.looseBallLivenessDiagnostics ?? []), diagnostic].slice(
       -32,

@@ -1,0 +1,42 @@
+{
+  "schema": "pr217-browser-v1",
+  "browser": "155.0.4283.45",
+  "source": "d662c94c3158b6d22110ce55ba889120584689ee1509969bc5a06b48805367bc",
+  "componentFixtureInDev": true,
+  "scenarios": [
+    {
+      "width": 1366,
+      "height": 768,
+      "errors": [],
+      "checks": [
+        "normal-menu-ordinary-default-holistic-policy-seed",
+        "physical-incident-auto-halt",
+        "resume-disabled-state-preserved",
+        "one-alert",
+        "diagnostic-export",
+        "repaired-contact-continues-with-one-play-click",
+        "normal-user-pause",
+        "one-click-resume",
+        "ordinary-on-ball-human-menu",
+        "contextual-human-pass-selection"
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "errors": [],
+      "checks": [
+        "normal-menu-ordinary-default-holistic-policy-seed",
+        "physical-incident-auto-halt",
+        "resume-disabled-state-preserved",
+        "one-alert",
+        "diagnostic-export",
+        "repaired-contact-continues-with-one-play-click",
+        "normal-user-pause",
+        "one-click-resume",
+        "ordinary-on-ball-human-menu",
+        "contextual-human-pass-selection"
+      ]
+    }
+  ]
+}
