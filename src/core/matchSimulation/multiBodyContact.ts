@@ -89,7 +89,7 @@ export const multiBodyParticipants = (s: TacticalMatchState, dt: number) => {
   const ids = new Set<string>();
   if (!ownsMultiBodyInterval(s, dt)) return ids;
   // Torso authority must not disappear when the ball changes owner or technique.
-  // The broad phase covers the roster; each actual connected solve is still <=5.
+  // The broad phase covers the roster; each connected solve is roster-bounded.
   for (const p of s.players)
     if (
       canParticipatePhysically(p) &&

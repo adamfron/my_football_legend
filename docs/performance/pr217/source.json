@@ -1062,7 +1062,7 @@
     "src/core/matchSimulation/matchTimekeeping.ts": "de0b3592d72e33135bd8803532df42bb25bb38ec5c47429397d75dfd7ea2f924",
     "src/core/matchSimulation/movementAuthority.ts": "ab9f64fd7679af4656328fff36cf98b9acd1eb886fab480185b26059192976d7",
     "src/core/matchSimulation/multiBodyContact.test.ts": "33e3666380db77d3271628176bd491bc525d5591ebaed0feb8e37cc9c71baff6",
-    "src/core/matchSimulation/multiBodyContact.ts": "4876fc052b1284260a256b06208b5f59ccb7a71450ef4ac271cf36bb4c3b6cd9",
+    "src/core/matchSimulation/multiBodyContact.ts": "564df7ccd2ac1dc2c1fcbc35af395139866fe15f97d4de99e334e30a03a071c5",
     "src/core/matchSimulation/naturalMatchFlowDiagnostics.test.ts": "fe81ea01638864eaa1cddfe900e9c387e3e75271957707e43d3b386cc58bc0b2",
     "src/core/matchSimulation/naturalMatchFlowDiagnostics.ts": "75b8f2ad36859d2cf535204d801692a99a2f68ffb7eea5fa1c4f47f9ea087143",
     "src/core/matchSimulation/observedLoftedPass.ts": "f8f9027392d7074852940706508df1cad10eb094b827616c97f122e944a0efae",
@@ -1072,7 +1072,7 @@
     "src/core/matchSimulation/onBallPreparation.ts": "08d8600bcf161dacba8b5a3cb6163219c267302e61674923ddcca49cbef09d1c",
     "src/core/matchSimulation/opponentKnowledge.ts": "0a89207ba2b39f2a9127f6ab3a1a3106c3e57ecf19570c521b2829a2ccad47fd",
     "src/core/matchSimulation/opportunityWindows.ts": "252def32c486098e76230f319ee228ae4ef9953c3464d6d302afc4ad79d5af8f",
-    "src/core/matchSimulation/ordinaryContactInterval.ts": "5bff996af95ab760066dd6ead6b32a09f91409af6c7edd8a93d297745b36acd4",
+    "src/core/matchSimulation/ordinaryContactInterval.ts": "856e2c76b411eab70399c94a2110e3798ba22b1dadf4dfce0e7171dcae3affa9",
     "src/core/matchSimulation/passClaimResolver.ts": "7f204904c95734cd843367b3a2b8628935205bcba37d0fcca74774076c2d0bf4",
     "src/core/matchSimulation/passClassification.ts": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0",
     "src/core/matchSimulation/passCompletionCredit.ts": "8c09990f74f01fdff01032eff1afb924503d4675f341b34fdadf8f3bb5b81f2f",
@@ -1225,7 +1225,7 @@
     "src/core/matchSimulation/pr215Clinch.test.ts": "6c1cf87d73b9e43ae0413aadfa5c677d9b84400a1d5481ea6360873cc162fd06",
     "src/core/matchSimulation/pr215Integration.test.ts": "b3c43995c882aa52eebedb242914e4a2800e69498f7f774763f45fb612c1fbeb",
     "src/core/matchSimulation/pr216Continuity.test.ts": "4090d5e15a06d97c692b7231174b50c22f653cf8412477f94191cb78dbd51707",
-    "src/core/matchSimulation/pr217Reliability.test.ts": "7d6bcdf4c17c0483b1b7187be7bddd3467ccd038db46daf42a160a120d3b4b12",
+    "src/core/matchSimulation/pr217Reliability.test.ts": "1da5c52272381fca6812410eb002f1bd54fb5765b97dac0f6873c6d28256774a",
     "src/core/matchSimulation/preReceptionPlanning.ts": "16ddc018a94008aa40acbf9f99a2361685c2bd6bbabffada9f4f23f4fb4ad015",
     "src/core/matchSimulation/preparationContactSearch.test.ts": "943ee23c7a5fdeb9cb70961b429c4558e0709bc54db389f6dd7da9666832848a",
     "src/core/matchSimulation/presentationWindows.ts": "0e0eefc21d3ad219413e4259303cdbd074ec8f3f3158144ce5a131cb7789cece",
@@ -1268,7 +1268,7 @@
     "src/core/matchSimulation/spatialHardening.test.ts": "2e05c8242a3804a81756bff48553b20181f13c6035ca3352b8dfb8944ce5ac0e",
     "src/core/matchSimulation/stoppageLedger.ts": "526ff56e91e8f3e1fac8c7162e47e4a5defbd63d627bf60934467fa5040e8783",
     "src/core/matchSimulation/strategicClearance.ts": "30569840e83fc6385d992a7f4ad535cd6955679630a65fdca5bd41c97d840234",
-    "src/core/matchSimulation/substitutions.ts": "02de17b15ef8d49ff9347e7ea31a64ca2e006f36fcce9a3a267d219fda581cea",
+    "src/core/matchSimulation/substitutions.ts": "e56ce2f41cf66a555c9bf079e9142a61aac70c71bd584ab5978149c718d87001",
     "src/core/matchSimulation/tacticalActionEvaluator.ts": "1c218647d5ecae19436bb6c3a6828ae55150db461e413f001845d50a59802069",
     "src/core/matchSimulation/tacticalCognition.test.ts": "4b8a70fa7a9865af14014f2d4cd25c4f0d0c4dd3392785cd2873ee6926def91d",
     "src/core/matchSimulation/tacticalCognition.ts": "a2661b893e50db5cfe428ed01c0fa9ae434430a673d8cfe013e72dcd1e1ba9bc",
@@ -1394,6 +1394,6 @@
     "src/vite-env.d.ts": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
     "vitest.config.ts": "d0192818ad421a331a639c4a636a66c51185b47a1e7fa77d1446062f221b62cf"
   },
-  "fingerprint": "d43dbc8dfaddd3798ef97c3a6234d3561d080fed07383268d5f47b767cf764f6",
-  "archive": "docs/performance/pr217/source-d43dbc8dfaddd3798ef97c3a6234d3561d080fed07383268d5f47b767cf764f6.json.gz"
+  "fingerprint": "0128d2f6b496866a11ae722c4c8e51186ecf92f14f9b064ea4ddf77c6c3654e3",
+  "archive": "docs/performance/pr217/source-0128d2f6b496866a11ae722c4c8e51186ecf92f14f9b064ea4ddf77c6c3654e3.json.gz"
 }

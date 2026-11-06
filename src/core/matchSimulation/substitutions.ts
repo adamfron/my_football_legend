@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PLAYER_BODY_CONTACT } from './playerBodyContact';
 import {
   rolesForPlayer,
   roleSuitability,
@@ -754,6 +755,17 @@ export const advanceMatchSubstitutions = (
     if (
       request.leftAt !== undefined &&
       request.refereeEntryAt === undefined &&
+      (state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1' ||
+        [
+          ...previous.players,
+          ...state.players,
+          ...entryOrigins,
+          ...substitutionEntryBodies(state),
+        ].every(
+          (body) =>
+            body.id === request.incoming.id ||
+            distance(body.position, request.entryPosition) >= PLAYER_BODY_CONTACT.diameter,
+        )) &&
       isLegalSubstitutionStoppage(state) &&
       (state.status === 'half_time' ||
         !request.delayed ||

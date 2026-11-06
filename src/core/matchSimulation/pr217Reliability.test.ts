@@ -303,3 +303,38 @@ it('retains a separating passive foot as zero-impulse support without crediting 
   });
   expect(next.ball.ownerId).toBeUndefined();
 });
+
+const authorityAndEntry = JSON.parse(
+  gunzipSync(
+    readFileSync(
+      new URL(
+        '../../../docs/performance/pr217/solver-authority-and-entry-v1.json.gz',
+        import.meta.url,
+      ),
+    ),
+  ).toString(),
+).cases as { name: string; initial: TacticalMatchState }[];
+it('keeps real shared foot authority while another footballer waits for a human receiving intention', () => {
+  const state = authorityAndEntry[0]!.initial;
+  expect(state.pendingReceptionIntent?.actorId).toBe('footballer_pro_9_12');
+  const next = stepTacticalMatch(state, 0.025);
+  expect(next.safetyHalt).toBeUndefined();
+  expect(next.lastGroundContact?.actorId).toBe('footballer_pro_9_7');
+  expect(next.lastGroundContact?.surfaceContact?.available).toBe(true);
+  expect(next.lastGroundContact?.at).toBeLessThan(next.time);
+  expect(next.ball.sourceAction).not.toBe('space_pass');
+});
+it('queues simultaneous substitution entrants until the same physical entry lane is clear at both ends of the motor interval', () => {
+  let state = authorityAndEntry[1]!.initial;
+  const oldCompleted = state.substitutionState!.completed.length;
+  for (let tick = 0; tick < 160 && state.substitutionState!.pending.length; tick++) {
+    state = stepTacticalMatch(state, 0.025);
+    expect(state.safetyHalt).toBeUndefined();
+  }
+  expect(state.substitutionState!.pending).toHaveLength(0);
+  const admitted = state.substitutionState!.completed.slice(oldCompleted);
+  expect(admitted).toHaveLength(2);
+  expect(state.players.some((p) => p.id === 'footballer_pro_9_16')).toBe(true);
+  expect(state.players.some((p) => p.id === 'footballer_pro_1_8')).toBe(true);
+  expect(admitted[0]!.enteredAt).not.toBe(admitted[1]!.enteredAt);
+});
