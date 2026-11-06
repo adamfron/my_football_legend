@@ -806,7 +806,10 @@ export const advancePendingStrikeInterval = (
         ...state,
         continuousFootContacts: [
           ...(state.continuousFootContacts ?? []),
-          { actorId: event.playerId!, foot: event.key.endsWith(':left') ? 'left' : 'right' },
+          {
+            actorId: event.playerId!,
+            foot: event.key.endsWith(':left') ? ('left' as const) : ('right' as const),
+          },
         ].slice(-44),
       };
       continue;
