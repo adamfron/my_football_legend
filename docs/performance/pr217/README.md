@@ -32,6 +32,8 @@ The recipe remains **RETAIN_EXPERIMENTAL**.
   respectively 3–2, 3–0 and 3–1. No new unresolved or safety halt; explicit human
   choices and 98/93/61 native reload checkpoints. The first starts at zero;
   the other two start at the actual recovered incident and saved throw-in.
+  Their verbose emitted summaries are stored losslessly as `full-*-summary-solver-final-v7.json.gz`;
+  `summary-archives-solver-v7.json` records the original byte counts and SHA256.
 - `test-only-edition-solver-v2.json`: final source `2dd760e6...` differs from
   those measurements only in two named test files. All other 1093 manifest
   entries, including every executable application/script file, are identical.
