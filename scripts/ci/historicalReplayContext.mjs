@@ -17,7 +17,8 @@ export function historicalReplayContext(command) {
       ? PR193
       : name === 'benchmark:pr196:replay'
         ? PR196
-        : name === 'benchmark:pr200:source-replay' ||
+        : (name === 'benchmark:pr200:source-replay' &&
+              !command.some((v) => v.startsWith('--case=matches'))) ||
             command.includes('scripts/probePr200Platform.mjs')
           ? PR200
           : undefined;
@@ -45,7 +46,7 @@ export function historicalReplayContext(command) {
           .filter(
             (p) =>
               /^docs\/performance\/pr(188-traces|19[3-9]|200)\//.test(p) ||
-              p.includes('PR188-match-dev-sw-state-value-v1-full-observed-final-v1'),
+              p.startsWith('docs/performance/PR188-match-dev-'),
           )
           .map((p) =>
             p.startsWith('docs/performance/pr') ? p.split('/').slice(0, 3).join('/') : p,

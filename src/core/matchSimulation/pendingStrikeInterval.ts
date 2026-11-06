@@ -757,7 +757,9 @@ export const advancePendingStrikeInterval = (
             hit.outcome === 'unresolved'
               ? multi && hit.reason === 'bounded_search_exhausted' && hit.local > 1e-10
                 ? 'search_frontier'
-                : 'uncertain'
+                : multi && hit.reason === 'grazing_or_separating' && !selected && hit.foot
+                  ? 'separating_foot'
+                  : 'uncertain'
               : own && selected
                 ? 'strike'
                 : defending && selected
@@ -796,6 +798,19 @@ export const advancePendingStrikeInterval = (
     // This is neither an impulse nor a miss. The existing 16-event frame bound
     // still owns exhaustion, which remains an explicit unresolved halt.
     if (event.kind === 'search_frontier') continue;
+    if (event.kind === 'separating_foot') {
+      // A passive surface that is already separating has zero normal impulse.
+      // Retain its unilateral support until real clearance, without counting a
+      // strike/control/touch or interrupting the still-live selected action.
+      state = {
+        ...state,
+        continuousFootContacts: [
+          ...(state.continuousFootContacts ?? []),
+          { actorId: event.playerId!, foot: event.key.endsWith(':left') ? 'left' : 'right' },
+        ].slice(-44),
+      };
+      continue;
+    }
     if (event.kind === 'player_cluster' || event.kind === 'player_edge') {
       const result = resolveMultiBodyContact(state, event.participants!, state.time);
       state = recordExecution(
@@ -1051,18 +1066,28 @@ export const advancePendingStrikeInterval = (
             ...haltEvidence(state, 'physical_contact', reason, start),
             actorIds: [event.playerId!],
             ...(state.pendingStrike ? { actionId: state.pendingStrike.id } : {}),
-            ...(foot ? {
-              foot: foot.position,
-              footVelocity: foot.velocity,
-              footRadius: 0.035,
-              ballRadius: 0.11,
-              gap: Math.hypot(foot.position.x - incoming.position.x, foot.position.y - incoming.position.y, foot.position.z - incoming.position.z) - 0.145,
-              ...(normal ? { relativeClosingSpeed:
-                (foot.velocity.x - incoming.velocity.x) * normal.x +
-                (foot.velocity.y - incoming.velocity.y) * normal.y +
-                (foot.velocity.z - incoming.velocity.z) * normal.z,
-              } : {}),
-            } : {}),
+            ...(foot
+              ? {
+                  foot: foot.position,
+                  footVelocity: foot.velocity,
+                  footRadius: 0.035,
+                  ballRadius: 0.11,
+                  gap:
+                    Math.hypot(
+                      foot.position.x - incoming.position.x,
+                      foot.position.y - incoming.position.y,
+                      foot.position.z - incoming.position.z,
+                    ) - 0.145,
+                  ...(normal
+                    ? {
+                        relativeClosingSpeed:
+                          (foot.velocity.x - incoming.velocity.x) * normal.x +
+                          (foot.velocity.y - incoming.velocity.y) * normal.y +
+                          (foot.velocity.z - incoming.velocity.z) * normal.z,
+                      }
+                    : {}),
+                }
+              : {}),
           },
         };
         return restoreClock(state);

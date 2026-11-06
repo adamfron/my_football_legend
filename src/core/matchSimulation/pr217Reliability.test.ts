@@ -283,3 +283,23 @@ for (const fixture of solverBlockers) {
     }
   });
 }
+
+it('retains a separating passive foot as zero-impulse support without crediting a strike, pass or touch', () => {
+  const state = JSON.parse(
+    gunzipSync(
+      readFileSync(
+        new URL('../../../docs/performance/pr217/solver-separating-v1.json.gz', import.meta.url),
+      ),
+    ).toString(),
+  ).initial as TacticalMatchState;
+  const next = stepTacticalMatch(state, 0.025);
+  expect(next.safetyHalt).toBeUndefined();
+  expect(next.time).toBeCloseTo(state.time + 0.025, 9);
+  expect(next.lastGroundContact).toEqual(state.lastGroundContact);
+  expect(next.statistics?.observedPassAttemptIds).toEqual(state.statistics?.observedPassAttemptIds);
+  expect(next.continuousFootContacts).toContainEqual({
+    actorId: 'footballer_pro_1_23',
+    foot: 'right',
+  });
+  expect(next.ball.ownerId).toBeUndefined();
+});
