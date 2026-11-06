@@ -1,0 +1,219 @@
+{
+  "schema": "pr217-verification-v2",
+  "source": "2dd760e6b7d0d26c744f8e51cf529c9621fd9874be6155291d3387a895245471",
+  "base": "d91852decfc523a2403460536ccc96da12c6ee17",
+  "verification": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "node": "v24.22.1",
+    "platform": "win32",
+    "reports": [
+      " Test Files  292 passed (292)",
+      "      Tests  2677 passed (2677)",
+      "   Duration  388.82s (transform 34.39s, setup 0ms, import 175.97s, tests 406.18s, environment 125.78s)",
+      " Test Files  3 passed (3)",
+      "      Tests  56 passed (56)",
+      "   Duration  208.14s (transform 7.85s, setup 0ms, import 14.65s, tests 191.39s, environment 1.32s)",
+      " Test Files  1 passed (1)",
+      "      Tests  4 passed (4)",
+      "   Duration  652.47s (transform 3.58s, setup 0ms, import 6.49s, tests 645.68s, environment 0ms)",
+      " Test Files  1 passed (1)",
+      "      Tests  5 passed (5)",
+      "   Duration  68.90s (transform 577ms, setup 0ms, import 771ms, tests 67.92s, environment 0ms)"
+    ],
+    "log": "verify-solver-final-v2.txt.gz",
+    "logSha256": "4cb22d2b1aed93beeae64af624193e23e2d152ca9b53eee172f094853f7bf2e3",
+    "sourceFrozenBeforeVerification": true
+  },
+  "checks": {
+    "pr217Regressions": "19/19 PASS",
+    "targetedContactRegressions": "64/64 PASS",
+    "boundedPr217": "PASS",
+    "ciManifest": "124 commands / 144 cases / 28 jobs / 63 full matches",
+    "ciContracts": "7/7 PASS",
+    "browserDev": {
+      "schema": "pr217-browser-v1",
+      "browser": "155.0.4283.45",
+      "source": "d662c94c3158b6d22110ce55ba889120584689ee1509969bc5a06b48805367bc",
+      "componentFixtureInDev": true,
+      "scenarios": [
+        {
+          "width": 1366,
+          "height": 768,
+          "errors": [],
+          "checks": [
+            "normal-menu-ordinary-default-holistic-policy-seed",
+            "physical-incident-auto-halt",
+            "resume-disabled-state-preserved",
+            "one-alert",
+            "diagnostic-export",
+            "repaired-contact-continues-with-one-play-click",
+            "normal-user-pause",
+            "one-click-resume",
+            "ordinary-on-ball-human-menu",
+            "contextual-human-pass-selection"
+          ]
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "errors": [],
+          "checks": [
+            "normal-menu-ordinary-default-holistic-policy-seed",
+            "physical-incident-auto-halt",
+            "resume-disabled-state-preserved",
+            "one-alert",
+            "diagnostic-export",
+            "repaired-contact-continues-with-one-play-click",
+            "normal-user-pause",
+            "one-click-resume",
+            "ordinary-on-ball-human-menu",
+            "contextual-human-pass-selection"
+          ]
+        }
+      ]
+    },
+    "browserProduction": {
+      "schema": "pr217-browser-v1",
+      "browser": "155.0.4283.45",
+      "source": "d662c94c3158b6d22110ce55ba889120584689ee1509969bc5a06b48805367bc",
+      "componentFixtureInDev": false,
+      "scenarios": [
+        {
+          "width": 1366,
+          "height": 768,
+          "errors": [],
+          "checks": [
+            "normal-menu-ordinary-default-holistic-policy-seed",
+            "production-normal-start-play-pause"
+          ]
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "errors": [],
+          "checks": [
+            "normal-menu-ordinary-default-holistic-policy-seed",
+            "production-normal-start-play-pause"
+          ]
+        }
+      ]
+    }
+  },
+  "fullMatches": [
+    {
+      "name": "full-input-solver-final-v7",
+      "source": "d662c94c3158b6d22110ce55ba889120584689ee1509969bc5a06b48805367bc",
+      "identicalFinalExecutableSource": true,
+      "initialTime": 0,
+      "time": 5719.399999986895,
+      "status": "full_time",
+      "score": {
+        "home": 3,
+        "away": 2
+      },
+      "reason": "full_time",
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2898.7250000061626
+        }
+      ],
+      "totalTicks": 228776,
+      "wallSeconds": 1342.6240762,
+      "cpu": {
+        "user": 1404000000,
+        "system": 47594000
+      },
+      "maxRSSKiB": 805924,
+      "humanDecisions": 77,
+      "nativeReloadCheckpoints": 98,
+      "contacts": 3253,
+      "preparedStrikes": 1065,
+      "passes": 817,
+      "oldUnresolved": 0,
+      "newUnresolved": 0
+    },
+    {
+      "name": "full-incident-solver-final-v7",
+      "source": "d662c94c3158b6d22110ce55ba889120584689ee1509969bc5a06b48805367bc",
+      "identicalFinalExecutableSource": true,
+      "initialTime": 295.67500000000496,
+      "time": 5669.274999999574,
+      "status": "full_time",
+      "score": {
+        "home": 3,
+        "away": 0
+      },
+      "reason": "full_time",
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2820
+        }
+      ],
+      "totalTicks": 214945,
+      "wallSeconds": 1241.2487444,
+      "cpu": {
+        "user": 1308578000,
+        "system": 42766000
+      },
+      "maxRSSKiB": 810572,
+      "humanDecisions": 94,
+      "nativeReloadCheckpoints": 93,
+      "contacts": 3323,
+      "preparedStrikes": 1074,
+      "passes": 814,
+      "oldUnresolved": 0,
+      "newUnresolved": 0
+    },
+    {
+      "name": "full-checkpoint-solver-final-v7",
+      "source": "d662c94c3158b6d22110ce55ba889120584689ee1509969bc5a06b48805367bc",
+      "identicalFinalExecutableSource": true,
+      "initialTime": 3627.500000008814,
+      "time": 7137.174999966263,
+      "status": "full_time",
+      "score": {
+        "home": 3,
+        "away": 1
+      },
+      "reason": "full_time",
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 4256.300000008186
+        }
+      ],
+      "totalTicks": 140387,
+      "wallSeconds": 300.2795678,
+      "cpu": {
+        "user": 356515000,
+        "system": 3375000
+      },
+      "maxRSSKiB": 798672,
+      "humanDecisions": 14,
+      "nativeReloadCheckpoints": 61,
+      "contacts": 2003,
+      "preparedStrikes": 689,
+      "passes": 497,
+      "oldUnresolved": 12,
+      "newUnresolved": 0
+    }
+  ],
+  "testOnlyEditionProof": {
+    "schema": "pr217-test-only-edition-v1",
+    "measuredSource": "d662c94c3158b6d22110ce55ba889120584689ee1509969bc5a06b48805367bc",
+    "finalSource": "2dd760e6b7d0d26c744f8e51cf529c9621fd9874be6155291d3387a895245471",
+    "changedFiles": [
+      "src/core/matchSimulation/preparationContactSearch.test.ts",
+      "src/core/matchSimulation/sharedContactTimeline.test.ts"
+    ],
+    "unchangedNonTestFiles": 1093,
+    "executableManifestFingerprint": "251d9e0cc90fc86c657d69ab1b8669ef5c3d2ad85054cff4e129d03dbae44546",
+    "assertion": "Every manifest entry other than the two listed test files is byte-identical after repository line-ending normalization. This includes all application code, scripts, dependencies and workflow configuration."
+  },
+  "promotion": "RETAIN_EXPERIMENTAL",
+  "formalIssuesPromoted": 0,
+  "scope": "Development fixture and two actual saved continuations; explicit pass-first human policy. Native reload identity does not imply Edge/Node or cross-platform bit identity. No independent confirmation or physics/fitness calibration."
+}

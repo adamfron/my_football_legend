@@ -84,6 +84,12 @@ rozwojowe ze stałą polityką jawnych wyborów pass-first. Ich sukces zamyka te
 konkretne blokery niezawodności; nie certyfikuje wszystkich seedów, mechanizmów
 ani pełnego modelu kondycji.
 
+**Aktualizacja odpowiedzi completion 4 i 5:** kontynuacja odzyskanego incydentu
+i kontynuacja zapisanego autu osiągają przerwę i końcowy gwizdek; świeże wejście
+fixture także kończy cały mecz. Nie odtwarzamy nieznanego ciągu przyszłych wyborów
+właściciela: nowe jawne wybory są zapisane, a pełne wyniki dotyczą Node/Windows.
+Sprawdzony Edge obejmuje odzyskany incydent i UI, nie pełny bitowo równy replay.
+
 CI wykazał dwie asercje starego zachowania: brak obwiedni przyspieszenia przy
 przejściu przez onset oraz wymagane wyczerpanie wyszukiwania w konkretnej scenie
 PR212. Aktualne testy sprawdzają rzeczywistą zmianę prędkości stopy pod obwiednią
@@ -103,8 +109,18 @@ Przypadki pełnych meczów PR200 zachowują dotychczasową obsługę własnych a
 Nie zmieniono 124 komend, 144 przypadków, 28 jobów ani limitów czasu. Probe Windows
 odzyskuje dokładny zapisany hash, PR193 i PR196 także przechodzą lokalnie.
 
-Pełne mecze przechodzą. Końcowe verify i zdalny CI są rozliczane osobno; do ich
-zakończenia PR pozostaje draftem. RETAIN_EXPERIMENTAL nie oznacza formalnego COMPLETE.
+**Końcowe npm run verify: PASS, exit 0, 2742 testy** (2677 + 56 + 4 + 5),
+z lintem i końcowym TypeScript/Vite buildem. Źródła zostały zamrożone przed
+uruchomieniem całego zestawu; pełne kontrakty kariery także przechodzą.
+[Końcowy receipt](performance/pr217/verification-solver-v2.json) i
+[pełny log](performance/pr217/verify-solver-final-v2.txt.gz) zachowują wynik.
+Edge DEV i produkcyjny build: oba viewporty, 20 + 4 sprawdzenia, zero pageerror.
+
+**Decyzja:** znane blokery niezawodności PR217 zamknięte w sprawdzonych trzech
+trajektoriach. Gotowość techniczna PR wymaga jeszcze zielonego CI ostatniego
+commita; jego wynik jest widoczny w [sprawdzeniach PR217](https://github.com/adamfron/my_football_legend/pull/217/checks).
+Status draft jest zdejmowany dopiero po tej bramce. Receptura pozostaje
+RETAIN_EXPERIMENTAL, bez formalnego COMPLETE i bez otwierania confirmation.
 
 ## Etapy pracy i decyzja integracyjna
 

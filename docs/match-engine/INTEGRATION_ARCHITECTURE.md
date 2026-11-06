@@ -13,7 +13,8 @@ The solver follow-up repairs them and the subsequently observed receiving,
 substitution-entry and restart-return transitions. One fresh full match and both
 real saved continuations complete on the same executable source with no new
 unresolved intervals. This closes those development reliability blockers;
-technical verify/CI and independent confirmation remain separate gates.
+the complete technical verify passes (2742 tests, lint and build). Remote CI of the
+final commit and independent confirmation remain separate gates.
 
 Next candidates are dependency-ordered: PR218 authoritative articulated transforms,
 stance foot and finite traction consumed by the renderer; PR219 observation,

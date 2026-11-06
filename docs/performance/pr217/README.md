@@ -41,6 +41,9 @@ The recipe remains **RETAIN_EXPERIMENTAL**.
 - `source.json`, `source-<fingerprint>.json.gz`: current manifest and immutable source editions.
 - `verification.json`, `verify-final-v1.txt.gz`: first-draft check results, complete verify log,
   identical application-source proof for the three failed long attempts, and scope limits.
+- `verification-solver-v2.json`, `verify-solver-final-v2.txt.gz`: final frozen-source
+  verify PASS (2742 tests, lint, build), three completed trajectories and test-only
+  executable-source equivalence proof. Remote CI is reported separately on the PR.
 - `browser/report.json`: real RunningLabGuard with canonical DEV fixtures, two viewports.
   `browser/production.json`: normal startup/play/pause on the production build.
 - Earlier `replay-*`, `failure-*`, `agency-*` and `full-incident-final-v1..v3`:

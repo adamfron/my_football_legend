@@ -19,7 +19,8 @@ Na tej samej wykonywanej aplikacji pełny mecz od 0 s kończy się 3–2,
 odzyskany incydent 3–0, zapisany aut 3–1; zero nowych unresolved. Przechodzą
 kontrole natywnego zapisu/odczytu, 19 regresji PR217 i 64 testy kontaktów.
 To rozwojowe domknięcie konkretnych blokerów, bez niezależnego confirmation
-i bez promocji formalnego realizmu. Końcowe verify i CI są osobnymi bramkami PR.
+i bez promocji formalnego realizmu. Końcowe npm run verify przechodzi: 2742
+testy, lint i build. Zdalny CI ostatniego commita pozostaje osobną bramką PR.
 
 PR215: Single Match Lab ma rzeczywisty wybór **Fizyka meczu → Holistyczna (eksperymentalna)**.
 Wspólna receptura browser/CLI jest walidowana przed inicjalizacją meczu; restart,
