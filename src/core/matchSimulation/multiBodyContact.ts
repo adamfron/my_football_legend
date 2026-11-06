@@ -13,7 +13,9 @@ import {
 } from './playerBodyContact';
 
 export const MULTI_BODY = {
-  maximumBodies: 5,
+  // A connected component may contain any member of the validated 22-player
+  // roster. Pair work remains bounded by 22 choose 2 and the same 64 sweeps.
+  maximumBodies: 22,
   iterations: 32,
   completionIterations: PLAYER_BODY_CONTACT.maximumCorrectionIterations,
   fiveBodyIterations: PLAYER_BODY_CONTACT.maximumCorrectionIterations,
@@ -71,8 +73,14 @@ export const multiBodyMovementBounds = (s: TacticalMatchState, player?: MatchPla
   s.restart || s.postGoal
     ? { minimum: { x: -8, y: -8 }, maximum: { x: 113, y: 76 } }
     : {
-        minimum: { ...MULTI_BODY.minimum, x: player && isMatchGoalkeeper(player) ? 0 : MULTI_BODY.minimum.x },
-        maximum: { ...MULTI_BODY.maximum, x: player && isMatchGoalkeeper(player) ? 105 : MULTI_BODY.maximum.x },
+        minimum: {
+          ...MULTI_BODY.minimum,
+          x: player && isMatchGoalkeeper(player) ? 0 : MULTI_BODY.minimum.x,
+        },
+        maximum: {
+          ...MULTI_BODY.maximum,
+          x: player && isMatchGoalkeeper(player) ? 105 : MULTI_BODY.maximum.x,
+        },
       };
 
 /** Conservative connected broad phase for this existing interval, not a second
@@ -83,7 +91,11 @@ export const multiBodyParticipants = (s: TacticalMatchState, dt: number) => {
   // Torso authority must not disappear when the ball changes owner or technique.
   // The broad phase covers the roster; each actual connected solve is still <=5.
   for (const p of s.players)
-    if (canParticipatePhysically(p) && !s.discipline?.[p.id]?.sentOff && supportedUprightPair(p, p, true))
+    if (
+      canParticipatePhysically(p) &&
+      !s.discipline?.[p.id]?.sentOff &&
+      supportedUprightPair(p, p, true)
+    )
       ids.add(p.id);
   if (ownsOrdinaryLowBallInterval(s, dt)) {
     const reach = 1.5 + (12 + Math.hypot(s.ball.velocity?.x ?? 0, s.ball.velocity?.y ?? 0)) * dt;
@@ -227,7 +239,8 @@ export const resolveMultiBodyContact = (
       );
     }, 0);
   if (players.length > MULTI_BODY.maximumBodies) reason = 'body_count_bound';
-  else if (players.some((p) => !supportedUprightPair(p, p, true))) reason = 'unsupported_body_state';
+  else if (players.some((p) => !supportedUprightPair(p, p, true)))
+    reason = 'unsupported_body_state';
   else if (
     players.some((p) => {
       const bounds = boundsFor(p);
@@ -264,7 +277,10 @@ export const resolveMultiBodyContact = (
         y: b.position.y - (n.y * correction) / (b.profile.weightKg * inverse),
       };
       positionCorrection += correction;
-      if (!activePairs.has(playerPairKey(a.id, b.id)) && activePairs.size >= 22) {
+      if (
+        !activePairs.has(playerPairKey(a.id, b.id)) &&
+        activePairs.size >= PLAYER_BODY_CONTACT.maximumPersistentPairs
+      ) {
         reason = 'persistent_storage_bound';
         break;
       }
@@ -290,11 +306,22 @@ export const resolveMultiBodyContact = (
           b = players.find((p) => p.id === b0.id)!;
         if (playerBodyClearance(a, b) > MULTI_BODY.contactTolerance) continue;
         const key = playerPairKey(a.id, b.id);
-        if (!activePairs.has(key) && activePairs.size >= 22) {
+        if (
+          !activePairs.has(key) &&
+          activePairs.size >= PLAYER_BODY_CONTACT.maximumPersistentPairs
+        ) {
           reason = 'persistent_storage_bound';
           break;
         }
-        const result = resolvePlayerBodyImpulse(a, b, at, activePairs.has(key), undefined, undefined, true);
+        const result = resolvePlayerBodyImpulse(
+          a,
+          b,
+          at,
+          activePairs.has(key),
+          undefined,
+          undefined,
+          true,
+        );
         if (!result.evidence.normalImpulse) continue;
         changed = true;
         result.evidence.correctionIterations = pass + 1;

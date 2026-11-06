@@ -248,3 +248,38 @@ for (const fixture of ['restart-boot-overlap-v1', 'restart-perimeter-v2', 'resta
     expect(state.time).toBeGreaterThan(releasedAt! + 1);
   });
 }
+
+const solverBlockers = JSON.parse(
+  gunzipSync(
+    readFileSync(
+      new URL('../../../docs/performance/pr217/solver-blockers-v1.json.gz', import.meta.url),
+    ),
+  ).toString(),
+).cases as { name: string; initial: TacticalMatchState }[];
+for (const fixture of solverBlockers) {
+  it(`continues the actual ${fixture.name} solver blocker without inventing a football result`, () => {
+    const initial = fixture.initial;
+    const next = stepTacticalMatch(initial, 0.025);
+    expect(next.safetyHalt).toBeUndefined();
+    expect(next.time).toBeCloseTo(initial.time + 0.025, 9);
+    expect(next.executionWitnesses?.unresolved).toEqual(initial.executionWitnesses?.unresolved);
+    expect(tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(next)))).toEqual(
+      tacticalMatchStateSchema.parse(next),
+    );
+    if (fixture.name.includes('checkpoint')) {
+      const component = next.multiBodyResolutions!.find((r) => r.participants.length > 5)!;
+      expect(component).toBeDefined();
+      expect(component.unresolved).toBe(false);
+      expect(component.energyAfter).toBeLessThanOrEqual(component.energyBefore + 1e-7);
+      expect(component.residualClosingSpeed).toBeLessThanOrEqual(1e-4);
+      for (const axis of ['x', 'y'] as const)
+        expect(component.momentumAfter[axis] - component.momentumBefore[axis]).toBeCloseTo(
+          component.boundaryImpulse[axis],
+          7,
+        );
+    } else {
+      expect(next.lastGroundContact?.at).toBeGreaterThan(initial.time);
+      expect(next.lastGroundContact?.actorId).toBe('footballer_pro_9_7');
+    }
+  });
+}

@@ -161,15 +161,15 @@ describe('PR216 five-body component continuation', () => {
       for (let j = i + 1; j < r.players.length; j++)
         expect(playerBodyClearance(r.players[i]!, r.players[j]!)).toBeGreaterThanOrEqual(-1e-8);
   });
-  it('keeps six connected bodies as explicit overflow without changing their velocities or ownership', () => {
+  it('resolves a stationary six-body component without changing velocities or ownership', () => {
     const s = chain([80, 80, 80, 80, 80, 80]);
     s.players = s.players.map((p) => ({ ...p, velocity: { x: 0, y: 0 } }));
     const r = resolveMultiBodyContact(s, [s.players[0]!.id], s.time);
     expect(r.players).toHaveLength(6);
-    expect(r.evidence.reason).toBe('body_count_bound');
-    expect(r.evidence.unresolved).toBe(true);
+    expect(r.evidence.reason).toBe('resolved');
+    expect(r.evidence.unresolved).toBe(false);
     expect(r.contacts).toHaveLength(0);
-    expect(r.evidence.iterations).toBe(0);
+    expect(r.evidence.iterations).toBe(1);
     expect(r.players).toEqual([...s.players].sort((a, b) => (a.id < b.id ? -1 : 1)));
     expect(s.ball.ownerId).toBeUndefined();
   });

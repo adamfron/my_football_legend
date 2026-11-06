@@ -387,8 +387,20 @@ export const canonicalStrikeFoot = (
   // displacement or acceleration here. Bounding a later 20m/s swing during
   // this preparation phase can exhaust conservative advancement near contact.
   const preparing = intervalAt + dt <= pending.selectedAt + pending.path.onset;
-  const completed = intervalAt >=
-    pending.selectedAt + pending.path.onset + pending.path.duration + TEMPORAL_STRIKE.followThroughSeconds;
+  const completed =
+    intervalAt >=
+    pending.selectedAt +
+      pending.path.onset +
+      pending.path.duration +
+      TEMPORAL_STRIKE.followThroughSeconds;
+  const [, , c, d] = pending.path.controls;
+  // A cubic's second derivative is a segment between its endpoint derivatives.
+  // The following linear deceleration has its own finite acceleration bound.
+  const strokeAcceleration = Math.max(
+    (6 * norm(c)) / pending.path.duration ** 2,
+    (6 * norm(sub(d, scale(c, 2)))) / pending.path.duration ** 2,
+    norm(pending.path.finalVelocity) / TEMPORAL_STRIKE.followThroughSeconds,
+  );
   return {
     position: add(position, offset),
     velocity: add(
@@ -402,9 +414,15 @@ export const canonicalStrikeFoot = (
         : completed
           ? Math.abs(turn / dt) * norm(offset)
           : pending.path.speedBound + Math.abs(turn / dt) * pending.path.reachBound),
-    ...(preparing || completed
-      ? { accelerationBound: accelerationBound + (completed ? (turn / dt) ** 2 * norm(offset) : 0) }
-      : {}),
+    accelerationBound:
+      accelerationBound +
+      (preparing
+        ? 0
+        : completed
+          ? (turn / dt) ** 2 * norm(offset)
+          : strokeAcceleration +
+            2 * Math.abs(turn / dt) * pending.path.speedBound +
+            (turn / dt) ** 2 * pending.path.reachBound),
   };
 };
 
@@ -425,6 +443,20 @@ export const findStrikeIntervalContact = (
     (BALL_PHYSICS.gravity + BALL_PHYSICS.maximumMagnusAcceleration) * seconds +
     Math.max(footAt(0).speedBound, footAt(seconds).speedBound) +
     supportSpeedBound;
+  const flightSpeed =
+    norm(initial.velocity) +
+    (BALL_PHYSICS.gravity + BALL_PHYSICS.maximumMagnusAcceleration) * seconds;
+  const flightAcceleration =
+    BALL_PHYSICS.gravity +
+    BALL_PHYSICS.maximumMagnusAcceleration +
+    BALL_PHYSICS.airDrag * flightSpeed ** 2;
+  // A ground impulse is discontinuous. Use the smooth-flight bound only when
+  // even the downward acceleration envelope cannot reach the grass this interval.
+  const clearOfGround =
+    initial.position.z +
+      Math.min(0, initial.velocity.z) * seconds -
+      0.5 * flightAcceleration * seconds ** 2 >
+    0.11;
   let local = 0,
     previousLocal = 0;
   for (let evaluations = 1; evaluations <= maximumEvaluations; evaluations++) {
@@ -480,20 +512,20 @@ export const findStrikeIntervalContact = (
     let advance = gap / Math.max(1e-12, speed);
     if (
       !supportedFlight &&
-      !ball.airborne &&
-      ball.position.z <= 0.11 &&
-      ball.velocity.z === 0 &&
+      (clearOfGround || (!ball.airborne && ball.position.z <= 0.11 && ball.velocity.z === 0)) &&
       foot.accelerationBound !== undefined
     ) {
       // g'' >= -|relative acceleration|. Solve the conservative quadratic lower
       // bound instead of using the sum of two almost co-moving speeds. This also
       // certifies clear grazing paths without exhausting the search near a foot.
       const acceleration =
-        BALL_PHYSICS.rollingDeceleration *
-          (state.ballEnvironment?.rollingResistanceMultiplier ?? 1) +
-        foot.accelerationBound;
+        (clearOfGround
+          ? flightAcceleration
+          : BALL_PHYSICS.rollingDeceleration *
+            (state.ballEnvironment?.rollingResistanceMultiplier ?? 1)) + foot.accelerationBound;
       const closing = dot(sub(foot.velocity, ball.velocity), scale(delta, 1 / norm(delta)));
-      advance = (-closing + Math.sqrt(closing * closing + 2 * acceleration * gap)) / acceleration;
+      const root = Math.sqrt(closing * closing + 2 * acceleration * gap);
+      advance = closing >= 0 ? (2 * gap) / (root + closing) : (root - closing) / acceleration;
     }
     previousLocal = local;
     local = Math.min(seconds, local + Math.max(1e-12, 0.9 * advance));

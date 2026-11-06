@@ -17,6 +17,7 @@ import {
 } from './manifest.mjs';
 import { pr201Context } from './replayPr201Check.mjs';
 import { pr198Context } from './replayPr198Check.mjs';
+import { historicalReplayContext } from './historicalReplayContext.mjs';
 import { readNodeResources } from './telemetry.mjs';
 
 export function stopTree(child) {
@@ -161,7 +162,7 @@ async function main() {
             ? pr201Context()
             : task.command[2] === 'benchmark:pr198:check'
               ? pr198Context()
-              : null;
+              : historicalReplayContext(task.command);
         let result;
         try {
           result = await runChild(command, {

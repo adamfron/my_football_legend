@@ -12,6 +12,7 @@ export const PLAYER_BODY_CONTACT = {
   tolerance: 1e-8,
   restitution: 0.05,
   maximumCorrectionIterations: 64,
+  maximumPersistentPairs: (22 * 21) / 2,
 } as const;
 
 export const playerBodyImpulseSelectionSchema = z.enum([
@@ -26,7 +27,7 @@ export const continuousPlayerContactsSchema = z
       beganAt: z.number().nonnegative(),
     }),
   )
-  .max(22);
+  .max(PLAYER_BODY_CONTACT.maximumPersistentPairs);
 export const playerBodyContactSchema = z.object({
   at: z.number().nonnegative(),
   participants: z.tuple([z.string(), z.string()]),

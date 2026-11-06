@@ -755,7 +755,9 @@ export const advancePendingStrikeInterval = (
           key: `${p.id}:${foot}`,
           kind:
             hit.outcome === 'unresolved'
-              ? 'uncertain'
+              ? multi && hit.reason === 'bounded_search_exhausted' && hit.local > 1e-10
+                ? 'search_frontier'
+                : 'uncertain'
               : own && selected
                 ? 'strike'
                 : defending && selected
@@ -789,6 +791,11 @@ export const advancePendingStrikeInterval = (
       event.at,
     );
     if (handlers.bodyOnly) state = { ...state, ball: unchangedBall };
+    // Conservative advancement has certified this entire prefix as clear.
+    // Consume only that prefix, then search the remainder in the same timeline.
+    // This is neither an impulse nor a miss. The existing 16-event frame bound
+    // still owns exhaustion, which remains an explicit unresolved halt.
+    if (event.kind === 'search_frontier') continue;
     if (event.kind === 'player_cluster' || event.kind === 'player_edge') {
       const result = resolveMultiBodyContact(state, event.participants!, state.time);
       state = recordExecution(
