@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { articulatedBodySchema, projectArticulatedBody } from './articulatedBody';
 import { BALL_RADIUS } from './ballFlight';
 import { contactBodyRegionSchema } from './ballContactGeometry';
 import { physicalPointSchema } from './matchSpace';
@@ -191,6 +192,8 @@ export const goalResponsePresentationSchema = z.object({
   retrievalStage: z.enum(['approach', 'handoff', 'transfer', 'transport', 'placed']).optional(),
 });
 export const canonicalPlayerPresentationShape = {
+  articulatedBody: articulatedBodySchema.optional(),
+  articulatedPoseUnavailable: z.boolean().optional(),
   acceleration: physicalPointSchema.optional(),
   angularVelocity: z.number().finite().optional(),
   role: z.string().optional(),
@@ -356,7 +359,12 @@ export const projectCanonicalPlayerPresentation = (
                       ? 'adjust'
                       : 'ready'))
     : undefined;
+  const articulatedBody = projectArticulatedBody(state, player);
   return {
+    ...(articulatedBody ? { articulatedBody } : {}),
+    ...(state.experimentalArticulatedBody && !articulatedBody
+      ? { articulatedPoseUnavailable: true }
+      : {}),
     ...(consecutive
       ? {
           acceleration: {

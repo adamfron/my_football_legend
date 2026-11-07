@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+PR218 (etap eksperymentalny): wspólny, wersjonowany stan podparcia i szkieletu
+zasila rzeczywisty motor, wyszukiwanie kontaktu but–piłka i istniejący model Three.js.
+Lokalny parytet stawów przechodzi; referencyjny chód PR216 nie przechodzi sprintu
+i wszystkich kontynuacji wznowień. `stance-foot-dev-v1` wymaga jawnego wyboru
+deweloperskiego; brak promocji do zwykłych meczów i brak nowego pełnego meczu po
+nieudanej bramce. PR201/B, 40 Hz, 28 atrybutów i historyczne receipts zachowane.
+[Raport, bramki i ograniczenia PR218](PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md).
+
 PR217: odtworzono rzeczywisty incydent 295,700 s w Edge oraz blokadę autu ze
 zapisanej sesji `lab-mw3xhr6o`. Legacy challenge usuwał wysokość odbijającej się
 piłki, tworząc penetrację lewego buta `9_19`; historyczny unresolved blokował

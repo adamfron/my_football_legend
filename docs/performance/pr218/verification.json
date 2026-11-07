@@ -1,0 +1,268 @@
+{
+  "schema": "pr218-verification-v2",
+  "recordedAt": "2026-11-07T23:15:32.058Z",
+  "base": "90eb730854240a949be61a344cf3955b31f3cfa0",
+  "source": "fdd423a609826fbeace0e81a90a137c56a56240e82771c0a8d27070a153c266e",
+  "verify": {
+    "localFullPass": false,
+    "finalFullVerification": "SEPARATE_HOSTED_GITHUB_ACTIONS_RESULT_LINKED_IN_DRAFT_PR",
+    "focusedTests": 30,
+    "finalLocalChecks": [
+      "lint",
+      "focused core/renderer/PR217 reliability tests",
+      "TypeScript",
+      "production build",
+      "laboratory",
+      "browser parity",
+      "production UI",
+      "CI manifest/workflow/contracts"
+    ]
+  },
+  "physicalPromotion": "RETAIN_EXPERIMENTAL / NOT_READY_FOR_FULL_MATCH",
+  "completeArticulatedMatch": "NOT_RUN_AFTER_FAILED_MANDATORY_GATES",
+  "laboratory": {
+    "scenes": 60,
+    "supported": 48,
+    "retainedNegatives": 12,
+    "nativeArms": 18,
+    "selectedHalts": [
+      {
+        "name": "full-incident-solver-final-v1",
+        "halt": {
+          "kind": "physical_contact",
+          "reason": "unreachable_articulated_foot",
+          "at": 4268.375000001915,
+          "intervalStartedAt": 4268.375000001915,
+          "actorIds": [
+            "footballer_pro_1_19"
+          ],
+          "ball": {
+            "x": 53.13935614266642,
+            "y": 44.483540830003705,
+            "z": 0.11
+          },
+          "velocity": {
+            "x": -1.917405190625484,
+            "y": 0.259522899965391,
+            "z": 0
+          },
+          "spin": {
+            "x": -4.742702979143015,
+            "y": 9.270936688731345,
+            "z": -0.061543017773543165
+          }
+        }
+      },
+      {
+        "name": "restart-reentry",
+        "halt": {
+          "kind": "physical_contact",
+          "reason": "unreachable_articulated_stance",
+          "at": 2723.8500000055265,
+          "intervalStartedAt": 2723.8250000055264,
+          "actorIds": [
+            "footballer_pro_9_5"
+          ],
+          "ball": {
+            "x": 30.16877289758538,
+            "y": 52.62101608178204,
+            "z": 0.17207888996852075
+          },
+          "velocity": {
+            "x": 13.11246072171577,
+            "y": -5.244984288686299,
+            "z": -0.5015111609520938
+          },
+          "spin": {
+            "x": 28.37440311082869,
+            "y": 70.93600777707192,
+            "z": -5.834985036869123e-34
+          }
+        }
+      }
+    ],
+    "performance": {
+      "wallMs": 319106.6348,
+      "cpu": {
+        "user": 330687000,
+        "system": 31219000
+      },
+      "maxRssKiB": 919676
+    }
+  },
+  "parity": {
+    "snapshots": 9,
+    "landmarksPerSnapshot": 9,
+    "maximumError": 1.652937160422473e-14,
+    "browserViewports": [
+      [
+        1366,
+        768
+      ],
+      [
+        1920,
+        1080
+      ]
+    ]
+  },
+  "historicalReceiptsAndPackageUnchanged": true,
+  "ci": {
+    "historicalManifestCommands": 124,
+    "explicitCases": 144,
+    "jobs": 28,
+    "historicalFullMatchCases": 63,
+    "contracts": 7,
+    "hostedStatus": "SEPARATE_GITHUB_RUN_NOT_PART_OF_LOCAL_RECEIPT"
+  },
+  "logs": [
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/lint-final.txt.gz",
+      "uncompressedSha256": "39e781f2eb1b5c98f68c8ee435a6f0b564b9da640d92873269a45f1107e557b5"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/build-production.txt.gz",
+      "uncompressedSha256": "3d4708c202d020b2ef262e5119ea474814f2c8d97d8462a81c957301dc3c7eba"
+    },
+    {
+      "command": "vitest: articulated core, actual renderer and PR217 reliability; maxWorkers=1; 30 tests",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/focused-final.txt.gz",
+      "uncompressedSha256": "e0745254059922d675972d861207fe71425bdde0696695d8ac7343caf366dd42"
+    },
+    {
+      "command": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr218.mjs",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/laboratory-final.txt.gz",
+      "uncompressedSha256": "845daf9f1609982ea8cb59a2682492a6c961b071538bd243fe9a0016bd190d68"
+    },
+    {
+      "command": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr218Browser.mjs",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/browser-final.txt.gz",
+      "uncompressedSha256": "d3b0dbd059651f54e4eac5acd767091831152c8801af72faa783c6830caea57d"
+    },
+    {
+      "command": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs docs/performance/pr218/audit-landmarks.mjs",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/landmarks-final.txt.gz",
+      "uncompressedSha256": "d2c49cddb762c75683b628f58164b0cc5b680ec28b63a2d473105c0403f6242e"
+    },
+    {
+      "command": "PR217 production browser harness copied to scratch; output/source routed to PR218; --production",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/production-final.txt.gz",
+      "uncompressedSha256": "fa7a4dca43d455294a32f93ca9581d22c70b16d26318dfa91f27322765af3844"
+    },
+    {
+      "command": "node scripts/ci/buildManifest.mjs --check",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/ci-manifest-final.txt.gz",
+      "uncompressedSha256": "c9c7c5c4d92c0b3813251d97f6cbeff7c02d206014244ff177c5ed41efad032c"
+    },
+    {
+      "command": "node scripts/ci/renderWorkflow.mjs --check",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/ci-workflow-final.txt.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "node --test scripts/ci/contracts.mjs",
+      "exitCode": 0,
+      "scope": "FINAL_SOURCE",
+      "log": "docs/performance/pr218/ci-contracts-final.txt.gz",
+      "uncompressedSha256": "166b6640b65fd3ecfae43b5091557d64b630bd6e27a744d47ad6a4415f9a93b6"
+    },
+    {
+      "command": "node scripts/ci/replayPr216Check.mjs",
+      "exitCode": 0,
+      "scope": "EXACT_HISTORICAL_SOURCE_PREVIOUS_CURRENT_GUARD",
+      "log": "docs/performance/pr218/historical216-final.txt.gz",
+      "uncompressedSha256": "228248632e50a8faf326f9f9fb70c1da14f2f358babfa78a4adbbc7beb933b63"
+    },
+    {
+      "command": "node scripts/ci/replayPr217Check.mjs",
+      "exitCode": 0,
+      "scope": "EXACT_MERGED_PR217_SOURCE_PREVIOUS_CURRENT_GUARD",
+      "log": "docs/performance/pr218/historical217-final.txt.gz",
+      "uncompressedSha256": "b6993664314a612dbaab73299031ca695a2e5c989357e2388c7f45484db924ac"
+    },
+    {
+      "command": "PR217 isolated career seed 2; canonical threads pool, maxWorkers=1, unchanged 60s timeout",
+      "exitCode": 0,
+      "scope": "BASELINE_SAME_SOURCE_AS_MERGED_PR217",
+      "log": "docs/performance/pr218/career217-isolated.txt.gz",
+      "uncompressedSha256": "ca8e047831745edd2aeb25a8c4c895cc15aa54adcfc89e454e92b3998b750c02"
+    },
+    {
+      "command": "PR218 isolated career seed 2; canonical threads pool, maxWorkers=1, unchanged 60s timeout",
+      "exitCode": 0,
+      "scope": "PRE_METADATA_EDITION_A7D7D7",
+      "log": "docs/performance/pr218/career218-isolated.txt.gz",
+      "uncompressedSha256": "3f204f1ba69e8d1e31eea22a649dfd7d2ca4c38509b7dcad21e8989d5d7be628"
+    },
+    {
+      "command": "npm run test:full-career; standalone five-case repeat",
+      "exitCode": 0,
+      "scope": "PRE_METADATA_EDITION_A7D7D7",
+      "log": "docs/performance/pr218/career-suite-repeat.txt.gz",
+      "uncompressedSha256": "eca0e2527506a02d77719240aa4f4889f6241005f9936775d9d5185ea85abd16"
+    }
+  ],
+  "localAttempts": [
+    {
+      "command": "npm run verify",
+      "status": "INTENTIONALLY_INTERRUPTED_AFTER_UNIT_SUCCESS_BEFORE_REPLAY_FIX",
+      "fullPass": false,
+      "log": "docs/performance/pr218/verify-interrupted.txt.gz",
+      "uncompressedSha256": "babd7a803c68e7758b4a2540873c53592a0d1f3200037370a0834b19a494a612"
+    },
+    {
+      "command": "npm run verify",
+      "status": "FAILED_EXISTING_FULL_CAREER_SEED2_DEADLINE_AFTER_UNIT_INTEGRATION_AND_MATCH_CONTRACT_PASSED",
+      "fullPass": false,
+      "log": "docs/performance/pr218/verify-timeout-before-ik.txt.gz",
+      "uncompressedSha256": "2d2a83c5e42fb7eae0ab4c0b1006a7a3d1a414704c96b3751bbdc675b4b0c9d6"
+    },
+    {
+      "command": "npm run verify",
+      "status": "TIMEOUTS_AND_INTENTIONAL_STOP_WITH_CONCURRENT_LABORATORY",
+      "fullPass": false,
+      "log": "docs/performance/pr218/verify-interrupted-under-load.txt.gz",
+      "uncompressedSha256": "cc74f6ea31186800d3e3bb7cd6e58d5f6cc33b6b3268b988087ae89d08bd1481"
+    },
+    {
+      "command": "npm run verify",
+      "status": "TIMEOUTS_AND_INTENTIONAL_STOP_BEFORE_FINAL_ACTIVE_LEG_METADATA_CORRECTION",
+      "fullPass": false,
+      "log": "docs/performance/pr218/verify-solo-interrupted.txt.gz",
+      "uncompressedSha256": "1147d465444b1e36e2a0ed19b6aaacab54eb21cd8037bc3bfa508f18a2af06b7"
+    }
+  ],
+  "artifactDrivers": {
+    "landmarkAudit": {
+      "path": "docs/performance/pr218/audit-landmarks.mjs",
+      "sha256": "579697f54e1fe16280559b3daffd931fc330890caf745a569ac598a1dd96ba48"
+    },
+    "productionDriverSha256": "d47e51df5554b0d82137b0db787b53e74701d80a90902114ea14857e38aa506a",
+    "productionHarnessSha256": "70620bce06c752ca75a865441a66bee0ae270cc427da15d367a042e619c37aba"
+  },
+  "notes": [
+    "Historical PR217 ran its exact merged source; the final current-source guard and historical byte guard are checked separately.",
+    "The standalone career repeat and isolated timing controls preceded the final active-leg observer metadata fix. No timeout or test flags were relaxed.",
+    "The final complete npm run verify result must be read from GitHub Actions, not inferred from local partial results.",
+    "Physical gate failures are retained required negatives; technical CI success does not authorize promotion."
+  ]
+}

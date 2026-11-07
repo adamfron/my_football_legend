@@ -21,7 +21,10 @@ export class PlayerModelResources {
   setShading(shading: PlayerShading) {
     if (shading === this.shading) return;
     this.shading = shading;
-    for (const material of this.materials.values()) { material.flatShading = shading === 'faceted'; material.needsUpdate = true; }
+    for (const material of this.materials.values()) {
+      material.flatShading = shading === 'faceted';
+      material.needsUpdate = true;
+    }
   }
   material(color: string | number) {
     let material = this.materials.get(color);
@@ -36,7 +39,11 @@ export class PlayerModelResources {
           return distance(candidate.color) < distance(nearest.color) ? candidate : nearest;
         });
       }
-      material = new THREE.MeshStandardMaterial({ color, roughness: 0.9, flatShading: this.shading === 'faceted' });
+      material = new THREE.MeshStandardMaterial({
+        color,
+        roughness: 0.9,
+        flatShading: this.shading === 'faceted',
+      });
       this.materials.set(color, material);
     }
     return material;
@@ -66,6 +73,20 @@ export class PlayerModel {
   readonly rightHip = new THREE.Group();
   readonly leftKnee = new THREE.Group();
   readonly rightKnee = new THREE.Group();
+  readonly leftBootContact = new THREE.Object3D();
+  readonly rightBootContact = new THREE.Object3D();
+  readonly leftAnkle = new THREE.Object3D();
+  readonly rightAnkle = new THREE.Object3D();
+  private readonly thighs: THREE.Mesh[] = [];
+  private readonly shins: THREE.Mesh[] = [];
+  private readonly boots: THREE.Mesh[] = [];
+  private readonly pointScratch = new THREE.Vector3();
+  private readonly directionScratch = new THREE.Vector3();
+  private readonly down = new THREE.Vector3(0, -1, 0);
+  private readonly rotationScratch = new THREE.Quaternion();
+  private readonly yawScratch = new THREE.Quaternion();
+  private readonly up = new THREE.Vector3(0, 1, 0);
+  private usedCanonicalBody = false;
   readonly leftArm = new THREE.Group();
   readonly rightArm = new THREE.Group();
   readonly leftElbow = new THREE.Group();
@@ -171,7 +192,9 @@ export class PlayerModel {
     ] as const) {
       hip.position.set(side * 0.125, 0.87, 0);
       this.body.add(hip);
-      mesh(hip, resources.cylinder, colors.skin, [0.085, 0.38, 0.085], [0, -0.19, 0]);
+      this.thighs.push(
+        mesh(hip, resources.cylinder, colors.skin, [0.085, 0.38, 0.085], [0, -0.19, 0]),
+      );
       knee.position.y = -0.38;
       hip.add(knee);
       this.socksMeshes.push(
@@ -183,7 +206,15 @@ export class PlayerModel {
           [0, -0.18, 0],
         ),
       );
+      this.shins.push(this.socksMeshes[this.socksMeshes.length - 1]!);
       const boot = mesh(knee, resources.box, '#181c1d', [0.145, 0.105, 0.28], [0, -0.415, 0.065]);
+      this.boots.push(boot);
+      const landmark = side === -1 ? this.leftBootContact : this.rightBootContact;
+      landmark.position.copy(boot.position);
+      knee.add(landmark);
+      const ankle = side === -1 ? this.leftAnkle : this.rightAnkle;
+      ankle.position.set(0, -0.38, 0);
+      knee.add(ankle);
       boot.userData.orientationFeature = 'local_forward_boot';
       arm.position.set(side * 0.29, 0.5, 0);
       this.torso.add(arm);
@@ -212,6 +243,7 @@ export class PlayerModel {
   }
 
   update(player: TacticalPlayer, timestampMs: number) {
+    if (!player.articulatedBody && this.usedCanonicalBody) this.resetPhysicalRig();
     if (Boolean(player.goalkeeper) !== this.goalkeeperRole) {
       this.goalkeeperRole = Boolean(player.goalkeeper);
       const shirt = player.goalkeeper ? this.kit.goalkeeper.primary : this.kit.primary;
@@ -246,5 +278,75 @@ export class PlayerModel {
     this.rightArm.rotation.set(pose.armRight, 0, pose.armSpread);
     this.leftElbow.rotation.x = pose.elbowLeft;
     this.rightElbow.rotation.x = pose.elbowRight;
+    if (player.articulatedBody) this.applyCanonicalBody(player);
+  }
+
+  private resetPhysicalRig() {
+    for (const [i, hip, knee, contact, side] of [
+      [0, this.leftHip, this.leftKnee, this.leftBootContact, -1],
+      [1, this.rightHip, this.rightKnee, this.rightBootContact, 1],
+    ] as const) {
+      hip.position.set(side * 0.125, 0.87, 0);
+      hip.quaternion.identity();
+      knee.position.set(0, -0.38, 0);
+      knee.quaternion.identity();
+      (i === 0 ? this.leftAnkle : this.rightAnkle).position.set(0, -0.38, 0);
+      this.thighs[i]!.scale.y = 0.38;
+      this.thighs[i]!.position.y = -0.19;
+      this.shins[i]!.scale.y = 0.38;
+      this.shins[i]!.position.y = -0.18;
+      this.boots[i]!.position.set(0, -0.415, 0.065);
+      this.boots[i]!.quaternion.identity();
+      contact.position.copy(this.boots[i]!.position);
+    }
+    this.torso.position.set(0, 0.9, 0);
+    this.shortsMesh.position.set(0, 0.88, 0);
+    this.usedCanonicalBody = false;
+  }
+
+  private applyCanonicalBody(player: TacticalPlayer) {
+    const physical = player.articulatedBody!;
+    this.usedCanonicalBody = true;
+    this.body.position.set(0, 0, 0);
+    this.body.rotation.set(0, 0, 0);
+    this.torso.rotation.set(0, 0, 0);
+    this.body.updateWorldMatrix(true, false);
+    const worldPoint = (p: { x: number; y: number; z: number }) =>
+      this.pointScratch.set(p.x - 52.5, p.z, p.y - 34);
+    this.torso.position.copy(this.body.worldToLocal(worldPoint(physical.geometry.pelvis)));
+    this.shortsMesh.position.copy(this.torso.position);
+    for (const [i, hip, knee, contact, leg] of [
+      [0, this.leftHip, this.leftKnee, this.leftBootContact, physical.geometry.left],
+      [1, this.rightHip, this.rightKnee, this.rightBootContact, physical.geometry.right],
+    ] as const) {
+      hip.position.copy(this.body.worldToLocal(worldPoint(leg.hip)));
+      this.directionScratch.copy(this.body.worldToLocal(worldPoint(leg.knee))).sub(hip.position);
+      const thigh = this.directionScratch.length();
+      hip.quaternion.setFromUnitVectors(this.down, this.directionScratch.normalize());
+      this.thighs[i]!.scale.y = thigh;
+      this.thighs[i]!.position.y = -thigh / 2;
+      knee.position.set(0, -thigh, 0);
+      knee.quaternion.identity();
+      hip.updateWorldMatrix(true, false);
+      this.directionScratch.copy(hip.worldToLocal(worldPoint(leg.ankle))).sub(knee.position);
+      const shin = this.directionScratch.length();
+      knee.quaternion.setFromUnitVectors(this.down, this.directionScratch.normalize());
+      this.shins[i]!.scale.y = shin;
+      this.shins[i]!.position.y = -shin / 2;
+      (i === 0 ? this.leftAnkle : this.rightAnkle).position.set(0, -shin, 0);
+      knee.updateWorldMatrix(true, false);
+      contact.position.copy(knee.worldToLocal(worldPoint(leg.foot)));
+      this.boots[i]!.position.copy(contact.position);
+      // Cancel leg rotation at the boot. Its effective contact patch is the canonical centre.
+      this.rotationScratch.copy(hip.quaternion).invert();
+      this.yawScratch.setFromAxisAngle(
+        this.up,
+        physical.bootYaw[i === 0 ? 'left' : 'right'] - physical.facing,
+      );
+      this.boots[i]!.quaternion.copy(knee.quaternion)
+        .invert()
+        .multiply(this.rotationScratch)
+        .multiply(this.yawScratch);
+    }
   }
 }

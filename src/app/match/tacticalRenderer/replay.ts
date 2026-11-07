@@ -50,6 +50,10 @@ export const interpolatePresentationFrames = (
       ? { ...previous, timestampMs: atMs, players, actionEvents: events, dismissals }
       : previous;
   const t = (atMs - previous.timestampMs) / gap;
+  // A held physical foot and an interpolated ball could fabricate an intersection.
+  // Hold the complete physical snapshot between sparse samples, including the ball.
+  if ([...players, ...next.players].some((p) => p.articulatedBody || p.articulatedPoseUnavailable))
+    return { ...previous, timestampMs: atMs, players, actionEvents: events, dismissals };
   return {
     ...previous,
     timestampMs: atMs,

@@ -42,6 +42,11 @@ import { transitionRuntimeSchema, transitionMarkSchema } from './opportunityWind
 import { clearanceIntentionSchema } from './strategicClearance';
 import { incidentalGoalFactSchema } from './incidentalGoalState';
 import { lowerBodyPoseSchema, type LowerBodyPose } from './lowerBodyGeometry';
+import {
+  articulatedStanceSchema,
+  articulatedBodySelectionSchema,
+  type ArticulatedStance,
+} from './articulatedBodyState';
 import { boundedExperimentSchema, boundedRuntimeSchema } from './boundedIntelligenceState';
 import { footSurfaceSchema, multiContactMoveSchema } from './footContact';
 import {
@@ -553,6 +558,7 @@ export interface MatchPlayerState {
   transitionMark?: z.infer<typeof transitionMarkSchema>;
   ballMotorObservation?: z.infer<typeof ballMotorObservationSchema> | undefined;
   lowerBodyPose?: LowerBodyPose | undefined;
+  articulatedStance?: ArticulatedStance | undefined;
   plantBalance?: PlantBalance;
   verticalJump?: VerticalJump;
   spatialMovement?: z.infer<typeof spatialMovementSchema> | undefined;
@@ -866,6 +872,7 @@ export interface TacticalMatchState {
   continuousFootContacts?: z.infer<typeof continuousFootContactsSchema>;
   recoveringFeet?: z.infer<typeof recoveringFeetSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
+  experimentalArticulatedBody?: z.infer<typeof articulatedBodySelectionSchema>;
   pendingStrike?: PendingStrike;
   lastStrikeResolution?: StrikeResolution;
   /** Explicit physical edition; absent in every frozen historical profile. */
@@ -1120,6 +1127,7 @@ export const tacticalMatchStateSchema = z
     continuousFootContacts: continuousFootContactsSchema.optional(),
     recoveringFeet: recoveringFeetSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
+    experimentalArticulatedBody: articulatedBodySelectionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
     lastStrikeResolution: strikeResolutionSchema.optional(),
     ballEnvironment: ballEnvironmentSchema.optional(),
@@ -1239,6 +1247,7 @@ export const tacticalMatchStateSchema = z
           ballMotorObservation: ballMotorObservationSchema.optional(),
           transitionMark: transitionMarkSchema.optional(),
           lowerBodyPose: lowerBodyPoseSchema.optional(),
+          articulatedStance: articulatedStanceSchema.optional(),
           verticalJump: verticalJumpSchema.optional(),
           injury: matchInjurySchema.optional(),
           restartWallResponse: restartWallResponseSchema.optional(),
@@ -1390,6 +1399,18 @@ export const tacticalMatchStateSchema = z
   })
   .passthrough()
   .superRefine((state, ctx) => {
+    const articulatedPlayers = state.players.some((p) => p.articulatedStance);
+    if (
+      (state.experimentalArticulatedBody || articulatedPlayers) &&
+      (!state.experimentalArticulatedBody ||
+        state.integrationProfile ||
+        state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1')
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['experimentalArticulatedBody'],
+        message: 'Articulated stance requires its unprofiled upright-cluster edition',
+      });
     if (
       state.executionWitnesses &&
       (state.integrationProfile || state.experimentalPlayerBodyImpulse !== 'upright-cluster-dev-v1')

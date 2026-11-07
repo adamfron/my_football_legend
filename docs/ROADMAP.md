@@ -1,5 +1,16 @@
 # Roadmap
 
+## Bramka po etapowym PR218
+
+Wykonywalny kontrakt szkieletu/podparcia jest połączony z motorem, rzeczywistym
+kontaktem i Three.js. Przed promocją trzeba naprawić osiągalne podparcie przy
+sprincie, przejście nogi aktywnej/odzyskującej oraz zapisane kolizje i wznowienia.
+Następnie: pełny smoke 22 graczy i zamrożony pełny mecz. Dopiero na tej podstawie
+PR219 bada antycypację, prognozę lotu, przygotowanie i technikę na istniejących
+atrybutach. Hybrydowe upadanie nadal wymaga COM, dynamiki kątowej, podłoża i
+skończonego powstawania. Brak zamknięcia formalnych kwestii realizmu.
+[Bramki i dowody PR218](PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md).
+
 ## Zależności po playteście PR217
 
 Najpierw domknąć niezawodność przekazań fizyki i wznowień, zachować negatywne

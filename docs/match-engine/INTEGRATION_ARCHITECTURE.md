@@ -1,5 +1,18 @@
 # MatchEngine integration architecture
 
+## PR218 staged articulated body
+
+`experimentalArticulatedBody: stance-foot-dev-v1` is a separate unprofiled
+upright-cluster development edition, selected through `withArticulatedBody`.
+Compact world-space stance constrains the existing motor's earned delta-v;
+`canonicalStrikeFoot` supplies the composed effective boot to contact and derived
+skeletal presentation. Three.js applies those same metre-valued joints. No second
+root integrator or normal career/menu selection is introduced. Historical profiles
+clear stance; old saves retain their edition. Local joint parity passes, but sprint
+reach and selected restart/action continuations fail, so general match promotion
+and a new complete-match attempt remain blocked. Maintained PR201/B is unchanged.
+[Contract, measurements and promotion decision](../PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md).
+
 ## PR217 real-session reliability
 
 The executable recipe remains PR201/B at 40Hz with the same experimental selectors.

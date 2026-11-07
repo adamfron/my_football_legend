@@ -55,6 +55,7 @@ export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
   const r = holisticRecipe(s.decisionPolicy);
   const base = resolveIntegrationProfile(r.base, r.policy);
   return !s.integrationProfile &&
+    !s.experimentalArticulatedBody &&
     s.experimentalKickExecution === r.kickExecution &&
     s.experimentalPendingStrike === r.pendingStrike &&
     s.experimentalContactTimeline === r.timeline &&

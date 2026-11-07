@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, symlinkSync, rmSync } from 'node:fs';
 import { resolve, join, sep } from 'node:path';
 import process from 'node:process';
-import { checkPr217Source, BASE as CURRENT_BASE } from '../pr217Evidence.mjs';
+import { checkPr218Source, BASE as CURRENT_BASE } from '../pr218Evidence.mjs';
 import { PR193_BASE as PR193 } from '../pr194Evidence.mjs';
 import { BASE as PR196 } from '../pr197Evidence.mjs';
 import { BASE as PR200 } from '../pr201Evidence.mjs';
@@ -23,7 +23,7 @@ export function historicalReplayContext(command) {
           ? PR200
           : undefined;
   if (!base) return null;
-  checkPr217Source();
+  checkPr218Source();
   mkdirSync('.benchmark-artifacts', { recursive: true });
   const scratch = mkdtempSync(resolve('.benchmark-artifacts/history-replay-'));
   const safe = () => assert.ok(resolve(scratch).startsWith(resolve('.benchmark-artifacts') + sep));

@@ -1,5 +1,17 @@
 # Current-source holistic mechanism inventory — PR214
 
+## PR218 additive articulated-body scope
+
+The selected `articulatedStance` has finite world-space feet, surface identity,
+support/yaw and angular state. `articulatedGait` constrains the existing motor;
+`lowerBodyGeometry` derives connected bones; `canonicalStrikeFoot` and the derived
+`articulatedBody` presentation share the actual prepared/recovering boot path.
+The existing PlayerModel consumes it, while sparse physical replay holds complete
+snapshots. Historical profiles and normal defaults do not select it.
+Local geometry/parity are evaluated; sprint gait, universal action support,
+kinetic stud slip, falling and complete-match readiness are not complete.
+[Source-bound positive and negative PR218 evidence](../PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md).
+
 ## PR217 additive reliability scope
 
 No selector, permanent attribute or major physical system is added. Legacy

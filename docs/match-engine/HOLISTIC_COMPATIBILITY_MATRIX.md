@@ -1,5 +1,16 @@
 # Holistic compatibility and selection — PR214
 
+## PR218 separate development selection
+
+| Selection | Compatible base | Evidence / decision |
+| --- | --- | --- |
+| `stance-foot-dev-v1` | Unprofiled `upright-cluster-dev-v1`, existing standing timeline / pending low pass / event-v1 | Actual world support, motor grip projection, shared foot search and canonical rig; local parity passes; sprint and selected incidents fail; NOT_READY_FOR_FULL_MATCH |
+| Historical profiles / omitted selector | Existing editions | New stance is not inferred; profile application clears it; maintained PR201/B unchanged |
+
+The normal holistic recipe does not identify the new edition as its old recipe.
+No ordinary Single Match/career preset enables the incomplete stage. Exact source,
+negative inputs and current gate scope are in [PR218](../PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md).
+
 ## PR217 reliability boundary
 
 | Combination | Evidence / boundary |

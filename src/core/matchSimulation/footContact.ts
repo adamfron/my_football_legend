@@ -72,7 +72,14 @@ export const playerFootGeometry = (actor: MatchPlayerState) => {
     x: actor.position.x + forward.x * 0.2 + right.x * side * 0.17,
     y: actor.position.y + forward.y * 0.2 + right.y * side * 0.17,
   });
-  const articulated = actor.lowerBodyPose ? deriveLowerBodyGeometry(actor) : undefined;
+  const articulated = actor.articulatedStance
+    ? {
+        left: { foot: actor.articulatedStance.left },
+        right: { foot: actor.articulatedStance.right },
+      }
+    : actor.lowerBodyPose
+      ? deriveLowerBodyGeometry(actor)
+      : undefined;
   return {
     leftFoot: articulated ? { x: articulated.left.foot.x, y: articulated.left.foot.y } : foot(-1),
     rightFoot: articulated ? { x: articulated.right.foot.x, y: articulated.right.foot.y } : foot(1),
@@ -188,7 +195,9 @@ export const isContinuousFootContact = (
     return false;
   const centre = {
     ...playerFootGeometry(actor)[foot === 'left' ? 'leftFoot' : 'rightFoot'],
-    z: actor.lowerBodyPose ? deriveLowerBodyGeometry(actor)[foot].foot.z : 0.04,
+    z:
+      actor.articulatedStance?.[foot].z ??
+      (actor.lowerBodyPose ? deriveLowerBodyGeometry(actor)[foot].foot.z : 0.04),
   };
   const active =
     state.pendingStrike?.actorId === actor.id

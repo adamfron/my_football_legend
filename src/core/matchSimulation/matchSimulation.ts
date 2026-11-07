@@ -23,6 +23,7 @@ import {
   deriveLowerBodyGeometry,
 } from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
+import { advanceArticulatedStance, initializeArticulatedPlayer } from './articulatedGait';
 import { planSynchronizedReception, receptionPlanFacing } from './receiverSynchronisation';
 import {
   advanceLiveBallFlight,
@@ -2476,6 +2477,7 @@ const stepTacticalMatchCore = (
       velocity,
       plantBalance,
       verticalJump,
+      articulatedMotor,
     } = integrateCanonicalMovement(player, {
       target: movementTarget,
       targetSpeed: locomotion.targetSpeed,
@@ -2633,6 +2635,28 @@ const stepTacticalMatchCore = (
     const lowerBodyPose = advanceLowerBodyPose(player, dt, reachTarget);
     return {
       ...movingPlayer,
+      ...(player.articulatedStance
+        ? {
+            articulatedStance: advanceArticulatedStance(
+              player,
+              {
+                ...player,
+                position: next,
+                velocity: actualVelocity,
+                facingAngle,
+                ...(lowerBodyPose ? { lowerBodyPose } : {}),
+                ...(verticalJump ? { verticalJump } : {}),
+              },
+              dt,
+              state.pendingStrike?.actorId === player.id
+                ? state.pendingStrike.plan.foot
+                : state.defensiveChallenge?.actorId === player.id
+                  ? state.defensiveChallenge.physicalAttempt?.plan.foot
+                  : state.recoveringFeet?.find((f) => f.actorId === player.id)?.foot,
+              articulatedMotor?.angularVelocity,
+            ),
+          }
+        : {}),
       ...(lowerBodyPose ? { lowerBodyPose } : {}),
       plantBalance,
       ...(verticalJump ? { verticalJump } : {}),
@@ -2677,6 +2701,26 @@ const stepTacticalMatchCore = (
     };
   });
   endPerformanceSpan('movement_physics', movementSpan);
+  if (state.experimentalArticulatedBody) {
+    for (const player of state.players) {
+      try {
+        deriveLowerBodyGeometry(player);
+      } catch {
+        return {
+          ...input,
+          safetyHalt: {
+            ...haltEvidence(
+              state,
+              'physical_contact',
+              'unreachable_articulated_stance',
+              input.time,
+            ),
+            actorIds: [player.id],
+          },
+        };
+      }
+    }
+  }
   if (
     ownsMultiBodyInterval(input, dt) &&
     !ordinaryContactInterval &&
@@ -3875,10 +3919,16 @@ const stepCanonicalMatch = (
   decisionAlreadyProjected: boolean,
 ): TacticalMatchState => {
   if (original.safetyHalt) return original;
+  if (original.experimentalArticulatedBody && original.players.some((p) => !p.articulatedStance))
+    original = {
+      ...original,
+      players: original.players.map((p) => initializeArticulatedPlayer(p)),
+    };
   // A batched caller still gives a pending strike ordinary bounded canonical intervals.
   // Re-enter this SAME executor so laws, bodies and observers participate in every interval.
   if (
-    (original.pendingStrike ||
+    (original.experimentalArticulatedBody ||
+      original.pendingStrike ||
       original.defensiveChallenge?.physicalAttempt ||
       ownsOrdinaryLowBallInterval(original, FIXED_MATCH_DT)) &&
     rawDelta > FIXED_MATCH_DT + 1e-12

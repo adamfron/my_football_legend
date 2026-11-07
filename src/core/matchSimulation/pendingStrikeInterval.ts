@@ -72,6 +72,51 @@ type Handlers = {
 
 const bodyAt = (a: MatchPlayerState, b: MatchPlayerState, fraction: number): MatchPlayerState => ({
   ...b,
+  ...(a.articulatedStance && b.articulatedStance
+    ? {
+        articulatedStance: {
+          ...a.articulatedStance,
+          ...(fraction >= 1
+            ? { support: b.articulatedStance.support, supportYaw: b.articulatedStance.supportYaw }
+            : {}),
+          elapsed:
+            fraction >= 1
+              ? b.articulatedStance.elapsed
+              : Math.min(
+                  0.175,
+                  a.articulatedStance.elapsed +
+                    ((b.articulatedStance.elapsed < a.articulatedStance.elapsed
+                      ? 0.175
+                      : b.articulatedStance.elapsed) -
+                      a.articulatedStance.elapsed) *
+                      fraction,
+                ),
+          angularVelocity: b.articulatedStance.angularVelocity,
+          left: {
+            x:
+              a.articulatedStance.left.x +
+              (b.articulatedStance.left.x - a.articulatedStance.left.x) * fraction,
+            y:
+              a.articulatedStance.left.y +
+              (b.articulatedStance.left.y - a.articulatedStance.left.y) * fraction,
+            z:
+              a.articulatedStance.left.z +
+              (b.articulatedStance.left.z - a.articulatedStance.left.z) * fraction,
+          },
+          right: {
+            x:
+              a.articulatedStance.right.x +
+              (b.articulatedStance.right.x - a.articulatedStance.right.x) * fraction,
+            y:
+              a.articulatedStance.right.y +
+              (b.articulatedStance.right.y - a.articulatedStance.right.y) * fraction,
+            z:
+              a.articulatedStance.right.z +
+              (b.articulatedStance.right.z - a.articulatedStance.right.z) * fraction,
+          },
+        },
+      }
+    : {}),
   ...(a.lowerBodyPose || b.lowerBodyPose
     ? { lowerBodyPose: interpolateLowerBodyPose(a.lowerBodyPose, b.lowerBodyPose, fraction) }
     : {}),
@@ -186,6 +231,14 @@ export const advancePendingStrikeInterval = (
                 position: p.position,
                 facingAngle: p.facingAngle,
                 velocity: changedVelocities.get(p.id) ?? p.velocity,
+                ...(p.articulatedStance
+                  ? {
+                      articulatedStance:
+                        transportEnd < dt
+                          ? playerAt(p, transportEnd).articulatedStance
+                          : p.articulatedStance,
+                    }
+                  : {}),
                 ...(p.lowerBodyPose
                   ? {
                       lowerBodyPose:

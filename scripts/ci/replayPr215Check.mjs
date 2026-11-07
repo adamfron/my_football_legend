@@ -6,8 +6,8 @@ import { resolve, join, sep } from 'node:path';
 import process from 'node:process';
 import console from 'node:console';
 import { BASE } from '../pr216Evidence.mjs';
-import { checkPr217Source } from '../pr217Evidence.mjs';
-checkPr217Source();
+import { checkPr218Source } from '../pr218Evidence.mjs';
+checkPr218Source();
 mkdirSync('.benchmark-artifacts', { recursive: true });
 const scratch = mkdtempSync(resolve('.benchmark-artifacts/pr215-check-'));
 const safe = () => assert.ok(resolve(scratch).startsWith(resolve('.benchmark-artifacts') + sep));
@@ -49,7 +49,10 @@ try {
   );
   const env = {
     ...process.env,
-    GIT_DIR: execFileSync('git', ['rev-parse', '--absolute-git-dir'], { encoding: 'utf8', windowsHide: true }).trim(),
+    GIT_DIR: execFileSync('git', ['rev-parse', '--absolute-git-dir'], {
+      encoding: 'utf8',
+      windowsHide: true,
+    }).trim(),
     GIT_WORK_TREE: scratch,
     GIT_INDEX_FILE: join(scratch, 'private.index'),
   };

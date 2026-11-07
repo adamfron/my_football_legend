@@ -1,5 +1,16 @@
 # Mechanism dependencies
 
+## PR218 measured dependency boundary
+
+Shared finite body/boot coordinates now have an executable development consumer
+in movement, contact, rendering and replay. Local parity does not promote gait:
+sprint exhausts reference stance reach, and selected PR217 restart/action inputs
+retain explicit failures. Required order: speed-adaptive support/release and action
+handoff → saved incident gates → continuous 22-player smoke → frozen complete match
+→ technical anticipation/receiving calibration. Falling still needs COM/angular
+dynamics, changed contact volumes, ground and finite recovery. PR201/B and sealed
+independent confirmation remain unchanged. [PR218](../PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md).
+
 ## PR216 full-match continuity follow-up — keeper-cycle-v12
 
 The 1493.925s keeper-zone starvation resumes actual foot contact and onward decisions.
