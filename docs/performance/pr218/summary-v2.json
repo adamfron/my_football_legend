@@ -1,0 +1,364 @@
+{
+  "source": "fdd423a609826fbeace0e81a90a137c56a56240e82771c0a8d27070a153c266e",
+  "scenes": 60,
+  "passed": 48,
+  "failed": [
+    {
+      "name": "sprint",
+      "heightCm": 165,
+      "surface": "firm-grass-dev-v1",
+      "at": 1.4000000000000001,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "accelerate",
+      "heightCm": 165,
+      "surface": "firm-grass-dev-v1",
+      "at": 2.1,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "sprint",
+      "heightCm": 165,
+      "surface": "reduced-grip-dev-v1",
+      "at": 3.5500000000000003,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "accelerate",
+      "heightCm": 165,
+      "surface": "reduced-grip-dev-v1",
+      "at": 3.9000000000000004,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "sprint",
+      "heightCm": 180,
+      "surface": "firm-grass-dev-v1",
+      "at": 1.425,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "accelerate",
+      "heightCm": 180,
+      "surface": "firm-grass-dev-v1",
+      "at": 2.125,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "sprint",
+      "heightCm": 180,
+      "surface": "reduced-grip-dev-v1",
+      "at": 3.5500000000000003,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "accelerate",
+      "heightCm": 180,
+      "surface": "reduced-grip-dev-v1",
+      "at": 3.9000000000000004,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "sprint",
+      "heightCm": 195,
+      "surface": "firm-grass-dev-v1",
+      "at": 1.425,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "accelerate",
+      "heightCm": 195,
+      "surface": "firm-grass-dev-v1",
+      "at": 2.125,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "sprint",
+      "heightCm": 195,
+      "surface": "reduced-grip-dev-v1",
+      "at": 3.5500000000000003,
+      "reason": "Unreachable articulated ankle"
+    },
+    {
+      "name": "accelerate",
+      "heightCm": 195,
+      "surface": "reduced-grip-dev-v1",
+      "at": 3.9000000000000004,
+      "reason": "Unreachable articulated ankle"
+    }
+  ],
+  "regressions": [
+    {
+      "name": "04-55",
+      "enabled": false,
+      "inputHash": "466d7d3812d1480d1b636af77c997dbc398ed1c7fb4a526f379a8d2a9df9756e",
+      "time": 297.67500000000314,
+      "halt": null,
+      "exception": null,
+      "contacts": 3,
+      "bodyContacts": 5,
+      "supportTransitions": 0,
+      "terminalHash": "cd6698605f8406e80a958442639089b06d96e6e3043cb9226967cd52f422c419"
+    },
+    {
+      "name": "04-55",
+      "enabled": true,
+      "inputHash": "dc6a63a64dbcd2927888d6a3a0b198a9c64c12cac79d873ce1d9c82e91ae7665",
+      "time": 297.67500000000314,
+      "halt": null,
+      "exception": null,
+      "contacts": 1,
+      "bodyContacts": 22,
+      "supportTransitions": 230,
+      "terminalHash": "88dfe17e5801a9b23d7961f7288e432f87032eb778e73dff1e96791a2e3284a0"
+    },
+    {
+      "name": "blocked-throw",
+      "enabled": false,
+      "inputHash": "98173c73e3f4113fc892db7cff15c72e018cb7c5919aadbdfb414621e55c2762",
+      "time": 3667.5000000089594,
+      "halt": null,
+      "exception": null,
+      "contacts": 17,
+      "bodyContacts": 360,
+      "supportTransitions": 0,
+      "terminalHash": "b7b27342c1178ecf4efa8a9db906a413813a7356f7aca5657b67022c43f0cd66"
+    },
+    {
+      "name": "blocked-throw",
+      "enabled": true,
+      "inputHash": "f1696345eeb61c0366c251087fe7db5181722b36dd0a5163f63eb10faada7bc9",
+      "time": 3667.5000000089594,
+      "halt": null,
+      "exception": null,
+      "contacts": 5,
+      "bodyContacts": 707,
+      "supportTransitions": 4181,
+      "terminalHash": "7af0a80b86be46c12bac422fd8804e51da70721a2eb4bb1ad93c68a7a50d4e3f"
+    },
+    {
+      "name": "body-reference",
+      "enabled": false,
+      "inputHash": "d5f43e1ca3c1734c9362929433962e3c2da56d7ea0aa98a028794648c8d4fe1d",
+      "time": 12.000000000000028,
+      "halt": null,
+      "exception": null,
+      "contacts": 0,
+      "bodyContacts": 48,
+      "supportTransitions": 0,
+      "terminalHash": "dea99267d10b61888d116a4dd7372f9881d07b619289f0cc7af41c497c091d18"
+    },
+    {
+      "name": "body-reference",
+      "enabled": true,
+      "inputHash": "47fa39d14cdc67dae8d9948c4324e38e4c3ff7f3474fa9782b498724b570884f",
+      "time": 12.000000000000028,
+      "halt": null,
+      "exception": null,
+      "contacts": 1,
+      "bodyContacts": 90,
+      "supportTransitions": 225,
+      "terminalHash": "f9b870a7e15059e1dd76bb5f4293c45e541769b9346ba36d6dbb8b9133e43b96"
+    },
+    {
+      "name": "full-incident-final-v4",
+      "enabled": false,
+      "inputHash": "697bda5cf6e3ef466f89717e7ae17ccb9976c5efd4bf4f367fd4ec7c84362510",
+      "time": 1039.7249999993996,
+      "halt": null,
+      "exception": null,
+      "contacts": 4,
+      "bodyContacts": 0,
+      "supportTransitions": 0,
+      "terminalHash": "afa179b32a0aade1df7479acbd7751e9e4c5bae2c95280d9efefdfe408359499"
+    },
+    {
+      "name": "full-incident-final-v4",
+      "enabled": true,
+      "inputHash": "45828cf43333919689c135cab2a59ec5a0d0b1bd488046c06399f86876d1c566",
+      "time": 1039.7249999993996,
+      "halt": null,
+      "exception": null,
+      "contacts": 1,
+      "bodyContacts": 0,
+      "supportTransitions": 218,
+      "terminalHash": "64a7620511575f55a2b76e034a28613e3de502520b2d7195fe34b8885f882e6e"
+    },
+    {
+      "name": "full-input-final-v5",
+      "enabled": false,
+      "inputHash": "44808c4a316731d240ceffc28846956cda0c42ec911d84c7723af98db631c023",
+      "time": 2578.900000004999,
+      "halt": null,
+      "exception": null,
+      "contacts": 4,
+      "bodyContacts": 68,
+      "supportTransitions": 0,
+      "terminalHash": "4295bce06902f04dc1eb6dab7ec280b9a34e36e037299e033b4a081e437a7102"
+    },
+    {
+      "name": "full-input-final-v5",
+      "enabled": true,
+      "inputHash": "aac786f70c53f617371d3a92db91c274ee0e160c7d0e26d6f3671db591ebb277",
+      "time": 2578.900000004999,
+      "halt": null,
+      "exception": null,
+      "contacts": 2,
+      "bodyContacts": 9,
+      "supportTransitions": 219,
+      "terminalHash": "f07dab1711920df6ed81fa7ba0d0e61c13efcb84463bab48f6e2b0de7eb6fa55"
+    },
+    {
+      "name": "full-checkpoint-final-v5",
+      "enabled": false,
+      "inputHash": "30f28c9b110e156bfd08127fd113b63f86861a8518efc6e911c27b593add6264",
+      "time": 4275.975000007899,
+      "halt": null,
+      "exception": null,
+      "contacts": 0,
+      "bodyContacts": 505,
+      "supportTransitions": 0,
+      "terminalHash": "0016cb691421d3b56b96962b6062e10df979a505e4196ef454e3aaa25bad7916"
+    },
+    {
+      "name": "full-checkpoint-final-v5",
+      "enabled": true,
+      "inputHash": "0d79c9296e14213284992f1ac3c199bc01d730b53cc6fde440c6e917f59f4b9c",
+      "time": 4275.975000007899,
+      "halt": null,
+      "exception": null,
+      "contacts": 0,
+      "bodyContacts": 505,
+      "supportTransitions": 225,
+      "terminalHash": "96f8ba0ffb00b2bdb077d55949428fdc7086d6a3276a6d1867a131e2df210ec6"
+    },
+    {
+      "name": "full-incident-solver-final-v1",
+      "enabled": false,
+      "inputHash": "5b4c5b13bf6559dad0b166eba5d7c6aad83ac9e3a7bb30213fc782c92c85e5f5",
+      "time": 4269.500000001899,
+      "halt": null,
+      "exception": null,
+      "contacts": 1,
+      "bodyContacts": 1,
+      "supportTransitions": 0,
+      "terminalHash": "b5f494acd0ccf9db60b059615519c51a6f912d34540d276fa675a90c7ef45554"
+    },
+    {
+      "name": "full-incident-solver-final-v1",
+      "enabled": true,
+      "inputHash": "a6de8b1eee9b3f220a30d4374014301377eb2cd5731a2841913e50d3edb6d1ce",
+      "time": 4268.375000001915,
+      "halt": {
+        "kind": "physical_contact",
+        "reason": "unreachable_articulated_foot",
+        "at": 4268.375000001915,
+        "intervalStartedAt": 4268.375000001915,
+        "actorIds": [
+          "footballer_pro_1_19"
+        ],
+        "ball": {
+          "x": 53.13935614266642,
+          "y": 44.483540830003705,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": -1.917405190625484,
+          "y": 0.259522899965391,
+          "z": 0
+        },
+        "spin": {
+          "x": -4.742702979143015,
+          "y": 9.270936688731345,
+          "z": -0.061543017773543165
+        }
+      },
+      "exception": null,
+      "contacts": 2,
+      "bodyContacts": 1,
+      "supportTransitions": 93,
+      "terminalHash": "47ceb33e9f6127ae71cc1ba8efe88cff24891f12981a9ed20809809edbc58c9e"
+    },
+    {
+      "name": "full-input-solver-final-v3",
+      "enabled": false,
+      "inputHash": "d7a679618ee842cab433271a0144276e50d7d78ac0267c8fc3e6a3953849d565",
+      "time": 3845.82500000395,
+      "halt": null,
+      "exception": null,
+      "contacts": 0,
+      "bodyContacts": 28,
+      "supportTransitions": 0,
+      "terminalHash": "f3d34be008977ed3c2d5b03dd947e72887ed11cf8ac95e8779cc1d274f3cd0fb"
+    },
+    {
+      "name": "full-input-solver-final-v3",
+      "enabled": true,
+      "inputHash": "634b1594a1864d9ad7addc2a3a3aff9ec9be58e8bdc881f1c7cedc02a255678b",
+      "time": 3845.82500000395,
+      "halt": null,
+      "exception": null,
+      "contacts": 0,
+      "bodyContacts": 29,
+      "supportTransitions": 101,
+      "terminalHash": "c7d06c4b48fa75f40aefc274632ba70cd894d4279e0db09d27ffc7c50febc019"
+    },
+    {
+      "name": "restart-reentry",
+      "enabled": false,
+      "inputHash": "2bf4f9d51752227b6bb0ca6c0589448334132636310d77b09b57c701986db1be",
+      "time": 2724.1000000055274,
+      "halt": null,
+      "exception": null,
+      "contacts": 0,
+      "bodyContacts": 89,
+      "supportTransitions": 0,
+      "terminalHash": "6feb1a3f45614b8cc99e4a13bbc4c904c6d20e89483a0f30e1ed8e455e32abc0"
+    },
+    {
+      "name": "restart-reentry",
+      "enabled": true,
+      "inputHash": "310fdc7ebb8dbb22390c8d6b8808cb92dbff8007f9dd36d6344b826cee1e7caf",
+      "time": 2723.8250000055264,
+      "halt": {
+        "kind": "physical_contact",
+        "reason": "unreachable_articulated_stance",
+        "at": 2723.8500000055265,
+        "intervalStartedAt": 2723.8250000055264,
+        "actorIds": [
+          "footballer_pro_9_5"
+        ],
+        "ball": {
+          "x": 30.16877289758538,
+          "y": 52.62101608178204,
+          "z": 0.17207888996852075
+        },
+        "velocity": {
+          "x": 13.11246072171577,
+          "y": -5.244984288686299,
+          "z": -0.5015111609520938
+        },
+        "spin": {
+          "x": 28.37440311082869,
+          "y": 70.93600777707192,
+          "z": -5.834985036869123e-34
+        }
+      },
+      "exception": null,
+      "contacts": 0,
+      "bodyContacts": 96,
+      "supportTransitions": 195,
+      "terminalHash": "09d852169775c5baa99288380d2173451c6d7d62b7af43ec59b573f23225288e"
+    }
+  ],
+  "performance": {
+    "wallMs": 319106.6348,
+    "cpu": {
+      "user": 330687000,
+      "system": 31219000
+    },
+    "maxRssKiB": 919676
+  },
+  "fullMatch": "NOT_RUN_PENDING_MANDATORY_GATES"
+}

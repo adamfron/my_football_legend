@@ -1,0 +1,197 @@
+{
+  "source": "b1970043a27ddd33ff188518700add9229d69521b9c584ae11beb4b0037b6c5f",
+  "edition": "stance-foot-dev-v2",
+  "name": "smoke",
+  "version": "attempt-1",
+  "initialHash": "4478f4816b103c70f5d726cf351b1c5c4104fb67b66951c90563a8bcd1eb41a3",
+  "terminalHash": "3ad3c0fdb3a607eca66f4ec6bd74e045f2cbffbe990822402161076d7d8bff37",
+  "reason": "duration",
+  "ticks": 4800,
+  "metrics": {
+    "contacts": 45,
+    "bodyImpacts": 73,
+    "bodyUnresolved": 0,
+    "supportTransitions": 12728,
+    "supportSamples": 92857,
+    "maximumSupportDrift": 0,
+    "maximumBaseSwingSpeed": 24.0000000000003,
+    "invalidPoses": 0,
+    "maximumSpeed": 8.823440877725899
+  },
+  "physicalActions": {
+    "attempts": 9,
+    "outcomes": {
+      "miss": 8,
+      "contact": 1
+    },
+    "standingChallenges": 4,
+    "receptions": {
+      "completed": 5,
+      "unclaimed": 3,
+      "intercepted": 1,
+      "pending": 1
+    }
+  },
+  "decisions": 1,
+  "periods": [],
+  "restarts": [
+    {
+      "at": 0.025,
+      "stage": "lab-mw3xhr6o:restart:0:home:kick_off:placed:kick_preparation",
+      "takerId": "footballer_pro_9_22"
+    },
+    {
+      "at": 0.22499999999999998,
+      "stage": "lab-mw3xhr6o:restart:0:home:kick_off:placed:release",
+      "takerId": "footballer_pro_9_22"
+    },
+    {
+      "at": 1.5499999999999985,
+      "stage": "open_play"
+    },
+    {
+      "at": 8.125000000000048,
+      "stage": "lab-mw3xhr6o:restart:8.102283812814905:home:corner:not_started:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 8.150000000000048,
+      "stage": "lab-mw3xhr6o:restart:8.102283812814905:home:corner:approach:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 23.649999999999725,
+      "stage": "lab-mw3xhr6o:restart:8.102283812814905:home:corner:transport:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 29.574999999999388,
+      "stage": "lab-mw3xhr6o:restart:8.102283812814905:home:corner:placed:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 31.47499999999928,
+      "stage": "lab-mw3xhr6o:restart:8.102283812814905:home:corner:placed:awaiting_decision",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 31.49999999999928,
+      "stage": "lab-mw3xhr6o:restart:8.102283812814905:home:corner:placed:kick_preparation",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 31.67499999999927,
+      "stage": "lab-mw3xhr6o:restart:8.102283812814905:home:corner:placed:release",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 32.849999999999206,
+      "stage": "open_play"
+    },
+    {
+      "at": 40.14999999999879,
+      "stage": "lab-mw3xhr6o:restart:40.13460503229751:home:throw_in:not_started:preparing",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 40.17499999999879,
+      "stage": "lab-mw3xhr6o:restart:40.13460503229751:home:throw_in:approach:preparing",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 44.274999999998556,
+      "stage": "lab-mw3xhr6o:restart:40.13460503229751:home:throw_in:transport:preparing",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 47.099999999998396,
+      "stage": "lab-mw3xhr6o:restart:40.13460503229751:home:throw_in:transport:kick_preparation",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 47.14999999999839,
+      "stage": "lab-mw3xhr6o:restart:40.13460503229751:home:throw_in:placed:kick_preparation",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 47.299999999998384,
+      "stage": "lab-mw3xhr6o:restart:40.13460503229751:home:throw_in:placed:release",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 47.999999999998344,
+      "stage": "open_play"
+    },
+    {
+      "at": 87.27500000000272,
+      "stage": "lab-mw3xhr6o:restart:87.2744064588567:home:throw_in:not_started:preparing",
+      "takerId": "footballer_pro_9_17"
+    },
+    {
+      "at": 87.30000000000273,
+      "stage": "lab-mw3xhr6o:restart:87.2744064588567:home:throw_in:approach:preparing",
+      "takerId": "footballer_pro_9_17"
+    },
+    {
+      "at": 88.82500000000307,
+      "stage": "lab-mw3xhr6o:restart:87.2744064588567:home:throw_in:transport:preparing",
+      "takerId": "footballer_pro_9_17"
+    },
+    {
+      "at": 91.6000000000037,
+      "stage": "lab-mw3xhr6o:restart:87.2744064588567:home:throw_in:transport:kick_preparation",
+      "takerId": "footballer_pro_9_17"
+    },
+    {
+      "at": 91.65000000000371,
+      "stage": "lab-mw3xhr6o:restart:87.2744064588567:home:throw_in:placed:kick_preparation",
+      "takerId": "footballer_pro_9_17"
+    },
+    {
+      "at": 91.77500000000374,
+      "stage": "lab-mw3xhr6o:restart:87.2744064588567:home:throw_in:placed:release",
+      "takerId": "footballer_pro_9_17"
+    },
+    {
+      "at": 93.27500000000408,
+      "stage": "open_play"
+    },
+    {
+      "at": 105.47500000000686,
+      "stage": "lab-mw3xhr6o:restart:105.47500000000686:home:throw_in:not_started:preparing",
+      "takerId": "footballer_pro_9_19"
+    },
+    {
+      "at": 105.50000000000686,
+      "stage": "lab-mw3xhr6o:restart:105.47500000000686:home:throw_in:approach:preparing",
+      "takerId": "footballer_pro_9_19"
+    },
+    {
+      "at": 114.15000000000883,
+      "stage": "lab-mw3xhr6o:restart:105.47500000000686:home:throw_in:transport:preparing",
+      "takerId": "footballer_pro_9_19"
+    },
+    {
+      "at": 119.67500000001009,
+      "stage": "lab-mw3xhr6o:restart:105.47500000000686:home:throw_in:transport:kick_preparation",
+      "takerId": "footballer_pro_9_19"
+    },
+    {
+      "at": 119.7250000000101,
+      "stage": "lab-mw3xhr6o:restart:105.47500000000686:home:throw_in:placed:kick_preparation",
+      "takerId": "footballer_pro_9_19"
+    },
+    {
+      "at": 119.85000000001013,
+      "stage": "lab-mw3xhr6o:restart:105.47500000000686:home:throw_in:placed:release",
+      "takerId": "footballer_pro_9_19"
+    }
+  ],
+  "checkpoints": 7,
+  "wallSeconds": 8.979149500000002,
+  "cpu": {
+    "user": 12718000,
+    "system": 407000
+  },
+  "maxRSSKiB": 464672
+}

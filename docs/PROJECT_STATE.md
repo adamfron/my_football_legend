@@ -1,5 +1,27 @@
 # My Football Legend — Current Project State
 
+PR218 — kontynuacja v2: naprawiono zasięg sprintu, wysokość rzeczywistej kostki,
+resztę ruchu nóg po impulsie, zwolnienie podpory podczas kopnięcia i fizyczne
+przekazania zmian zawodników. Nieosiągalna komenda buta zatrzymuje się na granicy
+zasięgu; rzeczywisty kontakt nadal może skończyć się pudłem.
+PR218 v2: **RETAIN_EXPERIMENTAL / COMPLETE_MATCH_TESTED**, general mode disabled.
+All 60 movement scenes, 26 paired native continuations, renderer/landmark gates
+and the 120-second continuous 22-player smoke pass on the measured source.
+The unchanged PR217 input completes at 5700.000s,
+1–1, with no safety halt, invalid composed pose or new
+body unresolved event. Base support drift is zero; composed support drift is
+2.842e-14m. This is one development
+trajectory, not independent-corpus confirmation or formal realism completion.
+Local npm run verify passes (2761 tests, lint and build).
+Hosted CI is a separate final-commit result linked in the PR.
+
+Historical v1 remains 48/60 with two native halts and
+NOT_READY_FOR_FULL_MATCH. Its raw evidence and all failed/interrupted v2 attempts
+remain preserved. PR201/B, normal career/menu defaults, 40Hz, 28 attributes and
+sealed independent confirmation remain unchanged.
+
+[Raport kontynuacji i aktualne bramki](PR218_STANCE_V2_GATE_REPAIR.md).
+
 PR217: odtworzono rzeczywisty incydent 295,700 s w Edge oraz blokadę autu ze
 zapisanej sesji `lab-mw3xhr6o`. Legacy challenge usuwał wysokość odbijającej się
 piłki, tworząc penetrację lewego buta `9_19`; historyczny unresolved blokował

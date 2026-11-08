@@ -1,5 +1,31 @@
 # Roadmap
 
+## Po przejściu bramek PR218 v2
+
+PR218 v2: **RETAIN_EXPERIMENTAL / COMPLETE_MATCH_TESTED**, general mode disabled.
+All 60 movement scenes, 26 paired native continuations, renderer/landmark gates
+and the 120-second continuous 22-player smoke pass on the measured source.
+The unchanged PR217 input completes at 5700.000s,
+1–1, with no safety halt, invalid composed pose or new
+body unresolved event. Base support drift is zero; composed support drift is
+2.842e-14m. This is one development
+trajectory, not independent-corpus confirmation or formal realism completion.
+Local npm run verify passes (2761 tests, lint and build).
+Hosted CI is a separate final-commit result linked in the PR.
+
+Najbliższa zależność fizyczna: wszystkie niebutowe powierzchnie muszą używać
+pełnej geometrii aktywnej/odzyskiwanej nogi. Następnie szerszy niezależny korpus
+meczów i empiryczna kalibracja chodu, przyczepności oraz wykonania. PR219 może
+badać obserwację lotu, antycypację, przygotowanie i timing przyjęcia na istniejących
+atrybutach, zachowując poprawne kontakty i rzeczywiste pudła. Hybrydowe upadanie
+wymaga osobnych COM, dynamiki kątowej, podłoża i skończonego powstawania.
+Historical v1 remains 48/60 with two native halts and
+NOT_READY_FOR_FULL_MATCH. Its raw evidence and all failed/interrupted v2 attempts
+remain preserved. PR201/B, normal career/menu defaults, 40Hz, 28 attributes and
+sealed independent confirmation remain unchanged.
+
+[Bramki i ograniczenia v2](PR218_STANCE_V2_GATE_REPAIR.md).
+
 ## Zależności po playteście PR217
 
 Najpierw domknąć niezawodność przekazań fizyki i wznowień, zachować negatywne

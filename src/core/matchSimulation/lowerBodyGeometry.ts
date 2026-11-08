@@ -51,8 +51,14 @@ export const lowerBodyGeometrySchema = z.object({
  * canonical body integrator. There is no independently positioned contact foot. */
 export const deriveLowerBodyGeometry = (
   actor: MatchPlayerState,
-  planted?: Partial<Record<'left' | 'right', { x: number; y: number }>>,
+  planted?: Partial<Record<'left' | 'right', { x: number; y: number; z?: number }>>,
 ) => {
+  planted ??= actor.articulatedStance
+    ? {
+        left: actor.articulatedStance.left,
+        right: actor.articulatedStance.right,
+      }
+    : undefined;
   const pose = actor.lowerBodyPose ?? neutralLowerBodyPose(),
     height = Math.max(1.4, Math.min(2.2, actor.profile.heightCm / 100));
   const angle = actor.facingAngle + pose.hipYaw,
@@ -67,14 +73,26 @@ export const deriveLowerBodyGeometry = (
       pose.footLead +
       ((side === -1 ? 'left' : 'right') === pose.activeLeg ? (pose.reachOffset?.y ?? 0) : 0),
   });
-  const horizontal = Math.max(
-    ...([-1, 1] as const).map((side) => {
-      const a = ankleLocal(side);
-      return (a.x - side * height * 0.055) ** 2 + a.y ** 2;
-    }),
+  const reachLimits = ([-1, 1] as const).map((side) => {
+    let a = ankleLocal(side);
+    const anchor = planted?.[side === -1 ? 'left' : 'right'];
+    if (anchor) {
+      const dx = anchor.x - actor.position.x,
+        dy = anchor.y - actor.position.y;
+      a = { x: dx * right.x + dy * right.y, y: dx * forward.x + dy * forward.y };
+    }
+    const horizontal = (a.x - side * height * 0.055) ** 2 + a.y ** 2;
+    return {
+      horizontal,
+      ankleZ: anchor?.z === undefined ? 0.075 + jump : anchor.z + 0.035,
+    };
+  });
+  const maximumPelvis = Math.min(
+    ...reachLimits.map(
+      ({ horizontal, ankleZ }) =>
+        ankleZ + Math.sqrt(Math.max(0, (height * 0.491 * 0.995) ** 2 - horizontal)),
+    ),
   );
-  const maximumPelvis =
-    0.075 + jump + Math.sqrt(Math.max(0, (height * 0.491 * 0.995) ** 2 - horizontal));
   const pelvisZ = Math.min(height * 0.49 - pose.crouch * 0.25 + jump, maximumPelvis);
   const world = (x: number, y: number, z: number) => ({
     x: actor.position.x + right.x * x + forward.x * y,
@@ -93,6 +111,7 @@ export const deriveLowerBodyGeometry = (
         dy = anchor.y - actor.position.y;
       ankle.x = dx * right.x + dy * right.y;
       ankle.y = dx * forward.x + dy * forward.y;
+      if (anchor.z !== undefined) ankle.z = anchor.z + 0.035;
     }
     const d = { x: ankle.x - hip.x, y: ankle.y - hip.y, z: ankle.z - hip.z },
       length = Math.hypot(d.x, d.y, d.z);
@@ -103,6 +122,7 @@ export const deriveLowerBodyGeometry = (
       bend = Math.sqrt(Math.max(0, thighLength ** 2 - along ** 2));
     const normal = { x: -unit.x * unit.y, y: 1 - unit.y ** 2, z: -unit.z * unit.y },
       normalLength = Math.hypot(normal.x, normal.y, normal.z);
+    if (normalLength < 1e-10) throw Error('Degenerate articulated knee plane');
     const knee = {
       x: hip.x + unit.x * along + (normal.x / normalLength) * bend,
       y: hip.y + unit.y * along + (normal.y / normalLength) * bend,
@@ -112,7 +132,7 @@ export const deriveLowerBodyGeometry = (
       hip: world(hip.x, hip.y, hip.z),
       knee: world(knee.x, knee.y, knee.z),
       ankle: world(ankle.x, ankle.y, ankle.z),
-      foot: world(ankle.x, ankle.y, 0.04 + jump),
+      foot: world(ankle.x, ankle.y, anchor?.z ?? 0.04 + jump),
       thighLength,
       shinLength,
       kneeFlexion:
@@ -126,10 +146,11 @@ export const deriveLowerBodyGeometry = (
             ),
           ),
         ),
-      supporting:
-        actor.plantBalance?.support === 'both' ||
-        (actor.plantBalance?.support ?? (pose.activeLeg === 'left' ? 'right' : 'left')) ===
-          (side === -1 ? 'left' : 'right'),
+      supporting: actor.articulatedStance
+        ? actor.articulatedStance.support === (side === -1 ? 'left' : 'right')
+        : actor.plantBalance?.support === 'both' ||
+          (actor.plantBalance?.support ?? (pose.activeLeg === 'left' ? 'right' : 'left')) ===
+            (side === -1 ? 'left' : 'right'),
     };
   };
   const left = derive(-1),

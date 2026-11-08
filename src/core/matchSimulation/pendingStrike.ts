@@ -27,6 +27,8 @@ import { normalizeAngle } from './playerOrientation';
 import { integrateBallFlight, BALL_PHYSICS } from './ballPhysics';
 import type { FlightPoint } from './ballFlight';
 import { relativeTemporalFootAt } from './temporalFootTrajectory';
+import { constrainArticulatedFoot, type footJointWorkspaceSchema } from './articulatedFootLimit';
+import type { z } from 'zod';
 
 type V = FlightPoint;
 const add = (a: V, b: V): V => ({ x: a.x + b.x, y: a.y + b.y, z: a.z + b.z });
@@ -262,13 +264,16 @@ export const withPhysicalStrikeBall = (
   },
 });
 
-const footAnchor = (actor: MatchPlayerState, foot: 'left' | 'right'): V => ({
-  ...playerFootGeometry(actor)[foot === 'left' ? 'leftFoot' : 'rightFoot'],
-  z: actor.lowerBodyPose ? deriveLowerBodyGeometry(actor)[foot].foot.z : 0.04,
-});
+const footAnchor = (actor: MatchPlayerState, foot: 'left' | 'right'): V =>
+  actor.articulatedStance
+    ? actor.articulatedStance[foot]
+    : {
+        ...playerFootGeometry(actor)[foot === 'left' ? 'leftFoot' : 'rightFoot'],
+        z: actor.lowerBodyPose ? deriveLowerBodyGeometry(actor)[foot].foot.z : 0.04,
+      };
 
 /** Body/pose anchors come from this actual canonical interval, never a whole-swing extrapolation. */
-export const canonicalStrikeFoot = (
+const canonicalStrikeFootTrajectory = (
   pending:
     | (Pick<PendingStrike, 'path' | 'selectedAt'> & {
         plan: Pick<PendingStrike['plan'], 'facingAngle'>;
@@ -351,6 +356,14 @@ export const canonicalStrikeFoot = (
       Math.abs(anchorVelocity.z);
     accelerationBound = omega * omega * radius + 2 * Math.abs(omega) * Math.hypot(rate.x, rate.y);
   }
+  if (before.articulatedStance && after.articulatedStance) {
+    const from = before.articulatedStance[foot],
+      to = after.articulatedStance[foot];
+    position = add(from, scale(sub(to, from), local / dt));
+    anchorVelocity = scale(sub(to, from), 1 / dt);
+    baseSpeedBound = norm(anchorVelocity);
+    accelerationBound = 0;
+  }
   if (recovery) {
     const u = Math.max(0, Math.min(1, (intervalAt + local - recovery.beganAt) / recovery.seconds));
     const offset = rotate(recovery.displacement, normalizeAngle(angle - recovery.facingAngle));
@@ -426,6 +439,61 @@ export const canonicalStrikeFoot = (
   };
 };
 
+/** The same effective boot is consumed by contact and skeletal presentation.
+ * Invalid anatomical configurations remain an explicit integration failure. */
+export const canonicalStrikeFoot = (
+  ...args: Parameters<typeof canonicalStrikeFootTrajectory>
+): ReturnType<typeof canonicalStrikeFootTrajectory> & {
+  reachable?: boolean;
+  jointLimited?: boolean;
+  jointWorkspace?: z.infer<typeof footJointWorkspaceSchema>;
+} => {
+  const value = canonicalStrikeFootTrajectory(...args);
+  const [, before, after, foot, , dt, local] = args;
+  if (!before.articulatedStance || !after.articulatedStance) return value;
+  const t = local / dt;
+  const player = {
+    ...after,
+    position: {
+      x: before.position.x + (after.position.x - before.position.x) * t,
+      y: before.position.y + (after.position.y - before.position.y) * t,
+    },
+    facingAngle: before.facingAngle + normalizeAngle(after.facingAngle - before.facingAngle) * t,
+    lowerBodyPose: interpolateLowerBodyPose(before.lowerBodyPose, after.lowerBodyPose, t),
+  };
+  try {
+    const other = foot === 'left' ? 'right' : 'left';
+    const a = before.articulatedStance[other],
+      b = after.articulatedStance[other];
+    const base = add(
+      before.articulatedStance[foot],
+      scale(sub(after.articulatedStance[foot], before.articulatedStance[foot]), t),
+    );
+    const otherPoint = add(a, scale(sub(b, a), t));
+    // Never repair an invalid native body by clipping an action command.
+    deriveLowerBodyGeometry(player, { [foot]: base, [other]: otherPoint });
+    const curve =
+      args[0] || args[7]
+        ? constrainArticulatedFoot(before, after, foot, dt, local, value, (at) => {
+            const parameters = [...args] as Parameters<typeof canonicalStrikeFootTrajectory>;
+            parameters[6] = at;
+            return canonicalStrikeFootTrajectory(...parameters);
+          })
+        : value;
+    if (
+      'jointLimited' in curve &&
+      curve.jointLimited &&
+      before.articulatedStance.support === foot &&
+      after.articulatedStance.support === foot
+    )
+      return { ...curve, reachable: false };
+    deriveLowerBodyGeometry(player, { [foot]: curve.position, [other]: otherPoint });
+    return { ...curve, reachable: true };
+  } catch {
+    return { ...value, reachable: false };
+  }
+};
+
 /** Bounded conservative advancement of ONE canonical ball interval. No state/time/RNG mutation. */
 export const findStrikeIntervalContact = (
   state: TacticalMatchState,
@@ -465,6 +533,13 @@ export const findStrikeIntervalContact = (
         ? initial
         : (supportedFlight?.(local) ?? integrateBallFlight(initial, local, state.ballEnvironment));
     let foot = footAt(local);
+    if (foot.reachable === false)
+      return {
+        outcome: 'unresolved' as const,
+        reason: 'unreachable_articulated_foot',
+        local,
+        evaluations,
+      };
     let delta = sub(ball.position, foot.position),
       gap = norm(delta) - 0.11 - radius;
     if (supportedFlight && local > 0 && gap < -TEMPORAL_STRIKE.distanceTolerance) {
@@ -488,6 +563,13 @@ export const findStrikeIntervalContact = (
       gap = norm(delta) - 0.11 - radius;
     }
     if (gap <= TEMPORAL_STRIKE.distanceTolerance) {
+      if (foot.reachable === false)
+        return {
+          outcome: 'unresolved' as const,
+          reason: 'unreachable_articulated_foot',
+          local,
+          evaluations,
+        };
       const normal = scale(delta, 1 / Math.max(1e-12, norm(delta)));
       const closing = dot(sub(foot.velocity, ball.velocity), normal);
       return {

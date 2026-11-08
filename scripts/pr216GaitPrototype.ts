@@ -2,6 +2,10 @@
  * Uses the canonical motor once, caps its earned momentum against finite grip,
  * and uses the existing two-bone IK. Ball-contact coupling is an explicit blocker. */
 import { z } from 'zod';
+import {
+  advanceArticulatedStance,
+  initializeArticulatedPlayer,
+} from '../src/core/matchSimulation/articulatedGait';
 import type { MatchPlayerState } from '../src/core/matchSimulation/matchState';
 import {
   integrateCanonicalMovement,
@@ -12,6 +16,49 @@ import {
   neutralLowerBodyPose,
 } from '../src/core/matchSimulation/lowerBodyGeometry';
 const xy = z.object({ x: z.number().finite(), y: z.number().finite() });
+
+/** PR218 extension of this apparatus: exercise the selected real motor/stance
+ * consumers. The preserved PR216 prototype below retains its historical scope. */
+export const stepArticulatedGaitPrototype = (
+  input: MatchPlayerState,
+  target: { x: number; y: number },
+  speed: number,
+  dt = 0.025,
+  facing = Math.atan2(target.x - input.position.x, target.y - input.position.y),
+) => {
+  const actor = initializeArticulatedPlayer(input);
+  const motor = integrateCanonicalMovement(actor, {
+    target,
+    targetSpeed: speed,
+    desiredFacingAngle: facing,
+    dt,
+    balance: 1,
+    structural: false,
+    receivingMomentum: false,
+  });
+  const player: MatchPlayerState = {
+    ...actor,
+    ...motor,
+    articulatedStance: advanceArticulatedStance(
+      actor,
+      { ...actor, ...motor },
+      dt,
+      undefined,
+      motor.articulatedMotor?.angularVelocity,
+    ),
+  };
+  const geometry = deriveLowerBodyGeometry(player);
+  const delta = {
+    x: player.velocity.x - actor.velocity.x,
+    y: player.velocity.y - actor.velocity.y,
+  };
+  const work =
+    (actor.profile.weightKg *
+      ((player.velocity.x + actor.velocity.x) * delta.x +
+        (player.velocity.y + actor.velocity.y) * delta.y)) /
+    2;
+  return { player, geometry, motor: motor.articulatedMotor!, work };
+};
 export const stancePrototypeSchema = z.object({
   surface: z.literal('firm-grass-dev-v1'),
   foot: z.enum(['left', 'right']),

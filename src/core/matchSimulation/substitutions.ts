@@ -29,6 +29,10 @@ import {
   advanceMatchIntervalFitness,
 } from './matchFitness';
 import { matchInjurySchema } from './matchInjuries';
+import { integrateCanonicalMovement } from './canonicalMovement';
+import { advanceArticulatedStance, initializeArticulatedPlayer } from './articulatedGait';
+import { activeArticulatedFoot, articulatedStanceSchema } from './articulatedBodyState';
+import { advanceLowerBodyPose, lowerBodyPoseSchema } from './lowerBodyGeometry';
 
 /** Compact competition contract. IFAB 2026/27 Law 3 and time-limited protocol. */
 export const matchSubstitutionRulesSchema = z.object({
@@ -81,6 +85,8 @@ export const departedMatchPlayerSchema = z
     goalkeeperRole: z.boolean().optional(),
     fitness: matchFitnessSchema.optional(),
     injury: matchInjurySchema.optional(),
+    lowerBodyPose: lowerBodyPoseSchema.optional(),
+    articulatedStance: articulatedStanceSchema.optional(),
   })
   .passthrough() as unknown as z.ZodType<MatchPlayerState>;
 export const substitutionReasonSchema = z.enum(['injury', 'fatigue', 'tactical']);
@@ -99,6 +105,9 @@ export const substitutionRequestSchema = z.object({
   entryPosition: physicalPointSchema,
   entryVelocity: physicalPointSchema,
   entryFitness: matchFitnessSchema.optional(),
+  entryFacingAngle: z.number().finite().optional(),
+  entryArticulatedStance: articulatedStanceSchema.optional(),
+  entryLowerBodyPose: lowerBodyPoseSchema.optional(),
   injuryExitException: z.boolean(),
   leftAt: z.number().nonnegative().optional(),
   delayed: z.boolean(),
@@ -457,6 +466,7 @@ export const moveSubstitutionBody = (
   target: { x: number; y: number },
   dt: number,
   assisted = false,
+  activeFoot?: 'left' | 'right',
 ): MatchPlayerState => {
   const capability = deriveMovementCapability(player),
     dx = target.x - player.position.x,
@@ -471,14 +481,35 @@ export const moveSubstitutionBody = (
   const desired = { x: (dx / d) * speed, y: (dy / d) * speed },
     delta = { x: desired.x - player.velocity.x, y: desired.y - player.velocity.y };
   const scale = Math.min(1, (acceleration * dt) / Math.max(0.0001, Math.hypot(delta.x, delta.y)));
-  const velocity = {
+  const nominalVelocity = {
     x: player.velocity.x + delta.x * scale,
     y: player.velocity.y + delta.y * scale,
   };
-  const position = {
+  const desiredFacingAngle = Math.hypot(dx, dy) > 0.0001 ? Math.atan2(dx, dy) : player.facingAngle;
+  const motor = player.articulatedStance
+    ? integrateCanonicalMovement(player, {
+        target,
+        targetSpeed: assisted ? 0.9 : capability.runSpeed,
+        desiredFacingAngle,
+        dt,
+        balance: assisted ? Math.min(1, 1.2 / capability.acceleration) : 1,
+        structural: false,
+        receivingMomentum: false,
+      })
+    : undefined;
+  const velocity = motor?.velocity ?? nominalVelocity;
+  const position = motor?.position ?? {
     x: player.position.x + velocity.x * dt,
     y: player.position.y + velocity.y * dt,
   };
+  const facingAngle =
+    motor?.facingAngle ??
+    (Math.hypot(velocity.x, velocity.y) > 0.01
+      ? Math.atan2(velocity.y, velocity.x)
+      : player.facingAngle);
+  const lowerBodyPose = motor
+    ? advanceLowerBodyPose(player, dt, activeFoot ? undefined : null)
+    : undefined;
   const travelled = distance(player.position, position),
     actualSpeed = Math.hypot(velocity.x, velocity.y);
   const running = player.locomotionTelemetry ?? {
@@ -497,7 +528,37 @@ export const moveSubstitutionBody = (
     position,
     velocity,
     target,
-    facingAngle: actualSpeed > 0.01 ? Math.atan2(velocity.y, velocity.x) : player.facingAngle,
+    facingAngle,
+    ...(motor
+      ? {
+          desiredFacingAngle,
+          movementMode: motor.movementMode,
+          turnRate:
+            Math.abs(
+              Math.atan2(
+                Math.sin(facingAngle - player.facingAngle),
+                Math.cos(facingAngle - player.facingAngle),
+              ),
+            ) / dt,
+          ...(lowerBodyPose ? { lowerBodyPose } : {}),
+          ...(motor.verticalJump ? { verticalJump: motor.verticalJump } : {}),
+          plantBalance: motor.plantBalance,
+          articulatedStance: advanceArticulatedStance(
+            player,
+            {
+              ...player,
+              position,
+              velocity,
+              facingAngle,
+              ...(lowerBodyPose ? { lowerBodyPose } : {}),
+              ...(motor.verticalJump ? { verticalJump: motor.verticalJump } : {}),
+            },
+            dt,
+            activeFoot,
+            motor.articulatedMotor?.angularVelocity,
+          ),
+        }
+      : {}),
     ...(assisted
       ? {}
       : {
@@ -506,7 +567,14 @@ export const moveSubstitutionBody = (
             distance: travelled,
             speed: actualSpeed,
             previousSpeed,
-            turnRadians: 0,
+            turnRadians: motor
+              ? Math.abs(
+                  Math.atan2(
+                    Math.sin(facingAngle - player.facingAngle),
+                    Math.cos(facingAngle - player.facingAngle),
+                  ),
+                )
+              : 0,
           }),
           locomotionTelemetry: {
             ...running,
@@ -571,7 +639,7 @@ const substitutionEntryBody = (
   const previousAppearance = state.departedPlayers?.find(
     (player) => player.id === request.incoming.id,
   );
-  return {
+  const body: MatchPlayerState = {
     id: request.incoming.id,
     team: request.team,
     endsSwitched: state.endsSwitched,
@@ -591,14 +659,30 @@ const substitutionEntryBody = (
     activeSince: state.time,
     position: request.entryPosition,
     velocity: request.entryVelocity,
-    facingAngle: Math.PI / 2,
+    facingAngle: state.experimentalArticulatedBody
+      ? (request.entryFacingAngle ?? Math.PI / 2)
+      : Math.PI / 2,
     meanPosition: request.entryPosition,
     samples: 1,
     ...(request.incoming.injury ? { injury: request.incoming.injury } : {}),
     ...(previousAppearance?.locomotionTelemetry
       ? { locomotionTelemetry: previousAppearance.locomotionTelemetry }
       : {}),
+    ...(state.experimentalArticulatedBody
+      ? {
+          ...(request.entryArticulatedStance
+            ? { articulatedStance: request.entryArticulatedStance }
+            : {}),
+          ...(request.entryLowerBodyPose ? { lowerBodyPose: request.entryLowerBodyPose } : {}),
+        }
+      : {}),
   };
+  return state.experimentalArticulatedBody
+    ? initializeArticulatedPlayer(
+        body,
+        state.players.find((p) => p.articulatedStance)?.articulatedStance?.surface,
+      )
+    : body;
 };
 /** Cleared entrants are physical bodies before they cross the eligibility line. */
 export const substitutionEntryBodies = (state: TacticalMatchState) =>
@@ -703,6 +787,7 @@ export const advanceMatchSubstitutions = (
         request.exitTarget,
         dt,
         request.injuryExitException,
+        activeArticulatedFoot(state, request.outgoing.id),
       );
       if (outside(request.outgoing)) {
         request.leftAt = state.time;
@@ -783,6 +868,11 @@ export const advanceMatchSubstitutions = (
       request.entryPosition = moved.position;
       request.entryVelocity = moved.velocity;
       request.entryFitness = moved.fitness;
+      if (moved.articulatedStance) {
+        request.entryArticulatedStance = moved.articulatedStance;
+        request.entryLowerBodyPose = moved.lowerBodyPose;
+        request.entryFacingAngle = moved.facingAngle;
+      }
       if (resolveBodies) {
         entryMoves.push(moved);
         pending.push(request);
@@ -814,6 +904,11 @@ export const advanceMatchSubstitutions = (
       request.entryPosition = physical.position;
       request.entryVelocity = physical.velocity;
       request.entryFitness = physical.fitness;
+      if (physical.articulatedStance) {
+        request.entryArticulatedStance = physical.articulatedStance;
+        request.entryLowerBodyPose = physical.lowerBodyPose;
+        request.entryFacingAngle = physical.facingAngle;
+      }
       // Witnesses are cumulative session history. A previous, already continued
       // incident cannot withhold admission after this entrant's lawful crossing.
       // Only a new unresolved contact in THIS physical interval blocks entry.
@@ -871,7 +966,15 @@ export const stepSubstitutionInterval = (
       {
         ...state,
         time: state.time + dt,
-        players: state.players.map((player) => moveSubstitutionBody(player, player.position, dt)),
+        players: state.players.map((player) =>
+          moveSubstitutionBody(
+            player,
+            player.position,
+            dt,
+            false,
+            activeArticulatedFoot(state, player.id),
+          ),
+        ),
       },
       dt,
       resolveBodies,

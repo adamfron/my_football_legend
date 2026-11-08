@@ -365,6 +365,12 @@ export const interpolateFrame = (sequence: TacticalSequence, elapsedMs: number):
   const next = sequence.frames[nextIndex]!;
   if (elapsedMs === next.timestampMs) return next;
   const previous = sequence.frames[nextIndex - 1]!;
+  if (
+    [...previous.players, ...next.players].some(
+      (p) => p.articulatedBody || p.articulatedPoseUnavailable,
+    )
+  )
+    return previous;
   const t = (elapsedMs - previous.timestampMs) / (next.timestampMs - previous.timestampMs);
   const nextPlayers = new Map(next.players.map((player) => [player.id, player]));
   return {

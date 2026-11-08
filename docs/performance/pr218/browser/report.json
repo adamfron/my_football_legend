@@ -1,0 +1,698 @@
+{
+  "browser": "155.0.4283.45",
+  "source": "fdd423a609826fbeace0e81a90a137c56a56240e82771c0a8d27070a153c266e",
+  "viewports": [
+    {
+      "width": 1366,
+      "height": 768,
+      "errors": [],
+      "results": [
+        {
+          "name": "standing",
+          "parity": [
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 2,
+                "y": 34,
+                "z": 0.882
+              },
+              "before": 0.061999999999999944,
+              "after": 0
+            },
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 2,
+                "y": 34.099,
+                "z": 0.882
+              },
+              "before": 0.09560334722173784,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 2,
+                "y": 33.901,
+                "z": 0.882
+              },
+              "before": 0.09560334722173784,
+              "after": 0
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 2.241139680320823,
+                "y": 34.131360140668676,
+                "z": 0.514188260287039
+              },
+              "before": 0.2627622316775999,
+              "after": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 2.241139680320823,
+                "y": 33.868639859331324,
+                "z": 0.514188260287039
+              },
+              "before": 0.2627622316775999,
+              "after": 0
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 2.2,
+                "y": 34.17,
+                "z": 0.07500000000000001
+              },
+              "before": 0.2638626151872822,
+              "after": 8.530133295729046e-15
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 2.2,
+                "y": 33.83,
+                "z": 0.07500000000000001
+              },
+              "before": 0.2638626151872822,
+              "after": 1.652937160422473e-14
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 2.2,
+                "y": 34.17,
+                "z": 0.04
+              },
+              "before": 0.20888779226691037,
+              "after": 7.882595691191652e-16
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 2.2,
+                "y": 33.83,
+                "z": 0.04
+              },
+              "before": 0.20888779226691037,
+              "after": 1.1917335647030158e-15
+            }
+          ],
+          "costs": [
+            {
+              "edition": "cosmetic",
+              "players": 22,
+              "medianSubmitMs": 2.0999999046325684,
+              "p95SubmitMs": 3.6000003814697266,
+              "drawCalls": 37,
+              "geometries": 4
+            },
+            {
+              "edition": "articulated",
+              "players": 22,
+              "medianSubmitMs": 2.6999998092651367,
+              "p95SubmitMs": 3.799999713897705,
+              "drawCalls": 37,
+              "geometries": 4
+            }
+          ]
+        },
+        {
+          "name": "moving",
+          "parity": [
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 30.856612438174412,
+                "y": 32.00846755077299,
+                "z": 0.8285119822002668
+              },
+              "before": 0.01648801779973319,
+              "after": 0
+            },
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 30.856291605402667,
+                "y": 32.107467030904616,
+                "z": 0.8285119822002668
+              },
+              "before": 0.029301427661131245,
+              "after": 2.220446049250313e-16
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 30.856933270946158,
+                "y": 31.909468070641363,
+                "z": 0.8285119822002668
+              },
+              "before": 0.02930142766112829,
+              "after": 3.552713678800501e-15
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 31.12160994892357,
+                "y": 32.13732887052229,
+                "z": 0.4775198923663622
+              },
+              "before": 0.38368057614418705,
+              "after": 2.2887833992611187e-16
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 31.238531350914016,
+                "y": 31.890410687721314,
+                "z": 0.6082831886216737
+              },
+              "before": 0.30603941772466314,
+              "after": 3.580361673049448e-15
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 30.939999999999998,
+                "y": 32.17,
+                "z": 0.07500000000000001
+              },
+              "before": 0.36117484048105475,
+              "after": 3.96623193796769e-15
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 31.30643384888196,
+                "y": 31.850477679245753,
+                "z": 0.17254651859744388
+              },
+              "before": 0.4257352932504156,
+              "after": 4.7759757002464606e-15
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 30.939999999999998,
+                "y": 32.17,
+                "z": 0.04
+              },
+              "before": 0.3152825131901065,
+              "after": 7.728448325086347e-15
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 31.30643384888196,
+                "y": 31.850477679245753,
+                "z": 0.13754651859744388
+              },
+              "before": 0.3750433760668909,
+              "after": 3.553147333202946e-15
+            }
+          ],
+          "costs": [
+            {
+              "edition": "cosmetic",
+              "players": 22,
+              "medianSubmitMs": 3.1999998092651367,
+              "p95SubmitMs": 5.700000286102295,
+              "drawCalls": 159,
+              "geometries": 4
+            },
+            {
+              "edition": "articulated",
+              "players": 22,
+              "medianSubmitMs": 4,
+              "p95SubmitMs": 6.199999809265137,
+              "drawCalls": 159,
+              "geometries": 4
+            }
+          ]
+        },
+        {
+          "name": "prepared-pass",
+          "parity": [
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0.018000000000000016,
+              "after": 0
+            },
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0.028635642126555755,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0.028635642126555755,
+              "after": 0
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 29.641139680320823,
+                "y": 34.30136014066868,
+                "z": 0.5141882602870389
+              },
+              "before": 0.24243322534312026,
+              "after": 0
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 29.641139680320823,
+                "y": 34.038639859331326,
+                "z": 0.5141882602870389
+              },
+              "before": 0.24243322534312026,
+              "after": 6.938893903907228e-18
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 0.20796634343085388,
+              "after": 9.19174823112202e-15
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 0.20796634343085388,
+              "after": 6.086390972536225e-15
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.04
+              },
+              "before": 0.14654350889752715,
+              "after": 3.576654865213795e-15
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.04
+              },
+              "before": 0.14654350889752715,
+              "after": 7.196502796760553e-15
+            }
+          ],
+          "costs": [
+            {
+              "edition": "cosmetic",
+              "players": 22,
+              "medianSubmitMs": 3.5,
+              "p95SubmitMs": 6,
+              "drawCalls": 190,
+              "geometries": 5
+            },
+            {
+              "edition": "articulated",
+              "players": 22,
+              "medianSubmitMs": 4.199999809265137,
+              "p95SubmitMs": 5.700000286102295,
+              "drawCalls": 190,
+              "geometries": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "errors": [],
+      "results": [
+        {
+          "name": "standing",
+          "parity": [
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 2,
+                "y": 34,
+                "z": 0.882
+              },
+              "before": 0.061999999999999944,
+              "after": 0
+            },
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 2,
+                "y": 34.099,
+                "z": 0.882
+              },
+              "before": 0.09560334722173784,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 2,
+                "y": 33.901,
+                "z": 0.882
+              },
+              "before": 0.09560334722173784,
+              "after": 0
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 2.241139680320823,
+                "y": 34.131360140668676,
+                "z": 0.514188260287039
+              },
+              "before": 0.2627622316775999,
+              "after": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 2.241139680320823,
+                "y": 33.868639859331324,
+                "z": 0.514188260287039
+              },
+              "before": 0.2627622316775999,
+              "after": 0
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 2.2,
+                "y": 34.17,
+                "z": 0.07500000000000001
+              },
+              "before": 0.2638626151872822,
+              "after": 8.530133295729046e-15
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 2.2,
+                "y": 33.83,
+                "z": 0.07500000000000001
+              },
+              "before": 0.2638626151872822,
+              "after": 1.652937160422473e-14
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 2.2,
+                "y": 34.17,
+                "z": 0.04
+              },
+              "before": 0.20888779226691037,
+              "after": 7.882595691191652e-16
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 2.2,
+                "y": 33.83,
+                "z": 0.04
+              },
+              "before": 0.20888779226691037,
+              "after": 1.1917335647030158e-15
+            }
+          ],
+          "costs": [
+            {
+              "edition": "cosmetic",
+              "players": 22,
+              "medianSubmitMs": 2.0999999046325684,
+              "p95SubmitMs": 4.599999904632568,
+              "drawCalls": 37,
+              "geometries": 4
+            },
+            {
+              "edition": "articulated",
+              "players": 22,
+              "medianSubmitMs": 2.0999999046325684,
+              "p95SubmitMs": 3.4000000953674316,
+              "drawCalls": 37,
+              "geometries": 4
+            }
+          ]
+        },
+        {
+          "name": "moving",
+          "parity": [
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 30.856612438174412,
+                "y": 32.00846755077299,
+                "z": 0.8285119822002668
+              },
+              "before": 0.01648801779973319,
+              "after": 0
+            },
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 30.856291605402667,
+                "y": 32.107467030904616,
+                "z": 0.8285119822002668
+              },
+              "before": 0.029301427661131245,
+              "after": 2.220446049250313e-16
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 30.856933270946158,
+                "y": 31.909468070641363,
+                "z": 0.8285119822002668
+              },
+              "before": 0.02930142766112829,
+              "after": 3.552713678800501e-15
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 31.12160994892357,
+                "y": 32.13732887052229,
+                "z": 0.4775198923663622
+              },
+              "before": 0.38368057614418705,
+              "after": 2.2887833992611187e-16
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 31.238531350914016,
+                "y": 31.890410687721314,
+                "z": 0.6082831886216737
+              },
+              "before": 0.30603941772466314,
+              "after": 3.580361673049448e-15
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 30.939999999999998,
+                "y": 32.17,
+                "z": 0.07500000000000001
+              },
+              "before": 0.36117484048105475,
+              "after": 3.96623193796769e-15
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 31.30643384888196,
+                "y": 31.850477679245753,
+                "z": 0.17254651859744388
+              },
+              "before": 0.4257352932504156,
+              "after": 4.7759757002464606e-15
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 30.939999999999998,
+                "y": 32.17,
+                "z": 0.04
+              },
+              "before": 0.3152825131901065,
+              "after": 7.728448325086347e-15
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 31.30643384888196,
+                "y": 31.850477679245753,
+                "z": 0.13754651859744388
+              },
+              "before": 0.3750433760668909,
+              "after": 3.553147333202946e-15
+            }
+          ],
+          "costs": [
+            {
+              "edition": "cosmetic",
+              "players": 22,
+              "medianSubmitMs": 4,
+              "p95SubmitMs": 5.599999904632568,
+              "drawCalls": 159,
+              "geometries": 4
+            },
+            {
+              "edition": "articulated",
+              "players": 22,
+              "medianSubmitMs": 4.900000095367432,
+              "p95SubmitMs": 6.599999904632568,
+              "drawCalls": 159,
+              "geometries": 4
+            }
+          ]
+        },
+        {
+          "name": "prepared-pass",
+          "parity": [
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0.018000000000000016,
+              "after": 0
+            },
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0.028635642126555755,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0.028635642126555755,
+              "after": 0
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 29.641139680320823,
+                "y": 34.30136014066868,
+                "z": 0.5141882602870389
+              },
+              "before": 0.24243322534312026,
+              "after": 0
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 29.641139680320823,
+                "y": 34.038639859331326,
+                "z": 0.5141882602870389
+              },
+              "before": 0.24243322534312026,
+              "after": 6.938893903907228e-18
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 0.20796634343085388,
+              "after": 9.19174823112202e-15
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 0.20796634343085388,
+              "after": 6.086390972536225e-15
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.04
+              },
+              "before": 0.14654350889752715,
+              "after": 3.576654865213795e-15
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.04
+              },
+              "before": 0.14654350889752715,
+              "after": 7.196502796760553e-15
+            }
+          ],
+          "costs": [
+            {
+              "edition": "cosmetic",
+              "players": 22,
+              "medianSubmitMs": 4.099999904632568,
+              "p95SubmitMs": 5.900000095367432,
+              "drawCalls": 190,
+              "geometries": 5
+            },
+            {
+              "edition": "articulated",
+              "players": 22,
+              "medianSubmitMs": 4.5,
+              "p95SubmitMs": 7.200000286102295,
+              "drawCalls": 190,
+              "geometries": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -148,6 +148,14 @@ export const derivePlayerPose = (
   atMs: number,
   out = createPlayerPose(),
 ): PlayerPose => {
+  if (player.articulatedBody || player.articulatedPoseUnavailable) {
+    // Lower limbs and pelvis are transformed from the authoritative geometry by
+    // PlayerModel. Only head/arm secondary motion may be generated here.
+    Object.assign(out, createPlayerPose());
+    out.headYaw = Math.sin(atMs * 0.0015) * 0.12;
+    out.armSpread = 0.15;
+    return out;
+  }
   const speed = player.gaitSpeed ?? Math.hypot(player.velocity?.x ?? 0, player.velocity?.y ?? 0);
   const movement = deriveMovementPresentation(player);
   const amplitude = clamp(speed / 7, 0, 1) * 0.85;

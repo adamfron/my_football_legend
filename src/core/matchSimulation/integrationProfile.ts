@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { withoutArticulatedBody } from './articulatedGait';
 import {
   decisionPolicyIdSchema,
   DEFAULT_DECISION_POLICY,
@@ -245,6 +246,7 @@ export const withIntegrationProfile = (
   id: IntegrationProfileId,
   policy: DecisionPolicyId = state.decisionPolicy ?? 'legacy-pr176',
 ): TacticalMatchState => {
+  state = withoutArticulatedBody(state);
   const resolved = resolveIntegrationProfile(id, policy);
   const { experimentalBodyContacts: _body, ...features } = resolved.features;
   void _body;
@@ -265,12 +267,14 @@ export const withIntegrationProfile = (
       fingerprint: resolved.fingerprint,
     },
     players: state.players.map((p) => {
-      const { ballMotorObservation: _old, ...body } = p;
+      const { ballMotorObservation: _old, articulatedStance: _stance, ...body } = p;
       void _old;
+      void _stance;
       return body;
     }),
   };
   delete next.experimentalBodyContacts;
+  delete (next as TacticalMatchState).experimentalArticulatedBody;
   delete (next as TacticalMatchState).ballEnvironment;
   delete (next as TacticalMatchState).experimentalKickExecution;
   delete (next as TacticalMatchState).lastKickExecution;
@@ -322,6 +326,8 @@ export const integrationStateErrors = (state: TacticalMatchState) => {
   )
     return ['Live bounded belief requires anticipation and excludes unvalidated synchronisation'];
   if (!state.integrationProfile) return [];
+  if (state.experimentalArticulatedBody || state.players.some((p) => p.articulatedStance))
+    return ['Articulated stance is not declared by a historical integration profile'];
   if (state.ballEnvironment)
     return ['Ball environment is not declared by a historical integration profile'];
   if (state.experimentalKickExecution)

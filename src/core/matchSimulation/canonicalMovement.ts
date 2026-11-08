@@ -4,6 +4,7 @@ import { physicalPointSchema } from './matchSpace';
 import { deriveMovementCapability, projectSprintEpisode } from './locomotion';
 import { deriveFitnessPhysicalModifiers, advanceMatchFitness } from './matchFitness';
 import { derivePlantBalance, advanceVerticalJump } from './bodyMechanics';
+import { constrainArticulatedMotor } from './articulatedGait';
 import {
   classifyRelativeMovement,
   integrateFacing,
@@ -136,7 +137,7 @@ export const integrateCanonicalMovement = (player: MatchPlayerState, input: Move
     dy = target.y - player.position.y,
     d = Math.max(0.001, Math.hypot(dx, dy));
   const fitnessEffects = deriveFitnessPhysicalModifiers(player);
-  const facingAngle = integrateFacing(
+  let facingAngle = integrateFacing(
     player.facingAngle,
     desiredFacingAngle,
     player.profile.attributes.agility,
@@ -165,11 +166,19 @@ export const integrateCanonicalMovement = (player: MatchPlayerState, input: Move
   };
   const velocityDeltaLength = Math.hypot(velocityDelta.x, velocityDelta.y);
   const velocityScale = velocityDeltaLength > acceleration ? acceleration / velocityDeltaLength : 1;
-  const velocity = {
+  let velocity = {
     x: player.velocity.x + velocityDelta.x * velocityScale,
     y: player.velocity.y + velocityDelta.y * velocityScale,
   };
+  const articulated = player.articulatedStance
+    ? constrainArticulatedMotor(player, velocity, facingAngle, dt)
+    : undefined;
+  if (articulated) {
+    velocity = articulated.velocity;
+    facingAngle = articulated.facingAngle;
+  }
   return {
+    ...(articulated ? { articulatedMotor: articulated } : {}),
     facingAngle,
     movementMode,
     capability,

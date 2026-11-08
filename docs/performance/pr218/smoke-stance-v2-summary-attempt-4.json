@@ -1,0 +1,242 @@
+{
+  "source": "a6138e858860014c780f2e39cdc2987305d2e4d87341eff3fdcbbffb27c1d9aa",
+  "edition": "stance-foot-dev-v2",
+  "name": "smoke",
+  "version": "attempt-4",
+  "initialHash": "4478f4816b103c70f5d726cf351b1c5c4104fb67b66951c90563a8bcd1eb41a3",
+  "terminalHash": "6512814ceccb1d19ac2ee837d3ae34d41402e56ce99a03d298005e80a498fe46",
+  "reason": "duration",
+  "ticks": 4800,
+  "metrics": {
+    "contacts": 37,
+    "bodyImpacts": 101,
+    "bodyUnresolved": 0,
+    "supportTransitions": 11630,
+    "supportSamples": 93965,
+    "maximumSupportDrift": 0,
+    "maximumComposedSupportDrift": 1.464821375527116e-14,
+    "maximumBaseSwingSpeed": 24.00000000000035,
+    "invalidPoses": 0,
+    "maximumSpeed": 8.68664312923286
+  },
+  "physicalActions": {
+    "attempts": 6,
+    "outcomes": {
+      "miss": 3,
+      "interrupted": 2,
+      "contact": 1
+    },
+    "standingChallenges": 2,
+    "receptions": {
+      "completed": 5,
+      "out_of_play": 2,
+      "unclaimed": 1
+    }
+  },
+  "decisions": 2,
+  "periods": [],
+  "restarts": [
+    {
+      "at": 0.025,
+      "stage": "lab-mw3xhr6o:restart:0:home:kick_off:placed:kick_preparation",
+      "takerId": "footballer_pro_9_22"
+    },
+    {
+      "at": 0.22499999999999998,
+      "stage": "lab-mw3xhr6o:restart:0:home:kick_off:placed:release",
+      "takerId": "footballer_pro_9_22"
+    },
+    {
+      "at": 1.5499999999999985,
+      "stage": "open_play"
+    },
+    {
+      "at": 3.124999999999993,
+      "stage": "lab-mw3xhr6o:restart:3.1034763054585115:home:free_kick_far:not_started:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 3.149999999999993,
+      "stage": "lab-mw3xhr6o:restart:3.1034763054585115:home:free_kick_far:transport:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 3.4999999999999916,
+      "stage": "lab-mw3xhr6o:restart:3.1034763054585115:home:free_kick_far:placed:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 4.75,
+      "stage": "lab-mw3xhr6o:restart:3.1034763054585115:home:free_kick_far:placed:awaiting_decision",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 4.775,
+      "stage": "lab-mw3xhr6o:restart:3.1034763054585115:home:free_kick_far:placed:kick_preparation",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 4.9250000000000025,
+      "stage": "lab-mw3xhr6o:restart:3.1034763054585115:home:free_kick_far:placed:release",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 5.975000000000017,
+      "stage": "open_play"
+    },
+    {
+      "at": 15.850000000000158,
+      "stage": "lab-mw3xhr6o:restart:15.850000000000158:home:free_kick_far:not_started:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 15.875000000000158,
+      "stage": "lab-mw3xhr6o:restart:15.850000000000158:home:free_kick_far:approach:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 25.34999999999963,
+      "stage": "lab-mw3xhr6o:restart:15.850000000000158:home:free_kick_far:transport:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 35.77499999999904,
+      "stage": "lab-mw3xhr6o:restart:15.850000000000158:home:free_kick_far:placed:preparing",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 37.72499999999893,
+      "stage": "lab-mw3xhr6o:restart:15.850000000000158:home:free_kick_far:placed:awaiting_decision",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 37.74999999999893,
+      "stage": "lab-mw3xhr6o:restart:15.850000000000158:home:free_kick_far:placed:kick_preparation",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 38.649999999998876,
+      "stage": "lab-mw3xhr6o:restart:15.850000000000158:home:free_kick_far:placed:release",
+      "takerId": "footballer_pro_9_12"
+    },
+    {
+      "at": 39.47499999999883,
+      "stage": "open_play"
+    },
+    {
+      "at": 44.974999999998516,
+      "stage": "lab-mw3xhr6o:restart:44.974999999998516:away:free_kick_far:not_started:preparing",
+      "takerId": "footballer_pro_1_12"
+    },
+    {
+      "at": 44.999999999998515,
+      "stage": "lab-mw3xhr6o:restart:44.974999999998516:away:free_kick_far:transport:preparing",
+      "takerId": "footballer_pro_1_12"
+    },
+    {
+      "at": 46.949999999998404,
+      "stage": "lab-mw3xhr6o:restart:44.974999999998516:away:free_kick_far:placed:preparing",
+      "takerId": "footballer_pro_1_12"
+    },
+    {
+      "at": 51.499999999998145,
+      "stage": "lab-mw3xhr6o:restart:44.974999999998516:away:free_kick_far:placed:kick_preparation",
+      "takerId": "footballer_pro_1_12"
+    },
+    {
+      "at": 52.024999999998116,
+      "stage": "lab-mw3xhr6o:restart:44.974999999998516:away:free_kick_far:placed:release",
+      "takerId": "footballer_pro_1_12"
+    },
+    {
+      "at": 54.82499999999796,
+      "stage": "lab-mw3xhr6o:restart:54.80567615991909:home:throw_in:not_started:preparing",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 54.849999999997955,
+      "stage": "lab-mw3xhr6o:restart:54.80567615991909:home:throw_in:approach:preparing",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 61.59999999999757,
+      "stage": "lab-mw3xhr6o:restart:54.80567615991909:home:throw_in:transport:preparing",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 62.72499999999751,
+      "stage": "lab-mw3xhr6o:restart:54.80567615991909:home:throw_in:transport:kick_preparation",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 62.774999999997505,
+      "stage": "lab-mw3xhr6o:restart:54.80567615991909:home:throw_in:placed:kick_preparation",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 62.924999999997496,
+      "stage": "lab-mw3xhr6o:restart:54.80567615991909:home:throw_in:placed:release",
+      "takerId": "footballer_pro_9_7"
+    },
+    {
+      "at": 66.9249999999981,
+      "stage": "open_play"
+    },
+    {
+      "at": 67.49999999999822,
+      "stage": "lab-mw3xhr6o:restart:67.4810023887589:away:throw_in:not_started:preparing",
+      "takerId": "footballer_pro_1_22"
+    },
+    {
+      "at": 67.52499999999823,
+      "stage": "lab-mw3xhr6o:restart:67.4810023887589:away:throw_in:approach:preparing",
+      "takerId": "footballer_pro_1_22"
+    },
+    {
+      "at": 81.4750000000014,
+      "stage": "lab-mw3xhr6o:restart:67.4810023887589:away:throw_in:transport:preparing",
+      "takerId": "footballer_pro_1_22"
+    },
+    {
+      "at": 85.82500000000239,
+      "stage": "lab-mw3xhr6o:restart:67.4810023887589:away:throw_in:transport:kick_preparation",
+      "takerId": "footballer_pro_1_22"
+    },
+    {
+      "at": 85.8750000000024,
+      "stage": "lab-mw3xhr6o:restart:67.4810023887589:away:throw_in:placed:kick_preparation",
+      "takerId": "footballer_pro_1_22"
+    },
+    {
+      "at": 86.00000000000243,
+      "stage": "lab-mw3xhr6o:restart:67.4810023887589:away:throw_in:placed:release",
+      "takerId": "footballer_pro_1_22"
+    },
+    {
+      "at": 89.52500000000323,
+      "stage": "open_play"
+    },
+    {
+      "at": 103.20000000000634,
+      "stage": "lab-mw3xhr6o:restart:103.20000000000634:home:throw_in:not_started:preparing",
+      "takerId": "footballer_pro_9_11"
+    },
+    {
+      "at": 103.22500000000635,
+      "stage": "lab-mw3xhr6o:restart:103.20000000000634:home:throw_in:approach:preparing",
+      "takerId": "footballer_pro_9_11"
+    },
+    {
+      "at": 113.5750000000087,
+      "stage": "lab-mw3xhr6o:restart:103.20000000000634:home:throw_in:transport:preparing",
+      "takerId": "footballer_pro_9_11"
+    }
+  ],
+  "checkpoints": 7,
+  "wallSeconds": 8.9925543,
+  "cpu": {
+    "user": 12485000,
+    "system": 359000
+  },
+  "maxRSSKiB": 575688
+}

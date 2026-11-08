@@ -1,0 +1,345 @@
+{
+  "schema": "pr218-stance-v2-verification-v1",
+  "recordedAt": "2026-11-08T05:46:04.195Z",
+  "source": "ea8a49f6c678d24405e65db42561085fd4c9b8e874cf26ccca1b02e544f21a2a",
+  "base": "90eb730854240a949be61a344cf3955b31f3cfa0",
+  "edition": "stance-foot-dev-v2",
+  "localVerify": {
+    "exitCode": 0,
+    "fullPass": true,
+    "testGroups": [
+      2696,
+      56,
+      4,
+      5
+    ],
+    "totalTests": 2761
+  },
+  "physicalGates": {
+    "schema": "pr218-stance-v2-gates-v1",
+    "source": "ea8a49f6c678d24405e65db42561085fd4c9b8e874cf26ccca1b02e544f21a2a",
+    "edition": "stance-foot-dev-v2",
+    "gates": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "completeMatch": "full_time",
+    "artifacts": {
+      "smoke": {
+        "path": "docs/performance/pr218/smoke-stance-v2-attempt-6.json.gz",
+        "sha256": "742ef239ea3671970a975343cf1ae8490f3745b32a5f75234ba15ee5ccce845c"
+      },
+      "full": {
+        "path": "docs/performance/pr218/full-stance-v2-attempt-6.json.gz",
+        "sha256": "bf8ab33987c75da154fc7e7a15423f0249d885da4407f1de04ccb6102e094784"
+      },
+      "laboratory": {
+        "path": "docs/performance/pr218/summary-v3.json",
+        "sha256": "3305af3a2dcfcfc39e809808541146b2f89f7e66a7a519c9f28b4536d3ed745a"
+      },
+      "browser": {
+        "path": "docs/performance/pr218/browser-stance-v2/report.json",
+        "sha256": "c0b655d397ae559381e6306630cd56dc0303180396434b795be762bc576582ad"
+      },
+      "landmarks": {
+        "path": "docs/performance/pr218/landmark-audit-stance-v2.json",
+        "sha256": "b3455140bf2d4306c278a4035d911beb0337bac0427dffa8582cf7c9493b7bba"
+      }
+    }
+  },
+  "laboratory": {
+    "scenes": 60,
+    "passed": 60,
+    "failed": [],
+    "nativeArms": 26,
+    "halts": [],
+    "performance": {
+      "wallMs": 112207.31910000001,
+      "cpu": {
+        "user": 137016000,
+        "system": 4750000
+      },
+      "maxRssKiB": 990288
+    }
+  },
+  "smoke": {
+    "version": "attempt-6",
+    "reason": "duration",
+    "durationSeconds": 120.00000000001016,
+    "metrics": {
+      "contacts": 37,
+      "bodyImpacts": 101,
+      "bodyUnresolved": 0,
+      "supportTransitions": 11630,
+      "supportSamples": 93965,
+      "maximumSupportDrift": 0,
+      "maximumComposedSupportDrift": 1.464821375527116e-14,
+      "maximumBaseSwingSpeed": 24.00000000000035,
+      "invalidPoses": 0,
+      "jointLimitedFootFrames": 0,
+      "maximumSpeed": 8.68664312923286
+    }
+  },
+  "completeMatch": {
+    "version": "attempt-6",
+    "reason": "full_time",
+    "durationSeconds": 5700,
+    "score": {
+      "home": 1,
+      "away": 1
+    },
+    "ticks": 228001,
+    "metrics": {
+      "contacts": 1528,
+      "bodyImpacts": 3961,
+      "bodyUnresolved": 0,
+      "supportTransitions": 576272,
+      "supportSamples": 4439502,
+      "maximumSupportDrift": 0,
+      "maximumComposedSupportDrift": 2.842170943040401e-14,
+      "maximumBaseSwingSpeed": 24.00000000000037,
+      "invalidPoses": 0,
+      "jointLimitedFootFrames": 21,
+      "maximumSpeed": 9.096786420795933
+    },
+    "physicalActions": {
+      "attempts": 255,
+      "outcomes": {
+        "miss": 159,
+        "interrupted": 7,
+        "contact": 84,
+        "cancelled": 5
+      },
+      "standingChallenges": 39,
+      "receptions": {
+        "completed": 120,
+        "out_of_play": 29,
+        "unclaimed": 173,
+        "intercepted": 39,
+        "technical_error": 11
+      }
+    },
+    "decisions": 39,
+    "nativeCheckpoints": 101,
+    "wallSeconds": 423.701156,
+    "cpu": {
+      "user": 499969000,
+      "system": 2422000
+    },
+    "maxRSSKiB": 852552,
+    "fullTimeSeconds": 5700,
+    "safetyHalt": null,
+    "substitutions": 6,
+    "restartAwards": 190,
+    "restartStageChanges": 1319,
+    "periods": [
+      {
+        "status": "half_time",
+        "at": 2760
+      }
+    ]
+  },
+  "failedAttempts": [
+    {
+      "path": "docs/performance/pr218/full-stance-v2-attempt-1.json.gz",
+      "source": "b1970043a27ddd33ff188518700add9229d69521b9c584ae11beb4b0037b6c5f",
+      "reason": "halt:unreachable_articulated_stance",
+      "time": 1783.2750000021047,
+      "safetyHalt": {
+        "kind": "physical_contact",
+        "reason": "unreachable_articulated_stance",
+        "at": 1783.3000000021048,
+        "intervalStartedAt": 1783.2750000021047,
+        "actorIds": [
+          "footballer_pro_9_12"
+        ],
+        "ball": {
+          "x": 71.95454638257691,
+          "y": 20.400593520191418,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0.37380392367596904,
+          "y": 0.8694133562802198,
+          "z": 0
+        },
+        "spin": {
+          "x": -1.5680960884607278,
+          "y": 0.6742022840268349,
+          "z": -5.118913755484297e-11
+        }
+      },
+      "inputHash": "4478f4816b103c70f5d726cf351b1c5c4104fb67b66951c90563a8bcd1eb41a3",
+      "terminalHash": "124b196be84cb6f7abd6de8b4285421c77f938e9d4d5b2e0bc0dfba2f16be118"
+    },
+    {
+      "path": "docs/performance/pr218/full-stance-v2-attempt-2.json.gz",
+      "source": "70c3d7a831c38d4298e25c403a947a4f536f43b491df8441e9705b00d7dee7dc",
+      "reason": "halt:unreachable_articulated_stance",
+      "time": 316.0499999999864,
+      "safetyHalt": {
+        "kind": "physical_contact",
+        "reason": "unreachable_articulated_stance",
+        "at": 316.0749999999864,
+        "intervalStartedAt": 316.0499999999864,
+        "actorIds": [
+          "footballer_pro_1_21"
+        ],
+        "ball": {
+          "x": 41.799415809415414,
+          "y": 66.11056108698716,
+          "z": 1.2861230956332235
+        },
+        "velocity": {
+          "x": -1.2583449908543234,
+          "y": 12.186842233169772,
+          "z": 3.291957316123602
+        },
+        "spin": {
+          "x": -0.00000492395524456703,
+          "y": -0.000022511838021008932,
+          "z": -4.8715654956421114e-11
+        }
+      },
+      "inputHash": "4478f4816b103c70f5d726cf351b1c5c4104fb67b66951c90563a8bcd1eb41a3",
+      "terminalHash": "75bf243e3dd5418e382696ac42d99992149390f40d38aedbeb28323259a93456"
+    },
+    {
+      "path": "docs/performance/pr218/full-stance-v2-attempt-3.json.gz",
+      "source": "26487755dd2a32a85c811e6af289fe8be97f2dadccb1df074ee48a69a0cb7e9e",
+      "reason": "invalid_composed_body:footballer_pro_9_11",
+      "time": 2674.1250000053456,
+      "inputHash": "4478f4816b103c70f5d726cf351b1c5c4104fb67b66951c90563a8bcd1eb41a3",
+      "terminalHash": "cc9a681e4baf43d4f18345b52b74a13ed6cd6ec5950188b4cc0630181857f6e8"
+    },
+    {
+      "path": "docs/performance/pr218/full-stance-v2-attempt-5.json.gz",
+      "source": "cb2b742bbf281adee0c54d6f89593fc6c1f7221f161e8616019edc72d9d1c3e4",
+      "reason": "halt:unreachable_articulated_foot",
+      "time": 4426.475000005709,
+      "safetyHalt": {
+        "kind": "physical_contact",
+        "reason": "unreachable_articulated_foot",
+        "at": 4426.487840235924,
+        "intervalStartedAt": 4426.475000005709,
+        "actorIds": [
+          "footballer_pro_9_5"
+        ],
+        "ball": {
+          "x": 98.11140184201118,
+          "y": 32.78014808674298,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0.7250925289322012,
+          "y": 0.471084497784707,
+          "z": 0
+        },
+        "spin": {
+          "x": -0.07003171085109863,
+          "y": -0.6079869295333448,
+          "z": -7.103981378319576e-17
+        },
+        "actionId": "lab-mw3xhr6o:pending-strike:1965:footballer_pro_9_5"
+      },
+      "inputHash": "4478f4816b103c70f5d726cf351b1c5c4104fb67b66951c90563a8bcd1eb41a3",
+      "terminalHash": "e8d0e329e8c5a6e5eb6c38ad559094f71ab44551151707694d097ea511ec7153"
+    }
+  ],
+  "historicalEvidenceAndPackageUnchanged": true,
+  "hostedCI": "SEPARATE_RUN_LINKED_IN_PR",
+  "promotion": "RETAIN_EXPERIMENTAL; COMPLETE_MATCH_TESTED; GENERAL_MODE_DISABLED",
+  "logs": [
+    {
+      "command": "npm run verify",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/verify-stance-v2.txt.gz",
+      "uncompressedSha256": "45a0709d7ecb0d7d40258fa4fb36adaba8c2620e0c1195b2e0cb714800fb23ea"
+    },
+    {
+      "command": "focused core, renderer and PR217 regressions: 38 tests",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/focused-stance-v2.txt.gz",
+      "uncompressedSha256": "9aaac6258d2cf4b90ad7ab7c477a751bd87163b17d8d0e01a35e096efdaec714"
+    },
+    {
+      "command": "60 movement scenes and 26 paired native continuations",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/laboratory-stance-v2.txt.gz",
+      "uncompressedSha256": "050e5dc1989bc4d57887630d6b011222b3e33cb79cee1256939f6d3222203e08"
+    },
+    {
+      "command": "actual Three.js rigs, two viewports",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/browser-stance-v2-final.txt.gz",
+      "uncompressedSha256": "b24d8bee559d1680aa388ed5ae0367f83ebd1f963a40169a4849ea4814edee2f"
+    },
+    {
+      "command": "nine actual pose landmarks",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/landmarks-stance-v2-final.txt.gz",
+      "uncompressedSha256": "451a6b536bedf075e245271b77a585679d73820ab8d04d564940a4726d4863d2"
+    },
+    {
+      "command": "production ordinary default and normal start/play/pause, two viewports",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/production-stance-v2-final.txt.gz",
+      "uncompressedSha256": "fa7a4dca43d455294a32f93ca9581d22c70b16d26318dfa91f27322765af3844"
+    },
+    {
+      "command": "continuous 22-player smoke",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/smoke-stance-v2-final.txt.gz",
+      "uncompressedSha256": "f542b04b228304d5a966a3e89f82f34950803c076fcba701eb112348773978ba"
+    },
+    {
+      "command": "complete articulated match",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/full-stance-v2-final.txt.gz",
+      "uncompressedSha256": "f3fdafe09cf4c3890e37a0e40f879724f7e0c8c2e33005b4e17e25c9135f2e5d"
+    },
+    {
+      "command": "CI manifest",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/ci-manifest-stance-v2.txt.gz",
+      "uncompressedSha256": "c9c7c5c4d92c0b3813251d97f6cbeff7c02d206014244ff177c5ed41efad032c"
+    },
+    {
+      "command": "CI workflow",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/ci-workflow-stance-v2.txt.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "CI contracts",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/ci-contracts-stance-v2.txt.gz",
+      "uncompressedSha256": "051471400d30b8a5d3caf27a01d3e975ea0348316cfed81bb371dd5a9407d289"
+    },
+    {
+      "command": "source-bound gate/complete-match receipt validation",
+      "exitCode": 0,
+      "path": "docs/performance/pr218/ci-receipts-stance-v2.txt.gz",
+      "uncompressedSha256": "209ee4187277d7b089ee0fa2777ff5f4347eea70606dcc5fb059461d6706882a"
+    }
+  ],
+  "scope": [
+    "Support centre drift is checked both in compact base state and in the composed physical boot.",
+    "Contact counts count observed canonical lastGroundContact transitions, not a claim to enumerate every sub-tick contact.",
+    "CPU/wall include native checkpoint and every-tick pose validation. Browser submission cost is a separate measurement.",
+    "Grounded gait engineering assumptions and non-boot surface composition limitations remain documented."
+  ],
+  "interruptedAttempts": [
+    {
+      "version": "attempt-4",
+      "reason": "INTENTIONALLY_INTERRUPTED_SUPERSEDED_BY_HELD_FACING_FIX_NOT_A_COMPLETE_MATCH",
+      "source": "a6138e858860014c780f2e39cdc2987305d2e4d87341eff3fdcbbffb27c1d9aa",
+      "log": "docs/performance/pr218/failed-full-stance-v2-attempt-4.txt.gz",
+      "completed": false
+    }
+  ]
+}

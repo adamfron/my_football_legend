@@ -1,5 +1,35 @@
 # Current-source holistic mechanism inventory — PR214
 
+## PR218 v2 articulated-body scope
+
+The selected compact stance includes finite world-space feet, support/yaw,
+angular state, surface identity and a reachable support horizon. The existing
+motor, contact search and Three.js rig consume it. Finite active/recovery commands
+are projected before contact search, using one physical boot rather than a visual
+correction. Substitution handovers serialize their actual stance/pose/facing.
+No root integrator, normal preset, permanent attribute or heavy dependency is added.
+
+PR218 v2: **RETAIN_EXPERIMENTAL / COMPLETE_MATCH_TESTED**, general mode disabled.
+All 60 movement scenes, 26 paired native continuations, renderer/landmark gates
+and the 120-second continuous 22-player smoke pass on the measured source.
+The unchanged PR217 input completes at 5700.000s,
+1–1, with no safety halt, invalid composed pose or new
+body unresolved event. Base support drift is zero; composed support drift is
+2.842e-14m. This is one development
+trajectory, not independent-corpus confirmation or formal realism completion.
+Local npm run verify passes (2761 tests, lint and build).
+Hosted CI is a separate final-commit result linked in the PR.
+
+Historical v1 remains 48/60 with two native halts and
+NOT_READY_FOR_FULL_MATCH. Its raw evidence and all failed/interrupted v2 attempts
+remain preserved. PR201/B, normal career/menu defaults, 40Hz, 28 attributes and
+sealed independent confirmation remain unchanged.
+
+Full non-boot action-leg surface composition, natural running flight, empirical
+traction, kinetic stud slip, three-axis balance, falling and ground recovery are
+not complete. No formal realism registry issue is promoted by these gates.
+[Positive and negative evidence](../PR218_STANCE_V2_GATE_REPAIR.md).
+
 ## PR217 additive reliability scope
 
 No selector, permanent attribute or major physical system is added. Legacy
