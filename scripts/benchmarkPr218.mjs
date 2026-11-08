@@ -10,6 +10,7 @@ import { createPr214Scene } from './pr214Scenarios.ts';
 import {
   withArticulatedBody,
   initializeArticulatedPlayer,
+  withoutArticulatedBody,
 } from '../src/core/matchSimulation/articulatedGait.ts';
 import { stepArticulatedGaitPrototype } from './pr216GaitPrototype.ts';
 import { stepTacticalMatch } from '../src/core/matchSimulation/matchSimulation.ts';
@@ -76,7 +77,7 @@ for (const heightCm of [165, 180, 195])
         maximumAcceleration = 0,
         totalWork = 0,
         blocker;
-      for (let i = 0; i < 160; i++) {
+      for (let i = 0; i < 400; i++) {
         const c = command(i * 0.025),
           before = p;
         try {
@@ -145,12 +146,37 @@ const native = [
   ...read('solver-blockers-v1').cases.map((c) => [c.name, c.initial]),
   ...read('solver-authority-and-entry-v1').cases.map((c) => [c.name, c.initial]),
   ['restart-reentry', read('solver-restart-return-v1').initial],
+  [
+    'full-v2-lateral-impact',
+    JSON.parse(
+      gunzipSync(readFileSync('docs/performance/pr218/full-stance-v2-attempt-1.json.gz')),
+    ).failureWindow.find((s) => s.time > 1783.09),
+  ],
 ];
+native.push([
+  'full-v2-action-support',
+  JSON.parse(
+    gunzipSync(readFileSync('docs/performance/pr218/full-stance-v2-attempt-2.json.gz')),
+  ).failureWindow.find((s) => s.time > 315.89),
+]);
+native.push([
+  'full-v2-substitution-transport',
+  JSON.parse(
+    gunzipSync(readFileSync('docs/performance/pr218/full-stance-v2-attempt-3.json.gz')),
+  ).failureWindow.find((s) => s.time > 2674.02),
+]);
 const regressions = [];
+native.push([
+  'full-v2-joint-limited-miss',
+  JSON.parse(
+    gunzipSync(readFileSync('docs/performance/pr218/full-stance-v2-attempt-5.json.gz')),
+  ).failureWindow.find((s) => s.time > 4426.46),
+]);
 for (const [name, input] of native)
   for (const enabled of [false, true]) {
+    const disabled = withoutArticulatedBody(input);
     let state = tacticalMatchStateSchema.parse(
-      JSON.parse(JSON.stringify(enabled ? withArticulatedBody(structuredClone(input)) : input)),
+      JSON.parse(JSON.stringify(enabled ? withArticulatedBody(structuredClone(input)) : disabled)),
     );
     let reload = tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(state)));
     let exception;
@@ -216,7 +242,7 @@ for (const name of ['pair-reference', 'body-pass-third', 'pass-body-third', 'sta
     poses.push({ name, playerId: p.id, body: body ?? null, physical: deriveLowerBodyGeometry(p) });
   }
 }
-save('laboratory-v2', { source, scenes, regressions, poses });
+save('laboratory-v3', { source, scenes, regressions, poses });
 writeFileSync(`${root}/source.json`, JSON.stringify(source, null, 2) + '\n');
 const summary = {
   source: source.fingerprint,
@@ -250,14 +276,13 @@ const summary = {
   },
   fullMatch: 'NOT_RUN_PENDING_MANDATORY_GATES',
 };
-writeFileSync(`${root}/summary-v2.json`, JSON.stringify(summary, null, 2) + '\n');
-assert.equal(
-  summary.passed,
-  48,
-  'The staged reference must retain all 48 supported low-speed scenes',
+writeFileSync(`${root}/summary-v3.json`, JSON.stringify(summary, null, 2) + '\n');
+assert.equal(summary.passed, 60, 'Every prescribed movement must remain anatomically reachable');
+assert.equal(summary.failed.length, 0, 'No gait gate may be waived');
+assert.ok(
+  regressions.every((r) => !r.halt),
+  'Both editions must pass every native continuation',
 );
-assert.equal(summary.failed.length, 12, 'Preserve the known sprint feasibility negatives');
-assert.ok(summary.failed.every((s) => s.name === 'sprint' || s.name === 'accelerate'));
 assert.ok(
   regressions.every((r) => !r.exception),
   'An explicit physical halt must not become a runtime exception',

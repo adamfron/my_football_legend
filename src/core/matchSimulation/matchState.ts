@@ -1399,7 +1399,12 @@ export const tacticalMatchStateSchema = z
   })
   .passthrough()
   .superRefine((state, ctx) => {
-    const articulatedPlayers = state.players.some((p) => p.articulatedStance);
+    const articulatedPlayers =
+      state.players.some((p) => p.articulatedStance) ||
+      state.departedPlayers?.some((p) => p.articulatedStance) ||
+      state.substitutionState?.pending.some(
+        (r) => r.outgoing.articulatedStance || r.entryArticulatedStance,
+      );
     if (
       (state.experimentalArticulatedBody || articulatedPlayers) &&
       (!state.experimentalArticulatedBody ||

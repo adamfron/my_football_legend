@@ -1,17 +1,36 @@
 # MatchEngine integration architecture
 
-## PR218 staged articulated body
+## PR218 v2 articulated body
 
-`experimentalArticulatedBody: stance-foot-dev-v1` is a separate unprofiled
-upright-cluster development edition, selected through `withArticulatedBody`.
-Compact world-space stance constrains the existing motor's earned delta-v;
-`canonicalStrikeFoot` supplies the composed effective boot to contact and derived
-skeletal presentation. Three.js applies those same metre-valued joints. No second
-root integrator or normal career/menu selection is introduced. Historical profiles
-clear stance; old saves retain their edition. Local joint parity passes, but sprint
-reach and selected restart/action continuations fail, so general match promotion
-and a new complete-match attempt remain blocked. Maintained PR201/B is unchanged.
-[Contract, measurements and promotion decision](../PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md).
+The explicit unprofiled upright-cluster selection is now
+experimentalArticulatedBody: stance-foot-dev-v2. Compact world-space stance
+and a serialized reach-limited support horizon constrain the existing motor.
+The actual prepared/recovering boot meets a finite joint stop before search;
+the same effective surface supplies derived skeletal presentation. Body impacts
+continue only the unspent leg interval, without rerunning the root motor.
+Held/departing/entering substitution bodies retain the same physical edition.
+Historical profile application removes active and auxiliary articulated state;
+old v1 saves require the archived runtime rather than silent reinterpretation.
+
+PR218 v2: **RETAIN_EXPERIMENTAL / COMPLETE_MATCH_TESTED**, general mode disabled.
+All 60 movement scenes, 26 paired native continuations, renderer/landmark gates
+and the 120-second continuous 22-player smoke pass on the measured source.
+The unchanged PR217 input completes at 5700.000s,
+1–1, with no safety halt, invalid composed pose or new
+body unresolved event. Base support drift is zero; composed support drift is
+2.842e-14m. This is one development
+trajectory, not independent-corpus confirmation or formal realism completion.
+Local npm run verify passes (2761 tests, lint and build).
+Hosted CI is a separate final-commit result linked in the PR.
+
+Historical v1 remains 48/60 with two native halts and
+NOT_READY_FOR_FULL_MATCH. Its raw evidence and all failed/interrupted v2 attempts
+remain preserved. PR201/B, normal career/menu defaults, 40Hz, 28 attributes and
+sealed independent confirmation remain unchanged.
+
+Non-boot surfaces still need the fully composed action/recovery leg; empirical
+running flight, kinetic stud slip and three-axis COM/falling remain dependencies.
+[Measured contract and outcome](../PR218_STANCE_V2_GATE_REPAIR.md).
 
 ## PR217 real-session reliability
 

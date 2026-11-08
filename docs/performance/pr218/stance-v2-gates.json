@@ -1,0 +1,36 @@
+{
+  "schema": "pr218-stance-v2-gates-v1",
+  "source": "ea8a49f6c678d24405e65db42561085fd4c9b8e874cf26ccca1b02e544f21a2a",
+  "edition": "stance-foot-dev-v2",
+  "gates": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "completeMatch": "full_time",
+  "artifacts": {
+    "smoke": {
+      "path": "docs/performance/pr218/smoke-stance-v2-attempt-6.json.gz",
+      "sha256": "742ef239ea3671970a975343cf1ae8490f3745b32a5f75234ba15ee5ccce845c"
+    },
+    "full": {
+      "path": "docs/performance/pr218/full-stance-v2-attempt-6.json.gz",
+      "sha256": "bf8ab33987c75da154fc7e7a15423f0249d885da4407f1de04ccb6102e094784"
+    },
+    "laboratory": {
+      "path": "docs/performance/pr218/summary-v3.json",
+      "sha256": "3305af3a2dcfcfc39e809808541146b2f89f7e66a7a519c9f28b4536d3ed745a"
+    },
+    "browser": {
+      "path": "docs/performance/pr218/browser-stance-v2/report.json",
+      "sha256": "c0b655d397ae559381e6306630cd56dc0303180396434b795be762bc576582ad"
+    },
+    "landmarks": {
+      "path": "docs/performance/pr218/landmark-audit-stance-v2.json",
+      "sha256": "b3455140bf2d4306c278a4035d911beb0337bac0427dffa8582cf7c9493b7bba"
+    }
+  }
+}

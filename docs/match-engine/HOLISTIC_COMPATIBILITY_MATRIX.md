@@ -1,15 +1,28 @@
 # Holistic compatibility and selection — PR214
 
-## PR218 separate development selection
+## PR218 separate development selections
 
-| Selection | Compatible base | Evidence / decision |
-| --- | --- | --- |
-| `stance-foot-dev-v1` | Unprofiled `upright-cluster-dev-v1`, existing standing timeline / pending low pass / event-v1 | Actual world support, motor grip projection, shared foot search and canonical rig; local parity passes; sprint and selected incidents fail; NOT_READY_FOR_FULL_MATCH |
-| Historical profiles / omitted selector | Existing editions | New stance is not inferred; profile application clears it; maintained PR201/B unchanged |
+| Selection                              | Compatible base                                                      | Evidence / decision                                                                                         |
+| -------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| stance-foot-dev-v2                     | Explicit unprofiled upright-cluster-dev-v1, existing shared timeline | 60/60 scenes, 26 native arms, 120s smoke and one full match; COMPLETE_MATCH_TESTED / RETAIN_EXPERIMENTAL    |
+| Historical stance-foot-dev-v1          | Its archived runtime                                                 | 48/60 and two native halts retained; NOT_READY_FOR_FULL_MATCH                                               |
+| Historical profiles / omitted selector | Existing editions                                                    | Articulated state is not inferred; profile application clears active and auxiliary state; PR201/B unchanged |
 
-The normal holistic recipe does not identify the new edition as its old recipe.
-No ordinary Single Match/career preset enables the incomplete stage. Exact source,
-negative inputs and current gate scope are in [PR218](../PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md).
+PR218 v2: **RETAIN_EXPERIMENTAL / COMPLETE_MATCH_TESTED**, general mode disabled.
+All 60 movement scenes, 26 paired native continuations, renderer/landmark gates
+and the 120-second continuous 22-player smoke pass on the measured source.
+The unchanged PR217 input completes at 5700.000s,
+1–1, with no safety halt, invalid composed pose or new
+body unresolved event. Base support drift is zero; composed support drift is
+2.842e-14m. This is one development
+trajectory, not independent-corpus confirmation or formal realism completion.
+Local npm run verify passes (2761 tests, lint and build).
+Hosted CI is a separate final-commit result linked in the PR.
+
+No normal Single Match/career preset enables v2. Full composition of non-boot
+action-leg surfaces, independent match confirmation and empirical locomotion
+remain outside the present completion claim.
+[Exact source and outcome](../PR218_STANCE_V2_GATE_REPAIR.md).
 
 ## PR217 reliability boundary
 

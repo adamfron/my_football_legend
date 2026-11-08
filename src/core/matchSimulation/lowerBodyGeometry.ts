@@ -73,20 +73,26 @@ export const deriveLowerBodyGeometry = (
       pose.footLead +
       ((side === -1 ? 'left' : 'right') === pose.activeLeg ? (pose.reachOffset?.y ?? 0) : 0),
   });
-  const horizontal = Math.max(
-    ...([-1, 1] as const).map((side) => {
-      let a = ankleLocal(side);
-      const anchor = planted?.[side === -1 ? 'left' : 'right'];
-      if (anchor) {
-        const dx = anchor.x - actor.position.x,
-          dy = anchor.y - actor.position.y;
-        a = { x: dx * right.x + dy * right.y, y: dx * forward.x + dy * forward.y };
-      }
-      return (a.x - side * height * 0.055) ** 2 + a.y ** 2;
-    }),
+  const reachLimits = ([-1, 1] as const).map((side) => {
+    let a = ankleLocal(side);
+    const anchor = planted?.[side === -1 ? 'left' : 'right'];
+    if (anchor) {
+      const dx = anchor.x - actor.position.x,
+        dy = anchor.y - actor.position.y;
+      a = { x: dx * right.x + dy * right.y, y: dx * forward.x + dy * forward.y };
+    }
+    const horizontal = (a.x - side * height * 0.055) ** 2 + a.y ** 2;
+    return {
+      horizontal,
+      ankleZ: anchor?.z === undefined ? 0.075 + jump : anchor.z + 0.035,
+    };
+  });
+  const maximumPelvis = Math.min(
+    ...reachLimits.map(
+      ({ horizontal, ankleZ }) =>
+        ankleZ + Math.sqrt(Math.max(0, (height * 0.491 * 0.995) ** 2 - horizontal)),
+    ),
   );
-  const maximumPelvis =
-    0.075 + jump + Math.sqrt(Math.max(0, (height * 0.491 * 0.995) ** 2 - horizontal));
   const pelvisZ = Math.min(height * 0.49 - pose.crouch * 0.25 + jump, maximumPelvis);
   const world = (x: number, y: number, z: number) => ({
     x: actor.position.x + right.x * x + forward.x * y,

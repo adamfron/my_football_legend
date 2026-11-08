@@ -10,7 +10,7 @@ import { projectCanonicalPlayerPresentation } from '../src/core/matchSimulation/
 import { stepTacticalMatch } from '../src/core/matchSimulation/matchSimulation.ts';
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.MFL_PLAYWRIGHT_MODULE ?? 'playwright');
-const root = 'docs/performance/pr218/browser';
+const root = 'docs/performance/pr218/browser-stance-v2';
 mkdirSync(root, { recursive: true });
 const vite = await createServer({ server: { host: '127.0.0.1', port: 0 } });
 await vite.listen();

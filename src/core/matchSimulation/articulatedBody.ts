@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import { bodyPointSchema } from './articulatedBodyState';
+import { activeArticulatedFoot, bodyPointSchema } from './articulatedBodyState';
 import { lowerBodyGeometrySchema, deriveLowerBodyGeometry } from './lowerBodyGeometry';
 import { canonicalStrikeFoot } from './pendingStrike';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 
 /** Derived observer contract. No repeated joint history is added to match saves. */
 export const articulatedBodySchema = z.object({
-  version: z.literal('articulated-body-dev-v1'),
+  version: z.literal('articulated-body-dev-v2'),
   at: z.number().finite().nonnegative(),
   root: bodyPointSchema,
   facing: z.number().finite(),
@@ -19,6 +19,7 @@ export const articulatedBodySchema = z.object({
   bootRadius: z.literal(0.035),
   bootYaw: z.object({ left: z.number().finite(), right: z.number().finite() }),
   geometry: lowerBodyGeometrySchema,
+  jointLimits: z.object({ left: z.boolean(), right: z.boolean() }).optional(),
 });
 export type ArticulatedBody = z.infer<typeof articulatedBodySchema>;
 
@@ -65,27 +66,24 @@ export const projectArticulatedBody = (
     right: feet[1]!.position,
   });
   return {
-    version: 'articulated-body-dev-v1',
+    version: 'articulated-body-dev-v2',
     at: state.time,
     root: { ...player.position, z: player.verticalJump?.height ?? 0 },
     facing: player.facingAngle,
     angularVelocity: player.articulatedStance.angularVelocity,
     torsoOrientation: { yaw: player.facingAngle, pitch: 0, roll: 0 },
     activeLeg:
-      state.pendingStrike?.actorId === player.id
-        ? state.pendingStrike.plan.foot
-        : ((state.defensiveChallenge?.actorId === player.id
-            ? state.defensiveChallenge.physicalAttempt?.plan.foot
-            : undefined) ??
-          state.recoveringFeet?.find((f) => f.actorId === player.id)?.foot ??
-          state.continuousFootContacts?.find((c) => c.actorId === player.id && c.prepared)?.foot ??
-          player.lowerBodyPose?.activeLeg ??
-          player.profile.dominantFoot),
+      activeArticulatedFoot(state, player.id) ??
+      player.lowerBodyPose?.activeLeg ??
+      player.profile.dominantFoot,
     support: player.articulatedStance.support,
     height: Math.max(1.4, Math.min(2.2, player.profile.heightCm / 100)),
     mass: player.profile.weightKg,
     bootRadius: 0.035,
     geometry,
+    ...(feet.some((f) => f.jointLimited)
+      ? { jointLimits: { left: !!feet[0]!.jointLimited, right: !!feet[1]!.jointLimited } }
+      : {}),
     bootYaw: {
       left:
         player.articulatedStance.support === 'left'

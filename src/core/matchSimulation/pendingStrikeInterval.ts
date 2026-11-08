@@ -1,5 +1,7 @@
 import { PASSIVE_OUTFIELD_BODY, UPRIGHT_OUTFIELD_BALL_BODY } from './ballFlight';
 import { interpolateLowerBodyPose } from './lowerBodyGeometry';
+import { advanceArticulatedStance } from './articulatedGait';
+import { activeArticulatedFoot } from './articulatedBodyState';
 import { compareSharedContactEvents, type sharedContactEventSchema } from './sharedContactTimeline';
 import { recordExecution } from './executionWitness';
 import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
@@ -70,26 +72,30 @@ type Handlers = {
   body: (state: TacticalMatchState, actorId: string) => TacticalMatchState;
 };
 
-const bodyAt = (a: MatchPlayerState, b: MatchPlayerState, fraction: number): MatchPlayerState => ({
+const bodyAt = (
+  a: MatchPlayerState,
+  b: MatchPlayerState,
+  fraction: number,
+  seconds: number,
+): MatchPlayerState => ({
   ...b,
   ...(a.articulatedStance && b.articulatedStance
     ? {
         articulatedStance: {
           ...a.articulatedStance,
           ...(fraction >= 1
-            ? { support: b.articulatedStance.support, supportYaw: b.articulatedStance.supportYaw }
+            ? {
+                support: b.articulatedStance.support,
+                supportYaw: b.articulatedStance.supportYaw,
+                stepSeconds: b.articulatedStance.stepSeconds,
+              }
             : {}),
           elapsed:
             fraction >= 1
               ? b.articulatedStance.elapsed
               : Math.min(
-                  0.175,
-                  a.articulatedStance.elapsed +
-                    ((b.articulatedStance.elapsed < a.articulatedStance.elapsed
-                      ? 0.175
-                      : b.articulatedStance.elapsed) -
-                      a.articulatedStance.elapsed) *
-                      fraction,
+                  a.articulatedStance.stepSeconds,
+                  a.articulatedStance.elapsed + seconds * fraction,
                 ),
           angularVelocity: b.articulatedStance.angularVelocity,
           left: {
@@ -175,7 +181,7 @@ export const advancePendingStrikeInterval = (
     const origin = origins.get(p.id);
     const a = origin?.player ?? before.get(p.id) ?? p;
     const began = origin?.at ?? 0;
-    const value = bodyAt(a, p, (at - began) / Math.max(1e-12, dt - began));
+    const value = bodyAt(a, p, (at - began) / Math.max(1e-12, dt - began), dt - began);
     return moved.experimentalPlayerBodyImpulse &&
       (pairIds.includes(p.id) || origin || clusterIds.has(p.id))
       ? {
@@ -346,16 +352,27 @@ export const advancePendingStrikeInterval = (
     );
     origins.set(p.id, { player: p, at: elapsed });
     changedVelocities.set(p.id, p.velocity);
-    finalPlayers = finalPlayers.map((q) =>
-      q.id === p.id
-        ? {
-            ...q,
-            velocity: p.velocity,
-            ...(p.plantBalance ? { plantBalance: p.plantBalance } : {}),
-            position: integrateCanonicalBodyRemainder(p, dt - elapsed),
-          }
-        : q,
-    );
+    finalPlayers = finalPlayers.map((q) => {
+      if (q.id !== p.id) return q;
+      const position = integrateCanonicalBodyRemainder(p, dt - elapsed);
+      return {
+        ...q,
+        velocity: p.velocity,
+        ...(p.plantBalance ? { plantBalance: p.plantBalance } : {}),
+        position,
+        ...(p.articulatedStance
+          ? {
+              articulatedStance: advanceArticulatedStance(
+                p,
+                { ...q, position, velocity: p.velocity },
+                dt - elapsed,
+                activeArticulatedFoot(state, p.id),
+                q.articulatedStance?.angularVelocity,
+              ),
+            }
+          : {}),
+      };
+    });
   };
   const resolveChallenge = (
     kind: 'ball' | 'body' | 'miss' | 'interrupted' | 'unresolved',
@@ -693,8 +710,8 @@ export const advancePendingStrikeInterval = (
       const p = finalPlayers.find((p) => p.id === challenge.actorId);
       const q = finalPlayers.find((p) => p.id === challenge.opponentId);
       if (p && q) {
-        const a = bodyAt(before.get(p.id) ?? p, p, elapsed / dt);
-        const b = bodyAt(before.get(q.id) ?? q, q, elapsed / dt);
+        const a = bodyAt(before.get(p.id) ?? p, p, elapsed / dt, dt);
+        const b = bodyAt(before.get(q.id) ?? q, q, elapsed / dt, dt);
         const x = a.position.x - b.position.x,
           y = a.position.y - b.position.y;
         const vx = (p.position.x - a.position.x - (q.position.x - b.position.x)) / seconds;

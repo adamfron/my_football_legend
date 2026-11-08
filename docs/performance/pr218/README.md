@@ -1,5 +1,51 @@
 # PR218 evidence index
 
+## V2 continuation
+
+The current edition is `stance-foot-dev-v2`. Its source is bound by `source.json`
+and the named compressed archive. [Repair and integration report](../../PR218_STANCE_V2_GATE_REPAIR.md).
+
+| Artifact                                                                                                                               | Scope                                                                                                                                   |
+| -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `laboratory-v3.json.gz`, `summary-v3.json`                                                                                             | 60/60 ten-second movement scenes and 26 paired native continuations; original nine cases plus four full-match counterexamples           |
+| `browser-stance-v2/report.json`, its PNGs                                                                                              | Existing Three.js rigs at both viewport sizes                                                                                           |
+| `browser-production-stance-v2/production.json`                                                                                         | Production normal-menu defaults and start/play/pause at both viewport sizes; compatibility check, not the articulated full-match runner |
+| `landmark-audit-stance-v2.json`, `audit-landmarks-stance-v2.mjs`                                                                       | Nine physical snapshots; actual carrying and receiving, individual harness hash                                                         |
+| `smoke-stance-v2-attempt-6.json.gz`                                                                                                    | Current successful 120-second 22-player smoke; eligible, departing and entering bodies are observed                                     |
+| `full-stance-v2-attempt-6.json.gz`, `full-stance-v2-summary-attempt-6.json`                                                            | Complete articulated match: 1–1 at 5700s, no halt, invalid composed pose or new body unresolved                                         |
+| `stance-v2-gates.json`                                                                                                                 | Exact source and artifact-byte binding for all six physical gates and the complete match                                                |
+| `verification-stance-v2.json`, `*-stance-v2*.txt.gz`                                                                                   | Final local technical/physical results and preserved command logs; hosted CI is linked separately in the PR                             |
+| `full-stance-v2-attempt-1.json.gz`                                                                                                     | Failed at 1783.275s: pre-impact support plan survived a lateral body impulse                                                            |
+| `full-stance-v2-attempt-2.json.gz`                                                                                                     | Failed at 316.05s: the non-action support was retained too long during a moving kick/recovery                                           |
+| `full-stance-v2-attempt-3.json.gz`                                                                                                     | Failed at 2674.125s: legacy substitution transport reassigned body orientation without the leg state                                    |
+| `full-stance-v2-attempt-5.json.gz`                                                                                                     | Failed at 4426.475s: prepared command exceeded finite leg reach; exact case now finishes as a joint-limited miss                        |
+| `smoke-stance-v2-attempt-1/2/3/4/5.json.gz`                                                                                            | Earlier source-bound smoke editions, not final v2 claims                                                                                |
+| `*-before-impact*`, `*-before-support-release*`, `*-before-substitution-repair*`, `*-before-held-facing-fix*`, `*-before-joint-limit*` | Preserved earlier laboratory, renderer and audit receipts; each retains its own source                                                  |
+
+The four failed complete trajectories preserve their initial/terminal states and
+last two seconds, and are now fixed-input native regressions. Attempt 4 was
+intentionally interrupted after a later correction to held-body facing; its
+partial log is not a completed match. Attempt 6 is the completed trajectory;
+its receipt is separate from local and smoke success. **RETAIN_EXPERIMENTAL /
+COMPLETE_MATCH_TESTED**, with ordinary career/menu selection still disabled.
+This is one development match, not independent-corpus or empirical gait certification.
+
+Reproduce v2 using the existing dependencies and TS loader:
+
+```sh
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr218.mjs --check
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr218Match.mjs --check
+```
+
+The second command validates exact artifact bytes and a successful complete-match
+receipt once available; it does not rerun the complete trajectory. A new measured
+run uses `benchmarkPr218Match.mjs --smoke --version=NEW` followed, only after
+success, by `--full --version=NEW --smoke-version=NEW`. Every raw run is additive.
+Renderer reproduction uses `benchmarkPr218Browser.mjs` and
+`docs/performance/pr218/audit-landmarks-stance-v2.mjs` with the Playwright setup below.
+
+## Preserved v1 staged evidence
+
 Promotion: **RETAIN_EXPERIMENTAL / NOT_READY_FOR_FULL_MATCH**.
 The known physical gate failures are required negative results, not waived tests.
 

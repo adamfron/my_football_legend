@@ -1,15 +1,33 @@
 # Mechanism dependencies
 
-## PR218 measured dependency boundary
+## PR218 v2 measured dependency boundary
 
-Shared finite body/boot coordinates now have an executable development consumer
-in movement, contact, rendering and replay. Local parity does not promote gait:
-sprint exhausts reference stance reach, and selected PR217 restart/action inputs
-retain explicit failures. Required order: speed-adaptive support/release and action
-handoff → saved incident gates → continuous 22-player smoke → frozen complete match
-→ technical anticipation/receiving calibration. Falling still needs COM/angular
-dynamics, changed contact volumes, ground and finite recovery. PR201/B and sealed
-independent confirmation remain unchanged. [PR218](../PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md).
+Reach-based support timing, actual-ankle IK, post-impact leg continuation,
+moving-action support release, substitution transport and finite active-foot
+commands now pass the selected source-bound local/native gates.
+
+PR218 v2: **RETAIN_EXPERIMENTAL / COMPLETE_MATCH_TESTED**, general mode disabled.
+All 60 movement scenes, 26 paired native continuations, renderer/landmark gates
+and the 120-second continuous 22-player smoke pass on the measured source.
+The unchanged PR217 input completes at 5700.000s,
+1–1, with no safety halt, invalid composed pose or new
+body unresolved event. Base support drift is zero; composed support drift is
+2.842e-14m. This is one development
+trajectory, not independent-corpus confirmation or formal realism completion.
+Local npm run verify passes (2761 tests, lint and build).
+Hosted CI is a separate final-commit result linked in the PR.
+
+Next: fully compose non-boot thigh/knee/shin surfaces with the action/recovery leg
+→ wider independent full-match corpus → anticipation, receiving preparation and
+technical execution calibration. Falling separately requires three-axis COM and
+angular dynamics, support failure, changed contact volumes, ground contacts and
+finite recovery. A grounded engineering gait is not empirical sprint validation.
+Historical v1 remains 48/60 with two native halts and
+NOT_READY_FOR_FULL_MATCH. Its raw evidence and all failed/interrupted v2 attempts
+remain preserved. PR201/B, normal career/menu defaults, 40Hz, 28 attributes and
+sealed independent confirmation remain unchanged.
+
+[Evidence and remaining limits](../PR218_STANCE_V2_GATE_REPAIR.md).
 
 ## PR216 full-match continuity follow-up — keeper-cycle-v12
 

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { withoutArticulatedBody } from './articulatedGait';
 import {
   decisionPolicyIdSchema,
   DEFAULT_DECISION_POLICY,
@@ -245,6 +246,7 @@ export const withIntegrationProfile = (
   id: IntegrationProfileId,
   policy: DecisionPolicyId = state.decisionPolicy ?? 'legacy-pr176',
 ): TacticalMatchState => {
+  state = withoutArticulatedBody(state);
   const resolved = resolveIntegrationProfile(id, policy);
   const { experimentalBodyContacts: _body, ...features } = resolved.features;
   void _body;

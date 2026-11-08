@@ -86,6 +86,9 @@ workflow = workflow.replace(
       - name: PR218 articulated body and gait laboratory
         if: matrix.group == 'main'
         run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr218.mjs --check
+      - name: PR218 physical gates and complete-match evidence
+        if: matrix.group == 'main'
+        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr218Match.mjs --check
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(

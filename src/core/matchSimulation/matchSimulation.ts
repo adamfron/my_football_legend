@@ -24,6 +24,7 @@ import {
 } from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
 import { advanceArticulatedStance, initializeArticulatedPlayer } from './articulatedGait';
+import { activeArticulatedFoot } from './articulatedBodyState';
 import { planSynchronizedReception, receptionPlanFacing } from './receiverSynchronisation';
 import {
   advanceLiveBallFlight,
@@ -2648,11 +2649,7 @@ const stepTacticalMatchCore = (
                 ...(verticalJump ? { verticalJump } : {}),
               },
               dt,
-              state.pendingStrike?.actorId === player.id
-                ? state.pendingStrike.plan.foot
-                : state.defensiveChallenge?.actorId === player.id
-                  ? state.defensiveChallenge.physicalAttempt?.plan.foot
-                  : state.recoveringFeet?.find((f) => f.actorId === player.id)?.foot,
+              activeArticulatedFoot(state, player.id),
               articulatedMotor?.angularVelocity,
             ),
           }

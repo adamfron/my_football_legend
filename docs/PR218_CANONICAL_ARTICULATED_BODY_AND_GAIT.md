@@ -1,5 +1,8 @@
 # PR218 — Canonical articulated body and gait
 
+Historical staged v1 report. The [v2 continuation and gate repair](PR218_STANCE_V2_GATE_REPAIR.md)
+records subsequent work; the failed v1 results below remain preserved for their source.
+
 Base: merged PR217, `90eb730854240a949be61a344cf3955b31f3cfa0`.
 
 **Staged development implementation; RETAIN_EXPERIMENTAL / NOT_READY_FOR_FULL_MATCH.**

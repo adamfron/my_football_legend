@@ -27,6 +27,8 @@ import { normalizeAngle } from './playerOrientation';
 import { integrateBallFlight, BALL_PHYSICS } from './ballPhysics';
 import type { FlightPoint } from './ballFlight';
 import { relativeTemporalFootAt } from './temporalFootTrajectory';
+import { constrainArticulatedFoot, type footJointWorkspaceSchema } from './articulatedFootLimit';
+import type { z } from 'zod';
 
 type V = FlightPoint;
 const add = (a: V, b: V): V => ({ x: a.x + b.x, y: a.y + b.y, z: a.z + b.z });
@@ -441,7 +443,11 @@ const canonicalStrikeFootTrajectory = (
  * Invalid anatomical configurations remain an explicit integration failure. */
 export const canonicalStrikeFoot = (
   ...args: Parameters<typeof canonicalStrikeFootTrajectory>
-): ReturnType<typeof canonicalStrikeFootTrajectory> & { reachable?: boolean } => {
+): ReturnType<typeof canonicalStrikeFootTrajectory> & {
+  reachable?: boolean;
+  jointLimited?: boolean;
+  jointWorkspace?: z.infer<typeof footJointWorkspaceSchema>;
+} => {
   const value = canonicalStrikeFootTrajectory(...args);
   const [, before, after, foot, , dt, local] = args;
   if (!before.articulatedStance || !after.articulatedStance) return value;
@@ -453,16 +459,36 @@ export const canonicalStrikeFoot = (
       y: before.position.y + (after.position.y - before.position.y) * t,
     },
     facingAngle: before.facingAngle + normalizeAngle(after.facingAngle - before.facingAngle) * t,
+    lowerBodyPose: interpolateLowerBodyPose(before.lowerBodyPose, after.lowerBodyPose, t),
   };
   try {
     const other = foot === 'left' ? 'right' : 'left';
     const a = before.articulatedStance[other],
       b = after.articulatedStance[other];
-    deriveLowerBodyGeometry(player, {
-      [foot]: value.position,
-      [other]: add(a, scale(sub(b, a), t)),
-    });
-    return { ...value, reachable: true };
+    const base = add(
+      before.articulatedStance[foot],
+      scale(sub(after.articulatedStance[foot], before.articulatedStance[foot]), t),
+    );
+    const otherPoint = add(a, scale(sub(b, a), t));
+    // Never repair an invalid native body by clipping an action command.
+    deriveLowerBodyGeometry(player, { [foot]: base, [other]: otherPoint });
+    const curve =
+      args[0] || args[7]
+        ? constrainArticulatedFoot(before, after, foot, dt, local, value, (at) => {
+            const parameters = [...args] as Parameters<typeof canonicalStrikeFootTrajectory>;
+            parameters[6] = at;
+            return canonicalStrikeFootTrajectory(...parameters);
+          })
+        : value;
+    if (
+      'jointLimited' in curve &&
+      curve.jointLimited &&
+      before.articulatedStance.support === foot &&
+      after.articulatedStance.support === foot
+    )
+      return { ...curve, reachable: false };
+    deriveLowerBodyGeometry(player, { [foot]: curve.position, [other]: otherPoint });
+    return { ...curve, reachable: true };
   } catch {
     return { ...value, reachable: false };
   }
