@@ -67,7 +67,7 @@ export const selectsPendingPass = (
   ((state.ball.height ?? 0.11) <= 0.24 ||
     state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1');
 
-const observedPassBall = (state: TacticalMatchState, actor: MatchPlayerState) => {
+export const observedPassBall = (state: TacticalMatchState, actor: MatchPlayerState) => {
   const sensor = state.liveBallFlightRuntime?.sensors[actor.id];
   const belief = sensor?.belief;
   const estimate = predictFlightBelief(belief, state.time);
