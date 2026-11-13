@@ -1,5 +1,7 @@
 # MatchEngine integration architecture
 
+PR219 uses the existing Single Match initializer for holistic v2. The separate observed low-pass arm consumes bounded flight and owns one committed deadline, while the 40 Hz contact executor owns the result. The executable maintained candidate remains PR201/B. [PR219 report](../PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
+
 ## PR218 v2 articulated body
 
 The explicit unprofiled upright-cluster selection is now

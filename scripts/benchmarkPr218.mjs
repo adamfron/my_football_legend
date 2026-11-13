@@ -27,7 +27,9 @@ const hash = (x) =>
   createHash('sha256')
     .update(typeof x === 'string' ? x : JSON.stringify(x))
     .digest('hex');
-const source = process.argv.includes('--check') ? checkPr218Source() : recordPr218Source();
+const source = process.argv.includes('--check')
+  ? checkPr218Source({ current: true })
+  : recordPr218Source();
 const save = (name, data) =>
   writeFileSync(`${root}/${name}.json.gz`, gzipSync(JSON.stringify(data)));
 const initial = createPr214Scene('pair-reference').initial;

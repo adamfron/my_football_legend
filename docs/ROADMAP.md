@@ -1,5 +1,9 @@
 # Roadmap
 
+## Po PR219
+
+Najpierw odtworzyć przypadki skróconego swingu z kontrolowaną pozycją ciała i podporą, a potem sprawdzić przyjęcie pod presją na sparowanych wejściach. [Wyniki i zależności](PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
+
 ## Po przejściu bramek PR218 v2
 
 PR218 v2: **RETAIN_EXPERIMENTAL / COMPLETE_MATCH_TESTED**, general mode disabled.

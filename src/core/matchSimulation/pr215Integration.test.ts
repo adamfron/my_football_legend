@@ -18,6 +18,7 @@ import {
   createPr215PassiveSupportScene,
 } from '../../../scripts/pr215Scenarios';
 import { advancePendingStrikeInterval } from './pendingStrikeInterval';
+import { captureReplaySnapshot, replaySnapshotSchema } from './matchReplay';
 
 const world = createCanonicalWorldDatabase();
 const setup = {
@@ -100,6 +101,43 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
     expect(resolveIntegrationProfile('realism-candidate-v1', 'state-value-v1').fingerprint).toBe(
       'ip0-2d2162c9',
     );
+  });
+  it.each(['spectator', 'player'] as const)('starts and replays stance v2 as %s', (mode) => {
+    const ordinary = createSingleMatchSession(world, setup);
+    const session = createSingleMatchSession(world, {
+      ...setup,
+      control:
+        mode === 'spectator'
+          ? setup.control
+          : {
+              mode,
+              clubId: setup.homeClubId,
+              footballerId: ordinary.home.players[1]!.footballerId,
+              forceIntoXI: true,
+            },
+      physicalPreset: 'holistic-stance-foot-dev-v2',
+      decisionPolicy: 'opportunity-driven-v1',
+    });
+    const state = createTacticalMatch(session);
+    expect(state.seed).toBe(setup.seed);
+    expect(state.decisionPolicy).toBe('opportunity-driven-v1');
+    expect(state.experimentalArticulatedBody).toBe('stance-foot-dev-v2');
+    expect(state.players.every((player) => player.articulatedStance)).toBe(true);
+    expect(effectiveHolisticRecipe(reload(state))?.id).toBe('holistic-stance-foot-dev-v2');
+    expect(createTacticalMatch(structuredClone(session))).toEqual(state);
+    expect(fixtureIdentity(session)).not.toBe(fixtureIdentity(ordinary));
+    const replay = replaySnapshotSchema.parse(
+      captureReplaySnapshot(stepTacticalMatch(state, 0.025), 0),
+    );
+    expect(replay.continuity).toContain('stance-foot-dev-v2');
+    expect(replay.articulatedBody).toBe('stance-foot-dev-v2');
+    expect(replay.players.every((player) => player.articulatedBody)).toBe(true);
+    expect(
+      tacticalMatchStateSchema.safeParse({
+        ...state,
+        experimentalArticulatedBody: 'stance-foot-dev-v1',
+      }).success,
+    ).toBe(false);
   });
   it('derives the HUD identity from the actual recipe and clears observations with historical profiles', () => {
     const s = looseScene();

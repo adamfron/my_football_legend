@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { files, hash, normalized, write } from './pr199Evidence.mjs';
 export const BASE = '90eb730854240a949be61a344cf3955b31f3cfa0';
+export const MERGED_SOURCE = '3a1875fa9408f7573d92b1f1db8ebb02b0210789';
 export const ROOT = 'docs/performance/pr218';
 export const pr218Source = () =>
   Object.fromEntries(
@@ -39,10 +40,15 @@ export const recordPr218Source = () => {
   writeFileSync(`${ROOT}/source.json`, JSON.stringify(binding, null, 2) + '\n');
   return binding;
 };
-export const checkPr218Source = () => {
+export const checkPr218Source = ({ current = false } = {}) => {
   const binding = JSON.parse(readFileSync(`${ROOT}/source.json`));
   assert.equal(hash(binding.manifest), binding.fingerprint);
-  assert.deepEqual(pr218Source(), binding.manifest, 'PR218 measured source drift');
+  if (current) assert.deepEqual(pr218Source(), binding.manifest, 'PR218 measured source drift');
+  else
+    execFileSync('git', ['diff', '--exit-code', MERGED_SOURCE, '--', ROOT], {
+      stdio: 'inherit',
+      windowsHide: true,
+    });
   execFileSync(
     'git',
     [

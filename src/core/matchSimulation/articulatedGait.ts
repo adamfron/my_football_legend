@@ -11,8 +11,13 @@ export const ARTICULATED_SURFACES = Object.freeze({
 export const STANCE_SECONDS = 0.175;
 /** Explicit edition removal also covers bodies temporarily owned by a handover. */
 export const withoutArticulatedBody = (state: TacticalMatchState): TacticalMatchState => {
-  const { experimentalArticulatedBody: _selection, ...rest } = state;
+  const {
+    experimentalArticulatedBody: _selection,
+    experimentalObservedStrikePreparation: _preparation,
+    ...rest
+  } = state;
   void _selection;
+  void _preparation;
   const clear = (p: MatchPlayerState) => {
     const { articulatedStance: _stance, ...body } = p;
     void _stance;

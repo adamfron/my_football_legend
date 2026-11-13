@@ -28,6 +28,8 @@ import { integrateBallFlight, BALL_PHYSICS } from './ballPhysics';
 import type { FlightPoint } from './ballFlight';
 import { relativeTemporalFootAt } from './temporalFootTrajectory';
 import { constrainArticulatedFoot, type footJointWorkspaceSchema } from './articulatedFootLimit';
+import { predictFlightBelief } from './ballFlightBelief';
+import { forecastObservedBallStep } from './ballOrientedMovement';
 import type { z } from 'zod';
 
 type V = FlightPoint;
@@ -41,6 +43,7 @@ const rotate = (a: V, angle: number): V => ({
   y: -a.x * Math.sin(angle) + a.y * Math.cos(angle),
   z: a.z,
 });
+const strikePlanningStep = 0.025;
 
 /** Family ownership is separate from instantaneous contact readiness. In cluster
  * mode an owned ground-pass intention cannot fall through to a teleporting legacy
@@ -64,6 +67,21 @@ export const selectsPendingPass = (
   ((state.ball.height ?? 0.11) <= 0.24 ||
     state.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1');
 
+const observedPassBall = (state: TacticalMatchState, actor: MatchPlayerState) => {
+  const sensor = state.liveBallFlightRuntime?.sensors[actor.id];
+  const belief = sensor?.belief;
+  const estimate = predictFlightBelief(belief, state.time);
+  const optical = sensor?.optical;
+  const visible =
+    optical && optical.at <= state.time && state.time - optical.at <= strikePlanningStep + 1e-8;
+  if (!visible && (!estimate || (estimate.observationAge ?? Infinity) > 0.15)) return undefined;
+  const position = visible ? optical.position : estimate!.position;
+  const velocityAge = estimate?.velocityObservationAge ?? Infinity;
+  const velocity =
+    estimate && velocityAge >= 0 && velocityAge <= 0.15 ? estimate.velocity : { x: 0, y: 0, z: 0 };
+  return { position, velocity, spin: { x: 0, y: 0, z: 0 }, owner: null };
+};
+
 /** Nominal release metadata is prepared by the ordinary planner, never installed as a ball state.
  * Errors are sampled once from the existing action seed, with timing's duplicate patch/effort removed. */
 export const commitPendingPass = (
@@ -82,23 +100,67 @@ export const commitPendingPass = (
     target: action.type === 'pass' ? action.target : actor.position,
     nominalVelocity: { ...nominal, z: 0 as const },
     ...(action.type === 'pass' && action.foot ? { foot: action.foot } : {}),
-    // Current perceived contact point only. No future physical trajectory is consulted.
+    // Historical owned-ball snapshot. The observed edition replaces it below.
     plannedBallPoint: {
       x: state.ball.x,
       y: state.ball.y,
       z: Math.max(0.11, state.ball.height ?? 0.11),
     },
   };
-  const plan = prepareTemporalStrike(state, actor, request);
+  const observe = state.experimentalObservedStrikePreparation;
+  const observed = observe ? observedPassBall(state, actor) : undefined;
+  if (observe && !observed) return state;
+
+  let selectedRequest = request;
+  let duration: number = TEMPORAL_STRIKE.swingSeconds;
+  let plan;
+  if (observed) {
+    const durations = [duration, duration + strikePlanningStep, duration + 2 * strikePlanningStep];
+    let bestScale = -1;
+    for (const swingSeconds of durations) {
+      const forecast = forecastObservedBallStep(
+        observed,
+        TEMPORAL_STRIKE.nominalOnset + swingSeconds,
+      );
+      if (forecast.position.z > 0.24) continue;
+      const candidate = {
+        ...request,
+        // Keep an established plant when a foot was not explicitly requested.
+        ...(actor.articulatedStance?.support && !request.foot
+          ? {
+              foot:
+                actor.articulatedStance.support === 'left' ? ('right' as const) : ('left' as const),
+            }
+          : {}),
+        observedBall: { position: observed.position, velocity: forecast.velocity },
+        plannedBallPoint: forecast.position,
+      };
+      const candidatePlan = prepareTemporalStrike(state, actor, candidate);
+      const scale = temporalFootPath(
+        candidatePlan,
+        ZERO_TEMPORAL_ERROR,
+        swingSeconds,
+      ).capabilityScale;
+      if (scale <= bestScale) continue;
+      bestScale = scale;
+      duration = swingSeconds;
+      selectedRequest = candidate;
+      plan = candidatePlan;
+      if (scale === 1) break;
+    }
+  }
+  if (observed && !plan) return state;
+  plan ??= prepareTemporalStrike(state, actor, request);
   // Preparation clock remains live even when the selected instant was hurried.
   // The contact solver will still reject an insufficient physical preparation.
-  const sample = executePhysicalKick(state, actor, request).perturbation;
+  const sample = executePhysicalKick(state, actor, selectedRequest).perturbation;
   const perturbation = {
     lateralPatchMetres: sample.lateralPatchMetres - sample.timingSeconds * 0.12,
     verticalPatchMetres: 0,
     timingSeconds: Math.max(-0.02, Math.min(0.02, sample.timingSeconds)),
     effortError: sample.effortError - sample.timingSeconds * 1.5,
   };
+  const window = TEMPORAL_STRIKE.windowSeconds + (duration - TEMPORAL_STRIKE.swingSeconds);
   const pendingStrike = pendingStrikeSchema.parse({
     version: 'low-pass-dev-v1',
     id: `${state.seed}:pending-strike:${release.decisionIndex}:${actor.id}`,
@@ -108,10 +170,10 @@ export const commitPendingPass = (
     action,
     source: release.latestActionSource,
     selectedAt: state.time,
-    expiresAt: state.time + TEMPORAL_STRIKE.windowSeconds,
+    expiresAt: state.time + window,
     phase: 'preparing',
     plan,
-    path: temporalFootPath(plan, perturbation),
+    path: temporalFootPath(plan, perturbation, duration),
     perturbation,
     passDiagnostic: release.lastPassDiagnostic,
   });
@@ -124,7 +186,7 @@ export const commitPendingPass = (
     latestActionSource: pendingStrike.source,
     currentActorId: actor.id,
     decisionIndex: release.decisionIndex,
-    actionCooldown: TEMPORAL_STRIKE.windowSeconds,
+    actionCooldown: window,
   };
 };
 

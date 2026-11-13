@@ -120,7 +120,12 @@ export const prepareTemporalStrike = (
   const foot = solution.contact.foot;
   const geometry = playerFootGeometry(actor);
   const point = geometry[foot === 'left' ? 'leftFoot' : 'rightFoot'];
-  const height = actor.lowerBodyPose ? deriveLowerBodyGeometry(actor)[foot].foot.z : 0.04;
+  const height =
+    request.observedBall && actor.articulatedStance
+      ? actor.articulatedStance[foot].z
+      : actor.lowerBodyPose
+        ? deriveLowerBodyGeometry(actor)[foot].foot.z
+        : 0.04;
   return temporalStrikePlanSchema.parse({
     version: TEMPORAL_STRIKE.version,
     actorId: actor.id,
@@ -147,6 +152,7 @@ export const prepareTemporalStrike = (
 export const temporalFootPath = (
   plan: TemporalStrikePlan,
   error: z.infer<typeof kickPerturbationSchema>,
+  swingSeconds: number = TEMPORAL_STRIKE.swingSeconds,
 ): TemporalFootPath => {
   const onset = TEMPORAL_STRIKE.nominalOnset + error.timingSeconds;
   if (onset < 0.005 - 1e-12 || onset > 0.045 + 1e-12)
@@ -161,15 +167,15 @@ export const temporalFootPath = (
     ),
     scale(n, FOOT_CONTACT_PHYSICS.radius + TEMPORAL_STRIKE.footRadius),
   );
-  const nominalTime = TEMPORAL_STRIKE.nominalOnset + TEMPORAL_STRIKE.swingSeconds;
+  const nominalTime = TEMPORAL_STRIKE.nominalOnset + swingSeconds;
   const effort = clamp(1 + error.effortError, 0, 2);
   const end = scale(
     sub(sub(contactCentre, plan.origin), scale(plan.bodyVelocity, nominalTime)),
     effort,
   );
   const velocity = scale(sub(plan.nominalFootVelocity, plan.bodyVelocity), effort);
-  const control2 = sub(end, scale(velocity, TEMPORAL_STRIKE.swingSeconds / 3));
-  const bound = Math.max(norm(scale(control2, 3 / TEMPORAL_STRIKE.swingSeconds)), norm(velocity));
+  const control2 = sub(end, scale(velocity, swingSeconds / 3));
+  const bound = Math.max(norm(scale(control2, 3 / swingSeconds)), norm(velocity));
   const follow = add(end, scale(velocity, TEMPORAL_STRIKE.followThroughSeconds / 2));
   const reach = Math.max(norm(control2), norm(end), norm(follow));
   const capabilityScale = Math.min(
@@ -181,7 +187,7 @@ export const temporalFootPath = (
     origin: plan.origin,
     bodyVelocity: plan.bodyVelocity,
     onset,
-    duration: TEMPORAL_STRIKE.swingSeconds,
+    duration: swingSeconds,
     controls: [zero(), zero(), scale(control2, capabilityScale), scale(end, capabilityScale)],
     finalVelocity: scale(velocity, capabilityScale),
     speedBound: bound * capabilityScale,

@@ -22,6 +22,7 @@ import { teamSideSchema, physicalPointSchema } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
 import { matchEventSchema, matchEventKindSchema } from './matchEventFeed';
 import { offsideSnapshotSchema } from './offside';
+import { articulatedBodySelectionSchema } from './articulatedBodyState';
 
 export const REPLAY_SAMPLE_SECONDS = 0.2;
 export const REPLAY_ROLLING_SECONDS = 12;
@@ -34,6 +35,7 @@ export const replaySnapshotSchema = z.object({
   offside: offsideSnapshotSchema.optional(),
   timestampMs: z.number().nonnegative(),
   continuity: z.string(),
+  articulatedBody: articulatedBodySelectionSchema.optional(),
   ballContinuity: z.string().optional(),
   keyframe: z.boolean().optional(),
   players: z
@@ -119,7 +121,10 @@ export const captureReplaySnapshot = (
   releaseCues?: ReadonlyMap<string, ReleasePresentation>,
 ): ReplaySnapshot => ({
   timestampMs: state.time * 1000,
-  continuity: `replay:${state.seed}:${continuity}:${presentationDiscontinuity(state)}`,
+  continuity: `replay:${state.seed}:${continuity}:${state.experimentalArticulatedBody ? `${state.experimentalArticulatedBody}:` : ''}${presentationDiscontinuity(state)}`,
+  ...(state.experimentalArticulatedBody
+    ? { articulatedBody: state.experimentalArticulatedBody }
+    : {}),
   ballContinuity: ballPresentationDiscontinuity(state),
   keyframe,
   players: projectPresentationPlayers(state).map((p) => {

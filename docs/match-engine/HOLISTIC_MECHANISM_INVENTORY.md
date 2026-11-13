@@ -1,5 +1,7 @@
 # Current-source holistic mechanism inventory — PR214
 
+PR219 exposes the canonical v2 body and its physical-attempt counters in Single Match Lab. The research arm reuses the existing forecast and evaluates three finite swing durations before commitment. [PR219 report](../PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
+
 ## PR218 v2 articulated-body scope
 
 The selected compact stance includes finite world-space feet, support/yaw,

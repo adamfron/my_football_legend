@@ -4,6 +4,7 @@ import { footContactExecutionSchema } from './footContact';
 import { temporalStrikePlanSchema, temporalFootPathSchema } from './temporalFootStrike';
 
 export const pendingStrikeSelectionSchema = z.literal('low-pass-dev-v1');
+export const observedStrikePreparationSchema = z.literal('observed-low-pass-dev-v1');
 export const pendingStrikeFields = {
   version: pendingStrikeSelectionSchema,
   id: z.string(),

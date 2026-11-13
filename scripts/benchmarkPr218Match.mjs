@@ -20,7 +20,7 @@ import {
   substitutionEntryBodies,
 } from '../src/core/matchSimulation/substitutions.ts';
 
-const source = checkPr218Source();
+const source = checkPr218Source({ current: true });
 const options = new Map(process.argv.slice(2).map((v) => v.replace(/^--/, '').split('=')));
 const full = options.has('full');
 const version = options.get('version') ?? 'v1';

@@ -4,11 +4,20 @@ import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
 import { withIntegrationProfile, resolveIntegrationProfile } from './integrationProfile';
 import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
 import { decisionPolicyIdSchema, type DecisionPolicyId } from './decisionPolicyConfig';
+import { articulatedBodySelectionSchema } from './articulatedBodyState';
+import { withArticulatedBody } from './articulatedGait';
+import { observedStrikePreparationSchema } from './pendingStrikeState';
+
+export const holisticPhysicalPresetSchema = z.enum([
+  'holistic-physical-dev-v1',
+  'holistic-stance-foot-dev-v2',
+]);
+type HolisticPhysicalPreset = z.infer<typeof holisticPhysicalPresetSchema>;
 
 /** A development fixture recipe over existing selectors, not a new profile API.
  * Remove the historical label BEFORE selecting undeclared development editions;
  * the ordinary saved-state schema remains the acceptance authority. */
-export const holisticRecipeSchema = z.object({
+const originalHolisticRecipeSchema = z.object({
   id: z.literal('holistic-physical-dev-v1'),
   experimental: z.literal(true),
   base: z.literal('realism-candidate-v1'),
@@ -19,8 +28,17 @@ export const holisticRecipeSchema = z.object({
   timeline: z.literal('standing-contact-dev-v1'),
   playerBody: z.literal('upright-cluster-dev-v1'),
 });
+const articulatedHolisticRecipeSchema = originalHolisticRecipeSchema.extend({
+  id: z.literal('holistic-stance-foot-dev-v2'),
+  articulatedBody: articulatedBodySelectionSchema,
+  strikePreparation: observedStrikePreparationSchema.optional(),
+});
+export const holisticRecipeSchema = z.discriminatedUnion('id', [
+  originalHolisticRecipeSchema,
+  articulatedHolisticRecipeSchema,
+]);
 export const holisticRecipe = (policy: DecisionPolicyId = 'state-value-v1') =>
-  holisticRecipeSchema.parse({
+  originalHolisticRecipeSchema.parse({
     id: 'holistic-physical-dev-v1',
     experimental: true,
     base: 'realism-candidate-v1',
@@ -34,6 +52,7 @@ export const holisticRecipe = (policy: DecisionPolicyId = 'state-value-v1') =>
 export const withHolisticDevelopment = (
   input: TacticalMatchState,
   policy: DecisionPolicyId = 'state-value-v1',
+  preset: HolisticPhysicalPreset = 'holistic-physical-dev-v1',
 ): TacticalMatchState => {
   const r = holisticRecipe(policy);
   const s = withIntegrationProfile(structuredClone(input), r.base, policy);
@@ -44,18 +63,21 @@ export const withHolisticDevelopment = (
   s.experimentalContactTimeline = r.timeline;
   s.experimentalPlayerBodyImpulse = r.playerBody;
   s.executionWitnesses = {};
-  return tacticalMatchStateSchema.parse(s) as unknown as TacticalMatchState;
+  const selected = preset === 'holistic-stance-foot-dev-v2' ? withArticulatedBody(s) : s;
+  return tacticalMatchStateSchema.parse(selected) as unknown as TacticalMatchState;
 };
 
 export const HOLISTIC_LIMITATION =
   'Tryb ograniczony: wspólna oś kontaktu obejmuje niskie podania, prowadzenie, przyjęcia i interwencje stojąc poza strefą bramkarza. Zderzenia wyprostowanych ciał mają wspólną chronologię; komponent może liczyć najwyżej pięć ciał. Bramkarze i wysokie zagrania zachowują dotychczasowe ścieżki. Podparcie stóp i upadanie pozostają prototypami. Pełny mecz holistyczny wymaga osobnej weryfikacji.';
+
+export const ARTICULATED_HOLISTIC_LIMITATION =
+  'Szkielet v2 łączy rzeczywiste pozycje stóp z modelem 3D. Wspólna oś kontaktu obejmuje niskie podania, prowadzenie, przyjęcia i interwencje stojąc poza strefą bramkarza. Komponent zderzenia wyprostowanych ciał może liczyć najwyżej pięciu zawodników. Wysokie zagrania i gra bramkarzy korzystają z dotychczasowych ścieżek.';
 
 /** Derive the display/export identity from executing selectors, never the UI label. */
 export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
   const r = holisticRecipe(s.decisionPolicy);
   const base = resolveIntegrationProfile(r.base, r.policy);
   return !s.integrationProfile &&
-    !s.experimentalArticulatedBody &&
     s.experimentalKickExecution === r.kickExecution &&
     s.experimentalPendingStrike === r.pendingStrike &&
     s.experimentalContactTimeline === r.timeline &&
@@ -80,7 +102,18 @@ export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
       ([key, value]) => Boolean(s[key as keyof TacticalMatchState]) === value,
     ) &&
     s.boundedReceiverRecovery === base.receiverRecovery
-    ? r
+    ? s.experimentalArticulatedBody
+      ? s.experimentalArticulatedBody === articulatedBodySelectionSchema.value
+        ? articulatedHolisticRecipeSchema.parse({
+            ...r,
+            id: 'holistic-stance-foot-dev-v2',
+            articulatedBody: s.experimentalArticulatedBody,
+            ...(s.experimentalObservedStrikePreparation
+              ? { strikePreparation: s.experimentalObservedStrikePreparation }
+              : {}),
+          })
+        : undefined
+      : r
     : undefined;
 };
 

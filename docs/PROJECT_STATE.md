@@ -1,5 +1,7 @@
 # My Football Legend — Current Project State
 
+PR219 udostępnia wybór szkieletu v2 w Single Match Lab. Odtworzenie PR218 potwierdziło 255 wyników prób, w tym 159 pudeł. Osobna edycja badawcza przewiduje punkt niskiego kontaktu z obserwacji. [Raport i wyniki](PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
+
 PR218 — kontynuacja v2: naprawiono zasięg sprintu, wysokość rzeczywistej kostki,
 resztę ruchu nóg po impulsie, zwolnienie podpory podczas kopnięcia i fizyczne
 przekazania zmian zawodników. Nieosiągalna komenda buta zatrzymuje się na granicy

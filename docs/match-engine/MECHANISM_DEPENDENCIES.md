@@ -1,5 +1,7 @@
 # Mechanism dependencies
 
+PR219 observed preparation depends on bounded optical flight, v2 stance, the existing low-pass stroke envelope and the canonical contact timeline. Controlled pre-commit placement and matched reception trials are the next dependencies. [PR219 report](../PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
+
 ## PR218 v2 measured dependency boundary
 
 Reach-based support timing, actual-ankle IK, post-impact leg continuation,
