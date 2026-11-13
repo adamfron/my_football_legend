@@ -112,6 +112,14 @@ export const initializeArticulatedPlayer = (
   return initialized;
 };
 
+/** A new kickoff or an explicit developer fixture sets its initial root first. */
+export const reanchorArticulatedSpawn = (player: MatchPlayerState): MatchPlayerState => {
+  const { articulatedStance, ...positioned } = player;
+  return articulatedStance
+    ? initializeArticulatedPlayer(positioned, articulatedStance.surface)
+    : player;
+};
+
 /** Explicit opt-in only. Applying it to an old save is a new physical edition. */
 export const withArticulatedBody = (
   state: TacticalMatchState,

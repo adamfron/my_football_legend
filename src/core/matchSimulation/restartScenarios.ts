@@ -5,6 +5,7 @@ import { legalRestartPosition, deriveRestartLegalReadiness } from './restartLaws
 import { beginStoppage, restartStoppageReason } from './stoppageLedger';
 import { ensureMatchGoalkeepers } from './matchGoalkeeper';
 import { isHumanControlled } from './actionAgency';
+import { reanchorArticulatedSpawn } from './articulatedGait';
 
 export interface RestartScenarioOptions {
   restartTeam: 'home' | 'away';
@@ -241,13 +242,13 @@ const buildRestart = (
   }
   state.players = state.players.map((player) => {
     const position = geometry.targets[player.id] ?? player.position;
-    return {
+    return reanchorArticulatedSpawn({
       ...player,
       position,
       target: position,
       idealTarget: position,
       velocity: { x: 0, y: 0 },
-    };
+    });
   });
   if (state.restart?.ceremonial && deriveRestartLegalReadiness(state).ready)
     state.restart = { ...state.restart, authorisedAt: state.time };

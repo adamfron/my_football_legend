@@ -19,6 +19,7 @@ import {
 } from '../../../scripts/pr215Scenarios';
 import { advancePendingStrikeInterval } from './pendingStrikeInterval';
 import { captureReplaySnapshot, replaySnapshotSchema } from './matchReplay';
+import { applyRestartScenario } from './restartScenarios';
 
 const world = createCanonicalWorldDatabase();
 const setup = {
@@ -132,6 +133,10 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
     expect(replay.continuity).toContain('stance-foot-dev-v2');
     expect(replay.articulatedBody).toBe('stance-foot-dev-v2');
     expect(replay.players.every((player) => player.articulatedBody)).toBe(true);
+    const corner = applyRestartScenario(state, 'corner');
+    expect(captureReplaySnapshot(corner, 1).players.every((player) => player.articulatedBody)).toBe(
+      true,
+    );
     expect(
       tacticalMatchStateSchema.safeParse({
         ...state,

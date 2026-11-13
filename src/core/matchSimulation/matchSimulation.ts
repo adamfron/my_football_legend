@@ -23,7 +23,11 @@ import {
   deriveLowerBodyGeometry,
 } from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
-import { advanceArticulatedStance, initializeArticulatedPlayer } from './articulatedGait';
+import {
+  advanceArticulatedStance,
+  initializeArticulatedPlayer,
+  reanchorArticulatedSpawn,
+} from './articulatedGait';
 import { activeArticulatedFoot } from './articulatedBodyState';
 import { planSynchronizedReception, receptionPlanFacing } from './receiverSynchronisation';
 import {
@@ -471,18 +475,13 @@ const createInitialMatch = (
     ...opening,
     players: opening.players.map((p) => {
       const position = opening.restart!.targets[p.id] ?? p.position;
-      const positionedPlayer = {
+      return reanchorArticulatedSpawn({
         ...p,
         position: { ...position },
         target: { ...position },
         idealTarget: { ...position },
         velocity: { x: 0, y: 0 },
-      };
-      if (!p.articulatedStance) return positionedPlayer;
-      // The kickoff formation is the time-zero spawn pose. Anchor its feet after
-      // placing the root so the first canonical tick begins with reachable legs.
-      delete positionedPlayer.articulatedStance;
-      return initializeArticulatedPlayer(positionedPlayer, p.articulatedStance.surface);
+      });
     }),
     restart: {
       ...opening.restart!,
