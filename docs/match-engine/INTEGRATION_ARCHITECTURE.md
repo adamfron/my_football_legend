@@ -1,5 +1,10 @@
 # MatchEngine integration architecture
 
+PR220 trials issue position and orientation objectives to the canonical motor
+through the research loader. The v2 gait, shared contact interval and recovery
+execute the trial. The executable maintained candidate remains PR201/B.
+[PR220 report](../PR220_LEARNED_MOTOR_PREPARATION.md).
+
 PR219 uses the existing Single Match initializer for holistic v2. The separate observed low-pass arm consumes bounded flight and owns one committed deadline, while the 40 Hz contact executor owns the result. The executable maintained candidate remains PR201/B. [PR219 report](../PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
 
 ## PR218 v2 articulated body
@@ -52,8 +57,9 @@ final commit and independent confirmation remain separate gates.
 
 Next candidates are dependency-ordered: PR218 authoritative articulated transforms,
 stance foot and finite traction consumed by the renderer; PR219 observation,
-preparation and technical execution using existing attributes; PR220 calibrated
-intermittent workload/recovery protocols. Later hybrid ragdoll integrates balance,
+preparation and technical execution using existing attributes; PR220 bounded
+pre-commit body placement trials. Intermittent workload/recovery calibration
+has a separate later milestone. Later hybrid ragdoll integrates balance,
 support failure, ground/body/ball contact and controlled recovery. None is an
 animation-only second authority or a rigid PR promise; see [roadmap](../ROADMAP.md).
 

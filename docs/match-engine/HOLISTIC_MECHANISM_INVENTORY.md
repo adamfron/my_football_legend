@@ -1,5 +1,9 @@
 # Current-source holistic mechanism inventory — PR214
 
+The [PR220 inventory](../PR220_LEARNED_MOTOR_PREPARATION.md#motor-skill-inventory)
+maps eight families from recognition through recovery and tests a laboratory
+placement objective on the existing v2 motor.
+
 PR219 exposes the canonical v2 body and its physical-attempt counters in Single Match Lab. The research arm reuses the existing forecast and evaluates three finite swing durations before commitment. [PR219 report](../PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
 
 ## PR218 v2 articulated-body scope

@@ -1,8 +1,23 @@
 # Roadmap
 
-## Po PR219
+## PR220 — przygotowanie ciała przed kontaktem
 
-Najpierw odtworzyć przypadki skróconego swingu z kontrolowaną pozycją ciała i podporą, a potem sprawdzić przyjęcie pod presją na sparowanych wejściach. [Wyniki i zależności](PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
+Zakończono odtworzenie sześciu zamrożonych epizodów i sparowane próby niskiego podania.
+Badane ustawienie po wyborze podania nie odzyskało kontaktu w żadnym z trzech odtworzonych pudeł.
+Eksperyment pozostaje w laboratorium.
+
+1. Uchwycić wcześniejszy moment powstania intencji i zmierzyć czas do utraty okna podania.
+   W istniejącym chodzie sprawdzić utrzymanie wybranej podpory do kontaktu i niezależnie
+   porównać ruch tułowia, wybór stopy oraz moment swingu.
+2. Po dodatnim wyniku z zachowanymi kontaktami kontrolnymi połączyć zaobserwowane ustawienie
+   odbiorcy z fizycznym pierwszym dotknięciem i następną akcją pod presją. Następnie rozważyć
+   krótki test 22 zawodników w trybie widza i sterowania.
+3. Osobne rodziny to zwroty pod presją, zmiana kierunku w prowadzeniu, przygotowanie
+   odbioru piłki i strzału oraz obrona bramki i gra w powietrzu. Zależności fizyczne
+   obejmują pełne powierzchnie poza butem, fazę lotu biegu, poślizg i odzyskiwanie trakcji
+   oraz środek masy, upadanie i powrót do stania.
+
+[Audyt, surowe wyniki i decyzja PR220](PR220_LEARNED_MOTOR_PREPARATION.md).
 
 ## Po przejściu bramek PR218 v2
 
@@ -52,7 +67,7 @@ Nie zastępują niezależnego confirmation.
    kontaktu, fizyczne wypuszczenie i kontrolowana absorpcja. Istniejące atrybuty
    opisują wiarygodne różnice sterowania; bez nowych stałych atrybutów i bez
    domyślnego wymogu neuronowego kontrolera ciała.
-3. **PR220 candidate — wysiłek przerywany.** Bieganie ciągłe ze wzrostem obciążenia,
+3. **Późniejszy kamień milowy — wysiłek przerywany.** Bieganie ciągłe ze wzrostem obciążenia,
    powtarzane sprinty, odpoczynek między wysiłkami i obciążenia według pozycji.
    Istniejące stamina/movement, sparowane reprezentatywne mecze i protokoły;
    bez arbitralnej kwoty utraty kondycji.

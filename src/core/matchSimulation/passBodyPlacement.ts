@@ -36,13 +36,13 @@ export const placeBodyForLowPass = (
   const activeFoot =
     requestedFoot ??
     (support ? (support === 'left' ? 'right' : 'left') : chooseContactFoot(actor, contact));
+  const { articulatedStance: _stance, verticalJump: _jump, ...body } = actor;
+  void [_stance, _jump];
   const desiredPose = deriveLowerBodyGeometry({
-    ...actor,
+    ...body,
     position: { x: 0, y: 0 },
     facingAngle: facing,
     lowerBodyPose: neutralLowerBodyPose(),
-    articulatedStance: undefined,
-    verticalJump: undefined,
   });
   // Place the swing origin behind the ball with room for a finite acceleration
   // stroke. The nominal offset is an engineering objective measured in metres.

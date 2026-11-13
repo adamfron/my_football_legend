@@ -1,5 +1,9 @@
 # My Football Legend — Current Project State
 
+PR220 odtworzył sześć prób niskich podań i zbadał ustawienie przed swingiem
+na zamrożonych wejściach. Odtworzone pudła nie zmieniły się w kontakty.
+Badanie pozostaje w laboratorium. [Raport i wyniki](PR220_LEARNED_MOTOR_PREPARATION.md).
+
 PR219 udostępnia wybór szkieletu v2 w Single Match Lab. Odtworzenie PR218 potwierdziło 255 wyników prób, w tym 159 pudeł. Osobna edycja badawcza przewiduje punkt niskiego kontaktu z obserwacji. [Raport i wyniki](PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
 
 PR218 — kontynuacja v2: naprawiono zasięg sprintu, wysokość rzeczywistej kostki,
