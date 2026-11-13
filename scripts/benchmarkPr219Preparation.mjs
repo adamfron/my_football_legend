@@ -33,6 +33,8 @@ const tick = 0.025;
 const expected = new Map(baseline.strikes.map((strike) => [strike.id, strike]));
 const reload = (state) => tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(state)));
 let state = reload(baseline.initial);
+const seed = options.get('seed');
+if (seed) state = { ...state, seed };
 if (options.has('observed')) {
   state = reload({ ...state, experimentalObservedStrikePreparation: 'observed-low-pass-dev-v1' });
 }

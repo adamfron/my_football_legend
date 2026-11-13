@@ -2,14 +2,16 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import process from 'node:process';
-import { createServer } from 'vite';
+import { createServer, preview } from 'vite';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.MFL_PLAYWRIGHT_MODULE ?? 'playwright');
-const vite = await createServer({ server: { host: '127.0.0.1', port: 0 } });
+const server = { host: '127.0.0.1', port: 0 };
+const production = process.env.MFL_LAB_BUILD === '1';
+const vite = production ? await preview({ preview: server }) : await createServer({ server });
 let browser;
 try {
-  await vite.listen();
+  if (!production) await vite.listen();
   const url = `http://127.0.0.1:${vite.httpServer.address().port}/my_football_legend/`;
   browser = await chromium.launch({
     channel: process.env.MFL_BROWSER_CHANNEL ?? 'msedge',
@@ -79,6 +81,7 @@ try {
           liveTime: checkpoint.time,
           replayAvailable,
           browser: browser.version(),
+          production,
         }) + '\n',
       );
       await page.close();
@@ -86,5 +89,6 @@ try {
   }
 } finally {
   await browser?.close();
-  await vite.close();
+  if (production) await new Promise((resolve) => vite.httpServer.close(resolve));
+  else await vite.close();
 }

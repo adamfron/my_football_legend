@@ -156,8 +156,10 @@ selector stays outside the ordinary menu.
 
 Edge 155 exercised startup, play, pause, canonical replay, export and same-seed
 restart for spectator and controlled-player sessions at both 1366×768 and
-1920×1080. Core replay tests verify that the saved frames carry v2 body geometry.
-The current targeted suite passed 111 tests.
+1920×1080 against the [production build](performance/pr219/browser-production.jsonl).
+Core replay tests verify that the saved frames carry v2 body geometry. The
+targeted suite passed 111 tests. The subsequent reset regression, which covers
+explicit developer scenario placement, passed in the focused 24-test rerun.
 
 Reproduce using Node 24 and the existing TypeScript loader.
 
@@ -178,6 +180,39 @@ human test-driver rule. Subsequent trajectories can diverge. In the initial
 two interruptions). The research arm yielded one contact, one miss and one
 pending attempt at the cutoff. Different opportunities and the small sample
 preclude a contact-rate conclusion.
+
+The [full research trajectory](performance/pr219/observed-full.json.gz) consumed
+the identical frozen starting state, reached full time after 5641.525 s and
+225661 canonical steps, and ended 1–1. Every sampled active lineup had a valid
+composed pose, and the run recorded no safety halt or unresolved strike. It
+exercised 37 human menus. The paired baseline ended 1–1 after 5700 s.
+
+| Active-foot outcome   | PR218 baseline | Observed preparation |
+| --------------------- | -------------: | -------------------: |
+| Attempts              |            255 |                  265 |
+| Contacts              |             84 |                   86 |
+| Genuine misses        |            159 |                  159 |
+| Interrupted           |              7 |                    4 |
+| Cancelled             |              5 |                   16 |
+| Actuator-limited path |            197 |                  156 |
+
+Actuator scaling fell while genuine misses stayed at 159. Eleven research
+cancellations reported `current_capability`, versus three in the baseline.
+The 100 ms swing was selected in 184 attempts, 75 ms in 39, and 50 ms in 42.
+A longer estimate does not reserve the opportunity, and reducing path clipping
+does not ensure alignment or availability when the actual contact is resolved.
+This trajectory supports continued experimentation. It provides no convincing
+match-level execution improvement and does not warrant enabling the research
+selector in the Lab menu.
+
+The two extra 120 s runs reused the formation and changed only the seed,
+[`pr219-alt-a`](performance/pr219/independent-a.json.gz) and
+[`pr219-alt-b`](performance/pr219/independent-b.json.gz). Both stayed live with
+valid active poses. The first recorded one contact, four misses, two interrupted
+and three cancelled. The second recorded one contact and two misses. These
+development seeds do not open the independent confirmation cohort. The full
+observed run used 1564.0 s wall and 619.7 MiB peak RSS during concurrent local
+tests and per-tick pose projection.
 
 The matched local laboratory ran 150 arms (three seeds, five trajectory classes,
 five technique levels, two editions). Every fixture deliberately selected one low
@@ -216,6 +251,15 @@ release/recovery and replay tests cover v2 finite support and pose parity. The
 historical consolidated CI checks PR218 in its exact archived tree and preserves
 the original receipts, while the current suite exercises the live selector.
 
+Production build, TypeScript, lint, the five full-career tests, the consolidated
+manifest/workflow, seven CI contracts, and the original PR217/PR218 source-bound
+checks passed locally. The unit phase of `npm run verify` passed 2696 tests and
+exceeded wall-clock limits in ten tests while full trajectories and historical
+checks were running concurrently. A separate integration invocation passed
+53/56 and hit two half-match child-process time limits plus a 5 s UI test limit.
+The Draft status reflects the incomplete consolidated verification on this
+Windows host and the provisional research result.
+
 ## Readiness and next dependency
 
 1. The strongest observed precursor is actuator-limited swing amplitude (133/159
@@ -234,8 +278,8 @@ the original receipts, while the current suite exercises the live selector.
 7. The strike experiment retains contact search, limits and event order;
    its late defender and fast-ball arms exercise actual canonical outcomes.
 8. The v2 selector is available in Single Match Lab in spectator and player mode.
-9. Local save/replay is deterministic. The baseline reproduced the complete
-   PR218 match. Full-match readiness for the separate research arm is pending.
+9. Local save/replay is deterministic. Both full trajectories ended legally.
+   Whole-match improvement and broad research readiness remain unproven.
 10. Prioritize technical preparation and matched first-touch evidence before
     conditioning calibration. Keep non-boot surface coverage as an explicit
     integration dependency.
