@@ -1,7 +1,9 @@
+/* global structuredClone */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import process from 'node:process';
+import { isDeepStrictEqual } from 'node:util';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import { pr218Source } from './pr218Evidence.mjs';
 import { createKickFixture } from '../src/core/matchSimulation/physicalKickLaboratory.ts';
@@ -31,11 +33,12 @@ import { releaseContactReadiness } from '../src/core/matchSimulation/decisionRea
 import { normalizeAngle } from '../src/core/matchSimulation/playerOrientation.ts';
 
 const dt = 0.025;
-const ticks = 7;
+const windows = [2, 4, 7];
 const sha = (value) => createHash('sha256').update(value).digest('hex');
 const reload = (state) => tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(state)));
 const version = process.argv[2] ?? 'local';
 assert.match(version, /^[a-z0-9-]+$/);
+const check = process.argv.includes('--check');
 const source = pr218Source();
 const baselinePath = 'docs/performance/pr218/full-stance-v2-attempt-6.json.gz';
 const receipt = readFileSync(baselinePath);
@@ -43,6 +46,19 @@ const archive = JSON.parse(gunzipSync(receipt));
 const reference = JSON.parse(
   gunzipSync(readFileSync('docs/performance/pr219/reconstructed-pr218-attempt-6.json.gz')),
 );
+const hideSighting = (state, actorId) => {
+  const runtime = state.liveBallFlightRuntime;
+  if (!runtime?.sensors[actorId]) return state;
+  const { belief: _belief, ...sensor } = runtime.sensors[actorId];
+  void _belief;
+  return {
+    ...state,
+    liveBallFlightRuntime: {
+      ...runtime,
+      sensors: { ...runtime.sensors, [actorId]: { ...sensor, optical: null } },
+    },
+  };
+};
 const episodes = new Map();
 const historical = [4, 7, 17, 24, 40, 50];
 const selections = new Map();
@@ -132,12 +148,7 @@ for (const seed of ['pr219-a', 'pr219-b', 'pr219-c'])
         ...base,
         liveBallFlightRuntime: previous.liveBallFlightRuntime,
       });
-      if (extra === 'stale') {
-        const sensor = state.liveBallFlightRuntime.sensors[actor.id];
-        delete sensor.optical;
-        delete sensor.belief;
-        sensor.nextAcquisitionAt = base.time + 1;
-      }
+      if (extra === 'stale') state = hideSighting(state, actor.id);
       constructed.push({
         name,
         state,
@@ -186,7 +197,12 @@ const frame = (state, id, pending, placement) => {
   };
 };
 
-const run = ({ name, state: initial, action, source, extra, technique, reference }, arm) => {
+const run = (
+  { name, state: initial, action, source, extra, technique, reference },
+  arm,
+  ticks,
+  reloadChecks = false,
+) => {
   const actorId = action.actorId;
   const ownsOriginal = (state) =>
     !state.safetyHalt &&
@@ -195,20 +211,21 @@ const run = ({ name, state: initial, action, source, extra, technique, reference
     state.ball.ownerId === actorId &&
     (state.ballEpisode ?? 0) === (initial.ballEpisode ?? 0) &&
     state.ball.lastTouchPlayerId === initial.ball.lastTouchPlayerId;
-  const prepared = arm === 'B' || arm === 'C';
-  const waitTicks = arm === 'A' ? 0 : extra === 'late' ? 1 : ticks;
-  let state =
-    arm === 'C'
-      ? { ...initial, experimentalObservedStrikePreparation: 'observed-low-pass-dev-v1' }
-      : initial;
+  const prepared = arm === 'B' || arm === 'C' || arm === 'E';
+  const observed = arm === 'C' || arm === 'O' || arm === 'P';
+  const waitTicks = arm === 'A' || arm === 'O' ? 0 : extra === 'late' ? 1 : ticks;
+  let state = observed
+    ? { ...initial, experimentalObservedStrikePreparation: 'observed-low-pass-dev-v1' }
+    : initial;
   let placement;
   let preparationSeconds = 0;
-  let blockedAt;
   const frames = [frame(state, actorId)];
-  const advance = () => stepWithoutMenu(state, dt);
+  const advance = () =>
+    reloadChecks ? reload(stepWithoutMenu(state, dt)) : stepWithoutMenu(state, dt);
   try {
     globalThis.__pr220 = {
       waitingActor: actorId,
+      afterAcquisition: extra === 'stale' ? (s) => hideSighting(s, actorId) : undefined,
       command(snapshot, actor) {
         if (!prepared || actor.id !== actorId || !ownsOriginal(snapshot)) return;
         placement = placeBodyForLowPass(snapshot, actor, action.target, arm === 'C', action.foot);
@@ -218,10 +235,7 @@ const run = ({ name, state: initial, action, source, extra, technique, reference
           target: placement.root,
           targetSpeed: deriveMovementCapability(actor).walkSpeed,
           desiredFacingAngle: placement.facing,
-          dt,
-          balance: 1,
           structural: false,
-          receivingMomentum: false,
         };
       },
     };
@@ -238,11 +252,13 @@ const run = ({ name, state: initial, action, source, extra, technique, reference
     const actor = state.players.find((p) => p.id === actorId);
     const readiness = actor && releaseContactReadiness(state, actor);
     const commitAt = state.time;
-    if (opportunity && (!prepared || placement)) {
+    if (opportunity && (!prepared || placement || extra !== 'stale')) {
       const placedAction =
-        prepared && placement && !action.foot ? { ...action, foot: placement.activeFoot } : action;
+        prepared && arm !== 'E' && placement && !action.foot
+          ? { ...action, foot: placement.activeFoot }
+          : action;
       state = resolveMatchAction(state, placedAction, source);
-    } else blockedAt = state.time;
+    }
     const pending = state.pendingStrike;
     frames.push(frame(state, actorId, pending, placement));
     for (let i = 0; pending && i < 16 && !state.safetyHalt; i++) {
@@ -268,7 +284,6 @@ const run = ({ name, state: initial, action, source, extra, technique, reference
       commitAt,
       opportunity,
       readiness,
-      blockedAt,
       pending,
       result,
       outcome:
@@ -279,12 +294,13 @@ const run = ({ name, state: initial, action, source, extra, technique, reference
             ? 'pending'
             : !opportunity
               ? 'opportunity_lost'
-              : blockedAt !== undefined
+              : (prepared || observed) && !placement && extra === 'stale'
                 ? 'no_observation'
                 : 'declined'),
       reference,
       safetyHalt: state.safetyHalt,
       terminalBall: state.ball,
+      terminalNativeState: sha(JSON.stringify(reload(state))),
       terminalFrame: sha(JSON.stringify(matchStateToFrame(state))),
       frames,
     };
@@ -292,9 +308,61 @@ const run = ({ name, state: initial, action, source, extra, technique, reference
     delete globalThis.__pr220;
   }
 };
-const trials = [...episodes.values(), ...constructed].flatMap((episode) =>
-  ['A', 'D', 'B', 'C'].map((arm) => run(episode, arm)),
-);
+const trials = [...episodes.values(), ...constructed].flatMap((episode) => [
+  run(episode, 'A', 0),
+  run(episode, 'O', 0),
+  ...(episode.extra === 'late' ? [1] : windows).flatMap((ticks) =>
+    ['D', 'E', 'B', 'P', 'C'].map((arm) => run(episode, arm, ticks)),
+  ),
+]);
+const reloadEvidence = [];
+for (const [episode, arm, ticks] of [
+  [episodes.get(50), 'A', 0],
+  [constructed.find((item) => item.name === 'stationary'), 'C', 2],
+  [constructed.find((item) => item.name === 'opponent-first'), 'B', 7],
+]) {
+  const original = run(episode, arm, ticks);
+  const resumed = run(episode, arm, ticks, true);
+  const native = (trial) =>
+    JSON.parse(
+      JSON.stringify({
+        ...trial,
+        frames: trial.frames.map((frame) =>
+          frame.challenge
+            ? {
+                ...frame,
+                challenge: {
+                  ...frame.challenge,
+                  target: { x: frame.challenge.target.x, y: frame.challenge.target.y },
+                },
+              }
+            : frame,
+        ),
+      }),
+    );
+  const rawEqual = isDeepStrictEqual(
+    JSON.parse(JSON.stringify(original)),
+    JSON.parse(JSON.stringify(resumed)),
+  );
+  assert.deepEqual(native(original), native(resumed));
+  reloadEvidence.push({
+    name: episode.name,
+    arm,
+    ticks,
+    outcome: original.outcome,
+    rawEqual,
+    ...(rawEqual
+      ? {}
+      : {
+          rawChallengeTargets: original.frames.flatMap((f) =>
+            f.challenge ? [f.challenge.target] : [],
+          ),
+          nativeChallengeTargets: resumed.frames.flatMap((f) =>
+            f.challenge ? [f.challenge.target] : [],
+          ),
+        }),
+  });
+}
 for (const { pending, reference: expected, result, outcome } of trials.filter(
   (row) => row.reference && row.arm === 'A',
 )) {
@@ -308,7 +376,9 @@ const summary = Object.fromEntries(
   Object.entries(Object.groupBy(trials, (row) => row.name)).map(([name, rows]) => [
     name,
     Object.fromEntries(
-      Object.entries(Object.groupBy(rows, (row) => row.arm)).map(([arm, group]) => [
+      Object.entries(
+        Object.groupBy(rows, (row) => `${row.arm}/${Math.round(row.windowSeconds * 1000)}ms`),
+      ).map(([arm, group]) => [
         arm,
         Object.fromEntries(
           Object.entries(Object.groupBy(group, (row) => row.outcome)).map(([outcome, results]) => [
@@ -322,20 +392,21 @@ const summary = Object.fromEntries(
 );
 assert.deepEqual(source, pr218Source(), 'source changed during measurement');
 const directory = '.benchmark-artifacts/pr220';
-mkdirSync(directory, { recursive: true });
-writeFileSync(
-  `${directory}/${version}.json.gz`,
-  gzipSync(
-    JSON.stringify({
-      source,
-      sourceFingerprint: sha(JSON.stringify(source)),
-      nativeReference: { sha256: sha(receipt), source: archive.source },
-      node: process.version,
-      summary,
-      trials,
-    }),
-    { level: 9 },
-  ),
-  { flag: 'wx' },
-);
+const result = JSON.stringify({
+  source,
+  sourceFingerprint: sha(JSON.stringify(source)),
+  nativeReference: { sha256: sha(receipt), source: archive.source },
+  base: '1e2ebdce868efaac81191908db08c796019ec949',
+  node: process.version,
+  reloadEvidence,
+  summary,
+  trials,
+});
+if (check) {
+  const expected = gunzipSync(readFileSync(`docs/performance/pr220/${version}.json.gz`));
+  assert.equal(sha(result), sha(expected), 'PR220 deterministic receipt drift');
+} else {
+  mkdirSync(directory, { recursive: true });
+  writeFileSync(`${directory}/${version}.json.gz`, gzipSync(result, { level: 9 }), { flag: 'wx' });
+}
 process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);

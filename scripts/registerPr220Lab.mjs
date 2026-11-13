@@ -30,12 +30,21 @@ registerHooks({
         '  if (state.pendingStrike) return state;\n  const ownerId',
         '  if (globalThis.__pr220?.waitingActor === state.ball.ownerId && state.ball.ownerId) return state;\n',
       );
-      source = source.replace(
-        '    } = integrateCanonicalMovement(player, {\n      target: movementTarget,',
-        '    } = integrateCanonicalMovement(player, globalThis.__pr220?.command?.(movementState, player) ?? {\n      target: movementTarget,',
-      );
-      if (!source.includes('globalThis.__pr220?.command'))
+      const motorStart =
+        '    } = integrateCanonicalMovement(player, {\n      target: movementTarget,';
+      const motorEnd = '      receivingMomentum,\n    });';
+      if (source.split(motorStart).length !== 2 || source.split(motorEnd).length !== 2)
         throw Error('PR220 movement boundary drift');
+      source = source.replace(
+        motorEnd,
+        '      receivingMomentum,\n      ...globalThis.__pr220?.command?.(movementState, player),\n    });',
+      );
+      const acquisition = '  state = advanceLiveBallFlight(state);';
+      if (source.split(acquisition).length !== 2) throw Error('PR220 acquisition boundary drift');
+      source = source.replace(
+        acquisition,
+        acquisition + '\n  state = globalThis.__pr220?.afterAcquisition?.(state) ?? state;',
+      );
     }
     return { ...result, source };
   },
