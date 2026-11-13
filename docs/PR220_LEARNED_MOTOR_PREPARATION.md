@@ -84,8 +84,18 @@ node --experimental-transform-types --import ./scripts/registerTypescriptLoader.
 | Evidence | Measured source | Reproduction |
 | --- | --- | --- |
 | [Final receipt](performance/pr220/final.json.gz) | `d80a8e4afd17e959c72b6ae8f563d28b900fbbebe590285d909528ef6c1264d7` | First command above. |
-| [Window and observation controls](performance/pr220/bounded-windows.json.gz) | Manifest `386ab03adb8c1c7f1e455bed105916d1ae46881075d57a234cbc396d7695e17b` binds the intermediate worktree before the E ablation. | Original command `node --experimental-transform-types --import ./scripts/registerPr220Lab.mjs scripts/benchmarkPr220Placement.mjs bounded-windows`. The final matrix repeats these controls and adds E. |
+| [Window and observation controls](performance/pr220/bounded-windows.json.gz) | Manifest `386ab03adb8c1c7f1e455bed105916d1ae46881075d57a234cbc396d7695e17b` binds the intermediate worktree before the E ablation. | Start from the initial pilot commit in a scratch checkout. Copy the final `scripts/registerPr220Lab.mjs` and decompress the [archived intermediate runner](performance/pr220/bounded-windows-runner.mjs.gz) over `scripts/benchmarkPr220Placement.mjs`. Use the first command above with `bounded-windows` as the last argument. |
 | [Initial pilot](performance/pr220/pilot.json.gz) | Commit `a5abca7f873b5d4f0e0e1e7df0537cf1783b0d08` | Use the first command at that commit with `pilot` as the last argument. Its early stale-sight setup allowed fresh reacquisition. |
 | [Reception baseline](performance/pr220/reception-baseline.json.gz) | Merged PR219 runner, repeated on PR220 | Second command above. |
 
 The initial native check of the pressure control failed on the extra live target fields. The final receipt preserves that discrepancy while comparing normalized native continuation. Both historical variant archives include all unsuccessful and inconclusive results.
+
+## Verification
+
+The final and intermediate receipts replay byte for byte. TypeScript, lint,
+production build, 70 focused tests, the unchanged PR217 and PR218 historical
+regressions, the consolidated CI manifest, seven CI contracts and the realism
+progress check pass. The Windows run of `npm run verify` uses a workspace
+temporary directory to avoid Vitest's initial file-rename error. The unit and
+match-integration stages passed with 2706 and 56 tests respectively. The PR
+description records the terminal verification status.
