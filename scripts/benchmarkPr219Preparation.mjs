@@ -5,6 +5,9 @@ import { performance } from 'node:perf_hooks';
 import process from 'node:process';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import { observedFlight } from '../src/core/matchSimulation/liveBallFlight.ts';
+import { withBoundedObserver } from '../src/core/matchSimulation/boundedIntelligence.ts';
+import { withRankingObserver } from '../src/core/matchSimulation/decisionObservation.ts';
+import { releaseContactReadiness } from '../src/core/matchSimulation/decisionReadiness.ts';
 import { stepTacticalMatch, startSecondHalf } from '../src/core/matchSimulation/matchSimulation.ts';
 import {
   applyPlayerDecision,
@@ -34,6 +37,8 @@ if (options.has('observed')) {
   state = reload({ ...state, experimentalObservedStrikePreparation: 'observed-low-pass-dev-v1' });
 }
 const trials = new Map();
+const passingLanes = [];
+const passResults = new Map();
 const began = performance.now();
 const cpu = process.cpuUsage();
 let steps = 0;
@@ -91,7 +96,76 @@ while (
     menus++;
   }
   const previous = state;
-  state = stepTacticalMatch(state, tick);
+  state = withBoundedObserver(
+    options.has('lanes')
+      ? (trace) => {
+          if (trace.stage !== 'decision' || !trace.scene || !trace.candidates) return;
+          const selected = trace.decision?.selectedCandidateId;
+          const passes = trace.candidates.flatMap((candidate) => {
+            const action = candidate.action;
+            if (action.type !== 'pass') return [];
+            return [
+              {
+                id: candidate.id,
+                receiver: action.receiverId,
+                slot: previous.players.find((player) => player.id === action.receiverId)?.slot
+                  .position,
+                target: action.target,
+                risk: candidate.risk,
+                confidence: candidate.confidence,
+                laneMargin: candidate.opportunity?.laneMargin,
+                feasible: candidate.feasible,
+                readyAt: candidate.readyAt,
+                selected: candidate.id === selected,
+              },
+            ];
+          });
+          if (passes.length)
+            passingLanes.push({
+              actor: trace.actorId,
+              at: trace.at,
+              episode: previous.ballEpisode,
+              ready: trace.scene.contactReady,
+              selected: trace.action?.type,
+              passes,
+            });
+        }
+      : undefined,
+    () =>
+      withRankingObserver(
+        options.has('lanes')
+          ? (snapshot, actorId, ranked) => {
+              const actor = snapshot.players.find((player) => player.id === actorId);
+              if (!actor) return;
+              const passes = ranked.flatMap(({ action, canonicalScore }, rank) => {
+                if (action.type !== 'pass') return [];
+                const receiver = snapshot.players.find((player) => player.id === action.receiverId);
+                return [
+                  {
+                    receiver: receiver?.id,
+                    slot: receiver?.slot.position,
+                    target: action.target,
+                    score: canonicalScore,
+                    readiness: action.deliveryPlan?.receiverReadiness,
+                    feasible: action.deliveryPlan?.feasible,
+                    selected: rank === 0,
+                  },
+                ];
+              });
+              if (passes.length)
+                passingLanes.push({
+                  actor: actorId,
+                  at: snapshot.time,
+                  episode: snapshot.ballEpisode,
+                  ready: releaseContactReadiness(snapshot, actor),
+                  selected: ranked[0]?.action.type,
+                  passes,
+                });
+            }
+          : undefined,
+        () => stepTacticalMatch(state, tick),
+      ),
+  );
   steps++;
   assert.notEqual(state, previous);
   if (options.has('validate-poses')) {
@@ -115,6 +189,12 @@ while (
     record.result = result;
     trials.set(result.id, record);
   }
+  if (
+    options.has('lanes') &&
+    state.lastResolvedPass &&
+    state.lastResolvedPass !== previous.lastResolvedPass
+  )
+    passResults.set(state.lastResolvedPass.passId, state.lastResolvedPass);
   if (Math.floor(state.time / 600) > Math.floor(previous.time / 600))
     process.stdout.write(`${version}: ${Math.round(state.time)}s, ${trials.size} attempts\n`);
 }
@@ -158,7 +238,9 @@ const summary = {
 mkdirSync('.benchmark-artifacts/pr219', { recursive: true });
 writeFileSync(
   `.benchmark-artifacts/pr219/${version}.json.gz`,
-  gzipSync(JSON.stringify({ summary, records })),
+  gzipSync(
+    JSON.stringify({ summary, records, passingLanes, passResults: [...passResults.values()] }),
+  ),
   { flag: 'wx' },
 );
 process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);

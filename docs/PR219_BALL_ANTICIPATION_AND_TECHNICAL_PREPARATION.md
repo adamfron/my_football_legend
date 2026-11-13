@@ -103,17 +103,45 @@ does not establish an empirical attribute curve or a causal skill ladder.
 Existing `localReception`, `preReceptionPlanning` and `receiverReadiness` project
 intentions and keep actual contact separate from control. The shared low-foot
 interval and `footContact` own finite contact impulse, tangential slip, spin and
-the resulting loose ball or controlled continuation. Receiving and first-time
-redirection need their own matched causal trials. This PR does not replace those
-consumers or change human incoming menu readiness.
+the resulting loose ball or controlled continuation. The 54-arm canonical
+reception study measured the existing v2 consumer at three first-touch values
+and three seeds.
+
+| Setup                                              | Initial receiver contact / 9 | Any receiver control / 9 | Receiver still owns at 600 ms / 9 |
+| -------------------------------------------------- | ---------------------------: | -----------------------: | --------------------------------: |
+| Frontal, 4 m/s                                     |                            9 |                        9 |                                 9 |
+| Lateral, clear approach                            |                            9 |                        9 |                                 9 |
+| Running, 4 m/s                                     |                            9 |                        9 |                                 6 |
+| Defender approaching, 4 m/s                        |                            9 |                        9 |                                 0 |
+| Frontal, 18 m/s                                    |                            9 |                        9 |                                 9 |
+| Lateral, initially inside opposite boot's envelope |                            0 |                        0 |                                 0 |
+
+At first touch 25 in seed `pr219-a`, the frontal ball slowed from 3.73 m/s to
+zero with an observed 1.61 N·s cushion impulse. The running receiver left the
+ball at 1.44 m/s after contacting it at 3.59 m/s. The 18 m/s case slowed from
+17.95 to 10.61 m/s on the first contact and stayed loose until later recovery.
+The penetrating lateral setup stopped conservatively before contact in all nine
+arms (initial overlap 14.6 mm against the opposite boot). Its legal mirrored arm
+provides a separate lateral control. First-time redirection and movement
+preparation gains under pressure need matched follow-up measurements. Human
+incoming menu readiness uses the existing contract.
 
 The research arm can decline a pass when its sighting is absent or all sampled
 contact points are above the supported height. The ordinary hold, carry and
-shielding paths remain available. A multi-step pre-commit locomotion controller,
-midfield lane/ranking attribution, distinct readiness decisions for repeated
-impossible attempts, new first-touch calibration and the full A–O matrix remain
-open. The latest locally useful next step is verified body/boot alignment before
-commitment, with a matched first-touch series after that.
+shielding paths remain available. The [120-second ranking capture](performance/pr219/passing-lanes.json.gz)
+observed eight rankings with passes, comprising 107 variants. Twenty-eight
+central-midfield variants qualified for ranking, 24 had nonnegative receiver
+preparation margin and none ranked first. Other slots had 79 variants, 72 with
+nonnegative preparation margin and seven ranked first. The same interval
+recorded seven resolved passes from all release paths. Variants include multiple
+deliveries and targets for the same receiver, and ranking first can precede a
+miss. This sample flags ranking as another possible explanation and cannot
+quantify a whole-match positional bias. Tactical ranking is unchanged.
+
+A multi-step pre-commit locomotion controller, distinct readiness decisions for
+repeated impossible attempts, new first-touch calibration and the full A–O
+matrix remain open. The next dependency is verified body/boot alignment before
+commitment, followed by matched first-touch preparation interventions.
 
 ## Lab, browser and replay
 
@@ -135,9 +163,12 @@ Reproduce using Node 24 and the existing TypeScript loader.
 
 ```sh
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr219Preparation.mjs --version=baseline
+node scripts/auditPr219Attempts.mjs
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr219Preparation.mjs --lanes --seconds=120 --version=lanes
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr219Preparation.mjs --observed --validate-poses --seconds=120 --version=observed-smoke
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr219Preparation.mjs --observed --validate-poses --version=observed-full
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr219Skill.mjs
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr219Reception.mjs
 node scripts/ci/replayPr218Check.mjs
 ```
 
@@ -152,13 +183,13 @@ The matched local laboratory ran 150 arms (three seeds, five trajectory classes,
 five technique levels, two editions). Every fixture deliberately selected one low
 pass. Its separate physical contact results were:
 
-| Initial trajectory | PR218 contacts / 15 | Observed contacts / 15 |
-| --- | ---: | ---: |
-| Stationary | 15 | 15 |
-| Approaching at 1.5 m/s | 15 | 15 |
-| Receding at 1.5 m/s | 0 | 14 |
-| Lateral at 3 m/s | 0 | 15 |
-| Fast approaching at 8 m/s | 15 | 15 |
+| Initial trajectory        | PR218 contacts / 15 | Observed contacts / 15 |
+| ------------------------- | ------------------: | ---------------------: |
+| Stationary                |                  15 |                     15 |
+| Approaching at 1.5 m/s    |                  15 |                     15 |
+| Receding at 1.5 m/s       |                   0 |                     14 |
+| Lateral at 3 m/s          |                   0 |                     15 |
+| Fast approaching at 8 m/s |                  15 |                     15 |
 
 The fast approaching ball intersects the boot in this arrangement. Speed alone
 is insufficient to order contact difficulty. The observed receding miss at
@@ -171,7 +202,8 @@ repeated setups do not establish real-world calibration or a robust skill ladder
 
 Raw [baseline attempt diagnostics](performance/pr219/reconstructed-pr218-attempt-6.json.gz),
 [initial observed smoke](performance/pr219/observed-smoke.json.gz) and
-[matched skill arms](performance/pr219/skill.json.gz) retain unsuccessful trials.
+[matched skill arms](performance/pr219/skill.json.gz) and
+[reception arms](performance/pr219/reception.json.gz) retain unsuccessful trials.
 Reconstructing the baseline with extra sampling took 867.4 s wall and 639.5 MiB
 peak RSS on the local machine. The local skill matrix took 5.8 s wall. These runs
 had different observation loads and are not directly comparable performance
@@ -197,8 +229,8 @@ the original receipts, while the current suite exercises the live selector.
    Joint cognitive and locomotion calibration remains open.
 5. Local tests exercise the difficulty range and retain real misses. They do
    not establish population-level success ordering.
-6. Canonical receiving can yield retention or a loose ball. New paired
-   reception and cushioning evidence is pending.
+6. Canonical receiving yielded cushioning, loose contact, later recovery and
+   short-lived control under pressure in the matched reception laboratory.
 7. The strike experiment retains contact search, limits and event order;
    its late defender and fast-ball arms exercise actual canonical outcomes.
 8. The v2 selector is available in Single Match Lab in spectator and player mode.
