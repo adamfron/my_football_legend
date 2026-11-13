@@ -15,6 +15,7 @@ import {
 import {
   pendingStrikeFields,
   pendingStrikeSelectionSchema,
+  observedStrikePreparationSchema,
   strikeResolutionSchema,
   type StrikeResolution,
 } from './pendingStrikeState';
@@ -872,6 +873,7 @@ export interface TacticalMatchState {
   continuousFootContacts?: z.infer<typeof continuousFootContactsSchema>;
   recoveringFeet?: z.infer<typeof recoveringFeetSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
+  experimentalObservedStrikePreparation?: z.infer<typeof observedStrikePreparationSchema>;
   experimentalArticulatedBody?: z.infer<typeof articulatedBodySelectionSchema>;
   pendingStrike?: PendingStrike;
   lastStrikeResolution?: StrikeResolution;
@@ -1127,6 +1129,7 @@ export const tacticalMatchStateSchema = z
     continuousFootContacts: continuousFootContactsSchema.optional(),
     recoveringFeet: recoveringFeetSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
+    experimentalObservedStrikePreparation: observedStrikePreparationSchema.optional(),
     experimentalArticulatedBody: articulatedBodySelectionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
     lastStrikeResolution: strikeResolutionSchema.optional(),
@@ -1399,6 +1402,17 @@ export const tacticalMatchStateSchema = z
   })
   .passthrough()
   .superRefine((state, ctx) => {
+    if (
+      state.experimentalObservedStrikePreparation &&
+      (!state.experimentalArticulatedBody ||
+        !state.experimentalPendingStrike ||
+        !state.experimentalBoundedBallFlightBelief)
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['experimentalObservedStrikePreparation'],
+        message: 'Observed strike preparation requires v2 stance, pending low pass and bounded flight',
+      });
     const articulatedPlayers =
       state.players.some((p) => p.articulatedStance) ||
       state.departedPlayers?.some((p) => p.articulatedStance) ||

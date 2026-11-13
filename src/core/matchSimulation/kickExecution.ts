@@ -32,6 +32,7 @@ export const kickSolutionRequestSchema = z.object({
   surface: z.enum(['inside', 'instep']),
   foot: z.enum(['left', 'right']).optional(),
   preparationSeconds: z.number().nonnegative().default(0.24),
+  observedBall: z.object({ position: kickVectorSchema, velocity: kickVectorSchema }).optional(),
 });
 
 /** Pure release-time translator. No forecast, state mutation or shared match RNG.
@@ -44,7 +45,8 @@ export const executePhysicalKick = (
 ): KickExecutionReceipt => {
   const request = kickSolutionRequestSchema.parse(input);
   const a = actor.profile.attributes;
-  const foot = chooseContactFoot(actor, state.ball, request.foot);
+  const ballPosition = request.observedBall?.position ?? state.ball;
+  const foot = chooseContactFoot(actor, ballPosition, request.foot);
   const weak =
     foot === actor.profile.dominantFoot ? 0 : 1 - actor.profile.weakFootProficiency / 100;
   const primary = request.family === 'pass' ? a.passing : a.finishing;
@@ -54,8 +56,8 @@ export const executePhysicalKick = (
   let obstructionTime = Number.POSITIVE_INFINITY;
   for (const p of state.players) {
     if (p.team === actor.team) continue;
-    const dx = state.ball.x - p.position.x,
-      dy = state.ball.y - p.position.y;
+    const dx = ballPosition.x - p.position.x,
+      dy = ballPosition.y - p.position.y;
     const metres = Math.hypot(dx, dy);
     nearest = Math.min(nearest, metres);
     const closing =
@@ -76,7 +78,7 @@ export const executePhysicalKick = (
       : request.preparationSeconds;
   const preparationSeconds = Math.min(preparation, obstructionTime);
   const ready = clamp(preparationSeconds / (0.12 + (1 - a.agility / 100) * 0.1));
-  const incoming = {
+  const incoming = request.observedBall?.velocity ?? {
     x: state.ball.velocity?.x ?? 0,
     y: state.ball.velocity?.y ?? 0,
     z: state.ball.velocity?.z ?? 0,

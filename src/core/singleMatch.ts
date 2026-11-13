@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { decisionPolicyIdSchema } from './matchSimulation/decisionPolicyConfig';
+import { holisticPhysicalPresetSchema } from './matchSimulation/holisticDevelopment';
 import { tacticalRoleIdSchema } from './matchSimulation/tacticalRoles';
 import { tacticalPreferencesSchema } from './matchSimulation/tacticalPreferences';
 import { deriveNpcPlayStyles } from './npcFootballIdentity';
@@ -22,7 +23,7 @@ import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
 import { toCanonicalFootballProfile, type MatchVisualContext } from './visualIdentity';
 
-export const singleMatchPhysicalPresetSchema = z.literal('holistic-physical-dev-v1');
+export const singleMatchPhysicalPresetSchema = holisticPhysicalPresetSchema;
 export const singleMatchSetupSchema = z
   .object({
     homeClubId: z.string().min(1),

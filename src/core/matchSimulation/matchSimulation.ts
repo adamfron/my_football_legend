@@ -23,7 +23,11 @@ import {
   deriveLowerBodyGeometry,
 } from './lowerBodyGeometry';
 import { integrateCanonicalMovement } from './canonicalMovement';
-import { advanceArticulatedStance, initializeArticulatedPlayer } from './articulatedGait';
+import {
+  advanceArticulatedStance,
+  initializeArticulatedPlayer,
+  reanchorArticulatedSpawn,
+} from './articulatedGait';
 import { activeArticulatedFoot } from './articulatedBodyState';
 import { planSynchronizedReception, receptionPlanFacing } from './receiverSynchronisation';
 import {
@@ -438,7 +442,7 @@ const createInitialMatch = (
     for (const side of ['home', 'away'] as const)
       state.teams[side].tacticalPreferences = { ...session.frozenTactics.preferences[side] };
   const preset = singleMatchPhysicalPresetSchema.optional().parse(session.setup.physicalPreset);
-  const configured = preset ? withHolisticDevelopment(state, state.decisionPolicy) : state;
+  const configured = preset ? withHolisticDevelopment(state, state.decisionPolicy, preset) : state;
   const initialised = initialiseCoachIntelligence(initialiseTeamThreatMemory(configured));
   initialised.rolePlan = assignTacticalRoles(initialised);
   if (session.frozenTactics) {
@@ -471,13 +475,13 @@ const createInitialMatch = (
     ...opening,
     players: opening.players.map((p) => {
       const position = opening.restart!.targets[p.id] ?? p.position;
-      return {
+      return reanchorArticulatedSpawn({
         ...p,
         position: { ...position },
         target: { ...position },
         idealTarget: { ...position },
         velocity: { x: 0, y: 0 },
-      };
+      });
     }),
     restart: {
       ...opening.restart!,

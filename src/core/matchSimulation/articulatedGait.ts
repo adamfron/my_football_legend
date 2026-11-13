@@ -11,8 +11,13 @@ export const ARTICULATED_SURFACES = Object.freeze({
 export const STANCE_SECONDS = 0.175;
 /** Explicit edition removal also covers bodies temporarily owned by a handover. */
 export const withoutArticulatedBody = (state: TacticalMatchState): TacticalMatchState => {
-  const { experimentalArticulatedBody: _selection, ...rest } = state;
+  const {
+    experimentalArticulatedBody: _selection,
+    experimentalObservedStrikePreparation: _preparation,
+    ...rest
+  } = state;
   void _selection;
+  void _preparation;
   const clear = (p: MatchPlayerState) => {
     const { articulatedStance: _stance, ...body } = p;
     void _stance;
@@ -105,6 +110,14 @@ export const initializeArticulatedPlayer = (
   };
   initialized.articulatedStance!.stepSeconds = stepSeconds(initialized);
   return initialized;
+};
+
+/** A new kickoff or an explicit developer fixture sets its initial root first. */
+export const reanchorArticulatedSpawn = (player: MatchPlayerState): MatchPlayerState => {
+  const { articulatedStance, ...positioned } = player;
+  return articulatedStance
+    ? initializeArticulatedPlayer(positioned, articulatedStance.surface)
+    : player;
 };
 
 /** Explicit opt-in only. Applying it to an old save is a new physical edition. */

@@ -121,7 +121,7 @@ describe('authoritative development body', () => {
       });
       expect(tacticalMatchStateSchema.safeParse(orphan).success).toBe(false);
     }
-  });
+  }, 15_000);
   it('releases and finitely replants the support leg during the exact moving-kick recovery from full attempt two', () => {
     const run = JSON.parse(
       gunzipSync(

@@ -1,5 +1,7 @@
 # Holistic compatibility and selection — PR214
 
+PR219 adds the explicit `holistic-stance-foot-dev-v2` Lab selection for spectator and player sessions. `observed-low-pass-dev-v1` is a separate research selection limited to compatible bounded-flight v2 fixtures. Historical v1 stays source-bound. [PR219 report](../PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
+
 ## PR218 separate development selections
 
 | Selection                              | Compatible base                                                      | Evidence / decision                                                                                         |

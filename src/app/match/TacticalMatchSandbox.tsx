@@ -1,5 +1,6 @@
 import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
 import {
+  ARTICULATED_HOLISTIC_LIMITATION,
   effectiveHolisticRecipe,
   HOLISTIC_LIMITATION,
 } from '../../core/matchSimulation/holisticDevelopment';
@@ -89,6 +90,8 @@ import {
 import {
   createSingleMatchSession,
   getSingleMatchPlayerOverall,
+  singleMatchPhysicalPresetSchema,
+  type SingleMatchSetup,
   type SingleMatchSession,
 } from '../../core/singleMatch';
 import {
@@ -207,7 +210,7 @@ export const PitchCanvasHost = forwardRef<HTMLDivElement>(function PitchCanvasHo
   return <div className="pitch-canvas-host" ref={ref} aria-hidden="true" />;
 });
 export const TacticalMatchSandbox = () => {
-  const [physicalPreset, setPhysicalPreset] = useState<'holistic-physical-dev-v1'>();
+  const [physicalPreset, setPhysicalPreset] = useState<SingleMatchSetup['physicalPreset']>();
   const [policy, setPolicy] = useState<DecisionPolicyId>(DEFAULT_DECISION_POLICY);
   const [world, setWorld] = useState<WorldDatabase>(),
     [homeId, setHomeId] = useState(''),
@@ -385,15 +388,14 @@ export const TacticalMatchSandbox = () => {
               aria-label="Fizyka meczu"
               value={physicalPreset ?? 'ordinary'}
               onChange={(e) =>
-                setPhysicalPreset(
-                  e.target.value === 'holistic-physical-dev-v1'
-                    ? 'holistic-physical-dev-v1'
-                    : undefined,
-                )
+                setPhysicalPreset(singleMatchPhysicalPresetSchema.safeParse(e.target.value).data)
               }
             >
               <option value="ordinary">Dotychczasowa</option>
               <option value="holistic-physical-dev-v1">Holistyczna (eksperymentalna)</option>
+              <option value="holistic-stance-foot-dev-v2">
+                Holistyczna + szkielet v2 (eksperymentalna)
+              </option>
             </select>
           </label>
           {physicalPreset && (
@@ -402,7 +404,11 @@ export const TacticalMatchSandbox = () => {
                 Nowy model kontaktu stopy, piłki i zawodników. W trakcie integracji — możliwe błędy
                 fizyki i nieobsługiwane sytuacje.
               </p>
-              <p>{HOLISTIC_LIMITATION}</p>
+              <p>
+                {physicalPreset === 'holistic-stance-foot-dev-v2'
+                  ? ARTICULATED_HOLISTIC_LIMITATION
+                  : HOLISTIC_LIMITATION}
+              </p>
             </div>
           )}
           <button
@@ -1801,6 +1807,8 @@ export const RunningLab = ({
       ? 0
       : Math.max(0, debugRecorderRef.current.triggerTime + 10 - state.time);
   const physicalRecipe = !careerMode ? effectiveHolisticRecipe(state) : undefined;
+  const recentArticulatedReplay =
+    physicalRecipe?.id === 'holistic-stance-foot-dev-v2' && !playing && state.time > 0;
   const physicalContactCount = (
     [
       'controlled-reception',
@@ -1840,7 +1848,9 @@ export const RunningLab = ({
               Fizyka meczu:{' '}
               <strong>
                 {physicalRecipe
-                  ? 'Holistyczna (eksperymentalna) · ograniczona'
+                  ? physicalRecipe.id === 'holistic-stance-foot-dev-v2'
+                    ? 'Holistyczna + szkielet v2 (eksperymentalna)'
+                    : 'Holistyczna (eksperymentalna) · ograniczona'
                   : session.setup.physicalPreset
                     ? 'Niezgodna konfiguracja — sprawdź diagnostykę'
                     : 'Dotychczasowa'}
@@ -1857,17 +1867,27 @@ export const RunningLab = ({
             <details>
               <summary>
                 Zmierzone kontakty: {physicalContactCount} · Zderzenia ciał:{' '}
-                {state.executionWitnesses?.['body-cluster']?.executed ?? 0} · Przygotowane
-                kopnięcia: {state.executionWitnesses?.['prepared-kick']?.executed ?? 0} · Chybione
-                kopnięcia: {state.executionWitnesses?.['missed-kick']?.executed ?? 0} ·
+                {state.executionWitnesses?.['body-cluster']?.executed ?? 0} · Próby kopnięć:{' '}
+                {state.executionWitnesses?.['pending-low-pass']?.invoked ?? 0} · Trafienia:{' '}
+                {state.executionWitnesses?.['prepared-kick']?.executed ?? 0} · Pudła:{' '}
+                {state.executionWitnesses?.['missed-kick']?.executed ?? 0} · Przerwane:{' '}
+                {state.executionWitnesses?.['interrupted-kick']?.executed ?? 0} · Anulowane:{' '}
+                {state.executionWitnesses?.['cancelled-kick']?.executed ?? 0} ·{' '}
                 Nierozstrzygnięte: {state.executionWitnesses?.unresolved?.invoked ?? 0}
               </summary>
-              <p>{HOLISTIC_LIMITATION}</p>
+              <p>
+                {physicalRecipe.id === 'holistic-stance-foot-dev-v2'
+                  ? ARTICULATED_HOLISTIC_LIMITATION
+                  : HOLISTIC_LIMITATION}
+              </p>
               <p>
                 Liczniki obejmują zmierzone zdarzenia. Dotychczasowe ścieżki i wywołania konsumentów
                 są rozpisane w eksporcie benchmarku sesji.
               </p>
               <pre>{JSON.stringify(state.executionWitnesses, null, 2)}</pre>
+              {state.lastStrikeResolution && (
+                <pre>{JSON.stringify(state.lastStrikeResolution, null, 2)}</pre>
+              )}
             </details>
           )}
           {!careerMode && state.safetyHalt && (
@@ -2041,10 +2061,19 @@ export const RunningLab = ({
           </button>
         ))}
         <button
-          disabled={!goalReplay.length || replaying || presentationPhase === 'lead_in'}
+          disabled={
+            (!goalReplay.length && !recentArticulatedReplay) ||
+            replaying ||
+            presentationPhase === 'lead_in'
+          }
           onClick={() => {
+            const frames =
+              recentArticulatedReplay && replayBufferRef.current.length > 1
+                ? [...replayBufferRef.current]
+                : goalReplay;
+            if (frames.length < 2) return;
             uiEvent('replay_started');
-            beginReplay(goalReplay, 'Ostatni zapisany fragment');
+            beginReplay(frames, 'Ostatni zapisany fragment');
           }}
         >
           Powtórka
