@@ -71,7 +71,7 @@ export const HOLISTIC_LIMITATION =
   'Tryb ograniczony: wspólna oś kontaktu obejmuje niskie podania, prowadzenie, przyjęcia i interwencje stojąc poza strefą bramkarza. Zderzenia wyprostowanych ciał mają wspólną chronologię; komponent może liczyć najwyżej pięć ciał. Bramkarze i wysokie zagrania zachowują dotychczasowe ścieżki. Podparcie stóp i upadanie pozostają prototypami. Pełny mecz holistyczny wymaga osobnej weryfikacji.';
 
 export const ARTICULATED_HOLISTIC_LIMITATION =
-  'Szkielet v2 łączy rzeczywiste pozycje stóp z modelem 3D. Wspólna oś kontaktu obejmuje niskie podania, prowadzenie, przyjęcia i interwencje stojąc poza strefą bramkarza. Komponent zderzenia wyprostowanych ciał może liczyć najwyżej pięciu zawodników. Wysokie zagrania i gra bramkarzy korzystają z dotychczasowych ścieżek.';
+  'Szkielet v2 łączy rzeczywiste pozycje stóp z modelem 3D. Wspólna oś kontaktu obejmuje niskie podania, prowadzenie, przyjęcia i interwencje stojąc poza strefą bramkarza. Solver zgłasza sytuacje, których nie może bezpiecznie rozstrzygnąć. Wysokie zagrania i gra bramkarzy korzystają z dotychczasowych ścieżek.';
 
 /** Derive the display/export identity from executing selectors, never the UI label. */
 export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
