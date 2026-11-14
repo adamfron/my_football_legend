@@ -4,6 +4,7 @@ import { advanceArticulatedStance } from './articulatedGait';
 import { activeArticulatedFoot, type BodyPoint } from './articulatedBodyState';
 import { compareSharedContactEvents, type sharedContactEventSchema } from './sharedContactTimeline';
 import { recordExecution } from './executionWitness';
+import { receptionTraceEnabled, traceReception } from './receptionTrace';
 import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
 import {
   MULTI_BODY,
@@ -463,7 +464,8 @@ export const advancePendingStrikeInterval = (
         }),
       };
     state = recordExecution(state, 'ground-contact', 'pendingStrikeInterval.integrateBallFlight');
-    let integrated = integrateBallFlight(ball, seconds, state.ballEnvironment);
+    const freeFlight = integrateBallFlight(ball, seconds, state.ballEnvironment);
+    let integrated = freeFlight;
     const candidates: ContactCandidate[] = finalPlayers
       .filter(
         (p) =>
@@ -850,6 +852,31 @@ export const advancePendingStrikeInterval = (
     events.sort(compareSharedContactEvents);
     const event = events[0];
     if (!event) {
+      if (
+        receptionTraceEnabled() &&
+        state.ball.ownerId &&
+        integrated.velocity !== freeFlight.velocity &&
+        (integrated.velocity.x !== freeFlight.velocity.x ||
+          integrated.velocity.y !== freeFlight.velocity.y ||
+          integrated.velocity.z !== freeFlight.velocity.z)
+      )
+        traceReception(
+          'pendingStrikeInterval.continuousSupportRemainder',
+          start + elapsed,
+          state.ball.ownerId,
+          {
+            seconds,
+            freeFlight,
+            withSupport: integrated,
+            bodyIds: supports.map((c) => c.playerId),
+            feet: footSupports.map(({ contact, player }) => ({
+              actorId: player.id,
+              foot: contact.foot,
+              from: intervalFoot(player, contact.foot, 0),
+              to: intervalFoot(player, contact.foot, seconds),
+            })),
+          },
+        );
       if (!handlers.bodyOnly) state = advanceBallState(state, integrated, seconds);
       elapsed = dt;
       break;
@@ -890,6 +917,13 @@ export const advancePendingStrikeInterval = (
     }
     if (event.kind === 'player_cluster' || event.kind === 'player_edge') {
       const result = resolveMultiBodyContact(state, event.participants!, state.time);
+      if (receptionTraceEnabled())
+        traceReception('pendingStrikeInterval.resolveMultiBodyContact', state.time, event.key, {
+          kind: event.kind,
+          participants: event.participants,
+          contacts: result.contacts,
+          ball: state.ball,
+        });
       state = recordExecution(
         state,
         'body-cluster',
@@ -1218,6 +1252,16 @@ export const advancePendingStrikeInterval = (
       continue;
     }
     const actor = state.players.find((p) => p.id === event.playerId)!;
+    if (receptionTraceEnabled())
+      traceReception('pendingStrikeInterval.contactRace', state.time, actor.id, {
+        kind: event.kind,
+        key: event.key,
+        hit: event.hit,
+        ball: state.ball,
+        position: actor.position,
+        velocity: actor.velocity,
+        stance: actor.articulatedStance,
+      });
     if (
       event.hit?.foot &&
       actor.lowerBodyPose?.reachOffset &&

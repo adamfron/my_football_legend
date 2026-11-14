@@ -1,13 +1,14 @@
 # Roadmap
 
-## Po PR221 — przyjęcie i następny kontakt w grze
+## Po PR222 — podpora w reszcie kroku i następne zagranie
 
-Zarejestrować jedną naturalną akcję 22 zawodników od widocznego zagrania
-do drugiego kontaktu odbiorcy pod presją. Sprawdzić, czy obserwacja daje
-czas na użycie kierunkowego dotknięcia i czy piłka pozostaje osiągalna
-podczas rzeczywistego ruchu obrońcy. PR221 wykazał taki efekt w kontrolowanych
-próbach z dłuższym dolotem. Profil PR201/B pozostaje utrzymywanym kandydatem.
-[Wyniki i ograniczenia PR221](PR221_ANTICIPATORY_RECEPTION.md).
+Odtworzyć zmianę toru stopy po zderzeniu tułowi w historycznym przyjęciu
+pod presją. Zmierzyć wykonalny ruch buta i energię przekazaną piłce przed
+oknem następnego dotknięcia. Potem zarejestrować naturalne podanie z gry
+od kontaktu podającego po kolejną akcję odbiorcy przy aktywnym obrońcy.
+PR222 wykazał kontakt z planem w grze przy odzyskaniu luźnej piłki po odbiciu.
+Edycje przyjęcia v2 mają status **RETAIN_EXPERIMENTAL**. Profil utrzymywany
+to PR201/B. [Raport PR222](PR222_NATURAL_RECEPTION_AND_SECOND_TOUCH.md).
 
 ## PR220 — przygotowanie ciała przed kontaktem
 

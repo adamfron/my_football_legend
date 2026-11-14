@@ -7,6 +7,7 @@ import { angleForVector } from './playerOrientation';
 import { distance } from './matchSpace';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
+import { receptionTraceEnabled, traceReception } from './receptionTrace';
 
 /** A conditional local scene asks what could follow reception. Ownership here is
  * hypothetical and never written into the match or passed to the action executor. */
@@ -120,6 +121,12 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
         (scene.ball.uncertainty ?? Infinity) > 3)
     ) {
       delete plans[p.id];
+      if (receptionTraceEnabled())
+        traceReception('preReceptionPlanning.advancePreReceptionPlans', state.time, p.id, {
+          outcome: 'insufficient_observed_flight',
+          ball: scene.ball,
+          previousReview: old?.reviewedAt,
+        });
       continue;
     }
     const changedFlight = Boolean(
@@ -140,6 +147,15 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
     if (plan) plans[p.id] = plan;
     else if (usesLocalReception(state) || state.experimentalReceptionPreparation)
       delete plans[p.id];
+    if (receptionTraceEnabled())
+      traceReception('preReceptionPlanning.advancePreReceptionPlans', state.time, p.id, {
+        outcome: plan ? (changedFlight ? 'replaced' : old ? 'renewed' : 'created') : 'no_meeting',
+        ball: scene.ball,
+        position: scene.position,
+        runSpeed: scene.capability.runSpeed,
+        previousReview: old?.reviewedAt,
+        plan: plans[p.id],
+      });
   }
   endPerformanceSpan('pre_reception_candidates', span);
   return { ...state, activePerceptionRuntime: { ...runtime, plans } };

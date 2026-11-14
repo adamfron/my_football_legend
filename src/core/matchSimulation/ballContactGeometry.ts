@@ -1,5 +1,6 @@
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
+import { receptionTraceEnabled, traceReception } from './receptionTrace';
 import {
   chooseContactFoot,
   executeFootContact,
@@ -759,6 +760,28 @@ export const advanceControlledBall = (
       Math.max(active.nextContact.earliestAt, motorContactReadyAt(state, actor.id)) &&
     distance(previousBodyPosition, actor.position) < 0.00001 &&
     Math.hypot(actor.velocity.x, actor.velocity.y) > 0.1;
+  if (receptionTraceEnabled())
+    traceReception('ballContactGeometry.advanceControlledBall', state.time, actor.id, {
+      intervalMode,
+      nextContact: active.nextContact,
+      motorReadyAt: motorContactReadyAt(state, actor.id),
+      reachable,
+      executionFoot,
+      feet: geometry,
+      ballBefore: state.ball,
+      ballAfter: ball,
+      position: actor.position,
+      previousBodyPosition,
+      velocity: actor.velocity,
+      bodyContest,
+      maximumEnvelope,
+      loss: blockedMissedContact
+        ? 'blocked_missed_contact'
+        : distance(actor.position, ball) > maximumEnvelope
+          ? 'left_control_envelope'
+          : undefined,
+      executed: contactFact,
+    });
   if (blockedMissedContact || distance(actor.position, ball) > maximumEnvelope) {
     next.lastGroundContact = contactFact
       ? { ...contactFact, retained: false }
