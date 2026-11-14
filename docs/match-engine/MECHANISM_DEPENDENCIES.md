@@ -1,5 +1,12 @@
 # Mechanism dependencies
 
+PR221 consumes the existing optical belief and active reception plan through
+canonical movement. The finite impact event supplies the actual foot and
+support to the experimental reception. Solver velocity and recovery feed the
+existing possession and action policy. The paired gain is local to early
+visible deliveries. Pressure and native team-play activation remain open.
+[PR221 report](../PR221_ANTICIPATORY_RECEPTION.md).
+
 PR220 separates time spent preparing from the added movement command and the
 PR219 forecast. The next local dependency is to find an earlier, observable
 preparation opportunity and schedule the actual support phase through contact.

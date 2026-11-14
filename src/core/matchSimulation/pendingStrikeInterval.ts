@@ -1,7 +1,7 @@
 import { PASSIVE_OUTFIELD_BODY, UPRIGHT_OUTFIELD_BALL_BODY } from './ballFlight';
 import { interpolateLowerBodyPose } from './lowerBodyGeometry';
 import { advanceArticulatedStance } from './articulatedGait';
-import { activeArticulatedFoot } from './articulatedBodyState';
+import { activeArticulatedFoot, type BodyPoint } from './articulatedBodyState';
 import { compareSharedContactEvents, type sharedContactEventSchema } from './sharedContactTimeline';
 import { recordExecution } from './executionWitness';
 import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
@@ -68,7 +68,11 @@ type Handlers = {
     seconds: number,
   ) => TacticalMatchState;
   challenge?: (state: TacticalMatchState, diagnostic: ChallengeDiagnostic) => TacticalMatchState;
-  control: (state: TacticalMatchState, actorId: string) => TacticalMatchState;
+  control: (
+    state: TacticalMatchState,
+    actorId: string,
+    contact: { foot: 'left' | 'right'; normal: BodyPoint },
+  ) => TacticalMatchState;
   body: (state: TacticalMatchState, actorId: string) => TacticalMatchState;
 };
 
@@ -1438,7 +1442,10 @@ export const advancePendingStrikeInterval = (
             state = { ...state, ball: { ...state.ball, looseSince: state.time } };
             delete state.ball.ownerId;
           }
-          state = handlers.control(state, actor.id);
+          state = handlers.control(state, actor.id, {
+            foot: event.key.endsWith(':left') ? 'left' : 'right',
+            normal: event.hit!.normal!,
+          });
         }
         if (!(state.lastGroundContact?.at === state.time && state.lastGroundContact.executed))
           passiveFoot(actor, event.key, event.hit!);

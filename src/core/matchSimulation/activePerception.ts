@@ -22,7 +22,8 @@ export const usesActiveContext = (s: TacticalMatchState) =>
     s.experimentalActivePerception ||
       s.experimentalReceivingPositions ||
       s.experimentalTeamTempo ||
-      s.situationalAwareness,
+      s.situationalAwareness ||
+      s.experimentalReceptionPreparation,
   );
 
 /** Logical attention, not anatomical neck animation. Rotation and acquisition take time;
@@ -47,7 +48,7 @@ export const nextAttention = (
     : 4;
   const stable = pressure > 9 && (!incoming || arrival > 1.2);
   const canScan =
-    s.experimentalActivePerception &&
+    (s.experimentalActivePerception || s.experimentalReceptionPreparation) &&
     s.activePerceptionConfig?.scanning !== false &&
     pressure > 2.8 &&
     (!incoming || arrival > 0.48);

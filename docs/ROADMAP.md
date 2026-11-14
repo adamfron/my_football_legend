@@ -1,5 +1,14 @@
 # Roadmap
 
+## Po PR221 — przyjęcie i następny kontakt w grze
+
+Zarejestrować jedną naturalną akcję 22 zawodników od widocznego zagrania
+do drugiego kontaktu odbiorcy pod presją. Sprawdzić, czy obserwacja daje
+czas na użycie kierunkowego dotknięcia i czy piłka pozostaje osiągalna
+podczas rzeczywistego ruchu obrońcy. PR221 wykazał taki efekt w kontrolowanych
+próbach z dłuższym dolotem. Profil PR201/B pozostaje utrzymywanym kandydatem.
+[Wyniki i ograniczenia PR221](PR221_ANTICIPATORY_RECEPTION.md).
+
 ## PR220 — przygotowanie ciała przed kontaktem
 
 Zakończono odtworzenie sześciu zamrożonych epizodów i sparowane próby niskiego podania.

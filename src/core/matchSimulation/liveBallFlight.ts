@@ -44,7 +44,9 @@ export const advanceLiveBallFlight = (state: TacticalMatchState): TacticalMatchS
     if (state.discipline?.[actor.id]?.sentOff) continue;
     const old = state.liveBallFlightRuntime?.sensors[actor.id];
     const gaze =
-      state.experimentalActivePerception || state.situationalAwareness
+      state.experimentalActivePerception ||
+      state.situationalAwareness ||
+      state.experimentalReceptionPreparation
         ? (state.activePerceptionRuntime?.memory[actor.id]?.gaze ?? actor.facingAngle)
         : actor.facingAngle;
     const delta = angleForVector({
