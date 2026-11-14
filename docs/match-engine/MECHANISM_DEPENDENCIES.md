@@ -1,5 +1,13 @@
 # Mechanism dependencies
 
+PR222 traces the 40 Hz chain from acquisition and plan review through
+selected movement target, subframe boot contact and subsequent control.
+Native B/C use a committed plan at a loose-ball recovery. The historical
+pressure trace links a torso impact to a rebased boot, support projection
+and control-envelope exit before any retained second touch. The next
+dependency is feasible post-impact boot transport and its work on the
+ball before the ordinary carry window. [PR222 report](../PR222_NATURAL_RECEPTION_AND_SECOND_TOUCH.md).
+
 PR221 consumes the existing optical belief and active reception plan through
 canonical movement. The finite impact event supplies the actual foot and
 support to the experimental reception. Solver velocity and recovery feed the

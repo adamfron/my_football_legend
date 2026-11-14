@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+PR222 prześledził sześć 30-sekundowych przebiegów A/B/C z udziałem 22
+zawodników. W drugim seedzie B i C zarejestrowały ten sam przygotowany
+kontakt przy odzyskaniu luźnej piłki. W historycznym przyjęciu pod presją
+zderzenie tułowi nastąpiło 3,4 ms po pierwszym kontakcie. Po przeliczeniu
+reszty kroku ruch buta nadał piłce prędkość, a przed utratą kontroli
+nie doszło do następnego dotknięcia. Bez wariantu D. Decyzja
+**RETAIN_EXPERIMENTAL**. [Raport PR222](PR222_NATURAL_RECEPTION_AND_SECOND_TOUCH.md).
+
 PR221 łączy obserwację, plan odbiorcy i wybór pierwszego dotknięcia z fizycznym
 kontaktem w eksperymentalnej edycji v2. W parach z dłuższym dolotem poprawiło
 się utrzymanie piłki lub kontynuacja prowadzenia. Historyczne przyjęcie pod

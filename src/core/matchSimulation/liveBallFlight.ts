@@ -13,6 +13,7 @@ import { RandomGenerator } from '../random/RandomGenerator';
 import { attacksRight, clampPitchPoint, distance } from './matchSpace';
 import { deriveGoalkeeperBasePosition } from './goalkeeperPositioning';
 import { selectMovementProposal, type MovementProposal } from './movementAuthority';
+import { receptionTraceEnabled, traceReception } from './receptionTrace';
 
 export const liveBallSensorSchema = z.object({
   sampledAt: z.number().nonnegative(),
@@ -53,20 +54,24 @@ export const advanceLiveBallFlight = (state: TacticalMatchState): TacticalMatchS
       x: position.x - actor.position.x,
       y: position.y - actor.position.y,
     });
-    const visible =
-      distance(actor.position, position) <= 36 &&
-      (distance(actor.position, position) < 2 || Math.abs(normalizeAngle(delta - gaze)) < 1.92) &&
-      !state.players.some(
-        (p) =>
-          p.id !== actor.id &&
-          !state.discipline?.[p.id]?.sentOff &&
-          occludesFlight({ ...actor.position, z: 1.65 }, position, {
-            centre: p.position,
-            radius: 0.27,
-            bottom: 0,
-            top: 1.8 + (p.verticalJump?.height ?? 0),
-          }),
-      );
+    const inRange = distance(actor.position, position) <= 36;
+    const inView =
+      inRange &&
+      (distance(actor.position, position) < 2 || Math.abs(normalizeAngle(delta - gaze)) < 1.92);
+    const occluder = inView
+      ? state.players.find(
+          (p) =>
+            p.id !== actor.id &&
+            !state.discipline?.[p.id]?.sentOff &&
+            occludesFlight({ ...actor.position, z: 1.65 }, position, {
+              centre: p.position,
+              radius: 0.27,
+              bottom: 0,
+              top: 1.8 + (p.verticalJump?.height ?? 0),
+            }),
+        )
+      : undefined;
+    const visible = inView && !occluder;
     const error = 0.006 + distance(actor.position, position) * 0.0005;
     const rng = RandomGenerator.fromSeed(
       `${state.seed}:pr200:optical:${actor.id}:${Math.round(state.time * 40)}`,
@@ -107,6 +112,20 @@ export const advanceLiveBallFlight = (state: TacticalMatchState): TacticalMatchS
       optical,
       ...(belief ? { belief } : {}),
     };
+    if (receptionTraceEnabled())
+      traceReception('liveBallFlight.advanceLiveBallFlight', state.time, actor.id, {
+        visibility: !inRange
+          ? 'range'
+          : !inView
+            ? 'field_of_view'
+            : occluder
+              ? 'occluded'
+              : 'visible',
+        occluderId: occluder?.id,
+        gaze,
+        acquisitionDue: due,
+        sensor: sensors[actor.id],
+      });
   }
   return {
     ...recordExecution(state, 'bounded-flight-belief', 'liveBallFlight.advanceLiveBallFlight'),

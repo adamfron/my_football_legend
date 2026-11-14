@@ -16,7 +16,7 @@ import { canReleaseControlledAction } from '../src/core/matchSimulation/decision
 import { normalizeAngle } from '../src/core/matchSimulation/playerOrientation.ts';
 import { observedReceptionPlan } from '../src/core/matchSimulation/localReception.ts';
 
-const editions = {
+export const editions = {
   A: undefined,
   B: 'observed-reception-dev-v1',
   C: 'adaptive-reception-dev-v1',
@@ -28,7 +28,7 @@ const findPlayer = (s, id) => s.players.find((p) => p.id === id);
 const speed = (v) => Math.hypot(v.x, v.y);
 const delta = (a, b) => ({ x: a.x - b.x, y: a.y - b.y });
 
-const scenes = [
+export const scenes = [
   { id: 'frontal', speed: 4 },
   { id: 'side', angle: Math.PI / 2, speed: 4 },
   { id: 'side-away', angle: -Math.PI / 2, speed: 4 },
@@ -48,7 +48,7 @@ const scenes = [
   { id: 'competing-foot', start: 1.85, competitor: true, speed: 4, stable: true },
 ];
 
-const createTrial = (scene, seed, firstTouch) => {
+export const createTrial = (scene, seed, firstTouch) => {
   const { state, receiver, actor, opponent } = createKickFixture({ seed });
   receiver.position = { x: 41, y: 34 };
   receiver.target = receiver.position;
@@ -244,86 +244,91 @@ const run = (input, scene, receiver, roundTrip) => {
   };
 };
 
-const trials = [];
-for (const scene of scenes) {
-  for (const seed of ['pr219-a', 'pr219-b', 'pr219-c']) {
-    for (const firstTouch of scene.stable ? [60] : [25, 60, 95]) {
-      const { input, receiver } = createTrial(scene, seed, firstTouch);
-      for (const [arm, edition] of Object.entries(editions)) {
-        const start = reload({ ...input, experimentalReceptionPreparation: edition });
-        const receipt = run(start, scene, receiver, false);
-        if (
-          seed === 'pr219-a' &&
-          firstTouch === 60 &&
-          arm === 'C' &&
-          ['early-frontal', 'early-pressure', 'changed-flight', 'side'].includes(scene.id)
-        ) {
-          const replay = run(start, scene, receiver, true);
-          assert.equal(digest(replay), digest(receipt), `${scene.id} native round-trip`);
-          receipt.nativeRoundTrip = 'every_tick';
+if (import.meta.main) {
+  const trials = [];
+  for (const scene of scenes) {
+    for (const seed of ['pr219-a', 'pr219-b', 'pr219-c']) {
+      for (const firstTouch of scene.stable ? [60] : [25, 60, 95]) {
+        const { input, receiver } = createTrial(scene, seed, firstTouch);
+        for (const [arm, edition] of Object.entries(editions)) {
+          const start = reload({ ...input, experimentalReceptionPreparation: edition });
+          const receipt = run(start, scene, receiver, false);
+          if (
+            seed === 'pr219-a' &&
+            firstTouch === 60 &&
+            arm === 'C' &&
+            ['early-frontal', 'early-pressure', 'changed-flight', 'side'].includes(scene.id)
+          ) {
+            const replay = run(start, scene, receiver, true);
+            assert.equal(digest(replay), digest(receipt), `${scene.id} native round-trip`);
+            receipt.nativeRoundTrip = 'every_tick';
+          }
+          trials.push({ scene: scene.id, seed, firstTouch, arm, receiver, ...receipt });
         }
-        trials.push({ scene: scene.id, seed, firstTouch, arm, receiver, ...receipt });
       }
     }
   }
-}
-const summary = Object.fromEntries(
-  scenes.map(({ id }) => [
-    id,
-    Object.fromEntries(
-      Object.keys(editions).map((arm) => {
-        const rows = trials.filter((t) => t.scene === id && t.arm === arm);
-        const count = (predicate) => rows.filter(predicate).length;
-        return [
-          arm,
-          {
-            trials: rows.length,
-            contact: count((r) => r.first),
-            control: count((r) => r.firstControl),
-            at600: count((r) => r.at600),
-            afterControl600: count((r) => r.afterControl600),
-            planned: count((r) => r.first?.preparedReception),
-            feasible: count((r) => r.feasible),
-            attempted: count((r) => r.attempted),
-            completed: count((r) => r.completed),
-            alternative: count(
-              (r) =>
-                r.first?.surfaceContact?.executed && r.first.surfaceContact.executed !== 'cushion',
-            ),
-            halt: count((r) => r.halt),
-            averagePath: rows.reduce((sum, r) => sum + r.path, 0) / rows.length,
-          },
-        ];
-      }),
-    ),
-  ]),
-);
-assert.equal(summary['side-away'].A.contact, 9);
-assert.equal(summary['side-away'].A.at600, 9);
-assert.equal(summary.pressure.A.contact, 9);
-assert.equal(summary.pressure.A.at600, 0);
-assert.equal(summary.side.A.halt, 9);
-for (const arm of ['B', 'C']) {
-  for (const [scene, result] of Object.entries(summary)) {
-    assert.equal(result[arm].contact, result.A.contact, `${scene} contacts ${arm}`);
-    assert.equal(result[arm].halt, result.A.halt, `${scene} safety ${arm}`);
-  }
-}
-assert.ok(summary['early-frontal'].C.afterControl600 > summary['early-frontal'].B.afterControl600);
-assert.ok(summary['early-lateral'].C.completed > summary['early-lateral'].A.completed);
-assert.equal(summary['support-phase'].C.alternative, 3);
-assert.equal(summary['competing-foot'].C.contact, 0);
-const result = JSON.stringify({ summary, trials });
-if (process.argv.includes('--check')) {
-  assert.equal(
-    digest(result),
-    digest(gunzipSync(readFileSync('docs/performance/pr221/reception.json.gz')).toString('utf8')),
+  const summary = Object.fromEntries(
+    scenes.map(({ id }) => [
+      id,
+      Object.fromEntries(
+        Object.keys(editions).map((arm) => {
+          const rows = trials.filter((t) => t.scene === id && t.arm === arm);
+          const count = (predicate) => rows.filter(predicate).length;
+          return [
+            arm,
+            {
+              trials: rows.length,
+              contact: count((r) => r.first),
+              control: count((r) => r.firstControl),
+              at600: count((r) => r.at600),
+              afterControl600: count((r) => r.afterControl600),
+              planned: count((r) => r.first?.preparedReception),
+              feasible: count((r) => r.feasible),
+              attempted: count((r) => r.attempted),
+              completed: count((r) => r.completed),
+              alternative: count(
+                (r) =>
+                  r.first?.surfaceContact?.executed &&
+                  r.first.surfaceContact.executed !== 'cushion',
+              ),
+              halt: count((r) => r.halt),
+              averagePath: rows.reduce((sum, r) => sum + r.path, 0) / rows.length,
+            },
+          ];
+        }),
+      ),
+    ]),
   );
-} else {
-  const folder = process.argv.includes('--record')
-    ? 'docs/performance/pr221'
-    : '.benchmark-artifacts/pr221';
-  mkdirSync(folder, { recursive: true });
-  writeFileSync(`${folder}/reception.json.gz`, gzipSync(result));
+  assert.equal(summary['side-away'].A.contact, 9);
+  assert.equal(summary['side-away'].A.at600, 9);
+  assert.equal(summary.pressure.A.contact, 9);
+  assert.equal(summary.pressure.A.at600, 0);
+  assert.equal(summary.side.A.halt, 9);
+  for (const arm of ['B', 'C']) {
+    for (const [scene, result] of Object.entries(summary)) {
+      assert.equal(result[arm].contact, result.A.contact, `${scene} contacts ${arm}`);
+      assert.equal(result[arm].halt, result.A.halt, `${scene} safety ${arm}`);
+    }
+  }
+  assert.ok(
+    summary['early-frontal'].C.afterControl600 > summary['early-frontal'].B.afterControl600,
+  );
+  assert.ok(summary['early-lateral'].C.completed > summary['early-lateral'].A.completed);
+  assert.equal(summary['support-phase'].C.alternative, 3);
+  assert.equal(summary['competing-foot'].C.contact, 0);
+  const result = JSON.stringify({ summary, trials });
+  if (process.argv.includes('--check')) {
+    assert.equal(
+      digest(result),
+      digest(gunzipSync(readFileSync('docs/performance/pr221/reception.json.gz')).toString('utf8')),
+    );
+  } else {
+    const folder = process.argv.includes('--record')
+      ? 'docs/performance/pr221'
+      : '.benchmark-artifacts/pr221';
+    mkdirSync(folder, { recursive: true });
+    writeFileSync(`${folder}/reception.json.gz`, gzipSync(result));
+  }
+  process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
 }
-process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);

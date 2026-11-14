@@ -6,6 +6,7 @@ import { advancePendingStrikeInterval } from './pendingStrikeInterval';
 import { withHolisticDevelopment } from './holisticDevelopment';
 import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
 import { recordExecution, noteExecution, withExecutionObservation } from './executionWitness';
+import { receptionTraceEnabled, traceReception, withoutReceptionTrace } from './receptionTrace';
 import {
   multiBodyParticipants,
   ownsMultiBodyInterval,
@@ -756,6 +757,16 @@ const changePossession = (
     plan && state.experimentalReceptionPreparation === 'adaptive-reception-dev-v1'
       ? adaptiveTouchOutlet(observedState, owner, contactPoint, plan.plan)
       : undefined;
+  if (receptionTraceEnabled() && receptionContact)
+    traceReception('matchSimulation.changePossession', state.time, owner.id, {
+      point: contactPoint,
+      collision: receptionContact.collision,
+      committedPlan: observedState.activePerceptionRuntime?.plans[owner.id],
+      usedPlan: plan?.plan,
+      ballOwner: state.ball.ownerId,
+      support: owner.articulatedStance?.support,
+      outlet,
+    });
   const controlledBall = {
     x: state.ball.x,
     y: state.ball.y,
@@ -2542,6 +2553,15 @@ const stepTacticalMatchCore = (
     const structural =
       !preparing &&
       ['structural_adjustment', 'maintain_shape', 'support_run'].includes(locomotion.reason);
+    if (receptionTraceEnabled())
+      traceReception('matchSimulation.integrateCanonicalMovement', state.time, player.id, {
+        target: movementTarget,
+        targetSpeed: preparingEarly ? earlyReception.speed : locomotion.targetSpeed,
+        reason: locomotion.reason,
+        earlyTarget: earlyReception?.target,
+        earlyTargetSelected: Boolean(preparingEarly),
+        desiredFacingAngle,
+      });
     const {
       facingAngle,
       movementMode,
@@ -4142,7 +4162,9 @@ export const stepTacticalMatchAfterDecisionProbe = (
   input: TacticalMatchState,
   rawDelta = FIXED_MATCH_DT,
 ): TacticalMatchState =>
-  withExecutionObservation(input, () => stepCanonicalMatch(input, rawDelta, true));
+  withoutReceptionTrace(() =>
+    withExecutionObservation(input, () => stepCanonicalMatch(input, rawDelta, true)),
+  );
 
 export const matchStateToFrame = (
   state: TacticalMatchState,
