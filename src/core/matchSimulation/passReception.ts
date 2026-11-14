@@ -16,10 +16,16 @@ import { projectLocomotion } from './locomotion';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { receptionContinuationSchema, runOnReceptionSchema } from './receptionContinuationSchema';
 import { assessFirstTouch, firstTouchAssessmentSchema } from './firstTouch';
-import { executeFootContact, footContactExecutionSchema, footSurfaceSchema } from './footContact';
+import {
+  executeFootContact,
+  footContactExecutionSchema,
+  footSurfaceSchema,
+  type FootSurface,
+} from './footContact';
 import { deriveGroundControlImpulse } from './ballContactGeometry';
 import { planBallOrientedMovement } from './ballOrientedMovement';
 import { receiverMeetingPlanSchema } from './receiverSynchronisation';
+import { type BodyPoint } from './articulatedBodyState';
 
 /** An aware receiver meets the actual flight, including execution error. The release-time
  * desired point remains diagnostic evidence; this only supplies a normal locomotion target.
@@ -339,6 +345,12 @@ export const resolveReceptionOutcome = (
   state: TacticalMatchState,
   receiver: MatchPlayerState,
   contactPoint: PitchPoint,
+  prepared?: {
+    foot: 'left' | 'right';
+    normal: BodyPoint;
+    preparationSeconds: number;
+    outlet?: PitchPoint;
+  },
 ): ReceptionOutcome => {
   const a = receiver.profile.attributes;
   const localReceptionMode = usesLocalReception(state);
@@ -350,12 +362,17 @@ export const resolveReceptionOutcome = (
       : !localReceptionMode && state.receptionPreparation?.actorId === receiver.id
         ? state.receptionPreparation.continuation?.target
         : undefined;
-  const contact = assessFirstTouch(
+  const defaultSurface = localReceptionMode
+    ? 'cushion'
+    : (state.receptionPreparation?.contactSurface ?? 'cushion');
+  let contact = assessFirstTouch(
     state,
     receiver,
     contactPoint,
     chosenTarget ?? contactPoint,
     chosenTarget ? 'directional' : 'cushion',
+    prepared?.preparationSeconds,
+    prepared ? { foot: prepared.foot, surface: defaultSurface } : undefined,
   );
   const ballSpeed = Math.hypot(
     state.ball.velocity?.x ?? 0,
@@ -372,9 +389,10 @@ export const resolveReceptionOutcome = (
   const incomingFacing = angleForVector(incomingVector);
   const facingError = Math.abs(normalizeAngle(incomingFacing - receiver.facingAngle));
   const preparation =
-    !localReceptionMode && state.receptionPreparation?.actorId === receiver.id
+    prepared?.preparationSeconds ??
+    (!localReceptionMode && state.receptionPreparation?.actorId === receiver.id
       ? Math.max(0, state.time - state.receptionPreparation.awarenessAt)
-      : 0;
+      : 0);
   const readiness = projectReceiverReadiness(
     state,
     receiver,
@@ -441,7 +459,7 @@ export const resolveReceptionOutcome = (
   // spin, pressure, preparation and real foot reach can leave a loose ball.
   // Attempt selection and impulse quality are separate. The same finite surface
   // must still absorb/redirect the actual momentum; a low rating cannot veto intent.
-  const directional =
+  let directional =
     movingWithIntent && (state.experimentalBallRecovery === true || quality >= 0.64);
   const controlVector = chosenTarget
     ? { x: chosenTarget.x - contactPoint.x, y: chosenTarget.y - contactPoint.y }
@@ -458,17 +476,69 @@ export const resolveReceptionOutcome = (
       )
     : undefined;
   const contactState = { ...state, ball: { ...state.ball, x: contactPoint.x, y: contactPoint.y } };
-  const surfaceContact = executeFootContact(contactState, receiver, {
-    intended: localReceptionMode
-      ? 'cushion'
-      : (state.receptionPreparation?.contactSurface ?? 'cushion'),
+  const request = {
+    intended: defaultSurface,
     desiredVelocity: { ...(directionalImpulse?.velocity ?? receiver.velocity), z: 0 },
     balance: receiver.plantBalance?.balance ?? 1,
     preparationSeconds: Math.max(0.012, preparation),
     contactSeconds: contact.contactSeconds,
     pressure,
     contactQuality: contact.quality,
-  });
+    ...(prepared ? { foot: prepared.foot } : {}),
+  };
+  let surfaceContact = executeFootContact(contactState, receiver, request);
+  if (prepared && state.experimentalReceptionPreparation === 'adaptive-reception-dev-v1') {
+    const outlet = prepared.outlet;
+    const direction = outlet
+      ? { x: outlet.x - contactPoint.x, y: outlet.y - contactPoint.y }
+      : { x: 0, y: 0 };
+    const desired = {
+      x: receiver.velocity.x + direction.x * 1.4,
+      y: receiver.velocity.y + direction.y * 1.4,
+      z: 0,
+    };
+    // Score executable solver responses. A small push is useful only if the resulting
+    // ball stays close and actually starts toward the revalidated outlet.
+    const score = (result: typeof surfaceContact) => {
+      const x = result.outgoingVelocity.x - receiver.velocity.x;
+      const y = result.outgoingVelocity.y - receiver.velocity.y;
+      return Math.hypot(x - direction.x * 1.4, y - direction.y * 1.4, result.outgoingVelocity.z);
+    };
+    let best = surfaceContact.available ? score(surfaceContact) : Infinity;
+    const support = receiver.articulatedStance?.support;
+    const freeFoot = support && support !== prepared.foot;
+    const surfaces: FootSurface[] = outlet && freeFoot ? ['inside', 'outside'] : [];
+    if (prepared.normal.z < -0.5 && freeFoot) surfaces.push('sole');
+    for (const surface of surfaces) {
+      const assessment = assessFirstTouch(
+        state,
+        receiver,
+        contactPoint,
+        outlet ?? contactPoint,
+        outlet ? 'directional' : 'cushion',
+        preparation,
+        { foot: prepared.foot, surface },
+      );
+      if (!assessment.feasible) continue;
+      const result = executeFootContact(contactState, receiver, {
+        ...request,
+        intended: surface,
+        desiredVelocity: surface === 'sole' ? { ...receiver.velocity, z: 0 } : desired,
+        contactSeconds: assessment.contactSeconds,
+        contactQuality: assessment.quality,
+      });
+      const { impulse } = result;
+      const away =
+        impulse.x * prepared.normal.x +
+        impulse.y * prepared.normal.y +
+        impulse.z * prepared.normal.z;
+      if (!result.available || away <= 1e-8 || score(result) + 0.1 >= best) continue;
+      best = score(result);
+      contact = assessment;
+      surfaceContact = result;
+      directional = surface !== 'sole';
+    }
+  }
   const residual = Math.hypot(
     surfaceContact.outgoingVelocity.x - receiver.velocity.x,
     surfaceContact.outgoingVelocity.y - receiver.velocity.y,

@@ -43,6 +43,7 @@ export const authoritativeMovementTarget = (
   state: TacticalMatchState,
   player: MatchPlayerState,
   fallback: PitchPoint,
+  observedReception?: PitchPoint,
 ): PitchPoint => {
   const span = startPerformanceSpan('movement_authority');
   const episode = state.ballEpisode ?? 0;
@@ -62,6 +63,7 @@ export const authoritativeMovementTarget = (
   )
     add('coordination', combination.target, combination.expiresAt);
   const reception = state.receptionPreparation;
+  if (observedReception) add('reception', observedReception);
   if (
     reception?.actorId === player.id &&
     state.time >= reception.awarenessAt &&

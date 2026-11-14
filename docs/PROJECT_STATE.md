@@ -1,5 +1,12 @@
 # My Football Legend — Current Project State
 
+PR221 łączy obserwację, plan odbiorcy i wybór pierwszego dotknięcia z fizycznym
+kontaktem w eksperymentalnej edycji v2. W parach z dłuższym dolotem poprawiło
+się utrzymanie piłki lub kontynuacja prowadzenia. Historyczne przyjęcie pod
+presją pozostaje 0/9 po 600 ms, a 30-sekundowy mecz 22 zawodników zakończył się
+bez aktywnego przyjęcia z planu. Decyzja **RETAIN_EXPERIMENTAL**.
+[Raport PR221](PR221_ANTICIPATORY_RECEPTION.md).
+
 PR220 odtworzył sześć prób niskich podań i zbadał ustawienie przed swingiem
 na zamrożonych wejściach. Odtworzone pudła nie zmieniły się w kontakty.
 Badanie pozostaje w laboratorium. [Raport i wyniki](PR220_LEARNED_MOTOR_PREPARATION.md).

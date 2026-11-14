@@ -6,7 +6,7 @@ import { angleForVector, normalizeAngle } from './playerOrientation';
 import { playerContactGeometry } from './ballContactGeometry';
 import { deriveFitnessPhysicalModifiers } from './matchFitness';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
-import { footSurfaceSchema } from './footContact';
+import { footSurfaceSchema, type FootSurface } from './footContact';
 
 export const firstTouchModeSchema = z.enum(['cushion', 'directional', 'pass', 'shot']);
 export type FirstTouchMode = z.infer<typeof firstTouchModeSchema>;
@@ -43,14 +43,16 @@ export const assessFirstTouch = (
   target: PitchPoint,
   mode: FirstTouchMode,
   availableSeconds = 0,
+  contact?: { foot: 'left' | 'right'; surface: FootSurface },
 ): FirstTouchAssessment => {
   const span = startPerformanceSpan('first_touch');
   const a = actor.profile.attributes,
     geometry = playerContactGeometry(actor);
   const left = distance(point, geometry.leftFoot),
     right = distance(point, geometry.rightFoot);
-  const region: FirstTouchAssessment['region'] =
-    left < right
+  const region: FirstTouchAssessment['region'] = contact
+    ? `${contact.foot}_foot`
+    : left < right
       ? 'left_foot'
       : right < left
         ? 'right_foot'
@@ -84,7 +86,7 @@ export const assessFirstTouch = (
   const preparationSeconds = Math.max(
     0,
     availableSeconds +
-      (!usesLocalReception(state) && state.receptionPreparation?.actorId === actor.id
+      (!contact && !usesLocalReception(state) && state.receptionPreparation?.actorId === actor.id
         ? state.time - state.receptionPreparation.awarenessAt
         : 0),
   );
@@ -104,9 +106,10 @@ export const assessFirstTouch = (
   const skill =
     (a.firstTouch * 2 + a.technique * 2 + a.agility + a.composure + a.concentration) / 700;
   const surface =
-    !usesLocalReception(state) && state.receptionPreparation?.actorId === actor.id
+    contact?.surface ??
+    (!usesLocalReception(state) && state.receptionPreparation?.actorId === actor.id
       ? (state.receptionPreparation.contactSurface ?? 'cushion')
-      : 'cushion';
+      : 'cushion');
   const n =
     surface === 'sole'
       ? { x: 0, y: 0, z: -1 }
@@ -133,9 +136,12 @@ export const assessFirstTouch = (
     (relativeSpeed / 18) * (redirect ? 0.2 + 0.8 * Math.sin(redirection / 2) : 0.65);
   const bodyDemand =
     Math.max(0, incomingAngle / Math.PI - 0.5) + (redirect ? (outgoingAngle / Math.PI) * 0.6 : 0);
-  const edge = clamp(
-    (Math.min(left, right) - geometry.footReach * 0.55) / (geometry.footReach * 0.45),
-  );
+  const contactDistance = contact
+    ? contact.foot === 'left'
+      ? left
+      : right
+    : Math.min(left, right);
+  const edge = clamp((contactDistance - geometry.footReach * 0.55) / (geometry.footReach * 0.45));
   const movement = (Math.hypot(actor.velocity.x, actor.velocity.y) / 10) * (0.2 + bodyDemand);
   const preparationRelief = Math.min(1, preparationSeconds / (0.2 + (1 - skill) * 0.5));
   const difficulty =
@@ -164,7 +170,7 @@ export const assessFirstTouch = (
     last.actorId !== actor.id ||
     state.time + availableSeconds - last.at >= recoverySeconds - 1e-8;
   const result = {
-    feasible: height <= 0.65 && Math.min(left, right) <= geometry.footReach + 1e-8 && recovered,
+    feasible: height <= 0.65 && contactDistance <= geometry.footReach + 1e-8 && recovered,
     region,
     relativeSpeed,
     incomingHeight: height,

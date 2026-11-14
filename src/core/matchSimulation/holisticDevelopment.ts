@@ -7,6 +7,7 @@ import { decisionPolicyIdSchema, type DecisionPolicyId } from './decisionPolicyC
 import { articulatedBodySelectionSchema } from './articulatedBodyState';
 import { withArticulatedBody } from './articulatedGait';
 import { observedStrikePreparationSchema } from './pendingStrikeState';
+import { receptionPreparationEditionSchema } from './receptionPreparationEdition';
 
 export const holisticPhysicalPresetSchema = z.enum([
   'holistic-physical-dev-v1',
@@ -32,6 +33,7 @@ const articulatedHolisticRecipeSchema = originalHolisticRecipeSchema.extend({
   id: z.literal('holistic-stance-foot-dev-v2'),
   articulatedBody: articulatedBodySelectionSchema,
   strikePreparation: observedStrikePreparationSchema.optional(),
+  receptionPreparation: receptionPreparationEditionSchema.optional(),
 });
 export const holisticRecipeSchema = z.discriminatedUnion('id', [
   originalHolisticRecipeSchema,
@@ -110,6 +112,9 @@ export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
             articulatedBody: s.experimentalArticulatedBody,
             ...(s.experimentalObservedStrikePreparation
               ? { strikePreparation: s.experimentalObservedStrikePreparation }
+              : {}),
+            ...(s.experimentalReceptionPreparation
+              ? { receptionPreparation: s.experimentalReceptionPreparation }
               : {}),
           })
         : undefined
