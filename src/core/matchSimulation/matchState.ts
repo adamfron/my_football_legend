@@ -26,6 +26,7 @@ import {
   type KickExecutionReceipt,
 } from './kickExecutionState';
 import { situationalAwarenessSchema, prospectiveMovementSchema } from './situationalAwarenessState';
+import { receptionPreparationEditionSchema } from './receptionPreparationEdition';
 import {
   boundedReceiverRecoverySchema,
   integrationSelectionSchema,
@@ -874,6 +875,7 @@ export interface TacticalMatchState {
   recoveringFeet?: z.infer<typeof recoveringFeetSchema>;
   experimentalPendingStrike?: z.infer<typeof pendingStrikeSelectionSchema>;
   experimentalObservedStrikePreparation?: z.infer<typeof observedStrikePreparationSchema>;
+  experimentalReceptionPreparation?: z.infer<typeof receptionPreparationEditionSchema>;
   experimentalArticulatedBody?: z.infer<typeof articulatedBodySelectionSchema>;
   pendingStrike?: PendingStrike;
   lastStrikeResolution?: StrikeResolution;
@@ -1130,6 +1132,7 @@ export const tacticalMatchStateSchema = z
     recoveringFeet: recoveringFeetSchema.optional(),
     experimentalPendingStrike: pendingStrikeSelectionSchema.optional(),
     experimentalObservedStrikePreparation: observedStrikePreparationSchema.optional(),
+    experimentalReceptionPreparation: receptionPreparationEditionSchema.optional(),
     experimentalArticulatedBody: articulatedBodySelectionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
     lastStrikeResolution: strikeResolutionSchema.optional(),
@@ -1403,6 +1406,21 @@ export const tacticalMatchStateSchema = z
   .passthrough()
   .superRefine((state, ctx) => {
     if (
+      state.experimentalReceptionPreparation &&
+      (!state.experimentalArticulatedBody ||
+        !state.experimentalPendingStrike ||
+        state.experimentalContactTimeline !== 'standing-contact-dev-v1' ||
+        !state.experimentalBoundedBallFlightBelief ||
+        !state.experimentalReceiverAnticipation ||
+        state.activePerceptionConfig?.preparation === false)
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['experimentalReceptionPreparation'],
+        message:
+          'Observed reception requires v2 stance, the shared low ball interval and bounded flight',
+      });
+    if (
       state.experimentalObservedStrikePreparation &&
       (!state.experimentalArticulatedBody ||
         !state.experimentalPendingStrike ||
@@ -1411,7 +1429,8 @@ export const tacticalMatchStateSchema = z
       ctx.addIssue({
         code: 'custom',
         path: ['experimentalObservedStrikePreparation'],
-        message: 'Observed strike preparation requires v2 stance, pending low pass and bounded flight',
+        message:
+          'Observed strike preparation requires v2 stance, pending low pass and bounded flight',
       });
     const articulatedPlayers =
       state.players.some((p) => p.articulatedStance) ||

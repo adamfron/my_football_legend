@@ -28,7 +28,7 @@ import {
   initializeArticulatedPlayer,
   reanchorArticulatedSpawn,
 } from './articulatedGait';
-import { activeArticulatedFoot } from './articulatedBodyState';
+import { activeArticulatedFoot, type BodyPoint } from './articulatedBodyState';
 import { planSynchronizedReception, receptionPlanFacing } from './receiverSynchronisation';
 import {
   advanceLiveBallFlight,
@@ -72,6 +72,9 @@ import { observeBallMotorState, planBallOrientedMovement } from './ballOrientedM
 import { advanceActivePerception } from './activePerception';
 import { advancePreReceptionPlans, preparedContinuation } from './preReceptionPlanning';
 import {
+  adaptiveTouchOutlet,
+  economicalReceptionMovement,
+  observedReceptionPlan,
   locallyObservedReception,
   locallyPreparedFirstTimeAction,
   localReceptionMovementTarget,
@@ -644,6 +647,10 @@ const changePossession = (
   ownerId: string,
   cause: 'tackle' | 'interception' | 'claim' = 'claim',
   finiteGroundContact = false,
+  receptionContact?: {
+    collision: { foot: 'left' | 'right'; normal: BodyPoint };
+    evidence: Pick<TacticalMatchState, 'liveBallFlightRuntime' | 'activePerceptionRuntime'>;
+  },
 ) => {
   if (!canContactAfterThrowIn(state, ownerId)) return state;
   const receivingActor = state.players.find((p) => p.id === ownerId);
@@ -736,6 +743,19 @@ const changePossession = (
   // Pressure at release belongs to the passer. Reception and preparation use the receiver's
   // current canonical opponents, including a marker that arrived during the flight.
   state = { ...state, currentPressure: evaluatePressure(state, owner).value };
+  const contactPoint = { x: state.ball.x, y: state.ball.y };
+  // A collision within the interval can precede the clock attached to the moved state's
+  // optical update. Use already-committed observations at this subframe event.
+  const observedState = receptionContact ? { ...state, ...receptionContact.evidence } : state;
+  const plan =
+    receptionContact?.evidence.activePerceptionRuntime &&
+    receptionContact.evidence.liveBallFlightRuntime
+      ? observedReceptionPlan(observedState, owner)
+      : undefined;
+  const outlet =
+    plan && state.experimentalReceptionPreparation === 'adaptive-reception-dev-v1'
+      ? adaptiveTouchOutlet(observedState, owner, contactPoint, plan.plan)
+      : undefined;
   const controlledBall = {
     x: state.ball.x,
     y: state.ball.y,
@@ -760,7 +780,18 @@ const changePossession = (
       : state.receptionPreparation?.actorId === ownerId ||
         (state.ball.travelKind === 'pass' && owner.team === state.possessionTeam)
   )
-    ? resolveReceptionOutcome(state, owner, { x: state.ball.x, y: state.ball.y })
+    ? resolveReceptionOutcome(
+        state,
+        owner,
+        contactPoint,
+        receptionContact && plan
+          ? {
+              ...receptionContact.collision,
+              preparationSeconds: plan.preparationSeconds,
+              ...(outlet && { outlet }),
+            }
+          : undefined,
+      )
     : undefined;
   if (reception) {
     state = recordExecution(
@@ -857,6 +888,15 @@ const changePossession = (
         executed: surfaceContact.available && reception.contact?.feasible !== false,
         physicalCount: 1,
         surfaceContact,
+        ...(plan &&
+          owner.articulatedStance && {
+            preparedReception: {
+              expectedAt: plan.plan.expectedContactAt,
+              observedAt: plan.observation.at,
+              createdAt: plan.plan.createdAt,
+              support: owner.articulatedStance.support,
+            },
+          }),
       };
     }
     if (
@@ -2127,6 +2167,10 @@ const stepTacticalMatchCore = (
       : null;
   state.players = plannedPlayers.map((player) => {
     if (!canParticipatePhysically(player)) return { ...player, velocity: { x: 0, y: 0 } };
+    const earlyReception =
+      ordinaryContactInterval && !state.ball.ownerId
+        ? economicalReceptionMovement(state, player)
+        : undefined;
     const localReception = localReceptionMode ? locallyObservedReception(state, player) : undefined;
     const localRecovery =
       !localReception &&
@@ -2137,8 +2181,9 @@ const stepTacticalMatchCore = (
       state.ball.ownerId !== player.id
         ? locallyObservedRecovery(state, player)
         : undefined;
-    const movementState: TacticalMatchState = localReceptionMode ? { ...state } : state;
-    if (localReceptionMode) delete movementState.receptionPreparation;
+    const movementState: TacticalMatchState =
+      localReceptionMode || earlyReception ? { ...state } : state;
+    if (localReceptionMode || earlyReception) delete movementState.receptionPreparation;
     const recoveringOwnTouch =
       state.experimentalBallRecovery === true &&
       !isRestartSetup(state) &&
@@ -2153,6 +2198,8 @@ const stepTacticalMatchCore = (
       (!isHumanControlled(state, player.id) || state.ballCarrierIntent?.humanSelected === true);
     if (recoveringOwnTouch)
       player = { ...player, ballMotorObservation: observeBallMotorState(state, player) };
+    else if (earlyReception)
+      player = { ...player, ballMotorObservation: earlyReception.observation };
     else if (localReceptionMode && (localReception || localRecovery)) {
       player = { ...player, ballMotorObservation: (localReception ?? localRecovery)!.observation };
     } else if (
@@ -2415,6 +2462,7 @@ const stepTacticalMatchCore = (
       state.playerMovementIntent?.actorId !== player.id;
     const observedIncoming =
       state.experimentalReceiverAnticipation &&
+      !earlyReception &&
       (localReceptionMode
         ? Boolean(localReception || localRecovery)
         : state.receptionPreparation?.actorId === player.id)
@@ -2429,33 +2477,53 @@ const stepTacticalMatchCore = (
         ? state.receptionPreparation!.meetingPlan
         : undefined;
     const boundedFlight = boundedMotor ? observedFlight(state, player) : undefined;
-    const desiredFacingAngle = prospectiveMotor
-      ? angleForVector({
-          x: movementTarget.x - player.position.x,
-          y: movementTarget.y - player.position.y,
-        })
-      : keeperCommand
-        ? keeperCommand.facing
-        : boundedMotor && !observedIncoming
-          ? boundedFlight
-            ? angleForVector({
-                x: boundedFlight.position.x - player.position.x,
-                y: boundedFlight.position.y - player.position.y,
-              })
-            : player.facingAngle
-          : meeting?.incomingVelocity && meeting.contactAt !== null
-            ? receptionPlanFacing(
-                player,
-                movementTarget,
-                meeting.incomingVelocity,
-                meeting.contactAt - state.time,
-              )
-            : observedIncoming
-              ? angleForVector({ x: -observedIncoming.velocity.x, y: -observedIncoming.velocity.y })
-              : preparing
-                ? (state.onBallPreparation?.micro?.orientationTarget ??
-                  deriveOrientationTarget(movementState, player))
-                : deriveOrientationTarget(movementState, player);
+    if (earlyReception) {
+      movementTarget = authoritativeMovementTarget(
+        movementState,
+        player,
+        movementTarget,
+        earlyReception.target,
+      );
+      player = { ...player, target: movementTarget };
+    }
+    const preparingEarly = earlyReception && movementTarget === earlyReception.target;
+    const desiredFacingAngle = preparingEarly
+      ? earlyReception.speed === 0
+        ? player.facingAngle
+        : angleForVector({
+            x: movementTarget.x - player.position.x,
+            y: movementTarget.y - player.position.y,
+          })
+      : prospectiveMotor
+        ? angleForVector({
+            x: movementTarget.x - player.position.x,
+            y: movementTarget.y - player.position.y,
+          })
+        : keeperCommand
+          ? keeperCommand.facing
+          : boundedMotor && !observedIncoming
+            ? boundedFlight
+              ? angleForVector({
+                  x: boundedFlight.position.x - player.position.x,
+                  y: boundedFlight.position.y - player.position.y,
+                })
+              : player.facingAngle
+            : meeting?.incomingVelocity && meeting.contactAt !== null
+              ? receptionPlanFacing(
+                  player,
+                  movementTarget,
+                  meeting.incomingVelocity,
+                  meeting.contactAt - state.time,
+                )
+              : observedIncoming
+                ? angleForVector({
+                    x: -observedIncoming.velocity.x,
+                    y: -observedIncoming.velocity.y,
+                  })
+                : preparing
+                  ? (state.onBallPreparation?.micro?.orientationTarget ??
+                    deriveOrientationTarget(movementState, player))
+                  : deriveOrientationTarget(movementState, player);
     const recovery = player.challengeRecovery;
     const balance =
       recovery && state.time < recovery.until
@@ -2485,7 +2553,7 @@ const stepTacticalMatchCore = (
       articulatedMotor,
     } = integrateCanonicalMovement(player, {
       target: movementTarget,
-      targetSpeed: locomotion.targetSpeed,
+      targetSpeed: preparingEarly ? earlyReception.speed : locomotion.targetSpeed,
       desiredFacingAngle,
       dt,
       balance,
@@ -2787,7 +2855,7 @@ const stepTacticalMatchCore = (
         boundary: applyBoundaryRestart,
         challenge: (contact, diagnostic) =>
           diagnostic.outcome === 'foul' ? applyChallengeInfringement(contact, diagnostic) : contact,
-        control: (contact, actorId) =>
+        control: (contact, actorId, collision) =>
           changePossession(
             contact,
             actorId,
@@ -2795,6 +2863,19 @@ const stepTacticalMatchCore = (
               ? 'claim'
               : physicalAcquisitionCause(contact),
             true,
+            contact.experimentalReceptionPreparation
+              ? {
+                  collision,
+                  evidence: {
+                    ...(input.liveBallFlightRuntime && {
+                      liveBallFlightRuntime: input.liveBallFlightRuntime,
+                    }),
+                    ...(input.activePerceptionRuntime && {
+                      activePerceptionRuntime: input.activePerceptionRuntime,
+                    }),
+                  },
+                }
+              : undefined,
           ),
         body: (contact, actorId) =>
           isOffsideOffence(contact.offsideSnapshot, actorId)

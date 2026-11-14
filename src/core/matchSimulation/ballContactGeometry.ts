@@ -47,7 +47,7 @@ export type PhysicalContactPlan = z.infer<typeof physicalContactPlanSchema>;
 export const groundContactFactSchema = z.object({
   actorId: z.string(),
   at: z.number().nonnegative(),
-  /** The nearest eligible foot on execution; intended region for an unexecuted plan. */
+  /** The executing foot, or the intended region for an unexecuted plan. */
   region: contactBodyRegionSchema,
   intendedRegion: contactBodyRegionSchema.optional(),
   point: physicalPointSchema,
@@ -59,6 +59,14 @@ export const groundContactFactSchema = z.object({
   executed: z.boolean(),
   physicalCount: z.number().int().nonnegative(),
   surfaceContact: footContactExecutionSchema.optional(),
+  preparedReception: z
+    .object({
+      expectedAt: z.number().finite(),
+      observedAt: z.number().nonnegative(),
+      createdAt: z.number().finite(),
+      support: z.enum(['left', 'right']).nullable(),
+    })
+    .optional(),
 });
 export type GroundContactFact = z.infer<typeof groundContactFactSchema>;
 export const controlledBallContactSchema = z.object({

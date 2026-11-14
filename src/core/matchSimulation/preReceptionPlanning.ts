@@ -6,6 +6,7 @@ import { type PreReceptionPlan } from './activePerceptionState';
 import { angleForVector } from './playerOrientation';
 import { distance } from './matchSpace';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 
 /** A conditional local scene asks what could follow reception. Ownership here is
  * hypothetical and never written into the match or passed to the action executor. */
@@ -88,7 +89,9 @@ export const prepareObservedReception = (
 
 export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMatchState => {
   if (
-    (!state.experimentalActivePerception && !state.situationalAwareness) ||
+    (!state.experimentalActivePerception &&
+      !state.situationalAwareness &&
+      !state.experimentalReceptionPreparation) ||
     state.activePerceptionConfig?.preparation === false ||
     !state.activePerceptionRuntime ||
     state.restart ||
@@ -101,6 +104,7 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
   for (const p of state.players) {
     if (
       state.discipline?.[p.id]?.sentOff ||
+      (state.experimentalReceptionPreparation && isMatchGoalkeeper(p)) ||
       (state.playerAgencyEnabled !== false && p.id === state.controlledFootballerId)
     )
       continue;
@@ -109,7 +113,7 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
     if (state.ball.ownerId === p.id || (old && state.time - old.reviewedAt < 0.15 - 1e-8)) continue;
     const scene = observeBoundedScene(state, p);
     if (
-      state.situationalAwareness &&
+      (state.situationalAwareness || state.experimentalReceptionPreparation) &&
       (!scene.ball ||
         scene.ball.motionEvidenceAt == null ||
         state.time - scene.ball.motionEvidenceAt > 0.5 ||
@@ -119,7 +123,7 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
       continue;
     }
     const changedFlight = Boolean(
-      usesLocalReception(state) &&
+      (usesLocalReception(state) || state.experimentalReceptionPreparation) &&
         old &&
         scene.ball &&
         (state.time - old.reviewedAt > 0.35 ||
@@ -134,7 +138,8 @@ export const advancePreReceptionPlans = (state: TacticalMatchState): TacticalMat
       old?.status === 'preparing' && !changedFlight ? old : undefined,
     );
     if (plan) plans[p.id] = plan;
-    else if (usesLocalReception(state)) delete plans[p.id];
+    else if (usesLocalReception(state) || state.experimentalReceptionPreparation)
+      delete plans[p.id];
   }
   endPerformanceSpan('pre_reception_candidates', span);
   return { ...state, activePerceptionRuntime: { ...runtime, plans } };

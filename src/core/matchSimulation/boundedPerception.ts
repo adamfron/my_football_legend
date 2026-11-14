@@ -110,7 +110,11 @@ export const observeBoundedScene = (
   actor: MatchPlayerState,
   directOnly = false,
 ): BoundedScene => {
-  const active = state.experimentalActivePerception || Boolean(state.situationalAwareness);
+  const active = Boolean(
+    state.experimentalActivePerception ||
+      state.situationalAwareness ||
+      state.experimentalReceptionPreparation,
+  );
   const flight = state.experimentalBoundedBallFlightBelief
     ? observedFlight(state, actor)
     : undefined;
