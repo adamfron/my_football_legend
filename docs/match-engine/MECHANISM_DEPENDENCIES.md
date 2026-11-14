@@ -1,5 +1,10 @@
 # Mechanism dependencies
 
+PR220 separates time spent preparing from the added movement command and the
+PR219 forecast. The next local dependency is to find an earlier, observable
+preparation opportunity and schedule the actual support phase through contact.
+[PR220 report](../PR220_LEARNED_MOTOR_PREPARATION.md).
+
 PR219 observed preparation depends on bounded optical flight, v2 stance, the existing low-pass stroke envelope and the canonical contact timeline. Controlled pre-commit placement and matched reception trials are the next dependencies. [PR219 report](../PR219_BALL_ANTICIPATION_AND_TECHNICAL_PREPARATION.md).
 
 ## PR218 v2 measured dependency boundary
