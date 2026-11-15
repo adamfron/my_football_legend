@@ -29,9 +29,11 @@ const digest = (data) =>
     )
     .digest('hex');
 
-const path = 'docs/performance/pr224-body.json';
 const check = process.argv.includes('--check');
 const extended = process.argv.includes('--extended');
+const path = extended
+  ? 'docs/performance/pr224-body-playtest.json'
+  : 'docs/performance/pr224-body-continuation.json';
 
 const run = (input, ticks, compareReload) => {
   let state = roundTrip(input),

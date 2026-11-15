@@ -1,6 +1,7 @@
 import { BALL_RADIUS, type BallContact, type FlightPoint } from './ballFlight';
 import type { PhysicalBall } from './ballPhysics';
 import type { composeArticulatedLegs } from './articulatedBody';
+import { composedJointAcceleration, type JointMotion } from './composedLegCurvature';
 import { TEMPORAL_STRIKE } from './temporalFootTrajectory';
 
 type Geometry = NonNullable<ReturnType<typeof composeArticulatedLegs>>;
@@ -21,13 +22,10 @@ const mix = (a: FlightPoint, b: FlightPoint, t: number) => ({
   z: a.z + (b.z - a.z) * t,
 });
 
-type Motion = {
-  horizontalHipSpeed: number;
-  yawSpeed: number;
-  unconstrainedPelvisAt: (at: number) => number;
-  unconstrainedPelvisSpeed: number;
-  bootSpeed: Record<Foot, number>;
+type Motion = JointMotion & {
   ballSpeed: number;
+  /** Set only for a bounded free ball curve and affine boot anchors. */
+  ballAcceleration?: number;
 };
 
 /** Bounds exact IK motion around the sampled pose. The square roots are enclosed
@@ -146,79 +144,149 @@ export const firstComposedLegContact = (
   });
   const initial = sample(0);
   if (!initial) return unresolved(0);
-  let earliest: Hit | undefined;
+  const hitAt = (
+    at: number,
+    current: NonNullable<ReturnType<typeof sample>>,
+    index: number,
+    foot: Foot,
+    thigh: boolean,
+  ): Hit | undefined => {
+    const shape = contactCapsule(current.g, index);
+    const contact = sampleCapsule(shape, current.ball.position);
+    if (Math.abs(contact.gap) > distanceTolerance) return;
+    const before = Math.max(0, at - 1e-6),
+      after = Math.min(seconds, at + 1e-6);
+    const a = sample(before)?.g,
+      b = sample(after)?.g;
+    if (!a || !b || after <= before) return unresolved(at);
+    const from = contactCapsule(a, index),
+      to = contactCapsule(b, index);
+    const delta = minus(mix(to.from, to.to, contact.along), mix(from.from, from.to, contact.along));
+    const velocity = mix({ x: 0, y: 0, z: 0 }, delta, 1 / (after - before));
+    const normal = mix({ x: 0, y: 0, z: 0 }, contact.delta, 1 / contact.distance);
+    if (dot(minus(velocity, current.ball.velocity), normal) <= 1e-8) return;
+    const point = mix(contact.nearest, current.ball.position, contact.radius / contact.distance);
+    return {
+      kind: 'contact',
+      at,
+      normal,
+      velocity,
+      leg: {
+        foot,
+        region: (thigh ? contact.along === 1 : contact.along === 0)
+          ? 'knee'
+          : thigh
+            ? 'thigh'
+            : 'shin',
+        point,
+        from: shape.from,
+        to: shape.to,
+        radius: shape.radius,
+        distalRadius: shape.distalRadius,
+      },
+    };
+  };
+  const candidates: { index: number; foot: Foot; thigh: boolean }[] = [];
   for (const [index, capsule] of initial.g.capsules.entries()) {
     const foot = capsule.region.startsWith('left') ? 'left' : 'right';
     const thigh = capsule.region.endsWith('thigh');
     const first = sampleCapsule(contactCapsule(initial.g, index), initial.ball.position);
-    if (
-      first.gap < -distanceTolerance ||
-      (first.gap <= distanceTolerance && continued.includes(foot))
-    )
-      continue;
-    const hitAt = (
-      at: number,
-      current: NonNullable<ReturnType<typeof sample>>,
-    ): Hit | undefined => {
-      const shape = contactCapsule(current.g, index);
-      const contact = sampleCapsule(shape, current.ball.position);
-      if (Math.abs(contact.gap) > distanceTolerance) return;
-      const before = Math.max(0, at - 1e-6),
-        after = Math.min(seconds, at + 1e-6);
-      const a = sample(before)?.g,
-        b = sample(after)?.g;
-      if (!a || !b || after <= before) return unresolved(at);
-      const from = contactCapsule(a, index),
-        to = contactCapsule(b, index);
-      const delta = minus(
-        mix(to.from, to.to, contact.along),
-        mix(from.from, from.to, contact.along),
-      );
-      const velocity = mix({ x: 0, y: 0, z: 0 }, delta, 1 / (after - before));
-      const normal = mix({ x: 0, y: 0, z: 0 }, contact.delta, 1 / contact.distance);
-      if (dot(minus(velocity, current.ball.velocity), normal) <= 1e-8) return;
-      const point = mix(contact.nearest, current.ball.position, contact.radius / contact.distance);
-      return {
-        kind: 'contact',
-        at,
-        normal,
-        velocity,
-        leg: {
-          foot,
-          region: (thigh ? contact.along === 1 : contact.along === 0)
-            ? 'knee'
-            : thigh
-              ? 'thigh'
-              : 'shin',
-          point,
-          from: shape.from,
-          to: shape.to,
-          radius: shape.radius,
-          distalRadius: shape.distalRadius,
-        },
-      };
-    };
-    // Existing overlap from a separating contact is not a fresh impact.
     if (first.gap <= distanceTolerance) {
-      const contact = hitAt(0, initial);
-      if (contact) return contact;
+      // An existing overlap or a separating surface has no fresh entry.
+      if (first.gap >= -distanceTolerance && !continued.includes(foot)) {
+        const contact = hitAt(0, initial, index, foot, thigh);
+        if (contact) return contact;
+      }
       continue;
     }
-    const search = (a: number, b: number): Hit | undefined => {
-      const t = (a + b) / 2,
-        half = (b - a) / 2;
-      const current = sample(t);
-      if (!current) return unresolved(a);
+    candidates.push({ index, foot, thigh });
+  }
+
+  // Advance a single time prefix for the union of the capsules. An exhausted
+  // search can then report the same certified frontier for every surface.
+  const search = (a: number, b: number, possible: typeof candidates): Hit | undefined => {
+    if (!possible.length) return;
+    const t = (a + b) / 2,
+      half = (b - a) / 2;
+    const current = sample(t);
+    if (!current) return unresolved(a);
+    if (half <= TIME_TOLERANCE) {
+      for (const { index, foot, thigh } of possible) {
+        const hit = hitAt(t, current, index, foot, thigh);
+        if (hit) return hit;
+      }
+      return;
+    }
+    const travel = jointTravel(current.g, movement, half, t);
+    const ballTravel = movement.ballSpeed * half;
+    let remaining = possible.filter(({ index, foot, thigh }) => {
       const shape = contactCapsule(current.g, index);
       const contact = sampleCapsule(shape, current.ball.position);
-      if (half <= TIME_TOLERANCE) return hitAt(t, current);
-      const travel = jointTravel(current.g, movement, half, t);
-      const surfaceTravel = Math.max(travel.knee[foot], thigh ? travel.hip : travel.ankle[foot]);
-      if (contact.gap > surfaceTravel + movement.ballSpeed * half) return;
-      return search(a, t) ?? search(t, b);
-    };
-    const hit = search(0, earliest?.at ?? seconds);
-    if (hit && (!earliest || hit.at < earliest.at)) earliest = hit;
-  }
-  return earliest;
+      const distalFraction = thigh ? 0 : shape.distalRadius / current.g[foot].shinLength;
+      const fromTravel = thigh ? travel.hip : travel.knee[foot];
+      const toTravel = thigh
+        ? travel.knee[foot]
+        : (1 - distalFraction) * travel.ankle[foot] + distalFraction * travel.knee[foot];
+      if (contact.gap > Math.max(fromTravel, toTravel) + ballTravel) return false;
+
+      // The tapered capsule is the convex hull of its two endpoint spheres.
+      // Its supporting plane bounds each endpoint independently, so a fast
+      // knee cannot keep a distant proximal cap in the distal contact search.
+      if (contact.distance === 0) return true;
+      const separation = (endpoint: FlightPoint) =>
+        dot(minus(current.ball.position, endpoint), contact.delta) / contact.distance;
+      return (
+        Math.min(
+          separation(shape.from) - shape.radius - fromTravel,
+          separation(shape.to) - shape.distalRadius - toTravel,
+        ) <=
+        BALL_RADIUS + ballTravel
+      );
+    });
+    const ballAcceleration = movement.ballAcceleration;
+    const acceleration =
+      remaining.length && ballAcceleration !== undefined
+        ? composedJointAcceleration(current.g, movement, t, half)
+        : undefined;
+    if (acceleration && ballAcceleration !== undefined) {
+      const begin = sample(a),
+        end = sample(b);
+      if (begin && end)
+        remaining = remaining.filter(({ index, foot, thigh }) => {
+          const mid = contactCapsule(current.g, index);
+          const { delta, distance } = sampleCapsule(mid, current.ball.position);
+          if (distance === 0) return true;
+          const from = contactCapsule(begin.g, index),
+            to = contactCapsule(end.g, index);
+          const distalFraction = mid.distalRadius / current.g[foot].shinLength;
+          const fromAcceleration = thigh ? acceleration.hip : acceleration.knee[foot];
+          const toAcceleration = thigh
+            ? acceleration.knee[foot]
+            : distalFraction * acceleration.knee[foot];
+          const chordError = (bound: number) => ((bound + ballAcceleration) * half ** 2) / 2;
+          const projected = (point: FlightPoint, endpoint: FlightPoint) =>
+            dot(minus(point, endpoint), delta) / distance;
+          // A relative endpoint deviates from its chord by at most A*dt²/8,
+          // including along the fixed separating normal.
+          return (
+            Math.min(
+              Math.min(
+                projected(begin.ball.position, from.from),
+                projected(end.ball.position, to.from),
+              ) -
+                mid.radius -
+                chordError(fromAcceleration),
+              Math.min(
+                projected(begin.ball.position, from.to),
+                projected(end.ball.position, to.to),
+              ) -
+                mid.distalRadius -
+                chordError(toAcceleration),
+            ) <= BALL_RADIUS
+          );
+        });
+    }
+    return search(a, t, remaining) ?? search(t, b, remaining);
+  };
+  return search(0, seconds, candidates);
 };

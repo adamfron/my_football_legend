@@ -1,5 +1,74 @@
 # PR224 — Canonical body physics and visual integration
 
+## Follow-up — continuous search through the archived stops
+
+Replaying `8b8432a` reproduced both original 22-player halts at
+25.037684 s (`footballer_pro_1_3`) and 5.364954 s (`footballer_pro_9_12`).
+In both, sustained contact with the left boot brought the ball close to
+that player's shin. The shin search had already certified 9.381 and 3.071 ms
+of the respective remainders when it used its last sample. Restarting the
+next capsule at local zero with the exhausted shared cache discarded that
+progress, even though the right shin began 265 and 303 mm clear.
+
+The search now traverses time once for the union of all candidate capsules.
+Every rejected interval has a bound for all surfaces that could still make
+contact. The tapered capsule's supporting plane bounds the proximal and
+distal caps individually. Near the ankle, the distal cap moves mostly with
+the ankle, with only its actual geometric share of knee travel. The
+resulting earliest clear prefix survives exhaustion.
+
+The first two-minute pilot exposed a different limit near 101.1 s in
+`pr222-native-a`. A single grazing approach in free flight spent all 16
+interval events certifying ever shorter prefixes. For affine boot motion
+and free, bounded ball transport, the revised search uses a relative
+endpoint chord. The analytically bounded acceleration of the two-bone
+chain and ball limits the deviation from that chord to `A * dt² / 8`.
+This certifies near-comoving approaches with a tighter separating plane.
+Projected support, a possible ground impact, a pelvis cap switch and
+singular geometry continue to use the more general travel enclosure.
+
+The three [native checkpoints](performance/pr224-ccd-checkpoints.json.gz)
+now advance through the original halted tick. The two supported-ball
+checkpoints continue without a new shin impulse. The third records a single
+left-shin graze at 101.114169 s, with ball speed changing from 3.771 to
+3.644 m/s. The 192-sample and 16-event limits, contact dimensions and
+distance and time tolerances have their original values.
+
+### Ordinary play after the repair
+
+| Archived 22-player input | 30 s ticks D/E | 120 s ticks D/E | E shin contacts, 30 s / 120 s | E controlled boot contacts, 120 s | E pass releases, 120 s | E possession changes / restart awards, 120 s |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| lab-mw3xhr6o | 1200 / 1200 | 4800 / 4800 | 1 / 4 | 16 | 8 | 24 / 5 |
+| pr222-native-a | 1200 / 1200 | 4800 / 4800 | 1 / 7 | 21 | 7 | 30 / 6 |
+
+Both E playtests complete at 40 Hz with zero safety halts and zero invalid
+projected poses. Ordinary play activates the new contacts beyond the first
+30 seconds. The focused PR223 pressure scene completes 64 ticks with four
+lower-limb contacts and two controlled boot contacts. The earlier incidental
+deflection still changes its sequence relative to D. The outcome does not
+establish improved pass retention. Neither two-minute playback exercises a
+keeper intervention. Human-controlled continuations and a complete match
+are future evaluation gates.
+
+The two shorter runs preserve D's terminal hashes from the original receipt.
+The long-run engine timings are 4.77/4.81 ms per tick (D/E) for the first
+input and 4.72/4.13 ms for the second on this Windows run. Different
+football trajectories make those comparisons observational.
+
+**RETAIN_EXPERIMENTAL.** The repaired candidate passes the bounded development
+playtest. PR201/B is the maintained profile. Further promotion depends on
+additional independent trajectories, concurrent support bounds and keeper
+and human controls.
+
+```sh
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224Body.mjs --check
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224Body.mjs --extended --check
+```
+
+[30-second comparisons](performance/pr224-body-continuation.json) ·
+[120-second comparisons](performance/pr224-body-playtest.json) ·
+[Original halted comparisons](performance/pr224-body.json)
+
 ## Plan and source baseline
 
 The base is merged main `6d59d05bdc1c40543a16c902447ef588de796978` (PR223).
@@ -67,7 +136,7 @@ keeper/aerial consumers retain their own scope. The replay projector coalesces
 important state changes into bounded samples, then holds all articulated landmarks
 and the root together through an unsampled interval.
 
-## Integration decision
+## Initial integration decision
 
 **RETAIN_EXPERIMENTAL — draft.** E is `composed-leg-contact-dev-v1` over
 PR223/D, articulated v2 and the existing standing-contact timeline. The examples
@@ -173,7 +242,7 @@ pose. [Measurements](performance/pr224-browser/report.json) ·
 [1366×768](performance/pr224-browser/recovering-shin-1366.png) ·
 [1920×1080](performance/pr224-browser/recovering-shin-1920.png)
 
-## Historical controls and ordinary 22-player integration
+## Historical controls and original 22-player integration
 
 PR218 established stance, connected bones and a shared rig. PR219 established
 observed preparation and retained misses. PR220 retained failed placement
@@ -230,16 +299,15 @@ results are tracked in the PR.
 | Classification | Evidence and remaining work |
 | --- | --- |
 | A. Implemented and validated locally | Authoritative root, planted-foot anchors, finite traction/gait and fixed-length chains. Canonical boot contacts and rendered landmarks for selected ground passes. Whole-pose replay hold and native reload. PR218 and PR224 regression tests. |
-| B. Implemented; broader confirmation needed | E's timed shin deflections, leg receipt replay and kinematic replanting after a real body impact. Activation shown in two 22-player trajectories with new search failures. Upper capsule and knee race code require independent ordinary-play activation. |
-| C. Incomplete in the current body | Safe moving-capsule search under persistent support, stable ground/boot/shin ownership near the ankle seam, quantitative limits on accidental impulse and recoverable balance, exact event-time rig rendering, directional reception and second touch under pressure. Natural acceleration, sharp reversal and lateral gait need more sequence coverage. |
+| B. Implemented; broader confirmation needed | E's timed shin deflections, leg receipt replay and kinematic replanting after a real body impact. The repaired search passes three frozen checkpoints and both two-minute 22-player trajectories. Upper capsule and knee race code require independent ordinary-play activation. |
+| C. Incomplete in the current body | General search bounds with several persistent support surfaces, stable ground/boot/shin ownership near the ankle seam, quantitative limits on accidental impulse and recoverable balance, exact event-time rig rendering, directional reception and second touch under pressure. Natural acceleration, sharp reversal and lateral gait need more sequence coverage. |
 | D. Requires new physical mechanics | Empirical running flight, stud slip and recovery, 3D COM and angular balance, tipping/fall and get-up, upper-body/head contact, articulated keeper saves and advanced aerial football. |
 
 ### Minimum dependency order
 
-1. Reproduce the three E halts at the original inputs. Prove the earliest
-   feasible face and certify grazing-contact continuation in free flight.
-   Then verify the same search under projected support with existing boot
-   coverage and defender authority.
+1. Retain the three frozen checkpoints and verify the shared search against
+   more projected-support and competing-surface inputs, including grounded
+   transitions, with existing boot coverage and defender authority.
 2. Repeat the pressure pair with defensible ankle/shin coverage. Validate
    the incidental impulse and a real interception, directional first touch
    and subsequent controlled action. Retain the negative outcomes.
@@ -247,8 +315,8 @@ results are tracked in the PR.
    larger interruptions. Explicitly retain infeasible outcomes that need
    dynamics. Add compact impact-time presentation evidence only where the
    canonical solver can supply it.
-4. Pass matched 22-player trajectories with measured activation, legal
-   restarts, keeper and human controls. Then attempt a longer representative
-   development playtest. Justify a full match from those results before
-   considering promotion. MatchEngine readiness remains upstream of
-   statistical distillation and wider career development.
+4. Extend the successful 120-second 22-player trajectories to independent
+   fixtures with measured activation, legal restarts, keeper and human
+   controls. Justify a full match from those results before considering
+   promotion. MatchEngine readiness remains upstream of statistical
+   distillation and wider career development.

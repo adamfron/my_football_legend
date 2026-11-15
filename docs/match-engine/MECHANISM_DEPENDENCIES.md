@@ -5,10 +5,11 @@
 `composed-leg-contact-dev-v1` uses the PR223/D stance remainder and
 the same boot paths and two-bone IK as Three.js. Incidental outfield thigh,
 knee and shin contacts participate in the existing low-ball chronology.
-Focused shin and ground-pass sequences pass. Both ordinary development
-inputs activate the feature and subsequently halt on the bounded search.
-Certify contact under supported ball transport, then repeat the pressured
-reception and normal-play gates before considering promotion.
+Focused shin and ground-pass sequences pass. A common capsule search and
+a bounded free-flight chord resolve the original stops. Both ordinary
+development inputs activate the feature and complete 120 s. Validate
+multiple simultaneous support surfaces, pressured second control and
+independent keeper and human trajectories before promotion.
 [Completion register](../PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md#physicalvisual-footballer-completion-register).
 
 PR223 measures the causal handoff from the planar torso impulse to the

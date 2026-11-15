@@ -5,9 +5,9 @@
 Authoritative v2 boots compose both leg chains. An opt-in version lets the
 existing low-ball event queue query moving outfield shin and thigh geometry.
 The renderer consumes the same joint endpoints and replay retains observed
-poses and event receipts. An earlier actual shin deflection changed the PR223
-pressure control. Search exhaustion in that control and both ordinary
-development inputs blocks promotion. See the
+poses and event receipts. An earlier actual shin deflection changes the PR223
+pressure control. The three recorded stops now replay through their original
+ticks. Both 22-player inputs complete 120 s with real leg contacts. See the
 [capability matrix and measured scope](../PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md).
 
 The [PR220 inventory](../PR220_LEARNED_MOTOR_PREPARATION.md#motor-skill-inventory)

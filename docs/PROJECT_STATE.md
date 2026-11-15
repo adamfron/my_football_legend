@@ -2,10 +2,10 @@
 
 PR224 udostępnia eksperymentalny wariant E. Wspólna geometria obu nóg zasila
 Three.js i oś kontaktów z niską piłką także podczas ruchu nogi po akcji.
-Wykazano odbicia lewą i prawą golenią, kompletne niskie podania i zapisy
-kontaktów w powtórce. Dwa przebiegi 22 zawodników aktywowały wariant E i
-zakończyły się na limicie wyszukiwania kontaktu. **RETAIN_EXPERIMENTAL**.
-Utrzymywany profil to PR201/B.
+Wspólne przeszukiwanie powierzchni i ograniczenie ruchu względem cięciwy
+pozwoliły przejść trzy zapisane zatrzymania przy tych samych limitach.
+Oba wejścia 22 zawodników ukończyły po 30 i 120 s z rzeczywistymi odbiciami
+golenią. **RETAIN_EXPERIMENTAL**. Utrzymywany profil to PR201/B.
 [Raport PR224](PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md).
 
 PR223 odtworzył zapis przyjęcia pod presją w wariantach A/B/C. Eksperymentalny

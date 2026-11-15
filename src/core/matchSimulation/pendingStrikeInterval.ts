@@ -48,7 +48,12 @@ import {
   type PitchBoundaryCrossing,
 } from './pitchBoundary';
 import { findFirstBallContact, resolveBallRebound, type ContactCandidate } from './ballFlight';
-import { BALL_PHYSICS, integrateBallFlight } from './ballPhysics';
+import {
+  BALL_PHYSICS,
+  dragAcceleration,
+  integrateBallFlight,
+  magnusAcceleration,
+} from './ballPhysics';
 import { canParticipatePhysically } from './matchInjuries';
 import { motorContactReadyAt, advanceControlledBall } from './ballContactGeometry';
 import { canContactAfterThrowIn } from './throwIn';
@@ -898,6 +903,25 @@ export const advancePendingStrikeInterval = (
         Math.sqrt(2 / 3) * BALL_RADIUS * Math.hypot(ball.spin.x, ball.spin.y, ball.spin.z) +
         (BALL_PHYSICS.gravity + BALL_PHYSICS.maximumMagnusAcceleration) * seconds +
         2 * supportSpeedBound;
+      let freeBallAcceleration: number | undefined;
+      if (!hasSupport && seconds <= 0.025 && state.ballEnvironment?.groundContact === 'event-v1') {
+        if (ball.position.z <= BALL_RADIUS && ball.velocity.z === 0)
+          freeBallAcceleration =
+            BALL_PHYSICS.rollingDeceleration * state.ballEnvironment.rollingResistanceMultiplier;
+        else {
+          // The event-v1 integrator holds this acceleration until a ground impact.
+          const drag = dragAcceleration(ball.velocity);
+          const lift = magnusAcceleration(ball.velocity, ball.spin);
+          const z = -BALL_PHYSICS.gravity + drag.z + lift.z;
+          if (
+            ball.position.z +
+              Math.min(0, ball.velocity.z) * seconds +
+              0.5 * Math.min(0, z) * seconds ** 2 >
+            BALL_RADIUS
+          )
+            freeBallAcceleration = Math.hypot(drag.x + lift.x, drag.y + lift.y, z);
+        }
+      }
       let deadline = Math.min(seconds, ...events.map((e) => e.at));
       for (const p of finalPlayers) {
         if (
@@ -948,6 +972,11 @@ export const advancePendingStrikeInterval = (
               seconds,
             bootSpeed: { left: left.speedBound, right: right.speedBound },
             ballSpeed,
+            ...(freeBallAcceleration !== undefined &&
+            left.accelerationBound === 0 &&
+            right.accelerationBound === 0
+              ? { ballAcceleration: freeBallAcceleration }
+              : {}),
           },
           footSupports.filter((c) => c.player.id === p.id).map((c) => c.contact.foot),
         );
