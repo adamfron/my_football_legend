@@ -242,7 +242,11 @@ const summarize = (frames, receiver, sceneStart, release, witnessedContact) => {
   };
 };
 
-const observe = (input, ticks, { lab, roundTrip = false, reference } = {}) => {
+export const observe = (
+  input,
+  ticks,
+  { lab, roundTrip = false, reference, audit, mechanics } = {},
+) => {
   let state = input;
   const hashes = [];
   const motion = [];
@@ -256,8 +260,11 @@ const observe = (input, ticks, { lab, roundTrip = false, reference } = {}) => {
     const before = state;
     const step = () => stepTacticalMatch(roundTrip ? reload(before) : before, dt);
     const observed =
-      reference && !roundTrip ? captureReceptionStep(step) : { state: step(), events: [] };
+      reference && !roundTrip
+        ? captureReceptionStep(step, { mechanics: mechanics ?? false })
+        : { state: step(), events: [] };
     state = observed.state;
+    audit?.(before, state, observed.events);
     assert.ok(state.time > before.time || state.safetyHalt, 'canonical clock stalled');
     invalid += Number(
       state.players.length !== (lab ? input.players.length : 22) ||
@@ -424,89 +431,96 @@ const paired = (initial, ticks, lab) => {
   };
 };
 
-const matchSeeds = [native.seed, 'pr222-native-a'];
-const matches = (process.argv.includes('--lab-only') ? [] : matchSeeds).map((seed) => {
-  const input = reload({ ...withArticulatedBody(native), seed, playerAgencyEnabled: false });
-  const result = paired(input, 1200);
-  process.stdout.write(JSON.stringify({ seed, ...compact(result) }) + '\n');
-  return { seed, ...result };
-});
+export const matchSeeds = [native.seed, 'pr222-native-a'];
+export const matchInput = (seed) =>
+  reload({ ...withArticulatedBody(native), seed, playerAgencyEnabled: false });
+if (import.meta.main) {
+  const matches = (process.argv.includes('--lab-only') ? [] : matchSeeds).map((seed) => {
+    const input = matchInput(seed);
+    const result = paired(input, 1200);
+    process.stdout.write(JSON.stringify({ seed, ...compact(result) }) + '\n');
+    return { seed, ...result };
+  });
 
-function compact(result) {
-  return {
-    divergence: result.firstPhysicalOrActionDivergence,
-    arms: Object.fromEntries(
-      Object.entries(result.arms).map(([arm, row]) => [
-        arm,
-        {
-          planTicks: row.planTicks,
-          prepared: row.preparedContacts.length,
-          halt: row.halt?.reason,
-          roundTrip: row.roundTrip,
-          releases: row.episodes.map((episode) => ({
-            at: episode.pass.releasedAt,
-            id: episode.pass.passId,
-            passer: episode.pass.passerId,
-            receiver: episode.pass.intendedReceiverId,
-            actual: Boolean(episode.strike?.contact),
-            optical: episode.firstOpticalAt,
-            plan: episode.firstPlanReviewAt,
-            contact: episode.firstGroundContactAt,
-            control: episode.firstControlAt,
-            second: episode.secondContactAt,
-            action: episode.nextActionAt,
-          })),
-          lab: row.lab && { ...row.lab, frames: undefined },
-        },
-      ]),
-    ),
+  function compact(result) {
+    return {
+      divergence: result.firstPhysicalOrActionDivergence,
+      arms: Object.fromEntries(
+        Object.entries(result.arms).map(([arm, row]) => [
+          arm,
+          {
+            planTicks: row.planTicks,
+            prepared: row.preparedContacts.length,
+            halt: row.halt?.reason,
+            roundTrip: row.roundTrip,
+            releases: row.episodes.map((episode) => ({
+              at: episode.pass.releasedAt,
+              id: episode.pass.passId,
+              passer: episode.pass.passerId,
+              receiver: episode.pass.intendedReceiverId,
+              actual: Boolean(episode.strike?.contact),
+              optical: episode.firstOpticalAt,
+              plan: episode.firstPlanReviewAt,
+              contact: episode.firstGroundContactAt,
+              control: episode.firstControlAt,
+              second: episode.secondContactAt,
+              action: episode.nextActionAt,
+            })),
+            lab: row.lab && { ...row.lab, frames: undefined },
+          },
+        ]),
+      ),
+    };
+  }
+
+  const labCases = [
+    ['pressure', 24],
+    ['pressure', 64],
+    ['early-pressure', 64],
+    ['early-lateral', 64],
+  ];
+  const laboratory = labCases.map(([id, ticks]) => {
+    const seed = 'pr219-a';
+    const firstTouch = 60;
+    const { input, receiver } = createTrial(
+      scenes.find((scene) => scene.id === id),
+      seed,
+      firstTouch,
+    );
+    const result = paired(input, ticks, receiver);
+    if (id === 'pressure')
+      for (const { lab } of Object.values(result.arms)) {
+        assert.equal(lab.retainedFirstContact, true);
+        assert.equal(lab.secondContactAt, null);
+        assert.equal(lab.atScene600?.receiver, false);
+        assert.equal(lab.atControl600?.receiver ?? null, ticks === 24 ? null : false);
+        assert.equal(lab.firstControlEnded?.facts.pendingPossessionLoss?.cause, 'failed_control');
+      }
+    if (id === 'early-lateral') assert.ok(result.arms.C.lab.secondContactAt);
+    assert.equal(result.arms.C.roundTrip.firstDifferentTick, null, id + ' reload trajectory');
+    assert.ok(result.arms.C.roundTrip.sameTerminal, id + ' reload terminal');
+    process.stdout.write(JSON.stringify({ id, ticks, ...compact(result) }) + '\n');
+    return { id, seed, firstTouch, ticks, receiver, ...result };
+  });
+  const receipt = {
+    version: 1,
+    dt,
+    nativeInput: {
+      path: nativePath,
+      sha256: createHash('sha256').update(nativeFile).digest('hex'),
+    },
+    matchTicks: 1200,
+    matches,
+    laboratory,
   };
-}
-
-const labCases = [
-  ['pressure', 24],
-  ['pressure', 64],
-  ['early-pressure', 64],
-  ['early-lateral', 64],
-];
-const laboratory = labCases.map(([id, ticks]) => {
-  const seed = 'pr219-a';
-  const firstTouch = 60;
-  const { input, receiver } = createTrial(
-    scenes.find((scene) => scene.id === id),
-    seed,
-    firstTouch,
-  );
-  const result = paired(input, ticks, receiver);
-  if (id === 'pressure')
-    for (const { lab } of Object.values(result.arms)) {
-      assert.equal(lab.retainedFirstContact, true);
-      assert.equal(lab.secondContactAt, null);
-      assert.equal(lab.atScene600?.receiver, false);
-      assert.equal(lab.atControl600?.receiver ?? null, ticks === 24 ? null : false);
-      assert.equal(lab.firstControlEnded?.facts.pendingPossessionLoss?.cause, 'failed_control');
-    }
-  if (id === 'early-lateral') assert.ok(result.arms.C.lab.secondContactAt);
-  assert.equal(result.arms.C.roundTrip.firstDifferentTick, null, id + ' reload trajectory');
-  assert.ok(result.arms.C.roundTrip.sameTerminal, id + ' reload terminal');
-  process.stdout.write(JSON.stringify({ id, ticks, ...compact(result) }) + '\n');
-  return { id, seed, firstTouch, ticks, receiver, ...result };
-});
-const receipt = {
-  version: 1,
-  dt,
-  nativeInput: { path: nativePath, sha256: createHash('sha256').update(nativeFile).digest('hex') },
-  matchTicks: 1200,
-  matches,
-  laboratory,
-};
-if (process.argv.includes('--check')) {
-  assert.equal(digest(receipt), digest(JSON.parse(gunzipSync(readFileSync(receiptPath)))));
-} else {
-  const folder =
-    process.argv.includes('--record') && !process.argv.includes('--lab-only')
-      ? 'docs/performance/pr222'
-      : '.benchmark-artifacts/pr222';
-  mkdirSync(folder, { recursive: true });
-  writeFileSync(folder + '/reception.json.gz', gzipSync(JSON.stringify(receipt)));
+  if (process.argv.includes('--check')) {
+    assert.equal(digest(receipt), digest(JSON.parse(gunzipSync(readFileSync(receiptPath)))));
+  } else {
+    const folder =
+      process.argv.includes('--record') && !process.argv.includes('--lab-only')
+        ? 'docs/performance/pr222'
+        : '.benchmark-artifacts/pr222';
+    mkdirSync(folder, { recursive: true });
+    writeFileSync(folder + '/reception.json.gz', gzipSync(JSON.stringify(receipt)));
+  }
 }

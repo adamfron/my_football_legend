@@ -1,5 +1,14 @@
 # My Football Legend — Current Project State
 
+PR223 odtworzył zapis przyjęcia pod presją w wariantach A/B/C. Eksperymentalny
+wariant D zachowuje w zasięgu nieruchome stopy w reszcie kroku po impulsie
+tułowia. W historycznej scenie usuwa wyrzut do 5,33 m/s. Piłkę przejmuje
+aktywny obrońca po rzeczywistym kontakcie. Osobna próba z mocniejszym
+zderzeniem daje drugie kontrolowane dotknięcie. Dwa przebiegi 22 zawodników
+zachowują chronologię przygotowanego odzyskania piłki z PR222 i nie wywołują
+tej gałęzi. **RETAIN_EXPERIMENTAL**.
+[Raport PR223](PR223_POST_IMPACT_FOOT_AND_SUPPORT_PHYSICS.md).
+
 PR222 prześledził sześć 30-sekundowych przebiegów A/B/C z udziałem 22
 zawodników. W drugim seedzie B i C zarejestrowały ten sam przygotowany
 kontakt przy odzyskaniu luźnej piłki. W historycznym przyjęciu pod presją

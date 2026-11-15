@@ -1,5 +1,15 @@
 # Mechanism dependencies
 
+PR223 measures the causal handoff from the planar torso impulse to the
+remaining world-space foot trajectory and continuous ball support. The
+experimental D selector keeps reachable, already parked stance anchors
+through the remainder of an impacted motor tick. The frozen witness yields
+a defender boot win, and a distinct stronger collision yields a retained
+second touch during a carry. The 22-player compatibility smoke preserves
+prepared recovery and contains zero activations of the corrected branch.
+Finite post-impact recovery and a time-consistent support normal gate the
+next integration step. [PR223 report](../PR223_POST_IMPACT_FOOT_AND_SUPPORT_PHYSICS.md).
+
 PR222 traces the 40 Hz chain from acquisition and plan review through
 selected movement target, subframe boot contact and subsequent control.
 Native B/C use a committed plan at a loose-ball recovery. The historical

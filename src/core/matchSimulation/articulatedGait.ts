@@ -13,10 +13,12 @@ export const STANCE_SECONDS = 0.175;
 export const withoutArticulatedBody = (state: TacticalMatchState): TacticalMatchState => {
   const {
     experimentalArticulatedBody: _selection,
+    experimentalPostImpactStance: _remainder,
     experimentalObservedStrikePreparation: _preparation,
     ...rest
   } = state;
   void _selection;
+  void _remainder;
   void _preparation;
   const clear = (p: MatchPlayerState) => {
     const { articulatedStance: _stance, ...body } = p;
@@ -213,6 +215,59 @@ export const constrainArticulatedMotor = (
     availableForce: (actor.profile.weightKg * available) / dt,
     // Rejected motor power is not invented foot slip. Reduced grip reduces acceleration.
   };
+};
+
+/** The authored motor segment has no swing and its stance clock is parked. */
+export const isParkedArticulatedSegment = (before: MatchPlayerState, after: MatchPlayerState) => {
+  const a = before.articulatedStance,
+    b = after.articulatedStance;
+  return Boolean(
+    a &&
+      b &&
+      a.support &&
+      a.support === b.support &&
+      b.elapsed === 0 &&
+      b.left.z <= 0.04 + 1e-8 &&
+      b.right.z <= 0.04 + 1e-8 &&
+      (['left', 'right'] as const).every(
+        (foot) => a[foot].x === b[foot].x && a[foot].y === b[foot].y && a[foot].z === b[foot].z,
+      ),
+  );
+};
+
+/** A horizontal torso impulse changes root transport. A parked motor segment
+ * has no authorized swing to retarget until the next motor update. Keep its
+ * world feet only while the new root transport admits the grounded stance. */
+export const continueParkedArticulatedStance = (
+  event: MatchPlayerState,
+  end: MatchPlayerState,
+  activeFoot: 'left' | 'right' | undefined,
+): ArticulatedStance | undefined => {
+  if (
+    activeFoot ||
+    event.verticalJump ||
+    end.verticalJump ||
+    !isParkedArticulatedSegment(event, end)
+  )
+    return undefined;
+  const stance = end.articulatedStance!;
+  // Reach the existing stance model's horizontal workspace at the rebased root.
+  // Both fixed world anchors must remain reachable, including the planted one.
+  try {
+    const geometry = deriveLowerBodyGeometry({ ...end, articulatedStance: stance });
+    const reach = Math.max(1.4, Math.min(2.2, end.profile.heightCm / 100)) * 0.43;
+    if (
+      (['left', 'right'] as const).some(
+        (foot) =>
+          Math.hypot(geometry[foot].hip.x - stance[foot].x, geometry[foot].hip.y - stance[foot].y) >
+          reach,
+      )
+    )
+      return undefined;
+    return stance;
+  } catch {
+    return undefined;
+  }
 };
 
 /** Finite world-space swing. No position or velocity integration is performed here.

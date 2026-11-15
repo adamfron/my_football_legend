@@ -1,10 +1,18 @@
 import { PASSIVE_OUTFIELD_BODY, UPRIGHT_OUTFIELD_BALL_BODY } from './ballFlight';
 import { interpolateLowerBodyPose } from './lowerBodyGeometry';
-import { advanceArticulatedStance } from './articulatedGait';
-import { activeArticulatedFoot, type BodyPoint } from './articulatedBodyState';
+import { advanceArticulatedStance, continueParkedArticulatedStance } from './articulatedGait';
+import {
+  activeArticulatedFoot,
+  postImpactStanceEditionSchema,
+  type BodyPoint,
+} from './articulatedBodyState';
 import { compareSharedContactEvents, type sharedContactEventSchema } from './sharedContactTimeline';
 import { recordExecution } from './executionWitness';
-import { receptionTraceEnabled, traceReception } from './receptionTrace';
+import {
+  receptionMechanicsTraceEnabled,
+  receptionTraceEnabled,
+  traceReception,
+} from './receptionTrace';
 import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
 import {
   MULTI_BODY,
@@ -82,6 +90,7 @@ const bodyAt = (
   b: MatchPlayerState,
   fraction: number,
   seconds: number,
+  parked = false,
 ): MatchPlayerState => ({
   ...b,
   ...(a.articulatedStance && b.articulatedStance
@@ -96,7 +105,7 @@ const bodyAt = (
               }
             : {}),
           elapsed:
-            fraction >= 1
+            parked || fraction >= 1
               ? b.articulatedStance.elapsed
               : Math.min(
                   a.articulatedStance.stepSeconds,
@@ -164,6 +173,8 @@ export const advancePendingStrikeInterval = (
     end = moved.time;
   const before = new Map(input.players.map((p) => [p.id, p]));
   const multi = moved.experimentalPlayerBodyImpulse === 'upright-cluster-dev-v1';
+  const preserveParkedStance =
+    moved.experimentalPostImpactStance === postImpactStanceEditionSchema.value;
   const clusterIds = multiBodyParticipants(input, dt);
   // Direct interval callers supply the same authoritative pre/moved snapshots.
   for (const id of multiBodyParticipants(moved, dt)) clusterIds.add(id);
@@ -179,14 +190,20 @@ export const advancePendingStrikeInterval = (
       : undefined;
   const pairIds = pairIntent?.physicalAttempt ? [pairIntent.actorId, pairIntent.opponentId] : [];
   const pairServiced = new Set<string>();
-  const origins = new Map<string, { player: MatchPlayerState; at: number }>();
+  const origins = new Map<string, { player: MatchPlayerState; at: number; parked?: true }>();
   const travelled = new Map<string, number>();
   let transportEnd = dt;
   const playerAt = (p: MatchPlayerState, at: number) => {
     const origin = origins.get(p.id);
     const a = origin?.player ?? before.get(p.id) ?? p;
     const began = origin?.at ?? 0;
-    const value = bodyAt(a, p, (at - began) / Math.max(1e-12, dt - began), dt - began);
+    const value = bodyAt(
+      a,
+      p,
+      (at - began) / Math.max(1e-12, dt - began),
+      dt - began,
+      origin?.parked,
+    );
     return moved.experimentalPlayerBodyImpulse &&
       (pairIds.includes(p.id) || origin || clusterIds.has(p.id))
       ? {
@@ -348,8 +365,11 @@ export const advancePendingStrikeInterval = (
     state = recordExecution(state, 'ball-body-contact', 'pendingStrikeInterval.passiveFoot', 1);
   };
   if (multi && !handlers.bodyOnly) releaseSeparatedControl();
-  const rebasePlayer = (p: MatchPlayerState) => {
+  const rebasePlayer = (p: MatchPlayerState, torsoImpact = false) => {
     const old = finalPlayers.find((q) => q.id === p.id)!;
+    const trace = receptionMechanicsTraceEnabled() && p.articulatedStance;
+    const eventPlayer = trace ? playerAt(old, elapsed) : undefined;
+    const segmentOrigin = trace ? (origins.get(p.id)?.player ?? before.get(p.id)) : undefined;
     const began = origins.get(p.id)?.at ?? 0;
     travelled.set(
       p.id,
@@ -360,23 +380,48 @@ export const advancePendingStrikeInterval = (
     finalPlayers = finalPlayers.map((q) => {
       if (q.id !== p.id) return q;
       const position = integrateCanonicalBodyRemainder(p, dt - elapsed);
-      return {
-        ...q,
-        velocity: p.velocity,
+      const endpoint = { ...q, position, velocity: p.velocity };
+      const activeFoot = p.articulatedStance ? activeArticulatedFoot(state, p.id) : undefined;
+      const parked =
+        preserveParkedStance && torsoImpact
+          ? continueParkedArticulatedStance(p, endpoint, activeFoot)
+          : undefined;
+      if (parked)
+        origins.set(p.id, {
+          player: { ...p, articulatedStance: parked },
+          at: elapsed,
+          parked: true,
+        });
+      const next = {
+        ...endpoint,
         ...(p.plantBalance ? { plantBalance: p.plantBalance } : {}),
-        position,
         ...(p.articulatedStance
           ? {
-              articulatedStance: advanceArticulatedStance(
-                p,
-                { ...q, position, velocity: p.velocity },
-                dt - elapsed,
-                activeArticulatedFoot(state, p.id),
-                q.articulatedStance?.angularVelocity,
-              ),
+              articulatedStance:
+                parked ??
+                advanceArticulatedStance(
+                  p,
+                  endpoint,
+                  dt - elapsed,
+                  activeFoot,
+                  q.articulatedStance?.angularVelocity,
+                ),
             }
           : {}),
       };
+      if (eventPlayer)
+        traceReception('pendingStrikeInterval.rebasePlayer', start + elapsed, p.id, {
+          before: eventPlayer,
+          after: p,
+          segmentOrigin,
+          nominalEnd: old,
+          end: next,
+          seconds: dt - elapsed,
+          activeFoot,
+          parkedRemainder: Boolean(parked),
+          recovery: state.recoveringFeet?.filter((f) => f.actorId === p.id),
+        });
+      return next;
     });
   };
   const resolveChallenge = (
@@ -534,29 +579,30 @@ export const advancePendingStrikeInterval = (
       ),
       ...footSupports.map((c) => intervalFoot(c.player, c.contact.foot, 0).speedBound),
     );
+    const supportSurfacesAt = (t: number): ContactCandidate[] => [
+      ...supports.map((c) => ({
+        ...c,
+        centre: {
+          x: c.previousCentre!.x + ((c.centre.x - c.previousCentre!.x) * t) / seconds,
+          y: c.previousCentre!.y + ((c.centre.y - c.previousCentre!.y) * t) / seconds,
+          z: c.centre.z,
+        },
+      })),
+      ...footSupports.map((c) => ({
+        kind: 'defender' as const,
+        playerId: c.player.id,
+        radius: 0.035,
+        centre: intervalFoot(c.player, c.contact.foot, t).position,
+        previousCentre: intervalFoot(c.player, c.contact.foot, 0).position,
+      })),
+    ];
     const advanceBall = (t: number) => {
       const flight = integrateBallFlight(ball, t, state.ballEnvironment);
       if (!hasSupport || t === 0) return flight;
       const supported = supportContinuousBodyContacts(
         flight.position,
         flight.velocity,
-        [
-          ...supports.map((c) => ({
-            ...c,
-            centre: {
-              x: c.previousCentre!.x + ((c.centre.x - c.previousCentre!.x) * t) / seconds,
-              y: c.previousCentre!.y + ((c.centre.y - c.previousCentre!.y) * t) / seconds,
-              z: c.centre.z,
-            },
-          })),
-          ...footSupports.map((c) => ({
-            kind: 'defender' as const,
-            playerId: c.player.id,
-            radius: 0.035,
-            centre: intervalFoot(c.player, c.contact.foot, t).position,
-            previousCentre: intervalFoot(c.player, c.contact.foot, 0).position,
-          })),
-        ],
+        supportSurfacesAt(t),
         t,
       );
       return { ...flight, ...supported };
@@ -851,6 +897,25 @@ export const advancePendingStrikeInterval = (
     // Exact numeric time first; only events in the same 1ns bucket use legal/body/foot/strike and stable identity.
     events.sort(compareSharedContactEvents);
     const event = events[0];
+    if (receptionMechanicsTraceEnabled() && hasSupport && (event?.at ?? seconds) > 0) {
+      const duration = event?.at ?? seconds;
+      traceReception(
+        'pendingStrikeInterval.committedSupport',
+        start + elapsed,
+        state.ball.ownerId ?? '',
+        {
+          seconds: duration,
+          ball,
+          freeFlight: event
+            ? integrateBallFlight(ball, duration, state.ballEnvironment)
+            : freeFlight,
+          withSupport: event ? advanceBall(duration) : integrated,
+          environment: state.ballEnvironment,
+          surfaces: supportSurfacesAt(duration),
+          next: event?.kind ?? 'end_of_tick',
+        },
+      );
+    }
     if (!event) {
       if (
         receptionTraceEnabled() &&
@@ -990,7 +1055,12 @@ export const advancePendingStrikeInterval = (
         selectedImpact.refereeOutcome = law.diagnostic?.outcome ?? 'unresolved';
         if (law.diagnostic) state = handlers.challenge?.(state, law.diagnostic) ?? state;
       }
-      for (const p of result.players) rebasePlayer(p);
+      for (const p of result.players)
+        rebasePlayer(
+          p,
+          preserveParkedStance &&
+            result.contacts.some((c) => c.kind === 'impact' && c.participants.includes(p.id)),
+        );
       state = {
         ...state,
         players: state.players.map((p) => result.players.find((q) => q.id === p.id) ?? p),

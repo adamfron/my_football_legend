@@ -275,6 +275,7 @@ export const withIntegrationProfile = (
   };
   delete next.experimentalBodyContacts;
   delete (next as TacticalMatchState).experimentalArticulatedBody;
+  delete (next as TacticalMatchState).experimentalPostImpactStance;
   delete (next as TacticalMatchState).ballEnvironment;
   delete (next as TacticalMatchState).experimentalKickExecution;
   delete (next as TacticalMatchState).lastKickExecution;

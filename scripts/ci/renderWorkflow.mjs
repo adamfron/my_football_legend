@@ -86,6 +86,9 @@ workflow = workflow.replace(
       - name: PR218 source-bound physical gates and complete-match evidence
         if: matrix.group == 'main'
         run: node scripts/ci/replayPr218Check.mjs
+      - name: PR223 post-impact stance and support replay
+        if: matrix.group == 'main'
+        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr223Support.mjs --check
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(

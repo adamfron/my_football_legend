@@ -4,7 +4,10 @@ import { ownsOrdinaryLowBallInterval } from './ordinaryContactInterval';
 import { withIntegrationProfile, resolveIntegrationProfile } from './integrationProfile';
 import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
 import { decisionPolicyIdSchema, type DecisionPolicyId } from './decisionPolicyConfig';
-import { articulatedBodySelectionSchema } from './articulatedBodyState';
+import {
+  articulatedBodySelectionSchema,
+  postImpactStanceEditionSchema,
+} from './articulatedBodyState';
 import { withArticulatedBody } from './articulatedGait';
 import { observedStrikePreparationSchema } from './pendingStrikeState';
 import { receptionPreparationEditionSchema } from './receptionPreparationEdition';
@@ -34,6 +37,7 @@ const articulatedHolisticRecipeSchema = originalHolisticRecipeSchema.extend({
   articulatedBody: articulatedBodySelectionSchema,
   strikePreparation: observedStrikePreparationSchema.optional(),
   receptionPreparation: receptionPreparationEditionSchema.optional(),
+  postImpactStance: postImpactStanceEditionSchema.optional(),
 });
 export const holisticRecipeSchema = z.discriminatedUnion('id', [
   originalHolisticRecipeSchema,
@@ -115,6 +119,9 @@ export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
               : {}),
             ...(s.experimentalReceptionPreparation
               ? { receptionPreparation: s.experimentalReceptionPreparation }
+              : {}),
+            ...(s.experimentalPostImpactStance
+              ? { postImpactStance: s.experimentalPostImpactStance }
               : {}),
           })
         : undefined
