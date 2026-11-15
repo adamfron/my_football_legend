@@ -1,5 +1,88 @@
 # PR224 — Canonical body physics and visual integration
 
+## Full-match follow-up
+
+Both arms use the same archived `lab-mw3xhr6o` save, with 22 players at kickoff,
+autonomous control on both sides and 25 ms simulation ticks. The runner resumes
+through the normal second-half entry point and runs until the simulator reports
+full time or records a halt. E differs from D by the composed-leg selector.
+
+| Measurement                         |                      D |            E with the four repairs |
+| ----------------------------------- | ---------------------: | ---------------------------------: |
+| End of run                          | Full time at 95:23.450 | Halt before half time at 41:56.000 |
+| End score                           |                    1–2 |                                0–0 |
+| Score at 41:00                      |                    1–1 |                                0–0 |
+| Pass releases by 41:00              |                    163 |                                126 |
+| Retained boot contacts by 41:00     |                    472 |                                318 |
+| Distinct body-impact times by 41:00 |                  1,725 |                              1,857 |
+| Shin impacts by 41:00               |                      0 |                                209 |
+| Ownership changes by 41:00          |                    711 |                                455 |
+| Restarts by 41:00                   |                     82 |                                 97 |
+
+D was 1–1 at half time. Its goals came at 23:32.500, 40:49.325 and
+55:20.075 on the simulation clock. At the common 41-minute checkpoint, E had
+fewer controlled contacts and pass releases and more restarts. These are
+results for one deterministic pairing with different trajectories.
+See the [match receipt](performance/pr224-full-match.json) for both runs.
+
+Exact native reloads reproduced four `pendingStrikeInterval.event_budget` stops
+in E. The [checkpoints](performance/pr224-full-match-checkpoints.json.gz) retain
+the input to each failed step and its diagnostic:
+
+| Match clock at start of the step | Cause                                                                                                                                                         | Result after the repair                                                                                                                                                 |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 13:04.025                        | The ball had separated from a boot after a rebound. The latched boot still widened the travel enclosure, consuming 13 search frontiers.                       | The relative distance bound proves the boot cannot project the ball during the remainder. The saved step advances through one frontier and records a right shin impact. |
+| 4:01.975                         | Opposed shins on one player bounced the ball back and forth 16 times while the swing continued against a planted left leg.                                    | The swing yields after the second impact. The saved step records three shin impacts, retains the left plant and leaves the ball loose.                                  |
+| 26:11.925                        | A stationary ground ball remained outside a latched, planted boot. The broad support enclosure spent all 16 events on search frontiers.                       | The same distance proof applies to a stationary ball, whose centre stays fixed as spin decays. The saved step retains ball control and records no shin impact.          |
+| 31:16.200                        | Two players' shins trapped the ball. Fifteen shin impacts and one torso cluster exhausted the interval. The swing ankle continued driving the shins together. | A return impact on the first shin triggers the same swing yield across players. The saved step finishes with four shin impacts, a preserved plant and a loose ball.     |
+
+The distance proof applies to affine boot motion when every latched boot is
+clear and there is no torso support. The ball follows the event-v1 free
+trajectory under constant acceleration up to the next ground impact, or
+keeps its centre fixed at rest on the ground. A quadratic lower bound on
+squared relative distance discards a nonnegative quartic term and bounds the
+cubic term over the interval. Possible boot support and a possible ground
+impact keep the general enclosure. The support projector remains authoritative.
+
+The shin response yields the remaining swing command for one tick in a
+grounded pinch with opposing contact normals. A cross-player pinch requires
+an impact back on the first shin. The planned root
+endpoint and existing plant remain, and the new endpoint must admit valid
+two-bone geometry. Each observed ball impulse still uses the original
+contact response. The 192-sample search and 16-event interval limits and
+geometric tolerances are unchanged.
+
+The repaired E run and the continuation from 31:16 both stopped at
+41:56.000. Exact reload reproduced 16 alternating shin impacts by
+`footballer_pro_1_4` and `footballer_pro_1_17`, including three at the
+same solver time. The swing had already yielded, but the players' remaining
+root motion still closed the gap. Removing the inward root velocity along
+the pinch axis still exhausted the event budget. Holding both complete
+poses completed that tick but lacks a supported grounded response for the
+players' momentum, so neither prototype is included. The frozen
+`remaining` case records the failed step. A bounded response to simultaneous
+contacts with two moving shins remains the full-match dependency.
+
+**Promotion decision — RETAIN_EXPERIMENTAL.** The four repaired steps and
+the 30 s and 120 s gates pass. The full-match attempt in E remains blocked
+before half time. PR201/B remains the maintained integration profile.
+
+Run both arms from kickoff with distinct labels:
+
+```sh
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224FullMatch.mjs D compare
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224FullMatch.mjs E compare
+```
+
+The runner writes one set of receipts per label and arm under
+`.benchmark-artifacts/pr224-full`. Passing a compressed halt receipt as a
+third argument runs the saved tick with mechanics tracing. The tracked
+`docs/performance/pr224-full-match-checkpoints.json.gz` also works as the
+third argument and replays the remaining stop. The 30 s and
+120 s checks compare deterministic sporting digests in the new
+`pr224-body-full-gate-*.json` receipts. The earlier receipts remain
+reproducible on `35110e4`.
+
 ## Follow-up — continuous search through the archived stops
 
 Replaying `8b8432a` reproduced both original 22-player halts at

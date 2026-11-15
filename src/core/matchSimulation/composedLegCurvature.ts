@@ -1,8 +1,48 @@
 import type { composeArticulatedLegs } from './articulatedBody';
+import type { BodyPoint } from './articulatedBodyState';
+import { BALL_RADIUS } from './ballFlight';
+import type { PhysicalBall } from './ballPhysics';
+import { TEMPORAL_STRIKE } from './temporalFootTrajectory';
 
 type Geometry = NonNullable<ReturnType<typeof composeArticulatedLegs>>;
 type Foot = 'left' | 'right';
 const FEET = ['left', 'right'] as const;
+
+export const minimumQuadratic = (
+  constant: number,
+  linear: number,
+  quadratic: number,
+  seconds: number,
+) => {
+  const t = quadratic > 0 ? Math.max(0, Math.min(seconds, -linear / (2 * quadratic))) : seconds;
+  return Math.min(constant, constant + t * (linear + quadratic * t));
+};
+
+/** A latched affine boot cannot project the freely flying ball if the
+ * squared centre distance stays above the expanded sphere. The acceleration
+ * is constant on this event-v1 interval. Drop the nonnegative quartic term
+ * and bound the cubic coefficient over the entire interval. */
+export const affineBootClearOfBallFlight = (
+  ball: PhysicalBall,
+  acceleration: BodyPoint,
+  boot: { position: BodyPoint; velocity: BodyPoint },
+  seconds: number,
+) => {
+  const subtract = (a: BodyPoint, b: BodyPoint) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
+  const dot = (a: BodyPoint, b: BodyPoint) => a.x * b.x + a.y * b.y + a.z * b.z;
+  const offset = subtract(ball.position, boot.position);
+  const velocity = subtract(ball.velocity, boot.velocity);
+  return (
+    minimumQuadratic(
+      dot(offset, offset) - (BALL_RADIUS + TEMPORAL_STRIKE.footRadius) ** 2,
+      2 * dot(offset, velocity),
+      dot(velocity, velocity) +
+        dot(offset, acceleration) +
+        Math.min(0, dot(velocity, acceleration)) * seconds,
+      seconds,
+    ) > 0
+  );
+};
 
 export type JointMotion = {
   horizontalHipSpeed: number;

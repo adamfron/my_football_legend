@@ -5,7 +5,9 @@ Three.js i oś kontaktów z niską piłką także podczas ruchu nogi po akcji.
 Wspólne przeszukiwanie powierzchni i ograniczenie ruchu względem cięciwy
 pozwoliły przejść trzy zapisane zatrzymania przy tych samych limitach.
 Oba wejścia 22 zawodników ukończyły po 30 i 120 s z rzeczywistymi odbiciami
-golenią. **RETAIN_EXPERIMENTAL**. Utrzymywany profil to PR201/B.
+golenią. W pełnym meczu D uzyskał wynik 1:2. E po czterech poprawkach
+zatrzymuje się w 41:56 na ścisku piłki między goleniami dwóch zawodników.
+**RETAIN_EXPERIMENTAL**. Utrzymywany profil to PR201/B.
 [Raport PR224](PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md).
 
 PR223 odtworzył zapis przyjęcia pod presją w wariantach A/B/C. Eksperymentalny

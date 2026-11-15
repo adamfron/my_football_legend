@@ -32,8 +32,8 @@ const digest = (data) =>
 const check = process.argv.includes('--check');
 const extended = process.argv.includes('--extended');
 const path = extended
-  ? 'docs/performance/pr224-body-playtest.json'
-  : 'docs/performance/pr224-body-continuation.json';
+  ? 'docs/performance/pr224-body-full-gate-120s.json'
+  : 'docs/performance/pr224-body-full-gate-30s.json';
 
 const run = (input, ticks, compareReload) => {
   let state = roundTrip(input),
@@ -203,7 +203,14 @@ pair(
 for (const seed of matchSeeds)
   pair(seed, baseline(matchInput(seed)), extended ? 4800 : 1200, false);
 
-const evidence = { version: 'composed-leg-contact-dev-v1', dt, rows };
+const evidence = {
+  version: 'composed-leg-contact-dev-v1',
+  dt,
+  matchTicks: extended ? 4800 : 1200,
+  rows: Object.fromEntries(
+    Object.entries(rows).map(([name, { D, E }]) => [name, { D: digest(D), E: digest(E) }]),
+  ),
+};
 if (check) assert.deepEqual(evidence, JSON.parse(readFileSync(path, 'utf8')));
 if (process.argv.includes('--record'))
   writeFileSync(path, JSON.stringify(evidence, null, 2) + '\n');

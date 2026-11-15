@@ -7,6 +7,7 @@ import { BALL_RADIUS } from './ballFlight';
 import { projectArticulatedBody } from './articulatedBody';
 import { integrateBallFlight } from './ballPhysics';
 import { firstComposedLegContact } from './composedLegContact';
+import { affineBootClearOfBallFlight } from './composedLegCurvature';
 import { captureReplaySnapshot, replaySnapshotSchema } from './matchReplay';
 import { physicalStrikeBall } from './pendingStrike';
 import { stepTacticalMatch } from './matchSimulation';
@@ -111,20 +112,82 @@ const checkpoints = JSON.parse(
   gunzipSync(readFileSync('docs/performance/pr224-ccd-checkpoints.json.gz')).toString(),
 ) as { cases: { name: string; state: unknown; expectedShinAt?: number }[] };
 
+it('certifies a grazing boot departure while retaining possible sphere entry', () => {
+  const stationary = { x: 0, y: 0, z: 0 };
+  const boot = { position: stationary, velocity: stationary };
+  const ball = {
+    position: { x: 0.14501, y: 0, z: 0 },
+    velocity: { x: -0.02, y: 8, z: 0 },
+    airborne: true,
+    bounceCount: 0,
+  };
+  const gravity = { x: 0, y: 0, z: -9.81 };
+  expect(affineBootClearOfBallFlight(ball, gravity, boot, 0.004)).toBe(true);
+  expect(
+    affineBootClearOfBallFlight(
+      { ...ball, velocity: { ...ball.velocity, y: 0 } },
+      gravity,
+      boot,
+      0.004,
+    ),
+  ).toBe(false);
+});
+
+const fullMatch = JSON.parse(
+  gunzipSync(readFileSync('docs/performance/pr224-full-match-checkpoints.json.gz')).toString(),
+) as {
+  cases: {
+    name: string;
+    before: unknown;
+    actor: string;
+    contacts: [string, 'left' | 'right'][];
+    plant?: 'left' | 'right';
+    stationary?: boolean;
+  }[];
+};
+
+it.each(fullMatch.cases)(
+  'continues the full-match checkpoint with $name',
+  ({ before, actor, contacts, plant, stationary }) => {
+    const initial = tacticalMatchStateSchema.parse(before) as unknown as TacticalMatchState;
+    const result = stepTacticalMatch(initial, 0.025);
+    expect(result.safetyHalt).toBeUndefined();
+    expect(result.time).toBe(initial.time + 0.025);
+    expect(
+      (result.lastLimbContacts ?? []).map((c) => [c.playerId, c.leg?.region, c.leg?.foot]),
+    ).toEqual(contacts.map(([id, foot]) => [id, 'shin', foot]));
+    expect(result.ball.ownerId).toBe(initial.ball.ownerId);
+    if (plant) {
+      const previous = initial.players.find((p) => p.id === actor)!;
+      const next = result.players.find((p) => p.id === actor)!;
+      expect(next.articulatedStance?.support).toBe(plant);
+      expect(next.articulatedStance?.[plant]).toEqual(previous.articulatedStance?.[plant]);
+      expect(projectArticulatedBody(result, next)).toBeDefined();
+    }
+    if (stationary) {
+      expect(result.ball.x).toBe(initial.ball.x);
+      expect(result.ball.y).toBe(initial.ball.y);
+      expect(result.ball.velocity).toEqual(initial.ball.velocity);
+    }
+  },
+);
+
 it.each(checkpoints.cases)(
   'replays the previously halted tick in $name',
-  ({ state, expectedShinAt }) => {
+  ({ name, state, expectedShinAt }) => {
     const initial = tacticalMatchStateSchema.parse(state) as unknown as TacticalMatchState;
     const next = stepTacticalMatch(initial, 0.025);
     expect(next.safetyHalt).toBeUndefined();
     expect(next.time).toBe(initial.time + 0.025);
     const contacts = next.lastLimbContacts ?? [];
-    if (expectedShinAt === undefined) {
+    // The release proof now also resolves the incident's real shin recontact.
+    const contactAt = name === 'pr222-native-a' ? 5.368168589135586 : expectedShinAt;
+    if (contactAt === undefined) {
       expect(contacts).toHaveLength(0);
     } else {
       expect(contacts).toHaveLength(1);
       expect(contacts[0]!.leg).toMatchObject({ foot: 'left', region: 'shin' });
-      expect(contacts[0]!.at).toBeCloseTo(expectedShinAt, 8);
+      expect(contacts[0]!.at).toBeCloseTo(contactAt, 8);
       expect(next.lastGroundContact?.at).not.toBe(contacts[0]!.at);
     }
   },
