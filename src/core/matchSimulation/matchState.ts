@@ -47,6 +47,7 @@ import { lowerBodyPoseSchema, type LowerBodyPose } from './lowerBodyGeometry';
 import {
   articulatedStanceSchema,
   articulatedBodySelectionSchema,
+  postImpactStanceEditionSchema,
   type ArticulatedStance,
 } from './articulatedBodyState';
 import { boundedExperimentSchema, boundedRuntimeSchema } from './boundedIntelligenceState';
@@ -877,6 +878,7 @@ export interface TacticalMatchState {
   experimentalObservedStrikePreparation?: z.infer<typeof observedStrikePreparationSchema>;
   experimentalReceptionPreparation?: z.infer<typeof receptionPreparationEditionSchema>;
   experimentalArticulatedBody?: z.infer<typeof articulatedBodySelectionSchema>;
+  experimentalPostImpactStance?: z.infer<typeof postImpactStanceEditionSchema>;
   pendingStrike?: PendingStrike;
   lastStrikeResolution?: StrikeResolution;
   /** Explicit physical edition; absent in every frozen historical profile. */
@@ -1134,6 +1136,7 @@ export const tacticalMatchStateSchema = z
     experimentalObservedStrikePreparation: observedStrikePreparationSchema.optional(),
     experimentalReceptionPreparation: receptionPreparationEditionSchema.optional(),
     experimentalArticulatedBody: articulatedBodySelectionSchema.optional(),
+    experimentalPostImpactStance: postImpactStanceEditionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
     lastStrikeResolution: strikeResolutionSchema.optional(),
     ballEnvironment: ballEnvironmentSchema.optional(),
@@ -1405,6 +1408,16 @@ export const tacticalMatchStateSchema = z
   })
   .passthrough()
   .superRefine((state, ctx) => {
+    if (
+      state.experimentalPostImpactStance &&
+      (!state.experimentalArticulatedBody ||
+        state.experimentalContactTimeline !== 'standing-contact-dev-v1')
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['experimentalPostImpactStance'],
+        message: 'Post-impact stance requires the v2 articulated body and shared contact timeline',
+      });
     if (
       state.experimentalReceptionPreparation &&
       (!state.experimentalArticulatedBody ||

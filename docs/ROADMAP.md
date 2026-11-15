@@ -1,5 +1,17 @@
 # Roadmap
 
+## Po PR223 — równowaga i następny krok po zderzeniu
+
+PR223 przypisał wyrzut piłki wznowieniu ruchu spoczywającej stopy w reszcie
+kroku. Wariant D zachowuje zakotwiczenia w zasięgu nóg oraz impuls tułowia.
+W historycznej scenie przeciwnik przejmuje piłkę, a w osobnym mocniejszym
+zderzeniu odbiorca wykonuje drugie dotknięcie. Dwa krótkie mecze zachowują
+przebieg wariantu C i nie aktywują poprawki.
+
+Następna bramka obejmuje rzeczywisty krok odzyskania równowagi oraz pomiar
+normalnej kontaktu w czasie zetknięcia w naturalnej akcji pod presją.
+**RETAIN_EXPERIMENTAL**. [Raport PR223](PR223_POST_IMPACT_FOOT_AND_SUPPORT_PHYSICS.md).
+
 ## Po PR222 — podpora w reszcie kroku i następne zagranie
 
 Odtworzyć zmianę toru stopy po zderzeniu tułowi w historycznym przyjęciu

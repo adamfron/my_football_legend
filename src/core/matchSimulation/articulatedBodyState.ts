@@ -18,6 +18,7 @@ export const bodyPointSchema = z.object({
 });
 export type BodyPoint = z.infer<typeof bodyPointSchema>;
 export const articulatedBodySelectionSchema = z.literal('stance-foot-dev-v2');
+export const postImpactStanceEditionSchema = z.literal('parked-stance-remainder-dev-v1');
 export const articulatedStanceSchema = z.object({
   version: articulatedBodySelectionSchema,
   surface: z.enum(['firm-grass-dev-v1', 'reduced-grip-dev-v1']),

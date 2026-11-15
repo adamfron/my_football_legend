@@ -6,6 +6,8 @@ import { createPr214Scene } from '../../../scripts/pr214Scenarios';
 import {
   initializeArticulatedPlayer,
   advanceArticulatedStance,
+  continueParkedArticulatedStance,
+  isParkedArticulatedSegment,
   withArticulatedBody,
 } from './articulatedGait';
 import { deriveLowerBodyGeometry } from './lowerBodyGeometry';
@@ -33,6 +35,63 @@ const actor = () => {
     velocity: { x: 0, y: 0 },
   });
 };
+
+describe('parked stance after a torso impulse', () => {
+  it('preserves reachable world anchors while the root uses the new velocity', () => {
+    const before = actor();
+    const end = { ...before, position: { x: 40.012, y: 29.993 }, velocity: { x: 1.2, y: -0.7 } };
+    expect(isParkedArticulatedSegment(before, end)).toBe(true);
+    const stance = continueParkedArticulatedStance(before, end, undefined);
+    expect(stance).toEqual(before.articulatedStance);
+    for (const local of [0, 0.005, 0.01]) {
+      for (const side of ['left', 'right'] as const) {
+        const boot = canonicalStrikeFoot(undefined, before, end, side, 10, 0.01, local);
+        expect(boot.position).toEqual(before.articulatedStance![side]);
+        expect(boot.velocity).toEqual({ x: 0, y: 0, z: 0 });
+        expect(boot.reachable).toBe(true);
+      }
+    }
+  });
+
+  it('leaves active, swinging, released, airborne and unreachable feet to the existing continuation', () => {
+    const before = actor();
+    const stance = before.articulatedStance!;
+    const moving = {
+      ...before,
+      articulatedStance: {
+        ...stance,
+        right: { ...stance.right, z: stance.right.z + 0.03 },
+        elapsed: 0.01,
+      },
+    };
+    expect(continueParkedArticulatedStance(before, before, 'right')).toBeUndefined();
+    expect(continueParkedArticulatedStance(before, moving, undefined)).toBeUndefined();
+    expect(
+      continueParkedArticulatedStance(
+        before,
+        {
+          ...before,
+          articulatedStance: { ...stance, support: null },
+        },
+        undefined,
+      ),
+    ).toBeUndefined();
+    const verticalJump = beginVerticalJump(before, { armAssistance: false, approach: false })!;
+    expect(
+      continueParkedArticulatedStance(before, { ...before, verticalJump }, undefined),
+    ).toBeUndefined();
+    expect(
+      continueParkedArticulatedStance(
+        before,
+        {
+          ...before,
+          position: { x: 41.1, y: 30 },
+        },
+        undefined,
+      ),
+    ).toBeUndefined();
+  });
+});
 
 describe('authoritative development body', () => {
   it('limits the exact late-match unreachable command to a physical miss without repairing invalid native feet', () => {
