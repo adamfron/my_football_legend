@@ -23,48 +23,64 @@ export const articulatedBodySchema = z.object({
 });
 export type ArticulatedBody = z.infer<typeof articulatedBodySchema>;
 
+type Foot = 'left' | 'right';
+export const effectiveArticulatedFoot = (
+  state: TacticalMatchState,
+  before: MatchPlayerState,
+  after: MatchPlayerState,
+  foot: Foot,
+  intervalAt: number,
+  seconds: number,
+  local: number,
+) => {
+  const pending = state.pendingStrike;
+  const challenge = state.defensiveChallenge;
+  const latch = state.continuousFootContacts?.find(
+    (c) => c.actorId === after.id && c.foot === foot,
+  )?.prepared;
+  return canonicalStrikeFoot(
+    pending?.actorId === after.id && pending.plan.foot === foot
+      ? pending
+      : challenge?.actorId === after.id && challenge.physicalAttempt?.plan.foot === foot
+        ? challenge.physicalAttempt
+        : latch && {
+            path: latch.path,
+            selectedAt: latch.selectedAt,
+            plan: { facingAngle: latch.facingAngle },
+          },
+    before,
+    after,
+    foot,
+    intervalAt,
+    seconds,
+    local,
+    state.recoveringFeet?.find((f) => f.actorId === after.id && f.foot === foot),
+  );
+};
+
+export const composeArticulatedLegs = (
+  player: MatchPlayerState,
+  left: ReturnType<typeof canonicalStrikeFoot>,
+  right: ReturnType<typeof canonicalStrikeFoot>,
+) => {
+  if (left.reachable === false || right.reachable === false) return;
+  try {
+    return deriveLowerBodyGeometry(player, { left: left.position, right: right.position });
+  } catch {
+    // Both action paths can be individually viable and still fail at a shared pelvis.
+    return;
+  }
+};
+
 export const projectArticulatedBody = (
   state: TacticalMatchState,
   player: MatchPlayerState,
 ): ArticulatedBody | undefined => {
   if (!state.experimentalArticulatedBody || !player.articulatedStance) return undefined;
-  const feet = (['left', 'right'] as const).map((foot) => {
-    const pending =
-      state.pendingStrike?.actorId === player.id && state.pendingStrike.plan.foot === foot
-        ? state.pendingStrike
-        : undefined;
-    const challenge =
-      state.defensiveChallenge?.actorId === player.id &&
-      state.defensiveChallenge.physicalAttempt?.plan.foot === foot
-        ? state.defensiveChallenge.physicalAttempt
-        : undefined;
-    const latch = state.continuousFootContacts?.find(
-      (c) => c.actorId === player.id && c.foot === foot,
-    )?.prepared;
-    return canonicalStrikeFoot(
-      pending ??
-        challenge ??
-        (latch
-          ? {
-              path: latch.path,
-              selectedAt: latch.selectedAt,
-              plan: { facingAngle: latch.facingAngle },
-            }
-          : undefined),
-      player,
-      player,
-      foot,
-      state.time,
-      0.025,
-      0,
-      state.recoveringFeet?.find((f) => f.actorId === player.id && f.foot === foot),
-    );
-  });
-  if (feet.some((f) => f.reachable === false)) return undefined;
-  const geometry = deriveLowerBodyGeometry(player, {
-    left: feet[0]!.position,
-    right: feet[1]!.position,
-  });
+  const left = effectiveArticulatedFoot(state, player, player, 'left', state.time, 0.025, 0);
+  const right = effectiveArticulatedFoot(state, player, player, 'right', state.time, 0.025, 0);
+  const geometry = composeArticulatedLegs(player, left, right);
+  if (!geometry) return;
   return {
     version: 'articulated-body-dev-v2',
     at: state.time,
@@ -81,8 +97,8 @@ export const projectArticulatedBody = (
     mass: player.profile.weightKg,
     bootRadius: 0.035,
     geometry,
-    ...(feet.some((f) => f.jointLimited)
-      ? { jointLimits: { left: !!feet[0]!.jointLimited, right: !!feet[1]!.jointLimited } }
+    ...(left.jointLimited || right.jointLimited
+      ? { jointLimits: { left: !!left.jointLimited, right: !!right.jointLimited } }
       : {}),
     bootYaw: {
       left:

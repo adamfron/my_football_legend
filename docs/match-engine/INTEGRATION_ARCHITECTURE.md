@@ -1,5 +1,16 @@
 # MatchEngine integration architecture
 
+## PR224 experimental body integration
+
+The executable maintained recipe is PR201/B. E is an additional schema-validated
+selector over articulated v2 and PR223/D, with its own deterministic receipts.
+The ordinary shared low-ball interval owns its incidental rebounds and the
+existing law callbacks. Presentation observes complete physical snapshots and
+bounded contact receipts. Both 22-player evaluations halted after real
+activation, so E remains a draft experiment. The canonical engine continues
+to precede statistical distillation in the product plan.
+[PR224 evidence and promotion gates](../PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md).
+
 PR220 trials issue position and orientation objectives to the canonical motor
 through the research loader. The v2 gait, shared contact interval and recovery
 execute the trial. The executable maintained candidate remains PR201/B.

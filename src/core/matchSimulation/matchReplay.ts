@@ -23,6 +23,7 @@ import type { TacticalMatchState } from './matchState';
 import { matchEventSchema, matchEventKindSchema } from './matchEventFeed';
 import { offsideSnapshotSchema } from './offside';
 import { articulatedBodySelectionSchema } from './articulatedBodyState';
+import { ballContactSchema } from './ballFlight';
 
 export const REPLAY_SAMPLE_SECONDS = 0.2;
 export const REPLAY_ROLLING_SECONDS = 12;
@@ -37,6 +38,10 @@ export const replaySnapshotSchema = z.object({
   continuity: z.string(),
   articulatedBody: articulatedBodySelectionSchema.optional(),
   ballContinuity: z.string().optional(),
+  limbContacts: z
+    .array(ballContactSchema.required({ leg: true }))
+    .max(16)
+    .optional(),
   keyframe: z.boolean().optional(),
   players: z
     .array(
@@ -113,6 +118,25 @@ export const matchReplayWindowSchema = z.object({
 });
 export type MatchReplayWindow = z.infer<typeof matchReplayWindowSchema>;
 
+const limbContactsSince = (state: TacticalMatchState, previous?: TacticalMatchState) =>
+  state.lastLimbContacts?.filter(
+    (contact): contact is typeof contact & { leg: NonNullable<typeof contact.leg> } =>
+      !!contact.leg &&
+      contact.at >= (previous?.time ?? state.time - 0.025) &&
+      contact.at <= state.time &&
+      !previous?.lastLimbContacts?.some(
+        (prior) =>
+          prior.at === contact.at &&
+          prior.playerId === contact.playerId &&
+          prior.leg?.foot === contact.leg?.foot,
+      ),
+  );
+
+const projectLimbContacts = (state: TacticalMatchState, previous?: TacticalMatchState) => {
+  const limbContacts = limbContactsSince(state, previous);
+  return limbContacts?.length ? { limbContacts } : {};
+};
+
 export const captureReplaySnapshot = (
   state: TacticalMatchState,
   continuity: number,
@@ -172,6 +196,7 @@ export const captureReplaySnapshot = (
     };
   }),
   ball: canonicalBallPresentation(state),
+  ...projectLimbContacts(state, previous),
   ...(state.restart && state.restart.phase !== 'release'
     ? {
         restart: {
@@ -320,7 +345,10 @@ export class MatchReplayHistory {
     if (isRestartSetup(state) && state.restart.startedAt !== this.lastRestart) this.continuity++;
     this.lastRestart = state.restart?.startedAt;
     const last = this.rolling.at(-1);
-    const keyframe = importantPresentationChange(previous, state) || fresh.length > 0;
+    const keyframe =
+      importantPresentationChange(previous, state) ||
+      fresh.length > 0 ||
+      Boolean(limbContactsSince(state, previous)?.length);
     const terminal = ['half_time', 'full_time', 'abandoned'].includes(state.status ?? '');
     if (
       !fresh.length &&

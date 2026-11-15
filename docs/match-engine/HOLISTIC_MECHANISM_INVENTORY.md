@@ -1,5 +1,15 @@
 # Current-source holistic mechanism inventory — PR214
 
+## PR224 additive composed leg scope
+
+Authoritative v2 boots compose both leg chains. An opt-in version lets the
+existing low-ball event queue query moving outfield shin and thigh geometry.
+The renderer consumes the same joint endpoints and replay retains observed
+poses and event receipts. An earlier actual shin deflection changed the PR223
+pressure control. Search exhaustion in that control and both ordinary
+development inputs blocks promotion. See the
+[capability matrix and measured scope](../PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md).
+
 The [PR220 inventory](../PR220_LEARNED_MOTOR_PREPARATION.md#motor-skill-inventory)
 maps eight families from recognition through recovery and tests a laboratory
 placement objective on the existing v2 motor.

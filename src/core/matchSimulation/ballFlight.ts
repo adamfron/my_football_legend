@@ -32,12 +32,28 @@ export const ballContactKindSchema = z.enum([
   'out',
 ]);
 export type BallContactKind = z.infer<typeof ballContactKindSchema>;
+const contactPointSchema = z.object({
+  x: z.number().finite(),
+  y: z.number().finite(),
+  z: z.number().finite(),
+});
 export const ballContactSchema = z.object({
   kind: ballContactKindSchema,
   point: z.object({ x: z.number(), y: z.number(), z: z.number() }),
   segmentFraction: z.number().min(0).max(1),
   at: z.number().nonnegative(),
   playerId: z.string().optional(),
+  leg: z
+    .object({
+      foot: z.enum(['left', 'right']),
+      region: z.enum(['shin', 'knee', 'thigh']),
+      point: contactPointSchema,
+      from: contactPointSchema,
+      to: contactPointSchema,
+      radius: z.number().positive(),
+      distalRadius: z.number().positive(),
+    })
+    .optional(),
   preContactSpeed: z.number().nonnegative(),
   postContactSpeed: z.number().nonnegative(),
   surfaceVelocity: z

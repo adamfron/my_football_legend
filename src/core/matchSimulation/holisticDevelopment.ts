@@ -7,6 +7,7 @@ import { decisionPolicyIdSchema, type DecisionPolicyId } from './decisionPolicyC
 import {
   articulatedBodySelectionSchema,
   postImpactStanceEditionSchema,
+  composedLegContactEditionSchema,
 } from './articulatedBodyState';
 import { withArticulatedBody } from './articulatedGait';
 import { observedStrikePreparationSchema } from './pendingStrikeState';
@@ -38,6 +39,7 @@ const articulatedHolisticRecipeSchema = originalHolisticRecipeSchema.extend({
   strikePreparation: observedStrikePreparationSchema.optional(),
   receptionPreparation: receptionPreparationEditionSchema.optional(),
   postImpactStance: postImpactStanceEditionSchema.optional(),
+  composedLegContact: composedLegContactEditionSchema.optional(),
 });
 export const holisticRecipeSchema = z.discriminatedUnion('id', [
   originalHolisticRecipeSchema,
@@ -122,6 +124,9 @@ export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
               : {}),
             ...(s.experimentalPostImpactStance
               ? { postImpactStance: s.experimentalPostImpactStance }
+              : {}),
+            ...(s.experimentalComposedLegContact
+              ? { composedLegContact: s.experimentalComposedLegContact }
               : {}),
           })
         : undefined

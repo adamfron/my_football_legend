@@ -48,6 +48,7 @@ import {
   articulatedStanceSchema,
   articulatedBodySelectionSchema,
   postImpactStanceEditionSchema,
+  composedLegContactEditionSchema,
   type ArticulatedStance,
 } from './articulatedBodyState';
 import { boundedExperimentSchema, boundedRuntimeSchema } from './boundedIntelligenceState';
@@ -879,6 +880,7 @@ export interface TacticalMatchState {
   experimentalReceptionPreparation?: z.infer<typeof receptionPreparationEditionSchema>;
   experimentalArticulatedBody?: z.infer<typeof articulatedBodySelectionSchema>;
   experimentalPostImpactStance?: z.infer<typeof postImpactStanceEditionSchema>;
+  experimentalComposedLegContact?: z.infer<typeof composedLegContactEditionSchema>;
   pendingStrike?: PendingStrike;
   lastStrikeResolution?: StrikeResolution;
   /** Explicit physical edition; absent in every frozen historical profile. */
@@ -1040,6 +1042,7 @@ export interface TacticalMatchState {
   lastShotResult?: ShotResult;
   lastShot?: ShotDiagnostic;
   lastBallContact?: BallContact;
+  lastLimbContacts?: BallContact[];
   goalCompletionUntil?: number;
   pendingKickoffTeam?: TeamSide;
   aerialContestantIds?: string[];
@@ -1137,6 +1140,7 @@ export const tacticalMatchStateSchema = z
     experimentalReceptionPreparation: receptionPreparationEditionSchema.optional(),
     experimentalArticulatedBody: articulatedBodySelectionSchema.optional(),
     experimentalPostImpactStance: postImpactStanceEditionSchema.optional(),
+    experimentalComposedLegContact: composedLegContactEditionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
     lastStrikeResolution: strikeResolutionSchema.optional(),
     ballEnvironment: ballEnvironmentSchema.optional(),
@@ -1389,6 +1393,7 @@ export const tacticalMatchStateSchema = z
     lastRestartLivenessRecovery: restartLivenessDiagnosticSchema.optional(),
     lastShot: shotDiagnosticSchema.optional(),
     lastBallContact: ballContactSchema.optional(),
+    lastLimbContacts: z.array(ballContactSchema.required({ leg: true })).max(16).optional(),
     offsideSnapshot: offsideSnapshotSchema.optional(),
     lastOffsideOffence: offsideOffenceSchema.optional(),
     keeperIntervention: keeperInterventionSchema.optional(),
@@ -1408,6 +1413,17 @@ export const tacticalMatchStateSchema = z
   })
   .passthrough()
   .superRefine((state, ctx) => {
+    if (
+      state.experimentalComposedLegContact &&
+      (!state.experimentalArticulatedBody ||
+        !state.experimentalPostImpactStance ||
+        state.experimentalContactTimeline !== 'standing-contact-dev-v1')
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['experimentalComposedLegContact'],
+        message: 'Composed leg contacts require articulated v2 and the post-impact stance edition',
+      });
     if (
       state.experimentalPostImpactStance &&
       (!state.experimentalArticulatedBody ||

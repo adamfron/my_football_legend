@@ -88,7 +88,10 @@ workflow = workflow.replace(
         run: node scripts/ci/replayPr218Check.mjs
       - name: PR223 post-impact stance and support replay
         if: matrix.group == 'main'
-        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr223Support.mjs --check
+        run: node scripts/ci/replayPr223Check.mjs
+      - name: PR224 composed leg integration replay
+        if: matrix.group == 'main'
+        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224Body.mjs --check
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(
