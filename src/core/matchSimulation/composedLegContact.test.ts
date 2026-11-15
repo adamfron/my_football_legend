@@ -200,6 +200,38 @@ it('replays the two-player pinch at 41:56 without freezing either moving player'
   }
 });
 
+it('resolves two shins of the same player during a support transfer at 71:58', () => {
+  const saved = JSON.parse(
+    gunzipSync(readFileSync('docs/performance/pr224-native-a-halt.json.gz')).toString(),
+  ) as { before: unknown };
+  const initial = tacticalMatchStateSchema.parse(saved.before) as unknown as TacticalMatchState;
+  const { state, events } = captureReceptionStep(() => stepTacticalMatch(initial, 0.025), {
+    mechanics: true,
+  });
+  expect(state.safetyHalt).toBeUndefined();
+  expect(state.time).toBe(initial.time + 0.025);
+  expect(state.ball.ownerId).toBeUndefined();
+  const actorId = 'footballer_pro_9_7';
+  expect(events.filter(({ source }) => source.endsWith('opposingShinContacts'))).toMatchObject([
+    {
+      actorId,
+      detail: {
+        otherId: actorId,
+        primary: { leg: { foot: 'right' } },
+        other: { leg: { foot: 'left' } },
+      },
+    },
+  ]);
+  expect(state.lastLimbContacts).toHaveLength(14);
+  const before = initial.players.find((p) => p.id === actorId)!;
+  const after = state.players.find((p) => p.id === actorId)!;
+  expect(before.articulatedStance?.support).toBe('right');
+  expect(after.articulatedStance?.support).toBe('left');
+  expect(after.articulatedStance?.right).toEqual(before.articulatedStance?.right);
+  expect(after.position).not.toEqual(before.position);
+  expect(projectArticulatedBody(state, after)).toBeDefined();
+});
+
 it.each(fullMatch.cases)(
   'continues the full-match checkpoint with $name',
   ({ before, actor, contacts, plant, stationary }) => {

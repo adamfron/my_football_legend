@@ -7,6 +7,8 @@ pozwoliły przejść trzy zapisane zatrzymania przy tych samych limitach.
 Oba wejścia 22 zawodników ukończyły po 30 i 120 s z rzeczywistymi odbiciami
 golenią. Wspólna reakcja na nacisk dwóch goleni usuwa zatrzymanie z 41:56.
 Pełne mecze od pierwszego gwizdka zakończyły się 1:2 w D i 3:1 w E.
+Na ziarnie `pr222-native-a` D ukończył mecz wynikiem 0:1, a E wynikiem
+2:0 po rozszerzeniu tej samej reakcji na dwie golenie jednego zawodnika.
 **RETAIN_EXPERIMENTAL**. Utrzymywany profil to PR201/B.
 [Raport PR224](PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md).
 

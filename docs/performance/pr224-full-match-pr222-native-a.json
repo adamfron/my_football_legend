@@ -1,0 +1,418 @@
+{
+  "seed": "pr222-native-a",
+  "playersAtKickoff": 22,
+  "tickSeconds": 0.025,
+  "playerAgencyEnabled": false,
+  "inputHash": "6f50d97c423aeeeecd10072f3764125e73b4e169bde843fbdc0b982fe378e827",
+  "comparison": {
+    "D": {
+      "revision": "076bfc844590c3eb6e3b4b42ab77eed20054fc1a",
+      "engineDigest": "d9d63bfa0ca2e3345eaafd80134161fd3f10fe531bf9f71b6e2cfb19d65065ef",
+      "initialHash": "6f50d97c423aeeeecd10072f3764125e73b4e169bde843fbdc0b982fe378e827",
+      "terminalHash": "e61426599bb9338a63df268a3570539a5739601441d5e7f4a0c06c9c609fb1e3",
+      "reason": "full_time",
+      "halt": null,
+      "final": {
+        "at": 5725.5,
+        "status": "full_time",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "ticks": 229020,
+        "decisions": 2964,
+        "passReleases": 388,
+        "retainedBootContacts": 1168,
+        "bodyImpactTimes": 4210,
+        "legContacts": 0,
+        "ownerChanges": 1723,
+        "restarts": 185
+      },
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2843.55,
+          "score": {
+            "home": 0,
+            "away": 0
+          }
+        }
+      ],
+      "goals": [
+        {
+          "at": 3893.9,
+          "score": {
+            "home": 0,
+            "away": 1
+          }
+        }
+      ]
+    },
+    "E": {
+      "revision": "076bfc844590c3eb6e3b4b42ab77eed20054fc1a",
+      "engineDigest": "665e753836ee05b374800cd2bbd17fbb0dda35cf3d022fe793574c42f8eca998",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "1227c4436312e55e33455b74e0fc79eaf3e4f41ce7456592113d53d0222de6d2",
+      "reason": "full_time",
+      "halt": null,
+      "final": {
+        "at": 5700,
+        "status": "full_time",
+        "score": {
+          "home": 2,
+          "away": 0
+        },
+        "ticks": 228001,
+        "decisions": 1554,
+        "passReleases": 285,
+        "retainedBootContacts": 709,
+        "bodyImpactTimes": 4269,
+        "legContacts": 533,
+        "ownerChanges": 1017,
+        "restarts": 216
+      },
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2820,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        }
+      ],
+      "goals": [
+        {
+          "at": 2207.525,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        },
+        {
+          "at": 3759.45,
+          "score": {
+            "home": 2,
+            "away": 0
+          }
+        }
+      ]
+    }
+  },
+  "sameClock": [
+    {
+      "minute": 15,
+      "D": {
+        "at": 900.025,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 36000,
+        "decisions": 417,
+        "passReleases": 62,
+        "retainedBootContacts": 172,
+        "bodyImpactTimes": 716,
+        "legContacts": 0,
+        "ownerChanges": 259,
+        "restarts": 34
+      },
+      "E": {
+        "at": 900.025,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 36000,
+        "decisions": 215,
+        "passReleases": 44,
+        "retainedBootContacts": 110,
+        "bodyImpactTimes": 701,
+        "legContacts": 76,
+        "ownerChanges": 159,
+        "restarts": 39
+      }
+    },
+    {
+      "minute": 30,
+      "D": {
+        "at": 1800,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 71999,
+        "decisions": 875,
+        "passReleases": 121,
+        "retainedBootContacts": 367,
+        "bodyImpactTimes": 1423,
+        "legContacts": 0,
+        "ownerChanges": 543,
+        "restarts": 62
+      },
+      "E": {
+        "at": 1800,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 71999,
+        "decisions": 471,
+        "passReleases": 90,
+        "retainedBootContacts": 229,
+        "bodyImpactTimes": 1349,
+        "legContacts": 151,
+        "ownerChanges": 332,
+        "restarts": 75
+      }
+    },
+    {
+      "minute": 45,
+      "D": {
+        "at": 2700,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 107999,
+        "decisions": 1244,
+        "passReleases": 176,
+        "retainedBootContacts": 530,
+        "bodyImpactTimes": 2029,
+        "legContacts": 0,
+        "ownerChanges": 783,
+        "restarts": 89
+      },
+      "E": {
+        "at": 2700,
+        "status": "first_half",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "ticks": 107999,
+        "decisions": 728,
+        "passReleases": 135,
+        "retainedBootContacts": 346,
+        "bodyImpactTimes": 2075,
+        "legContacts": 232,
+        "ownerChanges": 500,
+        "restarts": 106
+      }
+    },
+    {
+      "minute": 60,
+      "D": {
+        "at": 3600,
+        "status": "second_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 143999,
+        "decisions": 1724,
+        "passReleases": 235,
+        "retainedBootContacts": 703,
+        "bodyImpactTimes": 2635,
+        "legContacts": 0,
+        "ownerChanges": 1032,
+        "restarts": 118
+      },
+      "E": {
+        "at": 3600,
+        "status": "second_half",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "ticks": 143999,
+        "decisions": 961,
+        "passReleases": 183,
+        "retainedBootContacts": 455,
+        "bodyImpactTimes": 2793,
+        "legContacts": 344,
+        "ownerChanges": 655,
+        "restarts": 139
+      }
+    },
+    {
+      "minute": 75,
+      "D": {
+        "at": 4500.025,
+        "status": "second_half",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "ticks": 180000,
+        "decisions": 2258,
+        "passReleases": 305,
+        "retainedBootContacts": 911,
+        "bodyImpactTimes": 3339,
+        "legContacts": 0,
+        "ownerChanges": 1352,
+        "restarts": 144
+      },
+      "E": {
+        "at": 4500.025,
+        "status": "second_half",
+        "score": {
+          "home": 2,
+          "away": 0
+        },
+        "ticks": 180000,
+        "decisions": 1219,
+        "passReleases": 226,
+        "retainedBootContacts": 566,
+        "bodyImpactTimes": 3370,
+        "legContacts": 436,
+        "ownerChanges": 810,
+        "restarts": 171
+      }
+    },
+    {
+      "minute": 90,
+      "D": {
+        "at": 5400.025,
+        "status": "second_half",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "ticks": 216000,
+        "decisions": 2840,
+        "passReleases": 370,
+        "retainedBootContacts": 1114,
+        "bodyImpactTimes": 3939,
+        "legContacts": 0,
+        "ownerChanges": 1642,
+        "restarts": 174
+      },
+      "E": {
+        "at": 5400.025,
+        "status": "second_half",
+        "score": {
+          "home": 2,
+          "away": 0
+        },
+        "ticks": 216000,
+        "decisions": 1491,
+        "passReleases": 273,
+        "retainedBootContacts": 678,
+        "bodyImpactTimes": 4070,
+        "legContacts": 512,
+        "ownerChanges": 974,
+        "restarts": 205
+      }
+    }
+  ],
+  "originalE": {
+    "revision": "076bfc844590c3eb6e3b4b42ab77eed20054fc1a",
+    "engineDigest": "d9d63bfa0ca2e3345eaafd80134161fd3f10fe531bf9f71b6e2cfb19d65065ef",
+    "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+    "terminalHash": "0e5c80233140be7af3b7307249be39c2e75d35e109a572f9a170d39a469e25bf",
+    "reason": "safety_halt",
+    "halt": {
+      "kind": "physical_contact",
+      "reason": "pendingStrikeInterval.event_budget",
+      "at": 4318.900000001398,
+      "intervalStartedAt": 4318.875000001399,
+      "actorIds": [],
+      "ball": {
+        "x": 63.52733414707936,
+        "y": 50.307801024779295,
+        "z": 0.23050254714960716
+      },
+      "velocity": {
+        "x": -0.8839600833596504,
+        "y": -0.5419567441604357,
+        "z": -2.2042798998914535
+      },
+      "spin": {
+        "x": -1.249373191635297e-11,
+        "y": -6.917717907477642e-11,
+        "z": 9.709911150144004e-11
+      }
+    },
+    "final": {
+      "at": 4318.875,
+      "status": "second_half",
+      "score": {
+        "home": 2,
+        "away": 0
+      },
+      "ticks": 172755,
+      "decisions": 1168,
+      "passReleases": 216,
+      "retainedBootContacts": 544,
+      "bodyImpactTimes": 3257,
+      "legContacts": 407,
+      "ownerChanges": 775,
+      "restarts": 164
+    },
+    "periods": [
+      {
+        "status": "half_time",
+        "at": 2820,
+        "score": {
+          "home": 1,
+          "away": 0
+        }
+      }
+    ],
+    "goals": [
+      {
+        "at": 2207.525,
+        "score": {
+          "home": 1,
+          "away": 0
+        }
+      },
+      {
+        "at": 3759.45,
+        "score": {
+          "home": 2,
+          "away": 0
+        }
+      }
+    ]
+  },
+  "continuationFromHalt": {
+    "fromAt": 4318.875,
+    "revision": "076bfc844590c3eb6e3b4b42ab77eed20054fc1a",
+    "engineDigest": "665e753836ee05b374800cd2bbd17fbb0dda35cf3d022fe793574c42f8eca998",
+    "initialHash": "ad0fabd3bb200480602c5324878cec684f3fcd7f2ac5145a37d3a20785ab029a",
+    "terminalHash": "bcc9f1d81a2c3e7c4a0a847f9635c11933bde5643db14e07145b2af7eab0e6fe",
+    "reason": "full_time",
+    "halt": null,
+    "final": {
+      "at": 5700,
+      "status": "full_time",
+      "score": {
+        "home": 2,
+        "away": 0
+      },
+      "ticks": 55246,
+      "decisions": 1554,
+      "passReleases": 69,
+      "retainedBootContacts": 165,
+      "bodyImpactTimes": 1012,
+      "legContacts": 126,
+      "ownerChanges": 242,
+      "restarts": 52
+    },
+    "periods": [],
+    "goals": []
+  },
+  "repairedTick": {
+    "at": 4318.875,
+    "completedAt": 4318.9,
+    "legContacts": 14,
+    "terminalHash": "9f3b342a91f54f46d3560b4b4c3a6bb59cb9eba8b70c2facf008b4e4d5462d8a"
+  }
+}

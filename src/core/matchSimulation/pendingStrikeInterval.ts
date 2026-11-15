@@ -1580,7 +1580,7 @@ export const advancePendingStrikeInterval = (
         leg.region === 'shin' &&
         priorLeg === state.lastBallContact &&
         priorLeg?.leg?.region === 'shin' &&
-        priorLeg.playerId !== actor.id &&
+        (priorLeg.playerId !== actor.id || priorLeg.leg.foot !== leg.foot) &&
         earlierLeg?.playerId === actor.id &&
         earlierLeg.leg?.region === 'shin' &&
         earlierLeg.leg.foot === leg.foot

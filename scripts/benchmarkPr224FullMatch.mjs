@@ -5,6 +5,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { performance } from 'node:perf_hooks';
 import process from 'node:process';
+import { parseArgs } from 'node:util';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { editions } from './benchmarkPr221Reception.mjs';
 import { matchInput, matchSeeds } from './benchmarkPr222Reception.mjs';
@@ -13,11 +14,22 @@ import { startSecondHalf, stepTacticalMatch } from '../src/core/matchSimulation/
 import { tacticalMatchStateSchema } from '../src/core/matchSimulation/matchState.ts';
 import { captureReceptionStep } from '../src/core/matchSimulation/receptionTrace.ts';
 
-const [arm, label, checkpoint, resume] = process.argv.slice(2);
+const { positionals, values } = parseArgs({
+  allowPositionals: true,
+  options: { seed: { type: 'string' }, resume: { type: 'boolean' } },
+});
+const [arm, label, checkpoint] = positionals;
+assert.ok(positionals.length <= 3);
 assert.ok(arm === 'D' || arm === 'E', 'Select D or E');
 assert.match(label, /^[a-z0-9-]+$/);
-assert.ok(resume === undefined || resume === '--resume');
-const replay = checkpoint && !resume;
+assert.ok(!values.resume || checkpoint, '--resume needs a checkpoint');
+const replay = checkpoint && !values.resume;
+const saved = checkpoint ? JSON.parse(gunzipSync(readFileSync(checkpoint))) : undefined;
+const beforeHalt = saved?.before ?? saved?.remaining?.before;
+if (saved) assert.ok(beforeHalt, 'The receipt has no pre-halt state');
+const seed = values.seed ?? beforeHalt?.seed ?? matchSeeds[0];
+assert.ok(matchSeeds.includes(seed), `Unknown match seed: ${seed}`);
+if (beforeHalt) assert.equal(beforeHalt.seed, seed);
 const parent = join('.benchmark-artifacts', 'pr224-full');
 const root = join(parent, label + '-' + arm);
 mkdirSync(parent, { recursive: true });
@@ -31,14 +43,11 @@ const revision = execFileSync('git', ['rev-parse', 'HEAD'], {
 }).trim();
 const reload = (state) => tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(state)));
 const input = reload({
-  ...matchInput(matchSeeds[0]),
+  ...matchInput(seed),
   experimentalPostImpactStance: 'parked-stance-remainder-dev-v1',
   experimentalReceptionPreparation: editions.C,
 });
 assert.equal(input.players.length, 22);
-const saved = checkpoint ? JSON.parse(gunzipSync(readFileSync(checkpoint))) : undefined;
-const beforeHalt = saved?.before ?? saved?.remaining?.before;
-if (saved) assert.ok(beforeHalt, 'The receipt has no pre-halt state');
 const initial = reload(beforeHalt ?? (arm === 'E' ? selectPr224Body(input) : input));
 assert.equal(Boolean(initial.experimentalComposedLegContact), arm === 'E');
 assert.equal(initial.playerAgencyEnabled, false);

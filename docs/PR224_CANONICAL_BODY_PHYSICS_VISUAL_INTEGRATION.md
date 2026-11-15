@@ -1,5 +1,58 @@
 # PR224 — Canonical body physics and visual integration
 
+## Full match with `pr222-native-a`
+
+This pairing uses the same archived initial situation as the first full
+match and the alternate `pr222-native-a` seed. Both arms have 22 players,
+autonomous control and the 25 ms simulation step. The E selector is the
+only difference between arms at kickoff.
+
+On `076bfc8`, E reached 71:58.875 while leading 2–0, then halted with
+`pendingStrikeInterval.event_budget`. A native reload reproduced
+alternating contacts on both shins of `footballer_pro_9_7`, ending with
+three observations at the same solver time. The existing joint response
+recognized contacts on different players. It now identifies a surface by
+player and foot, so the same A–B–A and simultaneous-touch checks apply
+when the opposite shins belong to one player.
+
+The [archived step](performance/pr224-native-a-halt.json.gz) completes with
+14 shin events, one of them the joint response. The right ankle stays at
+its original anchor, the root advances and the planned support transfers
+to the left foot. The ball exits the pinch loose. The change preserves
+the 16-event and 192-sample limits and the existing geometric tolerances.
+
+Both runs from kickoff reached full time after the repair to E:
+
+| Measurement | D | E |
+| --- | ---: | ---: |
+| Half-time score | 0–0 | 1–0 |
+| Full-time score | 0–1 | 2–0 |
+| Full-time clock | 95:25.500 | 95:00.000 |
+| Pass releases | 388 | 285 |
+| Retained boot contacts | 1,168 | 709 |
+| Shin contacts | 0 | 533 |
+| Ownership changes | 1,723 | 1,017 |
+| Restarts | 185 | 216 |
+
+D's goal arrived at 64:53.900. E scored at 36:47.525 and 62:39.450.
+The continuation from 71:58.875 also reached full time at 2–0. The
+[match receipt](performance/pr224-full-match-pr222-native-a.json) retains
+the original E halt, the repaired step, both full-match results and
+comparable clock checkpoints.
+
+The `076bfc8` Actions run passed all 28 jobs. The repair passes the
+focused regressions and the deterministic 30 s and 120 s gates for both
+seeds. **RETAIN_EXPERIMENTAL.** PR201/B remains the maintained integration
+profile. The two seed results share the initial situation. Further
+validation depends on independently recorded situations and simultaneous
+contact with more than two surfaces.
+
+```sh
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224FullMatch.mjs D second-seed --seed pr222-native-a
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224FullMatch.mjs E second-seed --seed pr222-native-a
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224FullMatch.mjs E second-seed-replay docs/performance/pr224-native-a-halt.json.gz
+```
+
 ## Follow-up — simultaneous shin pressure at 41:56
 
 The archived 41:56 step reached two opposing shin surfaces at the same time.
