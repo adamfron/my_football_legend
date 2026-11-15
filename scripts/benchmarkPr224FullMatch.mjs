@@ -45,7 +45,12 @@ assert.equal(initial.playerAgencyEnabled, false);
 const source = {
   revision,
   engineDigest: hash(
-    ['pendingStrikeInterval.ts', 'composedLegCurvature.ts'].map((file) =>
+    [
+      'pendingStrikeInterval.ts',
+      'composedLegCurvature.ts',
+      'composedLegContact.ts',
+      'ballContactResolution.ts',
+    ].map((file) =>
       readFileSync(join('src', 'core', 'matchSimulation', file), 'utf8').replaceAll('\r\n', '\n'),
     ),
   ),

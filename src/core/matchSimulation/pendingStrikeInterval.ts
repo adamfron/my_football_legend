@@ -1,6 +1,6 @@
 import { BALL_RADIUS, PASSIVE_OUTFIELD_BODY, UPRIGHT_OUTFIELD_BALL_BODY } from './ballFlight';
 import { composeArticulatedLegs, effectiveArticulatedFoot } from './articulatedBody';
-import { firstComposedLegContact } from './composedLegContact';
+import { firstComposedLegContact, touchingComposedShin } from './composedLegContact';
 import { affineBootClearOfBallFlight, minimumQuadratic } from './composedLegCurvature';
 import { deriveLowerBodyGeometry, interpolateLowerBodyPose } from './lowerBodyGeometry';
 import { advanceArticulatedStance, continueParkedArticulatedStance } from './articulatedGait';
@@ -40,6 +40,7 @@ import { resolveDefensiveChallenge, type ChallengeDiagnostic } from './defensive
 import { executeFootContact } from './footContact';
 import {
   retainContinuousBodyContacts,
+  resolveOpposingBallContacts,
   supportContinuousBodyContacts,
 } from './ballContactResolution';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
@@ -535,11 +536,14 @@ export const advancePendingStrikeInterval = (
       elapsed + t - began,
     );
   };
+  const eventLimit = multi ? MULTI_BODY.events : 4;
   for (
     let eventCount = 0;
-    eventCount < (multi ? MULTI_BODY.events : 4) && elapsed < dt - 1e-12;
+    (eventCount < eventLimit || (composedLegs && eventCount === eventLimit)) &&
+    elapsed < dt - 1e-12;
     eventCount++
   ) {
+    const beforeSearch = state;
     const seconds = dt - elapsed;
     if (multi)
       state = {
@@ -1151,6 +1155,12 @@ export const advancePendingStrikeInterval = (
       elapsed = dt;
       break;
     }
+    // The last allowed event can leave a free tail. Certify that tail with the
+    // usual search, but never consume or resolve another event on exhaustion.
+    if (eventCount === eventLimit) {
+      state = beforeSearch;
+      break;
+    }
     const incoming = event.at > 0 ? advanceBall(event.at) : ball;
     elapsed += event.at;
     const unchangedBall = state.ball;
@@ -1565,20 +1575,64 @@ export const advancePendingStrikeInterval = (
       const { leg, normal, velocity: surfaceVelocity } = event.legHit;
       const priorLeg = state.lastLimbContacts?.at(-1);
       const earlierLeg = state.lastLimbContacts?.at(-2);
+      const other =
+        !hasSupport &&
+        leg.region === 'shin' &&
+        priorLeg === state.lastBallContact &&
+        priorLeg?.leg?.region === 'shin' &&
+        priorLeg.playerId !== actor.id &&
+        earlierLeg?.playerId === actor.id &&
+        earlierLeg.leg?.region === 'shin' &&
+        earlierLeg.leg.foot === leg.foot
+          ? finalPlayers.find((p) => p.id === priorLeg.playerId)
+          : undefined;
+      const touching =
+        other && priorLeg?.leg
+          ? touchingComposedShin(
+              priorLeg.leg.foot,
+              incoming.position,
+              (t) =>
+                composeArticulatedLegs(
+                  playerAt(other, elapsed + t),
+                  intervalFoot(other, 'left', t),
+                  intervalFoot(other, 'right', t),
+                ),
+              dt - elapsed,
+            )
+          : undefined;
+      const simultaneous =
+        touching && resolveOpposingBallContacts(incoming.velocity, event.legHit, touching);
       state = finishPendingStrike(state, 'interrupted', 'incidental_leg', state.time, {
         evaluations,
         firstEvent: event.key,
       });
       state = handlers.body(state, actor.id);
       if (interruptedByLaw(state)) return restoreClock(state);
-      const response = resolveBallRebound(
-        'defender',
-        incoming.velocity,
-        { team: state.possessionTeam, endsSwitched: state.endsSwitched },
-        incoming.spin,
-        { surfaceNormal: normal, surfaceVelocity, point: incoming.position },
+      const response = simultaneous
+        ? { velocity: simultaneous, spin: incoming.spin }
+        : resolveBallRebound(
+            'defender',
+            incoming.velocity,
+            { team: state.possessionTeam, endsSwitched: state.endsSwitched },
+            incoming.spin,
+            { surfaceNormal: normal, surfaceVelocity, point: incoming.position },
+          );
+      state = recordExecution(
+        state,
+        'ball-body-contact',
+        simultaneous
+          ? 'pendingStrikeInterval.opposingShinContacts'
+          : 'pendingStrikeInterval.composedLeg',
+        1,
       );
-      state = recordExecution(state, 'ball-body-contact', 'pendingStrikeInterval.composedLeg', 1);
+      if (simultaneous && receptionMechanicsTraceEnabled())
+        traceReception('pendingStrikeInterval.opposingShinContacts', state.time, actor.id, {
+          primary: event.legHit,
+          other: touching,
+          otherId: other?.id,
+          incoming: incoming.velocity,
+          outgoing: simultaneous,
+        });
       state = {
         ...state,
         ball: {
@@ -1614,7 +1668,7 @@ export const advancePendingStrikeInterval = (
       delete state.controlledBallContact;
       delete state.ballAcquisition;
       state.lastLimbContacts = [...(state.lastLimbContacts ?? []), state.lastBallContact!];
-      yieldSwingBetweenShins(actor, event.legHit, priorLeg, earlierLeg);
+      if (!simultaneous) yieldSwingBetweenShins(actor, event.legHit, priorLeg, earlierLeg);
       continue;
     }
     if (event.kind === 'passive_foot') {

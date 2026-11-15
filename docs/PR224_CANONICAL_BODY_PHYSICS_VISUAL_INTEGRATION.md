@@ -1,6 +1,68 @@
 # PR224 — Canonical body physics and visual integration
 
-## Full-match follow-up
+## Follow-up — simultaneous shin pressure at 41:56
+
+The archived 41:56 step reached two opposing shin surfaces at the same time.
+Applying independent rebounds made the second impulse continually restore
+closing velocity against the first surface. After an observed A–B–A shin
+sequence by two players, the solver now samples the other shin at the actual
+contact time. Both surfaces must touch the ball within the existing
+`1e-7 m` clearance tolerance. Existing continuous boot or torso support
+keeps the ordinary path.
+
+When both normal impulses are positive, the two-by-two Gram system
+finds the minimum velocity change that meets both moving surfaces'
+non-penetration constraints. The joint normal response uses zero restitution
+and leaves tangential motion and ball spin intact. Parallel incompatible
+normals keep the bounds and unresolved behavior of the ordinary race.
+The response uses the velocities of the swept surfaces and preserves the
+canonically integrated root paths and planted feet.
+
+The native 41:56 step now consumes 13 shin events, including the joint
+response, one player cluster and two boot events. The joint response took
+the ball from 0.76 m/s to 5.36 m/s as the actuated shins closed, sending it
+down to the normal boot race. This is a kinematic contact result, with no
+claim that the moving surface work is biomechanically calibrated. Both
+players' roots advanced, both right plant anchors stayed fixed, and the
+second boot event retained the ball. After the 16th event, the ordinary
+search certified the final 48 μs clear. It can commit a clear tail only.
+Another event or unresolved search still reaches the same safety halt,
+with the same 16-event and 192-sample limits and geometric tolerances.
+
+Replay the tracked native step with:
+
+```sh
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224FullMatch.mjs E paired-replay docs/performance/pr224-full-match-checkpoints.json.gz
+```
+
+### Full match after the repair
+
+Both arms finished from kickoff without a solver halt, using the same
+22-player autonomous save and 25 ms tick. D reproduced its previous
+terminal state exactly.
+
+| Measurement | D | E |
+| --- | ---: | ---: |
+| Half-time score | 1–1 | 0–0 |
+| Full-time score | 1–2 | 3–1 |
+| Full-time clock | 95:23.450 | 96:00.000 |
+| Pass releases | 355 | 290 |
+| Retained boot contacts | 1,049 | 765 |
+| Shin contacts | 0 | 527 |
+| Ownership changes | 1,588 | 1,088 |
+| Restarts | 194 | 212 |
+
+E's four goals arrived in the second half, at 64:23.300, 70:23.600,
+80:53.300 and 88:42.500. The continuation from 41:56 also reached full
+time with the same goal timeline. The result is from one pairing.
+See the [match and checkpoint receipt](performance/pr224-full-match-paired.json).
+
+**Promotion decision — RETAIN_EXPERIMENTAL.** Both 22-player inputs also
+passed the deterministic 30 s and 120 s gates. PR201/B remains the maintained
+integration profile. Wider validation depends on additional full-match saves
+and evidence for simultaneous contact across more than two surfaces.
+
+## Previous full-match follow-up
 
 Both arms use the same archived `lab-mw3xhr6o` save, with 22 players at kickoff,
 autonomous control on both sides and 25 ms simulation ticks. The runner resumes

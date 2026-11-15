@@ -109,6 +109,40 @@ const contactCapsule = (g: Geometry, index: number): TaperedCapsule => {
   return { ...shape, distalRadius, to: mix(shape.to, shape.from, distalRadius / length) };
 };
 
+export const touchingComposedShin = (
+  foot: Foot,
+  ball: FlightPoint,
+  geometryAt: (at: number) => Geometry | undefined,
+  seconds: number,
+) => {
+  const current = geometryAt(0);
+  const index = current?.capsules.findIndex((shape) => shape.region === `${foot}_shin`) ?? -1;
+  if (!current || index < 0) return;
+  const shape = contactCapsule(current, index);
+  const contact = sampleCapsule(shape, ball);
+  if (Math.abs(contact.gap) > distanceTolerance || contact.along === 0) return;
+  const t = Math.min(seconds, 1e-6);
+  const next = t > 0 ? geometryAt(t) : undefined;
+  if (!next) return;
+  const future = contactCapsule(next, index);
+  const delta = minus(
+    mix(future.from, future.to, contact.along),
+    mix(shape.from, shape.to, contact.along),
+  );
+  const velocity = mix({ x: 0, y: 0, z: 0 }, delta, 1 / t);
+  const normal = mix({ x: 0, y: 0, z: 0 }, contact.delta, 1 / contact.distance);
+  const leg: LegContact = {
+    foot,
+    region: 'shin',
+    point: mix(contact.nearest, ball, contact.radius / contact.distance),
+    from: shape.from,
+    to: shape.to,
+    radius: shape.radius,
+    distalRadius: shape.distalRadius,
+  };
+  return { normal, velocity, leg };
+};
+
 type Hit =
   | { kind: 'unresolved'; at: number; reason: 'geometry' | 'budget' }
   | {

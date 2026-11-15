@@ -5,8 +5,8 @@ Three.js i oś kontaktów z niską piłką także podczas ruchu nogi po akcji.
 Wspólne przeszukiwanie powierzchni i ograniczenie ruchu względem cięciwy
 pozwoliły przejść trzy zapisane zatrzymania przy tych samych limitach.
 Oba wejścia 22 zawodników ukończyły po 30 i 120 s z rzeczywistymi odbiciami
-golenią. W pełnym meczu D uzyskał wynik 1:2. E po czterech poprawkach
-zatrzymuje się w 41:56 na ścisku piłki między goleniami dwóch zawodników.
+golenią. Wspólna reakcja na nacisk dwóch goleni usuwa zatrzymanie z 41:56.
+Pełne mecze od pierwszego gwizdka zakończyły się 1:2 w D i 3:1 w E.
 **RETAIN_EXPERIMENTAL**. Utrzymywany profil to PR201/B.
 [Raport PR224](PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md).
 

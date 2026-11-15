@@ -4,6 +4,7 @@ import { gunzipSync } from 'node:zlib';
 import { expect, it } from 'vitest';
 import { createPr224LimbScene, selectPr224Body } from '../../../scripts/pr224Scenarios';
 import { BALL_RADIUS } from './ballFlight';
+import { resolveOpposingBallContacts } from './ballContactResolution';
 import { projectArticulatedBody } from './articulatedBody';
 import { integrateBallFlight } from './ballPhysics';
 import { firstComposedLegContact } from './composedLegContact';
@@ -13,6 +14,8 @@ import { physicalStrikeBall } from './pendingStrike';
 import { stepTacticalMatch } from './matchSimulation';
 import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
 import { withIntegrationProfile } from './integrationProfile';
+import { MULTI_BODY } from './multiBodyContact';
+import { captureReceptionStep } from './receptionTrace';
 
 it.each([
   ['left', 'stationary'],
@@ -144,7 +147,58 @@ const fullMatch = JSON.parse(
     plant?: 'left' | 'right';
     stationary?: boolean;
   }[];
+  remaining: { before: unknown };
 };
+
+it('solves both opposed normal constraints independent of order and retains tangential motion', () => {
+  const a = { normal: { x: 0.8, y: 0, z: 0.6 }, velocity: { x: 1, y: 0, z: 0 } };
+  const b = { normal: { x: -0.8, y: 0, z: 0.6 }, velocity: { x: -1, y: 0, z: 0 } };
+  const incoming = { x: 0, y: 2, z: 0 };
+  const result = resolveOpposingBallContacts(incoming, a, b)!;
+  expect(result.x).toBeCloseTo(0, 12);
+  expect(result.y).toBe(incoming.y);
+  expect(result.z).toBeCloseTo(0.8 / 0.6, 12);
+  expect(resolveOpposingBallContacts(incoming, b, a)).toEqual(result);
+  expect(
+    resolveOpposingBallContacts(
+      incoming,
+      { ...a, normal: { x: 1, y: 0, z: 0 } },
+      { ...b, normal: { x: -1, y: 0, z: 0 } },
+    ),
+  ).toBeUndefined();
+});
+
+it('replays the two-player pinch at 41:56 without freezing either moving player', () => {
+  const initial = tacticalMatchStateSchema.parse(
+    fullMatch.remaining.before,
+  ) as unknown as TacticalMatchState;
+  const { state, events } = captureReceptionStep(() => stepTacticalMatch(initial, 0.025), {
+    mechanics: true,
+  });
+  expect(state.safetyHalt).toBeUndefined();
+  expect(state.time).toBe(initial.time + 0.025);
+  expect(state.lastGroundContact).toMatchObject({ actorId: 'footballer_pro_1_4', retained: true });
+
+  const reactions = events.filter(({ source }) => source.endsWith('opposingShinContacts'));
+  expect(reactions).toHaveLength(1);
+  expect(reactions[0]).toMatchObject({
+    actorId: 'footballer_pro_1_4',
+    detail: { otherId: 'footballer_pro_1_17' },
+  });
+  const race = events
+    .filter(({ source }) => source.endsWith('intervalRace'))
+    .map(({ detail }) => (detail as { event?: unknown }).event);
+  expect(race.filter(Boolean)).toHaveLength(MULTI_BODY.events);
+  expect(race.at(-1)).toBeUndefined();
+  for (const id of ['footballer_pro_1_4', 'footballer_pro_1_17']) {
+    const previous = initial.players.find((p) => p.id === id)!;
+    const next = state.players.find((p) => p.id === id)!;
+    expect(next.position).not.toEqual(previous.position);
+    expect(next.articulatedStance?.support).toBe('right');
+    expect(next.articulatedStance?.right).toEqual(previous.articulatedStance?.right);
+    expect(projectArticulatedBody(state, next)).toBeDefined();
+  }
+});
 
 it.each(fullMatch.cases)(
   'continues the full-match checkpoint with $name',
