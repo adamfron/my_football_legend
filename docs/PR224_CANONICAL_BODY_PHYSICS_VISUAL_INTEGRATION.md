@@ -2,7 +2,7 @@
 
 ## Plan and source baseline
 
-Base: merged main `6d59d05bdc1c40543a16c902447ef588de796978` (PR223).
+The base is merged main `6d59d05bdc1c40543a16c902447ef588de796978` (PR223).
 The maintained recipe is PR201/B at 40 Hz with 28 permanent attributes. The
 product sequence remains canonical MatchEngine, validated statistical distillation,
 then broader career, world and presentation. This work supports the first stage.
@@ -44,7 +44,8 @@ Prepared trajectories and actual receiving impulses have their own evidence.
 | High-ball and keeper movement | PHYSICAL_APPROXIMATION | Heading, aerial and keeper modules own their current reach, root and law logic. | Existing display and replay support approximations. Shared articulated saves and head/hand surfaces remain unverified. |
 | Arm and head gestures | VISUAL_ONLY | Secondary rig cues lack physical authority. | They can react to match cues without claiming new surfaces or actions. |
 
-Sources:
+Source and evidence references
+
 [PR195 physical gaps](PR195_MATCH_ENGINE_ASSUMPTIONS_AUDIT.md#9-physical-feasibility-gaps),
 [PR218 model](PR218_CANONICAL_ARTICULATED_BODY_AND_GAIT.md),
 [PR218 v2 continuation](PR218_STANCE_V2_GATE_REPAIR.md),
@@ -145,9 +146,12 @@ continues to reproduce the 5.3266 m/s one-chord support rebound and its
 approximately 5.618 m/s partition limit on the original measured source.
 The historical result attributes the false launch to the boot trajectory,
 with an additional numerical sensitivity to the correction normal. The
-support impulse solver is retained. E's projected-support/grazing halt and
-the earlier real deflection must be inspected independently before modifying
-the support normal or widening any physical tolerance.
+support impulse solver is retained. An opt-in mechanics trace reproduces
+the E pressure halt with no committed persistent support in either of the
+two involved ticks. The next search fails after another shin candidate
+inside the tick that rolls back. The failure can occur in free flight, so
+the pressure scene establishes no causal case for changing support normals.
+Certify the free-flight search before validating its supported-ball variant.
 
 ## Renderer and native replay parity
 
@@ -214,10 +218,12 @@ node --experimental-transform-types --import ./scripts/registerTypescriptLoader.
 npm run verify
 ```
 
-PR218 and PR223 source-bound archive checks pass. PR223 continues to run
-against its merged source in Actions. The existing numerical/browser
-projection and the new experimental evidence have separate gates. Hosted
-results belong to the final commit and are linked from the PR.
+PR218 and PR223 source-bound archive checks pass. PR220's negative placement
+controls pass against merged PR220, and the PR219, PR221 and PR222 controls
+reproduce using the PR223 tree. The 12 focused tests, TypeScript and the
+production build pass. The first full local verify had 2717 passing unit
+tests and three existing time-budget failures. The local retry and hosted
+results are tracked in the PR.
 
 ## Physical/Visual Footballer Completion Register
 
@@ -228,12 +234,12 @@ results belong to the final commit and are linked from the PR.
 | C. Incomplete in the current body | Safe moving-capsule search under persistent support, stable ground/boot/shin ownership near the ankle seam, quantitative limits on accidental impulse and recoverable balance, exact event-time rig rendering, directional reception and second touch under pressure. Natural acceleration, sharp reversal and lateral gait need more sequence coverage. |
 | D. Requires new physical mechanics | Empirical running flight, stud slip and recovery, 3D COM and angular balance, tipping/fall and get-up, upper-body/head contact, articulated keeper saves and advanced aerial football. |
 
-Minimum dependency order:
+### Minimum dependency order
 
 1. Reproduce the three E halts at the original inputs. Prove the earliest
-   feasible face, separate projected-support discontinuities from grazing
-   near misses, and certify continuation without broadening the boot or
-   weakening defenders.
+   feasible face and certify grazing-contact continuation in free flight.
+   Then verify the same search under projected support with existing boot
+   coverage and defender authority.
 2. Repeat the pressure pair with defensible ankle/shin coverage. Validate
    the incidental impulse and a real interception, directional first touch
    and subsequent controlled action. Retain the negative outcomes.
