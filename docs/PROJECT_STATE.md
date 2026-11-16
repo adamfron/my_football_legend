@@ -9,6 +9,8 @@ golenią. Wspólna reakcja na nacisk dwóch goleni usuwa zatrzymanie z 41:56.
 Pełne mecze od pierwszego gwizdka zakończyły się 1:2 w D i 3:1 w E.
 Na ziarnie `pr222-native-a` D ukończył mecz wynikiem 0:1, a E wynikiem
 2:0 po rozszerzeniu tej samej reakcji na dwie golenie jednego zawodnika.
+Na niezależnym zapisie PR214 oba warianty ukończyły mecz bez zatrzymania
+solvera. D wygrał 5:0, a E 2:0.
 **RETAIN_EXPERIMENTAL**. Utrzymywany profil to PR201/B.
 [Raport PR224](PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md).
 

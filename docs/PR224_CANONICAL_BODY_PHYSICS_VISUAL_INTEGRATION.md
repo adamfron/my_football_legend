@@ -1,5 +1,46 @@
 # PR224 — Canonical body physics and visual integration
 
+## Full match on an independent PR214 save
+
+On `5900cd5`, GitHub Actions passed all 28 jobs. Local `npm run verify`
+also exited successfully after 2,797 tests and the production build.
+Both checks completed before the independent pair started.
+
+The [archived PR214 kickoff](performance/pr214/holistic-input-ci-v1.json.gz)
+uses the seed `pr215-holistic-sw-B-v1`, the geometry anchor and opponent
+rosters, and 4-3-3 against 3-5-2. Its 22 players are independent of the
+source used in the earlier pairings. Both arms start from the same save at time
+zero, use autonomous control and 25 ms steps, and differ only by E's
+composed-leg selector.
+
+| Measurement | D | E |
+| --- | ---: | ---: |
+| Half-time score | 2–0 | 1–0 |
+| Full-time score | 5–0 | 2–0 |
+| Full-time clock | 96:00.100 | 94:54.825 |
+| Pass releases | 262 | 232 |
+| Retained boot contacts | 1,042 | 659 |
+| Shin contacts | 0 | 450 |
+| Ownership changes | 1,470 | 872 |
+| Restarts | 182 | 207 |
+
+Both arms reached full time with no solver halt. E scored first at
+1:51.425 and added its second at 57:29.800. D first scored at 29:42.275
+and added three goals after the interval. The
+[receipt](performance/pr224-full-match-independent.json) records the
+archived input digest, goal times, terminal hashes and counts at common
+clock checkpoints.
+
+**Promotion decision — RETAIN_EXPERIMENTAL.** This adds a full pairing on
+an independent roster and formation. PR201/B remains the maintained
+integration profile. Further validation depends on other archived
+matches and simultaneous contacts involving more than two surfaces.
+
+```sh
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224FullMatch.mjs D independent --input docs/performance/pr214/holistic-input-ci-v1.json.gz
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224FullMatch.mjs E independent --input docs/performance/pr214/holistic-input-ci-v1.json.gz
+```
+
 ## Full match with `pr222-native-a`
 
 This pairing uses the same archived initial situation as the first full

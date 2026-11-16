@@ -11,12 +11,13 @@ import { editions } from './benchmarkPr221Reception.mjs';
 import { matchInput, matchSeeds } from './benchmarkPr222Reception.mjs';
 import { selectPr224Body } from './pr224Scenarios.ts';
 import { startSecondHalf, stepTacticalMatch } from '../src/core/matchSimulation/matchSimulation.ts';
+import { withArticulatedBody } from '../src/core/matchSimulation/articulatedGait.ts';
 import { tacticalMatchStateSchema } from '../src/core/matchSimulation/matchState.ts';
 import { captureReceptionStep } from '../src/core/matchSimulation/receptionTrace.ts';
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
-  options: { seed: { type: 'string' }, resume: { type: 'boolean' } },
+  options: { seed: { type: 'string' }, input: { type: 'string' }, resume: { type: 'boolean' } },
 });
 const [arm, label, checkpoint] = positionals;
 assert.ok(positionals.length <= 3);
@@ -27,8 +28,18 @@ const replay = checkpoint && !values.resume;
 const saved = checkpoint ? JSON.parse(gunzipSync(readFileSync(checkpoint))) : undefined;
 const beforeHalt = saved?.before ?? saved?.remaining?.before;
 if (saved) assert.ok(beforeHalt, 'The receipt has no pre-halt state');
-const seed = values.seed ?? beforeHalt?.seed ?? matchSeeds[0];
-assert.ok(matchSeeds.includes(seed), `Unknown match seed: ${seed}`);
+const inputPath = values.input ?? saved?.inputPath;
+assert.ok(!inputPath || !values.seed, '--input preserves the archived seed');
+const archived = inputPath
+  ? tacticalMatchStateSchema.parse(JSON.parse(gunzipSync(readFileSync(inputPath))).initial)
+  : undefined;
+if (archived) {
+  assert.equal(archived.time, 0);
+  assert.equal(archived.status, 'first_half');
+  assert.equal(archived.scenario, 'kick_off');
+}
+const seed = archived?.seed ?? values.seed ?? beforeHalt?.seed ?? matchSeeds[0];
+if (!archived) assert.ok(matchSeeds.includes(seed), `Unknown match seed: ${seed}`);
 if (beforeHalt) assert.equal(beforeHalt.seed, seed);
 const parent = join('.benchmark-artifacts', 'pr224-full');
 const root = join(parent, label + '-' + arm);
@@ -43,7 +54,8 @@ const revision = execFileSync('git', ['rev-parse', 'HEAD'], {
 }).trim();
 const reload = (state) => tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(state)));
 const input = reload({
-  ...matchInput(seed),
+  ...(archived ? withArticulatedBody(archived) : matchInput(seed)),
+  playerAgencyEnabled: false,
   experimentalPostImpactStance: 'parked-stance-remainder-dev-v1',
   experimentalReceptionPreparation: editions.C,
 });
@@ -67,6 +79,7 @@ const source = {
   seed: initial.seed,
   inputHash: hash(input),
   initialHash: hash(initial),
+  inputPath,
   checkpoint,
 };
 const began = performance.now();
