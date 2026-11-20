@@ -4,6 +4,11 @@ import {
   recoveringFeetSchema,
 } from './sharedContactTimeline';
 import { z } from 'zod';
+import {
+  bodyMorphologySchema,
+  fullBodySkeletonEditionSchema,
+  type BodyMorphology,
+} from './bodyMorphology';
 import { executionWitnessesSchema } from './executionWitness';
 import { matchSafetyHaltSchema, type MatchSafetyHalt } from './matchSafety';
 import { multiBodyResolutionsSchema, restartReentrySchema } from './multiBodyContact';
@@ -518,7 +523,9 @@ export const restartLifecycleSchema = z.object({
   startedAt: z.number().nonnegative(),
   executedAt: z.number().nonnegative().optional(),
   takerId: z.string(),
-  targets: z.record(z.string(), pitchPointSchema),
+  // Preparation/run-up targets can lie outside the touch/goal lines. Legal
+  // restart spots and rule readiness retain their separate pitch constraints.
+  targets: z.record(z.string(), physicalPointSchema),
   landingZone: pitchPointSchema.optional(),
   cornerPlan: cornerPlanSchema.optional(),
   executionChoices: z.array(z.enum(['short_pass', 'long_delivery', 'direct_shot', 'combination'])),
@@ -559,6 +566,8 @@ export const spatialMovementSchema = z.object({
 });
 
 export interface MatchPlayerState {
+  /** Static authored geometry, stored once with this player's native body. */
+  bodyMorphology?: BodyMorphology | undefined;
   transitionMark?: z.infer<typeof transitionMarkSchema>;
   ballMotorObservation?: z.infer<typeof ballMotorObservationSchema> | undefined;
   lowerBodyPose?: LowerBodyPose | undefined;
@@ -879,6 +888,7 @@ export interface TacticalMatchState {
   experimentalObservedStrikePreparation?: z.infer<typeof observedStrikePreparationSchema>;
   experimentalReceptionPreparation?: z.infer<typeof receptionPreparationEditionSchema>;
   experimentalArticulatedBody?: z.infer<typeof articulatedBodySelectionSchema>;
+  experimentalFullBodySkeleton?: z.infer<typeof fullBodySkeletonEditionSchema>;
   experimentalPostImpactStance?: z.infer<typeof postImpactStanceEditionSchema>;
   experimentalComposedLegContact?: z.infer<typeof composedLegContactEditionSchema>;
   pendingStrike?: PendingStrike;
@@ -1139,6 +1149,7 @@ export const tacticalMatchStateSchema = z
     experimentalObservedStrikePreparation: observedStrikePreparationSchema.optional(),
     experimentalReceptionPreparation: receptionPreparationEditionSchema.optional(),
     experimentalArticulatedBody: articulatedBodySelectionSchema.optional(),
+    experimentalFullBodySkeleton: fullBodySkeletonEditionSchema.optional(),
     experimentalPostImpactStance: postImpactStanceEditionSchema.optional(),
     experimentalComposedLegContact: composedLegContactEditionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
@@ -1261,6 +1272,7 @@ export const tacticalMatchStateSchema = z
           transitionMark: transitionMarkSchema.optional(),
           lowerBodyPose: lowerBodyPoseSchema.optional(),
           articulatedStance: articulatedStanceSchema.optional(),
+          bodyMorphology: bodyMorphologySchema.optional(),
           verticalJump: verticalJumpSchema.optional(),
           injury: matchInjurySchema.optional(),
           restartWallResponse: restartWallResponseSchema.optional(),
@@ -1393,7 +1405,10 @@ export const tacticalMatchStateSchema = z
     lastRestartLivenessRecovery: restartLivenessDiagnosticSchema.optional(),
     lastShot: shotDiagnosticSchema.optional(),
     lastBallContact: ballContactSchema.optional(),
-    lastLimbContacts: z.array(ballContactSchema.required({ leg: true })).max(16).optional(),
+    lastLimbContacts: z
+      .array(ballContactSchema.required({ leg: true }))
+      .max(16)
+      .optional(),
     offsideSnapshot: offsideSnapshotSchema.optional(),
     lastOffsideOffence: offsideOffenceSchema.optional(),
     keeperIntervention: keeperInterventionSchema.optional(),
@@ -1467,6 +1482,22 @@ export const tacticalMatchStateSchema = z
       state.substitutionState?.pending.some(
         (r) => r.outgoing.articulatedStance || r.entryArticulatedStance,
       );
+    const individualBodies =
+      state.players.some((p) => p.bodyMorphology) ||
+      state.departedPlayers?.some((p) => p.bodyMorphology) ||
+      state.substitutionState?.pending.some((r) => r.outgoing.bodyMorphology);
+    if (
+      (state.experimentalFullBodySkeleton || individualBodies) &&
+      (!state.experimentalFullBodySkeleton ||
+        !state.experimentalArticulatedBody ||
+        state.integrationProfile)
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['experimentalFullBodySkeleton'],
+        message:
+          'Full-body morphology requires the explicitly selected unprofiled v2 skeleton edition',
+      });
     if (
       (state.experimentalArticulatedBody || articulatedPlayers) &&
       (!state.experimentalArticulatedBody ||

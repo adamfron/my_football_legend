@@ -103,7 +103,12 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
       'ip0-2d2162c9',
     );
   });
-  it.each(['spectator', 'player'] as const)('starts and replays stance v2 as %s', (mode) => {
+  it.each([
+    ['spectator', 'holistic-stance-foot-dev-v2'],
+    ['player', 'holistic-stance-foot-dev-v2'],
+    ['spectator', 'holistic-full-body-dev-v1'],
+    ['player', 'holistic-full-body-dev-v1'],
+  ] as const)('starts and replays %s in %s', (mode, preset) => {
     const ordinary = createSingleMatchSession(world, setup);
     const session = createSingleMatchSession(world, {
       ...setup,
@@ -116,7 +121,7 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
               footballerId: ordinary.home.players[1]!.footballerId,
               forceIntoXI: true,
             },
-      physicalPreset: 'holistic-stance-foot-dev-v2',
+      physicalPreset: preset,
       decisionPolicy: 'opportunity-driven-v1',
     });
     const state = createTacticalMatch(session);
@@ -124,7 +129,7 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
     expect(state.decisionPolicy).toBe('opportunity-driven-v1');
     expect(state.experimentalArticulatedBody).toBe('stance-foot-dev-v2');
     expect(state.players.every((player) => player.articulatedStance)).toBe(true);
-    expect(effectiveHolisticRecipe(reload(state))?.id).toBe('holistic-stance-foot-dev-v2');
+    expect(effectiveHolisticRecipe(reload(state))?.id).toBe(preset);
     expect(createTacticalMatch(structuredClone(session))).toEqual(state);
     expect(fixtureIdentity(session)).not.toBe(fixtureIdentity(ordinary));
     const replay = replaySnapshotSchema.parse(
@@ -133,6 +138,9 @@ describe('PR215 session selection and bounded ordinary contact authority', () =>
     expect(replay.continuity).toContain('stance-foot-dev-v2');
     expect(replay.articulatedBody).toBe('stance-foot-dev-v2');
     expect(replay.players.every((player) => player.articulatedBody)).toBe(true);
+    expect(replay.players.every((player) => !!player.fullBodyPoseInputs)).toBe(
+      preset === 'holistic-full-body-dev-v1',
+    );
     const corner = applyRestartScenario(state, 'corner');
     expect(captureReplaySnapshot(corner, 1).players.every((player) => player.articulatedBody)).toBe(
       true,

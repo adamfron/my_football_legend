@@ -61,6 +61,9 @@ export const composedJointAcceleration = (
   at: number,
   half: number,
 ) => {
+  // The historical analytic knee-plane bound assumes the v2 symmetric chain.
+  // Individual geometry uses the conservative displacement enclosure instead.
+  if (g.individualMorphology) return;
   const hipRadius = (g.left.thighLength / 0.245) * 0.055;
   const hipHorizontalAcceleration = hipRadius * motion.yawSpeed ** 2;
   const nominal = motion.unconstrainedPelvisAt(at);

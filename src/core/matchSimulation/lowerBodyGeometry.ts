@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { MatchPlayerState } from './matchState';
+import { hasIndividualLowerBody } from './bodyMorphology';
 
 /** Explicit experimental posture; old saves and ordinary fixtures omit it. */
 export const lowerBodyPoseSchema = z.object({
@@ -33,6 +34,7 @@ const leg = z.object({
   supporting: z.boolean(),
 });
 export const lowerBodyGeometrySchema = z.object({
+  individualMorphology: z.literal(true).optional(),
   pelvis: point,
   left: leg,
   right: leg,
@@ -52,7 +54,7 @@ export const lowerBodyGeometrySchema = z.object({
 export const deriveLowerBodyGeometry = (
   actor: MatchPlayerState,
   planted?: Partial<Record<'left' | 'right', { x: number; y: number; z?: number }>>,
-) => {
+): z.infer<typeof lowerBodyGeometrySchema> => {
   planted ??= actor.articulatedStance
     ? {
         left: actor.articulatedStance.left,
@@ -61,6 +63,14 @@ export const deriveLowerBodyGeometry = (
     : undefined;
   const pose = actor.lowerBodyPose ?? neutralLowerBodyPose(),
     height = Math.max(1.4, Math.min(2.2, actor.profile.heightCm / 100));
+  const morphology = hasIndividualLowerBody(actor.bodyMorphology)
+    ? actor.bodyMorphology
+    : undefined;
+  const hipOffset = morphology ? (height * morphology.pelvisWidth) / 2 : height * 0.055;
+  const lengths = (side: 'left' | 'right') => ({
+    thigh: morphology ? height * morphology[side].thigh : height * 0.245,
+    shin: morphology ? height * morphology[side].shank : height * 0.246,
+  });
   const angle = actor.facingAngle + pose.hipYaw,
     forward = { x: Math.sin(angle), y: Math.cos(angle) },
     right = { x: forward.y, y: -forward.x };
@@ -81,16 +91,18 @@ export const deriveLowerBodyGeometry = (
         dy = anchor.y - actor.position.y;
       a = { x: dx * right.x + dy * right.y, y: dx * forward.x + dy * forward.y };
     }
-    const horizontal = (a.x - side * height * 0.055) ** 2 + a.y ** 2;
+    const horizontal = (a.x - side * hipOffset) ** 2 + a.y ** 2;
+    const length = lengths(side === -1 ? 'left' : 'right');
     return {
       horizontal,
+      reach: morphology ? length.thigh + length.shin : height * 0.491,
       ankleZ: anchor?.z === undefined ? 0.075 + jump : anchor.z + 0.035,
     };
   });
   const maximumPelvis = Math.min(
     ...reachLimits.map(
-      ({ horizontal, ankleZ }) =>
-        ankleZ + Math.sqrt(Math.max(0, (height * 0.491 * 0.995) ** 2 - horizontal)),
+      ({ horizontal, ankleZ, reach }) =>
+        ankleZ + Math.sqrt(Math.max(0, (reach * 0.995) ** 2 - horizontal)),
     ),
   );
   const pelvisZ = Math.min(height * 0.49 - pose.crouch * 0.25 + jump, maximumPelvis);
@@ -99,11 +111,10 @@ export const deriveLowerBodyGeometry = (
     y: actor.position.y + right.y * x + forward.y * y,
     z,
   });
-  const pelvis = world(0, 0, pelvisZ),
-    thighLength = height * 0.245,
-    shinLength = height * 0.246;
+  const pelvis = world(0, 0, pelvisZ);
   const derive = (side: -1 | 1) => {
-    const hip = { x: side * height * 0.055, y: 0, z: pelvisZ },
+    const { thigh: thighLength, shin: shinLength } = lengths(side === -1 ? 'left' : 'right');
+    const hip = { x: side * hipOffset, y: 0, z: pelvisZ },
       ankle = { ...ankleLocal(side), z: 0.075 + jump };
     const anchor = planted?.[side === -1 ? 'left' : 'right'];
     if (anchor) {
@@ -123,6 +134,16 @@ export const deriveLowerBodyGeometry = (
     const normal = { x: -unit.x * unit.y, y: 1 - unit.y ** 2, z: -unit.z * unit.y },
       normalLength = Math.hypot(normal.x, normal.y, normal.z);
     if (normalLength < 1e-10) throw Error('Degenerate articulated knee plane');
+    const alignment = morphology?.[side === -1 ? 'left' : 'right'].kneeAlignment ?? 0;
+    if (alignment) {
+      const cross = {
+        x: unit.y * normal.z - unit.z * normal.y,
+        y: unit.z * normal.x - unit.x * normal.z,
+        z: unit.x * normal.y - unit.y * normal.x,
+      };
+      for (const axis of ['x', 'y', 'z'] as const)
+        normal[axis] = normal[axis] * Math.cos(alignment) + cross[axis] * Math.sin(alignment);
+    }
     const knee = {
       x: hip.x + unit.x * along + (normal.x / normalLength) * bend,
       y: hip.y + unit.y * along + (normal.y / normalLength) * bend,
@@ -156,6 +177,7 @@ export const deriveLowerBodyGeometry = (
   const left = derive(-1),
     r = derive(1);
   return {
+    ...(morphology ? { individualMorphology: true as const } : {}),
     pelvis,
     left,
     right: r,

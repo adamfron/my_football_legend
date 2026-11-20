@@ -1,5 +1,21 @@
 # Current-source holistic mechanism inventory — PR214
 
+## PR225 full-body structural scope
+
+`experimentalFullBodySkeleton: full-body-skeleton-dev-v1` is an explicit,
+unprofiled articulated-v2 selection, independent of D/E. `fullBodySkeleton`
+composes 19 segments/18 joints from existing physical root/support/action
+facts plus bounded upper kinematics. `bodyMorphology` independently describes
+both sides. Authored lower lengths, pelvis width and alignment enter the common
+IK/workspace/contact boundary. Other new dimensions remain geometric; the boot
+patch and old torso envelopes retain their existing dimensions.
+
+Canonical presentation, Three.js semantic nodes and compact replay use the
+same derived pose. New arm/hand/head/neck contact proxies are inactive. This
+is not a new root motor, policy, anatomy-derived skill or complete dynamics
+solver. PR201/B remains maintained, physics RETAIN_EXPERIMENTAL. Structural
+and physical gates/results are separate in the [PR225 report](../PR225_UNIFIED_FULL_BODY_SKELETON.md).
+
 ## PR224 additive composed leg scope
 
 Authoritative v2 boots compose both leg chains. An opt-in version lets the

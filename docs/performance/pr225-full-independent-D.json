@@ -1,0 +1,97 @@
+{
+  "fixture": "independent",
+  "arm": "D",
+  "sourcePath": "docs/performance/pr224-full-match-independent.json",
+  "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+  "initialHash": "84ea3625006c6fc136ebbcbd9b4e9c213dd6312a332a915e716f1f43a20048c6",
+  "terminalHash": "77fd758ec04a484b052b50ce38d9c1cfdae6011e496e8e82c156f64fdc648772",
+  "expectedTerminalHash": "77fd758ec04a484b052b50ce38d9c1cfdae6011e496e8e82c156f64fdc648772",
+  "final": {
+    "at": 5760.099999980208,
+    "status": "full_time",
+    "score": {
+      "home": 5,
+      "away": 0
+    },
+    "ticks": 230404,
+    "decisions": 3076,
+    "passReleases": 262,
+    "retainedBootContacts": 1042,
+    "bodyImpactTimes": 4116,
+    "shinContacts": 0,
+    "ownerChanges": 1470,
+    "restarts": 182
+  },
+  "goals": [
+    {
+      "at": 1782.275000002101,
+      "score": {
+        "home": 1,
+        "away": 0
+      }
+    },
+    {
+      "at": 2192.600000003594,
+      "score": {
+        "home": 2,
+        "away": 0
+      }
+    },
+    {
+      "at": 3772.6250000032474,
+      "score": {
+        "home": 3,
+        "away": 0
+      }
+    },
+    {
+      "at": 4332.775000000978,
+      "score": {
+        "home": 4,
+        "away": 0
+      }
+    },
+    {
+      "at": 4671.4749999960495,
+      "score": {
+        "home": 5,
+        "away": 0
+      }
+    }
+  ],
+  "periods": [
+    {
+      "status": "half_time",
+      "at": 2880,
+      "score": {
+        "home": 2,
+        "away": 0
+      }
+    }
+  ],
+  "poses": 126688,
+  "invalid": 0,
+  "confirmedDefenderWins": 8,
+  "contacts": {
+    "rule": "canonical-clearance-certified-v1",
+    "solverEvents": 1525,
+    "observedEpisodes": 994,
+    "independentEncounters": 993,
+    "repeatedEpisodes": 216,
+    "adjacentSurfaceEpisodes": 191,
+    "simultaneousEpisodes": 0,
+    "intendedEpisodes": 944,
+    "incidentalEpisodes": 267,
+    "solverRepetitionCandidates": 0,
+    "jointResponses": 0,
+    "episodeArchive": {
+      "path": "docs/performance/pr225-contact-episodes-independent-D.json.gz",
+      "sha256": "e09f44645210286de023e2464b318fe73c02216369b222beef55ef64d7a89bf4"
+    }
+  },
+  "cost": {
+    "wallSeconds": 570.2639280000001,
+    "compositionAndValidationMs": 0.220249213027273,
+    "heapMiB": 185.80047607421875
+  }
+}

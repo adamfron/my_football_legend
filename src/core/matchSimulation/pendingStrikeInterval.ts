@@ -1,5 +1,6 @@
 import { BALL_RADIUS, PASSIVE_OUTFIELD_BODY, UPRIGHT_OUTFIELD_BALL_BODY } from './ballFlight';
 import { composeArticulatedLegs, effectiveArticulatedFoot } from './articulatedBody';
+import { hasIndividualLowerBody, individualHipOffset } from './bodyMorphology';
 import { firstComposedLegContact, touchingComposedShin } from './composedLegContact';
 import { affineBootClearOfBallFlight, minimumQuadratic } from './composedLegCurvature';
 import { deriveLowerBodyGeometry, interpolateLowerBodyPose } from './lowerBodyGeometry';
@@ -1056,7 +1057,11 @@ export const advancePendingStrikeInterval = (
             ),
           (t) => (t === 0 ? ball : advanceBall(t)),
           {
-            horizontalHipSpeed: travel / seconds + yawSpeed * height * 0.055,
+            horizontalHipSpeed:
+              travel / seconds +
+              (hasIndividualLowerBody(p.bodyMorphology)
+                ? yawSpeed * individualHipOffset(height, p.bodyMorphology)
+                : yawSpeed * height * 0.055),
             yawSpeed,
             unconstrainedPelvisAt: (t) =>
               height * 0.49 -

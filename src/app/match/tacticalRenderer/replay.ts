@@ -1,4 +1,5 @@
 import { tacticalToWorld, type TacticalFrame } from './model';
+import { restoreFullBodySkeleton } from '../../../core/matchSimulation/fullBodySkeleton';
 import type { AnimationCue } from './model';
 import type { ReplaySnapshot } from '../../../core/matchSimulation/matchReplay';
 import { CUE_DURATION_MS } from './animation';
@@ -113,6 +114,10 @@ export const replaySnapshotToFrame = (snapshot: ReplaySnapshot): TacticalFrame =
     dismissals: snapshot.dismissals,
     ...(carryMode ? { carryMode } : {}),
     players: snapshot.players.map(({ possessionPreparation, carrying, releaseCue, ...player }) => {
+      const fullBodySkeleton =
+        player.articulatedBody &&
+        player.fullBodyPoseInputs &&
+        restoreFullBodySkeleton(player.articulatedBody, player.fullBodyPoseInputs);
       const event = [...snapshot.actionEvents]
         .reverse()
         .find(
@@ -180,6 +185,7 @@ export const replaySnapshotToFrame = (snapshot: ReplaySnapshot): TacticalFrame =
             : {};
       return {
         ...player,
+        ...(fullBodySkeleton ? { fullBodySkeleton } : {}),
         ...(cue ? { cue } : {}),
         ...preparation,
         canonicalBallPlacement: true,

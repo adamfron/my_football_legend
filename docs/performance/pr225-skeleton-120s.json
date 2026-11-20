@@ -1,0 +1,166 @@
+{
+  "proof": {
+    "edition": "full-body-skeleton-dev-v1",
+    "ticks": 4800,
+    "checkpoints": [
+      {
+        "name": "affine boot release after a body cluster",
+        "at": 784.0249999995608,
+        "hash": "c0990372edc353f06d6cc25733288f6b7b9e1f33124bf68c1539f6b9699b10e5",
+        "limbEvents": 1
+      },
+      {
+        "name": "opposed shins on a grounded player",
+        "at": 241.97500000003788,
+        "hash": "a75e8207bdd333a554bd52cc4fccb879ef38e5b7aef8963314f86e136fbf73de",
+        "limbEvents": 3
+      },
+      {
+        "name": "stationary ground ball clear of a latched boot",
+        "at": 1571.9250000013358,
+        "hash": "c80cc280f98b554e830940b370b8ef544f13ebee21f29e2c164f3c7b3c32385b",
+        "limbEvents": 0
+      },
+      {
+        "name": "opposed shins across two grounded players",
+        "at": 1876.2000000024427,
+        "hash": "a12b6d63ea30d517c41709ee71fef0f1b28e79ffd8a5e6e2621dd9fe35b55899",
+        "limbEvents": 4
+      },
+      {
+        "name": "opposed shins with continuing root motion",
+        "at": 2516.0000000047703,
+        "hash": "0519bff19da4cda77c718fe66925edd04f29c2dd75d7862d9e10f8852bbace27",
+        "limbEvents": 13
+      },
+      {
+        "name": "lab-mw3xhr6o",
+        "at": 25.024999999999647,
+        "hash": "97a2018768957b2a3bf8590aa59d4217ee35f5678f6a3a91d3b41c8eb4ad4bfb",
+        "limbEvents": 0
+      },
+      {
+        "name": "pr222-native-a",
+        "at": 5.3500000000000085,
+        "hash": "106f6389b5565ffad73ec5234558caf97f2d8650657339c115a64701245f3b1b",
+        "limbEvents": 1
+      },
+      {
+        "name": "free-flight graze at 101.1 s",
+        "at": 101.10000000000586,
+        "hash": "65e89ce54a2d918de4b238e80c7031c6485e41e80df4e72e1ce2b5b202677e23",
+        "limbEvents": 1
+      },
+      {
+        "name": "checkpoint-8",
+        "at": 4318.875000001399,
+        "hash": "a3732d1fb12692cee6d17178b2bf3c79ce35d75997faae4b949e4aa53675e413",
+        "limbEvents": 14
+      }
+    ],
+    "matches": [
+      {
+        "seed": "lab-mw3xhr6o",
+        "arm": "D",
+        "physicalHash": "6eb83637f6f3f0d65cca97b5aed93e22fe727887fa3547a7c373940c18710cac",
+        "legHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "limbEvents": 0,
+        "bootEvents": 37,
+        "passReleases": 9,
+        "poses": 13200,
+        "invalid": 0
+      },
+      {
+        "seed": "lab-mw3xhr6o",
+        "arm": "E",
+        "physicalHash": "19c8059479c85092da3067c0bd62a457415a5338555cfe95bb06f96baae3e532",
+        "legHash": "e4331afecbdb8c69dc4ac49a6eadc840815367410b6c13194b835476c939799c",
+        "limbEvents": 12,
+        "bootEvents": 31,
+        "passReleases": 9,
+        "poses": 13200,
+        "invalid": 0
+      },
+      {
+        "seed": "pr222-native-a",
+        "arm": "D",
+        "physicalHash": "2081925f6533ec4655784875685a229952c578ed873ec26289d0a19434c79000",
+        "legHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "limbEvents": 0,
+        "bootEvents": 34,
+        "passReleases": 12,
+        "poses": 13200,
+        "invalid": 0
+      },
+      {
+        "seed": "pr222-native-a",
+        "arm": "E",
+        "physicalHash": "58e1f1b993ce0fda02d95b0f4b584b5d8d9e7e8c2b56387ef1df4a42f7039d91",
+        "legHash": "971689e32394e40e38998e18907ffc38b149eebeb329bf1dac6fd873324b783e",
+        "limbEvents": 21,
+        "bootEvents": 15,
+        "passReleases": 6,
+        "poses": 13200,
+        "invalid": 0
+      }
+    ]
+  },
+  "cost": [
+    {
+      "seed": "lab-mw3xhr6o",
+      "arm": "D",
+      "motorOldMs": 1.6362689791666603,
+      "motorNewMs": 1.5489394999999995,
+      "compositionAndValidationMs": 0.18576681060606182,
+      "compositionMs": 0.057188977272739805,
+      "validationMs": 0.128577833333322,
+      "heapMiB": 399.8440475463867,
+      "nativeBytes": 260120,
+      "legacyNativeBytes": 260061,
+      "replayBytes": 70308,
+      "legacyReplayBytes": 64277
+    },
+    {
+      "seed": "lab-mw3xhr6o",
+      "arm": "E",
+      "motorOldMs": 1.625967395833364,
+      "motorNewMs": 1.564388666666664,
+      "compositionAndValidationMs": 0.17807503030302047,
+      "compositionMs": 0.054595045454517745,
+      "validationMs": 0.12347998484850271,
+      "heapMiB": 158.63909149169922,
+      "nativeBytes": 247024,
+      "legacyNativeBytes": 246965,
+      "replayBytes": 69913,
+      "legacyReplayBytes": 64189
+    },
+    {
+      "seed": "pr222-native-a",
+      "arm": "D",
+      "motorOldMs": 1.3765951458334378,
+      "motorNewMs": 1.3230935624999605,
+      "compositionAndValidationMs": 0.16982387121213005,
+      "compositionMs": 0.05149677272727841,
+      "validationMs": 0.11832709848485165,
+      "heapMiB": 109.21926879882812,
+      "nativeBytes": 258901,
+      "legacyNativeBytes": 258842,
+      "replayBytes": 71110,
+      "legacyReplayBytes": 64986
+    },
+    {
+      "seed": "pr222-native-a",
+      "arm": "E",
+      "motorOldMs": 1.4538337083332984,
+      "motorNewMs": 1.377975062500121,
+      "compositionAndValidationMs": 0.17399743939395138,
+      "compositionMs": 0.0527955909090771,
+      "validationMs": 0.12120184848487428,
+      "heapMiB": 308.80577087402344,
+      "nativeBytes": 261267,
+      "legacyNativeBytes": 261208,
+      "replayBytes": 70937,
+      "legacyReplayBytes": 64927
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "fixture": "paired",
+  "arm": "E",
+  "sourcePath": "docs/performance/pr224-full-match-paired.json",
+  "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+  "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+  "terminalHash": "fc0d098bf404d1a6070e6cd57ee9ac4cfae82d274ce7ce8744044e12a58f91a3",
+  "expectedTerminalHash": "fc0d098bf404d1a6070e6cd57ee9ac4cfae82d274ce7ce8744044e12a58f91a3",
+  "final": {
+    "at": 5760,
+    "status": "full_time",
+    "score": {
+      "home": 3,
+      "away": 1
+    },
+    "ticks": 230401,
+    "decisions": 1572,
+    "passReleases": 290,
+    "retainedBootContacts": 765,
+    "bodyImpactTimes": 4223,
+    "shinContacts": 527,
+    "ownerChanges": 1088,
+    "restarts": 212
+  },
+  "goals": [
+    {
+      "at": 3863.300000004014,
+      "score": {
+        "home": 1,
+        "away": 0
+      }
+    },
+    {
+      "at": 4223.6000000030035,
+      "score": {
+        "home": 1,
+        "away": 1
+      }
+    },
+    {
+      "at": 4853.29999999384,
+      "score": {
+        "home": 2,
+        "away": 1
+      }
+    },
+    {
+      "at": 5322.499999987012,
+      "score": {
+        "home": 3,
+        "away": 1
+      }
+    }
+  ],
+  "periods": [
+    {
+      "status": "half_time",
+      "at": 2760,
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    }
+  ],
+  "poses": 126687,
+  "invalid": 0,
+  "confirmedDefenderWins": 5,
+  "contacts": {
+    "rule": "canonical-clearance-certified-v1",
+    "solverEvents": 1523,
+    "observedEpisodes": 900,
+    "independentEncounters": 899,
+    "repeatedEpisodes": 116,
+    "adjacentSurfaceEpisodes": 255,
+    "simultaneousEpisodes": 1,
+    "intendedEpisodes": 730,
+    "incidentalEpisodes": 409,
+    "solverRepetitionCandidates": 32,
+    "jointResponses": 1,
+    "episodeArchive": {
+      "path": "docs/performance/pr225-contact-episodes-paired-E.json.gz",
+      "sha256": "dd922bb736a9a459272d59a78ece80186b8416ebbff6c2fdc9207473d4ef4d48"
+    }
+  },
+  "cost": {
+    "wallSeconds": 1559.3397075999999,
+    "compositionAndValidationMs": 0.4893022954210898,
+    "heapMiB": 336.9890594482422
+  }
+}

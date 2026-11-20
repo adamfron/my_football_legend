@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { individualHipOffset, individualFootReach } from './bodyMorphology';
 import { bodyPointSchema } from './articulatedBodyState';
 import type { MatchPlayerState } from './matchState';
 
@@ -30,7 +31,7 @@ export const constrainArticulatedFoot = (
   rawAt: (t: number) => Curve,
 ) => {
   const h = Math.max(1.4, Math.min(2.2, after.profile.heightCm / 100));
-  const hipRadius = (foot === 'left' ? -1 : 1) * h * 0.055;
+  const hipRadius = (foot === 'left' ? -1 : 1) * individualHipOffset(h, after.bodyMorphology);
   const turn = Math.atan2(
     Math.sin(after.facingAngle - before.facingAngle),
     Math.cos(after.facingAngle - before.facingAngle),
@@ -64,7 +65,7 @@ export const constrainArticulatedFoot = (
     hip1 = hipAt(dt);
   const hipSpeed = Math.hypot(rootVelocity.x, rootVelocity.y) + Math.abs(omega * hipRadius);
   const hipAcceleration = omega * omega * Math.abs(hipRadius);
-  const nominalRadius = h * 0.43;
+  const nominalRadius = individualFootReach(h, foot, after.bodyMorphology);
   const baseDistance = Math.hypot(base.x - hip.position.x, base.y - hip.position.y);
   const radius = Math.max(nominalRadius, baseDistance);
   const radiusBound =

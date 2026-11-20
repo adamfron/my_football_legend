@@ -92,6 +92,9 @@ workflow = workflow.replace(
       - name: PR224 composed leg integration replay
         if: matrix.group == 'main'
         run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr224Body.mjs --check
+      - name: PR225 full-body skeleton and physical equivalence
+        if: matrix.group == 'main'
+        run: node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr225Skeleton.mjs --check
       - run: npm run ci:group -- --group=checks:\${{ matrix.group }}`,
 );
 workflow = workflow.replace(
