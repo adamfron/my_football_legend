@@ -1,0 +1,76 @@
+{
+  "fixture": "independent",
+  "arm": "E",
+  "sourcePath": "docs/performance/pr224-full-match-independent.json",
+  "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+  "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+  "terminalHash": "eb2d2e26bc20d2a1241dc2475e318eb124414d65c9a295d1e2ceb5b200e0cb96",
+  "expectedTerminalHash": "eb2d2e26bc20d2a1241dc2475e318eb124414d65c9a295d1e2ceb5b200e0cb96",
+  "final": {
+    "at": 5694.824999981158,
+    "status": "full_time",
+    "score": {
+      "home": 2,
+      "away": 0
+    },
+    "ticks": 227793,
+    "decisions": 1628,
+    "passReleases": 232,
+    "retainedBootContacts": 659,
+    "bodyImpactTimes": 4037,
+    "shinContacts": 450,
+    "ownerChanges": 872,
+    "restarts": 207
+  },
+  "goals": [
+    {
+      "at": 111.42500000000821,
+      "score": {
+        "home": 1,
+        "away": 0
+      }
+    },
+    {
+      "at": 3449.800000002073,
+      "score": {
+        "home": 2,
+        "away": 0
+      }
+    }
+  ],
+  "periods": [
+    {
+      "status": "half_time",
+      "at": 2933.550000000195,
+      "score": {
+        "home": 1,
+        "away": 0
+      }
+    }
+  ],
+  "poses": 125234,
+  "invalid": 0,
+  "confirmedDefenderWins": 3,
+  "contacts": {
+    "rule": "canonical-clearance-certified-v1",
+    "solverEvents": 1304,
+    "observedEpisodes": 811,
+    "independentEncounters": 810,
+    "repeatedEpisodes": 99,
+    "adjacentSurfaceEpisodes": 221,
+    "simultaneousEpisodes": 0,
+    "intendedEpisodes": 665,
+    "incidentalEpisodes": 362,
+    "solverRepetitionCandidates": 17,
+    "jointResponses": 0,
+    "episodeArchive": {
+      "path": "docs/performance/pr225-contact-episodes-independent-E.json.gz",
+      "sha256": "62a1a4cd477788c84ba5511949d5a8b7f2b5d6a98048b9c9baaea7193e776ee5"
+    }
+  },
+  "cost": {
+    "wallSeconds": 571.1583942,
+    "compositionAndValidationMs": 0.22001244470361334,
+    "heapMiB": 234.02869415283203
+  }
+}

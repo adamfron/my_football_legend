@@ -72,6 +72,12 @@ rigid transforms. The pelvis follows the actual hip axis; the upper body's
 anatomical frame retains canonical facing. Whole-player yaw rotates the whole
 skeleton, including its head, rather than only its positional landmarks.
 
+The bind hierarchy is static for a morphology. Its reference pelvis height is
+the longer straight leg plus the existing ankle offset; current stance lowering,
+root translation, jump and action do not rewrite the bind transforms. This is an
+asset/reference configuration, not a claim that both unequal legs stand straight
+on the turf. Live support continues to use the actual connected leg solve.
+
 Each segment carries stable identity, parent/joint identity, dimensions, rest,
 local/world transforms, endpoint and physical-kinematic or kinematic authority.
 Each joint carries parent/child, actual local/world transforms, coordinates,
@@ -164,6 +170,12 @@ and pressured contact. Different valid bodies need not have identical outcomes.
 Each proxy carries segment identity, sample time, actual transform/endpoints,
 dimensions, material, velocity/evidence status, collision authority and its
 approximation. This is a description of existing contacts, not a second loop.
+Proxy dimensions describe the collision primitive, independently of anatomical
+segment dimensions: a boot patch has a 0.07 m sphere diameter, and capsule
+length includes its end caps. The planar player core has zero axial extent in
+this 2D contact contract; it does not claim a finite new 3D collision volume.
+Validation checks dimensions, transforms, endpoints, radii and activation against
+the canonical segment, including inactive girdle/trunk/arm/head descriptions.
 
 | Proxy | Activation |
 | --- | --- |
@@ -176,10 +188,12 @@ approximation. This is a description of existing contacts, not a second loop.
 the shank's narrow distal cap above the ankle. Anatomical heel, sole, midfoot,
 forefoot, ankle and effective boot contact are separate references. No broad
 new foot collider catches balls that the existing sphere would miss.
-Boot velocity comes from the actual effective trajectory; torso velocity from
-canonical root transport. Swept limb velocity remains owned by the existing
-event-time sampler/contact facts; a snapshot marks that value unavailable
-rather than inventing it from an animation. The coarse torso envelope has no
+An unactuated world support anchor certifies zero boot velocity. A snapshot
+does not recover gait-swing velocity from a nonexistent prior interval: that
+value is explicitly unavailable and refers to the canonical event sampler.
+The composition API accepts actual event-sampled boot velocities. Torso velocity
+comes from canonical root transport. Swept limb velocity remains owned by the
+existing event-time sampler/contact facts. The coarse torso envelope has no
 new millimetre anatomical-error claim. The head sphere is centered on the
 canonical head segment; inactive anatomy cannot create contact events.
 
@@ -240,11 +254,19 @@ contact hashes, native comparisons and archived PR224 checkpoint results.
 
 These boot counts include executed ground contacts; full-match tables use
 PR224's **retained** boot counter. They must not be interchanged.
-The 51 focused tests include spectator/player launches, old/new preset identity,
+The 54 focused tests include spectator/player launches, old/new preset identity,
 complete action/recovery paths, individual geometry and native run-up-target
 continuation. TypeScript, lint and production build pass. PR218 and PR223
 source-bound checks and the [PR219–222 controls](performance/pr225-ancestor-checks.json)
-pass. Final full verification/hosted status and the remaining full pairs are pending.
+pass. All six full matches below pass their exact archived physical hashes.
+Complete `npm run verify` passes: **2,835 tests in 305 files**, comprising
+2,770 unit, 56 match-integration, four career-contract and five full-career
+tests, followed by the production build. Lint and TypeScript pass as well.
+An earlier full attempt, run alongside concurrent benchmarks, stopped with
+eight existing-test timeouts; the complete isolated rerun passes with the same
+limits. No test timeout or solver limit was increased. Hosted acceptance is
+tracked by the checks on [PR225](https://github.com/adamfron/my_football_legend/pull/225)
+and must use its final commit.
 
 Browser maximum positional deviation is **3.6121e−15 m** across both viewports
 and all four scenes. Actual Single Match Lab launches select the new recipe;
@@ -256,14 +278,16 @@ calls change 156→164 in pass scenes and 41→45 in the shin scene; geometry
 resource counts remain equal. Culling makes these different from a budget with
 all 22 models visible. CPU submission does not measure completed GPU work.
 
-Paired Windows/Node 24.22.1 engine means are 5.0…7.9 ms/tick. Composition is
-0.23…0.34 ms/player/sample, excluding 0.44…0.68 ms structural validation.
-These are concurrent diagnostic workloads, not isolated throughput. The flag
+Paired Windows/Node 24.22.1 engine means across the 30/120-second receipts are
+1.32…2.68 ms/tick. Composition is 0.051…0.105 ms/player/sample, excluding
+0.118…0.221 ms structural validation. These are diagnostic workloads with
+different concurrent load and warm-up, not an isolated throughput or speedup
+claim. Per-arm old/new times remain available in the receipts. The flag
 adds no default-body physical acting path. The renderer reuses held poses;
 replay recording requests compact inputs without constructing a full pose to
 discard. Native state grows **59 bytes** for the default selector. A bounded
-22-player replay sample grows **5,970…6,574 bytes**, rather than recording 19
-full transforms per player. Sampled paired-process heap is about 139…465 MiB,
+22-player replay sample grows **5,535…6,124 bytes**, rather than recording 19
+full transforms per player. Sampled paired-process heap is about 109…426 MiB,
 including both arms, validation and GC variation; it is not an isolated
 incremental-memory estimate for the skeleton.
 
@@ -288,11 +312,20 @@ positive simultaneous-pressure evidence. Clean defender wins are counted
 separately from ownership changes. Diagnostic classification changes no contact
 tolerance, defender behaviour or probability; it cannot calibrate shin rates.
 
-The first full pair reproduces **both exact terminal hashes** from PR224:
-[D](performance/pr225-full-paired-D.json) finishes 1:2 with 355 releases,
-1,049 retained boots and no shin event; [E](performance/pr225-full-paired-E.json)
-finishes 3:1 with 290 releases, 765 retained boots and **527** shin events.
-Goals, decisions, ownership changes, restarts and body-impact counts match.
+All three full D/E pairs reproduce **all six exact terminal hashes** from PR224,
+covering **1,374,558 canonical ticks** and **754,489 validated poses**, with zero
+invalid or unavailable poses. Goals, decisions, ownership changes, restarts and
+body-impact counts match as well as the counters shown here.
+
+| Archived input / arm | Score | Pass releases | Retained boots | Shin events | Exact terminal hash |
+| --- | ---: | ---: | ---: | ---: | --- |
+| [paired D](performance/pr225-full-paired-D.json) | 1:2 | 355 | 1,049 | 0 | PASS |
+| [paired E](performance/pr225-full-paired-E.json) | 3:1 | 290 | 765 | 527 | PASS |
+| [native-a D](performance/pr225-full-native-a-D.json) | 0:1 | 388 | 1,168 | 0 | PASS |
+| [native-a E](performance/pr225-full-native-a-E.json) | 2:0 | 285 | 709 | 533 | PASS |
+| [independent D](performance/pr225-full-independent-D.json) | 5:0 | 262 | 1,042 | 0 | PASS |
+| [independent E](performance/pr225-full-independent-E.json) | 2:0 | 232 | 659 | 450 | PASS |
+
 The source report rounds displayed clocks to milliseconds; physical hash
 comparison stays exact and unrounded.
 
@@ -313,6 +346,13 @@ release/retention; those outcomes retain their separate counters. These results
 preserve the baseline and prioritize work transfer, compression and support
 realism. They do not establish improved pass retention.
 
+The native-a D/E pair has 1,093/839 observed episodes and 0/35 A–B–A
+candidates; independent D/E has 994/811 and 0/17. Their clean defender-win
+counts are 8/9 and 8/3 respectively. Every receipt links a compressed complete
+episode archive with its SHA-256, preserving the individual events and clearance
+evidence without interpreting repeated solver contacts as separate football
+encounters. Original PR224 reports and frozen source fixtures are unchanged.
+
 ## Reproduction and source preservation
 
 ```sh
@@ -324,6 +364,7 @@ node --experimental-transform-types --import ./scripts/registerTypescriptLoader.
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr218Browser.mjs --pr225
 node scripts/ci/replayPr218Check.mjs
 node scripts/ci/replayPr223Check.mjs
+node scripts/ci/replayPr225Ancestors.mjs
 npm run verify
 ```
 
@@ -334,6 +375,17 @@ proof to the existing checks; historical-source results remain distinct from
 new-edition comparisons and from same-platform native determinism.
 
 ## Completion register and required answers
+
+| Structural gate | Result |
+| --- | --- |
+| 1 — Complete definition | PASS: executable 19-segment / 18-joint schema, rigid frames and semantic/DOF validation |
+| 2 — Default legs | PASS: exact default geometry, paired step equality and six exact archived terminal hashes |
+| 3 — Individual morphology | PASS: independent dimensions, both alignment signs, asymmetric movement and invalid/unreachable controls |
+| 4 — Whole-body composition | PASS: actual pass/miss/recovery, turning, impact and ballistic jump/landing sequences |
+| 5 — Three.js agreement | PASS: all-segment numeric position/rotation parity, two viewports and actual lab launch |
+| 6 — Engine compatibility | PASS: PR218–224 controls, source-bound replay separation and preserved archived halts |
+| 7 — Ordinary integration | PASS: bounded D/E runs, all three complete D/E pairs, pose validation and measured cost |
+| 8 — Completion decision | Structural contract complete; full local verification passes; final-commit hosted acceptance is tracked on the PR |
 
 | Classification | Evidence / remaining dependency |
 | --- | --- |
@@ -358,4 +410,8 @@ new-edition comparisons and from same-platform native determinism.
 14. Balance, falling, new upper contacts and advanced aerial coordination still need dynamics.
 15. Structural completion is separate from physical realism and requires all recorded structural gates.
 
-**Completion decision: PENDING final verification and full-match comparisons.**
+**FULL-BODY SKELETON STRUCTURALLY COMPLETE — PHYSICS RETAIN_EXPERIMENTAL.**
+All seven structural gates and complete local verification pass. This closes
+the shared anatomical/transform foundation, not the missing dynamics in the
+register. Hosted GitHub Actions must also complete on the final commit before
+the draft PR is marked ready for review; its current status is recorded on PR225.

@@ -84,12 +84,20 @@ const validateAndSave = (result) => {
   // Exact, unrounded physical terminal hashes above remain the strict gate.
   assert.deepEqual(summaryPrecision(result.goals), expected.goals);
   assert.deepEqual(summaryPrecision(result.periods), expected.periods);
-  const {episodes,...contactSummary}=result.contacts;
-  const episodePath=`docs/performance/pr225-contact-episodes-${fixture}-${arm}.json.gz`;
-  const episodeBytes=gzipSync(JSON.stringify(episodes));
-  writeFileSync(episodePath,episodeBytes);
-  const published={...result,contacts:{...contactSummary,episodeArchive:{path:episodePath,
-    sha256:createHash('sha256').update(episodeBytes).digest('hex')}}};
+  const { episodes, ...contactSummary } = result.contacts;
+  const episodePath = `docs/performance/pr225-contact-episodes-${fixture}-${arm}.json.gz`;
+  const episodeBytes = gzipSync(JSON.stringify(episodes));
+  writeFileSync(episodePath, episodeBytes);
+  const published = {
+    ...result,
+    contacts: {
+      ...contactSummary,
+      episodeArchive: {
+        path: episodePath,
+        sha256: createHash('sha256').update(episodeBytes).digest('hex'),
+      },
+    },
+  };
   writeFileSync(
     `docs/performance/pr225-full-${fixture}-${arm}.json`,
     JSON.stringify(published, null, 2) + '\n',

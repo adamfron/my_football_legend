@@ -63,6 +63,8 @@ it('implements one complete semantic hierarchy and forbids unsupported upper col
   expect(fullBodySkeletonSchema.parse(s)).toEqual(s);
   expect(s.segments).toHaveLength(19);
   expect(s.joints).toHaveLength(18);
+  const unplanted = s.support === 'left' ? 'right' : 'left';
+  expect(s.proxies.find((p) => p.segment === `${unplanted}_foot`)!.surfaceVelocity).toBeNull();
   for (const id of ['left_foot', 'right_foot', 'left_hand', 'right_hand', 'pelvis', 'head'])
     expect(s.segments.some((segment) => segment.id === id)).toBe(true);
   for (const segment of s.segments) {
@@ -86,7 +88,52 @@ it('implements one complete semantic hierarchy and forbids unsupported upper col
   const duplicate = structuredClone(s);
   duplicate.segments[1]!.id = 'pelvis';
   expect(fullBodySkeletonSchema.safeParse(duplicate).success).toBe(false);
+  const detached = structuredClone(s);
+  detached.proxies[0]!.world.position.x += 0.01;
+  expect(fullBodySkeletonSchema.safeParse(detached).success).toBe(false);
+  const inflated = structuredClone(s);
+  inflated.proxies[0]!.dimensions.width += 0.05;
+  expect(fullBodySkeletonSchema.safeParse(inflated).success).toBe(false);
+  const activated = structuredClone(s);
+  activated.proxies.find((p) => p.segment === 'left_girdle')!.collisionAuthority = 'existing_torso';
+  expect(fullBodySkeletonSchema.safeParse(activated).success).toBe(false);
+  const detachedJoint = structuredClone(s);
+  detachedJoint.joints[0]!.local.position.x += 0.01;
+  expect(fullBodySkeletonSchema.safeParse(detachedJoint).success).toBe(false);
+  const extraDof = structuredClone(s);
+  extraDof.joints.find((j) => j.id === 'left_knee')!.degreesOfFreedom.push('twist');
+  expect(fullBodySkeletonSchema.safeParse(extraDof).success).toBe(false);
 });
+
+it.each([0, -0.1, 0.1])(
+  'retains a static bind hierarchy through action and root changes with alignment %f',
+  (alignment) => {
+    let state = withFullBodySkeleton(selectPr224Body(createPr224PassScene('ordinary').selected));
+    const id = state.pendingStrike!.actorId,
+      p = state.players.find((p) => p.id === id)!;
+    if (alignment) {
+      const m = defaultBodyMorphology();
+      m.left.kneeAlignment = alignment;
+      m.right.kneeAlignment = -alignment;
+      p.bodyMorphology = m;
+    }
+    const first = projectFullBodySkeleton(state, p, projectArticulatedBody(state, p)!)!;
+    for (let i = 0; i < 32; i++) {
+      state = stepTacticalMatch(state, 0.025);
+      const actor = state.players.find((p) => p.id === id)!;
+      const next = projectFullBodySkeleton(state, actor, projectArticulatedBody(state, actor)!)!;
+      for (const rest of first.segments) {
+        const current = next.segments.find((s) => s.id === rest.id)!.rest;
+        expect(pointLength(subtractPoint(rest.rest.position, current.position))).toBeLessThan(
+          1e-10,
+        );
+        const q = rest.rest.rotation,
+          r = current.rotation;
+        expect(Math.abs(q.x * r.x + q.y * r.y + q.z * r.z + q.w * r.w)).toBeCloseTo(1, 10);
+      }
+    }
+  },
+);
 
 it.each([Math.PI / 2, -Math.PI / 2, Math.PI])(
   'rotates the whole anatomical frame with physical facing %f',
@@ -281,9 +328,11 @@ describe('ordinary MatchEngine action continuity and native determinism', () => 
       const current = s.players.find((p) => p.id === id)!;
       phases.add(current.verticalJump!.phase);
       const body = projectArticulatedBody(s, current)!;
-      expect(
-        fullBodySkeletonSchema.safeParse(projectFullBodySkeleton(s, current, body)).success,
-      ).toBe(true);
+      const skeleton = projectFullBodySkeleton(s, current, body)!;
+      expect(fullBodySkeletonSchema.safeParse(skeleton).success).toBe(true);
+      expect(skeleton.proxies.find((p) => p.segment === 'thorax')!.surfaceVelocity!.z).toBe(
+        current.verticalJump!.velocity,
+      );
     }
     expect(phases).toEqual(new Set(['preparing', 'airborne', 'recovering', 'ready']));
   });

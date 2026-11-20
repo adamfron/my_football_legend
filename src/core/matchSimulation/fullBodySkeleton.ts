@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { type ArticulatedBody, effectiveArticulatedFoot } from './articulatedBody';
-import { bodyPointSchema, type BodyPoint } from './articulatedBodyState';
+import { type ArticulatedBody } from './articulatedBody';
+import { activeArticulatedFoot, bodyPointSchema, type BodyPoint } from './articulatedBodyState';
 import {
   bodyMorphologySchema,
   defaultBodyMorphology,
@@ -116,7 +116,7 @@ export const skeletonProxySchema = z.object({
   to: bodyPointSchema,
   radius: z.number().positive(),
   distalRadius: z.number().positive().optional(),
-  dimensions: dimensionsSchema,
+  dimensions: dimensionsSchema.extend({ length: z.number().nonnegative() }),
   surfaceVelocity: bodyPointSchema.nullable(),
   velocityEvidence: z.enum([
     'canonical_foot',
@@ -146,7 +146,7 @@ export const fullBodyPoseInputsSchema = z.object({
   at: z.number().nonnegative(),
   morphology: bodyMorphologySchema.optional(),
   velocity: bodyPointSchema,
-  bootVelocities: z.object({ left: bodyPointSchema, right: bodyPointSchema }),
+  bootVelocities: z.object({ left: bodyPointSchema.nullable(), right: bodyPointSchema.nullable() }),
   cues: z.object({
     preparation: z.number().min(0).max(1),
     recovery: z.number().min(0).max(1),
@@ -167,6 +167,20 @@ const poseShape = z.object({
   support: z.enum(['left', 'right']).nullable(),
 });
 export type FullBodySkeleton = z.infer<typeof poseShape>;
+const proxyDimensions = (
+  shape: z.infer<typeof skeletonProxySchema>['shape'],
+  from: BodyPoint,
+  to: BodyPoint,
+  radius: number,
+  distal = radius,
+) => ({
+  length:
+    shape === 'planar_torso_core'
+      ? 0
+      : (shape === 'sphere' ? 0 : pointLength(subtractPoint(to, from))) + radius + distal,
+  width: 2 * Math.max(radius, distal),
+  depth: 2 * Math.max(radius, distal),
+});
 export const SKELETON_PARENTS: Record<SkeletonSegmentId, SkeletonSegmentId | null> = {
   pelvis: null,
   lower_trunk: 'pelvis',
@@ -208,8 +222,12 @@ const jointFor = (id: SkeletonSegmentId): z.infer<typeof skeletonJointIdSchema> 
 export const fullBodySkeletonSchema = poseShape.superRefine((pose, ctx) => {
   const byId = new Map(pose.segments.map((s) => [s.id, s]));
   const fail = (message: string) => ctx.addIssue({ code: 'custom', message });
-  if (byId.size !== 19 || new Set(pose.joints.map((j) => j.id)).size !== 18)
+  if (byId.size !== 19 || new Set(pose.joints.map((j) => j.id)).size !== 18) {
     fail('Duplicate skeletal identity');
+    return;
+  }
+  if (new Set(pose.proxies.map((p) => p.id)).size !== pose.proxies.length)
+    fail('Duplicate contact proxy identity');
   for (const s of pose.segments) {
     if (s.parent !== SKELETON_PARENTS[s.id] || s.joint !== jointFor(s.id))
       fail('Invalid semantic hierarchy');
@@ -243,9 +261,25 @@ export const fullBodySkeletonSchema = poseShape.superRefine((pose, ctx) => {
       fail('Invalid articulation');
       continue;
     }
-    if (pointLength(subtractPoint(j.world.position, child.world.position)) > 1e-9)
-      fail('Detached articulation');
-    const hinge = j.degreesOfFreedom.length === 1;
+    for (const [a, b] of [
+      [j.world, child.world],
+      [j.local, child.local],
+    ] as const)
+      if (
+        pointLength(subtractPoint(a.position, b.position)) > 1e-9 ||
+        Math.abs(
+          Math.abs(
+            a.rotation.x * b.rotation.x +
+              a.rotation.y * b.rotation.y +
+              a.rotation.z * b.rotation.z +
+              a.rotation.w * b.rotation.w,
+          ) - 1,
+        ) > 1e-9
+      )
+        fail('Detached articulation');
+    const hinge = child.id.endsWith('_shank') || child.id.endsWith('_forearm');
+    if (j.degreesOfFreedom.join(',') !== (hinge ? 'flexion' : 'flexion,abduction,twist'))
+      fail('Unsupported articulation degrees of freedom');
     const expected = hinge
       ? axisRotation('x', -j.coordinates.flexion)
       : multiplyRotation(
@@ -267,22 +301,106 @@ export const fullBodySkeletonSchema = poseShape.superRefine((pose, ctx) => {
       ) > 1e-8
     )
       fail('Articulation violates its declared degrees of freedom');
-    for (const axis of ['flexion', 'abduction', 'twist'] as const)
+    for (const axis of ['flexion', 'abduction', 'twist'] as const) {
+      const lower = hinge ? 0 : -Math.PI,
+        upper = hinge && axis !== 'flexion' ? 0 : Math.PI;
+      if (
+        j.limits[axis][0] < lower ||
+        j.limits[axis][1] > upper ||
+        j.limits[axis][0] > j.limits[axis][1]
+      )
+        fail('Invalid articulation limits');
       if (
         j.coordinates[axis] < j.limits[axis][0] - 1e-10 ||
         j.coordinates[axis] > j.limits[axis][1] + 1e-10
       )
         fail('Joint limit violated');
+    }
   }
   for (const p of pose.proxies) {
     if (p.at !== pose.at || !byId.has(p.segment)) fail('Stale or orphan contact proxy');
+    const s = byId.get(p.segment);
+    if (!s) continue;
+    if (pointLength(subtractPoint(p.world.position, p.from)) > 1e-9)
+      fail('Detached proxy transform');
+    const size = proxyDimensions(p.shape, p.from, p.to, p.radius, p.distalRadius);
+    for (const axis of ['length', 'width', 'depth'] as const)
+      if (Math.abs(size[axis] - p.dimensions[axis]) > 1e-9)
+        fail('Proxy dimensions disagree with its collision shape');
+    if (p.shape === 'capsule' || p.shape === 'tapered_capsule') {
+      const axis = rotatePoint(p.world.rotation, {
+        x: 0,
+        y: 0,
+        z: pointLength(subtractPoint(p.to, p.from)),
+      });
+      if (pointLength(subtractPoint(addPoint(p.from, axis), p.to)) > 1e-9)
+        fail('Misaligned capsule transform');
+    }
+    const h = byId.get('left_thigh')!.dimensions.length / pose.morphology.left.thigh;
+    let from = s.world.position,
+      to = s.end,
+      radius = s.dimensions.width / 2;
+    let shape: z.infer<typeof skeletonProxySchema>['shape'] = 'capsule';
+    let allowed: z.infer<typeof skeletonProxySchema>['collisionAuthority'][] = ['inactive'];
+    if (s.id.endsWith('_foot')) {
+      from = to = pose.feet[s.id.startsWith('left') ? 'left' : 'right'].bootContact;
+      radius = 0.035;
+      shape = 'sphere';
+      allowed = ['existing_boot'];
+    } else if (s.id === 'pelvis') {
+      from = to = { ...pose.root.position, z: 0 };
+      radius = 0.34;
+      shape = 'planar_torso_core';
+      allowed = ['existing_torso'];
+    } else if (s.id === 'thorax') {
+      from = {
+        ...pose.root.position,
+        z:
+          pose.root.position.z +
+          h *
+            (UPRIGHT_OUTFIELD_BALL_BODY.centreHeightRatio -
+              UPRIGHT_OUTFIELD_BALL_BODY.halfHeightRatio),
+      };
+      to = {
+        ...pose.root.position,
+        z:
+          pose.root.position.z +
+          h *
+            (UPRIGHT_OUTFIELD_BALL_BODY.centreHeightRatio +
+              UPRIGHT_OUTFIELD_BALL_BODY.halfHeightRatio),
+      };
+      radius = 0.34;
+      allowed = ['existing_torso'];
+    } else if (s.id.endsWith('_thigh') || s.id.endsWith('_shank')) {
+      const shank = s.id.endsWith('_shank');
+      radius = h * (shank ? 0.037 : 0.055);
+      if (shank) {
+        shape = 'tapered_capsule';
+        to = addPoint(s.end, {
+          x: ((s.world.position.x - s.end.x) * 0.0175) / s.dimensions.length,
+          y: ((s.world.position.y - s.end.y) * 0.0175) / s.dimensions.length,
+          z: ((s.world.position.z - s.end.z) * 0.0175) / s.dimensions.length,
+        });
+        if (p.distalRadius !== 0.0175) fail('Changed ankle cap');
+      }
+      allowed = ['inactive', 'existing_composed_leg'];
+    } else if (s.id === 'head') {
+      from = to = {
+        x: (s.world.position.x + s.end.x) / 2,
+        y: (s.world.position.y + s.end.y) / 2,
+        z: (s.world.position.z + s.end.z) / 2,
+      };
+      radius = Math.max(s.dimensions.length, s.dimensions.width, s.dimensions.depth) / 2;
+      shape = 'sphere';
+    }
+    if (!allowed.includes(p.collisionAuthority)) fail('Unsupported collision authority');
     if (
-      (p.segment.includes('arm') ||
-        p.segment.includes('hand') ||
-        ['head', 'neck'].includes(p.segment)) &&
-      p.collisionAuthority !== 'inactive'
+      p.shape !== shape ||
+      pointLength(subtractPoint(p.from, from)) > 1e-9 ||
+      pointLength(subtractPoint(p.to, to)) > 1e-9 ||
+      Math.abs(p.radius - radius) > 1e-9
     )
-      fail('Unsupported upper-body collider');
+      fail('Proxy is detached from canonical anatomy');
   }
 });
 
@@ -296,9 +414,9 @@ Object.freeze(DEFAULT_MORPHOLOGY);
 /** One derived pose. No root integration, RNG, ball impulse or new football action. */
 export const composeFullBodySkeleton = (
   body: ArticulatedBody,
-  player: Pick<MatchPlayerState, 'velocity' | 'bodyMorphology'>,
+  player: Pick<MatchPlayerState, 'bodyMorphology'> & { velocity: BodyPoint },
   cues: { preparation: number; recovery: number; impact: number },
-  bootVelocities: Record<'left' | 'right', BodyPoint>,
+  bootVelocities: Record<'left' | 'right', BodyPoint | null>,
   composedContacts: boolean,
 ): FullBodySkeleton => {
   const m = player.bodyMorphology ?? DEFAULT_MORPHOLOGY,
@@ -345,7 +463,14 @@ export const composeFullBodySkeleton = (
       );
     const world = { position: from, rotation: frame ?? oriented(from, to, reference) };
     const parentWorld = parent ? byId.get(parent)!.world : root;
-    const restWorld = { position: restFrom, rotation: oriented(restFrom, restTo, root.rotation) };
+    const restReference =
+      id.endsWith('_thigh') || id.endsWith('_shank')
+        ? multiplyRotation(
+            root.rotation,
+            axisRotation('z', -m[id.startsWith('left') ? 'left' : 'right'].kneeAlignment),
+          )
+        : root.rotation;
+    const restWorld = { position: restFrom, rotation: oriented(restFrom, restTo, restReference) };
     const parentRest = parent ? restWorlds.get(parent)! : root;
     const segment = {
       id,
@@ -401,6 +526,12 @@ export const composeFullBodySkeleton = (
     return pointLength(n) > 1e-10 ? n : rotatePoint(root.rotation, { x: 1, y: 0, z: 0 });
   };
   const point = (x: number, y: number, z: number) => localPoint({ x, y, z });
+  // Bind/rest anatomy is static for a morphology, independent of the current
+  // support-driven pelvis lowering. A rest frame does not claim ground dynamics.
+  const restPelvisHeight =
+    h * Math.max(m.left.thigh + m.left.shank, m.right.thigh + m.right.shank) + 0.075;
+  const restPoint = (x: number, y: number, z: number) =>
+    addPoint(root.position, rotatePoint(root.rotation, { x, y, z: z + restPelvisHeight }));
   const pelvis = body.geometry.pelvis;
   insert(
     'pelvis',
@@ -408,8 +539,8 @@ export const composeFullBodySkeleton = (
     point(0, 0, h * 0.05),
     h * m.pelvisWidth,
     h * 0.12,
-    pelvis,
-    point(0, 0, h * 0.05),
+    restPoint(0, 0, 0),
+    restPoint(0, 0, h * 0.05),
   );
   const speed = Math.hypot(player.velocity.x, player.velocity.y),
     turn = clamp(body.angularVelocity * 0.03, -0.12, 0.12);
@@ -428,14 +559,23 @@ export const composeFullBodySkeleton = (
     cervical = spineStep(thoracic, h * m.upperTrunk, lean, turn),
     headNeck = spineStep(cervical, h * m.neck, lean * 0.5),
     headEnd = spineStep(headNeck, h * m.headLength, lean * 0.25);
-  const restThoracic = point(0, 0, h * m.lowerTrunk),
-    restCervical = point(0, 0, h * (m.lowerTrunk + m.upperTrunk)),
-    restHead = point(0, 0, h * (m.lowerTrunk + m.upperTrunk + m.neck));
-  insert('lower_trunk', lumbar, thoracic, h * m.pelvisWidth, h * 0.14, pelvis, restThoracic, {
-    flexion: lean,
-    abduction: 0,
-    twist: 0,
-  });
+  const restThoracic = restPoint(0, 0, h * m.lowerTrunk),
+    restCervical = restPoint(0, 0, h * (m.lowerTrunk + m.upperTrunk)),
+    restHead = restPoint(0, 0, h * (m.lowerTrunk + m.upperTrunk + m.neck));
+  insert(
+    'lower_trunk',
+    lumbar,
+    thoracic,
+    h * m.pelvisWidth,
+    h * 0.14,
+    restPoint(0, 0, 0),
+    restThoracic,
+    {
+      flexion: lean,
+      abduction: 0,
+      twist: 0,
+    },
+  );
   insert('thorax', thoracic, cervical, h * m.shoulderWidth, h * 0.16, restThoracic, restCervical, {
     flexion: 0,
     abduction: 0,
@@ -449,14 +589,14 @@ export const composeFullBodySkeleton = (
     h * m.headWidth,
     h * m.headWidth,
     restHead,
-    point(0, 0, h * (m.lowerTrunk + m.upperTrunk + m.neck + m.headLength)),
+    restPoint(0, 0, h * (m.lowerTrunk + m.upperTrunk + m.neck + m.headLength)),
   );
   const feet = {} as FullBodySkeleton['feet'];
   for (const side of ['left', 'right'] as const) {
     const l = body.geometry[side],
       dim = m[side],
       sign = side === 'left' ? -1 : 1;
-    const restHip = point((sign * h * m.pelvisWidth) / 2, 0, 0),
+    const restHip = restPoint((sign * h * m.pelvisWidth) / 2, 0, 0),
       restKnee = addPoint(restHip, { x: 0, y: 0, z: -l.thighLength }),
       restAnkle = addPoint(restKnee, { x: 0, y: 0, z: -l.shinLength });
     const kneeAxis = hingeNormal(l.hip, l.knee, l.ankle);
@@ -604,7 +744,6 @@ export const composeFullBodySkeleton = (
     approximation: string,
     distalRadius?: number,
   ) => {
-    const s = byId.get(segment)!;
     proxies.push({
       id: `${segment}:${shape}:${collisionAuthority}`,
       segment,
@@ -620,11 +759,13 @@ export const composeFullBodySkeleton = (
       from,
       to,
       radius,
-      dimensions: s.dimensions,
+      dimensions: proxyDimensions(shape, from, to, radius, distalRadius),
       surfaceVelocity: velocity,
       velocityEvidence:
         collisionAuthority === 'existing_boot'
-          ? 'canonical_foot'
+          ? velocity
+            ? 'canonical_foot'
+            : 'canonical_event_sampler'
           : collisionAuthority === 'existing_torso'
             ? 'canonical_root'
             : collisionAuthority === 'existing_composed_leg'
@@ -687,7 +828,7 @@ export const composeFullBodySkeleton = (
         { ...body.root, z: center + h * UPRIGHT_OUTFIELD_BALL_BODY.halfHeightRatio },
         UPRIGHT_OUTFIELD_BALL_BODY.radius,
         'existing_torso',
-        { ...player.velocity, z: 0 },
+        { ...player.velocity },
         'Existing upright ball-torso envelope tied to the physical root; upper-body articulation supplies no new collider',
       );
     } else if (s.id === 'head') {
@@ -764,22 +905,18 @@ export const projectFullBodyPoseInputs = (
   const impact = state.playerBodyContacts
     ?.filter((c) => c.kind === 'impact' && c.participants.includes(player.id))
     .at(-1);
-  const velocities = { left: zero(), right: zero() };
-  for (const side of ['left', 'right'] as const)
-    velocities[side] = effectiveArticulatedFoot(
-      state,
-      player,
-      player,
-      side,
-      state.time,
-      0.025,
-      0,
-    ).velocity;
+  const velocities: Record<'left' | 'right', BodyPoint | null> = { left: null, right: null };
+  const support = player.articulatedStance?.support;
+  const active = activeArticulatedFoot(state, player.id) ?? player.lowerBodyPose?.activeLeg;
+  // A snapshot has no prior gait interval from which to recover swing velocity.
+  // Only an unactuated world support anchor certifies zero. Actual event samplers
+  // may pass both full canonical velocities to composeFullBodySkeleton instead.
+  if (support && support !== active) velocities[support] = zero();
   return {
     version: 'full-body-skeleton-dev-v1',
     ...(player.bodyMorphology ? { morphology: player.bodyMorphology } : {}),
     at: state.time,
-    velocity: { ...player.velocity, z: 0 },
+    velocity: { ...player.velocity, z: player.verticalJump?.velocity ?? 0 },
     bootVelocities: velocities,
     cues: {
       preparation: pending
