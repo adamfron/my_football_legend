@@ -1,6 +1,7 @@
 import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
 import {
   ARTICULATED_HOLISTIC_LIMITATION,
+  FULL_BODY_HOLISTIC_LIMITATION,
   effectiveHolisticRecipe,
   HOLISTIC_LIMITATION,
 } from '../../core/matchSimulation/holisticDevelopment';
@@ -396,6 +397,7 @@ export const TacticalMatchSandbox = () => {
               <option value="holistic-stance-foot-dev-v2">
                 Holistyczna + szkielet v2 (eksperymentalna)
               </option>
+              <option value="holistic-full-body-dev-v1">Pełne ciało (eksperymentalna)</option>
             </select>
           </label>
           {physicalPreset && (
@@ -405,9 +407,11 @@ export const TacticalMatchSandbox = () => {
                 fizyki i nieobsługiwane sytuacje.
               </p>
               <p>
-                {physicalPreset === 'holistic-stance-foot-dev-v2'
-                  ? ARTICULATED_HOLISTIC_LIMITATION
-                  : HOLISTIC_LIMITATION}
+                {physicalPreset === 'holistic-full-body-dev-v1'
+                  ? FULL_BODY_HOLISTIC_LIMITATION
+                  : physicalPreset === 'holistic-stance-foot-dev-v2'
+                    ? ARTICULATED_HOLISTIC_LIMITATION
+                    : HOLISTIC_LIMITATION}
               </p>
             </div>
           )}
@@ -1221,7 +1225,7 @@ export const RunningLab = ({
                   if (
                     next.safetyHalt ||
                     (next.executionWitnesses?.unresolved?.invoked ?? 0) >
-                    (previousState.executionWitnesses?.unresolved?.invoked ?? 0)
+                      (previousState.executionWitnesses?.unresolved?.invoked ?? 0)
                   ) {
                     boundaryDetected = true;
                     setPlaying(false);
@@ -1808,7 +1812,10 @@ export const RunningLab = ({
       : Math.max(0, debugRecorderRef.current.triggerTime + 10 - state.time);
   const physicalRecipe = !careerMode ? effectiveHolisticRecipe(state) : undefined;
   const recentArticulatedReplay =
-    physicalRecipe?.id === 'holistic-stance-foot-dev-v2' && !playing && state.time > 0;
+    (physicalRecipe?.id === 'holistic-stance-foot-dev-v2' ||
+      physicalRecipe?.id === 'holistic-full-body-dev-v1') &&
+    !playing &&
+    state.time > 0;
   const physicalContactCount = (
     [
       'controlled-reception',
@@ -1848,9 +1855,11 @@ export const RunningLab = ({
               Fizyka meczu:{' '}
               <strong>
                 {physicalRecipe
-                  ? physicalRecipe.id === 'holistic-stance-foot-dev-v2'
-                    ? 'Holistyczna + szkielet v2 (eksperymentalna)'
-                    : 'Holistyczna (eksperymentalna) · ograniczona'
+                  ? physicalRecipe.id === 'holistic-full-body-dev-v1'
+                    ? 'Pełne ciało (eksperymentalna)'
+                    : physicalRecipe.id === 'holistic-stance-foot-dev-v2'
+                      ? 'Holistyczna + szkielet v2 (eksperymentalna)'
+                      : 'Holistyczna (eksperymentalna) · ograniczona'
                   : session.setup.physicalPreset
                     ? 'Niezgodna konfiguracja — sprawdź diagnostykę'
                     : 'Dotychczasowa'}
@@ -1872,13 +1881,15 @@ export const RunningLab = ({
                 {state.executionWitnesses?.['prepared-kick']?.executed ?? 0} · Pudła:{' '}
                 {state.executionWitnesses?.['missed-kick']?.executed ?? 0} · Przerwane:{' '}
                 {state.executionWitnesses?.['interrupted-kick']?.executed ?? 0} · Anulowane:{' '}
-                {state.executionWitnesses?.['cancelled-kick']?.executed ?? 0} ·{' '}
-                Nierozstrzygnięte: {state.executionWitnesses?.unresolved?.invoked ?? 0}
+                {state.executionWitnesses?.['cancelled-kick']?.executed ?? 0} · Nierozstrzygnięte:{' '}
+                {state.executionWitnesses?.unresolved?.invoked ?? 0}
               </summary>
               <p>
-                {physicalRecipe.id === 'holistic-stance-foot-dev-v2'
-                  ? ARTICULATED_HOLISTIC_LIMITATION
-                  : HOLISTIC_LIMITATION}
+                {physicalRecipe.id === 'holistic-full-body-dev-v1'
+                  ? FULL_BODY_HOLISTIC_LIMITATION
+                  : physicalRecipe.id === 'holistic-stance-foot-dev-v2'
+                    ? ARTICULATED_HOLISTIC_LIMITATION
+                    : HOLISTIC_LIMITATION}
               </p>
               <p>
                 Liczniki obejmują zmierzone zdarzenia. Dotychczasowe ścieżki i wywołania konsumentów
@@ -1892,14 +1903,18 @@ export const RunningLab = ({
           )}
           {!careerMode && state.safetyHalt && (
             <p role="alert">
-              Zatrzymanie bezpieczeństwa: <code>{state.safetyHalt.reason}</code>.
-              Zachowano stan meczu. Dalsza gra wymaga naprawy przyczyny.{' '}
-              <button onClick={() => {
-                setDiagnosticsExpanded(true);
-                const panel = document.getElementById('match-lab-export');
-                panel?.setAttribute('open', '');
-                panel?.scrollIntoView({ block: 'start' });
-              }}>Diagnostyka i eksport</button>
+              Zatrzymanie bezpieczeństwa: <code>{state.safetyHalt.reason}</code>. Zachowano stan
+              meczu. Dalsza gra wymaga naprawy przyczyny.{' '}
+              <button
+                onClick={() => {
+                  setDiagnosticsExpanded(true);
+                  const panel = document.getElementById('match-lab-export');
+                  panel?.setAttribute('open', '');
+                  panel?.scrollIntoView({ block: 'start' });
+                }}
+              >
+                Diagnostyka i eksport
+              </button>
             </p>
           )}
           <h1>
@@ -2038,7 +2053,12 @@ export const RunningLab = ({
           </select>
         </label>
         <button
-          disabled={replaying || Boolean(state.safetyHalt) || state.status === 'abandoned' || state.status === 'full_time'}
+          disabled={
+            replaying ||
+            Boolean(state.safetyHalt) ||
+            state.status === 'abandoned' ||
+            state.status === 'full_time'
+          }
           onClick={() => {
             publishState(stateRef.current);
             uiEvent(playing ? 'paused' : 'playing');

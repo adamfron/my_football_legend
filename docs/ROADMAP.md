@@ -1,5 +1,14 @@
 # Roadmap
 
+## Po PR225 — wspólny pełny szkielet i zależności fizyki
+
+Osobna edycja definiuje 19 segmentów i 18 stawów, indywidualną morfologię
+oraz wspólne transformacje fizyki, Three.js i powtórek. Nowe powierzchnie
+ramion, dłoni i głowy pozostają opisami geometrii. Następna bramka to
+epizody kontaktu i odzyskiwanie podparcia, następnie równowaga 3D oraz
+jawnie wdrażane kontakty górnej części ciała. Profil utrzymywany to PR201/B.
+[Raport i bramki PR225](PR225_UNIFIED_FULL_BODY_SKELETON.md).
+
 ## Po PR224 — potwierdzenie kontaktu goleni w szerszej grze
 
 Szkielet wspólnie wyznacza położenie nóg dla fizyki i prezentacji.

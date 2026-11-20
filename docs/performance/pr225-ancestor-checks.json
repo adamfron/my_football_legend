@@ -1,0 +1,37 @@
+{
+  "scope": "source-bound controls; not changed-edition matches",
+  "results": [
+    {
+      "source": "a0fb76ebbf680676fabbaea8a69a5db53369d1b6",
+      "command": [
+        "benchmarkPr220Placement.mjs",
+        "final",
+        "--check"
+      ],
+      "passed": true
+    },
+    {
+      "source": "6d59d05bdc1c40543a16c902447ef588de796978",
+      "command": [
+        "auditPr219Attempts.mjs"
+      ],
+      "passed": true
+    },
+    {
+      "source": "6d59d05bdc1c40543a16c902447ef588de796978",
+      "command": [
+        "benchmarkPr221Reception.mjs",
+        "--check"
+      ],
+      "passed": true
+    },
+    {
+      "source": "6d59d05bdc1c40543a16c902447ef588de796978",
+      "command": [
+        "benchmarkPr222Reception.mjs",
+        "--check"
+      ],
+      "passed": true
+    }
+  ]
+}

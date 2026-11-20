@@ -161,6 +161,10 @@ export const captureReplaySnapshot = (
       (!current || observed.atMs > current.atMs)
         ? observed
         : current;
+    // Persist compact canonical inputs; reconstruct the same 19 transforms on read.
+    const { fullBodySkeleton: _derivedSkeleton, ...recordedPresentation } =
+      projectCanonicalPlayerPresentation(state, p, previous, false);
+    void _derivedSkeleton;
     return {
       id: p.id,
       team: p.team,
@@ -180,7 +184,7 @@ export const captureReplaySnapshot = (
       target: { ...p.target },
       anchor: { ...p.neutralAnchor },
       idealTarget: { ...p.idealTarget },
-      ...projectCanonicalPlayerPresentation(state, p, previous),
+      ...recordedPresentation,
       ...(releaseCue ? { releaseCue: { ...releaseCue } } : {}),
       ...(state.ball.ownerId === p.id && state.ballCarrierIntent?.actorId === p.id
         ? {

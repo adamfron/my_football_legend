@@ -40,15 +40,20 @@ const jointTravel = (g: Geometry, movement: Motion, half: number, at: number) =>
   let low = nominal - movement.unconstrainedPelvisSpeed * half;
   let high = nominal + movement.unconstrainedPelvisSpeed * half;
   for (const side of FEET) {
+    const sideTotal = g.individualMorphology ? g[side].thighLength + g[side].shinLength : total;
+    const sideLimit = g.individualMorphology
+      ? (r: number) => Math.sqrt(Math.max(0, (sideTotal * 0.995) ** 2 - r ** 2))
+      : pelvisLimit;
     const d = minus(g[side].ankle, g[side].hip);
     const r = Math.hypot(d.x, d.y),
       dr = hipXY + boot[side];
-    low = Math.min(low, g[side].ankle.z - boot[side] + pelvisLimit(r + dr));
-    high = Math.min(high, g[side].ankle.z + boot[side] + pelvisLimit(Math.max(0, r - dr)));
+    low = Math.min(low, g[side].ankle.z - boot[side] + sideLimit(r + dr));
+    high = Math.min(high, g[side].ankle.z + boot[side] + sideLimit(Math.max(0, r - dr)));
   }
   const hip = Math.hypot(hipXY, Math.max(g.pelvis.z - low, high - g.pelvis.z));
   const knee = (side: Foot) => {
     const leg = g[side];
+    if (g.individualMorphology) return hip + 2 * leg.thighLength;
     const axis = minus(leg.ankle, leg.hip),
       length = norm(axis),
       travel = hip + boot[side],
@@ -98,7 +103,7 @@ const sampleCapsule = (shape: TaperedCapsule, ball: FlightPoint) => {
   return { along, nearest, delta, distance, radius, gap: distance - radius - BALL_RADIUS };
 };
 
-const contactCapsule = (g: Geometry, index: number): TaperedCapsule => {
+export const composedLegContactCapsule = (g: Geometry, index: number): TaperedCapsule => {
   const shape = g.capsules[index]!;
   if (shape.region.endsWith('thigh')) return { ...shape, distalRadius: shape.radius };
   // The calf tapers to the exposed ankle above the boot. The narrow distal
@@ -108,6 +113,7 @@ const contactCapsule = (g: Geometry, index: number): TaperedCapsule => {
   const length = norm(minus(shape.to, shape.from));
   return { ...shape, distalRadius, to: mix(shape.to, shape.from, distalRadius / length) };
 };
+const contactCapsule = composedLegContactCapsule;
 
 export const touchingComposedShin = (
   foot: Foot,

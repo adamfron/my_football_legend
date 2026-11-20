@@ -1,5 +1,21 @@
 # Mechanism dependencies
 
+## PR225 full-body dependency boundary
+
+The explicitly versioned full skeleton now supplies a complete principal
+hierarchy to physical geometry, presentation and replay. This closes the
+structural dependency, subject to the [PR225 gates](../PR225_UNIFIED_FULL_BODY_SKELETON.md),
+without claiming dynamics for each bone. Default D/E physics must remain
+equivalent; authored lower morphology uses the common solver and finite reach.
+Arm, hand and head proxies remain inactive until a real contact mechanism opts in.
+
+Next dependencies: separate independent encounters from repeated solver events;
+measure multi-surface work and support/recovery; validate nondefault bodies
+under pressure; implement 3D COM/angular balance before falling/get-up; add
+head/hand/arm and goalkeeper articulation through explicit contact gates.
+No probability, enlarged boot patch or defender-behaviour change substitutes
+for these mechanisms. Maintained PR201/B is unchanged; physics remains experimental.
+
 ## PR224 composed leg dependency boundary
 
 `composed-leg-contact-dev-v1` uses the PR223/D stance remainder and

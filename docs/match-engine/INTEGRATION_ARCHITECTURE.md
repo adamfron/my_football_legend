@@ -267,3 +267,22 @@ Promotion requires source-correct contracts, bounded acting information, actual 
 Rollback is a new baseline/profile selection before a development match, with incompatible state cleared through the API. Do not flip arbitrary fields in a mid-match saved profile and silently accept a mismatched fingerprint. Retain unsuccessful profiles and their archived source. Retirement requires an audited absence of acting consumers, a save/replay edition plan, a validated successor and explicit retained historical reconstruction. Do not delete necessary compatibility branches merely to reduce the inventory.
 
 Every future significant MatchEngine PR states: research change, local result, integration effect (improved/regressed/unchanged), promotion decision and next dependency. It updates this maintained candidate or explicitly leaves it unchanged.
+
+## PR225 full-body structural edition
+
+Research change: `experimentalFullBodySkeleton: full-body-skeleton-dev-v1`
+adds 19 segments/18 joints over explicitly selected, unprofiled articulated
+v2. `withFullBodySkeleton` preserves D/E. Optional `bodyMorphology` is static
+canonical-player geometry, not a rating or duplicate identity.
+
+Local result and integration effect are gated by the [PR225 report](../PR225_UNIFIED_FULL_BODY_SKELETON.md):
+default-body physical equivalence, actual action/recovery cycles, Three.js
+parity, compact native/replay reconstruction and archived D/E controls.
+Individual lower dimensions affect the common solver for authored bodies.
+New arm/hand/head proxies remain inactive. Historical profile application
+removes the incompatible edition and geometry.
+
+Promotion decision: the maintained executable PR201/B candidate is unchanged.
+Physics is RETAIN_EXPERIMENTAL; structural completion is separate. Next
+dependency: measured contact episodes, support/impulse realism and explicit
+3D balance/upper-body mechanics. Graphics never acquires physical authority.

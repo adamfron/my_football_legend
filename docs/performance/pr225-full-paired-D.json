@@ -1,0 +1,83 @@
+{
+  "fixture": "paired",
+  "arm": "D",
+  "sourcePath": "docs/performance/pr224-full-match-paired.json",
+  "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+  "initialHash": "bedd68f1968f8f477a5f0e0723f815c2488d73b7e931b5a872f722dfd4aa9455",
+  "terminalHash": "33e8c086234c9ee37f56c80bc52ccc859c75e2c4bc312bb939beff13530d6793",
+  "expectedTerminalHash": "33e8c086234c9ee37f56c80bc52ccc859c75e2c4bc312bb939beff13530d6793",
+  "final": {
+    "at": 5723.450000000085,
+    "status": "full_time",
+    "score": {
+      "home": 1,
+      "away": 2
+    },
+    "ticks": 228939,
+    "decisions": 2883,
+    "passReleases": 355,
+    "retainedBootContacts": 1049,
+    "bodyImpactTimes": 4043,
+    "shinContacts": 0,
+    "ownerChanges": 1588,
+    "restarts": 194
+  },
+  "goals": [
+    {
+      "at": 1412.5000000007558,
+      "score": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "at": 2449.3250000045277,
+      "score": {
+        "home": 1,
+        "away": 1
+      }
+    },
+    {
+      "at": 3320.0750000018193,
+      "score": {
+        "home": 1,
+        "away": 2
+      }
+    }
+  ],
+  "periods": [
+    {
+      "status": "half_time",
+      "at": 2843.4500000000853,
+      "score": {
+        "home": 1,
+        "away": 1
+      }
+    }
+  ],
+  "poses": 124597,
+  "invalid": 0,
+  "confirmedDefenderWins": 11,
+  "contacts": {
+    "rule": "canonical-clearance-certified-v1",
+    "solverEvents": 1494,
+    "observedEpisodes": 1011,
+    "independentEncounters": 1010,
+    "repeatedEpisodes": 196,
+    "adjacentSurfaceEpisodes": 177,
+    "simultaneousEpisodes": 0,
+    "intendedEpisodes": 971,
+    "incidentalEpisodes": 228,
+    "solverRepetitionCandidates": 0,
+    "jointResponses": 0,
+    "episodeArchive": {
+      "path": "docs/performance/pr225-contact-episodes-paired-D.json.gz",
+      "sha256": "cfa19afd316e7001f32b42bc5f894fc5442237c810b3fcf4007bfa2be6b9d371"
+    }
+  },
+  "cost": {
+    "wallSeconds": 1568.3792253000001,
+    "compositionAndValidationMs": 0.5140482483526786,
+    "heapMiB": 173.486083984375
+  }
+}

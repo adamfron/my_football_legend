@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { bodyMorphologySchema } from './bodyMorphology';
 import { PLAYER_BODY_CONTACT } from './playerBodyContact';
 import {
   rolesForPlayer,
@@ -53,6 +54,7 @@ export const DEFAULT_SUBSTITUTION_RULES: MatchSubstitutionRules = {
   delayedEntrySeconds: 60,
 };
 export const matchBenchPlayerSchema = z.object({
+  bodyMorphology: bodyMorphologySchema.optional(),
   playStyles: z.array(playStyleIdSchema).max(6).optional(),
   id: z.string().min(1),
   profile: footballerProfileSchema,
@@ -64,6 +66,7 @@ export type MatchBenchPlayer = z.infer<typeof matchBenchPlayerSchema>;
 /** Retain the actual departing body and profile; profile identities are never overwritten. */
 export const departedMatchPlayerSchema = z
   .object({
+    bodyMorphology: bodyMorphologySchema.optional(),
     playStyles: z.array(playStyleIdSchema).max(6).optional(),
     id: z.string(),
     endsSwitched: z.boolean().optional(),
@@ -644,6 +647,10 @@ const substitutionEntryBody = (
     team: request.team,
     endsSwitched: state.endsSwitched,
     profile: request.incoming.profile,
+    ...(state.experimentalFullBodySkeleton &&
+    (request.incoming.bodyMorphology ?? previousAppearance?.bodyMorphology)
+      ? { bodyMorphology: request.incoming.bodyMorphology ?? previousAppearance?.bodyMorphology }
+      : {}),
     ...(request.incoming.playStyles ? { playStyles: request.incoming.playStyles } : {}),
     slotIndex: request.outgoing.slotIndex,
     slot: request.outgoing.slot,

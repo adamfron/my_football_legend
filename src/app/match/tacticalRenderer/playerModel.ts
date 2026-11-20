@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import type { SkeletonSegmentId } from '../../../core/matchSimulation/fullBodySkeleton';
 import { createPlayerPose, derivePlayerPose, projectBodyDimensions } from './animation';
 import { type KitPresentation, type TacticalPlayer, type PlayerShading } from './model';
 import { deriveAppearance } from '../../../core/visualIdentity';
@@ -69,6 +70,24 @@ export class PlayerModel {
   readonly body = new THREE.Group();
   readonly torso = new THREE.Group();
   readonly head = new THREE.Group();
+  readonly canonicalSegments = new Map<SkeletonSegmentId, THREE.Object3D>();
+  private readonly headVisual = new THREE.Group();
+  private readonly upperArms: THREE.Mesh[] = [];
+  private readonly forearms: THREE.Mesh[] = [];
+  private readonly legacyRig = new Map<
+    THREE.Object3D,
+    {
+      parent: THREE.Object3D | null;
+      position: THREE.Vector3;
+      rotation: THREE.Quaternion;
+      scale: THREE.Vector3;
+      visible: boolean;
+    }
+  >();
+  private usedFullBody = false;
+  private appliedFullBody: TacticalPlayer['fullBodySkeleton'];
+  private readonly lowerTrunkMesh: THREE.Mesh;
+  private readonly neckMesh: THREE.Mesh;
   readonly leftHip = new THREE.Group();
   readonly rightHip = new THREE.Group();
   readonly leftKnee = new THREE.Group();
@@ -185,7 +204,17 @@ export class PlayerModel {
     );
     this.head.position.y = 0.7;
     this.torso.add(this.head);
-    buildParametricHead(this.head, appearance, resources);
+    this.head.add(this.headVisual);
+    buildParametricHead(this.headVisual, appearance, resources);
+    this.lowerTrunkMesh = mesh(
+      this.torso,
+      resources.cylinder,
+      shirt,
+      [0.2, 0.22, 0.14],
+      [0, 0.11, 0],
+    );
+    this.lowerTrunkMesh.visible = false;
+    this.shirtMeshes.push(this.lowerTrunkMesh);
     for (const [hip, knee, arm, elbow, hand, side] of [
       [this.leftHip, this.leftKnee, this.leftArm, this.leftElbow, this.leftHand, -1],
       [this.rightHip, this.rightKnee, this.rightArm, this.rightElbow, this.rightHand, 1],
@@ -218,12 +247,14 @@ export class PlayerModel {
       boot.userData.orientationFeature = 'local_forward_boot';
       arm.position.set(side * 0.29, 0.5, 0);
       this.torso.add(arm);
-      this.shirtMeshes.push(
-        mesh(arm, resources.cylinder, shirt, [0.075, 0.23, 0.075], [0, -0.115, 0]),
-      );
+      const upperArm = mesh(arm, resources.cylinder, shirt, [0.075, 0.23, 0.075], [0, -0.115, 0]);
+      this.shirtMeshes.push(upperArm);
+      this.upperArms.push(upperArm);
       elbow.position.y = -0.23;
       arm.add(elbow);
-      mesh(elbow, resources.cylinder, colors.skin, [0.055, 0.22, 0.055], [0, -0.11, 0]);
+      this.forearms.push(
+        mesh(elbow, resources.cylinder, colors.skin, [0.055, 0.22, 0.055], [0, -0.11, 0]),
+      );
       hand.position.y = -0.25;
       elbow.add(hand);
       this.handMeshes.push(
@@ -240,9 +271,48 @@ export class PlayerModel {
     this.picker.position.y = 1.4;
     this.picker.userData.playerId = player.id;
     this.root.add(this.picker);
+    for (const [id, node] of [
+      ['pelvis', new THREE.Group()],
+      ['lower_trunk', this.torso],
+      ['thorax', new THREE.Group()],
+      ['neck', new THREE.Group()],
+      ['head', this.head],
+      ['left_thigh', this.leftHip],
+      ['left_shank', this.leftKnee],
+      ['left_foot', this.leftAnkle],
+      ['right_thigh', this.rightHip],
+      ['right_shank', this.rightKnee],
+      ['right_foot', this.rightAnkle],
+      ['left_girdle', new THREE.Group()],
+      ['left_upper_arm', this.leftArm],
+      ['left_forearm', this.leftElbow],
+      ['left_hand', this.leftHand],
+      ['right_girdle', new THREE.Group()],
+      ['right_upper_arm', this.rightArm],
+      ['right_forearm', this.rightElbow],
+      ['right_hand', this.rightHand],
+    ] as const)
+      this.canonicalSegments.set(id, node);
+    this.neckMesh = mesh(
+      this.canonicalSegments.get('neck')!,
+      resources.cylinder,
+      colors.skin,
+      [0.06, 0.08, 0.06],
+      [0, 0.04, 0],
+    );
+    this.body.traverse((node) =>
+      this.legacyRig.set(node, {
+        parent: node.parent,
+        position: node.position.clone(),
+        rotation: node.quaternion.clone(),
+        scale: node.scale.clone(),
+        visible: node.visible,
+      }),
+    );
   }
 
   update(player: TacticalPlayer, timestampMs: number) {
+    if (!player.fullBodySkeleton && this.usedFullBody) this.resetPhysicalRig();
     if (!player.articulatedBody && this.usedCanonicalBody) this.resetPhysicalRig();
     if (Boolean(player.goalkeeper) !== this.goalkeeperRole) {
       this.goalkeeperRole = Boolean(player.goalkeeper);
@@ -261,6 +331,13 @@ export class PlayerModel {
     }
     this.root.userData.participation = player.participation ?? 'active';
     this.root.userData.goalkeeperRole = Boolean(player.goalkeeper);
+    if (player.fullBodySkeleton) {
+      if (this.appliedFullBody !== player.fullBodySkeleton) {
+        this.applyFullBody(player);
+        this.appliedFullBody = player.fullBodySkeleton;
+      }
+      return;
+    }
     const pose = derivePlayerPose(player, timestampMs, this.pose);
     this.body.position.y = pose.lift - pose.crouch;
     this.body.rotation.z = pose.roll;
@@ -282,6 +359,19 @@ export class PlayerModel {
   }
 
   private resetPhysicalRig() {
+    if (this.usedFullBody) {
+      for (const node of this.canonicalSegments.values())
+        if (!this.legacyRig.has(node)) node.removeFromParent();
+      for (const [node, rest] of this.legacyRig) {
+        if (rest.parent && node.parent !== rest.parent) rest.parent.add(node);
+        node.position.copy(rest.position);
+        node.quaternion.copy(rest.rotation);
+        node.scale.copy(rest.scale);
+        node.visible = rest.visible;
+      }
+      this.usedFullBody = false;
+      this.appliedFullBody = undefined;
+    }
     for (const [i, hip, knee, contact, side] of [
       [0, this.leftHip, this.leftKnee, this.leftBootContact, -1],
       [1, this.rightHip, this.rightKnee, this.rightBootContact, 1],
@@ -302,6 +392,88 @@ export class PlayerModel {
     this.torso.position.set(0, 0.9, 0);
     this.shortsMesh.position.set(0, 0.88, 0);
     this.usedCanonicalBody = false;
+  }
+
+  /** Semantic canonical frames drive the existing reusable rig and kit meshes.
+   * Physical (X,Y,Z) maps to Three (X,Z,Y); rotations include that handedness change. */
+  private applyFullBody(player: TacticalPlayer) {
+    const pose = player.fullBodySkeleton!;
+    this.usedCanonicalBody = true;
+    this.usedFullBody = true;
+    this.body.position.set(0, pose.root.position.z, 0);
+    this.body.quaternion.identity();
+    this.body.scale.set(1, 1, 1);
+    for (const segment of pose.segments) {
+      const node = this.canonicalSegments.get(segment.id)!;
+      const parent = segment.parent ? this.canonicalSegments.get(segment.parent)! : this.body;
+      if (node.parent !== parent) parent.add(node);
+      const { position: p, rotation: q } = segment.local;
+      node.position.set(p.x, p.z, p.y);
+      node.quaternion.set(-q.x, -q.z, -q.y, q.w);
+      node.scale.set(1, 1, 1);
+    }
+    const byId = new Map(pose.segments.map((s) => [s.id, s]));
+    const placeCylinder = (mesh: THREE.Mesh, id: SkeletonSegmentId) => {
+      const s = byId.get(id)!;
+      mesh.scale.set(s.dimensions.width / 2, s.dimensions.length, s.dimensions.depth / 2);
+      mesh.position.set(0, s.dimensions.length / 2, 0);
+      mesh.quaternion.identity();
+    };
+    this.lowerTrunkMesh.visible = true;
+    placeCylinder(this.lowerTrunkMesh, 'lower_trunk');
+    placeCylinder(this.neckMesh, 'neck');
+    const thorax = this.canonicalSegments.get('thorax')!;
+    thorax.add(this.shirtMeshes[0]!);
+    placeCylinder(this.shirtMeshes[0]!, 'thorax');
+    for (const mesh of [...this.trimMeshes, ...this.patternMeshes]) {
+      thorax.add(mesh);
+      const rest = this.legacyRig.get(mesh)!;
+      const s = byId.get('thorax')!;
+      mesh.position.set(
+        rest.position.x * (s.dimensions.width / 0.51),
+        (rest.position.y - 0.04) * (s.dimensions.length / 0.54),
+        rest.position.z,
+      );
+      mesh.scale.copy(rest.scale);
+    }
+    const pelvis = this.canonicalSegments.get('pelvis')!;
+    pelvis.add(this.shortsMesh);
+    this.shortsMesh.position.set(0, 0, 0);
+    this.shortsMesh.scale.set(byId.get('pelvis')!.dimensions.width * 1.3, 0.18, 0.25);
+    const head = byId.get('head')!;
+    this.headVisual.position.set(0, head.dimensions.length / 2, 0);
+    this.headVisual.scale.set(
+      head.dimensions.width / 0.23,
+      head.dimensions.length / 0.26,
+      head.dimensions.depth / 0.23,
+    );
+    this.body.updateWorldMatrix(true, true);
+    for (const [i, side, contact] of [
+      [0, 'left', this.leftBootContact],
+      [1, 'right', this.rightBootContact],
+    ] as const) {
+      placeCylinder(this.thighs[i]!, `${side}_thigh`);
+      placeCylinder(this.shins[i]!, `${side}_shank`);
+      placeCylinder(this.upperArms[i]!, `${side}_upper_arm`);
+      placeCylinder(this.forearms[i]!, `${side}_forearm`);
+      const hand = byId.get(`${side}_hand`)!;
+      this.handMeshes[i]!.scale.set(
+        hand.dimensions.width / 2,
+        hand.dimensions.length / 2,
+        hand.dimensions.depth / 2,
+      );
+      this.handMeshes[i]!.position.set(0, hand.dimensions.length / 2, 0);
+      const foot = this.canonicalSegments.get(`${side}_foot`)!;
+      foot.add(contact, this.boots[i]!);
+      const p = pose.feet[side].bootContact;
+      contact.position.copy(foot.worldToLocal(this.pointScratch.set(p.x - 52.5, p.z, p.y - 34)));
+      this.boots[i]!.position.copy(contact.position);
+      foot.getWorldQuaternion(this.rotationScratch).invert();
+      this.yawScratch.setFromAxisAngle(this.up, player.articulatedBody!.bootYaw[side]);
+      this.boots[i]!.quaternion.copy(this.rotationScratch).multiply(this.yawScratch);
+      const dim = byId.get(`${side}_foot`)!.dimensions;
+      this.boots[i]!.scale.set(dim.width, dim.depth, dim.length);
+    }
   }
 
   private applyCanonicalBody(player: TacticalPlayer) {

@@ -1,5 +1,11 @@
 import { z } from 'zod';
 import { articulatedBodySchema, projectArticulatedBody } from './articulatedBody';
+import {
+  fullBodySkeletonSchema,
+  fullBodyPoseInputsSchema,
+  projectFullBodyPoseInputs,
+  restoreFullBodySkeleton,
+} from './fullBodySkeleton';
 import { BALL_RADIUS } from './ballFlight';
 import { contactBodyRegionSchema } from './ballContactGeometry';
 import { physicalPointSchema } from './matchSpace';
@@ -192,6 +198,8 @@ export const goalResponsePresentationSchema = z.object({
   retrievalStage: z.enum(['approach', 'handoff', 'transfer', 'transport', 'placed']).optional(),
 });
 export const canonicalPlayerPresentationShape = {
+  fullBodySkeleton: fullBodySkeletonSchema.optional(),
+  fullBodyPoseInputs: fullBodyPoseInputsSchema.optional(),
   articulatedBody: articulatedBodySchema.optional(),
   articulatedPoseUnavailable: z.boolean().optional(),
   acceleration: physicalPointSchema.optional(),
@@ -290,6 +298,7 @@ export const projectCanonicalPlayerPresentation = (
   state: TacticalMatchState,
   player: MatchPlayerState,
   previous?: TacticalMatchState,
+  includeDerivedSkeleton = true,
 ): CanonicalPlayerPresentation => {
   const old = previous && projectMatchVisiblePlayers(previous).find((p) => p.id === player.id);
   const dt = previous ? state.time - previous.time : 0;
@@ -360,7 +369,15 @@ export const projectCanonicalPlayerPresentation = (
                       : 'ready'))
     : undefined;
   const articulatedBody = projectArticulatedBody(state, player);
+  const fullBodyPoseInputs = articulatedBody && projectFullBodyPoseInputs(state, player);
+  const fullBodySkeleton =
+    includeDerivedSkeleton &&
+    articulatedBody &&
+    fullBodyPoseInputs &&
+    restoreFullBodySkeleton(articulatedBody, fullBodyPoseInputs);
   return {
+    ...(fullBodySkeleton ? { fullBodySkeleton } : {}),
+    ...(fullBodyPoseInputs ? { fullBodyPoseInputs } : {}),
     ...(articulatedBody ? { articulatedBody } : {}),
     ...(state.experimentalArticulatedBody && !articulatedBody
       ? { articulatedPoseUnavailable: true }
@@ -492,14 +509,18 @@ export const projectCanonicalPlayerPresentation = (
 export const projectPresentationPlayers = (state: TacticalMatchState): MatchPlayerState[] => [
   ...projectMatchVisiblePlayers(state),
   ...(state.substitutionState?.pending ?? []).map((r): MatchPlayerState => {
-    const { fitness: _fitness, injury: _injury, ...body } = r.outgoing;
+    const { fitness: _fitness, injury: _injury, bodyMorphology: _morphology, ...body } = r.outgoing;
     void _fitness;
     void _injury;
+    void _morphology;
     const fitness = r.entryFitness ?? r.incoming.fitness;
     return {
       ...body,
       id: r.incoming.id,
       profile: r.incoming.profile,
+      ...(state.experimentalFullBodySkeleton && r.incoming.bodyMorphology
+        ? { bodyMorphology: r.incoming.bodyMorphology }
+        : {}),
       position: r.entryPosition,
       target: { x: 52.5, y: 0.5 },
       velocity: r.entryVelocity,

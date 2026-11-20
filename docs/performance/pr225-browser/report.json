@@ -1,0 +1,2532 @@
+{
+  "browser": "157.0.4341.46",
+  "source": "full-body-skeleton-dev-v1",
+  "viewports": [
+    {
+      "width": 1366,
+      "height": 768,
+      "errors": [],
+      "results": [
+        {
+          "name": "pass-swing",
+          "parity": [
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 29.641139680320823,
+                "y": 34.30136014066868,
+                "z": 0.5141882602870389
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 29.7797465623703,
+                "y": 34.04720516218407,
+                "z": 0.6590485387774861
+              },
+              "before": 0,
+              "after": 1.2412670766236366e-16
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 9.19174823112202e-15,
+              "after": 2.482534153247273e-16
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 29.823053741944957,
+                "y": 34.00043881101858,
+                "z": 0.22085995312519546
+              },
+              "before": 5.228229782913885e-15,
+              "after": 1.6782945342419286e-16
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.04
+              },
+              "before": 3.576654865213795e-15,
+              "after": 7.376145397762941e-17
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 29.823053741944957,
+                "y": 34.00043881101858,
+                "z": 0.18585995312519546
+              },
+              "before": 7.621420282514214e-16,
+              "after": 4.718447885797833e-16
+            },
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "lower_trunk",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "thorax",
+              "physical": {
+                "x": 29.409716719832133,
+                "y": 34.17,
+                "z": 1.097781336903134
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "neck",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 34.17,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "head",
+              "physical": {
+                "x": 29.42611414581079,
+                "y": 34.17,
+                "z": 1.502432839997796
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "left_thigh",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_shank",
+              "physical": {
+                "x": 29.641139680320823,
+                "y": 34.30136014066868,
+                "z": 0.5141882602870389
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_foot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 2.482534153247273e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_girdle",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 34.17,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_upper_arm",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 34.431000000000004,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 3.1401849173675503e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_forearm",
+              "physical": {
+                "x": 29.386770843940898,
+                "y": 34.46244752624376,
+                "z": 1.1102809929382786
+              },
+              "before": 0,
+              "after": 4.440892098500626e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_hand",
+              "physical": {
+                "x": 29.4269175662918,
+                "y": 34.489402548738404,
+                "z": 0.8446465308540212
+              },
+              "before": 0,
+              "after": 5.978733960281817e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_thigh",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_shank",
+              "physical": {
+                "x": 29.7797465623703,
+                "y": 34.04720516218407,
+                "z": 0.6590485387774861
+              },
+              "before": 0,
+              "after": 1.2412670766236366e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_foot",
+              "physical": {
+                "x": 29.823053741944957,
+                "y": 34.00043881101858,
+                "z": 0.22085995312519546
+              },
+              "before": 0,
+              "after": 1.6782945342419286e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_girdle",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 34.17,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "right_upper_arm",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 33.909,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 3.1401849173675503e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_forearm",
+              "physical": {
+                "x": 29.46181275521977,
+                "y": 33.877552473756246,
+                "z": 1.1102809929382786
+              },
+              "before": 0,
+              "after": 4.440892098500626e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_hand",
+              "physical": {
+                "x": 29.563950800512032,
+                "y": 33.8505974512616,
+                "z": 0.861803133831698
+              },
+              "before": 0,
+              "after": 4.742874840267547e-16,
+              "rotationError": 0
+            }
+          ],
+          "costs": [
+            {
+              "edition": "PR224/E",
+              "players": 22,
+              "medianSubmitMs": 5.199999928474426,
+              "p95SubmitMs": 7.700000047683716,
+              "drawCalls": 156,
+              "geometries": 5
+            },
+            {
+              "edition": "PR225 — szkielet całego ciała",
+              "players": 22,
+              "medianSubmitMs": 3.700000047683716,
+              "p95SubmitMs": 6,
+              "medianNewPoseSubmitMs": 6.799999952316284,
+              "p95NewPoseSubmitMs": 11.399999976158142,
+              "drawCalls": 164,
+              "geometries": 5
+            }
+          ]
+        },
+        {
+          "name": "pass-recovery",
+          "parity": [
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 29.400106944423644,
+                "y": 34.2689999422368,
+                "z": 0.882
+              },
+              "before": 3.552713678800501e-15,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 29.399893055576353,
+                "y": 34.0710000577632,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 29.7459774692637,
+                "y": 34.2222087555449,
+                "z": 0.6124352306127033
+              },
+              "before": 3.552822097363439e-15,
+              "after": 1.1443916996305594e-16
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 29.641045998211496,
+                "y": 34.03847990944941,
+                "z": 0.5142110683937586
+              },
+              "before": 3.552740783751416e-15,
+              "after": 2.2301825219878386e-16
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 29.77826542589602,
+                "y": 34.14723307807932,
+                "z": 0.17722496459742854
+              },
+              "before": 4.798504771605009e-15,
+              "after": 2.2887833992611187e-16
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 4.076675462230829e-15,
+              "after": 4.454424009010536e-16
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 29.77826542589602,
+                "y": 34.14723307807932,
+                "z": 0.14222496459742853
+              },
+              "before": 7.144621586761405e-15,
+              "after": 8.049116928532385e-16
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.04
+              },
+              "before": 7.134617142103151e-15,
+              "after": 1.3183898417423734e-16
+            },
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "lower_trunk",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "thorax",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.098
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "neck",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "head",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.5030000000000001
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_thigh",
+              "physical": {
+                "x": 29.400106944423644,
+                "y": 34.2689999422368,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_shank",
+              "physical": {
+                "x": 29.7459774692637,
+                "y": 34.2222087555449,
+                "z": 0.6124352306127033
+              },
+              "before": 0,
+              "after": 1.1443916996305594e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_foot",
+              "physical": {
+                "x": 29.77826542589602,
+                "y": 34.14723307807932,
+                "z": 0.17722496459742854
+              },
+              "before": 0,
+              "after": 2.2887833992611187e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_girdle",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_upper_arm",
+              "physical": {
+                "x": 29.39994361111155,
+                "y": 34.43099999390861,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_forearm",
+              "physical": {
+                "x": 29.399577615935655,
+                "y": 34.46762891469882,
+                "z": 1.1091371095683042
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_hand",
+              "physical": {
+                "x": 29.43934233963274,
+                "y": 34.4989818378977,
+                "z": 0.8439282089707196
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_thigh",
+              "physical": {
+                "x": 29.399893055576353,
+                "y": 34.0710000577632,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_shank",
+              "physical": {
+                "x": 29.641045998211496,
+                "y": 34.03847990944941,
+                "z": 0.5142110683937586
+              },
+              "before": 0,
+              "after": 2.2301825219878386e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_foot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 4.454424009010536e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_girdle",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_upper_arm",
+              "physical": {
+                "x": 29.400056388888448,
+                "y": 33.9090000060914,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_forearm",
+              "physical": {
+                "x": 29.400422384064342,
+                "y": 33.87237108530118,
+                "z": 1.1091371095683042
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_hand",
+              "physical": {
+                "x": 29.440806721145332,
+                "y": 33.84093158129309,
+                "z": 0.8440321060201739
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-16,
+              "rotationError": 0
+            }
+          ],
+          "costs": [
+            {
+              "edition": "PR224/E",
+              "players": 22,
+              "medianSubmitMs": 5.799999952316284,
+              "p95SubmitMs": 7.5,
+              "drawCalls": 156,
+              "geometries": 6
+            },
+            {
+              "edition": "PR225 — szkielet całego ciała",
+              "players": 22,
+              "medianSubmitMs": 4.300000071525574,
+              "p95SubmitMs": 6.600000023841858,
+              "medianNewPoseSubmitMs": 7.899999976158142,
+              "p95NewPoseSubmitMs": 11.700000047683716,
+              "drawCalls": 164,
+              "geometries": 6
+            }
+          ]
+        },
+        {
+          "name": "recovering-shin",
+          "parity": [
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 54.89275,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 55.10725,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 54.863898782313754,
+                "y": 42.252031724775776,
+                "z": 0.550663391669469
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 55.16383977194606,
+                "y": 42.297976145365084,
+                "z": 0.5863755264081537
+              },
+              "before": 1.1102230246251565e-16,
+              "after": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 54.83,
+                "y": 42.2,
+                "z": 0.07500000000000001
+              },
+              "before": 3.3306690738754696e-16,
+              "after": 5.551115123125783e-17
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 55.235,
+                "y": 42.2,
+                "z": 0.1222106991294044
+              },
+              "before": 1.0130785099704553e-15,
+              "after": 1.5265566588595902e-16
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 54.83,
+                "y": 42.2,
+                "z": 0.04
+              },
+              "before": 1.9874935129923897e-15,
+              "after": 1.734723475976807e-16
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 55.235,
+                "y": 42.2,
+                "z": 0.08721069912940439
+              },
+              "before": 1.249000902703301e-16,
+              "after": 2.636779683484747e-16
+            },
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "lower_trunk",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "thorax",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.1895
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "neck",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "head",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.62825
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_thigh",
+              "physical": {
+                "x": 54.89275,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_shank",
+              "physical": {
+                "x": 54.863898782313754,
+                "y": 42.252031724775776,
+                "z": 0.550663391669469
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_foot",
+              "physical": {
+                "x": 54.83,
+                "y": 42.2,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_girdle",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_upper_arm",
+              "physical": {
+                "x": 54.71725,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_forearm",
+              "physical": {
+                "x": 54.678092692585665,
+                "y": 42,
+                "z": 1.201504029852774
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_hand",
+              "physical": {
+                "x": 54.644529286230515,
+                "y": 42.043421935452756,
+                "z": 0.9141988205798192
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_thigh",
+              "physical": {
+                "x": 55.10725,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_shank",
+              "physical": {
+                "x": 55.16383977194606,
+                "y": 42.297976145365084,
+                "z": 0.5863755264081537
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_foot",
+              "physical": {
+                "x": 55.235,
+                "y": 42.2,
+                "z": 0.1222106991294044
+              },
+              "before": 0,
+              "after": 1.5265566588595902e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_girdle",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "right_upper_arm",
+              "physical": {
+                "x": 55.28275,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_forearm",
+              "physical": {
+                "x": 55.321907307414335,
+                "y": 42,
+                "z": 1.201504029852774
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_hand",
+              "physical": {
+                "x": 55.355470713769485,
+                "y": 42.043421935452756,
+                "z": 0.9141988205798192
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": 0
+            }
+          ],
+          "costs": [
+            {
+              "edition": "PR224/E",
+              "players": 22,
+              "medianSubmitMs": 4.399999976158142,
+              "p95SubmitMs": 6.100000023841858,
+              "drawCalls": 41,
+              "geometries": 9
+            },
+            {
+              "edition": "PR225 — szkielet całego ciała",
+              "players": 22,
+              "medianSubmitMs": 4,
+              "p95SubmitMs": 5.799999952316284,
+              "medianNewPoseSubmitMs": 7.099999904632568,
+              "p95NewPoseSubmitMs": 9.400000095367432,
+              "drawCalls": 45,
+              "geometries": 9
+            }
+          ]
+        },
+        {
+          "name": "morphology",
+          "parity": [
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 29.56511658762907,
+                "y": 34.2953385081934,
+                "z": 0.5032668545322748
+              },
+              "before": 0.077039261313607,
+              "after": 3.3306690738754696e-16
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 29.640433428388043,
+                "y": 34.05310563816674,
+                "z": 0.5127405270976089
+              },
+              "before": 0.014555187408462985,
+              "after": 2.7755575615628914e-17
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 9.19174823112202e-15,
+              "after": 7.216449660063518e-16
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 6.086390972536225e-15,
+              "after": 5.594315114139762e-17
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.04
+              },
+              "before": 3.576654865213795e-15,
+              "after": 3.612092524874097e-15
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.04
+              },
+              "before": 7.196502796760553e-15,
+              "after": 6.938893903907228e-17
+            },
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "lower_trunk",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "thorax",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.098
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "neck",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "head",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.5030000000000001
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_thigh",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_shank",
+              "physical": {
+                "x": 29.56511658762907,
+                "y": 34.2953385081934,
+                "z": 0.5032668545322748
+              },
+              "before": 0,
+              "after": 3.3306690738754696e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_foot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 7.216449660063518e-16,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_girdle",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "left_upper_arm",
+              "physical": {
+                "x": 29.4,
+                "y": 34.458,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_forearm",
+              "physical": {
+                "x": 29.4,
+                "y": 34.484955022494646,
+                "z": 1.1533488753749332
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_hand",
+              "physical": {
+                "x": 29.4401467223509,
+                "y": 34.51191004498929,
+                "z": 0.8877144132906758
+              },
+              "before": 0,
+              "after": 1.5700924586837752e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_thigh",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_shank",
+              "physical": {
+                "x": 29.640433428388043,
+                "y": 34.05310563816674,
+                "z": 0.5127405270976089
+              },
+              "before": 0,
+              "after": 2.7755575615628914e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_foot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 5.594315114139762e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_girdle",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "right_upper_arm",
+              "physical": {
+                "x": 29.4,
+                "y": 33.882000000000005,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_forearm",
+              "physical": {
+                "x": 29.4,
+                "y": 33.85055247375625,
+                "z": 1.108573687937422
+              },
+              "before": 0,
+              "after": 2.7755575615628914e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_hand",
+              "physical": {
+                "x": 29.44817606682108,
+                "y": 33.81820644676268,
+                "z": 0.789812333436313
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-16,
+              "rotationError": 0
+            }
+          ],
+          "costs": [
+            {
+              "edition": "PR224/E",
+              "players": 22,
+              "medianSubmitMs": 4.100000023841858,
+              "p95SubmitMs": 7.299999952316284,
+              "drawCalls": 156,
+              "geometries": 8
+            },
+            {
+              "edition": "PR225 — szkielet całego ciała",
+              "players": 22,
+              "medianSubmitMs": 4.299999952316284,
+              "p95SubmitMs": 5.600000023841858,
+              "medianNewPoseSubmitMs": 7,
+              "p95NewPoseSubmitMs": 10.600000023841858,
+              "drawCalls": 164,
+              "geometries": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "errors": [],
+      "results": [
+        {
+          "name": "pass-swing",
+          "parity": [
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 29.641139680320823,
+                "y": 34.30136014066868,
+                "z": 0.5141882602870389
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 29.7797465623703,
+                "y": 34.04720516218407,
+                "z": 0.6590485387774861
+              },
+              "before": 0,
+              "after": 1.2412670766236366e-16
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 9.19174823112202e-15,
+              "after": 2.482534153247273e-16
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 29.823053741944957,
+                "y": 34.00043881101858,
+                "z": 0.22085995312519546
+              },
+              "before": 5.228229782913885e-15,
+              "after": 1.6782945342419286e-16
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.04
+              },
+              "before": 3.576654865213795e-15,
+              "after": 7.376145397762941e-17
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 29.823053741944957,
+                "y": 34.00043881101858,
+                "z": 0.18585995312519546
+              },
+              "before": 7.621420282514214e-16,
+              "after": 4.718447885797833e-16
+            },
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "lower_trunk",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "thorax",
+              "physical": {
+                "x": 29.409716719832133,
+                "y": 34.17,
+                "z": 1.097781336903134
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "neck",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 34.17,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "head",
+              "physical": {
+                "x": 29.42611414581079,
+                "y": 34.17,
+                "z": 1.502432839997796
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "left_thigh",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_shank",
+              "physical": {
+                "x": 29.641139680320823,
+                "y": 34.30136014066868,
+                "z": 0.5141882602870389
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_foot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 2.482534153247273e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_girdle",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 34.17,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_upper_arm",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 34.431000000000004,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 3.1401849173675503e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_forearm",
+              "physical": {
+                "x": 29.386770843940898,
+                "y": 34.46244752624376,
+                "z": 1.1102809929382786
+              },
+              "before": 0,
+              "after": 4.440892098500626e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_hand",
+              "physical": {
+                "x": 29.4269175662918,
+                "y": 34.489402548738404,
+                "z": 0.8446465308540212
+              },
+              "before": 0,
+              "after": 5.978733960281817e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_thigh",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_shank",
+              "physical": {
+                "x": 29.7797465623703,
+                "y": 34.04720516218407,
+                "z": 0.6590485387774861
+              },
+              "before": 0,
+              "after": 1.2412670766236366e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_foot",
+              "physical": {
+                "x": 29.823053741944957,
+                "y": 34.00043881101858,
+                "z": 0.22085995312519546
+              },
+              "before": 0,
+              "after": 1.6782945342419286e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_girdle",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 34.17,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "right_upper_arm",
+              "physical": {
+                "x": 29.424291799580335,
+                "y": 33.909,
+                "z": 1.421453342257835
+              },
+              "before": 0,
+              "after": 3.1401849173675503e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_forearm",
+              "physical": {
+                "x": 29.46181275521977,
+                "y": 33.877552473756246,
+                "z": 1.1102809929382786
+              },
+              "before": 0,
+              "after": 4.440892098500626e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_hand",
+              "physical": {
+                "x": 29.563950800512032,
+                "y": 33.8505974512616,
+                "z": 0.861803133831698
+              },
+              "before": 0,
+              "after": 4.742874840267547e-16,
+              "rotationError": 0
+            }
+          ],
+          "costs": [
+            {
+              "edition": "PR224/E",
+              "players": 22,
+              "medianSubmitMs": 4.899999976158142,
+              "p95SubmitMs": 7,
+              "drawCalls": 156,
+              "geometries": 5
+            },
+            {
+              "edition": "PR225 — szkielet całego ciała",
+              "players": 22,
+              "medianSubmitMs": 5.300000071525574,
+              "p95SubmitMs": 7.900000095367432,
+              "medianNewPoseSubmitMs": 7.600000023841858,
+              "p95NewPoseSubmitMs": 12,
+              "drawCalls": 164,
+              "geometries": 5
+            }
+          ]
+        },
+        {
+          "name": "pass-recovery",
+          "parity": [
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 29.400106944423644,
+                "y": 34.2689999422368,
+                "z": 0.882
+              },
+              "before": 3.552713678800501e-15,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 29.399893055576353,
+                "y": 34.0710000577632,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 29.7459774692637,
+                "y": 34.2222087555449,
+                "z": 0.6124352306127033
+              },
+              "before": 3.552822097363439e-15,
+              "after": 1.1443916996305594e-16
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 29.641045998211496,
+                "y": 34.03847990944941,
+                "z": 0.5142110683937586
+              },
+              "before": 3.552740783751416e-15,
+              "after": 2.2301825219878386e-16
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 29.77826542589602,
+                "y": 34.14723307807932,
+                "z": 0.17722496459742854
+              },
+              "before": 4.798504771605009e-15,
+              "after": 2.2887833992611187e-16
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 4.076675462230829e-15,
+              "after": 4.454424009010536e-16
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 29.77826542589602,
+                "y": 34.14723307807932,
+                "z": 0.14222496459742853
+              },
+              "before": 7.144621586761405e-15,
+              "after": 8.049116928532385e-16
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.04
+              },
+              "before": 7.134617142103151e-15,
+              "after": 1.3183898417423734e-16
+            },
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "lower_trunk",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "thorax",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.098
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "neck",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "head",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.5030000000000001
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_thigh",
+              "physical": {
+                "x": 29.400106944423644,
+                "y": 34.2689999422368,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_shank",
+              "physical": {
+                "x": 29.7459774692637,
+                "y": 34.2222087555449,
+                "z": 0.6124352306127033
+              },
+              "before": 0,
+              "after": 1.1443916996305594e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_foot",
+              "physical": {
+                "x": 29.77826542589602,
+                "y": 34.14723307807932,
+                "z": 0.17722496459742854
+              },
+              "before": 0,
+              "after": 2.2887833992611187e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_girdle",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_upper_arm",
+              "physical": {
+                "x": 29.39994361111155,
+                "y": 34.43099999390861,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_forearm",
+              "physical": {
+                "x": 29.399577615935655,
+                "y": 34.46762891469882,
+                "z": 1.1091371095683042
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_hand",
+              "physical": {
+                "x": 29.43934233963274,
+                "y": 34.4989818378977,
+                "z": 0.8439282089707196
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_thigh",
+              "physical": {
+                "x": 29.399893055576353,
+                "y": 34.0710000577632,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_shank",
+              "physical": {
+                "x": 29.641045998211496,
+                "y": 34.03847990944941,
+                "z": 0.5142110683937586
+              },
+              "before": 0,
+              "after": 2.2301825219878386e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_foot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 4.454424009010536e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_girdle",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_upper_arm",
+              "physical": {
+                "x": 29.400056388888448,
+                "y": 33.9090000060914,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_forearm",
+              "physical": {
+                "x": 29.400422384064342,
+                "y": 33.87237108530118,
+                "z": 1.1091371095683042
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_hand",
+              "physical": {
+                "x": 29.440806721145332,
+                "y": 33.84093158129309,
+                "z": 0.8440321060201739
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-16,
+              "rotationError": 0
+            }
+          ],
+          "costs": [
+            {
+              "edition": "PR224/E",
+              "players": 22,
+              "medianSubmitMs": 4.700000047683716,
+              "p95SubmitMs": 6.399999976158142,
+              "drawCalls": 156,
+              "geometries": 6
+            },
+            {
+              "edition": "PR225 — szkielet całego ciała",
+              "players": 22,
+              "medianSubmitMs": 4.700000047683716,
+              "p95SubmitMs": 8.100000023841858,
+              "medianNewPoseSubmitMs": 7.399999976158142,
+              "p95NewPoseSubmitMs": 12.199999928474426,
+              "drawCalls": 164,
+              "geometries": 6
+            }
+          ]
+        },
+        {
+          "name": "recovering-shin",
+          "parity": [
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 54.89275,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 55.10725,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 54.863898782313754,
+                "y": 42.252031724775776,
+                "z": 0.550663391669469
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 55.16383977194606,
+                "y": 42.297976145365084,
+                "z": 0.5863755264081537
+              },
+              "before": 1.1102230246251565e-16,
+              "after": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 54.83,
+                "y": 42.2,
+                "z": 0.07500000000000001
+              },
+              "before": 3.3306690738754696e-16,
+              "after": 5.551115123125783e-17
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 55.235,
+                "y": 42.2,
+                "z": 0.1222106991294044
+              },
+              "before": 1.0130785099704553e-15,
+              "after": 1.5265566588595902e-16
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 54.83,
+                "y": 42.2,
+                "z": 0.04
+              },
+              "before": 1.9874935129923897e-15,
+              "after": 1.734723475976807e-16
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 55.235,
+                "y": 42.2,
+                "z": 0.08721069912940439
+              },
+              "before": 1.249000902703301e-16,
+              "after": 2.636779683484747e-16
+            },
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "lower_trunk",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "thorax",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.1895
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "neck",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "head",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.62825
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_thigh",
+              "physical": {
+                "x": 54.89275,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_shank",
+              "physical": {
+                "x": 54.863898782313754,
+                "y": 42.252031724775776,
+                "z": 0.550663391669469
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_foot",
+              "physical": {
+                "x": 54.83,
+                "y": 42.2,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 5.551115123125783e-17,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_girdle",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_upper_arm",
+              "physical": {
+                "x": 54.71725,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_forearm",
+              "physical": {
+                "x": 54.678092692585665,
+                "y": 42,
+                "z": 1.201504029852774
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_hand",
+              "physical": {
+                "x": 54.644529286230515,
+                "y": 42.043421935452756,
+                "z": 0.9141988205798192
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_thigh",
+              "physical": {
+                "x": 55.10725,
+                "y": 42,
+                "z": 0.9555
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_shank",
+              "physical": {
+                "x": 55.16383977194606,
+                "y": 42.297976145365084,
+                "z": 0.5863755264081537
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_foot",
+              "physical": {
+                "x": 55.235,
+                "y": 42.2,
+                "z": 0.1222106991294044
+              },
+              "before": 0,
+              "after": 1.5265566588595902e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_girdle",
+              "physical": {
+                "x": 55,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "right_upper_arm",
+              "physical": {
+                "x": 55.28275,
+                "y": 42,
+                "z": 1.5405
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_forearm",
+              "physical": {
+                "x": 55.321907307414335,
+                "y": 42,
+                "z": 1.201504029852774
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_hand",
+              "physical": {
+                "x": 55.355470713769485,
+                "y": 42.043421935452756,
+                "z": 0.9141988205798192
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": 0
+            }
+          ],
+          "costs": [
+            {
+              "edition": "PR224/E",
+              "players": 22,
+              "medianSubmitMs": 3.8000000715255737,
+              "p95SubmitMs": 4.900000095367432,
+              "drawCalls": 41,
+              "geometries": 9
+            },
+            {
+              "edition": "PR225 — szkielet całego ciała",
+              "players": 22,
+              "medianSubmitMs": 3.6999999284744263,
+              "p95SubmitMs": 4.899999976158142,
+              "medianNewPoseSubmitMs": 6.300000071525574,
+              "p95NewPoseSubmitMs": 9.600000023841858,
+              "drawCalls": 45,
+              "geometries": 9
+            }
+          ]
+        },
+        {
+          "name": "morphology",
+          "parity": [
+            {
+              "landmark": "leftHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0
+            },
+            {
+              "landmark": "rightHip",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17
+            },
+            {
+              "landmark": "leftKnee",
+              "physical": {
+                "x": 29.56511658762907,
+                "y": 34.2953385081934,
+                "z": 0.5032668545322748
+              },
+              "before": 0.077039261313607,
+              "after": 3.3306690738754696e-16
+            },
+            {
+              "landmark": "rightKnee",
+              "physical": {
+                "x": 29.640433428388043,
+                "y": 34.05310563816674,
+                "z": 0.5127405270976089
+              },
+              "before": 0.014555187408462985,
+              "after": 2.7755575615628914e-17
+            },
+            {
+              "landmark": "leftAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 9.19174823112202e-15,
+              "after": 7.216449660063518e-16
+            },
+            {
+              "landmark": "rightAnkle",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 6.086390972536225e-15,
+              "after": 5.594315114139762e-17
+            },
+            {
+              "landmark": "leftBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.04
+              },
+              "before": 3.576654865213795e-15,
+              "after": 3.612092524874097e-15
+            },
+            {
+              "landmark": "rightBoot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.04
+              },
+              "before": 7.196502796760553e-15,
+              "after": 6.938893903907228e-17
+            },
+            {
+              "landmark": "pelvis",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "lower_trunk",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "thorax",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.098
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "neck",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "head",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.5030000000000001
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_thigh",
+              "physical": {
+                "x": 29.4,
+                "y": 34.269,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_shank",
+              "physical": {
+                "x": 29.56511658762907,
+                "y": 34.2953385081934,
+                "z": 0.5032668545322748
+              },
+              "before": 0,
+              "after": 3.3306690738754696e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "left_foot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34.34,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 7.216449660063518e-16,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_girdle",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "left_upper_arm",
+              "physical": {
+                "x": 29.4,
+                "y": 34.458,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "left_forearm",
+              "physical": {
+                "x": 29.4,
+                "y": 34.484955022494646,
+                "z": 1.1533488753749332
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 1.1102230246251565e-16
+            },
+            {
+              "landmark": "left_hand",
+              "physical": {
+                "x": 29.4401467223509,
+                "y": 34.51191004498929,
+                "z": 0.8877144132906758
+              },
+              "before": 0,
+              "after": 1.5700924586837752e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_thigh",
+              "physical": {
+                "x": 29.4,
+                "y": 34.071000000000005,
+                "z": 0.882
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_shank",
+              "physical": {
+                "x": 29.640433428388043,
+                "y": 34.05310563816674,
+                "z": 0.5127405270976089
+              },
+              "before": 0,
+              "after": 2.7755575615628914e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_foot",
+              "physical": {
+                "x": 29.599999999999998,
+                "y": 34,
+                "z": 0.07500000000000001
+              },
+              "before": 0,
+              "after": 5.594315114139762e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_girdle",
+              "physical": {
+                "x": 29.4,
+                "y": 34.17,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 0,
+              "rotationError": 2.220446049250313e-16
+            },
+            {
+              "landmark": "right_upper_arm",
+              "physical": {
+                "x": 29.4,
+                "y": 33.882000000000005,
+                "z": 1.4220000000000002
+              },
+              "before": 0,
+              "after": 1.1102230246251565e-16,
+              "rotationError": 0
+            },
+            {
+              "landmark": "right_forearm",
+              "physical": {
+                "x": 29.4,
+                "y": 33.85055247375625,
+                "z": 1.108573687937422
+              },
+              "before": 0,
+              "after": 2.7755575615628914e-17,
+              "rotationError": -2.220446049250313e-16
+            },
+            {
+              "landmark": "right_hand",
+              "physical": {
+                "x": 29.44817606682108,
+                "y": 33.81820644676268,
+                "z": 0.789812333436313
+              },
+              "before": 0,
+              "after": 1.3877787807814457e-16,
+              "rotationError": 0
+            }
+          ],
+          "costs": [
+            {
+              "edition": "PR224/E",
+              "players": 22,
+              "medianSubmitMs": 5.100000023841858,
+              "p95SubmitMs": 7.300000071525574,
+              "drawCalls": 156,
+              "geometries": 8
+            },
+            {
+              "edition": "PR225 — szkielet całego ciała",
+              "players": 22,
+              "medianSubmitMs": 4.200000047683716,
+              "p95SubmitMs": 5.800000071525574,
+              "medianNewPoseSubmitMs": 6.899999976158142,
+              "p95NewPoseSubmitMs": 11.099999904632568,
+              "drawCalls": 164,
+              "geometries": 8
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

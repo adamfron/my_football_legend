@@ -1,4 +1,5 @@
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
+import { hasIndividualLowerBody, individualHipOffset, individualFootReach } from './bodyMorphology';
 import { deriveLowerBodyGeometry, neutralLowerBodyPose } from './lowerBodyGeometry';
 import { activeArticulatedFoot, type ArticulatedStance } from './articulatedBodyState';
 
@@ -15,6 +16,7 @@ export const withoutArticulatedBody = (state: TacticalMatchState): TacticalMatch
     experimentalArticulatedBody: _selection,
     experimentalPostImpactStance: _remainder,
     experimentalComposedLegContact: _limbs,
+    experimentalFullBodySkeleton: _skeleton,
     lastLimbContacts: _lastLimbContacts,
     experimentalObservedStrikePreparation: _preparation,
     ...rest
@@ -22,11 +24,13 @@ export const withoutArticulatedBody = (state: TacticalMatchState): TacticalMatch
   void _selection;
   void _remainder;
   void _limbs;
+  void _skeleton;
   void _lastLimbContacts;
   void _preparation;
   const clear = (p: MatchPlayerState) => {
-    const { articulatedStance: _stance, ...body } = p;
+    const { articulatedStance: _stance, bodyMorphology: _morphology, ...body } = p;
     void _stance;
+    void _morphology;
     return body;
   };
   return {
@@ -67,15 +71,29 @@ const stepSeconds = (actor: MatchPlayerState) => {
   const side = stance.support === 'left' ? -1 : 1;
   const angle = actor.facingAngle + (actor.lowerBodyPose?.hipYaw ?? 0);
   const hip = {
-    x: actor.position.x + Math.cos(angle) * side * height * 0.055,
-    y: actor.position.y - Math.sin(angle) * side * height * 0.055,
+    x:
+      actor.position.x +
+      (hasIndividualLowerBody(actor.bodyMorphology)
+        ? Math.cos(angle) * side * individualHipOffset(height, actor.bodyMorphology)
+        : Math.cos(angle) * side * height * 0.055),
+    y:
+      actor.position.y -
+      (hasIndividualLowerBody(actor.bodyMorphology)
+        ? Math.sin(angle) * side * individualHipOffset(height, actor.bodyMorphology)
+        : Math.sin(angle) * side * height * 0.055),
   };
   const offset = { x: stance[stance.support].x - hip.x, y: stance[stance.support].y - hip.y };
   const along = (offset.x * actor.velocity.x + offset.y * actor.velocity.y) / speed;
   const across = (offset.x * actor.velocity.y - offset.y * actor.velocity.x) / speed;
   const reachableTravel = Math.max(
     0,
-    along + Math.sqrt(Math.max(0, (height * 0.43) ** 2 - across ** 2)),
+    along +
+      Math.sqrt(
+        Math.max(
+          0,
+          individualFootReach(height, stance.support, actor.bodyMorphology) ** 2 - across ** 2,
+        ),
+      ),
   );
   const seconds =
     (2 * reachableTravel) / (speed + Math.sqrt(speed * speed + 2 * acceleration * reachableTravel));
@@ -259,12 +277,15 @@ export const continueParkedArticulatedStance = (
   // Both fixed world anchors must remain reachable, including the planted one.
   try {
     const geometry = deriveLowerBodyGeometry({ ...end, articulatedStance: stance });
-    const reach = Math.max(1.4, Math.min(2.2, end.profile.heightCm / 100)) * 0.43;
     if (
       (['left', 'right'] as const).some(
         (foot) =>
           Math.hypot(geometry[foot].hip.x - stance[foot].x, geometry[foot].hip.y - stance[foot].y) >
-          reach,
+          individualFootReach(
+            Math.max(1.4, Math.min(2.2, end.profile.heightCm / 100)),
+            foot,
+            end.bodyMorphology,
+          ),
       )
     )
       return undefined;
@@ -336,7 +357,11 @@ export const advanceArticulatedStance = (
     };
     const hip = nominal[foot].hip;
     const horizontal = Math.hypot(destination.x - hip.x, destination.y - hip.y);
-    const reach = Math.max(1.4, Math.min(2.2, after.profile.heightCm / 100)) * 0.43;
+    const reach = individualFootReach(
+      Math.max(1.4, Math.min(2.2, after.profile.heightCm / 100)),
+      foot,
+      after.bodyMorphology,
+    );
     if (horizontal > reach) {
       destination.x = hip.x + ((destination.x - hip.x) * reach) / horizontal;
       destination.y = hip.y + ((destination.y - hip.y) * reach) / horizontal;

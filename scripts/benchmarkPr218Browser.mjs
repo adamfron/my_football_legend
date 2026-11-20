@@ -9,10 +9,17 @@ import { withArticulatedBody } from '../src/core/matchSimulation/articulatedGait
 import { projectCanonicalPlayerPresentation } from '../src/core/matchSimulation/canonicalPresentation.ts';
 import { stepTacticalMatch } from '../src/core/matchSimulation/matchSimulation.ts';
 import { createPr224LimbScene, createPr224PassScene, selectPr224Body } from './pr224Scenarios.ts';
+import { withFullBodySkeleton } from '../src/core/matchSimulation/fullBodySkeleton.ts';
+import { defaultBodyMorphology } from '../src/core/matchSimulation/bodyMorphology.ts';
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.MFL_PLAYWRIGHT_MODULE ?? 'playwright');
-const pr224 = process.argv.includes('--pr224');
-const root = pr224 ? 'docs/performance/pr224-browser' : 'docs/performance/pr218/browser-stance-v2';
+const pr225 = process.argv.includes('--pr225');
+const pr224 = pr225 || process.argv.includes('--pr224');
+const root = pr225
+  ? 'docs/performance/pr225-browser'
+  : pr224
+    ? 'docs/performance/pr224-browser'
+    : 'docs/performance/pr218/browser-stance-v2';
 mkdirSync(root, { recursive: true });
 const vite = await createServer({ server: { host: '127.0.0.1', port: 0 } });
 await vite.listen();
@@ -23,9 +30,11 @@ const browser = await chromium.launch({
 });
 const report = {
   browser: browser.version(),
-  source: pr224
-    ? 'composed-leg-contact-dev-v1'
-    : JSON.parse(readFileSync('docs/performance/pr218/source.json')).fingerprint,
+  source: pr225
+    ? 'full-body-skeleton-dev-v1'
+    : pr224
+      ? 'composed-leg-contact-dev-v1'
+      : JSON.parse(readFileSync('docs/performance/pr218/source.json')).fingerprint,
   viewports: [],
 };
 try {
@@ -33,18 +42,39 @@ try {
     [1366, 768],
     [1920, 1080],
   ]) {
-    const page = await browser.newPage({ viewport: { width, height } }),
-      errors = [];
+    let page = await browser.newPage({ viewport: { width, height } });
+    const errors = [];
     page.on('pageerror', (e) => errors.push(e.message));
     await page.goto(`http://127.0.0.1:${port}/my_football_legend/`);
     await page.getByRole('button', { name: 'Pojedynczy mecz [DEV]', exact: true }).click();
     assert.equal(await page.getByLabel('Fizyka meczu', { exact: true }).inputValue(), 'ordinary');
+    if (pr225) {
+      await page.getByRole('radio', { name: 'Obserwuj mecz', exact: true }).check();
+      await page
+        .getByLabel('Fizyka meczu', { exact: true })
+        .selectOption('holistic-full-body-dev-v1');
+      await page.getByRole('button', { name: 'Rozpocznij mecz', exact: true }).click();
+      await page.getByLabel('Wykonywana fizyka meczu', { exact: true }).waitFor();
+      assert.ok(
+        (await page.getByLabel('Wykonywana fizyka meczu', { exact: true }).textContent()).includes(
+          'holistic-full-body-dev-v1',
+        ),
+      );
+      await page.screenshot({ path: `${root}/single-match-lab-${width}.png` });
+      await page.close();
+      page = await browser.newPage({ viewport: { width, height } });
+      page.on('pageerror', (e) => errors.push(e.message));
+      await page.goto(`http://127.0.0.1:${port}/my_football_legend/`);
+      await page.getByRole('button', { name: 'Pojedynczy mecz [DEV]', exact: true }).click();
+      assert.equal(await page.getByLabel('Fizyka meczu', { exact: true }).inputValue(), 'ordinary');
+    }
     const results = [];
     const cases = pr224
       ? [
           ['pass-swing', createPr224PassScene('ordinary').selected, 3],
           ['pass-recovery', createPr224PassScene('weak-foot').selected, 5],
           ['recovering-shin', createPr224LimbScene('right', 'recovering'), 1],
+          ...(pr225 ? [['morphology', createPr224PassScene('ordinary').selected, 0]] : []),
         ]
       : [
           ['standing', 'pair-reference', 0],
@@ -56,6 +86,24 @@ try {
         ? selectPr224Body(globalThis.structuredClone(scene))
         : withArticulatedBody(createPr214Scene(scene).initial);
       let reference = pr224 ? globalThis.structuredClone(scene) : undefined;
+      if (pr225) {
+        reference = selectPr224Body(reference);
+        state = withFullBodySkeleton(state);
+        if (name === 'morphology') {
+          const m = defaultBodyMorphology();
+          m.left.thigh = 0.23;
+          m.left.shank = 0.24;
+          m.left.kneeAlignment = 0.1;
+          m.right.kneeAlignment = -0.1;
+          m.left.footLength = 0.11;
+          m.right.footLength = 0.19;
+          m.right.footWidth = 0.08;
+          m.left.upperArm = 0.15;
+          m.right.forearm = 0.18;
+          m.shoulderWidth = 0.32;
+          state = withFullBodySkeleton(state, { [state.pendingStrike.actorId]: m });
+        }
+      }
       if (name === 'standing') {
         delete state.pendingStrike;
         delete state.defensiveChallenge;
@@ -85,7 +133,7 @@ try {
         state.lastStrikeResolution?.actorId;
       const focus = players.find((p) => p.id === actorId) ?? players[0];
       const result = await page.evaluate(
-        async ({ players, previousPlayers, balls, contact, focus, at, width, height }) => {
+        async ({ players, previousPlayers, balls, contact, focus, at, width, height, pr225 }) => {
           const THREE = await import(
             '/my_football_legend/node_modules/three/build/three.module.js'
           );
@@ -99,9 +147,11 @@ try {
             window.pr218Renderer.dispose();
             document.querySelector('canvas')?.remove();
           }
-          const labels = previousPlayers
-            ? ['PR223/D', 'PR224/E']
-            : ['PR217 — animacja', 'PR218 — geometria fizyczna'];
+          const labels = pr225
+            ? ['PR224/E', 'PR225 — szkielet całego ciała']
+            : previousPlayers
+              ? ['PR223/D', 'PR224/E']
+              : ['PR217 — animacja', 'PR218 — geometria fizyczna'];
           document.body.innerHTML = `<style>body{margin:0;background:#263b30}aside{position:fixed;top:18px;left:0;width:100%;display:flex;color:white;font:600 20px system-ui}aside span{width:50%;text-align:center}</style><aside><span>${labels[0]}</span><span>${labels[1]}</span></aside>`;
           const renderer = new THREE.WebGLRenderer({
             antialias: true,
@@ -172,7 +222,7 @@ try {
             physical = focus.articulatedBody.geometry;
           const parity = [];
           for (const [label, field, point] of [
-            ['pelvis', 'torso', physical.pelvis],
+            ...(pr225 ? [] : [['pelvis', 'torso', physical.pelvis]]),
             ['leftHip', 'leftHip', physical.left.hip],
             ['rightHip', 'rightHip', physical.right.hip],
             ['leftKnee', 'leftKnee', physical.left.knee],
@@ -192,6 +242,26 @@ try {
               after: rigs[1][index][field].getWorldPosition(new THREE.Vector3()).distanceTo(wanted),
             });
           }
+          if (pr225)
+            for (const segment of focus.fullBodySkeleton.segments) {
+              const node = rigs[1][index].canonicalSegments.get(segment.id),
+                q = segment.world.rotation;
+              parity.push({
+                landmark: segment.id,
+                physical: segment.world.position,
+                before: 0,
+                after: node
+                  .getWorldPosition(new THREE.Vector3())
+                  .distanceTo(world(segment.world.position)),
+                rotationError:
+                  1 -
+                  Math.abs(
+                    node
+                      .getWorldQuaternion(new THREE.Quaternion())
+                      .dot(new THREE.Quaternion(-q.x, -q.z, -q.y, q.w)),
+                  ),
+              });
+            }
           const cx = focus.x - 52.5,
             cz = focus.y - 34,
             camera = new THREE.PerspectiveCamera(35, width / 2 / height, 0.1, 100);
@@ -223,11 +293,27 @@ try {
               if (f >= 5) samples.push(performance.now() - begin);
             }
             samples.sort((a, b) => a - b);
+            const fresh = [];
+            if (pr225 && side)
+              for (let f = 0; f < 35; f++) {
+                const begin = performance.now();
+                for (let i = 0; i < players.length; i++)
+                  rigs[side][i].update(
+                    { ...players[i], fullBodySkeleton: { ...players[i].fullBodySkeleton } },
+                    at,
+                  );
+                renderer.render(scenes[side], camera);
+                if (f >= 5) fresh.push(performance.now() - begin);
+              }
+            fresh.sort((a, b) => a - b);
             costs.push({
               edition: previousPlayers ? labels[side] : side ? 'articulated' : 'cosmetic',
               players: players.length,
               medianSubmitMs: samples[30],
               p95SubmitMs: samples[57],
+              ...(fresh.length
+                ? { medianNewPoseSubmitMs: fresh[15], p95NewPoseSubmitMs: fresh[28] }
+                : {}),
               drawCalls: renderer.info.render.calls,
               geometries: renderer.info.memory.geometries,
             });
@@ -247,6 +333,7 @@ try {
           at: state.time * 1000,
           width,
           height,
+          pr225,
           balls: reference && [reference.ball, state.ball],
           contact: state.lastBallContact?.leg ? state.lastBallContact : undefined,
         },

@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+PR225 dodaje osobno wybierany kontrakt pełnego szkieletu: 19 segmentów,
+18 stawów, niezależne wymiary obu stron i walidowane transformacje. Nogi
+korzystają ze wspólnego solvera v2, a góra ciała z ograniczonej kinematyki
+odczytującej fakty silnika. Three.js i replay używają tej samej hierarchii.
+Nowe kontakty ramion, dłoni i głowy są nieaktywne. PR201/B pozostaje
+profilem utrzymywanym; fizyka ma status RETAIN_EXPERIMENTAL.
+[Raport PR225 i stan weryfikacji](PR225_UNIFIED_FULL_BODY_SKELETON.md).
+
 PR224 udostępnia eksperymentalny wariant E. Wspólna geometria obu nóg zasila
 Three.js i oś kontaktów z niską piłką także podczas ruchu nogi po akcji.
 Wspólne przeszukiwanie powierzchni i ograniczenie ruchu względem cięciwy

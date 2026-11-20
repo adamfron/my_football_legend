@@ -267,14 +267,21 @@ export const withIntegrationProfile = (
       fingerprint: resolved.fingerprint,
     },
     players: state.players.map((p) => {
-      const { ballMotorObservation: _old, articulatedStance: _stance, ...body } = p;
+      const {
+        ballMotorObservation: _old,
+        articulatedStance: _stance,
+        bodyMorphology: _morphology,
+        ...body
+      } = p;
       void _old;
       void _stance;
+      void _morphology;
       return body;
     }),
   };
   delete next.experimentalBodyContacts;
   delete (next as TacticalMatchState).experimentalArticulatedBody;
+  delete (next as TacticalMatchState).experimentalFullBodySkeleton;
   delete (next as TacticalMatchState).experimentalPostImpactStance;
   delete (next as TacticalMatchState).experimentalComposedLegContact;
   delete (next as TacticalMatchState).lastLimbContacts;

@@ -12,10 +12,13 @@ import {
 import { withArticulatedBody } from './articulatedGait';
 import { observedStrikePreparationSchema } from './pendingStrikeState';
 import { receptionPreparationEditionSchema } from './receptionPreparationEdition';
+import { fullBodySkeletonEditionSchema } from './bodyMorphology';
+import { withFullBodySkeleton } from './fullBodySkeleton';
 
 export const holisticPhysicalPresetSchema = z.enum([
   'holistic-physical-dev-v1',
   'holistic-stance-foot-dev-v2',
+  'holistic-full-body-dev-v1',
 ]);
 type HolisticPhysicalPreset = z.infer<typeof holisticPhysicalPresetSchema>;
 
@@ -41,9 +44,14 @@ const articulatedHolisticRecipeSchema = originalHolisticRecipeSchema.extend({
   postImpactStance: postImpactStanceEditionSchema.optional(),
   composedLegContact: composedLegContactEditionSchema.optional(),
 });
+const fullBodyHolisticRecipeSchema = articulatedHolisticRecipeSchema.extend({
+  id: z.literal('holistic-full-body-dev-v1'),
+  fullBodySkeleton: fullBodySkeletonEditionSchema,
+});
 export const holisticRecipeSchema = z.discriminatedUnion('id', [
   originalHolisticRecipeSchema,
   articulatedHolisticRecipeSchema,
+  fullBodyHolisticRecipeSchema,
 ]);
 export const holisticRecipe = (policy: DecisionPolicyId = 'state-value-v1') =>
   originalHolisticRecipeSchema.parse({
@@ -71,7 +79,13 @@ export const withHolisticDevelopment = (
   s.experimentalContactTimeline = r.timeline;
   s.experimentalPlayerBodyImpulse = r.playerBody;
   s.executionWitnesses = {};
-  const selected = preset === 'holistic-stance-foot-dev-v2' ? withArticulatedBody(s) : s;
+  let selected = preset === 'holistic-physical-dev-v1' ? s : withArticulatedBody(s);
+  if (preset === 'holistic-full-body-dev-v1')
+    selected = withFullBodySkeleton({
+      ...selected,
+      experimentalPostImpactStance: 'parked-stance-remainder-dev-v1',
+      experimentalComposedLegContact: 'composed-leg-contact-dev-v1',
+    });
   return tacticalMatchStateSchema.parse(selected) as unknown as TacticalMatchState;
 };
 
@@ -80,6 +94,9 @@ export const HOLISTIC_LIMITATION =
 
 export const ARTICULATED_HOLISTIC_LIMITATION =
   'Szkielet v2 łączy rzeczywiste pozycje stóp z modelem 3D. Wspólna oś kontaktu obejmuje niskie podania, prowadzenie, przyjęcia i interwencje stojąc poza strefą bramkarza. Solver zgłasza sytuacje, których nie może bezpiecznie rozstrzygnąć. Wysokie zagrania i gra bramkarzy korzystają z dotychczasowych ścieżek.';
+
+export const FULL_BODY_HOLISTIC_LIMITATION =
+  'Pełny szkielet łączy ruch ciała, nóg, ramion i głowy z modelem 3D. Kontakty nóg korzystają z eksperymentalnej fizyki. Nowe powierzchnie dłoni, ramion i głowy są nieaktywne; równowaga, upadanie i interwencje bramkarzy wymagają dalszego rozwoju.';
 
 /** Derive the display/export identity from executing selectors, never the UI label. */
 export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
@@ -112,9 +129,17 @@ export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
     s.boundedReceiverRecovery === base.receiverRecovery
     ? s.experimentalArticulatedBody
       ? s.experimentalArticulatedBody === articulatedBodySelectionSchema.value
-        ? articulatedHolisticRecipeSchema.parse({
+        ? (s.experimentalFullBodySkeleton
+            ? fullBodyHolisticRecipeSchema
+            : articulatedHolisticRecipeSchema
+          ).parse({
             ...r,
-            id: 'holistic-stance-foot-dev-v2',
+            id: s.experimentalFullBodySkeleton
+              ? 'holistic-full-body-dev-v1'
+              : 'holistic-stance-foot-dev-v2',
+            ...(s.experimentalFullBodySkeleton
+              ? { fullBodySkeleton: s.experimentalFullBodySkeleton }
+              : {}),
             articulatedBody: s.experimentalArticulatedBody,
             ...(s.experimentalObservedStrikePreparation
               ? { strikePreparation: s.experimentalObservedStrikePreparation }
