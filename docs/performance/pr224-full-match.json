@@ -1,0 +1,394 @@
+{
+  "seed": "lab-mw3xhr6o",
+  "playersAtKickoff": 22,
+  "tickSeconds": 0.025,
+  "playerAgencyEnabled": false,
+  "inputHash": "bedd68f1968f8f477a5f0e0723f815c2488d73b7e931b5a872f722dfd4aa9455",
+  "comparison": {
+    "D": {
+      "source": "pristine checkout",
+      "revision": "35110e4861216d26c88541ed269733da5c67a258",
+      "initialHash": "bedd68f1968f8f477a5f0e0723f815c2488d73b7e931b5a872f722dfd4aa9455",
+      "terminalHash": "33e8c086234c9ee37f56c80bc52ccc859c75e2c4bc312bb939beff13530d6793",
+      "reason": "full_time",
+      "halt": null,
+      "end": {
+        "at": 5723.45,
+        "status": "full_time",
+        "score": {
+          "home": 1,
+          "away": 2
+        },
+        "ticks": 228939,
+        "decisions": 2883,
+        "passReleases": 355,
+        "retainedGroundContacts": 1049,
+        "bodyImpactTimes": 4043,
+        "limbContacts": 0,
+        "ownerChanges": 1588,
+        "restarts": 194
+      },
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2843.4500000000853,
+          "score": {
+            "home": 1,
+            "away": 1
+          }
+        }
+      ],
+      "goals": [
+        {
+          "at": 1412.5000000007558,
+          "score": {
+            "home": 0,
+            "away": 1
+          }
+        },
+        {
+          "at": 2449.3250000045277,
+          "score": {
+            "home": 1,
+            "away": 1
+          }
+        },
+        {
+          "at": 3320.0750000018193,
+          "score": {
+            "home": 1,
+            "away": 2
+          }
+        }
+      ]
+    },
+    "E": {
+      "source": "base revision plus the four repairs in this follow-up",
+      "revision": "35110e4861216d26c88541ed269733da5c67a258",
+      "engineDigest": "23882a47a95876252badf671f6bbe8a34e3005c0db1bb9f66d4dc6abeedea5d8",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "ef063de3c0c07460f3f2f7c063828c13f02b06d40478ebb249476930d4ebf841",
+      "reason": "safety_halt",
+      "halt": {
+        "kind": "physical_contact",
+        "reason": "pendingStrikeInterval.event_budget",
+        "at": 2516.0250000047704,
+        "intervalStartedAt": 2516.0000000047703,
+        "actorIds": [],
+        "ball": {
+          "x": 54.127237631599755,
+          "y": 40.2940611774888,
+          "z": 0.27366769448867423
+        },
+        "velocity": {
+          "x": 0.13942439624241187,
+          "y": -0.6933815394144561,
+          "z": -0.2700861622905473
+        },
+        "spin": {
+          "x": -8.429584256569466e-10,
+          "y": 2.9939542317083294e-9,
+          "z": 1.1208522601488533e-12
+        }
+      },
+      "end": {
+        "at": 2516,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 100640,
+        "decisions": 683,
+        "passReleases": 129,
+        "retainedGroundContacts": 322,
+        "bodyImpactTimes": 1878,
+        "limbContacts": 223,
+        "ownerChanges": 461,
+        "restarts": 98
+      },
+      "periods": [],
+      "goals": []
+    }
+  },
+  "minute41": {
+    "D": {
+      "at": 2460,
+      "status": "first_half",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "ticks": 98399,
+      "decisions": 1262,
+      "passReleases": 163,
+      "retainedGroundContacts": 472,
+      "bodyImpactTimes": 1725,
+      "limbContacts": 0,
+      "ownerChanges": 711,
+      "restarts": 82
+    },
+    "E": {
+      "at": 2460,
+      "status": "first_half",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "ticks": 98399,
+      "decisions": 675,
+      "passReleases": 126,
+      "retainedGroundContacts": 318,
+      "bodyImpactTimes": 1857,
+      "limbContacts": 209,
+      "ownerChanges": 455,
+      "restarts": 97
+    }
+  },
+  "priorRuns": [
+    {
+      "source": "pristine checkout",
+      "revision": "35110e4861216d26c88541ed269733da5c67a258",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "ae58ac965a0178cf1ce57a40c45716f1412b0d4b0b7e26078ec7aed34542a7ff",
+      "reason": "safety_halt",
+      "halt": {
+        "kind": "physical_contact",
+        "reason": "pendingStrikeInterval.event_budget",
+        "at": 784.0499999995608,
+        "intervalStartedAt": 784.0249999995608,
+        "actorIds": [],
+        "ball": {
+          "x": 68.83707863990382,
+          "y": 35.878816262898965,
+          "z": 0.13376418258569747
+        },
+        "velocity": {
+          "x": 15.195683549428065,
+          "y": 15.2399965404743,
+          "z": 6.597285242850856
+        },
+        "spin": {
+          "x": -0.15989452494649864,
+          "y": 0.14757022159902394,
+          "z": 0.000015009534452912592
+        }
+      },
+      "end": {
+        "at": 784.025,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 31361,
+        "decisions": 270,
+        "passReleases": 42,
+        "retainedGroundContacts": 106,
+        "bodyImpactTimes": 480,
+        "limbContacts": 44,
+        "ownerChanges": 161,
+        "restarts": 27
+      },
+      "periods": [],
+      "goals": []
+    },
+    {
+      "source": "airborne boot clearance",
+      "revision": "35110e4861216d26c88541ed269733da5c67a258",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "7c63647d75f43c015b6e2caa2f6e31479d2d273b1e8f9583388e0ea953cca240",
+      "reason": "safety_halt",
+      "halt": {
+        "kind": "physical_contact",
+        "reason": "pendingStrikeInterval.event_budget",
+        "at": 242.0000000000379,
+        "intervalStartedAt": 241.97500000003788,
+        "actorIds": [],
+        "ball": {
+          "x": 88.8361230190693,
+          "y": 58.66531027172697,
+          "z": 0.11447460055737872
+        },
+        "velocity": {
+          "x": -6.344137839964011,
+          "y": 3.513809624878183,
+          "z": -6.638939620439325
+        },
+        "spin": {
+          "x": 3.057550543404808e-7,
+          "y": -2.4970756238331293e-7,
+          "z": 2.187284499095254e-14
+        }
+      },
+      "end": {
+        "at": 241.975,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 9679,
+        "decisions": 101,
+        "passReleases": 17,
+        "retainedGroundContacts": 47,
+        "bodyImpactTimes": 220,
+        "limbContacts": 22,
+        "ownerChanges": 66,
+        "restarts": 10
+      },
+      "periods": [],
+      "goals": []
+    },
+    {
+      "source": "airborne boot clearance and same-player swing yield",
+      "revision": "35110e4861216d26c88541ed269733da5c67a258",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "6984709fdcf085df26221350ffb02af18a3e980f78acf9930b606ae7fefa4010",
+      "reason": "safety_halt",
+      "halt": {
+        "kind": "physical_contact",
+        "reason": "pendingStrikeInterval.event_budget",
+        "at": 1571.9500000013359,
+        "intervalStartedAt": 1571.9250000013358,
+        "actorIds": [],
+        "ball": {
+          "x": 96.07583269989145,
+          "y": 13.885629002764743,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": 0.008877736196876264,
+          "y": 0.007312712173598902,
+          "z": -0.0006118083365621459
+        }
+      },
+      "end": {
+        "at": 1571.925,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 62877,
+        "decisions": 428,
+        "passReleases": 80,
+        "retainedGroundContacts": 212,
+        "bodyImpactTimes": 1149,
+        "limbContacts": 131,
+        "ownerChanges": 302,
+        "restarts": 60
+      },
+      "periods": [],
+      "goals": []
+    },
+    {
+      "source": "also stationary ground boot clearance",
+      "revision": "35110e4861216d26c88541ed269733da5c67a258",
+      "engineDigest": "7d7a6e9b69bae0e231f331af44df726727cca727552284bd462df839fd45f532",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "9d06548a126f4cff899c13d747572cf47cc33ee16a0562fa5e71eea9f9d7c555",
+      "reason": "safety_halt",
+      "halt": {
+        "kind": "physical_contact",
+        "reason": "pendingStrikeInterval.event_budget",
+        "at": 1876.2250000024428,
+        "intervalStartedAt": 1876.2000000024427,
+        "actorIds": [],
+        "ball": {
+          "x": 60.81757288396774,
+          "y": 43.61309659324272,
+          "z": 0.23347488266575242
+        },
+        "velocity": {
+          "x": -6.628286576156037,
+          "y": 4.94613775343103,
+          "z": 8.37274374647476
+        },
+        "spin": {
+          "x": 7.520979231866976e-7,
+          "y": -1.6985405156632523e-7,
+          "z": 4.293057038526673e-30
+        }
+      },
+      "end": {
+        "at": 1876.2,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 75048,
+        "decisions": 525,
+        "passReleases": 96,
+        "retainedGroundContacts": 254,
+        "bodyImpactTimes": 1401,
+        "limbContacts": 161,
+        "ownerChanges": 364,
+        "restarts": 72
+      },
+      "periods": [],
+      "goals": []
+    },
+    {
+      "source": "four repairs; resumed from the pre-halt step at 1876.200 seconds",
+      "revision": "35110e4861216d26c88541ed269733da5c67a258",
+      "engineDigest": "23882a47a95876252badf671f6bbe8a34e3005c0db1bb9f66d4dc6abeedea5d8",
+      "initialHash": "c54fd023b10421693cb3f3e1638738be33c1caecba231419843657773c4b8ea4",
+      "terminalHash": "e6bd809ea0b187ab70e73f7701dc03c576f45b0201c6ce058c26dae49cfdd375",
+      "reason": "safety_halt",
+      "halt": {
+        "kind": "physical_contact",
+        "reason": "pendingStrikeInterval.event_budget",
+        "at": 2516.0250000047704,
+        "intervalStartedAt": 2516.0000000047703,
+        "actorIds": [],
+        "ball": {
+          "x": 54.127237631599755,
+          "y": 40.2940611774888,
+          "z": 0.27366769448867423
+        },
+        "velocity": {
+          "x": 0.13942439624241187,
+          "y": -0.6933815394144561,
+          "z": -0.2700861622905473
+        },
+        "spin": {
+          "x": -8.429584256569466e-10,
+          "y": 2.9939542317083294e-9,
+          "z": 1.1208522601488533e-12
+        }
+      },
+      "end": {
+        "at": 2516,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 25592,
+        "decisions": 683,
+        "passReleases": 33,
+        "retainedGroundContacts": 68,
+        "bodyImpactTimes": 477,
+        "limbContacts": 62,
+        "ownerChanges": 97,
+        "restarts": 26
+      },
+      "periods": [],
+      "goals": []
+    }
+  ],
+  "secondCheck": {
+    "checkpointAt": 2516,
+    "reason": "pendingStrikeInterval.event_budget",
+    "afterRootNormalProjection": "pendingStrikeInterval.event_budget",
+    "afterPoseFreeze": "tick_replayed",
+    "retainedExperiment": false
+  }
+}

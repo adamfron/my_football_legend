@@ -11,6 +11,8 @@ export const sharedContactEventSchema = z.object({
     'separating_foot',
     'boundary',
     'body',
+    'leg',
+    'leg_unresolved',
     'foot',
     'passive_foot',
     'strike',

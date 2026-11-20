@@ -14,11 +14,15 @@ export const withoutArticulatedBody = (state: TacticalMatchState): TacticalMatch
   const {
     experimentalArticulatedBody: _selection,
     experimentalPostImpactStance: _remainder,
+    experimentalComposedLegContact: _limbs,
+    lastLimbContacts: _lastLimbContacts,
     experimentalObservedStrikePreparation: _preparation,
     ...rest
   } = state;
   void _selection;
   void _remainder;
+  void _limbs;
+  void _lastLimbContacts;
   void _preparation;
   const clear = (p: MatchPlayerState) => {
     const { articulatedStance: _stance, ...body } = p;

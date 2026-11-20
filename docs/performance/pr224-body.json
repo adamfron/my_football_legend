@@ -1,0 +1,2646 @@
+{
+  "version": "composed-leg-contact-dev-v1",
+  "dt": 0.025,
+  "rows": {
+    "shin-left": {
+      "D": {
+        "completed": 16,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 38,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010577093068243,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.17679521088072,
+              "y": 32.182292308003724,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:5",
+            "impactAt": 10.010577093068243,
+            "plantedAt": 10.175000000000002,
+            "foot": "right",
+            "point": {
+              "x": 31.683406185498075,
+              "y": 31.736729720732566,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "b33671edede0ac53599877b1770f9315c16080422966ebf24b3a29ccfe8faf16",
+        "lastStrike": null,
+        "boneError": 8.881784197001252e-15,
+        "rootStep": 0.1032041054200538,
+        "bootStep": 0.5999999999999993
+      },
+      "E": {
+        "completed": 16,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 38,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010577093068243,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.17679521088072,
+              "y": 32.182292308003724,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:5",
+            "impactAt": 10.010577093068243,
+            "plantedAt": 10.175000000000002,
+            "foot": "right",
+            "point": {
+              "x": 31.68324825478866,
+              "y": 31.73630256931144,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [
+          {
+            "kind": "defender",
+            "playerId": "geometry:anchor:1",
+            "leg": {
+              "foot": "left",
+              "region": "shin",
+              "point": {
+                "x": 54.813450001232866,
+                "y": 42.21465204549265,
+                "z": 0.27611809710661905
+              },
+              "from": {
+                "x": 54.87348743367035,
+                "y": 42.22929746941199,
+                "z": 0.47749883403411303
+              },
+              "to": {
+                "x": 54.83187492015085,
+                "y": 42.20126313307394,
+                "z": 0.0923533619009534
+              },
+              "radius": 0.06104999999999999,
+              "distalRadius": 0.0175
+            },
+            "at": 10.011813997284115,
+            "point": {
+              "x": 54.70345139075638,
+              "y": 42.214648734705996,
+              "z": 0.2755648292692141
+            },
+            "segmentFraction": 0.08575970306992532,
+            "surfaceNormal": {
+              "x": -0.9999873504881555,
+              "y": -0.00003009805993873638,
+              "z": -0.0050297075248523886
+            },
+            "surfaceVelocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "preContactSpeed": 11.990354322690196,
+            "postContactSpeed": 4.557608522553101
+          }
+        ],
+        "halt": null,
+        "hash": "fbe47f6e054279ece28a02871db9ff41215f3f0c768a94b40707388b6a5a4a81",
+        "lastStrike": null,
+        "boneError": 8.881784197001252e-15,
+        "rootStep": 0.1032041054200538,
+        "bootStep": 0.5999999999999991
+      }
+    },
+    "recovering-left": {
+      "D": {
+        "completed": 16,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 39,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010577085545096,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.176795339961032,
+              "y": 32.18229337729038,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:5",
+            "impactAt": 10.010577085545096,
+            "plantedAt": 10.175000000000002,
+            "foot": "right",
+            "point": {
+              "x": 31.683381840307376,
+              "y": 31.736679668809483,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "04f90653fddf55ad0b8f3a5096a1d4d2ab7203656de8a9502245ac912feeb580",
+        "lastStrike": null,
+        "boneError": 8.881784197001252e-15,
+        "rootStep": 0.10320406403959219,
+        "bootStep": 0.6000000000000009
+      },
+      "E": {
+        "completed": 16,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 39,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010577085545096,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.176795339961032,
+              "y": 32.18229337729038,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:5",
+            "impactAt": 10.010577085545096,
+            "plantedAt": 10.175000000000002,
+            "foot": "right",
+            "point": {
+              "x": 31.683230346256977,
+              "y": 31.73626998364657,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [
+          {
+            "kind": "defender",
+            "playerId": "geometry:anchor:1",
+            "leg": {
+              "foot": "left",
+              "region": "shin",
+              "point": {
+                "x": 54.74680386416718,
+                "y": 42.2201731495239,
+                "z": 0.276910796457043
+              },
+              "from": {
+                "x": 54.83572063563828,
+                "y": 42.2523683155761,
+                "z": 0.5013815727282971
+              },
+              "to": {
+                "x": 54.746042644803126,
+                "y": 42.202257811092835,
+                "z": 0.12681334756737575
+              },
+              "radius": 0.06104999999999999,
+              "distalRadius": 0.0175
+            },
+            "at": 10.012974298806395,
+            "point": {
+              "x": 54.63781248184129,
+              "y": 42.21512895248459,
+              "z": 0.2908906136609854
+            },
+            "segmentFraction": 0.16620865836739535,
+            "surfaceNormal": {
+              "x": -0.990830722453514,
+              "y": -0.04585633551936295,
+              "z": 0.12708924397832794
+            },
+            "surfaceVelocity": {
+              "x": 1.4678890885020663,
+              "y": 0.6411961983586993,
+              "z": 1.0377589558795153
+            },
+            "preContactSpeed": 11.989468689474771,
+            "postContactSpeed": 2.9859396993467224
+          }
+        ],
+        "halt": null,
+        "hash": "d10e7349143a98ec9c04cbe822cecfe8a76cbadbe4193eadc4d0b91828124299",
+        "lastStrike": null,
+        "boneError": 8.881784197001252e-15,
+        "rootStep": 0.10320406403959219,
+        "bootStep": 0.6
+      }
+    },
+    "shin-right": {
+      "D": {
+        "completed": 16,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 38,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010418142020908,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.179974889712547,
+              "y": 32.194051227439225,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:5",
+            "impactAt": 10.010418142020908,
+            "plantedAt": 10.175000000000002,
+            "foot": "right",
+            "point": {
+              "x": 31.636663543254336,
+              "y": 31.977680072502213,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "d0b6ec95ad38b3589cc9df20b90badf5bfab6e54052b30c6f3882448ea972530",
+        "lastStrike": null,
+        "boneError": 8.881784197001252e-15,
+        "rootStep": 0.10471529345032923,
+        "bootStep": 0.6000000000000018
+      },
+      "E": {
+        "completed": 16,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 38,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010418142020908,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.179974889712547,
+              "y": 32.194051227439225,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:5",
+            "impactAt": 10.010418142020908,
+            "plantedAt": 10.175000000000002,
+            "foot": "right",
+            "point": {
+              "x": 31.61045978770026,
+              "y": 31.974711888250578,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [
+          {
+            "kind": "defender",
+            "playerId": "geometry:anchor:1",
+            "leg": {
+              "foot": "right",
+              "region": "shin",
+              "point": {
+                "x": 55.197112392199436,
+                "y": 42.22653873892525,
+                "z": 0.31742968049984444
+              },
+              "from": {
+                "x": 55.136101217686246,
+                "y": 42.252031724775776,
+                "z": 0.550663391669469
+              },
+              "to": {
+                "x": 55.168763333978546,
+                "y": 42.20189817632599,
+                "z": 0.09235273995041843
+              },
+              "radius": 0.07214999999999999,
+              "distalRadius": 0.0175
+            },
+            "at": 10.01134328373582,
+            "point": {
+              "x": 55.30698678894931,
+              "y": 42.22601586238789,
+              "z": 0.3122005722101325
+            },
+            "segmentFraction": 0.06344470754265785,
+            "surfaceNormal": {
+              "x": 0.9988581508464518,
+              "y": -0.0047534230601163135,
+              "z": -0.04753734802046574
+            },
+            "surfaceVelocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "preContactSpeed": 11.99071686612894,
+            "postContactSpeed": 4.575605605996442
+          }
+        ],
+        "halt": null,
+        "hash": "1bf1dd0bc2046676a311118d4bd646a5bf48992cb6124f886bd914ab83332315",
+        "lastStrike": null,
+        "boneError": 8.881784197001252e-15,
+        "rootStep": 0.1024694721882502,
+        "bootStep": 0.599999999999999
+      }
+    },
+    "recovering-right": {
+      "D": {
+        "completed": 16,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 39,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010420650201326,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.180112510309026,
+              "y": 32.19407044468806,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:5",
+            "impactAt": 10.010420650201326,
+            "plantedAt": 10.175000000000002,
+            "foot": "right",
+            "point": {
+              "x": 31.637961146457272,
+              "y": 31.977308102363704,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "e79ff8c85526b430aaa1931e5892e511404e8725e6a91af9b5123aebdfeb0ef9",
+        "lastStrike": null,
+        "boneError": 8.881784197001252e-15,
+        "rootStep": 0.10523730657483828,
+        "bootStep": 0.6000000000000023
+      },
+      "E": {
+        "completed": 16,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 39,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010420650201326,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.180112510309026,
+              "y": 32.19407044468806,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:5",
+            "impactAt": 10.010420650201326,
+            "plantedAt": 10.175000000000002,
+            "foot": "right",
+            "point": {
+              "x": 31.611325757894797,
+              "y": 31.97442469314569,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [
+          {
+            "kind": "defender",
+            "playerId": "geometry:anchor:1",
+            "leg": {
+              "foot": "right",
+              "region": "shin",
+              "point": {
+                "x": 55.26202240862412,
+                "y": 42.23465707920767,
+                "z": 0.32159992471810733
+              },
+              "from": {
+                "x": 55.17536007631596,
+                "y": 42.280767105865124,
+                "z": 0.5750057000842774
+              },
+              "to": {
+                "x": 55.255638646928425,
+                "y": 42.20294647561526,
+                "z": 0.12653257869579013
+              },
+              "radius": 0.07214999999999999,
+              "distalRadius": 0.0175
+            },
+            "at": 10.012603328618088,
+            "point": {
+              "x": 55.3717051784149,
+              "y": 42.23013105815784,
+              "z": 0.32861460075376864
+            },
+            "segmentFraction": 0.1497102715075016,
+            "surfaceNormal": {
+              "x": 0.9971160669466793,
+              "y": -0.04114564499723786,
+              "z": 0.06376978073152004
+            },
+            "surfaceVelocity": {
+              "x": -1.415342293142697,
+              "y": 0.6734335649126949,
+              "z": 0.9938720508805079
+            },
+            "preContactSpeed": 11.989750818490133,
+            "postContactSpeed": 2.7617430878674347
+          }
+        ],
+        "halt": null,
+        "hash": "be7df60671d622b15733610f8e96dc4d2bb161f5fb7792eb0d8b4db8ddfe13a2",
+        "lastStrike": null,
+        "boneError": 8.881784197001252e-15,
+        "rootStep": 0.10248587079982005,
+        "bootStep": 0.5999999999999979
+      }
+    },
+    "limb-miss": {
+      "D": {
+        "completed": 4,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 1,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010414406229701,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.179763411966345,
+              "y": 32.19401891530928,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "0c106fd513bb2b9a0626b49ee9c33ef331a2d85b864bec2ba2c472b9151ffddf",
+        "lastStrike": null,
+        "boneError": 7.716050021144838e-15,
+        "rootStep": 0.10244508934670432,
+        "bootStep": 0.44506307164381764
+      },
+      "E": {
+        "completed": 4,
+        "decisionIndex": 1,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 1,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.010414406229701,
+            "plantedAt": 10.075000000000001,
+            "foot": "right",
+            "point": {
+              "x": 30.179763411966345,
+              "y": 32.19401891530928,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "c7c56980c3548ecc6a5fb292d2928cebb238f589db160ce9dbf70c16536ccefb",
+        "lastStrike": null,
+        "boneError": 7.716050021144838e-15,
+        "rootStep": 0.10244508934670432,
+        "bootStep": 0.44506307164381764
+      }
+    },
+    "pass-ordinary": {
+      "D": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 77,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "4d82c54b4e06a0f68871ce3b06ca7b15e461cb24b0ad652504bd09f919d43382",
+        "lastStrike": "contact",
+        "boneError": 7.716050021144838e-15,
+        "rootStep": 0.1407167107016736,
+        "bootStep": 0.600000000000003
+      },
+      "E": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 77,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "a8810868f276cd618e450f78fa3090504ae4a1826b7983d597f2dbcae8bebb49",
+        "lastStrike": "contact",
+        "boneError": 7.716050021144838e-15,
+        "rootStep": 0.1407167107016736,
+        "bootStep": 0.600000000000003
+      }
+    },
+    "pass-weak-foot": {
+      "D": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 77,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "532cbfb71df63b58058d2499c40e1d900d4eedc54101d5b0414615def193ea53",
+        "lastStrike": "contact",
+        "boneError": 1.0269562977782698e-14,
+        "rootStep": 0.14071670819567708,
+        "bootStep": 0.6000000000000028
+      },
+      "E": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 77,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "b26cb32ec5b78b9c000eefee54c9a9c38c28e376b6658b882300c7738cd99277",
+        "lastStrike": "contact",
+        "boneError": 1.0269562977782698e-14,
+        "rootStep": 0.14071670819567708,
+        "bootStep": 0.6000000000000028
+      }
+    },
+    "pass-miss": {
+      "D": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 77,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "0967c010186cd75ae36a1ac2f11a6f86f9a4d4b70fd2a690a1740e39d6468960",
+        "lastStrike": "miss",
+        "boneError": 6.661338147750939e-15,
+        "rootStep": 0.14071633159522398,
+        "bootStep": 0.6000000000000031
+      },
+      "E": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 77,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "16d51778a2a3e0d733fe62d522366527c89f3747ff128d4a3aa4218aa6f82e97",
+        "lastStrike": "miss",
+        "boneError": 6.661338147750939e-15,
+        "rootStep": 0.14071633159522398,
+        "bootStep": 0.6000000000000031
+      }
+    },
+    "pass-advance": {
+      "D": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 80,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "50eea5e9fd9057448bf1042227128f07b2fab5bc2fdb7d77272dea402b8cf9e6",
+        "lastStrike": "contact",
+        "boneError": 9.992007221626409e-15,
+        "rootStep": 0.140723581241689,
+        "bootStep": 0.6000000000000024
+      },
+      "E": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 80,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "a803ed531f7ebbcdf66ac1d208e78d6d6ba5e19279f3d6ab8dd5198dc912525a",
+        "lastStrike": "contact",
+        "boneError": 9.992007221626409e-15,
+        "rootStep": 0.140723581241689,
+        "bootStep": 0.6000000000000024
+      }
+    },
+    "pass-turn": {
+      "D": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 80,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "fc61dcecee2d273454bdb39a166d9a09c933d47bfb1906a494e3c684006fc775",
+        "lastStrike": "contact",
+        "boneError": 8.548717289613705e-15,
+        "rootStep": 0.14071915535152082,
+        "bootStep": 0.6000000000000031
+      },
+      "E": {
+        "completed": 32,
+        "decisionIndex": 1,
+        "plans": 1,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 0,
+        "body": 0,
+        "ownership": 1,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 80,
+        "postImpactPlants": [],
+        "leg": [],
+        "halt": null,
+        "hash": "a7d2b23f4ff66f04c22e3a7f3a5f8f65472dd40529cb26907bf40ee6c1c94bf1",
+        "lastStrike": "contact",
+        "boneError": 8.548717289613705e-15,
+        "rootStep": 0.14071915535152082,
+        "bootStep": 0.6000000000000031
+      }
+    },
+    "pr223-pressure": {
+      "D": {
+        "completed": 64,
+        "decisionIndex": 4,
+        "plans": 1,
+        "releases": 1,
+        "feet": 6,
+        "controlled": 4,
+        "body": 2,
+        "ownership": 6,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 179,
+        "postImpactPlants": [
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.086921032496225,
+            "plantedAt": 10.175000000000002,
+            "foot": "right",
+            "point": {
+              "x": 40.19676305304934,
+              "y": 33.85523295069901,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:6",
+            "impactAt": 10.086921032496225,
+            "plantedAt": 10.325000000000005,
+            "foot": "left",
+            "point": {
+              "x": 40.79392388032855,
+              "y": 33.84367320682671,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:anchor:6",
+            "impactAt": 10.465826594350114,
+            "plantedAt": 10.500000000000007,
+            "foot": "right",
+            "point": {
+              "x": 40.62144341018844,
+              "y": 34.17284282762808,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "geometry:opponent:1",
+            "impactAt": 10.465826594350114,
+            "plantedAt": 10.525000000000007,
+            "foot": "right",
+            "point": {
+              "x": 40.0342814974072,
+              "y": 33.474971614388984,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "7a1d6d0184b80a308d9620801ce09034c2055247555988f74e0bc0d64ea390c5",
+        "lastStrike": "contact",
+        "boneError": 8.326672684688674e-15,
+        "rootStep": 0.174773563558196,
+        "bootStep": 0.6000000000000036
+      },
+      "E": {
+        "completed": 4,
+        "decisionIndex": 0,
+        "plans": 0,
+        "releases": 0,
+        "feet": 0,
+        "controlled": 0,
+        "body": 1,
+        "ownership": 0,
+        "restarts": 0,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 0,
+        "postImpactPlants": [],
+        "leg": [
+          {
+            "kind": "defender",
+            "playerId": "geometry:anchor:6",
+            "leg": {
+              "foot": "right",
+              "region": "shin",
+              "point": {
+                "x": 40.77209609640379,
+                "y": 34.16561397520626,
+                "z": 0.13233992558696295
+              },
+              "from": {
+                "x": 40.759520763815694,
+                "y": 34.132477505077475,
+                "z": 0.5143464849213253
+              },
+              "to": {
+                "x": 40.798400210855405,
+                "y": 34.16851706490257,
+                "z": 0.09236351284128996
+              },
+              "radius": 0.06659999999999999,
+              "distalRadius": 0.0175
+            },
+            "at": 10.081260784268698,
+            "point": {
+              "x": 40.66447783297884,
+              "y": 34.17,
+              "z": 0.11
+            },
+            "segmentFraction": 0.25043137074790794,
+            "surfaceNormal": {
+              "x": -0.978347844817156,
+              "y": 0.039872952486937986,
+              "z": -0.20309023167449491
+            },
+            "surfaceVelocity": {
+              "x": 0.0021449011455840147,
+              "y": 0.0035905145523424616,
+              "z": 0.0005042695427891927
+            },
+            "preContactSpeed": 3.7399654903401673,
+            "postContactSpeed": 1.495381982263179
+          }
+        ],
+        "halt": {
+          "kind": "physical_contact",
+          "reason": "unresolved_composed_leg_contact_budget",
+          "at": 10.104432980853357,
+          "intervalStartedAt": 10.100000000000001,
+          "actorIds": [
+            "geometry:opponent:1"
+          ],
+          "ball": {
+            "x": 40.647207978185605,
+            "y": 34.1722439675381,
+            "z": 0.11607046924139246
+          },
+          "velocity": {
+            "x": -5.0892086617397165,
+            "y": 0.17480404753902257,
+            "z": -0.0547199075954341
+          },
+          "spin": {
+            "x": -0.2633743688123616,
+            "y": -2.0269620787333857,
+            "z": 0
+          }
+        },
+        "hash": "cb81402ae7e3ceac93134960db7f3d7bf7db84093cf7eb0478963ed7f4c4ebdd",
+        "lastStrike": null,
+        "boneError": 5.717648576819556e-15,
+        "rootStep": 0.07110937499999892,
+        "bootStep": 0.24119844831237885
+      }
+    },
+    "pr218-lateral-impact": {
+      "D": {
+        "completed": 40,
+        "decisionIndex": 1012,
+        "plans": 0,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 1,
+        "body": 2,
+        "ownership": 1,
+        "restarts": 1,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 131,
+        "postImpactPlants": [
+          {
+            "actorId": "footballer_pro_9_7",
+            "impactAt": 1783.102509166306,
+            "plantedAt": 1783.2000000021044,
+            "foot": "left",
+            "point": {
+              "x": 62.223920064746636,
+              "y": 7.3826526169885724,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 1783.102509166306,
+            "plantedAt": 1783.2750000021047,
+            "foot": "right",
+            "point": {
+              "x": 61.65271277360147,
+              "y": 6.732587615602121,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 1783.37240615732,
+            "plantedAt": 1783.4750000021054,
+            "foot": "left",
+            "point": {
+              "x": 69.55075445142863,
+              "y": 12.117774637578327,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_21",
+            "impactAt": 1783.37240615732,
+            "plantedAt": 1783.5000000021055,
+            "foot": "right",
+            "point": {
+              "x": 70.1979507043805,
+              "y": 12.247956094384175,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "15b43e3b8dd1591d227263ede4ec73ea6f5d3269efcc69f0de774bfeb1435b39",
+        "lastStrike": "contact",
+        "boneError": 1.4210854715202004e-14,
+        "rootStep": 0.19197886300982367,
+        "bootStep": 0.6000000000000031
+      },
+      "E": {
+        "completed": 40,
+        "decisionIndex": 1012,
+        "plans": 0,
+        "releases": 1,
+        "feet": 1,
+        "controlled": 1,
+        "body": 2,
+        "ownership": 1,
+        "restarts": 1,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 131,
+        "postImpactPlants": [
+          {
+            "actorId": "footballer_pro_9_7",
+            "impactAt": 1783.102509166306,
+            "plantedAt": 1783.2000000021044,
+            "foot": "left",
+            "point": {
+              "x": 62.223920064746636,
+              "y": 7.3826526169885724,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 1783.102509166306,
+            "plantedAt": 1783.2750000021047,
+            "foot": "right",
+            "point": {
+              "x": 61.65271277360147,
+              "y": 6.732587615602121,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 1783.37240615732,
+            "plantedAt": 1783.4750000021054,
+            "foot": "left",
+            "point": {
+              "x": 69.55075445142863,
+              "y": 12.117774637578327,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_21",
+            "impactAt": 1783.37240615732,
+            "plantedAt": 1783.5000000021055,
+            "foot": "right",
+            "point": {
+              "x": 70.1979507043805,
+              "y": 12.247956094384175,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "c7b2990f6cb302d7f1bc4e15817ba5d6db23391c64e60e35eee94726e9940358",
+        "lastStrike": "contact",
+        "boneError": 1.4210854715202004e-14,
+        "rootStep": 0.19197886300982367,
+        "bootStep": 0.6000000000000031
+      }
+    },
+    "lab-mw3xhr6o": {
+      "D": {
+        "completed": 1200,
+        "decisionIndex": 20,
+        "plans": 2,
+        "releases": 4,
+        "feet": 11,
+        "controlled": 8,
+        "body": 16,
+        "ownership": 11,
+        "restarts": 2,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 2939,
+        "postImpactPlants": [
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 3.179338792045498,
+            "plantedAt": 3.324999999999992,
+            "foot": "left",
+            "point": {
+              "x": 52.581547818073055,
+              "y": 20.848582890778953,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 3.179338792045498,
+            "plantedAt": 3.374999999999992,
+            "foot": "left",
+            "point": {
+              "x": 53.44451980635321,
+              "y": 21.05667656708942,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_19",
+            "impactAt": 3.4994306274262197,
+            "plantedAt": 3.5249999999999915,
+            "foot": "left",
+            "point": {
+              "x": 53.243887849626944,
+              "y": 20.479797206889593,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 3.4994306274262197,
+            "plantedAt": 3.5499999999999914,
+            "foot": "right",
+            "point": {
+              "x": 52.902121176114555,
+              "y": 21.073552919227836,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 3.6374448739242804,
+            "plantedAt": 3.674999999999991,
+            "foot": "left",
+            "point": {
+              "x": 52.466769742957034,
+              "y": 20.38843470346555,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_19",
+            "impactAt": 3.6374448739242804,
+            "plantedAt": 3.699999999999991,
+            "foot": "right",
+            "point": {
+              "x": 52.85512037542661,
+              "y": 20.529025214388838,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 3.687845301290876,
+            "plantedAt": 3.7249999999999908,
+            "foot": "left",
+            "point": {
+              "x": 53.241383145143224,
+              "y": 21.118336517113192,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 3.73095418655046,
+            "plantedAt": 3.7999999999999905,
+            "foot": "right",
+            "point": {
+              "x": 52.55945507444376,
+              "y": 20.826830618080802,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 3.73095418655046,
+            "plantedAt": 3.8499999999999903,
+            "foot": "right",
+            "point": {
+              "x": 52.270842441451,
+              "y": 20.19218115162753,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_19",
+            "impactAt": 3.9605894158312376,
+            "plantedAt": 4.04999999999999,
+            "foot": "right",
+            "point": {
+              "x": 52.808437273986414,
+              "y": 20.464795226808114,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 3.9605894158312376,
+            "plantedAt": 4.1499999999999915,
+            "foot": "right",
+            "point": {
+              "x": 52.51103649985674,
+              "y": 20.35912521527972,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 4.625010460219264,
+            "plantedAt": 4.674999999999999,
+            "foot": "left",
+            "point": {
+              "x": 53.06891349354476,
+              "y": 19.222633342485594,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_19",
+            "impactAt": 4.625010460219264,
+            "plantedAt": 4.75,
+            "foot": "right",
+            "point": {
+              "x": 53.32105856954313,
+              "y": 19.10179413092639,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_12",
+            "impactAt": 5.843180001143332,
+            "plantedAt": 5.900000000000016,
+            "foot": "left",
+            "point": {
+              "x": 58.83300004954098,
+              "y": 32.05844756109035,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_22",
+            "impactAt": 5.843180001143332,
+            "plantedAt": 5.975000000000017,
+            "foot": "left",
+            "point": {
+              "x": 59.268621041954994,
+              "y": 32.71237184859411,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_12",
+            "impactAt": 8.662426180165719,
+            "plantedAt": 8.700000000000056,
+            "foot": "left",
+            "point": {
+              "x": 65.72361124245074,
+              "y": 28.714851548101556,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 8.662426180165719,
+            "plantedAt": 8.750000000000057,
+            "foot": "right",
+            "point": {
+              "x": 65.1661038591315,
+              "y": 28.148136339393755,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_11",
+            "impactAt": 15.464810131010582,
+            "plantedAt": 15.500000000000153,
+            "foot": "left",
+            "point": {
+              "x": 55.957278841874434,
+              "y": 6.11009864425549,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 15.464810131010582,
+            "plantedAt": 15.600000000000154,
+            "foot": "right",
+            "point": {
+              "x": 55.89338379730205,
+              "y": 5.332876105975487,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 18.13354363709643,
+            "plantedAt": 18.27500000000003,
+            "foot": "right",
+            "point": {
+              "x": 51.73485385396168,
+              "y": 5.5177315426761515,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_19",
+            "impactAt": 18.13354363709643,
+            "plantedAt": 18.325000000000028,
+            "foot": "right",
+            "point": {
+              "x": 51.969208811820465,
+              "y": 6.324666241456281,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_4",
+            "impactAt": 19.29963547594195,
+            "plantedAt": 19.32499999999997,
+            "foot": "right",
+            "point": {
+              "x": 55.11964010229069,
+              "y": 7.865973328089664,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_11",
+            "impactAt": 19.29963547594195,
+            "plantedAt": 19.424999999999965,
+            "foot": "right",
+            "point": {
+              "x": 55.68858735817535,
+              "y": 7.337620045156983,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_3",
+            "impactAt": 19.55893339555598,
+            "plantedAt": 19.624999999999954,
+            "foot": "right",
+            "point": {
+              "x": 72.37033563436707,
+              "y": 25.896891113764458,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_12",
+            "impactAt": 19.55893339555598,
+            "plantedAt": 19.69999999999995,
+            "foot": "left",
+            "point": {
+              "x": 71.64782129758338,
+              "y": 26.450366220172317,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_11",
+            "impactAt": 20.256531726907173,
+            "plantedAt": 20.299999999999915,
+            "foot": "left",
+            "point": {
+              "x": 55.00980264659916,
+              "y": 9.055214402491137,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_19",
+            "impactAt": 20.256531726907173,
+            "plantedAt": 20.42499999999991,
+            "foot": "right",
+            "point": {
+              "x": 55.726579928027874,
+              "y": 8.97365223161491,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 24.543026813863744,
+            "plantedAt": 24.574999999999672,
+            "foot": "left",
+            "point": {
+              "x": 62.69796279935389,
+              "y": 30.163320341602404,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_19",
+            "impactAt": 24.543026813863744,
+            "plantedAt": 24.62499999999967,
+            "foot": "right",
+            "point": {
+              "x": 63.48954152656034,
+              "y": 30.28167263178522,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_19",
+            "impactAt": 25.70437095165864,
+            "plantedAt": 25.8499999999996,
+            "foot": "left",
+            "point": {
+              "x": 62.0737881356858,
+              "y": 34.08913971969795,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_12",
+            "impactAt": 25.70437095165864,
+            "plantedAt": 25.899999999999597,
+            "foot": "left",
+            "point": {
+              "x": 62.36893005451385,
+              "y": 34.70452309074041,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "8385e5993e72693057c7f68d146829e4dd580e6eb3c966a9bfc16a5001f4047d",
+        "lastStrike": "contact",
+        "boneError": 1.3877787807814457e-14,
+        "rootStep": 0.2064615723529642,
+        "bootStep": 0.6000000000000089
+      },
+      "E": {
+        "completed": 1001,
+        "decisionIndex": 14,
+        "plans": 2,
+        "releases": 2,
+        "feet": 6,
+        "controlled": 6,
+        "body": 23,
+        "ownership": 7,
+        "restarts": 2,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 2562,
+        "postImpactPlants": [
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 3.1611613995773147,
+            "plantedAt": 3.324999999999992,
+            "foot": "right",
+            "point": {
+              "x": 52.927553064276445,
+              "y": 21.550385591486542,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 3.1611613995773147,
+            "plantedAt": 3.324999999999992,
+            "foot": "left",
+            "point": {
+              "x": 52.954193716350275,
+              "y": 20.46291139267373,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 3.5220120189276845,
+            "plantedAt": 3.5499999999999914,
+            "foot": "left",
+            "point": {
+              "x": 52.894493418214175,
+              "y": 21.42916884472947,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_19",
+            "impactAt": 3.6346035821128875,
+            "plantedAt": 3.674999999999991,
+            "foot": "right",
+            "point": {
+              "x": 53.394106112676354,
+              "y": 21.84273217588487,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 3.5705880804149595,
+            "plantedAt": 3.674999999999991,
+            "foot": "right",
+            "point": {
+              "x": 53.2818108068152,
+              "y": 22.327737792714952,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 3.6346035821128875,
+            "plantedAt": 3.7249999999999908,
+            "foot": "right",
+            "point": {
+              "x": 53.27939384383824,
+              "y": 20.766507224959927,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 4.822050180736854,
+            "plantedAt": 4.875000000000002,
+            "foot": "right",
+            "point": {
+              "x": 57.41597928118405,
+              "y": 22.89221748868958,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 4.74786345338963,
+            "plantedAt": 4.875000000000002,
+            "foot": "right",
+            "point": {
+              "x": 57.14100422450411,
+              "y": 22.521745566273374,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_19",
+            "impactAt": 4.822050180736854,
+            "plantedAt": 4.900000000000002,
+            "foot": "left",
+            "point": {
+              "x": 57.16852879461049,
+              "y": 22.82154681457752,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 4.9870770976576795,
+            "plantedAt": 5.050000000000004,
+            "foot": "left",
+            "point": {
+              "x": 57.671496804909836,
+              "y": 22.443770139888855,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 4.9870770976576795,
+            "plantedAt": 5.050000000000004,
+            "foot": "left",
+            "point": {
+              "x": 57.12307639046968,
+              "y": 22.291384624293077,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 5.054843108456872,
+            "plantedAt": 5.125000000000005,
+            "foot": "right",
+            "point": {
+              "x": 57.64398509962987,
+              "y": 21.83165789611839,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 5.088066669067425,
+            "plantedAt": 5.225000000000007,
+            "foot": "right",
+            "point": {
+              "x": 57.5748633963485,
+              "y": 22.71815170854073,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 5.088066669067425,
+            "plantedAt": 5.225000000000007,
+            "foot": "right",
+            "point": {
+              "x": 57.502433814802025,
+              "y": 22.376433509497403,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 5.386792899862234,
+            "plantedAt": 5.47500000000001,
+            "foot": "right",
+            "point": {
+              "x": 57.49926621763208,
+              "y": 21.934848643360606,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 5.542492188371374,
+            "plantedAt": 5.575000000000012,
+            "foot": "right",
+            "point": {
+              "x": 57.34372117397577,
+              "y": 22.5358449255762,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 5.432982956884302,
+            "plantedAt": 5.575000000000012,
+            "foot": "right",
+            "point": {
+              "x": 57.237465250941874,
+              "y": 22.105785370694548,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 5.542492188371374,
+            "plantedAt": 5.650000000000013,
+            "foot": "left",
+            "point": {
+              "x": 57.61101658892676,
+              "y": 21.488818042240688,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 6.551443444900015,
+            "plantedAt": 6.675000000000027,
+            "foot": "left",
+            "point": {
+              "x": 56.58234670414497,
+              "y": 21.652214283521666,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 6.551443444900015,
+            "plantedAt": 6.675000000000027,
+            "foot": "left",
+            "point": {
+              "x": 56.480932608989065,
+              "y": 21.246280318780297,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 6.956056400334486,
+            "plantedAt": 7.025000000000032,
+            "foot": "left",
+            "point": {
+              "x": 56.485394221450264,
+              "y": 21.72183974770592,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 6.956056400334486,
+            "plantedAt": 7.050000000000033,
+            "foot": "left",
+            "point": {
+              "x": 57.21749937544799,
+              "y": 22.425685222073344,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_12",
+            "impactAt": 8.458649578576182,
+            "plantedAt": 8.550000000000054,
+            "foot": "left",
+            "point": {
+              "x": 55.81874260981635,
+              "y": 31.82230952633396,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_22",
+            "impactAt": 8.458649578576182,
+            "plantedAt": 8.600000000000055,
+            "foot": "right",
+            "point": {
+              "x": 56.02421762252286,
+              "y": 31.209942820487893,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 14.558584210961547,
+            "plantedAt": 14.60000000000014,
+            "foot": "right",
+            "point": {
+              "x": 58.483151355945,
+              "y": 12.329452986275577,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 14.558584210961547,
+            "plantedAt": 14.750000000000142,
+            "foot": "right",
+            "point": {
+              "x": 57.871278296934236,
+              "y": 12.188307252292063,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_4",
+            "impactAt": 15.270175785178832,
+            "plantedAt": 15.375000000000151,
+            "foot": "left",
+            "point": {
+              "x": 57.001264972226565,
+              "y": 7.169576761891327,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 15.270175785178832,
+            "plantedAt": 15.450000000000152,
+            "foot": "left",
+            "point": {
+              "x": 57.106284952397445,
+              "y": 6.772557357195127,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_14",
+            "impactAt": 17.827957548851106,
+            "plantedAt": 17.875000000000053,
+            "foot": "left",
+            "point": {
+              "x": 56.70834800839951,
+              "y": 11.019002074035896,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_19",
+            "impactAt": 17.827957548851106,
+            "plantedAt": 17.900000000000052,
+            "foot": "left",
+            "point": {
+              "x": 56.472054593843275,
+              "y": 11.560243820003938,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 18.19973154634936,
+            "plantedAt": 18.27500000000003,
+            "foot": "left",
+            "point": {
+              "x": 54.92943106865226,
+              "y": 5.623784156565116,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_4",
+            "impactAt": 18.19973154634936,
+            "plantedAt": 18.47500000000002,
+            "foot": "right",
+            "point": {
+              "x": 55.76478483338168,
+              "y": 5.686838971611965,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_11",
+            "impactAt": 18.334154363318557,
+            "plantedAt": 18.47500000000002,
+            "foot": "right",
+            "point": {
+              "x": 57.16796061715658,
+              "y": 5.838470711762832,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 18.334154363318557,
+            "plantedAt": 18.525000000000016,
+            "foot": "left",
+            "point": {
+              "x": 57.838762801093424,
+              "y": 5.469048720482015,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 21.006860446499076,
+            "plantedAt": 21.049999999999873,
+            "foot": "right",
+            "point": {
+              "x": 57.08180636063092,
+              "y": 6.825196657245429,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_4",
+            "impactAt": 21.006860446499076,
+            "plantedAt": 21.149999999999867,
+            "foot": "left",
+            "point": {
+              "x": 55.984834670069134,
+              "y": 7.426030225999416,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_4",
+            "impactAt": 21.580350870978336,
+            "plantedAt": 21.674999999999837,
+            "foot": "right",
+            "point": {
+              "x": 56.204169763644686,
+              "y": 8.94863673535489,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_19",
+            "impactAt": 21.580350870978336,
+            "plantedAt": 21.724999999999834,
+            "foot": "left",
+            "point": {
+              "x": 56.65920630235783,
+              "y": 9.538542211069577,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_19",
+            "impactAt": 23.888686159733346,
+            "plantedAt": 23.999999999999705,
+            "foot": "right",
+            "point": {
+              "x": 52.86208417170694,
+              "y": 21.738510851698276,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_11",
+            "impactAt": 23.888686159733346,
+            "plantedAt": 24.049999999999702,
+            "foot": "left",
+            "point": {
+              "x": 53.36355943342905,
+              "y": 21.536365163235505,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [
+          {
+            "kind": "defender",
+            "playerId": "footballer_pro_9_17",
+            "leg": {
+              "foot": "right",
+              "region": "shin",
+              "point": {
+                "x": 52.86015454597533,
+                "y": 21.175517791273208,
+                "z": 0.12335810244143004
+              },
+              "from": {
+                "x": 52.606921191422586,
+                "y": 21.19488585353396,
+                "z": 0.48347098597205734
+              },
+              "to": {
+                "x": 52.84687642001583,
+                "y": 21.185384865826986,
+                "z": 0.11765001950983628
+              },
+              "radius": 0.06845,
+              "distalRadius": 0.0175
+            },
+            "at": 2.9951814753366066,
+            "point": {
+              "x": 52.94361706227577,
+              "y": 21.113496172161106,
+              "z": 0.15923748528323206
+            },
+            "segmentFraction": 0.000010147690773010256,
+            "surfaceNormal": {
+              "x": 0.7587500548283338,
+              "y": -0.5638328316444491,
+              "z": 0.32617616751964357
+            },
+            "surfaceVelocity": {
+              "x": 11.491166577366227,
+              "y": -3.3989529277459485,
+              "z": 1.256588291791523
+            },
+            "preContactSpeed": 9.669400645155076,
+            "postContactSpeed": 11.913655684613657
+          },
+          {
+            "kind": "defender",
+            "playerId": "footballer_pro_9_17",
+            "leg": {
+              "foot": "right",
+              "region": "shin",
+              "point": {
+                "x": 56.3394462438835,
+                "y": 21.253715891060686,
+                "z": 0.12361710278023622
+              },
+              "from": {
+                "x": 56.335008831377756,
+                "y": 21.215435229802278,
+                "z": 0.5231018620347706
+              },
+              "to": {
+                "x": 56.31773747423642,
+                "y": 21.248025798495647,
+                "z": 0.08705907164059429
+              },
+              "radius": 0.06845,
+              "distalRadius": 0.0175
+            },
+            "at": 6.629681893475374,
+            "point": {
+              "x": 56.43979227425061,
+              "y": 21.29667228817778,
+              "z": 0.11
+            },
+            "segmentFraction": 0.0000029910224356556615,
+            "surfaceNormal": {
+              "x": 0.9122365133507382,
+              "y": 0.3905126469761619,
+              "z": -0.12379182631078516
+            },
+            "surfaceVelocity": {
+              "x": 0.7855762513570813,
+              "y": -0.18303245186814684,
+              "z": -0.006730375243895851
+            },
+            "preContactSpeed": 2.092498667512143,
+            "postContactSpeed": 1.7830455122908742
+          },
+          {
+            "kind": "defender",
+            "playerId": "footballer_pro_9_17",
+            "leg": {
+              "foot": "right",
+              "region": "shin",
+              "point": {
+                "x": 56.34990682308516,
+                "y": 21.24776822746958,
+                "z": 0.1270172014131877
+              },
+              "from": {
+                "x": 56.33522365219519,
+                "y": 21.200172003768728,
+                "z": 0.5219474775013974
+              },
+              "to": {
+                "x": 56.32728343149853,
+                "y": 21.24775536520079,
+                "z": 0.08701468199143142
+              },
+              "radius": 0.06845,
+              "distalRadius": 0.0175
+            },
+            "at": 6.642949439444804,
+            "point": {
+              "x": 56.45680245962545,
+              "y": 21.27059470393133,
+              "z": 0.11467709903960008
+            },
+            "segmentFraction": 0.000006593763828277588,
+            "surfaceNormal": {
+              "x": 0.9717783828686528,
+              "y": 0.20751339437721128,
+              "z": -0.11218273371260752
+            },
+            "surfaceVelocity": {
+              "x": 0.5133191892848729,
+              "y": -0.052210885294840886,
+              "z": -0.014148046172328992
+            },
+            "preContactSpeed": 23.432512870730694,
+            "postContactSpeed": 16.559602787901227
+          }
+        ],
+        "halt": {
+          "kind": "physical_contact",
+          "reason": "unresolved_composed_leg_contact_budget",
+          "at": 25.037684314689123,
+          "intervalStartedAt": 25.024999999999647,
+          "actorIds": [
+            "footballer_pro_1_3"
+          ],
+          "ball": {
+            "x": 85.13319843694924,
+            "y": 47.158908798496526,
+            "z": 0.11
+          },
+          "velocity": {
+            "x": 0.5427337168303055,
+            "y": -0.8187667129985019,
+            "z": 0.0003801537334884014
+          },
+          "spin": {
+            "x": -0.018419276471792315,
+            "y": 0.012547479122138556,
+            "z": 0.07434162347422771
+          }
+        },
+        "hash": "737dd76187ce0e6bbb3f4a602e73d3bb3b9f7c622c9b16bccce9cfc8ff0c9457",
+        "lastStrike": "miss",
+        "boneError": 1.3877787807814457e-14,
+        "rootStep": 0.2110071725459881,
+        "bootStep": 0.6000000000000071
+      }
+    },
+    "pr222-native-a": {
+      "D": {
+        "completed": 1200,
+        "decisionIndex": 34,
+        "plans": 4,
+        "releases": 6,
+        "feet": 16,
+        "controlled": 14,
+        "body": 12,
+        "ownership": 21,
+        "restarts": 4,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 3462,
+        "postImpactPlants": [
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 3.251348717726398,
+            "plantedAt": 3.2999999999999923,
+            "foot": "right",
+            "point": {
+              "x": 51.884390654355244,
+              "y": 20.871232770289296,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 3.251348717726398,
+            "plantedAt": 3.349999999999992,
+            "foot": "right",
+            "point": {
+              "x": 52.48267028983996,
+              "y": 20.64344136686012,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 3.6151476259483832,
+            "plantedAt": 3.649999999999991,
+            "foot": "right",
+            "point": {
+              "x": 51.708241997919814,
+              "y": 20.867453376218606,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 3.6151476259483832,
+            "plantedAt": 3.699999999999991,
+            "foot": "right",
+            "point": {
+              "x": 52.419038307926684,
+              "y": 20.59683412078987,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_11",
+            "impactAt": 4.118368051877836,
+            "plantedAt": 4.1499999999999915,
+            "foot": "right",
+            "point": {
+              "x": 53.563015807567126,
+              "y": 38.42225999049132,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_21",
+            "impactAt": 4.118368051877836,
+            "plantedAt": 4.174999999999992,
+            "foot": "left",
+            "point": {
+              "x": 53.892958418094345,
+              "y": 38.637794581436516,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_11",
+            "impactAt": 4.240099878545558,
+            "plantedAt": 4.324999999999994,
+            "foot": "left",
+            "point": {
+              "x": 53.72923919014833,
+              "y": 38.52829459089309,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_21",
+            "impactAt": 4.240099878545558,
+            "plantedAt": 4.349999999999994,
+            "foot": "right",
+            "point": {
+              "x": 54.05531638464783,
+              "y": 39.04398608147343,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_14",
+            "impactAt": 4.8868967145789775,
+            "plantedAt": 5.0000000000000036,
+            "foot": "right",
+            "point": {
+              "x": 40.2839320846426,
+              "y": 29.455372007743463,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_3",
+            "impactAt": 4.8868967145789775,
+            "plantedAt": 5.0000000000000036,
+            "foot": "left",
+            "point": {
+              "x": 39.66354971137806,
+              "y": 29.622516301090698,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_17",
+            "impactAt": 4.986522495003401,
+            "plantedAt": 5.125000000000005,
+            "foot": "left",
+            "point": {
+              "x": 64.2976910144888,
+              "y": 42.04015604874433,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_7",
+            "impactAt": 4.986522495003401,
+            "plantedAt": 5.125000000000005,
+            "foot": "left",
+            "point": {
+              "x": 64.54718462549688,
+              "y": 42.62148479400163,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_14",
+            "impactAt": 5.034420130703224,
+            "plantedAt": 5.175000000000006,
+            "foot": "left",
+            "point": {
+              "x": 40.31810406413165,
+              "y": 28.94394309635226,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_3",
+            "impactAt": 5.034420130703224,
+            "plantedAt": 5.175000000000006,
+            "foot": "right",
+            "point": {
+              "x": 40.25006904588791,
+              "y": 29.827816167511283,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_11",
+            "impactAt": 6.605579993520177,
+            "plantedAt": 6.775000000000029,
+            "foot": "left",
+            "point": {
+              "x": 61.82306493545241,
+              "y": 36.20851395553107,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_3",
+            "impactAt": 6.605579993520177,
+            "plantedAt": 6.800000000000029,
+            "foot": "right",
+            "point": {
+              "x": 62.16749718740312,
+              "y": 36.450871985049524,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_11",
+            "impactAt": 11.804741150286175,
+            "plantedAt": 11.850000000000101,
+            "foot": "right",
+            "point": {
+              "x": 59.81969808238679,
+              "y": 39.66129088630369,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_17",
+            "impactAt": 11.804741150286175,
+            "plantedAt": 11.950000000000102,
+            "foot": "right",
+            "point": {
+              "x": 60.05735334497918,
+              "y": 39.87833522161116,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 18.75010042517644,
+            "plantedAt": 18.825,
+            "foot": "right",
+            "point": {
+              "x": 13.873455761271686,
+              "y": 39.44424978879691,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_5",
+            "impactAt": 18.75010042517644,
+            "plantedAt": 18.849999999999998,
+            "foot": "right",
+            "point": {
+              "x": 14.426267540166766,
+              "y": 39.75371762127073,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_14",
+            "impactAt": 23.943900174151324,
+            "plantedAt": 23.999999999999705,
+            "foot": "left",
+            "point": {
+              "x": 58.85663711485356,
+              "y": 28.09904094779174,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_22",
+            "impactAt": 23.943900174151324,
+            "plantedAt": 23.999999999999705,
+            "foot": "right",
+            "point": {
+              "x": 59.521082513079584,
+              "y": 28.63317084192929,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 25.26960866782014,
+            "plantedAt": 25.29999999999963,
+            "foot": "left",
+            "point": {
+              "x": 60.21724978874137,
+              "y": 20.16334567518852,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_19",
+            "impactAt": 25.26960866782014,
+            "plantedAt": 25.399999999999626,
+            "foot": "right",
+            "point": {
+              "x": 60.554643129050085,
+              "y": 20.046416151379454,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [],
+        "halt": null,
+        "hash": "db6e9d92b985f8331077d40a99d611e3e0b905725cc06ce30e7bdac376ea4379",
+        "lastStrike": "miss",
+        "boneError": 1.459943277382081e-14,
+        "rootStep": 0.2053985377355341,
+        "bootStep": 0.6000000000000081
+      },
+      "E": {
+        "completed": 214,
+        "decisionIndex": 8,
+        "plans": 1,
+        "releases": 1,
+        "feet": 2,
+        "controlled": 2,
+        "body": 7,
+        "ownership": 4,
+        "restarts": 1,
+        "keepers": 0,
+        "invalid": 0,
+        "transfer": 564,
+        "postImpactPlants": [
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 3.821387152611987,
+            "plantedAt": 3.89999999999999,
+            "foot": "left",
+            "point": {
+              "x": 49.65717627637806,
+              "y": 31.574432912532053,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 3.821387152611987,
+            "plantedAt": 3.99999999999999,
+            "foot": "right",
+            "point": {
+              "x": 50.026526995956836,
+              "y": 31.164429899058064,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 4.189005289121145,
+            "plantedAt": 4.324999999999994,
+            "foot": "right",
+            "point": {
+              "x": 50.793985312230994,
+              "y": 32.503706447844756,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 4.2298008426965685,
+            "plantedAt": 4.349999999999994,
+            "foot": "right",
+            "point": {
+              "x": 50.3437289804387,
+              "y": 31.90736245263542,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 4.2298008426965685,
+            "plantedAt": 4.424999999999995,
+            "foot": "right",
+            "point": {
+              "x": 50.00691658025934,
+              "y": 32.72047038456827,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 4.437952394886923,
+            "plantedAt": 4.4999999999999964,
+            "foot": "left",
+            "point": {
+              "x": 50.59435289954101,
+              "y": 32.89841696517532,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 4.500466225427968,
+            "plantedAt": 4.599999999999998,
+            "foot": "left",
+            "point": {
+              "x": 49.559455412986516,
+              "y": 33.18331770587824,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_21",
+            "impactAt": 4.500466225427968,
+            "plantedAt": 4.624999999999998,
+            "foot": "left",
+            "point": {
+              "x": 49.65486401189617,
+              "y": 33.532012912159466,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_22",
+            "impactAt": 4.592662327513533,
+            "plantedAt": 4.674999999999999,
+            "foot": "right",
+            "point": {
+              "x": 51.04597729644931,
+              "y": 33.04497016174016,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_17",
+            "impactAt": 4.592662327513533,
+            "plantedAt": 4.699999999999999,
+            "foot": "right",
+            "point": {
+              "x": 50.573397816387136,
+              "y": 32.23361994074602,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_9_12",
+            "impactAt": 4.892065144335536,
+            "plantedAt": 4.950000000000003,
+            "foot": "left",
+            "point": {
+              "x": 49.47258565656711,
+              "y": 33.83117174285623,
+              "z": 0.04000000000000001
+            }
+          },
+          {
+            "actorId": "footballer_pro_1_21",
+            "impactAt": 4.892065144335536,
+            "plantedAt": 4.975000000000003,
+            "foot": "left",
+            "point": {
+              "x": 49.235614071356316,
+              "y": 34.27388808312483,
+              "z": 0.04000000000000001
+            }
+          }
+        ],
+        "leg": [
+          {
+            "kind": "defender",
+            "playerId": "footballer_pro_9_17",
+            "leg": {
+              "foot": "right",
+              "region": "shin",
+              "point": {
+                "x": 50.244177262961436,
+                "y": 20.595678593381887,
+                "z": 0.13604667316229588
+              },
+              "from": {
+                "x": 50.16324015843093,
+                "y": 20.612135297819567,
+                "z": 0.524938671417127
+              },
+              "to": {
+                "x": 50.25544999134017,
+                "y": 20.56968603215208,
+                "z": 0.09927546351780643
+              },
+              "radius": 0.06845,
+              "distalRadius": 0.0175
+            },
+            "at": 1.9302237683713495,
+            "point": {
+              "x": 50.233680353655885,
+              "y": 20.702033598591015,
+              "z": 0.11
+            },
+            "segmentFraction": 0.20895073485409177,
+            "surfaceNormal": {
+              "x": -0.09542644262965848,
+              "y": 0.966863626953019,
+              "z": -0.23678792393680398
+            },
+            "surfaceVelocity": {
+              "x": 1.1128726917773635,
+              "y": 7.844550243162399,
+              "z": 1.4463542285512467
+            },
+            "preContactSpeed": 0,
+            "postContactSpeed": 9.902946586372787
+          }
+        ],
+        "halt": {
+          "kind": "physical_contact",
+          "reason": "unresolved_composed_leg_contact_budget",
+          "at": 5.364953990230033,
+          "intervalStartedAt": 5.3500000000000085,
+          "actorIds": [
+            "footballer_pro_9_12"
+          ],
+          "ball": {
+            "x": 49.88336853133522,
+            "y": 34.56088893018694,
+            "z": 0.11
+          },
+          "velocity": {
+            "x": 1.1560538460340228,
+            "y": 1.7248384068658615,
+            "z": -0.00013748847758982067
+          },
+          "spin": {
+            "x": -0.009307692190837954,
+            "y": -0.00010177586110041262,
+            "z": 1.6475534448485705e-18
+          }
+        },
+        "hash": "20dfcfbfe5142e708b9ef18400696dd3d85dba52a935e43feb047e830e034eee",
+        "lastStrike": "miss",
+        "boneError": 1.2656542480726785e-14,
+        "rootStep": 0.21186446391706207,
+        "bootStep": 0.6000000000000058
+      }
+    }
+  }
+}

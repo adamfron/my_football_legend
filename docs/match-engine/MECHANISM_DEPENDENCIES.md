@@ -1,5 +1,17 @@
 # Mechanism dependencies
 
+## PR224 composed leg dependency boundary
+
+`composed-leg-contact-dev-v1` uses the PR223/D stance remainder and
+the same boot paths and two-bone IK as Three.js. Incidental outfield thigh,
+knee and shin contacts participate in the existing low-ball chronology.
+Focused shin and ground-pass sequences pass. A common capsule search and
+a bounded free-flight chord resolve the original stops. Both ordinary
+development inputs activate the feature and complete 120 s. Validate
+multiple simultaneous support surfaces, pressured second control and
+independent keeper and human trajectories before promotion.
+[Completion register](../PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md#physicalvisual-footballer-completion-register).
+
 PR223 measures the causal handoff from the planar torso impulse to the
 remaining world-space foot trajectory and continuous ball support. The
 experimental D selector keeps reachable, already parked stance anchors

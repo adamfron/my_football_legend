@@ -1,5 +1,17 @@
 # Roadmap
 
+## Po PR224 — potwierdzenie kontaktu goleni w szerszej grze
+
+Szkielet wspólnie wyznacza położenie nóg dla fizyki i prezentacji.
+Wariant E wykonał pełny cykl wybranych niskich podań i odbicia piłki
+golenią. Po poprawce ciągłego wyszukiwania obie pary 22 zawodników
+ukończyły 120 s. Następna bramka to niezależne wejścia, kontakt pod
+podparciem kilku powierzchni, akcje bramkarzy i sterowanie człowieka.
+Te dane i przyjęcie z następną akcją pod presją mają uzasadnić próbę
+pełnego meczu. Kolejność produktu to kanoniczny MatchEngine, destylacja
+statystyczna, następnie rozbudowa kariery, świata i prezentacji.
+[Rejestr zależności ciała piłkarza](PR224_CANONICAL_BODY_PHYSICS_VISUAL_INTEGRATION.md#physicalvisual-footballer-completion-register).
+
 ## Po PR223 — równowaga i następny krok po zderzeniu
 
 PR223 przypisał wyrzut piłki wznowieniu ruchu spoczywającej stopy w reszcie

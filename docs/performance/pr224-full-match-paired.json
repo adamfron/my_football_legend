@@ -1,0 +1,320 @@
+{
+  "seed": "lab-mw3xhr6o",
+  "playersAtKickoff": 22,
+  "tickSeconds": 0.025,
+  "playerAgencyEnabled": false,
+  "inputHash": "bedd68f1968f8f477a5f0e0723f815c2488d73b7e931b5a872f722dfd4aa9455",
+  "baseRevision": "a835ea0da24a26c5dfde91e5a9a4086e2cd308b1",
+  "engineDigest": "d9d63bfa0ca2e3345eaafd80134161fd3f10fe531bf9f71b6e2cfb19d65065ef",
+  "checkpoint": {
+    "beforeAt": 2516,
+    "completedAt": 2516.025,
+    "terminalHash": "a1a19ffbd7bc936bccfccf177a33e2cf51f2797d76700e669a170924830b6ac3",
+    "simultaneousAt": 2516.0027820376727,
+    "actorId": "footballer_pro_1_4",
+    "otherId": "footballer_pro_1_17",
+    "incoming": {
+      "x": 0.1429349522232935,
+      "y": -0.6913419459349958,
+      "z": -0.29044745136738565
+    },
+    "outgoing": {
+      "x": 0.1976633244546218,
+      "y": -0.5844613806352932,
+      "z": -5.322236929490377
+    },
+    "contacts": [
+      {
+        "leg": "right",
+        "normal": {
+          "x": -0.007059636216246613,
+          "y": 0.9755560908453142,
+          "z": -0.21963714428826223
+        },
+        "velocity": {
+          "x": 0.9136470200757523,
+          "y": 0.5937783470351922,
+          "z": -0.11189620098834822
+        }
+      },
+      {
+        "leg": "left",
+        "normal": {
+          "x": 0.008933186389764005,
+          "y": -0.9975157174255609,
+          "z": 0.06987554414739039
+        },
+        "velocity": {
+          "x": -0.4385878398238674,
+          "y": -0.21391120696989674,
+          "z": 0.04893229926805631
+        }
+      }
+    ],
+    "events": [
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "leg",
+      "player_cluster",
+      "foot",
+      "foot"
+    ]
+  },
+  "D": {
+    "initialHash": "bedd68f1968f8f477a5f0e0723f815c2488d73b7e931b5a872f722dfd4aa9455",
+    "terminalHash": "33e8c086234c9ee37f56c80bc52ccc859c75e2c4bc312bb939beff13530d6793",
+    "reason": "full_time",
+    "halt": null,
+    "final": {
+      "at": 5723.45,
+      "status": "full_time",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "ticks": 228939,
+      "decisions": 2883,
+      "passReleases": 355,
+      "retainedBootContacts": 1049,
+      "bodyImpactTimes": 4043,
+      "shinContacts": 0,
+      "ownerChanges": 1588,
+      "restarts": 194
+    },
+    "periods": [
+      {
+        "status": "half_time",
+        "at": 2843.45,
+        "score": {
+          "home": 1,
+          "away": 1
+        }
+      }
+    ],
+    "goals": [
+      {
+        "at": 1412.5,
+        "score": {
+          "home": 0,
+          "away": 1
+        }
+      },
+      {
+        "at": 2449.325,
+        "score": {
+          "home": 1,
+          "away": 1
+        }
+      },
+      {
+        "at": 3320.075,
+        "score": {
+          "home": 1,
+          "away": 2
+        }
+      }
+    ]
+  },
+  "E": {
+    "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+    "terminalHash": "fc0d098bf404d1a6070e6cd57ee9ac4cfae82d274ce7ce8744044e12a58f91a3",
+    "reason": "full_time",
+    "halt": null,
+    "final": {
+      "at": 5760,
+      "status": "full_time",
+      "score": {
+        "home": 3,
+        "away": 1
+      },
+      "ticks": 230401,
+      "decisions": 1572,
+      "passReleases": 290,
+      "retainedBootContacts": 765,
+      "bodyImpactTimes": 4223,
+      "shinContacts": 527,
+      "ownerChanges": 1088,
+      "restarts": 212
+    },
+    "periods": [
+      {
+        "status": "half_time",
+        "at": 2760,
+        "score": {
+          "home": 0,
+          "away": 0
+        }
+      }
+    ],
+    "goals": [
+      {
+        "at": 3863.3,
+        "score": {
+          "home": 1,
+          "away": 0
+        }
+      },
+      {
+        "at": 4223.6,
+        "score": {
+          "home": 1,
+          "away": 1
+        }
+      },
+      {
+        "at": 4853.3,
+        "score": {
+          "home": 2,
+          "away": 1
+        }
+      },
+      {
+        "at": 5322.5,
+        "score": {
+          "home": 3,
+          "away": 1
+        }
+      }
+    ]
+  },
+  "resumedFromCheckpoint": {
+    "initialHash": "a090108bf790723afef72259643e2390b4b4b2e167ef520409f1c87e37120657",
+    "terminalHash": "6bf47c7a37488b6f97fa1a30d22c48ca705e15a8e60515ce8b01e86dcc1ca96d",
+    "reason": "full_time",
+    "halt": null,
+    "final": {
+      "at": 5760,
+      "status": "full_time",
+      "score": {
+        "home": 3,
+        "away": 1
+      },
+      "ticks": 129761,
+      "decisions": 1572,
+      "passReleases": 161,
+      "retainedBootContacts": 443,
+      "bodyImpactTimes": 2345,
+      "shinContacts": 304,
+      "ownerChanges": 627,
+      "restarts": 114
+    },
+    "periods": [
+      {
+        "status": "half_time",
+        "at": 2760,
+        "score": {
+          "home": 0,
+          "away": 0
+        }
+      }
+    ],
+    "goals": [
+      {
+        "at": 3863.3,
+        "score": {
+          "home": 1,
+          "away": 0
+        }
+      },
+      {
+        "at": 4223.6,
+        "score": {
+          "home": 1,
+          "away": 1
+        }
+      },
+      {
+        "at": 4853.3,
+        "score": {
+          "home": 2,
+          "away": 1
+        }
+      },
+      {
+        "at": 5322.5,
+        "score": {
+          "home": 3,
+          "away": 1
+        }
+      }
+    ]
+  },
+  "minute41": {
+    "D": {
+      "at": 2460,
+      "status": "first_half",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "ticks": 98399,
+      "decisions": 1262,
+      "passReleases": 163,
+      "retainedBootContacts": 472,
+      "bodyImpactTimes": 1725,
+      "shinContacts": 0,
+      "ownerChanges": 711,
+      "restarts": 82
+    },
+    "E": {
+      "at": 2460,
+      "status": "first_half",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "ticks": 98399,
+      "decisions": 675,
+      "passReleases": 126,
+      "retainedBootContacts": 318,
+      "bodyImpactTimes": 1857,
+      "shinContacts": 209,
+      "ownerChanges": 455,
+      "restarts": 97
+    }
+  },
+  "lastCommonWholeMinute": {
+    "D": {
+      "at": 5700.025,
+      "status": "second_half",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "ticks": 228000,
+      "decisions": 2869,
+      "passReleases": 355,
+      "retainedBootContacts": 1047,
+      "bodyImpactTimes": 4030,
+      "shinContacts": 0,
+      "ownerChanges": 1584,
+      "restarts": 194
+    },
+    "E": {
+      "at": 5700.025,
+      "status": "second_half",
+      "score": {
+        "home": 3,
+        "away": 1
+      },
+      "ticks": 228000,
+      "decisions": 1556,
+      "passReleases": 287,
+      "retainedBootContacts": 754,
+      "bodyImpactTimes": 4178,
+      "shinContacts": 517,
+      "ownerChanges": 1070,
+      "restarts": 210
+    }
+  }
+}

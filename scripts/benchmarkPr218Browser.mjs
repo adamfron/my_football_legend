@@ -8,9 +8,11 @@ import { createPr214Scene } from './pr214Scenarios.ts';
 import { withArticulatedBody } from '../src/core/matchSimulation/articulatedGait.ts';
 import { projectCanonicalPlayerPresentation } from '../src/core/matchSimulation/canonicalPresentation.ts';
 import { stepTacticalMatch } from '../src/core/matchSimulation/matchSimulation.ts';
+import { createPr224LimbScene, createPr224PassScene, selectPr224Body } from './pr224Scenarios.ts';
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.MFL_PLAYWRIGHT_MODULE ?? 'playwright');
-const root = 'docs/performance/pr218/browser-stance-v2';
+const pr224 = process.argv.includes('--pr224');
+const root = pr224 ? 'docs/performance/pr224-browser' : 'docs/performance/pr218/browser-stance-v2';
 mkdirSync(root, { recursive: true });
 const vite = await createServer({ server: { host: '127.0.0.1', port: 0 } });
 await vite.listen();
@@ -21,7 +23,9 @@ const browser = await chromium.launch({
 });
 const report = {
   browser: browser.version(),
-  source: JSON.parse(readFileSync('docs/performance/pr218/source.json')).fingerprint,
+  source: pr224
+    ? 'composed-leg-contact-dev-v1'
+    : JSON.parse(readFileSync('docs/performance/pr218/source.json')).fingerprint,
   viewports: [],
 };
 try {
@@ -36,32 +40,52 @@ try {
     await page.getByRole('button', { name: 'Pojedynczy mecz [DEV]', exact: true }).click();
     assert.equal(await page.getByLabel('Fizyka meczu', { exact: true }).inputValue(), 'ordinary');
     const results = [];
-    for (const [name, scene, ticks] of [
-      ['standing', 'pair-reference', 0],
-      ['moving', 'pair-reference', 2],
-      ['prepared-pass', 'body-pass-third', 0],
-    ]) {
-      let state = withArticulatedBody(createPr214Scene(scene).initial);
+    const cases = pr224
+      ? [
+          ['pass-swing', createPr224PassScene('ordinary').selected, 3],
+          ['pass-recovery', createPr224PassScene('weak-foot').selected, 5],
+          ['recovering-shin', createPr224LimbScene('right', 'recovering'), 1],
+        ]
+      : [
+          ['standing', 'pair-reference', 0],
+          ['moving', 'pair-reference', 2],
+          ['prepared-pass', 'body-pass-third', 0],
+        ];
+    for (const [name, scene, ticks] of cases) {
+      let state = pr224
+        ? selectPr224Body(globalThis.structuredClone(scene))
+        : withArticulatedBody(createPr214Scene(scene).initial);
+      let reference = pr224 ? globalThis.structuredClone(scene) : undefined;
       if (name === 'standing') {
         delete state.pendingStrike;
         delete state.defensiveChallenge;
       }
-      for (let i = 0; i < ticks; i++) state = stepTacticalMatch(state, 0.025);
-      const players = state.players.map((p) => ({
-        id: p.id,
-        team: p.team,
-        x: p.position.x,
-        y: p.position.y,
-        facing: p.facingAngle,
-        velocity: p.velocity,
-        heightCm: p.profile.heightCm,
-        weightKg: p.profile.weightKg,
-        dominantFoot: p.profile.dominantFoot,
-        ...projectCanonicalPlayerPresentation(state, p),
-      }));
-      const focus = players.find((p) => p.id === state.pendingStrike?.actorId) ?? players[0];
+      for (let i = 0; i < ticks; i++) {
+        state = stepTacticalMatch(state, 0.025);
+        if (reference) reference = stepTacticalMatch(reference, 0.025);
+      }
+      const project = (s) =>
+        s.players.map((p) => ({
+          id: p.id,
+          team: p.team,
+          x: p.position.x,
+          y: p.position.y,
+          facing: p.facingAngle,
+          velocity: p.velocity,
+          heightCm: p.profile.heightCm,
+          weightKg: p.profile.weightKg,
+          dominantFoot: p.profile.dominantFoot,
+          ...projectCanonicalPlayerPresentation(s, p),
+        }));
+      const players = project(state);
+      const previousPlayers = reference && project(reference);
+      const actorId =
+        state.lastBallContact?.playerId ??
+        state.pendingStrike?.actorId ??
+        state.lastStrikeResolution?.actorId;
+      const focus = players.find((p) => p.id === actorId) ?? players[0];
       const result = await page.evaluate(
-        async ({ players, focus, at, width, height }) => {
+        async ({ players, previousPlayers, balls, contact, focus, at, width, height }) => {
           const THREE = await import(
             '/my_football_legend/node_modules/three/build/three.module.js'
           );
@@ -75,8 +99,10 @@ try {
             window.pr218Renderer.dispose();
             document.querySelector('canvas')?.remove();
           }
-          document.body.innerHTML =
-            '<style>body{margin:0;background:#263b30}aside{position:fixed;top:18px;left:0;width:100%;display:flex;color:white;font:600 20px system-ui}aside span{width:50%;text-align:center}</style><aside><span>PR217 — animacja</span><span>PR218 — geometria fizyczna</span></aside>';
+          const labels = previousPlayers
+            ? ['PR223/D', 'PR224/E']
+            : ['PR217 — animacja', 'PR218 — geometria fizyczna'];
+          document.body.innerHTML = `<style>body{margin:0;background:#263b30}aside{position:fixed;top:18px;left:0;width:100%;display:flex;color:white;font:600 20px system-ui}aside span{width:50%;text-align:center}</style><aside><span>${labels[0]}</span><span>${labels[1]}</span></aside>`;
           const renderer = new THREE.WebGLRenderer({
             antialias: true,
             preserveDrawingBuffer: true,
@@ -88,6 +114,7 @@ try {
           const resources = new PlayerModelResources(),
             scenes = [],
             rigs = [];
+          const world = (p) => new THREE.Vector3(p.x - 52.5, p.z ?? p.height ?? 0.11, p.y - 34);
           for (const canonical of [false, true]) {
             const scene = new THREE.Scene();
             scene.background = new THREE.Color('#263b30');
@@ -103,16 +130,40 @@ try {
             floor.position.set(focus.x - 52.5, 0, focus.y - 34);
             scene.add(floor);
             const group = [];
-            for (const player of players) {
-              const shown = canonical
-                ? player
-                : { ...player, articulatedBody: undefined, gaitPhase: 1.1 };
+            const side = canonical ? 1 : 0;
+            const visible = canonical ? players : (previousPlayers ?? players);
+            for (const player of visible) {
+              const shown =
+                canonical || previousPlayers
+                  ? player
+                  : { ...player, articulatedBody: undefined, gaitPhase: 1.1 };
               const rig = new PlayerModel(shown, DEFAULT_KITS[player.team], resources);
               rig.root.position.set(player.x - 52.5, 0, player.y - 34);
               rig.root.rotation.y = player.facing;
               rig.update(shown, at);
               scene.add(rig.root);
               group.push(rig);
+            }
+            if (balls) {
+              const ball = new THREE.Mesh(
+                new THREE.SphereGeometry(0.11),
+                new THREE.MeshStandardMaterial({ color: '#f8f5e7' }),
+              );
+              ball.position.copy(world(balls[side]));
+              scene.add(ball);
+            }
+            if (canonical && contact) {
+              const marker = new THREE.Mesh(
+                new THREE.SphereGeometry(0.023),
+                new THREE.MeshBasicMaterial({ color: '#ffc14f' }),
+              );
+              marker.position.copy(world(contact.leg.point));
+              scene.add(marker);
+              const axis = new THREE.BufferGeometry().setFromPoints([
+                world(contact.leg.from),
+                world(contact.leg.to),
+              ]);
+              scene.add(new THREE.Line(axis, new THREE.LineBasicMaterial({ color: '#ffc14f' })));
             }
             scenes.push(scene);
             rigs.push(group);
@@ -159,7 +210,13 @@ try {
               const begin = performance.now();
               for (let i = 0; i < players.length; i++)
                 rigs[side][i].update(
-                  side ? players[i] : { ...players[i], articulatedBody: undefined, gaitPhase: 1.1 },
+                  side
+                    ? players[i]
+                    : (previousPlayers?.[i] ?? {
+                        ...players[i],
+                        articulatedBody: undefined,
+                        gaitPhase: 1.1,
+                      }),
                   at,
                 );
               renderer.render(scenes[side], camera);
@@ -167,7 +224,7 @@ try {
             }
             samples.sort((a, b) => a - b);
             costs.push({
-              edition: side ? 'articulated' : 'cosmetic',
+              edition: previousPlayers ? labels[side] : side ? 'articulated' : 'cosmetic',
               players: players.length,
               medianSubmitMs: samples[30],
               p95SubmitMs: samples[57],
@@ -183,7 +240,16 @@ try {
           }
           return { parity, costs };
         },
-        { players, focus, at: state.time * 1000, width, height },
+        {
+          players,
+          previousPlayers,
+          focus,
+          at: state.time * 1000,
+          width,
+          height,
+          balls: reference && [reference.ball, state.ball],
+          contact: state.lastBallContact?.leg ? state.lastBallContact : undefined,
+        },
       );
       assert.ok(result.parity.every((p) => p.after < 1e-9));
       await page.screenshot({ path: `${root}/${name}-${width}.png` });

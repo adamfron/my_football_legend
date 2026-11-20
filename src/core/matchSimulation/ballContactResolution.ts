@@ -75,6 +75,30 @@ export const separateBallFromBody = (
   return { x: axis.x + direction.x * reach, y: axis.y + direction.y * reach, z: BALL_RADIUS };
 };
 
+/** Solve simultaneous unilateral normal impulses where both constraints are active.
+ * The Gram system gives the minimum velocity change and preserves tangential motion. */
+export const resolveOpposingBallContacts = (
+  incoming: BallVelocity3d,
+  a: { normal: FlightPoint; velocity: BallVelocity3d },
+  b: { normal: FlightPoint; velocity: BallVelocity3d },
+) => {
+  const dot = (u: FlightPoint, v: FlightPoint) => u.x * v.x + u.y * v.y + u.z * v.z;
+  const cos = dot(a.normal, b.normal);
+  const determinant = 1 - cos * cos;
+  if (cos >= 0 || determinant <= 1e-12) return;
+  const deficit = (c: typeof a) => dot(c.normal, c.velocity) - dot(c.normal, incoming);
+  const da = deficit(a),
+    db = deficit(b);
+  const ja = (da - cos * db) / determinant,
+    jb = (db - cos * da) / determinant;
+  if (ja <= 0 || jb <= 0) return;
+  return {
+    x: incoming.x + ja * a.normal.x + jb * b.normal.x,
+    y: incoming.y + ja * a.normal.y + jb * b.normal.y,
+    z: incoming.z + ja * a.normal.z + jb * b.normal.z,
+  };
+};
+
 /** Persistent contact supplies support, not another restituting impact. Body speed is
  * the measured swept displacement; locomotion's desired velocity is not body motion.
  * Position projections do not add kinetic energy. Iterations are bounded by the number
