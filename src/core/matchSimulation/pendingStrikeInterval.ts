@@ -1096,6 +1096,7 @@ export const advancePendingStrikeInterval = (
               seconds,
             bootSpeed: { left: left.speedBound, right: right.speedBound },
             ballSpeed,
+            tightenIndividualKneeBound: coupledLimbImpulse,
             ...(freeBallAcceleration !== undefined &&
             left.accelerationBound === 0 &&
             right.accelerationBound === 0
@@ -2098,6 +2099,16 @@ export const advancePendingStrikeInterval = (
     }
     // Event budget exhausted: preserve uncertain evidence, never fabricate a clean miss.
     state = finishPendingStrike(state, 'unresolved', 'event_budget', state.time, { evaluations });
+    if (coupledLimbImpulse && !state.executionWitnesses)
+      state = {
+        ...state,
+        safetyHalt: haltEvidence(
+          state,
+          'physical_contact',
+          'pendingStrikeInterval.event_budget',
+          start,
+        ),
+      };
     if (pending && state.lastStrikeResolution?.id === pending.id)
       state = {
         ...state,

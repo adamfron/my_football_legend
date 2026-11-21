@@ -151,10 +151,25 @@ function run({ input, actor, ticks, morphologies, relativeFixture }, arm) {
   }
   let reloaded = reload(state);
   const initial = stamp(state);
+  const entry = {
+    ball: state.ball,
+    action: state.currentAction,
+    motor: state.pendingStrike,
+    receiving: state.receptionPreparation,
+    players: state.players
+      .filter((player) => player.id === actor)
+      .map((player) => ({
+        id: player.id,
+        position: player.position,
+        velocity: player.velocity,
+        stance: player.articulatedStance,
+      })),
+  };
   const sequence = [],
     work = [],
     ownership = [],
     snapshots = [];
+  const search = { calls: 0, samples: 0, exhausted: 0 };
   for (let i = 0; i < ticks && !state.safetyHalt; i++) {
     const before = state;
     const observed = captureReceptionStep(() => stepTacticalMatch(before, 0.025), {
@@ -166,6 +181,11 @@ function run({ input, actor, ticks, morphologies, relativeFixture }, arm) {
     assert.equal(stamp(state), stamp(reloaded), 'native reload and observer parity');
     ownership.push({ time: state.time, owner: state.ball.ownerId ?? null });
     for (const event of observed.events) {
+      if (event.source.endsWith('composedLegSearch')) {
+        search.calls++;
+        search.samples += event.detail.geometrySamples;
+        search.exhausted += Number(event.detail.reason === 'budget');
+      }
       if (event.source.endsWith('composedLimbWork')) work.push(event);
       if (
         event.source.endsWith('committedSupport') ||
@@ -249,7 +269,17 @@ function run({ input, actor, ticks, morphologies, relativeFixture }, arm) {
       ...work.map(({ detail }) => Math.abs(detail.account.residual)),
     ),
   };
-  return { initial, terminal: stamp(state), final, snapshots, work, sequence, ownership };
+  return {
+    initial,
+    entry,
+    terminal: stamp(state),
+    final,
+    snapshots,
+    work,
+    search,
+    sequence,
+    ownership,
+  };
 }
 
 const results = cases.map((scene) => ({

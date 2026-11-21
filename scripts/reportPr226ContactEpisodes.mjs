@@ -93,9 +93,18 @@ function summarize(fixture, arm, suffix = '', untraced = false) {
   const path = `${folder}/${tag}-result.json`;
   if (!existsSync(path)) return { fixture, arm, suffix, status: 'not_run' };
   const result = json(path);
-  const work = unpack(`${folder}/${tag}-work.json.gz`).filter((e) =>
-    e.source.endsWith('composedLimbWork'),
-  );
+  const trace = unpack(`${folder}/${tag}-work.json.gz`);
+  const work = trace.filter((e) => e.tick !== undefined && e.source.endsWith('composedLimbWork'));
+  // A halt restores the input. Its attempted events diagnose the failure,
+  // but they cannot count as committed impulses.
+  const haltedRace = trace
+    .filter((e) => e.tick === undefined && e.source.endsWith('intervalRace'))
+    .map(({ at, detail }) => ({
+      at,
+      kind: detail.event?.kind,
+      intervalTime: detail.event?.at,
+      surface: detail.event?.key,
+    }));
   const { episodes, ...contacts } = result.contacts;
   if (!suffix && arm !== 'F' && !result.safetyHalt) {
     const historical = archived.find((a) => a.fixture === fixture && a.arm === arm);
@@ -107,6 +116,7 @@ function summarize(fixture, arm, suffix = '', untraced = false) {
     contacts: untraced ? undefined : contacts,
     expectedTerminalHash: arm === 'F' || suffix ? undefined : result.expectedTerminalHash,
     workEvents: untraced ? undefined : work.length,
+    haltedRace: haltedRace.length ? haltedRace : undefined,
     work: untraced
       ? undefined
       : {
@@ -162,7 +172,10 @@ const { archives, summary } = {
         traced: events.length,
       })),
     })),
-    bounded: bounded.map(({ encounters: _encounters, ...row }) => row),
+    bounded: bounded.map(({ encounters, ...row }) => {
+      void encounters;
+      return row;
+    }),
   },
 };
 const trace = gzipSync(JSON.stringify(archives));

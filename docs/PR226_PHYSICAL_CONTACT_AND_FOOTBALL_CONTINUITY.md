@@ -76,6 +76,18 @@ identities are available where their native witnesses or the local trace
 record them. A mixed-surface row alone cannot prove a particular anatomical
 migration or an illegal ownership change.
 
+| Archived E input  | Highest-volume repeated episode | Interpretation                                                                                                                                       |
+| ----------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Paired            | #380, 41:55.838, 29 events      | Two-player compression is certified at the joint response inside the episode.                                                                        |
+| Native-a          | #638, 71:58.728, 31 events      | Same-player compression near the support transfer. The earlier serial hits do not each establish clearance.                                          |
+| Independent PR214 | #527, 62:11.653, 24 events      | Nine limb-only A–B–A patterns in the available committed samples. No joint response was observed. The samples do not certify continuous compression. |
+
+The archived E arms reproduce 508/517/431 limb-response residuals above
+1 nJ in magnitude, including energy sinks. Their maximum absolute
+residuals are 16.251/21.329/15.547 J. These counts compare an impulse account
+with the actual legacy spin change. They do not assign each case to a defect
+in collision detection.
+
 ## Root cause and impulse accounting
 
 E applies a moving-surface linear rebound, then separately scales spin by
@@ -147,13 +159,24 @@ proxies, after A–B–A and measured co-contact. The
 with two body clusters and 14 leg encounters including one joint response.
 The solver certifies the free tail, with no additional event budget.
 
-The older native-a prototype also yielded a
+The native-a comparison yields a
 [near-ground graze at 63:12.875](performance/pr226-ground-graze-checkpoint.json.gz).
-The final contact law reproduces this exact stopped tick. Successive
+The final F match reaches the same byte-identical freeze as the prototype,
+after 151,715 committed ticks. Successive
 192-sample searches certify diminishing clear prefixes around the same
 player, including a final witnessed 25 μs prefix. No new limb impulse is
 observed in that suffix. This is a continuous-search limitation near
 the ground, separate from the serial knee/thigh impulses.
+
+The corrected paired trajectory passes the original 52:57 checkpoint in
+ordinary play. It later stops at
+[89:51.125](performance/pr226-late-shin-pinch-checkpoint.json.gz).
+Three body clusters occur early in the tick. Two shins then alternate
+with about 1.23 m/s of incoming closure while the time between responses
+shrinks toward 96 ns. The last search still sees another contact after
+the 16th event, so the engine rolls the tick back. This is a serial
+pressure failure with coupled body motion. The evidence supports two
+alternating ball surfaces and leaves pre-contact impulse timing open.
 
 ## Football continuation and morphology
 
@@ -172,7 +195,7 @@ observed contacts and sampled endpoints.
 | D. Consecutive touches                 | At 41:56, E and F both achieve two retained boot contacts. F retains at 600 ms after the first touch, where E is loose.                                                                      |
 | E. Incidental shin                     | A moving recovering shin changes spin and flight via the measured impulse. It earns no deliberate release or possession.                                                                     |
 | F. Collision after first contact       | The stronger-pressure arm remains a failure in E/F even though PR223/D can reach another boot contact. Finite stance, rebase and ownership continue from the actual geometry.                |
-| G. Defender authority                  | A physical opponent takeover survives the pressure comparison. Full match clean-win counters and the bounded native clean-win chronology are reported separately.                            |
+| G. Defender authority                  | The opponent wins via an actual boot contact at 10.725 s in F and still owns the ball at the first-touch-relative 600 ms horizon. Challenge telemetry alone does not certify ownership.      |
 | H. Real failures                       | The selected swing misses with no release. The unreachable receiver has no executed contact in the observed horizon.                                                                         |
 
 The 41:56 and 71:58 native starts cover two-player opposition and a same-player
@@ -182,7 +205,17 @@ incidental momentum and spin before the ordinary control/release race.
 
 Default morphology and asymmetric lengths, different knee alignment and
 different lower-limb proportions are exercised using fixed-world approaches
-and separate geometry-relative inputs. The fixed-world attempts can miss.
+and separate geometry-relative inputs. The inherited authored-body search
+bounded knee travel by the whole thigh even when the interval shrank.
+For the asymmetric low-shin input this consumed 17 searches of 192 samples
+and advanced the ball about 1.7 μm in a nominal 25 ms tick. F bounds the
+knee over the actual reachable interval, including the interior extremum
+for unequal bones and the rotating bend plane. In the scoped cases, it
+resolves one real limb contact for each authored body at the same limits.
+Across each geometry-relative 12-tick fixture E uses 39,168 samples with
+204 exhausted searches. F uses 69–71 evaluations in 14 searches and
+completes all three intervals without an exhausted search.
+Degenerate bounds still use the existing conservative envelope.
 The large/small-foot comparison produces identical contact work on the
 same path because foot dimensions remain anatomical. The established
 physical boot patch is 35 mm. Upper-body, hand and head contacts remain
@@ -198,11 +231,44 @@ Full runs select autonomous authority. Controlled laboratory actions use the
 existing action resolver. The quantified stability and costs apply to these
 inputs and observed contexts.
 
+All six D/E runs reproduce the archived terminal hash and exact episode
+rows. Their scores, goal times, boot counters, pass releases and restarts
+also agree with the PR224/225 receipts. The kickoff hash in the comparison
+is the archived identity before F's explicit selector is applied.
+
+| F input           | Completion             | Score at stop | Pass releases | Retained boots | Limb responses | Clearance episodes | A–B–A candidates |
+| ----------------- | ---------------------- | ------------: | ------------: | -------------: | -------------: | -----------------: | ---------------: |
+| Paired            | Halt at 89:51.125      |           1:0 |           271 |            653 |            497 |                765 |               26 |
+| Native-a          | Halt at 63:12.875      |           0:0 |           186 |            537 |            383 |                609 |               20 |
+| Independent PR214 | Full time at 95:00.325 |           1:1 |           216 |            759 |            474 |                860 |               22 |
+
+No invalid pose was observed in the 22-player samples. Both halted matches
+are right-censored. The independent full match records a changed trajectory
+and 22 possible repetitions versus 17 in E. This and the two halted paths
+leave the ordinary-play gate open. With 1,354 committed F limb responses,
+the largest observed absolute work residual is **5.69 × 10⁻¹⁴ J**.
+The halted tick's attempted work is excluded from the committed summaries.
+
 Traced timing includes the observer. The fixed-window untraced arm measures
 the same physical trajectory, with separate inclusive search time and sample
 counts in traced runs. Full-body composition is measured separately from
 the engine tick and invoked on selected poses. Native/replay sizes are raw
 JSON samples. Heap values are process samples including allocations and GC.
+
+| Paired 120 s, Windows / Node 24.22.1 |         E traced |        F traced |      F untraced |
+| ------------------------------------ | ---------------: | --------------: | --------------: |
+| Mean tick                            |          5.43 ms |         4.84 ms |         3.93 ms |
+| P95 / P99 tick                       | 11.23 / 16.91 ms | 9.35 / 13.36 ms | 7.99 / 13.23 ms |
+| Capsule search per sample window     |         520.5 ms |        237.4 ms |      Unobserved |
+| Geometry evaluations / search calls  |   11,576 / 2,598 |     4,148 / 955 |      Unobserved |
+| Raw terminal native bytes            |          247,037 |         239,722 |         239,722 |
+| Raw terminal replay sample bytes     |           69,912 |          70,713 |          70,713 |
+
+F's two paths have the same exact terminal digest. The E and F matches
+change their sporting trajectories and are run under varying concurrent
+load. The timings cannot isolate a speed change due to the contact law.
+The sample limit is still 192. The reported mean composition with
+validation is 0.53–0.58 ms per sampled body in these runs.
 
 Reproduction from the repository root:
 
@@ -226,8 +292,8 @@ The `--pr226` runner writes scratch data and leaves historical receipts intact.
 | Multiple surfaces                | Existing two-shin response survives the native cases. There is no broader proof for adjoining boot/knee/ground constraints or three simultaneous surfaces.                                                          |
 | Football continuation            | Demonstrated native second touch and subsequent retention. Pressure losses, unreachable branches and the weaker directional continuation remain.                                                                    |
 | Whole body                       | PR225 geometry, individual morphology, real anchors and compact replay remain the basis.                                                                                                                            |
-| Ordinary play                    | See matched receipts for completed and censored scenarios.                                                                                                                                                          |
-| Historical and tool verification | Source-bound receipts retain lineage. Hosted acceptance follows the PR head.                                                                                                                                        |
+| Ordinary play                    | One full F match completed. Two F starts reach explicit event-budget halts.                                                                                                                                         |
+| Historical and tool verification | Six D/E exact terminal/episode replays. TypeScript, lint, production build and focused F checks pass locally. Full acceptance follows the final PR checks.                                                          |
 
 The isolated contact law is suitable for development use. Pressure outcomes,
 ordinary-play conclusions and performance remain scoped to the tests.

@@ -3,10 +3,14 @@ import { readFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { expect, it } from 'vitest';
 import { createPr224LimbScene, selectPr224Body } from '../../../scripts/pr224Scenarios';
+import { projectArticulatedBody } from './articulatedBody';
 import { measureBallContactWork, resolveComposedLimbImpact } from './ballContactResolution';
 import { ZERO_BALL_SPIN, ballSpinSchema } from './ballPhysics';
+import { defaultBodyMorphology } from './bodyMorphology';
+import { withFullBodySkeleton } from './fullBodySkeleton';
 import { withIntegrationProfile } from './integrationProfile';
 import { effectiveHolisticRecipe, withHolisticDevelopment } from './holisticDevelopment';
+import { MULTI_BODY } from './multiBodyContact';
 import { captureReceptionStep } from './receptionTrace';
 import { stepTacticalMatch } from './matchSimulation';
 import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
@@ -104,7 +108,7 @@ it('resolves the native opposing knee and thigh within the original event budget
   expect(state.safetyHalt).toBeUndefined();
   expect(state.time).toBe(before.time + 0.025);
   expect(state.ball.ownerId).toBeUndefined();
-  expect(race).toHaveLength(17);
+  expect(race.length).toBeLessThanOrEqual(MULTI_BODY.events + 1);
   expect(race.at(-1)?.detail).toMatchObject({ event: undefined });
   expect(events.filter(({ source }) => source.endsWith('opposingLegContacts'))).toMatchObject([
     {
@@ -112,6 +116,34 @@ it('resolves the native opposing knee and thigh within the original event budget
       detail: { primary: { leg: { region: 'knee' } }, other: { leg: { region: 'thigh' } } },
     },
   ]);
+});
+
+it('continues to a second physical touch and retains control after opposing shins at 41:56', () => {
+  const checkpoint = JSON.parse(
+    gunzipSync(readFileSync('docs/performance/pr224-full-match-checkpoints.json.gz')).toString(),
+  ) as { remaining: { before: TacticalMatchState } };
+  let state: TacticalMatchState = {
+    ...checkpoint.remaining.before,
+    experimentalComposedLegContact: 'composed-leg-impulse-dev-v2',
+  };
+  const actorId = 'footballer_pro_1_4';
+  const touches = new Set<number>();
+  for (let tick = 0; tick < 26; tick++) {
+    const previous = state;
+    state = stepTacticalMatch(state, 0.025);
+    const contact = state.lastGroundContact;
+    if (
+      contact?.actorId === actorId &&
+      contact.at > previous.time &&
+      contact.executed &&
+      contact.retained
+    )
+      touches.add(contact.at);
+    expect(state.safetyHalt).toBeUndefined();
+  }
+  expect(touches.size).toBeGreaterThanOrEqual(2);
+  expect(state.time - Math.min(...touches)).toBeGreaterThan(0.6);
+  expect(state.ball.ownerId).toBe(actorId);
 });
 
 it('reports a near-ground search exhaustion without inventing an impact or release', () => {
@@ -123,8 +155,47 @@ it('reports a near-ground search exhaustion without inventing an impact or relea
   });
   expect(state.safetyHalt).toMatchObject({ reason: 'pendingStrikeInterval.event_budget' });
   const race = events.filter(({ source }) => source.endsWith('intervalRace'));
-  expect(race.slice(-5).every(({ detail }) =>
-    (detail as { event?: { kind: string } }).event?.kind === 'search_frontier',
-  )).toBe(true);
+  expect(
+    race
+      .slice(-5)
+      .every(
+        ({ detail }) => (detail as { event?: { kind: string } }).event?.kind === 'search_frontier',
+      ),
+  ).toBe(true);
   expect(state.lastPassDiagnostic?.releasedAt).toBe(before.lastPassDiagnostic?.releasedAt);
+  const { executionWitnesses: _disabled, ...withoutObserver } = before;
+  void _disabled;
+  expect(stepTacticalMatch(withoutObserver, 0.025).safetyHalt).toMatchObject({
+    reason: 'pendingStrikeInterval.event_budget',
+  });
+});
+
+it('finds a real shin intersection on an authored asymmetric body within the search budget', () => {
+  const scene = selectPr224Body(createPr224LimbScene('right'));
+  const actorId = scene.playerMovementIntent!.actorId;
+  const morphology = defaultBodyMorphology();
+  morphology.left.thigh += 0.01;
+  morphology.right.kneeAlignment = -0.08;
+  const input = withFullBodySkeleton(scene, { [actorId]: morphology });
+  const actor = input.players.find(({ id }) => id === actorId)!;
+  const shin = projectArticulatedBody(input, actor)!.geometry.right;
+  const lowShin = (axis: 'x' | 'y' | 'z') =>
+    shin.ankle[axis] + 0.37 * (shin.knee[axis] - shin.ankle[axis]);
+  input.ball = {
+    ...input.ball,
+    x: lowShin('x') + 0.19,
+    y: lowShin('y'),
+    height: lowShin('z'),
+    velocity: { x: -8, y: 0, z: 0 },
+  };
+  const next = stepTacticalMatch(
+    { ...input, experimentalComposedLegContact: 'composed-leg-impulse-dev-v2' },
+    0.025,
+  );
+  expect(next.safetyHalt).toBeUndefined();
+  expect(next.lastLimbContacts?.[0]).toMatchObject({
+    playerId: actorId,
+    leg: { region: 'shin', foot: 'right' },
+  });
+  expect(next.ball.ownerId).toBeUndefined();
 });
