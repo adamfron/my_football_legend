@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+PR226 dodaje wariant F w Single Match Lab. Rzeczywisty kontakt z nogą wiąże
+zmianę prędkości i rotacji piłki jednym impulsem. Przy potwierdzonym nacisku
+dwóch powierzchni wspólna reakcja działa również w zapisanej parze kolano–udo.
+W natywnej scenie z 41:56 zawodnik wykonuje drugie dotknięcie i utrzymuje piłkę
+600 ms po pierwszym kontakcie. Pod presją nadal występują rzeczywiste straty.
+Decyzja **RETAIN_EXPERIMENTAL**, profil utrzymywany PR201/B.
+[Raport PR226](PR226_PHYSICAL_CONTACT_AND_FOOTBALL_CONTINUITY.md).
+
 PR225 dodaje osobno wybierany kontrakt pełnego szkieletu: 19 segmentów,
 18 stawów, niezależne wymiary obu stron i walidowane transformacje. Nogi
 korzystają ze wspólnego solvera v2, a góra ciała z ograniczonej kinematyki

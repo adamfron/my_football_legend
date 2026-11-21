@@ -1,0 +1,555 @@
+{
+  "archived": [
+    {
+      "fixture": "paired",
+      "arm": "D",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-paired-D.json.gz",
+        "sha256": "cfa19afd316e7001f32b42bc5f894fc5442237c810b3fcf4007bfa2be6b9d371"
+      },
+      "terminalHash": "33e8c086234c9ee37f56c80bc52ccc859c75e2c4bc312bb939beff13530d6793",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1494,
+        "observedEpisodes": 1011,
+        "independentEncounters": 1010,
+        "repeatedEpisodes": 196,
+        "adjacentSurfaceEpisodes": 177,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 971,
+        "incidentalEpisodes": 228,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      }
+    },
+    {
+      "fixture": "paired",
+      "arm": "E",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-paired-E.json.gz",
+        "sha256": "dd922bb736a9a459272d59a78ece80186b8416ebbff6c2fdc9207473d4ef4d48"
+      },
+      "terminalHash": "fc0d098bf404d1a6070e6cd57ee9ac4cfae82d274ce7ce8744044e12a58f91a3",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1523,
+        "observedEpisodes": 900,
+        "independentEncounters": 899,
+        "repeatedEpisodes": 116,
+        "adjacentSurfaceEpisodes": 255,
+        "simultaneousEpisodes": 1,
+        "intendedEpisodes": 730,
+        "incidentalEpisodes": 409,
+        "solverRepetitionCandidates": 32,
+        "jointResponses": 1
+      }
+    },
+    {
+      "fixture": "native-a",
+      "arm": "D",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-native-a-D.json.gz",
+        "sha256": "364e8827786c802bc2549707c188eeee23d640430c43a66b72aef8cc1402ef41"
+      },
+      "terminalHash": "e61426599bb9338a63df268a3570539a5739601441d5e7f4a0c06c9c609fb1e3",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1675,
+        "observedEpisodes": 1093,
+        "independentEncounters": 1092,
+        "repeatedEpisodes": 222,
+        "adjacentSurfaceEpisodes": 222,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 1044,
+        "incidentalEpisodes": 267,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      }
+    },
+    {
+      "fixture": "native-a",
+      "arm": "E",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-native-a-E.json.gz",
+        "sha256": "ed2056781824092fc66ad9683cc945770d16f5fd3a7953c2dcc8332200d1ccd5"
+      },
+      "terminalHash": "1227c4436312e55e33455b74e0fc79eaf3e4f41ce7456592113d53d0222de6d2",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1443,
+        "observedEpisodes": 839,
+        "independentEncounters": 838,
+        "repeatedEpisodes": 119,
+        "adjacentSurfaceEpisodes": 244,
+        "simultaneousEpisodes": 1,
+        "intendedEpisodes": 675,
+        "incidentalEpisodes": 375,
+        "solverRepetitionCandidates": 35,
+        "jointResponses": 1
+      }
+    },
+    {
+      "fixture": "independent",
+      "arm": "D",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-independent-D.json.gz",
+        "sha256": "e09f44645210286de023e2464b318fe73c02216369b222beef55ef64d7a89bf4"
+      },
+      "terminalHash": "77fd758ec04a484b052b50ce38d9c1cfdae6011e496e8e82c156f64fdc648772",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1525,
+        "observedEpisodes": 994,
+        "independentEncounters": 993,
+        "repeatedEpisodes": 216,
+        "adjacentSurfaceEpisodes": 191,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 944,
+        "incidentalEpisodes": 267,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      }
+    },
+    {
+      "fixture": "independent",
+      "arm": "E",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-independent-E.json.gz",
+        "sha256": "62a1a4cd477788c84ba5511949d5a8b7f2b5d6a98048b9c9baaea7193e776ee5"
+      },
+      "terminalHash": "eb2d2e26bc20d2a1241dc2475e318eb124414d65c9a295d1e2ceb5b200e0cb96",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1304,
+        "observedEpisodes": 811,
+        "independentEncounters": 810,
+        "repeatedEpisodes": 99,
+        "adjacentSurfaceEpisodes": 221,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 665,
+        "incidentalEpisodes": 362,
+        "solverRepetitionCandidates": 17,
+        "jointResponses": 0
+      }
+    }
+  ],
+  "full": [
+    {
+      "fixture": "paired",
+      "arm": "D",
+      "suffix": "",
+      "status": "not_run"
+    },
+    {
+      "fixture": "paired",
+      "arm": "E",
+      "suffix": "",
+      "status": "not_run"
+    },
+    {
+      "fixture": "paired",
+      "arm": "F",
+      "suffix": "",
+      "status": "not_run"
+    },
+    {
+      "fixture": "native-a",
+      "arm": "D",
+      "suffix": "",
+      "status": "not_run"
+    },
+    {
+      "fixture": "native-a",
+      "arm": "E",
+      "suffix": "",
+      "status": "not_run"
+    },
+    {
+      "fixture": "native-a",
+      "arm": "F",
+      "suffix": "",
+      "status": "not_run"
+    },
+    {
+      "fixture": "independent",
+      "arm": "D",
+      "suffix": "",
+      "status": "not_run"
+    },
+    {
+      "fixture": "independent",
+      "arm": "E",
+      "suffix": "",
+      "status": "not_run"
+    },
+    {
+      "fixture": "independent",
+      "arm": "F",
+      "suffix": "",
+      "status": "not_run"
+    }
+  ],
+  "bounded": [
+    {
+      "fixture": "paired",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "9f45ba58a6c67b7718f13c2db0c8f273bf526856d89deac023cf6b9e7b6229d0",
+      "final": {
+        "at": 120.00000000001016,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4800,
+        "decisions": 20,
+        "passReleases": 8,
+        "retainedBootContacts": 10,
+        "bodyImpactTimes": 73,
+        "shinContacts": 6,
+        "ownerChanges": 14,
+        "restarts": 7
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 0,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 19,
+        "observedEpisodes": 15,
+        "independentEncounters": 14,
+        "repeatedEpisodes": 1,
+        "adjacentSurfaceEpisodes": 3,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 10,
+        "incidentalEpisodes": 9,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 25.209632999999997,
+        "compositionAndValidationMs": 0.5692400378787543,
+        "heapMiB": 189.0265121459961,
+        "traced": true,
+        "meanTickMs": 4.838900250000022,
+        "p95TickMs": 9.35070000000269,
+        "p99TickMs": 13.362199999999575,
+        "peakSampledHeapMiB": 241.84425354003906,
+        "terminalNativeBytes": 239722,
+        "replaySnapshotBytes": 70713,
+        "composedLegSearch": {
+          "calls": 955,
+          "samples": 4148,
+          "maxSamples": 192,
+          "milliseconds": 237.37300000006417,
+          "exhausted": 3
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 6,
+      "work": {
+        "positiveEnergy": 4,
+        "positiveSurfaceWork": 5,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 59.88326082983042,
+        "maxAbsoluteResidual": 1.7763568394002505e-14,
+        "legRegions": {
+          "shin": 6,
+          "knee": 0,
+          "thigh": 0
+        }
+      }
+    },
+    {
+      "fixture": "native-a",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "8ca49a0ee29be91787b31c369ba924f539daa7a5f85ec1b7400b4db5c7594605",
+      "final": {
+        "at": 120.00000000001016,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4800,
+        "decisions": 58,
+        "passReleases": 8,
+        "retainedBootContacts": 26,
+        "bodyImpactTimes": 107,
+        "shinContacts": 8,
+        "ownerChanges": 39,
+        "restarts": 6
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 1,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 38,
+        "observedEpisodes": 27,
+        "independentEncounters": 26,
+        "repeatedEpisodes": 3,
+        "adjacentSurfaceEpisodes": 6,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 25,
+        "incidentalEpisodes": 7,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 28.3130823,
+        "compositionAndValidationMs": 0.5767470075757674,
+        "heapMiB": 332.3031539916992,
+        "traced": true,
+        "meanTickMs": 5.463564562500009,
+        "p95TickMs": 12.055599999999686,
+        "p99TickMs": 22.15070000000196,
+        "peakSampledHeapMiB": 333.59716796875,
+        "terminalNativeBytes": 236270,
+        "replaySnapshotBytes": 70498,
+        "composedLegSearch": {
+          "calls": 2914,
+          "samples": 11799,
+          "maxSamples": 192,
+          "milliseconds": 520.8942999998426,
+          "exhausted": 9
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 8,
+      "cleanWins": [
+        {
+          "challenge": {
+            "id": "pr222-native-a:challenge:84.550000:footballer_pro_9_14:footballer_pro_1_21:committed",
+            "at": 84.67500000000213,
+            "actorId": "footballer_pro_9_14",
+            "team": "home",
+            "opponentId": "footballer_pro_1_21",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 45.82061622453094,
+              "y": 35.72476103894214
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.7244499167283095,
+            "opponentDistance": 0.8654577600888622,
+            "facingError": 0.061237724866641585,
+            "relativeSpeed": 3.3773878490758262,
+            "lateness": 0,
+            "force": 2.195302101899287,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0
+          },
+          "immediateOwner": "footballer_pro_1_21",
+          "ownershipChanges": [
+            {
+              "at": 84.80000000000216,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        }
+      ],
+      "work": {
+        "positiveEnergy": 4,
+        "positiveSurfaceWork": 6,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 58.415947713472065,
+        "maxAbsoluteResidual": 2.1316282072803006e-14,
+        "legRegions": {
+          "shin": 7,
+          "knee": 1,
+          "thigh": 0
+        }
+      }
+    },
+    {
+      "fixture": "independent",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+      "terminalHash": "8855c604c56a0002aec8c81cd2b807d669a89d0cbd2813ae93dcb9815fe55276",
+      "final": {
+        "at": 120.00000000001016,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4800,
+        "decisions": 34,
+        "passReleases": 7,
+        "retainedBootContacts": 15,
+        "bodyImpactTimes": 83,
+        "shinContacts": 9,
+        "ownerChanges": 18,
+        "restarts": 6
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 0,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 27,
+        "observedEpisodes": 21,
+        "independentEncounters": 20,
+        "repeatedEpisodes": 2,
+        "adjacentSurfaceEpisodes": 4,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 16,
+        "incidentalEpisodes": 9,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 18.9765854,
+        "compositionAndValidationMs": 0.45224606060604905,
+        "heapMiB": 215.24451446533203,
+        "meanTracedTickMs": 3.631554395833341,
+        "p95TracedTickMs": 8.508700000000317,
+        "p99TracedTickMs": 17.85030000000188,
+        "peakSampledHeapMiB": 249.71238708496094,
+        "terminalNativeBytes": 232513
+      },
+      "safetyHalt": null,
+      "workEvents": 9,
+      "work": {
+        "positiveEnergy": 6,
+        "positiveSurfaceWork": 9,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 137.63905971059518,
+        "maxAbsoluteResidual": 2.842170943040401e-14,
+        "legRegions": {
+          "shin": 9,
+          "knee": 0,
+          "thigh": 0
+        }
+      }
+    },
+    {
+      "fixture": "paired",
+      "arm": "E",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "8f60385dc79b97a5c03b8a124215651d13c40ec14d75dd1db9a816b5987ad28c",
+      "final": {
+        "at": 120.00000000001016,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4800,
+        "decisions": 59,
+        "passReleases": 9,
+        "retainedBootContacts": 27,
+        "bodyImpactTimes": 101,
+        "shinContacts": 12,
+        "ownerChanges": 37,
+        "restarts": 6
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 0,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 48,
+        "observedEpisodes": 29,
+        "independentEncounters": 28,
+        "repeatedEpisodes": 4,
+        "adjacentSurfaceEpisodes": 7,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 23,
+        "incidentalEpisodes": 13,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 28.2176673,
+        "compositionAndValidationMs": 0.561039128787836,
+        "heapMiB": 336.3035354614258,
+        "traced": true,
+        "meanTickMs": 5.431340979166681,
+        "p95TickMs": 11.231100000000879,
+        "p99TickMs": 16.907500000001164,
+        "peakSampledHeapMiB": 325.9854049682617,
+        "terminalNativeBytes": 247037,
+        "replaySnapshotBytes": 69912,
+        "composedLegSearch": {
+          "calls": 2598,
+          "samples": 11576,
+          "maxSamples": 192,
+          "milliseconds": 520.5137000000004,
+          "exhausted": 8
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 12,
+      "work": {
+        "positiveEnergy": 7,
+        "positiveSurfaceWork": 9,
+        "residualAboveNanojoule": 12,
+        "maxEnergyGain": 191.2363865764488,
+        "maxAbsoluteResidual": 9.428370164728015,
+        "legRegions": {
+          "shin": 10,
+          "knee": 2,
+          "thigh": 0
+        }
+      }
+    },
+    {
+      "fixture": "paired",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "9f45ba58a6c67b7718f13c2db0c8f273bf526856d89deac023cf6b9e7b6229d0",
+      "final": {
+        "at": 120.00000000001016,
+        "ticks": 4800
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 0,
+      "cost": {
+        "wallSeconds": 20.664363500000004,
+        "compositionAndValidationMs": 0.5297153787878521,
+        "heapMiB": 156.82500457763672,
+        "traced": false,
+        "meanTickMs": 3.9251000833333594,
+        "p95TickMs": 7.99369999999999,
+        "p99TickMs": 13.228400000000875,
+        "peakSampledHeapMiB": 270.9049835205078,
+        "terminalNativeBytes": 239722,
+        "replaySnapshotBytes": 70713
+      },
+      "safetyHalt": null
+    }
+  ],
+  "encounterArchiveSha256": "50c15d921df28492e2d9bf2da5d1cd5c78ee416bdcf478074db63d76d2381cba"
+}

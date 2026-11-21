@@ -115,18 +115,24 @@ export const composedLegContactCapsule = (g: Geometry, index: number): TaperedCa
 };
 const contactCapsule = composedLegContactCapsule;
 
-export const touchingComposedShin = (
-  foot: Foot,
+/** The canonical thigh has equal end radii. The shin tapers, including when
+ * its proximal cap is reported as the knee. Use the proxy behind the label. */
+export const composedContactSurface = (leg: LegContact): Capsule['region'] =>
+  `${leg.foot}_${leg.radius === leg.distalRadius ? 'thigh' : 'shin'}`;
+
+export const touchingComposedLeg = (
+  surface: Capsule['region'],
   ball: FlightPoint,
   geometryAt: (at: number) => Geometry | undefined,
   seconds: number,
+  includeKnee: boolean,
 ) => {
   const current = geometryAt(0);
-  const index = current?.capsules.findIndex((shape) => shape.region === `${foot}_shin`) ?? -1;
+  const index = current?.capsules.findIndex((shape) => shape.region === surface) ?? -1;
   if (!current || index < 0) return;
   const shape = contactCapsule(current, index);
   const contact = sampleCapsule(shape, ball);
-  if (Math.abs(contact.gap) > distanceTolerance || contact.along === 0) return;
+  if (Math.abs(contact.gap) > distanceTolerance || (!includeKnee && contact.along === 0)) return;
   const t = Math.min(seconds, 1e-6);
   const next = t > 0 ? geometryAt(t) : undefined;
   if (!next) return;
@@ -137,9 +143,10 @@ export const touchingComposedShin = (
   );
   const velocity = mix({ x: 0, y: 0, z: 0 }, delta, 1 / t);
   const normal = mix({ x: 0, y: 0, z: 0 }, contact.delta, 1 / contact.distance);
+  const thigh = surface.endsWith('thigh');
   const leg: LegContact = {
-    foot,
-    region: 'shin',
+    foot: surface.startsWith('left') ? 'left' : 'right',
+    region: (thigh ? contact.along === 1 : contact.along === 0) ? 'knee' : thigh ? 'thigh' : 'shin',
     point: mix(contact.nearest, ball, contact.radius / contact.distance),
     from: shape.from,
     to: shape.to,
