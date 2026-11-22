@@ -1,4 +1,12 @@
-import type { RestartLifecycle, TacticalMatchState } from './matchState';
+import type { MatchPlayerState, RestartLifecycle, TacticalMatchState } from './matchState';
+import { canParticipatePhysically } from './matchInjuries';
+
+/** G's loss state takes away the grounded motor used by dead-ball handling. */
+export const canHandleRestartBall = (state: TacticalMatchState, player: MatchPlayerState) =>
+  !state.discipline?.[player.id]?.sentOff &&
+  (!state.experimentalDynamicBalance ||
+    (player.articulatedStance?.dynamicBalance?.phase !== 'lost' &&
+      canParticipatePhysically(player)));
 
 /** Legacy setup is a frozen DEV fixture; live preparation advances real bodies. */
 export const isRestartSetup = <T extends Pick<TacticalMatchState, 'restart'>>(

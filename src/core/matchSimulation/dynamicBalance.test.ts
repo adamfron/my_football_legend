@@ -221,6 +221,50 @@ it('slides only a loaded outward-moving anchor at the reach limit', () => {
 });
 
 describe('source-bound solver controls', () => {
+  it('completes the native 71:58 support transfer through two shins on the same body', () => {
+    const source = JSON.parse(
+      gunzipSync(readFileSync('docs/performance/pr224-native-a-halt.json.gz')).toString(),
+    ) as { before: TacticalMatchState };
+    const input = native(G(withFullBodySkeleton(selectPr224Body(source.before))));
+    const { state, events } = captureReceptionStep(() => stepTacticalMatch(input, dt), {
+      mechanics: true,
+      contactWork: true,
+    });
+    expect(state.time).toBe(input.time + dt);
+    expect(state.safetyHalt).toBeUndefined();
+    const id = 'footballer_pro_9_7';
+    const before = input.players.find((p) => p.id === id)!;
+    const after = state.players.find((p) => p.id === id)!;
+    expect(before.articulatedStance?.support).toBe('right');
+    expect(after.articulatedStance?.support).toBe('left');
+    expect(after.articulatedStance?.right).toEqual(before.articulatedStance?.right);
+    const find = (suffix: string) => events.filter(({ source: label }) => label.endsWith(suffix));
+    const work = find('composedLimbWork').filter(
+      ({ detail }) => 'supportTransfer' in (detail as object),
+    );
+    expect(work).toHaveLength(1);
+    expect(work[0]?.detail).toMatchObject({
+      supportTransfer: { from: 'right', to: 'left' },
+      account: {
+        surfaces: [
+          expect.objectContaining({ actorId: id, leg: expect.objectContaining({ foot: 'left' }) }),
+          expect.objectContaining({ actorId: id, leg: expect.objectContaining({ foot: 'right' }) }),
+        ],
+      },
+    });
+    expect(find('intervalRace').length).toBeLessThanOrEqual(MULTI_BODY.events + 1);
+    expect(find('intervalRace').at(-1)?.detail).toMatchObject({ event: undefined });
+    const geometry = projectArticulatedBody(state, after)!.geometry;
+    for (const region of ['left_shin', 'right_shin'] as const)
+      expect(
+        composedLegGap(geometry, region, { ...state.ball, z: state.ball.height! }),
+      ).toBeGreaterThan(0);
+    let resumed = native(state);
+    for (let tick = 1; tick < 26; tick++) resumed = stepTacticalMatch(resumed, dt);
+    expect(resumed.safetyHalt).toBeUndefined();
+    expect(resumed.time - input.time).toBeCloseTo(0.65, 9);
+  });
+
   it('retains the historical F halt and clears both actual shins in G with a loaded swing step', () => {
     const input = loadCheckpoint('late-shin-pinch');
     const historical = stepTacticalMatch(input, dt);

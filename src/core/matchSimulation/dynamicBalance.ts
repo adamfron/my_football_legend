@@ -14,6 +14,7 @@ import { endPerformanceSpan, startPerformanceSpan } from './performanceProfiling
 
 const GRAVITY = 9.81;
 const MAX_TILT = 0.5;
+export const MAX_GROUNDED_SUPPORT_HEIGHT = 0.040001;
 const zero = { x: 0, y: 0 };
 const zero3 = { ...zero, z: 0 };
 const feet = ['left', 'right'] as const;
@@ -251,7 +252,7 @@ export const advanceDynamicBalance = (
     const mass = after.profile.weightKg;
     const onGround =
       foot &&
-      stance[foot].z <= 0.040001 &&
+      stance[foot].z <= MAX_GROUNDED_SUPPORT_HEIGHT &&
       !before.verticalJump?.height &&
       previous.phase !== 'lost';
     const normalForce = onGround ? mass * GRAVITY : 0;

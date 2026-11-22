@@ -1,8 +1,9 @@
 # MatchEngine integration candidates
 
 PR227 G (`holistic-dynamic-balance-dev-v1`) is an isolated Single Match Lab
-experiment. The native knee–thigh, ground-graze and late-shin checkpoints
-advance. The 71:58 support-transfer case and 22-player windows block promotion.
+experiment. The native knee–thigh, ground-graze, support-transfer and late-shin
+ticks advance. Two archived restarts execute after reassignment. The
+loss-of-support stops in 22-player matches block promotion.
 **RETAIN_EXPERIMENTAL.** PR201/B remains the maintained profile.
 [PR227 evidence](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 

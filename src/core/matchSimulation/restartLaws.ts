@@ -3,6 +3,7 @@ import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { distance, distanceToSegment, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, RestartScenario, TacticalMatchState } from './matchState';
+import { canHandleRestartBall } from './restartPhase';
 
 /** Fixed rule reference; period-end penalty extensions are owned by matchTimekeeping. */
 export const RESTART_LAWS_VERSION = 'IFAB_2026_27' as const;
@@ -417,6 +418,7 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
       : (state.ball.height ?? 0) <= 0.15);
   const takerReady = Boolean(
     taker &&
+      (!state.experimentalDynamicBalance || canHandleRestartBall(state, taker)) &&
       distance(taker.position, spot) <= 1.4 + 1e-8 &&
       Math.hypot(taker.velocity.x, taker.velocity.y) <= 1.5,
   );

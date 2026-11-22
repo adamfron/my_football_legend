@@ -2,9 +2,11 @@
 
 PR227 dodaje wariant G w Single Match Lab. Zapisuje środek masy 3D, przechył,
 obciążenie stopy podporowej i reakcję na impuls. Przechodzi zapisane ticki
-kolano–udo o 52:57, kontakt przy murawie o 63:12.875 i nacisk goleni o 89:51.125.
-Trzy krótkie próby G z 22 zawodnikami kończą się zatrzymaniem. Decyzja
-**RETAIN_EXPERIMENTAL**, profil utrzymywany PR201/B.
+kolano–udo o 52:57, kontakt przy murawie o 63:12.875, zmianę podparcia o 71:58.875
+i nacisk goleni o 89:51.125. Zapisany aut i rzut od bramki dochodzą do skutku po
+zmianie zawodnika obsługującego piłkę. Trzy przebiegi G z 22 zawodnikami
+zatrzymują się po utracie zdolności potrzebnych do legalnego wznowienia.
+Decyzja **RETAIN_EXPERIMENTAL**, profil utrzymywany PR201/B.
 [Raport PR227](PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 
 PR226 dodaje wariant F w Single Match Lab. Rzeczywisty kontakt z nogą wiąże
@@ -146,7 +148,6 @@ PR205 (korekta rozwojowa): osobny `observed-ball-contact-dev-v1` wiąże pogoń 
 
 PR204 (badania): wariant ciągłości i lokalnego odbioru pozostaje eksperymentalny. Sprawdzone kontrfaktyki ukrytego przygotowania przeszły, ale inne granice informacji i regresja kontroli pozostają otwarte. Eksperyment 2×2 z okresem przed podaniem nie potwierdził przewidywanego wsparcia. Kandydatem pozostaje PR201; niezależna konfirmacja jest zamknięta. [Raport PR204](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
 
-
 ## PR201 — Ograniczona percepcja i odzyskanie przyjęć
 
 [Raport PR201](PR201_BOUNDED_PERCEPTION_RECEIVER_RECOVERY.md) wskazuje konkretny błąd autorytetu ruchu: brak lokalnego celu przyjęcia wysyłał odbiorcę do odległej kotwicy formacji. Wersjonowane `hold-local-v1` zleca fizyczne hamowanie w aktualnym miejscu, dopóki legalny cel lub wyższy autorytet nie dostarczy zamiaru. Jedna obserwacja nadal nie ujawnia prędkości. Badane reakcje na samą pozycję i odświeżanie zegara ruchu nie odzyskały żadnego z11 wybranych kontaktów; nie są wdrożone jako domniemana naprawa.
@@ -186,7 +187,6 @@ Dokładne 28 długich podań ujawniło asymetrię: przeciwnik mógł otrzymać p
 [Raport PR197](PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md) obejmuje 1100 żądań rodzin podań, 3840 prób wykonania, 120 prób gotowości, 110 autonomicznych przebiegów oraz siedem pełnych par development. Strzały 64→67 ukrywają regresje polityk; pełny autonomiczny diagonalny lob nie został wywołany. Poprawa licznika nie oznacza lepszego futbolu. Wszystkie 14 meczów podlega pełnemu odtworzeniu z niezmienionym fizycznym stanem końcowym.
 
 **Canonical NOT READY; B domyślne; trzy eksperymenty osobno opt-in; experimentalCanonicalArrival osobno; confirmation zamknięte.** Rejestr zachowuje 134 ID, bez COMPLETE. Kolejny zakres: zmienione cele odbiorcy, przygotowanie ciała/czas kontaktu i pierwsza brakująca faza autonomicznego biegu/kandydata. Zachowane są 40 Hz, 28 atrybutów i wszystkie zobowiązania kariery/świata poniżej.
-
 
 ## PR196 — Canonical Outcome Semantics, Defensive Reach & Match-State Calibration
 

@@ -1,5 +1,5 @@
 import type { MatchAction, TacticalMatchState } from './matchState';
-import { isRestartSetup } from './restartPhase';
+import { canHandleRestartBall, isRestartSetup } from './restartPhase';
 
 export const isShotAction = (
   action: MatchAction,
@@ -15,5 +15,5 @@ export const requiresHumanRestart = (state: TacticalMatchState, actorId: string)
   isHumanControlled(state, actorId) &&
   isRestartSetup(state) &&
   state.restart?.takerId === actorId &&
-  state.players.some((player) => player.id === actorId && !state.discipline?.[actorId]?.sentOff) &&
+  state.players.some((player) => player.id === actorId && canHandleRestartBall(state, player)) &&
   state.scenario !== 'throw_in';

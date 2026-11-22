@@ -6,8 +6,11 @@ G derives segment mass geometry from the PR225 skeleton. The shared contact
 timeline owns impulse delivery and the canonical gait owns foot motion.
 The independent free-flight prefix advances the frozen 63:12 tick. Verified
 ankle trajectories and finite swing yield advance the 52:57 and 89:51 cases.
-General limb compliance needs a sustained contact model.
-Ground impact of the body, standing up and restart liveness remain open.
+The 71:58 support transfer combines two same-body shin impulses and bounds
+restitution by their compression work. General limb compliance needs a
+sustained contact model. Reassignment restores retrieval when a teammate
+can take over. Ground impact and get-up remain dependencies for restarts
+where no eligible teammate remains or opponents cannot take legal positions.
 [PR227 report](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 
 ## PR226 contact work and continuation
@@ -186,7 +189,6 @@ The frozen full-match attempt stops at 698.7s on the explicit five-body/four-bod
 overflow; it is not a completed holistic match. The complete diagnostic remains preserved.
 Promotion stays RETAIN_EXPERIMENTAL; PR201/B/defaults and sealed confirmation are unchanged.
 Historical sections and frozen inputs below retain their original scope.
-
 
 PR214: single finite motor update → connected pending/standing interval candidates → deterministic bounded 2–4 upright contact constraints / unilateral player edge → rebase actual body and foot trajectories → finite foot impulse / independent control / existing law consumer. Earlier impulses survive later impacts and unresolved continuation. New `upright-cluster-dev-v1` replaces, rather than stacks with, pair-dev in its scope. Next integration dependencies: extend this same owner through ordinary carry/loose/delivery while retaining keeper/law authority; replace the geometrically incompatible 0.50m historical clinch apparatus with admissible shared surfaces; complete selected-consumer activation witnesses. Recipe construction/local replay is valid, holistic match remains BLOCKED. PR201/profile identities and formal issue dimensions unchanged. [PR214](../PR214_MULTIBODY_CONTACT_AND_HOLISTIC_READINESS.md), [matrix](HOLISTIC_COMPATIBILITY_MATRIX.md), [protocol](HOLISTIC_MATCH_PROTOCOL.md).
 

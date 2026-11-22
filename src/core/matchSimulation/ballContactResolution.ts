@@ -213,6 +213,7 @@ export const resolveOpposingBallContactImpulse = (
   incoming: BallVelocity3d,
   a: { normal: FlightPoint; velocity: BallVelocity3d },
   b: { normal: FlightPoint; velocity: BallVelocity3d },
+  pairRestitution = 0,
 ) => {
   const cos = dot(a.normal, b.normal);
   const determinant = 1 - cos * cos;
@@ -223,14 +224,21 @@ export const resolveOpposingBallContactImpulse = (
   const ja = (da - cos * db) / determinant,
     jb = (db - cos * da) / determinant;
   if (ja <= 0 || jb <= 0) return;
+  const compression = Math.max(0, (mass * (ja * da + jb * db)) / 2);
+  // Equal recovery speed at the two loaded patches costs the same fraction
+  // of measured compression work in their Gram metric.
+  const release =
+    pairRestitution > 0 ? pairRestitution * Math.sqrt(compression / (mass * (1 + cos))) : 0;
+  const impulseA = ja + release;
+  const impulseB = jb + release;
   return {
     velocity: {
-      x: incoming.x + ja * a.normal.x + jb * b.normal.x,
-      y: incoming.y + ja * a.normal.y + jb * b.normal.y,
-      z: incoming.z + ja * a.normal.z + jb * b.normal.z,
+      x: incoming.x + impulseA * a.normal.x + impulseB * b.normal.x,
+      y: incoming.y + impulseA * a.normal.y + impulseB * b.normal.y,
+      z: incoming.z + impulseA * a.normal.z + impulseB * b.normal.z,
     },
-    impulses: [scale(a.normal, mass * ja), scale(b.normal, mass * jb)] as const,
-    dissipated: Math.max(0, (mass * (ja * da + jb * db)) / 2),
+    impulses: [scale(a.normal, mass * impulseA), scale(b.normal, mass * impulseB)] as const,
+    dissipated: compression * (1 - pairRestitution ** 2),
   };
 };
 

@@ -1,6 +1,6 @@
 # PR227 — Dynamic balance, compliant contact and recovery
 
-**Decision — RETAIN_EXPERIMENTAL.** Single Match Lab recipe G adds a reduced angular body, bounded support, a finite corrective step and reaction to incidental ball and player impulses. Refined G advances the frozen ticks at 52:57, 63:12.875 and 89:51.125 and completes 12 subsequent ticks from each start. The original F traces reproduce. All three 22-player development starts still halt inside the 120-second window. Time-dependent ball compliance, falling and getting up remain open.
+**Decision — RETAIN_EXPERIMENTAL.** Single Match Lab recipe G adds a reduced angular body, bounded support, a finite corrective step and reaction to incidental ball and player impulses. G advances the frozen 52:57, 63:12.875, 71:58.875 and 89:51.125 ticks under the existing solver limits. Two archived dead-ball preparations now execute their awards after changing handlers. Three 22-player runs from kickoff still halt between 118 and 135 seconds due to the accumulated loss of support. The historical F traces reproduce. Time-dependent ball compliance, falling and getting up remain open.
 
 ## 1. Starting point and sequence of work
 
@@ -91,7 +91,9 @@ G asks how far the _same_ free-flight equation can be certified before either a 
 
 At 52:57 the first G prototype treated torso mobility as instantaneous motion of the knee and thigh and reissued the ankle trajectory after each recoil. This caused an additional contact at effectively zero elapsed time. The refined G rebase keeps the ankle motion and solves against actual forward velocities. It commits with the existing 16-event budget, one simultaneous response and final gaps of 3.895 mm at the knee and 1.538 mm at the thigh. The 650 ms continuity window completes.
 
-At 41:56 refined G now runs the 650 ms window with the ball loose at 600 ms. The stored F path still records two retained boot touches and has `footballer_pro_1_4` on the ball at 600 ms. G still exhausts the budget at 71:58, one tick earlier than its first prototype. The original PR223 parked-foot and post-impact evidence replays against its own commit. [Original continuation archive](performance/pr227-continuity.json.gz) · [Refined observations](performance/pr227-contact-refinement-windows.json).
+At 41:56 refined G runs the 650 ms window with the ball loose at 600 ms. The stored F path still records two retained boot touches and has `footballer_pro_1_4` on the ball at 600 ms. The original PR223 parked-foot and post-impact evidence replays against its own commit. [Original continuation archive](performance/pr227-continuity.json.gz) · [Refined observations](performance/pr227-contact-refinement-windows.json).
+
+At 71:58.875 the same player's two shins press the ball during a right-to-left support transfer. After 12 individual contacts, the measured pair admits a positive impulse at each shin. In this grounded handover the pair returns a fraction `e²` of the compression work, using the existing `e = 0.38` limb restitution. The equal release coefficients along the two normals yield about 0.258 m/s opening speed at each measured patch. Both impulses load the same body in one rebase. The outgoing support foot holds its anchor and the incoming foot yields 3.90 mm before landing. The swing uses 0.250 J and the ball contact frame dissipates 1.001 J. The continued search certifies the rest of the tick. It commits with 13 of 16 shared events, a peak 60 of 192 limb geometry samples per search and 6.810/8.888 mm of shin clearance. The 650 ms continuation has no halt. A separate boot-and-shin sequence in the very next tick still ends with 16.9 mm of right-shin overlap. [Support and restart receipts](performance/pr227-support-and-restarts.json).
 
 ## 7. Referee and football continuity
 
@@ -99,9 +101,19 @@ Law 12 separates legal shielding of a playable ball from holding a player, imped
 
 G reproduces the executed ordinary and moving low passes at 10.088 and 10.067 s and the clean swing miss. It preserves the first touch at 10.366 s with no second retention in the early-lateral case. In pressure the opponent still owns the ball at 600 ms. The early-pressure release seen in F is absent in G; the stronger-pressure and unreachable scenarios still fail to retain or make contact as applicable. The regression at 41:56 blocks any general claim about second touches. Source variants cover asymmetric leg lengths, knee alignment, proportions and foot sizes. The additional stress body changes COM and inertia without altering the player's profile.
 
+G now assigns the retrieving and taking roles independently to teammates with an available grounded motor. A lost handler releases the ball from its current world position. The new handler approaches and transports it, and the liveness observer uses the distance remaining for that part of the approach or transport. Existing readiness and opponent restrictions govern release. A ball already placed remains available if its retriever then loses support.
+
+| Archived G restart | Source state | Result                                                                                         |
+| ------------------ | -----------: | ---------------------------------------------------------------------------------------------- |
+| Paired throw-in    |     56.350 s | New carrier and taker. Legal release at 68.350 s.                                              |
+| Native-a goal kick |     72.425 s | The existing goalkeeper takes over retrieval. Legal release at 91.925 s.                       |
+| Independent corner |     97.000 s | Ball placed at 123.750 s. Two opponents in the loss state are too close at the 153.750 s halt. |
+
+In the corner replay, the two opponents are about 0.459 m and 7.214 m from the corner. Both still count towards `opponent_restriction`. The engine retains the awarded corner and records the remaining legal blocker. If nobody on the restarting team can retrieve, the detached ball continues its trajectory while the unresolved award stays in preparation. [Source snapshots and release evidence](performance/pr227-support-and-restarts.json).
+
 ## 8. Integration windows, cost and gates
 
-Refined G was run on all three source kickoffs. Each terminal safety halt has its own native snapshot in the [refined window receipts](performance/pr227-contact-refinement-windows.json). The [original performance receipts](performance/pr227-match-windows.json) preserve the paired 8-second F/G cost comparison from the first prototype. Pose timing covers skeleton composition and validation. Three.js scene update and end-user browser frame time remain unmeasured. Full G matches are gated on passing the short windows.
+G was rerun from all three source kickoffs. The initial follow-up reached 120 seconds in all three starts and justified attempting uncapped runs. The final follow-up detaches the ball even if no handler is available and changes two trajectories before 120 seconds. Each uncapped run then halts during restart preparation. The [follow-up window receipts](performance/pr227-followup-match-windows.json) retain both final run horizons and link each new halt to a native snapshot. The [previous windows](performance/pr227-contact-refinement-windows.json) and [original performance receipts](performance/pr227-match-windows.json) preserve the earlier stops and paired 8-second F/G cost comparison. Pose timing covers skeleton composition and validation. Three.js scene update and end-user browser frame time remain unmeasured.
 
 | Paired 8 s, untraced  |              F |               G |
 | --------------------- | -------------: | --------------: |
@@ -113,30 +125,31 @@ Refined G was run on all three source kickoffs. Each terminal safety halt has it
 
 The separate traced sample estimates 1.63 ms of inclusive balance work per tick from nine sampled ticks. The sampled windows show up to 22 load-bearing feet across participants. In the paired 8-second G window, 27 of 176 sampled player-frames are in the loss state. Those repeats measure persistence, and may include the same player across several samples. This rate, the 80% mean CPU increase in the matched local sample and the early halts block promotion. Heap measurements are snapshots of an allocating process under Node, so the difference includes garbage-collection timing.
 
-| Start             | Historical F               | Refined G 120-second window |
-| ----------------- | -------------------------- | --------------------------- |
-| Paired            | Physical halt at 89:51.125 | 56.375 s, `ball_not_placed` |
-| Native-a          | Physical halt at 63:12.875 | 72.450 s, `ball_not_placed` |
-| Independent PR214 | Full time, 1:1             | 97.025 s, `ball_not_placed` |
+| Start             | Historical F               | Previous G halt             | Current G 120-second window          | Uncapped attempt                                                                     |
+| ----------------- | -------------------------- | --------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------ |
+| Paired            | Physical halt at 89:51.125 | 56.375 s, `ball_not_placed` | 118.025 s, `participant_restriction` | Same halt. Lost players cannot return to legal kickoff positions after a goal.       |
+| Native-a          | Physical halt at 63:12.875 | 72.450 s, `ball_not_placed` | Reaches 120 s                        | 134.175 s, `taker_not_ready`. The ball is placed by the time the last taker is lost. |
+| Independent PR214 | Full time, 1:1             | 97.025 s, `ball_not_placed` | 118.050 s, `missing_retrieval_state` | Same halt. No eligible teammate is left to retrieve the ball for a corner.           |
 
-| Gate                              | Verdict                         | Evidence                                                                                                                                                                                        |
-| --------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1 Historical provenance           | PASS for scoped replays         | PR223 source verification, E/F checkpoint controls and archived PR226 match receipts.                                                                                                           |
-| 2 Body mass and angular state     | PASS for reduced state          | Joint geometry and the loaded limb impulse survive native reload and compact replay.                                                                                                            |
-| 3 Support                         | PARTIAL                         | Finite single-foot load, traction and a slip fixture. Multi-foot distribution remains open.                                                                                                     |
-| 4 Perturbation and recovery       | PARTIAL                         | Finite corrective swing and bounded loss. Grounded pose and get-up remain open.                                                                                                                 |
-| 5 Compression                     | PARTIAL                         | Passive offline normal-pair trials. Live compression ownership remains open.                                                                                                                    |
-| 6 Shared contact and yield        | PARTIAL                         | Chronological reaction and finite swing yield clear the archived shin pair. Other pressured encounters remain open.                                                                             |
-| 7 Referee                         | PASS within existing scope      | Existing discipline controls and unchanged discipline across the F halt and G clearance.                                                                                                        |
-| 8 Historical solver halts         | PASS for the three named inputs | 52:57, 63:12 and 89:51 all advance in refined G. The separate 71:58 support transfer still halts.                                                                                               |
-| 9 Football continuity             | PARTIAL                         | Real passes, a miss and a pressure loss. Other next actions and the historical second touch regress.                                                                                            |
-| 10 Ordinary 22-player integration | FAIL                            | Three development windows stop early.                                                                                                                                                           |
-| 11 Verification                   | See PR checks                   | Focused physics, morphology, native reload, visual parity, source replay, discipline, lint, typecheck and production build are tracked separately from hosted CI and local full-suite timeouts. |
+| Gate                              | Verdict                          | Evidence                                                                                                                                                                                        |
+| --------------------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 Historical provenance           | PASS for scoped replays          | PR223 source verification, E/F checkpoint controls and archived PR226 match receipts.                                                                                                           |
+| 2 Body mass and angular state     | PASS for reduced state           | Joint geometry and the loaded limb impulse survive native reload and compact replay.                                                                                                            |
+| 3 Support                         | PARTIAL                          | Finite single-foot load, traction and a slip fixture. Multi-foot distribution remains open.                                                                                                     |
+| 4 Perturbation and recovery       | PARTIAL                          | Finite corrective swing and bounded loss. Grounded pose and get-up remain open.                                                                                                                 |
+| 5 Compression                     | PARTIAL                          | Passive offline normal-pair trials. Live compression ownership remains open.                                                                                                                    |
+| 6 Shared contact and yield        | PARTIAL                          | Chronological reaction and finite swing yield clear the archived shin pair. Other pressured encounters remain open.                                                                             |
+| 7 Referee                         | PASS within existing scope       | Existing discipline controls and unchanged discipline across the F halt and G clearance.                                                                                                        |
+| 8 Historical solver halts         | PASS for the four replayed ticks | 52:57, 63:12, 71:58 and 89:51 all advance in G. A new contact sequence in the next tick after 71:58 still leaves a shin overlap.                                                                |
+| 9 Football continuity             | PARTIAL                          | Real passes, a miss and a pressure loss. Other next actions and the historical second touch regress.                                                                                            |
+| 10 Ordinary 22-player integration | FAIL                             | Two archived releases succeed. Every run from kickoff still halts during restart preparation, with loss of support blocking a legal release or retrieval.                                       |
+| 11 Verification                   | See PR checks                    | Focused physics, morphology, native reload, visual parity, source replay, discipline, lint, typecheck and production build are tracked separately from hosted CI and local full-suite timeouts. |
 
 ## 9. Reproduction and next dependency
 
 ```text
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr227Checkpoints.mjs --check
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr227SupportAndRestarts.mjs --check
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr226Continuity.mjs --pr227
 node scripts/ci/replayPr223Check.mjs
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr225FullMatches.mjs paired G --pr227 --seconds=120
@@ -144,6 +157,6 @@ node --experimental-transform-types --import ./scripts/registerTypescriptLoader.
 npm run verify
 ```
 
-Run the development-window command separately for `native-a` and `independent`. Benchmark outputs go to `.benchmark-artifacts/pr227`. PR226 figures and input snapshots remain available at their original paths.
+Run the development-window command separately for `native-a` and `independent`. Omit `--seconds=120` to reproduce the attempted full matches. Benchmark outputs go to `.benchmark-artifacts/pr227`. PR226 figures and input snapshots remain available at their original paths.
 
-Prioritize the 71:58 same-player support transfer and restart liveness after loss of support. The restored ticks provide controls for extending the persistent-contact model and deriving inverse mass from the actual stance and swing response. Ground impact, fall and finite get-up require a separate verified contact and motor primitive. The current performance and football evidence support isolated development use.
+The restored ticks provide controls for extending the persistent-contact model and deriving inverse mass from the actual stance and swing response. Ground impact, fall and finite get-up require a separate verified contact and motor primitive. The archived corner and three new full-match stops give source states for testing whether that mechanism restores a legal restart. The current performance and football evidence support isolated development use.

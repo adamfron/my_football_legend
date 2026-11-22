@@ -1,0 +1,169 @@
+{
+  "supportTransfer": {
+    "source": {
+      "path": "docs/performance/pr224-native-a-halt.json.gz",
+      "sha256": "f38cdddb2189315b90a1da7d2b02202bfcd1d7f5b86a6e1d49839aa2be40a7a1"
+    },
+    "at": 4318.875000001399,
+    "actorId": "footballer_pro_9_7",
+    "contactTimeInTick": 0.012515068163237563,
+    "sharedEvents": 13,
+    "peakGeometrySamples": 60,
+    "support": {
+      "from": "right",
+      "to": "left"
+    },
+    "restitution": 0.38,
+    "work": {
+      "contactFrame": -1.0005945727010324,
+      "fromSurfaces": 5.220824501360126,
+      "residual": 4.440892098500626e-16,
+      "shins": [
+        {
+          "foot": "left",
+          "incomingNormal": -1.784889972983008,
+          "outgoingNormal": 0.2583965182275547,
+          "normalImpulse": 2.3815512016375573
+        },
+        {
+          "foot": "right",
+          "incomingNormal": 0.6440951561748707,
+          "outgoingNormal": 0.25839651822755516,
+          "normalImpulse": 1.8108013873310689
+        }
+      ]
+    },
+    "swing": {
+      "foot": "left",
+      "x": 0.0037856133689504867,
+      "y": -0.0009527047964324022,
+      "energy": 0.25014864317525815
+    },
+    "atTickEnd": {
+      "time": 4318.900000001398,
+      "gaps": {
+        "left": 0.006810441335142872,
+        "right": 0.008887829156937005
+      },
+      "halt": null
+    },
+    "atNextTickEnd": {
+      "time": 4318.925000001398,
+      "gaps": {
+        "left": 0.010507199695826253,
+        "right": -0.016902387246922015
+      },
+      "halt": null
+    },
+    "after650ms": {
+      "time": 4319.525000001389,
+      "owner": null,
+      "halt": null
+    }
+  },
+  "restarts": [
+    {
+      "fixture": "paired",
+      "source": {
+        "path": "docs/performance/pr227-refined-paired-development-halt.json.gz",
+        "sha256": "97e0acbbf2d066f776f11b50568ee1fa99dc25281151742256a3c3557f0aac55"
+      },
+      "scenario": "throw_in",
+      "awardId": "lab-mw3xhr6o:restart:23.11948422900144:home:throw_in",
+      "start": 56.34999999999787,
+      "formerRetriever": {
+        "id": "footballer_pro_9_19",
+        "balance": "lost"
+      },
+      "formerTaker": {
+        "id": "footballer_pro_9_19",
+        "balance": "lost"
+      },
+      "newRetriever": "footballer_pro_9_9",
+      "newTaker": "footballer_pro_9_0",
+      "firstStepBallDisplacement": 0.0033337555874553013,
+      "placedAt": 66.24999999999794,
+      "end": 68.34999999999842,
+      "elapsed": 12.000000000000547,
+      "stage": "placed",
+      "executedAt": 68.34999999999842,
+      "halt": null
+    },
+    {
+      "fixture": "native-a",
+      "source": {
+        "path": "docs/performance/pr227-refined-native-a-development-halt.json.gz",
+        "sha256": "952e67cd5746b5af5e999e8eef6e4dc053411c451360f72f3d495517df124940"
+      },
+      "scenario": "goal_kick",
+      "awardId": "pr222-native-a:restart:38.65753840697467:away:goal_kick",
+      "start": 72.42499999999934,
+      "formerRetriever": {
+        "id": "footballer_pro_1_4",
+        "balance": "lost"
+      },
+      "formerTaker": {
+        "id": "footballer_pro_1_0",
+        "balance": "upright"
+      },
+      "newRetriever": "footballer_pro_1_0",
+      "newTaker": "footballer_pro_1_0",
+      "firstStepBallDisplacement": 0,
+      "placedAt": 91.20000000000361,
+      "end": 91.92500000000378,
+      "elapsed": 19.500000000004434,
+      "stage": "placed",
+      "executedAt": 91.92500000000378,
+      "halt": null
+    },
+    {
+      "fixture": "independent",
+      "source": {
+        "path": "docs/performance/pr227-refined-independent-development-halt.json.gz",
+        "sha256": "789d3276730a3d2ffdcdb84bb998f45654b4a0446e9d405388d2b7857c2a1480"
+      },
+      "scenario": "corner",
+      "awardId": "pr215-holistic-sw-B-v1:restart:66.98584605912721:home:corner",
+      "start": 97.00000000000493,
+      "formerRetriever": {
+        "id": "geometry:anchor:6",
+        "balance": "lost"
+      },
+      "formerTaker": {
+        "id": "geometry:anchor:10",
+        "balance": "lost"
+      },
+      "newRetriever": "geometry:anchor:0",
+      "newTaker": "geometry:anchor:0",
+      "firstStepBallDisplacement": 0,
+      "placedAt": 123.75000000001101,
+      "end": 153.75000000001782,
+      "elapsed": 56.75000000001289,
+      "stage": "placed",
+      "executedAt": null,
+      "halt": "opponent_restriction",
+      "readiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": ["opponent_restriction"]
+      },
+      "opponents": [
+        {
+          "id": "geometry:opponent:10",
+          "balance": "lost",
+          "metresFromCorner": 7.21442814097277
+        },
+        {
+          "id": "geometry:opponent:6",
+          "balance": "lost",
+          "metresFromCorner": 0.4591009411623891
+        }
+      ]
+    }
+  ]
+}
