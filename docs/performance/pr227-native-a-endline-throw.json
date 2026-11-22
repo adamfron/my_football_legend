@@ -1,0 +1,180 @@
+{
+  "source": {
+    "path": "docs/performance/pr227-native-a-endline-throw-award.json.gz",
+    "sha256": "d838fbd3d3215fa2ab598a9dcc423940511d8bea1ca1e6e4351784fa68618a9c"
+  },
+  "award": {
+    "id": "pr222-native-a:restart:297.10000000000366:home:throw_in",
+    "spot": {
+      "x": 105,
+      "y": 0
+    },
+    "team": "home",
+    "at": 297.10000000000366
+  },
+  "previous": {
+    "source": {
+      "path": "docs/performance/pr227-contact-followup-native-a-restart-halt.json.gz",
+      "sha256": "fa77a775ced5b1731bb2616b1ebb61da37eda0eb7d923aeb06ea3f52a5dcc024"
+    },
+    "haltAt": 372.1749999999354,
+    "readiness": {
+      "ready": false,
+      "ballReady": true,
+      "takerReady": true,
+      "opponentsReady": false,
+      "participantsReady": true,
+      "refereeReady": true,
+      "quickRestart": false,
+      "blockers": ["opponent_restriction"]
+    },
+    "markers": [
+      {
+        "id": "footballer_pro_1_12",
+        "marked": "footballer_pro_9_22",
+        "target": {
+          "x": 104.51804561189037,
+          "y": 2.146560031255094
+        }
+      },
+      {
+        "id": "footballer_pro_1_14",
+        "marked": "footballer_pro_9_5",
+        "target": {
+          "x": 104.33789978056964,
+          "y": 2.0980045994778656
+        }
+      },
+      {
+        "id": "footballer_pro_1_17",
+        "marked": "footballer_pro_9_17",
+        "target": {
+          "x": 104.21460426868077,
+          "y": 7.1894183306155695
+        }
+      },
+      {
+        "id": "footballer_pro_1_19",
+        "marked": "footballer_pro_9_22",
+        "target": {
+          "x": 104.51804561189037,
+          "y": 2.146560031255094
+        }
+      },
+      {
+        "id": "footballer_pro_1_21",
+        "marked": "footballer_pro_9_5",
+        "target": {
+          "x": 104.33789978056964,
+          "y": 2.0980045994778656
+        }
+      }
+    ],
+    "encroaching": [
+      {
+        "id": "footballer_pro_1_21",
+        "distance": 1.949145688454835,
+        "balance": "lost"
+      },
+      {
+        "id": "footballer_pro_1_14",
+        "distance": 1.9499986630188786,
+        "balance": "lost"
+      }
+    ]
+  },
+  "current": {
+    "initialTargets": [
+      {
+        "id": "footballer_pro_1_12",
+        "marked": "footballer_pro_9_22",
+        "target": {
+          "x": 104.6,
+          "y": 5.418160943747629
+        }
+      },
+      {
+        "id": "footballer_pro_1_14",
+        "marked": "footballer_pro_9_19",
+        "target": {
+          "x": 104.09473153896508,
+          "y": 3.8181134959229652
+        }
+      },
+      {
+        "id": "footballer_pro_1_17",
+        "marked": "footballer_pro_9_11",
+        "target": {
+          "x": 104.6,
+          "y": 10.146756640025782
+        }
+      },
+      {
+        "id": "footballer_pro_1_19",
+        "marked": "footballer_pro_9_22",
+        "target": {
+          "x": 103.42116674468411,
+          "y": 4.391627800778155
+        }
+      },
+      {
+        "id": "footballer_pro_1_21",
+        "marked": "footballer_pro_9_19",
+        "target": {
+          "x": 104.49010903002406,
+          "y": 4.540467457327306
+        }
+      }
+    ],
+    "placedAt": 316.47499999998604,
+    "readiness": {
+      "ballReady": true,
+      "takerReady": true,
+      "legalReady": true,
+      "tacticalReady": true,
+      "blockers": []
+    },
+    "releasedAt": 316.6249999999859,
+    "elapsed": 19.524999999982242,
+    "closestOpponent": {
+      "id": "footballer_pro_1_14",
+      "distance": 4.244729048567307,
+      "balance": "perturbed"
+    },
+    "previousEncroachers": [
+      {
+        "id": "footballer_pro_1_14",
+        "distance": 4.244729048567307,
+        "balance": "perturbed"
+      },
+      {
+        "id": "footballer_pro_1_21",
+        "distance": 6.178882480512498,
+        "balance": "lost"
+      }
+    ],
+    "throw": {
+      "throwerId": "footballer_pro_9_17",
+      "chosenReceiverId": "footballer_pro_9_19",
+      "requestedReceiverId": "footballer_pro_9_19",
+      "requestedTarget": {
+        "x": 94.0151903868716,
+        "y": 10.03265277735341
+      },
+      "releaseTarget": {
+        "x": 94.6282873912139,
+        "y": 9.613720560968188
+      },
+      "actualReleaseVector": {
+        "x": -9.90584600756373,
+        "y": 9.18430250534336,
+        "z": 4.275486067669479
+      },
+      "releasedAt": 316.6249999999859
+    },
+    "moved": {
+      "metres": 0.3373514295648926,
+      "at": 316.6499999999859
+    }
+  }
+}

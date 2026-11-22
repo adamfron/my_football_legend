@@ -1,5 +1,13 @@
 # Holistic compatibility and selection — PR214
 
+## PR227 experiment
+
+G requires the unprofiled PR225 skeleton and PR226 coupled limb impulses.
+Native G states validate their stance balance fields, and replay carries the
+G edition and canonical torso angles. F remains the control for historical
+ball impulses. The internal compression trial is exercised offline.
+[PR227 report](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
+
 PR220 uses the articulated v2 and PR219 research editions in the controlled
 runner. The laboratory placement objective has no native selector.
 [PR220 report](../PR220_LEARNED_MOTOR_PREPARATION.md).

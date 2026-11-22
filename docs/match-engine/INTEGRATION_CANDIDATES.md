@@ -1,5 +1,13 @@
 # MatchEngine integration candidates
 
+PR227 G (`holistic-dynamic-balance-dev-v1`) is an isolated Single Match Lab
+experiment. The native knee–thigh, ground-graze, support-transfer and late-shin
+ticks advance. Four archived restarts execute with grounded recovery, and
+the native-a throw-in near the goal line executes with spaced defensive targets.
+The independent 134.387 s contact advances. Full-match validation remains open.
+**RETAIN_EXPERIMENTAL.** PR201/B remains the maintained profile.
+[PR227 evidence](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
+
 PR226 F is a development-only Single Match Lab recipe
 (`holistic-limb-impulse-dev-v1`) over the PR225 full-body hierarchy. Its
 `composed-leg-impulse-dev-v2` edition is stored explicitly in native saves.

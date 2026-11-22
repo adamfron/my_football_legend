@@ -421,9 +421,15 @@ export const composeFullBodySkeleton = (
 ): FullBodySkeleton => {
   const m = player.bodyMorphology ?? DEFAULT_MORPHOLOGY,
     h = body.height;
+  const { pitch, roll } = body.torsoOrientation;
+  const tilt =
+    pitch || roll ? multiplyRotation(axisRotation('y', roll), axisRotation('x', pitch)) : undefined;
+  const yaw = axisRotation('z', -body.facing);
+  const withTilt = (rotation: SkeletonTransform['rotation']) =>
+    tilt ? multiplyRotation(tilt, rotation) : rotation;
   const root: SkeletonTransform = {
     position: body.root,
-    rotation: axisRotation('z', -body.facing),
+    rotation: withTilt(yaw),
   };
   const segments: FullBodySkeleton['segments'] = [],
     joints: FullBodySkeleton['joints'] = [],
@@ -446,11 +452,13 @@ export const composeFullBodySkeleton = (
       joint = jointFor(id);
     const reference =
       id === 'pelvis'
-        ? axisRotation(
-            'z',
-            Math.atan2(
-              body.geometry.right.hip.y - body.geometry.left.hip.y,
-              body.geometry.right.hip.x - body.geometry.left.hip.x,
+        ? withTilt(
+            axisRotation(
+              'z',
+              Math.atan2(
+                body.geometry.right.hip.y - body.geometry.left.hip.y,
+                body.geometry.right.hip.x - body.geometry.left.hip.x,
+              ),
             ),
           )
         : id.endsWith('_foot')
@@ -466,10 +474,10 @@ export const composeFullBodySkeleton = (
     const restReference =
       id.endsWith('_thigh') || id.endsWith('_shank')
         ? multiplyRotation(
-            root.rotation,
+            yaw,
             axisRotation('z', -m[id.startsWith('left') ? 'left' : 'right'].kneeAlignment),
           )
-        : root.rotation;
+        : yaw;
     const restWorld = { position: restFrom, rotation: oriented(restFrom, restTo, restReference) };
     const parentRest = parent ? restWorlds.get(parent)! : root;
     const segment = {
@@ -531,7 +539,7 @@ export const composeFullBodySkeleton = (
   const restPelvisHeight =
     h * Math.max(m.left.thigh + m.left.shank, m.right.thigh + m.right.shank) + 0.075;
   const restPoint = (x: number, y: number, z: number) =>
-    addPoint(root.position, rotatePoint(root.rotation, { x, y, z: z + restPelvisHeight }));
+    addPoint(root.position, rotatePoint(yaw, { x, y, z: z + restPelvisHeight }));
   const pelvis = body.geometry.pelvis;
   insert(
     'pelvis',
@@ -548,7 +556,7 @@ export const composeFullBodySkeleton = (
   const spineStep = (from: BodyPoint, length: number, pitch: number, yaw = 0) =>
     addPoint(
       from,
-      rotatePoint(axisRotation('z', -body.facing + yaw), {
+      rotatePoint(withTilt(axisRotation('z', -body.facing + yaw)), {
         x: 0,
         y: Math.sin(pitch) * length,
         z: Math.cos(pitch) * length,
@@ -637,7 +645,10 @@ export const composeFullBodySkeleton = (
       h * dim.footWidth,
       h * 0.055,
       restAnkle,
-      addPoint(restAnkle, rotatePoint(root.rotation, { x: 0, y: length * 0.65, z: -0.035 })),
+      addPoint(
+        restAnkle,
+        rotatePoint(axisRotation('z', -body.facing), { x: 0, y: length * 0.65, z: -0.035 }),
+      ),
     );
     foot.dimensions.length = length;
     feet[side] = {
@@ -650,7 +661,7 @@ export const composeFullBodySkeleton = (
     };
     const shoulder = addPoint(
       cervical,
-      rotatePoint(axisRotation('z', -body.facing + turn), {
+      rotatePoint(withTilt(axisRotation('z', -body.facing + turn)), {
         x: (sign * h * m.shoulderWidth) / 2,
         y: 0,
         z: 0,

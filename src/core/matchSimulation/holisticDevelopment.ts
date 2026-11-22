@@ -14,12 +14,14 @@ import { observedStrikePreparationSchema } from './pendingStrikeState';
 import { receptionPreparationEditionSchema } from './receptionPreparationEdition';
 import { fullBodySkeletonEditionSchema } from './bodyMorphology';
 import { withFullBodySkeleton } from './fullBodySkeleton';
+import { dynamicBalanceEditionSchema, GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 
 export const holisticPhysicalPresetSchema = z.enum([
   'holistic-physical-dev-v1',
   'holistic-stance-foot-dev-v2',
   'holistic-full-body-dev-v1',
   'holistic-limb-impulse-dev-v1',
+  'holistic-dynamic-balance-dev-v1',
 ]);
 type HolisticPhysicalPreset = z.infer<typeof holisticPhysicalPresetSchema>;
 
@@ -53,15 +55,21 @@ const limbImpulseHolisticRecipeSchema = fullBodyHolisticRecipeSchema.extend({
   id: z.literal('holistic-limb-impulse-dev-v1'),
   composedLegContact: z.literal('composed-leg-impulse-dev-v2'),
 });
+const balanceHolisticRecipeSchema = limbImpulseHolisticRecipeSchema.extend({
+  id: z.literal('holistic-dynamic-balance-dev-v1'),
+  dynamicBalance: dynamicBalanceEditionSchema,
+});
 const fullBodyHolisticRecipes = z.discriminatedUnion('id', [
   fullBodyHolisticRecipeSchema,
   limbImpulseHolisticRecipeSchema,
+  balanceHolisticRecipeSchema,
 ]);
 export const holisticRecipeSchema = z.discriminatedUnion('id', [
   originalHolisticRecipeSchema,
   articulatedHolisticRecipeSchema,
   fullBodyHolisticRecipeSchema,
   limbImpulseHolisticRecipeSchema,
+  balanceHolisticRecipeSchema,
 ]);
 export const holisticRecipe = (policy: DecisionPolicyId = 'state-value-v1') =>
   originalHolisticRecipeSchema.parse({
@@ -90,15 +98,21 @@ export const withHolisticDevelopment = (
   s.experimentalPlayerBodyImpulse = r.playerBody;
   s.executionWitnesses = {};
   let selected = preset === 'holistic-physical-dev-v1' ? s : withArticulatedBody(s);
-  if (preset === 'holistic-full-body-dev-v1' || preset === 'holistic-limb-impulse-dev-v1')
+  if (
+    preset === 'holistic-full-body-dev-v1' ||
+    preset === 'holistic-limb-impulse-dev-v1' ||
+    preset === 'holistic-dynamic-balance-dev-v1'
+  )
     selected = withFullBodySkeleton({
       ...selected,
       experimentalPostImpactStance: 'parked-stance-remainder-dev-v1',
       experimentalComposedLegContact:
-        preset === 'holistic-limb-impulse-dev-v1'
-          ? 'composed-leg-impulse-dev-v2'
-          : 'composed-leg-contact-dev-v1',
+        preset === 'holistic-full-body-dev-v1'
+          ? 'composed-leg-contact-dev-v1'
+          : 'composed-leg-impulse-dev-v2',
     });
+  if (preset === 'holistic-dynamic-balance-dev-v1')
+    selected = { ...selected, experimentalDynamicBalance: GROUNDED_RECOVERY_BALANCE };
   return tacticalMatchStateSchema.parse(selected) as unknown as TacticalMatchState;
 };
 
@@ -110,6 +124,9 @@ export const ARTICULATED_HOLISTIC_LIMITATION =
 
 export const FULL_BODY_HOLISTIC_LIMITATION =
   'Pełny szkielet łączy ruch ciała, nóg, ramion i głowy z modelem 3D. Kontakty nóg korzystają z eksperymentalnej fizyki. Nowe powierzchnie dłoni, ramion i głowy są nieaktywne; równowaga, upadanie i interwencje bramkarzy wymagają dalszego rozwoju.';
+
+export const DYNAMIC_BALANCE_LIMITATION =
+  'Edycja G uwzględnia reakcję ciała na impuls, skończony moment podparcia i krok odzyskujący równowagę. Utrata podparcia może przerwać sterowanie ruchem. Upadanie i wstawanie wymagają dalszego rozwoju.';
 
 /** Derive the display/export identity from executing selectors, never the UI label. */
 export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
@@ -148,12 +165,17 @@ export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
           ).parse({
             ...r,
             id: s.experimentalFullBodySkeleton
-              ? s.experimentalComposedLegContact === 'composed-leg-impulse-dev-v2'
-                ? 'holistic-limb-impulse-dev-v1'
-                : 'holistic-full-body-dev-v1'
+              ? s.experimentalDynamicBalance
+                ? 'holistic-dynamic-balance-dev-v1'
+                : s.experimentalComposedLegContact === 'composed-leg-impulse-dev-v2'
+                  ? 'holistic-limb-impulse-dev-v1'
+                  : 'holistic-full-body-dev-v1'
               : 'holistic-stance-foot-dev-v2',
             ...(s.experimentalFullBodySkeleton
               ? { fullBodySkeleton: s.experimentalFullBodySkeleton }
+              : {}),
+            ...(s.experimentalDynamicBalance
+              ? { dynamicBalance: s.experimentalDynamicBalance }
               : {}),
             articulatedBody: s.experimentalArticulatedBody,
             ...(s.experimentalObservedStrikePreparation

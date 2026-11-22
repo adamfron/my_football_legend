@@ -1,7 +1,13 @@
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { hasIndividualLowerBody, individualHipOffset, individualFootReach } from './bodyMorphology';
 import { deriveLowerBodyGeometry, neutralLowerBodyPose } from './lowerBodyGeometry';
-import { activeArticulatedFoot, type ArticulatedStance } from './articulatedBodyState';
+import {
+  activeArticulatedFoot,
+  groundedSupportFoot,
+  MAX_GROUNDED_SUPPORT_HEIGHT,
+  type ArticulatedStance,
+} from './articulatedBodyState';
+import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 
 /** PR216 engineering reference, not measured cleat calibration. Stance duration
  * is bounded by seven ticks and shortened against anticipated root travel. */
@@ -17,6 +23,7 @@ export const withoutArticulatedBody = (state: TacticalMatchState): TacticalMatch
     experimentalPostImpactStance: _remainder,
     experimentalComposedLegContact: _limbs,
     experimentalFullBodySkeleton: _skeleton,
+    experimentalDynamicBalance: _balance,
     lastLimbContacts: _lastLimbContacts,
     experimentalObservedStrikePreparation: _preparation,
     ...rest
@@ -25,6 +32,7 @@ export const withoutArticulatedBody = (state: TacticalMatchState): TacticalMatch
   void _remainder;
   void _limbs;
   void _skeleton;
+  void _balance;
   void _lastLimbContacts;
   void _preparation;
   const clear = (p: MatchPlayerState) => {
@@ -207,13 +215,15 @@ export const constrainArticulatedMotor = (
   velocity: MatchPlayerState['velocity'],
   facingAngle: number,
   dt: number,
+  groundedRecovery = actor.articulatedStance?.dynamicBalance?.version === GROUNDED_RECOVERY_BALANCE,
 ) => {
   const stance = actor.articulatedStance!;
   const surface = ARTICULATED_SURFACES[stance.surface];
   const airborne = (actor.verticalJump?.height ?? 0) > 0;
+  const lost = stance.dynamicBalance?.phase === 'lost';
   const delta = { x: velocity.x - actor.velocity.x, y: velocity.y - actor.velocity.y };
   const requested = Math.hypot(delta.x, delta.y);
-  const available = airborne || !stance.support ? 0 : surface.mu * 9.81 * dt;
+  const available = airborne || !stance.support || lost ? 0 : surface.mu * 9.81 * dt;
   const fraction = Math.min(1, available / Math.max(1e-12, requested));
   const inertia = (actor.profile.weightKg * (actor.profile.heightCm / 100) ** 2) / 12;
   const turn = Math.atan2(
@@ -222,7 +232,24 @@ export const constrainArticulatedMotor = (
   );
   const desiredOmega = turn / dt;
   // Rotational resistance and translational grip are different constraints.
-  const omegaDelta = airborne || !stance.support ? 0 : (surface.rotationalLimit / inertia) * dt;
+  const omegaDelta =
+    airborne || !stance.support || lost ? 0 : (surface.rotationalLimit / inertia) * dt;
+  if (groundedRecovery && lost && groundedSupportFoot(stance, actor.verticalJump?.height)) {
+    // With a grounded boot, sliding friction opposes the inertia of a player
+    // who has lost balance. This impulse cannot steer toward a motor target.
+    const speed = Math.hypot(actor.velocity.x, actor.velocity.y);
+    const retained = Math.max(0, 1 - (surface.mu * 9.81 * dt) / Math.max(1e-12, speed));
+    const omega = stance.angularVelocity;
+    const yaw =
+      Math.sign(omega) * Math.max(0, Math.abs(omega) - (surface.rotationalLimit / inertia) * dt);
+    return {
+      velocity: { x: actor.velocity.x * retained, y: actor.velocity.y * retained },
+      facingAngle: actor.facingAngle + yaw * dt,
+      angularVelocity: yaw,
+      requestedForce: (actor.profile.weightKg * requested) / dt,
+      availableForce: 0,
+    };
+  }
   const omega =
     stance.angularVelocity +
     Math.max(-omegaDelta, Math.min(omegaDelta, desiredOmega - stance.angularVelocity));
@@ -305,6 +332,7 @@ export const advanceArticulatedStance = (
   angularVelocity = before.articulatedStance?.angularVelocity ?? 0,
 ): ArticulatedStance => {
   const old = before.articulatedStance!;
+  const recovery = old.dynamicBalance?.recovery;
   const speed = Math.hypot(after.velocity.x, after.velocity.y);
   const yaw = Math.atan2(
     Math.sin(after.facingAngle - old.supportYaw),
@@ -314,6 +342,7 @@ export const advanceArticulatedStance = (
     speed < 0.1 &&
     Math.abs(yaw) < 0.2 &&
     !activeFoot &&
+    !recovery &&
     !after.verticalJump?.height &&
     old.support &&
     old.left.z <= 0.04 + 1e-8 &&
@@ -335,6 +364,42 @@ export const advanceArticulatedStance = (
     next.stepSeconds = duration;
     next.elapsed = Math.min(duration, dt);
   }
+  const planted = next.support;
+  const slidingAfterLoss =
+    old.dynamicBalance?.version === GROUNDED_RECOVERY_BALANCE &&
+    old.dynamicBalance.phase === 'lost';
+  if (
+    planted &&
+    old[planted].z <= MAX_GROUNDED_SUPPORT_HEIGHT &&
+    old.dynamicBalance?.lastLoad &&
+    (old.dynamicBalance.phase === 'perturbed' ||
+      old.dynamicBalance.phase === 'stepping' ||
+      slidingAfterLoss)
+  ) {
+    // At the stance reach limit, the planted anchor can follow the outward
+    // root only by sliding. Motion is bounded by what traction cannot arrest.
+    const x = nominal[planted].hip.x - old[planted].x;
+    const y = nominal[planted].hip.y - old[planted].y;
+    const distance = Math.hypot(x, y);
+    const reach = individualFootReach(
+      Math.max(1.4, Math.min(2.2, after.profile.heightCm / 100)),
+      planted,
+      after.bodyMorphology,
+    );
+    if (distance > reach) {
+      const outwardSpeed = (after.velocity.x * x + after.velocity.y * y) / distance;
+      const unarrestedSpeed = Math.max(
+        0,
+        outwardSpeed - (slidingAfterLoss ? 0 : ARTICULATED_SURFACES[old.surface].mu * 9.81 * dt),
+      );
+      const fraction = Math.min(distance - reach, unarrestedSpeed * dt) / distance;
+      next[planted] = {
+        ...old[planted],
+        x: old[planted].x + x * fraction,
+        y: old[planted].y + y * fraction,
+      };
+    }
+  }
   const swing =
     next.support === 'left'
       ? 'right'
@@ -349,12 +414,19 @@ export const advanceArticulatedStance = (
   for (const foot of after.verticalJump?.height
     ? (['left', 'right'] as const)
     : ([swing] as const)) {
-    const destination = {
+    const normalTarget = {
       ...nominal[foot].foot,
       x: nominal[foot].foot.x + after.velocity.x * 0.05,
       y: nominal[foot].foot.y + after.velocity.y * 0.05,
       z: nominal[foot].foot.z + 0.08 * Math.sin((Math.PI * next.elapsed) / duration),
     };
+    const destination =
+      recovery?.foot === foot && foot !== activeFoot && !after.verticalJump?.height
+        ? {
+            ...recovery.target,
+            z: recovery.target.z + 0.08 * Math.sin((Math.PI * next.elapsed) / duration),
+          }
+        : normalTarget;
     const hip = nominal[foot].hip;
     const horizontal = Math.hypot(destination.x - hip.x, destination.y - hip.y);
     const reach = individualFootReach(

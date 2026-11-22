@@ -1,0 +1,87 @@
+{
+  "cases": [
+    {
+      "fixture": "paired",
+      "seconds": 180,
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "20456c5f4d39cc12030217adccf11afdd3d00dc1067fe546abf1e531b6d0fd47",
+      "final": {
+        "at": 180.0000000000238,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 7200,
+        "decisions": 37,
+        "passReleases": 9,
+        "retainedBootContacts": 23,
+        "bodyImpactTimes": 133,
+        "shinContacts": 17,
+        "ownerChanges": 31,
+        "restarts": 7
+      },
+      "invalid": 0,
+      "goals": [],
+      "safetyHalt": null,
+      "previousTerminalHash": "52202dcd7758d1ee057f22b055ffdc02b296a8a10a3d46df5068613f2c99c23d"
+    },
+    {
+      "fixture": "native-a",
+      "seconds": 420,
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "e1010b3211b6f4471f7cee6d0b6d68f9b8075df748fec75e8d058c30c3cdb407",
+      "final": {
+        "at": 419.9999999998919,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 16800,
+        "decisions": 191,
+        "passReleases": 21,
+        "retainedBootContacts": 76,
+        "bodyImpactTimes": 306,
+        "shinContacts": 39,
+        "ownerChanges": 103,
+        "restarts": 13
+      },
+      "invalid": 0,
+      "goals": [],
+      "safetyHalt": null
+    },
+    {
+      "fixture": "independent",
+      "seconds": 180,
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+      "terminalHash": "53ce5cad35e894e9eaad03734b0f7182f1f7c8da9eda5c65f8a4b58c992f3590",
+      "final": {
+        "at": 180.0000000000238,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 7200,
+        "decisions": 36,
+        "passReleases": 8,
+        "retainedBootContacts": 20,
+        "bodyImpactTimes": 155,
+        "shinContacts": 27,
+        "ownerChanges": 27,
+        "restarts": 8
+      },
+      "invalid": 0,
+      "goals": [],
+      "safetyHalt": null,
+      "previousTerminalHash": "53ce5cad35e894e9eaad03734b0f7182f1f7c8da9eda5c65f8a4b58c992f3590"
+    }
+  ]
+}

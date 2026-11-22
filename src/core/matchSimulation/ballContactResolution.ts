@@ -21,6 +21,7 @@ const length = (v: FlightPoint) => Math.hypot(v.x, v.y, v.z);
 
 type BallMotion = { velocity: BallVelocity3d; spin: BallVelocity3d };
 type MovingSurface = { normal: FlightPoint; velocity: FlightPoint };
+type InverseContactMass = (impulse: FlightPoint) => FlightPoint;
 const { mass, radius, inertia } = FOOT_CONTACT_PHYSICS;
 export const COMPOSED_LIMB_IMPACT = { restitution: 0.38, friction: 0.42 } as const;
 
@@ -30,17 +31,41 @@ const patchMotion = (ball: BallMotion, surface: MovingSurface) =>
 /** One passive point impulse on a hollow sphere against the measured kinematic
  * surface. Friction reduces slip and applies the same impulse to translation
  * and spin. Capsule roll, compliant tissue and limb recoil are unmodeled. */
-export const resolveComposedLimbImpact = (ball: BallMotion, surface: MovingSurface) => {
+export const resolveComposedLimbImpact = (
+  ball: BallMotion,
+  surface: MovingSurface,
+  bodyMobility?: InverseContactMass,
+  impact: { restitution: number; friction: number } = COMPOSED_LIMB_IMPACT,
+) => {
   const { normal } = surface;
   const relative = patchMotion(ball, surface);
   const normalSpeed = dot(relative, normal);
-  const normalImpulse = mass * (1 + COMPOSED_LIMB_IMPACT.restitution) * Math.max(0, -normalSpeed);
-  const slip = sub(relative, scale(normal, normalSpeed));
+  const normalImpulse =
+    (bodyMobility ? 1 / (1 / mass + dot(normal, bodyMobility(normal))) : mass) *
+    (1 + impact.restitution) *
+    Math.max(0, -normalSpeed);
+  const afterNormal = bodyMobility
+    ? add(
+        add(relative, scale(normal, normalImpulse / mass)),
+        bodyMobility(scale(normal, normalImpulse)),
+      )
+    : relative;
+  const slip = sub(
+    afterNormal,
+    scale(normal, bodyMobility ? dot(afterNormal, normal) : normalSpeed),
+  );
+  const slipLength = length(slip);
+  const direction = scale(slip, 1 / Math.max(1e-12, slipLength));
+  const bodySlip = bodyMobility?.(direction);
+  const coupling = bodySlip ? dot(bodySlip, normal) : 0;
   const tangentialImpulse = scale(
     slip,
     -Math.min(
-      1 / (1 / mass + radius ** 2 / inertia),
-      (COMPOSED_LIMB_IMPACT.friction * normalImpulse) / Math.max(length(slip), 1e-12),
+      1 / (1 / mass + radius ** 2 / inertia + (bodySlip ? dot(bodySlip, direction) : 0)),
+      (impact.friction * normalImpulse) / Math.max(slipLength, 1e-12),
+      coupling > 0
+        ? Math.max(0, dot(afterNormal, normal)) / (coupling * Math.max(slipLength, 1e-12))
+        : Infinity,
     ),
   );
   const angularDelta = scale(cross(scale(normal, -radius), tangentialImpulse), 1 / inertia);
@@ -188,6 +213,7 @@ export const resolveOpposingBallContactImpulse = (
   incoming: BallVelocity3d,
   a: { normal: FlightPoint; velocity: BallVelocity3d },
   b: { normal: FlightPoint; velocity: BallVelocity3d },
+  pairRestitution = 0,
 ) => {
   const cos = dot(a.normal, b.normal);
   const determinant = 1 - cos * cos;
@@ -198,13 +224,21 @@ export const resolveOpposingBallContactImpulse = (
   const ja = (da - cos * db) / determinant,
     jb = (db - cos * da) / determinant;
   if (ja <= 0 || jb <= 0) return;
+  const compression = Math.max(0, (mass * (ja * da + jb * db)) / 2);
+  // Equal recovery speed at the two loaded patches costs the same fraction
+  // of measured compression work in their Gram metric.
+  const release =
+    pairRestitution > 0 ? pairRestitution * Math.sqrt(compression / (mass * (1 + cos))) : 0;
+  const impulseA = ja + release;
+  const impulseB = jb + release;
   return {
     velocity: {
-      x: incoming.x + ja * a.normal.x + jb * b.normal.x,
-      y: incoming.y + ja * a.normal.y + jb * b.normal.y,
-      z: incoming.z + ja * a.normal.z + jb * b.normal.z,
+      x: incoming.x + impulseA * a.normal.x + impulseB * b.normal.x,
+      y: incoming.y + impulseA * a.normal.y + impulseB * b.normal.y,
+      z: incoming.z + impulseA * a.normal.z + impulseB * b.normal.z,
     },
-    impulses: [scale(a.normal, mass * ja), scale(b.normal, mass * jb)] as const,
+    impulses: [scale(a.normal, mass * impulseA), scale(b.normal, mass * impulseB)] as const,
+    dissipated: compression * (1 - pairRestitution ** 2),
   };
 };
 

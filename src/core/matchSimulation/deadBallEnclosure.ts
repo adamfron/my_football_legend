@@ -4,7 +4,10 @@ import type { PhysicalBall } from './ballPhysics';
 /** Abstract venue perimeter shared by off-pitch retrieval bodies and the real stopped ball. */
 export const DEAD_BALL_RUNOFF_METRES = 8;
 
-export const resolveDeadBallPerimeter = (ball: PhysicalBall): PhysicalBall => {
+export const resolveDeadBallPerimeter = (
+  ball: PhysicalBall,
+  start?: PhysicalBall['position'],
+): PhysicalBall => {
   const position = { ...ball.position },
     velocity = { ...ball.velocity };
   for (const [axis, maximum] of [
@@ -14,10 +17,10 @@ export const resolveDeadBallPerimeter = (ball: PhysicalBall): PhysicalBall => {
     const low = -DEAD_BALL_RUNOFF_METRES + BALL_RADIUS;
     const high = maximum + DEAD_BALL_RUNOFF_METRES - BALL_RADIUS;
     if (position[axis] < low && velocity[axis] < 0) {
-      position[axis] = low;
+      if (!start || start[axis] >= low) position[axis] = low;
       velocity[axis] *= -0.08;
     } else if (position[axis] > high && velocity[axis] > 0) {
-      position[axis] = high;
+      if (!start || start[axis] <= high) position[axis] = high;
       velocity[axis] *= -0.08;
     }
   }

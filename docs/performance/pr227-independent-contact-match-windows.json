@@ -1,0 +1,203 @@
+{
+  "windowSeconds": 180,
+  "cases": [
+    {
+      "fixture": "paired",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "52202dcd7758d1ee057f22b055ffdc02b296a8a10a3d46df5068613f2c99c23d",
+      "final": {
+        "at": 180.0000000000238,
+        "status": "first_half",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "ticks": 7200,
+        "decisions": 23,
+        "passReleases": 7,
+        "retainedBootContacts": 21,
+        "bodyImpactTimes": 126,
+        "shinContacts": 21,
+        "ownerChanges": 22,
+        "restarts": 7
+      },
+      "invalid": 0,
+      "goals": [
+        {
+          "at": 123.47500000001095,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        }
+      ],
+      "safetyHalt": null,
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 180,
+        "steps": 17,
+        "slipping": 0,
+        "lost": 435
+      },
+      "longerAttempt": {
+        "lastObserved": {
+          "at": 660.0249999996736,
+          "ticks": 26401,
+          "score": {
+            "home": 2,
+            "away": 1
+          },
+          "passes": 25,
+          "shinEvents": 33
+        },
+        "endedByOperator": true
+      }
+    },
+    {
+      "fixture": "native-a",
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "770d7836b2c1b4c6a07e129af1300925458c0cc162cb88ceb36a6168d15e3a17",
+      "final": {
+        "at": 180.0000000000238,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 7200,
+        "decisions": 78,
+        "passReleases": 10,
+        "retainedBootContacts": 35,
+        "bodyImpactTimes": 127,
+        "shinContacts": 19,
+        "ownerChanges": 50,
+        "restarts": 7
+      },
+      "invalid": 0,
+      "goals": [],
+      "safetyHalt": null,
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 180,
+        "steps": 23,
+        "slipping": 0,
+        "lost": 436
+      },
+      "longerAttempt": {
+        "terminalHash": "c81fe185640fe85eab9fff4bc5d3c67d67d7661f0eb959484ff92a3458787e4f",
+        "final": {
+          "at": 372.1749999999354,
+          "status": "first_half",
+          "score": {
+            "home": 0,
+            "away": 0
+          },
+          "ticks": 14886,
+          "decisions": 132,
+          "passReleases": 14,
+          "retainedBootContacts": 51,
+          "bodyImpactTimes": 250,
+          "shinContacts": 24,
+          "ownerChanges": 70,
+          "restarts": 10
+        },
+        "safetyHalt": {
+          "kind": "restart_lifecycle",
+          "reason": "opponent_restriction",
+          "at": 372.1749999999354,
+          "intervalStartedAt": 372.1749999999354,
+          "actorIds": [],
+          "ball": {
+            "x": 105.03871379487023,
+            "y": -0.03850034246173917,
+            "z": 0.0999999999999995
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "spin": {
+            "x": 3.9255945336051274e-15,
+            "y": 2.212831421138666e-14,
+            "z": 1.437103532370246e-16
+          }
+        },
+        "invalid": 0,
+        "snapshot": {
+          "path": "docs/performance/pr227-contact-followup-native-a-restart-halt.json.gz",
+          "sha256": "fa77a775ced5b1731bb2616b1ebb61da37eda0eb7d923aeb06ea3f52a5dcc024"
+        },
+        "restrictedOpponents": [
+          {
+            "id": "footballer_pro_1_14",
+            "metresFromThrow": 1.9499986630188786,
+            "balance": "lost"
+          },
+          {
+            "id": "footballer_pro_1_21",
+            "metresFromThrow": 1.949145688454835,
+            "balance": "lost"
+          }
+        ],
+        "control": {
+          "commit": "fa07a3c5db8ad1b018710893f377e67a48da6c96",
+          "terminalHash": "c81fe185640fe85eab9fff4bc5d3c67d67d7661f0eb959484ff92a3458787e4f",
+          "reason": "opponent_restriction",
+          "haltAt": 372.1749999999354,
+          "snapshotSha256": "fa77a775ced5b1731bb2616b1ebb61da37eda0eb7d923aeb06ea3f52a5dcc024"
+        }
+      }
+    },
+    {
+      "fixture": "independent",
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+      "terminalHash": "53ce5cad35e894e9eaad03734b0f7182f1f7c8da9eda5c65f8a4b58c992f3590",
+      "final": {
+        "at": 180.0000000000238,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 7200,
+        "decisions": 36,
+        "passReleases": 8,
+        "retainedBootContacts": 20,
+        "bodyImpactTimes": 155,
+        "shinContacts": 27,
+        "ownerChanges": 27,
+        "restarts": 8
+      },
+      "invalid": 0,
+      "goals": [],
+      "safetyHalt": null,
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 180,
+        "steps": 29,
+        "slipping": 2,
+        "lost": 538
+      },
+      "longerAttempt": {
+        "lastObserved": {
+          "at": 660.0249999996736,
+          "ticks": 26401,
+          "score": {
+            "home": 0,
+            "away": 0
+          },
+          "passes": 26,
+          "shinEvents": 49
+        },
+        "endedByOperator": true
+      }
+    }
+  ]
+}

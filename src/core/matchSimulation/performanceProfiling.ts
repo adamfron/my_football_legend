@@ -27,6 +27,7 @@ export const performanceCategorySchema = z.enum([
   'pass_planning',
   'first_touch',
   'movement_physics',
+  'dynamic_balance',
   'ball_physics',
   'ball_contact_control',
   'ball_contact_detection',

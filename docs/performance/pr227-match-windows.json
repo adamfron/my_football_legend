@@ -1,0 +1,503 @@
+{
+  "node": "v24.22.1",
+  "platform": "win32",
+  "windows": [
+    {
+      "fixture": "paired",
+      "arm": "G",
+      "source": {
+        "path": "docs/performance/pr224-full-match-paired.json",
+        "sha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+        "archivedKickoffHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f"
+      },
+      "terminalHash": "401935061b6eaf33d5900218ffa23e22386dea2ca93d0a28a80a9cdc8262a379",
+      "final": {
+        "at": 84.47500000000208,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 3378,
+        "decisions": 26,
+        "passReleases": 3,
+        "retainedBootContacts": 10,
+        "bodyImpactTimes": 13,
+        "shinContacts": 4,
+        "ownerChanges": 10,
+        "restarts": 4
+      },
+      "invalid": 0,
+      "poses": 1848,
+      "cost": {
+        "wallSeconds": 13.8309,
+        "compositionAndValidationMs": 0.24529220779219804,
+        "heapMiB": 155.57598876953125,
+        "traced": true,
+        "meanTickMs": 3.9157702870671915,
+        "p95TickMs": 7.225099999999657,
+        "p99TickMs": 9.630599999999959,
+        "peakSampledHeapMiB": 458.4750213623047,
+        "terminalNativeBytes": 211742,
+        "replaySnapshotBytes": 69214,
+        "composedLegSearch": {
+          "calls": 644,
+          "samples": 4195,
+          "maxSamples": 192,
+          "milliseconds": 129.19199999999273,
+          "exhausted": 4
+        }
+      },
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "ball_not_placed",
+        "at": 84.47500000000208,
+        "intervalStartedAt": 84.47500000000208,
+        "actorIds": [],
+        "ball": {
+          "x": 112.88826566368733,
+          "y": 71.2517034166802,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": -9.507253952461821e-33,
+          "y": 3.6330042272426174e-33,
+          "z": 2.934081953134892e-38
+        }
+      },
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 84,
+        "steps": 2,
+        "slipping": 0,
+        "lost": 1045
+      },
+      "nativeHaltInput": {
+        "path": "docs/performance/pr227-paired-development-halt.json.gz",
+        "sha256": "66a38eaa024f23f0d6466723540de26a972f49afe44206036a4e917485896e51"
+      }
+    },
+    {
+      "fixture": "native-a",
+      "arm": "G",
+      "source": {
+        "path": "docs/performance/pr224-full-match-pr222-native-a.json",
+        "sha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+        "archivedKickoffHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317"
+      },
+      "terminalHash": "bd432b8e3801dc58ae7dbb0bca3274879eef2e14626f4b490246e3b2a62b35ac",
+      "final": {
+        "at": 45.92499999999846,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 1836,
+        "decisions": 5,
+        "passReleases": 1,
+        "retainedBootContacts": 4,
+        "bodyImpactTimes": 16,
+        "shinContacts": 6,
+        "ownerChanges": 6,
+        "restarts": 2
+      },
+      "invalid": 0,
+      "poses": 990,
+      "cost": {
+        "wallSeconds": 6.9244212,
+        "compositionAndValidationMs": 0.2584694949494732,
+        "heapMiB": 164.64995574951172,
+        "traced": true,
+        "meanTickMs": 3.594102286336412,
+        "p95TickMs": 6.121399999999994,
+        "p99TickMs": 8.918999999999869,
+        "peakSampledHeapMiB": 190.72330474853516,
+        "terminalNativeBytes": 192832,
+        "replaySnapshotBytes": 69299,
+        "composedLegSearch": {
+          "calls": 333,
+          "samples": 1970,
+          "maxSamples": 192,
+          "milliseconds": 47.32590000000073,
+          "exhausted": 1
+        }
+      },
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "ball_not_placed",
+        "at": 45.92499999999846,
+        "intervalStartedAt": 45.92499999999846,
+        "actorIds": [],
+        "ball": {
+          "x": 112.51547859438656,
+          "y": -6.291647968135941,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": 4.665166510967236e-31,
+          "y": 1.2951460061004307e-30,
+          "z": -6.789757050934805e-36
+        }
+      },
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 45,
+        "steps": 2,
+        "slipping": 0,
+        "lost": 477
+      },
+      "nativeHaltInput": {
+        "path": "docs/performance/pr227-native-a-development-halt.json.gz",
+        "sha256": "85da92d3f7c1cc9f888e53b0f8e0e0a2751e3d23e0325e0f0a4b91eb930e2d61"
+      }
+    },
+    {
+      "fixture": "independent",
+      "arm": "G",
+      "source": {
+        "path": "docs/performance/pr224-full-match-independent.json",
+        "sha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+        "archivedKickoffHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102"
+      },
+      "terminalHash": "bbe975886f8345f8848e70f0ec0d1bcd00b0c0663a542408110a12db3ed21eff",
+      "final": {
+        "at": 65.59999999999779,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 2623,
+        "decisions": 16,
+        "passReleases": 4,
+        "retainedBootContacts": 7,
+        "bodyImpactTimes": 12,
+        "shinContacts": 4,
+        "ownerChanges": 10,
+        "restarts": 2
+      },
+      "invalid": 0,
+      "poses": 1430,
+      "cost": {
+        "wallSeconds": 10.2337471,
+        "compositionAndValidationMs": 0.23700671328668257,
+        "heapMiB": 101.74375915527344,
+        "traced": true,
+        "meanTickMs": 3.7299809070121936,
+        "p95TickMs": 6.47780000000057,
+        "p99TickMs": 9.11200000000008,
+        "peakSampledHeapMiB": 212.08448791503906,
+        "terminalNativeBytes": 206114,
+        "replaySnapshotBytes": 69251,
+        "composedLegSearch": {
+          "calls": 601,
+          "samples": 3549,
+          "maxSamples": 192,
+          "milliseconds": 95.2682000000134,
+          "exhausted": 4
+        }
+      },
+      "safetyHalt": {
+        "kind": "loose_ball_lifecycle",
+        "reason": "no_reachable_control_progress",
+        "at": 65.59999999999779,
+        "intervalStartedAt": 65.59999999999779,
+        "actorIds": [],
+        "ball": {
+          "x": 83.9244608593987,
+          "y": 1.8062235523169345,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": 3.907769732667562e-30,
+          "y": 2.3680995152654027e-30,
+          "z": 2.6286839585953e-31
+        }
+      },
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 65,
+        "steps": 3,
+        "slipping": 0,
+        "lost": 423
+      },
+      "nativeHaltInput": {
+        "path": "docs/performance/pr227-independent-development-halt.json.gz",
+        "sha256": "248050a907330e538063b972cda48244341d6ff3b7bed12193ffcf5dc38fb688"
+      }
+    }
+  ],
+  "paired": [
+    {
+      "fixture": "paired",
+      "arm": "F",
+      "source": {
+        "path": "docs/performance/pr224-full-match-paired.json",
+        "sha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+        "archivedKickoffHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f"
+      },
+      "terminalHash": "cdded741c2b4ca24af154cc6acc14f58ad20bc68c548d1d9390e866bb8c26456",
+      "final": {
+        "at": 8.000000000000046,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 320,
+        "decisions": 5,
+        "passReleases": 1,
+        "retainedBootContacts": 3,
+        "bodyImpactTimes": 5,
+        "shinContacts": 1,
+        "ownerChanges": 2,
+        "restarts": 1
+      },
+      "invalid": 0,
+      "poses": 176,
+      "cost": {
+        "wallSeconds": 0.8230845999999999,
+        "compositionAndValidationMs": 0.3403971590909304,
+        "heapMiB": 151.82718658447266,
+        "traced": false,
+        "meanTickMs": 2.3110534374999885,
+        "p95TickMs": 4.942900000000009,
+        "p99TickMs": 8.778699999999844,
+        "peakSampledHeapMiB": 142.62700653076172,
+        "terminalNativeBytes": 226488,
+        "replaySnapshotBytes": 70750
+      },
+      "safetyHalt": null
+    },
+    {
+      "fixture": "paired",
+      "arm": "G",
+      "source": {
+        "path": "docs/performance/pr224-full-match-paired.json",
+        "sha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+        "archivedKickoffHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f"
+      },
+      "terminalHash": "304c02a5f8d60ac5968172f22f8f4c9fea0362e913b9fb71654d5f65f96f0b55",
+      "final": {
+        "at": 8.000000000000046,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 320,
+        "decisions": 4,
+        "passReleases": 1,
+        "retainedBootContacts": 4,
+        "bodyImpactTimes": 5,
+        "shinContacts": 1,
+        "ownerChanges": 3,
+        "restarts": 1
+      },
+      "invalid": 0,
+      "poses": 176,
+      "cost": {
+        "wallSeconds": 1.4106339000000003,
+        "compositionAndValidationMs": 0.290381250000001,
+        "heapMiB": 166.54166412353516,
+        "traced": false,
+        "meanTickMs": 4.163250937500002,
+        "p95TickMs": 7.279400000000351,
+        "p99TickMs": 13.312700000000405,
+        "peakSampledHeapMiB": 195.32929229736328,
+        "terminalNativeBytes": 242730,
+        "replaySnapshotBytes": 71909
+      },
+      "safetyHalt": null,
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 8,
+        "steps": 1,
+        "slipping": 0,
+        "lost": 27
+      }
+    },
+    {
+      "fixture": "paired",
+      "arm": "G",
+      "source": {
+        "path": "docs/performance/pr224-full-match-paired.json",
+        "sha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+        "archivedKickoffHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f"
+      },
+      "terminalHash": "304c02a5f8d60ac5968172f22f8f4c9fea0362e913b9fb71654d5f65f96f0b55",
+      "final": {
+        "at": 8.000000000000046,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 320,
+        "decisions": 4,
+        "passReleases": 1,
+        "retainedBootContacts": 4,
+        "bodyImpactTimes": 5,
+        "shinContacts": 1,
+        "ownerChanges": 3,
+        "restarts": 1
+      },
+      "invalid": 0,
+      "poses": 176,
+      "cost": {
+        "wallSeconds": 1.5602521,
+        "compositionAndValidationMs": 0.32361761363637503,
+        "heapMiB": 132.7413558959961,
+        "traced": true,
+        "meanTickMs": 4.602742187499998,
+        "p95TickMs": 8.006999999999607,
+        "p99TickMs": 14.467600000000402,
+        "peakSampledHeapMiB": 153.69093322753906,
+        "terminalNativeBytes": 242730,
+        "replaySnapshotBytes": 71909,
+        "composedLegSearch": {
+          "calls": 254,
+          "samples": 1204,
+          "maxSamples": 192,
+          "milliseconds": 31.457299999999577,
+          "exhausted": 2
+        }
+      },
+      "safetyHalt": null,
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 8,
+        "steps": 1,
+        "slipping": 0,
+        "lost": 27
+      },
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 37,
+        "ticks": 320,
+        "sampledTicks": 9,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "perception_gathering",
+            "sampledMs": 7.0932000000007065,
+            "estimatedMs": 252.2026666666918,
+            "sampledCalls": 54
+          },
+          {
+            "category": "spatial_memory",
+            "sampledMs": 8.365600000000086,
+            "estimatedMs": 297.44355555555865,
+            "sampledCalls": 3
+          },
+          {
+            "category": "defensive_attention",
+            "sampledMs": 0.053399999999783176,
+            "estimatedMs": 1.8986666666589576,
+            "sampledCalls": 9
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 12.67599999999993,
+            "estimatedMs": 450.7022222222198,
+            "sampledCalls": 9
+          },
+          {
+            "category": "movement_authority",
+            "sampledMs": 0.2716000000002623,
+            "estimatedMs": 9.656888888898216,
+            "sampledCalls": 200
+          },
+          {
+            "category": "dynamic_balance",
+            "sampledMs": 14.695700000000897,
+            "estimatedMs": 522.5137777778098,
+            "sampledCalls": 200
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 30.704199999999673,
+            "estimatedMs": 1091.7048888888773,
+            "sampledCalls": 9
+          },
+          {
+            "category": "ball_contact_detection",
+            "sampledMs": 0.6664000000005217,
+            "estimatedMs": 23.69422222224077,
+            "sampledCalls": 11
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 1.1532999999999447,
+            "estimatedMs": 41.00622222222026,
+            "sampledCalls": 77
+          },
+          {
+            "category": "first_touch",
+            "sampledMs": 0.11849999999981264,
+            "estimatedMs": 4.213333333326672,
+            "sampledCalls": 3
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 20.360700000000406,
+            "estimatedMs": 723.9360000000145,
+            "sampledCalls": 9
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 0.09789999999975407,
+            "estimatedMs": 3.480888888880145,
+            "sampledCalls": 9
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 1.1367000000002463,
+            "estimatedMs": 40.41600000000876,
+            "sampledCalls": 9
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 0.04329999999981737,
+            "estimatedMs": 1.5395555555490623,
+            "sampledCalls": 8
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 0.04989999999997963,
+            "estimatedMs": 1.7742222222214978,
+            "sampledCalls": 1
+          },
+          {
+            "category": "ball_collision_resolution",
+            "sampledMs": 0.0059000000001105946,
+            "estimatedMs": 0.20977777778171003,
+            "sampledCalls": 5
+          },
+          {
+            "category": "pre_reception_candidates",
+            "sampledMs": 2.4473000000002685,
+            "estimatedMs": 87.01511111112066,
+            "sampledCalls": 2
+          }
+        ]
+      }
+    }
+  ]
+}

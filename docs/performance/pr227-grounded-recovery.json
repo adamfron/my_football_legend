@@ -1,0 +1,694 @@
+{
+  "cases": [
+    {
+      "source": {
+        "path": "docs/performance/pr227-followup-paired-halt.json.gz",
+        "sha256": "6b1f44d318d4e7598e3c295106c6f58ebdbed76cedf557b24dad4f18c2490100"
+      },
+      "start": 118.0000000000097,
+      "award": {
+        "id": "lab-mw3xhr6o:restart:65.04999999999767:home:kick_off",
+        "team": "home",
+        "scenario": "kick_off",
+        "spot": {
+          "x": 52.5,
+          "y": 34
+        }
+      },
+      "available": ["footballer_pro_9_0"],
+      "lost": [
+        {
+          "id": "footballer_pro_1_12",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_14",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_17",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_19",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_21",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_22",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_3",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_7",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_11",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_12",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_14",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_17",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_19",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_22",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_3",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_5",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_7",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_9",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        }
+      ],
+      "playersInOtherHalf": [
+        "footballer_pro_1_22",
+        "footballer_pro_1_3",
+        "footballer_pro_9_11",
+        "footballer_pro_9_17",
+        "footballer_pro_9_22",
+        "footballer_pro_9_3",
+        "footballer_pro_9_9"
+      ],
+      "previous": {
+        "edition": "dynamic-balance-dev-v1",
+        "at": 118.02500000000971,
+        "elapsed": 0.025000000000005684,
+        "assignedAt": 118.02500000000971,
+        "placedAt": 118.02500000000971,
+        "numberRecovered": 0,
+        "taker": "footballer_pro_9_0",
+        "takerIsGoalkeeper": true,
+        "stage": "placed",
+        "phase": "preparing",
+        "halt": "participant_restriction",
+        "legalReady": false,
+        "blockers": ["participant_restriction", "kickoff_goalkeeper_developing"]
+      },
+      "current": {
+        "edition": "dynamic-balance-dev-v2",
+        "at": 140.60000000001483,
+        "elapsed": 22.600000000005124,
+        "assignedAt": 118.02500000000971,
+        "placedAt": 118.02500000000971,
+        "readinessAt": 139.95000000001468,
+        "firstRecoveredAt": 119.10000000000996,
+        "numberRecovered": 18,
+        "taker": "footballer_pro_9_0",
+        "takerIsGoalkeeper": true,
+        "stage": "placed",
+        "phase": "release",
+        "executedAt": 140.60000000001483,
+        "action": "pass",
+        "ballMovement": {
+          "metres": 0.389607300266689,
+          "at": 140.70000000001485,
+          "halt": null
+        },
+        "halt": null,
+        "legalReady": true,
+        "blockers": []
+      }
+    },
+    {
+      "source": {
+        "path": "docs/performance/pr227-followup-native-a-halt.json.gz",
+        "sha256": "6125eeae177a61d89a4327318a1359d48783d49ede7a7de7da746253cd645ad6"
+      },
+      "start": 134.15000000001336,
+      "award": {
+        "id": "pr222-native-a:restart:82.03885078281317:away:throw_in",
+        "team": "away",
+        "scenario": "throw_in",
+        "spot": {
+          "x": 69.58199507152086,
+          "y": 68
+        }
+      },
+      "available": [],
+      "lost": [
+        {
+          "id": "footballer_pro_1_0",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_12",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_14",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_17",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_19",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_21",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_22",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_3",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_4",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_7",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_1_9",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_11",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_12",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_14",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_17",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_19",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_22",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_3",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_5",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "footballer_pro_9_9",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        }
+      ],
+      "previous": {
+        "edition": "dynamic-balance-dev-v1",
+        "at": 134.17500000001337,
+        "elapsed": 0.025000000000005684,
+        "assignedAt": 134.17500000001337,
+        "placedAt": 134.17500000001337,
+        "numberRecovered": 0,
+        "taker": "footballer_pro_1_0",
+        "takerIsGoalkeeper": true,
+        "stage": "placed",
+        "phase": "preparing",
+        "halt": "taker_not_ready",
+        "legalReady": false,
+        "blockers": ["taker_not_ready"]
+      },
+      "current": {
+        "edition": "dynamic-balance-dev-v2",
+        "at": 151.12500000001722,
+        "elapsed": 16.97500000000386,
+        "assignedAt": 134.17500000001337,
+        "placedAt": 134.17500000001337,
+        "readinessAt": 150.95000000001718,
+        "firstRecoveredAt": 135.45000000001366,
+        "numberRecovered": 20,
+        "taker": "footballer_pro_1_17",
+        "takerIsGoalkeeper": false,
+        "stage": "placed",
+        "phase": "release",
+        "executedAt": 151.12500000001722,
+        "action": "pass",
+        "ballMovement": {
+          "metres": 0.4284330853784426,
+          "at": 151.15000000001723,
+          "halt": null
+        },
+        "halt": null,
+        "legalReady": true,
+        "blockers": []
+      }
+    },
+    {
+      "source": {
+        "path": "docs/performance/pr227-followup-independent-halt.json.gz",
+        "sha256": "c55d2b81c5f38cd5a9cb76f094f04692005b24d22cb8bda1af070c65f18202eb"
+      },
+      "start": 118.02500000000971,
+      "award": {
+        "id": "pr215-holistic-sw-B-v1:restart:66.98584605912721:home:corner",
+        "team": "home",
+        "scenario": "corner",
+        "spot": {
+          "x": 104.5,
+          "y": 0.5
+        }
+      },
+      "available": [],
+      "lost": [
+        {
+          "id": "geometry:anchor:0",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:1",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:10",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:2",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:3",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:4",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:5",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:6",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:7",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:8",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:9",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:opponent:10",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 17.804297032081234
+        },
+        {
+          "id": "geometry:opponent:2",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 113.00032871809302
+        },
+        {
+          "id": "geometry:opponent:3",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 75.74366244387298
+        },
+        {
+          "id": "geometry:opponent:5",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 113.14631523379396
+        },
+        {
+          "id": "geometry:opponent:6",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 0.4591009411623891
+        },
+        {
+          "id": "geometry:opponent:7",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 9.976051324825645
+        },
+        {
+          "id": "geometry:opponent:9",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 68.30340441026861
+        }
+      ],
+      "previous": {
+        "edition": "dynamic-balance-dev-v1",
+        "at": 118.05000000000972,
+        "elapsed": 0.025000000000005684,
+        "numberRecovered": 0,
+        "taker": "geometry:anchor:0",
+        "takerIsGoalkeeper": true,
+        "phase": "preparing",
+        "halt": "missing_retrieval_state",
+        "legalReady": false,
+        "blockers": ["ball_not_placed", "taker_not_ready", "opponent_restriction"]
+      },
+      "current": {
+        "edition": "dynamic-balance-dev-v2",
+        "at": 155.4250000000182,
+        "elapsed": 37.40000000000849,
+        "assignedAt": 119.27500000001,
+        "placedAt": 153.2000000000177,
+        "readinessAt": 154.42500000001797,
+        "firstRecoveredAt": 119.25000000000999,
+        "numberRecovered": 18,
+        "taker": "geometry:anchor:1",
+        "takerIsGoalkeeper": false,
+        "stage": "placed",
+        "phase": "release",
+        "executedAt": 155.4250000000182,
+        "action": "cross",
+        "ballMovement": {
+          "metres": 0.6702677652442521,
+          "at": 155.4500000000182,
+          "halt": null
+        },
+        "halt": null,
+        "legalReady": true,
+        "blockers": []
+      }
+    },
+    {
+      "source": {
+        "path": "docs/performance/pr227-refined-independent-development-halt.json.gz",
+        "sha256": "789d3276730a3d2ffdcdb84bb998f45654b4a0446e9d405388d2b7857c2a1480"
+      },
+      "start": 97.00000000000493,
+      "award": {
+        "id": "pr215-holistic-sw-B-v1:restart:66.98584605912721:home:corner",
+        "team": "home",
+        "scenario": "corner",
+        "spot": {
+          "x": 104.5,
+          "y": 0.5
+        }
+      },
+      "available": ["geometry:anchor:0"],
+      "lost": [
+        {
+          "id": "geometry:anchor:1",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:10",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:2",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:3",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:4",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:5",
+          "team": "home",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:6",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:7",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:8",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:anchor:9",
+          "team": "home",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent"
+        },
+        {
+          "id": "geometry:opponent:10",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 24.434597223519834
+        },
+        {
+          "id": "geometry:opponent:2",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 107.40845052729885
+        },
+        {
+          "id": "geometry:opponent:3",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 75.7436624421735
+        },
+        {
+          "id": "geometry:opponent:5",
+          "team": "away",
+          "groundedSupport": "left",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 108.04805815915955
+        },
+        {
+          "id": "geometry:opponent:6",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 0.4591009411623891
+        },
+        {
+          "id": "geometry:opponent:7",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 8.48572280767533
+        },
+        {
+          "id": "geometry:opponent:9",
+          "team": "away",
+          "groundedSupport": "right",
+          "mostRecentLoad": "opponent",
+          "metresFromCorner": 67.77605002390561
+        }
+      ],
+      "previous": {
+        "edition": "dynamic-balance-dev-v1",
+        "at": 153.75000000001782,
+        "elapsed": 56.75000000001289,
+        "assignedAt": 97.02500000000494,
+        "placedAt": 123.75000000001101,
+        "numberRecovered": 0,
+        "taker": "geometry:anchor:0",
+        "takerIsGoalkeeper": true,
+        "stage": "placed",
+        "phase": "preparing",
+        "halt": "opponent_restriction",
+        "legalReady": false,
+        "blockers": ["opponent_restriction"]
+      },
+      "current": {
+        "edition": "dynamic-balance-dev-v2",
+        "at": 124.27500000001113,
+        "elapsed": 27.2750000000062,
+        "assignedAt": 97.02500000000494,
+        "placedAt": 123.75000000001101,
+        "readinessAt": 123.700000000011,
+        "firstRecoveredAt": 98.47500000000527,
+        "numberRecovered": 17,
+        "taker": "geometry:anchor:0",
+        "takerIsGoalkeeper": true,
+        "stage": "placed",
+        "phase": "release",
+        "executedAt": 124.27500000001113,
+        "action": "cross",
+        "ballMovement": {
+          "metres": 0.5638135741884681,
+          "at": 124.30000000001114,
+          "halt": null
+        },
+        "halt": null,
+        "legalReady": true,
+        "blockers": []
+      }
+    }
+  ]
+}

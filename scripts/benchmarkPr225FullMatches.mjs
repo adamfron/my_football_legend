@@ -16,28 +16,44 @@ import {
   fullBodySkeletonSchema,
 } from '../src/core/matchSimulation/fullBodySkeleton.ts';
 import { projectArticulatedBody } from '../src/core/matchSimulation/articulatedBody.ts';
+import { GROUNDED_RECOVERY_BALANCE } from '../src/core/matchSimulation/dynamicBalanceState.ts';
 import { stepTacticalMatch, startSecondHalf } from '../src/core/matchSimulation/matchSimulation.ts';
 import { tacticalMatchStateSchema } from '../src/core/matchSimulation/matchState.ts';
 import { captureReceptionStep } from '../src/core/matchSimulation/receptionTrace.ts';
 import { captureReplaySnapshot } from '../src/core/matchSimulation/matchReplay.ts';
+import {
+  PerformanceProfiler,
+  withPerformanceProfiler,
+} from '../src/core/matchSimulation/performanceProfiling.ts';
 import { classifyContactEpisodes } from './pr225ContactEpisodes.mjs';
 
 const [fixture, arm] = process.argv.slice(2);
-const research = process.argv.includes('--pr226');
+const dynamic = process.argv.includes('--pr227');
+const groundedRecovery = process.argv.includes('--grounded-recovery');
+const research = dynamic || process.argv.includes('--pr226');
 const untraced = process.argv.includes('--untraced');
 const finalCandidate = process.argv.includes('--final-candidate');
+const profile =
+  dynamic && process.argv.includes('--profile')
+    ? new PerformanceProfiler({ enabled: true })
+    : undefined;
 const duration = process.argv.find((arg) => arg.startsWith('--seconds='))?.split('=')[1];
 const seconds = duration === undefined ? Infinity : Number(duration);
 assert.ok(['paired', 'native-a', 'independent'].includes(fixture));
-assert.ok((research ? ['D', 'E', 'F'] : ['D', 'E']).includes(arm));
+assert.ok((dynamic ? ['F', 'G'] : research ? ['D', 'E', 'F'] : ['D', 'E']).includes(arm));
 assert.ok(duration === undefined || (research && Number.isFinite(seconds) && seconds > 0));
 assert.ok(!untraced || (research && duration !== undefined));
 assert.ok(!finalCandidate || (research && arm === 'F' && duration === undefined));
-const folder = research ? '.benchmark-artifacts/pr226' : '.benchmark-artifacts/pr225-full';
-const basename = `${fixture}-${arm}${finalCandidate ? '-final' : ''}${duration ? '-' + duration + 's' : ''}${untraced ? '-untraced' : ''}`;
+assert.ok(!groundedRecovery || (dynamic && arm === 'G'));
+const folder = dynamic
+  ? '.benchmark-artifacts/pr227'
+  : research
+    ? '.benchmark-artifacts/pr226'
+    : '.benchmark-artifacts/pr225-full';
+const basename = `${fixture}-${arm}${groundedRecovery ? '-grounded-recovery' : ''}${finalCandidate ? '-final' : ''}${duration ? '-' + duration + 's' : ''}${untraced ? '-untraced' : ''}${profile ? '-profiled' : ''}`;
 const sourcePath = `docs/performance/${fixture === 'paired' ? 'pr224-full-match-paired' : fixture === 'native-a' ? 'pr224-full-match-pr222-native-a' : 'pr224-full-match-independent'}.json`;
 const receipt = JSON.parse(readFileSync(sourcePath)),
-  expected = (receipt.comparison ?? receipt)[arm === 'F' ? 'E' : arm];
+  expected = (receipt.comparison ?? receipt)[arm === 'F' || arm === 'G' ? 'E' : arm];
 const native = (s) => tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(s)));
 const rawHash = (s) => createHash('sha256').update(JSON.stringify(s)).digest('hex');
 const sporting = (s) => {
@@ -127,8 +143,18 @@ if (process.argv.includes('--validate-only')) {
 }
 os.setPriority(0, os.constants.priority.PRIORITY_BELOW_NORMAL);
 let state = withFullBodySkeleton(
-    arm === 'F'
-      ? { ...initial, experimentalComposedLegContact: 'composed-leg-impulse-dev-v2' }
+    arm === 'F' || arm === 'G'
+      ? {
+          ...initial,
+          experimentalComposedLegContact: 'composed-leg-impulse-dev-v2',
+          ...(arm === 'G'
+            ? {
+                experimentalDynamicBalance: groundedRecovery
+                  ? GROUNDED_RECOVERY_BALANCE
+                  : 'dynamic-balance-dev-v1',
+              }
+            : {}),
+        }
       : initial,
   ),
   ticks = 0,
@@ -149,6 +175,7 @@ const contacts = [],
   periods = [];
 const researchTicks = [],
   work = [];
+const sampledSupport = { peakFeet: 0, sampleCount: 0, steps: 0, slipping: 0, lost: 0 };
 let peakHeapMiB = 0;
 const search = { calls: 0, samples: 0, maxSamples: 0, milliseconds: 0, exhausted: 0 };
 const cleanWinDetails = new Map();
@@ -179,9 +206,12 @@ while (
   }
   const before = state;
   const tickBegan = research ? performance.now() : 0;
+  const step = () => stepTacticalMatch(state, 0.025);
+  if (profile) profile.beginTick(ticks);
+  const runStep = profile ? () => withPerformanceProfiler(profile, step) : step;
   const observed = untraced
-    ? { state: stepTacticalMatch(state, 0.025), events: [] }
-    : captureReceptionStep(() => stepTacticalMatch(state, 0.025), {
+    ? { state: runStep(), events: [] }
+    : captureReceptionStep(runStep, {
         mechanics: true,
         contactWork: research,
       });
@@ -289,6 +319,17 @@ while (
   const sample = ticks % 40 === 0;
   if (research && sample)
     peakHeapMiB = Math.max(peakHeapMiB, process.memoryUsage().heapUsed / 2 ** 20);
+  if (arm === 'G' && sample) {
+    sampledSupport.sampleCount++;
+    const balance = state.players.map((p) => p.articulatedStance?.dynamicBalance);
+    sampledSupport.peakFeet = Math.max(
+      sampledSupport.peakFeet,
+      balance.filter((s) => s?.support).length,
+    );
+    sampledSupport.steps += balance.filter((s) => s?.phase === 'stepping').length;
+    sampledSupport.slipping += balance.filter((s) => s?.support?.slip).length;
+    sampledSupport.lost += balance.filter((s) => s?.phase === 'lost').length;
+  }
   for (const p of state.players) {
     if (!sample && Math.hypot(p.position.x - ball.x, p.position.y - ball.y) > 2) continue;
     const body = projectArticulatedBody(state, p);
@@ -378,7 +419,9 @@ if (research) {
   result.safetyHalt = state.safetyHalt ?? null;
   result.workEvents = work.length;
   result.cleanWins = [...cleanWinDetails.values()];
-  if (arm !== 'F' && seconds === Infinity) validateArchive(result);
+  if (arm === 'G') result.sampledSupport = sampledSupport;
+  if (profile) result.profile = profile.snapshot();
+  if (!dynamic && arm !== 'F' && seconds === Infinity) validateArchive(result);
   writeFileSync(`${folder}/${basename}-work.json.gz`, gzipSync(JSON.stringify(work)));
 }
 writeFileSync(`${folder}/${basename}-result.json`, JSON.stringify(result, null, 2) + '\n');

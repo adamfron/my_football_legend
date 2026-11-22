@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
 import { isHumanControlled } from './actionAgency';
-import { isRestartSetup } from './restartPhase';
+import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
+import { canHandleRestartBall, isRestartSetup } from './restartPhase';
 import { distance } from './matchSpace';
 import { substitutionBlocksRestart } from './substitutions';
 import { haltEvidence } from './matchSafety';
@@ -105,24 +106,37 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
         : restart.origin === 'live_event' && !restart.retrieval
           ? ('missing_lifecycle' as const)
           : ('positioning' as const);
+  const groundedRecovery = state.experimentalDynamicBalance === GROUNDED_RECOVERY_BALANCE;
+  const missingHandler =
+    groundedRecovery &&
+    progressOwner === 'missing_lifecycle' &&
+    !state.players.some((p) => p.team === restart.restartTeam && canHandleRestartBall(state, p));
+  const retrievalBlocker = missingHandler
+    ? 'no_available_restart_handler'
+    : 'missing_retrieval_state';
   const blockers = humanPending
     ? ['pending_human_decision']
     : substitutionPending
       ? ['substitution_in_progress']
       : progressOwner === 'missing_lifecycle'
-        ? ['missing_retrieval_state']
+        ? [retrievalBlocker]
         : (restart.readiness?.blockers ?? ['readiness_not_observed']);
   const signature = [
     restart.awardId,
     restart.phase,
+    ...(groundedRecovery ? [GROUNDED_RECOVERY_BALANCE] : []),
     restart.retrieval?.stage,
+    ...(state.experimentalDynamicBalance ? [restart.retrieval?.playerId] : []),
     restart.takerId,
     restart.selectedAction?.type,
     restart.selectedSource,
     ...(state.substitutionState?.pending ?? []).map(
       (p) => `${p.id}:${p.leftAt ?? 'departing'}:${p.refereeEntryAt ?? 'waiting_entry'}`,
     ),
-    ...[...blockers].sort(),
+    // Alternating secondary blockers do not restart G's positioning watch.
+    ...(state.experimentalDynamicBalance && progressOwner === 'positioning'
+      ? []
+      : [...blockers].sort()),
   ].join(':');
   const previous = state.restartBlockingObservation;
   if (previous?.signature === signature && state.time - previous.sampledAt < 1) return state;
@@ -157,28 +171,41 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
       minimumBodySeparation: nearest?.gap,
     };
   });
-  const remainingPhysicalDistance = substitutionPending
-    ? (state.substitutionState?.pending ?? []).reduce(
-        (sum, p) =>
-          sum +
-          (p.leftAt === undefined ? distance(p.outgoing.position, p.exitTarget) : 0) +
-          Math.max(0, 0.2 - p.entryPosition.y),
-        0,
-      )
-    : distance(state.ball, spot) +
-      actors.reduce(
-        (sum, actor) =>
-          sum +
-          distance(
-            actor.position,
-            legalizeRestartPlayerTarget(
-              state,
-              state.players.find((p) => p.id === actor.id)!,
-              restart.targets[actor.id] ?? actor.legalTarget,
+  const retrieval = restart.retrieval;
+  const retriever =
+    state.experimentalDynamicBalance && progressOwner === 'retrieval'
+      ? state.players.find((player) => player.id === retrieval?.playerId)
+      : undefined;
+  const remainingRetrieval =
+    retriever && retrieval?.stage === 'approach'
+      ? distance(retriever.position, state.ball)
+      : retriever && retrieval?.stage === 'transport'
+        ? distance(state.ball, spot)
+        : undefined;
+  const remainingPhysicalDistance =
+    remainingRetrieval ??
+    (substitutionPending
+      ? (state.substitutionState?.pending ?? []).reduce(
+          (sum, p) =>
+            sum +
+            (p.leftAt === undefined ? distance(p.outgoing.position, p.exitTarget) : 0) +
+            Math.max(0, 0.2 - p.entryPosition.y),
+          0,
+        )
+      : distance(state.ball, spot) +
+        actors.reduce(
+          (sum, actor) =>
+            sum +
+            distance(
+              actor.position,
+              legalizeRestartPlayerTarget(
+                state,
+                state.players.find((p) => p.id === actor.id)!,
+                restart.targets[actor.id] ?? actor.legalTarget,
+              ),
             ),
-          ),
-        0,
-      );
+          0,
+        ));
   const progressed =
     previous?.signature !== signature ||
     (previous.progressDistance ?? previous.remainingPhysicalDistance) - remainingPhysicalDistance >
@@ -268,7 +295,7 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
             state,
             'restart_lifecycle',
             progressOwner === 'missing_lifecycle'
-              ? 'missing_retrieval_state'
+              ? retrievalBlocker
               : progressOwner === 'substitution'
                 ? 'substitution_entry_not_progressing'
                 : (blockers[0] ?? 'restart_physical_progress_absent'),

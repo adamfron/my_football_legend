@@ -1,5 +1,23 @@
 # Mechanism dependencies
 
+## PR227 balance, support and free-flight certificate
+
+G derives segment mass geometry from the PR225 skeleton. The shared contact
+timeline owns impulse delivery and the canonical gait owns foot motion.
+The independent free-flight prefix advances the frozen 63:12 tick. Verified
+ankle trajectories and finite swing yield advance the 52:57 and 89:51 cases.
+The 71:58 support transfer combines two same-body shin impulses and bounds
+restitution by their compression work. General limb compliance needs a
+sustained contact model. The current balance edition restores the grounded
+motor through bounded braking and restoring torque. The four restart sources
+recover, including the kickoff whose reassigned keeper takes the kick.
+Measured shin pressure and finite swing recoil clear the independent
+134.387 s contact under the existing search and interval budgets. Spaced
+defensive targets clear the native-a throw-in near the goal line under the
+same referee checks. Ground impact and get-up from a fallen pose require a
+separate mechanism.
+[PR227 report](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
+
 ## PR226 contact work and continuation
 
 `composed-leg-impulse-dev-v2` couples incidental limb friction to ball spin
@@ -176,7 +194,6 @@ The frozen full-match attempt stops at 698.7s on the explicit five-body/four-bod
 overflow; it is not a completed holistic match. The complete diagnostic remains preserved.
 Promotion stays RETAIN_EXPERIMENTAL; PR201/B/defaults and sealed confirmation are unchanged.
 Historical sections and frozen inputs below retain their original scope.
-
 
 PR214: single finite motor update → connected pending/standing interval candidates → deterministic bounded 2–4 upright contact constraints / unilateral player edge → rebase actual body and foot trajectories → finite foot impulse / independent control / existing law consumer. Earlier impulses survive later impacts and unresolved continuation. New `upright-cluster-dev-v1` replaces, rather than stacks with, pair-dev in its scope. Next integration dependencies: extend this same owner through ordinary carry/loose/delivery while retaining keeper/law authority; replace the geometrically incompatible 0.50m historical clinch apparatus with admissible shared surfaces; complete selected-consumer activation witnesses. Recipe construction/local replay is valid, holistic match remains BLOCKED. PR201/profile identities and formal issue dimensions unchanged. [PR214](../PR214_MULTIBODY_CONTACT_AND_HOLISTIC_READINESS.md), [matrix](HOLISTIC_COMPATIBILITY_MATRIX.md), [protocol](HOLISTIC_MATCH_PROTOCOL.md).
 

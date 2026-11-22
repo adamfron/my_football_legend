@@ -23,6 +23,7 @@ import { tacticalMatchStateSchema } from '../src/core/matchSimulation/matchState
 import { captureReceptionStep } from '../src/core/matchSimulation/receptionTrace.ts';
 
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
+const dynamic = process.argv.includes('--pr227');
 const reload = (value) => tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(value)));
 const stamp = (state) => hash(JSON.stringify(reload(state)));
 const source = (path) => {
@@ -134,7 +135,9 @@ for (const name of ['default', 'asymmetry', 'aligned', 'proportions', 'feet']) {
 function run({ input, actor, ticks, morphologies, relativeFixture }, arm) {
   const selected = selectPr224Body(input);
   if (arm === 'D') delete selected.experimentalComposedLegContact;
-  if (arm === 'F') selected.experimentalComposedLegContact = 'composed-leg-impulse-dev-v2';
+  if (arm === 'F' || arm === 'G')
+    selected.experimentalComposedLegContact = 'composed-leg-impulse-dev-v2';
+  if (arm === 'G') selected.experimentalDynamicBalance = 'dynamic-balance-dev-v1';
   let state = reload(withFullBodySkeleton(selected, morphologies));
   if (relativeFixture) {
     const authored = state.players.find((p) => p.id === actor);
@@ -285,8 +288,22 @@ function run({ input, actor, ticks, morphologies, relativeFixture }, arm) {
 const results = cases.map((scene) => ({
   name: scene.name,
   actor: scene.actor,
-  arms: Object.fromEntries(['D', 'E', 'F'].map((arm) => [arm, run(scene, arm)])),
+  arms: Object.fromEntries(
+    (dynamic ? ['E', 'F', 'G'] : ['D', 'E', 'F']).map((arm) => [arm, run(scene, arm)]),
+  ),
 }));
+if (dynamic) {
+  const archived = JSON.parse(
+    gunzipSync(readFileSync('docs/performance/pr227-continuity.json.gz')),
+  );
+  const historical = (scenarios) =>
+    hash(JSON.stringify(scenarios.map(({ name, arms }) => [name, arms.F])));
+  assert.equal(
+    historical(results),
+    historical(archived.scenarios),
+    'Original F continuity traces changed',
+  );
+}
 const comparison = (name) => results.find((entry) => entry.name === name).arms;
 const pinch = comparison('opposing-41:56');
 assert.equal(pinch.E.final.joint, 1);
@@ -317,10 +334,12 @@ for (const { name, arms } of results) {
 }
 const output = process.argv.includes('--record')
   ? 'docs/performance'
-  : '.benchmark-artifacts/pr226';
+  : dynamic
+    ? '.benchmark-artifacts/pr227'
+    : '.benchmark-artifacts/pr226';
 mkdirSync(output, { recursive: true });
 writeFileSync(
-  output + '/pr226-continuity.json.gz',
+  output + (dynamic ? '/pr227-refined-continuity.json.gz' : '/pr226-continuity.json.gz'),
   gzipSync(
     JSON.stringify({
       sources: [ccd, paired, nativeA, kneeThigh].map(({ path, sha256 }) => ({ path, sha256 })),

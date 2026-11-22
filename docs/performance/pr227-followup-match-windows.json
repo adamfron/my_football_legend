@@ -1,0 +1,269 @@
+{
+  "paired": {
+    "short": {
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "f2df4b44528ce0253c9d2e3ab817520353965a2b43676774146f725134a4d71f",
+      "final": {
+        "at": 118.02500000000971,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "ticks": 4720,
+        "decisions": 35,
+        "passReleases": 3,
+        "retainedBootContacts": 20,
+        "bodyImpactTimes": 19,
+        "shinContacts": 6,
+        "ownerChanges": 18,
+        "restarts": 3
+      },
+      "invalid": 0,
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "participant_restriction",
+        "at": 118.02500000000971,
+        "intervalStartedAt": 118.02500000000971,
+        "actorIds": [],
+        "ball": {
+          "x": 52.436944555201585,
+          "y": 33.99722348183714,
+          "z": 0.0999999999999995
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": 3.974579038441347e-9,
+          "y": 1.9606285022534715e-8,
+          "z": -3.420254783088465e-9
+        }
+      }
+    },
+    "fullAttempt": {
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "f2df4b44528ce0253c9d2e3ab817520353965a2b43676774146f725134a4d71f",
+      "final": {
+        "at": 118.02500000000971,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "ticks": 4720,
+        "decisions": 35,
+        "passReleases": 3,
+        "retainedBootContacts": 20,
+        "bodyImpactTimes": 19,
+        "shinContacts": 6,
+        "ownerChanges": 18,
+        "restarts": 3
+      },
+      "invalid": 0,
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "participant_restriction",
+        "at": 118.02500000000971,
+        "intervalStartedAt": 118.02500000000971,
+        "actorIds": [],
+        "ball": {
+          "x": 52.436944555201585,
+          "y": 33.99722348183714,
+          "z": 0.0999999999999995
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": 3.974579038441347e-9,
+          "y": 1.9606285022534715e-8,
+          "z": -3.420254783088465e-9
+        }
+      }
+    },
+    "haltSnapshot": {
+      "path": "docs/performance/pr227-followup-paired-halt.json.gz",
+      "sha256": "6b1f44d318d4e7598e3c295106c6f58ebdbed76cedf557b24dad4f18c2490100"
+    }
+  },
+  "native-a": {
+    "short": {
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "2536d6f16d493072ff6c7fac85802e57789b8c2b6acfbd7b34ea326b11773f0f",
+      "final": {
+        "at": 120.00000000001016,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4800,
+        "decisions": 33,
+        "passReleases": 6,
+        "retainedBootContacts": 14,
+        "bodyImpactTimes": 29,
+        "shinContacts": 13,
+        "ownerChanges": 18,
+        "restarts": 3
+      },
+      "invalid": 0,
+      "safetyHalt": null
+    },
+    "fullAttempt": {
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "d8e7bdba70f41128957e2e5e3d53c12bb35ea607d72f6b6271e32bde9293b80f",
+      "final": {
+        "at": 134.17500000001337,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 5366,
+        "decisions": 33,
+        "passReleases": 6,
+        "retainedBootContacts": 14,
+        "bodyImpactTimes": 29,
+        "shinContacts": 13,
+        "ownerChanges": 18,
+        "restarts": 3
+      },
+      "invalid": 0,
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "taker_not_ready",
+        "at": 134.17500000001337,
+        "intervalStartedAt": 134.17500000001337,
+        "actorIds": [],
+        "ball": {
+          "x": 69.6433982494141,
+          "y": 68.02314300278654,
+          "z": 0.0999999999999995
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": -5.374787024446564e-10,
+          "y": 8.428302401081447e-10,
+          "z": -4.304054267343722e-23
+        }
+      }
+    },
+    "haltSnapshot": {
+      "path": "docs/performance/pr227-followup-native-a-halt.json.gz",
+      "sha256": "6125eeae177a61d89a4327318a1359d48783d49ede7a7de7da746253cd645ad6"
+    }
+  },
+  "independent": {
+    "short": {
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+      "terminalHash": "4a121b58fb947da4beaaf80155f31735a76de20d210391962f2f0bcbdbb1414b",
+      "final": {
+        "at": 118.05000000000972,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4721,
+        "decisions": 32,
+        "passReleases": 2,
+        "retainedBootContacts": 16,
+        "bodyImpactTimes": 31,
+        "shinContacts": 8,
+        "ownerChanges": 20,
+        "restarts": 3
+      },
+      "invalid": 0,
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "missing_retrieval_state",
+        "at": 118.05000000000972,
+        "intervalStartedAt": 118.05000000000972,
+        "actorIds": [],
+        "ball": {
+          "x": 109.23364867263162,
+          "y": 5.758875146240732,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": 3.8149956963638206e-52,
+          "y": 3.1566045968846986e-52,
+          "z": 3.672897113754788e-55
+        }
+      }
+    },
+    "fullAttempt": {
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+      "terminalHash": "4a121b58fb947da4beaaf80155f31735a76de20d210391962f2f0bcbdbb1414b",
+      "final": {
+        "at": 118.05000000000972,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4721,
+        "decisions": 32,
+        "passReleases": 2,
+        "retainedBootContacts": 16,
+        "bodyImpactTimes": 31,
+        "shinContacts": 8,
+        "ownerChanges": 20,
+        "restarts": 3
+      },
+      "invalid": 0,
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "missing_retrieval_state",
+        "at": 118.05000000000972,
+        "intervalStartedAt": 118.05000000000972,
+        "actorIds": [],
+        "ball": {
+          "x": 109.23364867263162,
+          "y": 5.758875146240732,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": 3.8149956963638206e-52,
+          "y": 3.1566045968846986e-52,
+          "z": 3.672897113754788e-55
+        }
+      }
+    },
+    "haltSnapshot": {
+      "path": "docs/performance/pr227-followup-independent-halt.json.gz",
+      "sha256": "c55d2b81c5f38cd5a9cb76f094f04692005b24d22cb8bda1af070c65f18202eb"
+    }
+  }
+}

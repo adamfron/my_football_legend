@@ -1,5 +1,18 @@
 # Roadmap
 
+## Po PR227 — równowaga i podparcie
+
+Wariant G wiąże impuls kontaktu z przechyłem i ruchem zawodnika. Krótszy
+certyfikowany odcinek lotu pozwala przejść zapisany tick z 63:12. Reakcja
+na faktyczny ruch powierzchni przywraca sekwencję kolano–udo z 52:57,
+zmianę podparcia z 71:58 i wyjście piłki spomiędzy goleni o 89:51.
+Odzyskanie napędu z podpartych stóp przywraca cztery zapisane wznowienia.
+Ustąpienie nogi w zamachu pozwala przejść nacisk goleni z niezależnej próby
+o 134,387 s. Zachowanie rozstawu obrońców przy linii bramkowej przywraca
+zapisany aut w native-a. Kolejne zależności to trwały kontakt wielu
+powierzchni, osobny model upadku i wstawania oraz weryfikacja pełnych meczów.
+[Raport PR227](PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
+
 ## Po PR226 — impuls kontaktu i dalsza gra
 
 Wariant F mierzy pracę poruszającej się powierzchni i wiąże rotację piłki
@@ -160,7 +173,6 @@ PR205: zachowano historyczne warianty, naprawiono sprawdzone granice zamiaru pog
 
 PR204 (badania): wariant ciągłości i lokalnego odbioru pozostaje eksperymentalny. Sprawdzone kontrfaktyki ukrytego przygotowania przeszły, ale inne granice informacji i regresja kontroli pozostają otwarte. Eksperyment 2×2 z okresem przed podaniem nie potwierdził przewidywanego wsparcia. Kandydatem pozostaje PR201; niezależna konfirmacja jest zamknięta. [Raport PR204](./PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).
 
-
 ### PR203 — świadomość sytuacyjna i warunkowe wsparcie
 
 [PR203](PR203_SITUATIONAL_AWARENESS_PROSPECTIVE_PLAY.md) rozszerza istniejącą pamięć i pozycjonowanie: rozróżnia obserwację, pamięć i wnioskowanie oraz wykonuje rzeczywisty ruch C przed możliwym podaniem A→B. Laboratoria zachowują negatywne skutki dla dalszego kontaktu C; elipsa pozostaje diagnostyką bez skalibrowanego pokrycia. Pamięć RETAIN_EXPERIMENTAL, ruch NEEDS_REPAIR, cały profil NOT_READY_FOR_PROMOTION. Utrzymywany kandydat pozostaje PR201, B domyślne, canonical NOT READY, confirmation zamknięte, 135 ID i zero COMPLETE.
@@ -204,7 +216,6 @@ Kolejny PR199 powinien najpierw wyjaśnić osiem utraconych i trzy zyskane konta
 [Raport PR197](PR197_PASSING_REALITY_FLIGHT_INTERCEPTION_AND_RECEIVER_ANTICIPATION.md) oddziela trzy opt-in: symetryczny dostęp do incoming control, wysokość/czas przecięcia lotu i cel odbiorcy z lokalnej obserwacji. Pomiar v3 oddziela pierwotną piłkę od dalszej kontroli po główce/first-time. Zamrożone PR195/196 i 134 ID pozostają zachowane. Siedem pełnych par daje 64→67 strzałów i mieszane skutki; autonomiczna sekwencja diagonalnego lobu pozostaje niewywołana. **Canonical NOT READY; B domyślne; confirmation zamknięte.**
 
 PR198 powinien zacząć od PASS-004/006/009: na identycznej piłce zmierzyć cel, zegar przygotowania, hamowanie/obrót i rzeczywisty kontakt. PASS-010/TACT-002/004 wymagają lokalizacji pierwszej brakującej fazy biegu/kandydata; PASS-001 potrzebuje szerszych geometrii i poprawnych kontraktów, zanim powstanie kalibracja. Bez globalnego strojenia strzałów/utility/staminy/GK/wznowień. Dalsze kariery, 20–25 sezonów, wymiana generacji, siła klubów i destylacja lekkiej symulacji nadal zależą od wiarygodnego canonical.
-
 
 Poprzedni etap: **PR197 — Passing Reality: Flight, Interception & Receiver Anticipation**.
 Użytkownik jawnie wybrał dłuższy **MatchEngine Realism Programme**, potencjalnie

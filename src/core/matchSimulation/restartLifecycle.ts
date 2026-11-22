@@ -12,7 +12,7 @@ import {
   legalizeRestartPlayerTarget,
   areKickoffGoalkeepersReady,
 } from './restartLaws';
-import { isLiveRestartSetup, isRestartSetup } from './restartPhase';
+import { canHandleRestartBall, isLiveRestartSetup, isRestartSetup } from './restartPhase';
 import { isHumanControlled } from './actionAgency';
 import { integrateBallFlight } from './ballPhysics';
 import { markStoppageReady } from './stoppageLedger';
@@ -32,7 +32,11 @@ export const isRestartSelectionAvailable = (state: TacticalMatchState) => {
     return true;
   const available = (id: string) =>
     state.players.some((player) => player.id === id && !state.discipline?.[id]?.sentOff);
-  if (!available(action.actorId) || action.actorId !== restart.takerId) return false;
+  if (
+    !state.players.some((p) => p.id === action.actorId && canHandleRestartBall(state, p)) ||
+    action.actorId !== restart.takerId
+  )
+    return false;
   if (action.type === 'pass' && !available(action.receiverId)) return false;
   if (action.type === 'cross' && action.intendedTargetId && !available(action.intendedTargetId))
     return false;
@@ -99,11 +103,11 @@ export const replaceUnavailableRestartTaker = (state: TacticalMatchState): Tacti
   if (
     !restart ||
     !isRestartSetup(state) ||
-    state.players.some((p) => p.id === restart.takerId && !state.discipline?.[p.id]?.sentOff)
+    state.players.some((p) => p.id === restart.takerId && canHandleRestartBall(state, p))
   )
     return state;
   const candidates = state.players.filter(
-    (p) => p.team === restart.restartTeam && !state.discipline?.[p.id]?.sentOff,
+    (p) => p.team === restart.restartTeam && canHandleRestartBall(state, p),
   );
   const keeperRestart = state.scenario === 'goal_kick' || state.scenario === 'gk_short';
   const spot = restart.spot ?? state.ball;
@@ -132,6 +136,9 @@ export const replaceUnavailableRestartTaker = (state: TacticalMatchState): Tacti
     ...state,
     restart: {
       ...unselected,
+      ...(state.experimentalDynamicBalance
+        ? { readiness: undefined, authorisedAt: undefined }
+        : {}),
       phase: restart.origin === 'live_event' ? ('preparing' as const) : ('setup' as const),
       takerId: taker.id,
       targets: geometry.targets,
@@ -256,14 +263,15 @@ export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatch
   );
   const restart = state.restart;
   if (!restart || !isLiveRestartSetup(state)) return state;
-  if (
-    !restart.retrieval ||
-    !state.players.some(
-      (p) => p.id === restart.retrieval!.playerId && !state.discipline?.[p.id]?.sentOff,
-    )
-  ) {
+  const previous = restart.retrieval;
+  const hasHandler = (id: string) =>
+    state.players.some((p) => p.id === id && canHandleRestartBall(state, p));
+  const invalidHandoff =
+    state.experimentalDynamicBalance && previous?.recipientId && !hasHandler(previous.recipientId);
+  const placementRetained = state.experimentalDynamicBalance && previous?.stage === 'placed';
+  if (!placementRetained && (!previous || !hasHandler(previous.playerId) || invalidHandoff)) {
     const retriever = state.players
-      .filter((p) => p.team === restart.restartTeam && !state.discipline?.[p.id]?.sentOff)
+      .filter((p) => p.team === restart.restartTeam && canHandleRestartBall(state, p))
       .filter(
         (p) =>
           state.experimentalRestartPreparation !== true ||
@@ -275,7 +283,10 @@ export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatch
           distance(a.position, state.ball) - distance(b.position, state.ball) ||
           a.id.localeCompare(b.id),
       )[0];
-    if (!retriever) return state;
+    if (!retriever)
+      return state.experimentalDynamicBalance && previous
+        ? { ...state, restart: { ...restart, retrieval: undefined } }
+        : state;
     state = {
       ...state,
       restart: { ...restart, retrieval: { playerId: retriever.id, stage: 'approach' } },
@@ -359,17 +370,22 @@ export const advanceRestartPlacement = (
 ): TacticalMatchState => {
   state = invalidateObsoleteRestartSelection(state);
   const restart = state.restart;
-  if (!restart || !isLiveRestartSetup(state) || !restart.retrieval) return state;
+  if (!restart || !isLiveRestartSetup(state)) return state;
   const retrieval = restart.retrieval;
-  const retriever = state.players.find((p) => p.id === retrieval.playerId);
+  const retriever = state.players.find(
+    (p) =>
+      p.id === retrieval?.playerId &&
+      (!state.experimentalDynamicBalance || canHandleRestartBall(state, p)),
+  );
   const spot = restart.spot ?? state.ball;
-  if (!retriever) return state;
+  if (!state.experimentalDynamicBalance && !retriever) return state;
   let next = state;
-  if (retrieval.stage === 'approach') {
+  if (retrieval?.stage !== 'placed' && (!retriever || retrieval?.stage === 'approach')) {
+    const position = { x: state.ball.x, y: state.ball.y, z: state.ball.height ?? 0 };
     const integrated = resolveDeadBallPerimeter(
       integrateBallFlight(
         {
-          position: { x: state.ball.x, y: state.ball.y, z: state.ball.height ?? 0 },
+          position,
           velocity: {
             x: state.ball.velocity?.x ?? 0,
             y: state.ball.velocity?.y ?? 0,
@@ -382,6 +398,9 @@ export const advanceRestartPlacement = (
         dt,
         state.ballEnvironment,
       ),
+      // A player can carry the ball past the perimeter. Detachment starts
+      // at that world position, even if a wall dissipates outward motion.
+      state.experimentalDynamicBalance ? position : undefined,
     );
     next = {
       ...state,
@@ -397,6 +416,8 @@ export const advanceRestartPlacement = (
       },
     };
     if (
+      retriever &&
+      retrieval &&
       distance(retriever.position, next.ball) <= 1.1 &&
       (next.ball.height ?? 0) <= 1.6 &&
       Math.hypot(integrated.velocity.x, integrated.velocity.y) <= 3
@@ -416,7 +437,7 @@ export const advanceRestartPlacement = (
         },
       };
     }
-  } else if (retrieval.stage === 'transport') {
+  } else if (retriever && retrieval?.stage === 'transport') {
     const x = retriever.position.x + (retrieval.attachedOffset?.x ?? 0);
     const y = retriever.position.y + (retrieval.attachedOffset?.y ?? 0);
     const nearSpot = distance({ x, y }, spot) <= 0.35;
@@ -454,9 +475,7 @@ export const advanceRestartPlacement = (
       const recipient = state.players
         .filter(
           (p) =>
-            p.team === retriever.team &&
-            !isMatchGoalkeeper(p) &&
-            !state.discipline?.[p.id]?.sentOff,
+            p.team === retriever.team && !isMatchGoalkeeper(p) && canHandleRestartBall(state, p),
         )
         .sort(
           (a, b) =>
@@ -482,9 +501,9 @@ export const advanceRestartPlacement = (
         ball: { ...next.ball, velocity: { x: 0, y: 0, z: 0 } },
         restart: { ...restart, retrieval: { ...retrieval, stage: 'placed' } },
       };
-  } else if (retrieval.stage === 'handoff' || retrieval.stage === 'transfer') {
+  } else if (retriever && (retrieval?.stage === 'handoff' || retrieval?.stage === 'transfer')) {
     const recipient = state.players.find(
-      (p) => p.id === retrieval.recipientId && !state.discipline?.[p.id]?.sentOff,
+      (p) => p.id === retrieval.recipientId && canHandleRestartBall(state, p),
     );
     if (!recipient || !retrieval.handoffPoint) {
       // A substituted/dismissed recipient invalidates preparation, never the canonical ball.

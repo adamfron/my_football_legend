@@ -177,6 +177,22 @@ export const integrateGroundRolling = (
   };
 };
 
+/** First ground crossing on the constant-acceleration flight segment. */
+export const firstGroundImpactTime = (centreHeight: number, vz: number, az: number) => {
+  const height = Math.max(0, centreHeight - BALL_RADIUS);
+  // Stable positive root, including a launch from the surface and immediate impact.
+  const discriminant = vz * vz - 2 * az * height;
+  return height === 0 && vz < 0
+    ? 0
+    : az < 0 && discriminant >= 0
+      ? vz >= 0
+        ? (vz + Math.sqrt(discriminant)) / -az
+        : (2 * height) / (Math.sqrt(discriminant) - vz)
+      : vz < 0 && discriminant >= 0
+        ? (2 * height) / (Math.sqrt(discriminant) - vz)
+        : Infinity;
+};
+
 /** Event-aware substep within the same canonical integrator. Acceleration is held over
  * each free-flight segment. Solve z(t)=R before applying restitution, then consume the
  * remaining time. Coulomb impulse depends on actual incoming normal momentum, so its
@@ -211,20 +227,8 @@ const integrateGroundContactStep = (
       y: drag.y + magnus.y,
       z: -BALL_PHYSICS.gravity + drag.z + magnus.z,
     };
-    const height = Math.max(0, current.position.z - BALL_RADIUS);
     const vz = current.velocity.z;
-    // Stable positive root, including a launch from the surface and immediate impact.
-    const discriminant = vz * vz - 2 * acceleration.z * height;
-    const impactTime =
-      height === 0 && vz < 0
-        ? 0
-        : acceleration.z < 0 && discriminant >= 0
-          ? vz >= 0
-            ? (vz + Math.sqrt(discriminant)) / -acceleration.z
-            : (2 * height) / (Math.sqrt(discriminant) - vz)
-          : vz < 0 && discriminant >= 0
-            ? (2 * height) / (Math.sqrt(discriminant) - vz)
-            : Infinity;
+    const impactTime = firstGroundImpactTime(current.position.z, vz, acceleration.z);
     const impact = impactTime <= remaining;
     const seconds = impact ? impactTime : remaining;
     const velocity = {

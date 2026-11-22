@@ -1,12 +1,15 @@
 import { attacksRight, type TeamOrientation } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
+import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 import { z } from 'zod';
 import { distance, distanceToSegment, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, RestartScenario, TacticalMatchState } from './matchState';
+import { canHandleRestartBall } from './restartPhase';
 
 /** Fixed rule reference; period-end penalty extensions are owned by matchTimekeeping. */
 export const RESTART_LAWS_VERSION = 'IFAB_2026_27' as const;
 export const RESTART_REQUIRED_DISTANCE = 9.15;
+export const THROW_IN_OPPONENT_TARGET_DISTANCE = 2.2;
 const GOAL_AREA_Y = [24.84, 43.16] as const;
 const PENALTY_AREA_Y = [13.84, 54.16] as const;
 const EPSILON = 0.01;
@@ -166,7 +169,12 @@ export const areKickoffGoalkeepersReady = (state: TacticalMatchState): boolean =
   (['home', 'away'] as const).every((team) => {
     const keeper = state.players.find((p) => p.team === team && isMatchGoalkeeper(p));
     return Boolean(
-      keeper && ownDepth(keeper.position, keeper) <= 9 && Math.abs(keeper.position.y - 34) <= 5,
+      keeper &&
+        // A reassigned keeper can legally take a kickoff. The teammate's
+        // starting-depth plan cannot also apply to that same body.
+        ((state.experimentalDynamicBalance === GROUNDED_RECOVERY_BALANCE &&
+          keeper.id === state.restart?.takerId) ||
+          (ownDepth(keeper.position, keeper) <= 9 && Math.abs(keeper.position.y - 34) <= 5)),
     );
   });
 
@@ -248,7 +256,12 @@ export const legalizeRestartPlayerTarget = (
       attacksRight(restart.restartTeam, state) ? -1 : 1,
     );
   } else if (opponent && state.scenario === 'throw_in') {
-    target = outsideCircle(target, spot, 2.2, attacksRight(player) ? -1 : 1);
+    target = outsideCircle(
+      target,
+      spot,
+      THROW_IN_OPPONENT_TARGET_DISTANCE,
+      attacksRight(player) ? -1 : 1,
+    );
   } else if (isFreeKick(state.scenario)) {
     if (opponent) {
       const onOwnGoalLine = ownDepth(target, player) <= 0.4 && Math.abs(target.y - 34) <= 3.66;
@@ -417,6 +430,7 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
       : (state.ball.height ?? 0) <= 0.15);
   const takerReady = Boolean(
     taker &&
+      (!state.experimentalDynamicBalance || canHandleRestartBall(state, taker)) &&
       distance(taker.position, spot) <= 1.4 + 1e-8 &&
       Math.hypot(taker.velocity.x, taker.velocity.y) <= 1.5,
   );

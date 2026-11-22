@@ -1,6 +1,8 @@
 import { BALL_RADIUS, type BallContact, type FlightPoint } from './ballFlight';
 import type { PhysicalBall } from './ballPhysics';
 import type { composeArticulatedLegs } from './articulatedBody';
+import { deriveLowerBodyGeometry } from './lowerBodyGeometry';
+import type { MatchPlayerState } from './matchState';
 import { composedJointAcceleration, type JointMotion } from './composedLegCurvature';
 import { TEMPORAL_STRIKE } from './temporalFootTrajectory';
 
@@ -24,9 +26,12 @@ const mix = (a: FlightPoint, b: FlightPoint, t: number) => ({
 
 type Motion = JointMotion & {
   ballSpeed: number;
+  recheckSurfaces?: ReadonlySet<Capsule['region']>;
   tightenIndividualKneeBound?: boolean;
   /** Set only for a bounded free ball curve and affine boot anchors. */
   ballAcceleration?: number;
+  /** A shorter prefix can be certified before a possible bounce or support projection. */
+  freeBallPrefix?: { until: number; acceleration: number };
 };
 
 /** Bounds exact IK motion around the sampled pose. The square roots are enclosed
@@ -161,19 +166,25 @@ const contactCapsule = composedLegContactCapsule;
 export const composedContactSurface = (leg: LegContact): Capsule['region'] =>
   `${leg.foot}_${leg.radius === leg.distalRadius ? 'thigh' : 'shin'}`;
 
-export const touchingComposedLeg = (
+const sampleComposedLegMotion = (
   surface: Capsule['region'],
   ball: FlightPoint,
   geometryAt: (at: number) => Geometry | undefined,
   seconds: number,
   includeKnee: boolean,
+  maximumGap: number,
 ) => {
   const current = geometryAt(0);
   const index = current?.capsules.findIndex((shape) => shape.region === surface) ?? -1;
   if (!current || index < 0) return;
   const shape = contactCapsule(current, index);
   const contact = sampleCapsule(shape, ball);
-  if (Math.abs(contact.gap) > distanceTolerance || (!includeKnee && contact.along === 0)) return;
+  if (
+    contact.gap < -distanceTolerance ||
+    contact.gap > maximumGap ||
+    (!includeKnee && contact.along === 0)
+  )
+    return;
   const t = Math.min(seconds, 1e-6);
   const next = t > 0 ? geometryAt(t) : undefined;
   if (!next) return;
@@ -194,7 +205,86 @@ export const touchingComposedLeg = (
     radius: shape.radius,
     distalRadius: shape.distalRadius,
   };
-  return { normal, velocity, leg };
+  return { normal, velocity, leg, gap: contact.gap };
+};
+
+export const touchingComposedLeg = (
+  surface: Capsule['region'],
+  ball: FlightPoint,
+  geometryAt: (at: number) => Geometry | undefined,
+  seconds: number,
+  includeKnee: boolean,
+) => {
+  const motion = sampleComposedLegMotion(
+    surface,
+    ball,
+    geometryAt,
+    seconds,
+    includeKnee,
+    distanceTolerance,
+  );
+  if (motion) return { normal: motion.normal, velocity: motion.velocity, leg: motion.leg };
+};
+
+/** Observation for restitution only. A positive gap never supplies an impulse.
+ * The 5 mm band and 9 ms memory are development parameters for a short pair
+ * interaction, independent of the CCD contact tolerance. */
+export const observeOpposingShinPressure = (
+  current: { normal: FlightPoint; velocity: FlightPoint },
+  priorSurface: Capsule['region'],
+  ball: FlightPoint,
+  priorGeometryAt: (at: number) => Geometry | undefined,
+  seconds: number,
+  age: number,
+) => {
+  if (age <= 0 || age > 0.009 || !priorSurface.endsWith('_shin')) return;
+  const prior = sampleComposedLegMotion(priorSurface, ball, priorGeometryAt, seconds, false, 0.005);
+  if (!prior || prior.leg.region !== 'shin' || dot(current.normal, prior.normal) >= -0.5) return;
+  const relative = minus(current.velocity, prior.velocity);
+  const closing = Math.min(dot(relative, current.normal), -dot(relative, prior.normal));
+  if (closing <= 0 || prior.gap > closing * Math.min(seconds, 0.009)) return;
+  return { age, gap: prior.gap, closing };
+};
+
+export const composedLegGap = (
+  geometry: Geometry,
+  surface: Capsule['region'],
+  ball: FlightPoint,
+) => {
+  const index = geometry.capsules.findIndex((capsule) => capsule.region === surface);
+  return index < 0 ? undefined : sampleCapsule(contactCapsule(geometry, index), ball).gap;
+};
+
+/** Project a normal impulse onto the horizontal swing-ankle coordinates using
+ * the measured gap derivative. Moving the support ankle supplies no trial DOF. */
+export const shinSwingRecoil = (
+  player: MatchPlayerState,
+  ball: FlightPoint,
+  foot: Foot,
+  normalImpulse: number,
+  effectiveMass: number,
+  energyLimit: number,
+  seconds: number,
+) => {
+  const stance = player.articulatedStance;
+  if (!stance?.support || stance.support === foot || energyLimit <= 0) return;
+  const sample = (axis: 'x' | 'y', delta: number) => {
+    const feet = { left: stance.left, right: stance.right };
+    feet[foot] = { ...feet[foot], [axis]: feet[foot][axis] + delta };
+    return composedLegGap(deriveLowerBodyGeometry(player, feet), `${foot}_shin`, ball)!;
+  };
+  const epsilon = 0.00001;
+  try {
+    const x = (sample('x', epsilon) - sample('x', -epsilon)) / (2 * epsilon);
+    const y = (sample('y', epsilon) - sample('y', -epsilon)) / (2 * epsilon);
+    const speed = (normalImpulse * Math.hypot(x, y)) / effectiveMass;
+    const limitedSpeed = Math.min(speed, Math.sqrt((2 * energyLimit) / effectiveMass));
+    if (limitedSpeed <= 0) return;
+    const scale = (((normalImpulse / effectiveMass) * limitedSpeed) / speed) * seconds;
+    return { foot, x: x * scale, y: y * scale, energy: (effectiveMass * limitedSpeed ** 2) / 2 };
+  } catch {
+    return;
+  }
 };
 
 type Hit =
@@ -280,12 +370,15 @@ export const firstComposedLegContact = (
     const thigh = capsule.region.endsWith('thigh');
     const first = sampleCapsule(contactCapsule(initial.g, index), initial.ball.position);
     if (first.gap <= distanceTolerance) {
+      const recheck = movement.recheckSurfaces?.has(capsule.region);
+      if (recheck && first.gap < -distanceTolerance) return unresolved(0);
       // An existing overlap or a separating surface has no fresh entry.
       if (first.gap >= -distanceTolerance && !continued.includes(foot)) {
         const contact = hitAt(0, initial, index, foot, thigh);
         if (contact) return contact;
       }
-      continue;
+      // A just-serviced pair can later close again on the same geometry.
+      if (!recheck) continue;
     }
     candidates.push({ index, foot, thigh });
   }
@@ -331,7 +424,9 @@ export const firstComposedLegContact = (
         BALL_RADIUS + ballTravel
       );
     });
-    const ballAcceleration = movement.ballAcceleration;
+    const prefix = movement.freeBallPrefix;
+    const ballAcceleration =
+      movement.ballAcceleration ?? (prefix && b <= prefix.until ? prefix.acceleration : undefined);
     const acceleration =
       remaining.length && ballAcceleration !== undefined
         ? composedJointAcceleration(current.g, movement, t, half)

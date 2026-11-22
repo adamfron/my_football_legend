@@ -29,6 +29,8 @@ import {
   initializeArticulatedPlayer,
   reanchorArticulatedSpawn,
 } from './articulatedGait';
+import { advanceDynamicBalance } from './dynamicBalance';
+import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 import { activeArticulatedFoot, type BodyPoint } from './articulatedBodyState';
 import { planSynchronizedReception, receptionPlanFacing } from './receiverSynchronisation';
 import {
@@ -2579,6 +2581,7 @@ const stepTacticalMatchCore = (
       balance,
       structural,
       receivingMomentum,
+      groundedRecovery: state.experimentalDynamicBalance === GROUNDED_RECOVERY_BALANCE,
     });
     const stopped = isLiveRestartSetup(state) || Boolean(state.postGoal);
     const movementBounds = (point: { x: number; y: number }) =>
@@ -2726,7 +2729,7 @@ const stepTacticalMatchCore = (
             : null
         : undefined;
     const lowerBodyPose = advanceLowerBodyPose(player, dt, reachTarget);
-    return {
+    const movedPlayer: MatchPlayerState = {
       ...movingPlayer,
       ...(player.articulatedStance
         ? {
@@ -2788,6 +2791,9 @@ const stepTacticalMatchCore = (
         y: (player.meanPosition.y * player.samples + next.y) / samples,
       },
     };
+    return state.experimentalDynamicBalance
+      ? advanceDynamicBalance(state, player, movedPlayer, dt)
+      : movedPlayer;
   });
   endPerformanceSpan('movement_physics', movementSpan);
   if (state.experimentalArticulatedBody) {
