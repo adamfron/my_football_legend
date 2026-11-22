@@ -27,6 +27,8 @@ type Motion = JointMotion & {
   tightenIndividualKneeBound?: boolean;
   /** Set only for a bounded free ball curve and affine boot anchors. */
   ballAcceleration?: number;
+  /** A shorter prefix can be certified before a possible bounce or support projection. */
+  freeBallPrefix?: { until: number; acceleration: number };
 };
 
 /** Bounds exact IK motion around the sampled pose. The square roots are enclosed
@@ -331,7 +333,9 @@ export const firstComposedLegContact = (
         BALL_RADIUS + ballTravel
       );
     });
-    const ballAcceleration = movement.ballAcceleration;
+    const prefix = movement.freeBallPrefix;
+    const ballAcceleration =
+      movement.ballAcceleration ?? (prefix && b <= prefix.until ? prefix.acceleration : undefined);
     const acceleration =
       remaining.length && ballAcceleration !== undefined
         ? composedJointAcceleration(current.g, movement, t, half)

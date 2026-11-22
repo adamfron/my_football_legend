@@ -1,5 +1,14 @@
 # Current-source holistic mechanism inventory — PR214
 
+## PR227 balance and support scope
+
+`dynamic-balance-dev-v1` adds a 3D COM observation, bounded pitch/roll,
+finite ground support and a corrective stance target. It consumes committed
+ball and opponent impulses. G also enables the certified free-flight prefix.
+The compliant pair remains an offline experiment. Current windows and older
+pressure tests preserve explicit halts.
+[PR227 report](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
+
 ## PR226 limb impulse scope
 
 F is an explicit lab recipe over PR225 body composition and PR224

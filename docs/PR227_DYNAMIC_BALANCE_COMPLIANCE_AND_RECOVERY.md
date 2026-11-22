@@ -1,0 +1,143 @@
+# PR227 — Dynamic balance, compliant contact and recovery
+
+**Decision — RETAIN_EXPERIMENTAL.** Single Match Lab recipe G adds a reduced angular body, bounded support, a finite corrective step and reaction to incidental ball and player impulses. It advances the frozen 63:12.875 ground-graze tick. The 89:51.125 shin pinch still reaches the contact budget, and G regresses the 52:57 knee–thigh sequence that F completes. All three 22-player development starts halt inside the requested 120-second window. The compliant pair is a separate experiment. Full falling and getting up remain open.
+
+## 1. Starting point and sequence of work
+
+PR226 merged into `main` at `14dd34bdfcf4ad3da4fe018cab06eb4f3e74918c`. Its final head `f52acaa568f6f5df9e0d2a82f7d560ab8a662e8b` has the same tree `f0dc762a3c080fe71e2b5e0708099693d17b89e1`. The final PR226 GitHub Actions run passed. [PR226](https://github.com/adamfron/my_football_legend/pull/226) · [PR226 CI](https://github.com/adamfron/my_football_legend/actions/runs/44961469675).
+
+1. Replay the original PR223–PR226 sources and reconstruct 89:51 and 63:12 separately.
+2. Add versioned body state over the 19-segment skeleton and the existing stance, rebase and action paths.
+3. Verify impulse transmission, traction, slip and corrective stepping. Test the free-flight search bound and compliant normal-pair law independently.
+4. Compare native checkpoints, real actions, replay parity and 22-player windows. Run full matches only after the developmental windows pass.
+
+| Edition | Executing identity                                                                                                                 |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| PR201/B | Maintained `realism-candidate-v1` with policy B at 40 Hz                                                                           |
+| PR223/D | Historical articulated stance and parked remainder                                                                                 |
+| PR224/E | Historical composed leg contacts and original rebound                                                                              |
+| PR225   | Canonical skeleton and individual geometry, with the E lab selection                                                               |
+| PR226/F | `holistic-limb-impulse-dev-v1`, coupled leg impulse                                                                                |
+| PR227/G | `holistic-dynamic-balance-dev-v1`, `dynamic-balance-dev-v1` state, finite limb-impulse feedback and a certified free-flight prefix |
+
+The selector is explicit. Older native saves may omit it and the balance fields. G recordings carry the edition and torso angles in compact replay. The 28 permanent attributes, human command selection and NPC decision policies retain their contracts.
+
+## 2. Physical ownership
+
+| Owner                                    | Path                                                                                                                                                                                                                                             |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Canonical movement and articulated gait  | Existing root motor and stance advance. G gives the stance a correction target and can release or slide an overloaded anchor.                                                                                                                    |
+| Full-body skeleton                       | World joint and segment transforms supply the mass geometry and replay pose. Pitch and roll rotate the pelvis, spine, head and upper limbs. Anchored ankles and leg IK keep their world-space constraints.                                       |
+| Shared contact interval                  | The actual event and time supply the impact point. Ball-to-player reaction rebases the remaining root path. Body-to-body contact uses the existing pair or cluster owner for translation and supplies its consumed impulse to the angular state. |
+| Ball contact resolution                  | The same impulse sets ball translation and spin. In G, effective body mobility contributes to the impact denominator and opposite reaction.                                                                                                      |
+| Ball physics and the supported transport | Ground and boot chronology determine the true ball sample at each queried time. A bounded prefix can certify where the free trajectory is valid.                                                                                                 |
+| Referee, action and ownership            | The existing rules process observed challenges, advantage, legal restarts and the next action. A solver halt remains a physical diagnostic.                                                                                                      |
+
+The upper-body orientation is part of the canonical pose. The active upright torso collision proxy retains its existing dimensions and axes. Segment-level ground collision and a tilted torso collision proxy require their own continuous geometry work.
+
+## 3. COM, inertia and support
+
+G applies each segment's reference mass fraction to the midpoint of its current canonical endpoints. Summing those vectors yields the three-dimensional centre of mass in metres. Finite differences of successive available poses estimate its velocity. The angular state integrates world X/Y angular momentum in `kg m²/s`, with angular velocity given by diagonal inverse inertia. The inertia sums distributed segment approximations and the parallel-axis terms about the COM in `kg m²`. Vertical root motion retains the canonical jump and articulated pose constraints.
+
+Mass fractions sum to one. Pelvis, lower trunk, thorax, neck and head use 14%, 13%, 16.4%, 1.2% and 5.7%. Each arm contributes 2.7%, 1.6% and 0.6% at upper arm, forearm and hand. Each leg contributes 14.2%, 4.3% and 1.45% at thigh, shank and foot. Girdle mass is grouped with the thorax. These rounded engineering groupings and uniform segment midpoints approximate the reference study. Individual geometry moves the mass and changes leverage and inertia at the same player mass. [de Leva, 1996](https://pubmed.ncbi.nlm.nih.gov/8872282/).
+
+The designated stance boot at ground height supports the quasi-static load `N = mg`. Swing and airborne phases supply zero load when there is no grounded anchor. The inherited surface coefficient bounds translational motor impulse by `μ N Δt`. The angular controller uses a limited centre-of-pressure arm and available traction to oppose tilt and angular rate. At a chronological rebase, the tick has already spent the nominal motor budget, so the rebased remainder earns no additional restoring moment. The model represents one nominated load-bearing foot per player. Dynamic two-foot load distribution and vertical support shocks remain open.
+
+At the stance reach limit, the loaded anchor can slide in the outward root direction by at most the smaller of the reach excess and the distance corresponding to outward speed beyond `μg Δt`. The foot retains its ground height. Existing IK checks both legs. A low-load control retains the anchor, and the slip control measures finite displacement on the same support foot.
+
+## 4. Perturbation and recovery
+
+The contact point and current COM form the moment arm. Pitch/roll momentum changes by the corresponding components of `r × J`. An incidental limb contact adds `−Jxy / m` to the canonical root velocity through the shared rebase. The body solver already applies the opponent's translational reaction. Its angular load uses the recorded pair impulse and an assumed torso-height lever arm. The unmodelled vertical component of ball reaction is available in the load receipt.
+
+G uses current tilt and angular rate to select the direction of a step. It requires a grounded stance and an available swing foot, checks the target against actual leg geometry and predicted root travel, and executes through the existing stance clock and swing-speed limit. An active football foot retains priority. Focused tests cover a small impulse with no recovery step, a disturbance with finite swing and replanting, and a stronger disturbance that reaches the bounded tipping state. The loss state stops further supported motor force and persists in the native state. The angular model stops at its limit of 0.5 rad. Grounding, fall impact, getting up and full action availability after loss remain dependencies.
+
+## 5. Compliant ball contact and work
+
+The live candidate uses a finite effective contact mass. For an incidental impulse `J`, the reduced body's response projects horizontal translation and the two angular degrees of freedom back to the application point. The two-normal solve includes cross mobility when both surfaces belong to the same body. G rebases the next trajectory using the actual root reaction and recomputes the canonical ankle paths. The amount of angular movement in the lower-leg contact geometry is still approximated by that reduced mobility. The knee–thigh regression demonstrates the gap between the effective response and the next actual CCD sample.
+
+The offline compliant pair uses unilateral Kelvin–Voigt compression with backward Euler and four possible active sets. Depth is in metres, closure in `m/s`, stiffness in `N/m` and damping in `N s/m`. Storage is `½k δ²`. The midpoint impulse work gives the kinetic change of the normal modes. Their energy decrement after subtracting storage is reported as dissipation, including numerical dissipation from backward Euler. Active contact requires a nonnegative force, and depths over 25 mm produce an unsupported result. The trial uses measured incoming normals and velocities from F's synchronous knee–thigh contact, fixed local normals, finite participant masses and 1 ms development steps.
+
+|  Stiffness | Peak depth | Peak stored energy | Dissipated over 40 ms |
+| ---------: | ---------: | -----------------: | --------------------: |
+| 10,000 N/m |   12.45 mm |            0.826 J |               1.643 J |
+| 20,000 N/m |    9.14 mm |            0.879 J |               1.587 J |
+| 40,000 N/m |    6.48 mm |            0.883 J |               1.586 J |
+
+The energy residual is below `7 × 10⁻¹⁶ J` on these trials. At 40 ms the softest run retains about 79 μm of compression on one patch with zero applied impulse. The other runs reach zero depth. This calculation tests bounded storage and release in the reduced normal modes. The three stiffness values and 30 `N s/m` damping are development parameters. High-speed instep measurements show deformation and millisecond-scale interactions, and their geometry differs from a shin pinch. [Shinkai et al., 2009](https://pubmed.ncbi.nlm.nih.gov/19276844/).
+
+The experiment requires a certified multi-surface interval before it can take ownership of live ball motion. The live ball keeps its existing 0.11 m detection radius and ground rebound. In the football continuation receipts the largest G ball impulse-account residual was about `3.91 × 10⁻¹⁴ J`. That identity covers ball kinetic energy and measured contact work. A complete human–ball work account would also need muscle work, vertical impulses, the ground constraint and independently validated limb motion.
+
+## 6. Source-bound checkpoints
+
+The [checkpoint archive](performance/pr227-checkpoints.json.gz) gives the original input paths and byte digests, ordered races, ball and contact samples, support transport and attempted reactions. An event from a rolled-back tick is an attempted response.
+
+### 89:51.125 — alternating shin pressure
+
+The ball enters at `(50.657, 56.276, 0.258)` m, moving near `(-1.861, 1.652, -0.910)` m/s. The first opposing traces involve right shins of `footballer_pro_9_18` and `footballer_pro_1_10`. The former is on its right anchor, with the ball-side patch moving about `(-0.029, 0.400, -0.004)` m/s. The latter carries its load on the left anchor while the right patch moves about `(-1.227, 1.420, -1.379)` m/s. Local normals have opposing horizontal components. The two first measured incoming normal speeds are about −1.54 and −1.43 m/s. The archive preserves the contact poses, plant coordinates, tangential components and commands alongside three early body clusters. It gives no clearance certificate or synchronous active pair before the halt, and establishes no offence.
+
+F attempts 13 limb responses and approaches a 96 ns gap between events. G attempts 12 limb responses with paired player reaction and reaches a similar serial limit. The affected roots yield in the attempted chronology. The tick rolls back in both editions. A persistent manifold, physically supported changes to the swing trajectory and a verified release direction remain required.
+
+### 63:12.875 — near-ground graze
+
+The ball is roughly 43 μm above the pitch, with an existing right-boot support and micro-bounces. Many of the late F prefixes show the supported point equal to the free-flight point and the boot slightly clear. A later possible bounce or projection prevents F from offering the tighter acceleration bound over the whole candidate interval. It spends 3,150 samples across 51 calls and halts with no new limb impulse.
+
+G asks how far the _same_ free-flight equation can be certified before either a pitch crossing or any possible boot correction. It uses the existing analytic ground root and the affine boot squared-distance lower bound. The short prefix gives the existing relative-chord separation search a bounded acceleration. All other branches still use the existing fallback enclosure and sample cap. G uses 505 samples in 15 calls, completes the 25 ms interval, preserves the owner and records no new limb impact. Ordinary ground bounces remain under the ball integrator. A kinematic intersection control and the ground-root crossing control continue to admit actual contact. This is a result on the frozen tick, with no claim that the historical match would now finish.
+
+### Knee–thigh and earlier pressure
+
+At 52:57 the original F reaches a simultaneous response and a clear tail. G's coupled response changes the root continuation, and the next CCD sample finds another contact at effectively the same time. Its halt is a G regression. At 41:56 the stored F path completes two actual retained boot contacts and still has `footballer_pro_1_4` on the ball at 600 ms. G exhausts the budget before the first tick commits. At 71:58 G also halts after two completed ticks while F continues the support-transfer scenario. The original PR223 parked-foot and post-impact evidence replays against its own commit. [Continuation archive](performance/pr227-continuity.json.gz).
+
+## 7. Referee and football continuity
+
+Law 12 separates legal shielding of a playable ball from holding a player, impeding with contact, and playing dangerously. Holding and impeding with contact are direct-free-kick offences, whereas playing dangerously and impeding without contact ordinarily use the indirect restart. Existing challenge and advantage consumers retain their ownership. The failed shin compression yields no new discipline. The existing discipline regressions cover the established offence and legal-contact paths. The new pressure cases give no evidence for extending offence classification. [IFAB Laws of the Game 2026/27, Law 12](https://www.theifab.com/laws/latest/fouls-and-misconduct/).
+
+G reproduces the executed ordinary and moving low passes at 10.088 and 10.067 s and the clean swing miss. It preserves the first touch at 10.366 s with no second retention in the early-lateral case. In pressure the opponent still owns the ball at 600 ms. The early-pressure release seen in F is absent in G; the stronger-pressure and unreachable scenarios still fail to retain or make contact as applicable. The regression at 41:56 blocks any general claim about second touches. Source variants cover asymmetric leg lengths, knee alignment, proportions and foot sizes. The additional stress body changes COM and inertia without altering the player's profile.
+
+## 8. Integration windows, cost and gates
+
+The latest comparison uses all three source kickoffs. The G terminal safety halts have their own native snapshots. Full G matches were gated on passing the short windows. The [paired-window and performance receipts](performance/pr227-match-windows.json) include kickoff provenance, committed ticks, solver evidence, timing percentiles, sampled heap and native/replay size. The 8-second F/G pair is the matched cost comparison. Pose timing covers skeleton composition and validation; Three.js scene update and end-user browser frame time remain unmeasured. There is no live compliant solver cost in G.
+
+| Paired 8 s, untraced  |              F |               G |
+| --------------------- | -------------: | --------------: |
+| Mean tick             |        2.31 ms |         4.16 ms |
+| P95 / P99             | 4.94 / 8.78 ms | 7.28 / 13.31 ms |
+| Peak sampled heap     |      142.6 MiB |       195.3 MiB |
+| Terminal native state |      226,488 B |       242,730 B |
+| Terminal replay frame |       70,750 B |        71,909 B |
+
+The separate traced sample estimates 1.63 ms of inclusive balance work per tick from nine sampled ticks. The sampled windows show up to 22 load-bearing feet across participants. In the paired 8-second G window, 27 of 176 sampled player-frames are in the loss state. Those repeats measure persistence, and may include the same player across several samples. This rate, the 80% mean CPU increase in the matched local sample and the early halts block promotion. Heap measurements are snapshots of an allocating process under Node, so the difference includes garbage-collection timing.
+
+| Start             | Historical F               | G 120-second window                       |
+| ----------------- | -------------------------- | ----------------------------------------- |
+| Paired            | Physical halt at 89:51.125 | 84.475 s, `ball_not_placed`               |
+| Native-a          | Physical halt at 63:12.875 | 45.925 s, `ball_not_placed`               |
+| Independent PR214 | Full time, 1:1             | 65.600 s, `no_reachable_control_progress` |
+
+| Gate                              | Verdict                    | Evidence                                                                                                                                                                                        |
+| --------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 Historical provenance           | PASS for scoped replays    | PR223 source verification, E/F checkpoint controls and archived PR226 match receipts.                                                                                                           |
+| 2 Body mass and angular state     | PASS for reduced state     | Joint geometry and the loaded limb impulse survive native reload and compact replay.                                                                                                            |
+| 3 Support                         | PARTIAL                    | Finite single-foot load, traction and a slip fixture. Multi-foot distribution remains open.                                                                                                     |
+| 4 Perturbation and recovery       | PARTIAL                    | Finite corrective swing and bounded loss. Grounded pose and get-up remain open.                                                                                                                 |
+| 5 Compression                     | PARTIAL                    | Passive offline normal-pair trials. Live compression ownership remains open.                                                                                                                    |
+| 6 Shared contact and yield        | PARTIAL                    | Opposite reaction and chronological rebase. Pressured contact regresses on several frozen inputs.                                                                                               |
+| 7 Referee                         | PASS within existing scope | Existing discipline controls and no new offence on either frozen solver halt.                                                                                                                   |
+| 8 Historical solver halts         | PARTIAL                    | 63:12 advances. 89:51 remains explicit. G regresses the F knee–thigh control.                                                                                                                   |
+| 9 Football continuity             | PARTIAL                    | Real passes, a miss and a pressure loss. Other next actions and the historical second touch regress.                                                                                            |
+| 10 Ordinary 22-player integration | FAIL                       | Three development windows stop early.                                                                                                                                                           |
+| 11 Verification                   | See PR checks              | Focused physics, morphology, native reload, visual parity, source replay, discipline, lint, typecheck and production build are tracked separately from hosted CI and local full-suite timeouts. |
+
+## 9. Reproduction and next dependency
+
+```text
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr227Checkpoints.mjs --check
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr226Continuity.mjs --pr227
+node scripts/ci/replayPr223Check.mjs
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr225FullMatches.mjs paired G --pr227 --seconds=120
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr225FullMatches.mjs paired G --pr227 --seconds=8 --profile
+npm run verify
+```
+
+Run the development-window command separately for `native-a` and `independent`. Benchmark outputs go to `.benchmark-artifacts/pr227`. PR226 figures and input snapshots remain available at their original paths.
+
+Prioritize persistent normal contact with a certified manifold and an inverse mass that matches the actual stance and swing response. Use the restored 63:12 interval and the earlier E/F pressured actions as controls. Establish whether the restart and possession liveness halts originate in rejected reach, loss of support or the new trajectories before opening a full-match gate. Ground impact, fall and finite get-up require a separate verified contact and motor primitive. The current performance and football evidence support isolated development use.

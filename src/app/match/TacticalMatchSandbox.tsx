@@ -2,6 +2,7 @@ import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
 import {
   ARTICULATED_HOLISTIC_LIMITATION,
   FULL_BODY_HOLISTIC_LIMITATION,
+  DYNAMIC_BALANCE_LIMITATION,
   effectiveHolisticRecipe,
   HOLISTIC_LIMITATION,
 } from '../../core/matchSimulation/holisticDevelopment';
@@ -401,6 +402,9 @@ export const TacticalMatchSandbox = () => {
               <option value="holistic-limb-impulse-dev-v1">
                 Pełne ciało i impuls nogi (eksperymentalna)
               </option>
+              <option value="holistic-dynamic-balance-dev-v1">
+                G · Dynamiczna równowaga (eksperymentalna)
+              </option>
             </select>
           </label>
           {physicalPreset && (
@@ -410,12 +414,14 @@ export const TacticalMatchSandbox = () => {
                 fizyki i nieobsługiwane sytuacje.
               </p>
               <p>
-                {physicalPreset === 'holistic-full-body-dev-v1' ||
-                physicalPreset === 'holistic-limb-impulse-dev-v1'
-                  ? FULL_BODY_HOLISTIC_LIMITATION
-                  : physicalPreset === 'holistic-stance-foot-dev-v2'
-                    ? ARTICULATED_HOLISTIC_LIMITATION
-                    : HOLISTIC_LIMITATION}
+                {physicalPreset === 'holistic-dynamic-balance-dev-v1'
+                  ? DYNAMIC_BALANCE_LIMITATION
+                  : physicalPreset === 'holistic-full-body-dev-v1' ||
+                      physicalPreset === 'holistic-limb-impulse-dev-v1'
+                    ? FULL_BODY_HOLISTIC_LIMITATION
+                    : physicalPreset === 'holistic-stance-foot-dev-v2'
+                      ? ARTICULATED_HOLISTIC_LIMITATION
+                      : HOLISTIC_LIMITATION}
               </p>
             </div>
           )}
@@ -1818,7 +1824,8 @@ export const RunningLab = ({
   const recentArticulatedReplay =
     (physicalRecipe?.id === 'holistic-stance-foot-dev-v2' ||
       physicalRecipe?.id === 'holistic-full-body-dev-v1' ||
-      physicalRecipe?.id === 'holistic-limb-impulse-dev-v1') &&
+      physicalRecipe?.id === 'holistic-limb-impulse-dev-v1' ||
+      physicalRecipe?.id === 'holistic-dynamic-balance-dev-v1') &&
     !playing &&
     state.time > 0;
   const physicalContactCount = (
@@ -1860,13 +1867,15 @@ export const RunningLab = ({
               Fizyka meczu:{' '}
               <strong>
                 {physicalRecipe
-                  ? physicalRecipe.id === 'holistic-limb-impulse-dev-v1'
-                    ? 'Pełne ciało i impuls nogi (eksperymentalna)'
-                    : physicalRecipe.id === 'holistic-full-body-dev-v1'
-                      ? 'Pełne ciało (eksperymentalna)'
-                      : physicalRecipe.id === 'holistic-stance-foot-dev-v2'
-                        ? 'Holistyczna + szkielet v2 (eksperymentalna)'
-                        : 'Holistyczna (eksperymentalna) · ograniczona'
+                  ? physicalRecipe.id === 'holistic-dynamic-balance-dev-v1'
+                    ? 'G · Dynamiczna równowaga (eksperymentalna)'
+                    : physicalRecipe.id === 'holistic-limb-impulse-dev-v1'
+                      ? 'Pełne ciało i impuls nogi (eksperymentalna)'
+                      : physicalRecipe.id === 'holistic-full-body-dev-v1'
+                        ? 'Pełne ciało (eksperymentalna)'
+                        : physicalRecipe.id === 'holistic-stance-foot-dev-v2'
+                          ? 'Holistyczna + szkielet v2 (eksperymentalna)'
+                          : 'Holistyczna (eksperymentalna) · ograniczona'
                   : session.setup.physicalPreset
                     ? 'Niezgodna konfiguracja — sprawdź diagnostykę'
                     : 'Dotychczasowa'}
@@ -1892,12 +1901,14 @@ export const RunningLab = ({
                 {state.executionWitnesses?.unresolved?.invoked ?? 0}
               </summary>
               <p>
-                {physicalRecipe.id === 'holistic-full-body-dev-v1' ||
-                physicalRecipe.id === 'holistic-limb-impulse-dev-v1'
-                  ? FULL_BODY_HOLISTIC_LIMITATION
-                  : physicalRecipe.id === 'holistic-stance-foot-dev-v2'
-                    ? ARTICULATED_HOLISTIC_LIMITATION
-                    : HOLISTIC_LIMITATION}
+                {physicalRecipe.id === 'holistic-dynamic-balance-dev-v1'
+                  ? DYNAMIC_BALANCE_LIMITATION
+                  : physicalRecipe.id === 'holistic-full-body-dev-v1' ||
+                      physicalRecipe.id === 'holistic-limb-impulse-dev-v1'
+                    ? FULL_BODY_HOLISTIC_LIMITATION
+                    : physicalRecipe.id === 'holistic-stance-foot-dev-v2'
+                      ? ARTICULATED_HOLISTIC_LIMITATION
+                      : HOLISTIC_LIMITATION}
               </p>
               <p>
                 Liczniki obejmują zmierzone zdarzenia. Dotychczasowe ścieżki i wywołania konsumentów

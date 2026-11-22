@@ -1,5 +1,12 @@
 # My Football Legend — Current Project State
 
+PR227 dodaje wariant G w Single Match Lab. Zapisuje środek masy 3D, przechył,
+obciążenie stopy podporowej i reakcję na impuls. Przechodzi zapisany tick
+o 63:12.875, a nacisk goleni o 89:51.125 nadal zatrzymuje solver.
+Trzy krótkie próby G z 22 zawodnikami kończą się zatrzymaniem. Decyzja
+**RETAIN_EXPERIMENTAL**, profil utrzymywany PR201/B.
+[Raport PR227](PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
+
 PR226 dodaje wariant F w Single Match Lab. Rzeczywisty kontakt z nogą wiąże
 zmianę prędkości i rotacji piłki jednym impulsem. Przy potwierdzonym nacisku
 dwóch powierzchni wspólna reakcja działa również w zapisanej parze kolano–udo.

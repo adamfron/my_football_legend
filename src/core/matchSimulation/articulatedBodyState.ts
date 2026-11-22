@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
+import { dynamicBalanceSchema } from './dynamicBalanceState';
 
 /** One action-foot selection shared by support and observation, including a
  * still-latched prepared foot after the action itself has resolved. */
@@ -33,5 +34,6 @@ export const articulatedStanceSchema = z.object({
   elapsed: z.number().finite().min(0).max(0.175),
   stepSeconds: z.number().finite().min(0.05).max(0.175),
   angularVelocity: z.number().finite(),
+  dynamicBalance: dynamicBalanceSchema.optional(),
 });
 export type ArticulatedStance = z.infer<typeof articulatedStanceSchema>;

@@ -11,7 +11,11 @@ export const articulatedBodySchema = z.object({
   root: bodyPointSchema,
   facing: z.number().finite(),
   angularVelocity: z.number().finite(),
-  torsoOrientation: z.object({ yaw: z.number().finite(), pitch: z.literal(0), roll: z.literal(0) }),
+  torsoOrientation: z.object({
+    yaw: z.number().finite(),
+    pitch: z.number().finite(),
+    roll: z.number().finite(),
+  }),
   activeLeg: z.enum(['left', 'right']),
   support: z.enum(['left', 'right']).nullable(),
   height: z.number().finite().positive(),
@@ -87,7 +91,11 @@ export const projectArticulatedBody = (
     root: { ...player.position, z: player.verticalJump?.height ?? 0 },
     facing: player.facingAngle,
     angularVelocity: player.articulatedStance.angularVelocity,
-    torsoOrientation: { yaw: player.facingAngle, pitch: 0, roll: 0 },
+    torsoOrientation: {
+      yaw: player.facingAngle,
+      pitch: player.articulatedStance.dynamicBalance?.tilt.x ?? 0,
+      roll: player.articulatedStance.dynamicBalance?.tilt.y ?? 0,
+    },
     activeLeg:
       activeArticulatedFoot(state, player.id) ??
       player.lowerBodyPose?.activeLeg ??

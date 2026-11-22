@@ -39,6 +39,7 @@ import {
 } from './integrationProfile';
 import { liveBallFlightRuntimeSchema, type LiveBallFlightRuntime } from './liveBallFlight';
 import { experimentalBodyContactsSchema } from './ballSurfaceContact';
+import { dynamicBalanceEditionSchema } from './dynamicBalanceState';
 import {
   activePerceptionRuntimeSchema,
   activePerceptionConfigSchema,
@@ -889,6 +890,7 @@ export interface TacticalMatchState {
   experimentalReceptionPreparation?: z.infer<typeof receptionPreparationEditionSchema>;
   experimentalArticulatedBody?: z.infer<typeof articulatedBodySelectionSchema>;
   experimentalFullBodySkeleton?: z.infer<typeof fullBodySkeletonEditionSchema>;
+  experimentalDynamicBalance?: z.infer<typeof dynamicBalanceEditionSchema>;
   experimentalPostImpactStance?: z.infer<typeof postImpactStanceEditionSchema>;
   experimentalComposedLegContact?: z.infer<typeof composedLegContactEditionSchema>;
   pendingStrike?: PendingStrike;
@@ -1150,6 +1152,7 @@ export const tacticalMatchStateSchema = z
     experimentalReceptionPreparation: receptionPreparationEditionSchema.optional(),
     experimentalArticulatedBody: articulatedBodySelectionSchema.optional(),
     experimentalFullBodySkeleton: fullBodySkeletonEditionSchema.optional(),
+    experimentalDynamicBalance: dynamicBalanceEditionSchema.optional(),
     experimentalPostImpactStance: postImpactStanceEditionSchema.optional(),
     experimentalComposedLegContact: composedLegContactEditionSchema.optional(),
     pendingStrike: pendingStrikeSchema.optional(),
@@ -1486,6 +1489,24 @@ export const tacticalMatchStateSchema = z
       state.players.some((p) => p.bodyMorphology) ||
       state.departedPlayers?.some((p) => p.bodyMorphology) ||
       state.substitutionState?.pending.some((r) => r.outgoing.bodyMorphology);
+    const loadedBalance =
+      state.players.some((p) => p.articulatedStance?.dynamicBalance) ||
+      state.departedPlayers?.some((p) => p.articulatedStance?.dynamicBalance) ||
+      state.substitutionState?.pending.some(
+        (r) =>
+          r.outgoing.articulatedStance?.dynamicBalance || r.entryArticulatedStance?.dynamicBalance,
+      );
+    if (
+      (state.experimentalDynamicBalance || loadedBalance) &&
+      (!state.experimentalDynamicBalance ||
+        !state.experimentalFullBodySkeleton ||
+        state.experimentalComposedLegContact !== 'composed-leg-impulse-dev-v2')
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['experimentalDynamicBalance'],
+        message: 'Dynamic balance requires the selected full skeleton and coupled limb contact',
+      });
     if (
       (state.experimentalFullBodySkeleton || individualBodies) &&
       (!state.experimentalFullBodySkeleton ||

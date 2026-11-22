@@ -1,5 +1,13 @@
 # Roadmap
 
+## Po PR227 — równowaga i podparcie
+
+Wariant G wiąże impuls kontaktu z przechyłem i ruchem zawodnika. Krótszy
+certyfikowany odcinek lotu pozwala przejść zapisany tick z 63:12. Priorytetem
+jest teraz wspólne rozwiązanie utrzymującego się nacisku, zgodność reakcji
+nogi z geometrią podparcia oraz przywrócenie ciągłości akcji i wznowień.
+[Raport PR227](PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
+
 ## Po PR226 — impuls kontaktu i dalsza gra
 
 Wariant F mierzy pracę poruszającej się powierzchni i wiąże rotację piłki
