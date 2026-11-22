@@ -1,5 +1,15 @@
 # Current-source holistic mechanism inventory — PR214
 
+## PR226 limb impulse scope
+
+F is an explicit lab recipe over PR225 body composition and PR224
+chronological contact. It couples a passive capsule impulse to ball spin,
+reuses the joint normal solver on two confirmed opposing leg surfaces, and
+retains explicit unsupported outcomes. Kinematic surface work, finite stance
+and real next actions are recorded in development traces. Material limb
+motion, full balance and larger live contact manifolds remain separate
+physical dependencies. [PR226 report](../PR226_PHYSICAL_CONTACT_AND_FOOTBALL_CONTINUITY.md).
+
 ## PR225 full-body structural scope
 
 `experimentalFullBodySkeleton: full-body-skeleton-dev-v1` is an explicit,

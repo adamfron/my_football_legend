@@ -1,5 +1,16 @@
 # Mechanism dependencies
 
+## PR226 contact work and continuation
+
+`composed-leg-impulse-dev-v2` couples incidental limb friction to ball spin
+and translation at a single contact point. Chronological boot, challenge,
+torso and pitch authority still feed the existing interval. The opposing
+pair solver can respond to confirmed knee/thigh pressure with a common
+forward velocity sample. PR201/B remains maintained. Next, measure the 3D
+torso/angular response, load and traction at the planted foot, and recovery
+step feasibility before modeling tipping, falling and get-up.
+[PR226 evidence and missing constraints](../PR226_PHYSICAL_CONTACT_AND_FOOTBALL_CONTINUITY.md).
+
 ## PR225 full-body dependency boundary
 
 The explicitly versioned full skeleton now supplies a complete principal

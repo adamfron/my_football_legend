@@ -24,6 +24,7 @@ const mix = (a: FlightPoint, b: FlightPoint, t: number) => ({
 
 type Motion = JointMotion & {
   ballSpeed: number;
+  tightenIndividualKneeBound?: boolean;
   /** Set only for a bounded free ball curve and affine boot anchors. */
   ballAcceleration?: number;
 };
@@ -53,11 +54,51 @@ const jointTravel = (g: Geometry, movement: Motion, half: number, at: number) =>
   const hip = Math.hypot(hipXY, Math.max(g.pelvis.z - low, high - g.pelvis.z));
   const knee = (side: Foot) => {
     const leg = g[side];
-    if (g.individualMorphology) return hip + 2 * leg.thighLength;
     const axis = minus(leg.ankle, leg.hip),
       length = norm(axis),
-      travel = hip + boot[side],
-      short = Math.max(leg.shinLength - leg.thighLength, length - travel),
+      travel = hip + boot[side];
+    if (g.individualMorphology) {
+      const broad = hip + 2 * leg.thighLength;
+      const short = length - travel;
+      if (
+        !movement.tightenIndividualKneeBound ||
+        short <= Math.abs(leg.thighLength - leg.shinLength)
+      )
+        return broad;
+      const long = Math.min(leg.thighLength + leg.shinLength, length + travel);
+      const difference = leg.thighLength ** 2 - leg.shinLength ** 2;
+      const along = (l: number) => (l + difference / l) / 2;
+      const a = along(length);
+      // Unequal bones can give the axial projection an interior minimum.
+      const critical = Math.max(short, Math.min(long, Math.sqrt(Math.max(0, difference))));
+      const minAlong = Math.min(along(short), along(long), along(critical));
+      const maxAlong = Math.max(along(short), along(long));
+      const bend = (offset: number) => Math.sqrt(Math.max(0, leg.thighLength ** 2 - offset ** 2));
+      const closestToZero = Math.max(minAlong, Math.min(0, maxAlong));
+      const bendTravel = Math.max(
+        bend(closestToZero) - bend(a),
+        bend(a) - Math.min(bend(minAlong), bend(maxAlong)),
+      );
+      const directionTravel = Math.min(2, (2 * travel) / length);
+      const planeLength = Math.abs(axis.z) / length;
+      if (planeLength < 1e-12) return broad;
+      const planeTravel = Math.min(
+        2,
+        (2 * (2 * directionTravel + movement.yawSpeed * half)) / planeLength,
+      );
+      // Authored knee alignment rotates the bend direction around the moving
+      // leg axis. Bound the change of both the projected direction and its cross product.
+      const alignedTravel = Math.min(2, 2 * planeTravel + directionTravel);
+      return Math.min(
+        broad,
+        hip +
+          Math.max(a - minAlong, maxAlong - a) +
+          Math.abs(a) * directionTravel +
+          bendTravel +
+          bend(a) * alignedTravel,
+      );
+    }
+    const short = Math.max(leg.shinLength - leg.thighLength, length - travel),
       long = Math.min(total, length + travel);
     const along = (l: number) => (l + (leg.thighLength ** 2 - leg.shinLength ** 2) / l) / 2;
     const bend = (a: number) => Math.sqrt(Math.max(0, leg.thighLength ** 2 - a ** 2));
@@ -115,18 +156,24 @@ export const composedLegContactCapsule = (g: Geometry, index: number): TaperedCa
 };
 const contactCapsule = composedLegContactCapsule;
 
-export const touchingComposedShin = (
-  foot: Foot,
+/** The canonical thigh has equal end radii. The shin tapers, including when
+ * its proximal cap is reported as the knee. Use the proxy behind the label. */
+export const composedContactSurface = (leg: LegContact): Capsule['region'] =>
+  `${leg.foot}_${leg.radius === leg.distalRadius ? 'thigh' : 'shin'}`;
+
+export const touchingComposedLeg = (
+  surface: Capsule['region'],
   ball: FlightPoint,
   geometryAt: (at: number) => Geometry | undefined,
   seconds: number,
+  includeKnee: boolean,
 ) => {
   const current = geometryAt(0);
-  const index = current?.capsules.findIndex((shape) => shape.region === `${foot}_shin`) ?? -1;
+  const index = current?.capsules.findIndex((shape) => shape.region === surface) ?? -1;
   if (!current || index < 0) return;
   const shape = contactCapsule(current, index);
   const contact = sampleCapsule(shape, ball);
-  if (Math.abs(contact.gap) > distanceTolerance || contact.along === 0) return;
+  if (Math.abs(contact.gap) > distanceTolerance || (!includeKnee && contact.along === 0)) return;
   const t = Math.min(seconds, 1e-6);
   const next = t > 0 ? geometryAt(t) : undefined;
   if (!next) return;
@@ -137,9 +184,10 @@ export const touchingComposedShin = (
   );
   const velocity = mix({ x: 0, y: 0, z: 0 }, delta, 1 / t);
   const normal = mix({ x: 0, y: 0, z: 0 }, contact.delta, 1 / contact.distance);
+  const thigh = surface.endsWith('thigh');
   const leg: LegContact = {
-    foot,
-    region: 'shin',
+    foot: surface.startsWith('left') ? 'left' : 'right',
+    region: (thigh ? contact.along === 1 : contact.along === 0) ? 'knee' : thigh ? 'thigh' : 'shin',
     point: mix(contact.nearest, ball, contact.radius / contact.distance),
     from: shape.from,
     to: shape.to,

@@ -398,6 +398,9 @@ export const TacticalMatchSandbox = () => {
                 Holistyczna + szkielet v2 (eksperymentalna)
               </option>
               <option value="holistic-full-body-dev-v1">Pełne ciało (eksperymentalna)</option>
+              <option value="holistic-limb-impulse-dev-v1">
+                Pełne ciało i impuls nogi (eksperymentalna)
+              </option>
             </select>
           </label>
           {physicalPreset && (
@@ -407,7 +410,8 @@ export const TacticalMatchSandbox = () => {
                 fizyki i nieobsługiwane sytuacje.
               </p>
               <p>
-                {physicalPreset === 'holistic-full-body-dev-v1'
+                {physicalPreset === 'holistic-full-body-dev-v1' ||
+                physicalPreset === 'holistic-limb-impulse-dev-v1'
                   ? FULL_BODY_HOLISTIC_LIMITATION
                   : physicalPreset === 'holistic-stance-foot-dev-v2'
                     ? ARTICULATED_HOLISTIC_LIMITATION
@@ -1813,7 +1817,8 @@ export const RunningLab = ({
   const physicalRecipe = !careerMode ? effectiveHolisticRecipe(state) : undefined;
   const recentArticulatedReplay =
     (physicalRecipe?.id === 'holistic-stance-foot-dev-v2' ||
-      physicalRecipe?.id === 'holistic-full-body-dev-v1') &&
+      physicalRecipe?.id === 'holistic-full-body-dev-v1' ||
+      physicalRecipe?.id === 'holistic-limb-impulse-dev-v1') &&
     !playing &&
     state.time > 0;
   const physicalContactCount = (
@@ -1855,11 +1860,13 @@ export const RunningLab = ({
               Fizyka meczu:{' '}
               <strong>
                 {physicalRecipe
-                  ? physicalRecipe.id === 'holistic-full-body-dev-v1'
-                    ? 'Pełne ciało (eksperymentalna)'
-                    : physicalRecipe.id === 'holistic-stance-foot-dev-v2'
-                      ? 'Holistyczna + szkielet v2 (eksperymentalna)'
-                      : 'Holistyczna (eksperymentalna) · ograniczona'
+                  ? physicalRecipe.id === 'holistic-limb-impulse-dev-v1'
+                    ? 'Pełne ciało i impuls nogi (eksperymentalna)'
+                    : physicalRecipe.id === 'holistic-full-body-dev-v1'
+                      ? 'Pełne ciało (eksperymentalna)'
+                      : physicalRecipe.id === 'holistic-stance-foot-dev-v2'
+                        ? 'Holistyczna + szkielet v2 (eksperymentalna)'
+                        : 'Holistyczna (eksperymentalna) · ograniczona'
                   : session.setup.physicalPreset
                     ? 'Niezgodna konfiguracja — sprawdź diagnostykę'
                     : 'Dotychczasowa'}
@@ -1885,7 +1892,8 @@ export const RunningLab = ({
                 {state.executionWitnesses?.unresolved?.invoked ?? 0}
               </summary>
               <p>
-                {physicalRecipe.id === 'holistic-full-body-dev-v1'
+                {physicalRecipe.id === 'holistic-full-body-dev-v1' ||
+                physicalRecipe.id === 'holistic-limb-impulse-dev-v1'
                   ? FULL_BODY_HOLISTIC_LIMITATION
                   : physicalRecipe.id === 'holistic-stance-foot-dev-v2'
                     ? ARTICULATED_HOLISTIC_LIMITATION

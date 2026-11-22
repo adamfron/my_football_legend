@@ -1,5 +1,14 @@
 # Roadmap
 
+## Po PR226 — impuls kontaktu i dalsza gra
+
+Wariant F mierzy pracę poruszającej się powierzchni i wiąże rotację piłki
+z impulsem stycznym. Potwierdzony nacisk kolana i uda przechodzi przez
+istniejące rozwiązanie dwóch powierzchni. Kandydat pozostaje eksperymentalny.
+PR227 obejmie równowagę 3D, nacisk i przyczepność stopy podporowej oraz
+wykonalny krok ratunkowy po zderzeniu, z zachowaniem natywnych kontroli PR223
+i PR226. [Raport PR226](PR226_PHYSICAL_CONTACT_AND_FOOTBALL_CONTINUITY.md).
+
 ## Po PR225 — wspólny pełny szkielet i zależności fizyki
 
 Osobna edycja definiuje 19 segmentów i 18 stawów, indywidualną morfologię

@@ -1,5 +1,12 @@
 # MatchEngine integration candidates
 
+PR226 F is a development-only Single Match Lab recipe
+(`holistic-limb-impulse-dev-v1`) over the PR225 full-body hierarchy. Its
+`composed-leg-impulse-dev-v2` edition is stored explicitly in native saves.
+The contact law and its continuation witnesses remain **RETAIN_EXPERIMENTAL**.
+PR201/B remains the maintained integration profile.
+[PR226 gates and evidence](../PR226_PHYSICAL_CONTACT_AND_FOOTBALL_CONTINUITY.md).
+
 PR214 retains maintained PR201 unchanged. `holistic-physical-dev-v1` is an unprofiled development fixture recipe over existing validated selectors, not a promoted historical profile: PR201 feature/auxiliary selection plus event-v1/contact-v1/low-pass/standing/cluster, explicit B policy. Four combined local continuations replay; full match remains BLOCKED by ordinary-phase body ownership, admissible clinch geometry and complete invocation evidence. No silent all-switch promotion or new full-match matrix. [Compatibility](HOLISTIC_COMPATIBILITY_MATRIX.md), [protocol](HOLISTIC_MATCH_PROTOCOL.md).
 
 PR204 development: the opt-in continuity and local-observation intervention remains experimental. Tested hidden-preparation counterfactuals pass, but other information boundaries and downstream control regressions remain. The pre-release factorial did not demonstrate prospective recognition. The maintained candidate remains PR201; independent confirmation is sealed. [PR204 evidence](../PR204_INTENT_CONTINUITY_COGNITIVE_TECHNICAL_RECEPTION.md).

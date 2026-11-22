@@ -19,6 +19,7 @@ export const holisticPhysicalPresetSchema = z.enum([
   'holistic-physical-dev-v1',
   'holistic-stance-foot-dev-v2',
   'holistic-full-body-dev-v1',
+  'holistic-limb-impulse-dev-v1',
 ]);
 type HolisticPhysicalPreset = z.infer<typeof holisticPhysicalPresetSchema>;
 
@@ -48,10 +49,19 @@ const fullBodyHolisticRecipeSchema = articulatedHolisticRecipeSchema.extend({
   id: z.literal('holistic-full-body-dev-v1'),
   fullBodySkeleton: fullBodySkeletonEditionSchema,
 });
+const limbImpulseHolisticRecipeSchema = fullBodyHolisticRecipeSchema.extend({
+  id: z.literal('holistic-limb-impulse-dev-v1'),
+  composedLegContact: z.literal('composed-leg-impulse-dev-v2'),
+});
+const fullBodyHolisticRecipes = z.discriminatedUnion('id', [
+  fullBodyHolisticRecipeSchema,
+  limbImpulseHolisticRecipeSchema,
+]);
 export const holisticRecipeSchema = z.discriminatedUnion('id', [
   originalHolisticRecipeSchema,
   articulatedHolisticRecipeSchema,
   fullBodyHolisticRecipeSchema,
+  limbImpulseHolisticRecipeSchema,
 ]);
 export const holisticRecipe = (policy: DecisionPolicyId = 'state-value-v1') =>
   originalHolisticRecipeSchema.parse({
@@ -80,11 +90,14 @@ export const withHolisticDevelopment = (
   s.experimentalPlayerBodyImpulse = r.playerBody;
   s.executionWitnesses = {};
   let selected = preset === 'holistic-physical-dev-v1' ? s : withArticulatedBody(s);
-  if (preset === 'holistic-full-body-dev-v1')
+  if (preset === 'holistic-full-body-dev-v1' || preset === 'holistic-limb-impulse-dev-v1')
     selected = withFullBodySkeleton({
       ...selected,
       experimentalPostImpactStance: 'parked-stance-remainder-dev-v1',
-      experimentalComposedLegContact: 'composed-leg-contact-dev-v1',
+      experimentalComposedLegContact:
+        preset === 'holistic-limb-impulse-dev-v1'
+          ? 'composed-leg-impulse-dev-v2'
+          : 'composed-leg-contact-dev-v1',
     });
   return tacticalMatchStateSchema.parse(selected) as unknown as TacticalMatchState;
 };
@@ -130,12 +143,14 @@ export const effectiveHolisticRecipe = (s: TacticalMatchState) => {
     ? s.experimentalArticulatedBody
       ? s.experimentalArticulatedBody === articulatedBodySelectionSchema.value
         ? (s.experimentalFullBodySkeleton
-            ? fullBodyHolisticRecipeSchema
+            ? fullBodyHolisticRecipes
             : articulatedHolisticRecipeSchema
           ).parse({
             ...r,
             id: s.experimentalFullBodySkeleton
-              ? 'holistic-full-body-dev-v1'
+              ? s.experimentalComposedLegContact === 'composed-leg-impulse-dev-v2'
+                ? 'holistic-limb-impulse-dev-v1'
+                : 'holistic-full-body-dev-v1'
               : 'holistic-stance-foot-dev-v2',
             ...(s.experimentalFullBodySkeleton
               ? { fullBodySkeleton: s.experimentalFullBodySkeleton }

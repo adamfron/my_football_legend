@@ -2,11 +2,118 @@ import { z } from 'zod';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 import { BALL_RADIUS, type ContactCandidate, type FlightPoint } from './ballFlight';
 import type { BallVelocity3d } from './ballPhysics';
+import { FOOT_CONTACT_PHYSICS } from './footContact';
 
 /** Contact is re-armed by geometric clearance, never by an elapsed-time lock. */
 export const continuousBodyContactsSchema = z.array(z.string()).max(22);
 const CLEARANCE = 0.01;
 const SKIN = 0.00001;
+const dot = (a: FlightPoint, b: FlightPoint) => a.x * b.x + a.y * b.y + a.z * b.z;
+const cross = (a: FlightPoint, b: FlightPoint) => ({
+  x: a.y * b.z - a.z * b.y,
+  y: a.z * b.x - a.x * b.z,
+  z: a.x * b.y - a.y * b.x,
+});
+const scale = (v: FlightPoint, k: number) => ({ x: v.x * k, y: v.y * k, z: v.z * k });
+const add = (a: FlightPoint, b: FlightPoint) => ({ x: a.x + b.x, y: a.y + b.y, z: a.z + b.z });
+const sub = (a: FlightPoint, b: FlightPoint) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
+const length = (v: FlightPoint) => Math.hypot(v.x, v.y, v.z);
+
+type BallMotion = { velocity: BallVelocity3d; spin: BallVelocity3d };
+type MovingSurface = { normal: FlightPoint; velocity: FlightPoint };
+const { mass, radius, inertia } = FOOT_CONTACT_PHYSICS;
+export const COMPOSED_LIMB_IMPACT = { restitution: 0.38, friction: 0.42 } as const;
+
+const patchMotion = (ball: BallMotion, surface: MovingSurface) =>
+  sub(add(ball.velocity, cross(ball.spin, scale(surface.normal, -radius))), surface.velocity);
+
+/** One passive point impulse on a hollow sphere against the measured kinematic
+ * surface. Friction reduces slip and applies the same impulse to translation
+ * and spin. Capsule roll, compliant tissue and limb recoil are unmodeled. */
+export const resolveComposedLimbImpact = (ball: BallMotion, surface: MovingSurface) => {
+  const { normal } = surface;
+  const relative = patchMotion(ball, surface);
+  const normalSpeed = dot(relative, normal);
+  const normalImpulse = mass * (1 + COMPOSED_LIMB_IMPACT.restitution) * Math.max(0, -normalSpeed);
+  const slip = sub(relative, scale(normal, normalSpeed));
+  const tangentialImpulse = scale(
+    slip,
+    -Math.min(
+      1 / (1 / mass + radius ** 2 / inertia),
+      (COMPOSED_LIMB_IMPACT.friction * normalImpulse) / Math.max(length(slip), 1e-12),
+    ),
+  );
+  const angularDelta = scale(cross(scale(normal, -radius), tangentialImpulse), 1 / inertia);
+  // The native spin envelope limits the impulse, keeping J and its torque coupled.
+  let spinScale = 1;
+  for (const axis of ['x', 'y', 'z'] as const) {
+    const delta = angularDelta[axis];
+    if (delta !== 0)
+      spinScale = Math.min(
+        spinScale,
+        Math.max(0, (160 - Math.sign(delta) * ball.spin[axis]) / Math.abs(delta)),
+      );
+  }
+  const spin = add(ball.spin, scale(angularDelta, spinScale));
+  // Absorb roundoff at the schema boundary only.
+  for (const axis of ['x', 'y', 'z'] as const)
+    spin[axis] = Math.max(-160, Math.min(160, spin[axis]));
+  const impulse = add(scale(normal, normalImpulse), scale(tangentialImpulse, spinScale));
+  return { velocity: add(ball.velocity, scale(impulse, 1 / mass)), spin, impulse };
+};
+
+/** An impulse account for a committed response only. The surface work is
+ * inferred from measured surface velocity and modeled impulse. Midpoint
+ * velocities give the exact discrete kinetic-energy identity for this model. */
+export const measureBallContactWork = (
+  incoming: BallMotion,
+  outgoing: BallMotion,
+  constraints: (MovingSurface & { impulse: FlightPoint })[],
+) => {
+  const mid = {
+    velocity: scale(add(incoming.velocity, outgoing.velocity), 0.5),
+    spin: scale(add(incoming.spin, outgoing.spin), 0.5),
+  };
+  const energy = (ball: BallMotion) => ({
+    linear: (mass / 2) * dot(ball.velocity, ball.velocity),
+    rotational: (inertia / 2) * dot(ball.spin, ball.spin),
+  });
+  const before = energy(incoming),
+    after = energy(outgoing);
+  const delta = after.linear - before.linear + after.rotational - before.rotational;
+  let surfaceWork = 0,
+    contactFrameWork = 0;
+  const surfaces = constraints.map((surface) => {
+    const pre = patchMotion(incoming, surface),
+      post = patchMotion(outgoing, surface);
+    const incomingNormal = dot(pre, surface.normal),
+      outgoingNormal = dot(post, surface.normal);
+    const normalImpulse = dot(surface.impulse, surface.normal);
+    surfaceWork += dot(surface.impulse, surface.velocity);
+    contactFrameWork += dot(surface.impulse, patchMotion(mid, surface));
+    return {
+      ...surface,
+      incomingNormal,
+      outgoingNormal,
+      normalImpulse,
+      incomingTangent: sub(pre, scale(surface.normal, incomingNormal)),
+      outgoingTangent: sub(post, scale(surface.normal, outgoingNormal)),
+      tangentImpulse: sub(surface.impulse, scale(surface.normal, normalImpulse)),
+    };
+  });
+  return {
+    before,
+    after,
+    delta,
+    surfaceWork,
+    contactFrameWork,
+    residual: delta - surfaceWork - contactFrameWork,
+    surfaces,
+  };
+};
+
+export const ballLinearImpulse = (before: BallVelocity3d, after: BallVelocity3d) =>
+  scale(sub(after, before), mass);
 
 const axisPoint = (point: FlightPoint, body: ContactCandidate): FlightPoint => ({
   ...body.centre,
@@ -77,12 +184,11 @@ export const separateBallFromBody = (
 
 /** Solve simultaneous unilateral normal impulses where both constraints are active.
  * The Gram system gives the minimum velocity change and preserves tangential motion. */
-export const resolveOpposingBallContacts = (
+export const resolveOpposingBallContactImpulse = (
   incoming: BallVelocity3d,
   a: { normal: FlightPoint; velocity: BallVelocity3d },
   b: { normal: FlightPoint; velocity: BallVelocity3d },
 ) => {
-  const dot = (u: FlightPoint, v: FlightPoint) => u.x * v.x + u.y * v.y + u.z * v.z;
   const cos = dot(a.normal, b.normal);
   const determinant = 1 - cos * cos;
   if (cos >= 0 || determinant <= 1e-12) return;
@@ -93,11 +199,20 @@ export const resolveOpposingBallContacts = (
     jb = (db - cos * da) / determinant;
   if (ja <= 0 || jb <= 0) return;
   return {
-    x: incoming.x + ja * a.normal.x + jb * b.normal.x,
-    y: incoming.y + ja * a.normal.y + jb * b.normal.y,
-    z: incoming.z + ja * a.normal.z + jb * b.normal.z,
+    velocity: {
+      x: incoming.x + ja * a.normal.x + jb * b.normal.x,
+      y: incoming.y + ja * a.normal.y + jb * b.normal.y,
+      z: incoming.z + ja * a.normal.z + jb * b.normal.z,
+    },
+    impulses: [scale(a.normal, mass * ja), scale(b.normal, mass * jb)] as const,
   };
 };
+
+export const resolveOpposingBallContacts = (
+  incoming: BallVelocity3d,
+  a: MovingSurface,
+  b: MovingSurface,
+) => resolveOpposingBallContactImpulse(incoming, a, b)?.velocity;
 
 /** Persistent contact supplies support, not another restituting impact. Body speed is
  * the measured swept displacement; locomotion's desired velocity is not body motion.

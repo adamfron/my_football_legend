@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { Buffer } from 'node:buffer';
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { gunzipSync, gzipSync } from 'node:zlib';
@@ -18,14 +19,25 @@ import { projectArticulatedBody } from '../src/core/matchSimulation/articulatedB
 import { stepTacticalMatch, startSecondHalf } from '../src/core/matchSimulation/matchSimulation.ts';
 import { tacticalMatchStateSchema } from '../src/core/matchSimulation/matchState.ts';
 import { captureReceptionStep } from '../src/core/matchSimulation/receptionTrace.ts';
+import { captureReplaySnapshot } from '../src/core/matchSimulation/matchReplay.ts';
 import { classifyContactEpisodes } from './pr225ContactEpisodes.mjs';
 
 const [fixture, arm] = process.argv.slice(2);
+const research = process.argv.includes('--pr226');
+const untraced = process.argv.includes('--untraced');
+const finalCandidate = process.argv.includes('--final-candidate');
+const duration = process.argv.find((arg) => arg.startsWith('--seconds='))?.split('=')[1];
+const seconds = duration === undefined ? Infinity : Number(duration);
 assert.ok(['paired', 'native-a', 'independent'].includes(fixture));
-assert.ok(['D', 'E'].includes(arm));
+assert.ok((research ? ['D', 'E', 'F'] : ['D', 'E']).includes(arm));
+assert.ok(duration === undefined || (research && Number.isFinite(seconds) && seconds > 0));
+assert.ok(!untraced || (research && duration !== undefined));
+assert.ok(!finalCandidate || (research && arm === 'F' && duration === undefined));
+const folder = research ? '.benchmark-artifacts/pr226' : '.benchmark-artifacts/pr225-full';
+const basename = `${fixture}-${arm}${finalCandidate ? '-final' : ''}${duration ? '-' + duration + 's' : ''}${untraced ? '-untraced' : ''}`;
 const sourcePath = `docs/performance/${fixture === 'paired' ? 'pr224-full-match-paired' : fixture === 'native-a' ? 'pr224-full-match-pr222-native-a' : 'pr224-full-match-independent'}.json`;
 const receipt = JSON.parse(readFileSync(sourcePath)),
-  expected = (receipt.comparison ?? receipt)[arm];
+  expected = (receipt.comparison ?? receipt)[arm === 'F' ? 'E' : arm];
 const native = (s) => tacticalMatchStateSchema.parse(JSON.parse(JSON.stringify(s)));
 const rawHash = (s) => createHash('sha256').update(JSON.stringify(s)).digest('hex');
 const sporting = (s) => {
@@ -46,7 +58,7 @@ const input = native({
   experimentalPostImpactStance: 'parked-stance-remainder-dev-v1',
   experimentalReceptionPreparation: editions.C,
 });
-const initial = native(arm === 'E' ? selectPr224Body(input) : input);
+const initial = native(arm === 'D' ? input : selectPr224Body(input));
 assert.equal(rawHash(initial), expected.initialHash, 'Archived kickoff identity changed');
 const summaryPrecision = (value) =>
   JSON.parse(
@@ -54,7 +66,7 @@ const summaryPrecision = (value) =>
       key === 'at' && typeof v === 'number' ? Number(v.toFixed(3)) : v,
     ),
   );
-const validateAndSave = (result) => {
+const validateArchive = (result) => {
   assert.equal(
     result.sourceSha256,
     createHash('sha256').update(readFileSync(sourcePath)).digest('hex'),
@@ -84,6 +96,9 @@ const validateAndSave = (result) => {
   // Exact, unrounded physical terminal hashes above remain the strict gate.
   assert.deepEqual(summaryPrecision(result.goals), expected.goals);
   assert.deepEqual(summaryPrecision(result.periods), expected.periods);
+};
+const validateAndSave = (result) => {
+  validateArchive(result);
   const { episodes, ...contactSummary } = result.contacts;
   const episodePath = `docs/performance/pr225-contact-episodes-${fixture}-${arm}.json.gz`;
   const episodeBytes = gzipSync(JSON.stringify(episodes));
@@ -111,7 +126,11 @@ if (process.argv.includes('--validate-only')) {
   process.exit(0);
 }
 os.setPriority(0, os.constants.priority.PRIORITY_BELOW_NORMAL);
-let state = withFullBodySkeleton(initial),
+let state = withFullBodySkeleton(
+    arm === 'F'
+      ? { ...initial, experimentalComposedLegContact: 'composed-leg-impulse-dev-v2' }
+      : initial,
+  ),
   ticks = 0,
   minute = -1,
   ownerChanges = 0,
@@ -128,8 +147,14 @@ const contacts = [],
   jointResponses = [],
   goals = [],
   periods = [];
+const researchTicks = [],
+  work = [];
+let peakHeapMiB = 0;
+const search = { calls: 0, samples: 0, maxSamples: 0, milliseconds: 0, exhausted: 0 };
+const cleanWinDetails = new Map();
+let pendingWin = [];
 const began = performance.now();
-mkdirSync('.benchmark-artifacts/pr225-full', { recursive: true });
+mkdirSync(folder, { recursive: true });
 const pointGap = (p, a, b) => {
   const d = { x: b.x - a.x, y: b.y - a.y, z: b.z - a.z },
     v = { x: p.x - a.x, y: p.y - a.y, z: p.z - a.z };
@@ -142,14 +167,32 @@ const pointGap = (p, a, b) => {
   );
   return Math.hypot(v.x - d.x * t, v.y - d.y * t, v.z - d.z * t);
 };
-while (ticks < 400000 && !['full_time', 'abandoned'].includes(state.status)) {
+while (
+  ticks < 400000 &&
+  ticks < Math.round(seconds / 0.025) &&
+  !state.safetyHalt &&
+  !['full_time', 'abandoned'].includes(state.status)
+) {
   if (state.status === 'half_time') {
     periods.push({ status: state.status, at: state.time, score: state.score });
     state = startSecondHalf(state);
   }
   const before = state;
-  const observed = captureReceptionStep(() => stepTacticalMatch(state, 0.025), { mechanics: true });
+  const tickBegan = research ? performance.now() : 0;
+  const observed = untraced
+    ? { state: stepTacticalMatch(state, 0.025), events: [] }
+    : captureReceptionStep(() => stepTacticalMatch(state, 0.025), {
+        mechanics: true,
+        contactWork: research,
+      });
+  if (research) researchTicks.push(performance.now() - tickBegan);
   state = observed.state;
+  if (research && state.safetyHalt) {
+    // Preserve the input to a censored comparison so it can be replayed exactly.
+    writeFileSync(`${folder}/${basename}-halt.json.gz`, gzipSync(JSON.stringify(before)));
+    work.push(...observed.events);
+    break;
+  }
   assert.ok(!state.safetyHalt, JSON.stringify(state.safetyHalt));
   assert.ok(state.time > before.time);
   ticks++;
@@ -172,7 +215,19 @@ while (ticks < 400000 && !['full_time', 'abandoned'].includes(state.status)) {
         intended: false,
       });
   for (const event of observed.events) {
-    if (event.source === 'pendingStrikeInterval.opposingShinContacts')
+    if (event.source.endsWith('composedLegSearch')) {
+      search.calls++;
+      search.samples += event.detail.geometrySamples;
+      search.maxSamples = Math.max(search.maxSamples, event.detail.geometrySamples);
+      search.milliseconds += event.detail.milliseconds;
+      search.exhausted += Number(event.detail.reason === 'budget');
+    }
+    if (research && event.source.endsWith('composedLimbWork'))
+      work.push({ ...event, tick: ticks, exit: { owner: state.ball.ownerId, ball: state.ball } });
+    if (
+      event.source === 'pendingStrikeInterval.opposingShinContacts' ||
+      event.source === 'pendingStrikeInterval.opposingLegContacts'
+    )
       jointResponses.push(event.at);
     if (
       event.source === 'pendingStrikeInterval.contactRace' &&
@@ -204,7 +259,27 @@ while (ticks < 400000 && !['full_time', 'abandoned'].includes(state.status)) {
       kind: 'torso',
       intended: false,
     });
-  if (state.lastChallenge?.outcome === 'clean_win') defenderWins.add(state.lastChallenge.id);
+  const win = state.lastChallenge;
+  if (win?.outcome === 'clean_win') {
+    defenderWins.add(win.id);
+    if (research && !cleanWinDetails.has(win.id)) {
+      const detail = {
+        challenge: win,
+        immediateOwner: state.ball.ownerId ?? null,
+        ownershipChanges: [],
+      };
+      cleanWinDetails.set(win.id, detail);
+      pendingWin.push(detail);
+    }
+  }
+  if (research && pendingWin.length) {
+    for (const detail of pendingWin) {
+      if (state.ball.ownerId !== before.ball.ownerId)
+        detail.ownershipChanges.push({ at: state.time, owner: state.ball.ownerId ?? null });
+      if (state.time >= detail.challenge.at + 0.6) detail.owner600 = state.ball.ownerId ?? null;
+    }
+    pendingWin = pendingWin.filter((detail) => detail.owner600 === undefined);
+  }
   if (state.restart?.awardId) restarts.add(state.restart.awardId);
   // A conservative certificate: the ball is outside every lower-body capsule,
   // boot and the planar torso cylinder at this actual endpoint. The broad torso
@@ -212,6 +287,8 @@ while (ticks < 400000 && !['full_time', 'abandoned'].includes(state.status)) {
   let clear = true;
   const ball = { x: state.ball.x, y: state.ball.y, z: state.ball.height ?? 0.11 };
   const sample = ticks % 40 === 0;
+  if (research && sample)
+    peakHeapMiB = Math.max(peakHeapMiB, process.memoryUsage().heapUsed / 2 ** 20);
   for (const p of state.players) {
     if (!sample && Math.hypot(p.position.x - ball.x, p.position.y - ball.y) > 2) continue;
     const body = projectArticulatedBody(state, p);
@@ -247,10 +324,7 @@ while (ticks < 400000 && !['full_time', 'abandoned'].includes(state.status)) {
       wallSeconds: (performance.now() - began) / 1000,
     };
     process.stdout.write(JSON.stringify(progress) + '\n');
-    writeFileSync(
-      `.benchmark-artifacts/pr225-full/${fixture}-${arm}-progress.json`,
-      JSON.stringify(progress),
-    );
+    writeFileSync(`${folder}/${basename}-progress.json`, JSON.stringify(progress));
   }
 }
 const result = {
@@ -286,11 +360,29 @@ const result = {
     heapMiB: process.memoryUsage().heapUsed / 2 ** 20,
   },
 };
-writeFileSync(
-  `.benchmark-artifacts/pr225-full/${fixture}-${arm}-result.json`,
-  JSON.stringify(result, null, 2) + '\n',
-);
-validateAndSave(result);
+if (research) {
+  const timings = researchTicks.toSorted((a, b) => a - b);
+  const quantile = (p) => timings[Math.floor((timings.length - 1) * p)];
+  Object.assign(result.cost, {
+    traced: !untraced,
+    meanTickMs: timings.reduce((sum, n) => sum + n, 0) / timings.length,
+    p95TickMs: quantile(0.95),
+    p99TickMs: quantile(0.99),
+    peakSampledHeapMiB: peakHeapMiB,
+    terminalNativeBytes: Buffer.byteLength(JSON.stringify(state)),
+    replaySnapshotBytes: Buffer.byteLength(
+      JSON.stringify(captureReplaySnapshot(state, 0, undefined, true)),
+    ),
+    composedLegSearch: untraced ? undefined : search,
+  });
+  result.safetyHalt = state.safetyHalt ?? null;
+  result.workEvents = work.length;
+  result.cleanWins = [...cleanWinDetails.values()];
+  if (arm !== 'F' && seconds === Infinity) validateArchive(result);
+  writeFileSync(`${folder}/${basename}-work.json.gz`, gzipSync(JSON.stringify(work)));
+}
+writeFileSync(`${folder}/${basename}-result.json`, JSON.stringify(result, null, 2) + '\n');
+if (!research) validateAndSave(result);
 process.stdout.write(
   JSON.stringify({ ...result, contacts: { ...result.contacts, episodes: undefined } }) + '\n',
 );

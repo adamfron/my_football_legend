@@ -1,0 +1,3093 @@
+{
+  "archived": [
+    {
+      "fixture": "paired",
+      "arm": "D",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-paired-D.json.gz",
+        "sha256": "cfa19afd316e7001f32b42bc5f894fc5442237c810b3fcf4007bfa2be6b9d371"
+      },
+      "terminalHash": "33e8c086234c9ee37f56c80bc52ccc859c75e2c4bc312bb939beff13530d6793",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1494,
+        "observedEpisodes": 1011,
+        "independentEncounters": 1010,
+        "repeatedEpisodes": 196,
+        "adjacentSurfaceEpisodes": 177,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 971,
+        "incidentalEpisodes": 228,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      }
+    },
+    {
+      "fixture": "paired",
+      "arm": "E",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-paired-E.json.gz",
+        "sha256": "dd922bb736a9a459272d59a78ece80186b8416ebbff6c2fdc9207473d4ef4d48"
+      },
+      "terminalHash": "fc0d098bf404d1a6070e6cd57ee9ac4cfae82d274ce7ce8744044e12a58f91a3",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1523,
+        "observedEpisodes": 900,
+        "independentEncounters": 899,
+        "repeatedEpisodes": 116,
+        "adjacentSurfaceEpisodes": 255,
+        "simultaneousEpisodes": 1,
+        "intendedEpisodes": 730,
+        "incidentalEpisodes": 409,
+        "solverRepetitionCandidates": 32,
+        "jointResponses": 1
+      }
+    },
+    {
+      "fixture": "native-a",
+      "arm": "D",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-native-a-D.json.gz",
+        "sha256": "364e8827786c802bc2549707c188eeee23d640430c43a66b72aef8cc1402ef41"
+      },
+      "terminalHash": "e61426599bb9338a63df268a3570539a5739601441d5e7f4a0c06c9c609fb1e3",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1675,
+        "observedEpisodes": 1093,
+        "independentEncounters": 1092,
+        "repeatedEpisodes": 222,
+        "adjacentSurfaceEpisodes": 222,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 1044,
+        "incidentalEpisodes": 267,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      }
+    },
+    {
+      "fixture": "native-a",
+      "arm": "E",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-native-a-E.json.gz",
+        "sha256": "ed2056781824092fc66ad9683cc945770d16f5fd3a7953c2dcc8332200d1ccd5"
+      },
+      "terminalHash": "1227c4436312e55e33455b74e0fc79eaf3e4f41ce7456592113d53d0222de6d2",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1443,
+        "observedEpisodes": 839,
+        "independentEncounters": 838,
+        "repeatedEpisodes": 119,
+        "adjacentSurfaceEpisodes": 244,
+        "simultaneousEpisodes": 1,
+        "intendedEpisodes": 675,
+        "incidentalEpisodes": 375,
+        "solverRepetitionCandidates": 35,
+        "jointResponses": 1
+      }
+    },
+    {
+      "fixture": "independent",
+      "arm": "D",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-independent-D.json.gz",
+        "sha256": "e09f44645210286de023e2464b318fe73c02216369b222beef55ef64d7a89bf4"
+      },
+      "terminalHash": "77fd758ec04a484b052b50ce38d9c1cfdae6011e496e8e82c156f64fdc648772",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1525,
+        "observedEpisodes": 994,
+        "independentEncounters": 993,
+        "repeatedEpisodes": 216,
+        "adjacentSurfaceEpisodes": 191,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 944,
+        "incidentalEpisodes": 267,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      }
+    },
+    {
+      "fixture": "independent",
+      "arm": "E",
+      "source": {
+        "path": "docs/performance/pr225-contact-episodes-independent-E.json.gz",
+        "sha256": "62a1a4cd477788c84ba5511949d5a8b7f2b5d6a98048b9c9baaea7193e776ee5"
+      },
+      "terminalHash": "eb2d2e26bc20d2a1241dc2475e318eb124414d65c9a295d1e2ceb5b200e0cb96",
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1304,
+        "observedEpisodes": 811,
+        "independentEncounters": 810,
+        "repeatedEpisodes": 99,
+        "adjacentSurfaceEpisodes": 221,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 665,
+        "incidentalEpisodes": 362,
+        "solverRepetitionCandidates": 17,
+        "jointResponses": 0
+      }
+    }
+  ],
+  "full": [
+    {
+      "fixture": "paired",
+      "arm": "D",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "bedd68f1968f8f477a5f0e0723f815c2488d73b7e931b5a872f722dfd4aa9455",
+      "terminalHash": "33e8c086234c9ee37f56c80bc52ccc859c75e2c4bc312bb939beff13530d6793",
+      "expectedTerminalHash": "33e8c086234c9ee37f56c80bc52ccc859c75e2c4bc312bb939beff13530d6793",
+      "final": {
+        "at": 5723.450000000085,
+        "status": "full_time",
+        "score": {
+          "home": 1,
+          "away": 2
+        },
+        "ticks": 228939,
+        "decisions": 2883,
+        "passReleases": 355,
+        "retainedBootContacts": 1049,
+        "bodyImpactTimes": 4043,
+        "shinContacts": 0,
+        "ownerChanges": 1588,
+        "restarts": 194
+      },
+      "goals": [
+        {
+          "at": 1412.5000000007558,
+          "score": {
+            "home": 0,
+            "away": 1
+          }
+        },
+        {
+          "at": 2449.3250000045277,
+          "score": {
+            "home": 1,
+            "away": 1
+          }
+        },
+        {
+          "at": 3320.0750000018193,
+          "score": {
+            "home": 1,
+            "away": 2
+          }
+        }
+      ],
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2843.4500000000853,
+          "score": {
+            "home": 1,
+            "away": 1
+          }
+        }
+      ],
+      "poses": 124597,
+      "invalid": 0,
+      "confirmedDefenderWins": 11,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1494,
+        "observedEpisodes": 1011,
+        "independentEncounters": 1010,
+        "repeatedEpisodes": 196,
+        "adjacentSurfaceEpisodes": 177,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 971,
+        "incidentalEpisodes": 228,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 1503.6741606,
+        "compositionAndValidationMs": 0.6644296339397826,
+        "heapMiB": 159.9934844970703,
+        "traced": true,
+        "meanTickMs": 6.082712940128018,
+        "p95TickMs": 13.773000000044703,
+        "p99TickMs": 23.306899999966845,
+        "peakSampledHeapMiB": 301.63651275634766,
+        "terminalNativeBytes": 820291,
+        "replaySnapshotBytes": 67272,
+        "composedLegSearch": {
+          "calls": 0,
+          "samples": 0,
+          "maxSamples": 0,
+          "milliseconds": 0,
+          "exhausted": 0
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 0,
+      "work": {
+        "positiveEnergy": 0,
+        "positiveSurfaceWork": 0,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 0,
+        "maxAbsoluteResidual": 0,
+        "legRegions": {
+          "shin": 0,
+          "knee": 0,
+          "thigh": 0
+        }
+      },
+      "selectedEpisodes": []
+    },
+    {
+      "fixture": "paired",
+      "arm": "E",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "fc0d098bf404d1a6070e6cd57ee9ac4cfae82d274ce7ce8744044e12a58f91a3",
+      "expectedTerminalHash": "fc0d098bf404d1a6070e6cd57ee9ac4cfae82d274ce7ce8744044e12a58f91a3",
+      "final": {
+        "at": 5760,
+        "status": "full_time",
+        "score": {
+          "home": 3,
+          "away": 1
+        },
+        "ticks": 230401,
+        "decisions": 1572,
+        "passReleases": 290,
+        "retainedBootContacts": 765,
+        "bodyImpactTimes": 4223,
+        "shinContacts": 527,
+        "ownerChanges": 1088,
+        "restarts": 212
+      },
+      "goals": [
+        {
+          "at": 3863.300000004014,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        },
+        {
+          "at": 4223.6000000030035,
+          "score": {
+            "home": 1,
+            "away": 1
+          }
+        },
+        {
+          "at": 4853.29999999384,
+          "score": {
+            "home": 2,
+            "away": 1
+          }
+        },
+        {
+          "at": 5322.499999987012,
+          "score": {
+            "home": 3,
+            "away": 1
+          }
+        }
+      ],
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2760,
+          "score": {
+            "home": 0,
+            "away": 0
+          }
+        }
+      ],
+      "poses": 126687,
+      "invalid": 0,
+      "confirmedDefenderWins": 5,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1523,
+        "observedEpisodes": 900,
+        "independentEncounters": 899,
+        "repeatedEpisodes": 116,
+        "adjacentSurfaceEpisodes": 255,
+        "simultaneousEpisodes": 1,
+        "intendedEpisodes": 730,
+        "incidentalEpisodes": 409,
+        "solverRepetitionCandidates": 32,
+        "jointResponses": 1
+      },
+      "cost": {
+        "wallSeconds": 1203.4463503,
+        "compositionAndValidationMs": 0.4774850545044612,
+        "heapMiB": 170.78885650634766,
+        "meanTracedTickMs": 4.703133445601321,
+        "p95TracedTickMs": 10.568100000033155,
+        "p99TracedTickMs": 20.069500000216067,
+        "peakSampledHeapMiB": 494.6871109008789,
+        "terminalNativeBytes": 715924
+      },
+      "safetyHalt": null,
+      "workEvents": 527,
+      "work": {
+        "positiveEnergy": 239,
+        "positiveSurfaceWork": 400,
+        "residualAboveNanojoule": 508,
+        "maxEnergyGain": 191.2363865764488,
+        "maxAbsoluteResidual": 16.25065301684201,
+        "legRegions": {
+          "shin": 482,
+          "knee": 35,
+          "thigh": 10
+        }
+      },
+      "selectedEpisodes": [
+        {
+          "episode": 176,
+          "beganAt": 1042.973346553495,
+          "endedAt": 1042.993903759311,
+          "solverEvents": 3,
+          "surfaces": 3,
+          "repeated": false,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 16.25065301684201,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 183,
+          "beganAt": 1076.311680555193,
+          "endedAt": 1076.311680555193,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 15.061434587330659,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 304,
+          "beganAt": 1901.980556083009,
+          "endedAt": 1903.2786514806803,
+          "solverEvents": 14,
+          "surfaces": 7,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 10,
+          "limbABA": 1,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 0.5836252062181444,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 10
+        },
+        {
+          "episode": 380,
+          "beganAt": 2515.8383511487914,
+          "endedAt": 2516.241198140941,
+          "solverEvents": 29,
+          "surfaces": 6,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": true,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 25,
+          "limbABA": 15,
+          "joint": true,
+          "largestAbsoluteWorkResidual": 12.153281627185148,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "opposing_constraint_observed",
+          "traced": 25
+        },
+        {
+          "episode": 486,
+          "beganAt": 3158.346537780814,
+          "endedAt": 3159.3945575854923,
+          "solverEvents": 14,
+          "surfaces": 8,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 8,
+          "limbABA": 1,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 0.1908542951819947,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 8
+        },
+        {
+          "episode": 786,
+          "beganAt": 4889.75032462414,
+          "endedAt": 4889.75032462414,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 5.186961971048731e-12,
+          "prepared": true,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        }
+      ]
+    },
+    {
+      "fixture": "paired",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "756e626698223f903e5e8b347f483ad0b9c59ef6b29db83a102e1870b9ee5080",
+      "final": {
+        "at": 5391.124999986014,
+        "status": "second_half",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "ticks": 215645,
+        "decisions": 1370,
+        "passReleases": 271,
+        "retainedBootContacts": 653,
+        "bodyImpactTimes": 3876,
+        "shinContacts": 497,
+        "ownerChanges": 914,
+        "restarts": 205
+      },
+      "goals": [
+        {
+          "at": 4833.199999994133,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        }
+      ],
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2760,
+          "score": {
+            "home": 0,
+            "away": 0
+          }
+        }
+      ],
+      "poses": 118578,
+      "invalid": 0,
+      "confirmedDefenderWins": 5,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1315,
+        "observedEpisodes": 765,
+        "independentEncounters": 764,
+        "repeatedEpisodes": 107,
+        "adjacentSurfaceEpisodes": 208,
+        "simultaneousEpisodes": 1,
+        "intendedEpisodes": 607,
+        "incidentalEpisodes": 357,
+        "solverRepetitionCandidates": 26,
+        "jointResponses": 1
+      },
+      "cost": {
+        "wallSeconds": 1470.0586048999999,
+        "compositionAndValidationMs": 0.68919379648865,
+        "heapMiB": 219.0504608154297,
+        "traced": true,
+        "meanTickMs": 6.306664995409083,
+        "p95TickMs": 14.007299999939278,
+        "p99TickMs": 23.886300000129268,
+        "peakSampledHeapMiB": 457.2581329345703,
+        "terminalNativeBytes": 747613,
+        "replaySnapshotBytes": 79019,
+        "composedLegSearch": {
+          "calls": 87385,
+          "samples": 371183,
+          "maxSamples": 192,
+          "milliseconds": 19856.527100034033,
+          "exhausted": 260
+        }
+      },
+      "safetyHalt": {
+        "kind": "physical_contact",
+        "reason": "pendingStrikeInterval.event_budget",
+        "at": 5391.149999986013,
+        "intervalStartedAt": 5391.124999986014,
+        "actorIds": [],
+        "ball": {
+          "x": 50.65214708856826,
+          "y": 56.29365705574817,
+          "z": 0.2502712004847476
+        },
+        "velocity": {
+          "x": 0.14939197003653826,
+          "y": 1.4279375530315206,
+          "z": -0.5945722407558995
+        },
+        "spin": {
+          "x": -1.3930189345457638,
+          "y": 5.315371752897736,
+          "z": 8.448273397725863
+        }
+      },
+      "workEvents": 497,
+      "cleanWins": [
+        {
+          "challenge": {
+            "id": "lab-mw3xhr6o:challenge:2173.500000:footballer_pro_1_4:footballer_pro_9_17:committed",
+            "at": 2173.6250000035247,
+            "actorId": "footballer_pro_1_4",
+            "team": "away",
+            "opponentId": "footballer_pro_9_17",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 63.48266885693255,
+              "y": 28.72176167136552
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": false,
+            "ballDistance": 0.049405518714432696,
+            "opponentDistance": 1.9935251487453796,
+            "facingError": 0.4051055867641189,
+            "relativeSpeed": 1.2862878324015925,
+            "lateness": 0,
+            "force": 0.8360870910610352,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0
+          },
+          "immediateOwner": "footballer_pro_9_17",
+          "ownershipChanges": [
+            {
+              "at": 2174.0500000035263,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        },
+        {
+          "challenge": {
+            "id": "lab-mw3xhr6o:challenge:3751.350000:footballer_pro_9_5:footballer_pro_1_12:committed",
+            "at": 3751.475000003607,
+            "actorId": "footballer_pro_9_5",
+            "team": "home",
+            "opponentId": "footballer_pro_1_12",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 54.67600448631279,
+              "y": 30.15188815545619
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.6707231759127784,
+            "opponentDistance": 0.844135702372731,
+            "facingError": 0.005135683388349577,
+            "relativeSpeed": 0.7299898381628975,
+            "lateness": 0,
+            "force": 0.47449339480588343,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0
+          },
+          "immediateOwner": "footballer_pro_1_12",
+          "ownershipChanges": [],
+          "owner600": "footballer_pro_1_12"
+        },
+        {
+          "challenge": {
+            "id": "lab-mw3xhr6o:challenge:3753.050000:footballer_pro_1_4:footballer_pro_9_22:committed",
+            "at": 3753.175000003613,
+            "actorId": "footballer_pro_1_4",
+            "team": "away",
+            "opponentId": "footballer_pro_9_22",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 54.46654816891335,
+              "y": 30.818960344098837
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.7251497491947864,
+            "opponentDistance": 1.3391710116041085,
+            "facingError": 0.7071716862849904,
+            "relativeSpeed": 0.656028975315181,
+            "lateness": 0,
+            "force": 0.4264188339548677,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0.047577676468335994
+          },
+          "immediateOwner": "footballer_pro_9_22",
+          "ownershipChanges": [
+            {
+              "at": 3753.450000003614,
+              "owner": null
+            },
+            {
+              "at": 3753.675000003615,
+              "owner": "footballer_pro_1_4"
+            }
+          ],
+          "owner600": "footballer_pro_1_4"
+        },
+        {
+          "challenge": {
+            "id": "lab-mw3xhr6o:challenge:3767.675000:footballer_pro_9_16:footballer_pro_1_17:committed",
+            "at": 3767.8000000036664,
+            "actorId": "footballer_pro_9_16",
+            "team": "home",
+            "opponentId": "footballer_pro_1_17",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 79.99328255324451,
+              "y": 32.402517912068674
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.9068764964134977,
+            "opponentDistance": 1.0640199855174466,
+            "facingError": 0.6135218148485055,
+            "relativeSpeed": 2.1034296300143036,
+            "lateness": 0,
+            "force": 1.3672292595092974,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0.1339326423521925
+          },
+          "immediateOwner": "footballer_pro_1_17",
+          "ownershipChanges": [
+            {
+              "at": 3767.950000003667,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        },
+        {
+          "challenge": {
+            "id": "lab-mw3xhr6o:challenge:4994.900000:footballer_pro_9_16:footballer_pro_1_21:committed",
+            "at": 4995.024999991778,
+            "actorId": "footballer_pro_9_16",
+            "team": "home",
+            "opponentId": "footballer_pro_1_21",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 53.6413300870295,
+              "y": 18.67546802375174
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.14865011295237993,
+            "opponentDistance": 0.6802749786463553,
+            "facingError": 1.134675305592875,
+            "relativeSpeed": 0.8131518085396514,
+            "lateness": 0.06117836737882598,
+            "force": 0.5285486755507735,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0
+          },
+          "immediateOwner": "footballer_pro_1_21",
+          "ownershipChanges": [
+            {
+              "at": 4995.099999991777,
+              "owner": null
+            },
+            {
+              "at": 4995.124999991776,
+              "owner": "footballer_pro_9_16"
+            },
+            {
+              "at": 4995.5249999917705,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        }
+      ],
+      "haltedRace": [
+        {
+          "at": 5391.124999986014,
+          "kind": "player_cluster",
+          "intervalTime": 0.00015961594569418412,
+          "surface": "footballer_pro_1_10\u0000footballer_pro_9_18"
+        },
+        {
+          "at": 5391.125159601959,
+          "kind": "leg",
+          "intervalTime": 0.00030323642971032756,
+          "surface": "footballer_pro_9_18:right:shin"
+        },
+        {
+          "at": 5391.1254628383895,
+          "kind": "player_cluster",
+          "intervalTime": 0.00021894358587440558,
+          "surface": "footballer_pro_1_4\u0000footballer_pro_9_18"
+        },
+        {
+          "at": 5391.125681781975,
+          "kind": "player_cluster",
+          "intervalTime": 0.00022183112503882955,
+          "surface": "footballer_pro_1_4\u0000footballer_pro_9_22"
+        },
+        {
+          "at": 5391.1259036131005,
+          "kind": "leg",
+          "intervalTime": 0.006783573867627639,
+          "surface": "footballer_pro_1_10:right:shin"
+        },
+        {
+          "at": 5391.132687186968,
+          "kind": "leg",
+          "intervalTime": 0.0033765491234810166,
+          "surface": "footballer_pro_9_18:right:shin"
+        },
+        {
+          "at": 5391.136063736091,
+          "kind": "leg",
+          "intervalTime": 0.0014273391706405981,
+          "surface": "footballer_pro_1_10:right:shin"
+        },
+        {
+          "at": 5391.137491075262,
+          "kind": "leg",
+          "intervalTime": 0.0005643924641643959,
+          "surface": "footballer_pro_9_18:right:shin"
+        },
+        {
+          "at": 5391.138055467726,
+          "kind": "leg",
+          "intervalTime": 0.0002189410664280292,
+          "surface": "footballer_pro_1_10:right:shin"
+        },
+        {
+          "at": 5391.138274408792,
+          "kind": "leg",
+          "intervalTime": 0.00008375403065508265,
+          "surface": "footballer_pro_9_18:right:shin"
+        },
+        {
+          "at": 5391.138358162823,
+          "kind": "leg",
+          "intervalTime": 0.00003193055214040798,
+          "surface": "footballer_pro_1_10:right:shin"
+        },
+        {
+          "at": 5391.138390093375,
+          "kind": "leg",
+          "intervalTime": 0.00001214578639757656,
+          "surface": "footballer_pro_9_18:right:shin"
+        },
+        {
+          "at": 5391.138402239161,
+          "kind": "leg",
+          "intervalTime": 0.000004617488373355614,
+          "surface": "footballer_pro_1_10:right:shin"
+        },
+        {
+          "at": 5391.13840685665,
+          "kind": "leg",
+          "intervalTime": 0.0000017548919415757016,
+          "surface": "footballer_pro_9_18:right:shin"
+        },
+        {
+          "at": 5391.138408611542,
+          "kind": "leg",
+          "intervalTime": 6.671500786759453e-7,
+          "surface": "footballer_pro_1_10:right:shin"
+        },
+        {
+          "at": 5391.138409278692,
+          "kind": "leg",
+          "intervalTime": 2.532865447901501e-7,
+          "surface": "footballer_pro_9_18:right:shin"
+        },
+        {
+          "at": 5391.138409531978,
+          "kind": "leg",
+          "intervalTime": 9.611379609396859e-8,
+          "surface": "footballer_pro_1_10:right:shin"
+        }
+      ],
+      "work": {
+        "positiveEnergy": 239,
+        "positiveSurfaceWork": 359,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 193.45299154187282,
+        "maxAbsoluteResidual": 4.263256414560601e-14,
+        "legRegions": {
+          "shin": 433,
+          "knee": 41,
+          "thigh": 23
+        }
+      },
+      "selectedEpisodes": [
+        {
+          "episode": 65,
+          "beganAt": 545.9294029540496,
+          "endedAt": 545.9294029540496,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 4.263256414560601e-14,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 108,
+          "beganAt": 889.514031177696,
+          "endedAt": 889.514031177696,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 4.263256414560601e-14,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 274,
+          "beganAt": 2170.568425067755,
+          "endedAt": 2170.9002012819574,
+          "solverEvents": 2,
+          "surfaces": 2,
+          "repeated": false,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 3.552713678800501e-15,
+          "prepared": true,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 313,
+          "beganAt": 2352.832511253013,
+          "endedAt": 2353.1856344567186,
+          "solverEvents": 16,
+          "surfaces": 7,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 13,
+          "limbABA": 4,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 1.4210854715202004e-14,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 13
+        },
+        {
+          "episode": 354,
+          "beganAt": 2707.2368936748812,
+          "endedAt": 2709.398910458412,
+          "solverEvents": 20,
+          "surfaces": 9,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 8,
+          "limbABA": 1,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 2.6645352591003757e-15,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 8
+        },
+        {
+          "episode": 412,
+          "beganAt": 3176.9764957500574,
+          "endedAt": 3177.340570675448,
+          "solverEvents": 24,
+          "surfaces": 8,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": true,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 23,
+          "limbABA": 13,
+          "joint": true,
+          "largestAbsoluteWorkResidual": 1.4210854715202004e-14,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "opposing_constraint_observed",
+          "traced": 23
+        },
+        {
+          "episode": 698,
+          "beganAt": 4995.092952910935,
+          "endedAt": 4995.233478000218,
+          "solverEvents": 3,
+          "surfaces": 3,
+          "repeated": false,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 4.163336342344337e-17,
+          "prepared": true,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 765,
+          "beganAt": 5389.963137094707,
+          "endedAt": 5391.112424767525,
+          "solverEvents": 16,
+          "surfaces": 10,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "uncertified",
+          "actualLimbResponses": 10,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 6.661338147750939e-16,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 10
+        }
+      ]
+    },
+    {
+      "fixture": "native-a",
+      "arm": "D",
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "6f50d97c423aeeeecd10072f3764125e73b4e169bde843fbdc0b982fe378e827",
+      "terminalHash": "e61426599bb9338a63df268a3570539a5739601441d5e7f4a0c06c9c609fb1e3",
+      "expectedTerminalHash": "e61426599bb9338a63df268a3570539a5739601441d5e7f4a0c06c9c609fb1e3",
+      "final": {
+        "at": 5725.49999998093,
+        "status": "full_time",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "ticks": 229020,
+        "decisions": 2964,
+        "passReleases": 388,
+        "retainedBootContacts": 1168,
+        "bodyImpactTimes": 4210,
+        "shinContacts": 0,
+        "ownerChanges": 1723,
+        "restarts": 185
+      },
+      "goals": [
+        {
+          "at": 3893.900000003907,
+          "score": {
+            "home": 0,
+            "away": 1
+          }
+        }
+      ],
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2843.5500000000857,
+          "score": {
+            "home": 0,
+            "away": 0
+          }
+        }
+      ],
+      "poses": 125914,
+      "invalid": 0,
+      "confirmedDefenderWins": 8,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1675,
+        "observedEpisodes": 1093,
+        "independentEncounters": 1092,
+        "repeatedEpisodes": 222,
+        "adjacentSurfaceEpisodes": 222,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 1044,
+        "incidentalEpisodes": 267,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 1529.8092471,
+        "compositionAndValidationMs": 0.6475110432519718,
+        "heapMiB": 189.4042510986328,
+        "traced": true,
+        "meanTickMs": 6.195402585363423,
+        "p95TickMs": 14.113600000040606,
+        "p99TickMs": 23.71959999995306,
+        "peakSampledHeapMiB": 455.36202239990234,
+        "terminalNativeBytes": 872423,
+        "replaySnapshotBytes": 72634,
+        "composedLegSearch": {
+          "calls": 0,
+          "samples": 0,
+          "maxSamples": 0,
+          "milliseconds": 0,
+          "exhausted": 0
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 0,
+      "work": {
+        "positiveEnergy": 0,
+        "positiveSurfaceWork": 0,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 0,
+        "maxAbsoluteResidual": 0,
+        "legRegions": {
+          "shin": 0,
+          "knee": 0,
+          "thigh": 0
+        }
+      },
+      "selectedEpisodes": []
+    },
+    {
+      "fixture": "native-a",
+      "arm": "E",
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "1227c4436312e55e33455b74e0fc79eaf3e4f41ce7456592113d53d0222de6d2",
+      "expectedTerminalHash": "1227c4436312e55e33455b74e0fc79eaf3e4f41ce7456592113d53d0222de6d2",
+      "final": {
+        "at": 5700,
+        "status": "full_time",
+        "score": {
+          "home": 2,
+          "away": 0
+        },
+        "ticks": 228001,
+        "decisions": 1554,
+        "passReleases": 285,
+        "retainedBootContacts": 709,
+        "bodyImpactTimes": 4269,
+        "shinContacts": 533,
+        "ownerChanges": 1017,
+        "restarts": 216
+      },
+      "goals": [
+        {
+          "at": 2207.525000003648,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        },
+        {
+          "at": 3759.4500000034177,
+          "score": {
+            "home": 2,
+            "away": 0
+          }
+        }
+      ],
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2820,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        }
+      ],
+      "poses": 125369,
+      "invalid": 0,
+      "confirmedDefenderWins": 9,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1443,
+        "observedEpisodes": 839,
+        "independentEncounters": 838,
+        "repeatedEpisodes": 119,
+        "adjacentSurfaceEpisodes": 244,
+        "simultaneousEpisodes": 1,
+        "intendedEpisodes": 675,
+        "incidentalEpisodes": 375,
+        "solverRepetitionCandidates": 35,
+        "jointResponses": 1
+      },
+      "cost": {
+        "wallSeconds": 1212.6551234,
+        "compositionAndValidationMs": 0.4895651548628848,
+        "heapMiB": 178.90975189208984,
+        "meanTracedTickMs": 4.802990093025777,
+        "p95TracedTickMs": 10.846599999815226,
+        "p99TracedTickMs": 19.389499999815598,
+        "peakSampledHeapMiB": 471.54149627685547,
+        "terminalNativeBytes": 728987
+      },
+      "safetyHalt": null,
+      "workEvents": 533,
+      "work": {
+        "positiveEnergy": 253,
+        "positiveSurfaceWork": 392,
+        "residualAboveNanojoule": 517,
+        "maxEnergyGain": 178.33508185491706,
+        "maxAbsoluteResidual": 21.329433548007927,
+        "legRegions": {
+          "shin": 471,
+          "knee": 38,
+          "thigh": 24
+        }
+      },
+      "selectedEpisodes": [
+        {
+          "episode": 62,
+          "beganAt": 434.88949394217053,
+          "endedAt": 434.9130070407239,
+          "solverEvents": 4,
+          "surfaces": 4,
+          "repeated": false,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 3,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 21.329433548007927,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "measured_incidental_response",
+          "traced": 3
+        },
+        {
+          "episode": 237,
+          "beganAt": 1608.184298169311,
+          "endedAt": 1608.184298169311,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 16.190320354089945,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 468,
+          "beganAt": 3165.193500074698,
+          "endedAt": 3165.262720458488,
+          "solverEvents": 13,
+          "surfaces": 4,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 10,
+          "limbABA": 3,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 1.318568712092116,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 10
+        },
+        {
+          "episode": 529,
+          "beganAt": 3579.859434979071,
+          "endedAt": 3579.859434979071,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 0.001750450900530609,
+          "prepared": false,
+          "recovering": true,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 638,
+          "beganAt": 4318.727771931303,
+          "endedAt": 4318.936671824425,
+          "solverEvents": 31,
+          "surfaces": 6,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": true,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 28,
+          "limbABA": 20,
+          "joint": true,
+          "largestAbsoluteWorkResidual": 2.1108848283379684,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "opposing_constraint_observed",
+          "traced": 28
+        },
+        {
+          "episode": 690,
+          "beganAt": 4668.130584511258,
+          "endedAt": 4668.130584511258,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 0.016827279328781586,
+          "prepared": true,
+          "recovering": true,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 782,
+          "beganAt": 5288.91899677625,
+          "endedAt": 5289.919992685923,
+          "solverEvents": 13,
+          "surfaces": 5,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 6,
+          "limbABA": 1,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 0.27306499630614844,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 6
+        },
+        {
+          "episode": 799,
+          "beganAt": 5358.935608744488,
+          "endedAt": 5358.946600645822,
+          "solverEvents": 4,
+          "surfaces": 3,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 3,
+          "limbABA": 1,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 0.7166484171632703,
+          "prepared": true,
+          "recovering": true,
+          "ballOnGround": true,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 3
+        }
+      ]
+    },
+    {
+      "fixture": "native-a",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "cc87aada2dfa7dc33938c461db0bcbaccfdc8b4f29e86f0c3674c45cc0a86722",
+      "final": {
+        "at": 3792.8750000037576,
+        "status": "second_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 151715,
+        "decisions": 1016,
+        "passReleases": 186,
+        "retainedBootContacts": 537,
+        "bodyImpactTimes": 2922,
+        "shinContacts": 383,
+        "ownerChanges": 756,
+        "restarts": 140
+      },
+      "goals": [],
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2760,
+          "score": {
+            "home": 0,
+            "away": 0
+          }
+        }
+      ],
+      "poses": 83411,
+      "invalid": 0,
+      "confirmedDefenderWins": 5,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1054,
+        "observedEpisodes": 609,
+        "independentEncounters": 608,
+        "repeatedEpisodes": 74,
+        "adjacentSurfaceEpisodes": 169,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 488,
+        "incidentalEpisodes": 272,
+        "solverRepetitionCandidates": 20,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 1137.2620161000002,
+        "compositionAndValidationMs": 0.748231681672541,
+        "heapMiB": 139.2718276977539,
+        "traced": true,
+        "meanTickMs": 6.938260618524056,
+        "p95TickMs": 15.472999999998137,
+        "p99TickMs": 26.2048000000068,
+        "peakSampledHeapMiB": 391.70445251464844,
+        "terminalNativeBytes": 637738,
+        "replaySnapshotBytes": 72499,
+        "composedLegSearch": {
+          "calls": 68729,
+          "samples": 295683,
+          "maxSamples": 192,
+          "milliseconds": 16415.117799989224,
+          "exhausted": 233
+        }
+      },
+      "safetyHalt": {
+        "kind": "physical_contact",
+        "reason": "pendingStrikeInterval.event_budget",
+        "at": 3792.9000000037577,
+        "intervalStartedAt": 3792.8750000037576,
+        "actorIds": [],
+        "ball": {
+          "x": 59.061747515147104,
+          "y": 34.26107252421294,
+          "z": 0.11004619567857725
+        },
+        "velocity": {
+          "x": 0.044686232749753585,
+          "y": 0.0736784594927687,
+          "z": -0.042191006221551385
+        },
+        "spin": {
+          "x": -0.48566271250697546,
+          "y": 0.6013126030432807,
+          "z": -1.4247828817306617e-8
+        }
+      },
+      "workEvents": 383,
+      "cleanWins": [
+        {
+          "challenge": {
+            "id": "pr222-native-a:challenge:84.550000:footballer_pro_9_14:footballer_pro_1_21:committed",
+            "at": 84.67500000000213,
+            "actorId": "footballer_pro_9_14",
+            "team": "home",
+            "opponentId": "footballer_pro_1_21",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 45.82061622453094,
+              "y": 35.72476103894214
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.7244499167283095,
+            "opponentDistance": 0.8654577600888622,
+            "facingError": 0.061237724866641585,
+            "relativeSpeed": 3.3773878490758262,
+            "lateness": 0,
+            "force": 2.195302101899287,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0
+          },
+          "immediateOwner": "footballer_pro_1_21",
+          "ownershipChanges": [
+            {
+              "at": 84.80000000000216,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        },
+        {
+          "challenge": {
+            "id": "pr222-native-a:challenge:1154.725000:footballer_pro_1_9:footballer_pro_9_17:slide",
+            "at": 1154.9499999998188,
+            "actorId": "footballer_pro_1_9",
+            "team": "away",
+            "opponentId": "footballer_pro_9_17",
+            "technique": "slide",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 99.50573583881706,
+              "y": 29.083362463577355
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.8931692121044573,
+            "opponentDistance": 1.4823344625980217,
+            "facingError": 0.1195240878522732,
+            "relativeSpeed": 3.3244658761304358,
+            "lateness": 0,
+            "force": 2.992019288517392,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0
+          },
+          "immediateOwner": "footballer_pro_9_17",
+          "ownershipChanges": [],
+          "owner600": "footballer_pro_9_17"
+        },
+        {
+          "challenge": {
+            "id": "pr222-native-a:challenge:2493.925000:footballer_pro_1_21:footballer_pro_9_22:committed",
+            "at": 2494.0750000046905,
+            "actorId": "footballer_pro_1_21",
+            "team": "away",
+            "opponentId": "footballer_pro_9_22",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 96.972575904834,
+              "y": 13.933922154880005
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": false,
+            "ballDistance": 0.38174038762291,
+            "opponentDistance": 1.6594676159208053,
+            "facingError": 0.9947256786692442,
+            "relativeSpeed": 2.787766961009751,
+            "lateness": 0.016631017561301087,
+            "force": 1.812048524656338,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0
+          },
+          "immediateOwner": "footballer_pro_9_22",
+          "ownershipChanges": [],
+          "owner600": "footballer_pro_9_22"
+        },
+        {
+          "challenge": {
+            "id": "pr222-native-a:challenge:2852.250000:footballer_pro_9_3:footballer_pro_1_14:committed",
+            "at": 2852.375000000336,
+            "actorId": "footballer_pro_9_3",
+            "team": "home",
+            "opponentId": "footballer_pro_1_14",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 79.91816603855499,
+              "y": 31.09032725096374
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.5566802943002606,
+            "opponentDistance": 0.6829161950142483,
+            "facingError": 1.0965927427754032,
+            "relativeSpeed": 1.0752217020369816,
+            "lateness": 0.04905631114280945,
+            "force": 0.6988941063240381,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0.128963046780882
+          },
+          "immediateOwner": "footballer_pro_1_14",
+          "ownershipChanges": [
+            {
+              "at": 2852.8250000003377,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        },
+        {
+          "challenge": {
+            "id": "pr222-native-a:challenge:3498.225000:footballer_pro_9_18:footballer_pro_1_17:committed",
+            "at": 3498.350000002686,
+            "actorId": "footballer_pro_9_18",
+            "team": "home",
+            "opponentId": "footballer_pro_1_17",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 51.31182555680402,
+              "y": 3.8631233767056603
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.5366794524420047,
+            "opponentDistance": 0.7051574574401931,
+            "facingError": 1.3099454512980238,
+            "relativeSpeed": 1.4779276088394009,
+            "lateness": 0.11696858750964828,
+            "force": 0.9606529457456106,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0.15647564929531654
+          },
+          "immediateOwner": "footballer_pro_1_17",
+          "ownershipChanges": [
+            {
+              "at": 3498.850000002688,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        }
+      ],
+      "haltedRace": [
+        {
+          "at": 3792.8750000037576,
+          "kind": "player_cluster",
+          "intervalTime": 0.004210482860435337,
+          "surface": "footballer_pro_1_23\u0000footballer_pro_9_3"
+        },
+        {
+          "at": 3792.879210486618,
+          "kind": "player_cluster",
+          "intervalTime": 0.002796850607482461,
+          "surface": "footballer_pro_1_14\u0000footballer_pro_9_3"
+        },
+        {
+          "at": 3792.8820073372253,
+          "kind": "search_frontier",
+          "intervalTime": 0.0018800930848953082,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.8838874303106,
+          "kind": "search_frontier",
+          "intervalTime": 0.001007035840449181,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.884894466151,
+          "kind": "search_frontier",
+          "intervalTime": 0.0005347419318791427,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.8854292080828,
+          "kind": "search_frontier",
+          "intervalTime": 0.0002952578225130033,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.8857244659052,
+          "kind": "search_frontier",
+          "intervalTime": 0.00016032098174020902,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.885884786887,
+          "kind": "search_frontier",
+          "intervalTime": 0.00012061342540800477,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.8860054003126,
+          "kind": "search_frontier",
+          "intervalTime": 0.00031433191331986244,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.8863197322257,
+          "kind": "search_frontier",
+          "intervalTime": 0.00020039460251773672,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.886520126828,
+          "kind": "search_frontier",
+          "intervalTime": 0.0001513853366090207,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.886671512165,
+          "kind": "search_frontier",
+          "intervalTime": 0.0001228394916079932,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.8867943516566,
+          "kind": "search_frontier",
+          "intervalTime": 0.0000733468225832513,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.886867698479,
+          "kind": "search_frontier",
+          "intervalTime": 0.00007293943971856161,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.8869406379185,
+          "kind": "search_frontier",
+          "intervalTime": 0.0000378613206387295,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.8869784992394,
+          "kind": "search_frontier",
+          "intervalTime": 0.00003576463032953485,
+          "surface": "footballer_pro_1_19"
+        },
+        {
+          "at": 3792.88701426387,
+          "kind": "search_frontier",
+          "intervalTime": 0.000024966479886962217,
+          "surface": "footballer_pro_1_19"
+        }
+      ],
+      "work": {
+        "positiveEnergy": 169,
+        "positiveSurfaceWork": 282,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 188.15200499764805,
+        "maxAbsoluteResidual": 4.973799150320701e-14,
+        "legRegions": {
+          "shin": 342,
+          "knee": 25,
+          "thigh": 16
+        }
+      },
+      "selectedEpisodes": [
+        {
+          "episode": 34,
+          "beganAt": 191.50970504158022,
+          "endedAt": 191.50970504158022,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 2.842170943040401e-14,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 94,
+          "beganAt": 489.5832046130209,
+          "endedAt": 490.5972097997519,
+          "solverEvents": 19,
+          "surfaces": 6,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 8,
+          "limbABA": 1,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 6.661338147750939e-16,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 8
+        },
+        {
+          "episode": 258,
+          "beganAt": 1348.0303145745793,
+          "endedAt": 1348.6566148413924,
+          "solverEvents": 21,
+          "surfaces": 9,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 16,
+          "limbABA": 6,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 7.105427357601002e-15,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 16
+        },
+        {
+          "episode": 524,
+          "beganAt": 3172.6975179179085,
+          "endedAt": 3172.732681150094,
+          "solverEvents": 3,
+          "surfaces": 3,
+          "repeated": false,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 2,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 4.973799150320701e-14,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "measured_incidental_response",
+          "traced": 2
+        },
+        {
+          "episode": 562,
+          "beganAt": 3445.011687039006,
+          "endedAt": 3445.6518345331483,
+          "solverEvents": 17,
+          "surfaces": 8,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 9,
+          "limbABA": 2,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 3.552713678800501e-15,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 9
+        }
+      ]
+    },
+    {
+      "fixture": "independent",
+      "arm": "D",
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "84ea3625006c6fc136ebbcbd9b4e9c213dd6312a332a915e716f1f43a20048c6",
+      "terminalHash": "77fd758ec04a484b052b50ce38d9c1cfdae6011e496e8e82c156f64fdc648772",
+      "expectedTerminalHash": "77fd758ec04a484b052b50ce38d9c1cfdae6011e496e8e82c156f64fdc648772",
+      "final": {
+        "at": 5760.099999980208,
+        "status": "full_time",
+        "score": {
+          "home": 5,
+          "away": 0
+        },
+        "ticks": 230404,
+        "decisions": 3076,
+        "passReleases": 262,
+        "retainedBootContacts": 1042,
+        "bodyImpactTimes": 4116,
+        "shinContacts": 0,
+        "ownerChanges": 1470,
+        "restarts": 182
+      },
+      "goals": [
+        {
+          "at": 1782.275000002101,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        },
+        {
+          "at": 2192.600000003594,
+          "score": {
+            "home": 2,
+            "away": 0
+          }
+        },
+        {
+          "at": 3772.6250000032474,
+          "score": {
+            "home": 3,
+            "away": 0
+          }
+        },
+        {
+          "at": 4332.775000000978,
+          "score": {
+            "home": 4,
+            "away": 0
+          }
+        },
+        {
+          "at": 4671.4749999960495,
+          "score": {
+            "home": 5,
+            "away": 0
+          }
+        }
+      ],
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2880,
+          "score": {
+            "home": 2,
+            "away": 0
+          }
+        }
+      ],
+      "poses": 126688,
+      "invalid": 0,
+      "confirmedDefenderWins": 8,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1525,
+        "observedEpisodes": 994,
+        "independentEncounters": 993,
+        "repeatedEpisodes": 216,
+        "adjacentSurfaceEpisodes": 191,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 944,
+        "incidentalEpisodes": 267,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 1460.9205591,
+        "compositionAndValidationMs": 0.6496989999053593,
+        "heapMiB": 339.36644744873047,
+        "traced": true,
+        "meanTickMs": 5.860264091335114,
+        "p95TickMs": 13.45449999999255,
+        "p99TickMs": 22.7497999999905,
+        "peakSampledHeapMiB": 450.35719299316406,
+        "terminalNativeBytes": 834621,
+        "replaySnapshotBytes": 70078,
+        "composedLegSearch": {
+          "calls": 0,
+          "samples": 0,
+          "maxSamples": 0,
+          "milliseconds": 0,
+          "exhausted": 0
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 0,
+      "work": {
+        "positiveEnergy": 0,
+        "positiveSurfaceWork": 0,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 0,
+        "maxAbsoluteResidual": 0,
+        "legRegions": {
+          "shin": 0,
+          "knee": 0,
+          "thigh": 0
+        }
+      },
+      "selectedEpisodes": []
+    },
+    {
+      "fixture": "independent",
+      "arm": "E",
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+      "terminalHash": "eb2d2e26bc20d2a1241dc2475e318eb124414d65c9a295d1e2ceb5b200e0cb96",
+      "expectedTerminalHash": "eb2d2e26bc20d2a1241dc2475e318eb124414d65c9a295d1e2ceb5b200e0cb96",
+      "final": {
+        "at": 5694.824999981158,
+        "status": "full_time",
+        "score": {
+          "home": 2,
+          "away": 0
+        },
+        "ticks": 227793,
+        "decisions": 1628,
+        "passReleases": 232,
+        "retainedBootContacts": 659,
+        "bodyImpactTimes": 4037,
+        "shinContacts": 450,
+        "ownerChanges": 872,
+        "restarts": 207
+      },
+      "goals": [
+        {
+          "at": 111.42500000000821,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        },
+        {
+          "at": 3449.800000002073,
+          "score": {
+            "home": 2,
+            "away": 0
+          }
+        }
+      ],
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2933.550000000195,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        }
+      ],
+      "poses": 125234,
+      "invalid": 0,
+      "confirmedDefenderWins": 3,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1304,
+        "observedEpisodes": 811,
+        "independentEncounters": 810,
+        "repeatedEpisodes": 99,
+        "adjacentSurfaceEpisodes": 221,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 665,
+        "incidentalEpisodes": 362,
+        "solverRepetitionCandidates": 17,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 1123.0453105000001,
+        "compositionAndValidationMs": 0.46036905153553864,
+        "heapMiB": 168.80467987060547,
+        "meanTracedTickMs": 4.447160256021787,
+        "p95TracedTickMs": 9.523199999937788,
+        "p99TracedTickMs": 17.528399999951944,
+        "peakSampledHeapMiB": 413.40760803222656,
+        "terminalNativeBytes": 762018
+      },
+      "safetyHalt": null,
+      "workEvents": 450,
+      "work": {
+        "positiveEnergy": 213,
+        "positiveSurfaceWork": 337,
+        "residualAboveNanojoule": 431,
+        "maxEnergyGain": 176.9409447494078,
+        "maxAbsoluteResidual": 15.547220872052492,
+        "legRegions": {
+          "shin": 394,
+          "knee": 37,
+          "thigh": 19
+        }
+      },
+      "selectedEpisodes": [
+        {
+          "episode": 78,
+          "beganAt": 481.16332049023225,
+          "endedAt": 481.16332049023225,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 15.118651436519723,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 160,
+          "beganAt": 1146.2405866255265,
+          "endedAt": 1146.2405866255265,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 15.547220872052492,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 484,
+          "beganAt": 3443.4234720207523,
+          "endedAt": 3444.3888801494822,
+          "solverEvents": 20,
+          "surfaces": 12,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 16,
+          "limbABA": 5,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 1.8930693103438228,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 16
+        },
+        {
+          "episode": 527,
+          "beganAt": 3731.6532505857967,
+          "endedAt": 3732.9377434050866,
+          "solverEvents": 24,
+          "surfaces": 9,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 21,
+          "limbABA": 9,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 0.03522465836087374,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 21
+        },
+        {
+          "episode": 565,
+          "beganAt": 3927.049654229163,
+          "endedAt": 3928.0183552907665,
+          "solverEvents": 15,
+          "surfaces": 4,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 9,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 0.1662330476184355,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 9
+        },
+        {
+          "episode": 645,
+          "beganAt": 4616.325317845782,
+          "endedAt": 4616.325317845782,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 7.279997049636222e-9,
+          "prepared": false,
+          "recovering": true,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        }
+      ]
+    },
+    {
+      "fixture": "independent",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+      "terminalHash": "8e8511217bdd7629071d677402decba97261507c9461b0aa5055aa2a83aecec4",
+      "final": {
+        "at": 5700.325000006314,
+        "status": "full_time",
+        "score": {
+          "home": 1,
+          "away": 1
+        },
+        "ticks": 228014,
+        "decisions": 1881,
+        "passReleases": 216,
+        "retainedBootContacts": 759,
+        "bodyImpactTimes": 4291,
+        "shinContacts": 474,
+        "ownerChanges": 1006,
+        "restarts": 213
+      },
+      "goals": [
+        {
+          "at": 294.27500000000623,
+          "score": {
+            "home": 0,
+            "away": 1
+          }
+        },
+        {
+          "at": 354.4249999999515,
+          "score": {
+            "home": 1,
+            "away": 1
+          }
+        }
+      ],
+      "periods": [
+        {
+          "status": "half_time",
+          "at": 2940.325000006314,
+          "score": {
+            "home": 1,
+            "away": 1
+          }
+        }
+      ],
+      "poses": 125364,
+      "invalid": 0,
+      "confirmedDefenderWins": 3,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 1430,
+        "observedEpisodes": 860,
+        "independentEncounters": 859,
+        "repeatedEpisodes": 125,
+        "adjacentSurfaceEpisodes": 223,
+        "simultaneousEpisodes": 1,
+        "intendedEpisodes": 706,
+        "incidentalEpisodes": 367,
+        "solverRepetitionCandidates": 22,
+        "jointResponses": 1
+      },
+      "cost": {
+        "wallSeconds": 1547.8925958,
+        "compositionAndValidationMs": 0.6626636275165391,
+        "heapMiB": 229.28274536132812,
+        "traced": true,
+        "meanTickMs": 6.295026823791561,
+        "p95TickMs": 14.136600000027101,
+        "p99TickMs": 24.957700000028126,
+        "peakSampledHeapMiB": 445.60855865478516,
+        "terminalNativeBytes": 772534,
+        "replaySnapshotBytes": 69002,
+        "composedLegSearch": {
+          "calls": 96555,
+          "samples": 416950,
+          "maxSamples": 192,
+          "milliseconds": 22548.002800034505,
+          "exhausted": 343
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 474,
+      "cleanWins": [
+        {
+          "challenge": {
+            "id": "pr215-holistic-sw-B-v1:challenge:399.350000:geometry:anchor:10:geometry:opponent:7:committed",
+            "at": 399.47499999991055,
+            "actorId": "geometry:anchor:10",
+            "team": "home",
+            "opponentId": "geometry:opponent:7",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 56.71459587981993,
+              "y": 36.79253749499454
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.1302409524771276,
+            "opponentDistance": 0.7475024583573859,
+            "facingError": 1.0122184376742602,
+            "relativeSpeed": 1.3950827836364834,
+            "lateness": 0.02219913568922821,
+            "force": 0.9068038093637143,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0.1255552478806976
+          },
+          "immediateOwner": "geometry:opponent:7",
+          "ownershipChanges": [
+            {
+              "at": 399.49999999991053,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        },
+        {
+          "challenge": {
+            "id": "pr215-holistic-sw-B-v1:challenge:2159.525000:geometry:anchor:6:geometry:opponent:8:committed",
+            "at": 2159.650000003474,
+            "actorId": "geometry:anchor:6",
+            "team": "home",
+            "opponentId": "geometry:opponent:8",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 62.71763909520578,
+              "y": 35.10717961884713
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.5453253652478495,
+            "opponentDistance": 0.9105637368729554,
+            "facingError": 0.002837993823167295,
+            "relativeSpeed": 2.6220998301417917,
+            "lateness": 0,
+            "force": 1.7043648895921646,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0.0809213951683887
+          },
+          "immediateOwner": "geometry:opponent:8",
+          "ownershipChanges": [
+            {
+              "at": 2159.7500000034743,
+              "owner": "geometry:anchor:6"
+            }
+          ],
+          "owner600": "geometry:anchor:6"
+        },
+        {
+          "challenge": {
+            "id": "pr215-holistic-sw-B-v1:challenge:3920.450000:geometry:anchor:13:geometry:opponent:8:committed",
+            "at": 3920.57500000988,
+            "actorId": "geometry:anchor:13",
+            "team": "home",
+            "opponentId": "geometry:opponent:8",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 36.97907976537792,
+              "y": 41.80392635237183
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.22036338883091997,
+            "opponentDistance": 0.6802029329374388,
+            "facingError": 1.2948421250981674,
+            "relativeSpeed": 0.7024433804253463,
+            "lateness": 0.11216104946597533,
+            "force": 0.4565881972764751,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0
+          },
+          "immediateOwner": "geometry:opponent:8",
+          "ownershipChanges": [
+            {
+              "at": 3920.775000009881,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        }
+      ],
+      "work": {
+        "positiveEnergy": 234,
+        "positiveSurfaceWork": 351,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 268.90406640894264,
+        "maxAbsoluteResidual": 5.684341886080802e-14,
+        "legRegions": {
+          "shin": 442,
+          "knee": 17,
+          "thigh": 15
+        }
+      },
+      "selectedEpisodes": [
+        {
+          "episode": 49,
+          "beganAt": 256.41680308854325,
+          "endedAt": 256.41680308854325,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 5.684341886080802e-14,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        },
+        {
+          "episode": 52,
+          "beganAt": 286.47083451134563,
+          "endedAt": 286.782515765818,
+          "solverEvents": 7,
+          "surfaces": 4,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 4,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 4.884981308350689e-15,
+          "prepared": false,
+          "recovering": true,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 4
+        },
+        {
+          "episode": 157,
+          "beganAt": 929.9399615872954,
+          "endedAt": 930.002139214555,
+          "solverEvents": 19,
+          "surfaces": 4,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 15,
+          "limbABA": 13,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 5.684341886080802e-14,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 15
+        },
+        {
+          "episode": 316,
+          "beganAt": 1976.2697473735946,
+          "endedAt": 1976.3269236293881,
+          "solverEvents": 2,
+          "surfaces": 1,
+          "repeated": true,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 2,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 1.7763568394002505e-15,
+          "prepared": false,
+          "recovering": true,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 2
+        },
+        {
+          "episode": 333,
+          "beganAt": 2074.706727296766,
+          "endedAt": 2076.601943802636,
+          "solverEvents": 37,
+          "surfaces": 10,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": true,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 35,
+          "limbABA": 19,
+          "joint": true,
+          "largestAbsoluteWorkResidual": 7.105427357601002e-15,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "opposing_constraint_observed",
+          "traced": 35
+        },
+        {
+          "episode": 386,
+          "beganAt": 2463.4594201041573,
+          "endedAt": 2465.0953223245774,
+          "solverEvents": 17,
+          "surfaces": 7,
+          "repeated": true,
+          "adjacentSurfaces": true,
+          "simultaneous": false,
+          "intended": true,
+          "incidental": true,
+          "solverRepetitionCandidate": true,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 9,
+          "limbABA": 4,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 7.105427357601002e-15,
+          "prepared": false,
+          "recovering": false,
+          "ballOnGround": false,
+          "classification": "serial_limb_responses_clearance_between_events_uncertified",
+          "traced": 9
+        },
+        {
+          "episode": 470,
+          "beganAt": 3043.1069593307716,
+          "endedAt": 3043.1069593307716,
+          "solverEvents": 1,
+          "surfaces": 1,
+          "repeated": false,
+          "adjacentSurfaces": false,
+          "simultaneous": false,
+          "intended": false,
+          "incidental": true,
+          "solverRepetitionCandidate": false,
+          "incomingBoundary": "canonical_clearance",
+          "outgoingBoundary": "canonical_clearance",
+          "actualLimbResponses": 1,
+          "limbABA": 0,
+          "joint": false,
+          "largestAbsoluteWorkResidual": 1.4210854715202004e-14,
+          "prepared": true,
+          "recovering": false,
+          "ballOnGround": true,
+          "classification": "measured_incidental_response",
+          "traced": 1
+        }
+      ]
+    }
+  ],
+  "bounded": [
+    {
+      "fixture": "paired",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "9f45ba58a6c67b7718f13c2db0c8f273bf526856d89deac023cf6b9e7b6229d0",
+      "final": {
+        "at": 120.00000000001016,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4800,
+        "decisions": 20,
+        "passReleases": 8,
+        "retainedBootContacts": 10,
+        "bodyImpactTimes": 73,
+        "shinContacts": 6,
+        "ownerChanges": 14,
+        "restarts": 7
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 0,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 19,
+        "observedEpisodes": 15,
+        "independentEncounters": 14,
+        "repeatedEpisodes": 1,
+        "adjacentSurfaceEpisodes": 3,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 10,
+        "incidentalEpisodes": 9,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 25.209632999999997,
+        "compositionAndValidationMs": 0.5692400378787543,
+        "heapMiB": 189.0265121459961,
+        "traced": true,
+        "meanTickMs": 4.838900250000022,
+        "p95TickMs": 9.35070000000269,
+        "p99TickMs": 13.362199999999575,
+        "peakSampledHeapMiB": 241.84425354003906,
+        "terminalNativeBytes": 239722,
+        "replaySnapshotBytes": 70713,
+        "composedLegSearch": {
+          "calls": 955,
+          "samples": 4148,
+          "maxSamples": 192,
+          "milliseconds": 237.37300000006417,
+          "exhausted": 3
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 6,
+      "work": {
+        "positiveEnergy": 4,
+        "positiveSurfaceWork": 5,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 59.88326082983042,
+        "maxAbsoluteResidual": 1.7763568394002505e-14,
+        "legRegions": {
+          "shin": 6,
+          "knee": 0,
+          "thigh": 0
+        }
+      }
+    },
+    {
+      "fixture": "native-a",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "8ca49a0ee29be91787b31c369ba924f539daa7a5f85ec1b7400b4db5c7594605",
+      "final": {
+        "at": 120.00000000001016,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4800,
+        "decisions": 58,
+        "passReleases": 8,
+        "retainedBootContacts": 26,
+        "bodyImpactTimes": 107,
+        "shinContacts": 8,
+        "ownerChanges": 39,
+        "restarts": 6
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 1,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 38,
+        "observedEpisodes": 27,
+        "independentEncounters": 26,
+        "repeatedEpisodes": 3,
+        "adjacentSurfaceEpisodes": 6,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 25,
+        "incidentalEpisodes": 7,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 28.3130823,
+        "compositionAndValidationMs": 0.5767470075757674,
+        "heapMiB": 332.3031539916992,
+        "traced": true,
+        "meanTickMs": 5.463564562500009,
+        "p95TickMs": 12.055599999999686,
+        "p99TickMs": 22.15070000000196,
+        "peakSampledHeapMiB": 333.59716796875,
+        "terminalNativeBytes": 236270,
+        "replaySnapshotBytes": 70498,
+        "composedLegSearch": {
+          "calls": 2914,
+          "samples": 11799,
+          "maxSamples": 192,
+          "milliseconds": 520.8942999998426,
+          "exhausted": 9
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 8,
+      "cleanWins": [
+        {
+          "challenge": {
+            "id": "pr222-native-a:challenge:84.550000:footballer_pro_9_14:footballer_pro_1_21:committed",
+            "at": 84.67500000000213,
+            "actorId": "footballer_pro_9_14",
+            "team": "home",
+            "opponentId": "footballer_pro_1_21",
+            "technique": "committed",
+            "source": "autonomous_npc",
+            "position": {
+              "x": 45.82061622453094,
+              "y": 35.72476103894214
+            },
+            "outcome": "clean_win",
+            "ballFirst": true,
+            "opponentContact": true,
+            "ballDistance": 0.7244499167283095,
+            "opponentDistance": 0.8654577600888622,
+            "facingError": 0.061237724866641585,
+            "relativeSpeed": 3.3773878490758262,
+            "lateness": 0,
+            "force": 2.195302101899287,
+            "fromBehind": false,
+            "ballReachable": true,
+            "bodyOccludes": false,
+            "defenderContactEta": 0,
+            "carrierContactEta": 0
+          },
+          "immediateOwner": "footballer_pro_1_21",
+          "ownershipChanges": [
+            {
+              "at": 84.80000000000216,
+              "owner": null
+            }
+          ],
+          "owner600": null
+        }
+      ],
+      "work": {
+        "positiveEnergy": 4,
+        "positiveSurfaceWork": 6,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 58.415947713472065,
+        "maxAbsoluteResidual": 2.1316282072803006e-14,
+        "legRegions": {
+          "shin": 7,
+          "knee": 1,
+          "thigh": 0
+        }
+      }
+    },
+    {
+      "fixture": "independent",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+      "terminalHash": "8855c604c56a0002aec8c81cd2b807d669a89d0cbd2813ae93dcb9815fe55276",
+      "final": {
+        "at": 120.00000000001016,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4800,
+        "decisions": 34,
+        "passReleases": 7,
+        "retainedBootContacts": 15,
+        "bodyImpactTimes": 83,
+        "shinContacts": 9,
+        "ownerChanges": 18,
+        "restarts": 6
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 0,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 27,
+        "observedEpisodes": 21,
+        "independentEncounters": 20,
+        "repeatedEpisodes": 2,
+        "adjacentSurfaceEpisodes": 4,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 16,
+        "incidentalEpisodes": 9,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 18.9765854,
+        "compositionAndValidationMs": 0.45224606060604905,
+        "heapMiB": 215.24451446533203,
+        "meanTracedTickMs": 3.631554395833341,
+        "p95TracedTickMs": 8.508700000000317,
+        "p99TracedTickMs": 17.85030000000188,
+        "peakSampledHeapMiB": 249.71238708496094,
+        "terminalNativeBytes": 232513
+      },
+      "safetyHalt": null,
+      "workEvents": 9,
+      "work": {
+        "positiveEnergy": 6,
+        "positiveSurfaceWork": 9,
+        "residualAboveNanojoule": 0,
+        "maxEnergyGain": 137.63905971059518,
+        "maxAbsoluteResidual": 2.842170943040401e-14,
+        "legRegions": {
+          "shin": 9,
+          "knee": 0,
+          "thigh": 0
+        }
+      }
+    },
+    {
+      "fixture": "paired",
+      "arm": "E",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "8f60385dc79b97a5c03b8a124215651d13c40ec14d75dd1db9a816b5987ad28c",
+      "final": {
+        "at": 120.00000000001016,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 4800,
+        "decisions": 59,
+        "passReleases": 9,
+        "retainedBootContacts": 27,
+        "bodyImpactTimes": 101,
+        "shinContacts": 12,
+        "ownerChanges": 37,
+        "restarts": 6
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 0,
+      "contacts": {
+        "rule": "canonical-clearance-certified-v1",
+        "solverEvents": 48,
+        "observedEpisodes": 29,
+        "independentEncounters": 28,
+        "repeatedEpisodes": 4,
+        "adjacentSurfaceEpisodes": 7,
+        "simultaneousEpisodes": 0,
+        "intendedEpisodes": 23,
+        "incidentalEpisodes": 13,
+        "solverRepetitionCandidates": 0,
+        "jointResponses": 0
+      },
+      "cost": {
+        "wallSeconds": 28.2176673,
+        "compositionAndValidationMs": 0.561039128787836,
+        "heapMiB": 336.3035354614258,
+        "traced": true,
+        "meanTickMs": 5.431340979166681,
+        "p95TickMs": 11.231100000000879,
+        "p99TickMs": 16.907500000001164,
+        "peakSampledHeapMiB": 325.9854049682617,
+        "terminalNativeBytes": 247037,
+        "replaySnapshotBytes": 69912,
+        "composedLegSearch": {
+          "calls": 2598,
+          "samples": 11576,
+          "maxSamples": 192,
+          "milliseconds": 520.5137000000004,
+          "exhausted": 8
+        }
+      },
+      "safetyHalt": null,
+      "workEvents": 12,
+      "work": {
+        "positiveEnergy": 7,
+        "positiveSurfaceWork": 9,
+        "residualAboveNanojoule": 12,
+        "maxEnergyGain": 191.2363865764488,
+        "maxAbsoluteResidual": 9.428370164728015,
+        "legRegions": {
+          "shin": 10,
+          "knee": 2,
+          "thigh": 0
+        }
+      }
+    },
+    {
+      "fixture": "paired",
+      "arm": "F",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "9f45ba58a6c67b7718f13c2db0c8f273bf526856d89deac023cf6b9e7b6229d0",
+      "final": {
+        "at": 120.00000000001016,
+        "ticks": 4800
+      },
+      "goals": [],
+      "periods": [],
+      "poses": 2640,
+      "invalid": 0,
+      "confirmedDefenderWins": 0,
+      "cost": {
+        "wallSeconds": 20.664363500000004,
+        "compositionAndValidationMs": 0.5297153787878521,
+        "heapMiB": 156.82500457763672,
+        "traced": false,
+        "meanTickMs": 3.9251000833333594,
+        "p95TickMs": 7.99369999999999,
+        "p99TickMs": 13.228400000000875,
+        "peakSampledHeapMiB": 270.9049835205078,
+        "terminalNativeBytes": 239722,
+        "replaySnapshotBytes": 70713
+      },
+      "safetyHalt": null
+    }
+  ],
+  "encounterArchiveSha256": "198b03e06b2f9f712933e7abf9bda6b2d037467d29522c547cf4916462f3b64e"
+}
