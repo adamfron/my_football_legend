@@ -9,6 +9,7 @@ import { canHandleRestartBall } from './restartPhase';
 /** Fixed rule reference; period-end penalty extensions are owned by matchTimekeeping. */
 export const RESTART_LAWS_VERSION = 'IFAB_2026_27' as const;
 export const RESTART_REQUIRED_DISTANCE = 9.15;
+export const THROW_IN_OPPONENT_TARGET_DISTANCE = 2.2;
 const GOAL_AREA_Y = [24.84, 43.16] as const;
 const PENALTY_AREA_Y = [13.84, 54.16] as const;
 const EPSILON = 0.01;
@@ -255,7 +256,12 @@ export const legalizeRestartPlayerTarget = (
       attacksRight(restart.restartTeam, state) ? -1 : 1,
     );
   } else if (opponent && state.scenario === 'throw_in') {
-    target = outsideCircle(target, spot, 2.2, attacksRight(player) ? -1 : 1);
+    target = outsideCircle(
+      target,
+      spot,
+      THROW_IN_OPPONENT_TARGET_DISTANCE,
+      attacksRight(player) ? -1 : 1,
+    );
   } else if (isFreeKick(state.scenario)) {
     if (opponent) {
       const onOwnGoalLine = ownDepth(target, player) <= 0.4 && Math.abs(target.y - 34) <= 3.66;

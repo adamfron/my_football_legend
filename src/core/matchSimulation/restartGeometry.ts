@@ -1,7 +1,13 @@
 import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { RandomGenerator } from '../random/RandomGenerator';
-import { clampPitchPoint, distance, type PitchPoint, type TeamSide } from './matchSpace';
+import {
+  clampPitchPoint,
+  distance,
+  PITCH_LENGTH,
+  type PitchPoint,
+  type TeamSide,
+} from './matchSpace';
 import { TACTICAL_STYLE_PARAMETERS } from './tacticalPositioning';
 import type {
   MatchAction,
@@ -10,7 +16,9 @@ import type {
   TacticalMatchState,
 } from './matchState';
 import { deriveMovementCapability } from './locomotion';
-import { isRestartSetup } from './restartPhase';
+import { isLiveRestartSetup, isRestartSetup } from './restartPhase';
+import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
+import { THROW_IN_OPPONENT_TARGET_DISTANCE } from './restartLaws';
 import { deriveTeamTacticalPreferences } from './tacticalPreferences';
 import {
   chooseCornerPlan,
@@ -913,6 +921,12 @@ export const deriveRestartMovementTargets = (
   );
   const targets: Record<string, PitchPoint> = {};
   const selected = restart.selectedAction;
+  const throwNearGoalLine =
+    state.experimentalDynamicBalance === GROUNDED_RECOVERY_BALANCE &&
+    isLiveRestartSetup(state) &&
+    state.scenario === 'throw_in' &&
+    restart.spot &&
+    Math.min(restart.spot.x, PITCH_LENGTH - restart.spot.x) < THROW_IN_OPPONENT_TARGET_DISTANCE;
   const markers = new Map<string, MatchPlayerState>();
   for (const [id, role] of Object.entries(restart.roles)) {
     const marker = players.get(id);
@@ -927,7 +941,17 @@ export const deriveRestartMovementTargets = (
     if (!player) continue;
     const role = restart.roles[id];
     let target = planned;
-    if (restart.origin !== 'dev_fixture' && role && id !== restart.takerId && role.key !== 'wall') {
+    // Near a goal line, several live marks can collapse onto the same part of
+    // the legal arc. Keep the formation's spaced defensive positions there.
+    const keepOpponentSlot =
+      throwNearGoalLine && player.team !== restart.restartTeam && role?.intent === 'mark_opponent';
+    if (
+      restart.origin !== 'dev_fixture' &&
+      role &&
+      id !== restart.takerId &&
+      role.key !== 'wall' &&
+      !keepOpponentSlot
+    ) {
       const marked = role.markerId ? players.get(role.markerId) : undefined;
       if (marked && role.intent === 'mark_opponent') {
         target = {

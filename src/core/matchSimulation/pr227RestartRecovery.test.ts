@@ -9,6 +9,7 @@ import { deriveRestartLegalReadiness } from './restartLaws';
 import { canHandleRestartBall } from './restartPhase';
 import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 import { distance } from './matchSpace';
+import { PLAYER_BODY_CONTACT } from './playerBodyContact';
 
 const dt = 0.025;
 const load = (path: string) =>
@@ -16,6 +17,65 @@ const load = (path: string) =>
     JSON.parse(gunzipSync(readFileSync(`docs/performance/${path}.json.gz`)).toString()),
   ) as unknown as TacticalMatchState;
 const loadRefined = (fixture: string) => load(`pr227-refined-${fixture}-development-halt`);
+
+it('continues the native-a throw-in after opposing markers use separate legal positions', () => {
+  const oldHalt = load('pr227-contact-followup-native-a-restart-halt');
+  const retargeted = prepareRestartMovement(oldHalt);
+  expect(retargeted.players.map((p) => p.position)).toEqual(oldHalt.players.map((p) => p.position));
+  expect(retargeted.ball).toEqual(oldHalt.ball);
+  expect(deriveRestartLegalReadiness(retargeted)).toMatchObject({
+    ballReady: true,
+    takerReady: true,
+    opponentsReady: false,
+    blockers: ['opponent_restriction'],
+  });
+  const input = load('pr227-native-a-endline-throw-award');
+  const award = input.restart!;
+  const players = prepareRestartMovement(input).players;
+  const markers = players.filter(
+    (p) => p.team !== award.restartTeam && award.roles[p.id]?.intent === 'mark_opponent',
+  );
+  expect(markers.length).toBeGreaterThan(1);
+  for (const [index, marker] of markers.entries()) {
+    expect(distance(marker.target, award.spot!)).toBeGreaterThanOrEqual(2);
+    for (const other of markers.slice(index + 1))
+      expect(distance(marker.target, other.target)).toBeGreaterThan(PLAYER_BODY_CONTACT.diameter);
+  }
+  let state = input;
+  for (
+    let tick = 0;
+    tick < 30 / dt && !state.safetyHalt && state.restart?.phase !== 'release';
+    tick++
+  )
+    state = stepTacticalMatch(state, dt);
+  expect(state.safetyHalt).toBeUndefined();
+  expect(state.restart).toMatchObject({
+    awardId: award.awardId,
+    restartTeam: award.restartTeam,
+    spot: award.spot,
+    phase: 'release',
+    executedAt: expect.any(Number),
+    readiness: { legalReady: true, blockers: [] },
+  });
+  expect(state.ball).toMatchObject({ travelKind: 'throw_in', airborne: true, releaseHeight: 1.9 });
+  expect(state.throwInRestriction).toEqual({
+    throwerId: state.restart?.takerId,
+    releasedAt: state.restart?.executedAt,
+  });
+  for (const opponent of state.players.filter(
+    (p) => p.team !== award.restartTeam && !state.discipline?.[p.id]?.sentOff,
+  ))
+    expect(distance(opponent.position, award.spot!)).toBeGreaterThanOrEqual(2);
+  const atRelease = state.ball;
+  for (
+    let tick = 0;
+    tick < 1 / dt && !state.safetyHalt && distance(atRelease, state.ball) < 0.3;
+    tick++
+  )
+    state = stepTacticalMatch(state, dt);
+  expect(state.safetyHalt).toBeUndefined();
+  expect(distance(atRelease, state.ball)).toBeGreaterThanOrEqual(0.3);
+}, 20000);
 
 it.each([
   { fixture: 'paired', handler: 'footballer_pro_9_9', taker: 'footballer_pro_9_0', seconds: 15 },

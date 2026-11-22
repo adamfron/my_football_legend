@@ -2,9 +2,9 @@
 
 PR227 G (`holistic-dynamic-balance-dev-v1`) is an isolated Single Match Lab
 experiment. The native knee–thigh, ground-graze, support-transfer and late-shin
-ticks advance. Four archived restarts execute with grounded recovery.
-The independent 134.387 s contact advances and all three 180-second windows
-complete. Full-match validation remains open.
+ticks advance. Four archived restarts execute with grounded recovery, and
+the native-a throw-in near the goal line executes with spaced defensive targets.
+The independent 134.387 s contact advances. Full-match validation remains open.
 **RETAIN_EXPERIMENTAL.** PR201/B remains the maintained profile.
 [PR227 evidence](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 

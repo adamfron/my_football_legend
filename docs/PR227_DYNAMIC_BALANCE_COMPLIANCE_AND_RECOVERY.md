@@ -1,6 +1,6 @@
 # PR227 — Dynamic balance, compliant contact and recovery
 
-**Decision — RETAIN_EXPERIMENTAL.** Single Match Lab recipe G adds a reduced angular body, bounded support, a finite corrective step and reaction to incidental ball and player impulses. G advances the frozen 52:57, 63:12.875, 71:58.875, 89:51.125 and independent 134.387 s contact cases under the existing solver limits. Four archived restart stalls still reach legal release. All three 22-player starts now reach 180 seconds. The historical F traces reproduce. Time-dependent ball compliance, body–ground impact and get-up from a fallen pose remain open.
+**Decision — RETAIN_EXPERIMENTAL.** Single Match Lab recipe G adds a reduced angular body, bounded support, a finite corrective step and reaction to incidental ball and player impulses. G advances the frozen 52:57, 63:12.875, 71:58.875, 89:51.125 and independent 134.387 s contact cases under the existing solver limits. Five archived restart stalls reach legal release. All three 22-player starts reach 180 seconds, and native-a reaches 420 seconds after completing the previously blocked throw-in. The historical F traces reproduce. Time-dependent ball compliance, body–ground impact and get-up from a fallen pose remain open.
 
 ## 1. Starting point and sequence of work
 
@@ -128,6 +128,14 @@ The three later G v1 halts have the same underlying cause. All 56 players in the
 
 The kickoff exemption applies to the keeper's tactical goal-area positioning only, while that keeper is the current taker. Legal requirements for position, distance and the ball still apply. The restart observer reports `no_available_restart_handler` when there is genuinely nobody to retrieve and starts a new observation when the balance edition changes. The 30/10-second observation budgets remain the same. Each replay preserves its award and verifies movement of the released ball. [Source hashes and comparison receipts](performance/pr227-grounded-recovery.json).
 
+### Native-a throw-in near the goal line
+
+The award at 297.100 s is at the intersection of the touchline and goal line, `(105, 0)`. The live marking projection assigned four opponents to two distinct targets only 0.187 m apart. Both targets met the intended standoff after projection, but the gap between them was narrower than the 0.68 m torso contact diameter. The opponents converged and repeatedly made contact. At the prior 372.175 s halt the ball and taker were ready, with opponents at 1.949 and 1.950 m from the award spot still blocking release.
+
+During live G v2 throw-in preparation, opposing markers keep the spaced defensive targets from the original restart geometry wherever the 2.2 m target standoff reaches the goal line. The motor and body solver move the players to those positions. The award, two-metre opponent rule, release checks and second-touch restriction retain their existing behavior. Applying the new targets to the old halt state leaves the ball and body positions intact, so its actual encroachment still blocks release.
+
+From the archived award and in the new match from kickoff, the same throw-in is physically taken at 316.625 s. Placement completes at 316.475 s and the nearest opponent is 4.245 m from the spot at release. The first 25 ms of flight move the ball by 0.337 m. [Award snapshot and restart evidence](performance/pr227-native-a-endline-throw.json).
+
 ## 8. Integration windows, cost and gates
 
 G v1 was rerun from all three source kickoffs in the previous follow-up. Its three uncapped runs halted during restart preparation. The [G v1 window receipts](performance/pr227-followup-match-windows.json) link each halt to a native snapshot. The [previous windows](performance/pr227-contact-refinement-windows.json) and [original performance receipts](performance/pr227-match-windows.json) preserve the earlier stops and paired 8-second F/G cost comparison. Pose timing covers skeleton composition and validation. Three.js scene update and end-user browser frame time remain unmeasured.
@@ -152,7 +160,9 @@ The first G v2 windows reach 180 seconds with paired 1–0 and native-a 0–0. I
 
 With the grounded shin pressure response, all three starts reach 180 seconds with zero invalid sampled poses. Paired and native-a reproduce their terminal hashes and seven restart awards each. Independent reaches 180 seconds at 0–0 with eight restart awards. The four frozen restart receipts reproduce exactly.
 
-The longer paired and independent attempts advance through 660.025 s. They were stopped by the operator after that sample to free the local verification workers. Native-a halts at 372.175 s while preparing a throw-in. The ball and taker are ready, and two opposing players are about 1.95 m from the award spot. The control rerun on `fa07a3c` reproduces the same halt time, terminal state hash and native snapshot bytes. [Current match windows, longer attempts and the native-a snapshot](performance/pr227-independent-contact-match-windows.json).
+In the previous longer attempts, paired and independent advance through 660.025 s. They were stopped by the operator after that sample to free the local verification workers. Native-a halts at 372.175 s while preparing a throw-in. The ball and taker are ready, and two opposing players are about 1.95 m from the award spot. The control rerun on `fa07a3c` reproduces the same halt time, terminal state hash and native snapshot bytes. [Previous match windows and native-a snapshot](performance/pr227-independent-contact-match-windows.json).
+
+With the spaced throw-in plan, native-a reaches the 420-second horizon at 0–0 with 13 restart awards. The paired and independent starts reach 180 seconds. Independent reproduces its previous terminal hash exactly. Paired follows a different trajectory and ends its window 0–0. No sampled pose is invalid in the three windows. [Windows with the revised throw-in targets](performance/pr227-native-a-endline-throw-windows.json).
 
 | Gate                              | Verdict                      | Evidence                                                                                                                                                                                        |
 | --------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -165,7 +175,7 @@ The longer paired and independent attempts advance through 660.025 s. They were 
 | 7 Referee                         | PASS within existing scope   | Existing discipline controls and unchanged discipline across the F halt and G clearance.                                                                                                        |
 | 8 Historical solver halts         | PASS for five replayed ticks | 52:57, 63:12, 71:58, 89:51 and 134.387 s all advance in G. A later contact still leaves shin overlap in the 71:58 continuation.                                                                 |
 | 9 Football continuity             | PARTIAL                      | Real passes, a miss and a pressure loss. Other next actions and the historical second touch regress.                                                                                            |
-| 10 Ordinary 22-player integration | FAIL                         | Four archived releases succeed and all three starts complete 180 seconds. The later native-a throw-in stops its longer run.                                                                     |
+| 10 Ordinary 22-player integration | PARTIAL                      | Five archived releases succeed. All three starts reach 180 seconds, and native-a reaches 420 seconds. Uninterrupted full matches remain unverified.                                             |
 | 11 Verification                   | See PR checks                | Focused physics, morphology, native reload, visual parity, source replay, discipline, lint, typecheck and production build are tracked separately from hosted CI and local full-suite timeouts. |
 
 ## 9. Reproduction and next dependency
@@ -175,14 +185,16 @@ node --experimental-transform-types --import ./scripts/registerTypescriptLoader.
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr227SupportAndRestarts.mjs --check
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr227GroundedRecovery.mjs --check
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr227IndependentContact.mjs --check
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/reportPr227EndlineThrow.mjs --check
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr226Continuity.mjs --pr227
 node scripts/ci/replayPr223Check.mjs
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr225FullMatches.mjs paired G --pr227 --seconds=120
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr225FullMatches.mjs paired G --pr227 --grounded-recovery --seconds=180
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr225FullMatches.mjs native-a G --pr227 --grounded-recovery --seconds=420
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr225FullMatches.mjs paired G --pr227 --seconds=8 --profile
 npm run verify
 ```
 
 Run the development-window command separately for `native-a` and `independent`. Omit `--seconds=120` to reproduce the attempted full matches. Benchmark outputs go to `.benchmark-artifacts/pr227`. PR226 figures and input snapshots remain available at their original paths.
 
-The restored contact ticks provide controls for extending persistent contact and deriving inverse mass from stance and swing response. Ground impact, fall and finite get-up require a separate verified contact and motor primitive. The archived restarts and the later native-a throw-in provide controls for that work. The current performance and football evidence support isolated development use.
+The restored contact ticks provide controls for extending persistent contact and deriving inverse mass from stance and swing response. Ground impact, fall and finite get-up require a separate verified contact and motor primitive. The archived restart inputs provide controls for that work. The current performance and football evidence support isolated development use.
