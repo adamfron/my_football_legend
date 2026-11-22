@@ -1,7 +1,13 @@
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { hasIndividualLowerBody, individualHipOffset, individualFootReach } from './bodyMorphology';
 import { deriveLowerBodyGeometry, neutralLowerBodyPose } from './lowerBodyGeometry';
-import { activeArticulatedFoot, type ArticulatedStance } from './articulatedBodyState';
+import {
+  activeArticulatedFoot,
+  groundedSupportFoot,
+  MAX_GROUNDED_SUPPORT_HEIGHT,
+  type ArticulatedStance,
+} from './articulatedBodyState';
+import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 
 /** PR216 engineering reference, not measured cleat calibration. Stance duration
  * is bounded by seven ticks and shortened against anticipated root travel. */
@@ -209,16 +215,15 @@ export const constrainArticulatedMotor = (
   velocity: MatchPlayerState['velocity'],
   facingAngle: number,
   dt: number,
+  groundedRecovery = actor.articulatedStance?.dynamicBalance?.version === GROUNDED_RECOVERY_BALANCE,
 ) => {
   const stance = actor.articulatedStance!;
   const surface = ARTICULATED_SURFACES[stance.surface];
   const airborne = (actor.verticalJump?.height ?? 0) > 0;
+  const lost = stance.dynamicBalance?.phase === 'lost';
   const delta = { x: velocity.x - actor.velocity.x, y: velocity.y - actor.velocity.y };
   const requested = Math.hypot(delta.x, delta.y);
-  const available =
-    airborne || !stance.support || stance.dynamicBalance?.phase === 'lost'
-      ? 0
-      : surface.mu * 9.81 * dt;
+  const available = airborne || !stance.support || lost ? 0 : surface.mu * 9.81 * dt;
   const fraction = Math.min(1, available / Math.max(1e-12, requested));
   const inertia = (actor.profile.weightKg * (actor.profile.heightCm / 100) ** 2) / 12;
   const turn = Math.atan2(
@@ -228,9 +233,23 @@ export const constrainArticulatedMotor = (
   const desiredOmega = turn / dt;
   // Rotational resistance and translational grip are different constraints.
   const omegaDelta =
-    airborne || !stance.support || stance.dynamicBalance?.phase === 'lost'
-      ? 0
-      : (surface.rotationalLimit / inertia) * dt;
+    airborne || !stance.support || lost ? 0 : (surface.rotationalLimit / inertia) * dt;
+  if (groundedRecovery && lost && groundedSupportFoot(stance, actor.verticalJump?.height)) {
+    // With a grounded boot, sliding friction opposes the inertia of a player
+    // who has lost balance. This impulse cannot steer toward a motor target.
+    const speed = Math.hypot(actor.velocity.x, actor.velocity.y);
+    const retained = Math.max(0, 1 - (surface.mu * 9.81 * dt) / Math.max(1e-12, speed));
+    const omega = stance.angularVelocity;
+    const yaw =
+      Math.sign(omega) * Math.max(0, Math.abs(omega) - (surface.rotationalLimit / inertia) * dt);
+    return {
+      velocity: { x: actor.velocity.x * retained, y: actor.velocity.y * retained },
+      facingAngle: actor.facingAngle + yaw * dt,
+      angularVelocity: yaw,
+      requestedForce: (actor.profile.weightKg * requested) / dt,
+      availableForce: 0,
+    };
+  }
   const omega =
     stance.angularVelocity +
     Math.max(-omegaDelta, Math.min(omegaDelta, desiredOmega - stance.angularVelocity));
@@ -346,11 +365,16 @@ export const advanceArticulatedStance = (
     next.elapsed = Math.min(duration, dt);
   }
   const planted = next.support;
+  const slidingAfterLoss =
+    old.dynamicBalance?.version === GROUNDED_RECOVERY_BALANCE &&
+    old.dynamicBalance.phase === 'lost';
   if (
     planted &&
-    old[planted].z <= 0.040001 &&
+    old[planted].z <= MAX_GROUNDED_SUPPORT_HEIGHT &&
     old.dynamicBalance?.lastLoad &&
-    (old.dynamicBalance.phase === 'perturbed' || old.dynamicBalance.phase === 'stepping')
+    (old.dynamicBalance.phase === 'perturbed' ||
+      old.dynamicBalance.phase === 'stepping' ||
+      slidingAfterLoss)
   ) {
     // At the stance reach limit, the planted anchor can follow the outward
     // root only by sliding. Motion is bounded by what traction cannot arrest.
@@ -366,7 +390,7 @@ export const advanceArticulatedStance = (
       const outwardSpeed = (after.velocity.x * x + after.velocity.y * y) / distance;
       const unarrestedSpeed = Math.max(
         0,
-        outwardSpeed - ARTICULATED_SURFACES[old.surface].mu * 9.81 * dt,
+        outwardSpeed - (slidingAfterLoss ? 0 : ARTICULATED_SURFACES[old.surface].mu * 9.81 * dt),
       );
       const fraction = Math.min(distance - reach, unarrestedSpeed * dt) / distance;
       next[planted] = {

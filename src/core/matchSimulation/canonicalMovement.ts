@@ -19,6 +19,7 @@ export const movementExecutionSchema = z.object({
   balance: z.number().min(0).max(1).default(1),
   structural: z.boolean().default(false),
   receivingMomentum: z.boolean().default(false),
+  groundedRecovery: z.boolean().optional(),
 });
 export type MovementExecution = z.infer<typeof movementExecutionSchema>;
 
@@ -171,7 +172,7 @@ export const integrateCanonicalMovement = (player: MatchPlayerState, input: Move
     y: player.velocity.y + velocityDelta.y * velocityScale,
   };
   const articulated = player.articulatedStance
-    ? constrainArticulatedMotor(player, velocity, facingAngle, dt)
+    ? constrainArticulatedMotor(player, velocity, facingAngle, dt, input.groundedRecovery)
     : undefined;
   if (articulated) {
     velocity = articulated.velocity;

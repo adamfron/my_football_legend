@@ -8,9 +8,11 @@ The independent free-flight prefix advances the frozen 63:12 tick. Verified
 ankle trajectories and finite swing yield advance the 52:57 and 89:51 cases.
 The 71:58 support transfer combines two same-body shin impulses and bounds
 restitution by their compression work. General limb compliance needs a
-sustained contact model. Reassignment restores retrieval when a teammate
-can take over. Ground impact and get-up remain dependencies for restarts
-where no eligible teammate remains or opponents cannot take legal positions.
+sustained contact model. The current balance edition restores the grounded
+motor through bounded braking and restoring torque. The four restart sources
+recover, including the kickoff whose reassigned keeper takes the kick.
+The independent open-play halt still needs a contact solution. Ground impact
+and get-up from a fallen pose require a separate mechanism.
 [PR227 report](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 
 ## PR226 contact work and continuation

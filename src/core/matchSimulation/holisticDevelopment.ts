@@ -14,7 +14,7 @@ import { observedStrikePreparationSchema } from './pendingStrikeState';
 import { receptionPreparationEditionSchema } from './receptionPreparationEdition';
 import { fullBodySkeletonEditionSchema } from './bodyMorphology';
 import { withFullBodySkeleton } from './fullBodySkeleton';
-import { dynamicBalanceEditionSchema } from './dynamicBalanceState';
+import { dynamicBalanceEditionSchema, GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 
 export const holisticPhysicalPresetSchema = z.enum([
   'holistic-physical-dev-v1',
@@ -112,7 +112,7 @@ export const withHolisticDevelopment = (
           : 'composed-leg-impulse-dev-v2',
     });
   if (preset === 'holistic-dynamic-balance-dev-v1')
-    selected = { ...selected, experimentalDynamicBalance: dynamicBalanceEditionSchema.value };
+    selected = { ...selected, experimentalDynamicBalance: GROUNDED_RECOVERY_BALANCE };
   return tacticalMatchStateSchema.parse(selected) as unknown as TacticalMatchState;
 };
 

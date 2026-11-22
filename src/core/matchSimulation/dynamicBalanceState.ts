@@ -5,7 +5,11 @@ const horizontal = z.object({ x: scalar, y: scalar });
 const point = horizontal.extend({ z: scalar });
 const foot = z.enum(['left', 'right']);
 
-export const dynamicBalanceEditionSchema = z.literal('dynamic-balance-dev-v1');
+export const GROUNDED_RECOVERY_BALANCE = 'dynamic-balance-dev-v2';
+export const dynamicBalanceEditionSchema = z.enum([
+  'dynamic-balance-dev-v1',
+  GROUNDED_RECOVERY_BALANCE,
+]);
 export const dynamicBalanceSchema = z.object({
   version: dynamicBalanceEditionSchema,
   centre: point,

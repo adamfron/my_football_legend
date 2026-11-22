@@ -37,3 +37,12 @@ export const articulatedStanceSchema = z.object({
   dynamicBalance: dynamicBalanceSchema.optional(),
 });
 export type ArticulatedStance = z.infer<typeof articulatedStanceSchema>;
+
+export const MAX_GROUNDED_SUPPORT_HEIGHT = 0.040001;
+
+export const groundedSupportFoot = (stance: ArticulatedStance, jumpHeight = 0) => {
+  const foot = stance.support;
+  return foot && jumpHeight <= 0 && stance[foot].z <= MAX_GROUNDED_SUPPORT_HEIGHT
+    ? foot
+    : undefined;
+};

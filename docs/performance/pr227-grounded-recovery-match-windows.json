@@ -1,0 +1,137 @@
+{
+  "windowSeconds": 180,
+  "cases": [
+    {
+      "fixture": "paired",
+      "sourcePath": "docs/performance/pr224-full-match-paired.json",
+      "sourceSha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+      "initialHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f",
+      "terminalHash": "52202dcd7758d1ee057f22b055ffdc02b296a8a10a3d46df5068613f2c99c23d",
+      "final": {
+        "at": 180.0000000000238,
+        "status": "first_half",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "ticks": 7200,
+        "decisions": 23,
+        "passReleases": 7,
+        "retainedBootContacts": 21,
+        "bodyImpactTimes": 126,
+        "shinContacts": 21,
+        "ownerChanges": 22,
+        "restarts": 7
+      },
+      "invalid": 0,
+      "goals": [
+        {
+          "at": 123.47500000001095,
+          "score": {
+            "home": 1,
+            "away": 0
+          }
+        }
+      ],
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 180,
+        "steps": 17,
+        "slipping": 0,
+        "lost": 435
+      },
+      "safetyHalt": null
+    },
+    {
+      "fixture": "native-a",
+      "sourcePath": "docs/performance/pr224-full-match-pr222-native-a.json",
+      "sourceSha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+      "initialHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317",
+      "terminalHash": "770d7836b2c1b4c6a07e129af1300925458c0cc162cb88ceb36a6168d15e3a17",
+      "final": {
+        "at": 180.0000000000238,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 7200,
+        "decisions": 78,
+        "passReleases": 10,
+        "retainedBootContacts": 35,
+        "bodyImpactTimes": 127,
+        "shinContacts": 19,
+        "ownerChanges": 50,
+        "restarts": 7
+      },
+      "invalid": 0,
+      "goals": [],
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 180,
+        "steps": 23,
+        "slipping": 0,
+        "lost": 436
+      },
+      "safetyHalt": null
+    },
+    {
+      "fixture": "independent",
+      "sourcePath": "docs/performance/pr224-full-match-independent.json",
+      "sourceSha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+      "initialHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102",
+      "terminalHash": "9ea63d92c735f4579d044b21d8089faebbffe64516458f684bf5184c2587810c",
+      "final": {
+        "at": 134.37500000001342,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 5375,
+        "decisions": 33,
+        "passReleases": 7,
+        "retainedBootContacts": 19,
+        "bodyImpactTimes": 108,
+        "shinContacts": 17,
+        "ownerChanges": 25,
+        "restarts": 5
+      },
+      "invalid": 0,
+      "goals": [],
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 134,
+        "steps": 21,
+        "slipping": 0,
+        "lost": 380
+      },
+      "safetyHalt": {
+        "kind": "physical_contact",
+        "reason": "pendingStrikeInterval.event_budget",
+        "at": 134.38700524114148,
+        "intervalStartedAt": 134.37500000001342,
+        "actorIds": [],
+        "ball": {
+          "x": 12.48773363507852,
+          "y": 47.54170841970745,
+          "z": 0.11583290510330428
+        },
+        "velocity": {
+          "x": -18.439182336614564,
+          "y": 0.559815435857925,
+          "z": -11.188222037360765
+        },
+        "spin": {
+          "x": 20.862477010138175,
+          "y": -25.531289331109985,
+          "z": -81.15780306626388
+        }
+      },
+      "haltSnapshot": {
+        "path": "docs/performance/pr227-grounded-recovery-independent-halt.json.gz",
+        "sha256": "53ea4fed58fca12f19c8065126e41a25c1c2916e8c1c9deaad9132f040890179"
+      }
+    }
+  ]
+}

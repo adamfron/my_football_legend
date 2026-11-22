@@ -16,6 +16,7 @@ import {
   fullBodySkeletonSchema,
 } from '../src/core/matchSimulation/fullBodySkeleton.ts';
 import { projectArticulatedBody } from '../src/core/matchSimulation/articulatedBody.ts';
+import { GROUNDED_RECOVERY_BALANCE } from '../src/core/matchSimulation/dynamicBalanceState.ts';
 import { stepTacticalMatch, startSecondHalf } from '../src/core/matchSimulation/matchSimulation.ts';
 import { tacticalMatchStateSchema } from '../src/core/matchSimulation/matchState.ts';
 import { captureReceptionStep } from '../src/core/matchSimulation/receptionTrace.ts';
@@ -28,6 +29,7 @@ import { classifyContactEpisodes } from './pr225ContactEpisodes.mjs';
 
 const [fixture, arm] = process.argv.slice(2);
 const dynamic = process.argv.includes('--pr227');
+const groundedRecovery = process.argv.includes('--grounded-recovery');
 const research = dynamic || process.argv.includes('--pr226');
 const untraced = process.argv.includes('--untraced');
 const finalCandidate = process.argv.includes('--final-candidate');
@@ -42,12 +44,13 @@ assert.ok((dynamic ? ['F', 'G'] : research ? ['D', 'E', 'F'] : ['D', 'E']).inclu
 assert.ok(duration === undefined || (research && Number.isFinite(seconds) && seconds > 0));
 assert.ok(!untraced || (research && duration !== undefined));
 assert.ok(!finalCandidate || (research && arm === 'F' && duration === undefined));
+assert.ok(!groundedRecovery || (dynamic && arm === 'G'));
 const folder = dynamic
   ? '.benchmark-artifacts/pr227'
   : research
     ? '.benchmark-artifacts/pr226'
     : '.benchmark-artifacts/pr225-full';
-const basename = `${fixture}-${arm}${finalCandidate ? '-final' : ''}${duration ? '-' + duration + 's' : ''}${untraced ? '-untraced' : ''}${profile ? '-profiled' : ''}`;
+const basename = `${fixture}-${arm}${groundedRecovery ? '-grounded-recovery' : ''}${finalCandidate ? '-final' : ''}${duration ? '-' + duration + 's' : ''}${untraced ? '-untraced' : ''}${profile ? '-profiled' : ''}`;
 const sourcePath = `docs/performance/${fixture === 'paired' ? 'pr224-full-match-paired' : fixture === 'native-a' ? 'pr224-full-match-pr222-native-a' : 'pr224-full-match-independent'}.json`;
 const receipt = JSON.parse(readFileSync(sourcePath)),
   expected = (receipt.comparison ?? receipt)[arm === 'F' || arm === 'G' ? 'E' : arm];
@@ -144,7 +147,13 @@ let state = withFullBodySkeleton(
       ? {
           ...initial,
           experimentalComposedLegContact: 'composed-leg-impulse-dev-v2',
-          ...(arm === 'G' ? { experimentalDynamicBalance: 'dynamic-balance-dev-v1' } : {}),
+          ...(arm === 'G'
+            ? {
+                experimentalDynamicBalance: groundedRecovery
+                  ? GROUNDED_RECOVERY_BALANCE
+                  : 'dynamic-balance-dev-v1',
+              }
+            : {}),
         }
       : initial,
   ),

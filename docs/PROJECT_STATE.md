@@ -3,9 +3,10 @@
 PR227 dodaje wariant G w Single Match Lab. Zapisuje środek masy 3D, przechył,
 obciążenie stopy podporowej i reakcję na impuls. Przechodzi zapisane ticki
 kolano–udo o 52:57, kontakt przy murawie o 63:12.875, zmianę podparcia o 71:58.875
-i nacisk goleni o 89:51.125. Zapisany aut i rzut od bramki dochodzą do skutku po
-zmianie zawodnika obsługującego piłkę. Trzy przebiegi G z 22 zawodnikami
-zatrzymują się po utracie zdolności potrzebnych do legalnego wznowienia.
+i nacisk goleni o 89:51.125. Aktualna edycja G odzyskuje napęd z rzeczywistego
+podparcia, gdy zawodnik wyhamuje i odzyska pion. Cztery zapisane zatrzymania
+przy wznowieniach dochodzą do legalnego zagrania. Dwie próby z 22 zawodnikami
+osiągają 180 sekund, a próbę niezależną przerywa limit kontaktu w otwartej grze.
 Decyzja **RETAIN_EXPERIMENTAL**, profil utrzymywany PR201/B.
 [Raport PR227](PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 

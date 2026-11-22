@@ -15,7 +15,6 @@ import {
   dynamicContactMobility,
   interpolateDynamicBalance,
   loadDynamicBalance,
-  MAX_GROUNDED_SUPPORT_HEIGHT,
   swingShankAndFootMass,
 } from './dynamicBalance';
 import {
@@ -25,6 +24,7 @@ import {
 } from './articulatedGait';
 import {
   activeArticulatedFoot,
+  MAX_GROUNDED_SUPPORT_HEIGHT,
   postImpactStanceEditionSchema,
   type BodyPoint,
 } from './articulatedBodyState';

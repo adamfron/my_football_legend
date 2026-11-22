@@ -23,6 +23,7 @@ import {
   loadDynamicBalance,
   measureBalanceMass,
 } from './dynamicBalance';
+import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 import {
   fullBodySkeletonSchema,
   projectFullBodySkeleton,
@@ -47,7 +48,7 @@ const F = (s: TacticalMatchState): TacticalMatchState => ({
 });
 const G = (s: TacticalMatchState): TacticalMatchState => ({
   ...F(s),
-  experimentalDynamicBalance: 'dynamic-balance-dev-v1',
+  experimentalDynamicBalance: GROUNDED_RECOVERY_BALANCE,
 });
 const native = (state: TacticalMatchState) =>
   tacticalMatchStateSchema.parse(
@@ -70,7 +71,7 @@ it('selects G separately, persists its state and restores tilt through compact r
   );
   expect(effectiveHolisticRecipe(selected)).toMatchObject({
     id: 'holistic-dynamic-balance-dev-v1',
-    dynamicBalance: 'dynamic-balance-dev-v1',
+    dynamicBalance: GROUNDED_RECOVERY_BALANCE,
   });
   const input = G(withFullBodySkeleton(selectPr224Body(scene)));
   const next = stepTacticalMatch(input, dt);
@@ -84,10 +85,10 @@ it('selects G separately, persists its state and restores tilt through compact r
   ).toBeGreaterThan(0);
   expect(
     native(next).players.find((p) => p.id === player.id)?.articulatedStance?.dynamicBalance,
-  ).toMatchObject({ version: 'dynamic-balance-dev-v1', centre: balance(player).centre });
+  ).toMatchObject({ version: GROUNDED_RECOVERY_BALANCE, centre: balance(player).centre });
   expect(native(stepTacticalMatch(native(next), dt))).toEqual(native(stepTacticalMatch(next, dt)));
   const replay = replaySnapshotSchema.parse(captureReplaySnapshot(next, 0, undefined, true));
-  expect(replay.dynamicBalance).toBe('dynamic-balance-dev-v1');
+  expect(replay.dynamicBalance).toBe(GROUNDED_RECOVERY_BALANCE);
   const sampled = replay.players.find((p) => p.id === player.id)!;
   const body = projectArticulatedBody(next, player)!;
   expect(sampled.articulatedBody?.torsoOrientation).toEqual(body.torsoOrientation);
@@ -159,6 +160,67 @@ it('uses mass, anatomy, support and the existing finite swing for perturbations'
   expect(balance(lost).phase).toBe('lost');
   expect(constrainArticulatedMotor(lost, { x: 0, y: 2 }, 0, dt).availableForce).toBe(0);
   expect(balance(advanceDynamicBalance(input, lost, lost, dt)).phase).toBe('lost');
+});
+
+it('brakes a sliding body through ground contact before enabling its motor again', () => {
+  const input = {
+    ...G(withFullBodySkeleton(selectPr224Body(createPr224LimbScene('right')))),
+    experimentalDynamicBalance: GROUNDED_RECOVERY_BALANCE,
+  } as const;
+  const actor = input.players[0]!;
+  const stable = advanceDynamicBalance(input, actor, actor, dt);
+  const moving = { ...stable, velocity: { x: 1.6, y: 0 } };
+  const strong = loadDynamicBalance(
+    input,
+    moving,
+    { ...actor.position, z: 0.13 },
+    { x: 350, y: 0, z: 0 },
+    'opponent',
+  );
+  const initial = advanceDynamicBalance(input, strong, strong, dt);
+  expect(balance(initial).phase).toBe('lost');
+  const unsupported = {
+    ...initial,
+    articulatedStance: { ...initial.articulatedStance!, support: null },
+  };
+  const command = { x: 0, y: 5 };
+  const coasting = constrainArticulatedMotor(unsupported, command, actor.facingAngle, dt);
+  expect(coasting.velocity).toEqual(unsupported.velocity);
+  expect(balance(advanceDynamicBalance(input, unsupported, unsupported, dt)).phase).toBe('lost');
+  const grounded = constrainArticulatedMotor(initial, command, actor.facingAngle, dt);
+  expect(grounded.availableForce).toBe(0);
+  expect(grounded.velocity.x).toBeCloseTo(1.6 - 9.81 * dt);
+  expect(grounded.velocity.y).toBe(0);
+  let player = initial;
+  let ticks = 0;
+  while (balance(player).phase === 'lost' && ticks < 300) {
+    const motor = constrainArticulatedMotor(player, command, actor.facingAngle, dt);
+    const next = {
+      ...player,
+      position: {
+        x: player.position.x + motor.velocity.x * dt,
+        y: player.position.y + motor.velocity.y * dt,
+      },
+      velocity: motor.velocity,
+      facingAngle: motor.facingAngle,
+    };
+    next.articulatedStance = advanceArticulatedStance(
+      player,
+      next,
+      dt,
+      undefined,
+      motor.angularVelocity,
+    );
+    player = advanceDynamicBalance(input, player, next, dt);
+    ticks++;
+  }
+  expect(ticks).toBeGreaterThan(1);
+  expect(balance(player).phase).toBe('upright');
+  expect(balance(player).support?.normalForce).toBeGreaterThan(0);
+  expect(Math.hypot(balance(player).tilt.x, balance(player).tilt.y)).toBeLessThanOrEqual(0.025);
+  expect(
+    constrainArticulatedMotor(player, command, actor.facingAngle, dt).availableForce,
+  ).toBeGreaterThan(0);
 });
 
 it('samples changes in geometry without assigning a new skill or mass', () => {

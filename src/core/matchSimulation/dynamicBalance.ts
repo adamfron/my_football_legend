@@ -1,8 +1,13 @@
 import { projectArticulatedBody } from './articulatedBody';
 import { ARTICULATED_SURFACES, SWING_METRES_PER_SECOND } from './articulatedGait';
-import { activeArticulatedFoot, type BodyPoint } from './articulatedBodyState';
+import {
+  activeArticulatedFoot,
+  groundedSupportFoot,
+  MAX_GROUNDED_SUPPORT_HEIGHT,
+  type BodyPoint,
+} from './articulatedBodyState';
 import { defaultBodyMorphology } from './bodyMorphology';
-import type { DynamicBalance } from './dynamicBalanceState';
+import { GROUNDED_RECOVERY_BALANCE, type DynamicBalance } from './dynamicBalanceState';
 import {
   projectFullBodySkeleton,
   type FullBodySkeleton,
@@ -14,7 +19,6 @@ import { endPerformanceSpan, startPerformanceSpan } from './performanceProfiling
 
 const GRAVITY = 9.81;
 const MAX_TILT = 0.5;
-export const MAX_GROUNDED_SUPPORT_HEIGHT = 0.040001;
 const zero = { x: 0, y: 0 };
 const zero3 = { ...zero, z: 0 };
 const feet = ['left', 'right'] as const;
@@ -90,7 +94,7 @@ const initialBalance = (
   if (!mass) return;
   return {
     ...mass,
-    version: 'dynamic-balance-dev-v1',
+    version: state.experimentalDynamicBalance ?? 'dynamic-balance-dev-v1',
     velocity: { ...player.velocity, z: player.verticalJump?.velocity ?? 0 },
     tilt: zero,
     angularVelocity: zero,
@@ -250,11 +254,10 @@ export const advanceDynamicBalance = (
     const stance = before.articulatedStance;
     const foot = stance.support;
     const mass = after.profile.weightKg;
+    const lost = previous.phase === 'lost';
+    const recovering = lost && state.experimentalDynamicBalance === GROUNDED_RECOVERY_BALANCE;
     const onGround =
-      foot &&
-      stance[foot].z <= MAX_GROUNDED_SUPPORT_HEIGHT &&
-      !before.verticalJump?.height &&
-      previous.phase !== 'lost';
+      (!lost || recovering) && groundedSupportFoot(stance, before.verticalJump?.height);
     const normalForce = onGround ? mass * GRAVITY : 0;
     const tangent = motorAlreadySpent
       ? zero
@@ -289,7 +292,7 @@ export const advanceDynamicBalance = (
     };
     const norm = Math.hypot(tilt.x, tilt.y);
     const angleLimit = Math.min(1, MAX_TILT / Math.max(1e-12, norm));
-    const phase = previous.phase === 'lost' || norm >= MAX_TILT ? 'lost' : 'upright';
+    const phase = lost || norm >= MAX_TILT ? 'lost' : 'upright';
     const slip =
       foot && after.articulatedStance.support === foot
         ? {
@@ -299,6 +302,7 @@ export const advanceDynamicBalance = (
         : undefined;
     const next: DynamicBalance = {
       ...previous,
+      version: state.experimentalDynamicBalance,
       phase,
       tilt: { x: tilt.x * angleLimit, y: tilt.y * angleLimit },
       angularMomentum,
@@ -329,7 +333,21 @@ export const advanceDynamicBalance = (
       x: angularMomentum.x / next.inertia.x,
       y: angularMomentum.y / next.inertia.y,
     };
-    if (phase !== 'lost') {
+    if (recovering) {
+      const endpoint = after.articulatedStance;
+      // Keep the ordinary motor unavailable until the measured feet, trunk and
+      // root have settled. The same finite support moment straightens the trunk.
+      if (
+        onGround &&
+        groundedSupportFoot(endpoint, after.verticalJump?.height) &&
+        feet.every((f) => endpoint[f].z <= MAX_GROUNDED_SUPPORT_HEIGHT) &&
+        !activeArticulatedFoot(state, after.id) &&
+        Math.hypot(after.velocity.x, after.velocity.y) < 0.1 &&
+        norm <= 0.025 &&
+        Math.hypot(next.angularVelocity.x, next.angularVelocity.y) <= 0.12
+      )
+        next.phase = 'upright';
+    } else if (phase !== 'lost') {
       const predicted = {
         x: next.tilt.y + 0.12 * next.angularVelocity.y,
         y: -next.tilt.x - 0.12 * next.angularVelocity.x,

@@ -1,5 +1,6 @@
 import { attacksRight, type TeamOrientation } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
+import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 import { z } from 'zod';
 import { distance, distanceToSegment, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, RestartScenario, TacticalMatchState } from './matchState';
@@ -167,7 +168,12 @@ export const areKickoffGoalkeepersReady = (state: TacticalMatchState): boolean =
   (['home', 'away'] as const).every((team) => {
     const keeper = state.players.find((p) => p.team === team && isMatchGoalkeeper(p));
     return Boolean(
-      keeper && ownDepth(keeper.position, keeper) <= 9 && Math.abs(keeper.position.y - 34) <= 5,
+      keeper &&
+        // A reassigned keeper can legally take a kickoff. The teammate's
+        // starting-depth plan cannot also apply to that same body.
+        ((state.experimentalDynamicBalance === GROUNDED_RECOVERY_BALANCE &&
+          keeper.id === state.restart?.takerId) ||
+          (ownDepth(keeper.position, keeper) <= 9 && Math.abs(keeper.position.y - 34) <= 5)),
     );
   });
 
