@@ -5,8 +5,9 @@ obciążenie stopy podporowej i reakcję na impuls. Przechodzi zapisane ticki
 kolano–udo o 52:57, kontakt przy murawie o 63:12.875, zmianę podparcia o 71:58.875
 i nacisk goleni o 89:51.125. Aktualna edycja G odzyskuje napęd z rzeczywistego
 podparcia, gdy zawodnik wyhamuje i odzyska pion. Cztery zapisane zatrzymania
-przy wznowieniach dochodzą do legalnego zagrania. Dwie próby z 22 zawodnikami
-osiągają 180 sekund, a próbę niezależną przerywa limit kontaktu w otwartej grze.
+przy wznowieniach dochodzą do legalnego zagrania. Tłumienie potwierdzonego nacisku
+i ustąpienie nogi w zamachu rozwiązują zapisany kontakt z niezależnego przebiegu
+o 134,387 s. Wszystkie trzy próby z 22 zawodnikami osiągają 180 sekund.
 Decyzja **RETAIN_EXPERIMENTAL**, profil utrzymywany PR201/B.
 [Raport PR227](PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 

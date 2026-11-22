@@ -11,8 +11,9 @@ restitution by their compression work. General limb compliance needs a
 sustained contact model. The current balance edition restores the grounded
 motor through bounded braking and restoring torque. The four restart sources
 recover, including the kickoff whose reassigned keeper takes the kick.
-The independent open-play halt still needs a contact solution. Ground impact
-and get-up from a fallen pose require a separate mechanism.
+Measured shin pressure and finite swing recoil clear the independent
+134.387 s contact under the existing search and interval budgets. Ground
+impact and get-up from a fallen pose require a separate mechanism.
 [PR227 report](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 
 ## PR226 contact work and continuation

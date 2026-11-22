@@ -1,0 +1,256 @@
+{
+  "source": {
+    "path": "docs/performance/pr227-grounded-recovery-independent-halt.json.gz",
+    "sha256": "53ea4fed58fca12f19c8065126e41a25c1c2916e8c1c9deaad9132f040890179"
+  },
+  "previousHalt": {
+    "kind": "physical_contact",
+    "reason": "pendingStrikeInterval.event_budget",
+    "at": 134.38700524114148,
+    "intervalStartedAt": 134.37500000001342,
+    "actorIds": [],
+    "ball": {
+      "x": 12.48773363507852,
+      "y": 47.54170841970745,
+      "z": 0.11583290510330428
+    },
+    "velocity": {
+      "x": -18.439182336614564,
+      "y": 0.559815435857925,
+      "z": -11.188222037360765
+    },
+    "spin": {
+      "x": 20.862477010138175,
+      "y": -25.531289331109985,
+      "z": -81.15780306626388
+    }
+  },
+  "actorId": "geometry:anchor:9",
+  "sharedEvents": 12,
+  "sharedEventLimit": 16,
+  "peakGeometrySamples": 192,
+  "timeline": [
+    {
+      "elapsed": 0,
+      "kind": "player_cluster",
+      "key": "geometry:anchor:10\u0000geometry:anchor:4",
+      "after": 0.00021249974354782913
+    },
+    {
+      "elapsed": 0.00021249974354782913,
+      "kind": "leg",
+      "key": "geometry:anchor:9:left:shin",
+      "after": 0.006640804878030633
+    },
+    {
+      "elapsed": 0.006853304621578462,
+      "kind": "leg",
+      "key": "geometry:anchor:9:right:shin",
+      "after": 0.0044556629871771326
+    },
+    {
+      "elapsed": 0.011308967608755594,
+      "kind": "leg",
+      "key": "geometry:anchor:9:left:shin",
+      "after": 0.0004500680532027102
+    },
+    {
+      "elapsed": 0.011759035661958305,
+      "kind": "leg",
+      "key": "geometry:anchor:9:right:shin",
+      "after": 0.0002623362496871874
+    },
+    {
+      "elapsed": 0.012021371911645493,
+      "kind": "leg",
+      "key": "geometry:anchor:9:left:shin",
+      "after": 0.00006573621391725153
+    },
+    {
+      "elapsed": 0.012087108125562745,
+      "kind": "leg",
+      "key": "geometry:anchor:9:right:shin",
+      "after": 7.372792675467454e-7
+    },
+    {
+      "elapsed": 0.012087845404830292,
+      "kind": "leg",
+      "key": "geometry:anchor:9:left:shin",
+      "after": 1.0860752177974573e-7
+    },
+    {
+      "elapsed": 0.012087954012352072,
+      "kind": "leg",
+      "key": "geometry:anchor:9:right:shin",
+      "after": 0
+    },
+    {
+      "elapsed": 0.012087954012352072,
+      "kind": "foot",
+      "key": "geometry:anchor:9:left",
+      "after": 0.00012931741384880602
+    },
+    {
+      "elapsed": 0.012217271426200878,
+      "kind": "leg",
+      "key": "geometry:anchor:9:right:shin",
+      "after": 0.0000019650611181795403
+    },
+    {
+      "elapsed": 0.012219236487319058,
+      "kind": "search_frontier",
+      "key": "geometry:anchor:9",
+      "after": 0.000041344022593511354
+    },
+    {
+      "elapsed": 0.012260580509912569,
+      "clear": true
+    }
+  ],
+  "pressure": [
+    {
+      "atInTick": 0.011759035661958305,
+      "from": "left",
+      "support": "right",
+      "pressure": {
+        "age": 0.00045006805319758314,
+        "gap": 0.0016886605525284343,
+        "closing": 7.071284802060815
+      },
+      "restitution": 0,
+      "normalImpulse": 5.310005975823703,
+      "outgoingNormal": -1.5543122344752192e-15,
+      "contactFrameWork": -32.78623658521332,
+      "residual": 7.105427357601002e-15,
+      "recoil": {
+        "foot": "left",
+        "x": 0.007458736886287784,
+        "y": -0.013721057450190597,
+        "energy": 2.8396778587715943
+      }
+    },
+    {
+      "atInTick": 0.012021371911645493,
+      "from": "right",
+      "support": "right",
+      "pressure": {
+        "age": 0.000262336249704731,
+        "gap": 0.00027823304704578666,
+        "closing": 5.746008653270181
+      },
+      "restitution": 0,
+      "normalImpulse": 2.707324228812498,
+      "outgoingNormal": 1.1102230246251565e-15,
+      "contactFrameWork": -8.522795906878123,
+      "residual": 1.7763568394002505e-15
+    },
+    {
+      "atInTick": 0.012087108125562745,
+      "from": "left",
+      "support": "right",
+      "pressure": {
+        "age": 0.0000657362139122597,
+        "gap": 0.000002554694332260188,
+        "closing": 5.66309668882912
+      },
+      "restitution": 0,
+      "normalImpulse": 1.822445333563304,
+      "outgoingNormal": -7.771561172376096e-16,
+      "contactFrameWork": -3.86198487654263,
+      "residual": -3.552713678800501e-15,
+      "recoil": {
+        "foot": "left",
+        "x": 0.0025010063845542136,
+        "y": -0.004613381577824402,
+        "energy": 0.33712165528035964
+      }
+    },
+    {
+      "atInTick": 0.012087845404830292,
+      "from": "right",
+      "support": "right",
+      "pressure": {
+        "age": 7.372792651949567e-7,
+        "gap": 2.74157423943433e-7,
+        "closing": 5.319914953232111
+      },
+      "restitution": 0,
+      "normalImpulse": 1.4898270394951598,
+      "outgoingNormal": 1.1102230246251565e-15,
+      "contactFrameWork": -2.580912334431293,
+      "residual": 4.440892098500626e-16
+    }
+  ],
+  "atTickEnd": {
+    "time": 134.40000000001342,
+    "gaps": {
+      "left": {
+        "shin": 0.03119950331145281,
+        "boot": 0.015114831808942922
+      },
+      "right": {
+        "shin": 0.09833638450466951,
+        "boot": 0.09617297346631978
+      }
+    },
+    "ball": {
+      "x": 12.264253198699711,
+      "y": 47.57867298630174,
+      "continuousBodyContacts": [],
+      "velocity": {
+        "x": -16.92148317735925,
+        "y": 2.836932395241566,
+        "z": 0.21934217540575127
+      },
+      "height": 0.11079779876441632,
+      "spin": {
+        "x": 9.0643806486713,
+        "y": -34.17930517289892,
+        "z": -101.2618743084008
+      },
+      "airborne": true,
+      "bounceCount": 1,
+      "looseSince": 134.38721923650073,
+      "lastTouchPlayerId": "geometry:anchor:9",
+      "secondBallPriorityIds": ["geometry:anchor:9"]
+    }
+  },
+  "atNextTickEnd": {
+    "time": 134.42500000001343,
+    "gaps": {
+      "left": {
+        "shin": 0.4626087376884649,
+        "boot": 0.4464388819060435
+      },
+      "right": {
+        "shin": 0.4958477616716106,
+        "boot": 0.4906223561981551
+      }
+    }
+  },
+  "after650ms": {
+    "time": 135.02500000001356,
+    "ball": {
+      "x": 2.42019625756633,
+      "y": 49.3225310687103,
+      "continuousBodyContacts": [],
+      "velocity": {
+        "x": -14.74478563707814,
+        "y": 2.6221069252755695,
+        "z": 0
+      },
+      "height": 0.11,
+      "spin": {
+        "x": 2.1244635628629736,
+        "y": -10.37245114211784,
+        "z": -27.459884013367702
+      },
+      "airborne": false,
+      "bounceCount": 20,
+      "looseSince": 134.38721923650073,
+      "lastTouchPlayerId": "geometry:anchor:9",
+      "secondBallPriorityIds": ["geometry:anchor:9"]
+    },
+    "halt": null
+  }
+}

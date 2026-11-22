@@ -7,8 +7,9 @@ certyfikowany odcinek lotu pozwala przejść zapisany tick z 63:12. Reakcja
 na faktyczny ruch powierzchni przywraca sekwencję kolano–udo z 52:57,
 zmianę podparcia z 71:58 i wyjście piłki spomiędzy goleni o 89:51.
 Odzyskanie napędu z podpartych stóp przywraca cztery zapisane wznowienia.
-Kolejne próby pełnych meczów wymagają rozwiązania kontaktu piłki z nogą
-w niezależnym przebiegu oraz osobnego modelu upadku i wstawania.
+Ustąpienie nogi w zamachu pozwala przejść nacisk goleni z niezależnej próby
+o 134,387 s. Kolejne zależności to trwały kontakt wielu powierzchni oraz
+osobny model upadku i wstawania.
 [Raport PR227](PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 
 ## Po PR226 — impuls kontaktu i dalsza gra

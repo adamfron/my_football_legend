@@ -6,9 +6,9 @@
 finite ground support and a corrective stance target. It consumes committed
 ball and opponent impulses. G also enables the certified free-flight prefix.
 `dynamic-balance-dev-v2` restores the motor only after the grounded body
-brakes and settles. Two native 180-second windows complete, and the
-independent window halts in open play. The compliant pair remains an
-offline experiment.
+brakes and settles. Dissipative shin pressure and finite swing recoil
+advance the independent 134.387 s tick. All three 180-second windows
+complete. The compliant pair remains an offline experiment.
 [PR227 report](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 
 ## PR226 limb impulse scope

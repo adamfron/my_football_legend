@@ -11,6 +11,7 @@ import {
   SWING_METRES_PER_SECOND,
 } from './articulatedGait';
 import { firstGroundImpactTime } from './ballPhysics';
+import { BALL_RADIUS } from './ballFlight';
 import { defaultBodyMorphology, individualFootReach } from './bodyMorphology';
 import {
   composedLegGap,
@@ -40,6 +41,7 @@ import {
 } from './matchState';
 import { captureReceptionStep } from './receptionTrace';
 import { MULTI_BODY } from './multiBodyContact';
+import { TEMPORAL_STRIKE } from './temporalFootTrajectory';
 
 const dt = 0.025;
 const F = (s: TacticalMatchState): TacticalMatchState => ({
@@ -283,6 +285,70 @@ it('slides only a loaded outward-moving anchor at the reach limit', () => {
 });
 
 describe('source-bound solver controls', () => {
+  it('dissipates the independent same-body shin squeeze with the right boot planted', () => {
+    const input = native(
+      JSON.parse(
+        gunzipSync(
+          readFileSync('docs/performance/pr227-grounded-recovery-independent-halt.json.gz'),
+        ).toString(),
+      ),
+    );
+    const { state, events } = captureReceptionStep(() => stepTacticalMatch(input, dt), {
+      mechanics: true,
+      contactWork: true,
+    });
+    expect(state.time).toBe(input.time + dt);
+    expect(state.safetyHalt).toBeUndefined();
+    expect(state.ball.ownerId).toBeUndefined();
+    const race = events.filter(({ source }) => source.endsWith('intervalRace'));
+    expect(race.length).toBeLessThanOrEqual(MULTI_BODY.events + 1);
+    expect(race.at(-1)?.detail).toMatchObject({ event: undefined });
+    const id = 'geometry:anchor:9';
+    const pressure = events.filter(
+      ({ actorId, detail, source }) =>
+        actorId === id && source.endsWith('composedLimbWork') && 'plantedShinPressure' in detail,
+    );
+    expect(pressure.length).toBeGreaterThan(0);
+    for (const { detail } of pressure)
+      expect(detail).toMatchObject({
+        plantedShinPressure: { support: 'right' },
+        parameters: { restitution: 0, friction: 0 },
+      });
+    const yields = events.flatMap(({ actorId, at, source, detail }) => {
+      const swing = (detail as { swingYield?: { foot: string; energy: number } }).swingYield;
+      return actorId === id && source.endsWith('rebasePlayer') && swing ? [{ at, swing }] : [];
+    });
+    expect(yields.length).toBeGreaterThan(0);
+    for (const { at, swing } of yields) {
+      const measured = pressure.find((event) => event.at === at)?.detail as {
+        account: { contactFrameWork: number };
+      };
+      expect(measured).toBeDefined();
+      expect(swing.foot).toBe('left');
+      expect(swing.energy).toBeGreaterThan(0);
+      expect(swing.energy).toBeLessThanOrEqual(-measured.account.contactFrameWork / 4 + 1e-12);
+    }
+    const before = input.players.find((p) => p.id === id)!;
+    const player = state.players.find((p) => p.id === id)!;
+    expect(player.articulatedStance?.support).toBe('right');
+    expect(player.articulatedStance?.right).toEqual(before.articulatedStance?.right);
+    const geometry = projectArticulatedBody(state, player)!.geometry;
+    const ball = { ...state.ball, z: state.ball.height! };
+    for (const foot of ['left', 'right'] as const) {
+      expect(composedLegGap(geometry, `${foot}_shin`, ball)).toBeGreaterThan(0);
+      const boot = geometry[foot].foot;
+      expect(
+        Math.hypot(ball.x - boot.x, ball.y - boot.y, ball.z - boot.z) -
+          BALL_RADIUS -
+          TEMPORAL_STRIKE.footRadius,
+      ).toBeGreaterThan(0);
+    }
+    let following = native(state);
+    for (let tick = 1; tick < 26; tick++) following = stepTacticalMatch(following, dt);
+    expect(following.safetyHalt).toBeUndefined();
+    expect(following.time - input.time).toBeCloseTo(0.65, 9);
+  });
+
   it('completes the native 71:58 support transfer through two shins on the same body', () => {
     const source = JSON.parse(
       gunzipSync(readFileSync('docs/performance/pr224-native-a-halt.json.gz')).toString(),

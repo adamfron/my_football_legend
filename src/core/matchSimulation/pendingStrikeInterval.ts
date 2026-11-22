@@ -17,6 +17,7 @@ import {
   loadDynamicBalance,
   swingShankAndFootMass,
 } from './dynamicBalance';
+import { GROUNDED_RECOVERY_BALANCE } from './dynamicBalanceState';
 import {
   advanceArticulatedStance,
   continueParkedArticulatedStance,
@@ -1803,6 +1804,17 @@ export const advancePendingStrikeInterval = (
         endpoint[landing].z <= MAX_GROUNDED_SUPPORT_HEIGHT &&
         !actor.verticalJump?.height &&
         !activeArticulatedFoot(state, actor.id);
+      const plantedShinPressure =
+        moved.experimentalDynamicBalance === GROUNDED_RECOVERY_BALANCE &&
+        pressingPair &&
+        other?.id === actor.id &&
+        support &&
+        endpoint &&
+        landing === support &&
+        stance[support].z <= MAX_GROUNDED_SUPPORT_HEIGHT &&
+        endpoint[support].z <= MAX_GROUNDED_SUPPORT_HEIGHT &&
+        !actor.verticalJump?.height &&
+        !activeArticulatedFoot(state, actor.id);
       const loadedPair = pressingPair && (other?.id !== actor.id || supportTransfer);
       const pairRestitution = supportTransfer ? COMPOSED_LIMB_IMPACT.restitution : 0;
       // Pitch/roll rotates the trunk, while knee and shin paths are supplied by
@@ -1816,7 +1828,10 @@ export const advancePendingStrikeInterval = (
           touching,
           pairRestitution,
         );
-      const pressure = !simultaneous && other?.id !== actor.id ? pressingPair : undefined;
+      // When the swing closes toward the other shin on a stable plant, an
+      // isolated rebound feeds the squeeze. Use the measured compression law.
+      const pressure =
+        !simultaneous && (other?.id !== actor.id || plantedShinPressure) ? pressingPair : undefined;
       const impactLaw = pressure ? { restitution: 0, friction: 0 } : COMPOSED_LIMB_IMPACT;
       const { normal, velocity: surfaceVelocity } =
         simultaneous && jointPrimary ? jointPrimary : event.legHit;
@@ -1903,6 +1918,7 @@ export const advancePendingStrikeInterval = (
           ...(supportTransfer && simultaneous
             ? { supportTransfer: { from: support, to: landing } }
             : {}),
+          ...(pressure && plantedShinPressure ? { plantedShinPressure: { support } } : {}),
           parameters: simultaneous
             ? { restitution: pairRestitution, friction: 0 }
             : impulse
@@ -1971,12 +1987,12 @@ export const advancePendingStrikeInterval = (
           player: MatchPlayerState,
           surface: { leg: typeof leg; normal: BodyPoint },
           impulse: BodyPoint,
+          compression: number,
         ) => {
           const { foot } = surface.leg;
           const support = player.articulatedStance?.support;
           if (
-            !loadedPair ||
-            !simultaneous ||
+            compression <= 0 ||
             !support ||
             support === foot ||
             activeArticulatedFoot(state, player.id) ||
@@ -1990,7 +2006,7 @@ export const advancePendingStrikeInterval = (
             foot,
             impulse.x * n.x + impulse.y * n.y + impulse.z * n.z,
             swingShankAndFootMass(player, foot),
-            simultaneous.dissipated / 4,
+            compression / 4,
             dt - elapsed,
           );
         };
@@ -2007,26 +2023,45 @@ export const advancePendingStrikeInterval = (
           simultaneous && jointPrimary ? jointPrimary.leg.point : leg.point,
           simultaneous?.impulses[0] ?? impulse!.impulse,
         );
+        const pairCompression = loadedPair ? (simultaneous?.dissipated ?? 0) : 0;
+        // The loaded swing can spend part of the work lost by this normal
+        // compression. The planted ankle has no impulse-driven DOF here.
+        const pressingSwing =
+          plantedShinPressure && pressure && impulse
+            ? swingReaction(
+                actor,
+                event.legHit,
+                impulse.impulse,
+                -measureBallContactWork(impactInput, impulse, [
+                  { ...event.legHit, impulse: impulse.impulse },
+                ]).contactFrameWork,
+              )
+            : undefined;
         if (simultaneous && jointPrimary && touching && other?.id === actor.id) {
           rebasePlayer(reaction(loadedActor, touching.leg.point, simultaneous.impulses[1]), {
             limbImpact: true,
             swingYield:
-              swingReaction(actor, jointPrimary, simultaneous.impulses[0]) ??
-              swingReaction(actor, touching, simultaneous.impulses[1]),
+              swingReaction(actor, jointPrimary, simultaneous.impulses[0], pairCompression) ??
+              swingReaction(actor, touching, simultaneous.impulses[1], pairCompression),
           });
         } else {
           rebasePlayer(loadedActor, {
             limbImpact: true,
             swingYield:
               simultaneous && jointPrimary
-                ? swingReaction(actor, jointPrimary, simultaneous.impulses[0])
-                : undefined,
+                ? swingReaction(actor, jointPrimary, simultaneous.impulses[0], pairCompression)
+                : pressingSwing,
           });
           if (simultaneous && touching && other) {
             const otherActor = playerAt(other, elapsed);
             rebasePlayer(reaction(otherActor, touching.leg.point, simultaneous.impulses[1]), {
               limbImpact: true,
-              swingYield: swingReaction(otherActor, touching, simultaneous.impulses[1]),
+              swingYield: swingReaction(
+                otherActor,
+                touching,
+                simultaneous.impulses[1],
+                pairCompression,
+              ),
             });
           }
         }
