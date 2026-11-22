@@ -35,13 +35,14 @@ export const resolveComposedLimbImpact = (
   ball: BallMotion,
   surface: MovingSurface,
   bodyMobility?: InverseContactMass,
+  impact: { restitution: number; friction: number } = COMPOSED_LIMB_IMPACT,
 ) => {
   const { normal } = surface;
   const relative = patchMotion(ball, surface);
   const normalSpeed = dot(relative, normal);
   const normalImpulse =
     (bodyMobility ? 1 / (1 / mass + dot(normal, bodyMobility(normal))) : mass) *
-    (1 + COMPOSED_LIMB_IMPACT.restitution) *
+    (1 + impact.restitution) *
     Math.max(0, -normalSpeed);
   const afterNormal = bodyMobility
     ? add(
@@ -61,7 +62,7 @@ export const resolveComposedLimbImpact = (
     slip,
     -Math.min(
       1 / (1 / mass + radius ** 2 / inertia + (bodySlip ? dot(bodySlip, direction) : 0)),
-      (COMPOSED_LIMB_IMPACT.friction * normalImpulse) / Math.max(slipLength, 1e-12),
+      (impact.friction * normalImpulse) / Math.max(slipLength, 1e-12),
       coupling > 0
         ? Math.max(0, dot(afterNormal, normal)) / (coupling * Math.max(slipLength, 1e-12))
         : Infinity,
@@ -212,20 +213,15 @@ export const resolveOpposingBallContactImpulse = (
   incoming: BallVelocity3d,
   a: { normal: FlightPoint; velocity: BallVelocity3d },
   b: { normal: FlightPoint; velocity: BallVelocity3d },
-  mobility?: { a: number; b: number; cross: number },
 ) => {
   const cos = dot(a.normal, b.normal);
-  // Keep the historical calculation in units of ball delta-v.
-  const aa = mobility ? 1 + mass * mobility.a : 1;
-  const bb = mobility ? 1 + mass * mobility.b : 1;
-  const ab = mobility ? cos + mass * mobility.cross : cos;
-  const determinant = aa * bb - ab * ab;
+  const determinant = 1 - cos * cos;
   if (cos >= 0 || determinant <= 1e-12) return;
   const deficit = (c: typeof a) => dot(c.normal, c.velocity) - dot(c.normal, incoming);
   const da = deficit(a),
     db = deficit(b);
-  const ja = (bb * da - ab * db) / determinant,
-    jb = (aa * db - ab * da) / determinant;
+  const ja = (da - cos * db) / determinant,
+    jb = (db - cos * da) / determinant;
   if (ja <= 0 || jb <= 0) return;
   return {
     velocity: {
@@ -234,6 +230,7 @@ export const resolveOpposingBallContactImpulse = (
       z: incoming.z + ja * a.normal.z + jb * b.normal.z,
     },
     impulses: [scale(a.normal, mass * ja), scale(b.normal, mass * jb)] as const,
+    dissipated: Math.max(0, (mass * (ja * da + jb * db)) / 2),
   };
 };
 

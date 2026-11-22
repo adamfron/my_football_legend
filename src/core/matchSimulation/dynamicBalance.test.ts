@@ -13,6 +13,11 @@ import {
 import { firstGroundImpactTime } from './ballPhysics';
 import { defaultBodyMorphology, individualFootReach } from './bodyMorphology';
 import {
+  composedLegGap,
+  firstComposedLegContact,
+  observeOpposingShinPressure,
+} from './composedLegContact';
+import {
   advanceDynamicBalance,
   dynamicContactMobility,
   loadDynamicBalance,
@@ -33,6 +38,7 @@ import {
   type TacticalMatchState,
 } from './matchState';
 import { captureReceptionStep } from './receptionTrace';
+import { MULTI_BODY } from './multiBodyContact';
 
 const dt = 0.025;
 const F = (s: TacticalMatchState): TacticalMatchState => ({
@@ -215,20 +221,70 @@ it('slides only a loaded outward-moving anchor at the reach limit', () => {
 });
 
 describe('source-bound solver controls', () => {
-  it('keeps the late shin pressure distinct from a legal decision', () => {
+  it('retains the historical F halt and clears both actual shins in G with a loaded swing step', () => {
     const input = loadCheckpoint('late-shin-pinch');
-    for (const candidate of [input, G(input)]) {
-      const { state, events } = captureReceptionStep(() => stepTacticalMatch(candidate, dt), {
-        mechanics: true,
-        contactWork: true,
-      });
-      expect(state.time).toBe(input.time);
-      expect(state.safetyHalt?.reason).toBe('pendingStrikeInterval.event_budget');
-      expect(state.discipline).toEqual(input.discipline);
+    const historical = stepTacticalMatch(input, dt);
+    expect(historical.time).toBe(input.time);
+    expect(historical.safetyHalt?.reason).toBe('pendingStrikeInterval.event_budget');
+    const { state, events } = captureReceptionStep(() => stepTacticalMatch(G(input), dt), {
+      mechanics: true,
+      contactWork: true,
+    });
+    const find = (suffix: string) => events.filter(({ source }) => source.endsWith(suffix));
+    expect(state.safetyHalt).toBeUndefined();
+    expect(state.time).toBe(input.time + dt);
+    expect(state.discipline).toEqual(input.discipline);
+    expect(state.ball.ownerId).toBeUndefined();
+    expect(find('opposingShinContacts')).toHaveLength(1);
+    expect(find('composedLimbWork')).toHaveLength(5);
+    expect(
+      find('composedLimbWork').filter(({ detail }) => 'pressure' in (detail as object)),
+    ).toHaveLength(2);
+    expect(find('intervalRace').length).toBeLessThanOrEqual(MULTI_BODY.events + 1);
+    expect(find('intervalRace').at(-1)?.detail).toMatchObject({ event: undefined });
+    expect(find('rebasePlayer')).toContainEqual(
+      expect.objectContaining({
+        actorId: 'footballer_pro_1_10',
+        detail: expect.objectContaining({
+          swingYield: expect.objectContaining({ foot: 'right', energy: expect.any(Number) }),
+        }),
+      }),
+    );
+    for (const id of ['footballer_pro_1_10', 'footballer_pro_9_18']) {
+      const actor = state.players.find((p) => p.id === id)!;
+      expect(balance(actor).lastLoad?.source).toBe('ball');
       expect(
-        new Set(events.filter((e) => e.source.endsWith('composedLimbWork')).map((e) => e.actorId))
-          .size,
-      ).toBe(2);
+        composedLegGap(projectArticulatedBody(state, actor)!.geometry, 'right_shin', {
+          ...state.ball,
+          z: state.ball.height!,
+        }),
+      ).toBeGreaterThan(0);
+    }
+    let continuation = native(state);
+    for (let tick = 0; tick < 12; tick++) continuation = stepTacticalMatch(continuation, dt);
+    expect(continuation.safetyHalt).toBeUndefined();
+    expect(continuation.time - input.time).toBeCloseTo(0.325, 9);
+  });
+
+  it('keeps the native knee and thigh apart after rebasing the actual limb paths in G', () => {
+    const input = loadCheckpoint('knee-thigh');
+    expect(stepTacticalMatch(input, dt).safetyHalt).toBeUndefined();
+    const { state, events } = captureReceptionStep(() => stepTacticalMatch(G(input), dt), {
+      mechanics: true,
+      contactWork: true,
+    });
+    expect(state.safetyHalt).toBeUndefined();
+    expect(state.time).toBe(input.time + dt);
+    expect(events.filter(({ source }) => source.endsWith('opposingLegContacts'))).toHaveLength(1);
+    const ball = { ...state.ball, z: state.ball.height! };
+    for (const [id, proxy] of [
+      ['footballer_pro_1_23', 'right_thigh'],
+      ['footballer_pro_9_12', 'left_thigh'],
+    ] as const) {
+      const player = state.players.find((p) => p.id === id)!;
+      expect(
+        composedLegGap(projectArticulatedBody(state, player)!.geometry, proxy, ball),
+      ).toBeGreaterThan(0);
     }
   });
 
@@ -249,8 +305,66 @@ describe('source-bound solver controls', () => {
     expect(firstGroundImpactTime(0.11, 0.2, -10)).toBeCloseTo(0.04, 12);
     expect(firstGroundImpactTime(0.11, -0.2, -10)).toBe(0);
     expect(firstGroundImpactTime(0.11004, -0.12, -10)).toBeLessThan(dt);
-    expect(stepTacticalMatch(loadCheckpoint('knee-thigh'), dt).safetyHalt).toBeUndefined();
   });
+});
+
+it('distinguishes a separated or opening pair and rechecks a departing shin for actual re-entry', () => {
+  const scene = G(withFullBodySkeleton(selectPr224Body(createPr224LimbScene('right'))));
+  const body = projectArticulatedBody(scene, scene.players[0]!)!;
+  const geometry = {
+    ...body.geometry,
+    capsules: [
+      {
+        region: 'right_shin' as const,
+        from: { x: 0, y: 0, z: 0.5 },
+        to: { x: 0, y: 0, z: 0.1 },
+        radius: 0.07,
+      },
+    ],
+  };
+  const contactPoint = { x: 0.17, y: 0, z: 0.43 };
+  for (let pass = 0; pass < 4; pass++)
+    contactPoint.x -= composedLegGap(geometry, 'right_shin', contactPoint)!;
+  const near = { ...contactPoint, x: contactPoint.x + 0.001 };
+  const current = { normal: { x: -1, y: 0, z: 0 }, velocity: { x: -1.2, y: 0, z: 0 } };
+  const observe = (position: typeof near, age: number, x = current.velocity.x) =>
+    observeOpposingShinPressure(
+      { ...current, velocity: { ...current.velocity, x } },
+      'right_shin',
+      position,
+      () => geometry,
+      0.012,
+      age,
+    );
+  expect(observe(near, 0.003)?.gap).toBeGreaterThan(0);
+  expect(observe({ ...near, x: near.x + 0.02 }, 0.003)).toBeUndefined();
+  expect(observe(near, 0.03)).toBeUndefined();
+  expect(observe(near, 0.003, 1.2)).toBeUndefined();
+
+  const first = (offset: number) =>
+    firstComposedLegContact(
+      0.012,
+      () => geometry,
+      (at) => ({
+        position: { ...contactPoint, x: contactPoint.x + offset + at * (0.5 - 50 * at) },
+        velocity: { x: 0.5 - 100 * at, y: 0, z: 0 },
+        airborne: true,
+        bounceCount: 0,
+      }),
+      {
+        horizontalHipSpeed: 0,
+        yawSpeed: 0,
+        unconstrainedPelvisAt: () => geometry.pelvis.z,
+        unconstrainedPelvisSpeed: 0,
+        bootSpeed: { left: 0, right: 0 },
+        ballSpeed: 0.7,
+        ballAcceleration: 100,
+        recheckSurfaces: new Set(['right_shin']),
+      },
+      [],
+    );
+  expect(first(1e-10)).toMatchObject({ kind: 'contact', at: expect.closeTo(0.01, 5) });
+  expect(first(-0.0001)).toMatchObject({ kind: 'unresolved', reason: 'geometry', at: 0 });
 });
 
 it('stores and dissipates energy in the isolated compliant pair without adding a rebound source', () => {

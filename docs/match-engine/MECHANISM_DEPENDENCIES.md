@@ -4,8 +4,9 @@
 
 G derives segment mass geometry from the PR225 skeleton. The shared contact
 timeline owns impulse delivery and the canonical gait owns foot motion.
-The independent free-flight prefix advances the frozen 63:12 tick. Shared
-limb compliance needs an active manifold and verified swing response.
+The independent free-flight prefix advances the frozen 63:12 tick. Verified
+ankle trajectories and finite swing yield advance the 52:57 and 89:51 cases.
+General limb compliance needs a sustained contact model.
 Ground impact of the body, standing up and restart liveness remain open.
 [PR227 report](../PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 

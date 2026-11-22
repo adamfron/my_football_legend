@@ -4,6 +4,8 @@ import { hasIndividualLowerBody, individualHipOffset } from './bodyMorphology';
 import {
   composedContactSurface,
   firstComposedLegContact,
+  observeOpposingShinPressure,
+  shinSwingRecoil,
   touchingComposedLeg,
 } from './composedLegContact';
 import { affineBootClearOfBallFlight, minimumQuadratic } from './composedLegCurvature';
@@ -13,8 +15,13 @@ import {
   dynamicContactMobility,
   interpolateDynamicBalance,
   loadDynamicBalance,
+  swingShankAndFootMass,
 } from './dynamicBalance';
-import { advanceArticulatedStance, continueParkedArticulatedStance } from './articulatedGait';
+import {
+  advanceArticulatedStance,
+  continueParkedArticulatedStance,
+  SWING_METRES_PER_SECOND,
+} from './articulatedGait';
 import {
   activeArticulatedFoot,
   postImpactStanceEditionSchema,
@@ -237,6 +244,9 @@ export const advancePendingStrikeInterval = (
   const pairServiced = new Set<string>();
   const origins = new Map<string, { player: MatchPlayerState; at: number; parked?: true }>();
   const stoppedSwings = new Map<string, 'left' | 'right'>();
+  const recheckLegs = dynamicBalance
+    ? new Map<string, Set<ReturnType<typeof composedContactSurface>>>()
+    : undefined;
   const travelled = new Map<string, number>();
   let transportEnd = dt;
   const playerAt = (p: MatchPlayerState, at: number) => {
@@ -412,10 +422,24 @@ export const advancePendingStrikeInterval = (
     state = recordExecution(state, 'ball-body-contact', 'pendingStrikeInterval.passiveFoot', 1);
   };
   if (multi && !handlers.bodyOnly) releaseSeparatedControl();
-  const rebasePlayer = (p: MatchPlayerState, torsoImpact = false, stopSwing?: 'left' | 'right') => {
+  type SwingYield = ReturnType<typeof shinSwingRecoil>;
+  const rebasePlayer = (
+    p: MatchPlayerState,
+    {
+      torsoImpact,
+      stopSwing,
+      limbImpact,
+      swingYield,
+    }: {
+      torsoImpact?: boolean;
+      stopSwing?: 'left' | 'right';
+      limbImpact?: boolean;
+      swingYield?: SwingYield;
+    } = {},
+  ) => {
     const old = finalPlayers.find((q) => q.id === p.id)!;
     const trace = receptionMechanicsTraceEnabled() && p.articulatedStance;
-    const eventPlayer = trace ? playerAt(old, elapsed) : undefined;
+    const eventPlayer = trace || limbImpact ? playerAt(old, elapsed) : undefined;
     const segmentOrigin = trace ? (origins.get(p.id)?.player ?? before.get(p.id)) : undefined;
     const began = origins.get(p.id)?.at ?? 0;
     travelled.set(
@@ -427,7 +451,16 @@ export const advancePendingStrikeInterval = (
     if (stopSwing) stoppedSwings.set(p.id, stopSwing);
     finalPlayers = finalPlayers.map((q) => {
       if (q.id !== p.id) return q;
-      const position = stopSwing ? q.position : integrateCanonicalBodyRemainder(p, dt - elapsed);
+      // The gait motor already produced this interval's ankle path. Add the
+      // impulse's root displacement to the remaining chord without retargeting it.
+      const position = limbImpact
+        ? {
+            x: q.position.x + (p.velocity.x - eventPlayer!.velocity.x) * (dt - elapsed),
+            y: q.position.y + (p.velocity.y - eventPlayer!.velocity.y) * (dt - elapsed),
+          }
+        : stopSwing
+          ? q.position
+          : integrateCanonicalBodyRemainder(p, dt - elapsed);
       const endpoint = { ...q, position, velocity: stopSwing ? q.velocity : p.velocity };
       const activeFoot = p.articulatedStance ? activeArticulatedFoot(state, p.id) : undefined;
       const parked =
@@ -440,16 +473,38 @@ export const advancePendingStrikeInterval = (
           at: elapsed,
           parked: true,
         });
-      const stance = p.articulatedStance
-        ? (parked ??
-          advanceArticulatedStance(
-            p,
-            endpoint,
-            dt - elapsed,
-            activeFoot,
-            q.articulatedStance?.angularVelocity,
-          ))
-        : undefined;
+      let stance = limbImpact
+        ? q.articulatedStance
+        : p.articulatedStance
+          ? (parked ??
+            advanceArticulatedStance(
+              p,
+              endpoint,
+              dt - elapsed,
+              activeFoot,
+              q.articulatedStance?.angularVelocity,
+            ))
+          : undefined;
+      if (stance && swingYield) {
+        const { foot, x, y } = swingYield;
+        const shifted = {
+          ...stance,
+          [foot]: { ...stance[foot], x: stance[foot].x + x, y: stance[foot].y + y },
+        };
+        const from = p.articulatedStance![foot];
+        const to = shifted[foot];
+        if (
+          Math.hypot(to.x - from.x, to.y - from.y, to.z - from.z) <=
+          SWING_METRES_PER_SECOND * (dt - elapsed)
+        ) {
+          try {
+            deriveLowerBodyGeometry({ ...endpoint, articulatedStance: shifted });
+            stance = shifted;
+          } catch {
+            // The authored workspace cannot take this ankle displacement.
+          }
+        }
+      }
       const stopped = stoppedSwings.get(p.id);
       const endpointWithStance = {
         ...endpoint,
@@ -469,7 +524,7 @@ export const advancePendingStrikeInterval = (
       const next = dynamicBalance
         ? advanceDynamicBalance({ ...state, time: end }, p, endpointWithStance, dt - elapsed, true)
         : endpointWithStance;
-      if (eventPlayer)
+      if (trace && eventPlayer)
         traceReception('pendingStrikeInterval.rebasePlayer', start + elapsed, p.id, {
           before: eventPlayer,
           after: p,
@@ -478,6 +533,7 @@ export const advancePendingStrikeInterval = (
           end: next,
           seconds: dt - elapsed,
           activeFoot,
+          ...(swingYield && stance !== q.articulatedStance ? { swingYield } : {}),
           parkedRemainder: Boolean(parked),
           recovery: state.recoveringFeet?.filter((f) => f.actorId === p.id),
         });
@@ -562,7 +618,7 @@ export const advancePendingStrikeInterval = (
         continue;
       }
       // Yield the remaining swing at the actual pose, keeping the planned root and plant.
-      rebasePlayer(actor, false, swing);
+      rebasePlayer(actor, { stopSwing: swing });
     }
   };
   const resolveChallenge = (
@@ -1134,6 +1190,7 @@ export const advancePendingStrikeInterval = (
             t === 0 ? left : intervalFoot(p, 'left', t),
             t === 0 ? right : intervalFoot(p, 'right', t),
           );
+        const recheckSurfaces = recheckLegs?.get(p.id);
         let geometrySamples = 0;
         const searchBegan = traceWork ? performance.now() : 0;
         const hit = firstComposedLegContact(
@@ -1166,6 +1223,7 @@ export const advancePendingStrikeInterval = (
             bootSpeed: { left: left.speedBound, right: right.speedBound },
             ballSpeed,
             tightenIndividualKneeBound: coupledLimbImpulse,
+            ...(recheckSurfaces ? { recheckSurfaces } : {}),
             ...(freeBallAcceleration !== undefined &&
             left.accelerationBound === 0 &&
             right.accelerationBound === 0
@@ -1389,11 +1447,11 @@ export const advancePendingStrikeInterval = (
       }
       const loadedPlayers = result.players.map((p) => loadOpponentContacts(p, result.contacts));
       for (const p of loadedPlayers)
-        rebasePlayer(
-          p,
-          preserveParkedStance &&
+        rebasePlayer(p, {
+          torsoImpact:
+            preserveParkedStance &&
             result.contacts.some((c) => c.kind === 'impact' && c.participants.includes(p.id)),
-        );
+        });
       state = {
         ...state,
         players: state.players.map((p) => loadedPlayers.find((q) => q.id === p.id) ?? p),
@@ -1696,16 +1754,17 @@ export const advancePendingStrikeInterval = (
         surface(earlierLeg.leg) === surface(leg)
           ? finalPlayers.find((p) => p.id === priorLeg.playerId)
           : undefined;
+      const legGeometryAt = (player: MatchPlayerState) => (t: number) =>
+        composeArticulatedLegs(
+          playerAt(player, elapsed + t),
+          intervalFoot(player, 'left', t),
+          intervalFoot(player, 'right', t),
+        );
       const touchingLegOf = (player: MatchPlayerState, value: typeof leg) =>
         touchingComposedLeg(
           composedContactSurface(value),
           incoming.position,
-          (t) =>
-            composeArticulatedLegs(
-              playerAt(player, elapsed + t),
-              intervalFoot(player, 'left', t),
-              intervalFoot(player, 'right', t),
-            ),
+          legGeometryAt(player),
           dt - elapsed,
           coupledLimbImpulse,
         );
@@ -1717,46 +1776,29 @@ export const advancePendingStrikeInterval = (
           ? touchingLegOf(finalPlayers.find((player) => player.id === actor.id)!, leg)
           : event.legHit;
       const primaryResponse = dynamicBalance ? dynamicContactMobility(state, actor) : undefined;
-      const otherResponse =
-        dynamicBalance && other && touching
-          ? other.id === actor.id
-            ? primaryResponse
-            : dynamicContactMobility(state, playerAt(other, elapsed))
-          : undefined;
-      const projected = (a: BodyPoint, b: BodyPoint | undefined) =>
-        b ? a.x * b.x + a.y * b.y + a.z * b.z : 0;
-      const mobility =
-        dynamicBalance && touching && jointPrimary
-          ? {
-              a: projected(
-                jointPrimary.normal,
-                primaryResponse?.(
-                  jointPrimary.leg.point,
-                  jointPrimary.leg.point,
-                  jointPrimary.normal,
-                ),
-              ),
-              b: projected(
-                touching.normal,
-                otherResponse?.(touching.leg.point, touching.leg.point, touching.normal),
-              ),
-              cross:
-                other?.id === actor.id
-                  ? projected(
-                      jointPrimary.normal,
-                      primaryResponse?.(
-                        jointPrimary.leg.point,
-                        touching.leg.point,
-                        touching.normal,
-                      ),
-                    )
-                  : 0,
-            }
-          : undefined;
+      // Pitch/roll rotates the trunk, while knee and shin paths are supplied by
+      // anchored-leg IK. Joint constraints use the measured forward velocities.
       const simultaneous =
         touching &&
         jointPrimary &&
-        resolveOpposingBallContactImpulse(incoming.velocity, jointPrimary, touching, mobility);
+        resolveOpposingBallContactImpulse(incoming.velocity, jointPrimary, touching);
+      const pressingPair =
+        dynamicBalance &&
+        other &&
+        other.id !== actor.id &&
+        leg.region === 'shin' &&
+        priorLeg?.leg?.region === 'shin'
+          ? observeOpposingShinPressure(
+              event.legHit,
+              composedContactSurface(priorLeg.leg),
+              incoming.position,
+              legGeometryAt(other),
+              dt - elapsed,
+              state.time - priorLeg.at,
+            )
+          : undefined;
+      const pressure = !simultaneous ? pressingPair : undefined;
+      const impactLaw = pressure ? { restitution: 0, friction: 0 } : COMPOSED_LIMB_IMPACT;
       const { normal, velocity: surfaceVelocity } =
         simultaneous && jointPrimary ? jointPrimary : event.legHit;
       const entry = traceWork
@@ -1786,7 +1828,10 @@ export const advancePendingStrikeInterval = (
           ? resolveComposedLimbImpact(
               impactInput,
               event.legHit,
-              primaryResponse && ((j) => primaryResponse(leg.point, leg.point, j)),
+              !pressure && primaryResponse
+                ? (j) => primaryResponse(leg.point, leg.point, j)
+                : undefined,
+              impactLaw,
             )
           : undefined;
       const response = simultaneous
@@ -1832,11 +1877,14 @@ export const advancePendingStrikeInterval = (
           constraints.push({ actorId: other.id, ...touching, impulse: simultaneous.impulses[1] });
         traceReception('pendingStrikeInterval.composedLimbWork', state.time, actor.id, {
           solver: simultaneous ? 'opposing_limbs' : impulse ? 'coupled_impulse' : 'legacy_rebound',
-          ...(dynamicBalance ? { bodyMobility: mobility ?? Boolean(primaryResponse) } : {}),
+          ...(dynamicBalance
+            ? { bodyMobility: Boolean(!simultaneous && !pressure && primaryResponse) }
+            : {}),
+          ...(pressure ? { pressure } : {}),
           parameters: simultaneous
             ? { restitution: 0, friction: 0 }
             : impulse
-              ? COMPOSED_LIMB_IMPACT
+              ? impactLaw
               : { restitution: 0.38, tangentRetention: 0.72, spinRetention: 0.3 },
           atInTick: elapsed,
           position: incoming.position,
@@ -1883,6 +1931,44 @@ export const advancePendingStrikeInterval = (
       delete state.ballAcquisition;
       state.lastLimbContacts = [...(state.lastLimbContacts ?? []), state.lastBallContact!];
       if (dynamicBalance) {
+        if (pressingPair && simultaneous && jointPrimary && touching && other) {
+          for (const [id, contact] of [
+            [actor.id, jointPrimary.leg],
+            [other.id, touching.leg],
+          ] as const) {
+            const surfaces =
+              recheckLegs?.get(id) ?? new Set<ReturnType<typeof composedContactSurface>>();
+            surfaces.add(composedContactSurface(contact));
+            recheckLegs?.set(id, surfaces);
+          }
+        }
+        const swingReaction = (
+          player: MatchPlayerState,
+          surface: { leg: typeof leg; normal: BodyPoint },
+          impulse: BodyPoint,
+        ) => {
+          const { foot } = surface.leg;
+          const support = player.articulatedStance?.support;
+          if (
+            !pressingPair ||
+            !simultaneous ||
+            !support ||
+            support === foot ||
+            activeArticulatedFoot(state, player.id) ||
+            player.verticalJump?.height
+          )
+            return;
+          const n = surface.normal;
+          return shinSwingRecoil(
+            player,
+            incoming.position,
+            foot,
+            impulse.x * n.x + impulse.y * n.y + impulse.z * n.z,
+            swingShankAndFootMass(player, foot),
+            simultaneous.dissipated / 4,
+            dt - elapsed,
+          );
+        };
         const reaction = (player: MatchPlayerState, point: BodyPoint, applied: BodyPoint) =>
           loadDynamicBalance(
             state,
@@ -1893,18 +1979,28 @@ export const advancePendingStrikeInterval = (
           );
         const loadedActor = reaction(
           actor,
-          leg.point,
+          simultaneous && jointPrimary ? jointPrimary.leg.point : leg.point,
           simultaneous?.impulses[0] ?? impulse!.impulse,
         );
         if (simultaneous && touching && other && other.id === actor.id) {
-          rebasePlayer(reaction(loadedActor, touching.leg.point, simultaneous.impulses[1]), true);
+          rebasePlayer(reaction(loadedActor, touching.leg.point, simultaneous.impulses[1]), {
+            limbImpact: true,
+          });
         } else {
-          rebasePlayer(loadedActor, true);
-          if (simultaneous && touching && other)
-            rebasePlayer(
-              reaction(playerAt(other, elapsed), touching.leg.point, simultaneous.impulses[1]),
-              true,
-            );
+          rebasePlayer(loadedActor, {
+            limbImpact: true,
+            swingYield:
+              simultaneous && jointPrimary
+                ? swingReaction(actor, jointPrimary, simultaneous.impulses[0])
+                : undefined,
+          });
+          if (simultaneous && touching && other) {
+            const otherActor = playerAt(other, elapsed);
+            rebasePlayer(reaction(otherActor, touching.leg.point, simultaneous.impulses[1]), {
+              limbImpact: true,
+              swingYield: swingReaction(otherActor, touching, simultaneous.impulses[1]),
+            });
+          }
         }
       } else if (!simultaneous) yieldSwingBetweenShins(actor, event.legHit, priorLeg, earlierLeg);
       continue;

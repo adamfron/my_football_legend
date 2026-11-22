@@ -292,6 +292,18 @@ const results = cases.map((scene) => ({
     (dynamic ? ['E', 'F', 'G'] : ['D', 'E', 'F']).map((arm) => [arm, run(scene, arm)]),
   ),
 }));
+if (dynamic) {
+  const archived = JSON.parse(
+    gunzipSync(readFileSync('docs/performance/pr227-continuity.json.gz')),
+  );
+  const historical = (scenarios) =>
+    hash(JSON.stringify(scenarios.map(({ name, arms }) => [name, arms.F])));
+  assert.equal(
+    historical(results),
+    historical(archived.scenarios),
+    'Original F continuity traces changed',
+  );
+}
 const comparison = (name) => results.find((entry) => entry.name === name).arms;
 const pinch = comparison('opposing-41:56');
 assert.equal(pinch.E.final.joint, 1);
@@ -327,7 +339,7 @@ const output = process.argv.includes('--record')
     : '.benchmark-artifacts/pr226';
 mkdirSync(output, { recursive: true });
 writeFileSync(
-  output + (dynamic ? '/pr227-continuity.json.gz' : '/pr226-continuity.json.gz'),
+  output + (dynamic ? '/pr227-refined-continuity.json.gz' : '/pr226-continuity.json.gz'),
   gzipSync(
     JSON.stringify({
       sources: [ccd, paired, nativeA, kneeThigh].map(({ path, sha256 }) => ({ path, sha256 })),

@@ -43,6 +43,9 @@ const massFraction: Record<SkeletonSegmentId, number> = {
   right_foot: 0.0145,
 };
 
+export const swingShankAndFootMass = (player: MatchPlayerState, foot: 'left' | 'right') =>
+  player.profile.weightKg * (massFraction[`${foot}_shank`] + massFraction[`${foot}_foot`]);
+
 export const measureBalanceMass = (segments: FullBodySkeleton['segments'], mass: number) => {
   const centre = { ...zero3 };
   for (const { id, world, end } of segments) {

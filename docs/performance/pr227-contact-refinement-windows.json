@@ -1,0 +1,889 @@
+{
+  "node": "v24.22.1",
+  "platform": "win32",
+  "windows": [
+    {
+      "fixture": "paired",
+      "arm": "G",
+      "source": {
+        "path": "docs/performance/pr224-full-match-paired.json",
+        "sha256": "30fc75746a37d9dcf87e13b0e425f74a3faef094d89d7a9917e9f8adee1f3737",
+        "archivedKickoffHash": "ea893255dab1a3c3996c497a5aaadf3a7e7611359b948d67eef0ddd73d50ef2f"
+      },
+      "terminalHash": "eb68c40c0a7118bc83fbc1f2356646fd9b0f8db159124a87f3fefe610e302f1a",
+      "final": {
+        "at": 56.37499999999787,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 2254,
+        "decisions": 24,
+        "passReleases": 2,
+        "retainedBootContacts": 11,
+        "bodyImpactTimes": 14,
+        "shinContacts": 4,
+        "ownerChanges": 12,
+        "restarts": 2
+      },
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "ball_not_placed",
+        "at": 56.37499999999787,
+        "intervalStartedAt": 56.37499999999787,
+        "actorIds": [],
+        "ball": {
+          "x": 36.25971545353446,
+          "y": 77.06706573568961,
+          "z": 0.9
+        },
+        "velocity": {
+          "x": -0.13335155719602199,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": -0.002843563172051164,
+          "y": 0.00010783714798040755,
+          "z": -0.0014365629298031639
+        }
+      },
+      "invalid": 0,
+      "poses": 1232,
+      "cost": {
+        "wallSeconds": 6.923774400000001,
+        "compositionAndValidationMs": 0.19422987012986653,
+        "heapMiB": 235.49219512939453,
+        "traced": true,
+        "meanTickMs": 2.921619778270511,
+        "p95TickMs": 5.557499999999891,
+        "p99TickMs": 8.583800000000338,
+        "peakSampledHeapMiB": 219.14443969726562,
+        "terminalNativeBytes": 205416,
+        "replaySnapshotBytes": 69545,
+        "composedLegSearch": {
+          "calls": 580,
+          "samples": 3790,
+          "maxSamples": 192,
+          "milliseconds": 83.61629999999604,
+          "exhausted": 3
+        }
+      },
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 56,
+        "steps": 1,
+        "slipping": 0,
+        "lost": 675
+      },
+      "nativeHaltInput": {
+        "path": "docs/performance/pr227-refined-paired-development-halt.json.gz",
+        "sha256": "97e0acbbf2d066f776f11b50568ee1fa99dc25281151742256a3c3557f0aac55"
+      }
+    },
+    {
+      "fixture": "native-a",
+      "arm": "G",
+      "source": {
+        "path": "docs/performance/pr224-full-match-pr222-native-a.json",
+        "sha256": "9a56ffd2689a4a2dd203df387180abc1583f56389a37790b1fe2f160190ce973",
+        "archivedKickoffHash": "fbf084721cbe319d819d25819161b1e012a8a6d72da6efbdb0f4155f94d8f317"
+      },
+      "terminalHash": "7229f34b29f52ebc706933e7e2db75c54dad56ce89c6379769c5d42557f9fb8e",
+      "final": {
+        "at": 72.44999999999935,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 2897,
+        "decisions": 24,
+        "passReleases": 4,
+        "retainedBootContacts": 10,
+        "bodyImpactTimes": 20,
+        "shinContacts": 11,
+        "ownerChanges": 12,
+        "restarts": 2
+      },
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "ball_not_placed",
+        "at": 72.44999999999935,
+        "intervalStartedAt": 72.44999999999935,
+        "actorIds": [],
+        "ball": {
+          "x": 112.85668185413947,
+          "y": 7.469296666068455,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": 8.52465063478518e-35,
+          "y": 3.977536653447069e-34,
+          "z": 8.602728980160804e-38
+        }
+      },
+      "invalid": 0,
+      "poses": 1584,
+      "cost": {
+        "wallSeconds": 8.827485000000001,
+        "compositionAndValidationMs": 0.18360075757575123,
+        "heapMiB": 125.20980834960938,
+        "traced": true,
+        "meanTickMs": 2.916524810213942,
+        "p95TickMs": 5.175500000000284,
+        "p99TickMs": 7.609300000000076,
+        "peakSampledHeapMiB": 245.66315460205078,
+        "terminalNativeBytes": 212659,
+        "replaySnapshotBytes": 69590,
+        "composedLegSearch": {
+          "calls": 725,
+          "samples": 3790,
+          "maxSamples": 192,
+          "milliseconds": 77.30079999999498,
+          "exhausted": 2
+        }
+      },
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 72,
+        "steps": 1,
+        "slipping": 0,
+        "lost": 994
+      },
+      "nativeHaltInput": {
+        "path": "docs/performance/pr227-refined-native-a-development-halt.json.gz",
+        "sha256": "952e67cd5746b5af5e999e8eef6e4dc053411c451360f72f3d495517df124940"
+      }
+    },
+    {
+      "fixture": "independent",
+      "arm": "G",
+      "source": {
+        "path": "docs/performance/pr224-full-match-independent.json",
+        "sha256": "e10bba54909f50654052a6c7a8e820761b1abb4613d1deb0e1ad6e883870f3a3",
+        "archivedKickoffHash": "f2ca5590f80e9c11b6aa23bcb28574adebaa4c7db8d0b8afad19621862c10102"
+      },
+      "terminalHash": "008aa8d7a4922770dc16ae3896405a86cb3356c5973854513423a7087ce128dd",
+      "final": {
+        "at": 97.02500000000494,
+        "status": "first_half",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 3880,
+        "decisions": 32,
+        "passReleases": 2,
+        "retainedBootContacts": 16,
+        "bodyImpactTimes": 25,
+        "shinContacts": 8,
+        "ownerChanges": 20,
+        "restarts": 3
+      },
+      "safetyHalt": {
+        "kind": "restart_lifecycle",
+        "reason": "ball_not_placed",
+        "at": 97.02500000000494,
+        "intervalStartedAt": 97.02500000000494,
+        "actorIds": [],
+        "ball": {
+          "x": 109.23364867263162,
+          "y": 5.758875146240732,
+          "z": 0.11
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spin": {
+          "x": 3.1332396172864594e-30,
+          "y": 2.5925058286420907e-30,
+          "z": 3.016534660314884e-33
+        }
+      },
+      "invalid": 0,
+      "poses": 2134,
+      "cost": {
+        "wallSeconds": 11.868312,
+        "compositionAndValidationMs": 0.1802211808809838,
+        "heapMiB": 281.71324157714844,
+        "traced": true,
+        "meanTickMs": 2.9281164132955375,
+        "p95TickMs": 5.005900000000111,
+        "p99TickMs": 7.935900000000402,
+        "peakSampledHeapMiB": 298.60363006591797,
+        "terminalNativeBytes": 213008,
+        "replaySnapshotBytes": 69428,
+        "composedLegSearch": {
+          "calls": 1160,
+          "samples": 7072,
+          "maxSamples": 192,
+          "milliseconds": 149.28410000002464,
+          "exhausted": 7
+        }
+      },
+      "sampledSupport": {
+        "peakFeet": 22,
+        "sampleCount": 97,
+        "steps": 6,
+        "slipping": 0,
+        "lost": 1126
+      },
+      "nativeHaltInput": {
+        "path": "docs/performance/pr227-refined-independent-development-halt.json.gz",
+        "sha256": "789d3276730a3d2ffdcdb84bb998f45654b4a0446e9d405388d2b7857c2a1480"
+      }
+    }
+  ],
+  "continuity": [
+    {
+      "name": "ccd-lab-mw3xhr6o",
+      "initial": "5fed3090d2439e241c9291db61ecd327b43b0dda0aca501351868fa0291eb1ee",
+      "terminal": "113e18fb921e1aa05d02667eef956660073f58d862727c808f4a9add2b74e33a",
+      "final": {
+        "time": 25.049999999999645,
+        "owner": "footballer_pro_1_3",
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 0,
+        "legEvents": 0,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "ccd-pr222-native-a",
+      "initial": "d1a5390e57af4e88fda8df797c043416df3df33598bc89679b51fc12811d50ad",
+      "terminal": "ce7692cb094a7ba0cb7611d226615afec8da3d754fabf2e0272c2af8524487f3",
+      "final": {
+        "time": 5.375000000000009,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 2,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 3.907985046680551e-14
+      }
+    },
+    {
+      "name": "ccd-free-flight graze at 101.1 s",
+      "initial": "bf9e273f5340f7051542cb1ae33f5ca6e20cd86b9285c467911cf334a280ac33",
+      "terminal": "571a400ced50e64f81adf611e481bc2e65c4964218802d941fcd3e3f4359e577",
+      "final": {
+        "time": 101.12500000000587,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 0,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 2.671474153004283e-16
+      }
+    },
+    {
+      "name": "native-affine boot release after a body cluster",
+      "initial": "86c7ea5b2f833687cde56afe8ac4a435cee478bb89df7fdaaa93456c9661b954",
+      "terminal": "5404e600daf5a6674f2339d5fa5f32f70db0fa2d082ce86160bd4024a415ad71",
+      "final": {
+        "time": 784.0499999995608,
+        "owner": null,
+        "halt": null,
+        "first": {
+          "at": 784.0462134000364,
+          "retained": true,
+          "surface": "cushion"
+        },
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 3,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 1.687538997430238e-14
+      }
+    },
+    {
+      "name": "native-opposed shins on a grounded player",
+      "initial": "a187bf96a7783a3d19b18e333b382f26b5b1d0b0f1816c116016f36eb185f37d",
+      "terminal": "2aeb329ea67033eae01a055b13c18a280a0f959ffb0d51d5c5873f32223e2669",
+      "final": {
+        "time": 241.97500000003788,
+        "owner": null,
+        "halt": {
+          "kind": "physical_contact",
+          "reason": "pendingStrikeInterval.event_budget",
+          "at": 242.0000000000379,
+          "intervalStartedAt": 241.97500000003788,
+          "actorIds": [],
+          "ball": {
+            "x": 88.82947155018502,
+            "y": 58.66648600911408,
+            "z": 0.1146576551020448
+          },
+          "velocity": {
+            "x": -15.5268899238789,
+            "y": -1.5506295191206947,
+            "z": -17.358098761077855
+          },
+          "spin": {
+            "x": -19.985665165227378,
+            "y": -21.73111484225333,
+            "z": 62.969509542834935
+          }
+        },
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 0,
+        "legEvents": 16,
+        "joint": 2,
+        "maximumWorkResidual": 2.842170943040401e-14
+      }
+    },
+    {
+      "name": "native-stationary ground ball clear of a latched boot",
+      "initial": "4ef852206f87c95559d8b15b2a79769df576ff348445d02ffa3f8a1468dda6be",
+      "terminal": "64c67676746b5b41d535bfc97e2bae9d22ac9618f816a84e3b0c22f7e078769e",
+      "final": {
+        "time": 1571.9500000013359,
+        "owner": "footballer_pro_9_22",
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 0,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "native-opposed shins across two grounded players",
+      "initial": "f1eba4f8f0f26efeea5d1a9ec7e1e7335dc1144d954650b17b7e94dbbca7ede7",
+      "terminal": "c1898e8bee01bbebe7df66a3c28e9238603c87ec3f6890cc3fd1f4efcb4d859b",
+      "final": {
+        "time": 1876.2250000024428,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 3,
+        "legEvents": 7,
+        "joint": 1,
+        "maximumWorkResidual": 5.684341886080802e-14
+      }
+    },
+    {
+      "name": "opposing-41:56",
+      "initial": "1e05839e55acb739a5103743d771c119663e2a42c95e98429e21b1d390563706",
+      "terminal": "03c277d03addae7ea5c42420e1f6ce9736c40dc197bd27d19589b49a1d10e17c",
+      "final": {
+        "time": 2516.6500000047727,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": {
+          "time": 2516.6000000047725,
+          "owner": null
+        },
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 21,
+        "joint": 2,
+        "maximumWorkResidual": 1.4210854715202004e-14
+      }
+    },
+    {
+      "name": "support-transfer-71:58",
+      "initial": "3bd778e2f777c60d4186c60ee8de743886d3ffbf25521445f8835e6283aec7de",
+      "terminal": "4ac824da9cd428bf1858c03e960163dbd274196d718617f65a4cbac0dec4cd1f",
+      "final": {
+        "time": 4318.875000001399,
+        "owner": null,
+        "halt": {
+          "kind": "physical_contact",
+          "reason": "pendingStrikeInterval.event_budget",
+          "at": 4318.900000001398,
+          "intervalStartedAt": 4318.875000001399,
+          "actorIds": [],
+          "ball": {
+            "x": 63.52953647849416,
+            "y": 50.30855561640225,
+            "z": 0.23345536863744573
+          },
+          "velocity": {
+            "x": -2.213753045042538,
+            "y": -0.5506654513311877,
+            "z": -3.3045344404206674
+          },
+          "spin": {
+            "x": 6.46625982614522,
+            "y": 14.536652625814638,
+            "z": -3.406669442175521
+          }
+        },
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 0,
+        "legEvents": 16,
+        "joint": 2,
+        "maximumWorkResidual": 6.205973235307027e-16
+      }
+    },
+    {
+      "name": "opposing-knee-thigh-52:57",
+      "initial": "66019ffdfed6defc2c5bd488bc700b1771aa02ce2cf88e466f8db3d5d72c58b3",
+      "terminal": "c75273d2481fb4c693ee4dd734c293447e332aa690d5a820a6e367f0f3e5de6c",
+      "final": {
+        "time": 3177.80000000152,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": {
+          "time": 3177.7500000015198,
+          "owner": null
+        },
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 19,
+        "legEvents": 21,
+        "joint": 1,
+        "maximumWorkResidual": 5.684341886080802e-14
+      }
+    },
+    {
+      "name": "pass-ordinary",
+      "initial": "faca2e668bbfdc4c0a5917b6d1519369ffd127d7537e18477cb90b49046e3688",
+      "terminal": "20534abdbe5fb00a64ed06766624b89a4c834078ebc480077a45ca3801eb8598",
+      "final": {
+        "time": 11.000000000000014,
+        "owner": null,
+        "halt": null,
+        "first": {
+          "at": 10.087561220823497,
+          "retained": false,
+          "surface": "inside"
+        },
+        "second": null,
+        "ownerAtScene600": {
+          "time": 10.600000000000009,
+          "owner": null
+        },
+        "afterFirst600": {
+          "time": 10.70000000000001,
+          "owner": null
+        },
+        "releases": [
+          {
+            "at": 10.087561220823497,
+            "actor": "geometry:anchor:5"
+          }
+        ],
+        "cleanWins": [],
+        "impacts": 0,
+        "legEvents": 0,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "pass-advance",
+      "initial": "3db61e5e663f1d40ee6f2a141bac250543fdee1f21eff039bc5f19a6db8380d0",
+      "terminal": "7eb5244d564e9c9c98af633a07fab16919ca29d312aff45ff5e3aca9f0ade1a0",
+      "final": {
+        "time": 11.000000000000014,
+        "owner": null,
+        "halt": null,
+        "first": {
+          "at": 10.067191879742833,
+          "retained": false,
+          "surface": "inside"
+        },
+        "second": null,
+        "ownerAtScene600": {
+          "time": 10.600000000000009,
+          "owner": null
+        },
+        "afterFirst600": {
+          "time": 10.67500000000001,
+          "owner": null
+        },
+        "releases": [
+          {
+            "at": 10.067191879742833,
+            "actor": "geometry:anchor:5"
+          }
+        ],
+        "cleanWins": [],
+        "impacts": 0,
+        "legEvents": 0,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "pass-miss",
+      "initial": "925b8ba893012a66086bdb6ebef4b7281b1e8ac7f86b2841c76ed6f3b17354a6",
+      "terminal": "5b4905f7ebc9aebf67d9d0329a8f593f40a057c9871519d0fc9b3b7abfd46ec7",
+      "final": {
+        "time": 11.000000000000014,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": {
+          "time": 10.600000000000009,
+          "owner": null
+        },
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 0,
+        "legEvents": 0,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "early-lateral",
+      "initial": "4561ca2b196f726bb13eff951c97e93ab3c8d9a6a90808e0b407c14ad76de250",
+      "terminal": "7375dfe77e1026d53e836cab81b81a6a7b0bb512a8693e0712e0a1addb032dfc",
+      "final": {
+        "time": 11.600000000000023,
+        "owner": null,
+        "halt": null,
+        "first": {
+          "at": 10.365688922069337,
+          "retained": true,
+          "surface": "inside"
+        },
+        "second": null,
+        "ownerAtScene600": {
+          "time": 10.600000000000009,
+          "owner": "geometry:anchor:6"
+        },
+        "afterFirst600": {
+          "time": 10.975000000000014,
+          "owner": null
+        },
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 0,
+        "legEvents": 0,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "pressure",
+      "initial": "4173f6c9d8fb2b8d3db066321aee2e4fd1f9d04631cf56aa5c06fd90dcd8dc2a",
+      "terminal": "e0c573f7e3a5968a046fc082cc16b2b314afe7e1a29ff70d0e47a19abb11e079",
+      "final": {
+        "time": 11.600000000000023,
+        "owner": "geometry:opponent:1",
+        "halt": null,
+        "first": {
+          "at": 10.116910639760766,
+          "retained": true,
+          "surface": "cushion"
+        },
+        "second": null,
+        "ownerAtScene600": {
+          "time": 10.600000000000009,
+          "owner": "geometry:opponent:1"
+        },
+        "afterFirst600": {
+          "time": 10.72500000000001,
+          "owner": "geometry:opponent:1"
+        },
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 4,
+        "joint": 0,
+        "maximumWorkResidual": 4.440892098500626e-16
+      }
+    },
+    {
+      "name": "early-pressure",
+      "initial": "3d486dfb08bfafb02b045db56f89594e216d8df418b97192a6a3d0b8dfd6aebf",
+      "terminal": "5409c32c97ea7686a26476745152b651ddb8826c9c266ba9609b90303cbfd1f6",
+      "final": {
+        "time": 11.600000000000023,
+        "owner": "geometry:opponent:1",
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": {
+          "time": 10.600000000000009,
+          "owner": "geometry:opponent:1"
+        },
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 7,
+        "legEvents": 0,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "unreachable",
+      "initial": "0c292192a165304669751dcb164b070ad14f7651764b24e1b1f4c0b69998890d",
+      "terminal": "dd833f9c7ddcc83f0d6c423e9fcc74dff34deb3dc752c25301f80f88afa8e69b",
+      "final": {
+        "time": 11.600000000000023,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": {
+          "time": 10.600000000000009,
+          "owner": null
+        },
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 0,
+        "legEvents": 0,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "stronger-pressure",
+      "initial": "7b797087029b173e22c4d62f473defe75b7ce56748d5a3801263b103cdb403e0",
+      "terminal": "675390cc54a158e16b84d7bd2cb2e192dfbfff04adb052b1f5eeeea9a9b9960e",
+      "final": {
+        "time": 11.600000000000023,
+        "owner": null,
+        "halt": null,
+        "first": {
+          "at": 10.112140172573849,
+          "retained": true,
+          "surface": "cushion"
+        },
+        "second": null,
+        "ownerAtScene600": {
+          "time": 10.600000000000009,
+          "owner": null
+        },
+        "afterFirst600": {
+          "time": 10.72500000000001,
+          "owner": null
+        },
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 5,
+        "legEvents": 2,
+        "joint": 0,
+        "maximumWorkResidual": 1.4210854715202004e-14
+      }
+    },
+    {
+      "name": "shin-default",
+      "initial": "e20a39675de50b1486ef6834c186ebc3e18c93e97b638063f362f9a35dff3072",
+      "terminal": "a3f05db177e28e04a83d02dffbef2c46ddd2d19a265776179db0886253fb5465",
+      "final": {
+        "time": 10.300000000000004,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "shin-asymmetry",
+      "initial": "716f9b6d8cc73c55f76758809e176de3d41940864dd3e0aa61626dc4af43d884",
+      "terminal": "a2e8fd4bd460a3b5eff3c3b14f1aec41ea0b92677082eb17aed231c123caecb2",
+      "final": {
+        "time": 10.300000000000004,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 3.552713678800501e-15
+      }
+    },
+    {
+      "name": "shin-asymmetry-geometry-relative",
+      "initial": "ef51c380ad4d98662c60fe9d226fcb907659e0bbb2bbc8507d98b5009726d83b",
+      "terminal": "74d9726d66e640e985258fcd62b5ad563c600b0b54090baaf0405be2f2cbfcc7",
+      "final": {
+        "time": 10.300000000000004,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 3.552713678800501e-15
+      }
+    },
+    {
+      "name": "shin-aligned",
+      "initial": "bc38735cdad7c77357f4bf8c839078c8f8c2040599f22579f49ffc1d7fde0086",
+      "terminal": "34c949acc482ea18a528ce602f2ff8c898e6154e7f89f166c53fb2853d6242b4",
+      "final": {
+        "time": 10.300000000000004,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 3.552713678800501e-15
+      }
+    },
+    {
+      "name": "shin-aligned-geometry-relative",
+      "initial": "d1015e07524b7026c567c9740c5092145e0dff2f2d0ab5c7e4a55c14c59da0f9",
+      "terminal": "705545274fcaa2f2271b8cf12322a84d9de1588fb543c93dbab2621333ae6c35",
+      "final": {
+        "time": 10.300000000000004,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 3.552713678800501e-15
+      }
+    },
+    {
+      "name": "shin-proportions",
+      "initial": "4884c35c5a6e16b11a87074a5429803ab792000a2d689f5c34e913c3ba5d3a74",
+      "terminal": "c1d41b56c2064fed73a358d94a5bd91bbd260ad3a73e36f8e0b2d382d758bf3e",
+      "final": {
+        "time": 10.300000000000004,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 3.552713678800501e-15
+      }
+    },
+    {
+      "name": "shin-proportions-geometry-relative",
+      "initial": "48aefa73165906b18828af7561db5fee0d3897d5955b7c969310feab502135c7",
+      "terminal": "9b0555359fe448972eaacf7422e1adb3be86129ff11a6e7ee61b4cd770f85bc5",
+      "final": {
+        "time": 10.300000000000004,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 0
+      }
+    },
+    {
+      "name": "shin-feet",
+      "initial": "c6c111dd40a98276c31f878b6e90541d05062a664270af742df1c47291b9bc0f",
+      "terminal": "322370055aebe7187e9dd13540eb00f47a61b064d6cafc9110bca4f8dc5d006c",
+      "final": {
+        "time": 10.300000000000004,
+        "owner": null,
+        "halt": null,
+        "first": null,
+        "second": null,
+        "ownerAtScene600": null,
+        "afterFirst600": null,
+        "releases": [],
+        "cleanWins": [],
+        "impacts": 1,
+        "legEvents": 1,
+        "joint": 0,
+        "maximumWorkResidual": 3.552713678800501e-15
+      }
+    }
+  ]
+}

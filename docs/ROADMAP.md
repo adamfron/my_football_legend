@@ -3,9 +3,10 @@
 ## Po PR227 — równowaga i podparcie
 
 Wariant G wiąże impuls kontaktu z przechyłem i ruchem zawodnika. Krótszy
-certyfikowany odcinek lotu pozwala przejść zapisany tick z 63:12. Priorytetem
-jest teraz wspólne rozwiązanie utrzymującego się nacisku, zgodność reakcji
-nogi z geometrią podparcia oraz przywrócenie ciągłości akcji i wznowień.
+certyfikowany odcinek lotu pozwala przejść zapisany tick z 63:12. Reakcja
+na faktyczny ruch powierzchni przywraca sekwencję kolano–udo z 52:57 i
+umożliwia wyjście piłki spomiędzy goleni o 89:51. Priorytetem pozostają
+zmiana podparcia z 71:58 oraz ciągłość wznowień po utracie równowagi.
 [Raport PR227](PR227_DYNAMIC_BALANCE_COMPLIANCE_AND_RECOVERY.md).
 
 ## Po PR226 — impuls kontaktu i dalsza gra

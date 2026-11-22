@@ -7,6 +7,11 @@ import { stepTacticalMatch } from '../src/core/matchSimulation/matchSimulation.t
 import { tacticalMatchStateSchema } from '../src/core/matchSimulation/matchState.ts';
 import { captureReceptionStep } from '../src/core/matchSimulation/receptionTrace.ts';
 import { FOOT_CONTACT_PHYSICS } from '../src/core/matchSimulation/footContact.ts';
+import { projectArticulatedBody } from '../src/core/matchSimulation/articulatedBody.ts';
+import {
+  composedContactSurface,
+  composedLegGap,
+} from '../src/core/matchSimulation/composedLegContact.ts';
 import { stepPairCompression } from './pr227Compliance.ts';
 
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
@@ -56,7 +61,7 @@ const trace = (input) => {
     supported: detail.withSupport.position,
     surfaces: detail.surfaces,
   }));
-  return {
+  const result = {
     time: observed.state.time,
     halt: observed.state.safetyHalt ?? null,
     owner: observed.state.ball.ownerId ?? null,
@@ -68,6 +73,59 @@ const trace = (input) => {
     work,
     attemptedLoads,
     support,
+  };
+  if (!input.experimentalDynamicBalance) return result;
+  const end = observed.state;
+  const ball = { x: end.ball.x, y: end.ball.y, z: end.ball.height ?? 0.11 };
+  const rebases = find('rebasePlayer');
+  const resolvedPairs = work.filter((entry) => entry.solver === 'opposing_limbs');
+  const separation = end.safetyHalt
+    ? []
+    : resolvedPairs.flatMap((entry) =>
+        entry.account.surfaces.map((surface) => {
+          const player = end.players.find((p) => p.id === surface.actorId);
+          const proxy = composedContactSurface(surface.leg);
+          const body = projectArticulatedBody(end, player);
+          const rebase = rebases.find(
+            ({ actorId, at }) =>
+              actorId === surface.actorId && Math.abs(at - (input.time + entry.atInTick)) <= 1e-10,
+          )?.detail;
+          const swingYield = rebase?.swingYield;
+          const unyielded =
+            swingYield &&
+            projectArticulatedBody(end, {
+              ...player,
+              articulatedStance: {
+                ...player.articulatedStance,
+                [swingYield.foot]: rebase.nominalEnd.articulatedStance[swingYield.foot],
+              },
+            });
+          return {
+            actorId: surface.actorId,
+            proxy,
+            endpointGap: body && composedLegGap(body.geometry, proxy, ball),
+            ...(swingYield
+              ? {
+                  swingYield,
+                  unyieldedEndpointGap:
+                    unyielded && composedLegGap(unyielded.geometry, proxy, ball),
+                }
+              : {}),
+          };
+        }),
+      );
+  let continuation = end;
+  for (let i = 0; i < 12 && !continuation.safetyHalt; i++)
+    continuation = stepTacticalMatch(continuation, 0.025);
+  return {
+    ...result,
+    maxSamplesPerSearch: Math.max(0, ...searches.map(({ detail }) => detail.geometrySamples)),
+    separation,
+    continuation: {
+      time: continuation.time,
+      halt: continuation.safetyHalt ?? null,
+      owner: continuation.ball.ownerId ?? null,
+    },
   };
 };
 
@@ -137,7 +195,13 @@ const compliance = [10000, 20000, 40000].map((stiffness) => {
   };
 });
 
-const archive = 'docs/performance/pr227-checkpoints.json.gz';
+const original = JSON.parse(gunzipSync(readFileSync('docs/performance/pr227-checkpoints.json.gz')));
+assert.equal(
+  hash(JSON.stringify(cases.map(({ F }) => F))),
+  hash(JSON.stringify(original.cases.map(({ F }) => F))),
+  'Original F work and contact traces changed',
+);
+const archive = 'docs/performance/pr227-contact-refinement.json.gz';
 const serialized = JSON.stringify({ cases, compliance });
 if (process.argv.includes('--record')) writeFileSync(archive, gzipSync(serialized));
 else if (process.argv.includes('--check'))
